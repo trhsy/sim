@@ -1,0 +1,16 @@
+[
+{
+  "modid": "Sim-U",
+  "name": "Trhsy's First Mod",
+  "description": "Mod for TRHSY.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ExampleDude"],
+  "credits": "Simulated town",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
