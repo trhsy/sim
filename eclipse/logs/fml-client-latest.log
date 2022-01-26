@@ -52,7 +52,7 @@
 [23:40:36] [Client thread/INFO] [STDOUT/]: [cpw.mods.fml.client.SplashProgress:start:188]: ---- Minecraft Crash Report ----
 // Uh... Did I do that?
 
-Time: 22-1-22 ÏÂÎç11:40
+Time: 22-1-22 ï¿½ï¿½ï¿½ï¿½11:40
 Description: Loading screen debug info
 
 This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
@@ -267,7 +267,7 @@ Details:
 [23:40:41] [Client thread/DEBUG] [FML/]: The mod container lwjgl-platform-2.9.1-natives-osx.jar appears to be missing an mcmod.info file
 [23:40:41] [Client thread/DEBUG] [FML/]: Examining file modid-1.0.jar for potential mods
 [23:40:41] [Client thread/TRACE] [FML/]: Located mcmod.info file in file modid-1.0.jar
-[23:40:41] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (com.sim.trhsy.ExampleMod) - loading
+[23:40:41] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (ExampleMod) - loading
 [23:40:41] [Client thread/TRACE] [Sim-U/]: Parsed dependency info : [] [] []
 [23:40:41] [Client thread/INFO] [FML/]: Forge Mod Loader has identified 4 mods to load
 [23:40:41] [Client thread/TRACE] [FML/]: Received a system property request ''
@@ -395,7 +395,7 @@ Details:
 [23:40:44] [Client thread/TRACE] [Forge/Forge]: Sent event FMLInitializationEvent to mod Forge
 [23:40:44] [Client thread/DEBUG] [FML/]: Bar Step: Initialization - Minecraft Forge took 0.000s
 [23:40:44] [Client thread/TRACE] [Sim-U/Sim-U]: Sending event FMLInitializationEvent to mod Sim-U
-[23:40:44] [Client thread/INFO] [STDOUT/Sim-U]: [com.sim.trhsy.ExampleMod:init:53]: DIRT BLOCK >> tile.dirt
+[23:40:44] [Client thread/INFO] [STDOUT/Sim-U]: [ExampleMod:init:53]: DIRT BLOCK >> tile.dirt
 [23:40:44] [Client thread/TRACE] [Sim-U/Sim-U]: Sent event FMLInitializationEvent to mod Sim-U
 [23:40:44] [Client thread/DEBUG] [FML/]: Bar Step: Initialization - Trhsy's First Mod took 0.001s
 [23:40:44] [Client thread/DEBUG] [FML/]: Bar Finished: Initialization took 0.002s

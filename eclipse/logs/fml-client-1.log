@@ -53,7 +53,7 @@
 [23:36:50] [Client thread/INFO] [STDOUT/]: [cpw.mods.fml.client.SplashProgress:start:188]: ---- Minecraft Crash Report ----
 // Don't be sad, have a hug! <3
 
-Time: 22-1-22 ÏÂÎç11:36
+Time: 22-1-22 ï¿½ï¿½ï¿½ï¿½11:36
 Description: Loading screen debug info
 
 This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
@@ -268,7 +268,7 @@ Details:
 [23:36:58] [Client thread/DEBUG] [FML/]: The mod container lwjgl-platform-2.9.1-natives-osx.jar appears to be missing an mcmod.info file
 [23:36:58] [Client thread/DEBUG] [FML/]: Examining file modid-1.0.jar for potential mods
 [23:36:58] [Client thread/TRACE] [FML/]: Located mcmod.info file in file modid-1.0.jar
-[23:36:58] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (com.sim.trhsy.ExampleMod) - loading
+[23:36:58] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (ExampleMod) - loading
 [23:36:58] [Client thread/TRACE] [Sim-U/]: Parsed dependency info : [] [] []
 [23:36:58] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (com.sim.trhsy.lightOre.LightOre) - loading
 [23:36:58] [Client thread/TRACE] [LightOre/]: Parsed dependency info : [] [] []
@@ -310,7 +310,7 @@ Details:
 [23:36:58] [Client thread/TRACE] [FML/Sim-U]: Testing mod Sim-U to verify it accepts its own version in a remote connection
 [23:36:58] [Client thread/TRACE] [FML/Sim-U]: The mod Sim-U accepts its own version (1.0)
 [23:36:58] [Client thread/DEBUG] [FML/Sim-U]: Attempting to inject @SidedProxy classes into Sim-U
-[23:36:58] [Client thread/ERROR] [FML/Sim-U]: An error occured trying to load a proxy into {serverSide=com.example.examplemod.common.CommonProxy, clientSide=com.example.examplemod.client.ClientProxy}.com.sim.trhsy.ExampleMod
+[23:36:58] [Client thread/ERROR] [FML/Sim-U]: An error occured trying to load a proxy into {serverSide=com.example.examplemod.common.CommonProxy, clientSide=com.example.examplemod.client.ClientProxy}.ExampleMod
 java.lang.ClassNotFoundException: com.example.examplemod.client.ClientProxy
 	at net.minecraft.launchwrapper.LaunchClassLoader.findClass(LaunchClassLoader.java:191) ~[launchwrapper-1.12.jar:?]
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_181]
@@ -364,7 +364,7 @@ Caused by: java.lang.NullPointerException
 [23:36:58] [Client thread/TRACE] [FML/LightOre]: Testing mod LightOre to verify it accepts its own version in a remote connection
 [23:36:58] [Client thread/TRACE] [FML/LightOre]: The mod LightOre accepts its own version (0.1)
 [23:36:58] [Client thread/DEBUG] [FML/LightOre]: Attempting to inject @SidedProxy classes into LightOre
-[23:36:58] [Client thread/ERROR] [FML/LightOre]: An error occured trying to load a proxy into {serverSide=com.example.examplemod.common.CommonProxy, clientSide=com.example.examplemod.client.ClientProxy}.com.sim.trhsy.ExampleMod
+[23:36:58] [Client thread/ERROR] [FML/LightOre]: An error occured trying to load a proxy into {serverSide=com.example.examplemod.common.CommonProxy, clientSide=com.example.examplemod.client.ClientProxy}.ExampleMod
 java.lang.ClassNotFoundException: com.example.examplemod.client.ClientProxy
 	at net.minecraft.launchwrapper.LaunchClassLoader.findClass(LaunchClassLoader.java:101) ~[launchwrapper-1.12.jar:?]
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_181]
@@ -536,7 +536,7 @@ Caused by: java.lang.NullPointerException
 [23:36:58] [Client thread/INFO] [STDOUT/]: [net.minecraft.client.Minecraft:displayCrashReport:388]: ---- Minecraft Crash Report ----
 // My bad.
 
-Time: 22-1-22 ÏÂÎç11:36
+Time: 22-1-22 ï¿½ï¿½ï¿½ï¿½11:36
 Description: There was a severe problem during mod loading that has caused the game to fail
 
 cpw.mods.fml.common.LoaderException: java.lang.ClassNotFoundException: com.example.examplemod.client.ClientProxy

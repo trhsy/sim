@@ -52,7 +52,7 @@
 [23:38:19] [Client thread/INFO] [STDOUT/]: [cpw.mods.fml.client.SplashProgress:start:188]: ---- Minecraft Crash Report ----
 // Hi. I'm Minecraft, and I'm a crashaholic.
 
-Time: 22-1-22 ÏÂÎç11:38
+Time: 22-1-22 ï¿½ï¿½ï¿½ï¿½11:38
 Description: Loading screen debug info
 
 This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
@@ -267,7 +267,7 @@ Details:
 [23:38:24] [Client thread/DEBUG] [FML/]: The mod container lwjgl-platform-2.9.1-natives-osx.jar appears to be missing an mcmod.info file
 [23:38:24] [Client thread/DEBUG] [FML/]: Examining file modid-1.0.jar for potential mods
 [23:38:24] [Client thread/TRACE] [FML/]: Located mcmod.info file in file modid-1.0.jar
-[23:38:24] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (com.sim.trhsy.ExampleMod) - loading
+[23:38:24] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (ExampleMod) - loading
 [23:38:24] [Client thread/TRACE] [Sim-U/]: Parsed dependency info : [] [] []
 [23:38:24] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (com.sim.trhsy.lightOre.LightOre) - loading
 [23:38:24] [Client thread/TRACE] [LightOre/]: Parsed dependency info : [] [] []
@@ -337,7 +337,7 @@ Details:
 	UE	LightOre{0.1} [LightOre] (modid-1.0.jar) 
 [23:38:25] [Client thread/ERROR] [FML/]: The following problems were captured during this phase
 [23:38:25] [Client thread/ERROR] [FML/]: Caught exception from LightOre
-java.lang.IllegalArgumentException: Can not set static com.sim.trhsy.ExampleMod field com.sim.trhsy.ExampleMod.instance to com.sim.trhsy.lightOre.LightOre
+java.lang.IllegalArgumentException: Can not set static ExampleMod field ExampleMod.instance to com.sim.trhsy.lightOre.LightOre
 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167) ~[?:1.8.0_181]
 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171) ~[?:1.8.0_181]
 	at sun.reflect.UnsafeStaticObjectFieldAccessorImpl.set(UnsafeStaticObjectFieldAccessorImpl.java:79) ~[?:1.8.0_181]
@@ -394,10 +394,10 @@ java.lang.IllegalArgumentException: Can not set static com.sim.trhsy.ExampleMod 
 [23:38:25] [Client thread/INFO] [STDOUT/]: [net.minecraft.client.Minecraft:displayCrashReport:388]: ---- Minecraft Crash Report ----
 // Surprise! Haha. Well, this is awkward.
 
-Time: 22-1-22 ÏÂÎç11:38
+Time: 22-1-22 ï¿½ï¿½ï¿½ï¿½11:38
 Description: Initializing game
 
-java.lang.IllegalArgumentException: Can not set static com.sim.trhsy.ExampleMod field com.sim.trhsy.ExampleMod.instance to com.sim.trhsy.lightOre.LightOre
+java.lang.IllegalArgumentException: Can not set static ExampleMod field ExampleMod.instance to com.sim.trhsy.lightOre.LightOre
 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
 	at sun.reflect.UnsafeStaticObjectFieldAccessorImpl.set(UnsafeStaticObjectFieldAccessorImpl.java:79)

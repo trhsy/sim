@@ -1,10 +1,10 @@
 ---- Minecraft Crash Report ----
 // Shall we play a game?
 
-Time: 22-1-22 ÏÂÎç11:38
+Time: 22-1-22 ï¿½ï¿½ï¿½ï¿½11:38
 Description: Initializing game
 
-java.lang.IllegalArgumentException: Can not set static com.sim.trhsy.ExampleMod field com.sim.trhsy.ExampleMod.instance to com.sim.trhsy.lightOre.LightOre
+java.lang.IllegalArgumentException: Can not set static ExampleMod field ExampleMod.instance to com.sim.trhsy.lightOre.LightOre
 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
 	at sun.reflect.UnsafeStaticObjectFieldAccessorImpl.set(UnsafeStaticObjectFieldAccessorImpl.java:79)
