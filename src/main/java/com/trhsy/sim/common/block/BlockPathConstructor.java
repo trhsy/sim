@@ -23,6 +23,6 @@ public class BlockPathConstructor extends Block {
 
     public BlockPathConstructor(int par1) {
         super(Material.field_151575_d);
-        this.func_149647_a(CreativeTabs.field_78026_f);
+        this.setCreativeTab(CreativeTabs.field_78026_f);
     }
 }

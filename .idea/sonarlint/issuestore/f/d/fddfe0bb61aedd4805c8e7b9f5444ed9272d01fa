@@ -1,0 +1,44 @@
+
+E
+java:S3740e"/Provide the parametrized type for this generic.(¥îµ¿
+Q
+java:S3740f"/Provide the parametrized type for this generic.(ŸîÄ±ûÿÿÿÿ8ğ·›÷è/
+F
+java:S3740Ö"/Provide the parametrized type for this generic.(¥îµ¿
+F
+java:S3740Ø"/Provide the parametrized type for this generic.(ÙÂî
+F
+java:S3740ğ"/Provide the parametrized type for this generic.(ÙÂî
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(³õ–´
+M
+java:S1135"2Complete the task associated to this TODO comment.(†©£Õùÿÿÿÿ
+g
+java:S3776L"RRefactor this method to reduce its Cognitive Complexity from 89 to the 15 allowed.(œŒÄ
+V	java:S899ƒ";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899«";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899º";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899É";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+n
+java:S3776Ñ"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(…İŠ…üÿÿÿÿ
+V	java:S899ç";Do something with the "boolean" value returned by "delete".(†ÖÇ¹ûÿÿÿÿ
+i
+java:S1192O"NDefine a constant instead of duplicating this literal "CourierPoints" 3 times.(Î½Ğ¾üÿÿÿÿ
+f	java:S117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒóÛ–
+k	java:S117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+k	java:S117W"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
+k	java:S117f"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸîÄ±ûÿÿÿÿ
+T
+java:S1155İ">Use isEmpty() to check whether the collection is empty or not.(³Êùq
+3
+java:S1643ß"Use a StringBuilder instead.(ûä±
+f
+java:S1104"PMake name a static final constant or non-public and provide accessors if needed.(Ñê¨Ú
+o
+java:S1104"TMake folkname a static final constant or non-public and provide accessors if needed.(ÅÜÖúÿÿÿÿ
+m
+java:S1104"RMake pickup a static final constant or non-public and provide accessors if needed.(Ã®¡Äúÿÿÿÿ
+i
+java:S1104"SMake dropoff a static final constant or non-public and provide accessors if needed.(ÔèïÁ
+h
+java:S1104"RMake repeat a static final constant or non-public and provide accessors if needed.(«Ø£Ë

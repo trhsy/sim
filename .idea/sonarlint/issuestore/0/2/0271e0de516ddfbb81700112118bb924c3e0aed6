@@ -1,0 +1,19 @@
+
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+?
+java:S1905")Remove this unnecessary cast to "double".(‚›Û
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú«„Åûÿÿÿÿ
+C	java:S108!")Either remove or fill this block of code.(öé”şÿÿÿÿ
+c	java:S100("NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š€›¤
+W
+java:S1126,"AReplace this if-then-else statement by a single return statement.(â˜Ë¿
+c	java:S1007"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Â†ƒ–
+W
+java:S1126;"AReplace this if-then-else statement by a single return statement.(â˜Ë¿
+M
+java:S2589+"7Remove this expression which always evaluates to "true"( úûœ
+R
+java:S2589"7Remove this expression which always evaluates to "true"(§Ü’¸üÿÿÿÿ
+M
+java:S2589:"7Remove this expression which always evaluates to "true"( úûœ

@@ -42,7 +42,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
     public BlockMarker() {
         super(Material.field_151575_d);
-        this.func_149647_a(CreativeTabs.field_78026_f);
+        this.setCreativeTab(CreativeTabs.field_78026_f);
         this.func_149676_a(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.func_149715_a(0.1F);
     }
@@ -91,7 +91,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
     public void func_149689_a(World world, int i, int j, int k, EntityLivingBase player, ItemStack is) {
         hasPlaced = true;
-        if (world.field_72995_K) {
+        if (world.isRemote) {
             Marker ma;
             markers.add(ma = new Marker(i, j, k, world.field_73011_w.field_76574_g));
             String markerCaption = "";
@@ -121,7 +121,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                     ma.caption = markerCaption;
                     beam.func_70012_b(pos.x, pos.y, pos.z, 0.0F, 0.0F);
                     beam.yaw = 0.0F;
-                    if (!world.field_72995_K) {
+                    if (!world.isRemote) {
                         world.func_72838_d(beam);
                     }
 
@@ -129,7 +129,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                     EntityAlignBeam beam2 = new EntityAlignBeam(world);
                     beam2.func_70012_b(pos.x, pos.y, pos.z, 90.0F, 0.0F);
                     beam2.yaw = 90.0F;
-                    if (!world.field_72995_K) {
+                    if (!world.isRemote) {
                         world.func_72838_d(beam2);
                     }
 
@@ -137,7 +137,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                     EntityAlignBeam beam3 = new EntityAlignBeam(world);
                     beam3.func_70012_b(pos.x, pos.y, pos.z, 180.0F, 0.0F);
                     beam3.yaw = 180.0F;
-                    if (!world.field_72995_K) {
+                    if (!world.isRemote) {
                         world.func_72838_d(beam3);
                     }
 
@@ -145,7 +145,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                     EntityAlignBeam beam4 = new EntityAlignBeam(world);
                     beam4.func_70012_b(pos.x, pos.y, pos.z, 270.0F, 0.0F);
                     beam4.yaw = 270.0F;
-                    if (!world.field_72995_K) {
+                    if (!world.isRemote) {
                         world.func_72838_d(beam4);
                     }
 
@@ -181,8 +181,8 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         this.location = new V3((double)i, (double)j, (double)k, entityplayer.field_71093_bK);
         world.func_72908_a((double)i, (double)j, (double)k, "satscapesimukraft:computer", 1.0F, 1.0F);
         GuiMarker ui = new GuiMarker(this.location, entityplayer);
-        Minecraft mc = Minecraft.func_71410_x();
-        mc.func_147108_a(ui);
+        Minecraft mc = Minecraft.getMinecraft();
+        mc.displayGuiScreen(ui);
         return true;
     }
 

@@ -4,6 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.client.gui.GuiBuildingConstructor;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
@@ -35,8 +36,8 @@ public class BlockConstructorBox extends Block {
 
     public BlockConstructorBox() {
         super(Material.field_151575_d);
-        this.func_149663_c("constructorBox");
-        this.func_149647_a(CreativeTabs.field_78026_f);
+        this.setBlockName("constructorBox");
+        this.setCreativeTab(CreativeTabs.field_78026_f);
     }
 
     @SideOnly(Side.CLIENT)
@@ -51,7 +52,7 @@ public class BlockConstructorBox extends Block {
     }
 
     public void func_149664_b(World par1World, int par2, int par3, int par4, int par5) {
-        if (!par1World.field_72995_K) {
+        if (!par1World.isRemote) {
             par1World.func_72908_a((double)par2, (double)par3, (double)par4, "satscapesimukraft:powerdown", 1.0F, 1.0F);
         }
 
@@ -64,7 +65,7 @@ public class BlockConstructorBox extends Block {
     }
 
     public void func_149726_b(World par1World, int par2, int par3, int par4) {
-        if (!par1World.field_72995_K) {
+        if (!par1World.isRemote) {
             par1World.func_72908_a((double)par2, (double)par3, (double)par4, "satscapesimukraft:constructoractivated", 1.0F, 1.0F);
         }
 
@@ -74,9 +75,9 @@ public class BlockConstructorBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean func_149727_a(World par1World, int par2, int par3, int par4, EntityPlayer thePlayer, int par6, float par7, float par8, float par9) {
         par1World.func_72908_a((double)par2, (double)par3, (double)par4, "satscapesimukraft:computer", 1.0F, 1.0F);
-        int px = (int)Math.floor(thePlayer.field_70165_t);
-        int py = (int)Math.floor(thePlayer.field_70163_u);
-        int pz = (int)Math.floor(thePlayer.field_70161_v);
+        int px = (int)Math.floor(thePlayer.posX);
+        int py = (int)Math.floor(thePlayer.posY);
+        int pz = (int)Math.floor(thePlayer.posZ);
         if (par4 == pz) {
             if (px < par2) {
                 this.buildDirection = "-x";
@@ -92,9 +93,9 @@ public class BlockConstructorBox extends Block {
         }
 
         V3 loc = new V3((double)par2, (double)par3, (double)par4, thePlayer.field_71093_bK);
-        Minecraft mc = Minecraft.func_71410_x();
+        Minecraft mc = Minecraft.getMinecraft();
         GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
-        mc.func_147108_a(ui);
+        mc.displayGuiScreen(ui);
         return true;
     }
 }

@@ -28,8 +28,8 @@ public class BlockFluidMilk extends BlockFluidClassic {
 
     public BlockFluidMilk() {
         super(ModSimukraft.SUKfluidMilk, Material.field_151586_h);
-        this.func_149663_c("fluidMilk");
-        this.func_149647_a(CreativeTabs.field_78026_f);
+        this.setBlockName("fluidMilk");
+        this.setCreativeTab(CreativeTabs.field_78026_f);
 
     }
 

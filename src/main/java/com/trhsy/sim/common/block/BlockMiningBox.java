@@ -36,7 +36,7 @@ public class BlockMiningBox extends Block {
 
     public BlockMiningBox() {
         super(Material.field_151575_d);
-        this.func_149647_a(CreativeTabs.field_78026_f);
+        this.setCreativeTab(CreativeTabs.field_78026_f);
     }
 
     @SideOnly(Side.CLIENT)
@@ -95,11 +95,11 @@ public class BlockMiningBox extends Block {
             miningBlock.location.theDimension = entityplayer.field_71093_bK;
             ArrayList<FolkData> folks = FolkData.getFolksByEmployedAt(new V3((double)i, (double)j, (double)k, entityplayer.field_71093_bK));
             GuiMining ui = new GuiMining(miningBlock, folks);
-            Minecraft mc = Minecraft.func_71410_x();
-            mc.func_147108_a(ui);
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.displayGuiScreen(ui);
         } catch (Exception var14) {
             var14.printStackTrace();
-            if (world.field_72995_K) {
+            if (world.isRemote) {
                 ModSimukraft.sendChat("Sorry, there was a problem with this mining box, try place it again");
             }
         }

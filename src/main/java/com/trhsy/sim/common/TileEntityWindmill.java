@@ -4,6 +4,7 @@ package com.trhsy.sim.common;/**
  * @apiNote
  */
 
+import com.trhsy.cofh.api.energy.IEnergyHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -22,69 +23,88 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class TileEntityWindmill extends TileEntity implements IInventory, IEnergyHandler {
     public TileEntityWindmill() {
     }
-
+    @Override
     public boolean canConnectEnergy(ForgeDirection from) {
         return false;
     }
-
+    @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
         return 0;
     }
 
+    @Override
     public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
         return 0;
     }
 
+    @Override
     public int getEnergyStored(ForgeDirection from) {
         return 0;
     }
 
+    @Override
     public int getMaxEnergyStored(ForgeDirection from) {
         return 0;
     }
 
-    public int func_70302_i_() {
+
+    @Override
+    public int getSizeInventory() {
         return 0;
     }
 
-    public ItemStack func_70301_a(int p_70301_1_) {
+    @Override
+    public ItemStack getStackInSlot(int p_70301_1_) {
         return null;
     }
 
-    public ItemStack func_70298_a(int p_70298_1_, int p_70298_2_) {
+    @Override
+    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
         return null;
     }
 
-    public ItemStack func_70304_b(int p_70304_1_) {
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
         return null;
     }
 
-    public void func_70299_a(int p_70299_1_, ItemStack p_70299_2_) {
+    @Override
+    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+
     }
 
-    public String func_145825_b() {
+    @Override
+    public String getInventoryName() {
         return null;
     }
 
-    public boolean func_145818_k_() {
+    @Override
+    public boolean hasCustomInventoryName() {
         return false;
     }
 
-    public int func_70297_j_() {
+    @Override
+    public int getInventoryStackLimit() {
         return 0;
     }
 
-    public boolean func_70300_a(EntityPlayer p_70300_1_) {
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
         return false;
     }
 
-    public void func_70295_k_() {
+    @Override
+    public void openInventory() {
+
     }
 
-    public void func_70305_f() {
+    @Override
+    public void closeInventory() {
+
     }
 
-    public boolean func_94041_b(int p_94041_1_, ItemStack p_94041_2_) {
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
         return false;
     }
 }

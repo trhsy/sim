@@ -65,7 +65,7 @@ public class EntityConBox extends Entity{
                 this.func_70106_y();
             }
 
-            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK), ModSimukraft.buildingConstructor, 5);
+            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.field_71093_bK), ModSimukraft.buildingConstructor, 5);
             if (conblocks.size() < 1) {
                 this.func_70106_y();
             }
@@ -103,7 +103,7 @@ public class EntityConBox extends Entity{
             double var8 = 10.0D;
 
             try {
-                ModSimukraft.proxy.getClientWorld().func_72869_a("explode", ent.field_70165_t + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.field_70163_u + (double)(rand.nextFloat() * 1.0F) - var4 * var8, ent.field_70161_v + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
+                ModSimukraft.proxy.getClientWorld().func_72869_a("explode", ent.posX + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double)(rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
             } catch (Exception var13) {
             }
         }

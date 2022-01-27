@@ -77,7 +77,7 @@ public class MiningBox implements Serializable {
     }
 
     public static void loadMiningBoxes() {
-        Minecraft mc = Minecraft.func_71410_x();
+        Minecraft mc = Minecraft.getMinecraft();
         File mineFiles = new File(ModSimukraft.getSavesDataFolder() + "Mining" + File.separator);
         mineFiles.mkdirs();
         boolean useNewFormat = false;
@@ -138,9 +138,9 @@ public class MiningBox implements Serializable {
                         }
                     }
 
-                    theWorld = MinecraftServer.func_71276_C().func_71218_a(box.location.theDimension);
+                    theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
                     if (theWorld != null) {
-                        id = theWorld.func_147439_a(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
+                        id = theWorld.getBlock(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
                         if (id == ModSimukraft.miningBox) {
                             ModSimukraft.theMiningBoxes.add(box);
                         } else {
@@ -159,12 +159,12 @@ public class MiningBox implements Serializable {
                     MiningBox mining = (MiningBox)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (mining != null) {
                         V3 xyz = mining.location;
-                        theWorld = MinecraftServer.func_71276_C().func_71218_a(xyz.theDimension);
+                        theWorld = MinecraftServer.getServer().worldServerForDimension(xyz.theDimension);
                         if (theWorld == null) {
                             f.delete();
                         } else {
                             try {
-                                id = theWorld.func_147439_a(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
+                                id = theWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
                                 if (id == ModSimukraft.miningBox && mining != null) {
                                     ModSimukraft.theMiningBoxes.add(mining);
                                 } else {

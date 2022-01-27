@@ -1,0 +1,326 @@
+package com.trhsy.sim.common.jobs;/**
+ * @author trhsy
+ * @date 2022/1/27 0027
+ * @apiNote
+ */
+
+import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.entity.GameStates;
+import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.entity.enums.FolkAction;
+import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+/**
+ * ========================================
+ *
+ * @ClassName JobGlassMaker
+ * @Description todo
+ * @Author Administrator
+ * @Date 2022/1/27 0027下午 3:49
+ * ========================================
+ **/
+public class JobGlassMaker extends Job implements Serializable {
+    private static final long serialVersionUID = 1177111222904279141L;
+    public Vocation vocation = null;
+    public FolkData theFolk = null;
+    public Stage theStage;
+    public transient int runDelay = 1000;
+    public transient long timeSinceLastRun = 0L;
+    private transient V3 blockOfSand = null;
+    private transient ArrayList<IInventory> factoryChests = new ArrayList();
+    private transient TileEntityFurnace factoryFurnace = null;
+    private long lastGotocmd = 0L;
+    private int gotoCount = 0;
+
+    public JobGlassMaker() {
+    }
+
+    public JobGlassMaker(FolkData folk) {
+        this.theFolk = folk;
+        if (this.theStage == null) {
+            this.theStage = Stage.IDLE;
+        }
+
+        if (this.theFolk != null) {
+            if (this.theFolk.destination == null) {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            }
+
+        }
+    }
+
+    @Override
+    public void resetJob() {
+        this.theStage = Stage.IDLE;
+    }
+
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (!ModSimukraft.isDayTime()) {
+            this.theStage = Stage.IDLE;
+        }
+
+        super.onUpdateGoingToWork(this.theFolk);
+        if (this.theStage == Stage.IDLE) {
+            this.runDelay = 2000;
+            this.theStage = Stage.SCANFORSAND;
+        } else {
+            if (this.theStage != Stage.COLLECTSAND && this.theStage != Stage.GOTOSANDBLOCK && this.theStage != Stage.SCANFORSAND) {
+                this.runDelay = 2000;
+            } else {
+                this.runDelay = 250;
+            }
+
+            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                this.timeSinceLastRun = System.currentTimeMillis();
+                if (this.factoryFurnace == null) {
+                    this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
+                }
+
+                if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+                    if (this.theStage == Stage.SCANFORSAND) {
+                        this.stageScanForSand();
+                    } else if (this.theStage == Stage.GOTOSANDBLOCK) {
+                        this.stageGotoSandBlock();
+                    } else if (this.theStage == Stage.COLLECTSAND) {
+                        this.stageCollectSand();
+                    } else if (this.theStage == Stage.RETURNSAND) {
+                        this.stageReturnSand();
+                    } else if (this.theStage == Stage.USEFURNACE) {
+                        this.stageUseFurnace();
+                    } else if (this.theStage == Stage.CANTWORK) {
+                        this.stageCantWork();
+                    }
+                }
+
+            }
+        }
+    }
+
+    private void stageCantWork() {
+        this.theFolk.statusText = "There's no sand around here!";
+    }
+
+    private void stageScanForSand() {
+        if (this.theFolk.statusText.contains("Arrived") || this.theFolk.statusText.contains("glass")) {
+            this.theFolk.statusText = "Going to dig up some more sand";
+        }
+
+        try {
+            this.blockOfSand = findClosestBlockType(this.theFolk.employedAt, Blocks.field_150354_m, 80, true);
+            if (this.blockOfSand == null) {
+                this.theStage = Stage.USEFURNACE;
+                return;
+            }
+
+            this.theStage = Stage.GOTOSANDBLOCK;
+        } catch (Exception var2) {
+        }
+
+    }
+
+    private void stageGotoSandBlock() {
+        try {
+            if (this.theFolk.theEntity != null) {
+                this.theFolk.theEntity.field_70733_aJ = 0.0F;
+            }
+
+            this.theFolk.updateLocationFromEntity();
+            double dist = (double)this.theFolk.location.getDistanceTo(this.blockOfSand);
+            if (dist > 4.0D && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
+                this.theFolk.stayPut = false;
+                this.theFolk.gotoXYZ(this.blockOfSand, (GotoMethod)null);
+                this.theFolk.stayPut = false;
+                this.lastGotocmd = System.currentTimeMillis();
+            }
+
+            this.theStage = Stage.COLLECTSAND;
+        } catch (Exception var3) {
+        }
+
+    }
+
+    private void stageCollectSand() {
+        this.runDelay = 1000;
+        this.theFolk.isWorking = true;
+        this.theFolk.updateLocationFromEntity();
+        double dist = (double)this.theFolk.location.getDistanceTo(this.blockOfSand);
+        if (dist > 6.0D && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
+            this.theFolk.gotoXYZ(this.blockOfSand, (GotoMethod)null);
+            this.theFolk.stayPut = false;
+            this.lastGotocmd = System.currentTimeMillis();
+            ++this.gotoCount;
+            if (this.gotoCount > 2) {
+                this.gotoCount = 0;
+                V3 bs = this.blockOfSand.clone();
+                Double var5 = bs.y;
+                Double var6 = bs.y = bs.y + 1.0D;
+                this.theFolk.beamMeTo(bs);
+            }
+
+        } else if (!(dist > 6.0D)) {
+            try {
+                if (dist < 6.0D) {
+                }
+
+                this.gotoCount = 0;
+                this.jobWorld.setBlock(this.blockOfSand.x.intValue(), this.blockOfSand.y.intValue(), this.blockOfSand.z.intValue(), this.blockOfSand.blockID, 0, 3);
+                this.mc.field_71441_e.playSound(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z, "step.sand", 1.0F, 1.0F, false);
+                this.theFolk.inventory.add(new ItemStack(Blocks.field_150354_m, 1));
+                this.theFolk.statusText = "Diggy diggy sand, got " + this.theFolk.inventory.size();
+                GameStates var10000 = ModSimukraft.states;
+                var10000.credits = (float)((double)var10000.credits - 0.012D);
+                if (this.theFolk.inventory.size() < 64) {
+                    this.theStage = Stage.SCANFORSAND;
+                } else {
+                    this.theStage = Stage.RETURNSAND;
+                    this.step = 1;
+                }
+            } catch (Exception var7) {
+            }
+
+        }
+    }
+
+    private void stageReturnSand() {
+        this.theFolk.isWorking = false;
+
+        try {
+            if (this.step == 1) {
+                V3 adj = this.theFolk.employedAt.clone();
+                Double var3 = adj.y;
+                Double var4 = adj.y = adj.y + 1.0D;
+                this.theFolk.gotoXYZ(adj, (GotoMethod)null);
+                this.step = 2;
+            } else if (this.step == 2) {
+                if (this.theFolk.gotoMethod == GotoMethod.WALK) {
+                    this.theFolk.updateLocationFromEntity();
+                }
+
+                double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                if (dist < 4.0D) {
+                    this.theFolk.stayPut = true;
+                    this.step = 3;
+                } else if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                }
+            } else if (this.step == 3) {
+                this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+                this.openCloseChest((IInventory)this.factoryChests.get(0), 1000);
+                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.factoryChests, (ItemStack)null);
+                this.theStage = Stage.USEFURNACE;
+                this.step = 1;
+            }
+        } catch (Exception var5) {
+        }
+
+    }
+
+    private void stageUseFurnace() {
+        this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
+        this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+        if (this.factoryFurnace == null) {
+            ModSimukraft.sendChat(this.theFolk.name + ": Where's my furnace gone!");
+        } else {
+            ItemStack currentSand;
+            ItemStack gotFuel;
+            if (this.step == 1) {
+                this.theFolk.statusText = "Checking furnace fuel";
+                currentSand = this.factoryFurnace.func_70301_a(1);
+                gotFuel = null;
+                if (currentSand == null) {
+                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.field_151044_h, 64), false, false, new ItemStack(Items.field_151044_h, 64));
+                    if (gotFuel == null) {
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.field_151129_at, 1), false, false, new ItemStack(Items.field_151129_at, 1));
+                    }
+
+                    if (gotFuel == null) {
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.field_150364_r, 64), false, false, new ItemStack(Blocks.field_150364_r, 64));
+                    }
+
+                    if (gotFuel == null) {
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.planks, 64), false, false, new ItemStack(Blocks.planks, 1));
+                    }
+
+                    if (gotFuel == null) {
+                        ModSimukraft.sendChat(this.theFolk.name + " (Glass maker) doesn't have any fuel for their furnace");
+                        this.theStage = Stage.SCANFORSAND;
+                        this.step = 1;
+                        return;
+                    }
+
+                    this.factoryFurnace.func_70299_a(1, gotFuel);
+                    this.step = 2;
+                    return;
+                }
+
+                this.step = 2;
+            } else if (this.step == 2) {
+                this.theFolk.statusText = "Adding sand to the furnace";
+                if (this.factoryFurnace != null) {
+                    currentSand = this.factoryFurnace.func_70301_a(0);
+                    gotFuel = null;
+                    if (currentSand == null) {
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.field_150354_m, 64), false, false, new ItemStack(Blocks.field_150354_m, 64));
+                        if (gotFuel != null) {
+                            this.factoryFurnace.func_70299_a(0, gotFuel);
+                        }
+
+                        this.step = 3;
+                        return;
+                    }
+
+                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.field_150354_m, 64 - currentSand.field_77994_a), false, false, new ItemStack(Blocks.field_150354_m, 64 - currentSand.field_77994_a));
+                    if (gotFuel != null) {
+                        currentSand.field_77994_a += gotFuel.field_77994_a;
+                        this.factoryFurnace.func_70299_a(0, currentSand);
+                    }
+
+                    this.step = 3;
+                    return;
+                }
+            } else if (this.step == 3) {
+                currentSand = this.factoryFurnace.func_70301_a(2);
+                if (currentSand != null) {
+                    this.theFolk.statusText = "Putting glass into storage";
+                    this.inventoriesPut(this.factoryChests, currentSand, true);
+                    GameStates var10000 = ModSimukraft.states;
+                    var10000.credits = (float)((double)var10000.credits - 0.005D * (double)currentSand.field_77994_a);
+                    this.factoryFurnace.func_70299_a(2, (ItemStack)null);
+                } else {
+                    this.theFolk.statusText = "No glass been made";
+                }
+
+                this.theStage = Stage.SCANFORSAND;
+            }
+
+        }
+    }
+
+    @Override
+    public void onArrivedAtWork() {
+        int dist = false;
+        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+        if (dist <= 1) {
+            this.theFolk.action = FolkAction.ATWORK;
+            this.theFolk.stayPut = true;
+            this.theFolk.statusText = "Arrived at the factory";
+            this.theStage = Stage.USEFURNACE;
+        } else {
+            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        }
+
+    }
+
+}
+

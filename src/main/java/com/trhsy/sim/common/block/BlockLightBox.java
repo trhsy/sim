@@ -30,12 +30,12 @@ public class BlockLightBox extends Block {
     protected BlockLightBox() {
         super(Material.field_151575_d);
         this.func_149715_a(1.0F);
-        this.func_149647_a(CreativeTabs.field_78026_f);
-        this.func_149672_a(Block.field_149766_f);
-        this.func_149711_c(2.0F);
-        this.func_149752_b(1.0F);
+        this.setCreativeTab(CreativeTabs.field_78026_f);
+        this.setStepSound(Block.soundTypeWood);
+        this.setHardness(2.0F);
+        this.setResistance(1.0F);
         this.func_149675_a(true);
-        this.func_149663_c("SUKlight");
+        this.setBlockName("SUKlight");
     }
     @SideOnly(Side.CLIENT)
     public void func_149651_a(IIconRegister iconRegister) {

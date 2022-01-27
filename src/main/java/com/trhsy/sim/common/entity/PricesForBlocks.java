@@ -43,23 +43,23 @@ public class PricesForBlocks implements Serializable {
 
     public static Float getPrice(Block block, boolean isBuying) {
         float base = 0.0F;
-        if (block == Blocks.field_150344_f) {
+        if (block == Blocks.planks) {
             base = basePricePlanks;
         } else if (block == Blocks.field_150364_r) {
             base = basePriceLogs;
-        } else if (block == Blocks.field_150347_e) {
+        } else if (block == Blocks.cobblestone) {
             base = basePriceCobblestone;
-        } else if (block == Blocks.field_150348_b) {
+        } else if (block == Blocks.stone) {
             base = basePriceStone;
-        } else if (block == Blocks.field_150359_w) {
+        } else if (block == Blocks.glass) {
             base = basePriceGlass;
-        } else if (block == Blocks.field_150325_L) {
+        } else if (block == Blocks.wool) {
             base = basePriceWool;
-        } else if (block == Blocks.field_150336_V) {
+        } else if (block == Blocks.brick_block) {
             base = basePriceBrick;
-        } else if (block == Blocks.field_150417_aV) {
+        } else if (block == Blocks.stonebrick) {
             base = basePriceStonebrick;
-        } else if (block == Blocks.field_150422_aJ) {
+        } else if (block == Blocks.fence) {
             base = basePriceFence;
         }
 
@@ -72,23 +72,23 @@ public class PricesForBlocks implements Serializable {
     }
 
     public static void setPrice(Block block, float newPrice) {
-        if (block == Blocks.field_150344_f) {
+        if (block == Blocks.planks) {
             basePricePlanks = newPrice;
         } else if (block == Blocks.field_150364_r) {
             basePriceLogs = newPrice;
-        } else if (block == Blocks.field_150347_e) {
+        } else if (block == Blocks.cobblestone) {
             basePriceCobblestone = newPrice;
-        } else if (block == Blocks.field_150348_b) {
+        } else if (block == Blocks.stone) {
             basePriceStone = newPrice;
-        } else if (block == Blocks.field_150359_w) {
+        } else if (block == Blocks.glass) {
             basePriceGlass = newPrice;
-        } else if (block == Blocks.field_150325_L) {
+        } else if (block == Blocks.wool) {
             basePriceWool = newPrice;
-        } else if (block == Blocks.field_150336_V) {
+        } else if (block == Blocks.brick_block) {
             basePriceBrick = newPrice;
-        } else if (block == Blocks.field_150417_aV) {
+        } else if (block == Blocks.stonebrick) {
             basePriceStonebrick = newPrice;
-        } else if (block == Blocks.field_150422_aJ) {
+        } else if (block == Blocks.fence) {
             basePriceFence = newPrice;
         }
 
@@ -115,12 +115,12 @@ public class PricesForBlocks implements Serializable {
             setPrice(block, cprice);
         }
 
-        if (block == Blocks.field_150344_f) {
+        if (block == Blocks.planks) {
             setPrice(Blocks.field_150364_r, cprice * 4.0F);
         }
 
         if (block == Blocks.field_150364_r) {
-            setPrice(Blocks.field_150344_f, cprice / 4.0F);
+            setPrice(Blocks.planks, cprice / 4.0F);
         }
 
     }

@@ -2,11 +2,15 @@ package com.trhsy.sim.common;
 
 import com.trhsy.sim.client.ClientProxy;
 import com.sim.trhsy.common.entity.*;
-import com.trhsy.sim.client.Gui.GuiRunMod;
-import com.trhsy.sim.common.block.BlockFluidMilk;
-import com.trhsy.sim.common.block.BlockLightBox;
+import com.trhsy.sim.client.event.EventSounds;
+import com.trhsy.sim.client.gui.GuiRunMod;
+import com.trhsy.sim.common.block.*;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.fluid.FluidMilk;
+import com.trhsy.sim.common.item.*;
+import com.trhsy.sim.common.item.food.ItemSUKFood;
+import com.trhsy.sim.common.jobs.JobSoldier;
+import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.packets.client.Handler;
 import com.trhsy.sim.packets.client.UpdateFolkPositionMessage;
 import com.trhsy.sim.packets.server.LoadBuildingMessage;
@@ -56,7 +60,7 @@ import java.util.logging.Logger;
  * @Author Tian
  * @Date 2022/1/2319:40
  **/
-@Mod(modid = ModSimukraft.MODID,name = ModSimukraft.NAME,version = ModSimukraft.VERSION,dependencies = "required-after:Forge@[9.10,)")
+@Mod(modid = ModSimukraft.MODID, name = ModSimukraft.NAME, version = ModSimukraft.VERSION, dependencies = "required-after:Forge@[9.10,)")
 public class ModSimukraft {
     public static final String MODID = "sim";
     public static final String NAME = "sim";
@@ -68,81 +72,307 @@ public class ModSimukraft {
     )
     public static CommonProxy proxy;
     public static ClientProxy clientProxy;
-    public static Logger log = Logger.getLogger("Sim-U-Kraft");
+
+    public static Logger log = Logger.getLogger("Sim-U");
+    /*
+    用于检测我们何时进入世界（非主菜单）以及玩家何时更改世界/地图
+     */
     public static String currentSavePath = "";
+    /*
+    方块实例以及ids
+     */
     static int constructorBlockId = 0;
+    /*
+    建筑施工人员
+     */
     public static Block buildingConstructor;
+    /*
+    控制块的id
+     */
     public static int controlBlockId = 0;
+    /*
+    控制箱
+     */
     public static Block controlBox;
+    /*
+    标记棒id
+     */
     static int markerBlockId = 0;
+    /*
+    标记棒
+     */
     static Block marker;
+    /*
+    采矿箱id
+     */
     static int miningBlockId = 0;
+    /*
+    采矿箱
+     */
     static Block miningBox;
+    /*
+    养殖箱id
+     */
     static int farmingBlockId = 0;
+    /*
+    养殖箱
+     */
     static Block farmingBox;
+    /*
+    灯箱id
+     */
     public static int lightboxId = 0;
+    /*
+    灯箱
+     */
     public static Block lightBox;
+    /*
+    红灯箱
+     */
     static Block lightBoxRed;
+    /*
+        橙灯箱
+         */
     static Block lightBoxOrange;
+    /*
+    黄灯箱
+     */
     static Block lightBoxYellow;
+    /*
+    绿灯箱
+     */
     static Block lightBoxGreen;
+    /*
+    蓝灯箱
+     */
     static Block lightBoxBlue;
+    /*
+    紫灯箱
+     */
     static Block lightBoxPurple;
+    /*
+    风车
+     */
     public static Block windmill;
+    /*
+    风车id
+     */
     public static int windmillId;
+    /*
+    铁粒
+     */
     public static Item itemGranulesIron;
+    /*
+    铁粒id
+     */
     public static int itemGranulesIronId;
+    /*
+      金粒
+     */
     public static Item itemGranulesGold;
+    /*
+    金粒id
+     */
     public static int itemGranulesGoldId;
+    /*
+    风车基地
+     */
     public static Item itemWindmillBase;
+    /*
+    风车基地id
+     */
     public static int itemWindmillBaseId;
+    /*
+    风车叶片
+     */
     public static Item itemWindmillVane;
+    /*
+    风车叶片id
+     */
     public static int itemWindmillVaneId;
+    /*
+    风车帆
+     */
     public static Item itemWindmillSails;
+    /*
+    风车帆id
+     */
     public static int itemWindmillSailsId;
+    /*
+    食物id
+     */
     public static int itemFoodId;
+    /*
+    食物
+     */
     public static Item itemFood;
+    /*
+    奶酪
+     */
     public static Item itemFoodCheese;
+    /*
+    奶酪id
+     */
     public static Item itemFoodFries;
+    /*
+    汉堡
+     */
     public static Item itemFoodBurger;
+    /*
+    奶酪汉堡
+     */
     public static Item itemFoodCheeseburger;
+    /*
+复合砖
+     */
     public static Block blockCompositeBrick;
+    /*
+    复合砖id
+     */
     public static int blockCompositeBrickId;
+    /*
+    奶酪块
+     */
     public static Block blockCheese;
+    /*
+    奶酪id
+     */
     public static int blockCheeseId;
+    /*
+    液体牛奶
+     */
     public static Fluid SUKfluidMilk;
+    /*
+    液体牛奶块
+     */
     public static Block blockFluidMilk;
+    /*
+ 液体牛奶块id
+     */
     public static int blockFluidMilkId;
+    /*
+    所有民众的数据（用于构建和维护 EntityFolk）
+     */
     public static ArrayList<FolkData> theFolks = new ArrayList();
+    /*
+    所有的建筑对象
+     */
     public static ArrayList<Building> theBuildings = new ArrayList();
+    /*
+    所有快递任务
+     */
     public static ArrayList<CourierTask> theCourierTasks = new ArrayList();
+    /*
+    所有快递点
+     */
     public static ArrayList<V3> theCourierPoints = new ArrayList();
+/*
+所有的采矿箱
+ */
     public static ArrayList<MiningBox> theMiningBoxes = new ArrayList();
+    /*
+    所有养殖箱
+     */
     public static ArrayList<FarmingBox> theFarmingBoxes = new ArrayList();
+    /*
+    所有情感关系
+     */
     public static ArrayList<Relationship> theRelationships = new ArrayList();
+    /*
+    包含他们正在玩的这个关卡的所有游戏状态和设置
+     */
     public static GameStates states = new GameStates();
+    /*
+    银行目前正在销售的商品列表，每天早上都会更新新商品
+     */
     public static ArrayList<Commodity> theCommodities = new ArrayList();
+    /*
+    用于在update（）调用中升级作物农场
+     */
     public static FarmingBox farmToUpgrade = null;
+    /*
+    升级作物农场计数
+     */
     public static int farmToUpgradeCounter = 0;
+    /*
+    所有的农场升级点
+     */
     private static ArrayList<V3> farmToUpgradePoints = null;
+    /*
+    白天
+     */
     public static boolean isDay = true;
+    /*
+    所有的拆除
+     */
     public static ArrayList<V3> demolishBlocks = new ArrayList();
+    /*
+    拆除
+     */
     public static World demolishWorld = null;
+    /*
+    配置文件设置
+     */
     public static Configuration config;
+    /*
+    配置人口限制
+     */
     public static int configPopulationLimit = 100;
+    /*
+    配置木材面积
+     */
     public static int configLumberArea = 30;
+    /*
+    配置禁用光束效果
+     */
     public static boolean configDisableBeamEffect = false;
+    /*
+    配置谈话
+     */
     public static boolean configFolkTalking = true;
+    /*
+    配置启用标记对齐
+     */
     public static boolean configEnableMarkerAlignmentBeams = true;
+    /*
+
+     */
     public static boolean configUseExpensiveRecipies = false;
+    /*
+    配置物料提醒间隔
+     */
     public static int configMaterialReminderInterval = 3;
+    /*
+    配置偏移量
+     */
     public static int configHUDoffset = 0;
+    /*
+    停止降雨
+     */
     public static boolean configStopRain = false;
+    /*
+    配置说英语
+     */
     public static boolean configFolkTalkingEnglish = true;
+    /*
+    配置男性姓名
+     */
     public static String[] configMaleNames;
+    /*
+    配置女性姓名
+     */
     public static String[] configFemaleNames;
+    /*
+    姓氏
+     */
     public static String[] configSurnames;
-    public static ModSimukraft.GameMode gameMode = null;
+    /*
+    游戏模式
+     */
+    public static GameMode gameMode = null;
+    /*
+    工作关系
+     */
     public static SimpleNetworkWrapper network;
     private static GuiRunMod runModui = null;
     int highest = 0;
@@ -152,27 +382,35 @@ public class ModSimukraft {
     public ModSimukraft() {
     }
 
+    /**
+     * 游戏模式
+     * @return
+     */
     public static int getGameModeNumber() {
-        if (gameMode == ModSimukraft.GameMode.DONOTRUN) {
+        if (gameMode == GameMode.DONOTRUN) {
+            //不运行
             return -1;
-        } else if (gameMode == ModSimukraft.GameMode.NORMAL) {
+        } else if (gameMode == GameMode.NORMAL) {
+            //正常的
             return 0;
-        } else if (gameMode == ModSimukraft.GameMode.CREATIVE) {
+        } else if (gameMode == GameMode.CREATIVE) {
+            //创造
             return 1;
         } else {
-            return gameMode == ModSimukraft.GameMode.HARDCORE ? 2 : 0;
+            //
+            return gameMode == GameMode.HARDCORE ? 2 : 0;
         }
     }
 
     public static void setGameModeFromNumber(int gm) {
         if (gm == -1) {
-            gameMode = ModSimukraft.GameMode.DONOTRUN;
+            gameMode = GameMode.DONOTRUN;
         } else if (gm == 0) {
-            gameMode = ModSimukraft.GameMode.NORMAL;
+            gameMode = GameMode.NORMAL;
         } else if (gm == 1) {
-            gameMode = ModSimukraft.GameMode.CREATIVE;
+            gameMode = GameMode.CREATIVE;
         } else if (gm == 2) {
-            gameMode = ModSimukraft.GameMode.HARDCORE;
+            gameMode = GameMode.HARDCORE;
         }
 
     }
@@ -180,9 +418,13 @@ public class ModSimukraft {
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         network = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
+        //注册客户端消息系统
         network.registerMessage(Handler.class, UpdateFolkPositionMessage.class, 1, Side.CLIENT);
+        //注册服务端消息系统
         network.registerMessage(com.trhsy.sim.packets.server.Handler.class, LoadBuildingMessage.class, 0, Side.SERVER);
+        //设置日志级别
         log.setLevel(Level.INFO);
+        //为参数中给定的文件创建配置文件。
         config = new Configuration(event.getSuggestedConfigurationFile());
 
         try {
@@ -246,16 +488,16 @@ public class ModSimukraft {
         }
 
         SUKfluidMilk = new FluidMilk();
-        blockFluidMilk = (new BlockFluidMilk()).func_149663_c("fluidMilk");
+        blockFluidMilk = (new BlockFluidMilk()).setBlockName("fluidMilk");
         lightBox = new BlockLightBox();
-        buildingConstructor = (new BlockConstructorBox()).func_149672_a(Block.field_149766_f).func_149711_c(2.0F).func_149752_b(1.0F).func_149663_c("SUKconstructorBox");
-        controlBox = (new BlockControlBox()).func_149672_a(Block.field_149766_f).func_149711_c(10.0F).func_149752_b(1.0F).func_149663_c("SUKcontrol");
-        marker = (new BlockMarker()).func_149672_a(Block.field_149766_f).func_149711_c(2.0F).func_149752_b(1.0F).func_149663_c("SUKmarker");
-        miningBox = (new BlockMiningBox()).func_149672_a(Block.field_149766_f).func_149711_c(2.0F).func_149752_b(1.0F).func_149663_c("SUKmining");
-        farmingBox = (new BlockFarmingBox()).func_149672_a(Block.field_149766_f).func_149711_c(2.0F).func_149752_b(1.0F).func_149663_c("SUKfarming");
-        itemFood = (new ItemSUKFood()).func_77655_b("SUKfood");
-        blockCompositeBrick = (new BlockCompositeBrick(Material.field_151576_e)).func_149672_a(Block.field_149769_e).func_149711_c(8.0F).func_149752_b(7.0F).func_149663_c("SUKcompositebrick");
-        blockCheese = (new BlockCheeseBlock()).func_149672_a(Block.field_149775_l).func_149711_c(0.1F).func_149752_b(0.5F).func_149663_c("SUKcheeseBlock");
+        buildingConstructor = (new BlockConstructorBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKconstructorBox");
+        controlBox = (new BlockControlBox()).setStepSound(Block.soundTypeWood).setHardness(10.0F).setResistance(1.0F).setBlockName("SUKcontrol");
+        marker = (new BlockMarker()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKmarker");
+        miningBox = (new BlockMiningBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKmining");
+        farmingBox = (new BlockFarmingBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKfarming");
+        itemFood = (new ItemSUKFood()).setUnlocalizedName("SUKfood");
+        blockCompositeBrick = (new BlockCompositeBrick(Material.rock)).setStepSound(Block.soundTypeStone).setHardness(8.0F).setResistance(7.0F).setBlockName("SUKcompositebrick");
+        blockCheese = (new BlockCheeseBlock()).setStepSound(Block.soundTypeCloth).setHardness(0.1F).setResistance(0.5F).setBlockName("SUKcheeseBlock");
         itemGranulesGold = new ItemGranulesGold(itemGranulesGoldId);
         LanguageRegistry.addName(itemGranulesGold, "Gold granules");
         itemGranulesIron = new ItemGranulesIron(itemGranulesIronId);
@@ -297,44 +539,44 @@ public class ModSimukraft {
         LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.blue.name", "Sim-U-Light (blue)");
         LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.purple.name", "Sim-U-Light (purple)");
         LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.rainbow.name", "Sim-U-Light (rainbow)");
-        GameRegistry.addRecipe(new ItemStack(buildingConstructor, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.field_150347_e, 'P', Blocks.field_150344_f, 'W', Blocks.field_150462_ai});
-        GameRegistry.addRecipe(new ItemStack(marker, 3), new Object[]{"G", "S", 'S', Items.field_151055_y, 'G', new ItemStack(Items.field_151100_aR, 1, 11)});
+        GameRegistry.addRecipe(new ItemStack(buildingConstructor, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Blocks.crafting_table});
+        GameRegistry.addRecipe(new ItemStack(marker, 3), new Object[]{"G", "S", 'S', Items.stick, 'G', new ItemStack(Items.dye, 1, 11)});
         if (configUseExpensiveRecipies) {
-            GameRegistry.addRecipe(new ItemStack(miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.field_150347_e, 'P', Blocks.field_150344_f, 'W', Items.field_151046_w});
-            GameRegistry.addRecipe(new ItemStack(farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.field_150347_e, 'P', Blocks.field_150344_f, 'W', Items.field_151012_L});
+            GameRegistry.addRecipe(new ItemStack(miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
+            GameRegistry.addRecipe(new ItemStack(farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
         } else {
-            GameRegistry.addRecipe(new ItemStack(miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.field_150347_e, 'P', Blocks.field_150344_f, 'W', Items.field_151050_s});
-            GameRegistry.addRecipe(new ItemStack(farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.field_150347_e, 'P', Blocks.field_150344_f, 'W', Items.field_151018_J});
+            GameRegistry.addRecipe(new ItemStack(miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_pickaxe});
+            GameRegistry.addRecipe(new ItemStack(farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_hoe});
         }
 
-        GameRegistry.addRecipe(new ItemStack(lightBox, 2), new Object[]{"LL", "LL", 'L', Blocks.field_150478_aa});
-        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 1), new Object[]{lightBox, new ItemStack(Items.field_151100_aR, 1, 1)});
-        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 2), new Object[]{lightBox, new ItemStack(Items.field_151100_aR, 1, 14)});
-        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 3), new Object[]{lightBox, new ItemStack(Items.field_151100_aR, 1, 11)});
-        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 4), new Object[]{lightBox, new ItemStack(Items.field_151100_aR, 1, 10)});
-        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 5), new Object[]{lightBox, new ItemStack(Items.field_151100_aR, 1, 4)});
-        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 6), new Object[]{lightBox, new ItemStack(Items.field_151100_aR, 1, 5)});
-        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 7), new Object[]{lightBox, new ItemStack(Items.field_151100_aR, 1, 1), new ItemStack(Items.field_151100_aR, 1, 14), new ItemStack(Items.field_151100_aR, 1, 11), new ItemStack(Items.field_151100_aR, 1, 10), new ItemStack(Items.field_151100_aR, 1, 4), new ItemStack(Items.field_151100_aR, 1, 5)});
+        GameRegistry.addRecipe(new ItemStack(lightBox, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
+        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 1), new Object[]{lightBox, new ItemStack(Items.dye, 1, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 2), new Object[]{lightBox, new ItemStack(Items.dye, 1, 14)});
+        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 3), new Object[]{lightBox, new ItemStack(Items.dye, 1, 11)});
+        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 4), new Object[]{lightBox, new ItemStack(Items.dye, 1, 10)});
+        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 5), new Object[]{lightBox, new ItemStack(Items.dye, 1, 4)});
+        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 6), new Object[]{lightBox, new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addShapelessRecipe(new ItemStack(lightBox, 1, 7), new Object[]{lightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
         GameRegistry.addRecipe(new ItemStack(blockCheese, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(itemFood, 1, 0)});
         GameRegistry.addShapelessRecipe(new ItemStack(itemFood, 9, 0), new Object[]{new ItemStack(blockCheese)});
-        GameRegistry.addRecipe(new ItemStack(blockCompositeBrick, 1), new Object[]{"CSC", "SIS", "CSC", 'C', Blocks.field_150405_ch, 'S', Blocks.field_150348_b, 'I', Blocks.field_150422_aJ});
+        GameRegistry.addRecipe(new ItemStack(blockCompositeBrick, 1), new Object[]{"CSC", "SIS", "CSC", 'C', Blocks.hardened_clay, 'S', Blocks.stone, 'I', Blocks.fence});
         GameRegistry.addRecipe(new ItemStack(itemWindmillBase), new Object[]{" C ", "CCC", "CCC", 'C', blockCompositeBrick});
 
         int c;
-        for(c = 0; c < 16; ++c) {
-            GameRegistry.addRecipe(new ItemStack(itemWindmillVane, 1, c), new Object[]{"WWW", "SSS", 'S', Items.field_151055_y, 'W', new ItemStack(Blocks.field_150325_L, 1, c)});
+        for (c = 0; c < 16; ++c) {
+            GameRegistry.addRecipe(new ItemStack(itemWindmillVane, 1, c), new Object[]{"WWW", "SSS", 'S', Items.stick, 'W', new ItemStack(Blocks.wool, 1, c)});
         }
 
-        for(c = 0; c < 16; ++c) {
-            GameRegistry.addRecipe(new ItemStack(itemWindmillSails, 1, c), new Object[]{" V ", "VPV", " V ", 'V', new ItemStack(itemWindmillVane, 1, c), 'P', Blocks.field_150344_f});
+        for (c = 0; c < 16; ++c) {
+            GameRegistry.addRecipe(new ItemStack(itemWindmillSails, 1, c), new Object[]{" V ", "VPV", " V ", 'V', new ItemStack(itemWindmillVane, 1, c), 'P', Blocks.planks});
         }
 
-        for(c = 0; c < 16; ++c) {
+        for (c = 0; c < 16; ++c) {
             GameRegistry.addRecipe(new ItemStack(windmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(itemWindmillSails, 1, c), 'B', itemWindmillBase});
         }
 
-        GameRegistry.addSmelting(itemGranulesGold, new ItemStack(Items.field_151043_k), 0.1F);
-        GameRegistry.addSmelting(itemGranulesIron, new ItemStack(Items.field_151042_j), 0.1F);
+        GameRegistry.addSmelting(itemGranulesGold, new ItemStack(Items.gold_ingot), 0.1F);
+        GameRegistry.addSmelting(itemGranulesIron, new ItemStack(Items.iron_ingot), 0.1F);
         EntityRegistry.registerGlobalEntityID(EntityAlignBeam.class, "AlignBeam", EntityRegistry.findGlobalUniqueEntityId());
         EntityRegistry.registerModEntity(EntityAlignBeam.class, "AlignBeam", 0, this, 250, 10, false);
         EntityRegistry.registerGlobalEntityID(EntityFolk.class, "Folk", EntityRegistry.findGlobalUniqueEntityId());
@@ -387,9 +629,9 @@ public class ModSimukraft {
         }
 
         if (states.gameModeNumber == -1) {
-            if (ModSimukraft.runModui == null) {
+            if (runModui == null) {
                 GuiRunMod runModui = new GuiRunMod();
-                Minecraft.func_71410_x().func_147108_a(runModui);
+                Minecraft.getMinecraft().displayGuiScreen(runModui);
             }
 
         } else {
@@ -415,15 +657,15 @@ public class ModSimukraft {
     }
 
     public static void sendChat(String theText) {
-        WorldServer[] arr$ = MinecraftServer.func_71276_C().field_71305_c;
+        WorldServer[] arr$ = MinecraftServer.getServer().worldServers;
         int len$ = arr$.length;
 
-        for(int i$ = 0; i$ < len$; ++i$) {
+        for (int i$ = 0; i$ < len$; ++i$) {
             World w = arr$[i$];
-            if (!w.field_72995_K) {
-                for(int i = 0; i < w.field_73010_i.size(); ++i) {
-                    EntityPlayer p = (EntityPlayer)w.field_73010_i.get(i);
-                    p.func_146105_b(new ChatComponentText(theText));
+            if (!w.isRemote) {
+                for (int i = 0; i < w.playerEntities.size(); ++i) {
+                    EntityPlayer p = (EntityPlayer) w.playerEntities.get(i);
+                    p.addChatComponentMessage(new ChatComponentText(theText));
                 }
             }
         }
@@ -431,7 +673,7 @@ public class ModSimukraft {
     }
 
     public static String getSavesDataFolder() {
-        String worldname = MinecraftServer.func_71276_C().func_71270_I();
+        String worldname = MinecraftServer.getServer().getFolderName();
         String strmc = (new File(".")).getAbsolutePath();
         strmc = strmc.substring(0, strmc.length() - 1);
         File test = new File(strmc + "saves");
@@ -462,12 +704,12 @@ public class ModSimukraft {
     }
 
     public static boolean isDayTime() {
-        return MinecraftServer.func_71276_C().field_71305_c[0].func_72912_H().func_76073_f() % 24000L <= 11999L;
+        return MinecraftServer.getServer().worldServers[0].getWorldInfo().getWorldTime() % 24000L <= 11999L;
     }
 
     public static String displayMoney(float moneyin) {
         DecimalFormat myFormatter = new DecimalFormat("#,##0.00");
-        String output = myFormatter.format((double)moneyin);
+        String output = myFormatter.format((double) moneyin);
         return output;
     }
 
@@ -515,7 +757,7 @@ public class ModSimukraft {
 
             String[] items = newbs.split("!END");
 
-            for(int i = 0; i < items.length - 1; ++i) {
+            for (int i = 0; i < items.length - 1; ++i) {
                 String[] fields = items[i].split("!F");
                 String url = baseURL + "catalogue/PKID" + fields[0] + "-" + fields[1] + ".txt";
                 String local = getSimukraftFolder() + "/buildings/" + fields[3] + "/PKID" + fields[0] + "-" + fields[1] + ".txt";
@@ -541,7 +783,7 @@ public class ModSimukraft {
         File[] arr$ = actual.listFiles();
         int len$ = arr$.length;
 
-        for(int i$ = 0; i$ < len$; ++i$) {
+        for (int i$ = 0; i$ < len$; ++i$) {
             File f = arr$[i$];
             if (f.getName().startsWith("PKID")) {
                 this.m1 = f.getName().indexOf("-");
@@ -570,7 +812,7 @@ public class ModSimukraft {
             boolean var8 = false;
 
             int x;
-            while((x = in.read(data, 0, 4096)) >= 0) {
+            while ((x = in.read(data, 0, 4096)) >= 0) {
                 bout.write(data, 0, x);
             }
 
@@ -596,9 +838,9 @@ public class ModSimukraft {
             log.info("Night to day transition");
             World world = proxy.getClientWorld();
             if (world != null) {
-                EntityPlayer p = Minecraft.func_71410_x().field_71439_g;
+                EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                 if (p != null) {
-                    proxy.getClientWorld().func_72980_b(p.field_70165_t, p.field_70163_u, p.field_70161_v, "satscapesimukraft:rooster", 1.0F, 1.0F, false);
+                    proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:rooster", 1.0F, 1.0F, false);
                 }
             }
 
@@ -608,8 +850,8 @@ public class ModSimukraft {
                 homeless = 0;
                 Iterator i$ = theFolks.iterator();
 
-                while(i$.hasNext()) {
-                    folk1 = (FolkData)i$.next();
+                while (i$.hasNext()) {
+                    folk1 = (FolkData) i$.next();
                     if (folk1.getHome() == null) {
                         ++homeless;
                     }
@@ -626,11 +868,11 @@ public class ModSimukraft {
                 f1 = rand.nextInt(theFolks.size());
 
                 int f2;
-                for(f2 = f1; f2 == f1; f2 = rand.nextInt(theFolks.size())) {
+                for (f2 = f1; f2 == f1; f2 = rand.nextInt(theFolks.size())) {
                 }
 
-                folk1 = (FolkData)theFolks.get(f1);
-                FolkData folk2 = (FolkData)theFolks.get(f2);
+                folk1 = (FolkData) theFolks.get(f1);
+                FolkData folk2 = (FolkData) theFolks.get(f2);
                 Relationship.meddleWithRelationship(folk1, folk2);
             }
         }
@@ -642,21 +884,21 @@ public class ModSimukraft {
                 Random rand = new Random();
                 homeless = rand.nextInt(theFolks.size());
 
-                for(f1 = homeless; f1 == homeless; f1 = rand.nextInt(theFolks.size())) {
+                for (f1 = homeless; f1 == homeless; f1 = rand.nextInt(theFolks.size())) {
                 }
 
-                folk1 = (FolkData)theFolks.get(homeless);
-                folk1 = (FolkData)theFolks.get(f1);
+                folk1 = (FolkData) theFolks.get(homeless);
+                folk1 = (FolkData) theFolks.get(f1);
                 Relationship.meddleWithRelationship(folk1, folk1);
             }
 
             Iterator i$ = theFolks.iterator();
 
-            while(i$.hasNext()) {
-                FolkData folk = (FolkData)i$.next();
+            while (i$.hasNext()) {
+                FolkData folk = (FolkData) i$.next();
                 folk.destination = null;
                 if (folk.theEntity != null) {
-                    folk.theEntity.func_70661_as().func_75499_g();
+                    folk.theEntity.getNavigator().clearPathEntity();
                 }
             }
         }
@@ -676,9 +918,9 @@ public class ModSimukraft {
 
                     float totalRent = 0.0F;
                     float totalCorpTax = 0.0F;
-                    if (ModSimukraft.gameMode != ModSimukraft.GameMode.CREATIVE) {
-                        for(int b = 0; b < ModSimukraft.theBuildings.size(); ++b) {
-                            Building building = (Building)ModSimukraft.theBuildings.get(b);
+                    if (ModSimukraft.gameMode != GameMode.CREATIVE) {
+                        for (int b = 0; b < ModSimukraft.theBuildings.size(); ++b) {
+                            Building building = (Building) ModSimukraft.theBuildings.get(b);
                             if (building.type.contentEquals("residential") && building.tennants.size() > 0) {
                                 if (building.rent == null || building.rent == 0.0F) {
                                     building.rent = 1.0F;
@@ -697,11 +939,11 @@ public class ModSimukraft {
                         var10000.credits += totalRent;
                         var10000 = ModSimukraft.states;
                         var10000.credits += totalCorpTax;
-                        EntityPlayer p = Minecraft.func_71410_x().field_71439_g;
+                        EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                         if (p != null) {
-                            ModSimukraft.proxy.getClientWorld().func_72980_b(p.field_70165_t, p.field_70163_u, p.field_70161_v, "satscapesimukraft:cash", 1.0F, 1.0F, false);
+                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:cash", 1.0F, 1.0F, false);
                         }
-                    } else if (ModSimukraft.gameMode != ModSimukraft.GameMode.CREATIVE) {
+                    } else if (ModSimukraft.gameMode != GameMode.CREATIVE) {
                         ModSimukraft.sendChat("No rent collected today, you should hire a folk to build a residential house.");
                     }
 
@@ -712,8 +954,8 @@ public class ModSimukraft {
             FolkData folk;
             int fl;
             int f;
-            for(fl = 0; fl < theFolks.size(); ++fl) {
-                folk = (FolkData)theFolks.get(fl);
+            for (fl = 0; fl < theFolks.size(); ++fl) {
+                folk = (FolkData) theFolks.get(fl);
                 folk.greetedToday = false;
                 folk.shaggingStage = -1.0F;
                 if (folk.pregnancyStage > 0.0F) {
@@ -735,15 +977,15 @@ public class ModSimukraft {
 
                 if (folk.age > 110 && rand.nextInt(10) == 5) {
                     sendChat(folk.name + " is old and not feeling very well...oh no!");
-                    folk.eventDied(DamageSource.field_76377_j);
+                    folk.eventDied(DamageSource.generic);
                 }
             }
 
-            if (gameMode != ModSimukraft.GameMode.CREATIVE) {
+            if (gameMode != GameMode.CREATIVE) {
                 fl = rand.nextInt(theFolks.size());
 
-                for(f = 0; f < theFolks.size(); ++f) {
-                    folk = (FolkData)theFolks.get(f);
+                for (f = 0; f < theFolks.size(); ++f) {
+                    folk = (FolkData) theFolks.get(f);
                     if (f == fl) {
                         --folk.levelFood;
                         if (folk.levelFood == 0) {
@@ -752,11 +994,11 @@ public class ModSimukraft {
                     }
                 }
 
-                for(f = 0; f < theFolks.size(); ++f) {
-                    folk = (FolkData)theFolks.get(f);
+                for (f = 0; f < theFolks.size(); ++f) {
+                    folk = (FolkData) theFolks.get(f);
                     if (folk.theirJob != null && folk.vocation == Vocation.SOLDIER) {
-                        JobSoldier job = (JobSoldier)folk.theirJob;
-                        float pay = (float)job.kills * 0.2F;
+                        JobSoldier job = (JobSoldier) folk.theirJob;
+                        float pay = (float) job.kills * 0.2F;
                         if (job.kills > 0) {
                             sendChat("Paid " + folk.name + " " + displayMoney(pay) + " Sim-u-credits for killing " + job.kills + " hostile mobs yesterday.");
                             GameStates var10000 = states;
@@ -767,21 +1009,21 @@ public class ModSimukraft {
                 }
 
                 boolean updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150344_f, updown);
+                PricesForBlocks.adjustPrice(Blocks.planks, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150347_e, updown);
+                PricesForBlocks.adjustPrice(Blocks.cobblestone, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150348_b, updown);
+                PricesForBlocks.adjustPrice(Blocks.stone, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150359_w, updown);
+                PricesForBlocks.adjustPrice(Blocks.glass, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150325_L, updown);
+                PricesForBlocks.adjustPrice(Blocks.wool, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150336_V, updown);
+                PricesForBlocks.adjustPrice(Blocks.brick_block, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150417_aV, updown);
+                PricesForBlocks.adjustPrice(Blocks.stonebrick, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.field_150422_aJ, updown);
+                PricesForBlocks.adjustPrice(Blocks.fence, updown);
             }
 
             states.saveStates();
@@ -796,12 +1038,12 @@ public class ModSimukraft {
                 count = 10;
             }
 
-            for(int i = 0; i < count; ++i) {
-                V3 blockLoc = (V3)demolishBlocks.get(0);
+            for (int i = 0; i < count; ++i) {
+                V3 blockLoc = (V3) demolishBlocks.get(0);
 
                 try {
-                    Block block = Block.func_149684_b(blockLoc.name);
-                    block.func_149697_b(demolishWorld, blockLoc.x.intValue(), blockLoc.y.intValue() + 10 + (new Random()).nextInt(20), blockLoc.z.intValue(), 0, 0);
+                    Block block = Block.getBlockFromName(blockLoc.name);
+                    block.dropBlockAsItem(demolishWorld, blockLoc.x.intValue(), blockLoc.y.intValue() + 10 + (new Random()).nextInt(20), blockLoc.z.intValue(), 0, 0);
                     demolishBlocks.remove(0);
                 } catch (Exception var5) {
                 }
@@ -822,12 +1064,12 @@ public class ModSimukraft {
                 farmToUpgradePoints = farmToUpgrade.getPerimeterPoints();
             }
 
-            point = (V3)farmToUpgradePoints.get(farmToUpgradeCounter);
-            theWorld = MinecraftServer.func_71276_C().func_71218_a(point.theDimension);
-            Block id = theWorld.func_147439_a(point.x.intValue(), point.y.intValue(), point.z.intValue());
+            point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
+            theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
+            Block id = theWorld.getBlock(point.x.intValue(), point.y.intValue(), point.z.intValue());
             boolean destroy = false;
             if (id != null) {
-                TileEntity te = theWorld.func_147438_o(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                TileEntity te = theWorld.getTileEntity(point.x.intValue(), point.y.intValue(), point.z.intValue());
                 if (te == null) {
                     destroy = true;
                 } else if (!(te instanceof IInventory)) {
@@ -838,27 +1080,27 @@ public class ModSimukraft {
             }
 
             if (destroy) {
-                theWorld.func_147480_a(point.x.intValue(), point.y.intValue(), point.z.intValue(), true);
-                theWorld.func_147465_d(point.x.intValue(), point.y.intValue(), point.z.intValue(), Blocks.field_150422_aJ, 0, 3);
-                theWorld.func_147471_g(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                theWorld.breakBlock(point.x.intValue(), point.y.intValue(), point.z.intValue(), true);
+                theWorld.setBlock(point.x.intValue(), point.y.intValue(), point.z.intValue(), Blocks.fence, 0, 3);
+                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue(), point.z.intValue());
             }
 
             if (farmToUpgradeCounter % 6 == 0) {
-                theWorld.func_147465_d(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), lightBox, 0, 3);
-                theWorld.func_147471_g(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
+                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), lightBox, 0, 3);
+                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
             }
         } else if (farmToUpgrade.level == 2) {
             if (farmToUpgradePoints == null) {
                 farmToUpgradePoints = farmToUpgrade.getSoilBlockPoints();
             }
 
-            point = (V3)farmToUpgradePoints.get(farmToUpgradeCounter);
-            theWorld = MinecraftServer.func_71276_C().func_71218_a(point.theDimension);
+            point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
+            theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
             if (point.x.intValue() % 5 == 0 && point.z.intValue() % 5 == 0) {
-                theWorld.func_147465_d(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), Blocks.field_150355_j, 0, 3);
-                theWorld.func_147465_d(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), lightBox, 0, 3);
-                theWorld.func_147471_g(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
-                theWorld.func_147471_g(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
+                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), Blocks.water, 0, 3);
+                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), lightBox, 0, 3);
+                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
+                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
             }
         }
 
@@ -882,7 +1124,7 @@ public class ModSimukraft {
         try {
             BufferedReader br = new BufferedReader(new FileReader(fullFilename));
 
-            for(String line = br.readLine(); line != null; line = br.readLine()) {
+            for (String line = br.readLine(); line != null; line = br.readLine()) {
                 ret.add(line);
             }
 
@@ -899,8 +1141,8 @@ public class ModSimukraft {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fullFilename));
             Iterator i$ = strings.iterator();
 
-            while(i$.hasNext()) {
-                String line = (String)i$.next();
+            while (i$.hasNext()) {
+                String line = (String) i$.next();
                 bw.write(line + "\r\n");
             }
 
@@ -911,13 +1153,4 @@ public class ModSimukraft {
 
     }
 
-    public static enum GameMode {
-        DONOTRUN,
-        NORMAL,
-        CREATIVE,
-        HARDCORE;
-
-        private GameMode() {
-        }
-    }
 }

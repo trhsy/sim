@@ -45,7 +45,7 @@ public class PacketHandler implements IMessageHandler<SimukraftPacket, IMessage>
                 }
             } else if (side == Side.CLIENT) {
                 sside = "Client";
-                world = Minecraft.func_71410_x().field_71441_e;
+                world = Minecraft.getMinecraft().field_71441_e;
             } else if (cmd.contentEquals("updateFolkPosition")) {
                 FolkData folk = FolkData.getFolkByName(par1);
                 V3 newpos = new V3(val);

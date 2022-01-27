@@ -268,7 +268,7 @@ public class FarmingBox implements Serializable {
     }
 
     public static void loadFarmingBoxes() {
-        Minecraft mc = Minecraft.func_71410_x();
+        Minecraft mc = Minecraft.getMinecraft();
         File farmFiles = new File(ModSimukraft.getSavesDataFolder() + "Farming" + File.separator);
         farmFiles.mkdirs();
         boolean useNewFormat = false;
@@ -327,9 +327,9 @@ public class FarmingBox implements Serializable {
                         }
                     }
 
-                    theWorld = MinecraftServer.func_71276_C().func_71218_a(box.location.theDimension);
+                    theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
                     if (theWorld != null) {
-                        id = theWorld.func_147439_a(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
+                        id = theWorld.getBlock(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
                         if (id == ModSimukraft.farmingBox) {
                             ModSimukraft.theFarmingBoxes.add(box);
                         } else {
@@ -348,12 +348,12 @@ public class FarmingBox implements Serializable {
                     FarmingBox farming = (FarmingBox)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (farming != null) {
                         V3 xyz = farming.location;
-                        theWorld = MinecraftServer.func_71276_C().func_71218_a(xyz.theDimension);
+                        theWorld = MinecraftServer.getServer().worldServerForDimension(xyz.theDimension);
                         if (theWorld == null) {
                             f.delete();
                         } else {
                             try {
-                                id = theWorld.func_147439_a(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
+                                id = theWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
                                 if (id == ModSimukraft.farmingBox) {
                                     ModSimukraft.theFarmingBoxes.add(farming);
                                 } else {

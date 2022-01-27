@@ -1,6 +1,6 @@
-package com.trhsy.sim.client.Gui;/**
+package com.trhsy.sim.client.gui;/**
  * @author trhsy
- * @date 2022/1/26 0026
+ * @date 2022/1/27 0027
  * @apiNote
  */
 
@@ -14,14 +14,13 @@ import org.lwjgl.input.Mouse;
 /**
  * ========================================
  *
- * @ClassName GuiRunMod
+ * @ClassName GuiShowEmployees
  * @Description todo
  * @Author Administrator
- * @Date 2022/1/26 0026下午 3:37
+ * @Date 2022/1/27 0027上午 11:36
  * ========================================
  **/
-public class GuiRunMod extends GuiScreen {
-
+public class GuiShowEmployees extends GuiScreen {
     public boolean running = true;
     private int mouseCount = 0;
 
@@ -80,3 +79,4 @@ public class GuiRunMod extends GuiScreen {
         this.field_146297_k.func_71381_h();
     }
 }
+

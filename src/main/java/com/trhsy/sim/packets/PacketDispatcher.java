@@ -51,7 +51,7 @@ public class PacketDispatcher {
     }
 
     public static final void sendToAllAround(IMessage message, EntityPlayer player, double range) {
-        sendToAllAround(message, player.field_70170_p.field_73011_w.field_76574_g, player.field_70165_t, player.field_70163_u, player.field_70161_v, range);
+        sendToAllAround(message, player.field_70170_p.field_73011_w.field_76574_g, player.posX, player.posY, player.posZ, range);
     }
 
     public static final void sendToDimension(IMessage message, int dimensionId) {
@@ -63,6 +63,6 @@ public class PacketDispatcher {
     }
 
     static {
-        dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel(ModSimukraft.modid);
+        dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel(ModSimukraft.MODID);
     }
 }

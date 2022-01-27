@@ -503,7 +503,7 @@ public class Building implements Serializable {
     }
 
     public static void saveAllBuildings() {
-        Minecraft mc = Minecraft.func_71410_x();
+        Minecraft mc = Minecraft.getMinecraft();
         ArrayList<String> strings = new ArrayList();
 
         for(int b = 0; b < ModSimukraft.theBuildings.size(); ++b) {
@@ -511,8 +511,8 @@ public class Building implements Serializable {
             Building building = (Building)ModSimukraft.theBuildings.get(b);
             if (building != null && building.primaryXYZ != null) {
                 V3 pxyz = building.primaryXYZ;
-                World buildingWorld = MinecraftServer.func_71276_C().func_71218_a(building.primaryXYZ.theDimension);
-                Block id = buildingWorld.func_147439_a(pxyz.x.intValue(), pxyz.y.intValue(), pxyz.z.intValue());
+                World buildingWorld = MinecraftServer.getServer().worldServerForDimension(building.primaryXYZ.theDimension);
+                Block id = buildingWorld.getBlock(pxyz.x.intValue(), pxyz.y.intValue(), pxyz.z.intValue());
                 String xyz = "b" + building.primaryXYZ.toString().replaceAll(",", "_");
                 if (id != ModSimukraft.controlBox && id != ModSimukraft.buildingConstructor) {
                     File f = new File(ModSimukraft.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
@@ -718,7 +718,7 @@ public class Building implements Serializable {
                 }
             }
         } else {
-            Minecraft mc = Minecraft.func_71410_x();
+            Minecraft mc = Minecraft.getMinecraft();
             ModSimukraft.theBuildings.clear();
             File[] arr$ = buildingsFolder.listFiles();
             i$ = arr$.length;
@@ -729,8 +729,8 @@ public class Building implements Serializable {
                     build = (Building)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (build != null) {
                         V3 xyz = build.primaryXYZ;
-                        World buildingWorld = MinecraftServer.func_71276_C().func_71218_a(build.primaryXYZ.theDimension);
-                        Block id = buildingWorld.func_147439_a(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
+                        World buildingWorld = MinecraftServer.getServer().worldServerForDimension(build.primaryXYZ.theDimension);
+                        Block id = buildingWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
                         Building dupe = null;
                         if (ModSimukraft.theBuildings.size() > 0) {
                             dupe = getBuilding(xyz);

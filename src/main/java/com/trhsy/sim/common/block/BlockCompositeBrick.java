@@ -27,7 +27,7 @@ public class BlockCompositeBrick extends Block {
 
     public BlockCompositeBrick(Material par2Material) {
         super(par2Material);
-        this.func_149647_a(CreativeTabs.field_78030_b);
+        this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
     @SideOnly(Side.CLIENT)

@@ -73,14 +73,14 @@ public class EntityAlignBeam extends Entity {
 
     public void func_70071_h_() {
         if (this.caption.contentEquals("x")) {
-            this.theMarker = BlockMarker.getMarker(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK));
+            this.theMarker = BlockMarker.getMarker(new V3(this.posX, this.posY, this.posZ, this.field_71093_bK));
             if (this.theMarker != null) {
                 this.caption = this.theMarker.caption;
             }
         }
 
         if (this.theMarker != null) {
-            this.field_70163_u = (double)this.theMarker.y;
+            this.posY = (double)this.theMarker.y;
         }
 
     }

@@ -258,7 +258,7 @@ public class BuildingReader implements Serializable {
                             } else {
                                 this.structure[akeyNumber] = (String)blockKey.get(letter);
                                 String[] sbid = this.structure[akeyNumber].split(",");
-                                Block bid = Block.func_149684_b(sbid[0]);
+                                Block bid = Block.getBlockFromName(sbid[0]);
                                 if (this.block1 == sbid[0]) {
                                     ++this.block1Count;
                                 } else if (this.block2 == sbid[0]) {
@@ -521,7 +521,7 @@ public class BuildingReader implements Serializable {
 
     private void addToRequirements(String block, int amount, int meta) {
         int val = false;
-        ItemStack theBlock = new ItemStack(Block.func_149684_b(block), amount, meta);
+        ItemStack theBlock = new ItemStack(Block.getBlockFromName(block), amount, meta);
         String name;
         Iterator it;
         boolean got;

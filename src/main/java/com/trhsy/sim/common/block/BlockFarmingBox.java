@@ -34,7 +34,7 @@ public class BlockFarmingBox extends Block {
 
     public BlockFarmingBox() {
         super(Material.field_151575_d);
-        this.func_149647_a(CreativeTabs.field_78026_f);
+        this.setCreativeTab(CreativeTabs.field_78026_f);
     }
 
     @SideOnly(Side.CLIENT)
@@ -90,8 +90,8 @@ public class BlockFarmingBox extends Block {
             FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double)i, (double)j, (double)k, entityplayer.field_71093_bK));
             farmingBlock.location.theDimension = entityplayer.field_71093_bK;
             FolkData folk = FolkData.getFolkByEmployedAt(new V3((double)i, (double)j, (double)k, entityplayer.field_71093_bK));
-            Minecraft mc = Minecraft.func_71410_x();
-            mc.func_147108_a(new GuiFarming(farmingBlock, folk));
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.displayGuiScreen(new GuiFarming(farmingBlock, folk));
         } catch (Exception var13) {
             ModSimukraft.sendChat("Sorry, there was a problem with this farming box, try replacing it.");
         }

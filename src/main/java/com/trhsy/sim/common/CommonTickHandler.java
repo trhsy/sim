@@ -4,7 +4,7 @@ package com.trhsy.sim.common;/**
  * @apiNote
  */
 
-import com.trhsy.sim.client.Gui.GuiRunMod;
+import com.trhsy.sim.client.gui.GuiRunMod;
 import com.trhsy.sim.common.entity.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -29,7 +29,7 @@ public class CommonTickHandler {private World serverWorld = null;
     Long lastMinuteTickAt = 0L;
     GuiRunMod runModui = null;
     String currentWorld = "";
-    Minecraft mc = Minecraft.func_71410_x();
+    Minecraft mc = Minecraft.getMinecraft();
     long lastReset = 0L;
     boolean haveRunStartup = false;
     int ticks = 0;
@@ -73,7 +73,7 @@ public class CommonTickHandler {private World serverWorld = null;
             if (now - this.lastSecondTickAt > 1000L) {
                 if (!ModSimukraft.proxy.ranStartup) {
                     System.out.println("Haven't run startup - doing that now");
-                    this.serverWorld = MinecraftServer.func_71276_C().func_130014_f_();
+                    this.serverWorld = MinecraftServer.getServer().func_130014_f_();
                     this.currentWorld = ModSimukraft.getSavesDataFolder();
                     ModSimukraft.log.info("CommTH: Startup - set serverWorld/currentWorld");
                     System.out.println("Running Reset World Function");
@@ -86,8 +86,8 @@ public class CommonTickHandler {private World serverWorld = null;
                         ModSimukraft.resetAndLoadNewWorld();
                     }
 
-                    if (this.serverWorld.func_72896_J() && this.serverWorld.func_72912_H().func_76083_p() > 1 && ModSimukraft.configStopRain) {
-                        this.serverWorld.func_72912_H().func_76080_g(2);
+                    if (this.serverWorld.func_72896_J() && this.serverWorld.getWorldInfo().func_76083_p() > 1 && ModSimukraft.configStopRain) {
+                        this.serverWorld.getWorldInfo().func_76080_g(2);
                     }
                 }
 

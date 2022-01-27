@@ -1,0 +1,13 @@
+
+T
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ8éìØ®é/
+M
+java:S1172"+Remove this unused method parameter "par1".(ã¤«áúÿÿÿÿ8‹ËÙ®é/
+o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÛ¥Éúÿÿÿÿ8ŒËÙ®é/
+o	java:S100%"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™°ğÀüÿÿÿÿ8ËÙ®é/
+V
+java:S3400*"9Remove this method and declare a constant for this value.(âş¾İ8ËÙ®é/
+Q
+java:S1172)"4Remove this unused method parameter "par1ItemStack".(ôëÿñ8“ËÙ®é/
+\
+java:S1161-":Add the "@Override" annotation above this method signature(øèèÔúÿÿÿÿ8•ËÙ®é/
