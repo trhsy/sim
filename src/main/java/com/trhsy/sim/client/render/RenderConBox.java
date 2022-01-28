@@ -28,7 +28,7 @@ import java.util.Map;
  * ========================================
  **/
 public class RenderConBox extends Render{
-    private static final ResourceLocation myTexture = new ResourceLocation("satscapesimukraft", "textures/models/entityConBox.png");
+    private static final ResourceLocation myTexture = new ResourceLocation(ModSimukraft.MODID + "", "textures/models/entityConBox.png");
     EntityConBox entity = null;
     ModelConBox modelBox;
     private int actualCount = -1;
@@ -52,7 +52,7 @@ public class RenderConBox extends Render{
         this.modelBox.func_78088_a(this.entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         GL11.glPopMatrix();
         if (this.entity.theFolk == null) {
-            this.entity.theFolk = EntityConBox.getFolk(new V3(this.entity.posX, this.entity.posY, this.entity.posZ, this.entity.field_71093_bK));
+            this.entity.theFolk = EntityConBox.getFolk(new V3(this.entity.posX, this.entity.posY, this.entity.posZ, this.entity.dimension));
         }
 
         if (this.entity.theFolk != null && this.displayBox && this.entity.theFolk.theBuilding != null) {
@@ -91,8 +91,8 @@ public class RenderConBox extends Render{
                                 }
 
                                 ItemStack is = (ItemStack)pairs.getKey();
-                                if (is.field_77994_a > 0) {
-                                    String itemName = is.func_82833_r();
+                                if (is.stackSize > 0) {
+                                    String itemName = is.getDisplayName();
                                     if (itemName.toLowerCase().contentEquals("oak wood")) {
                                         itemName = "Logs";
                                     }
@@ -113,7 +113,7 @@ public class RenderConBox extends Render{
                     }
                 } catch (Exception var21) {
                     if (this.entity != null) {
-                        this.entity.func_70106_y();
+                        this.entity.setDead();
                         return;
                     }
                 }
@@ -127,7 +127,7 @@ public class RenderConBox extends Render{
     }
 
     private void displayText(String theString, float scale, float xpos, float ypos, float zpos, int col) {
-        double dist = (double)this.entity.func_70032_d(Minecraft.getMinecraft().thePlayer);
+        double dist = (double)this.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
         if (!(dist > 15.0D)) {
             FontRenderer fontrenderer = this.func_76983_a();
             GL11.glPushMatrix();

@@ -34,25 +34,25 @@ public class GuiMining extends GuiScreen {
         this.theWorkers = folks;
     }
 
-    public boolean func_73868_f() {
+    public boolean doesGuiPauseGame() {
         return false;
     }
 
-    public void func_73876_c() {
+    public void updateScreen() {
         if (this.tfSize != null) {
             this.tfSize.func_146178_a();
         }
 
     }
 
-    public void func_73866_w_() {
-        this.field_146292_n.clear();
-        this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 100, this.field_146295_m - 30, "Done"));
+    public void initGui() {
+        this.buttonList.clear();
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Done"));
         if (this.theMiningBox != null) {
             if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, "Fire " + ((FolkData)this.theWorkers.get(0)).name));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Fire " + ((FolkData)this.theWorkers.get(0)).name));
             } else {
-                this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, "Hire Miner"));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Hire Miner"));
             }
 
             String i = "";
@@ -77,17 +77,17 @@ public class GuiMining extends GuiScreen {
 
             GuiButton gb = null;
             if (ModSimukraft.gameMode != GameMode.HARDCORE) {
-                this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 100, 120, i));
-                this.field_146292_n.add(gb = new GuiButton(3, this.field_146294_l / 2 - 100, 160, j));
+                this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
+                this.buttonList.add(gb = new GuiButton(3, this.width / 2 - 100, 160, j));
             }
 
             if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
-                this.tfSize = new GuiTextField(this.field_146289_q, this.field_146294_l / 2 - 25, this.field_146295_m - 50, 50, 15);
+                this.tfSize = new GuiTextField(this.fontRendererObj, this.width / 2 - 25, this.height - 50, 50, 15);
                 this.tfSize.func_146180_a(this.theMiningBox.size + "");
                 this.tfSize.func_146195_b(true);
                 this.tfSize.func_146203_f(3);
                 if (gb != null) {
-                    gb.field_146124_l = false;
+                    gb.enabled = false;
                 }
             }
 
@@ -116,27 +116,27 @@ public class GuiMining extends GuiScreen {
                 j = "Leave mine open";
             }
 
-            this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 100, 120, i));
-            this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 100, 140, j));
+            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
+            this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, j));
         }
     }
 
-    public void func_73863_a(int i, int j, float f) {
+    public void drawScreen(int i, int j, float f) {
         try {
             if (this.mouseCount < 10) {
                 ++this.mouseCount;
                 Mouse.setGrabbed(false);
             }
 
-            this.func_146276_q_();
-            this.func_73732_a(this.field_146289_q, "Mining", this.field_146294_l / 2, 17, 16777215);
+            this.drawDefaultBackground();
+            this.drawCenteredString(this.fontRendererObj, "Mining", this.width / 2, 17, 16777215);
 
             try {
                 if (this.theMiningBox.marker1XYZ == null) {
-                    this.func_73732_a(this.field_146289_q, "Error: No markers placed - 3 markers are needed to mine vertically, 1 marker for horizontal.", this.field_146294_l / 2, 27, 16711680);
+                    this.drawCenteredString(this.fontRendererObj, "Error: No markers placed - 3 markers are needed to mine vertically, 1 marker for horizontal.", this.width / 2, 27, 16711680);
                 }
             } catch (Exception var7) {
-                this.func_73732_a(this.field_146289_q, "Error: Please place markers BEFORE the mining box", this.field_146294_l / 2, 27, 16711680);
+                this.drawCenteredString(this.fontRendererObj, "Error: Please place markers BEFORE the mining box", this.width / 2, 27, 16711680);
             }
 
             if (this.theWorkers != null && this.theWorkers.size() > 0) {
@@ -153,7 +153,7 @@ public class GuiMining extends GuiScreen {
             if (this.theMiningBox != null) {
                 try {
                     if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
-                        this.func_73732_a(this.field_146289_q, "Size of Horizontal mine", this.field_146294_l / 2, this.field_146295_m - 60, 16777130);
+                        this.drawCenteredString(this.fontRendererObj, "Size of Horizontal mine", this.width / 2, this.height - 60, 16777130);
                         this.tfSize.func_146194_f();
                     }
                 } catch (Exception var5) {
@@ -161,34 +161,34 @@ public class GuiMining extends GuiScreen {
                 }
             }
 
-            super.func_73863_a(i, j, f);
+            super.drawScreen(i, j, f);
         } catch (Exception var8) {
             var8.printStackTrace();
         }
 
     }
 
-    public void func_146284_a(GuiButton guibutton) {
-        if (guibutton.field_146124_l) {
-            if (guibutton.field_146127_k == 0) {
-                this.field_146297_k.field_71462_r = null;
-                this.field_146297_k.func_71381_h();
+    public void actionPerformed(GuiButton guibutton) {
+        if (guibutton.enabled) {
+            if (guibutton.id == 0) {
+                this.mc.currentScreen = null;
+                this.mc.setIngameFocus();
             } else {
-                if (guibutton.field_146126_j.contentEquals("Hire Miner")) {
+                if (guibutton.displayString.contentEquals("Hire Miner")) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.theMiningBox, Vocation.MINER);
-                    this.field_146297_k.displayGuiScreen(ui);
-                } else if (guibutton.field_146126_j.startsWith("Fire ")) {
+                    this.mc.displayGuiScreen(ui);
+                } else if (guibutton.displayString.startsWith("Fire ")) {
                     for(int i = 0; i < this.theWorkers.size(); ++i) {
                         FolkData folk = (FolkData)this.theWorkers.get(i);
                         folk.selfFire();
                     }
 
-                    guibutton.field_146124_l = false;
-                    this.field_146297_k.field_71462_r = null;
-                    this.field_146297_k.func_71381_h();
+                    guibutton.enabled = false;
+                    this.mc.currentScreen = null;
+                    this.mc.setIngameFocus();
                 } else {
                     String i;
-                    if (guibutton.field_146127_k == 2) {
+                    if (guibutton.id == 2) {
                         ++this.theMiningBox.discards;
                         if (this.theMiningBox.discards > 4) {
                             this.theMiningBox.discards = 0;
@@ -207,8 +207,8 @@ public class GuiMining extends GuiScreen {
                             i = "Discard Dirt, sand and Stone";
                         }
 
-                        guibutton.field_146126_j = i;
-                    } else if (guibutton.field_146127_k == 3) {
+                        guibutton.displayString = i;
+                    } else if (guibutton.id == 3) {
                         this.theMiningBox.addGlassCover = !this.theMiningBox.addGlassCover;
                         i = "";
                         if (this.theMiningBox.addGlassCover) {
@@ -217,7 +217,7 @@ public class GuiMining extends GuiScreen {
                             i = "Leave mine open";
                         }
 
-                        guibutton.field_146126_j = i;
+                        guibutton.displayString = i;
                     }
                 }
 
@@ -225,10 +225,10 @@ public class GuiMining extends GuiScreen {
         }
     }
 
-    public void func_73869_a(char c, int i) {
+    public void keyTyped(char c, int i) {
         if (i == 1) {
-            this.field_146297_k.displayGuiScreen((GuiScreen)null);
-            this.field_146297_k.func_71381_h();
+            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.setIngameFocus();
         } else {
             if (this.tfSize != null) {
                 this.tfSize.func_146201_a(c, i);

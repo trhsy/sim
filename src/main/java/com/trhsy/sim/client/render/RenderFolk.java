@@ -35,7 +35,7 @@ public class RenderFolk extends RenderBiped {
     protected ResourceLocation func_110775_a(Entity entity) {
         if (entity instanceof EntityFolk) {
             EntityFolk theFolk = (EntityFolk)entity;
-            ResourceLocation myTexture = new ResourceLocation("satscapesimukraft", "skins/" + theFolk.getTexture());
+            ResourceLocation myTexture = new ResourceLocation(ModSimukraft.MODID + "", "skins/" + theFolk.getTexture());
             return myTexture;
         } else {
             return null;
@@ -58,7 +58,7 @@ public class RenderFolk extends RenderBiped {
         float f3 = 0.01666667F * f2;
         float f6 = 0.2F;
         if (entityFolk.theData != null && entityFolk != null) {
-            double dist = (double)entityFolk.func_70032_d(Minecraft.getMinecraft().thePlayer);
+            double dist = (double)entityFolk.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
             if (dist < 40.0D) {
                 if (entityFolk.theData.age < 18) {
                     this.displayText(entityFolk.theData.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float)d, (float)d1 + f3 + f6 - 0.4F, (float)d2, entityFolk);

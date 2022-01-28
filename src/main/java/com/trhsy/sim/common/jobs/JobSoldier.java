@@ -95,9 +95,9 @@ public class JobSoldier extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastBTB > 120000L) {
             if (this.theFolk.isSpawned()) {
-                EntityPlayer player = this.jobWorld.func_72977_a(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, 50.0D);
+                EntityPlayer player = this.jobWorld.getClosestPlayer(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, 50.0D);
                 if (player != null) {
-                    this.theFolk.gotoXYZ(new V3(player.posX, player.posY, player.posZ, player.field_71093_bK), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(new V3(player.posX, player.posY, player.posZ, player.dimension), GotoMethod.WALK);
                 }
             }
 
@@ -116,7 +116,7 @@ public class JobSoldier extends Job implements Serializable {
             this.theFolk.gotoXYZ(wanderTo, GotoMethod.WALK);
         }
 
-        List list = this.jobWorld.func_72839_b(this.mc.thePlayer, AxisAlignedBB.func_72330_a(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).func_72314_b(100.0D, 5.0D, 100.0D));
+        List list = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(100.0D, 5.0D, 100.0D));
 
         try {
             this.badGuy = this.findClosestHostileMob(list);
@@ -126,9 +126,9 @@ public class JobSoldier extends Job implements Serializable {
                 this.count = 100;
                 this.theFolk.statusText = "Going to attack a " + this.badGuy.getEntityData();
                 if (this.theFolk.isSpawned()) {
-                    this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.field_71093_bK), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), GotoMethod.WALK);
                 } else {
-                    this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.field_71093_bK), GotoMethod.SHIFT);
+                    this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), GotoMethod.SHIFT);
                 }
 
                 return;
@@ -143,30 +143,30 @@ public class JobSoldier extends Job implements Serializable {
             this.runDelay = 200;
             if (this.theFolk.theEntity != null) {
                 this.theFolk.stayPut = false;
-                int distance = (int)this.theFolk.theEntity.func_70032_d(this.badGuy);
+                int distance = (int)this.theFolk.theEntity.getDistanceToEntity(this.badGuy);
                 if (this.theFolk.destination == null) {
                     if (this.theFolk.isSpawned()) {
-                        this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.field_71093_bK), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), GotoMethod.WALK);
                     } else {
-                        this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.field_71093_bK), GotoMethod.SHIFT);
+                        this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), GotoMethod.SHIFT);
                     }
                 }
 
-                distance = (int)this.theFolk.theEntity.func_70032_d(this.badGuy);
+                distance = (int)this.theFolk.theEntity.getDistanceToEntity(this.badGuy);
                 --this.count;
                 if (this.count <= 0) {
                     this.theStage = Stage.ONPATROL;
                 }
 
                 if (distance <= 5) {
-                    distance = (int)this.theFolk.theEntity.func_70032_d(this.badGuy);
+                    distance = (int)this.theFolk.theEntity.getDistanceToEntity(this.badGuy);
                     if (distance < 4) {
                         this.theFolk.isWorking = true;
                         this.runDelay = 50;
-                        this.badGuy.func_70097_a(DamageSource.generic, 3.0F);
+                        this.badGuy.attackEntityFrom(DamageSource.generic, 3.0F);
                     }
 
-                    if (this.badGuy.field_70128_L) {
+                    if (this.badGuy.isDead) {
                         this.theStage = Stage.ONPATROL;
                         this.runDelay = (int)((11.0F - this.theFolk.levelSoldier) * 500.0F * (11.0F - this.theFolk.levelSoldier));
                         ++this.kills;
@@ -198,7 +198,7 @@ public class JobSoldier extends Job implements Serializable {
             for(int j = 0; j < mobs.size(); ++j) {
                 Entity entity1 = (Entity)mobs.get(j);
                 if (entity1 instanceof EntityMob || entity1 instanceof IMob) {
-                    PathEntity path = this.jobWorld.func_72844_a(this.theFolk.theEntity, (int)entity1.posX, (int)entity1.posY, (int)entity1.posZ, 40.0F, true, true, true, true);
+                    PathEntity path = this.jobWorld.getEntityPathToXYZ(this.theFolk.theEntity, (int)entity1.posX, (int)entity1.posY, (int)entity1.posZ, 40.0F, true, true, true, true);
                     if (path != null) {
                         closestBadGuy = entity1;
                         break;

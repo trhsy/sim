@@ -4,6 +4,9 @@ package com.trhsy.buildcraft.api.boards;/**
  * @apiNote
  */
 
+import com.trhsy.buildcraft.api.robots.AIRobot;
+import com.trhsy.buildcraft.api.robots.EntityRobotBase;
+
 /**
  * ========================================
  *
@@ -20,9 +23,11 @@ public abstract class RedstoneBoardRobot extends AIRobot implements IRedstoneBoa
 
     public abstract RedstoneBoardRobotNBT getNBTHandler();
 
+    @Override
     public final void updateBoard(EntityRobotBase container) {
     }
 
+    @Override
     public boolean canLoadFromNBT() {
         return true;
     }

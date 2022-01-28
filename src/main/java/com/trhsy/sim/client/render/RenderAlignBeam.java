@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL11;
  * ========================================
  **/
 public class RenderAlignBeam extends Render {
-    private static final ResourceLocation myTexture = new ResourceLocation("satscapesimukraft", "textures/models/entityBeam.png");
+    private static final ResourceLocation myTexture = new ResourceLocation(ModSimukraft.MODID + "", "textures/models/entityBeam.png");
     EntityAlignBeam entity = null;
     ModelAlignBeam modelBeam;
 

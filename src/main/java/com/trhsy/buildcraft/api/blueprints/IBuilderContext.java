@@ -4,6 +4,8 @@ package com.trhsy.buildcraft.api.blueprints;/**
  * @apiNote
  */
 
+import com.trhsy.buildcraft.api.core.IBox;
+import com.trhsy.buildcraft.api.core.Position;
 import net.minecraft.world.World;
 
 /**

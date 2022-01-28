@@ -44,7 +44,7 @@ public class SafeTimeTracker {
         if (world == null) {
             return false;
         } else {
-            long currentTime = world.func_82737_E();
+            long currentTime = world.getTotalWorldTime();
             if (currentTime < this.lastMark) {
                 this.lastMark = currentTime;
                 return false;
@@ -64,6 +64,6 @@ public class SafeTimeTracker {
     }
 
     public void markTime(World world) {
-        this.lastMark = world.func_82737_E();
+        this.lastMark = world.getTotalWorldTime();
     }
 }

@@ -32,20 +32,20 @@ public class ItemSUKFood extends ItemFood {
     public ItemSUKFood() {
         super(6, 0.6F, false);
         this.func_77637_a(CreativeTabs.field_78039_h);
-        this.func_77627_a(true);
+        this.setHasSubtypes(true);
     }
 
     @SideOnly(Side.CLIENT)
-    public void func_94581_a(IIconRegister par1IconRegister) {
+    public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[names.length];
 
         for(int i = 0; i < this.icons.length; ++i) {
-            this.icons[i] = par1IconRegister.func_94245_a("satscapesimukraft:" + names[i]);
+            this.icons[i] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":" + names[i]);
         }
 
     }
 
-    public IIcon func_77617_a(int meta) {
+    public IIcon getIconFromDamage(int meta) {
         return meta >= 0 && meta < names.length ? this.icons[meta] : null;
     }
 
@@ -57,25 +57,25 @@ public class ItemSUKFood extends ItemFood {
 
     }
 
-    public String func_77667_c(ItemStack is) {
-        if (is.func_77960_j() == 0) {
+    public String getUnlocalizedName(ItemStack is) {
+        if (is.getMetadata() == 0) {
             return "item.foodCheese";
-        } else if (is.func_77960_j() == 1) {
+        } else if (is.getMetadata() == 1) {
             return "item.foodBurger";
-        } else if (is.func_77960_j() == 2) {
+        } else if (is.getMetadata() == 2) {
             return "item.foodFries";
         } else {
-            return is.func_77960_j() == 3 ? "item.foodCheeseburger" : null;
+            return is.getMetadata() == 3 ? "item.foodCheeseburger" : null;
         }
     }
 
     @SideOnly(Side.CLIENT)
-    public void func_77624_a(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("A tasty snack for folks");
-        super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
+        super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
 
-    public int func_77647_b(int par1) {
+    public int getMetadata(int par1) {
         return par1;
     }
 }

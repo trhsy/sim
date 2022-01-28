@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * @Date 2022/1/26 0026下午 6:10
  * ========================================
  **/
-public class TileEntityWindmill extends TileEntity implements IInventory, IEnergyHandler {
+public class TileEntityWindmill extends TileEntity implements IInventory, IEnergyHandler{
     public TileEntityWindmill() {
     }
     @Override
@@ -54,28 +54,33 @@ public class TileEntityWindmill extends TileEntity implements IInventory, IEnerg
     }
 
     @Override
-    public ItemStack getStackInSlot(int p_70301_1_) {
+    public ItemStack getStackInSlot(int slotIn) {
         return null;
     }
 
     @Override
-    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+    public ItemStack decrStackSize(int index, int count) {
         return null;
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+    public ItemStack getStackInSlotOnClosing(int index) {
         return null;
     }
 
     @Override
-    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+    public void setInventorySlotContents(int index, ItemStack stack) {
 
     }
 
     @Override
     public String getInventoryName() {
         return null;
+    }
+
+    @Override
+    public boolean isCustomInventoryName() {
+        return false;
     }
 
     @Override
@@ -89,8 +94,18 @@ public class TileEntityWindmill extends TileEntity implements IInventory, IEnerg
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+    public boolean isUseableByPlayer(EntityPlayer player) {
         return false;
+    }
+
+    @Override
+    public void openChest() {
+
+    }
+
+    @Override
+    public void closeChest() {
+
     }
 
     @Override
@@ -104,7 +119,7 @@ public class TileEntityWindmill extends TileEntity implements IInventory, IEnerg
     }
 
     @Override
-    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
         return false;
     }
 }

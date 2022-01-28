@@ -4,6 +4,7 @@ package com.trhsy.buildcraft.api.blueprints;/**
  * @apiNote
  */
 
+import com.trhsy.buildcraft.api.core.BuildCraftAPI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -31,6 +32,7 @@ public class SchematicMask extends SchematicBlockBase {
         this.isConcrete = isConcrete;
     }
 
+    @Override
     public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {
         if (this.isConcrete) {
             if (stacks.size() == 0 || !BuildCraftAPI.isSoftBlock(context.world(), x, y, z)) {
@@ -38,14 +40,15 @@ public class SchematicMask extends SchematicBlockBase {
             }
 
             ItemStack stack = (ItemStack)stacks.getFirst();
-            context.world().setBlock(x, y, z, Blocks.field_150350_a, 0, 3);
-            stack.func_77943_a((EntityPlayer)BuildCraftAPI.proxy.getBuildCraftPlayer((WorldServer)context.world()).get(), context.world(), x, y, z, 1, 0.0F, 0.0F, 0.0F);
+            context.world().setBlock(x, y, z, Blocks.air, 0, 3);
+            stack.tryPlaceItemIntoWorld((EntityPlayer) BuildCraftAPI.proxy.getBuildCraftPlayer((WorldServer)context.world()).get(), context.world(), x, y, z, 1, 0.0F, 0.0F, 0.0F);
         } else {
-            context.world().setBlock(x, y, z, Blocks.field_150350_a, 0, 3);
+            context.world().setBlock(x, y, z, Blocks.air, 0, 3);
         }
 
     }
 
+    @Override
     public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
         if (this.isConcrete) {
             return !BuildCraftAPI.isSoftBlock(context.world(), x, y, z);
@@ -54,12 +57,14 @@ public class SchematicMask extends SchematicBlockBase {
         }
     }
 
+    @Override
     public void writeSchematicToNBT(NBTTagCompound nbt, MappingRegistry registry) {
-        nbt.func_74757_a("isConcrete", this.isConcrete);
+        nbt.setBoolean("isConcrete", this.isConcrete);
     }
 
+    @Override
     public void readSchematicFromNBT(NBTTagCompound nbt, MappingRegistry registry) {
-        this.isConcrete = nbt.func_74767_n("isConcrete");
+        this.isConcrete = nbt.getBoolean("isConcrete");
     }
 }
 

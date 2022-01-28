@@ -61,9 +61,9 @@ public class Position implements ISerializable {
     }
 
     public Position(TileEntity tile) {
-        this.x = (double)tile.field_145851_c;
-        this.y = (double)tile.field_145848_d;
-        this.z = (double)tile.field_145849_e;
+        this.x = (double)tile.xCoord;
+        this.y = (double)tile.yCoord;
+        this.z = (double)tile.zCoord;
         this.orientation = ForgeDirection.UNKNOWN;
     }
 
@@ -142,17 +142,17 @@ public class Position implements ISerializable {
             this.orientation = ForgeDirection.UNKNOWN;
         }
 
-        nbttagcompound.func_74780_a("i", this.x);
-        nbttagcompound.func_74780_a("j", this.y);
-        nbttagcompound.func_74780_a("k", this.z);
-        nbttagcompound.func_74774_a("orientation", (byte)this.orientation.ordinal());
+        nbttagcompound.setDouble("i", this.x);
+        nbttagcompound.setDouble("j", this.y);
+        nbttagcompound.setDouble("k", this.z);
+        nbttagcompound.setByte("orientation", (byte)this.orientation.ordinal());
     }
 
     public void readFromNBT(NBTTagCompound nbttagcompound) {
-        this.x = nbttagcompound.func_74769_h("i");
-        this.y = nbttagcompound.func_74769_h("j");
-        this.z = nbttagcompound.func_74769_h("k");
-        this.orientation = ForgeDirection.values()[nbttagcompound.func_74771_c("orientation")];
+        this.x = nbttagcompound.setByte("i");
+        this.y = nbttagcompound.setByte("j");
+        this.z = nbttagcompound.setByte("k");
+        this.orientation = ForgeDirection.values()[nbttagcompound.getByte("orientation")];
     }
 
     @Override

@@ -131,7 +131,7 @@ public class JobDairyFarmer extends Job {
         this.theFolk.isWorking = false;
         this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         if (this.farmChests.size() > 0) {
-            boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.field_151117_aB, 1), true);
+            boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.milk_bucket, 1), true);
             if (!ok) {
                 ModSimukraft.sendChat(this.theFolk.name + "'s dairy farm chests are full of milk!");
                 this.theFolk.statusText = "Can't work, the chests are full";
@@ -176,9 +176,9 @@ public class JobDairyFarmer extends Job {
 
         for(int c = 1; c <= count; ++c) {
             newAnimal = new EntityCow(this.jobWorld);
-            newAnimal.func_70012_b(controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z, 0.0F, 0.0F);
+            newAnimal.setLocationAndAngles(controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z, 0.0F, 0.0F);
             if (!this.jobWorld.isRemote) {
-                this.jobWorld.func_72838_d(newAnimal);
+                this.jobWorld.spawnEntityInWorld(newAnimal);
             }
         }
 

@@ -38,6 +38,7 @@ public class SchematicBlock extends SchematicBlockBase {
         this.doNotUse = false;
     }
 
+    @Override
     public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
         if (this.block != null) {
             if (this.storedRequirements.length != 0) {
@@ -49,19 +50,22 @@ public class SchematicBlock extends SchematicBlockBase {
 
     }
 
+    @Override
     public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
-        return this.block == context.world().getBlock(x, y, z) && this.meta == context.world().func_72805_g(x, y, z);
+        return this.block == context.world().getBlock(x, y, z) && this.meta == context.world().getBlockMetadata(x, y, z);
     }
 
+    @Override
     public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {
         super.placeInWorld(context, x, y, z, stacks);
         this.setBlockInWorld(context, x, y, z);
     }
 
+    @Override
     public void storeRequirements(IBuilderContext context, int x, int y, int z) {
         super.storeRequirements(context, x, y, z);
         if (this.block != null) {
-            ArrayList<ItemStack> req = this.block.getDrops(context.world(), x, y, z, context.world().func_72805_g(x, y, z), 0);
+            ArrayList<ItemStack> req = this.block.getDrops(context.world(), x, y, z, context.world().getBlockMetadata(x, y, z), 0);
             if (req != null) {
                 this.storedRequirements = new ItemStack[req.size()];
                 req.toArray(this.storedRequirements);
@@ -70,12 +74,14 @@ public class SchematicBlock extends SchematicBlockBase {
 
     }
 
+    @Override
     public void writeSchematicToNBT(NBTTagCompound nbt, MappingRegistry registry) {
         super.writeSchematicToNBT(nbt, registry);
         this.writeBlockToNBT(nbt, registry);
         this.writeRequirementsToNBT(nbt, registry);
     }
 
+    @Override
     public void readSchematicFromNBT(NBTTagCompound nbt, MappingRegistry registry) {
         super.readSchematicFromNBT(nbt, registry);
         this.readBlockFromNBT(nbt, registry);
@@ -85,33 +91,36 @@ public class SchematicBlock extends SchematicBlockBase {
 
     }
 
+    @Override
     public BuildingStage getBuildStage() {
         if (this.block instanceof BlockFalling) {
             return BuildingStage.SUPPORTED;
         } else if (!(this.block instanceof BlockFluidBase) && !(this.block instanceof BlockLiquid)) {
-            return this.block.func_149662_c() ? BuildingStage.STANDALONE : BuildingStage.SUPPORTED;
+            return this.block.isOpaqueCube() ? BuildingStage.STANDALONE : BuildingStage.SUPPORTED;
         } else {
             return BuildingStage.EXPANDING;
         }
     }
 
+    @Override
     public BuildingPermission getBuildingPermission() {
         return this.defaultPermission;
     }
 
     protected void setBlockInWorld(IBuilderContext context, int x, int y, int z) {
         context.world().setBlock(x, y, z, this.block, this.meta, 3);
-        context.world().func_72921_c(x, y, z, this.meta, 3);
+        context.world().setBlockMetadataWithNotify(x, y, z, this.meta, 3);
     }
 
+    @Override
     public boolean doNotUse() {
         return this.doNotUse;
     }
 
     protected void readBlockFromNBT(NBTTagCompound nbt, MappingRegistry registry) {
         try {
-            this.block = registry.getBlockForId(nbt.func_74762_e("blockId"));
-            this.meta = nbt.func_74762_e("blockMeta");
+            this.block = registry.getBlockForId(nbt.getInteger("blockId"));
+            this.meta = nbt.getInteger("blockMeta");
         } catch (MappingNotFoundException var4) {
             this.doNotUse = true;
         }
@@ -119,16 +128,16 @@ public class SchematicBlock extends SchematicBlockBase {
     }
 
     protected void readRequirementsFromNBT(NBTTagCompound nbt, MappingRegistry registry) {
-        if (nbt.func_74764_b("rq")) {
-            NBTTagList rq = nbt.func_150295_c("rq", 10);
+        if (nbt.hasKey("rq")) {
+            NBTTagList rq = nbt.getTagList("rq", 10);
             ArrayList<ItemStack> rqs = new ArrayList();
 
-            for(int i = 0; i < rq.func_74745_c(); ++i) {
+            for(int i = 0; i < rq.tagCount(); ++i) {
                 try {
-                    NBTTagCompound sub = rq.func_150305_b(i);
-                    if (sub.func_74762_e("id") >= 0) {
+                    NBTTagCompound sub = rq.getCompoundTagAt(i);
+                    if (sub.getInteger("id") >= 0) {
                         registry.stackToWorld(sub);
-                        rqs.add(ItemStack.func_77949_a(sub));
+                        rqs.add(ItemStack.loadItemStackFromNBT(sub));
                     } else {
                         this.defaultPermission = BuildingPermission.CREATIVE_ONLY;
                     }
@@ -148,8 +157,8 @@ public class SchematicBlock extends SchematicBlockBase {
     }
 
     protected void writeBlockToNBT(NBTTagCompound nbt, MappingRegistry registry) {
-        nbt.func_74768_a("blockId", registry.getIdForBlock(this.block));
-        nbt.func_74768_a("blockMeta", this.meta);
+        nbt.setInteger("blockId", registry.getIdForBlock(this.block));
+        nbt.setInteger("blockMeta", this.meta);
     }
 
     protected void writeRequirementsToNBT(NBTTagCompound nbt, MappingRegistry registry) {
@@ -161,12 +170,12 @@ public class SchematicBlock extends SchematicBlockBase {
             for(int i$ = 0; i$ < len$; ++i$) {
                 ItemStack stack = arr$[i$];
                 NBTTagCompound sub = new NBTTagCompound();
-                stack.func_77955_b(sub);
+                stack.writeToNBT(sub);
                 registry.stackToRegistry(sub);
-                rq.func_74742_a(sub);
+                rq.appendTag(sub);
             }
 
-            nbt.func_74782_a("rq", rq);
+            nbt.setTag("rq", rq);
         }
 
     }

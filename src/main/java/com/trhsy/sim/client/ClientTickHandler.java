@@ -69,7 +69,7 @@ public class ClientTickHandler {
         } catch (Exception var3) {
         }
 
-        if (this.mc.field_71462_r != null && this.mc.field_71462_r.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
+        if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
             ModSimukraft.config.save();
             ModSimukraft.states.saveStates();
             Building.saveAllBuildings();
@@ -89,7 +89,7 @@ public class ClientTickHandler {
     }
 
     public void onGui() {
-        if (this.mc.field_71462_r == null) {
+        if (this.mc.currentScreen == null) {
             String worldname = "unknown";
 
             try {
@@ -97,28 +97,28 @@ public class ClientTickHandler {
                     return;
                 }
 
-                worldname = this.mc.func_71401_C().getFolderName();
+                worldname = this.mc.getIntegratedServer().getFolderName();
                 worldname = MinecraftServer.getServer().getFolderName();
             } catch (Exception var4) {
-                this.hud.func_73731_b(this.mc.field_71466_p, "Sim-U-Kraft is not SMP", this.hud.field_146294_l / 2, 2, 16777215);
+                this.hud.drawString(this.mc.field_71466_p, "Sim-U-Kraft is not SMP", this.hud.width / 2, 2, 16777215);
                 return;
             }
 
             try {
                 if (ModSimukraft.proxy.ranStartup) {
                     int HUDoffset = 0;
-                    if (this.mc.thePlayer.field_71093_bK == 1) {
+                    if (this.mc.thePlayer.dimension == 1) {
                         HUDoffset = 20;
                     }
 
                     int HUDoffset = HUDoffset + ModSimukraft.configHUDoffset;
                     if (ModSimukraft.gameMode == GameMode.CREATIVE) {
-                        this.hud.func_73731_b(this.mc.field_71466_p, worldname + " (" + ModSimukraft.getDayOfWeek() + ") - Population: " + ModSimukraft.theFolks.size(), this.hud.field_146294_l / 2, 2 + HUDoffset, 16777215);
+                        this.hud.drawString(this.mc.field_71466_p, worldname + " (" + ModSimukraft.getDayOfWeek() + ") - Population: " + ModSimukraft.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     } else {
-                        this.hud.func_73731_b(this.mc.field_71466_p, worldname + " (" + ModSimukraft.getDayOfWeek() + ") - Population: " + ModSimukraft.theFolks.size() + "   Sim-U-credits: " + ModSimukraft.displayMoney(ModSimukraft.states.credits), this.hud.field_146294_l / 2, 2 + HUDoffset, 16777215);
+                        this.hud.drawString(this.mc.field_71466_p, worldname + " (" + ModSimukraft.getDayOfWeek() + ") - Population: " + ModSimukraft.theFolks.size() + "   Sim-U-credits: " + ModSimukraft.displayMoney(ModSimukraft.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     }
                 } else {
-                    this.hud.func_73731_b(this.mc.field_71466_p, "Loading Sim-U-Kraft...", this.hud.field_146294_l / 2, 2, 16777215);
+                    this.hud.drawString(this.mc.field_71466_p, "Loading Sim-U-Kraft...", this.hud.width / 2, 2, 16777215);
                 }
             } catch (Exception var3) {
                 var3.printStackTrace();
@@ -130,19 +130,19 @@ public class ClientTickHandler {
     private void beamingPlayer() {
         Minecraft mc = Minecraft.getMinecraft();
         Random random = new Random();
-        beamingPlayer.field_70159_w = 0.0D;
-        beamingPlayer.field_70181_x = 0.0D;
-        beamingPlayer.field_70179_y = 0.0D;
+        beamingPlayer.motionX = 0.0D;
+        beamingPlayer.motionY = 0.0D;
+        beamingPlayer.motionZ = 0.0D;
         Double d4 = ((double)random.nextFloat() - 2.0D) * 2.0D;
 
         for(int p = 0; p < 20; ++p) {
             try {
-                mc.field_71441_e.func_72869_a("portal", beamingPlayer.posX + random.nextDouble() - 0.5D, beamingPlayer.posY - 1.0D, beamingPlayer.posZ + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                mc.theWorld.spawnParticle("portal", beamingPlayer.posX + random.nextDouble() - 0.5D, beamingPlayer.posY - 1.0D, beamingPlayer.posZ + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
             } catch (Exception var7) {
             }
 
             try {
-                mc.field_71441_e.func_72869_a("portal", beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1.0D, beamingTo.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                mc.theWorld.spawnParticle("portal", beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1.0D, beamingTo.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
             } catch (Exception var6) {
             }
         }

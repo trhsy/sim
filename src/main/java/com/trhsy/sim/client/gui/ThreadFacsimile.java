@@ -36,7 +36,7 @@ public class ThreadFacsimile extends Thread {
         V3 cxyz = GuiMarker.this.location;
         V3 Lxyz = ((Marker) BlockMarker.markers.get(1)).toV3();
         V3 Bxyz = ((Marker)BlockMarker.markers.get(2)).toV3();
-        V3 exyz = new V3(Math.floor(GuiMarker.this.field_146297_k.thePlayer.posX), Math.floor(GuiMarker.this.field_146297_k.thePlayer.posY), Math.floor(GuiMarker.this.field_146297_k.thePlayer.posZ), Bxyz.theDimension);
+        V3 exyz = new V3(Math.floor(GuiMarker.this.mc.thePlayer.posX), Math.floor(GuiMarker.this.mc.thePlayer.posY), Math.floor(GuiMarker.this.mc.thePlayer.posZ), Bxyz.theDimension);
         int ftbCount = false;
         int ltrCount = false;
         int ltrCountx;
@@ -126,10 +126,10 @@ public class ThreadFacsimile extends Thread {
                             int xxx = bxx + xo;
                             int yyy = byx + l - 1;
                             zzz = bzx + zo;
-                            int iD = Block.func_149682_b(GuiMarker.this.field_146297_k.func_71401_C().worldServerForDimension(GuiMarker.this.thePlayer.field_71093_bK).getBlock(xxx, yyy, zzz));
-                            int meta = GuiMarker.this.field_146297_k.func_71401_C().worldServerForDimension(GuiMarker.this.thePlayer.field_71093_bK).func_72805_g(xxx, yyy, zzz);
+                            int iD = Block.getIdFromBlock(GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlock(xxx, yyy, zzz));
+                            int meta = GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlockMetadata(xxx, yyy, zzz);
                             String letter = "";
-                            if (iD == Block.func_149682_b(ModSimukraft.controlBox)) {
+                            if (iD == Block.getIdFromBlock(ModSimukraft.controlBox)) {
                                 letter = "$";
                             } else {
                                 letter = (String)key.get(iD + ":" + meta);
@@ -182,7 +182,7 @@ public class ThreadFacsimile extends Thread {
                 out.close();
                 Thread.sleep(500L);
                 GuiMarker.this.errorText = "Building copied and stored as 'My Build" + f + "' in Other buildings.";
-                GuiMarker.this.field_146297_k.field_71441_e.func_72908_a(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, "satscapesimukraft:computer", 1.0F, 1.0F);
+                GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
                 Building.initialiseAllBuildings();
             } catch (Exception var33) {
                 var33.printStackTrace();

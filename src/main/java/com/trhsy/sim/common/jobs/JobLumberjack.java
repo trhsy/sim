@@ -131,8 +131,8 @@ public class JobLumberjack extends Job implements Serializable {
         }
 
         try {
-            this.foundWoodAt = findClosestBlockType(searchpos, Blocks.field_150364_r, ModSimukraft.configLumberArea, false);
-            this.foundWoodAt.theDimension = this.jobWorld.field_73011_w.field_76574_g;
+            this.foundWoodAt = findClosestBlockType(searchpos, Blocks.log, ModSimukraft.configLumberArea, false);
+            this.foundWoodAt.theDimension = this.jobWorld.provider.dimensionId;
         } catch (Exception var5) {
             var5.printStackTrace();
         }
@@ -193,7 +193,7 @@ public class JobLumberjack extends Job implements Serializable {
                     return;
                 }
 
-                if (this.jobWorld.getBlock(l, y, z) != Blocks.field_150364_r) {
+                if (this.jobWorld.getBlock(l, y, z) != Blocks.log) {
                     break;
                 }
 
@@ -202,26 +202,27 @@ public class JobLumberjack extends Job implements Serializable {
 
             this.step = 2;
         } else if (this.step == 2) {
-            if (this.jobWorld.getBlock(this.foundWoodAt.x.intValue(), this.foundWoodAt.y.intValue(), this.foundWoodAt.z.intValue()) == Blocks.field_150364_r) {
+            if (this.jobWorld.getBlock(this.foundWoodAt.x.intValue(), this.foundWoodAt.y.intValue(), this.foundWoodAt.z.intValue()) == Blocks.log) {
                 Thread t = new Thread(new Runnable() {
+                    @Override
                     public void run() {
                         this.isChopping = true;
 
                         for(int d = 0; d < 12; ++d) {
                             try {
-                                this.mc.field_71441_e.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "step.wood", 1.0F, 1.0F, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "step.wood", 1.0F, 1.0F, false);
                             } catch (Exception var5) {
                             }
 
                             if (this.theFolk.theEntity != null) {
-                                this.theFolk.theEntity.field_70733_aJ = 0.3F;
+                                this.theFolk.theEntity.swingProgress = 0.3F;
 
                                 try {
                                     Thread.sleep(100L);
                                 } catch (Exception var4) {
                                 }
 
-                                this.theFolk.theEntity.field_70733_aJ = 0.7F;
+                                this.theFolk.theEntity.swingProgress = 0.7F;
 
                                 try {
                                     Thread.sleep(100L);
@@ -246,7 +247,7 @@ public class JobLumberjack extends Job implements Serializable {
                 }
 
                 ArrayList<ItemStack> log = this.translateBlockWhenMined(this.jobWorld, this.foundWoodAt);
-                this.jobWorld.setBlock(this.foundWoodAt.x.intValue(), this.foundWoodAt.y.intValue(), this.foundWoodAt.z.intValue(), Blocks.field_150350_a, 0, 3);
+                this.jobWorld.setBlock(this.foundWoodAt.x.intValue(), this.foundWoodAt.y.intValue(), this.foundWoodAt.z.intValue(), Blocks.air, 0, 3);
                 if (log != null) {
                     for(l = 0; l < log.size(); ++l) {
                         ItemStack isl = (ItemStack)log.get(l);
@@ -254,29 +255,29 @@ public class JobLumberjack extends Job implements Serializable {
                     }
                 }
 
-                count = this.getInventoryCount(this.theFolk, Blocks.field_150364_r);
+                count = this.getInventoryCount(this.theFolk, Blocks.log);
                 this.theFolk.statusText = "Got " + count + " logs so far";
                 this.theFolk.stayPut = false;
                 this.foundWoodAt.y = this.foundWoodAt.y + 1.0D;
                 this.step = 2;
             } else if (this.step == 4) {
                 if (this.theFolk.isSpawned()) {
-                    count = this.getInventoryCount(this.theFolk, Blocks.field_150345_g);
+                    count = this.getInventoryCount(this.theFolk, Blocks.sapling);
                     if (count > 0) {
                         for(i = 0; i < this.theFolk.inventory.size(); ++i) {
                             ItemStack fis = (ItemStack)this.theFolk.inventory.get(i);
-                            if (fis != null && Block.func_149634_a(fis.func_77973_b()) == Blocks.field_150345_g) {
+                            if (fis != null && Block.getBlockFromItem(fis.getItem()) == Blocks.sapling) {
                                 this.theFolk.inventory.remove(i);
-                                this.plantSapling(Block.func_149634_a(fis.func_77973_b()));
+                                this.plantSapling(Block.getBlockFromItem(fis.getItem()));
                                 break;
                             }
                         }
                     }
                 } else {
-                    this.plantSapling(Blocks.field_150345_g);
+                    this.plantSapling(Blocks.sapling);
                 }
 
-                count = this.getInventoryCount(this.theFolk, Blocks.field_150364_r);
+                count = this.getInventoryCount(this.theFolk, Blocks.log);
                 if (count < 12) {
                     this.theStage = Stage.SCANFORTREE;
                 } else {
@@ -308,9 +309,9 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             } else if (this.step == 3) {
                 this.theFolk.stayPut = true;
-                dist = this.getInventoryCount(this.theFolk, Blocks.field_150364_r);
+                dist = this.getInventoryCount(this.theFolk, Blocks.log);
                 this.millChests = inventoriesFindClosest(this.theFolk.employedAt, 6);
-                this.inventoriesTransferFromFolk(this.theFolk.inventory, this.millChests, new ItemStack(Blocks.field_150364_r));
+                this.inventoriesTransferFromFolk(this.theFolk.inventory, this.millChests, new ItemStack(Blocks.log));
                 this.pay = (float)dist * 0.03F;
                 GameStates var10000 = ModSimukraft.states;
                 var10000.credits -= this.pay;
@@ -339,20 +340,20 @@ public class JobLumberjack extends Job implements Serializable {
 
     private void pickUpSaplings() {
         if (this.theFolk.isSpawned()) {
-            List list1 = this.jobWorld.func_72839_b(this.theFolk.theEntity, AxisAlignedBB.func_72330_a(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, this.theFolk.theEntity.posX + 1.0D, this.theFolk.theEntity.posY + 1.0D, this.theFolk.theEntity.posZ + 1.0D).func_72314_b(3.0D, 4.0D, 3.0D));
+            List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, this.theFolk.theEntity.posX + 1.0D, this.theFolk.theEntity.posY + 1.0D, this.theFolk.theEntity.posZ + 1.0D).expand(3.0D, 4.0D, 3.0D));
             Iterator iterator1 = list1.iterator();
             if (!list1.isEmpty()) {
                 while(iterator1.hasNext()) {
                     Entity entity1 = (Entity)iterator1.next();
                     if (entity1 instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem)entity1;
-                        ItemStack is = entityitem.func_92059_d();
+                        ItemStack is = entityitem.getEntityItem();
 
                         try {
-                            Item ID = is.func_77973_b();
-                            if (ID == Item.func_150898_a(Blocks.field_150345_g)) {
-                                this.theFolk.inventory.add(new ItemStack(Blocks.field_150345_g, is.func_77960_j(), 1));
-                                entityitem.func_70106_y();
+                            Item ID = is.getItem();
+                            if (ID == Item.getItemFromBlock(Blocks.sapling)) {
+                                this.theFolk.inventory.add(new ItemStack(Blocks.sapling, is.getMetadata(), 1));
+                                entityitem.setDead();
                             }
                         } catch (Exception var7) {
                         }
@@ -366,10 +367,10 @@ public class JobLumberjack extends Job implements Serializable {
     private void plantSapling(Block is) {
         if (this.theFolk.isSpawned()) {
             if (this.jobWorld.getBlock((int)this.theFolk.theEntity.posX, (int)this.theFolk.theEntity.posY, (int)this.theFolk.theEntity.posZ) == null) {
-                this.jobWorld.func_147449_b((int)this.theFolk.theEntity.posX, (int)this.theFolk.theEntity.posY, (int)this.theFolk.theEntity.posZ, is);
+                this.jobWorld.setBlock((int)this.theFolk.theEntity.posX, (int)this.theFolk.theEntity.posY, (int)this.theFolk.theEntity.posZ, is);
             }
         } else {
-            this.jobWorld.setBlock(this.theFolk.location.x.intValue(), this.theFolk.location.y.intValue(), this.theFolk.location.z.intValue(), Blocks.field_150345_g, 0, 3);
+            this.jobWorld.setBlock(this.theFolk.location.x.intValue(), this.theFolk.location.y.intValue(), this.theFolk.location.z.intValue(), Blocks.sapling, 0, 3);
         }
 
     }

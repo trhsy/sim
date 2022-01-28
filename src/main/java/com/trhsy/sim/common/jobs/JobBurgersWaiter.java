@@ -105,10 +105,10 @@ public class JobBurgersWaiter extends Job {
                 if (is == null) {
                     this.theFolk.statusText = "Wishing we had more customers";
                 } else {
-                    if (is.func_77973_b() == ModSimukraft.itemFood) {
-                        is = new ItemStack(is.func_77973_b(), 1, is.func_77960_j());
+                    if (is.getItem() == ModSimukraft.itemFood) {
+                        is = new ItemStack(is.getItem(), 1, is.getMetadata());
                         inventoriesGet(theChests, is, false, true);
-                        this.theFolk.statusText = "Just sold " + is.func_82833_r();
+                        this.theFolk.statusText = "Just sold " + is.getDisplayName();
                         int r = (new Random()).nextInt(ModSimukraft.theFolks.size() - 1);
                         FolkData folk = (FolkData)ModSimukraft.theFolks.get(r);
                         if (folk.levelFood < 10) {
@@ -120,7 +120,7 @@ public class JobBurgersWaiter extends Job {
                         GameStates var10000 = ModSimukraft.states;
                         var10000.credits = (float)((double)var10000.credits - 0.45D);
                     } else {
-                        this.theFolk.statusText = "Who put " + is.func_82833_r() + " in my chest, folks can't eat that!";
+                        this.theFolk.statusText = "Who put " + is.getDisplayName() + " in my chest, folks can't eat that!";
                     }
 
                 }

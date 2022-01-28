@@ -28,22 +28,25 @@ public class EntityWindmill extends Entity {
 
     public EntityWindmill(World par1World) {
         super(par1World);
-        this.func_70105_a(5.0F, 8.0F);
-        this.field_70158_ak = true;
-        this.field_70145_X = true;
+        this.setSize(5.0F, 8.0F);
+        this.ignoreFrustumCheck = true;
+        this.noClip = true;
         this.sailSpeedModifer = (new Random()).nextFloat() / 100.0F;
     }
 
-    public void func_70106_y() {
+    @Override
+    public void setDead() {
         ModSimukraft.log.info("EntityWindmill: setDead() called");
-        super.func_70106_y();
+        super.setDead();
     }
 
-    protected void func_70088_a() {
+    @Override
+    protected void entityInit() {
     }
 
-    public void func_70071_h_() {
-        if (this.field_70170_p.func_72896_J()) {
+    @Override
+    public void onUpdate() {
+        if (this.worldObj.isRaining()) {
             if (this.sailSpeed < 0.1F) {
                 this.sailSpeed += 0.001F;
             } else if (this.sailSpeed > 0.1F) {
@@ -56,38 +59,47 @@ public class EntityWindmill extends Entity {
         }
 
         this.sailRotation += this.sailSpeed + this.sailSpeedModifer;
-        super.func_70071_h_();
+        super.onUpdate();
     }
 
-    public void func_70030_z() {
+    @Override
+    public void onEntityUpdate() {
     }
 
-    public boolean func_70094_T() {
+    @Override
+    public boolean isEntityInsideOpaqueBlock() {
         return false;
     }
 
-    public void func_70056_a(double par1, double par3, double par5, float par7, float par8, int par9) {
+    @Override
+    public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
     }
 
-    public AxisAlignedBB func_70114_g(Entity par1Entity) {
-        return par1Entity.field_70121_D;
+    @Override
+    public AxisAlignedBB getCollisionBox(Entity par1Entity) {
+        return par1Entity.boundingBox;
     }
 
-    public AxisAlignedBB func_70046_E() {
-        return this.field_70121_D;
+    @Override
+    public AxisAlignedBB getBoundingBox() {
+        return this.boundingBox;
     }
 
-    public boolean func_70067_L() {
-        return !this.field_70128_L;
+    @Override
+    public boolean canBeCollidedWith() {
+        return !this.isDead;
     }
 
-    public boolean func_70104_M() {
+    @Override
+    public boolean canBePushed() {
         return false;
     }
 
-    protected void func_70037_a(NBTTagCompound nbttagcompound) {
+    @Override
+    protected void readEntityFromNBT(NBTTagCompound nbttagcompound) {
     }
 
-    protected void func_70014_b(NBTTagCompound nbttagcompound) {
+    @Override
+    protected void writeEntityToNBT(NBTTagCompound nbttagcompound) {
     }
 }

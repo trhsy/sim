@@ -4,6 +4,8 @@ package com.trhsy.buildcraft.api.filler;/**
  * @apiNote
  */
 
+import java.util.Collection;
+
 /**
  * ========================================
  *

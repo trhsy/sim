@@ -4,6 +4,8 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.client.gui.GuiMarker;
+import com.trhsy.sim.common.EntityAlignBeam;
 import com.trhsy.sim.common.ModSimukraft;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
@@ -41,43 +43,49 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     private IIcon[] icons;
 
     public BlockMarker() {
-        super(Material.field_151575_d);
-        this.setCreativeTab(CreativeTabs.field_78026_f);
-        this.func_149676_a(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
-        this.func_149715_a(0.1F);
+        super(Material.wood);
+        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+        this.setLightLevel(0.1F);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.func_94245_a("satscapesimukraft:blockMarker");
+        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockMarker");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         return this.icons[0];
     }
 
-    public void func_149683_g() {
-        this.func_149676_a(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+    @Override
+    public void setBlockBoundsForItemRender() {
+        this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
     }
 
-    public boolean func_149686_d() {
+    @Override
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
-    public boolean func_149662_c() {
+    @Override
+    public boolean isOpaqueCube() {
         return false;
     }
 
-    public void func_149664_b(World world, int i, int j, int k, int meta) {
+    @Override
+    public void onBlockDestroyedByPlayer(World world, int i, int j, int k, int meta) {
         try {
             for(int m = 0; m < markers.size(); ++m) {
                 Marker marker = (Marker)markers.get(m);
 
                 for(int mm = 0; mm < 4; ++mm) {
                     try {
-                        ((EntityAlignBeam)marker.beams.get(mm)).func_70106_y();
+                        ((EntityAlignBeam)marker.beams.get(mm)).setDead();
                     } catch (Exception var10) {
                     }
                 }
@@ -86,14 +94,15 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         }
 
         markers.clear();
-        super.func_149664_b(world, i, j, k, meta);
+        super.onBlockDestroyedByPlayer(world, i, j, k, meta);
     }
 
-    public void func_149689_a(World world, int i, int j, int k, EntityLivingBase player, ItemStack is) {
+    @Override
+    public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase player, ItemStack is) {
         hasPlaced = true;
         if (world.isRemote) {
             Marker ma;
-            markers.add(ma = new Marker(i, j, k, world.field_73011_w.field_76574_g));
+            markers.add(ma = new Marker(i, j, k, world.provider.dimensionId));
             String markerCaption = "";
             String helpText = "";
             if (markers.size() == 1) {
@@ -114,39 +123,39 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             }
 
             if (markers.size() < 4) {
-                V3 pos = new V3((double)i, (double)j, (double)k, world.field_73011_w.field_76574_g);
+                V3 pos = new V3((double)i, (double)j, (double)k, world.provider.dimensionId);
                 pos.y = pos.y + 0.01D;
                 if (ModSimukraft.configEnableMarkerAlignmentBeams) {
                     EntityAlignBeam beam = new EntityAlignBeam(world);
                     ma.caption = markerCaption;
-                    beam.func_70012_b(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+                    beam.setLocationAndAngles(pos.x, pos.y, pos.z, 0.0F, 0.0F);
                     beam.yaw = 0.0F;
                     if (!world.isRemote) {
-                        world.func_72838_d(beam);
+                        world.spawnEntityInWorld(beam);
                     }
 
                     ma.beams.add(beam);
                     EntityAlignBeam beam2 = new EntityAlignBeam(world);
-                    beam2.func_70012_b(pos.x, pos.y, pos.z, 90.0F, 0.0F);
+                    beam2.setLocationAndAngles(pos.x, pos.y, pos.z, 90.0F, 0.0F);
                     beam2.yaw = 90.0F;
                     if (!world.isRemote) {
-                        world.func_72838_d(beam2);
+                        world.spawnEntityInWorld(beam2);
                     }
 
                     ma.beams.add(beam2);
                     EntityAlignBeam beam3 = new EntityAlignBeam(world);
-                    beam3.func_70012_b(pos.x, pos.y, pos.z, 180.0F, 0.0F);
+                    beam3.setLocationAndAngles(pos.x, pos.y, pos.z, 180.0F, 0.0F);
                     beam3.yaw = 180.0F;
                     if (!world.isRemote) {
-                        world.func_72838_d(beam3);
+                        world.spawnEntityInWorld(beam3);
                     }
 
                     ma.beams.add(beam3);
                     EntityAlignBeam beam4 = new EntityAlignBeam(world);
-                    beam4.func_70012_b(pos.x, pos.y, pos.z, 270.0F, 0.0F);
+                    beam4.setLocationAndAngles(pos.x, pos.y, pos.z, 270.0F, 0.0F);
                     beam4.yaw = 270.0F;
                     if (!world.isRemote) {
-                        world.func_72838_d(beam4);
+                        world.spawnEntityInWorld(beam4);
                     }
 
                     ma.beams.add(beam4);
@@ -157,7 +166,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 ModSimukraft.sendChat(helpText);
             }
 
-            super.func_149689_a(world, i, j, k, player, is);
+            super.onBlockPlacedBy(world, i, j, k, player, is);
         }
 
     }
@@ -176,22 +185,27 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         return ret;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public boolean func_149727_a(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        this.location = new V3((double)i, (double)j, (double)k, entityplayer.field_71093_bK);
-        world.func_72908_a((double)i, (double)j, (double)k, "satscapesimukraft:computer", 1.0F, 1.0F);
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+        this.location = new V3((double)i, (double)j, (double)k, entityplayer.dimension);
+        world.playSoundEffect((double)i, (double)j, (double)k, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
         GuiMarker ui = new GuiMarker(this.location, entityplayer);
         Minecraft mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(ui);
         return true;
     }
 
+    @Override
     public void saveNBTData(NBTTagCompound compound) {
+        // TODO document why this method is empty
     }
 
+    @Override
     public void loadNBTData(NBTTagCompound compound) {
     }
 
+    @Override
     public void init(Entity entity, World world) {
     }
 }

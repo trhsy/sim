@@ -46,6 +46,7 @@ public class Relationship implements Serializable {
         this.isBloodRelation = isBlood;
     }
 
+    @Override
     public String toString() {
         if (this.theLevel == Level.AQUAINTANCE) {
             return "is an aquaintance with";

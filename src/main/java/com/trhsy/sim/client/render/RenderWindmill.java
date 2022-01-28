@@ -32,7 +32,7 @@ public class RenderWindmill extends Render {
         this.modelWindmill = modelWindmill;
 
         for(int c = 0; c < 16; ++c) {
-            myTextures[c] = new ResourceLocation("satscapesimukraft", "textures/models/entityWindmill" + c + ".png");
+            myTextures[c] = new ResourceLocation(ModSimukraft.MODID + "", "textures/models/entityWindmill" + c + ".png");
         }
 
     }
@@ -43,7 +43,7 @@ public class RenderWindmill extends Render {
             int meta = -1;
             V3 v3 = Job.findClosestBlockType(new V3((int)this.entity.posX, (int)this.entity.posY - 1, (int)this.entity.posZ), ModSimukraft.windmill, 5);
             if (v3 != null) {
-                TileEntityWindmill teWindmill = (TileEntityWindmill)this.entity.field_70170_p.getTileEntity(v3.x.intValue(), v3.y.intValue(), v3.z.intValue());
+                TileEntityWindmill teWindmill = (TileEntityWindmill)this.entity.worldObj.getTileEntity(v3.x.intValue(), v3.y.intValue(), v3.z.intValue());
                 if (teWindmill != null) {
                 }
             }

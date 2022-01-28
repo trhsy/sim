@@ -121,7 +121,7 @@ public class JobCheesemaker extends Job {
         try {
             ArrayList<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
             ArrayList<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, chests, new ItemStack(Items.field_151117_aB, 64), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, chests, new ItemStack(Items.milk_bucket, 64), (Block)null);
         } catch (Exception var3) {
         }
 
@@ -163,7 +163,7 @@ public class JobCheesemaker extends Job {
                 return;
             }
 
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtDairy, new ItemStack(Items.field_151117_aB, 1), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtDairy, new ItemStack(Items.milk_bucket, 1), (Block)null);
             if (this.theFolk.inventory == null || this.theFolk.inventory.isEmpty()) {
                 ModSimukraft.sendChat(this.theFolk.name + " hasn't found any milk at the dairy today.");
                 this.theStage = Stage.SLICECHEESE;
@@ -233,7 +233,7 @@ public class JobCheesemaker extends Job {
 
                     milkBlock = (V3)i$.next();
                     id = this.jobWorld.getBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
-                    meta = this.jobWorld.func_72805_g(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
+                    meta = this.jobWorld.getBlockMetadata(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
                 } while(id != null && (id != ModSimukraft.blockFluidMilk || meta != 1));
 
                 this.jobWorld.setBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue(), ModSimukraft.blockFluidMilk, 0, 3);
@@ -325,7 +325,7 @@ public class JobCheesemaker extends Job {
                 this.step = 1;
             }
 
-            if (MinecraftServer.getServer().worldServers[0].func_72820_D() % 24000L > 9900L) {
+            if (MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L > 9900L) {
                 this.step = 1;
                 this.theFolk.isWorking = false;
                 this.theStage = Stage.HARVESTCHEESE;
@@ -347,7 +347,7 @@ public class JobCheesemaker extends Job {
             for(int m = milkBlocks.size() - 1; m > 0; --m) {
                 cheese = (V3)milkBlocks.get(m);
                 id = this.jobWorld.getBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
-                dist = this.jobWorld.func_72805_g(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
+                dist = this.jobWorld.getBlockMetadata(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
                 if (id == ModSimukraft.blockFluidMilk && dist == 0) {
                     this.jobWorld.setBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue(), id, 0, 3);
                     ++milkGotCount;

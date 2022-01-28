@@ -4,6 +4,7 @@ package com.trhsy.buildcraft.api.gates;/**
  * @apiNote
  */
 
+import com.trhsy.buildcraft.api.transport.IPipe;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**

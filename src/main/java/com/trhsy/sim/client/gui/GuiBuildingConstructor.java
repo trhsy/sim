@@ -76,34 +76,34 @@ public class GuiBuildingConstructor extends GuiScreen {
 
     }
 
-    public boolean func_73868_f() {
+    public boolean doesGuiPauseGame() {
         return false;
     }
 
-    public void func_73876_c() {
-        this.field_146297_k.func_71364_i();
+    public void updateScreen() {
+        this.mc.setIngameNotInFocus();
         if (this.tfSearch != null) {
             this.tfSearch.func_146178_a();
         }
 
-        super.func_73876_c();
+        super.updateScreen();
     }
 
-    public void func_73866_w_() {
+    public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.showPage();
-        super.func_73866_w_();
+        super.initGui();
     }
 
-    public void func_73863_a(int i, int j, float f) {
+    public void drawScreen(int i, int j, float f) {
         try {
             if (this.mouseCount < 10) {
                 ++this.mouseCount;
                 Mouse.setGrabbed(false);
             }
 
-            this.func_146276_q_();
-            this.func_73732_a(this.field_146289_q, "Building Constructor", this.field_146294_l / 2, 17, 16777215);
+            this.drawDefaultBackground();
+            this.drawCenteredString(this.fontRendererObj, "Building Constructor", this.width / 2, 17, 16777215);
             String s = "Idle";
             String t = "Not chosen yet";
 
@@ -120,30 +120,30 @@ public class GuiBuildingConstructor extends GuiScreen {
                 t = "";
             }
 
-            this.func_73732_a(this.field_146289_q, "Current status: " + s, this.field_146294_l / 2, 30, 11206655);
-            this.func_73732_a(this.field_146289_q, "Building type: " + t, this.field_146294_l / 2, 40, 11206655);
+            this.drawCenteredString(this.fontRendererObj, "Current status: " + s, this.width / 2, 30, 11206655);
+            this.drawCenteredString(this.fontRendererObj, "Building type: " + t, this.width / 2, 40, 11206655);
             if (this.currentPage == 0) {
-                this.func_73732_a(this.field_146289_q, "Please choose a task for this building constructor", this.field_146294_l / 2, 100, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Please choose a task for this building constructor", this.width / 2, 100, 16777130);
             } else if (this.currentPage == 1) {
-                this.func_73732_a(this.field_146289_q, "Please choose a type of building", this.field_146294_l / 2, 100, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Please choose a type of building", this.width / 2, 100, 16777130);
             } else if (this.currentPage == 2) {
-                this.func_73732_a(this.field_146289_q, "Now choose the residential building to build", this.field_146294_l / 2, 50, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Now choose the residential building to build", this.width / 2, 50, 16777130);
                 this.tfSearch.func_146194_f();
             } else if (this.currentPage == 3) {
-                this.func_73732_a(this.field_146289_q, "Choose an unemployed Sim-U-Folk you want to hire", this.field_146294_l / 2, 50, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Choose an unemployed Sim-U-Folk you want to hire", this.width / 2, 50, 16777130);
             } else if (this.currentPage == 4) {
-                this.func_73732_a(this.field_146289_q, "Here are all your employees", this.field_146294_l / 2, 50, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Here are all your employees", this.width / 2, 50, 16777130);
             } else if (this.currentPage == 5) {
-                this.func_73732_a(this.field_146289_q, "Now choose the commercial building to build", this.field_146294_l / 2, 50, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Now choose the commercial building to build", this.width / 2, 50, 16777130);
                 this.tfSearch.func_146194_f();
             } else if (this.currentPage == 6) {
-                this.func_73732_a(this.field_146289_q, "Now choose the industrial building to build", this.field_146294_l / 2, 50, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Now choose the industrial building to build", this.width / 2, 50, 16777130);
                 this.tfSearch.func_146194_f();
             } else if (this.currentPage == 7) {
-                this.func_73732_a(this.field_146289_q, "Now choose the other type of building to build", this.field_146294_l / 2, 50, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Now choose the other type of building to build", this.width / 2, 50, 16777130);
                 this.tfSearch.func_146194_f();
             } else if (this.currentPage == 8) {
-                this.func_73732_a(this.field_146289_q, "Building requirements for " + this.selectedBuilding.displayNameWithoutPK, this.field_146294_l / 2, 50, 16777130);
+                this.drawCenteredString(this.fontRendererObj, "Building requirements for " + this.selectedBuilding.displayNameWithoutPK, this.width / 2, 50, 16777130);
                 int y = 70;
                 Iterator it = this.selectedBuilding.requirements.entrySet().iterator();
 
@@ -151,10 +151,10 @@ public class GuiBuildingConstructor extends GuiScreen {
                     Map.Entry pairs = (Map.Entry)it.next();
                     ItemStack is = (ItemStack)pairs.getKey();
                     if (is != null) {
-                        if (y + 20 > this.field_146295_m - 20) {
-                            this.func_73731_b(this.field_146289_q, "...and several more block types", 90, y, 16777215);
+                        if (y + 20 > this.height - 20) {
+                            this.drawString(this.fontRendererObj, "...and several more block types", 90, y, 16777215);
                         } else {
-                            String itemName = is.func_82833_r();
+                            String itemName = is.getDisplayName();
                             if (itemName.toLowerCase().contentEquals("oak wood")) {
                                 itemName = "Logs";
                             }
@@ -173,14 +173,14 @@ public class GuiBuildingConstructor extends GuiScreen {
             var12.printStackTrace();
         }
 
-        super.func_73863_a(i, j, f);
+        super.drawScreen(i, j, f);
     }
 
     private void displayReq(String block, int qty, int y) {
         double stacks = Math.floor((double)(qty / 64));
-        this.func_73731_b(this.field_146289_q, qty + "", 90, y, 16777215);
-        this.func_73731_b(this.field_146289_q, "x", 125, y, 16777215);
-        this.func_73731_b(this.field_146289_q, block, 150, y, 16777215);
+        this.drawString(this.fontRendererObj, qty + "", 90, y, 16777215);
+        this.drawString(this.fontRendererObj, "x", 125, y, 16777215);
+        this.drawString(this.fontRendererObj, block, 150, y, 16777215);
         String st = "";
         if (qty < 64) {
             st = "(less than one stack)";
@@ -192,20 +192,20 @@ public class GuiBuildingConstructor extends GuiScreen {
             st = "(about " + (int)(stacks + 1.0D) + " stacks)";
         }
 
-        this.func_73731_b(this.field_146289_q, st, 250, y, 16777215);
+        this.drawString(this.fontRendererObj, st, 250, y, 16777215);
     }
 
     private void showPage() {
-        this.field_146297_k.func_71364_i();
-        this.field_146292_n.clear();
-        this.field_146292_n.add(new GuiButton(0, 2, 12, 50, 20, "Done"));
+        this.mc.setIngameNotInFocus();
+        this.buttonList.clear();
+        this.buttonList.add(new GuiButton(0, 2, 12, 50, 20, "Done"));
         if (this.selectedBuilding == null) {
             this.selectedBuilding = Building.getBuildingByConBox(this.constructorLoc);
         }
 
         if (this.currentPage == 0) {
-            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 60, 150, 120, 20, "Choose building"));
-            this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 180, 150, 120, 20, "Hire builder"));
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 60, 150, 120, 20, "Choose building"));
+            this.buttonList.add(new GuiButton(2, this.width / 2 - 180, 150, 120, 20, "Hire builder"));
             String w = "worker";
             if (this.theWorkers.size() == 1) {
                 w = ((FolkData)this.theWorkers.get(0)).name;
@@ -213,29 +213,29 @@ public class GuiBuildingConstructor extends GuiScreen {
                 w = "Staff (" + this.theWorkers.size() + ")";
             }
 
-            this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 + 60, 150, 120, 20, "Fire " + w));
-            this.field_146292_n.add(new GuiButton(4, this.field_146294_l / 2 + 60, 170, 120, 20, "Show Employees"));
-            this.field_146292_n.add(new GuiButton(5, -600, 170, 120, 20, "-"));
-            this.field_146292_n.add(new GuiButton(6, this.field_146294_l / 2 - 60, 170, 120, 20, "Terraform area"));
-            this.field_146292_n.add(new GuiButton(7, this.field_146294_l / 2 - 180, 170, 120, 20, "Hire terraformer"));
+            this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, "Fire " + w));
+            this.buttonList.add(new GuiButton(4, this.width / 2 + 60, 170, 120, 20, "Show Employees"));
+            this.buttonList.add(new GuiButton(5, -600, 170, 120, 20, "-"));
+            this.buttonList.add(new GuiButton(6, this.width / 2 - 60, 170, 120, 20, "Terraform area"));
+            this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, "Hire terraformer"));
             if (this.theWorkers.size() == 0) {
-                ((GuiButton)this.field_146292_n.get(1)).field_146124_l = false;
-                ((GuiButton)this.field_146292_n.get(2)).field_146124_l = true;
-                ((GuiButton)this.field_146292_n.get(3)).field_146124_l = false;
-                ((GuiButton)this.field_146292_n.get(6)).field_146124_l = false;
-                ((GuiButton)this.field_146292_n.get(7)).field_146124_l = true;
+                ((GuiButton)this.buttonList.get(1)).enabled = false;
+                ((GuiButton)this.buttonList.get(2)).enabled = true;
+                ((GuiButton)this.buttonList.get(3)).enabled = false;
+                ((GuiButton)this.buttonList.get(6)).enabled = false;
+                ((GuiButton)this.buttonList.get(7)).enabled = true;
             } else {
-                ((GuiButton)this.field_146292_n.get(1)).field_146124_l = true;
-                ((GuiButton)this.field_146292_n.get(2)).field_146124_l = false;
-                ((GuiButton)this.field_146292_n.get(3)).field_146124_l = true;
-                ((GuiButton)this.field_146292_n.get(6)).field_146124_l = true;
-                ((GuiButton)this.field_146292_n.get(7)).field_146124_l = false;
+                ((GuiButton)this.buttonList.get(1)).enabled = true;
+                ((GuiButton)this.buttonList.get(2)).enabled = false;
+                ((GuiButton)this.buttonList.get(3)).enabled = true;
+                ((GuiButton)this.buttonList.get(6)).enabled = true;
+                ((GuiButton)this.buttonList.get(7)).enabled = false;
             }
         } else if (this.currentPage == 1) {
-            this.field_146292_n.add(new GuiButton(5, this.field_146294_l / 2 - 200, 150, 100, 20, "Residential"));
-            this.field_146292_n.add(new GuiButton(6, this.field_146294_l / 2 - 100, 150, 100, 20, "Commercial"));
-            this.field_146292_n.add(new GuiButton(7, this.field_146294_l / 2, 150, 100, 20, "Industrial"));
-            this.field_146292_n.add(new GuiButton(8, this.field_146294_l / 2 + 100, 150, 100, 20, "Other"));
+            this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 150, 100, 20, "Residential"));
+            this.buttonList.add(new GuiButton(6, this.width / 2 - 100, 150, 100, 20, "Commercial"));
+            this.buttonList.add(new GuiButton(7, this.width / 2, 150, 100, 20, "Industrial"));
+            this.buttonList.add(new GuiButton(8, this.width / 2 + 100, 150, 100, 20, "Other"));
         } else if (this.currentPage != 3) {
             int x;
             int y;
@@ -247,15 +247,15 @@ public class GuiBuildingConstructor extends GuiScreen {
 
                     for(y = 0; y < ModSimukraft.theFolks.size(); ++y) {
                         FolkData folk = (FolkData)ModSimukraft.theFolks.get(y);
-                        this.field_146292_n.add(new GuiButton(x, x, y, 100, 20, "Fire " + folk.name));
+                        this.buttonList.add(new GuiButton(x, x, y, 100, 20, "Fire " + folk.name));
                         ++x;
                         x += 100;
-                        if (x + 100 > this.field_146294_l) {
+                        if (x + 100 > this.width) {
                             x = 10;
                             y += 20;
                         }
 
-                        if (y + 20 > this.field_146295_m - 50) {
+                        if (y + 20 > this.height - 50) {
                             break;
                         }
                     }
@@ -264,14 +264,14 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
                 if (this.currentPage == 8) {
-                    this.field_146292_n.add(new GuiButton(1001, this.field_146294_l / 2 - 100, this.field_146295_m - 25, 100, 20, "Go Back"));
-                    this.field_146292_n.add(new GuiButton(1000, this.field_146294_l / 2, this.field_146295_m - 25, 100, 20, "Build it!"));
+                    this.buttonList.add(new GuiButton(1001, this.width / 2 - 100, this.height - 25, 100, 20, "Go Back"));
+                    this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 25, 100, 20, "Build it!"));
                 }
             } else {
                 ArrayList<Building> houses = new ArrayList();
                 String theType = "";
                 this.buildingsOnPage = 0;
-                this.tfSearch = new GuiTextField(this.field_146289_q, this.field_146294_l / 2 - 50, this.field_146295_m - 30, 100, 20);
+                this.tfSearch = new GuiTextField(this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);
                 this.tfSearch.func_146180_a(this.search);
                 this.tfSearch.func_146195_b(true);
                 this.tfSearch.func_146203_f(10);
@@ -313,14 +313,14 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 line3 = ModSimukraft.displayMoney((float)building.blocksInBuilding * 0.02F) + realCost;
                                 String line4 = building.author;
                                 GuiButton b3;
-                                this.field_146292_n.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
+                                this.buttonList.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
                                 GuiButton b2;
-                                this.field_146292_n.add(b2 = new GuiButton(idx + 200, x, y + 32, 120, 20, line3));
+                                this.buttonList.add(b2 = new GuiButton(idx + 200, x, y + 32, 120, 20, line3));
                                 GuiButton b1;
-                                this.field_146292_n.add(b1 = new GuiButton(idx + 100, x, y + 16, 120, 20, line2));
-                                b1.field_146124_l = false;
-                                b2.field_146124_l = false;
-                                b3.field_146124_l = false;
+                                this.buttonList.add(b1 = new GuiButton(idx + 100, x, y + 16, 120, 20, line2));
+                                b1.enabled = false;
+                                b2.enabled = false;
+                                b3.enabled = false;
                                 String pk = "";
                                 if (building.displayName.startsWith("PKID")) {
                                     int hyphen = building.displayName.indexOf("-");
@@ -328,9 +328,9 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 }
 
                                 this.pkIndex.put(idx, pk);
-                                this.field_146292_n.add(new GuiButton(idx, x, y, 120, 20, building.displayNameWithoutPK));
+                                this.buttonList.add(new GuiButton(idx, x, y, 120, 20, building.displayNameWithoutPK));
                                 x += 120;
-                                if (x + 120 > this.field_146294_l) {
+                                if (x + 120 > this.width) {
                                     x = 10;
                                     y += 71;
                                 }
@@ -338,16 +338,16 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 ++idx;
                                 ++this.buildingsOnPage;
                                 if (this.buildingOffset > 0) {
-                                    this.field_146292_n.add(new GuiButton(501, 5, this.field_146295_m - 20, 75, 20, "< Page"));
+                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< Page"));
                                 }
 
-                                if (y + 20 + 20 + 20 + 20 > this.field_146295_m) {
-                                    this.field_146292_n.add(new GuiButton(500, this.field_146294_l - 80, this.field_146295_m - 20, 75, 20, "Page >"));
+                                if (y + 20 + 20 + 20 + 20 > this.height) {
+                                    this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, "Page >"));
                                     break;
                                 }
                             }
                         } else {
-                            this.field_146292_n.add(new GuiButton(501, 5, this.field_146295_m - 20, 75, 20, "< Page!"));
+                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< Page!"));
                         }
                     }
 
@@ -355,7 +355,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                         this.fixedBuildingCount = this.buildingsOnPage;
                     }
                 } else {
-                    this.field_146292_n.add(new GuiButton(1, 10, 60, 300, 20, "Nothing found, go back and choose another"));
+                    this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, "Nothing found, go back and choose another"));
                 }
             }
         }
@@ -365,61 +365,61 @@ public class GuiBuildingConstructor extends GuiScreen {
     @SubscribeEvent(
             priority = EventPriority.NORMAL
     )
-    public void func_146284_a(GuiButton guibutton) {
+    public void actionPerformed(GuiButton guibutton) {
         if (System.currentTimeMillis() - this.fuckingBodge >= 100L) {
             this.fuckingBodge = System.currentTimeMillis();
-            if (guibutton.field_146124_l) {
-                if (guibutton.field_146127_k == 0) {
-                    this.field_146297_k.field_71462_r = null;
-                    this.field_146297_k.func_71381_h();
+            if (guibutton.enabled) {
+                if (guibutton.id == 0) {
+                    this.mc.currentScreen = null;
+                    this.mc.setIngameFocus();
                 } else {
                     if (this.currentPage == 0) {
-                        if (guibutton.field_146126_j.contentEquals("Choose building")) {
+                        if (guibutton.displayString.contentEquals("Choose building")) {
                             this.currentPage = 1;
                             this.showPage();
                         } else {
                             GuiEmployFolk gui;
-                            if (guibutton.field_146127_k == 2) {
+                            if (guibutton.id == 2) {
                                 gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
-                                this.field_146297_k.displayGuiScreen((GuiScreen)null);
-                                this.field_146297_k.displayGuiScreen(gui);
-                            } else if (guibutton.field_146127_k == 3) {
+                                this.mc.displayGuiScreen((GuiScreen)null);
+                                this.mc.displayGuiScreen(gui);
+                            } else if (guibutton.id == 3) {
                                 this.fireAllFolksForThisBuilding();
                                 this.currentPage = 0;
                                 this.showPage();
-                            } else if (guibutton.field_146127_k == 4) {
+                            } else if (guibutton.id == 4) {
                                 GuiScreen gui = new GuiShowEmployees();
-                                this.field_146297_k.displayGuiScreen((GuiScreen)null);
-                                this.field_146297_k.displayGuiScreen(gui);
-                            } else if (guibutton.field_146127_k != 5) {
-                                if (guibutton.field_146127_k == 6) {
+                                this.mc.displayGuiScreen((GuiScreen)null);
+                                this.mc.displayGuiScreen(gui);
+                            } else if (guibutton.id != 5) {
+                                if (guibutton.id == 6) {
                                     GuiScreen gui = new GuiTerraform((FolkData)this.theWorkers.get(0));
-                                    this.field_146297_k.displayGuiScreen((GuiScreen)null);
-                                    this.field_146297_k.displayGuiScreen(gui);
-                                } else if (guibutton.field_146127_k == 7) {
+                                    this.mc.displayGuiScreen((GuiScreen)null);
+                                    this.mc.displayGuiScreen(gui);
+                                } else if (guibutton.id == 7) {
                                     gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
-                                    this.field_146297_k.displayGuiScreen((GuiScreen)null);
-                                    this.field_146297_k.displayGuiScreen(gui);
+                                    this.mc.displayGuiScreen((GuiScreen)null);
+                                    this.mc.displayGuiScreen(gui);
                                 }
                             }
                         }
                     } else if (this.currentPage == 1) {
-                        if (guibutton.field_146127_k == 5) {
+                        if (guibutton.id == 5) {
                             this.currentPage = 2;
                             this.showPage();
-                        } else if (guibutton.field_146127_k == 6) {
+                        } else if (guibutton.id == 6) {
                             this.currentPage = 5;
                             this.showPage();
-                        } else if (guibutton.field_146127_k == 7) {
+                        } else if (guibutton.id == 7) {
                             this.currentPage = 6;
                             this.showPage();
-                        } else if (guibutton.field_146127_k == 8) {
+                        } else if (guibutton.id == 8) {
                             this.currentPage = 7;
                             this.showPage();
                         }
                     } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
                         if (this.currentPage == 8) {
-                            if (guibutton.field_146126_j.contentEquals("Build it!")) {
+                            if (guibutton.displayString.contentEquals("Build it!")) {
                                 if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
                                     ModSimukraft.theBuildings.remove(this.selectedBuilding);
                                 }
@@ -435,12 +435,12 @@ public class GuiBuildingConstructor extends GuiScreen {
                                     theWorker.saveThisFolk();
                                 }
 
-                                this.field_146297_k.displayGuiScreen((GuiScreen)null);
-                                this.field_146297_k.func_71381_h();
+                                this.mc.displayGuiScreen((GuiScreen)null);
+                                this.mc.setIngameFocus();
                                 return;
                             }
 
-                            if (guibutton.field_146127_k == 1001) {
+                            if (guibutton.id == 1001) {
                                 this.currentPage = this.previousPage;
                                 this.showPage();
                             }
@@ -451,13 +451,13 @@ public class GuiBuildingConstructor extends GuiScreen {
                         }
                     } else {
                         this.previousPage = this.currentPage;
-                        if (guibutton.field_146127_k == 500) {
+                        if (guibutton.id == 500) {
                             this.buildingOffset += this.fixedBuildingCount;
                             this.showPage();
                             return;
                         }
 
-                        if (guibutton.field_146127_k == 501) {
+                        if (guibutton.id == 501) {
                             this.buildingOffset -= this.fixedBuildingCount;
                             this.showPage();
                             return;
@@ -481,8 +481,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                         }
 
                         String pkPrefix = "";
-                        pkPrefix = (String)this.pkIndex.get(guibutton.field_146127_k);
-                        this.selectedBuilding = Building.getFromAllBuildings(pkPrefix + guibutton.field_146126_j, type);
+                        pkPrefix = (String)this.pkIndex.get(guibutton.id);
+                        this.selectedBuilding = Building.getFromAllBuildings(pkPrefix + guibutton.displayString, type);
 
                         try {
                             this.selectedBuilding.buildDirection = this.buildDirection;
@@ -513,10 +513,10 @@ public class GuiBuildingConstructor extends GuiScreen {
         this.theWorkers.clear();
     }
 
-    public void func_73869_a(char c, int i) {
+    public void keyTyped(char c, int i) {
         if (i == 1) {
-            this.field_146297_k.displayGuiScreen((GuiScreen)null);
-            this.field_146297_k.func_71381_h();
+            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.setIngameFocus();
         } else {
             if (this.tfSearch != null) {
                 this.tfSearch.func_146201_a(c, i);

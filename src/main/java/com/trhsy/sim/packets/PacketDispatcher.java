@@ -6,6 +6,7 @@ package com.trhsy.sim.packets;/**
 
 import com.trhsy.sim.common.ModSimukraft;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
@@ -51,7 +52,7 @@ public class PacketDispatcher {
     }
 
     public static final void sendToAllAround(IMessage message, EntityPlayer player, double range) {
-        sendToAllAround(message, player.field_70170_p.field_73011_w.field_76574_g, player.posX, player.posY, player.posZ, range);
+        sendToAllAround(message, player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ, range);
     }
 
     public static final void sendToDimension(IMessage message, int dimensionId) {

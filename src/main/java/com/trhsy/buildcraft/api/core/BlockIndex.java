@@ -34,9 +34,9 @@ public class BlockIndex implements Comparable<BlockIndex> {
     }
 
     public BlockIndex(NBTTagCompound c) {
-        this.x = c.func_74762_e("i");
-        this.y = c.func_74762_e("j");
-        this.z = c.func_74762_e("k");
+        this.x = c.getInteger("i");
+        this.y = c.getInteger("j");
+        this.z = c.getInteger("k");
     }
 
     public BlockIndex(Entity entity) {
@@ -46,7 +46,7 @@ public class BlockIndex implements Comparable<BlockIndex> {
     }
 
     public BlockIndex(TileEntity entity) {
-        this(entity.field_145851_c, entity.field_145848_d, entity.field_145849_e);
+        this(entity.xCoord, entity.yCoord, entity.zCoord);
     }
 
     @Override
@@ -67,9 +67,9 @@ public class BlockIndex implements Comparable<BlockIndex> {
     }
 
     public void writeTo(NBTTagCompound c) {
-        c.func_74768_a("i", this.x);
-        c.func_74768_a("j", this.y);
-        c.func_74768_a("k", this.z);
+        c.setInteger("i", this.x);
+        c.setInteger("j", this.y);
+        c.setInteger("k", this.z);
     }
 
     public Block getBlock(World world) {

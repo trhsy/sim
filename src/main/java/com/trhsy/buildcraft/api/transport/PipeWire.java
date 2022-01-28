@@ -56,10 +56,10 @@ public enum PipeWire {
     public boolean isPipeWire(ItemStack stack) {
         if (stack == null) {
             return false;
-        } else if (stack.func_77973_b() != item) {
+        } else if (stack.getItem() != item) {
             return false;
         } else {
-            return stack.func_77960_j() == this.ordinal();
+            return stack.getMetadata() == this.ordinal();
         }
     }
 

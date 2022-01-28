@@ -4,6 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSimukraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -30,14 +31,16 @@ public class BlockCompositeBrick extends Block {
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.func_94245_a("satscapesimukraft:compositebrick");
+        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":compositebrick");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         return this.icons[0];
     }
 }

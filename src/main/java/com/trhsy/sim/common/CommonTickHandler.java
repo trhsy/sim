@@ -8,6 +8,9 @@ import com.trhsy.sim.client.gui.GuiRunMod;
 import com.trhsy.sim.common.entity.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
@@ -50,7 +53,7 @@ public class CommonTickHandler {private World serverWorld = null;
     }
 
     public void onTickInGame() {
-        if (this.mc.field_71462_r != null && this.mc.field_71462_r.toString().toLowerCase().contains("guimainmenu")) {
+        if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("guimainmenu")) {
             ModSimukraft.log.info("CommTH: in Gui Main menu");
         }
 
@@ -73,7 +76,7 @@ public class CommonTickHandler {private World serverWorld = null;
             if (now - this.lastSecondTickAt > 1000L) {
                 if (!ModSimukraft.proxy.ranStartup) {
                     System.out.println("Haven't run startup - doing that now");
-                    this.serverWorld = MinecraftServer.getServer().func_130014_f_();
+                    this.serverWorld = MinecraftServer.getServer().getEntityWorld();
                     this.currentWorld = ModSimukraft.getSavesDataFolder();
                     ModSimukraft.log.info("CommTH: Startup - set serverWorld/currentWorld");
                     System.out.println("Running Reset World Function");
@@ -86,8 +89,8 @@ public class CommonTickHandler {private World serverWorld = null;
                         ModSimukraft.resetAndLoadNewWorld();
                     }
 
-                    if (this.serverWorld.func_72896_J() && this.serverWorld.getWorldInfo().func_76083_p() > 1 && ModSimukraft.configStopRain) {
-                        this.serverWorld.getWorldInfo().func_76080_g(2);
+                    if (this.serverWorld.isRaining() && this.serverWorld.getWorldInfo().getRainTime() > 1 && ModSimukraft.configStopRain) {
+                        this.serverWorld.getWorldInfo().setRainTime(2);
                     }
                 }
 

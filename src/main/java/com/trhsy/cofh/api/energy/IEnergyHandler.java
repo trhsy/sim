@@ -19,6 +19,7 @@ public interface IEnergyHandler extends IEnergyProvider, IEnergyReceiver {
     @Override
     int receiveEnergy(ForgeDirection var1, int var2, boolean var3);
 
+    @Override
     int extractEnergy(ForgeDirection var1, int var2, boolean var3);
 
     @Override

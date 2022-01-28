@@ -5,6 +5,7 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.client.gui.GuiBuildingConstructor;
+import com.trhsy.sim.common.ModSimukraft;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
@@ -35,46 +36,51 @@ public class BlockConstructorBox extends Block {
     private IIcon[] icons;
 
     public BlockConstructorBox() {
-        super(Material.field_151575_d);
+        super(Material.wood);
         this.setBlockName("constructorBox");
-        this.setCreativeTab(CreativeTabs.field_78026_f);
+        this.setCreativeTab(CreativeTabs.tabMisc);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a(IIconRegister par1IconRegister) {
+    public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = par1IconRegister.func_94245_a("satscapesimukraft:blockConstruction");
+        this.icons[0] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockConstruction");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         return this.icons[0];
     }
 
-    public void func_149664_b(World par1World, int par2, int par3, int par4, int par5) {
+    @Override
+    public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
         if (!par1World.isRemote) {
-            par1World.func_72908_a((double)par2, (double)par3, (double)par4, "satscapesimukraft:powerdown", 1.0F, 1.0F);
+            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSimukraft.MODID + ":powerdown", 1.0F, 1.0F);
         }
 
-        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double)par2, (double)par3, (double)par4, par1World.field_73011_w.field_76574_g));
+        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double)par2, (double)par3, (double)par4, par1World.provider.dimensionId));
         if (theFolk != null) {
             theFolk.selfFire();
         }
 
-        super.func_149664_b(par1World, par2, par3, par4, par5);
+        super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
     }
 
-    public void func_149726_b(World par1World, int par2, int par3, int par4) {
+    @Override
+    public void onBlockAdded(World par1World, int par2, int par3, int par4) {
         if (!par1World.isRemote) {
-            par1World.func_72908_a((double)par2, (double)par3, (double)par4, "satscapesimukraft:constructoractivated", 1.0F, 1.0F);
+            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSimukraft.MODID + ":constructoractivated", 1.0F, 1.0F);
         }
 
-        super.func_149726_b(par1World, par2, par3, par4);
+        super.onBlockAdded(par1World, par2, par3, par4);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public boolean func_149727_a(World par1World, int par2, int par3, int par4, EntityPlayer thePlayer, int par6, float par7, float par8, float par9) {
-        par1World.func_72908_a((double)par2, (double)par3, (double)par4, "satscapesimukraft:computer", 1.0F, 1.0F);
+    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer thePlayer, int par6, float par7, float par8, float par9) {
+        par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
         int px = (int)Math.floor(thePlayer.posX);
         int py = (int)Math.floor(thePlayer.posY);
         int pz = (int)Math.floor(thePlayer.posZ);
@@ -92,7 +98,7 @@ public class BlockConstructorBox extends Block {
             }
         }
 
-        V3 loc = new V3((double)par2, (double)par3, (double)par4, thePlayer.field_71093_bK);
+        V3 loc = new V3((double)par2, (double)par3, (double)par4, thePlayer.dimension);
         Minecraft mc = Minecraft.getMinecraft();
         GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
         mc.displayGuiScreen(ui);

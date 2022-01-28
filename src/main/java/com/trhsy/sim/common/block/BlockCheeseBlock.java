@@ -33,14 +33,16 @@ public class BlockCheeseBlock extends Block {
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.func_94245_a(ModSimukraft.MODID + ":cheeseblock");
+        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":cheeseblock");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         return this.icons[0];
     }
 }

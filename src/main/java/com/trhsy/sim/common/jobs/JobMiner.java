@@ -4,8 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSimukraft;
 import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.MiningBox;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
@@ -16,6 +18,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * ========================================
@@ -169,7 +172,7 @@ public class JobMiner extends Job implements Serializable {
 
             this.theFolk.statusText = "All chests are full, empty them or add more chests";
             this.miningChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-            ItemStack is = new ItemStack(Blocks.field_150346_d, 1);
+            ItemStack is = new ItemStack(Blocks.dirt, 1);
             Boolean placedOk = this.inventoriesPut(this.miningChests, is, true);
             if (placedOk) {
                 inventoriesGet(this.miningChests, is, false, false);
@@ -188,9 +191,9 @@ public class JobMiner extends Job implements Serializable {
                 if (this.theFolk.theEntity != null) {
                     try {
                         if (this.theFolk.gender == 0) {
-                            this.mc.field_71441_e.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:readym", 1.0F, 1.0F, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readym", 1.0F, 1.0F, false);
                         } else {
-                            this.mc.field_71441_e.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:readyf", 1.0F, 1.0F, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readyf", 1.0F, 1.0F, false);
                         }
                     } catch (Exception var3) {
                     }
@@ -213,9 +216,9 @@ public class JobMiner extends Job implements Serializable {
                         this.theFolk.statusText = "Beam me down, Scotty!";
                         if (this.theFolk.theEntity != null) {
                             if (this.theFolk.gender == 0) {
-                                this.mc.field_71441_e.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:beamm", 1.0F, 1.0F, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":beamm", 1.0F, 1.0F, false);
                             } else {
-                                this.mc.field_71441_e.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:beamf", 1.0F, 1.0F, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":beamf", 1.0F, 1.0F, false);
                             }
                         }
 
@@ -240,7 +243,7 @@ public class JobMiner extends Job implements Serializable {
         this.theStage = Stage.IDLE;
         this.theFolk.action = FolkAction.WANDER;
         ModSimukraft.sendChat(this.theFolk.name + " has finished their shift down the mine.");
-        this.mc.field_71441_e.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, "satscapesimukraft:cash", 1.0F, 1.0F, false);
+        this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
     }
 
     private void setNextMineableBlock() {
@@ -318,8 +321,8 @@ public class JobMiner extends Job implements Serializable {
                             yyy = l;
                             zzz = mz + zo;
                             id = this.jobWorld.getBlock(xxx, l, zzz);
-                            this.jobWorld.func_72805_g(xxx, l, zzz);
-                            if (id == Blocks.field_150357_h) {
+                            this.jobWorld.getBlockMetadata(xxx, l, zzz);
+                            if (id == Blocks.bedrock) {
                                 ModSimukraft.sendChat(this.theFolk.name + " has retired from mining, as the mine has now reached bedrock.");
                                 this.theFolk.beamMeTo(this.theFolk.employedAt);
                                 this.theFolk.selfFire();
@@ -327,7 +330,7 @@ public class JobMiner extends Job implements Serializable {
                             }
 
                             try {
-                                if (id != null && id != Blocks.water && id != Blocks.water && id != Blocks.field_150353_l && id != Blocks.field_150353_l && !id.toString().toLowerCase().contains("oil")) {
+                                if (id != null && id != Blocks.water && id != Blocks.water && id != Blocks.lava && id != Blocks.lava && !id.toString().toLowerCase().contains("oil")) {
                                     break label187;
                                 }
                             } catch (Exception var26) {
@@ -395,7 +398,7 @@ public class JobMiner extends Job implements Serializable {
 
                                 vMineable = new V3(vMine.x + (double)xo, vMine.y + (double)zo, vMine.z + (double)l, this.theFolk.employedAt.theDimension);
                                 id = this.jobWorld.getBlock(vMineable.x.intValue(), vMineable.y.intValue(), vMineable.z.intValue());
-                                meta = this.jobWorld.func_72805_g(vMineable.x.intValue(), vMineable.y.intValue(), vMineable.z.intValue());
+                                meta = this.jobWorld.getBlockMetadata(vMineable.x.intValue(), vMineable.y.intValue(), vMineable.z.intValue());
                                 if (ltr % 10 == 0 && (double)btt == Math.floor((double)(this.theMiningBox.size / 2)) && ltr == 0) {
                                     V3 lightbox = vMineable.clone();
                                     Double var23;
@@ -424,7 +427,7 @@ public class JobMiner extends Job implements Serializable {
 
                                         if (light != null) {
                                             ModSimukraft.log.info("Light box placed at " + lightbox.toString());
-                                            this.jobWorld.setBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue(), ModSimukraft.lightBox, light.func_77960_j(), 3);
+                                            this.jobWorld.setBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue(), ModSimukraft.lightBox, light.getMetadata(), 3);
                                         }
                                     }
                                 }
@@ -432,7 +435,7 @@ public class JobMiner extends Job implements Serializable {
                                 var27.printStackTrace();
                             }
 
-                            if (id == Blocks.field_150357_h) {
+                            if (id == Blocks.bedrock) {
                                 ModSimukraft.sendChat(this.theFolk.name + " has retired from mining, hit bedrock, try mining horizontally higher up");
                                 this.theFolk.beamMeTo(this.theFolk.employedAt);
                                 this.theFolk.selfFire();
@@ -440,7 +443,7 @@ public class JobMiner extends Job implements Serializable {
                             }
 
                             try {
-                                if (id != null && id != Blocks.water && id != Blocks.water && id != Blocks.field_150353_l && id != Blocks.field_150353_l && !id.toString().toLowerCase().contains("oil")) {
+                                if (id != null && id != Blocks.water && id != Blocks.water && id != Blocks.lava && id != Blocks.lava && !id.toString().toLowerCase().contains("oil")) {
                                     flagFound = true;
                                     break label240;
                                 }
@@ -469,7 +472,7 @@ public class JobMiner extends Job implements Serializable {
     private void stageMining() {
         this.theFolk.isWorking = true;
         if (this.theFolk.theEntity != null) {
-            this.theFolk.theEntity.field_71093_bK = this.theFolk.employedAt.theDimension;
+            this.theFolk.theEntity.dimension = this.theFolk.employedAt.theDimension;
         } else {
             this.theFolk.location.theDimension = this.theFolk.employedAt.theDimension;
         }
@@ -522,15 +525,15 @@ public class JobMiner extends Job implements Serializable {
         Block id = null;
         int idmeta = false;
         id = this.jobWorld.getBlock(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
-        int idmeta = this.jobWorld.func_72805_g(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
+        int idmeta = this.jobWorld.getBlockMetadata(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
         if (this.jobWorld != null) {
             ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, this.vNextMineableBlock);
-            this.jobWorld.setBlock(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue(), Blocks.field_150350_a, 0, 3);
+            this.jobWorld.setBlock(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue(), Blocks.air, 0, 3);
             if (this.theFolk.theEntity != null) {
                 try {
-                    this.mc.field_71441_e.func_72869_a("explode", (double)this.vNextMineableBlock.x.intValue(), (double)this.vNextMineableBlock.y.intValue(), (double)this.vNextMineableBlock.z.intValue(), 0.10000000149011612D, 0.30000001192092896D, 0.0D);
-                    this.mc.field_71441_e.func_72869_a("explode", (double)this.vNextMineableBlock.x.intValue(), (double)this.vNextMineableBlock.y.intValue(), (double)this.vNextMineableBlock.z.intValue(), 0.0D, 0.20000000298023224D, 0.0D);
-                    this.mc.field_71441_e.func_72869_a("explode", (double)this.vNextMineableBlock.x.intValue(), (double)this.vNextMineableBlock.y.intValue(), (double)this.vNextMineableBlock.z.intValue(), 0.0D, 0.10000000149011612D, 0.10000000149011612D);
+                    this.mc.theWorld.spawnParticle("explode", (double)this.vNextMineableBlock.x.intValue(), (double)this.vNextMineableBlock.y.intValue(), (double)this.vNextMineableBlock.z.intValue(), 0.10000000149011612D, 0.30000001192092896D, 0.0D);
+                    this.mc.theWorld.spawnParticle("explode", (double)this.vNextMineableBlock.x.intValue(), (double)this.vNextMineableBlock.y.intValue(), (double)this.vNextMineableBlock.z.intValue(), 0.0D, 0.20000000298023224D, 0.0D);
+                    this.mc.theWorld.spawnParticle("explode", (double)this.vNextMineableBlock.x.intValue(), (double)this.vNextMineableBlock.y.intValue(), (double)this.vNextMineableBlock.z.intValue(), 0.0D, 0.10000000149011612D, 0.10000000149011612D);
                 } catch (Exception var9) {
                 }
             }
@@ -563,7 +566,7 @@ public class JobMiner extends Job implements Serializable {
                             }
                         }
                     } else {
-                        this.jobWorld.setBlock(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue(), Blocks.field_150350_a, 0, 3);
+                        this.jobWorld.setBlock(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue(), Blocks.air, 0, 3);
                     }
                 }
 
@@ -573,7 +576,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 1) {
-                    if (id != Blocks.field_150346_d && id != Blocks.field_150349_c) {
+                    if (id != Blocks.dirt && id != Blocks.grass) {
                         keep = true;
                     } else {
                         keep = false;
@@ -581,7 +584,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 2) {
-                    if (id != Blocks.field_150346_d && id != Blocks.field_150349_c && id != Blocks.stone && id != Blocks.cobblestone) {
+                    if (id != Blocks.dirt && id != Blocks.grass && id != Blocks.stone && id != Blocks.cobblestone) {
                         keep = true;
                     } else {
                         keep = false;
@@ -589,7 +592,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 3) {
-                    if (id != Blocks.field_150346_d && id != Blocks.field_150349_c && id != Blocks.field_150354_m) {
+                    if (id != Blocks.dirt && id != Blocks.grass && id != Blocks.sand) {
                         keep = true;
                     } else {
                         keep = false;
@@ -597,7 +600,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 4) {
-                    if (id != Blocks.field_150346_d && id != Blocks.field_150349_c && id != Blocks.stone && id != Blocks.cobblestone && id != Blocks.field_150354_m) {
+                    if (id != Blocks.dirt && id != Blocks.grass && id != Blocks.stone && id != Blocks.cobblestone && id != Blocks.sand) {
                         keep = true;
                     } else {
                         keep = false;
@@ -605,7 +608,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 try {
-                    if (id == Blocks.water || id == Blocks.water || id == Blocks.field_150353_l || id == Blocks.field_150353_l || id == Blocks.field_150329_H || id.toString().toLowerCase().contains("oil")) {
+                    if (id == Blocks.water || id == Blocks.water || id == Blocks.lava || id == Blocks.lava || id == Blocks.tallgrass || id.toString().toLowerCase().contains("oil")) {
                         keep = false;
                     }
                 } catch (Exception var10) {
@@ -619,7 +622,7 @@ public class JobMiner extends Job implements Serializable {
                     for(int s = 0; s < minedStacks.size(); ++s) {
                         ItemStack stack = (ItemStack)minedStacks.get(s);
                         if (stack != null) {
-                            this.lastMinedBlockName = stack.func_82833_r();
+                            this.lastMinedBlockName = stack.getDisplayName();
                             this.theFolk.statusText = "Diggy diggy hole, mining " + this.lastMinedBlockName + "!";
                             placedOk = this.inventoriesPut(this.miningChests, stack, false);
                         }

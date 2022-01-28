@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.entity;
 
+import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSimukraft;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -74,6 +75,7 @@ public class Building implements Serializable {
 
     }
 
+    @Override
     public Building clone() {
         Building ret = new Building();
         ret.displayName = this.displayName;
@@ -195,20 +197,20 @@ public class Building implements Serializable {
                             if (ch.contentEquals("!")) {
                                 this.structure[acount] = "999:999";
                             } else if (ch.contentEquals("$")) {
-                                this.structure[acount] = "" + Block.func_149682_b(ModSimukraft.controlBox) + ":0";
+                                this.structure[acount] = "" + Block.getIdFromBlock(ModSimukraft.controlBox) + ":0";
                             } else if (ch.contentEquals("*")) {
-                                this.structure[acount] = Block.func_149682_b(ModSimukraft.lightBox) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(ModSimukraft.lightBox) + ":0";
                             } else if (ch.contentEquals("+")) {
-                                this.structure[acount] = Block.func_149682_b(ModSimukraft.lightBox) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(ModSimukraft.lightBox) + ":3";
                             } else if (ch.contentEquals("-")) {
-                                this.structure[acount] = Block.func_149682_b(ModSimukraft.lightBox) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(ModSimukraft.lightBox) + ":5";
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[acount] = "999:" + cha;
                             } else {
                                 this.structure[acount] = (String)thekey.get(ch);
                                 String[] sbid = this.structure[acount].split(":");
                                 int bid = Integer.parseInt(sbid[0]);
-                                this.addToRequirements(Block.func_149729_e(bid), 1);
+                                this.addToRequirements(Block.getBlockById(bid), 1);
                             }
 
                             ++acount;
@@ -244,7 +246,7 @@ public class Building implements Serializable {
             name = "";
 
             try {
-                name = theBlock.func_82833_r().toLowerCase();
+                name = theBlock.getDisplayName().toLowerCase();
             } catch (Exception var11) {
                 name = "????";
             }
@@ -256,7 +258,7 @@ public class Building implements Serializable {
                 while(it.hasNext()) {
                     pairs = (Map.Entry)it.next();
                     is = (ItemStack)pairs.getKey();
-                    if (is.func_77973_b() == theBlock.func_77973_b()) {
+                    if (is.getItem() == theBlock.getItem()) {
                         val = (Integer)pairs.getValue();
                         ++val;
                         pairs.setValue(val);
@@ -278,7 +280,7 @@ public class Building implements Serializable {
                 name = "";
 
                 try {
-                    name = theBlock.func_82833_r().toLowerCase();
+                    name = theBlock.getDisplayName().toLowerCase();
                 } catch (Exception var10) {
                     name = "????";
                 }
@@ -290,7 +292,7 @@ public class Building implements Serializable {
                     while(it.hasNext()) {
                         pairs = (Map.Entry)it.next();
                         is = (ItemStack)pairs.getKey();
-                        if (is.func_77973_b() == theBlock.func_77973_b()) {
+                        if (is.getItem() == theBlock.getItem()) {
                             val = (Integer)pairs.getValue();
                             ++val;
                             pairs.setValue(val);

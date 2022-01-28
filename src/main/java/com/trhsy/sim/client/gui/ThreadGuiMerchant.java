@@ -25,6 +25,6 @@ public class ThreadGuiMerchant implements Runnable {
         } catch (Exception var2) {
         }
 
-        this.this$0.field_146297_k.field_71441_e.playSound(this.this$0.field_146297_k.thePlayer.posX, this.this$0.field_146297_k.thePlayer.posY, this.this$0.field_146297_k.thePlayer.posZ, "satscapesimukraft:merchm", 1.0F, 1.0F, false);
+        this.this$0.mc.theWorld.playSound(this.this$0.mc.thePlayer.posX, this.this$0.mc.thePlayer.posY, this.this$0.mc.thePlayer.posZ, ModSimukraft.MODID + ":merchm", 1.0F, 1.0F, false);
     }
 }

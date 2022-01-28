@@ -25,36 +25,38 @@ import java.util.List;
 public class ItemBlockLightBox extends ItemBlock {
     public ItemBlockLightBox(Block par1, Block block) {
         super(par1);
-        this.func_77627_a(true);
+        this.setHasSubtypes(true);
     }
 
-    public String func_77667_c(ItemStack is) {
-        if (is.func_77960_j() == 0) {
+    public String getUnlocalizedName(ItemStack is) {
+        if (is.getMetadata() == 0) {
             return "tile.blockSUKLight.white";
-        } else if (is.func_77960_j() == 1) {
+        } else if (is.getMetadata() == 1) {
             return "tile.blockSUKLight.red";
-        } else if (is.func_77960_j() == 2) {
+        } else if (is.getMetadata() == 2) {
             return "tile.blockSUKLight.orange";
-        } else if (is.func_77960_j() == 3) {
+        } else if (is.getMetadata() == 3) {
             return "tile.blockSUKLight.yellow";
-        } else if (is.func_77960_j() == 4) {
+        } else if (is.getMetadata() == 4) {
             return "tile.blockSUKLight.green";
-        } else if (is.func_77960_j() == 5) {
+        } else if (is.getMetadata() == 5) {
             return "tile.blockSUKLight.blue";
-        } else if (is.func_77960_j() == 6) {
+        } else if (is.getMetadata() == 6) {
             return "tile.blockSUKLight.purple";
         } else {
-            return is.func_77960_j() == 7 ? "tile.blockSUKLight.rainbow" : null;
+            return is.getMetadata() == 7 ? "tile.blockSUKLight.rainbow" : null;
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_77624_a(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("Light up your world!");
-        super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
+        super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
 
-    public int func_77647_b(int par1) {
+    @Override
+    public int getMetadata(int par1) {
         return par1;
     }
 }

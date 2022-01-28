@@ -17,6 +17,7 @@ public enum FolkAction {
     private FolkAction() {
     }
 
+    @Override
     public String toString() {
         String ret = "doing nothing";
         if (this == WANDER) {

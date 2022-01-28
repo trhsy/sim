@@ -132,13 +132,13 @@ public class JobLivestockFarmer extends Job implements Serializable {
         List list = null;
         if (this.vocation == Vocation.CATTLEFARMER) {
             this.theFolk.statusText = "Feeding the cows";
-            list = this.jobWorld.func_72872_a(EntityCow.class, AxisAlignedBB.func_72330_a(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).func_72314_b(4.0D, 2.0D, 4.0D));
+            list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
         } else if (this.vocation == Vocation.CHICKENFARMER) {
             this.theFolk.statusText = "Feeding the chickens";
-            list = this.jobWorld.func_72872_a(EntityChicken.class, AxisAlignedBB.func_72330_a(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).func_72314_b(4.0D, 2.0D, 4.0D));
+            list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
         } else if (this.vocation == Vocation.PIGFARMER) {
             this.theFolk.statusText = "Feeding the pigs";
-            list = this.jobWorld.func_72872_a(EntityPig.class, AxisAlignedBB.func_72330_a(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).func_72314_b(4.0D, 2.0D, 4.0D));
+            list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
         }
 
         int adultCount = 0;
@@ -146,7 +146,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
         if (list != null) {
             for(int i = 0; i < list.size(); ++i) {
                 animal = (EntityAnimal)list.get(i);
-                if (!animal.func_70631_g_()) {
+                if (!animal.isChild()) {
                     ++adultCount;
                     this.redShirt = animal;
                 }
@@ -160,7 +160,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
                 for(int i = 0; i < list.size(); ++i) {
                     animal = (EntityAnimal)list.get(i);
-                    if (!animal.func_70631_g_()) {
+                    if (!animal.isChild()) {
                         if (a1 == null) {
                             a1 = animal;
                         } else if (a2 == null) {
@@ -170,7 +170,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 }
 
                 if (a1 != null && a2 != null) {
-                    a2.func_70778_a(this.jobWorld.func_72865_a(a2, a1, 20.0F, true, true, true, true));
+                    a2.setPathToEntity(this.jobWorld.getPathEntityToEntity(a2, a1, 20.0F, true, true, true, true));
                     this.procreate(a1, new V3(a1.posX, a1.posY, a1.posZ, this.theFolk.location.theDimension));
                 }
 
@@ -185,25 +185,25 @@ public class JobLivestockFarmer extends Job implements Serializable {
         Random rand = new Random();
         this.theFolk.statusText = "Off with their head!";
         if (this.theFolk.theEntity != null) {
-            this.theFolk.theEntity.func_70625_a(this.redShirt, 1.0F, 1.0F);
+            this.theFolk.theEntity.faceEntity(this.redShirt, 1.0F, 1.0F);
         }
 
-        this.redShirt.func_70606_j(0.0F);
+        this.redShirt.setHealth(0.0F);
         this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
         int quant = 0;
         this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         boolean ok = true;
         if (this.vocation == Vocation.CATTLEFARMER) {
             quant = rand.nextInt(2) + 1;
-            ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.field_151082_bd, quant), true);
-            this.inventoriesPut(this.farmChests, new ItemStack(Items.field_151116_aA, 1), false);
+            ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.beef, quant), true);
+            this.inventoriesPut(this.farmChests, new ItemStack(Items.leather, 1), false);
         } else if (this.vocation == Vocation.PIGFARMER) {
             quant = rand.nextInt(2) + 1;
-            ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.field_151147_al, quant), true);
+            ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.porkchop, quant), true);
         } else if (this.vocation == Vocation.CHICKENFARMER) {
             quant = rand.nextInt(2) + 1;
-            ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.field_151076_bf, quant), true);
-            this.inventoriesPut(this.farmChests, new ItemStack(Items.field_151008_G, 1), false);
+            ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.chicken, quant), true);
+            this.inventoriesPut(this.farmChests, new ItemStack(Items.feather, 1), false);
         }
 
         if (!ok) {
@@ -221,21 +221,21 @@ public class JobLivestockFarmer extends Job implements Serializable {
     }
 
     private void procreate(EntityAnimal parentAnimal, V3 pos) {
-        EntityAgeable babyAnimal = parentAnimal.func_90011_a(parentAnimal);
+        EntityAgeable babyAnimal = parentAnimal.createChild(parentAnimal);
         Random rand = new Random();
         if (babyAnimal != null) {
-            parentAnimal.func_90011_a(babyAnimal);
-            babyAnimal.func_70873_a(-3000);
-            babyAnimal.func_70012_b(parentAnimal.posX, parentAnimal.posY, parentAnimal.posZ, parentAnimal.field_70177_z, parentAnimal.field_70125_A);
+            parentAnimal.createChild(babyAnimal);
+            babyAnimal.setGrowingAge(-3000);
+            babyAnimal.setLocationAndAngles(parentAnimal.posX, parentAnimal.posY, parentAnimal.posZ, parentAnimal.rotationYaw, parentAnimal.field_70125_A);
 
             for(int var3 = 0; var3 < 7; ++var3) {
                 double d = rand.nextGaussian() * 0.02D;
                 double d1 = rand.nextGaussian() * 0.02D;
                 double d2 = rand.nextGaussian() * 0.02D;
-                this.mc.field_71441_e.func_72869_a("heart", pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D, d, d1, d2);
+                this.mc.theWorld.spawnParticle("heart", pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D, d, d1, d2);
             }
 
-            parentAnimal.field_70170_p.func_72838_d(babyAnimal);
+            parentAnimal.worldObj.spawnEntityInWorld(babyAnimal);
         }
 
     }
@@ -252,9 +252,9 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 newAnimal = new EntityChicken(this.jobWorld);
             }
 
-            ((EntityAnimal)newAnimal).func_70012_b(controlBox.x, controlBox.y + 1.0D, controlBox.z, 0.0F, 0.0F);
+            ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.x, controlBox.y + 1.0D, controlBox.z, 0.0F, 0.0F);
             if (!this.jobWorld.isRemote) {
-                this.jobWorld.func_72838_d((Entity)newAnimal);
+                this.jobWorld.spawnEntityInWorld((Entity)newAnimal);
             }
         }
 

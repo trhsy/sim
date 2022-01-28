@@ -4,6 +4,10 @@ package com.trhsy.buildcraft.api.gates;/**
  * @apiNote
  */
 
+import com.trhsy.buildcraft.api.statements.IActionInternal;
+import com.trhsy.buildcraft.api.statements.IStatement;
+import com.trhsy.buildcraft.api.statements.IStatementParameter;
+import com.trhsy.buildcraft.api.statements.ITriggerInternal;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 

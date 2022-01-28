@@ -223,7 +223,7 @@ public class ModSimukraft {
      */
     public static Item itemFoodCheeseburger;
     /*
-复合砖
+    复合砖
      */
     public static Block blockCompositeBrick;
     /*
@@ -247,7 +247,7 @@ public class ModSimukraft {
      */
     public static Block blockFluidMilk;
     /*
- 液体牛奶块id
+    液体牛奶块id
      */
     public static int blockFluidMilkId;
     /*
@@ -266,9 +266,9 @@ public class ModSimukraft {
     所有快递点
      */
     public static ArrayList<V3> theCourierPoints = new ArrayList();
-/*
-所有的采矿箱
- */
+    /*
+    所有的采矿箱
+     */
     public static ArrayList<MiningBox> theMiningBoxes = new ArrayList();
     /*
     所有养殖箱
@@ -384,6 +384,7 @@ public class ModSimukraft {
 
     /**
      * 游戏模式
+     *
      * @return
      */
     public static int getGameModeNumber() {
@@ -640,7 +641,7 @@ public class ModSimukraft {
                 proxy.ranStartup = true;
             }
 
-            sendChat("Welcome to Sim-U-Kraft " + version);
+            sendChat("Welcome to Sim-U-Kraft " + VERSION);
             theFolks.clear();
             Building.initialiseAllBuildings();
             Building.loadAllBuildings();
@@ -734,8 +735,8 @@ public class ModSimukraft {
             if (ver != null) {
                 ver = ver.trim();
                 if (!ver.contentEquals("")) {
-                    if (!version.contentEquals(ver)) {
-                        sendChat("**** NEW update of Sim-U-Kraft available (from " + version + " to " + ver + ") at satscape.wordpress.com/simukraft");
+                    if (!VERSION.contentEquals(ver)) {
+                        sendChat("**** NEW update of Sim-U-Kraft available (from " + VERSION + " to " + ver + ") at satscape.wordpress.com/simukraft");
                     }
 
                     Long now = System.currentTimeMillis();
@@ -750,7 +751,7 @@ public class ModSimukraft {
                 high = o;
             }
 
-            String newbs = this.downloadFile(baseURL + "backend.php?cmd=getnew&n=" + high + "&i=" + this.getTheirId() + "&v=" + version, getSimukraftFolder() + File.separator + "simukraft.txt");
+            String newbs = this.downloadFile(baseURL + "backend.php?cmd=getnew&n=" + high + "&i=" + this.getTheirId() + "&v=" + VERSION, getSimukraftFolder() + File.separator + "simukraft.txt");
             if (newbs.length() == 0) {
                 return;
             }
@@ -829,7 +830,7 @@ public class ModSimukraft {
     }
 
     public static void dayTransitionHandler() {
-        FolkData folk1;
+        //FolkData folk1;
         FolkData folk1;
         int homeless;
         int f1;
@@ -840,7 +841,7 @@ public class ModSimukraft {
             if (world != null) {
                 EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                 if (p != null) {
-                    proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:rooster", 1.0F, 1.0F, false);
+                    proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":rooster", 1.0F, 1.0F, false);
                 }
             }
 
@@ -910,6 +911,7 @@ public class ModSimukraft {
             Random rand = new Random();
             log.info("evolving folks");
             Thread t = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     try {
                         Thread.sleep(3000L);
@@ -941,7 +943,7 @@ public class ModSimukraft {
                         var10000.credits += totalCorpTax;
                         EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                         if (p != null) {
-                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:cash", 1.0F, 1.0F, false);
+                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
                         }
                     } else if (ModSimukraft.gameMode != GameMode.CREATIVE) {
                         ModSimukraft.sendChat("No rent collected today, you should hire a folk to build a residential house.");

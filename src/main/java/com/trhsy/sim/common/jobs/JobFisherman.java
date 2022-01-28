@@ -115,7 +115,7 @@ public class JobFisherman extends Job implements Serializable {
                 this.theStage = Stage.CAUGHTFISH;
             }
 
-            if (this.mc.func_71401_C().worldServers[0].func_72820_D() % 24000L > 11980L) {
+            if (this.mc.getIntegratedServer().worldServers[0].getWorldTime() % 24000L > 11980L) {
                 this.theStage = Stage.SELLINGFISH;
                 this.step = 1;
             }
@@ -136,10 +136,10 @@ public class JobFisherman extends Job implements Serializable {
             this.theFolk.statusText = "Damn! someone stole my fishing chests!";
             ModSimukraft.sendChat(this.theFolk.name + " (fisherman) can't find any chests at the dock!");
             if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.func_145779_a(Items.field_151115_aP, 1);
+                this.theFolk.theEntity.dropItem(Items.fish, 1);
             }
         } else {
-            this.inventoriesPut(this.dockChests, new ItemStack(Items.field_151115_aP, 1), true);
+            this.inventoriesPut(this.dockChests, new ItemStack(Items.fish, 1), true);
         }
 
         this.theStage = Stage.FISHING;
@@ -153,7 +153,7 @@ public class JobFisherman extends Job implements Serializable {
     }
 
     private void stageSellingFish() {
-        if (this.mc.func_71401_C().worldServers[0].func_72820_D() % 24000L < 11600L) {
+        if (this.mc.getIntegratedServer().worldServers[0].getWorldTime() % 24000L < 11600L) {
             this.theStage = Stage.IDLE;
         } else {
             this.theFolk.statusText = "All done for today, caught " + this.fishCount + " fish!";
@@ -163,7 +163,7 @@ public class JobFisherman extends Job implements Serializable {
                 if (ModSimukraft.theFolks.size() > 1) {
                     int sell = ModSimukraft.theFolks.size() + 1;
                     this.dockChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
-                    fishStack = inventoriesGet(this.dockChests, new ItemStack(Items.field_151115_aP, sell), false, false);
+                    fishStack = inventoriesGet(this.dockChests, new ItemStack(Items.fish, sell), false, false);
                 }
 
                 if (fishStack == null) {
@@ -171,13 +171,13 @@ public class JobFisherman extends Job implements Serializable {
                     return;
                 }
 
-                ModSimukraft.sendChat(this.theFolk.name + " caught " + this.fishCount + " fish today and has sold " + fishStack.field_77994_a + " to folks.");
+                ModSimukraft.sendChat(this.theFolk.name + " caught " + this.fishCount + " fish today and has sold " + fishStack.stackSize + " to folks.");
 
                 for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
                     FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
-                    if (fishStack.field_77994_a > 0) {
+                    if (fishStack.stackSize > 0) {
                         folk.levelFood = 10;
-                        --fishStack.field_77994_a;
+                        --fishStack.stackSize;
                     }
                 }
 

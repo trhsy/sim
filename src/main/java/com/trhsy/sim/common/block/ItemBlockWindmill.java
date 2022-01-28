@@ -25,24 +25,27 @@ import java.util.List;
 public class ItemBlockWindmill extends ItemBlock {
     public ItemBlockWindmill(int par1, Block par2Block) {
         super(par2Block);
-        this.func_77627_a(true);
+        this.setHasSubtypes(true);
     }
 
     public String getItemDisplayName(ItemStack is) {
-        return is.func_77960_j() == 0 ? "Sim-U-Windmill" : "Sim-U-Windmill (colour)";
+        return is.getMetadata() == 0 ? "Sim-U-Windmill" : "Sim-U-Windmill (colour)";
     }
 
-    public String func_77667_c(ItemStack is) {
-        return "item.SUKwindmill" + is.func_77960_j();
+    @Override
+    public String getUnlocalizedName(ItemStack is) {
+        return "item.SUKwindmill" + is.getMetadata();
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_77624_a(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("Granulates ores and generates Buildcraft energy");
-        super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
+        super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
 
-    public int func_77647_b(int par1) {
+    @Override
+    public int getMetadata(int par1) {
         return par1;
     }
 }

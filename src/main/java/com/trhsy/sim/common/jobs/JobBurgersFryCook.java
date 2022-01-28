@@ -136,13 +136,13 @@ public class JobBurgersFryCook extends Job {
                                     return;
                                 }
 
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.field_151082_bd, 1), false);
+                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.beef, 1), false);
                                 if (c == 0) {
                                     this.tryMeta = 2;
                                     return;
                                 }
 
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.field_151025_P, 1), false);
+                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.bread, 1), false);
                                 if (c == 0) {
                                     this.tryMeta = 2;
                                     return;
@@ -152,13 +152,13 @@ public class JobBurgersFryCook extends Job {
                                 this.step = 2;
                                 this.theFolk.statusText = "Cooking up a Cheeseburger";
                             } else if (this.tryMeta == 1) {
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.field_151082_bd, 1), false);
+                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.beef, 1), false);
                                 if (c == 0) {
                                     this.tryMeta = 2;
                                     return;
                                 }
 
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.field_151025_P, 1), false);
+                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.bread, 1), false);
                                 if (c == 0) {
                                     this.tryMeta = 2;
                                     return;
@@ -168,7 +168,7 @@ public class JobBurgersFryCook extends Job {
                                 this.step = 2;
                                 this.theFolk.statusText = "Cooking a tasty Hamburger";
                             } else if (this.tryMeta == 2) {
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.field_151174_bG), false);
+                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.potato), false);
                                 if (c == 0) {
                                     this.tryMeta = 3;
                                     return;
@@ -185,17 +185,17 @@ public class JobBurgersFryCook extends Job {
                                 this.theFolk.isWorking = true;
                             }
                         } else if (this.step == 2) {
-                            if (this.isMakeFood.func_77960_j() == 3) {
+                            if (this.isMakeFood.getMetadata() == 3) {
                                 inventoriesGet(chestsIn, new ItemStack(ModSimukraft.itemFood, 1, 0), false, true);
-                                inventoriesGet(chestsIn, new ItemStack(Items.field_151025_P, 1), false, false);
-                                inventoriesGet(chestsIn, new ItemStack(Items.field_151082_bd, 1), false, false);
+                                inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
+                                inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
                                 this.tryMeta = 1;
-                            } else if (this.isMakeFood.func_77960_j() == 1) {
-                                inventoriesGet(chestsIn, new ItemStack(Items.field_151025_P, 1), false, false);
-                                inventoriesGet(chestsIn, new ItemStack(Items.field_151082_bd, 1), false, false);
+                            } else if (this.isMakeFood.getMetadata() == 1) {
+                                inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
+                                inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
                                 this.tryMeta = 2;
-                            } else if (this.isMakeFood.func_77960_j() == 2) {
-                                inventoriesGet(chestsIn, new ItemStack(Items.field_151174_bG, 1), false, false);
+                            } else if (this.isMakeFood.getMetadata() == 2) {
+                                inventoriesGet(chestsIn, new ItemStack(Items.potato, 1), false, false);
                                 this.tryMeta = 3;
                             }
 
