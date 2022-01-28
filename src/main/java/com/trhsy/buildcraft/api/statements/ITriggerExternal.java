@@ -18,5 +18,4 @@ import net.minecraftforge.common.util.ForgeDirection;
  **/
 public interface ITriggerExternal extends IStatement {
     boolean isTriggerActive(TileEntity var1, ForgeDirection var2, IStatementContainer var3, IStatementParameter[] var4);
-}{
 }

@@ -140,8 +140,8 @@ public class JobButcher extends Job implements Serializable {
             int dist = this.theFolk.location.getDistanceTo(this.farm.primaryXYZ);
             if (dist < 3) {
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.field_70159_w = 0.0D;
-                    this.theFolk.theEntity.field_70179_y = 0.0D;
+                    this.theFolk.theEntity.motionX = 0.0D;
+                    this.theFolk.theEntity.motionZ = 0.0D;
                 }
 
                 this.onRoute = false;
@@ -168,9 +168,9 @@ public class JobButcher extends Job implements Serializable {
                 this.step = 2;
             }
         } else if (this.step == 2) {
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.field_151076_bf, 1, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.field_151147_al, 1, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.field_151082_bd, 1, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.chicken, 1, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.porkchop, 1, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.beef, 1, 640), (Block)null);
             this.step = 3;
         } else if (this.step == 3) {
             this.theStage = Stage.GOINGTOMEATFARM;
@@ -189,15 +189,15 @@ public class JobButcher extends Job implements Serializable {
             if (dist < 2.0D) {
                 this.onRoute = false;
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.field_70159_w = 0.0D;
-                    this.theFolk.theEntity.field_70179_y = 0.0D;
+                    this.theFolk.theEntity.motionX = 0.0D;
+                    this.theFolk.theEntity.motionZ = 0.0D;
                 }
 
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = "Unloading meat";
-                int meat1 = this.getInventoryCount(this.theFolk, Items.field_151147_al);
-                int meat2 = this.getInventoryCount(this.theFolk, Items.field_151076_bf);
-                int meat3 = this.getInventoryCount(this.theFolk, Items.field_151082_bd);
+                int meat1 = this.getInventoryCount(this.theFolk, Items.porkchop);
+                int meat2 = this.getInventoryCount(this.theFolk, Items.chicken);
+                int meat3 = this.getInventoryCount(this.theFolk, Items.beef);
                 this.pay = (float)((double)(meat1 + meat2 + meat3) * 0.03D);
                 this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
                 this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chestsAtShop, (ItemStack)null);
@@ -223,12 +223,12 @@ public class JobButcher extends Job implements Serializable {
                 GameStates var10000 = ModSimukraft.states;
                 var10000.credits -= this.pay;
                 ModSimukraft.sendChat(this.theFolk.name + " has collected meat and has been paid " + ModSimukraft.displayMoney(this.pay) + " Sim-u-credits.");
-                this.mc.field_71441_e.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, "satscapesimukraft:cash", 1.0F, 1.0F, false);
+                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
             this.step = 2;
         } else if (this.step == 2) {
-            if (this.mc.func_71401_C().worldServers[0].func_72820_D() % 24000L > 11600L) {
+            if (this.mc.getIntegratedServer().worldServers[0].getWorldTime() % 24000L > 11600L) {
                 this.step = 3;
             }
 
@@ -245,13 +245,13 @@ public class JobButcher extends Job implements Serializable {
             this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
 
             for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-                piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151147_al, 1), false, false);
+                piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.porkchop, 1), false, false);
                 if (piece == null) {
-                    piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151076_bf, 1), false, false);
+                    piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.chicken, 1), false, false);
                 }
 
                 if (piece == null) {
-                    piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151082_bd, 1), false, false);
+                    piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.beef, 1), false, false);
                 }
 
                 if (piece != null) {
@@ -297,7 +297,7 @@ public class JobButcher extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

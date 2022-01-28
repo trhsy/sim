@@ -18,6 +18,7 @@ public enum FarmType {
     private FarmType() {
     }
 
+    @Override
     public String toString() {
         if (this == CARROT) {
             return "Carrot";

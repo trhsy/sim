@@ -1,7 +1,6 @@
 package com.trhsy.sim.common;
 
 import com.trhsy.sim.client.ClientProxy;
-import com.sim.trhsy.common.entity.*;
 import com.trhsy.sim.client.event.EventSounds;
 import com.trhsy.sim.client.gui.GuiRunMod;
 import com.trhsy.sim.common.block.*;
@@ -62,7 +61,7 @@ import java.util.logging.Logger;
  **/
 @Mod(modid = ModSimukraft.MODID, name = ModSimukraft.NAME, version = ModSimukraft.VERSION, dependencies = "required-after:Forge@[9.10,)")
 public class ModSimukraft {
-    public static final String MODID = "sim";
+    public static final String MODID = "sim_u";
     public static final String NAME = "sim";
     public static final String VERSION = "1.0.0 Beta";
 
@@ -109,7 +108,7 @@ public class ModSimukraft {
     /*
     采矿箱
      */
-    static Block miningBox;
+    public static Block miningBox;
     /*
     养殖箱id
      */
@@ -117,7 +116,7 @@ public class ModSimukraft {
     /*
     养殖箱
      */
-    static Block farmingBox;
+    public static Block farmingBox;
     /*
     灯箱id
      */
@@ -223,7 +222,7 @@ public class ModSimukraft {
      */
     public static Item itemFoodCheeseburger;
     /*
-复合砖
+    复合砖
      */
     public static Block blockCompositeBrick;
     /*
@@ -247,7 +246,7 @@ public class ModSimukraft {
      */
     public static Block blockFluidMilk;
     /*
- 液体牛奶块id
+    液体牛奶块id
      */
     public static int blockFluidMilkId;
     /*
@@ -266,9 +265,9 @@ public class ModSimukraft {
     所有快递点
      */
     public static ArrayList<V3> theCourierPoints = new ArrayList();
-/*
-所有的采矿箱
- */
+    /*
+    所有的采矿箱
+     */
     public static ArrayList<MiningBox> theMiningBoxes = new ArrayList();
     /*
     所有养殖箱
@@ -384,6 +383,7 @@ public class ModSimukraft {
 
     /**
      * 游戏模式
+     *
      * @return
      */
     public static int getGameModeNumber() {
@@ -488,16 +488,16 @@ public class ModSimukraft {
         }
 
         SUKfluidMilk = new FluidMilk();
-        blockFluidMilk = (new BlockFluidMilk()).setBlockName("fluidMilk");
+        blockFluidMilk = (new BlockFluidMilk()).setUnlocalizedName("fluidMilk");
         lightBox = new BlockLightBox();
-        buildingConstructor = (new BlockConstructorBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKconstructorBox");
-        controlBox = (new BlockControlBox()).setStepSound(Block.soundTypeWood).setHardness(10.0F).setResistance(1.0F).setBlockName("SUKcontrol");
-        marker = (new BlockMarker()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKmarker");
-        miningBox = (new BlockMiningBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKmining");
-        farmingBox = (new BlockFarmingBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setBlockName("SUKfarming");
+        buildingConstructor = (new BlockConstructorBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKconstructorBox");
+        controlBox = (new BlockControlBox()).setStepSound(Block.soundTypeWood).setHardness(10.0F).setResistance(1.0F).setUnlocalizedName("SUKcontrol");
+        marker = (new BlockMarker()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKmarker");
+        miningBox = (new BlockMiningBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKmining");
+        farmingBox = (new BlockFarmingBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKfarming");
         itemFood = (new ItemSUKFood()).setUnlocalizedName("SUKfood");
-        blockCompositeBrick = (new BlockCompositeBrick(Material.rock)).setStepSound(Block.soundTypeStone).setHardness(8.0F).setResistance(7.0F).setBlockName("SUKcompositebrick");
-        blockCheese = (new BlockCheeseBlock()).setStepSound(Block.soundTypeCloth).setHardness(0.1F).setResistance(0.5F).setBlockName("SUKcheeseBlock");
+        blockCompositeBrick = (new BlockCompositeBrick(Material.rock)).setStepSound(Block.soundTypeStone).setHardness(8.0F).setResistance(7.0F).setUnlocalizedName("SUKcompositebrick");
+        blockCheese = (new BlockCheeseBlock()).setStepSound(Block.soundTypeCloth).setHardness(0.1F).setResistance(0.5F).setUnlocalizedName("SUKcheeseBlock");
         itemGranulesGold = new ItemGranulesGold(itemGranulesGoldId);
         LanguageRegistry.addName(itemGranulesGold, "Gold granules");
         itemGranulesIron = new ItemGranulesIron(itemGranulesIronId);
@@ -640,7 +640,7 @@ public class ModSimukraft {
                 proxy.ranStartup = true;
             }
 
-            sendChat("Welcome to Sim-U-Kraft " + version);
+            sendChat("Welcome to Sim-U-Kraft " + VERSION);
             theFolks.clear();
             Building.initialiseAllBuildings();
             Building.loadAllBuildings();
@@ -734,8 +734,8 @@ public class ModSimukraft {
             if (ver != null) {
                 ver = ver.trim();
                 if (!ver.contentEquals("")) {
-                    if (!version.contentEquals(ver)) {
-                        sendChat("**** NEW update of Sim-U-Kraft available (from " + version + " to " + ver + ") at satscape.wordpress.com/simukraft");
+                    if (!VERSION.contentEquals(ver)) {
+                        sendChat("**** NEW update of Sim-U-Kraft available (from " + VERSION + " to " + ver + ") at satscape.wordpress.com/simukraft");
                     }
 
                     Long now = System.currentTimeMillis();
@@ -750,7 +750,7 @@ public class ModSimukraft {
                 high = o;
             }
 
-            String newbs = this.downloadFile(baseURL + "backend.php?cmd=getnew&n=" + high + "&i=" + this.getTheirId() + "&v=" + version, getSimukraftFolder() + File.separator + "simukraft.txt");
+            String newbs = this.downloadFile(baseURL + "backend.php?cmd=getnew&n=" + high + "&i=" + this.getTheirId() + "&v=" + VERSION, getSimukraftFolder() + File.separator + "simukraft.txt");
             if (newbs.length() == 0) {
                 return;
             }
@@ -829,7 +829,7 @@ public class ModSimukraft {
     }
 
     public static void dayTransitionHandler() {
-        FolkData folk1;
+        //FolkData folk1;
         FolkData folk1;
         int homeless;
         int f1;
@@ -840,7 +840,7 @@ public class ModSimukraft {
             if (world != null) {
                 EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                 if (p != null) {
-                    proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:rooster", 1.0F, 1.0F, false);
+                    proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":rooster", 1.0F, 1.0F, false);
                 }
             }
 
@@ -910,6 +910,7 @@ public class ModSimukraft {
             Random rand = new Random();
             log.info("evolving folks");
             Thread t = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     try {
                         Thread.sleep(3000L);
@@ -941,7 +942,7 @@ public class ModSimukraft {
                         var10000.credits += totalCorpTax;
                         EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                         if (p != null) {
-                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:cash", 1.0F, 1.0F, false);
+                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
                         }
                     } else if (ModSimukraft.gameMode != GameMode.CREATIVE) {
                         ModSimukraft.sendChat("No rent collected today, you should hire a folk to build a residential house.");

@@ -4,6 +4,7 @@ package com.trhsy.sim.common.item;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSimukraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -27,17 +28,19 @@ public class ItemGranulesIron extends Item {
     private IIcon[] icons;
 
     public ItemGranulesIron(int par1) {
-        this.field_77777_bU = 64;
+        this.maxStackSize = 64;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_94581_a(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.func_94245_a("satscapesimukraft:granulesIron");
+        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":granulesIron");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_77617_a(int par1) {
+    public IIcon getIconFromDamage(int par1) {
         return this.icons[0];
     }
 
@@ -45,12 +48,14 @@ public class ItemGranulesIron extends Item {
         return "Iron granules";
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_77624_a(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("Place into furnace to make Iron Ingots");
-        super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
+        super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
 
+    @Override
     public IIcon getIcon(ItemStack stack, int pass) {
         return this.icons[0];
     }

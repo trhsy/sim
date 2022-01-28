@@ -129,7 +129,7 @@ public class JobBurgersManager extends Job {
                 int buy = count / 4;
                 if (buy > 0) {
                     ModSimukraft.log.info("JobBurgersManager: buying " + buy + " out of " + count + " items");
-                    this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1, pickUpItem.func_149692_a(1)), buy, doCompareMeta);
+                    this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1, pickUpItem.damageDropped(1)), buy, doCompareMeta);
                 }
             }
 
@@ -188,7 +188,7 @@ public class JobBurgersManager extends Job {
 
     private void stagePickupBakery() {
         if (this.step < 4) {
-            this.doPickup("bakery", (new ItemStack(Items.field_151025_P)).func_77973_b(), false);
+            this.doPickup("bakery", (new ItemStack(Items.bread)).getItem(), false);
         } else {
             this.theStage = Stage.PICKUPGROCERY;
             this.step = 1;
@@ -198,7 +198,7 @@ public class JobBurgersManager extends Job {
 
     private void stagePickupGrocery() {
         if (this.step < 4) {
-            this.doPickup("grocery", (new ItemStack(Items.field_151174_bG)).func_77973_b(), false);
+            this.doPickup("grocery", (new ItemStack(Items.potato)).getItem(), false);
         } else {
             this.theStage = Stage.PICKUPCHEESE;
             this.step = 1;
@@ -208,7 +208,7 @@ public class JobBurgersManager extends Job {
 
     private void stagePickupCheese() {
         if (this.step < 4) {
-            this.doPickup("cheese factory", (new ItemStack(ModSimukraft.itemFood, 1, 0)).func_77973_b(), true);
+            this.doPickup("cheese factory", (new ItemStack(ModSimukraft.itemFood, 1, 0)).getItem(), true);
         } else {
             this.theStage = Stage.PICKUPBUTCHERS;
             this.step = 1;
@@ -218,7 +218,7 @@ public class JobBurgersManager extends Job {
 
     private void stagePickupButchers() {
         if (this.step < 4) {
-            this.doPickup("butchers", (new ItemStack(Items.field_151082_bd, 1)).func_77973_b(), false);
+            this.doPickup("butchers", (new ItemStack(Items.beef, 1)).getItem(), false);
         } else {
             this.theStage = Stage.DROPOFF;
             this.step = 1;
@@ -297,7 +297,7 @@ public class JobBurgersManager extends Job {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

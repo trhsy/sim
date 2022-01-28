@@ -37,6 +37,7 @@ public abstract class ResourceId {
         }
     }
 
+    @Override
     public int hashCode() {
         return (this.index != null ? this.index.hashCode() : 0) * 37 + (this.side != null ? this.side.ordinal() : 0) * 37 + this.localId;
     }
@@ -44,21 +45,21 @@ public abstract class ResourceId {
     public void writeToNBT(NBTTagCompound nbt) {
         NBTTagCompound indexNBT = new NBTTagCompound();
         this.index.writeTo(indexNBT);
-        nbt.func_74782_a("index", indexNBT);
-        nbt.func_74774_a("side", (byte)this.side.ordinal());
-        nbt.func_74768_a("localId", this.localId);
-        nbt.func_74778_a("class", this.getClass().getCanonicalName());
+        nbt.setTag("index", indexNBT);
+        nbt.setByte("side", (byte)this.side.ordinal());
+        nbt.setInteger("localId", this.localId);
+        nbt.setString("class", this.getClass().getCanonicalName());
     }
 
     protected void readFromNBT(NBTTagCompound nbt) {
-        this.index = new BlockIndex(nbt.func_74775_l("index"));
-        this.side = ForgeDirection.values()[nbt.func_74771_c("side")];
-        this.localId = nbt.func_74762_e("localId");
+        this.index = new BlockIndex(nbt.getCompoundTag("index"));
+        this.side = ForgeDirection.values()[nbt.getByte("side")];
+        this.localId = nbt.getInteger("localId");
     }
 
     public static ResourceId load(NBTTagCompound nbt) {
         try {
-            Class clas = Class.forName(nbt.func_74779_i("class"));
+            Class clas = Class.forName(nbt.getString("class"));
             ResourceId id = (ResourceId)clas.newInstance();
             id.readFromNBT(nbt);
             return id;

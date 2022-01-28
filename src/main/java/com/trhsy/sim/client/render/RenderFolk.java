@@ -5,6 +5,7 @@ package com.trhsy.sim.client.render;/**
  */
 
 import com.trhsy.sim.common.EntityFolk;
+import com.trhsy.sim.common.ModSimukraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -35,20 +36,20 @@ public class RenderFolk extends RenderBiped {
     protected ResourceLocation func_110775_a(Entity entity) {
         if (entity instanceof EntityFolk) {
             EntityFolk theFolk = (EntityFolk)entity;
-            ResourceLocation myTexture = new ResourceLocation("satscapesimukraft", "skins/" + theFolk.getTexture());
+            ResourceLocation myTexture = new ResourceLocation(ModSimukraft.MODID + "", "skins/" + theFolk.getTexture());
             return myTexture;
         } else {
             return null;
         }
     }
 
-    public void func_76986_a(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
-        super.func_76986_a(par1Entity, par2, par4, par6, par8, par9);
+    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+        super.doRender(par1Entity, par2, par4, par6, par8, par9);
         this.doRenderFolk((EntityFolk)par1Entity, par2, par4, par6, par8, par9);
     }
 
     public void doRenderLiving(EntityLiving entityliving, double d, double d1, double d2, float f, float f1) {
-        double d3 = d1 - (double)entityliving.field_70129_M;
+        double d3 = d1 - (double)entityliving.yOffset;
         this.doRenderLiving(entityliving, d, d3, d2, f, f1);
         this.doRenderFolk((EntityFolk)entityliving, d, d3, d2, f, f1);
     }
@@ -58,7 +59,7 @@ public class RenderFolk extends RenderBiped {
         float f3 = 0.01666667F * f2;
         float f6 = 0.2F;
         if (entityFolk.theData != null && entityFolk != null) {
-            double dist = (double)entityFolk.func_70032_d(Minecraft.getMinecraft().thePlayer);
+            double dist = (double)entityFolk.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
             if (dist < 40.0D) {
                 if (entityFolk.theData.age < 18) {
                     this.displayText(entityFolk.theData.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float)d, (float)d1 + f3 + f6 - 0.4F, (float)d2, entityFolk);
@@ -81,33 +82,33 @@ public class RenderFolk extends RenderBiped {
     }
 
     private void displayText(String s, float f, int i, float f1, float f2, float f3, EntityFolk entitybuilder) {
-        FontRenderer fontrenderer = this.func_76983_a();
+        FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
         GL11.glPushMatrix();
         GL11.glTranslatef(f1, f2 + 2.3F, f3);
         GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-this.field_76990_c.field_78735_i, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(this.field_76990_c.field_78732_j, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         GL11.glScalef(-f, -f, f);
         GL11.glDisable(2896);
         GL11.glDepthMask(false);
         GL11.glDisable(2929);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        Tessellator tessellator = Tessellator.field_78398_a;
+        Tessellator tessellator = Tessellator.instance;
         GL11.glDisable(3553);
-        tessellator.func_78382_b();
-        int j = fontrenderer.func_78256_a(s) / 2;
-        tessellator.func_78369_a(0.0F, 0.0F, 0.0F, 0.25F);
-        tessellator.func_78377_a((double)(-j - 1), -1.0D, 0.0D);
-        tessellator.func_78377_a((double)(-j - 1), 8.0D, 0.0D);
-        tessellator.func_78377_a((double)(j + 1), 8.0D, 0.0D);
-        tessellator.func_78377_a((double)(j + 1), -1.0D, 0.0D);
-        tessellator.func_78381_a();
+        tessellator.startDrawingQuads();
+        int j = fontrenderer.getStringWidth(s) / 2;
+        tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+        tessellator.addVertex((double)(-j - 1), -1.0D, 0.0D);
+        tessellator.addVertex((double)(-j - 1), 8.0D, 0.0D);
+        tessellator.addVertex((double)(j + 1), 8.0D, 0.0D);
+        tessellator.addVertex((double)(j + 1), -1.0D, 0.0D);
+        tessellator.draw();
         GL11.glEnable(3553);
-        fontrenderer.func_78276_b(s, -fontrenderer.func_78256_a(s) / 2, 0, i);
+        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, i);
         GL11.glEnable(2929);
         GL11.glDepthMask(true);
-        fontrenderer.func_78276_b(s, -fontrenderer.func_78256_a(s) / 2, 0, i);
+        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, i);
         GL11.glEnable(2896);
         GL11.glDisable(3042);
         GL11.glPopMatrix();

@@ -80,10 +80,10 @@ public final class StatementManager {
                 toAdd = provider.getExternalTriggers(side, entity);
             } while(toAdd == null);
 
-            Iterator i$ = toAdd.iterator();
+            Iterator iterator = toAdd.iterator();
 
-            while(i$.hasNext()) {
-                ITriggerExternal t = (ITriggerExternal)i$.next();
+            while(iterator.hasNext()) {
+                ITriggerExternal t = (ITriggerExternal)iterator.next();
                 if (!result.contains(t)) {
                     result.add(t);
                 }
@@ -94,7 +94,7 @@ public final class StatementManager {
     public static List<IActionExternal> getExternalActions(ForgeDirection side, TileEntity entity) {
         List<IActionExternal> result = new LinkedList();
         if (entity instanceof IOverrideDefaultStatements) {
-            List<IActionExternal> result = ((IOverrideDefaultStatements)entity).overrideActions();
+            result = ((IOverrideDefaultStatements)entity).overrideActions();
             if (result != null) {
                 return result;
             }
@@ -102,16 +102,16 @@ public final class StatementManager {
             result = new LinkedList();
         }
 
-        Iterator i$ = actionProviders.iterator();
+        Iterator iterator = actionProviders.iterator();
 
         while(true) {
             Collection toAdd;
             do {
-                if (!i$.hasNext()) {
+                if (!iterator.hasNext()) {
                     return result;
                 }
 
-                IActionProvider provider = (IActionProvider)i$.next();
+                IActionProvider provider = (IActionProvider)iterator.next();
                 toAdd = provider.getExternalActions(side, entity);
             } while(toAdd == null);
 
@@ -141,10 +141,10 @@ public final class StatementManager {
                 toAdd = provider.getInternalTriggers(container);
             } while(toAdd == null);
 
-            Iterator i$ = toAdd.iterator();
+            Iterator iterator = toAdd.iterator();
 
-            while(i$.hasNext()) {
-                ITriggerInternal t = (ITriggerInternal)i$.next();
+            while(iterator.hasNext()) {
+                ITriggerInternal t = (ITriggerInternal)iterator.next();
                 if (!result.contains(t)) {
                     result.add(t);
                 }
@@ -167,10 +167,10 @@ public final class StatementManager {
                 toAdd = provider.getInternalActions(container);
             } while(toAdd == null);
 
-            Iterator i$ = toAdd.iterator();
+            Iterator iterator = toAdd.iterator();
 
-            while(i$.hasNext()) {
-                IActionInternal t = (IActionInternal)i$.next();
+            while(iterator.hasNext()) {
+                IActionInternal t = (IActionInternal)iterator.next();
                 if (!result.contains(t)) {
                     result.add(t);
                 }

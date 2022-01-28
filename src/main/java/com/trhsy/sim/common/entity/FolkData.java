@@ -250,7 +250,7 @@ public class FolkData implements Serializable {
         mother.updateLocationFromEntity();
         World mworld = null;
         if (mother.isSpawned()) {
-            mworld = mother.theEntity.field_70170_p;
+            mworld = mother.theEntity.worldObj;
         }
 
         this.location = Job.findAdjacentSpace(mother.location, mworld);
@@ -261,7 +261,7 @@ public class FolkData implements Serializable {
         if (world != null) {
             EntityPlayer p = Minecraft.getMinecraft().thePlayer;
             if (p != null) {
-                ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:birth", 1.0F, 1.0F, false);
+                ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":birth", 1.0F, 1.0F, false);
             }
         }
 
@@ -297,16 +297,16 @@ public class FolkData implements Serializable {
     public void respawnEntity(World world) {
         if (world != null) {
             if (this.beamingTo == null) {
-                if (this.theEntity == null || this.theEntity.field_70128_L) {
+                if (this.theEntity == null || this.theEntity.isDead) {
                     if (this.getDistanceToPlayer() < 50) {
                         this.theEntity = new EntityFolk(world);
-                        this.theEntity.func_70012_b(this.location.x, this.location.y, this.location.z, 0.0F, 0.0F);
+                        this.theEntity.setLocationAndAngles(this.location.x, this.location.y, this.location.z, 0.0F, 0.0F);
                         if (!world.isRemote) {
-                            world.func_72838_d(this.theEntity);
+                            world.spawnEntityInWorld(this.theEntity);
                         }
 
-                        this.entityId = this.theEntity.func_145782_y();
-                        ModSimukraft.log.info("FolkData:repawnEntity() " + this.name + " at " + this.location.toString() + " in dim " + this.location.theDimension + " ENTITY:" + this.theEntity.func_145782_y());
+                        this.entityId = this.theEntity.getEntityId();
+                        ModSimukraft.log.info("FolkData:repawnEntity() " + this.name + " at " + this.location.toString() + " in dim " + this.location.theDimension + " ENTITY:" + this.theEntity.getEntityId());
                     }
 
                 }
@@ -337,14 +337,14 @@ public class FolkData implements Serializable {
     public void onUpdate() {
         Random rand = new Random();
         Long now = System.currentTimeMillis();
-        FolkData male;
+        //FolkData male;
         FolkData male;
         if (now - this.timeSinceLastMinute > 60000L) {
             if (this.getHome() == null && this.timeSinceLastMinute > 0L) {
                 this.getHomeForHomeless();
             }
 
-            long t = MinecraftServer.getServer().worldServers[0].func_72820_D() % 24000L;
+            long t = MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L;
             if (t < 2000L && this.pregnancyStage >= 1.0F) {
                 Iterator i$ = ModSimukraft.theBuildings.iterator();
 
@@ -515,12 +515,12 @@ public class FolkData implements Serializable {
                     this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
                 }
             } else {
-                this.theEntity.field_71093_bK = this.location.theDimension;
+                this.theEntity.dimension = this.location.theDimension;
                 this.updateLocationFromEntity();
                 range = this.getDistanceToPlayer();
                 if (range >= 50 && this.theEntity != null) {
                     ModSimukraft.log.info("FolkData: onSecTasks - Manually Despawned " + this.name + " as they are " + range + " blocks away");
-                    this.theEntity.func_70106_y();
+                    this.theEntity.setDead();
                 }
             }
 
@@ -659,7 +659,7 @@ public class FolkData implements Serializable {
                 if (this.talkCounter == 12) {
                     if (ModSimukraft.configFolkTalking) {
                         chance = rand.nextInt(26) + 97;
-                        String letter = "satscapesimukraft:blarg" + Character.toString((char)chance);
+                        String letter = ModSimukraft.MODID + ":blarg" + Character.toString((char)chance);
                         ModSimukraft.proxy.getClientWorld().playSound(this.location.x, this.location.y, this.location.z, letter, 1.0F, 1.0F, false);
                     }
 
@@ -678,17 +678,17 @@ public class FolkData implements Serializable {
                     if (male != null) {
                         this.matingStage += 0.02F;
                         if (this.isSpawned()) {
-                            World theWorld = Minecraft.getMinecraft().field_71441_e;
+                            World theWorld = Minecraft.getMinecraft().theWorld;
                             double d0 = rand.nextDouble() * 0.5D;
                             double d1 = rand.nextDouble() * 0.5D;
                             double d2 = rand.nextDouble() * 0.5D;
-                            theWorld.func_72869_a("heart", this.theEntity.posX, this.theEntity.posY + 2.1D, this.theEntity.posZ, d0, d1, d2);
+                            theWorld.spawnParticle("heart", this.theEntity.posX, this.theEntity.posY + 2.1D, this.theEntity.posZ, d0, d1, d2);
                             male.updateLocationFromEntity();
                             if ((double)this.matingStage < 0.15D) {
                                 this.gotoXYZ(male.location, GotoMethod.SHIFT);
                             }
 
-                            theWorld.func_72869_a("heart", male.location.x, male.location.y + 2.1D, male.location.z, d0, d1, d2);
+                            theWorld.spawnParticle("heart", male.location.x, male.location.y + 2.1D, male.location.z, d0, d1, d2);
                             this.statusText = "Trying for a baby";
                             male.statusText = "Trying for a baby";
                             male.stayPut = true;
@@ -706,18 +706,18 @@ public class FolkData implements Serializable {
                     this.pregnancyStage = 0.1F;
                     ModSimukraft.sendChat("Good news! " + this.name + " and " + male.name + " are expecting a baby!");
                     if (this.isSpawned()) {
-                        this.theEntity.func_70637_d(true);
+                        this.theEntity.setJumping(true);
                     }
 
                     if (male.isSpawned()) {
-                        male.theEntity.func_70637_d(true);
+                        male.theEntity.setJumping(true);
                     }
 
                     World world = ModSimukraft.proxy.getClientWorld();
                     if (world != null) {
                         EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                         if (p != null) {
-                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, "satscapesimukraft:pregnant", 1.0F, 1.0F, false);
+                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":pregnant", 1.0F, 1.0F, false);
                         }
                     }
                 }
@@ -742,7 +742,7 @@ public class FolkData implements Serializable {
             if (malePartner != null && this.action == FolkAction.ATHOME && malePartner.action == FolkAction.ATHOME) {
                 this.matingStage = 0.0F;
                 if (malePartner.isSpawned()) {
-                    this.gotoXYZ(new V3(malePartner.theEntity.posX, malePartner.theEntity.posY, malePartner.theEntity.posZ, malePartner.theEntity.field_71093_bK), GotoMethod.WALK);
+                    this.gotoXYZ(new V3(malePartner.theEntity.posX, malePartner.theEntity.posY, malePartner.theEntity.posZ, malePartner.theEntity.dimension), GotoMethod.WALK);
                 }
             }
         } else {
@@ -834,7 +834,7 @@ public class FolkData implements Serializable {
         if (this.theEntity == null) {
             return false;
         } else {
-            return !this.theEntity.field_70128_L;
+            return !this.theEntity.isDead;
         }
     }
 
@@ -853,22 +853,22 @@ public class FolkData implements Serializable {
 
         V3 ret;
         try {
-            ret = new V3(p.posX, 5.0D, p.posZ, p.field_71093_bK);
+            ret = new V3(p.posX, 5.0D, p.posZ, p.dimension);
         } catch (Exception var9) {
             ModSimukraft.log.warning("getLocationCloseToPlayer: player was null, returned null V3");
             return new V3(0.0D, 5.0D, 0.0D, 0);
         }
 
         boolean found = false;
-        Block bid = null;
+        Block bid;
 
         try {
             for(int go = 30; go > 1; --go) {
-                ret = new V3(p.posX, 5.0D, p.posZ + (double)go, p.field_71093_bK);
+                ret = new V3(p.posX, 5.0D, p.posZ + (double)go, p.dimension);
 
                 while(!found) {
-                    bid = p.field_70170_p.getBlock(ret.x.intValue(), ret.y.intValue(), ret.z.intValue());
-                    if ((p.field_70170_p.func_72937_j(ret.x.intValue(), ret.y.intValue(), ret.z.intValue()) || p.field_71093_bK != 0) && bid != Blocks.field_150362_t && bid == null) {
+                    bid = p.worldObj.getBlock(ret.x.intValue(), ret.y.intValue(), ret.z.intValue());
+                    if ((p.worldObj.canBlockSeeTheSky(ret.x.intValue(), ret.y.intValue(), ret.z.intValue()) || p.dimension != 0) && bid != Blocks.leaves && bid == null) {
                         found = true;
                     }
 
@@ -893,7 +893,7 @@ public class FolkData implements Serializable {
     public static EntityPlayer getClosestPlayer(V3 location) {
         try {
             World world = MinecraftServer.getServer().worldServerForDimension(location.theDimension);
-            EntityPlayer ret = world.func_72977_a(location.x, location.y, location.z, 60.0D);
+            EntityPlayer ret = world.getClosestPlayer(location.x, location.y, location.z, 60.0D);
             return ret;
         } catch (Exception var3) {
             return null;
@@ -947,17 +947,17 @@ public class FolkData implements Serializable {
                 if (is != null) {
                     if (this.theEntity != null) {
                         try {
-                            this.theEntity.func_70099_a(is, (float)is.field_77994_a);
+                            this.theEntity.entityDropItem(is, (float)is.stackSize);
                         } catch (Exception var6) {
                         }
                     } else {
                         try {
-                            getClosestPlayer(this.location).func_70099_a(is, (float)is.field_77994_a);
+                            getClosestPlayer(this.location).entityDropItem(is, (float)is.stackSize);
                         } catch (Exception var5) {
                         }
                     }
 
-                    count += is.field_77994_a;
+                    count += is.stackSize;
                 }
             }
 
@@ -968,7 +968,7 @@ public class FolkData implements Serializable {
 
         this.inventory.clear();
         if (this.theEntity != null) {
-            this.theEntity.field_70733_aJ = 0.0F;
+            this.theEntity.swingProgress = 0.0F;
             this.theEntity.getNavigator().clearPathEntity();
         }
 
@@ -1002,7 +1002,7 @@ public class FolkData implements Serializable {
                     try {
                         EntityPlayer pl = getClosestPlayer(this.location);
                         if (pl != null && this.location.theDimension == this.destination.theDimension) {
-                            playpos = new V3(pl.posX, pl.posY, pl.posZ, pl.field_71093_bK);
+                            playpos = new V3(pl.posX, pl.posY, pl.posZ, pl.dimension);
                         } else {
                             dist = 999;
                         }
@@ -1024,7 +1024,7 @@ public class FolkData implements Serializable {
                         }
 
                         try {
-                            if (this.location.theDimension != Minecraft.getMinecraft().thePlayer.field_71093_bK && this.destination.theDimension != Minecraft.getMinecraft().thePlayer.field_71093_bK) {
+                            if (this.location.theDimension != Minecraft.getMinecraft().thePlayer.dimension && this.destination.theDimension != Minecraft.getMinecraft().thePlayer.dimension) {
                                 this.gotoMethod = GotoMethod.SHIFT;
                             }
                         } catch (Exception var10) {
@@ -1059,8 +1059,8 @@ public class FolkData implements Serializable {
 
                             try {
                                 if (this.location.theDimension != this.destination.theDimension) {
-                                    this.theEntity.func_71027_c(this.destination.theDimension);
-                                    this.theEntity.field_71093_bK = this.destination.theDimension;
+                                    this.theEntity.travelToDimension(this.destination.theDimension);
+                                    this.theEntity.dimension = this.destination.theDimension;
                                     this.location.theDimension = this.destination.theDimension;
                                 }
                             } catch (Exception var8) {
@@ -1145,10 +1145,10 @@ public class FolkData implements Serializable {
         try {
             if (System.currentTimeMillis() - this.timeStartedGotoing > 4000L || this.beamingTo == null) {
                 if (this.theEntity != null) {
-                    this.theEntity.func_70107_b(this.beamingTo.x, this.beamingTo.y, this.beamingTo.z);
-                    if (this.theEntity.field_71093_bK != this.beamingTo.theDimension) {
-                        this.theEntity.func_71027_c(this.beamingTo.theDimension);
-                        this.theEntity.field_71093_bK = this.beamingTo.theDimension;
+                    this.theEntity.setPosition(this.beamingTo.x, this.beamingTo.y, this.beamingTo.z);
+                    if (this.theEntity.dimension != this.beamingTo.theDimension) {
+                        this.theEntity.travelToDimension(this.beamingTo.theDimension);
+                        this.theEntity.dimension = this.beamingTo.theDimension;
                         this.location.theDimension = this.beamingTo.theDimension;
                     }
                 }
@@ -1170,19 +1170,19 @@ public class FolkData implements Serializable {
         Random random = new Random();
         Double d4 = ((double)random.nextFloat() - 2.0D) * 2.0D;
         this.stayPut = true;
-        World theWorld = Minecraft.getMinecraft().field_71441_e;
+        World theWorld = Minecraft.getMinecraft().theWorld;
 
         for(int p = 0; p < 10; ++p) {
             try {
                 if (!ModSimukraft.configDisableBeamEffect) {
-                    theWorld.func_72869_a("portal", this.location.x + random.nextDouble() - 0.5D, this.location.y - 1.0D, this.location.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                    theWorld.spawnParticle("portal", this.location.x + random.nextDouble() - 0.5D, this.location.y - 1.0D, this.location.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
                 }
             } catch (Exception var7) {
             }
 
             try {
                 if (!ModSimukraft.configDisableBeamEffect) {
-                    theWorld.func_72869_a("portal", this.beamingTo.x + random.nextDouble() - 0.5D, this.beamingTo.y - 1.0D, this.beamingTo.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                    theWorld.spawnParticle("portal", this.beamingTo.x + random.nextDouble() - 0.5D, this.beamingTo.y - 1.0D, this.beamingTo.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
                 }
             } catch (Exception var6) {
             }
@@ -1220,10 +1220,10 @@ public class FolkData implements Serializable {
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
                     FolkData folkd = new FolkData();
-                    Iterator i$ = strings.iterator();
+                    Iterator iterator = strings.iterator();
 
-                    while(i$.hasNext()) {
-                        String line = (String)i$.next();
+                    while(iterator.hasNext()) {
+                        String line = (String)iterator.next();
                         if (line.contains("|")) {
                             int m1 = line.indexOf("|");
                             String name = line.substring(0, m1);
@@ -1472,7 +1472,7 @@ public class FolkData implements Serializable {
     public static FolkData getFolkDataByEntityId(int id) {
         for(int i = 0; i < ModSimukraft.theFolks.size(); ++i) {
             FolkData fd = (FolkData)ModSimukraft.theFolks.get(i);
-            if (fd.theEntity != null && fd.theEntity.func_145782_y() == id) {
+            if (fd.theEntity != null && fd.theEntity.getEntityId() == id) {
                 return fd;
             }
         }
@@ -1491,11 +1491,11 @@ public class FolkData implements Serializable {
         this.employedAt = null;
         this.vocation = null;
         String deathBy = "";
-        if (d == DamageSource.field_76367_g) {
+        if (d == DamageSource.cactus) {
             deathBy = "(death by cactus... the worst kind.) ";
         }
 
-        if (d == DamageSource.field_76369_e) {
+        if (d == DamageSource.drown) {
             deathBy = "(drowned) ";
         }
 
@@ -1503,31 +1503,31 @@ public class FolkData implements Serializable {
             deathBy = "(Natural causes/old age) ";
         }
 
-        if (d == DamageSource.field_76372_a) {
+        if (d == DamageSource.inFire) {
             deathBy = "(Spontanious combustion) ";
         }
 
-        if (d == DamageSource.field_76371_c) {
+        if (d == DamageSource.lava) {
             deathBy = "(while walking on lava) ";
         }
 
-        if (d == DamageSource.field_76370_b) {
+        if (d == DamageSource.onFire) {
             deathBy = "(Burned alive!) ";
         }
 
-        if (d == DamageSource.field_76380_i) {
+        if (d == DamageSource.outOfWorld) {
             deathBy = "(Fell out of the world!) ";
         }
 
-        if (d == DamageSource.field_76366_f) {
+        if (d == DamageSource.starve) {
             deathBy = "(starvation, Build farms, bakeries and grocery stores!) ";
         }
 
-        if (d == DamageSource.field_76379_h) {
+        if (d == DamageSource.fall) {
             deathBy = "(Fell off a cliff, or were they pushed?!)";
         }
 
-        if (d == DamageSource.field_76368_d) {
+        if (d == DamageSource.inWall) {
             deathBy = "(Buried alive under gravel/sand)";
         }
 

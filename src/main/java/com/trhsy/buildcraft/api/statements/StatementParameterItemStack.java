@@ -24,33 +24,38 @@ public class StatementParameterItemStack implements IStatementParameter {
     public StatementParameterItemStack() {
     }
 
+    @Override
     public IIcon getIcon() {
         return null;
     }
 
+    @Override
     public ItemStack getItemStack() {
         return this.stack;
     }
 
+    @Override
     public void onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse) {
         if (stack != null) {
-            this.stack = stack.func_77946_l();
-            this.stack.field_77994_a = 1;
+            this.stack = stack.copy();
+            this.stack.stackSize = 1;
         }
 
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         if (this.stack != null) {
             NBTTagCompound tagCompound = new NBTTagCompound();
-            this.stack.func_77955_b(tagCompound);
-            compound.func_74782_a("stack", tagCompound);
+            this.stack.writeToNBT(tagCompound);
+            compound.setTag("stack", tagCompound);
         }
 
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
-        this.stack = ItemStack.func_77949_a(compound.func_74775_l("stack"));
+        this.stack = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("stack"));
     }
 
     public boolean equals(Object object) {
@@ -58,21 +63,25 @@ public class StatementParameterItemStack implements IStatementParameter {
             return false;
         } else {
             StatementParameterItemStack param = (StatementParameterItemStack)object;
-            return ItemStack.func_77989_b(this.stack, param.stack) && ItemStack.func_77970_a(this.stack, param.stack);
+            return ItemStack.areItemStacksEqual(this.stack, param.stack) && ItemStack.areItemStackTagsEqual(this.stack, param.stack);
         }
     }
 
+    @Override
     public String getDescription() {
-        return this.stack != null ? this.stack.func_82833_r() : "";
+        return this.stack != null ? this.stack.getDisplayName() : "";
     }
 
+    @Override
     public String getUniqueTag() {
         return "buildcraft:stack";
     }
 
+    @Override
     public void registerIcons(IIconRegister iconRegister) {
     }
 
+    @Override
     public IStatementParameter rotateLeft() {
         return this;
     }

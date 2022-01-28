@@ -4,11 +4,13 @@ package com.trhsy.sim.common.item;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSimukraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -27,20 +29,22 @@ public class ItemWindmillSails extends Item {
     private IIcon[] icons;
 
     public ItemWindmillSails(int par1) {
-        this.field_77777_bU = 64;
+        this.maxStackSize = 64;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_94581_a(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[16];
 
         for(int i = 0; i < 16; ++i) {
-            this.icons[i] = iconRegister.func_94245_a("satscapesimukraft:windmillsails" + i);
+            this.icons[i] = iconRegister.registerIcon(ModSimukraft.MODID + ":windmillsails" + i);
         }
 
     }
 
-    public IIcon func_77617_a(int meta) {
+    @Override
+    public IIcon getIconFromDamage(int meta) {
         return meta >= 0 && meta < 16 ? this.icons[meta] : this.icons[0];
     }
 
@@ -52,21 +56,24 @@ public class ItemWindmillSails extends Item {
 
     }
 
-    public String func_77667_c(ItemStack is) {
-        return "item.windmillsails" + is.func_77960_j();
+    @Override
+    public String getUnlocalizedName(ItemStack is) {
+        return "item.windmillsails" + is.getMetadata();
     }
 
     public String getItemDisplayName(ItemStack par1ItemStack) {
         return "Windmill sails";
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_77624_a(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("Craft a windmill base to make a windmill");
-        super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
+        super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
 
-    public int func_77647_b(int par1) {
+    @Override
+    public int getMetadata(int par1) {
         return par1;
     }
 }

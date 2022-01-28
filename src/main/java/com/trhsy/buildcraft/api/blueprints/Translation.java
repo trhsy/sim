@@ -4,6 +4,8 @@ package com.trhsy.buildcraft.api.blueprints;/**
  * @apiNote
  */
 
+import com.trhsy.buildcraft.api.core.Position;
+
 /**
  * ========================================
  *
@@ -29,6 +31,7 @@ public class Translation {
         return p2;
     }
 
+    @Override
     public String toString() {
         return "{" + this.x + ", " + this.y + ", " + this.z + "}";
     }

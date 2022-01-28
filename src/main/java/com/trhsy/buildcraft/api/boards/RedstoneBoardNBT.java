@@ -43,11 +43,11 @@ public abstract class RedstoneBoardNBT<T> {
     public abstract IIcon getIcon(NBTTagCompound var1);
 
     public void createBoard(NBTTagCompound nbt) {
-        nbt.func_74778_a("id", this.getID());
+        nbt.setString("id", this.getID());
     }
 
     public int getParameterNumber(NBTTagCompound nbt) {
-        return !nbt.func_74764_b("parameters") ? 0 : nbt.func_150295_c("parameters", 10).func_74745_c();
+        return !nbt.hasKey("parameters") ? 0 : nbt.getTagList("parameters", 10).tagCount();
     }
 
     public float nextFloat(int difficulty) {

@@ -45,7 +45,7 @@ public class PricesForBlocks implements Serializable {
         float base = 0.0F;
         if (block == Blocks.planks) {
             base = basePricePlanks;
-        } else if (block == Blocks.field_150364_r) {
+        } else if (block == Blocks.log) {
             base = basePriceLogs;
         } else if (block == Blocks.cobblestone) {
             base = basePriceCobblestone;
@@ -74,7 +74,7 @@ public class PricesForBlocks implements Serializable {
     public static void setPrice(Block block, float newPrice) {
         if (block == Blocks.planks) {
             basePricePlanks = newPrice;
-        } else if (block == Blocks.field_150364_r) {
+        } else if (block == Blocks.log) {
             basePriceLogs = newPrice;
         } else if (block == Blocks.cobblestone) {
             basePriceCobblestone = newPrice;
@@ -116,10 +116,10 @@ public class PricesForBlocks implements Serializable {
         }
 
         if (block == Blocks.planks) {
-            setPrice(Blocks.field_150364_r, cprice * 4.0F);
+            setPrice(Blocks.log, cprice * 4.0F);
         }
 
-        if (block == Blocks.field_150364_r) {
+        if (block == Blocks.log) {
             setPrice(Blocks.planks, cprice / 4.0F);
         }
 

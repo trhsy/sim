@@ -4,6 +4,9 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.client.gui.GuiBankATM;
+import com.trhsy.sim.client.gui.GuiControlBox;
+import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSimukraft;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
@@ -35,22 +38,24 @@ public class BlockControlBox extends Block {
 
     @SideOnly(Side.CLIENT)
     public BlockControlBox() {
-        super(Material.field_151575_d);
-        this.setBlockName("controlBox");
-        this.setCreativeTab(CreativeTabs.field_78026_f);
+        super(Material.wood);
+        this.setUnlocalizedName("controlBox");
+        this.setCreativeTab(CreativeTabs.tabMisc);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a(IIconRegister par1IconRegister) {
+    public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[4];
-        this.icons[0] = par1IconRegister.func_94245_a("satscapesimukraft:blockControlTop");
-        this.icons[1] = par1IconRegister.func_94245_a("satscapesimukraft:blockControlSide");
-        this.icons[2] = par1IconRegister.func_94245_a("satscapesimukraft:blockATM");
-        this.icons[3] = par1IconRegister.func_94245_a("satscapesimukraft:blockControlTopOther");
+        this.icons[0] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockControlTop");
+        this.icons[1] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockControlSide");
+        this.icons[2] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockATM");
+        this.icons[3] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockControlTopOther");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int par1, int par2) {
+    public IIcon getIcon(int par1, int par2) {
         switch(par2) {
             case 0:
                 return this.icons[0];
@@ -64,28 +69,29 @@ public class BlockControlBox extends Block {
                         return this.icons[3];
                 }
             default:
-                System.out.println("Invalid metadata for " + this.func_149739_a());
+                System.out.println("Invalid metadata for " + this.getUnlocalizedName());
                 return this.icons[0];
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public boolean func_149727_a(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        world.func_72908_a((double)i, (double)j, (double)k, "satscapesimukraft:computer", 1.0F, 1.0F);
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+        world.playSoundEffect((double)i, (double)j, (double)k, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
         GuiControlBox ui = null;
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
-        mc.func_71364_i();
-        if (world.func_72805_g(i, j, k) != 0 && world.func_72805_g(i, j, k) != 2) {
+        mc.setIngameNotInFocus();
+        if (world.getBlockMetadata(i, j, k) != 0 && world.getBlockMetadata(i, j, k) != 2) {
             if (ModSimukraft.gameMode == GameMode.CREATIVE) {
                 mc.displayGuiScreen((GuiScreen)null);
                 ModSimukraft.sendChat("The Bank is not active when in Creative Mode (as there's no money!)");
             } else {
-                ui2 = new GuiBankATM(new V3((double)i, (double)j, (double)k, entityplayer.field_71093_bK), entityplayer);
+                ui2 = new GuiBankATM(new V3((double)i, (double)j, (double)k, entityplayer.dimension), entityplayer);
                 mc.displayGuiScreen(ui2);
             }
         } else {
-            ui = new GuiControlBox(new V3((double)i, (double)j, (double)k, entityplayer.field_71093_bK), entityplayer);
+            ui = new GuiControlBox(new V3((double)i, (double)j, (double)k, entityplayer.dimension), entityplayer);
             mc.displayGuiScreen(ui);
         }
 

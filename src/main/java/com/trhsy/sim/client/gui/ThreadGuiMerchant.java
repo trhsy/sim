@@ -4,6 +4,8 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSimukraft;
+
 /**
  * ========================================
  *
@@ -14,8 +16,10 @@ package com.trhsy.sim.client.gui;/**
  * ========================================
  **/
 public class ThreadGuiMerchant implements Runnable {
+    private final GuiMerchant guiMerchant;
+
     ThreadGuiMerchant(GuiMerchant var1) {
-        this.this$0 = var1;
+        this.guiMerchant = var1;
     }
 
     @Override
@@ -25,6 +29,6 @@ public class ThreadGuiMerchant implements Runnable {
         } catch (Exception var2) {
         }
 
-        this.this$0.field_146297_k.field_71441_e.playSound(this.this$0.field_146297_k.thePlayer.posX, this.this$0.field_146297_k.thePlayer.posY, this.this$0.field_146297_k.thePlayer.posZ, "satscapesimukraft:merchm", 1.0F, 1.0F, false);
+        this.guiMerchant.mc.theWorld.playSound(this.guiMerchant.mc.thePlayer.posX, this.guiMerchant.mc.thePlayer.posY, this.guiMerchant.mc.thePlayer.posZ, ModSimukraft.MODID + ":merchm", 1.0F, 1.0F, false);
     }
 }

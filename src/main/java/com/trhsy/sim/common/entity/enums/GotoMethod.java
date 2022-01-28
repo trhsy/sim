@@ -13,6 +13,7 @@ public enum GotoMethod {
     private GotoMethod() {
     }
 
+    @Override
     public String toString() {
         if (this == BEAM) {
             return "Beaming";

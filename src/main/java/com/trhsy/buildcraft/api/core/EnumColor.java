@@ -7,6 +7,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * @author trhsy
@@ -105,13 +106,14 @@ public enum EnumColor {
     }
 
     public String getLocalizedName() {
-        return StatCollector.func_74838_a(this.getTag());
+        return StatCollector.translateToLocal(this.getTag());
     }
 
     public String getDye() {
         return DYES[this.ordinal()];
     }
 
+    @Override
     public String toString() {
         String s = this.name().replace("_", " ");
         String[] words = s.split(" ");
@@ -135,7 +137,7 @@ public enum EnumColor {
 
         for (int i$ = 0; i$ < len$; ++i$) {
             EnumColor c = arr$[i$];
-            brushIcons[c.ordinal()] = iconRegister.func_94245_a("buildcraft:triggers/color_" + c.name().toLowerCase(Locale.ENGLISH));
+            brushIcons[c.ordinal()] = iconRegister.registerIcon("buildcraft:triggers/color_" + c.name().toLowerCase(Locale.ENGLISH));
         }
 
     }

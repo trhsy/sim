@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * ========================================
  **/
 public interface IStripesHandler {
-    IStripesHandler.StripesHandlerType getType();
+    StripesHandlerType getType();
 
     boolean shouldHandle(ItemStack var1);
 

@@ -24,12 +24,13 @@ public class EntityAIWanderSUK extends EntityAIWander {
         this.theFolk = folk;
     }
 
-    public void func_75249_e() {
-        if (!this.theFolk.field_70128_L) {
+    @Override
+    public void startExecuting() {
+        if (!this.theFolk.isDead) {
             EntityFolk actualFolk = (EntityFolk)this.theFolk;
             if (actualFolk != null && actualFolk.theData != null && !actualFolk.theData.stayPut) {
                 try {
-                    super.func_75249_e();
+                    super.startExecuting();
                 } catch (Exception var3) {
                 }
             }
@@ -37,8 +38,9 @@ public class EntityAIWanderSUK extends EntityAIWander {
 
     }
 
-    public boolean func_75250_a() {
-        if (!this.theFolk.field_70128_L) {
+    @Override
+    public boolean shouldExecute() {
+        if (!this.theFolk.isDead) {
             EntityFolk actualFolk = (EntityFolk)this.theFolk;
             if (actualFolk != null && actualFolk.theData != null) {
                 if (actualFolk.theData.stayPut) {
@@ -52,8 +54,9 @@ public class EntityAIWanderSUK extends EntityAIWander {
         return true;
     }
 
-    public boolean func_75253_b() {
-        if (!this.theFolk.field_70128_L) {
+    @Override
+    public boolean continueExecuting() {
+        if (!this.theFolk.isDead) {
             EntityFolk actualFolk = (EntityFolk)this.theFolk;
             if (actualFolk != null && actualFolk.theData != null) {
                 if (actualFolk.theData.stayPut) {

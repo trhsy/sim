@@ -59,15 +59,15 @@ public class ItemEnergyContainer extends Item implements IEnergyContainerItem {
 
     @Override
     public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-        if (container.field_77990_d == null) {
-            container.field_77990_d = new NBTTagCompound();
+        if (container.stackTagCompound == null) {
+            container.stackTagCompound = new NBTTagCompound();
         }
 
-        int energy = container.field_77990_d.func_74762_e("Energy");
+        int energy = container.stackTagCompound.getInteger("Energy");
         int energyReceived = Math.min(this.capacity - energy, Math.min(this.maxReceive, maxReceive));
         if (!simulate) {
             energy += energyReceived;
-            container.field_77990_d.func_74768_a("Energy", energy);
+            container.stackTagCompound.setInteger("Energy", energy);
         }
 
         return energyReceived;
@@ -75,12 +75,12 @@ public class ItemEnergyContainer extends Item implements IEnergyContainerItem {
 
     @Override
     public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-        if (container.field_77990_d != null && container.field_77990_d.func_74764_b("Energy")) {
-            int energy = container.field_77990_d.func_74762_e("Energy");
+        if (container.stackTagCompound != null && container.stackTagCompound.hasKey("Energy")) {
+            int energy = container.stackTagCompound.getInteger("Energy");
             int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
             if (!simulate) {
                 energy -= energyExtracted;
-                container.field_77990_d.func_74768_a("Energy", energy);
+                container.stackTagCompound.setInteger("Energy", energy);
             }
 
             return energyExtracted;
@@ -91,7 +91,7 @@ public class ItemEnergyContainer extends Item implements IEnergyContainerItem {
 
     @Override
     public int getEnergyStored(ItemStack container) {
-        return container.field_77990_d != null && container.field_77990_d.func_74764_b("Energy") ? container.field_77990_d.func_74762_e("Energy") : 0;
+        return container.stackTagCompound != null && container.stackTagCompound.hasKey("Energy") ? container.stackTagCompound.getInteger("Energy") : 0;
     }
 
     @Override

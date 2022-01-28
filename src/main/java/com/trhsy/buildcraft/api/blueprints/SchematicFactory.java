@@ -27,11 +27,11 @@ public abstract class SchematicFactory<S extends Schematic> {
     protected abstract S loadSchematicFromWorldNBT(NBTTagCompound var1, MappingRegistry var2) throws MappingNotFoundException;
 
     public void saveSchematicToWorldNBT(NBTTagCompound nbt, S object, MappingRegistry registry) {
-        nbt.func_74778_a("factoryID", this.getClass().getCanonicalName());
+        nbt.setString("factoryID", this.getClass().getCanonicalName());
     }
 
     public static Schematic createSchematicFromWorldNBT(NBTTagCompound nbt, MappingRegistry registry) throws MappingNotFoundException {
-        String factoryName = nbt.func_74779_i("factoryID");
+        String factoryName = nbt.getString("factoryID");
         return factories.containsKey(factoryName) ? ((SchematicFactory)factories.get(factoryName)).loadSchematicFromWorldNBT(nbt, registry) : null;
     }
 

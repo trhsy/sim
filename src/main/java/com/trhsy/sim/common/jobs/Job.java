@@ -52,7 +52,7 @@ public abstract class Job {
 
     public void onUpdate() {
         if (this.chestToClose != null && System.currentTimeMillis() > this.chestToCloseWhen) {
-            this.chestToClose.func_70305_f();
+            this.chestToClose.closeChest();
             this.chestToClose = null;
         }
 
@@ -70,7 +70,7 @@ public abstract class Job {
 
         if (!(theFolk.pregnancyStage > 0.0F)) {
             if (theFolk.action == FolkAction.ONWAYTOWORK) {
-                int dist = false;
+                //int dist = false;
                 if (theFolk.gotoMethod == GotoMethod.WALK) {
                     theFolk.stayPut = false;
                     theFolk.updateLocationFromEntity();
@@ -105,8 +105,8 @@ public abstract class Job {
 
         for(int i = 0; i < theFolk.inventory.size(); ++i) {
             ItemStack is = (ItemStack)theFolk.inventory.get(i);
-            if (is.func_77973_b() == item) {
-                ret += is.field_77994_a;
+            if (is.getItem() == item) {
+                ret += is.stackSize;
             }
         }
 
@@ -118,8 +118,8 @@ public abstract class Job {
 
         for(int i = 0; i < theFolk.inventory.size(); ++i) {
             ItemStack is = (ItemStack)theFolk.inventory.get(i);
-            if (Block.getBlockFromName(is.func_82833_r()) == item) {
-                ret += is.field_77994_a;
+            if (Block.getBlockFromName(is.getDisplayName()) == item) {
+                ret += is.stackSize;
             }
         }
 
@@ -128,9 +128,9 @@ public abstract class Job {
 
     public TileEntityFurnace findFurnace(V3 v) {
         TileEntityFurnace ret = null;
-        V3 vRet = findClosestBlockType(v, Blocks.field_150460_al, 5, false);
+        V3 vRet = findClosestBlockType(v, Blocks.furnace, 5, false);
         if (vRet == null) {
-            vRet = findClosestBlockType(v, Blocks.field_150460_al, 5, false);
+            vRet = findClosestBlockType(v, Blocks.furnace, 5, false);
         }
 
         if (vRet != null) {
@@ -146,32 +146,32 @@ public abstract class Job {
         if (inStack == null) {
             return true;
         } else {
-            for(int q = 1; q <= inStack.field_77994_a; ++q) {
-                for(int g = 0; g < chest.func_70302_i_(); ++g) {
-                    ItemStack is = chest.func_70301_a(g);
+            for(int q = 1; q <= inStack.stackSize; ++q) {
+                for(int g = 0; g < chest.getSizeInventory(); ++g) {
+                    ItemStack is = chest.getStackInSlot(g);
                     if (is == null) {
-                        is = inStack.func_77946_l();
-                        is.field_77994_a = 1;
-                        chest.func_70299_a(g, is);
-                        ItemStack isTest = chest.func_70301_a(g);
+                        is = inStack.copy();
+                        is.stackSize = 1;
+                        chest.setInventorySlotContents(g, is);
+                        ItemStack isTest = chest.getStackInSlot(g);
                         if (isTest != null) {
                             placedOK = true;
                             break;
                         }
 
-                        ModSimukraft.log.warning("Job: placeIntoInventory() could not place " + is.func_82833_r() + " in null slot " + g);
+                        ModSimukraft.log.warning("Job: placeIntoInventory() could not place " + is.getDisplayName() + " in null slot " + g);
                         placedOK = false;
-                    } else if (is.func_77973_b() == inStack.func_77973_b() && is.func_77960_j() == inStack.func_77960_j() && is.field_77994_a < is.func_77976_d()) {
-                        int isBefore = chest.func_70301_a(g).field_77994_a;
-                        ++is.field_77994_a;
-                        chest.func_70299_a(g, is);
-                        int isAfter = chest.func_70301_a(g).field_77994_a;
+                    } else if (is.getItem() == inStack.getItem() && is.getMetadata() == inStack.getMetadata() && is.stackSize < is.getMaxStackSize()) {
+                        int isBefore = chest.getStackInSlot(g).stackSize;
+                        ++is.stackSize;
+                        chest.setInventorySlotContents(g, is);
+                        int isAfter = chest.getStackInSlot(g).stackSize;
                         if (isAfter > isBefore) {
                             placedOK = true;
                             break;
                         }
 
-                        ModSimukraft.log.warning("Job: placeIntoInventory() could not inc Stacksize for " + is.func_82833_r() + " in slot " + g);
+                        ModSimukraft.log.warning("Job: placeIntoInventory() could not inc Stacksize for " + is.getDisplayName() + " in slot " + g);
                         placedOK = false;
                     }
                 }
@@ -218,27 +218,27 @@ public abstract class Job {
                 returnStack = null;
                 ArrayList<Integer> slots = new ArrayList();
 
-                for(int g = 0; g < chest.func_70302_i_(); ++g) {
-                    chestStack = chest.func_70301_a(g);
+                for(int i = 0; i < chest.getSizeInventory(); ++i) {
+                    chestStack = chest.getStackInSlot(i);
                     if (chestStack != null) {
-                        slots.add(g);
+                        slots.add(i);
                     }
                 }
 
                 if (slots.size() == 0) {
                     return null;
                 } else {
-                    returnStack = chest.func_70301_a((new Random()).nextInt(slots.size()));
+                    returnStack = chest.getStackInSlot((new Random()).nextInt(slots.size()));
                     return returnStack;
                 }
             } else {
                 returnStack = null;
 
-                for(g = 0; g < chest.func_70302_i_(); ++g) {
-                    ItemStack chestStack = chest.func_70301_a(g);
-                    if (chestStack != null) {
-                        returnStack = chestStack.func_77946_l();
-                        chest.func_70299_a(g, (ItemStack)null);
+                for(g = 0; g < chest.getSizeInventory(); ++g) {
+                    ItemStack chestStackStack = chest.getStackInSlot(g);
+                    if (chestStackStack != null) {
+                        returnStack = chestStackStack.copy();
+                        chest.setInventorySlotContents(g, (ItemStack)null);
                         return returnStack;
                     }
                 }
@@ -246,30 +246,30 @@ public abstract class Job {
                 return returnStack;
             }
         } else {
-            returnStack = whatItem.func_77946_l();
-            returnStack.field_77994_a = 0;
+            returnStack = whatItem.copy();
+            returnStack.stackSize = 0;
 
-            for(g = 0; g < chest.func_70302_i_(); ++g) {
+            for(g = 0; g < chest.getSizeInventory(); ++g) {
                 boolean ignore = false;
-                chestStack = chest.func_70301_a(g);
+                chestStack = chest.getStackInSlot(g);
                 if (ignoreId != null && chestStack == ignoreId) {
                     ignore = true;
                 }
 
                 if (chestStack != null && !ignore) {
                     if (!compareMeta) {
-                        chestStack.func_77964_b(whatItem.func_77960_j());
+                        chestStack.setMetadata(whatItem.getMetadata());
                     }
 
-                    if (chestStack.func_77969_a(whatItem)) {
-                        while(chestStack.field_77994_a >= 1) {
-                            ++returnStack.field_77994_a;
-                            --chestStack.field_77994_a;
-                            if (chestStack.field_77994_a <= 0) {
-                                chest.func_70299_a(g, (ItemStack)null);
+                    if (chestStack.isItemEqual(whatItem)) {
+                        while(chestStack.stackSize >= 1) {
+                            ++returnStack.stackSize;
+                            --chestStack.stackSize;
+                            if (chestStack.stackSize <= 0) {
+                                chest.setInventorySlotContents(g, (ItemStack)null);
                             }
 
-                            if (returnStack.field_77994_a == whatItem.field_77994_a) {
+                            if (returnStack.stackSize == whatItem.stackSize) {
                                 return returnStack;
                             }
                         }
@@ -277,7 +277,7 @@ public abstract class Job {
                 }
             }
 
-            if (returnStack.field_77994_a > 0) {
+            if (returnStack.stackSize > 0) {
                 return returnStack;
             } else {
                 return null;
@@ -294,27 +294,27 @@ public abstract class Job {
                 returnStack = null;
                 ArrayList<Integer> slots = new ArrayList();
 
-                for(int g = 0; g < chest.func_70302_i_(); ++g) {
-                    chestStack = chest.func_70301_a(g);
+                for(int i = 0; i < chest.getSizeInventory(); ++i) {
+                    chestStack = chest.getStackInSlot(i);
                     if (chestStack != null) {
-                        slots.add(g);
+                        slots.add(i);
                     }
                 }
 
                 if (slots.size() == 0) {
                     return null;
                 } else {
-                    returnStack = chest.func_70301_a((new Random()).nextInt(slots.size()));
+                    returnStack = chest.getStackInSlot((new Random()).nextInt(slots.size()));
                     return returnStack;
                 }
             } else {
                 returnStack = null;
 
-                for(g = 0; g < chest.func_70302_i_(); ++g) {
-                    ItemStack chestStack = chest.func_70301_a(g);
-                    if (chestStack != null) {
-                        returnStack = chestStack.func_77946_l();
-                        chest.func_70299_a(g, (ItemStack)null);
+                for(g = 0; g < chest.getSizeInventory(); ++g) {
+                    ItemStack chestStackStack = chest.getStackInSlot(g);
+                    if (chestStackStack != null) {
+                        returnStack = chestStackStack.copy();
+                        chest.setInventorySlotContents(g, (ItemStack)null);
                         return returnStack;
                     }
                 }
@@ -322,26 +322,26 @@ public abstract class Job {
                 return returnStack;
             }
         } else {
-            returnStack = whatItem.func_77946_l();
-            returnStack.field_77994_a = 0;
+            returnStack = whatItem.copy();
+            returnStack.stackSize = 0;
 
-            for(g = 0; g < chest.func_70302_i_(); ++g) {
+            for(g = 0; g < chest.getSizeInventory(); ++g) {
                 boolean ignore = false;
-                chestStack = chest.func_70301_a(g);
+                chestStack = chest.getStackInSlot(g);
                 if (chestStack != null && !ignore) {
                     if (!compareMeta) {
-                        chestStack.func_77964_b(whatItem.func_77960_j());
+                        chestStack.setMetadata(whatItem.getMetadata());
                     }
 
-                    if (chestStack.func_77969_a(whatItem)) {
-                        while(chestStack.field_77994_a >= 1) {
-                            ++returnStack.field_77994_a;
-                            --chestStack.field_77994_a;
-                            if (chestStack.field_77994_a <= 0) {
-                                chest.func_70299_a(g, (ItemStack)null);
+                    if (chestStack.isItemEqual(whatItem)) {
+                        while(chestStack.stackSize >= 1) {
+                            ++returnStack.stackSize;
+                            --chestStack.stackSize;
+                            if (chestStack.stackSize <= 0) {
+                                chest.setInventorySlotContents(g, (ItemStack)null);
                             }
 
-                            if (returnStack.field_77994_a == whatItem.field_77994_a) {
+                            if (returnStack.stackSize == whatItem.stackSize) {
                                 return returnStack;
                             }
                         }
@@ -349,7 +349,7 @@ public abstract class Job {
                 }
             }
 
-            if (returnStack.field_77994_a > 0) {
+            if (returnStack.stackSize > 0) {
                 return returnStack;
             } else {
                 return null;
@@ -396,7 +396,7 @@ public abstract class Job {
         for(int i = 0; i < folkInventory.size(); ++i) {
             try {
                 ItemStack folkStack = (ItemStack)folkInventory.get(i);
-                if (specificItems != null && specificItems.func_77973_b() == folkStack.func_77973_b()) {
+                if (specificItems != null && specificItems.getItem() == folkStack.getItem()) {
                     okToPlace = true;
                 } else if (specificItems == null) {
                     okToPlace = true;
@@ -407,7 +407,7 @@ public abstract class Job {
                 if (okToPlace) {
                     placed = this.inventoriesPut(toChests, folkStack, true);
                     if (!placed) {
-                        ModSimukraft.log.warning("Job: Could not place stack of " + folkStack.func_82833_r() + " in chest");
+                        ModSimukraft.log.warning("Job: Could not place stack of " + folkStack.getDisplayName() + " in chest");
                         return false;
                     }
                 }
@@ -450,12 +450,12 @@ public abstract class Job {
         while(i$.hasNext()) {
             IInventory chest = (IInventory)i$.next();
 
-            for(int g = 0; g < chest.func_70302_i_(); ++g) {
+            for(int g = 0; g < chest.getSizeInventory(); ++g) {
                 boolean gotMatch = false;
-                ItemStack chestStack = chest.func_70301_a(g);
+                ItemStack chestStack = chest.getStackInSlot(g);
                 if (chestStack != null && chestStack == whatItems) {
                     if (doCompareMeta) {
-                        if (chestStack.func_77960_j() == whatItems.func_77960_j()) {
+                        if (chestStack.getMetadata() == whatItems.getMetadata()) {
                             gotMatch = true;
                         }
                     } else {
@@ -464,16 +464,16 @@ public abstract class Job {
                 }
 
                 if (gotMatch) {
-                    while(gotSoFar < getQty && chestStack.field_77994_a > 0) {
+                    while(gotSoFar < getQty && chestStack.stackSize > 0) {
                         ++gotSoFar;
-                        --chestStack.field_77994_a;
-                        folkInventory.add(new ItemStack(Block.func_149634_a(chestStack.func_77973_b()), 1, chestStack.func_77960_j()));
+                        --chestStack.stackSize;
+                        folkInventory.add(new ItemStack(Block.getBlockFromItem(chestStack.getItem()), 1, chestStack.getMetadata()));
                     }
 
-                    if (chestStack.field_77994_a > 0) {
-                        chest.func_70299_a(g, chestStack);
+                    if (chestStack.stackSize > 0) {
+                        chest.setInventorySlotContents(g, chestStack);
                     } else {
-                        chest.func_70299_a(g, (ItemStack)null);
+                        chest.setInventorySlotContents(g, (ItemStack)null);
                     }
                 }
 
@@ -493,13 +493,13 @@ public abstract class Job {
         while(i$.hasNext()) {
             IInventory chest = (IInventory)i$.next();
 
-            for(int g = 0; g < chest.func_70302_i_(); ++g) {
-                ItemStack chestStack = chest.func_70301_a(g);
+            for(int g = 0; g < chest.getSizeInventory(); ++g) {
+                ItemStack chestStack = chest.getStackInSlot(g);
                 if (chestStack != null && chestStack == is) {
                     if (!doCompareMeta) {
-                        ret += chestStack.field_77994_a;
-                    } else if (chestStack.func_77960_j() == is.func_77960_j()) {
-                        ret += chestStack.field_77994_a;
+                        ret += chestStack.stackSize;
+                    } else if (chestStack.getMetadata() == is.getMetadata()) {
+                        ret += chestStack.stackSize;
                     }
                 }
             }
@@ -512,17 +512,17 @@ public abstract class Job {
         int i = location.x.intValue();
         int j = location.y.intValue();
         int k = location.z.intValue();
-        Block block = Blocks.field_150350_a;
+        Block block = Blocks.air;
         if (block == null) {
             return null;
         } else {
-            int meta = world.func_72805_g(i, j, k);
+            int meta = world.getBlockMetadata(i, j, k);
             return block.getDrops(world, i, j, k, meta, 0);
         }
     }
 
     public void openCloseChest(IInventory chest, int msDelay) {
-        chest.func_70295_k_();
+        chest.openChest();
         this.chestToClose = chest;
         this.chestToCloseWhen = System.currentTimeMillis() + (long)msDelay;
     }
@@ -652,25 +652,25 @@ public abstract class Job {
         V3 test = startXYZ.clone();
         Double var5 = test.x;
         Double var6 = test.x = test.x + 1.0D;
-        if (((World)theWorld).func_147437_c(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
+        if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
             return test;
         } else {
             test = startXYZ.clone();
             var5 = test.x;
             var6 = test.x = test.x - 1.0D;
-            if (((World)theWorld).func_147437_c(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
+            if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
                 return test;
             } else {
                 test = startXYZ.clone();
                 var5 = test.z;
                 var6 = test.z = test.z + 1.0D;
-                if (((World)theWorld).func_147437_c(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
+                if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
                     return test;
                 } else {
                     test = startXYZ.clone();
                     var5 = test.z;
                     var6 = test.z = test.z - 1.0D;
-                    return ((World)theWorld).func_147437_c(test.x.intValue(), test.y.intValue(), test.z.intValue()) ? test : startXYZ;
+                    return ((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue()) ? test : startXYZ;
                 }
             }
         }
@@ -797,7 +797,7 @@ public abstract class Job {
     }
 
     public int getAnimalCountInPen(V3 controlBox, Class animal) {
-        List list = this.jobWorld.func_72872_a(animal, AxisAlignedBB.func_72330_a(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D).func_72314_b(3.0D, 2.0D, 3.0D));
+        List list = this.jobWorld.getEntitiesWithinAABB(animal, AxisAlignedBB.getBoundingBox(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
         return list == null ? 0 : list.size();
     }
 

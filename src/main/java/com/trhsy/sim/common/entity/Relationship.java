@@ -46,6 +46,7 @@ public class Relationship implements Serializable {
         this.isBloodRelation = isBlood;
     }
 
+    @Override
     public String toString() {
         if (this.theLevel == Level.AQUAINTANCE) {
             return "is an aquaintance with";
@@ -234,10 +235,10 @@ public class Relationship implements Serializable {
         }
 
         ArrayList<Relationship> fathers = getRelationshipsFor(father);
-        Iterator i$ = fathers.iterator();
+        Iterator iterator = fathers.iterator();
 
-        while(i$.hasNext()) {
-            Relationship rel = (Relationship)i$.next();
+        while(iterator.hasNext()) {
+            Relationship rel = (Relationship)iterator.next();
             FolkData other;
             if (rel.folk1.name.contentEquals(father.name)) {
                 other = rel.folk2;
@@ -476,10 +477,10 @@ public class Relationship implements Serializable {
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
                     Relationship rel = new Relationship();
-                    Iterator i$ = strings.iterator();
+                    Iterator iterator = strings.iterator();
 
-                    while(i$.hasNext()) {
-                        String line = (String)i$.next();
+                    while(iterator.hasNext()) {
+                        String line = (String)iterator.next();
                         if (line.contains("|")) {
                             int m1 = line.indexOf("|");
                             String name = line.substring(0, m1);

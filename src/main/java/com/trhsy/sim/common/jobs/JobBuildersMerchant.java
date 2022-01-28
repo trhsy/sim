@@ -82,7 +82,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         this.theFolk.updateLocationFromEntity();
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {

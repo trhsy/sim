@@ -42,7 +42,7 @@ public class Commodity {
 
             for(int shit = 0; shit < ModSimukraft.theCommodities.size(); ++shit) {
                 Commodity cshit = (Commodity)ModSimukraft.theCommodities.get(shit);
-                if (cshit.theItemStack.func_82833_r().contentEquals(((ItemStack)availableItems.get(index)).func_82833_r())) {
+                if (cshit.theItemStack.getDisplayName().contentEquals(((ItemStack)availableItems.get(index)).getDisplayName())) {
                     gotIt = true;
                     break;
                 }
@@ -57,12 +57,12 @@ public class Commodity {
 
     private static void setupAvailableItems() {
         availableItems.clear();
-        availableItems.add(new ItemStack(Items.field_151079_bi));
-        availableItems.add(new ItemStack(Items.field_151072_bj));
-        availableItems.add(new ItemStack(Items.field_151103_aS));
-        availableItems.add(new ItemStack(Items.field_151016_H));
-        availableItems.add(new ItemStack(Items.field_151123_aH));
-        availableItems.add(new ItemStack(Items.field_151007_F));
-        availableItems.add(new ItemStack(Items.field_151070_bp));
+        availableItems.add(new ItemStack(Items.ender_pearl));
+        availableItems.add(new ItemStack(Items.blaze_rod));
+        availableItems.add(new ItemStack(Items.bone));
+        availableItems.add(new ItemStack(Items.gunpowder));
+        availableItems.add(new ItemStack(Items.slime_ball));
+        availableItems.add(new ItemStack(Items.string));
+        availableItems.add(new ItemStack(Items.spider_eye));
     }
 }

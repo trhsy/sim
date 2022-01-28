@@ -22,7 +22,7 @@ public class BlockPathConstructor extends Block {
     private IIcon[] icons;
 
     public BlockPathConstructor(int par1) {
-        super(Material.field_151575_d);
-        this.setCreativeTab(CreativeTabs.field_78026_f);
+        super(Material.wood);
+        this.setCreativeTab(CreativeTabs.tabMisc);
     }
 }

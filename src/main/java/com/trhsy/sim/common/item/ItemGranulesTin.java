@@ -4,6 +4,7 @@ package com.trhsy.sim.common.item;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSimukraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,17 +25,19 @@ public class ItemGranulesTin extends Item {
     private IIcon[] icons;
 
     public ItemGranulesTin(int par1) {
-        this.field_77777_bU = 64;
+        this.maxStackSize = 64;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_94581_a(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.func_94245_a("satscapesimukraft:granulesTin");
+        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":granulesTin");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_77617_a(int par1) {
+    public IIcon getIconFromDamage(int par1) {
         return this.icons[0];
     }
 
@@ -42,6 +45,7 @@ public class ItemGranulesTin extends Item {
         return "Tin granules";
     }
 
+    @Override
     public IIcon getIcon(ItemStack stack, int pass) {
         return this.icons[0];
     }

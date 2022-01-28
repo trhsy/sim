@@ -139,8 +139,8 @@ public class JobBaker extends Job implements Serializable {
                     this.step = 1;
                     this.theFolk.stayPut = true;
                     if (this.theFolk.theEntity != null) {
-                        this.theFolk.theEntity.field_70159_w = 0.0D;
-                        this.theFolk.theEntity.field_70179_y = 0.0D;
+                        this.theFolk.theEntity.motionX = 0.0D;
+                        this.theFolk.theEntity.motionZ = 0.0D;
                     }
 
                     this.runDelay = 1000;
@@ -159,15 +159,15 @@ public class JobBaker extends Job implements Serializable {
         if (this.step == 1) {
             this.farmChests = inventoriesFindClosest(this.farm.getLocation(), 5);
             if (this.farmChests.size() > 0) {
-                ((IInventory)this.farmChests.get(0)).func_70295_k_();
+                ((IInventory)this.farmChests.get(0)).openChest();
                 this.step = 2;
             }
         } else if (this.step == 2) {
             this.farmChests = inventoriesFindClosest(this.farm.getLocation(), 5);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.field_151015_O, 640), Blocks.field_150350_a);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.wheat, 640), Blocks.air);
             this.step = 3;
         } else if (this.step == 3) {
-            ((IInventory)this.farmChests.get(0)).func_70305_f();
+            ((IInventory)this.farmChests.get(0)).closeChest();
             this.theStage = Stage.GOINGTOWHEATFARM;
             this.step = 1;
         }
@@ -212,28 +212,28 @@ public class JobBaker extends Job implements Serializable {
 
                 this.step = 2;
             } else if (this.step == 2) {
-                wheat = this.getInventoryCount(this.theFolk, Items.field_151015_O);
+                wheat = this.getInventoryCount(this.theFolk, Items.wheat);
                 int bread = (int)Math.floor((double)(wheat / 3));
                 this.pay = (float)((double)bread * 0.2D);
                 this.bakeryChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
 
                 try {
-                    ((IInventory)this.bakeryChests.get(0)).func_70295_k_();
+                    ((IInventory)this.bakeryChests.get(0)).openChest();
                 } catch (Exception var4) {
                 }
 
-                this.inventoriesPut(this.bakeryChests, new ItemStack(Items.field_151025_P, bread), true);
+                this.inventoriesPut(this.bakeryChests, new ItemStack(Items.bread, bread), true);
                 this.theFolk.inventory.clear();
                 this.step = 3;
             } else if (this.step == 3) {
-                ((IInventory)this.bakeryChests.get(0)).func_70305_f();
+                ((IInventory)this.bakeryChests.get(0)).closeChest();
                 this.theFolk.statusText = "Selling bread to customers";
                 this.theFolk.stayPut = true;
                 if (this.theFolk.theEntity != null) {
                     if (this.theFolk.gender == 0) {
-                        this.mc.field_71441_e.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:bakerm", 1.0F, 1.0F, false);
+                        this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":bakerm", 1.0F, 1.0F, false);
                     } else {
-                        this.mc.field_71441_e.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:bakerf", 1.0F, 1.0F, false);
+                        this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":bakerf", 1.0F, 1.0F, false);
                     }
                 }
 
@@ -252,34 +252,34 @@ public class JobBaker extends Job implements Serializable {
                 GameStates var10000 = ModSimukraft.states;
                 var10000.credits -= this.pay;
                 ModSimukraft.sendChat(this.theFolk.name + " has made some bread and has been paid " + ModSimukraft.displayMoney(this.pay) + " Sim-u-credits.");
-                this.mc.field_71441_e.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, "satscapesimukraft:cash", 1.0F, 1.0F, false);
+                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
             this.step = 2;
         } else if (this.step == 2) {
-            if (MinecraftServer.getServer().worldServers[0].func_72820_D() % 24000L > 11600L) {
+            if (MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L > 11600L) {
                 this.step = 3;
             }
         } else if (this.step == 3) {
             this.theFolk.statusText = "Closing the shop";
-            int sell = false;
+            //int sell = false;
             ItemStack breadStack = null;
             if (ModSimukraft.theFolks.size() > 1) {
                 int sell = ModSimukraft.theFolks.size() + 1 + (new Random()).nextInt(ModSimukraft.theFolks.size());
                 this.bakeryChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
-                breadStack = inventoriesGet(this.bakeryChests, new ItemStack(Items.field_151025_P, sell), false, false);
+                breadStack = inventoriesGet(this.bakeryChests, new ItemStack(Items.bread, sell), false, false);
             }
 
             if (breadStack == null) {
                 ModSimukraft.sendChat(this.theFolk.name + " did not have any bread to sell today, do you have an active wheat farm?");
             } else {
-                ModSimukraft.sendChat(this.theFolk.name + " has sold " + breadStack.field_77994_a + " loafs of bread to folks today.");
+                ModSimukraft.sendChat(this.theFolk.name + " has sold " + breadStack.stackSize + " loafs of bread to folks today.");
 
                 for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
                     FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
-                    if (breadStack.field_77994_a > 0) {
+                    if (breadStack.stackSize > 0) {
                         folk.levelFood = 10;
-                        --breadStack.field_77994_a;
+                        --breadStack.stackSize;
                     }
                 }
             }
@@ -316,7 +316,7 @@ public class JobBaker extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

@@ -296,7 +296,7 @@ public class JobCourier extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

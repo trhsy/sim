@@ -6,6 +6,8 @@ package com.trhsy.buildcraft.api.recipes;/**
 
 import net.minecraft.item.ItemStack;
 
+import java.util.Collection;
+
 /**
  * ========================================
  *

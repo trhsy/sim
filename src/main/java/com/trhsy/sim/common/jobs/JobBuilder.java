@@ -156,9 +156,9 @@ public class JobBuilder extends Job implements Serializable {
 
             if (ModSimukraft.configFolkTalking) {
                 if (this.theFolk.gender == 0) {
-                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:readym", 1.0F, 1.0F, false);
+                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readym", 1.0F, 1.0F, false);
                 } else {
-                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:readyf", 1.0F, 1.0F, false);
+                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readyf", 1.0F, 1.0F, false);
                 }
             }
 
@@ -168,9 +168,9 @@ public class JobBuilder extends Job implements Serializable {
                 World world = MinecraftServer.getServer().worldServerForDimension(this.theFolk.location.theDimension);
                 this.theConBox = new EntityConBox(world);
                 this.theConBox.theFolk = this.theFolk;
-                this.theConBox.func_70012_b(this.theFolk.employedAt.x + 2.0D, this.theFolk.employedAt.y, this.theFolk.employedAt.z, 0.0F, 0.0F);
+                this.theConBox.setLocationAndAngles(this.theFolk.employedAt.x + 2.0D, this.theFolk.employedAt.y, this.theFolk.employedAt.z, 0.0F, 0.0F);
                 if (!world.isRemote) {
-                    world.func_72838_d(this.theConBox);
+                    world.spawnEntityInWorld(this.theConBox);
                 }
             }
         }
@@ -187,7 +187,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theFolk.statusText = "Please place at least one chest/storage block near to constructor block.";
             } else {
                 try {
-                    ((IInventory)this.constructorChests.get(0)).func_70295_k_();
+                    ((IInventory)this.constructorChests.get(0)).openChest();
                 } catch (Exception var2) {
                     ModSimukraft.log.info("JobBuilder:JobBuilder's chest was null");
                 }
@@ -200,7 +200,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theFolk.stayPut = true;
             }
         } else if (this.step == 2) {
-            ((IInventory)this.constructorChests.get(0)).func_70305_f();
+            ((IInventory)this.constructorChests.get(0)).closeChest();
             this.theStage = Stage.INPROGRESS;
             this.step = 1;
         } else if (this.step == 3) {
@@ -311,8 +311,8 @@ public class JobBuilder extends Job implements Serializable {
 
                     blockId = Block.getBlockFromName(bl[0]);
                     int subtype = Integer.parseInt(bl[1]);
-                    if (blockId == Blocks.field_150349_c) {
-                        blockId = Blocks.field_150346_d;
+                    if (blockId == Blocks.grass) {
+                        blockId = Blocks.dirt;
                     }
 
                     if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
@@ -330,11 +330,11 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     V3 v3;
-                    if (Block.func_149682_b(blockId) == 999 && subtype == 999) {
+                    if (Block.getIdFromBlock(blockId) == 999 && subtype == 999) {
                         this.theBuilding.livingXYZ = new V3((double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), this.theFolk.employedAt.theDimension);
                         blockId = null;
                         subtype = 0;
-                    } else if (Block.func_149682_b(blockId) == 999 && subtype >= 0 && subtype <= 9) {
+                    } else if (Block.getIdFromBlock(blockId) == 999 && subtype >= 0 && subtype <= 9) {
                         v3 = new V3((double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), this.theFolk.employedAt.theDimension);
                         v3.meta = subtype;
                         this.theBuilding.blockSpecial.add(v3);
@@ -348,8 +348,8 @@ public class JobBuilder extends Job implements Serializable {
                     Block currBlockId;
                     try {
                         currBlockId = this.jobWorld.getBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                        int currBlockMeta = this.jobWorld.func_72805_g(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                        if (blockId != currBlockId && (blockId != Blocks.field_150346_d || currBlockId != Blocks.field_150349_c) && (blockId != Blocks.field_150349_c || currBlockId != Blocks.field_150346_d)) {
+                        int currBlockMeta = this.jobWorld.getBlockMetadata(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                        if (blockId != currBlockId && (blockId != Blocks.dirt || currBlockId != Blocks.grass) && (blockId != Blocks.grass || currBlockId != Blocks.dirt)) {
                             alreadyPlaced = false;
                         } else {
                             alreadyPlaced = true;
@@ -363,7 +363,7 @@ public class JobBuilder extends Job implements Serializable {
                     ItemStack wantIS = new ItemStack(blockId, 1, 0);
                     if (wantIS != null && wantIS != null) {
                         try {
-                            want = wantIS.func_82833_r();
+                            want = wantIS.getDisplayName();
                             if (blockId != null) {
                                 this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
                             }
@@ -379,13 +379,13 @@ public class JobBuilder extends Job implements Serializable {
                         V3 blockToRemove = new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
                         this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
                         this.mineBlockIntoChests(this.constructorChests, blockToRemove);
-                        this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, Blocks.field_150350_a, 0, 3);
+                        this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, Blocks.air, 0, 3);
                         this.theFolk.isWorking = true;
                     }
 
                     if (!alreadyPlaced) {
                         boolean gotBlock = false;
-                        boolean requiredBlocks = blockId == Blocks.planks || blockId == Blocks.cobblestone || blockId == Blocks.glass || blockId == Blocks.wool || blockId == Blocks.brick_block || blockId == Blocks.field_150346_d || blockId == Blocks.stonebrick || blockId == Blocks.fence || blockId == Blocks.stone || blockId == Blocks.field_150364_r;
+                        boolean requiredBlocks = blockId == Blocks.planks || blockId == Blocks.cobblestone || blockId == Blocks.glass || blockId == Blocks.wool || blockId == Blocks.brick_block || blockId == Blocks.dirt || blockId == Blocks.stonebrick || blockId == Blocks.fence || blockId == Blocks.stone || blockId == Blocks.log;
                         ItemStack got;
                         if (ModSimukraft.gameMode == GameMode.NORMAL) {
                             if (requiredBlocks) {
@@ -403,7 +403,7 @@ public class JobBuilder extends Job implements Serializable {
                             gotBlock = true;
                         } else if (ModSimukraft.gameMode == GameMode.HARDCORE) {
                             if (blockId != null) {
-                                if (blockId != Blocks.field_150349_c && blockId != Blocks.water && blockId != Blocks.water && blockId != Blocks.field_150353_l && blockId != Blocks.field_150353_l && blockId != Blocks.field_150444_as && blockId != Blocks.field_150414_aQ && blockId != Blocks.field_150333_U && blockId != Blocks.field_150376_bx && blockId != Blocks.field_150373_bw && blockId != Blocks.field_150334_T && blockId != Blocks.field_150458_ak && blockId != Blocks.field_150466_ao && blockId != Blocks.field_150454_av && blockId != Blocks.field_150324_C) {
+                                if (blockId != Blocks.grass && blockId != Blocks.water && blockId != Blocks.water && blockId != Blocks.lava && blockId != Blocks.lava && blockId != Blocks.wall_sign && blockId != Blocks.cake && blockId != Blocks.stone_slab && blockId != Blocks.wooden_slab && blockId != Blocks.double_wooden_slab && blockId != Blocks.double_stone_slab && blockId != Blocks.farmland && blockId != Blocks.wooden_door && blockId != Blocks.iron_door && blockId != Blocks.bed) {
                                     this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
                                     got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
                                     if (got != null) {
@@ -469,14 +469,14 @@ public class JobBuilder extends Job implements Serializable {
                                     }
 
                                     if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
-                                        this.mc.field_71441_e.playSound((double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), "satscapesimukraft:construction", 1.0F, 1.0F, false);
+                                        this.mc.theWorld.playSound((double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), ModSimukraft.MODID + ":construction", 1.0F, 1.0F, false);
                                         this.soundLastPlayed = System.currentTimeMillis();
                                     }
 
-                                    if (this.mc.field_71441_e.isRemote) {
-                                        this.mc.field_71441_e.func_72869_a("explode", (double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), 0.0D, 0.30000001192092896D, 0.0D);
-                                        this.mc.field_71441_e.func_72869_a("explode", (double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), 0.0D, 0.20000000298023224D, 0.0D);
-                                        this.mc.field_71441_e.func_72869_a("explode", (double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), 0.0D, 0.10000000149011612D, 0.0D);
+                                    if (this.mc.theWorld.isRemote) {
+                                        this.mc.theWorld.spawnParticle("explode", (double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), 0.0D, 0.30000001192092896D, 0.0D);
+                                        this.mc.theWorld.spawnParticle("explode", (double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), 0.0D, 0.20000000298023224D, 0.0D);
+                                        this.mc.theWorld.spawnParticle("explode", (double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), 0.0D, 0.10000000149011612D, 0.0D);
                                     }
 
                                     if (blockId != null && ModSimukraft.gameMode != GameMode.CREATIVE) {
@@ -525,7 +525,7 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     if (this.theFolk.theEntity != null) {
-                        this.theFolk.theEntity.func_71038_i();
+                        this.theFolk.theEntity.swingItem();
                     }
                 } while(blockId == null || alreadyPlaced);
             }
@@ -542,7 +542,7 @@ public class JobBuilder extends Job implements Serializable {
             if (this.theBuilding != null) {
                 this.theBuilding.buildingComplete = true;
                 ModSimukraft.sendChat(this.theFolk.name + " has completed building a " + this.theBuilding.displayNameWithoutPK);
-                ModSimukraft.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, "satscapesimukraft:cash", 1.0F, 1.0F, false);
+                ModSimukraft.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
                 this.theBuilding.saveThisBuilding();
                 this.theFolk.theBuilding = null;
             } else {
@@ -551,7 +551,7 @@ public class JobBuilder extends Job implements Serializable {
         }
 
         if (this.theFolk.theEntity != null) {
-            this.theFolk.theEntity.func_70095_a(false);
+            this.theFolk.theEntity.setSneaking(false);
         }
 
         this.theFolk.stayPut = false;
@@ -578,7 +578,7 @@ public class JobBuilder extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
@@ -591,36 +591,5 @@ public class JobBuilder extends Job implements Serializable {
 
     }
 
-    public static enum Stage {
-        IDLE,
-        WORKERASSIGNED,
-        BLUEPRINT,
-        WAITINGFORRESOURCES,
-        INPROGRESS,
-        COMPLETE;
-
-        private Stage() {
-        }
-
-        @Override
-        public String toString() {
-            String ret = "";
-            if (this == IDLE) {
-                ret = "Idle";
-            } else if (this == WORKERASSIGNED) {
-                ret = "Builder has been hired and on their way";
-            } else if (this == BLUEPRINT) {
-                ret = "Builder is looking though blueprints";
-            } else if (this == WAITINGFORRESOURCES) {
-                ret = "Builder is checking the resources for the building";
-            } else if (this == INPROGRESS) {
-                ret = "Builder is busy building";
-            } else if (this == COMPLETE) {
-                ret = "Building work is complete";
-            }
-
-            return ret;
-        }
-    }
 }
 

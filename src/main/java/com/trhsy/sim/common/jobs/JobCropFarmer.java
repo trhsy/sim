@@ -4,6 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSimukraft;
 import com.trhsy.sim.common.entity.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
@@ -157,9 +158,9 @@ public class JobCropFarmer extends Job implements Serializable {
             this.step = 1;
             this.theFolk.stayPut = true;
             if (this.theFolk.gender == 0) {
-                this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:readym", 1.0F, 1.0F, false);
+                this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readym", 1.0F, 1.0F, false);
             } else {
-                this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, "satscapesimukraft:readyf", 1.0F, 1.0F, false);
+                this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readyf", 1.0F, 1.0F, false);
             }
         }
 
@@ -277,7 +278,7 @@ public class JobCropFarmer extends Job implements Serializable {
             while(true) {
                 while(!hasHarvest) {
                     this.id = this.jobWorld.getBlock(this.xxx, this.yyy, this.zzz);
-                    this.meta = this.jobWorld.func_72805_g(this.xxx, this.yyy, this.zzz);
+                    this.meta = this.jobWorld.getBlockMetadata(this.xxx, this.yyy, this.zzz);
 
                     try {
                         if (!this.theFolk.isSpawned() && this.farmingBlock.farmType != FarmType.CUSTOM && this.farmingBlock.farmType != FarmType.SUGAR && this.farmingBlock.farmType != FarmType.CACTUS && this.meta < 7) {
@@ -288,11 +289,11 @@ public class JobCropFarmer extends Job implements Serializable {
                     }
 
                     boolean canHarvest = false;
-                    V3 harvestBlock = new V3((double)this.xxx, (double)this.yyy, (double)this.zzz, this.jobWorld.field_73011_w.field_76574_g);
+                    V3 harvestBlock = new V3((double)this.xxx, (double)this.yyy, (double)this.zzz, this.jobWorld.provider.dimensionId);
                     ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
                     if (this.farmingBlock.farmType != FarmType.SUGAR && this.farmingBlock.farmType != FarmType.CACTUS) {
-                        if (this.id == Blocks.field_150440_ba || this.id == Blocks.field_150423_aK || this.farmingBlock.farmType == FarmType.CUSTOM || this.meta >= 7) {
-                            if (this.id != Blocks.field_150393_bb && this.id != Blocks.field_150394_bc) {
+                        if (this.id == Blocks.melon_block || this.id == Blocks.pumpkin || this.farmingBlock.farmType == FarmType.CUSTOM || this.meta >= 7) {
+                            if (this.id != Blocks.pumpkin_stem && this.id != Blocks.melon_stem) {
                                 canHarvest = true;
                             }
 
@@ -303,11 +304,11 @@ public class JobCropFarmer extends Job implements Serializable {
                     } else {
                         Block sid1 = this.jobWorld.getBlock(this.xxx, this.yyy + 1, this.zzz);
                         Block sid2 = this.jobWorld.getBlock(this.xxx, this.yyy + 2, this.zzz);
-                        if (sid1 == Blocks.field_150436_aH && sid2 == Blocks.field_150436_aH) {
+                        if (sid1 == Blocks.reeds && sid2 == Blocks.reeds) {
                             canHarvest = true;
                         }
 
-                        if (sid1 == Blocks.field_150434_aF && sid2 == Blocks.field_150434_aF) {
+                        if (sid1 == Blocks.cactus && sid2 == Blocks.cactus) {
                             canHarvest = true;
                         }
                     }
@@ -343,9 +344,9 @@ public class JobCropFarmer extends Job implements Serializable {
                             this.jobWorld.setBlock(this.xxx, this.yyy + 1, this.zzz, this.id, 0, 3);
                             this.jobWorld.setBlock(this.xxx, this.yyy + 2, this.zzz, this.id, 0, 3);
                             if (this.farmingBlock.farmType == FarmType.SUGAR) {
-                                this.inventoriesPut(this.farmingChests, new ItemStack(Items.field_151120_aE, 2), false);
+                                this.inventoriesPut(this.farmingChests, new ItemStack(Items.reeds, 2), false);
                             } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
-                                this.inventoriesPut(this.farmingChests, new ItemStack(Blocks.field_150434_aF, 2), false);
+                                this.inventoriesPut(this.farmingChests, new ItemStack(Blocks.cactus, 2), false);
                             }
                         }
 
@@ -376,21 +377,21 @@ public class JobCropFarmer extends Job implements Serializable {
 
     private void pickUpDroppedCrops(V3 v3center) {
         if (this.theFolk.theEntity != null) {
-            List list1 = this.jobWorld.func_72839_b(this.theFolk.theEntity, AxisAlignedBB.func_72330_a(v3center.x, v3center.y, v3center.z, v3center.x + 1.0D, v3center.y + 1.0D, v3center.z + 1.0D).func_72314_b(3.0D, 2.0D, 3.0D));
+            List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(v3center.x, v3center.y, v3center.z, v3center.x + 1.0D, v3center.y + 1.0D, v3center.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
             Iterator iterator1 = list1.iterator();
             if (!list1.isEmpty()) {
                 while(iterator1.hasNext()) {
                     Entity entity1 = (Entity)iterator1.next();
                     if (entity1 instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem)entity1;
-                        ItemStack is = entityitem.func_92059_d();
+                        ItemStack is = entityitem.getEntityItem();
 
                         try {
-                            ItemFood food = (ItemFood)is.func_77973_b();
+                            ItemFood food = (ItemFood)is.getItem();
                             if (food != null) {
                                 boolean ok = this.inventoriesPut(this.farmingChests, is, false);
                                 if (ok) {
-                                    entityitem.func_70106_y();
+                                    entityitem.setDead();
                                 }
                             }
                         } catch (Exception var9) {
@@ -424,7 +425,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 }
 
                 this.id = this.jobWorld.getBlock(this.xxx, this.yyy - 1, this.zzz);
-                this.meta = this.mc.field_71441_e.func_72805_g(this.xxx, this.yyy - 1, this.zzz);
+                this.meta = this.mc.theWorld.getBlockMetadata(this.xxx, this.yyy - 1, this.zzz);
                 GameStates var10000;
                 if (this.farmingBlock.farmType == FarmType.SUGAR) {
                     this.theFolk.statusText = "preparing the land";
@@ -435,9 +436,9 @@ public class JobCropFarmer extends Job implements Serializable {
                             var10000 = ModSimukraft.states;
                             var10000.credits -= 0.01F;
                         }
-                    } else if (this.id != Blocks.field_150346_d && this.id != Blocks.field_150349_c) {
-                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150346_d, 0, 3);
-                        this.jobWorld.playSound((double)this.xxx, (double)(this.yyy - 1), (double)this.zzz, Blocks.field_150349_c.field_149762_H.func_150498_e(), 1.0F, 1.0F, false);
+                    } else if (this.id != Blocks.dirt && this.id != Blocks.grass) {
+                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.dirt, 0, 3);
+                        this.jobWorld.playSound((double)this.xxx, (double)(this.yyy - 1), (double)this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
                         hasTilled = true;
                         var10000 = ModSimukraft.states;
                         var10000.credits -= 0.01F;
@@ -449,15 +450,15 @@ public class JobCropFarmer extends Job implements Serializable {
                     }
                 } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
                     this.theFolk.statusText = "preparing the land";
-                    if ((this.xxx + this.zzz) % 2 == 0 && this.id != Blocks.field_150354_m) {
-                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150354_m, 0, 3);
+                    if ((this.xxx + this.zzz) % 2 == 0 && this.id != Blocks.sand) {
+                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.sand, 0, 3);
                         hasTilled = true;
                         var10000 = ModSimukraft.states;
                         var10000.credits -= 0.01F;
                     }
-                } else if ((this.id == Blocks.field_150349_c || this.id == Blocks.field_150346_d) && ((this.farmingBlock.farmType == FarmType.MELON || this.farmingBlock.farmType == FarmType.PUMPKIN) && (this.ftb % 4 == 0 || this.ftb % 4 == 1) || this.farmingBlock.farmType == FarmType.WHEAT || this.farmingBlock.farmType == FarmType.CARROT || this.farmingBlock.farmType == FarmType.POTATO || this.farmingBlock.farmType == FarmType.CUSTOM)) {
-                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150458_ak, 0, 3);
-                    this.jobWorld.playSound((double)this.xxx, (double)(this.yyy - 1), (double)this.zzz, Blocks.field_150349_c.field_149762_H.func_150498_e(), 1.0F, 1.0F, false);
+                } else if ((this.id == Blocks.grass || this.id == Blocks.dirt) && ((this.farmingBlock.farmType == FarmType.MELON || this.farmingBlock.farmType == FarmType.PUMPKIN) && (this.ftb % 4 == 0 || this.ftb % 4 == 1) || this.farmingBlock.farmType == FarmType.WHEAT || this.farmingBlock.farmType == FarmType.CARROT || this.farmingBlock.farmType == FarmType.POTATO || this.farmingBlock.farmType == FarmType.CUSTOM)) {
+                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
+                    this.jobWorld.playSound((double)this.xxx, (double)(this.yyy - 1), (double)this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
                     hasTilled = true;
                     var10000 = ModSimukraft.states;
                     var10000.credits -= 0.01F;
@@ -513,7 +514,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
                         gid = this.jobWorld.getBlock(this.xxx, this.yyy - 1, this.zzz);
                         aid = this.jobWorld.getBlock(this.xxx, this.yyy, this.zzz);
-                    } while(gid != Blocks.field_150354_m && gid != Blocks.field_150349_c && gid != Blocks.field_150346_d && gid != Blocks.field_150458_ak);
+                    } while(gid != Blocks.sand && gid != Blocks.grass && gid != Blocks.dirt && gid != Blocks.farmland);
                 } while(aid != null);
 
                 try {
@@ -526,7 +527,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 ItemStack seed;
                 if (this.farmingBlock.farmType == FarmType.WHEAT) {
                     if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.field_151014_N, 1), false, false);
+                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat_seeds, 1), false, false);
                         if (seed == null) {
                             this.theFolk.statusText = "No more wheat seeds to plant";
                             this.theStage = Stage.HANGOUT;
@@ -535,13 +536,13 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
                     }
 
-                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150458_ak, 0, 3);
-                    this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.field_150464_aj, 0, 3);
+                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
+                    this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.wheat, 0, 3);
                     hasSown = true;
                 } else if (this.farmingBlock.farmType == FarmType.PUMPKIN) {
                     if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
                         if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.field_151080_bb, 1), false, false);
+                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.pumpkin_seeds, 1), false, false);
                             if (seed == null) {
                                 this.theFolk.statusText = "I need more pumpkin seeds!";
                                 this.theStage = Stage.HANGOUT;
@@ -550,14 +551,14 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
                         }
 
-                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150458_ak, 0, 3);
-                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.field_150393_bb, 0, 3);
+                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
+                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.pumpkin_stem, 0, 3);
                         hasSown = true;
                     }
                 } else if (this.farmingBlock.farmType == FarmType.MELON) {
                     if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
                         if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.field_151081_bc, 1), false, false);
+                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.melon_seeds, 1), false, false);
                             if (seed == null) {
                                 this.theFolk.statusText = "I need more melon seeds!";
                                 this.theStage = Stage.HANGOUT;
@@ -566,13 +567,13 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
                         }
 
-                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150458_ak, 0, 3);
-                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.field_150394_bc, 0, 3);
+                        this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
+                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.melon_stem, 0, 3);
                         hasSown = true;
                     }
                 } else if (this.farmingBlock.farmType == FarmType.CARROT) {
                     if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.field_151172_bF, 1), false, false);
+                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.carrot, 1), false, false);
                         if (seed == null) {
                             this.theFolk.statusText = "I need more carrots to plant!";
                             this.theStage = Stage.HANGOUT;
@@ -581,12 +582,12 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
                     }
 
-                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150458_ak, 0, 3);
-                    this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.field_150459_bM, 0, 3);
+                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
+                    this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.carrots, 0, 3);
                     hasSown = true;
                 } else if (this.farmingBlock.farmType == FarmType.POTATO) {
                     if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.field_151174_bG, 1), false, false);
+                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.potato, 1), false, false);
                         if (seed == null) {
                             this.theFolk.statusText = "I need more potatoes to plant!";
                             this.theStage = Stage.HANGOUT;
@@ -595,14 +596,14 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
                     }
 
-                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150458_ak, 0, 3);
-                    this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.field_150469_bN, 0, 3);
+                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
+                    this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.potatoes, 0, 3);
                     hasSown = true;
                 } else if (this.farmingBlock.farmType == FarmType.SUGAR) {
                     Block cid = this.jobWorld.getBlock(this.xxx, this.yyy - 1, this.zzz);
-                    if (cid == Blocks.field_150346_d || cid == Blocks.field_150349_c || cid == Blocks.field_150354_m) {
+                    if (cid == Blocks.dirt || cid == Blocks.grass || cid == Blocks.sand) {
                         if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                            ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.field_151120_aE, 1), false, false);
+                             seed = inventoriesGet(this.farmingChests, new ItemStack(Items.reeds, 1), false, false);
                             if (seed == null) {
                                 this.theFolk.statusText = "No more sugar cane to plant";
                                 this.theStage = Stage.HANGOUT;
@@ -611,13 +612,13 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
                         }
 
-                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.field_150436_aH, 0, 3);
+                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.reeds, 0, 3);
                         hasSown = true;
                     }
                 } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
                     if ((this.xxx + this.zzz) % 2 == 0) {
                         if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Blocks.field_150434_aF, 1), false, false);
+                            seed = inventoriesGet(this.farmingChests, new ItemStack(Blocks.cactus, 1), false, false);
                             if (seed == null) {
                                 this.theFolk.statusText = "No more cactus to plant";
                                 this.theStage = Stage.HANGOUT;
@@ -626,7 +627,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
                         }
 
-                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.field_150434_aF, 0, 3);
+                        this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, Blocks.cactus, 0, 3);
                         hasSown = true;
                     }
                 } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
@@ -634,14 +635,14 @@ public class JobCropFarmer extends Job implements Serializable {
                     for(int ch = 0; ch < this.farmingChests.size(); ++ch) {
                         IInventory chest = (IInventory)this.farmingChests.get(ch);
 
-                        for(int g = 0; g < chest.func_70302_i_(); ++g) {
-                            ItemStack chestStack = chest.func_70301_a(g);
+                        for(int g = 0; g < chest.getSizeInventory(); ++g) {
+                            ItemStack chestStack = chest.getStackInSlot(g);
                             if (chestStack != null) {
-                                this.theFolk.statusText = "Planting " + chestStack.func_82833_r();
-                                ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(chestStack.func_77973_b(), 1), false, false);
+                                this.theFolk.statusText = "Planting " + chestStack.getDisplayName();
+                                 seed = inventoriesGet(this.farmingChests, new ItemStack(chestStack.getItem(), 1), false, false);
                                 if (seed != null) {
-                                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.field_150458_ak, 0, 3);
-                                    hasSown = seed.func_77973_b().func_77648_a(seed, this.mc.thePlayer, this.jobWorld, this.xxx, this.yyy - 1, this.zzz, 1, 0.0F, 0.0F, 0.0F);
+                                    this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
+                                    hasSown = seed.getItem().onItemUse(seed, this.mc.thePlayer, this.jobWorld, this.xxx, this.yyy - 1, this.zzz, 1, 0.0F, 0.0F, 0.0F);
                                     if (!hasSown) {
                                         this.theFolk.inventory.add(seed);
                                     }
@@ -653,7 +654,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 }
 
                 if (hasSown) {
-                    this.jobWorld.playSound((double)this.xxx, (double)this.yyy, (double)this.zzz, Blocks.field_150349_c.field_149762_H.func_150498_e(), 1.0F, 1.0F, false);
+                    this.jobWorld.playSound((double)this.xxx, (double)this.yyy, (double)this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
                     GameStates var10000 = ModSimukraft.states;
                     var10000.credits -= 0.01F;
                     this.doneSomeWork = true;
@@ -713,7 +714,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

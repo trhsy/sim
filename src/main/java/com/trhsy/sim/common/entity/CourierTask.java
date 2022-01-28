@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.jobs.Job;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.inventory.IInventory;
@@ -80,14 +81,15 @@ public class CourierTask implements Serializable {
         courierPoints.mkdirs();
         File courierTasks = new File(ModSimukraft.getSavesDataFolder() + "CourierTasks" + File.separator);
         courierTasks.mkdirs();
-        boolean useNewFormat = false;
-        File[] arr$ = courierPoints.listFiles();
-        int len$ = arr$.length;
 
-        int i$;
+        boolean useNewFormat = false;
+        File[] listFiles = courierPoints.listFiles();
+        int lengths = listFiles.length;
+
+        int i;
         File f;
-        for(i$ = 0; i$ < len$; ++i$) {
-            f = arr$[i$];
+        for(i = 0; i < lengths; ++i) {
+            f = listFiles[i];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
                 break;
@@ -95,24 +97,24 @@ public class CourierTask implements Serializable {
         }
 
         if (useNewFormat) {
-            arr$ = courierPoints.listFiles();
-            len$ = arr$.length;
+            listFiles = courierPoints.listFiles();
+            lengths = listFiles.length;
 
             ArrayList strings;
-            Iterator i$;
+            Iterator iterator;
             String line;
             int m1;
             String name;
             String value;
-            for(i$ = 0; i$ < len$; ++i$) {
-                f = arr$[i$];
+            for(m1 = 0; m1 < lengths; ++m1) {
+                f = listFiles[m1];
                 if (f.getName().endsWith(".sk2")) {
                     strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
                     V3 v = new V3();
-                    i$ = strings.iterator();
+                    iterator = strings.iterator();
 
-                    while(i$.hasNext()) {
-                        line = (String)i$.next();
+                    while(iterator.hasNext()) {
+                        line = (String)iterator.next();
                         if (line.contains("|")) {
                             m1 = line.indexOf("|");
                             name = line.substring(0, m1);
@@ -133,18 +135,18 @@ public class CourierTask implements Serializable {
                 }
             }
 
-            arr$ = courierTasks.listFiles();
-            len$ = arr$.length;
+            listFiles = courierTasks.listFiles();
+            lengths = listFiles.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
-                f = arr$[i$];
+            for(m1 = 0; m1 < lengths; ++m1) {
+                f = listFiles[m1];
                 if (f.getName().endsWith(".sk2")) {
                     strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
                     CourierTask ct = new CourierTask();
-                    i$ = strings.iterator();
+                    iterator = strings.iterator();
 
-                    while(i$.hasNext()) {
-                        line = (String)i$.next();
+                    while(iterator.hasNext()) {
+                        line = (String)iterator.next();
                         if (line.contains("|")) {
                             m1 = line.indexOf("|");
                             name = line.substring(0, m1);
@@ -173,11 +175,11 @@ public class CourierTask implements Serializable {
                 }
             }
         } else {
-            arr$ = courierPoints.listFiles();
-            len$ = arr$.length;
+            listFiles = courierPoints.listFiles();
+            lengths = listFiles.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
-                f = arr$[i$];
+            for(i = 0; i < lengths; ++i) {
+                f = listFiles[i];
                 if (f.getName().endsWith(".suk")) {
                     V3 point = (V3)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (!alreadyGotPoint(point)) {
@@ -188,11 +190,11 @@ public class CourierTask implements Serializable {
                 }
             }
 
-            arr$ = courierTasks.listFiles();
-            len$ = arr$.length;
+            listFiles = courierTasks.listFiles();
+            lengths = listFiles.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
-                f = arr$[i$];
+            for(i = 0; i < lengths; ++i) {
+                f = listFiles[i];
                 if (f.getName().endsWith(".suk")) {
                     CourierTask task = (CourierTask)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (!alreadyGotTask(task)) {

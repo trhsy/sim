@@ -25,6 +25,7 @@ public class V3 implements Serializable, Cloneable {
     public V3() {
     }
 
+    @Override
     public V3 clone() {
         V3 retV = new V3(this.x, this.y, this.z, this.theDimension);
         return retV;
@@ -98,6 +99,7 @@ public class V3 implements Serializable, Cloneable {
         }
     }
 
+    @Override
     public String toString() {
         return this.x.intValue() + "," + this.y.intValue() + "," + this.z.intValue() + "," + this.theDimension;
     }

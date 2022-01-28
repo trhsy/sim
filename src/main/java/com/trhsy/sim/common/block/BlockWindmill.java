@@ -23,12 +23,9 @@ public class BlockWindmill extends BlockContainer {
         super(p_i45386_1_);
     }
 
-    public TileEntity func_149915_a(World p_149915_1_, int p_149915_2_) {
-        return null;
-    }
 
     @Override
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return null;
     }
 }

@@ -4,6 +4,7 @@ package com.trhsy.buildcraft.api.blueprints;/**
  * @apiNote
  */
 
+import com.trhsy.buildcraft.api.core.IInvSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,31 +27,31 @@ public abstract class Schematic {
 
     public ItemStack useItem(IBuilderContext context, ItemStack req, IInvSlot slot) {
         ItemStack stack = slot.getStackInSlot();
-        ItemStack result = stack.func_77946_l();
-        if (stack.func_77984_f()) {
-            if (req.func_77960_j() + stack.func_77960_j() <= stack.func_77958_k()) {
-                stack.func_77964_b(req.func_77960_j() + stack.func_77960_j());
-                result.func_77964_b(req.func_77960_j());
-                req.field_77994_a = 0;
+        ItemStack result = stack.copy();
+        if (stack.isItemStackDamageable()) {
+            if (req.getMetadata() + stack.getMetadata() <= stack.getMaxDurability()) {
+                stack.setMetadata(req.getMetadata() + stack.getMetadata());
+                result.setMetadata(req.getMetadata());
+                req.stackSize = 0;
             }
 
-            if (stack.func_77960_j() >= stack.func_77958_k()) {
+            if (stack.getMetadata() >= stack.getMaxDurability()) {
                 slot.decreaseStackInSlot(1);
             }
-        } else if (stack.field_77994_a >= req.field_77994_a) {
-            result.field_77994_a = req.field_77994_a;
-            stack.field_77994_a -= req.field_77994_a;
-            req.field_77994_a = 0;
+        } else if (stack.stackSize >= req.stackSize) {
+            result.stackSize = req.stackSize;
+            stack.stackSize -= req.stackSize;
+            req.stackSize = 0;
         } else {
-            req.field_77994_a -= stack.field_77994_a;
-            stack.field_77994_a = 0;
+            req.stackSize -= stack.stackSize;
+            stack.stackSize = 0;
         }
 
-        if (stack.field_77994_a == 0 && stack.func_77973_b().func_77668_q() != null) {
-            Item container = stack.func_77973_b().func_77668_q();
+        if (stack.stackSize == 0 && stack.getItem().getContainerItem() != null) {
+            Item container = stack.getItem().getContainerItem();
             ItemStack newStack = new ItemStack(container);
             slot.setStackInSlot(newStack);
-        } else if (stack.field_77994_a == 0) {
+        } else if (stack.stackSize == 0) {
             slot.setStackInSlot((ItemStack)null);
         }
 
@@ -88,7 +89,7 @@ public abstract class Schematic {
         int result = 0;
         ItemStack s;
         if (stacksUsed != null) {
-            for(Iterator i$ = stacksUsed.iterator(); i$.hasNext(); result += s.field_77994_a * 240) {
+            for(Iterator i$ = stacksUsed.iterator(); i$.hasNext(); result += s.stackSize * 240) {
                 s = (ItemStack)i$.next();
             }
         }
@@ -100,8 +101,8 @@ public abstract class Schematic {
         return stackConsumed;
     }
 
-    public Schematic.BuildingStage getBuildStage() {
-        return Schematic.BuildingStage.STANDALONE;
+    public BuildingStage getBuildStage() {
+        return BuildingStage.STANDALONE;
     }
 
     public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {

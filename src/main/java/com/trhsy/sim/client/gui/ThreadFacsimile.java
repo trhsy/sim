@@ -27,18 +27,20 @@ import java.util.HashMap;
  * ========================================
  **/
 public class ThreadFacsimile extends Thread {
+    private GuiMarker guiMarker;
     public ThreadFacsimile() {
         this.start();
     }
 
     @Override
     public void run() {
-        V3 cxyz = GuiMarker.this.location;
+
+        V3 cxyz = guiMarker.location;
         V3 Lxyz = ((Marker) BlockMarker.markers.get(1)).toV3();
         V3 Bxyz = ((Marker)BlockMarker.markers.get(2)).toV3();
-        V3 exyz = new V3(Math.floor(GuiMarker.this.field_146297_k.thePlayer.posX), Math.floor(GuiMarker.this.field_146297_k.thePlayer.posY), Math.floor(GuiMarker.this.field_146297_k.thePlayer.posZ), Bxyz.theDimension);
-        int ftbCount = false;
-        int ltrCount = false;
+        V3 exyz = new V3(Math.floor(guiMarker.mc.thePlayer.posX), Math.floor(guiMarker.mc.thePlayer.posY), Math.floor(guiMarker.mc.thePlayer.posZ), Bxyz.theDimension);
+        //int ftbCount = false;
+        //int ltrCount = false;
         int ltrCountx;
         if (cxyz.x.intValue() == Lxyz.x.intValue()) {
             ltrCountx = Math.abs(Lxyz.z.intValue() - cxyz.z.intValue()) - 1;
@@ -54,9 +56,9 @@ public class ThreadFacsimile extends Thread {
         }
 
         if (ftbCountx != 0 && ltrCountx != 0) {
-            int bx = false;
-            int by = false;
-            int bz = false;
+            //int bx = false;
+            //int by = false;
+            //int bz = false;
             int cx = cxyz.x.intValue();
             int cy = cxyz.y.intValue();
             int cz = cxyz.z.intValue();
@@ -74,7 +76,7 @@ public class ThreadFacsimile extends Thread {
                 }
             } else {
                 if (cx != ex) {
-                    GuiMarker.this.errorText = "Please stand facing the primary marker with the rear marker in the distance.";
+                    guiMarker.errorText = "Please stand facing the primary marker with the rear marker in the distance.";
                     ModSimukraft.sendChat("Could not copy building, Technical info:cx=" + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
                     return;
                 }
@@ -88,8 +90,8 @@ public class ThreadFacsimile extends Thread {
 
             int xo = 0;
             int zo = 0;
-            int iDx = false;
-            int metax = false;
+            //int iDx = false;
+            //int metax = false;
             HashMap key = new HashMap();
             key.put("0:0", "A");
             ArrayList layerLines = new ArrayList();
@@ -126,10 +128,10 @@ public class ThreadFacsimile extends Thread {
                             int xxx = bxx + xo;
                             int yyy = byx + l - 1;
                             zzz = bzx + zo;
-                            int iD = Block.func_149682_b(GuiMarker.this.field_146297_k.func_71401_C().worldServerForDimension(GuiMarker.this.thePlayer.field_71093_bK).getBlock(xxx, yyy, zzz));
-                            int meta = GuiMarker.this.field_146297_k.func_71401_C().worldServerForDimension(GuiMarker.this.thePlayer.field_71093_bK).func_72805_g(xxx, yyy, zzz);
+                            int iD = Block.getIdFromBlock(guiMarker.mc.getIntegratedServer().worldServerForDimension(guiMarker.thePlayer.dimension).getBlock(xxx, yyy, zzz));
+                            int meta = guiMarker.mc.getIntegratedServer().worldServerForDimension(guiMarker.thePlayer.dimension).getBlockMetadata(xxx, yyy, zzz);
                             String letter = "";
-                            if (iD == Block.func_149682_b(ModSimukraft.controlBox)) {
+                            if (iD == Block.getIdFromBlock(ModSimukraft.controlBox)) {
                                 letter = "$";
                             } else {
                                 letter = (String)key.get(iD + ":" + meta);
@@ -157,7 +159,7 @@ public class ThreadFacsimile extends Thread {
                 }
 
                 if (layerLines.size() == 0) {
-                    GuiMarker.this.errorText = "Error, could not capture all blocks, try standing closer to marker and try again";
+                    guiMarker.errorText = "Error, could not capture all blocks, try standing closer to marker and try again";
                     return;
                 }
 
@@ -181,15 +183,15 @@ public class ThreadFacsimile extends Thread {
 
                 out.close();
                 Thread.sleep(500L);
-                GuiMarker.this.errorText = "Building copied and stored as 'My Build" + f + "' in Other buildings.";
-                GuiMarker.this.field_146297_k.field_71441_e.func_72908_a(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, "satscapesimukraft:computer", 1.0F, 1.0F);
+                guiMarker.errorText = "Building copied and stored as 'My Build" + f + "' in Other buildings.";
+                guiMarker.mc.theWorld.playSoundEffect(guiMarker.location.x, guiMarker.location.y, guiMarker.location.z, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
                 Building.initialiseAllBuildings();
             } catch (Exception var33) {
                 var33.printStackTrace();
             }
 
         } else {
-            GuiMarker.this.errorText = "ERROR: Markers not placed correctly, try again.";
+            guiMarker.errorText = "ERROR: Markers not placed correctly, try again.";
         }
     }
 }

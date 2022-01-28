@@ -4,6 +4,7 @@ package com.trhsy.sim.common.entity;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSimukraft;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -236,7 +237,7 @@ public class BuildingReader implements Serializable {
             }
 
             akeyNumber = 0;
-            int bblockNumber = false;
+            //int bblockNumber = false;
 
             for(int i = 0; i < this.layerCount; ++i) {
                 strLine = br.readLine().trim();
@@ -520,7 +521,7 @@ public class BuildingReader implements Serializable {
     }
 
     private void addToRequirements(String block, int amount, int meta) {
-        int val = false;
+        //int val = false;
         ItemStack theBlock = new ItemStack(Block.getBlockFromName(block), amount, meta);
         String name;
         Iterator it;
@@ -532,7 +533,7 @@ public class BuildingReader implements Serializable {
             name = "";
 
             try {
-                name = theBlock.func_82833_r().toLowerCase();
+                name = theBlock.getDisplayName().toLowerCase();
             } catch (Exception var12) {
                 name = "????";
             }
@@ -566,7 +567,7 @@ public class BuildingReader implements Serializable {
                 name = "";
 
                 try {
-                    name = theBlock.func_82833_r().toLowerCase();
+                    name = theBlock.getDisplayName().toLowerCase();
                 } catch (Exception var11) {
                     name = "????";
                 }

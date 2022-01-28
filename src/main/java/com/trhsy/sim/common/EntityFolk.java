@@ -4,13 +4,16 @@ package com.trhsy.sim.common;/**
  * @apiNote
  */
 
+import com.trhsy.sim.client.gui.GuiEntityFolk;
+import com.trhsy.sim.client.gui.GuiMerchant;
 import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.jobs.JobFisherman;
+import com.trhsy.sim.common.jobs.Stage;
+import com.trhsy.sim.common.jobs.Vocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import javafx.stage.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
@@ -47,21 +50,21 @@ public class EntityFolk extends EntityCreature implements INpc {
 
     public EntityFolk(World par1World) {
         super(par1World);
-        this.getNavigator().func_75491_a(false);
-        this.getNavigator().func_75490_c(true);
-        this.getNavigator().func_75498_b(true);
-        this.getNavigator().func_75495_e(true);
-        this.field_70714_bg.func_75776_a(1, new EntityAILookIdle(this));
-        this.field_70714_bg.func_75776_a(2, new EntityAIMoveIndoors(this));
-        this.field_70714_bg.func_75776_a(3, new EntityAIRestrictOpenDoor(this));
-        this.field_70714_bg.func_75776_a(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1.0F));
-        this.field_70714_bg.func_75776_a(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-        this.field_70714_bg.func_75776_a(9, new EntityAIOpenDoor(this, true));
-        this.field_70714_bg.func_75776_a(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
-        this.field_70714_bg.func_75776_a(4, new EntityAISwimming(this));
+        this.getNavigator().setAvoidsWater(false);
+        this.getNavigator().setEnterDoors(true);
+        this.getNavigator().setBreakDoors(true);
+        this.getNavigator().setCanSwim(true);
+        this.tasks.addTask(1, new EntityAILookIdle(this));
+        this.tasks.addTask(2, new EntityAIMoveIndoors(this));
+        this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
+        this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1.0F));
+        this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+        this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
+        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
+        this.tasks.addTask(4, new EntityAISwimming(this));
         if (!ModSimukraft.proxy.ranStartup) {
             ModSimukraft.log.info("EntityFolk: Killed system spawned folk");
-            this.func_70106_y();
+            this.setDead();
         }
 
         int dom = this.cal.get(5);
@@ -85,30 +88,32 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
     }
 
-    protected void func_110147_ax() {
-        super.func_110147_ax();
-        this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(1.0D);
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0D);
     }
 
-    public void func_70071_h_() {
+    @Override
+    public void onUpdate() {
         if (this.theData == null) {
-            if (!this.field_70128_L) {
+            if (!this.isDead) {
                 if (this.ghostTimer == -1L) {
                     this.ghostTimer = System.currentTimeMillis();
                 }
 
-                this.theData = FolkData.getFolkDataByEntityId(this.func_145782_y());
+                this.theData = FolkData.getFolkDataByEntityId(this.getEntityId());
                 if (this.theData == null && System.currentTimeMillis() - this.ghostTimer > 5000L) {
-                    ModSimukraft.log.info("EntityFolk: " + this.func_145782_y() + " - their data has been null for more than 5s, so killing");
-                    this.func_70106_y();
+                    ModSimukraft.log.info("EntityFolk: " + this.getEntityId() + " - their data has been null for more than 5s, so killing");
+                    this.setDead();
                 }
             }
         } else {
             if (this.theData.isWorking) {
                 float s = (float)(Math.sin((double)System.currentTimeMillis() * 0.01D) / 10.0D) + 0.1F;
-                this.field_70733_aJ = s;
+                this.swingProgress = s;
             } else {
-                this.field_70733_aJ = 0.0F;
+                this.swingProgress = 0.0F;
             }
 
             if (System.currentTimeMillis() - this.greetTimer > 1000L) {
@@ -123,7 +128,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         FolkData var18 = this.theData;
                         FolkData.anyFolkLastSpoke = System.currentTimeMillis();
                         int sf = r.nextInt(25) + 1;
-                        String fn = "satscapesimukraft:";
+                        String fn = ModSimukraft.MODID + ":";
                         if (this.theData.vocation != null && this.theData.vocation == Vocation.BURGERSWAITER) {
                             sf = r.nextInt(6);
                             fn = fn + "burger";
@@ -185,7 +190,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                                         fn = fn + "dayftwo";
                                     }
                                 } else if (sf == 3) {
-                                    if (!this.field_70170_p.func_72896_J()) {
+                                    if (!this.worldObj.isRaining()) {
                                         if (this.theData.gender == 0) {
                                             fn = fn + "daymthree";
                                         } else {
@@ -277,7 +282,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 try {
                     if (this.theData.levelFood < 0) {
-                        this.func_70645_a(DamageSource.field_76366_f);
+                        this.onDeath(DamageSource.starve);
                     }
                 } catch (Exception var11) {
                 }
@@ -286,26 +291,26 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
         }
 
-        List list1 = this.field_70170_p.func_72839_b(this, AxisAlignedBB.func_72330_a(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).func_72314_b(2.0D, 4.0D, 2.0D));
+        List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(2.0D, 4.0D, 2.0D));
         Iterator iterator1 = list1.iterator();
         if (!list1.isEmpty()) {
             while(iterator1.hasNext()) {
                 Entity entity1 = (Entity)iterator1.next();
                 if (entity1 instanceof EntityItem) {
                     EntityItem entityitem = (EntityItem)entity1;
-                    ItemStack is = entityitem.func_92059_d();
+                    ItemStack is = entityitem.getEntityItem();
 
                     try {
-                        ItemFood food = (ItemFood)is.func_77973_b();
+                        ItemFood food = (ItemFood)is.getItem();
                         if (this.theData.levelFood < 10 && food != null) {
-                            this.field_70170_p.func_72956_a(this, "random.burp", 1.0F, 1.0F);
-                            entityitem.func_70106_y();
+                            this.worldObj.playSoundAtEntity(this, "random.burp", 1.0F, 1.0F);
+                            entityitem.setDead();
                             ++this.theData.levelFood;
                         }
                     } catch (Exception var10) {
                     }
                 } else if (entity1 instanceof EntityFolk && (int)this.posX == (int)entity1.posX && (int)this.posZ == (int)entity1.posZ) {
-                    this.field_70159_w += 0.10000000149011612D;
+                    this.motionX += 0.10000000149011612D;
 
                     try {
                         this.theData.stayPut = false;
@@ -316,18 +321,19 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
 
         try {
-            super.func_70071_h_();
+            super.onUpdate();
         } catch (Exception var8) {
         }
 
     }
 
-    public void func_70091_d(double d, double d1, double d2) {
-        if (!this.field_70128_L && this.theData != null) {
+    @Override
+    public void moveEntity(double d, double d1, double d2) {
+        if (!this.isDead && this.theData != null) {
             double dist = 0.0D;
             if (this.theData.destination != null && this.theData.beamingTo == null) {
                 try {
-                    dist = this.func_70011_f(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
+                    dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
                 } catch (Exception var14) {
                     ModSimukraft.log.warning("Folk's theData.destination was null in moveEntity()");
                     return;
@@ -340,8 +346,8 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }
 
                     this.theData.updateLocationFromEntity();
-                    this.field_70159_w = 0.0D;
-                    this.field_70179_y = 0.0D;
+                    this.motionX = 0.0D;
+                    this.motionZ = 0.0D;
                     this.theData.stayPut = true;
                     this.theData.destination = null;
                     this.getNavigator().clearPathEntity();
@@ -353,9 +359,9 @@ public class EntityFolk extends EntityCreature implements INpc {
                 } else {
                     try {
                         if (!this.gotPath) {
-                            PathEntity path = this.field_70170_p.func_72844_a(this, this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue(), 40.0F, true, true, true, true);
+                            PathEntity path = this.worldObj.getEntityPathToXYZ(this, this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue(), 40.0F, true, true, true, true);
                             if (path != null) {
-                                this.getNavigator().func_75484_a(path, 0.30000001192092896D);
+                                this.getNavigator().setPath(path, 0.30000001192092896D);
                                 this.gotPath = true;
                             }
                         }
@@ -382,12 +388,12 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
 
             if (this.theData.stayPut) {
-                this.field_70159_w = 0.0D;
-                this.field_70181_x = 0.0D;
-                this.field_70179_y = 0.0D;
+                this.motionX = 0.0D;
+                this.motionY = 0.0D;
+                this.motionZ = 0.0D;
                 this.getNavigator().clearPathEntity();
             } else {
-                super.func_70091_d(d, d1, d2);
+                super.moveEntity(d, d1, d2);
             }
 
         }
@@ -401,60 +407,61 @@ public class EntityFolk extends EntityCreature implements INpc {
         } else if (this.theData.vocation == Vocation.CROPFARMER) {
             return new ItemStack(Items.stone_hoe, 1);
         } else if (this.theData.vocation == Vocation.LUMBERJACK) {
-            return new ItemStack(Items.field_151049_t, 1);
+            return new ItemStack(Items.stone_axe, 1);
         } else if (this.theData.vocation == Vocation.MINER) {
             return new ItemStack(Items.stone_pickaxe, 1);
         } else if (this.theData.vocation == Vocation.BAKER) {
-            return new ItemStack(Items.field_151038_n, 1);
+            return new ItemStack(Items.wooden_shovel, 1);
         } else if (this.theData.vocation == Vocation.SOLDIER) {
-            return new ItemStack(Items.field_151052_q, 1);
+            return new ItemStack(Items.stone_sword, 1);
         } else if (this.theData.vocation == Vocation.BUILDER) {
             return new ItemStack(Blocks.cobblestone, 1);
         } else if (this.theData.vocation == Vocation.SHEPHERD) {
-            return new ItemStack(Items.field_151097_aZ, 1);
+            return new ItemStack(Items.shears, 1);
         } else if (this.theData.vocation == Vocation.GROCER) {
-            return new ItemStack(Items.field_151127_ba, 1);
+            return new ItemStack(Items.melon, 1);
         } else if (this.theData.vocation == Vocation.COURIER) {
-            return new ItemStack(Blocks.field_150486_ae, 1);
+            return new ItemStack(Blocks.chest, 1);
         } else if (this.theData.vocation == Vocation.MERCHANT) {
             return new ItemStack(Blocks.brick_block, 1);
         } else if (this.theData.vocation == Vocation.BUTCHER) {
-            return new ItemStack(Items.field_151147_al, 1);
+            return new ItemStack(Items.porkchop, 1);
         } else if (this.theData.vocation == Vocation.CATTLEFARMER) {
-            return new ItemStack(Items.field_151006_E, 1);
+            return new ItemStack(Items.golden_axe, 1);
         } else if (this.theData.vocation == Vocation.PIGFARMER) {
-            return new ItemStack(Items.field_151036_c, 1);
+            return new ItemStack(Items.iron_axe, 1);
         } else if (this.theData.vocation == Vocation.CHICKENFARMER) {
-            return new ItemStack(Items.field_151049_t, 1);
+            return new ItemStack(Items.stone_axe, 1);
         } else if (this.theData.vocation == Vocation.TERRAFORMER) {
-            return new ItemStack(Items.field_151047_v, 1);
+            return new ItemStack(Items.diamond_shovel, 1);
         } else if (this.theData.vocation == Vocation.GLASSMAKER) {
-            return new ItemStack(Blocks.field_150410_aZ, 1);
+            return new ItemStack(Blocks.glass_pane, 1);
         } else if (this.theData.vocation == Vocation.DAIRYFARMER) {
-            return new ItemStack(Items.field_151117_aB, 1);
+            return new ItemStack(Items.milk_bucket, 1);
         } else if (this.theData.vocation == Vocation.CHEESEMAKER) {
             return new ItemStack(ModSimukraft.blockCheese, 1);
         } else if (this.theData.vocation == Vocation.BURGERSMANAGER) {
             return new ItemStack(ModSimukraft.itemFood, 1, 3);
         } else if (this.theData.vocation == Vocation.BURGERSFRYCOOK) {
-            return new ItemStack(Items.field_151037_a, 1);
+            return new ItemStack(Items.iron_shovel, 1);
         } else if (this.theData.vocation == Vocation.BURGERSWAITER) {
             return new ItemStack(ModSimukraft.itemFood, 1, 2);
         } else if (this.theData.vocation == Vocation.FISHERMAN) {
             JobFisherman jf = (JobFisherman)this.theData.theirJob;
-            return jf.theStage == Stage.IDLE ? new ItemStack(Items.field_151115_aP, 1) : new ItemStack(Items.field_151112_aM, 1);
+            return jf.theStage == Stage.IDLE ? new ItemStack(Items.fish, 1) : new ItemStack(Items.fishing_rod, 1);
         } else {
             return null;
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public boolean func_70085_c(EntityPlayer entityplayer) {
+    public boolean interact(EntityPlayer entityplayer) {
         Minecraft mc = Minecraft.getMinecraft();
-        mc.field_71462_r = null;
+        mc.currentScreen = null;
         GuiScreen ui = null;
         if (this.theData == null) {
-            this.func_70106_y();
+            this.setDead();
             return false;
         } else {
             if (this.theData.theirJob != null) {
@@ -469,45 +476,48 @@ public class EntityFolk extends EntityCreature implements INpc {
 
             mc.displayGuiScreen((GuiScreen)ui);
             if (this.theData.age < 18) {
-                this.field_70170_p.playSound(this.posX, this.posY, this.posZ, "satscapesimukraft:helloc", 1.0F, 1.0F, false);
+                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSimukraft.MODID + ":helloc", 1.0F, 1.0F, false);
             } else if (this.theData.gender == 0) {
-                this.field_70170_p.playSound(this.posX, this.posY, this.posZ, "satscapesimukraft:hellom", 1.0F, 1.0F, false);
+                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSimukraft.MODID + ":hellom", 1.0F, 1.0F, false);
             } else {
-                this.field_70170_p.playSound(this.posX, this.posY, this.posZ, "satscapesimukraft:hellof", 1.0F, 1.0F, false);
+                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSimukraft.MODID + ":hellof", 1.0F, 1.0F, false);
             }
 
             return true;
         }
     }
 
-    public void func_70645_a(DamageSource d) {
+    @Override
+    public void onDeath(DamageSource d) {
         this.theData.eventDied(d);
     }
 
-    public boolean func_70104_M() {
+    @Override
+    public boolean canBePushed() {
         return true;
     }
 
-    protected String func_70621_aR() {
-        if (!this.func_70027_ad()) {
-            this.func_70691_i(10.0F);
+    @Override
+    protected String getHurtSound() {
+        if (!this.isBurning()) {
+            this.heal(10.0F);
             if (this.theData != null && this.theData.stayPut) {
                 this.theData.stayPut = false;
             }
 
-            Block idX1 = this.field_70170_p.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ);
-            Block idX2 = this.field_70170_p.getBlock((int)this.posX - 1, (int)this.posY, (int)this.posZ);
-            Block idZ1 = this.field_70170_p.getBlock((int)this.posX, (int)this.posY, (int)this.posZ + 1);
-            Block idZ2 = this.field_70170_p.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ - 1);
-            this.field_70181_x += 0.4D;
+            Block idX1 = this.worldObj.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ);
+            Block idX2 = this.worldObj.getBlock((int)this.posX - 1, (int)this.posY, (int)this.posZ);
+            Block idZ1 = this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ + 1);
+            Block idZ2 = this.worldObj.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ - 1);
+            this.motionY += 0.4D;
             if (idX1 == null) {
-                this.field_70159_w += 0.8999999761581421D;
+                this.motionX += 0.8999999761581421D;
             } else if (idX2 == null) {
-                this.field_70159_w -= 0.8999999761581421D;
+                this.motionX -= 0.8999999761581421D;
             } else if (idZ1 == null) {
-                this.field_70179_y += 0.8999999761581421D;
+                this.motionZ += 0.8999999761581421D;
             } else if (idZ2 == null) {
-                this.field_70179_y -= 0.8999999761581421D;
+                this.motionZ -= 0.8999999761581421D;
             }
         }
 
@@ -516,7 +526,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         } else if (ModSimukraft.configFolkTalking) {
             if (System.currentTimeMillis() - this.lastHurt > 10000L) {
                 this.lastHurt = System.currentTimeMillis();
-                return this.theData.gender == 0 ? "satscapesimukraft:OuchM" : "satscapesimukraft:OuchF";
+                return this.theData.gender == 0 ? ModSimukraft.MODID + ":OuchM" : ModSimukraft.MODID + ":OuchF";
             } else {
                 return null;
             }
@@ -525,32 +535,39 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
     }
 
-    public int func_70627_aG() {
+    @Override
+    public int getTalkInterval() {
         Random r = new Random();
         return 1000 + r.nextInt(1000);
     }
 
-    public boolean func_70650_aV() {
+    @Override
+    public boolean isAIEnabled() {
         return true;
     }
 
-    public int func_70641_bl() {
+    @Override
+    public int getMaxSpawnedInChunk() {
         return 200;
     }
 
-    public boolean func_70692_ba() {
+    @Override
+    public boolean canDespawn() {
         return true;
     }
 
-    public AxisAlignedBB func_70114_g(Entity par1Entity) {
-        return par1Entity.field_70121_D;
+    @Override
+    public AxisAlignedBB getCollisionBox(Entity par1Entity) {
+        return par1Entity.boundingBox;
     }
 
-    public AxisAlignedBB func_70046_E() {
-        return this.field_70121_D;
+    @Override
+    public AxisAlignedBB getBoundingBox() {
+        return this.boundingBox;
     }
 
-    public boolean func_70067_L() {
+    @Override
+    public boolean canBeCollidedWith() {
         return true;
     }
 

@@ -117,7 +117,7 @@ public class JobGlassMaker extends Job implements Serializable {
         }
 
         try {
-            this.blockOfSand = findClosestBlockType(this.theFolk.employedAt, Blocks.field_150354_m, 80, true);
+            this.blockOfSand = findClosestBlockType(this.theFolk.employedAt, Blocks.sand, 80, true);
             if (this.blockOfSand == null) {
                 this.theStage = Stage.USEFURNACE;
                 return;
@@ -132,7 +132,7 @@ public class JobGlassMaker extends Job implements Serializable {
     private void stageGotoSandBlock() {
         try {
             if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.field_70733_aJ = 0.0F;
+                this.theFolk.theEntity.swingProgress = 0.0F;
             }
 
             this.theFolk.updateLocationFromEntity();
@@ -175,8 +175,8 @@ public class JobGlassMaker extends Job implements Serializable {
 
                 this.gotoCount = 0;
                 this.jobWorld.setBlock(this.blockOfSand.x.intValue(), this.blockOfSand.y.intValue(), this.blockOfSand.z.intValue(), this.blockOfSand.blockID, 0, 3);
-                this.mc.field_71441_e.playSound(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z, "step.sand", 1.0F, 1.0F, false);
-                this.theFolk.inventory.add(new ItemStack(Blocks.field_150354_m, 1));
+                this.mc.theWorld.playSound(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z, "step.sand", 1.0F, 1.0F, false);
+                this.theFolk.inventory.add(new ItemStack(Blocks.sand, 1));
                 this.theFolk.statusText = "Diggy diggy sand, got " + this.theFolk.inventory.size();
                 GameStates var10000 = ModSimukraft.states;
                 var10000.credits = (float)((double)var10000.credits - 0.012D);
@@ -236,16 +236,16 @@ public class JobGlassMaker extends Job implements Serializable {
             ItemStack gotFuel;
             if (this.step == 1) {
                 this.theFolk.statusText = "Checking furnace fuel";
-                currentSand = this.factoryFurnace.func_70301_a(1);
+                currentSand = this.factoryFurnace.getStackInSlot(1);
                 gotFuel = null;
                 if (currentSand == null) {
-                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.field_151044_h, 64), false, false, new ItemStack(Items.field_151044_h, 64));
+                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.coal, 64), false, false, new ItemStack(Items.coal, 64));
                     if (gotFuel == null) {
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.field_151129_at, 1), false, false, new ItemStack(Items.field_151129_at, 1));
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.lava_bucket, 1), false, false, new ItemStack(Items.lava_bucket, 1));
                     }
 
                     if (gotFuel == null) {
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.field_150364_r, 64), false, false, new ItemStack(Blocks.field_150364_r, 64));
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.log, 64), false, false, new ItemStack(Blocks.log, 64));
                     }
 
                     if (gotFuel == null) {
@@ -259,7 +259,7 @@ public class JobGlassMaker extends Job implements Serializable {
                         return;
                     }
 
-                    this.factoryFurnace.func_70299_a(1, gotFuel);
+                    this.factoryFurnace.setInventorySlotContents(1, gotFuel);
                     this.step = 2;
                     return;
                 }
@@ -268,35 +268,35 @@ public class JobGlassMaker extends Job implements Serializable {
             } else if (this.step == 2) {
                 this.theFolk.statusText = "Adding sand to the furnace";
                 if (this.factoryFurnace != null) {
-                    currentSand = this.factoryFurnace.func_70301_a(0);
+                    currentSand = this.factoryFurnace.getStackInSlot(0);
                     gotFuel = null;
                     if (currentSand == null) {
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.field_150354_m, 64), false, false, new ItemStack(Blocks.field_150354_m, 64));
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.sand, 64), false, false, new ItemStack(Blocks.sand, 64));
                         if (gotFuel != null) {
-                            this.factoryFurnace.func_70299_a(0, gotFuel);
+                            this.factoryFurnace.setInventorySlotContents(0, gotFuel);
                         }
 
                         this.step = 3;
                         return;
                     }
 
-                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.field_150354_m, 64 - currentSand.field_77994_a), false, false, new ItemStack(Blocks.field_150354_m, 64 - currentSand.field_77994_a));
+                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.sand, 64 - currentSand.stackSize), false, false, new ItemStack(Blocks.sand, 64 - currentSand.stackSize));
                     if (gotFuel != null) {
-                        currentSand.field_77994_a += gotFuel.field_77994_a;
-                        this.factoryFurnace.func_70299_a(0, currentSand);
+                        currentSand.stackSize += gotFuel.stackSize;
+                        this.factoryFurnace.setInventorySlotContents(0, currentSand);
                     }
 
                     this.step = 3;
                     return;
                 }
             } else if (this.step == 3) {
-                currentSand = this.factoryFurnace.func_70301_a(2);
+                currentSand = this.factoryFurnace.getStackInSlot(2);
                 if (currentSand != null) {
                     this.theFolk.statusText = "Putting glass into storage";
                     this.inventoriesPut(this.factoryChests, currentSand, true);
                     GameStates var10000 = ModSimukraft.states;
-                    var10000.credits = (float)((double)var10000.credits - 0.005D * (double)currentSand.field_77994_a);
-                    this.factoryFurnace.func_70299_a(2, (ItemStack)null);
+                    var10000.credits = (float)((double)var10000.credits - 0.005D * (double)currentSand.stackSize);
+                    this.factoryFurnace.setInventorySlotContents(2, (ItemStack)null);
                 } else {
                     this.theFolk.statusText = "No glass been made";
                 }
@@ -309,7 +309,7 @@ public class JobGlassMaker extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

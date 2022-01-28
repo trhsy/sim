@@ -140,8 +140,8 @@ public class JobGrocer extends Job implements Serializable {
 
             if (dist < 3.0D) {
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.field_70159_w = 0.0D;
-                    this.theFolk.theEntity.field_70179_y = 0.0D;
+                    this.theFolk.theEntity.motionX = 0.0D;
+                    this.theFolk.theEntity.motionZ = 0.0D;
                 }
 
                 this.onRoute = false;
@@ -169,17 +169,17 @@ public class JobGrocer extends Job implements Serializable {
             this.farmChests = inventoriesFindClosest(this.farm.getLocation(), 5);
             if (this.farmChests.size() > 0) {
                 this.theFolk.stayPut = true;
-                ((IInventory)this.farmChests.get(0)).func_70295_k_();
+                ((IInventory)this.farmChests.get(0)).openChest();
                 this.step = 2;
             }
         } else if (this.step == 2) {
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.field_151127_ba, 640), Blocks.field_150346_d);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Blocks.field_150423_aK, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.field_151172_bF, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.field_151174_bG, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.melon, 640), Blocks.dirt);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Blocks.pumpkin, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.carrot, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.potato, 640), (Block)null);
             this.step = 3;
         } else if (this.step == 3) {
-            ((IInventory)this.farmChests.get(0)).func_70305_f();
+            ((IInventory)this.farmChests.get(0)).closeChest();
             this.theStage = Stage.GOINGTOFOODFARM;
         }
 
@@ -198,8 +198,8 @@ public class JobGrocer extends Job implements Serializable {
             double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist <= 1.0D) {
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.field_70159_w = 0.0D;
-                    this.theFolk.theEntity.field_70179_y = 0.0D;
+                    this.theFolk.theEntity.motionX = 0.0D;
+                    this.theFolk.theEntity.motionZ = 0.0D;
                 }
 
                 this.onRoute = false;
@@ -223,10 +223,10 @@ public class JobGrocer extends Job implements Serializable {
         int c;
         if (this.step == 1) {
             this.theFolk.statusText = "Unloading fresh food";
-            sell = this.getInventoryCount(this.theFolk, Blocks.field_150423_aK);
-            int melons = this.getInventoryCount(this.theFolk, Items.field_151127_ba);
-            f = this.getInventoryCount(this.theFolk, Items.field_151172_bF);
-            c = this.getInventoryCount(this.theFolk, Items.field_151174_bG);
+            sell = this.getInventoryCount(this.theFolk, Blocks.pumpkin);
+            int melons = this.getInventoryCount(this.theFolk, Items.melon);
+            f = this.getInventoryCount(this.theFolk, Items.carrot);
+            c = this.getInventoryCount(this.theFolk, Items.potato);
             this.pay = (float)((double)sell * 0.2D);
             this.pay += (float)((double)melons * 0.05D);
             this.pay += (float)((double)f * 0.05D);
@@ -243,7 +243,7 @@ public class JobGrocer extends Job implements Serializable {
             }
 
             this.theFolk.statusText = "Selling fresh food";
-            if (MinecraftServer.getServer().worldServers[0].func_72820_D() % 24000L > 11600L) {
+            if (MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L > 11600L) {
                 this.step = 3;
             }
         } else if (this.step == 3) {
@@ -257,13 +257,13 @@ public class JobGrocer extends Job implements Serializable {
                     IInventory chest = (IInventory)this.grocerChests.get(c);
                     int g = 0;
 
-                    while(g < chest.func_70302_i_()) {
-                        ItemStack chestStack = chest.func_70301_a(g);
+                    while(g < chest.getSizeInventory()) {
+                        ItemStack chestStack = chest.getStackInSlot(g);
 
                         try {
                             int count = (new Random()).nextInt(3) + 1;
-                            ItemFood food = (ItemFood)chestStack.func_77973_b();
-                            piece = inventoriesGet(this.grocerChests, new ItemStack(chestStack.func_77973_b(), count), false, false);
+                            ItemFood food = (ItemFood)chestStack.getItem();
+                            piece = inventoriesGet(this.grocerChests, new ItemStack(chestStack.getItem(), count), false, false);
                             FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
                             folk.levelFood = 10;
                             sell += count;
@@ -322,7 +322,7 @@ public class JobGrocer extends Job implements Serializable {
 
     @Override
     public void onArrivedAtWork() {
-        int dist = false;
+        //int dist = false;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

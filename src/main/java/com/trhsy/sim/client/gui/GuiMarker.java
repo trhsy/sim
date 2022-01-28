@@ -4,10 +4,12 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.Marker;
 import com.trhsy.sim.common.ModSimukraft;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.jobs.Job;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -43,75 +45,77 @@ public class GuiMarker extends GuiScreen {
         this.thePlayer = p;
     }
 
-    public boolean func_73868_f() {
+    @Override
+    public boolean doesGuiPauseGame() {
         return false;
     }
-
-    public void func_73876_c() {
+    @Override
+    public void updateScreen() {
         if (this.theGuiTextField1 != null) {
-            this.theGuiTextField1.func_146178_a();
+            this.theGuiTextField1.updateCursorCounter();
         }
 
     }
-
-    public void func_73866_w_() {
-        this.field_146292_n.clear();
-        this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 100, this.field_146295_m - 30, "Done"));
-        this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 100, "Copy structure/building"));
-        this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 100, 160, "Set new Courier/Beaming point"));
+    @Override
+    public void initGui() {
+        this.buttonList.clear();
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Done"));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 100, "Copy structure/building"));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 160, "Set new Courier/Beaming point"));
 
         for(int x = 1; x <= 2; ++x) {
-            ((GuiButton)this.field_146292_n.get(x)).field_146124_l = false;
+            ((GuiButton)this.buttonList.get(x)).enabled = false;
         }
 
         if (BlockMarker.markers.size() == 3) {
-            ((GuiButton)this.field_146292_n.get(1)).field_146124_l = true;
+            ((GuiButton)this.buttonList.get(1)).enabled = true;
         } else if (BlockMarker.markers.size() == 1) {
-            ((GuiButton)this.field_146292_n.get(2)).field_146124_l = true;
-            this.theGuiTextField1 = new GuiTextField(this.field_146289_q, this.field_146294_l / 2 - this.field_146294_l / 3 / 2, 138, this.field_146294_l / 3, 20);
-            this.theGuiTextField1.func_146203_f(23);
+            ((GuiButton)this.buttonList.get(2)).enabled = true;
+            this.theGuiTextField1 = new GuiTextField(this.fontRendererObj, this.width / 2 - this.width / 3 / 2, 138, this.width / 3, 20);
+            this.theGuiTextField1.setMaxStringLength(23);
         }
 
     }
 
-    public void func_73863_a(int i, int j, float f) {
+    public void drawScreen(int i, int j, float f) {
         if (this.mouseCount < 10) {
             ++this.mouseCount;
             Mouse.setGrabbed(false);
         }
 
-        this.func_146276_q_();
-        this.func_73732_a(this.field_146289_q, "Sim-u-Markers", this.field_146294_l / 2, 30, 16777215);
-        this.func_73732_a(this.field_146289_q, "Markers can be used to make a copy of a building or you can use them to", this.field_146294_l / 2, 40, 10551295);
-        this.func_73732_a(this.field_146289_q, "mark out a mining or food-based farming area.", this.field_146294_l / 2, 55, 10551295);
-        this.func_73732_a(this.field_146289_q, "A single marker can be used to designate a new lumberjack area and more!", this.field_146294_l / 2, 70, 10551295);
-        this.func_73732_a(this.field_146289_q, "TIP: remove old markers after use, before marking a new area.", this.field_146294_l / 2, 85, 10551295);
-        this.func_73732_a(this.field_146289_q, this.errorText, this.field_146294_l / 2, this.field_146295_m - 50, 16711680);
+        this.drawDefaultBackground();
+        this.drawCenteredString(this.fontRendererObj, "Sim-u-Markers", this.width / 2, 30, 16777215);
+        this.drawCenteredString(this.fontRendererObj, "Markers can be used to make a copy of a building or you can use them to", this.width / 2, 40, 10551295);
+        this.drawCenteredString(this.fontRendererObj, "mark out a mining or food-based farming area.", this.width / 2, 55, 10551295);
+        this.drawCenteredString(this.fontRendererObj, "A single marker can be used to designate a new lumberjack area and more!", this.width / 2, 70, 10551295);
+        this.drawCenteredString(this.fontRendererObj, "TIP: remove old markers after use, before marking a new area.", this.width / 2, 85, 10551295);
+        this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 50, 16711680);
         if (this.theGuiTextField1 != null) {
-            this.theGuiTextField1.func_146194_f();
+            this.theGuiTextField1.drawTextBox();
         }
 
-        super.func_73863_a(i, j, f);
+        super.drawScreen(i, j, f);
     }
 
-    public void func_146284_a(GuiButton guibutton) {
-        if (guibutton.field_146127_k == 0) {
-            this.field_146297_k.field_71462_r = null;
-            this.field_146297_k.func_71381_h();
+    @Override
+    public void actionPerformed(GuiButton guibutton) {
+        if (guibutton.id == 0) {
+            this.mc.currentScreen = null;
+            this.mc.setIngameFocus();
         } else {
-            if (guibutton.field_146126_j.contentEquals("Copy structure/building")) {
+            if (guibutton.displayString.contentEquals("Copy structure/building")) {
                 new GuiMarker.ThreadFacsimile();
-            } else if (guibutton.field_146126_j.contentEquals("Set new Courier/Beaming point")) {
+            } else if (guibutton.displayString.contentEquals("Set new Courier/Beaming point")) {
                 String s = ((Marker)BlockMarker.markers.get(0)).toString();
                 String[] ss = s.split(",");
-                String name = this.theGuiTextField1.func_146179_b().trim();
+                String name = this.theGuiTextField1.getText().trim();
                 if (name.length() == 0) {
                     this.errorText = "Please type a name for this Courier/Beaming point";
-                    this.theGuiTextField1.func_146206_l();
+                    this.theGuiTextField1.isFocused();
                     return;
                 }
 
-                V3 point = new V3(Double.parseDouble(ss[0]), Double.parseDouble(ss[1]), Double.parseDouble(ss[2]), this.thePlayer.field_71093_bK);
+                V3 point = new V3(Double.parseDouble(ss[0]), Double.parseDouble(ss[1]), Double.parseDouble(ss[2]), this.thePlayer.dimension);
                 ArrayList<IInventory> chestInvs = Job.inventoriesFindClosest(point, 5);
                 if (chestInvs.size() == 0) {
                     this.errorText = "Error: Place at least one chest near the marker.";
@@ -135,22 +139,22 @@ public class GuiMarker extends GuiScreen {
         }
     }
 
-    protected void func_73864_a(int i, int j, int k) {
+    protected void mouseClicked(int i, int j, int k) {
         if (this.theGuiTextField1 != null) {
-            this.theGuiTextField1.func_146192_a(i, j, k);
+            this.theGuiTextField1.mouseClicked(i, j, k);
         }
 
-        super.func_73864_a(i, j, k);
+        super.mouseClicked(i, j, k);
     }
 
-    protected void func_73869_a(char c, int i) {
+    protected void keyTyped(char c, int i) {
         if (i == 1) {
-            this.field_146297_k.field_71462_r = null;
-            this.field_146297_k.func_71381_h();
+            this.mc.currentScreen = null;
+            this.mc.setIngameFocus();
         }
 
         if (this.theGuiTextField1 != null) {
-            this.theGuiTextField1.func_146201_a(c, i);
+            this.theGuiTextField1.textboxKeyTyped(c, i);
         }
 
     }
@@ -164,9 +168,9 @@ public class GuiMarker extends GuiScreen {
             V3 cxyz = GuiMarker.this.location;
             V3 Lxyz = ((Marker) BlockMarker.markers.get(1)).toV3();
             V3 Bxyz = ((Marker)BlockMarker.markers.get(2)).toV3();
-            V3 exyz = new V3(Math.floor(GuiMarker.this.field_146297_k.thePlayer.posX), Math.floor(GuiMarker.this.field_146297_k.thePlayer.posY), Math.floor(GuiMarker.this.field_146297_k.thePlayer.posZ), Bxyz.theDimension);
-            int ftbCount = false;
-            int ltrCount = false;
+            V3 exyz = new V3(Math.floor(GuiMarker.this.mc.thePlayer.posX), Math.floor(GuiMarker.this.mc.thePlayer.posY), Math.floor(GuiMarker.this.mc.thePlayer.posZ), Bxyz.theDimension);
+            //int ftbCount = false;
+            //int ltrCount = false;
             int ltrCountx;
             if (cxyz.x.intValue() == Lxyz.x.intValue()) {
                 ltrCountx = Math.abs(Lxyz.z.intValue() - cxyz.z.intValue()) - 1;
@@ -182,9 +186,9 @@ public class GuiMarker extends GuiScreen {
             }
 
             if (ftbCountx != 0 && ltrCountx != 0) {
-                int bx = false;
-                int by = false;
-                int bz = false;
+                //int bx = false;
+                //int by = false;
+                //int bz = false;
                 int cx = cxyz.x.intValue();
                 int cy = cxyz.y.intValue();
                 int cz = cxyz.z.intValue();
@@ -216,8 +220,8 @@ public class GuiMarker extends GuiScreen {
 
                 int xo = 0;
                 int zo = 0;
-                int iDx = false;
-                int metax = false;
+                //int iDx = false;
+                //int metax = false;
                 HashMap key = new HashMap();
                 key.put("0:0", "A");
                 ArrayList layerLines = new ArrayList();
@@ -254,10 +258,10 @@ public class GuiMarker extends GuiScreen {
                                 int xxx = bxx + xo;
                                 int yyy = byx + l - 1;
                                 zzz = bzx + zo;
-                                int iD = Block.func_149682_b(GuiMarker.this.field_146297_k.func_71401_C().worldServerForDimension(GuiMarker.this.thePlayer.field_71093_bK).getBlock(xxx, yyy, zzz));
-                                int meta = GuiMarker.this.field_146297_k.func_71401_C().worldServerForDimension(GuiMarker.this.thePlayer.field_71093_bK).func_72805_g(xxx, yyy, zzz);
+                                int iD = Block.getIdFromBlock(GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlock(xxx, yyy, zzz));
+                                int meta = GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlockMetadata(xxx, yyy, zzz);
                                 String letter = "";
-                                if (iD == Block.func_149682_b(ModSimukraft.controlBox)) {
+                                if (iD == Block.getIdFromBlock(ModSimukraft.controlBox)) {
                                     letter = "$";
                                 } else {
                                     letter = (String)key.get(iD + ":" + meta);
@@ -310,7 +314,7 @@ public class GuiMarker extends GuiScreen {
                     out.close();
                     Thread.sleep(500L);
                     GuiMarker.this.errorText = "Building copied and stored as 'My Build" + f + "' in Other buildings.";
-                    GuiMarker.this.field_146297_k.field_71441_e.func_72908_a(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, "satscapesimukraft:computer", 1.0F, 1.0F);
+                    GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
                     Building.initialiseAllBuildings();
                 } catch (Exception var33) {
                     var33.printStackTrace();

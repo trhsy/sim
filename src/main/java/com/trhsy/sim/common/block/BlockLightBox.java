@@ -4,6 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSimukraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -27,31 +28,34 @@ import java.util.Random;
  **/
 public class BlockLightBox extends Block {
     private IIcon[] icons;
-    protected BlockLightBox() {
-        super(Material.field_151575_d);
-        this.func_149715_a(1.0F);
-        this.setCreativeTab(CreativeTabs.field_78026_f);
+    public BlockLightBox() {
+        super(Material.wood);
+        this.setLightLevel(1.0F);
+        this.setCreativeTab(CreativeTabs.tabMisc);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(2.0F);
         this.setResistance(1.0F);
-        this.func_149675_a(true);
-        this.setBlockName("SUKlight");
-    }
-    @SideOnly(Side.CLIENT)
-    public void func_149651_a(IIconRegister iconRegister) {
-        this.icons = new IIcon[8];
-        this.icons[0] = iconRegister.func_94245_a("satscapesimukraft:blockLightWhite");
-        this.icons[1] = iconRegister.func_94245_a("satscapesimukraft:blockLightRed");
-        this.icons[2] = iconRegister.func_94245_a("satscapesimukraft:blockLightOrange");
-        this.icons[3] = iconRegister.func_94245_a("satscapesimukraft:blockLightYellow");
-        this.icons[4] = iconRegister.func_94245_a("satscapesimukraft:blockLightGreen");
-        this.icons[5] = iconRegister.func_94245_a("satscapesimukraft:blockLightBlue");
-        this.icons[6] = iconRegister.func_94245_a("satscapesimukraft:blockLightPurple");
-        this.icons[7] = iconRegister.func_94245_a("satscapesimukraft:blockLightRainbow");
+        this.setTickRandomly(true);
+        this.setUnlocalizedName("SUKlight");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int side, int meta) {
+    public void registerIcons(IIconRegister iconRegister) {
+        this.icons = new IIcon[8];
+        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightWhite");
+        this.icons[1] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightRed");
+        this.icons[2] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightOrange");
+        this.icons[3] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightYellow");
+        this.icons[4] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightGreen");
+        this.icons[5] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightBlue");
+        this.icons[6] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightPurple");
+        this.icons[7] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightRainbow");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
         return meta < 8 && meta >= 0 ? this.icons[meta] : this.icons[0];
     }
 
@@ -59,7 +63,8 @@ public class BlockLightBox extends Block {
         return this;
     }
 
-    public int func_149692_a(int j) {
+    @Override
+    public int damageDropped(int j) {
         return j;
     }
 
@@ -71,7 +76,8 @@ public class BlockLightBox extends Block {
 
     }
 
-    public int func_149635_D() {
+    @Override
+    public int getBlockColor() {
         return 16777215;
     }
 }

@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.entity;
 
+import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSimukraft;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -74,6 +75,7 @@ public class Building implements Serializable {
 
     }
 
+    @Override
     public Building clone() {
         Building ret = new Building();
         ret.displayName = this.displayName;
@@ -181,7 +183,7 @@ public class Building implements Serializable {
             }
 
             acount = 0;
-            int bcount = false;
+            //int bcount = false;
 
             for(int i = 0; i < this.layerCount; ++i) {
                 strLine = br.readLine().trim();
@@ -195,20 +197,20 @@ public class Building implements Serializable {
                             if (ch.contentEquals("!")) {
                                 this.structure[acount] = "999:999";
                             } else if (ch.contentEquals("$")) {
-                                this.structure[acount] = "" + Block.func_149682_b(ModSimukraft.controlBox) + ":0";
+                                this.structure[acount] = "" + Block.getIdFromBlock(ModSimukraft.controlBox) + ":0";
                             } else if (ch.contentEquals("*")) {
-                                this.structure[acount] = Block.func_149682_b(ModSimukraft.lightBox) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(ModSimukraft.lightBox) + ":0";
                             } else if (ch.contentEquals("+")) {
-                                this.structure[acount] = Block.func_149682_b(ModSimukraft.lightBox) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(ModSimukraft.lightBox) + ":3";
                             } else if (ch.contentEquals("-")) {
-                                this.structure[acount] = Block.func_149682_b(ModSimukraft.lightBox) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(ModSimukraft.lightBox) + ":5";
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[acount] = "999:" + cha;
                             } else {
                                 this.structure[acount] = (String)thekey.get(ch);
                                 String[] sbid = this.structure[acount].split(":");
                                 int bid = Integer.parseInt(sbid[0]);
-                                this.addToRequirements(Block.func_149729_e(bid), 1);
+                                this.addToRequirements(Block.getBlockById(bid), 1);
                             }
 
                             ++acount;
@@ -232,7 +234,7 @@ public class Building implements Serializable {
     }
 
     private void addToRequirements(Block block, int amount) {
-        int val = false;
+        //int val = false;
         ItemStack theBlock = new ItemStack(block, 1, 0);
         String name;
         Iterator it;
@@ -244,7 +246,7 @@ public class Building implements Serializable {
             name = "";
 
             try {
-                name = theBlock.func_82833_r().toLowerCase();
+                name = theBlock.getDisplayName().toLowerCase();
             } catch (Exception var11) {
                 name = "????";
             }
@@ -256,7 +258,7 @@ public class Building implements Serializable {
                 while(it.hasNext()) {
                     pairs = (Map.Entry)it.next();
                     is = (ItemStack)pairs.getKey();
-                    if (is.func_77973_b() == theBlock.func_77973_b()) {
+                    if (is.getItem() == theBlock.getItem()) {
                         val = (Integer)pairs.getValue();
                         ++val;
                         pairs.setValue(val);
@@ -278,7 +280,7 @@ public class Building implements Serializable {
                 name = "";
 
                 try {
-                    name = theBlock.func_82833_r().toLowerCase();
+                    name = theBlock.getDisplayName().toLowerCase();
                 } catch (Exception var10) {
                     name = "????";
                 }
@@ -290,7 +292,7 @@ public class Building implements Serializable {
                     while(it.hasNext()) {
                         pairs = (Map.Entry)it.next();
                         is = (ItemStack)pairs.getKey();
-                        if (is.func_77973_b() == theBlock.func_77973_b()) {
+                        if (is.getItem() == theBlock.getItem()) {
                             val = (Integer)pairs.getValue();
                             ++val;
                             pairs.setValue(val);
@@ -621,19 +623,19 @@ public class Building implements Serializable {
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
                     build = new Building();
-                    Iterator i$ = strings.iterator();
+                    Iterator iterator = strings.iterator();
 
                     while(true) {
                         while(true) {
                             String line;
                             do {
-                                if (!i$.hasNext()) {
+                                if (!iterator.hasNext()) {
                                     build.loadStructure();
                                     ModSimukraft.theBuildings.add(build);
                                     continue label166;
                                 }
 
-                                line = (String)i$.next();
+                                line = (String)iterator.next();
                             } while(!line.contains("|"));
 
                             int m1 = line.indexOf("|");
@@ -663,20 +665,20 @@ public class Building implements Serializable {
                                 build.blocksInBuilding = Integer.parseInt(value);
                             } else {
                                 String[] blocks;
-                                String[] arr$;
-                                int len$;
-                                int i$;
+                                String[] array;
+                                int lengths;
+                                int i_j;
                                 String block;
                                 if (name.contentEquals("tennants")) {
                                     if (value.trim().contentEquals("")) {
                                         build.tennants.clear();
                                     } else {
                                         blocks = value.split(",");
-                                        arr$ = blocks;
-                                        len$ = blocks.length;
+                                        array = blocks;
+                                        lengths = blocks.length;
 
-                                        for(i$ = 0; i$ < len$; ++i$) {
-                                            block = arr$[i$];
+                                        for(i_j = 0; i_j < lengths; ++i_j) {
+                                            block = array[i_j];
                                             if (!block.trim().contentEquals("")) {
                                                 build.tennants.add(block);
                                             }
@@ -685,11 +687,11 @@ public class Building implements Serializable {
                                 } else if (name.contentEquals("blocklocs")) {
                                     if (value.contains("B") && value.contains(",")) {
                                         blocks = value.split("B");
-                                        arr$ = blocks;
-                                        len$ = blocks.length;
+                                        array = blocks;
+                                        lengths = blocks.length;
 
-                                        for(i$ = 0; i$ < len$; ++i$) {
-                                            block = arr$[i$];
+                                        for(i_j = 0; i_j < lengths; ++i_j) {
+                                            block = array[i_j];
                                             if (block.contains(",")) {
                                                 build.blockLocations.add(new V3(block));
                                             }
@@ -697,11 +699,11 @@ public class Building implements Serializable {
                                     }
                                 } else if (name.contentEquals("blockspecial") && value.contains("B") && value.contains(",")) {
                                     blocks = value.split("B");
-                                    arr$ = blocks;
+                                    array = blocks;
                                     len$ = blocks.length;
 
-                                    for(i$ = 0; i$ < len$; ++i$) {
-                                        block = arr$[i$];
+                                    for(i_j = 0; i_j < len$; ++i_j) {
+                                        block = array[i_j];
                                         if (block.contains(",")) {
                                             int p1 = block.lastIndexOf(",");
                                             String v = block.substring(0, p1);
@@ -720,13 +722,13 @@ public class Building implements Serializable {
         } else {
             Minecraft mc = Minecraft.getMinecraft();
             ModSimukraft.theBuildings.clear();
-            File[] arr$ = buildingsFolder.listFiles();
+            File[] array = buildingsFolder.listFiles();
             i$ = arr$.length;
 
-            for(int i$ = 0; i$ < i$; ++i$) {
-                File f = arr$[i$];
-                if (f.getName().endsWith(".suk")) {
-                    build = (Building)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
+            for(int i = 0; i < i; ++i) {
+                File fs = arr$[i];
+                if (fs.getName().endsWith(".suk")) {
+                    build = (Building)ModSimukraft.proxy.loadObject(fs.getAbsoluteFile().toString());
                     if (build != null) {
                         V3 xyz = build.primaryXYZ;
                         World buildingWorld = MinecraftServer.getServer().worldServerForDimension(build.primaryXYZ.theDimension);
@@ -740,7 +742,7 @@ public class Building implements Serializable {
                             build.loadStructure();
                             ModSimukraft.theBuildings.add(build);
                         } else {
-                            f.delete();
+                            fs.delete();
                             ModSimukraft.log.info("Building: Deleted building as id=" + id + " or dupe");
                         }
                     }
@@ -781,6 +783,7 @@ public class Building implements Serializable {
     public static void initialiseAllBuildings() {
         if (!runningInitThread) {
             Thread t = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     Building.runningInitThread = true;
                     Building.buildingsRes.clear();

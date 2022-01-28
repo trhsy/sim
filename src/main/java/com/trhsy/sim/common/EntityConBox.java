@@ -6,6 +6,7 @@ package com.trhsy.sim.common;/**
 
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.jobs.Job;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,48 +34,35 @@ public class EntityConBox extends Entity{
 
     public EntityConBox(World par1World) {
         super(par1World);
-        this.field_70145_X = true;
-        this.field_70158_ak = true;
+        this.noClip = true;
+        this.ignoreFrustumCheck = true;
         if (!ModSimukraft.proxy.ranStartup) {
             ModSimukraft.log.info("EntityConBox: Killed system spawned ConBox");
-            this.func_70106_y();
+            this.setDead();
         }
 
     }
 
-    @Override
-    protected void entityInit() {
-
-    }
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-
-    }
-
-    @Override
-    protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
-
-    }
-
-    public void func_70071_h_() {
+    public void onUpdate() {
         if (System.currentTimeMillis() - this.lastCheck > 10000L) {
             if (this.theFolk != null && this.theFolk.theBuilding == null) {
                 ModSimukraft.log.info("EntityConBox: Removing conBox as building is done");
                 this.spawnExplosionParticle(this);
-                this.func_70106_y();
+                this.setDead();
             }
 
-            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.field_71093_bK), ModSimukraft.buildingConstructor, 5);
+            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), ModSimukraft.buildingConstructor, 5);
             if (conblocks.size() < 1) {
-                this.func_70106_y();
+                this.setDead();
             }
 
             this.lastCheck = System.currentTimeMillis();
         }
 
         ++this.boxYaw;
-        super.func_70071_h_();
+        super.onUpdate();
     }
 
     public static FolkData getFolk(V3 where) {
@@ -103,35 +91,37 @@ public class EntityConBox extends Entity{
             double var8 = 10.0D;
 
             try {
-                ModSimukraft.proxy.getClientWorld().func_72869_a("explode", ent.posX + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double)(rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
+                ModSimukraft.proxy.getClientWorld().spawnParticle("explode", ent.posX + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double)(rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
             } catch (Exception var13) {
             }
         }
 
     }
 
-    protected void func_70088_a() {
+    @Override
+    protected void entityInit() {
+        // TODO document why this method is empty
     }
-
-    public AxisAlignedBB func_70114_g(Entity par1Entity) {
+    @Override
+    public AxisAlignedBB getCollisionBox(Entity par1Entity) {
         return null;
     }
-
-    public AxisAlignedBB func_70046_E() {
+    @Override
+    public AxisAlignedBB getBoundingBox() {
         return null;
     }
-
-    public boolean func_70104_M() {
+    @Override
+    public boolean canBePushed() {
         return false;
     }
-
-    public boolean func_70067_L() {
+    @Override
+    public boolean canBeCollidedWith() {
         return false;
     }
-
-    protected void func_70037_a(NBTTagCompound var1) {
+    @Override
+    protected void readEntityFromNBT(NBTTagCompound var1) {
     }
-
-    protected void func_70014_b(NBTTagCompound var1) {
+    @Override
+    protected void writeEntityToNBT(NBTTagCompound var1) {
     }
 }

@@ -49,7 +49,7 @@ public class ClientProxy  extends CommonProxy {
 
     @Override
     public World getClientWorld() {
-        return FMLClientHandler.instance().getClient().field_71441_e;
+        return FMLClientHandler.instance().getClient().theWorld;
     }
 
     @Override

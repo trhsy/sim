@@ -68,16 +68,17 @@ public final class StackKey {
         return new StackKey(fluidStack);
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         } else if (o != null && o.getClass() == StackKey.class) {
             StackKey k = (StackKey)o;
             if (!(this.stack == null ^ k.stack == null) && !(this.fluidStack == null ^ k.fluidStack == null)) {
-                if (this.stack != null && (this.stack.func_77973_b() != k.stack.func_77973_b() || this.stack.func_77981_g() && this.stack.func_77960_j() != k.stack.func_77960_j() || !this.objectsEqual(this.stack.func_77978_p(), k.stack.func_77978_p()))) {
+                if (this.stack != null && (this.stack.getItem() != k.stack.getItem() || this.stack.getHasSubtypes() && this.stack.getMetadata() != k.stack.getMetadata() || !this.objectsEqual(this.stack.getTagCompound(), k.stack.getTagCompound()))) {
                     return false;
                 } else {
-                    return this.fluidStack == null || this.fluidStack.fluidID == k.fluidStack.fluidID && this.fluidStack.amount == k.fluidStack.amount && this.objectsEqual(this.fluidStack.tag, k.fluidStack.tag);
+                    return this.fluidStack == null || this.fluidStack.fluid == k.fluidStack.fluid && this.fluidStack.amount == k.fluidStack.amount && this.objectsEqual(this.fluidStack.tag, k.fluidStack.tag);
                 }
             } else {
                 return false;
@@ -87,17 +88,18 @@ public final class StackKey {
         }
     }
 
+    @Override
     public int hashCode() {
         int result = 7;
         if (this.stack != null) {
-            result = 31 * result + this.stack.func_77973_b().hashCode();
-            result = 31 * result + this.stack.func_77960_j();
-            result = 31 * result + this.objectHashCode(this.stack.func_77978_p());
+            result = 31 * result + this.stack.getItem().hashCode();
+            result = 31 * result + this.stack.getMetadata();
+            result = 31 * result + this.objectHashCode(this.stack.getTagCompound());
         }
 
         result = 31 * result + 7;
         if (this.fluidStack != null) {
-            result = 31 * result + this.fluidStack.fluidID;
+            result = 31 * result + this.objectHashCode(this.fluidStack.fluid);
             result = 31 * result + this.fluidStack.amount;
             result = 31 * result + this.objectHashCode(this.fluidStack.tag);
         }
@@ -118,6 +120,6 @@ public final class StackKey {
     }
 
     public StackKey copy() {
-        return new StackKey(this.stack != null ? this.stack.func_77946_l() : null, this.fluidStack != null ? this.fluidStack.copy() : null);
+        return new StackKey(this.stack != null ? this.stack.copy() : null, this.fluidStack != null ? this.fluidStack.copy() : null);
     }
 }

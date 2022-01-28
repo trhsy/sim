@@ -27,21 +27,23 @@ public class BlockFluidMilk extends BlockFluidClassic {
     private IIcon[] icons;
 
     public BlockFluidMilk() {
-        super(ModSimukraft.SUKfluidMilk, Material.field_151586_h);
-        this.setBlockName("fluidMilk");
-        this.setCreativeTab(CreativeTabs.field_78026_f);
+        super(ModSimukraft.SUKfluidMilk, Material.water);
+        this.setUnlocalizedName("fluidMilk");
+        this.setCreativeTab(CreativeTabs.tabMisc);
 
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[2];
-        this.icons[0] = iconRegister.func_94245_a("satscapesimukraft:milk_still");
-        this.icons[1] = iconRegister.func_94245_a("satscapesimukraft:milk_flow");
+        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":milk_still");
+        this.icons[1] = iconRegister.registerIcon(ModSimukraft.MODID + ":milk_flow");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         return meta >= 1 ? this.icons[1] : this.icons[0];
     }
 }

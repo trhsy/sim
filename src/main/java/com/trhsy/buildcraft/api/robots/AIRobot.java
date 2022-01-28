@@ -134,25 +134,25 @@ public class AIRobot {
     }
 
     public final void writeToNBT(NBTTagCompound nbt) {
-        nbt.func_74778_a("class", this.getClass().getCanonicalName());
+        nbt.setString("class", this.getClass().getCanonicalName());
         NBTTagCompound data = new NBTTagCompound();
         this.writeSelfToNBT(data);
-        nbt.func_74782_a("data", data);
+        nbt.setTag("data", data);
         if (this.delegateAI != null && this.delegateAI.canLoadFromNBT()) {
             NBTTagCompound sub = new NBTTagCompound();
             this.delegateAI.writeToNBT(sub);
-            nbt.func_74782_a("delegateAI", sub);
+            nbt.setTag("delegateAI", sub);
         }
 
     }
 
     public final void loadFromNBT(NBTTagCompound nbt) {
-        this.loadSelfFromNBT(nbt.func_74775_l("data"));
-        if (nbt.func_74764_b("delegateAI")) {
-            NBTTagCompound sub = nbt.func_74775_l("delegateAI");
+        this.loadSelfFromNBT(nbt.getCompoundTag("data"));
+        if (nbt.hasKey("delegateAI")) {
+            NBTTagCompound sub = nbt.getCompoundTag("delegateAI");
 
             try {
-                this.delegateAI = (AIRobot)Class.forName(sub.func_74779_i("class")).getConstructor(EntityRobotBase.class).newInstance(this.robot);
+                this.delegateAI = (AIRobot)Class.forName(sub.getString("class")).getConstructor(EntityRobotBase.class).newInstance(this.robot);
                 if (this.delegateAI.canLoadFromNBT()) {
                     this.delegateAI.parentAI = this;
                     this.delegateAI.loadFromNBT(sub);
@@ -168,7 +168,7 @@ public class AIRobot {
         AIRobot ai = null;
 
         try {
-            ai = (AIRobot)Class.forName(nbt.func_74779_i("class")).getConstructor(EntityRobotBase.class).newInstance(robot);
+            ai = (AIRobot)Class.forName(nbt.getString("class")).getConstructor(EntityRobotBase.class).newInstance(robot);
             ai.loadFromNBT(nbt);
         } catch (Throwable var4) {
             var4.printStackTrace();

@@ -1,5 +1,6 @@
 package com.trhsy.sim.common;
 
+import com.trhsy.sim.client.ClientTickHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -113,7 +114,7 @@ public class CommonProxy {
         return null;
     }
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
-        return ctx.getServerHandler().field_147369_b;
+        return ctx.getServerHandler().playerEntity;
     }
 
 }
