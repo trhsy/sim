@@ -1,0 +1,44 @@
+package com.trhsy.sim.common.jobs;/**
+ * @author trhsy
+ * @date 2022/1/27 0027
+ * @apiNote
+ */
+
+import com.trhsy.sim.common.PathBox;
+import com.trhsy.sim.common.entity.FolkData;
+import net.minecraft.inventory.IInventory;
+
+import java.util.ArrayList;
+
+/**
+ * ========================================
+ *
+ * @ClassName JobPathBuilder
+ * @Description todo
+ * @Author Administrator
+ * @Date 2022/1/27 0027下午 3:53
+ * ========================================
+ **/
+public class JobPathBuilder {
+    private static final long serialVersionUID = -1177112207904272541L;
+    public Vocation vocation = null;
+    public FolkData theFolk = null;
+    public Stage theStage;
+    public transient int runDelay = 1000;
+    public transient long timeSinceLastRun = 0L;
+    private transient int step = 1;
+    transient Long timeSinceLastGoto = 0L;
+    transient ArrayList<IInventory> pathChests = null;
+    transient boolean swingToggle = true;
+    private PathBox thePathBox;
+    public String pathDirection = "";
+    public int pathOffset = 1;
+
+    public JobPathBuilder() {
+    }
+
+    public void resetJob() {
+        this.theStage = Stage.IDLE;
+        this.theFolk.isWorking = false;
+    }
+}

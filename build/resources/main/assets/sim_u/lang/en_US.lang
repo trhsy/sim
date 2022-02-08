@@ -1,0 +1,10 @@
+block.cheeseBlock.name=cheese block
+block.constructorBox.name=constructor box
+block.controlBox.name=control box
+block.farmingBox.name=farming box
+block.fluidMilk.name=fluid Milk
+block.lightBox.name=light box
+block.MarkerBar.name=marker bar
+
+block.MiningBox.name=mining box
+sim.tips.wts=Welcome to SimCity

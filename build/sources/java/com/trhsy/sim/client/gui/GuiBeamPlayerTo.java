@@ -1,0 +1,127 @@
+package com.trhsy.sim.client.gui;/**
+ * @author trhsy
+ * @date 2022/1/27 0027
+ * @apiNote
+ */
+
+import com.trhsy.sim.client.ClientTickHandler;
+import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.entity.CourierTask;
+import com.trhsy.sim.common.entity.V3;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
+import org.lwjgl.input.Keyboard;
+
+/**
+ * ========================================
+ *
+ * @ClassName GuiBeamPlayerTo
+ * @Description todo
+ * @Author Administrator
+ * @Date 2022/1/27 0027上午 11:26
+ * ========================================
+ **/
+public class GuiBeamPlayerTo extends GuiScreen {
+    private EntityPlayer thePlayer = null;
+
+    public GuiBeamPlayerTo(EntityPlayer thePlayer) {
+        this.thePlayer = thePlayer;
+    }
+
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
+
+    @Override
+    public void updateScreen() {
+    }
+
+    @Override
+    public void initGui() {
+        this.initscreen();
+    }
+
+    private void initscreen() {
+        this.buttonList.clear();
+        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, "Cancel"));
+        int x = 10;
+        int y = 40;
+        int idx = 2;
+
+        for(int f = 0; f < ModSimukraft.theCourierPoints.size(); ++f) {
+            V3 cpoint = (V3)ModSimukraft.theCourierPoints.get(f);
+            this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
+            ++idx;
+            x += 110;
+            if (x + 110 > this.width) {
+                x = 10;
+                y += 20;
+            }
+
+            if (y + 20 > this.height - 50) {
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    public void drawScreen(int i, int j, float f) {
+        this.drawDefaultBackground();
+        this.drawCenteredString(this.fontRendererObj, "Choose a point to beam to...", this.width / 2, 17, 16777215);
+        if (ModSimukraft.theCourierPoints.size() == 0) {
+            this.drawCenteredString(this.fontRendererObj, "You don't have any courier/beaming points!", this.width / 2, 37, 16752800);
+            this.drawCenteredString(this.fontRendererObj, "Place a single Sim-U-Marker down and right click it", this.width / 2, 57, 16752800);
+            this.drawCenteredString(this.fontRendererObj, "to make one. You can then beam there using ANY control box.", this.width / 2, 77, 16752800);
+        }
+
+        super.drawScreen(i, j, f);
+    }
+
+    @Override
+    public void actionPerformed(GuiButton guibutton) {
+        if (guibutton.enabled) {
+            if (guibutton.id == 0) {
+                this.mc.displayGuiScreen((GuiScreen)null);
+            } else {
+                String name = guibutton.displayString.trim();
+                V3 v = CourierTask.getCourierPoint(name);
+                V3 safePoint = v.clone();
+                Double var6 = safePoint.y;
+                Double var7 = safePoint.y = safePoint.y + 1.0D;
+                ModSimukraft.sendChat("Beaming you to " + name);
+                this.mc.displayGuiScreen((GuiScreen)null);
+                ClientTickHandler.beamingPlayer = this.thePlayer;
+                ClientTickHandler.beamingStage = 1;
+                ClientTickHandler.beamingStartedAt = System.currentTimeMillis();
+                ClientTickHandler.beamingTo = safePoint.clone();
+            }
+        }
+    }
+
+    public GuiButton getButtonWithId(int id) {
+        for(int x = 0; x < this.buttonList.size(); ++x) {
+            GuiButton retbut = (GuiButton)this.buttonList.get(x);
+            if (retbut.id == id) {
+                return retbut;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public void onGuiClosed() {
+        Keyboard.enableRepeatEvents(false);
+        this.mc.setIngameFocus();
+    }
+
+    @Override
+    public void keyTyped(char c, int i) {
+        if (i == 1) {
+            this.mc.displayGuiScreen((GuiScreen)null);
+        }
+    }
+}
