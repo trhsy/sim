@@ -43,6 +43,7 @@ public class RenderFolk extends RenderBiped {
         }
     }
 
+    @Override
     public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
         super.doRender(par1Entity, par2, par4, par6, par8, par9);
         this.doRenderFolk((EntityFolk)par1Entity, par2, par4, par6, par8, par9);

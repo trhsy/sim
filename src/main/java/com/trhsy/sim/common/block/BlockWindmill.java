@@ -4,6 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +22,7 @@ import net.minecraft.world.World;
 public class BlockWindmill extends BlockContainer {
     protected BlockWindmill(Material p_i45386_1_) {
         super(p_i45386_1_);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
 

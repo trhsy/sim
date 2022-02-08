@@ -7,6 +7,7 @@ package com.trhsy.sim.common.block;/**
 import com.trhsy.sim.client.gui.GuiFarming;
 import com.trhsy.sim.common.Marker;
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
@@ -35,7 +36,8 @@ public class BlockFarmingBox extends Block {
 
     public BlockFarmingBox() {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setUnlocalizedName("block.farmingBox.name");
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

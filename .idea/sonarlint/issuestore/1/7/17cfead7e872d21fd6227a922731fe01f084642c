@@ -1,0 +1,59 @@
+
+E
+java:S37402"/Provide the parametrized type for this generic.(™£‡
+E
+java:S3740ü"/Provide the parametrized type for this generic.(ë—ºF
+F
+java:S3740ı"/Provide the parametrized type for this generic.(Òİ‚¼
+g
+java:S1450:"QRemove the "my" field and declare it as a local variable in the relevant methods.(ş¨€³
+M
+java:S1135$"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+h
+java:S3776`"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(æôÚ„
+=
+java:S1905x"'Remove this unnecessary cast to "long".(ï·Ï«
+i
+java:S3776©"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(€ÔúÁ
+R
+java:S1854±"6Remove this useless assignment to local variable "m3".(Ÿš³Óÿÿÿÿÿ
+C
+java:S1481±"'Remove this unused "m3" local variable.(Ÿš³Óÿÿÿÿÿ
+?	java:S108Í")Either remove or fill this block of code.(²¹Ô´
+j
+java:S3776ù"SRefactor this method to reduce its Cognitive Complexity from 128 to the 15 allowed.(ğ€şû
+?	java:S108 ")Either remove or fill this block of code.(²¹Ô´
+H
+java:S1905Í",Remove this unnecessary cast to "ItemStack".(˜‘À©ûÿÿÿÿ
+D	java:S108á")Either remove or fill this block of code.(îÎ¶ëøÿÿÿÿ
+i
+java:S3776ú"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(ĞÈËµ
+?	java:S108")Either remove or fill this block of code.(†äç³
+n
+java:S3776–"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(’Ìƒ¨üÿÿÿÿ
+o
+java:S3776Ş"SRefactor this method to reduce its Cognitive Complexity from 169 to the 15 allowed.(ÛùÌôÿÿÿÿÿ
+2
+java:S3626õ"Remove this redundant jump.(ûÁİ…
+?	java:S108Œ")Either remove or fill this block of code.(šå“¹
+i
+java:S3776›"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(‹‡¾
+2
+java:S3626Å"Remove this redundant jump.(ûÁİ…
+:
+java:S2119¡"Save and re-use this "Random".(ğ¸´şÿÿÿÿ
+Y	java:S125Í"<This block of commented-out lines of code should be removed.(¾ÊöÊ8ƒÁÊ€ê/
+F
+java:S10680"0Remove this unused "doneSomeWork" private field.(Ä©¡
+<
+java:S1068:"&Remove this unused "my" private field.(ş¨€³
+j
+java:S1104+"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104,"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104-"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104."TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+w
+java:S1104/"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ

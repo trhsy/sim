@@ -1,0 +1,24 @@
+
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆþÿÿÿÿ
+D
+java:S1905@")Remove this unnecessary cast to "double".(¢ÎŠûÿÿÿÿ
+?
+java:S1905A")Remove this unnecessary cast to "double".(òã°­
+>
+java:S1905B")Remove this unnecessary cast to "double".(†Æàv
+s	java:S131N"YComplete cases by adding the missing enum constants or add a default case to this switch.(·“¥‚ùÿÿÿÿ
+s	java:S131c"YComplete cases by adding the missing enum constants or add a default case to this switch.(·“¥‚ùÿÿÿÿ
+b	java:S128‚"LEnd this switch case with an unconditional break, return or throw statement.(Žðúº
+@
+java:S1940°")Use the opposite operator ("<=") instead.(š›ô˜
+@
+java:S1905°")Remove this unnecessary cast to "double".(š›ô˜
+c
+java:S1104"MMake x a static final constant or non-public and provide accessors if needed.(›¾ê·
+h
+java:S1104"MMake y a static final constant or non-public and provide accessors if needed.(ñÐó‚ÿÿÿÿÿ
+c
+java:S1104"MMake z a static final constant or non-public and provide accessors if needed.(ã³É˜
+m
+java:S1104"WMake orientation a static final constant or non-public and provide accessors if needed.(—æúâ

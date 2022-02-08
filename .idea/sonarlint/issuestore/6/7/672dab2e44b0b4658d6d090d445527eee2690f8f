@@ -1,0 +1,56 @@
+
+J
+java:S3740$"/Provide the parametrized type for this generic.(‚ÏÁàÿÿÿÿÿ
+J
+java:S3740%"/Provide the parametrized type for this generic.(ºÓšŸüÿÿÿÿ
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+=
+java:S1905P"'Remove this unnecessary cast to "long".(ï·Ï«
+T
+java:S1854„"8Remove this useless assignment to local variable "var5".(ÕÜ©Âÿÿÿÿÿ
+T
+java:S1854ƒ"8Remove this useless assignment to local variable "var4".(¬³‰£ıÿÿÿÿ
+E
+java:S1481ƒ")Remove this unused "var4" local variable.(¬³‰£ıÿÿÿÿ
+E
+java:S1481„")Remove this unused "var5" local variable.(ÕÜ©Âÿÿÿÿÿ
+V
+java:S1117œ":Rename "pickup" which hides the field declared at line 40.(äø·µıÿÿÿÿ
+T
+java:S1854Û"8Remove this useless assignment to local variable "var5".(ÕÜ©Âÿÿÿÿÿ
+T
+java:S1854Ú"8Remove this useless assignment to local variable "var4".(¬³‰£ıÿÿÿÿ
+E
+java:S1481Ú")Remove this unused "var4" local variable.(¬³‰£ıÿÿÿÿ
+E
+java:S1481Û")Remove this unused "var5" local variable.(ÕÜ©Âÿÿÿÿÿ
+i
+java:S3776ï"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¦¡šô
+R
+java:S1854Œ";Remove this useless assignment to local variable "invItem".(İÈ¡¸
+W
+java:S1854‰";Remove this useless assignment to local variable "oldSize".(¨¹ºèúÿÿÿÿ
+W
+java:S1117ñ";Rename "dropoff" which hides the field declared at line 41.(ü¸â«øÿÿÿÿ
+H
+java:S1481‰",Remove this unused "oldSize" local variable.(¨¹ºèúÿÿÿÿ
+C
+java:S1481Œ",Remove this unused "invItem" local variable.(İÈ¡¸
+Y	java:S125«"<This block of commented-out lines of code should be removed.(¾ÊöÊ8“Ìü€ê/
+J
+java:S10666"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+Z
+java:S1155Ÿ">Use isEmpty() to check whether the collection is empty or not.(°ú”¿üÿÿÿÿ
+Z
+java:S1155ù">Use isEmpty() to check whether the collection is empty or not.(°ú”¿üÿÿÿÿ
+j
+java:S1104"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104 "SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104!"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104""TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+w
+java:S1104#"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ

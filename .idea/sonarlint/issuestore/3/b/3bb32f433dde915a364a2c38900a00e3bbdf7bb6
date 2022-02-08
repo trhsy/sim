@@ -1,0 +1,35 @@
+
+œ
+java:S1186%"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ì§øüúÿÿÿÿ
+K
+java:S2065"0Remove the "transient" modifier from this field.(ˆ×²®úÿÿÿÿ
+K
+java:S2065"0Remove the "transient" modifier from this field.(èÅö¯ûÿÿÿÿ
+K
+java:S2065"0Remove the "transient" modifier from this field.(œÏûûüÿÿÿÿ
+K
+java:S2065"0Remove the "transient" modifier from this field.(å—”¬ûÿÿÿÿ
+F
+java:S2065"0Remove the "transient" modifier from this field.(ÆÈ¢
+F
+java:S2065 "0Remove the "transient" modifier from this field.(„Ä‰
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+C
+java:S1068"(Remove this unused "step" private field.(œÏûûüÿÿÿÿ
+D
+java:S1068!".Remove this unused "thePathBox" private field.(ı÷ÖÖ
+j
+java:S1104"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+w
+java:S1104"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
+t
+java:S1104""YMake pathDirection a static final constant or non-public and provide accessors if needed.(™­³æşÿÿÿÿ
+q
+java:S1104#"VMake pathOffset a static final constant or non-public and provide accessors if needed.(Íğ¥üüÿÿÿÿ

@@ -1,0 +1,41 @@
+
+E
+java:S3740-"/Provide the parametrized type for this generic.(Ë÷¥ü
+K
+java:S3740„"/Provide the parametrized type for this generic.(ŒƒÉíüÿÿÿÿ
+o
+java:S1450-"YRemove the "farmChests" field and declare it as a local variable in the relevant methods.(Ë÷¥ü
+B
+java:S1948-",Make "farmChests" transient or serializable.(Ë÷¥ü
+E
+java:S1948."*Make "redShirt" transient or serializable.(†¹øÿÿÿÿ
+M
+java:S1135!"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+=
+java:S1905R"'Remove this unnecessary cast to "long".(ï·Ï«
+P	java:S125g"<This block of commented-out lines of code should be removed.(î€·
+h
+java:S3776|"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(ÓÊø§
+:
+java:S2119¹"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
+D
+java:S1905Ö"(Remove this unnecessary cast to "float".(¡†ÚÕúÿÿÿÿ
+:
+java:S2119á"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
+F
+java:S1905ÿ"/Remove this unnecessary cast to "EntityAnimal".(âÉÇ
+R	java:S125‰"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+J
+java:S1066:"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+j
+java:S1104("TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104)"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104*"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104+"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+w
+java:S1104,"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
+^
+java:S2259ÿ"GA "NullPointerException" could be thrown; "newAnimal" is nullable here.(âÉÇ

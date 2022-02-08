@@ -484,13 +484,13 @@ public class ModSimukraft {
 
         File check = new File(getSimukraftFolder());
         if (!check.exists()) {
-            System.out.println("Sim-U-Kraft error - Mod not correctly installed, ./minecraft/mods/Simukraft/ folder is missing - copy this file from the zip provided");
+            System.out.println("SimCity error - Mod not correctly installed, ./minecraft/mods/Simukraft/ folder is missing - copy this file from the zip provided");
         }
 
         SUKfluidMilk = new FluidMilk();
         blockFluidMilk = (new BlockFluidMilk()).setUnlocalizedName("fluidMilk");
         lightBox = new BlockLightBox();
-        buildingConstructor = (new BlockConstructorBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKconstructorBox");
+//        buildingConstructor = (new BlockConstructorBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKconstructorBox");
         controlBox = (new BlockControlBox()).setStepSound(Block.soundTypeWood).setHardness(10.0F).setResistance(1.0F).setUnlocalizedName("SUKcontrol");
         marker = (new BlockMarker()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKmarker");
         miningBox = (new BlockMiningBox()).setStepSound(Block.soundTypeWood).setHardness(2.0F).setResistance(1.0F).setUnlocalizedName("SUKmining");
@@ -509,7 +509,7 @@ public class ModSimukraft {
         itemWindmillSails = new ItemWindmillSails(itemWindmillSailsId);
         LanguageRegistry.addName(itemWindmillBase, "Windmill sails");
         MinecraftForge.EVENT_BUS.register(new EventSounds());
-        GameRegistry.registerBlock(buildingConstructor, "SUKconstructorBox");
+//        GameRegistry.registerBlock(buildingConstructor, "SUKconstructorBox");
         GameRegistry.registerBlock(controlBox, "SUKcontrol");
         GameRegistry.registerBlock(marker, "SUKmarker");
         GameRegistry.registerBlock(miningBox, "SUKmining");
@@ -519,7 +519,7 @@ public class ModSimukraft {
         GameRegistry.registerBlock(blockFluidMilk, "fluidMilk");
         GameRegistry.registerBlock(lightBox, "SUKlight");
         GameRegistry.registerTileEntity(TileEntityWindmill.class, "tileentitywindmill");
-        LanguageRegistry.addName(buildingConstructor, "Sim-U-Building Constructor Box");
+//        LanguageRegistry.addName(buildingConstructor, "Sim-U-Building Constructor Box");
         LanguageRegistry.addName(controlBox, "Sim-U-Control Box");
         LanguageRegistry.addName(marker, "Sim-U-Marker");
         LanguageRegistry.addName(miningBox, "Sim-U-Mining Box");
@@ -625,7 +625,7 @@ public class ModSimukraft {
             (new File(getSavesDataFolder() + "settings.sk2")).delete();
             states = new GameStates();
             states.saveStates();
-            sendChat("Your Sim-U-Kraft settings file was corrupted, I had to make a new one");
+            sendChat("Your SimCity settings file was corrupted, I had to make a new one");
         }
 
         if (states.gameModeNumber == -1) {
@@ -640,7 +640,7 @@ public class ModSimukraft {
                 proxy.ranStartup = true;
             }
 
-            sendChat("Welcome to Sim-U-Kraft " + VERSION);
+            sendChat("Welcome to SimCity " + VERSION);
             theFolks.clear();
             Building.initialiseAllBuildings();
             Building.loadAllBuildings();
@@ -725,7 +725,7 @@ public class ModSimukraft {
             Thread.sleep(15000L);
             File check = new File(getSimukraftFolder() + "/buildings/");
             if (!check.exists()) {
-                sendChat(getSimukraftFolder() + "/buildings/  folder is missing, Sim-U-Kraft is not correctly installed, please copy the simukraft folder AND the zip file.");
+                sendChat(getSimukraftFolder() + "/buildings/  folder is missing, SimCity is not correctly installed, please copy the simukraft folder AND the zip file.");
                 return;
             }
 
@@ -735,7 +735,7 @@ public class ModSimukraft {
                 ver = ver.trim();
                 if (!ver.contentEquals("")) {
                     if (!VERSION.contentEquals(ver)) {
-                        sendChat("**** NEW update of Sim-U-Kraft available (from " + VERSION + " to " + ver + ") at satscape.wordpress.com/simukraft");
+                        sendChat("**** NEW update of SimCity available (from " + VERSION + " to " + ver + ") at satscape.wordpress.com/simukraft");
                     }
 
                     Long now = System.currentTimeMillis();
@@ -765,7 +765,7 @@ public class ModSimukraft {
                 if (!ret.contentEquals("")) {
                     url = baseURL + "backend.php?cmd=got&pk=" + fields[0];
                     this.downloadFile(url, getSimukraftFolder() + File.separator + "cache.txt");
-                    sendChat("Sim-U-Kraft: Downloaded new building - '" + fields[1] + "' by " + fields[2] + " (" + fields[3] + ")");
+                    sendChat("SimCity: Downloaded new building - '" + fields[1] + "' by " + fields[2] + " (" + fields[3] + ")");
                 }
             }
         } catch (Exception var13) {

@@ -1,0 +1,21 @@
+
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆþÿÿÿÿ
+h
+java:S37766"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(æôÚ„
+=
+java:S1905M"'Remove this unnecessary cast to "long".(ï·Ï«
+h
+java:S3776g"RRefactor this method to reduce its Cognitive Complexity from 96 to the 15 allowed.(ìÚÐ·
+>	java:S108~")Either remove or fill this block of code.(±ÛÃ™
+Y	java:S125Ú"<This block of commented-out lines of code should be removed.(¾ÊöÊ8¸©¾€ê/
+J
+java:S1066."/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+j
+java:S1104"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹þÿÿÿÿ
+j
+java:S1104 "TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104!"TMake runDelay a static final constant or non-public and provide accessors if needed.(µ¸°¦þÿÿÿÿ

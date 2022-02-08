@@ -8,6 +8,7 @@ import com.trhsy.sim.client.gui.GuiBankATM;
 import com.trhsy.sim.client.gui.GuiControlBox;
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -39,8 +40,8 @@ public class BlockControlBox extends Block {
     @SideOnly(Side.CLIENT)
     public BlockControlBox() {
         super(Material.wood);
-        this.setUnlocalizedName("controlBox");
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setUnlocalizedName("block.controlBox.name");
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

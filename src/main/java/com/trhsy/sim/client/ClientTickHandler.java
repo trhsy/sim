@@ -101,7 +101,7 @@ public class ClientTickHandler {
                 worldname = this.mc.getIntegratedServer().getFolderName();
                 worldname = MinecraftServer.getServer().getFolderName();
             } catch (Exception var4) {
-                this.hud.drawString(this.mc.fontRendererObj, "Sim-U-Kraft is not SMP", this.hud.width / 2, 2, 16777215);
+                this.hud.drawString(this.mc.fontRendererObj, "SimCity is not SMP", this.hud.width / 2, 2, 16777215);
                 return;
             }
 
@@ -119,7 +119,7 @@ public class ClientTickHandler {
                         this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimukraft.getDayOfWeek() + ") - Population: " + ModSimukraft.theFolks.size() + "   Sim-U-credits: " + ModSimukraft.displayMoney(ModSimukraft.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     }
                 } else {
-                    this.hud.drawString(this.mc.fontRendererObj, "Loading Sim-U-Kraft...", this.hud.width / 2, 2, 16777215);
+                    this.hud.drawString(this.mc.fontRendererObj, "Loading SimCity...", this.hud.width / 2, 2, 16777215);
                 }
             } catch (Exception var3) {
                 var3.printStackTrace();

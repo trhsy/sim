@@ -1,0 +1,62 @@
+
+J
+java:S3740)"/Provide the parametrized type for this generic.(¯¾´şÿÿÿÿ
+E
+java:S3740/"/Provide the parametrized type for this generic.(º— Ô
+E
+java:S3740/"/Provide the parametrized type for this generic.(º— Ô
+F
+java:S3740˜"/Provide the parametrized type for this generic.(‘¾Œÿ
+K
+java:S3740›"/Provide the parametrized type for this generic.(¼Ø¥úÿÿÿÿ
+K
+java:S3740’"/Provide the parametrized type for this generic.(—‘“Øıÿÿÿÿ
+y
+java:S1450-"^Remove the "buildingsOnPage" field and declare it as a local variable in the relevant methods.(áËõøÿÿÿÿ
+M
+java:S1135!"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+h
+java:S37766"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(–à»
+h
+java:S3776f"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(‡àñ¯
+=
+java:S2185¸"&Remove this silly call to "Math.floor"(ñÆ¸Õ
+@
+java:S1905¸")Remove this unnecessary cast to "double".(ñÆ¸Õ
+o
+java:S3776Ê"SRefactor this method to reduce its Cognitive Complexity from 102 to the 15 allowed.(Éµ˜äüÿÿÿÿ
+S
+java:S1854ù"5Remove this useless assignment to local variable "y".(ô¥Ê»8íªşé/
+R
+java:S1854›";Remove this useless assignment to local variable "theType".(ãõš
+W
+java:S1854";Remove this useless assignment to local variable "theType".(÷–¼‹úÿÿÿÿ
+R
+java:S1854¡";Remove this useless assignment to local variable "theType".(ÆòŠû
+W
+java:S1854¤";Remove this useless assignment to local variable "theType".(èÅ» øÿÿÿÿ
+C
+java:S1481“",Remove this unused "theType" local variable.(á¼ÒÊ
+j
+java:S3776ô"SRefactor this method to reduce its Cognitive Complexity from 114 to the 15 allowed.(÷ÿ¯¶
+?	java:S108í")Either remove or fill this block of code.(Æƒæí
+b
+java:S1192£"FDefine a constant instead of duplicating this literal "other" 3 times.(Í°Àüÿÿÿÿ
+c
+java:S1192š"LDefine a constant instead of duplicating this literal "residential" 3 times.(Ãåö’
+b
+java:S1192"KDefine a constant instead of duplicating this literal "commercial" 3 times.(ÁŠŸå
+g
+java:S1192 "KDefine a constant instead of duplicating this literal "industrial" 3 times.(»×ùèÿÿÿÿÿ
+J
+java:S1121¿".Extract the assignment out of this expression.(Ú¨Íşÿÿÿÿ
+E
+java:S1121Á".Extract the assignment out of this expression.(Ò¡ˆá
+E
+java:S1121Ã".Extract the assignment out of this expression.(Ç„¿ó
+~
+java:S13196"hThe type of "theFolks" should be an interface such as "List" rather than the implementation "ArrayList".(–à»
+P
+java:S1141r"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+W
+java:S2184¸"@Cast one of the operands of this integer division to a "double".(ñÆ¸Õ

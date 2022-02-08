@@ -4,6 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -26,6 +27,7 @@ public class ItemBlockLightBox extends ItemBlock {
     public ItemBlockLightBox(Block par1, Block block) {
         super(par1);
         this.setHasSubtypes(true);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

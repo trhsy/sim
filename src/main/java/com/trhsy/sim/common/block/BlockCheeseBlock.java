@@ -5,6 +5,8 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -28,9 +30,9 @@ public class BlockCheeseBlock extends Block {
 
     public BlockCheeseBlock() {
         super(Material.ground);
-        this.setUnlocalizedName("SUKcheeseBlock");
+        this.setUnlocalizedName("block.cheeseBlock.name");
         this.setTextureName(ModSimukraft.MODID + ":" + "cheeseBlock");
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override
@@ -39,7 +41,10 @@ public class BlockCheeseBlock extends Block {
         this.icons = new IIcon[1];
         this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":cheeseblock");
     }
-
+    private static void register(Block block, String name) {
+        //注册方块
+        GameRegistry.registerBlock(block,name);
+    }
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {

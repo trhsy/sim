@@ -1,6 +1,9 @@
 package com.trhsy.sim.common;
 
 import com.trhsy.sim.client.ClientTickHandler;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ItemLoader;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -31,7 +34,9 @@ public class CommonProxy {
      * @return void
      **/
     public void preInit(FMLPreInitializationEvent event) {
-
+        new CreativeTabsLoader(event);
+        new ItemLoader(event);
+        new BlockLoader(event);
     }
     /**
      * @Author fan

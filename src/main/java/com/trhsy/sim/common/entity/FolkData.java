@@ -385,7 +385,7 @@ public class FolkData implements Serializable {
                         }
                     }
                 } catch (Exception var16) {
-                    System.out.println("Non-critical Exception in Sim-U-Kraft:");
+                    System.out.println("Non-critical Exception in SimCity:");
                     var16.printStackTrace();
                 }
             }

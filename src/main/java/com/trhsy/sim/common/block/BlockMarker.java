@@ -8,6 +8,7 @@ import com.trhsy.sim.client.gui.GuiMarker;
 import com.trhsy.sim.common.EntityAlignBeam;
 import com.trhsy.sim.common.Marker;
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -44,7 +45,8 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
     public BlockMarker() {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setUnlocalizedName("block.MarkerBar.name");
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.setLightLevel(0.1F);
     }

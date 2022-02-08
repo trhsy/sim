@@ -1,0 +1,10 @@
+block.cheeseBlock.name=奶酪块
+block.constructorBox.name=建筑盒
+block.controlBox.name=控制箱
+block.farmingBox.name=养殖箱
+block.fluidMilk.name=液体奶
+block.lightBox.name=灯箱
+block.MarkerBar.name=标记棒
+block.MiningBox.name=采矿箱
+
+sim.tips.wts=欢迎来打模拟城镇

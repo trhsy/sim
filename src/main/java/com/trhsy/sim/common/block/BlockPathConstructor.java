@@ -4,6 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -23,6 +24,6 @@ public class BlockPathConstructor extends Block {
 
     public BlockPathConstructor(int par1) {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 }

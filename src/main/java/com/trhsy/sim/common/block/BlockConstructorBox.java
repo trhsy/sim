@@ -6,6 +6,7 @@ package com.trhsy.sim.common.block;/**
 
 import com.trhsy.sim.client.gui.GuiBuildingConstructor;
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
@@ -37,8 +38,8 @@ public class BlockConstructorBox extends Block {
 
     public BlockConstructorBox() {
         super(Material.wood);
-        this.setUnlocalizedName("constructorBox");
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setUnlocalizedName("block.constructorBox.name");
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

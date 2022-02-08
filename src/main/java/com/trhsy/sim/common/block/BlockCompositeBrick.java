@@ -5,6 +5,7 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -28,7 +29,7 @@ public class BlockCompositeBrick extends Block {
 
     public BlockCompositeBrick(Material par2Material) {
         super(par2Material);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

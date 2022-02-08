@@ -7,6 +7,7 @@ package com.trhsy.sim.common.block;/**
 import com.trhsy.sim.client.gui.GuiMining;
 import com.trhsy.sim.common.Marker;
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.MiningBox;
 import com.trhsy.sim.common.entity.V3;
@@ -37,7 +38,8 @@ public class BlockMiningBox extends Block {
 
     public BlockMiningBox() {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setUnlocalizedName("block.MiningBox.name");
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

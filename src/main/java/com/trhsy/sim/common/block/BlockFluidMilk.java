@@ -5,6 +5,7 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -28,8 +29,8 @@ public class BlockFluidMilk extends BlockFluidClassic {
 
     public BlockFluidMilk() {
         super(ModSimukraft.SUKfluidMilk, Material.water);
-        this.setUnlocalizedName("fluidMilk");
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setUnlocalizedName("block.fluidMilk.name");
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }
 

@@ -1,0 +1,33 @@
+
+J
+java:S3740 "/Provide the parametrized type for this generic.(”²Ëşÿÿÿÿ
+J
+java:S3740 "/Provide the parametrized type for this generic.(”²Ëşÿÿÿÿ
+—
+java:S11860"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÏĞç
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+U
+java:S1161,":Add the "@Override" annotation above this method signature(•º¿¡øÿÿÿÿ
+P
+java:S11610":Add the "@Override" annotation above this method signature(ñÏĞç
+U
+java:S11613":Add the "@Override" annotation above this method signature(ºÂ…ºÿÿÿÿÿ
+h
+java:S37767"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(˜”ËÀ
+X	java:S125@"<This block of commented-out lines of code should be removed.(‡öô8Û…Ùşé/
+h
+java:S3776j"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(‡àñ¯
+P
+java:S1161j":Add the "@Override" annotation above this method signature(‡àñ¯
+i
+java:S3776—"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(÷ÿ¯¶
+Q
+java:S1161—":Add the "@Override" annotation above this method signature(÷ÿ¯¶
+V	java:S899¦";Do something with the "boolean" value returned by "delete".(²Œ­ûÿÿÿÿ
+V
+java:S1161Ù":Add the "@Override" annotation above this method signature(è¦Š©úÿÿÿÿ
+Q
+java:S1161Ş":Add the "@Override" annotation above this method signature(’ÌÜÓ
+D
+java:S1121d".Extract the assignment out of this expression.(¢¥ä

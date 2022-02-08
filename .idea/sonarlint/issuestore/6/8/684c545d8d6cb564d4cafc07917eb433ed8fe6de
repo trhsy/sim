@@ -1,0 +1,274 @@
+
+J
+java:S3740c"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740‘"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740ª"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740Ú"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740İ"/Provide the parametrized type for this generic.(£•¼»ÿÿÿÿÿ
+K
+java:S3740Ç	"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
+K
+java:S3740ª
+"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
+F
+java:S3740–"/Provide the parametrized type for this generic.(§—³
+F
+java:S3740¢"/Provide the parametrized type for this generic.(àº¹š
+E
+java:S3740£"/Provide the parametrized type for this generic.(§›èz
+E
+java:S3740£"/Provide the parametrized type for this generic.(§›èz
+K
+java:S3740³"/Provide the parametrized type for this generic.(óª¯ëüÿÿÿÿ
+E
+java:S3740´"/Provide the parametrized type for this generic.(§›èz
+E
+java:S3740´"/Provide the parametrized type for this generic.(§›èz
+m
+java:S1450N"WRemove the "entityId" field and declare it as a local variable in the relevant methods.(êù¸¸
+H
+java:S1135"2Complete the task associated to this TODO comment.(úĞùâ
+?	java:S108")Either remove or fill this block of code.(Æú…ä
+E
+java:S1905")Remove this unnecessary cast to "double".(š¿¶üÿÿÿÿ
+E
+java:S1905")Remove this unnecessary cast to "double".(š¿¶üÿÿÿÿ
+E
+java:S1905”")Remove this unnecessary cast to "double".(Ä÷Ö•úÿÿÿÿ
+E
+java:S1905”")Remove this unnecessary cast to "double".(Ä÷Ö•úÿÿÿÿ
+E
+java:S1905™")Remove this unnecessary cast to "double".(Ò©—‚ıÿÿÿÿ
+E
+java:S1905™")Remove this unnecessary cast to "double".(Ò©—‚ıÿÿÿÿ
+?	java:S108")Either remove or fill this block of code.(†äç³
+n
+java:S3776©"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(µò†Öùÿÿÿÿ
+j
+java:S3776Ñ"SRefactor this method to reduce its Cognitive Complexity from 298 to the 15 allowed.(æôÚ„
+U
+java:S1854Ú"9Remove this useless assignment to local variable "var38".(™¿Şøÿÿÿÿ
+P
+java:S1854Ù"9Remove this useless assignment to local variable "var40".(Îúª¥
+:
+java:S2119Ò"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
+R	java:S125Ô"<This block of commented-out lines of code should be removed.( ‡Å
+O	java:S106„"9Replace this use of System.out or System.err by a logger.(…ÿ›«
+?	java:S108¯")Either remove or fill this block of code.(İİÆÔ
+D	java:S108Í")Either remove or fill this block of code.(ŸöÑ—ùÿÿÿÿ
+F
+java:S1481Ø"*Remove this unused "var40" local variable.( ô‡ˆıÿÿÿÿ
+F
+java:S1481Ú"*Remove this unused "var38" local variable.(™¿Şøÿÿÿÿ
+>
+java:S1905ö"'Remove this unnecessary cast to "long".(¨Í†ï
+:
+java:S2119Ã"Save and re-use this "Random".(‹ò…ãıÿÿÿÿ
+>
+java:S1905‡"'Remove this unnecessary cast to "long".(Ÿ¿Ê™
+E
+java:S1905¯")Remove this unnecessary cast to "double".(Ø“Ê–şÿÿÿÿ
+n
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(‹‚âõøÿÿÿÿ
+?	java:S108¾")Either remove or fill this block of code.(ôÒø‚
+i
+java:S3776Ó"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(“»½Æ
+O
+java:S1854ì"8Remove this useless assignment to local variable "var8".(Ë¥Œã
+O
+java:S1854ë"8Remove this useless assignment to local variable "var7".(•›•í
+@
+java:S1905ã")Remove this unnecessary cast to "double".(ãşüè
+@
+java:S1481ë")Remove this unused "var7" local variable.(•›•í
+@
+java:S1481ì")Remove this unused "var8" local variable.(Ë¥Œã
+5
+java:S2119ˆ"Save and re-use this "Random".(õ¾§ü
+h
+java:S3776«"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(òÇš
+H
+java:S1905²",Remove this unnecessary cast to "ItemStack".(ğ»éÏøÿÿÿÿ
+D	java:S108·")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ
+?	java:S108¼")Either remove or fill this block of code.(Æƒæí
+n
+java:S3776Ü"RRefactor this method to reduce its Cognitive Complexity from 93 to the 15 allowed.(ˆË„ñüÿÿÿÿ
+^
+java:S1854Œ"BRemove this useless assignment to local variable "methodOfTravel".(ÀŒ™ºıÿÿÿÿ
+E
+java:S1905")Remove this unnecessary cast to "double".(Óõíªıÿÿÿÿ
+E
+java:S1905")Remove this unnecessary cast to "double".(¦Ğ‡áúÿÿÿÿ
+?	java:S108ª")Either remove or fill this block of code.(²¹Ô´
+?	java:S108°")Either remove or fill this block of code.(±ÛÃ™
+n
+java:S3776Ä"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Ïåªşÿÿÿÿ
+O
+java:S1854Ù"8Remove this useless assignment to local variable "var9".(Ä¨Ø®
+O
+java:S1854Ø"8Remove this useless assignment to local variable "var8".(â®ä¸
+@
+java:S1481Ø")Remove this unused "var8" local variable.(â®ä¸
+@
+java:S1481Ù")Remove this unused "var9" local variable.(Ä¨Ø®
+E
+java:S1905Ş")Remove this unnecessary cast to "double".(«§¸¹şÿÿÿÿ
+E
+java:S1905à")Remove this unnecessary cast to "double".(Ä’æíûÿÿÿÿ
+D	java:S108î")Either remove or fill this block of code.(¾¬®ğøÿÿÿÿ
+?	java:S108ò")Either remove or fill this block of code.(šå“¹
+i
+java:S3776ø"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(‹øßÔ
+4
+java:S2119’	"Save and re-use this "Random".(¼İÅf
+@
+java:S1905“	")Remove this unnecessary cast to "double".(õ»˜³
+?	java:S108œ	")Either remove or fill this block of code.(±ÛÃ™
+D	java:S108£	")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ
+i
+java:S3776©	"RRefactor this method to reduce its Cognitive Complexity from 90 to the 15 allowed.(š‡õ¼
+V	java:S899™
+";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+i
+java:S3776¡
+"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(…´Ù¢
+n
+java:S3776Ë"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(»–öµûÿÿÿÿ
+5
+java:S2119€"Save and re-use this "Random".(¡Å”¦
+V	java:S899®";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899·";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+i
+java:S3776Í"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(Ó€¦œ
+B
+java:S1068N",Remove this unused "entityId" private field.(êù¸¸
+h
+java:S1192ù"QDefine a constant instead of duplicating this literal "Relaxing at home" 3 times.(¢‡‘æ
+a
+java:S1192V"KDefine a constant instead of duplicating this literal "Wandering" 11 times.(©şö¸
+j
+java:S1192‘"NDefine a constant instead of duplicating this literal "Going to work" 3 times.(ïÈ‚úûÿÿÿÿ
+n
+java:S1192›"RDefine a constant instead of duplicating this literal " is wandering to " 3 times.(ëıÖøÿÿÿÿ
+]
+java:S1192«	"FDefine a constant instead of duplicating this literal "folks" 3 times.(ÙÿˆÎ
+q
+java:S1192›"UDefine a constant instead of duplicating this literal "FolkData:onUpdate() " 3 times.(ëıÖøÿÿÿÿ
+j
+java:S1192›"NDefine a constant instead of duplicating this literal " blocks away." 3 times.(ëıÖøÿÿÿÿ
+t	java:S135Œ"YReduce the total number of break and continue statements in this loop to use at most one.(éŸ»ãøÿÿÿÿ
+F
+java:S1066«"/Merge this if statement with the enclosing one.(Ì‰ı
+K
+java:S1066¬"/Merge this if statement with the enclosing one.(¿ÙÇûÿÿÿÿ
+K
+java:S1066­"/Merge this if statement with the enclosing one.(Âß“èüÿÿÿÿ
+„
+java:S1319C"iThe type of "inventory" should be an interface such as "List" rather than the implementation "ArrayList".(€¸£Éıÿÿÿÿ
+‡
+java:S1319•"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ö¡Ã¹
+‡
+java:S1319¢"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(àº¹š
+Œ
+java:S1319³"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(óª¯ëüÿÿÿÿ
+Q
+java:S1141©"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+l	java:S117İ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•¼»ÿÿÿÿÿ
+l	java:S117±	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àêÕ†úÿÿÿÿ
+l	java:S117²	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+l	java:S117´	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
+U
+java:S1155®">Use isEmpty() to check whether the collection is empty or not.(€ÜÅŠ
+Z
+java:S1155è
+">Use isEmpty() to check whether the collection is empty or not.(¨‚¥úÿÿÿÿ
+r
+java:S1488€"[Immediately return this expression instead of assigning it to the temporary variable "ret".(ñ”™ö
+q
+java:S1104$"VMake employedAt a static final constant or non-public and provide accessors if needed.(›®ûÖÿÿÿÿÿ
+j
+java:S1104%"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+j
+java:S1104&"TMake theirJob a static final constant or non-public and provide accessors if needed.(–Â´ü
+f
+java:S1104'"PMake name a static final constant or non-public and provide accessors if needed.(Ñê¨Ú
+e
+java:S1104("OMake age a static final constant or non-public and provide accessors if needed.(ÉÅ„‡
+h
+java:S1104)"RMake gender a static final constant or non-public and provide accessors if needed.(¡Å÷
+l
+java:S1104*"VMake skinnumber a static final constant or non-public and provide accessors if needed.(¤§ù³
+k
+java:S1104+"UMake levelFood a static final constant or non-public and provide accessors if needed.(éĞê§
+o
+java:S1104,"TMake levelFun a static final constant or non-public and provide accessors if needed.(ğ¤¾›ÿÿÿÿÿ
+n
+java:S1104-"XMake levelBuilder a static final constant or non-public and provide accessors if needed.(¯ôÛ
+l
+java:S1104."VMake levelMiner a static final constant or non-public and provide accessors if needed.(—¥Ç
+n
+java:S1104/"XMake levelSoldier a static final constant or non-public and provide accessors if needed.(Ùİßé
+m
+java:S11040"RMake action a static final constant or non-public and provide accessors if needed.(µÓÈøşÿÿÿÿ
+t
+java:S11041"YMake actionArrival a static final constant or non-public and provide accessors if needed.(ÿ¬¾Ãøÿÿÿÿ
+i
+java:S11042"SMake stayPut a static final constant or non-public and provide accessors if needed.(ùÊô¯
+r
+java:S11043"WMake destination a static final constant or non-public and provide accessors if needed.( ±àøÿÿÿÿ
+j
+java:S11044"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
+l
+java:S11045"VMake statusText a static final constant or non-public and provide accessors if needed.(õåæÍ
+i
+java:S11046"SMake status1 a static final constant or non-public and provide accessors if needed.(Çò›Ÿ
+n
+java:S11047"SMake status2 a static final constant or non-public and provide accessors if needed.(¯æ¾Ìûÿÿÿÿ
+n
+java:S11048"SMake status3 a static final constant or non-public and provide accessors if needed.(İ±Íÿùÿÿÿÿ
+i
+java:S11049"SMake status4 a static final constant or non-public and provide accessors if needed.(«¸Ñù
+i
+java:S1104:"SMake status5 a static final constant or non-public and provide accessors if needed.(»“Ü×
+t
+java:S1104;"YMake shaggingStage a static final constant or non-public and provide accessors if needed.(êùŸ¥üÿÿÿÿ
+o
+java:S1104<"ZMake pregnancyStage a static final constant or non-public and provide accessors if needed.(Ï›†
+k
+java:S1104="UMake isWorking a static final constant or non-public and provide accessors if needed.(†¦”ê
+s
+java:S1104>"XMake greetedToday a static final constant or non-public and provide accessors if needed.(¤‘Ñúÿÿÿÿ
+w
+java:S1104?"\Make anyFolkLastSpoke a static final constant or non-public and provide accessors if needed.(í¦–íşÿÿÿÿ
+m
+java:S1104@"WMake theBuilding a static final constant or non-public and provide accessors if needed.(½¯Û±
+q
+java:S1104A"[Make terraformerType a static final constant or non-public and provide accessors if needed.(ØÈÓı
+r
+java:S1104B"]Make terraformerRadius a static final constant or non-public and provide accessors if needed.(éè¨R
+p
+java:S1104C"UMake inventory a static final constant or non-public and provide accessors if needed.(€¸£Éıÿÿÿÿ
+p
+java:S1104D"UMake theEntity a static final constant or non-public and provide accessors if needed.(¢Õ‹ıÿÿÿÿ
+t
+java:S1104E"^Make timeStartedGotoing a static final constant or non-public and provide accessors if needed.(ÇĞĞÒ
+q
+java:S1104F"VMake gotoMethod a static final constant or non-public and provide accessors if needed.(ïÌ˜äıÿÿÿÿ
+p
+java:S1104J"UMake beamingTo a static final constant or non-public and provide accessors if needed.(³œß†şÿÿÿÿ
+Q
+java:S1444?"6Make this "public static anyFolkLastSpoke" field final(í¦–íşÿÿÿÿ
+`
+java:S2259"DA "NullPointerException" could be thrown; "father" is nullable here.(š¿¶üÿÿÿÿ
+c
+java:S2259ü"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(£„ü„øÿÿÿÿ
+f
+java:S2259»"OA "NullPointerException" could be thrown; "getClosestPlayer()" can return null.(±ÄŞ°
+c
+java:S2259„	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(İŞĞøÿÿÿÿ
+h
+java:S2259½"LA "NullPointerException" could be thrown; "getFolkByName()" can return null.(Ô˜„±ıÿÿÿÿ

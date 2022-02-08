@@ -5,6 +5,7 @@ package com.trhsy.sim.common.item;/**
  */
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,8 +25,9 @@ import net.minecraft.util.IIcon;
 public class ItemGranulesCopper extends Item {
     private IIcon[] icons;
 
-    public ItemGranulesCopper(int par1) {
+    public ItemGranulesCopper() {
         this.maxStackSize = 64;
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

@@ -4,6 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -26,6 +27,7 @@ public class ItemBlockWindmill extends ItemBlock {
     public ItemBlockWindmill(int par1, Block par2Block) {
         super(par2Block);
         this.setHasSubtypes(true);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     public String getItemDisplayName(ItemStack is) {

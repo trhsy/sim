@@ -5,6 +5,7 @@ package com.trhsy.sim.common.item.food;/**
  */
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,7 +33,7 @@ public class ItemSUKFood extends ItemFood {
 
     public ItemSUKFood() {
         super(6, 0.6F, false);
-        this.setCreativeTab(CreativeTabs.tabFood);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setHasSubtypes(true);
     }
 
@@ -60,6 +61,7 @@ public class ItemSUKFood extends ItemFood {
 
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack is) {
         if (is.getMetadata() == 0) {
             return "item.foodCheese";

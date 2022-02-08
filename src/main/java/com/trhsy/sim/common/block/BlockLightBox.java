@@ -5,6 +5,7 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -31,12 +32,12 @@ public class BlockLightBox extends Block {
     public BlockLightBox() {
         super(Material.wood);
         this.setLightLevel(1.0F);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setTickRandomly(true);
-        this.setUnlocalizedName("SUKlight");
+        this.setUnlocalizedName("block.lightBox.name");
     }
 
     @Override

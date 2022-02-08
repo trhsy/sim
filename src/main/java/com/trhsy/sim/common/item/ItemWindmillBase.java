@@ -5,6 +5,7 @@ package com.trhsy.sim.common.item;/**
  */
 
 import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,6 +30,7 @@ public class ItemWindmillBase extends Item {
 
     public ItemWindmillBase(int par1) {
         this.maxStackSize = 64;
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

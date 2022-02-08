@@ -1,0 +1,18 @@
+
+œ
+java:S1186*"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å©±üüÿÿÿÿ
+—
+java:S1186‹"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(›Ô•#
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+h
+java:S37767"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(‹‰£Ï
+N	java:S106N"9Replace this use of System.out or System.err by a logger.(ı‚Ò¾
+N	java:S106R"9Replace this use of System.out or System.err by a logger.(Û¤ÅÑ
+?	java:S108‚")Either remove or fill this block of code.(—ŸÇ’
+P
+java:S3400ˆ"9Remove this method and declare a constant for this value.(€Üû
+H
+java:S1144"2Remove this unused private "startingWorld" method.(ï·ü4
+^
+java:S2259\"IA "NullPointerException" could be thrown; "serverWorld" is nullable here.(¶·=
