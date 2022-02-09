@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
@@ -56,7 +56,7 @@ public class JobFisherman extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -69,7 +69,7 @@ public class JobFisherman extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATDOCK) {
                     this.stageArrived();
                 } else if (this.theStage == Stage.FISHING) {
@@ -90,7 +90,7 @@ public class JobFisherman extends Job implements Serializable {
         V3 water = Job.findClosestBlockType(this.theFolk.employedAt, Blocks.water, 5, false);
         if (water == null) {
             this.theStage = Stage.CANTWORK;
-            ModSimukraft.sendChat(this.theFolk.name + " (Fisherman) can't find any fish in the area");
+            ModSim.sendChat(this.theFolk.name + " (Fisherman) can't find any fish in the area");
         } else {
             this.theStage = Stage.FISHING;
             this.theFolk.statusText = "Casting out my line";
@@ -129,12 +129,12 @@ public class JobFisherman extends Job implements Serializable {
         this.timeSinceLastCaughtFish = System.currentTimeMillis();
         this.theFolk.statusText = "Caught a fish, yay!";
         ++this.fishCount;
-        GameStates var10000 = ModSimukraft.states;
+        GameStates var10000 = ModSim.states;
         var10000.credits -= 0.02F;
         this.dockChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
         if (this.dockChests.size() == 0) {
             this.theFolk.statusText = "Damn! someone stole my fishing chests!";
-            ModSimukraft.sendChat(this.theFolk.name + " (fisherman) can't find any chests at the dock!");
+            ModSim.sendChat(this.theFolk.name + " (fisherman) can't find any chests at the dock!");
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.dropItem(Items.fish, 1);
             }
@@ -160,8 +160,8 @@ public class JobFisherman extends Job implements Serializable {
             if (this.step == 1) {
                 //int sell = false;
                 ItemStack fishStack = null;
-                if (ModSimukraft.theFolks.size() > 1) {
-                    int sell = ModSimukraft.theFolks.size() + 1;
+                if (ModSim.theFolks.size() > 1) {
+                    int sell = ModSim.theFolks.size() + 1;
                     this.dockChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
                     fishStack = inventoriesGet(this.dockChests, new ItemStack(Items.fish, sell), false, false);
                 }
@@ -171,10 +171,10 @@ public class JobFisherman extends Job implements Serializable {
                     return;
                 }
 
-                ModSimukraft.sendChat(this.theFolk.name + " caught " + this.fishCount + " fish today and has sold " + fishStack.stackSize + " to folks.");
+                ModSim.sendChat(this.theFolk.name + " caught " + this.fishCount + " fish today and has sold " + fishStack.stackSize + " to folks.");
 
-                for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-                    FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
+                for (int f = 0; f < ModSim.theFolks.size(); ++f) {
+                    FolkData folk = (FolkData) ModSim.theFolks.get(f);
                     if (fishStack.stackSize > 0) {
                         folk.levelFood = 10;
                         --fishStack.stackSize;

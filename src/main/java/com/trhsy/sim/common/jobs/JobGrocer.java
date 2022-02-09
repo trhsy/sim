@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -71,7 +71,7 @@ public class JobGrocer extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -92,7 +92,7 @@ public class JobGrocer extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATSHOP) {
                     this.stageArrived();
                 } else if (this.theStage == Stage.GOINGTOFOODFARM) {
@@ -232,7 +232,7 @@ public class JobGrocer extends Job implements Serializable {
             this.pay += (float)((double)f * 0.05D);
             this.pay += (float)((double)c * 0.05D);
             this.inventoriesTransferFromFolk(this.theFolk.inventory, this.grocerChests, (ItemStack)null);
-            GameStates var10000 = ModSimukraft.states;
+            GameStates var10000 = ModSim.states;
             var10000.credits -= this.pay;
             this.step = 2;
         } else if (this.step == 2) {
@@ -252,19 +252,19 @@ public class JobGrocer extends Job implements Serializable {
             ItemStack piece = null;
 
             label58:
-            for(f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-                for(c = 0; c < this.grocerChests.size(); ++c) {
-                    IInventory chest = (IInventory)this.grocerChests.get(c);
+            for (f = 0; f < ModSim.theFolks.size(); ++f) {
+                for (c = 0; c < this.grocerChests.size(); ++c) {
+                    IInventory chest = (IInventory) this.grocerChests.get(c);
                     int g = 0;
 
-                    while(g < chest.getSizeInventory()) {
+                    while (g < chest.getSizeInventory()) {
                         ItemStack chestStack = chest.getStackInSlot(g);
 
                         try {
                             int count = (new Random()).nextInt(3) + 1;
-                            ItemFood food = (ItemFood)chestStack.getItem();
+                            ItemFood food = (ItemFood) chestStack.getItem();
                             piece = inventoriesGet(this.grocerChests, new ItemStack(chestStack.getItem(), count), false, false);
-                            FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
+                            FolkData folk = (FolkData) ModSim.theFolks.get(f);
                             folk.levelFood = 10;
                             sell += count;
                             continue label58;
@@ -276,9 +276,9 @@ public class JobGrocer extends Job implements Serializable {
             }
 
             if (sell > 0) {
-                ModSimukraft.sendChat(this.theFolk.name + "(grocer) has sold " + sell + " items of food to folks today.");
+                ModSim.sendChat(this.theFolk.name + "(grocer) has sold " + sell + " items of food to folks today.");
             } else {
-                ModSimukraft.sendChat(this.theFolk.name + " has no produce to sell to folks today.");
+                ModSim.sendChat(this.theFolk.name + " has no produce to sell to folks today.");
             }
 
             this.step = 4;
@@ -294,7 +294,7 @@ public class JobGrocer extends Job implements Serializable {
         while(true) {
             if (!found) {
                 try {
-                    farm = (FarmingBox)ModSimukraft.theFarmingBoxes.get(this.currentFarmNum);
+                    farm = (FarmingBox) ModSim.theFarmingBoxes.get(this.currentFarmNum);
                 } catch (Exception var4) {
                     return null;
                 }
@@ -305,7 +305,7 @@ public class JobGrocer extends Job implements Serializable {
 
                 if (farm.farmType != FarmType.MELON && farm.farmType != FarmType.PUMPKIN && farm.farmType != FarmType.CARROT && farm.farmType != FarmType.POTATO) {
                     ++this.currentFarmNum;
-                    if (this.currentFarmNum > ModSimukraft.theFarmingBoxes.size() - 1) {
+                    if (this.currentFarmNum > ModSim.theFarmingBoxes.size() - 1) {
                         return null;
                     }
                     continue;

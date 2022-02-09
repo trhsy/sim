@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.entity;
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 
 import java.io.File;
 import java.io.Serializable;
@@ -31,9 +31,9 @@ public class GameStates implements Serializable {
     }
 
     public void loadStates() {
-        File f = new File(ModSimukraft.getSavesDataFolder() + "settings.sk2");
+        File f = new File(ModSim.getSavesDataFolder() + "settings.sk2");
         if (!f.exists()) {
-            ModSimukraft.states = (GameStates)ModSimukraft.proxy.loadObject(ModSimukraft.getSavesDataFolder() + "settings.suk");
+            ModSim.states = (GameStates) ModSim.proxy.loadObject(ModSim.getSavesDataFolder() + "settings.suk");
         } else {
             this.loadStates2();
         }
@@ -41,7 +41,7 @@ public class GameStates implements Serializable {
     }
 
     private void loadStates2() {
-        ArrayList<String> strings = ModSimukraft.loadSK2(ModSimukraft.getSavesDataFolder() + "settings.sk2");
+        ArrayList<String> strings = ModSim.loadSK2(ModSim.getSavesDataFolder() + "settings.sk2");
         Iterator i$ = strings.iterator();
 
         while(i$.hasNext()) {
@@ -72,13 +72,13 @@ public class GameStates implements Serializable {
     }
 
     public void saveStates() {
-        String folder = ModSimukraft.getSavesDataFolder();
+        String folder = ModSim.getSavesDataFolder();
         ArrayList<String> strings = new ArrayList();
         strings.add("credits|" + this.credits);
         strings.add("gamemode|" + this.gameModeNumber);
         strings.add("dayofweek|" + this.dayOfWeek);
         strings.add("lastupdatecheck|" + this.lastUpdateCheck);
-        ModSimukraft.saveSK2(folder + "settings.sk2", strings);
-        ModSimukraft.log.info("GameStates: saveStates() called BOTH sides, credits saved as " + this.credits);
+        ModSim.saveSK2(folder + "settings.sk2", strings);
+        ModSim.log.info("GameStates: saveStates() called BOTH sides, credits saved as " + this.credits);
     }
 }

@@ -5,7 +5,7 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.client.gui.GuiBuildingConstructor;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
@@ -15,7 +15,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -46,7 +45,7 @@ public class BlockConstructorBox extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockConstruction");
+        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":blockConstruction");
     }
 
     @Override
@@ -58,7 +57,7 @@ public class BlockConstructorBox extends Block {
     @Override
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
         if (!par1World.isRemote) {
-            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSimukraft.MODID + ":powerdown", 1.0F, 1.0F);
+            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         }
 
         FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double)par2, (double)par3, (double)par4, par1World.provider.dimensionId));
@@ -72,7 +71,7 @@ public class BlockConstructorBox extends Block {
     @Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4) {
         if (!par1World.isRemote) {
-            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSimukraft.MODID + ":constructoractivated", 1.0F, 1.0F);
+            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
         }
 
         super.onBlockAdded(par1World, par2, par3, par4);
@@ -81,7 +80,7 @@ public class BlockConstructorBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer thePlayer, int par6, float par7, float par8, float par9) {
-        par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
+        par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSim.MODID + ":computer", 1.0F, 1.0F);
         int px = (int)Math.floor(thePlayer.posX);
         int py = (int)Math.floor(thePlayer.posY);
         int pz = (int)Math.floor(thePlayer.posZ);

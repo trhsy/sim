@@ -6,7 +6,7 @@ package com.trhsy.sim.client.gui;/**
 
 import com.trhsy.sim.client.gui.enums.ATMscreen;
 import com.trhsy.sim.common.Commodity;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.PricesForBlocks;
 import com.trhsy.sim.common.entity.V3;
@@ -71,9 +71,9 @@ public class GuiBankATM extends GuiScreen {
         if (robbed) {
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
-            ModSimukraft.sendChat("Looks like you've robbed the bank! Replace the items and we'll let you off and let you use this ATM. Next time we won't be so nice about it!");
+            ModSim.sendChat("Looks like you've robbed the bank! Replace the items and we'll let you off and let you use this ATM. Next time we won't be so nice about it!");
         } else {
-            if (ModSimukraft.theCommodities.size() == 0) {
+            if (ModSim.theCommodities.size() == 0) {
                 Commodity.refreshAvailableCommoditities();
             }
 
@@ -91,24 +91,24 @@ public class GuiBankATM extends GuiScreen {
                         ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
                         if (is != null) {
                             if (is.getItem() == Items.diamond) {
-                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceDiamond)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceDiamond * (float)is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSim.displayMoney(PricesForBlocks.bankPriceDiamond)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSim.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.stackSize)));
                                 offset += 20;
                             } else if (is.getItem() == Items.emerald) {
-                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceEmerald)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceEmerald * (float)is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSim.displayMoney(PricesForBlocks.bankPriceEmerald)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSim.displayMoney(PricesForBlocks.bankPriceEmerald * (float) is.stackSize)));
                                 offset += 20;
                             } else if (is.getItem() == Items.redstone) {
-                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceRedstone)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceRedstone * (float)is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSim.displayMoney(PricesForBlocks.bankPriceRedstone)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSim.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.stackSize)));
                                 offset += 20;
                             } else if (is.getItem() == Items.glowstone_dust) {
-                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceGlowstone)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceGlowstone * (float)is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSim.displayMoney(PricesForBlocks.bankPriceGlowstone)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSim.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.stackSize)));
                                 offset += 20;
                             } else if (is.getItem() == Items.gold_ingot) {
-                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceGold)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSimukraft.displayMoney(PricesForBlocks.bankPriceGold * (float)is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, "Sell 1 for " + ModSim.displayMoney(PricesForBlocks.bankPriceGold)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, "Sell " + is.stackSize + " for " + ModSim.displayMoney(PricesForBlocks.bankPriceGold * (float) is.stackSize)));
                                 offset += 20;
                             }
                         }
@@ -116,7 +116,7 @@ public class GuiBankATM extends GuiScreen {
                 } else if (this.theScreen == ATMscreen.COMMODITIES) {
                     offset = 30;
 
-                    for(inv = 0; inv < ModSimukraft.theCommodities.size(); ++inv) {
+                    for (inv = 0; inv < ModSim.theCommodities.size(); ++inv) {
                         this.buttonList.add(new GuiButton(inv + 200, this.width / 2, offset, 20, 20, "-"));
                         this.buttonList.add(new GuiButton(inv + 300, this.width / 2 + 20, offset, 20, 20, "+"));
                         offset += 20;
@@ -164,17 +164,17 @@ public class GuiBankATM extends GuiScreen {
             } else if (this.theScreen == ATMscreen.COMMODITIES) {
                 this.drawCenteredString(this.fontRendererObj, "Commodities available to buy today", this.width / 2, 20, 65280);
                 offset = 35;
-                if (ModSimukraft.theCommodities.size() == 0) {
+                if (ModSim.theCommodities.size() == 0) {
                     this.drawString(this.fontRendererObj, "Currently no items, come back later.", 20, offset, 65280);
                 }
 
-                for(int it = 0; it < ModSimukraft.theCommodities.size(); ++it) {
-                    Commodity item = (Commodity)ModSimukraft.theCommodities.get(it);
-                    this.drawString(this.fontRendererObj, item.quantity + " x " + item.theItemStack.getDisplayName() + " @ " + ModSimukraft.displayMoney(item.priceEach) + " each", 20, offset, 65280);
+                for (int it = 0; it < ModSim.theCommodities.size(); ++it) {
+                    Commodity item = (Commodity) ModSim.theCommodities.get(it);
+                    this.drawString(this.fontRendererObj, item.quantity + " x " + item.theItemStack.getDisplayName() + " @ " + ModSim.displayMoney(item.priceEach) + " each", 20, offset, 65280);
                     int qty = 0;
 
-                    for(int ci = 0; ci < this.cart.size(); ++ci) {
-                        Commodity cartItem = (Commodity)this.cart.get(ci);
+                    for (int ci = 0; ci < this.cart.size(); ++ci) {
+                        Commodity cartItem = (Commodity) this.cart.get(ci);
                         if (cartItem.theItemStack.getDisplayName().contentEquals(item.theItemStack.getDisplayName())) {
                             qty = cartItem.quantity;
                         }
@@ -204,7 +204,7 @@ public class GuiBankATM extends GuiScreen {
                 GameStates var10000;
                 if (guibutton.id >= 100 && guibutton.id < 200) {
                     ItemStack is = this.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
-                    ModSimukraft.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSimukraft.MODID + ":cashshort", 1.0F, 1.0F, false);
+                    ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1.0F, 1.0F, false);
                     String money = guibutton.displayString.substring(guibutton.displayString.indexOf("for ") + 4);
                     NumberFormat format = NumberFormat.getInstance();
                     Object number = 0;
@@ -215,7 +215,7 @@ public class GuiBankATM extends GuiScreen {
                     }
 
                     float soldFor = ((Number)number).floatValue();
-                    var10000 = ModSimukraft.states;
+                    var10000 = ModSim.states;
                     var10000.credits += soldFor;
                     --is.stackSize;
                     if (is.stackSize == 0) {
@@ -225,7 +225,7 @@ public class GuiBankATM extends GuiScreen {
                     this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 100, is);
                     this.initGui();
                 } else if (guibutton.id >= 500 && guibutton.id < 600) {
-                    ModSimukraft.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSimukraft.MODID + ":cashshort", 1.0F, 1.0F, false);
+                    ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1.0F, 1.0F, false);
                     NumberFormat format = NumberFormat.getInstance();
                     Object number = 0;
 
@@ -235,7 +235,7 @@ public class GuiBankATM extends GuiScreen {
                     }
 
                     float soldFor = ((Number)number).floatValue();
-                    var10000 = ModSimukraft.states;
+                    var10000 = ModSim.states;
                     var10000.credits += soldFor;
                     this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack)null);
                     this.initGui();
@@ -244,7 +244,7 @@ public class GuiBankATM extends GuiScreen {
                     Commodity cartItem;
                     Commodity comm;
                     if (guibutton.id >= 200 && guibutton.id < 300) {
-                        comm = (Commodity)ModSimukraft.theCommodities.get(guibutton.id - 200);
+                        comm = (Commodity) ModSim.theCommodities.get(guibutton.id - 200);
 
                         for(ci = 0; ci < this.cart.size(); ++ci) {
                             cartItem = (Commodity)this.cart.get(ci);
@@ -259,7 +259,7 @@ public class GuiBankATM extends GuiScreen {
                             }
                         }
                     } else if (guibutton.id >= 300 && guibutton.id < 400) {
-                        comm = (Commodity)ModSimukraft.theCommodities.get(guibutton.id - 300);
+                        comm = (Commodity) ModSim.theCommodities.get(guibutton.id - 300);
                         boolean added = false;
 
                         for(int cj = 0; cj < this.cart.size(); ++cj) {
@@ -287,37 +287,37 @@ public class GuiBankATM extends GuiScreen {
                         float cost = 0.0F;
 
                         ItemStack is;
-                        for(ci = 0; ci < this.cart.size(); ++ci) {
-                            cartItem = (Commodity)this.cart.get(ci);
+                        for (ci = 0; ci < this.cart.size(); ++ci) {
+                            cartItem = (Commodity) this.cart.get(ci);
                             is = cartItem.theItemStack;
                             is.stackSize = cartItem.quantity;
-                            cost += (float)cartItem.quantity * cartItem.priceEach;
+                            cost += (float) cartItem.quantity * cartItem.priceEach;
                         }
 
-                        if (cost > ModSimukraft.states.credits) {
-                            this.errorText = "The cost is " + ModSimukraft.displayMoney(cost) + ", but you only have " + ModSimukraft.displayMoney(ModSimukraft.states.credits);
+                        if (cost > ModSim.states.credits) {
+                            this.errorText = "The cost is " + ModSim.displayMoney(cost) + ", but you only have " + ModSim.displayMoney(ModSim.states.credits);
                             return;
                         }
 
-                        for(ci = 0; ci < this.cart.size(); ++ci) {
-                            cartItem = (Commodity)this.cart.get(ci);
+                        for (ci = 0; ci < this.cart.size(); ++ci) {
+                            cartItem = (Commodity) this.cart.get(ci);
                             is = cartItem.theItemStack;
                             is.stackSize = cartItem.quantity;
                             this.thePlayer.inventory.addItemStackToInventory(is);
 
-                            for(int ai = 0; ai < ModSimukraft.theCommodities.size(); ++ai) {
-                                Commodity ac = (Commodity)ModSimukraft.theCommodities.get(ai);
+                            for (int ai = 0; ai < ModSim.theCommodities.size(); ++ai) {
+                                Commodity ac = (Commodity) ModSim.theCommodities.get(ai);
                                 if (ac.theItemStack.getDisplayName().contentEquals(cartItem.theItemStack.getDisplayName())) {
-                                    ModSimukraft.theCommodities.remove(ai);
+                                    ModSim.theCommodities.remove(ai);
                                     break;
                                 }
                             }
                         }
 
-                        var10000 = ModSimukraft.states;
+                        var10000 = ModSim.states;
                         var10000.credits -= cost;
-                        ModSimukraft.sendChat("Bought commodities worth " + ModSimukraft.displayMoney(cost));
-                        ModSimukraft.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
+                        ModSim.sendChat("Bought commodities worth " + ModSim.displayMoney(cost));
+                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                     }

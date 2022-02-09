@@ -36,8 +36,8 @@ public class EntityConBox extends Entity{
         super(par1World);
         this.noClip = true;
         this.ignoreFrustumCheck = true;
-        if (!ModSimukraft.proxy.ranStartup) {
-            ModSimukraft.log.info("EntityConBox: Killed system spawned ConBox");
+        if (!ModSim.proxy.ranStartup) {
+            ModSim.log.info("EntityConBox: Killed system spawned ConBox");
             this.setDead();
         }
 
@@ -48,12 +48,12 @@ public class EntityConBox extends Entity{
     public void onUpdate() {
         if (System.currentTimeMillis() - this.lastCheck > 10000L) {
             if (this.theFolk != null && this.theFolk.theBuilding == null) {
-                ModSimukraft.log.info("EntityConBox: Removing conBox as building is done");
+                ModSim.log.info("EntityConBox: Removing conBox as building is done");
                 this.spawnExplosionParticle(this);
                 this.setDead();
             }
 
-            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), ModSimukraft.buildingConstructor, 5);
+            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), ModSim.buildingConstructor, 5);
             if (conblocks.size() < 1) {
                 this.setDead();
             }
@@ -66,13 +66,13 @@ public class EntityConBox extends Entity{
     }
 
     public static FolkData getFolk(V3 where) {
-        V3 con = Job.findClosestBlockType(where, ModSimukraft.buildingConstructor, 6, false);
+        V3 con = Job.findClosestBlockType(where, ModSim.buildingConstructor, 6, false);
         FolkData ret = null;
 
-        for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-            FolkData fd = (FolkData)ModSimukraft.theFolks.get(f);
+        for (int f = 0; f < ModSim.theFolks.size(); ++f) {
+            FolkData fd = (FolkData) ModSim.theFolks.get(f);
             if (fd.employedAt != null && fd.employedAt.isSameCoordsAs(where, true, false)) {
-                ModSimukraft.log.info("EntityConBox: found folk " + fd.name);
+                ModSim.log.info("EntityConBox: found folk " + fd.name);
                 ret = fd;
                 break;
             }
@@ -91,7 +91,7 @@ public class EntityConBox extends Entity{
             double var8 = 10.0D;
 
             try {
-                ModSimukraft.proxy.getClientWorld().spawnParticle("explode", ent.posX + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double)(rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
+                ModSim.proxy.getClientWorld().spawnParticle("explode", ent.posX + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
             } catch (Exception var13) {
             }
         }

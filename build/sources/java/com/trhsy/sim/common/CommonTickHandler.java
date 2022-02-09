@@ -8,7 +8,6 @@ import com.trhsy.sim.client.gui.GuiRunMod;
 import com.trhsy.sim.common.entity.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -54,42 +53,42 @@ public class CommonTickHandler {private World serverWorld = null;
 
     public void onTickInGame() {
         if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("guimainmenu")) {
-            ModSimukraft.log.info("CommTH: in Gui Main menu");
+            ModSim.log.info("CommTH: in Gui Main menu");
         }
 
-        if (ModSimukraft.states.gameModeNumber == 10) {
-            ModSimukraft.proxy.ranStartup = true;
+        if (ModSim.states.gameModeNumber == 10) {
+            ModSim.proxy.ranStartup = true;
         } else {
             Long now = System.currentTimeMillis();
             if (this.serverWorld != null) {
                 FolkData.triggerAllUpdates();
-                ModSimukraft.dayTransitionHandler();
-                if (ModSimukraft.farmToUpgrade != null) {
-                    ModSimukraft.upgradeFarm();
+                ModSim.dayTransitionHandler();
+                if (ModSim.farmToUpgrade != null) {
+                    ModSim.upgradeFarm();
                 }
 
-                if (ModSimukraft.demolishBlocks.size() > 0) {
-                    ModSimukraft.demolishBlocks();
+                if (ModSim.demolishBlocks.size() > 0) {
+                    ModSim.demolishBlocks();
                 }
             }
 
             if (now - this.lastSecondTickAt > 1000L) {
-                if (!ModSimukraft.proxy.ranStartup) {
+                if (!ModSim.proxy.ranStartup) {
                     System.out.println("Haven't run startup - doing that now");
                     this.serverWorld = MinecraftServer.getServer().getEntityWorld();
-                    this.currentWorld = ModSimukraft.getSavesDataFolder();
-                    ModSimukraft.log.info("CommTH: Startup - set serverWorld/currentWorld");
+                    this.currentWorld = ModSim.getSavesDataFolder();
+                    ModSim.log.info("CommTH: Startup - set serverWorld/currentWorld");
                     System.out.println("Running Reset World Function");
-                    ModSimukraft.resetAndLoadNewWorld();
+                    ModSim.resetAndLoadNewWorld();
                 } else {
-                    if (!this.currentWorld.contentEquals(ModSimukraft.getSavesDataFolder()) && now - this.lastReset > 30000L) {
-                        ModSimukraft.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSimukraft.getSavesDataFolder());
-                        this.currentWorld = ModSimukraft.getSavesDataFolder();
-                        ModSimukraft.proxy.ranStartup = false;
-                        ModSimukraft.resetAndLoadNewWorld();
+                    if (!this.currentWorld.contentEquals(ModSim.getSavesDataFolder()) && now - this.lastReset > 30000L) {
+                        ModSim.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSim.getSavesDataFolder());
+                        this.currentWorld = ModSim.getSavesDataFolder();
+                        ModSim.proxy.ranStartup = false;
+                        ModSim.resetAndLoadNewWorld();
                     }
 
-                    if (this.serverWorld.isRaining() && this.serverWorld.getWorldInfo().getRainTime() > 1 && ModSimukraft.configStopRain) {
+                    if (this.serverWorld.isRaining() && this.serverWorld.getWorldInfo().getRainTime() > 1 && ModSim.configStopRain) {
                         this.serverWorld.getWorldInfo().setRainTime(2);
                     }
                 }
@@ -101,14 +100,14 @@ public class CommonTickHandler {private World serverWorld = null;
                 if (this.lastMinuteTickAt > 0L) {
                     Long start = System.currentTimeMillis();
                     FolkData.generateNewFolk(this.serverWorld);
-                    ModSimukraft.states.saveStates();
+                    ModSim.states.saveStates();
                     Building.checkTennants();
                     Building.saveAllBuildings();
                     CourierTask.saveCourierTasksAndPoints();
                     MiningBox.saveMiningBoxes();
                     FarmingBox.saveFarmingBoxes();
                     Relationship.saveRelationships();
-                    ModSimukraft.log.info("CTH: Saved game data in " + (System.currentTimeMillis() - start) + " ms");
+                    ModSim.log.info("CTH: Saved game data in " + (System.currentTimeMillis() - start) + " ms");
                 }
 
                 this.lastMinuteTickAt = now;
@@ -121,13 +120,13 @@ public class CommonTickHandler {private World serverWorld = null;
         if (System.currentTimeMillis() - this.lastReset > 30000L) {
             this.lastReset = System.currentTimeMillis();
             Side side = FMLCommonHandler.instance().getEffectiveSide();
-            ModSimukraft.log.info(side.toString() + "-side CommTH: resetSimUKraft()");
+            ModSim.log.info(side.toString() + "-side CommTH: resetSimUKraft()");
         }
 
     }
 
     private void startingWorld() {
-        if (!ModSimukraft.proxy.ranStartup) {
+        if (!ModSim.proxy.ranStartup) {
         }
 
     }

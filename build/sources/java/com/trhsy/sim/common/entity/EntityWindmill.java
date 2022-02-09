@@ -4,7 +4,7 @@ package com.trhsy.sim.common.entity;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -36,7 +36,7 @@ public class EntityWindmill extends Entity {
 
     @Override
     public void setDead() {
-        ModSimukraft.log.info("EntityWindmill: setDead() called");
+        ModSim.log.info("EntityWindmill: setDead() called");
         super.setDead();
     }
 

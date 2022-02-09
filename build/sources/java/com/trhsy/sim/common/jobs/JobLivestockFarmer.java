@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
@@ -70,7 +70,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -81,7 +81,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATFARM) {
                     this.stageArrived();
                 } else if (this.theStage == Stage.WAITINGFORMATUREANIMAL) {
@@ -208,9 +208,9 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
         if (!ok) {
             this.theStage = Stage.CANTWORK;
-            ModSimukraft.sendChat(this.theFolk.name + "'s livestock farm chests are full!");
+            ModSim.sendChat(this.theFolk.name + "'s livestock farm chests are full!");
         } else {
-            GameStates var10000 = ModSimukraft.states;
+            GameStates var10000 = ModSim.states;
             var10000.credits -= 0.02F * (float)quant;
             this.theStage = Stage.WAITINGFORMATUREANIMAL;
         }

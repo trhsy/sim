@@ -6,7 +6,7 @@ package com.trhsy.sim.client.render;/**
 
 import com.trhsy.sim.client.model.ModelAlignBeam;
 import com.trhsy.sim.common.EntityAlignBeam;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -24,7 +24,7 @@ import org.lwjgl.opengl.GL11;
  * ========================================
  **/
 public class RenderAlignBeam extends Render {
-    private static final ResourceLocation myTexture = new ResourceLocation(ModSimukraft.MODID + "", "textures/models/entityBeam.png");
+    private static final ResourceLocation myTexture = new ResourceLocation(ModSim.MODID + "", "textures/models/entityBeam.png");
     EntityAlignBeam entity = null;
     ModelAlignBeam modelBeam;
 

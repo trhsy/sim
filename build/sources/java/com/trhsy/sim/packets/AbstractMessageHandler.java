@@ -4,7 +4,7 @@ package com.trhsy.sim.packets;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -32,6 +32,6 @@ public abstract class AbstractMessageHandler<T extends IMessage> implements IMes
 
     @Override
     public IMessage onMessage(T message, MessageContext ctx) {
-        return ctx.side.isClient() ? this.handleClientMessage(ModSimukraft.clientProxy.getPlayerEntity(ctx), message, ctx) : this.handleServerMessage(ModSimukraft.proxy.getPlayerEntity(ctx), message, ctx);
+        return ctx.side.isClient() ? this.handleClientMessage(ModSim.clientProxy.getPlayerEntity(ctx), message, ctx) : this.handleServerMessage(ModSim.proxy.getPlayerEntity(ctx), message, ctx);
     }
 }

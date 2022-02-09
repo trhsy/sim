@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.gui.GuiButton;
@@ -66,19 +66,19 @@ public class GuiShowEmployees extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 0) {
-            ModSimukraft.states.gameModeNumber = 10;
+            ModSim.states.gameModeNumber = 10;
             System.out.println("Turning off SimCity Reloaded");
         } else if (guibutton.id == 1) {
-            ModSimukraft.states.gameModeNumber = 0;
+            ModSim.states.gameModeNumber = 0;
             System.out.println("Playing SimCity Reloaded in normal mode");
             FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
         } else if (guibutton.id == 2) {
-            ModSimukraft.states.gameModeNumber = 1;
+            ModSim.states.gameModeNumber = 1;
         } else if (guibutton.id == 3) {
-            ModSimukraft.states.gameModeNumber = 2;
+            ModSim.states.gameModeNumber = 2;
         }
 
-        ModSimukraft.states.saveStates();
+        ModSim.states.saveStates();
         this.running = false;
         this.mc.currentScreen = null;
         this.mc.setIngameFocus();

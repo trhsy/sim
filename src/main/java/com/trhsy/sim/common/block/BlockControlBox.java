@@ -7,7 +7,7 @@ package com.trhsy.sim.common.block;/**
 import com.trhsy.sim.client.gui.GuiBankATM;
 import com.trhsy.sim.client.gui.GuiControlBox;
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
@@ -17,7 +17,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -48,10 +47,10 @@ public class BlockControlBox extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[4];
-        this.icons[0] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockControlTop");
-        this.icons[1] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockControlSide");
-        this.icons[2] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockATM");
-        this.icons[3] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":blockControlTopOther");
+        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":blockControlTop");
+        this.icons[1] = par1IconRegister.registerIcon(ModSim.MODID + ":blockControlSide");
+        this.icons[2] = par1IconRegister.registerIcon(ModSim.MODID + ":blockATM");
+        this.icons[3] = par1IconRegister.registerIcon(ModSim.MODID + ":blockControlTopOther");
     }
 
     @Override
@@ -78,17 +77,17 @@ public class BlockControlBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        world.playSoundEffect((double)i, (double)j, (double)k, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
+        world.playSoundEffect((double) i, (double) j, (double) k, ModSim.MODID + ":computer", 1.0F, 1.0F);
         GuiControlBox ui = null;
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
         if (world.getBlockMetadata(i, j, k) != 0 && world.getBlockMetadata(i, j, k) != 2) {
-            if (ModSimukraft.gameMode == GameMode.CREATIVE) {
-                mc.displayGuiScreen((GuiScreen)null);
-                ModSimukraft.sendChat("The Bank is not active when in Creative Mode (as there's no money!)");
+            if (ModSim.gameMode == GameMode.CREATIVE) {
+                mc.displayGuiScreen((GuiScreen) null);
+                ModSim.sendChat("The Bank is not active when in Creative Mode (as there's no money!)");
             } else {
-                ui2 = new GuiBankATM(new V3((double)i, (double)j, (double)k, entityplayer.dimension), entityplayer);
+                ui2 = new GuiBankATM(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
                 mc.displayGuiScreen(ui2);
             }
         } else {

@@ -5,7 +5,7 @@ package com.trhsy.sim.client.gui;/**
  */
 
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -115,8 +115,8 @@ public class GuiFarming extends GuiScreen {
             } else if (this.theFarmingBox.level == 1 && this.theFarmingBox.farmType == FarmType.CACTUS) {
                 this.drawCenteredString(this.fontRendererObj, "Cannot upgrade cactus farms above level 1", this.width / 2, 130, 16777215);
             } else if (this.theFarmingBox.level < 3) {
-                if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                    this.drawCenteredString(this.fontRendererObj, "Upgrade will cost " + ModSimukraft.displayMoney(this.getUpgradeCost()) + " credits", this.width / 2, 130, 16777215);
+                if (ModSim.gameMode != GameMode.CREATIVE) {
+                    this.drawCenteredString(this.fontRendererObj, "Upgrade will cost " + ModSim.displayMoney(this.getUpgradeCost()) + " credits", this.width / 2, 130, 16777215);
                 } else {
                     this.drawCenteredString(this.fontRendererObj, "Upgrade is Free", this.width / 2, 130, 16777215);
                 }
@@ -164,8 +164,8 @@ public class GuiFarming extends GuiScreen {
 
                     guibutton.displayString = this.theFarmingBox.farmType.toString() + " farm";
                 } else if (guibutton.id == 3) {
-                    float cash = ModSimukraft.states.credits;
-                    if (ModSimukraft.gameMode == GameMode.CREATIVE) {
+                    float cash = ModSim.states.credits;
+                    if (ModSim.gameMode == GameMode.CREATIVE) {
                         cash = 1000.0F;
                     }
 
@@ -174,13 +174,13 @@ public class GuiFarming extends GuiScreen {
                         guibutton.enabled = false;
                     } else {
                         if (this.theFarmingBox.getSizeLength() >= 4 && this.theFarmingBox.getSizeWidth() >= 4) {
-                            if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                                GameStates var10000 = ModSimukraft.states;
+                            if (ModSim.gameMode != GameMode.CREATIVE) {
+                                GameStates var10000 = ModSim.states;
                                 var10000.credits -= this.getUpgradeCost();
                             }
 
-                            ModSimukraft.farmToUpgradeCounter = 0;
-                            ModSimukraft.farmToUpgrade = this.theFarmingBox;
+                            ModSim.farmToUpgradeCounter = 0;
+                            ModSim.farmToUpgrade = this.theFarmingBox;
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;

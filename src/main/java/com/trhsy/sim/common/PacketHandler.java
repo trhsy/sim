@@ -53,10 +53,10 @@ public class PacketHandler implements IMessageHandler<SimukraftPacket, IMessage>
                     folk.serverToClientLocationUpdate(newpos);
                 }
             } else if (cmd.contentEquals("gamereset")) {
-                ModSimukraft.resetAndLoadNewWorld();
+                ModSim.resetAndLoadNewWorld();
             }
 
-            ModSimukraft.log.info("PacketHandler: " + sside + "-side PACKET RECIEVED: " + cmd);
+            ModSim.log.info("PacketHandler: " + sside + "-side PACKET RECIEVED: " + cmd);
             return null;
         } catch (Exception var11) {
             var11.printStackTrace();

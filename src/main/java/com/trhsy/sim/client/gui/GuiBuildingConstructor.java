@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
@@ -59,11 +59,11 @@ public class GuiBuildingConstructor extends GuiScreen {
         } else {
             this.theWorkers.clear();
 
-            for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-                FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
+            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
+                FolkData folk = (FolkData) ModSim.theFolks.get(f);
                 if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
                     if (folk.vocation == Vocation.BUILDER) {
-                        JobBuilder theirJob = (JobBuilder)folk.theirJob;
+                        JobBuilder theirJob = (JobBuilder) folk.theirJob;
                         if (theirJob.theStage == Stage.IDLE) {
                             theirJob.theStage = Stage.WORKERASSIGNED;
                         }
@@ -246,10 +246,12 @@ public class GuiBuildingConstructor extends GuiScreen {
             int idx;
             if (this.currentPage == 4) {
                 try {
-                     x = 10;y = 65;idx = 1;
+                    x = 10;
+                    y = 65;
+                    idx = 1;
 
-                    for(y = 0; y < ModSimukraft.theFolks.size(); ++y) {
-                        FolkData folk = (FolkData)ModSimukraft.theFolks.get(y);
+                    for (y = 0; y < ModSim.theFolks.size(); ++y) {
+                        FolkData folk = (FolkData) ModSim.theFolks.get(y);
                         this.buttonList.add(new GuiButton(idx, x, y, 100, 20, "Fire " + folk.name));
                         ++x;
                         x += 100;
@@ -309,11 +311,11 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 Building building = (Building)houses.get(boff);
                                 String realCost = "";
                                 if (this.theWorkers.size() > 1) {
-                                    realCost = " (" + ModSimukraft.displayMoney((float)building.blocksInBuilding * 0.02F * (float)this.theWorkers.size()) + ")";
+                                    realCost = " (" + ModSim.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
                                 }
 
                                 String line2 = building.ltrCount + " x " + building.ftbCount + " x " + building.layerCount;
-                                line3 = ModSimukraft.displayMoney((float)building.blocksInBuilding * 0.02F) + realCost;
+                                line3 = ModSim.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
                                 String line4 = building.author;
                                 GuiButton b3;
                                 this.buttonList.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
@@ -425,13 +427,13 @@ public class GuiBuildingConstructor extends GuiScreen {
                         if (this.currentPage == 8) {
                             if (guibutton.displayString.contentEquals("Build it!")) {
                                 if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
-                                    ModSimukraft.theBuildings.remove(this.selectedBuilding);
+                                    ModSim.theBuildings.remove(this.selectedBuilding);
                                 }
 
                                 this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
-                                ModSimukraft.theBuildings.add(this.selectedBuilding);
+                                ModSim.theBuildings.add(this.selectedBuilding);
                                 this.selectedBuilding.saveThisBuilding();
-                                ModSimukraft.network.sendToAll(new LoadBuildingMessage("GuiBuildingCon"));
+                                ModSim.network.sendToAll(new LoadBuildingMessage("GuiBuildingCon"));
 
                                 for(int i = 0; i < this.theWorkers.size(); ++i) {
                                     FolkData theWorker = (FolkData)this.theWorkers.get(i);

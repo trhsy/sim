@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.entity;
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.entity.enums.Level;
@@ -155,7 +155,7 @@ public class Relationship implements Serializable {
 
     public static void addRelationship(Relationship rel) {
         boolean got = false;
-        Iterator i$ = ModSimukraft.theRelationships.iterator();
+        Iterator i$ = ModSim.theRelationships.iterator();
 
         while(i$.hasNext()) {
             Relationship relation = (Relationship)i$.next();
@@ -173,7 +173,7 @@ public class Relationship implements Serializable {
         }
 
         if (!got) {
-            ModSimukraft.theRelationships.add(rel);
+            ModSim.theRelationships.add(rel);
         }
 
     }
@@ -302,7 +302,7 @@ public class Relationship implements Serializable {
 
     public void levelIncrease(int byAmount) {
         String oldLevel = this.toFullString();
-        ModSimukraft.log.info("Relationship: + current level and sublevel:" + this.theLevel.toString() + " " + this.theSubLevel);
+        ModSim.log.info("Relationship: + current level and sublevel:" + this.theLevel.toString() + " " + this.theSubLevel);
         this.theSubLevel += byAmount;
         if (this.theSubLevel > 100) {
             if (this.theLevel == Level.AQUAINTANCE) {
@@ -385,14 +385,14 @@ public class Relationship implements Serializable {
             maleFolk = this.folk1;
         }
 
-        for(int b = 0; b < ModSimukraft.theBuildings.size(); ++b) {
-            Building building = (Building)ModSimukraft.theBuildings.get(b);
+        for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
+            Building building = (Building) ModSim.theBuildings.get(b);
             if (building != null && femaleFolk.getHome() != null && building.primaryXYZ.isSameCoordsAs(femaleFolk.getHome().primaryXYZ, true, false)) {
                 building.removeTennant(femaleFolk.name);
             }
         }
 
-        File f = new File(ModSimukraft.getSavesDataFolder() + "Folks" + File.separator + femaleFolk.name + ".sk2");
+        File f = new File(ModSim.getSavesDataFolder() + "Folks" + File.separator + femaleFolk.name + ".sk2");
         f.delete();
         String surname = maleFolk.name.substring(maleFolk.name.indexOf(" ") + 1).trim();
         int m = femaleFolk.name.indexOf(" ");
@@ -445,13 +445,13 @@ public class Relationship implements Serializable {
 
     private void notifyRelationshipChange() {
         if (this.folk2 == null || this.theLevel == Level.MARRIED || this.theLevel == Level.PARTNER) {
-            ModSimukraft.sendChat(this.toFullString().replaceAll(" is ", " is now "));
+            ModSim.sendChat(this.toFullString().replaceAll(" is ", " is now "));
         }
 
     }
 
     public static void loadRelationships() {
-        File relFiles = new File(ModSimukraft.getSavesDataFolder() + "Relationships" + File.separator);
+        File relFiles = new File(ModSim.getSavesDataFolder() + "Relationships" + File.separator);
         relFiles.mkdirs();
         boolean useNewFormat = false;
         File[] arr$ = relFiles.listFiles();
@@ -468,14 +468,14 @@ public class Relationship implements Serializable {
         }
 
         if (useNewFormat) {
-            ModSimukraft.theRelationships.clear();
+            ModSim.theRelationships.clear();
             arr$ = relFiles.listFiles();
             len$ = arr$.length;
 
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
-                    ArrayList<String> strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
+                    ArrayList<String> strings = ModSim.loadSK2(f.getAbsoluteFile().toString());
                     Relationship rel = new Relationship();
                     Iterator iterator = strings.iterator();
 
@@ -522,7 +522,7 @@ public class Relationship implements Serializable {
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".suk")) {
-                    Relationship rel = (Relationship)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
+                    Relationship rel = (Relationship) ModSim.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (rel != null) {
                         addRelationship(rel);
                     }
@@ -537,9 +537,9 @@ public class Relationship implements Serializable {
         if (side == Side.SERVER) {
             ArrayList<String> strings = new ArrayList();
 
-            for(int b = 0; b < ModSimukraft.theRelationships.size(); ++b) {
+            for (int b = 0; b < ModSim.theRelationships.size(); ++b) {
                 try {
-                    Relationship rel = (Relationship)ModSimukraft.theRelationships.get(b);
+                    Relationship rel = (Relationship) ModSim.theRelationships.get(b);
                     String fn = rel.folk1.name.replaceAll(" ", "") + rel.folk2.name.replaceAll(" ", "");
                     strings.clear();
                     strings.add("folk1|" + rel.folk1.name);
@@ -547,7 +547,7 @@ public class Relationship implements Serializable {
                     strings.add("level|" + rel.theLevel.name());
                     strings.add("sublevel|" + rel.theSubLevel);
                     strings.add("bloodrelation|" + rel.isBloodRelation);
-                    ModSimukraft.saveSK2(ModSimukraft.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2", strings);
+                    ModSim.saveSK2(ModSim.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2", strings);
                 } catch (Exception var5) {
                 }
             }
@@ -557,7 +557,7 @@ public class Relationship implements Serializable {
 
     public static void meddleWithRelationship(FolkData folk1, FolkData folk2) {
         if (folk1.name.contentEquals(folk2.name)) {
-            ModSimukraft.log.warning("Relationship: meddleWithRelationship() with same folk for both");
+            ModSim.log.warning("Relationship: meddleWithRelationship() with same folk for both");
         } else {
             Relationship rel = getRelationshipBetween(folk1, folk2);
             if (rel == null) {
@@ -576,8 +576,8 @@ public class Relationship implements Serializable {
     }
 
     public static Relationship getRelationshipBetween(FolkData folk1, FolkData folk2) {
-        for(int b = 0; b < ModSimukraft.theRelationships.size(); ++b) {
-            Relationship rel = (Relationship)ModSimukraft.theRelationships.get(b);
+        for (int b = 0; b < ModSim.theRelationships.size(); ++b) {
+            Relationship rel = (Relationship) ModSim.theRelationships.get(b);
 
             try {
                 if (folk2 == null && rel.folk2 == null && rel.folk1.name.contentEquals(folk1.name)) {
@@ -601,9 +601,9 @@ public class Relationship implements Serializable {
     public static ArrayList<Relationship> getRelationshipsFor(FolkData theFolk) {
         ArrayList<Relationship> rels = new ArrayList();
 
-        for(int i = 0; i < ModSimukraft.theRelationships.size(); ++i) {
+        for (int i = 0; i < ModSim.theRelationships.size(); ++i) {
             try {
-                Relationship rel = (Relationship)ModSimukraft.theRelationships.get(i);
+                Relationship rel = (Relationship) ModSim.theRelationships.get(i);
                 if (rel.folk1.name.contentEquals(theFolk.name) || rel.folk2.name.contentEquals(theFolk.name)) {
                     rels.add(rel);
                 }

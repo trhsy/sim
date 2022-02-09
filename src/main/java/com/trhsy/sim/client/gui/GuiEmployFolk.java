@@ -6,7 +6,7 @@ package com.trhsy.sim.client.gui;/**
 
 import com.trhsy.sim.common.PathBox;
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.MiningBox;
@@ -163,15 +163,15 @@ public class GuiEmployFolk extends GuiScreen {
                 }
 
                 if (guibutton.id == 1000) {
-                    if (ModSimukraft.states.credits <= 0.0F && ModSimukraft.gameMode != GameMode.CREATIVE) {
-                        ModSimukraft.sendChat("You need some Sim-u-Credits to employ folks.");
+                    if (ModSim.states.credits <= 0.0F && ModSim.gameMode != GameMode.CREATIVE) {
+                        ModSim.sendChat("You need some Sim-u-Credits to employ folks.");
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                         return;
                     }
 
-                    if (ModSimukraft.gameMode == GameMode.CREATIVE && this.vocation == Vocation.MERCHANT) {
-                        ModSimukraft.sendChat("Builder's merchant cannot be hired in creative mode");
+                    if (ModSim.gameMode == GameMode.CREATIVE && this.vocation == Vocation.MERCHANT) {
+                        ModSim.sendChat("Builder's merchant cannot be hired in creative mode");
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                         return;
@@ -179,8 +179,8 @@ public class GuiEmployFolk extends GuiScreen {
 
                     ArrayList<FolkData> efolks = new ArrayList();
 
-                    for(int w = 0; w < this.selectedFolks.size(); ++w) {
-                        GuiButton button = (GuiButton)this.selectedFolks.get(w);
+                    for (int w = 0; w < this.selectedFolks.size(); ++w) {
+                        GuiButton button = (GuiButton) this.selectedFolks.get(w);
                         String folkname = button.displayString;
                         if (folkname.contains("(")) {
                             folkname = button.displayString.substring(0, button.displayString.indexOf(" (")).trim();
@@ -202,8 +202,8 @@ public class GuiEmployFolk extends GuiScreen {
             FolkData efolk = (FolkData)efolks.get(i);
             efolk.employedAt = this.controlBoxLocation;
             efolk.setTheirJob(this.vocation);
-            if (ModSimukraft.isDayTime()) {
-                efolk.gotoXYZ(efolk.employedAt, (GotoMethod)null);
+            if (ModSim.isDayTime()) {
+                efolk.gotoXYZ(efolk.employedAt, (GotoMethod) null);
             }
         }
 

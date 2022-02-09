@@ -5,7 +5,7 @@ package com.trhsy.sim.client.gui;/**
  */
 
 import com.trhsy.sim.common.Marker;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
@@ -125,15 +125,15 @@ public class GuiMarker extends GuiScreen {
 
                 point.name = name;
 
-                for(int p = 0; p < ModSimukraft.theCourierPoints.size(); ++p) {
-                    V3 epoint = (V3)ModSimukraft.theCourierPoints.get(p);
+                for (int p = 0; p < ModSim.theCourierPoints.size(); ++p) {
+                    V3 epoint = (V3) ModSim.theCourierPoints.get(p);
                     if (epoint.name.contentEquals(name)) {
                         this.errorText = "Error: The name must be unique, '" + name + "' is already used.";
                         return;
                     }
                 }
 
-                ModSimukraft.theCourierPoints.add(point);
+                ModSim.theCourierPoints.add(point);
                 this.errorText = "Courier/Beaming point '" + name + "' has been added.";
             }
 
@@ -208,7 +208,7 @@ public class GuiMarker extends GuiScreen {
                 } else {
                     if (cx != ex) {
                         GuiMarker.this.errorText = "Please stand facing the primary marker with the rear marker in the distance.";
-                        ModSimukraft.sendChat("Could not copy building, Technical info:cx=" + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
+                        ModSim.sendChat("Could not copy building, Technical info:cx=" + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
                         return;
                     }
 
@@ -262,15 +262,15 @@ public class GuiMarker extends GuiScreen {
                                 int iD = Block.getIdFromBlock(GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlock(xxx, yyy, zzz));
                                 int meta = GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlockMetadata(xxx, yyy, zzz);
                                 String letter = "";
-                                if (iD == Block.getIdFromBlock(ModSimukraft.controlBox)) {
+                                if (iD == Block.getIdFromBlock(ModSim.controlBox)) {
                                     letter = "$";
                                 } else {
-                                    letter = (String)key.get(iD + ":" + meta);
+                                    letter = (String) key.get(iD + ":" + meta);
                                     if (key.get(iD + ":" + meta) == null) {
                                         ++ch;
-                                        key.put(iD + ":" + meta, (new Character((char)ch)).toString());
-                                        keyString = keyString + (new Character((char)ch)).toString() + "=" + iD + ":" + meta + ";";
-                                        letter = (new Character((char)ch)).toString();
+                                        key.put(iD + ":" + meta, (new Character((char) ch)).toString());
+                                        keyString = keyString + (new Character((char) ch)).toString() + "=" + iD + ":" + meta + ";";
+                                        letter = (new Character((char) ch)).toString();
                                     }
                                 }
 
@@ -294,16 +294,16 @@ public class GuiMarker extends GuiScreen {
                         return;
                     }
 
-                    File check = new File(ModSimukraft.getSimukraftFolder() + "/buildings/");
+                    File check = new File(ModSim.getSimukraftFolder() + "/buildings/");
                     if (!check.exists()) {
-                        ModSimukraft.sendChat(ModSimukraft.getSimukraftFolder() + "/buildings/  folder is missing, The mod is not correctly installed, please copy the simukraft folder AND the zip file.");
+                        ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/  folder is missing, The mod is not correctly installed, please copy the simukraft folder AND the zip file.");
                         return;
                     }
 
                     String f = String.valueOf(System.currentTimeMillis());
                     ltr = f.length();
                     f = f.substring(ltr - 6);
-                    FileWriter fstream = new FileWriter(ModSimukraft.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
+                    FileWriter fstream = new FileWriter(ModSim.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
                     BufferedWriter out = new BufferedWriter(fstream);
                     out.write(ltrCountx + "x" + ftbCountx + "x" + layerLines.size() + "\r\n");
                     out.write(keyString + "\r\n");
@@ -315,7 +315,7 @@ public class GuiMarker extends GuiScreen {
                     out.close();
                     Thread.sleep(500L);
                     GuiMarker.this.errorText = "Building copied and stored as 'My Build" + f + "' in Other buildings.";
-                    GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
+                    GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, ModSim.MODID + ":computer", 1.0F, 1.0F);
                     Building.initialiseAllBuildings();
                 } catch (Exception var33) {
                     var33.printStackTrace();

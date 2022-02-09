@@ -1,6 +1,10 @@
 package com.trhsy.sim.common.creativetab;
 
+import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.block.BlockCheeseBlock;
+import com.trhsy.sim.common.block.ItemBlockLightBox;
 import com.trhsy.sim.common.item.ItemGranulesCopper;
+import com.trhsy.sim.common.loader.ItemLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -13,7 +17,7 @@ import net.minecraft.item.Item;
 public class CreativeTabsSimU extends CreativeTabs {
     public CreativeTabsSimU() {
         //返回modid
-        super("sim_u");
+        super(ModSim.MODID);
     }
 
     @Override

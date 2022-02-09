@@ -6,7 +6,7 @@ package com.trhsy.sim.client.render;/**
 
 import com.trhsy.sim.client.model.ModelConBox;
 import com.trhsy.sim.common.EntityConBox;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.V3;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -29,7 +29,7 @@ import java.util.Map;
  * ========================================
  **/
 public class RenderConBox extends Render{
-    private static final ResourceLocation myTexture = new ResourceLocation(ModSimukraft.MODID + "", "textures/models/entityConBox.png");
+    private static final ResourceLocation myTexture = new ResourceLocation(ModSim.MODID + "", "textures/models/entityConBox.png");
     EntityConBox entity = null;
     ModelConBox modelBox;
     private int actualCount = -1;

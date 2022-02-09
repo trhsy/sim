@@ -7,7 +7,7 @@ package com.trhsy.sim.common.block;/**
 import com.trhsy.sim.client.gui.GuiMarker;
 import com.trhsy.sim.common.EntityAlignBeam;
 import com.trhsy.sim.common.Marker;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
@@ -16,7 +16,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,7 +54,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockMarker");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":blockMarker");
     }
 
     @Override
@@ -127,7 +126,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             if (markers.size() < 4) {
                 V3 pos = new V3((double)i, (double)j, (double)k, world.provider.dimensionId);
                 pos.y = pos.y + 0.01D;
-                if (ModSimukraft.configEnableMarkerAlignmentBeams) {
+                if (ModSim.configEnableMarkerAlignmentBeams) {
                     EntityAlignBeam beam = new EntityAlignBeam(world);
                     ma.caption = markerCaption;
                     beam.setLocationAndAngles(pos.x, pos.y, pos.z, 0.0F, 0.0F);
@@ -165,7 +164,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             }
 
             if (!helpText.contentEquals("")) {
-                ModSimukraft.sendChat(helpText);
+                ModSim.sendChat(helpText);
             }
 
             super.onBlockPlacedBy(world, i, j, k, player, is);
@@ -191,7 +190,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
         this.location = new V3((double)i, (double)j, (double)k, entityplayer.dimension);
-        world.playSoundEffect((double)i, (double)j, (double)k, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
+        world.playSoundEffect((double)i, (double)j, (double)k, ModSim.MODID + ":computer", 1.0F, 1.0F);
         GuiMarker ui = new GuiMarker(this.location, entityplayer);
         Minecraft mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(ui);

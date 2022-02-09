@@ -34,8 +34,13 @@ public class CommonProxy {
      * @return void
      **/
     public void preInit(FMLPreInitializationEvent event) {
+        //加载配置
+        new ConfigLoader(event);
+        //加载物品栏
         new CreativeTabsLoader(event);
+        //加载所以物品
         new ItemLoader(event);
+        //加载所以方块
         new BlockLoader(event);
     }
     /**
@@ -92,7 +97,7 @@ public class CommonProxy {
             o = in2.readObject();
             in2.close();
         } catch (Exception var5) {
-            ModSimukraft.log.info("OLD LOADER - Could not load object " + var5.getMessage());
+            ModSim.log.info("OLD LOADER - Could not load object " + var5.getMessage());
         }
 
         return o;

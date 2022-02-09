@@ -5,7 +5,7 @@ package com.trhsy.sim.client;/**
  */
 
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -64,22 +64,22 @@ public class ClientTickHandler {
         }
 
         try {
-            if (ModSimukraft.states.gameModeNumber <= 0) {
+            if (ModSim.states.gameModeNumber <= 0) {
                 return;
             }
         } catch (Exception var3) {
         }
 
         if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
-            ModSimukraft.config.save();
-            ModSimukraft.states.saveStates();
+            ModSim.config.save();
+            ModSim.states.saveStates();
             Building.saveAllBuildings();
             CourierTask.saveCourierTasksAndPoints();
             MiningBox.saveMiningBoxes();
             FarmingBox.saveFarmingBoxes();
 
-            for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-                FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
+            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
+                FolkData folk = (FolkData) ModSim.theFolks.get(f);
                 folk.updateLocationFromEntity();
                 folk.saveThisFolk();
             }
@@ -94,7 +94,7 @@ public class ClientTickHandler {
             String worldname = "unknown";
 
             try {
-                if (ModSimukraft.states.gameModeNumber == 10) {
+                if (ModSim.states.gameModeNumber == 10) {
                     return;
                 }
 
@@ -106,17 +106,17 @@ public class ClientTickHandler {
             }
 
             try {
-                if (ModSimukraft.proxy.ranStartup) {
+                if (ModSim.proxy.ranStartup) {
                     int HUDoffset = 0;
                     if (this.mc.thePlayer.dimension == 1) {
                         HUDoffset = 20;
                     }
 
-                    HUDoffset = HUDoffset + ModSimukraft.configHUDoffset;
-                    if (ModSimukraft.gameMode == GameMode.CREATIVE) {
-                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimukraft.getDayOfWeek() + ") - Population: " + ModSimukraft.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
+                    HUDoffset = HUDoffset + ModSim.configHUDoffset;
+                    if (ModSim.gameMode == GameMode.CREATIVE) {
+                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - Population: " + ModSim.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     } else {
-                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimukraft.getDayOfWeek() + ") - Population: " + ModSimukraft.theFolks.size() + "   Sim-U-credits: " + ModSimukraft.displayMoney(ModSimukraft.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
+                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - Population: " + ModSim.theFolks.size() + "   Sim-U-credits: " + ModSim.displayMoney(ModSim.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     }
                 } else {
                     this.hud.drawString(this.mc.fontRendererObj, "Loading SimCity...", this.hud.width / 2, 2, 16777215);

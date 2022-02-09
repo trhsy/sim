@@ -1,9 +1,0 @@
-
-M
-java:S1135"2Complete the task associated to this TODO comment.(Λσ†±ÿÿÿÿÿ
-N	java:S106H"9Replace this use of System.out or System.err by a logger.(Έ¬
-h	java:S100e"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†εχόÿÿÿÿ
-O
-java:S3400f"9Remove this method and declare a constant for this value.(”·³›
-H
-java:S1172e"-Remove this unused method parameter "random".(†εχόÿÿÿÿ

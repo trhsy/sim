@@ -5,7 +5,7 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.MiningBox;
@@ -68,7 +68,7 @@ public class JobMiner extends Job implements Serializable {
         }
 
         if (this.theMiningBox == null) {
-            ModSimukraft.sendChat("There's a problem with the mining box that " + this.theFolk.name + " was using. Please replace it");
+            ModSim.sendChat("There's a problem with the mining box that " + this.theFolk.name + " was using. Please replace it");
             this.theFolk.selfFire();
         } else {
             if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
@@ -97,7 +97,7 @@ public class JobMiner extends Job implements Serializable {
         super.onUpdate();
 
         try {
-            if (!ModSimukraft.isDayTime()) {
+            if (!ModSim.isDayTime()) {
                 this.theStage = Stage.IDLE;
                 this.theFolk.action = FolkAction.WANDER;
                 this.theFolk.statusText = "Finished work for the day";
@@ -119,7 +119,7 @@ public class JobMiner extends Job implements Serializable {
 
         if (this.theStage == Stage.MINING) {
             this.runDelay = (int)(2000.0F / this.theFolk.levelMiner);
-            if (ModSimukraft.gameMode == GameMode.CREATIVE) {
+            if (ModSim.gameMode == GameMode.CREATIVE) {
                 this.runDelay = 10;
             }
         }
@@ -129,7 +129,7 @@ public class JobMiner extends Job implements Serializable {
             if (this.theFolk.vocation != Vocation.MINER) {
                 this.theFolk.selfFire();
             } else {
-                if (this.theStage == Stage.IDLE && ModSimukraft.isDayTime()) {
+                if (this.theStage == Stage.IDLE && ModSim.isDayTime()) {
                     this.theStage = Stage.WAITINGFORCHEST;
                 } else if (this.theStage == Stage.WAITINGFORCHEST) {
                     this.stageWaitingForChest();
@@ -166,7 +166,7 @@ public class JobMiner extends Job implements Serializable {
         this.theFolk.isWorking = false;
         if (this.isChestsFull) {
             if (System.currentTimeMillis() - this.timeSinceLastChestFullMessage > 120000L) {
-                ModSimukraft.sendChat(this.theFolk.name + "'s chest is full, they've stopped mining.");
+                ModSim.sendChat(this.theFolk.name + "'s chest is full, they've stopped mining.");
                 this.timeSinceLastChestFullMessage = System.currentTimeMillis();
             }
 
@@ -191,9 +191,9 @@ public class JobMiner extends Job implements Serializable {
                 if (this.theFolk.theEntity != null) {
                     try {
                         if (this.theFolk.gender == 0) {
-                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readym", 1.0F, 1.0F, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1.0F, 1.0F, false);
                         } else {
-                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":readyf", 1.0F, 1.0F, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
                         }
                     } catch (Exception var3) {
                     }
@@ -216,9 +216,9 @@ public class JobMiner extends Job implements Serializable {
                         this.theFolk.statusText = "Beam me down, Scotty!";
                         if (this.theFolk.theEntity != null) {
                             if (this.theFolk.gender == 0) {
-                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":beamm", 1.0F, 1.0F, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamm", 1.0F, 1.0F, false);
                             } else {
-                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":beamf", 1.0F, 1.0F, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamf", 1.0F, 1.0F, false);
                             }
                         }
 
@@ -242,8 +242,8 @@ public class JobMiner extends Job implements Serializable {
         this.theFolk.beamMeTo(this.theFolk.employedAt.clone());
         this.theStage = Stage.IDLE;
         this.theFolk.action = FolkAction.WANDER;
-        ModSimukraft.sendChat(this.theFolk.name + " has finished their shift down the mine.");
-        this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
+        ModSim.sendChat(this.theFolk.name + " has finished their shift down the mine.");
+        this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
     }
 
     private void setNextMineableBlock() {
@@ -254,7 +254,7 @@ public class JobMiner extends Job implements Serializable {
         V3 m2 = this.theMiningBox.marker2XYZ;
         V3 m3 = this.theMiningBox.marker3XYZ;
         if (m1 == null) {
-            ModSimukraft.sendChat("There was a problem with the mine. The markers don't seem to be placed correctly, see Manual/Wiki");
+            ModSim.sendChat("There was a problem with the mine. The markers don't seem to be placed correctly, see Manual/Wiki");
         } else {
             boolean ltrCount;
             int xo;
@@ -323,7 +323,7 @@ public class JobMiner extends Job implements Serializable {
                             id = this.jobWorld.getBlock(xxx, l, zzz);
                             this.jobWorld.getBlockMetadata(xxx, l, zzz);
                             if (id == Blocks.bedrock) {
-                                ModSimukraft.sendChat(this.theFolk.name + " has retired from mining, as the mine has now reached bedrock.");
+                                ModSim.sendChat(this.theFolk.name + " has retired from mining, as the mine has now reached bedrock.");
                                 this.theFolk.beamMeTo(this.theFolk.employedAt);
                                 this.theFolk.selfFire();
                                 return;
@@ -418,16 +418,16 @@ public class JobMiner extends Job implements Serializable {
                                     }
 
                                     Block lbid = this.jobWorld.getBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue());
-                                    if (this.miningChests.size() > 0 && lbid != ModSimukraft.lightBox) {
+                                    if (this.miningChests.size() > 0 && lbid != ModSim.lightBox) {
                                         ItemStack light = null;
 
                                         for(int lightmeta = 0; light == null && lightmeta < 8; ++lightmeta) {
-                                            light = inventoriesGet(this.miningChests, new ItemStack(ModSimukraft.lightBox, 1, lightmeta), false, true);
+                                            light = inventoriesGet(this.miningChests, new ItemStack(ModSim.lightBox, 1, lightmeta), false, true);
                                         }
 
                                         if (light != null) {
-                                            ModSimukraft.log.info("Light box placed at " + lightbox.toString());
-                                            this.jobWorld.setBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue(), ModSimukraft.lightBox, light.getMetadata(), 3);
+                                            ModSim.log.info("Light box placed at " + lightbox.toString());
+                                            this.jobWorld.setBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue(), ModSim.lightBox, light.getMetadata(), 3);
                                         }
                                     }
                                 }
@@ -436,7 +436,7 @@ public class JobMiner extends Job implements Serializable {
                             }
 
                             if (id == Blocks.bedrock) {
-                                ModSimukraft.sendChat(this.theFolk.name + " has retired from mining, hit bedrock, try mining horizontally higher up");
+                                ModSim.sendChat(this.theFolk.name + " has retired from mining, hit bedrock, try mining horizontally higher up");
                                 this.theFolk.beamMeTo(this.theFolk.employedAt);
                                 this.theFolk.selfFire();
                                 return;
@@ -456,7 +456,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (!flagFound) {
-                    ModSimukraft.sendChat(this.theFolk.name + " has retired from mining, as the horizontal mine has reached it's 1 Km limit. Should you need a longer mine, simply start a new one at the end.");
+                    ModSim.sendChat(this.theFolk.name + " has retired from mining, as the horizontal mine has reached it's 1 Km limit. Should you need a longer mine, simply start a new one at the end.");
                     this.theFolk.beamMeTo(this.theFolk.employedAt);
                     this.theFolk.isWorking = false;
                     this.theFolk.selfFire();
@@ -539,8 +539,8 @@ public class JobMiner extends Job implements Serializable {
                 }
             }
 
-            if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                GameStates var10000 = ModSimukraft.states;
+            if (ModSim.gameMode != GameMode.CREATIVE) {
+                GameStates var10000 = ModSim.states;
                 var10000.credits -= 0.012F;
                 int b4 = (int)Math.floor((double)this.theFolk.levelMiner);
                 if (this.theFolk.levelMiner < 10.0F) {
@@ -550,7 +550,7 @@ public class JobMiner extends Job implements Serializable {
 
                 int aft = (int)Math.floor((double)this.theFolk.levelMiner);
                 if (b4 != aft) {
-                    ModSimukraft.sendChat(this.theFolk.name + " has just levelled up to Miner Level " + aft);
+                    ModSim.sendChat(this.theFolk.name + " has just levelled up to Miner Level " + aft);
                 }
             } else {
                 this.theFolk.levelMiner = 10.0F;

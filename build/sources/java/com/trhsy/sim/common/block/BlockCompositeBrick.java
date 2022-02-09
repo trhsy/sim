@@ -4,14 +4,13 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
 
 /**
@@ -36,7 +35,7 @@ public class BlockCompositeBrick extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":compositebrick");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":compositebrick");
     }
 
     @Override

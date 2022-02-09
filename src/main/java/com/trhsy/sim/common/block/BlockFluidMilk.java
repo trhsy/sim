@@ -4,16 +4,14 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fluids.Fluid;
 
 /**
  * ========================================
@@ -28,7 +26,7 @@ public class BlockFluidMilk extends BlockFluidClassic {
     private IIcon[] icons;
 
     public BlockFluidMilk() {
-        super(ModSimukraft.SUKfluidMilk, Material.water);
+        super(ModSim.SUKfluidMilk, Material.water);
         this.setUnlocalizedName("block.fluidMilk.name");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
@@ -38,8 +36,8 @@ public class BlockFluidMilk extends BlockFluidClassic {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[2];
-        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":milk_still");
-        this.icons[1] = iconRegister.registerIcon(ModSimukraft.MODID + ":milk_flow");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":milk_still");
+        this.icons[1] = iconRegister.registerIcon(ModSim.MODID + ":milk_flow");
     }
 
     @Override

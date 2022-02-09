@@ -5,7 +5,7 @@ package com.trhsy.sim.client.render;/**
  */
 
 import com.trhsy.sim.common.EntityFolk;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -35,8 +35,8 @@ public class RenderFolk extends RenderBiped {
 
     protected ResourceLocation func_110775_a(Entity entity) {
         if (entity instanceof EntityFolk) {
-            EntityFolk theFolk = (EntityFolk)entity;
-            ResourceLocation myTexture = new ResourceLocation(ModSimukraft.MODID + "", "skins/" + theFolk.getTexture());
+            EntityFolk theFolk = (EntityFolk) entity;
+            ResourceLocation myTexture = new ResourceLocation(ModSim.MODID + "", "skins/" + theFolk.getTexture());
             return myTexture;
         } else {
             return null;

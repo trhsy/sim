@@ -6,7 +6,7 @@ package com.trhsy.sim.common.block;/**
 
 import com.trhsy.sim.client.gui.GuiFarming;
 import com.trhsy.sim.common.Marker;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
@@ -17,7 +17,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -44,7 +43,7 @@ public class BlockFarmingBox extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockFarming");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":blockFarming");
     }
 
     @Override
@@ -55,26 +54,26 @@ public class BlockFarmingBox extends Block {
 
     @Override
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
-        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double)par2, (double)par3, (double)par4, par1World.provider.dimensionId));
+        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double) par2, (double) par3, (double) par4, par1World.provider.dimensionId));
         if (theFolk != null) {
             theFolk.selfFire();
         }
 
-        FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double)par2, (double)par3, (double)par4, par1World.provider.dimensionId));
-        ModSimukraft.theFarmingBoxes.remove(m);
-        par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSimukraft.MODID + ":powerdown", 1.0F, 1.0F);
+        FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double) par2, (double) par3, (double) par4, par1World.provider.dimensionId));
+        ModSim.theFarmingBoxes.remove(m);
+        par1World.playSoundEffect((double) par2, (double) par3, (double) par4, ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
     }
 
     @Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4) {
         if (BlockMarker.markers.isEmpty()) {
-            ModSimukraft.sendChat("You need to place down 3 markers first to mark out the farming area");
+            ModSim.sendChat("You need to place down 3 markers first to mark out the farming area");
         } else if (BlockMarker.markers.size() != 3) {
-            ModSimukraft.sendChat("You need to place down 3 markers, not " + BlockMarker.markers.size());
+            ModSim.sendChat("You need to place down 3 markers, not " + BlockMarker.markers.size());
         } else {
             FarmingBox m;
-            ModSimukraft.theFarmingBoxes.add(m = new FarmingBox(new V3((double)par2, (double)par3, (double)par4, par1World.provider.dimensionId)));
+            ModSim.theFarmingBoxes.add(m = new FarmingBox(new V3((double) par2, (double) par3, (double) par4, par1World.provider.dimensionId)));
 
             try {
                 int first = BlockMarker.markers.size() - 3;
@@ -92,7 +91,7 @@ public class BlockFarmingBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        world.playSoundEffect((double)i, (double)j, (double)k, ModSimukraft.MODID + ":computer", 1.0F, 1.0F);
+        world.playSoundEffect((double) i, (double) j, (double) k, ModSim.MODID + ":computer", 1.0F, 1.0F);
 
         try {
             FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double)i, (double)j, (double)k, entityplayer.dimension));
@@ -101,7 +100,7 @@ public class BlockFarmingBox extends Block {
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(new GuiFarming(farmingBlock, folk));
         } catch (Exception var13) {
-            ModSimukraft.sendChat("Sorry, there was a problem with this farming box, try replacing it.");
+            ModSim.sendChat("Sorry, there was a problem with this farming box, try replacing it.");
         }
 
         return true;

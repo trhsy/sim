@@ -5,7 +5,7 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
@@ -68,7 +68,7 @@ public class JobTerraformer extends Job {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -78,7 +78,7 @@ public class JobTerraformer extends Job {
         }
 
         if (this.theStage == Stage.INPROGRESS) {
-            if (ModSimukraft.gameMode == GameMode.CREATIVE) {
+            if (ModSim.gameMode == GameMode.CREATIVE) {
                 this.runDelay = 1;
             } else {
                 this.runDelay = 300;
@@ -87,7 +87,7 @@ public class JobTerraformer extends Job {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.WAITINGFORRESOURCES) {
                     this.stageWaitingForResources();
                 } else if (this.theStage == Stage.INPROGRESS) {
@@ -223,7 +223,7 @@ public class JobTerraformer extends Job {
             this.totalBlockCount = this.closestBlocks.size();
             if (this.totalBlockCount == 0) {
                 this.theFolk.statusText = "Nothing to terraform!";
-                ModSimukraft.sendChat("There's nothing here that can be terraformed in that way");
+                ModSim.sendChat("There's nothing here that can be terraformed in that way");
                 this.theFolk.selfFire();
                 return;
             }
@@ -234,7 +234,7 @@ public class JobTerraformer extends Job {
             //int count = false;
             ItemStack gotDirt;
             if (this.theType == TerraformerType.WATERTODIRT) {
-                if (ModSimukraft.gameMode != GameMode.CREATIVE) {
+                if (ModSim.gameMode != GameMode.CREATIVE) {
                     gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Blocks.dirt, 1), false, false);
                     if (gotDirt == null) {
                         this.theFolk.statusText = "I need more dirt!";
@@ -248,8 +248,8 @@ public class JobTerraformer extends Job {
                 hasPlacedTree = false;
                 if (this.counter % 15 == 0) {
                     hasPlacedTree = true;
-                    if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                        is = inventoriesGet(this.constructorChests, (ItemStack)null, true, false);
+                    if (ModSim.gameMode != GameMode.CREATIVE) {
+                        is = inventoriesGet(this.constructorChests, (ItemStack) null, true, false);
                         if (is == null) {
                             this.theFolk.statusText = "No more saplings, place some in a chest";
                             this.theStage = Stage.WAITINGFORRESOURCES;
@@ -262,7 +262,7 @@ public class JobTerraformer extends Job {
                 }
             } else if (this.theType != TerraformerType.LAWNMOWER && this.theType != TerraformerType.DEICER && this.theType != TerraformerType.FLATTENIZER) {
                 if (this.theType == TerraformerType.VALUEPACK) {
-                    if (ModSimukraft.gameMode != GameMode.CREATIVE) {
+                    if (ModSim.gameMode != GameMode.CREATIVE) {
                         gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Blocks.dirt, 1), false, false);
                         if (gotDirt == null) {
                             this.theFolk.statusText = "I need more dirt!";
@@ -272,7 +272,7 @@ public class JobTerraformer extends Job {
                         }
                     }
                 } else if (this.theType != TerraformerType.GLACIAL && this.theType != TerraformerType.MOISTURIZER) {
-                    if (this.theType == TerraformerType.THERMALIZER && ModSimukraft.gameMode != GameMode.CREATIVE) {
+                    if (this.theType == TerraformerType.THERMALIZER && ModSim.gameMode != GameMode.CREATIVE) {
                         gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Items.bucket, 1), false, false);
                         if (gotDirt == null) {
                             this.theFolk.statusText = "I need some empty buckets to put the lava into.";
@@ -281,7 +281,7 @@ public class JobTerraformer extends Job {
                             return;
                         }
                     }
-                } else if (ModSimukraft.gameMode != GameMode.CREATIVE) {
+                } else if (ModSim.gameMode != GameMode.CREATIVE) {
                     if (this.buckets == 0) {
                         gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Items.water_bucket, 1), false, false);
                         if (gotDirt == null) {
@@ -308,16 +308,16 @@ public class JobTerraformer extends Job {
             GameStates var10000;
             if (this.theType == TerraformerType.WATERTODIRT) {
                 this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.dirt, 0, 3);
-                if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                    var10000 = ModSimukraft.states;
-                    var10000.credits = (float)((double)var10000.credits - 0.009D);
+                if (ModSim.gameMode != GameMode.CREATIVE) {
+                    var10000 = ModSim.states;
+                    var10000.credits = (float) ((double) var10000.credits - 0.009D);
                 }
             } else if (this.theType == TerraformerType.NATURE) {
                 if (hasPlacedTree) {
                     this.jobWorld.setBlock(v.x.intValue(), v.y.intValue() + 1, v.z.intValue(), Blocks.sapling, is.getMetadata(), 3);
-                    if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                        var10000 = ModSimukraft.states;
-                        var10000.credits = (float)((double)var10000.credits - 0.009D);
+                    if (ModSim.gameMode != GameMode.CREATIVE) {
+                        var10000 = ModSim.states;
+                        var10000.credits = (float) ((double) var10000.credits - 0.009D);
                     }
 
                     this.runDelay = 500;
@@ -349,16 +349,16 @@ public class JobTerraformer extends Job {
 
                     if (this.mc.theWorld.isRemote) {
                         this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.air, 0, 3);
-                        var10000 = ModSimukraft.states;
-                        var10000.credits = (float)((double)var10000.credits - 0.009D);
+                        var10000 = ModSim.states;
+                        var10000.credits = (float) ((double) var10000.credits - 0.009D);
                     }
                 } else if (this.theType != TerraformerType.FLATTENIZER) {
                     if (this.theType == TerraformerType.VALUEPACK) {
                         if (this.mc.theWorld.isRemote) {
                             this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.dirt, 0, 3);
-                            if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                                var10000 = ModSimukraft.states;
-                                var10000.credits = (float)((double)var10000.credits - 0.009D);
+                            if (ModSim.gameMode != GameMode.CREATIVE) {
+                                var10000 = ModSim.states;
+                                var10000.credits = (float) ((double) var10000.credits - 0.009D);
                             }
                         }
                     } else if (this.theType == TerraformerType.GLACIAL) {
@@ -366,18 +366,18 @@ public class JobTerraformer extends Job {
                         if (blockId != null && blockId != Blocks.tallgrass) {
                             if ((blockId == Blocks.water || blockId == Blocks.water) && this.mc.theWorld.isRemote) {
                                 this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.ice, 0, 3);
-                                if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                                    var10000 = ModSimukraft.states;
-                                    var10000.credits = (float)((double)var10000.credits - 0.009D);
+                                if (ModSim.gameMode != GameMode.CREATIVE) {
+                                    var10000 = ModSim.states;
+                                    var10000.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
                             }
                         } else {
                             Block idBelow = this.jobWorld.getBlock(v.x.intValue(), v.y.intValue() - 1, v.z.intValue());
                             if (idBelow != null && idBelow != Blocks.ice && idBelow != Blocks.water && idBelow != Blocks.water && idBelow != Blocks.snow && this.mc.theWorld.isRemote) {
                                 this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.snow, 0, 3);
-                                if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                                    var10000 = ModSimukraft.states;
-                                    var10000.credits = (float)((double)var10000.credits - 0.009D);
+                                if (ModSim.gameMode != GameMode.CREATIVE) {
+                                    var10000 = ModSim.states;
+                                    var10000.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
                             }
                         }
@@ -385,18 +385,18 @@ public class JobTerraformer extends Job {
                         if (this.mc.theWorld.isRemote) {
                             this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.obsidian, 0, 3);
                             this.jobWorld.markBlockForUpdate(v.x.intValue(), v.y.intValue(), v.z.intValue());
-                            if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                                var10000 = ModSimukraft.states;
-                                var10000.credits = (float)((double)var10000.credits - 0.009D);
+                            if (ModSim.gameMode != GameMode.CREATIVE) {
+                                var10000 = ModSim.states;
+                                var10000.credits = (float) ((double) var10000.credits - 0.009D);
                             }
                         }
                     } else if (this.theType == TerraformerType.THERMALIZER) {
                         if (this.mc.theWorld.isRemote) {
                             this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.air, 0, 3);
                             this.jobWorld.markBlockForUpdate(v.x.intValue(), v.y.intValue(), v.z.intValue());
-                            if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                                var10000 = ModSimukraft.states;
-                                var10000.credits = (float)((double)var10000.credits - 0.009D);
+                            if (ModSim.gameMode != GameMode.CREATIVE) {
+                                var10000 = ModSim.states;
+                                var10000.credits = (float) ((double) var10000.credits - 0.009D);
                             }
 
                             this.inventoriesPut(this.constructorChests, new ItemStack(Items.lava_bucket, 1), false);
@@ -405,9 +405,9 @@ public class JobTerraformer extends Job {
                         this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.grass, 0, 3);
                         this.jobWorld.markBlockForUpdate(v.x.intValue(), v.y.intValue(), v.z.intValue());
                         ++this.counter;
-                        if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                            var10000 = ModSimukraft.states;
-                            var10000.credits = (float)((double)var10000.credits - 0.009D);
+                        if (ModSim.gameMode != GameMode.CREATIVE) {
+                            var10000 = ModSim.states;
+                            var10000.credits = (float) ((double) var10000.credits - 0.009D);
                         }
 
                         if (this.counter % 4 == 0) {
@@ -428,9 +428,9 @@ public class JobTerraformer extends Job {
                     try {
                         if (this.mc.theWorld.isRemote) {
                             this.jobWorld.setBlock(v.x.intValue(), v.y.intValue(), v.z.intValue(), Blocks.air, 0, 3);
-                            if (ModSimukraft.gameMode != GameMode.CREATIVE) {
-                                var10000 = ModSimukraft.states;
-                                var10000.credits = (float)((double)var10000.credits - 0.009D);
+                            if (ModSim.gameMode != GameMode.CREATIVE) {
+                                var10000 = ModSim.states;
+                                var10000.credits = (float) ((double) var10000.credits - 0.009D);
                             }
                         }
                     } catch (Exception var12) {
@@ -449,8 +449,8 @@ public class JobTerraformer extends Job {
 
     private void stageComplete() {
         this.theFolk.isWorking = false;
-        ModSimukraft.sendChat(this.theFolk.name + " has completed terraforming");
-        this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
+        ModSim.sendChat(this.theFolk.name + " has completed terraforming");
+        this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
         this.theFolk.stayPut = false;
         this.theFolk.terraformerRadius = 1;
         this.theFolk.terraformerType = null;

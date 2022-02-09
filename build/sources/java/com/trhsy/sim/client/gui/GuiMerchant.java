@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.PricesForBlocks;
 import com.trhsy.sim.common.entity.V3;
@@ -189,8 +189,8 @@ public class GuiMerchant extends GuiScreen {
                                                         ++q;
                                                         quantities.set(guibutton.id - 200, q);
                                                 } else if (guibutton.id == 2) {
-                                                        if (ModSimukraft.states.credits < this.totalCost) {
-                                                                ModSimukraft.sendChat("Merchant: 'Sorry, your card has been declined, you could try buying less.'");
+                                                        if (ModSim.states.credits < this.totalCost) {
+                                                                ModSim.sendChat("Merchant: 'Sorry, your card has been declined, you could try buying less.'");
                                                                 this.mc.currentScreen = null;
                                                                 this.mc.setIngameFocus();
                                                         } else {
@@ -255,7 +255,7 @@ public class GuiMerchant extends GuiScreen {
                                                 stack = new ItemStack(block, 64);
                                                 this.placeIntoChest((IInventory)chests.get(0), stack, stack.getMetadata(), 64);
                                                 stackPrice = PricesForBlocks.getPrice(block, true);
-                                                GameStates var10000 = ModSimukraft.states;
+                                                GameStates var10000 = ModSim.states;
                                                 var10000.credits -= stackPrice;
                                         }
 
@@ -265,7 +265,7 @@ public class GuiMerchant extends GuiScreen {
 
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
-                        this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
+                        this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                         Thread t = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -274,12 +274,12 @@ public class GuiMerchant extends GuiScreen {
                                         } catch (Exception var2) {
                                         }
 
-                                        GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSimukraft.MODID + ":merchm", 1.0F, 1.0F, false);
+                                        GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
                                 }
                         });
                         t.start();
                 } else {
-                        ModSimukraft.sendChat("Merchant: Please place a chest down here, and I will place your items in there.");
+                        ModSim.sendChat("Merchant: Please place a chest down here, and I will place your items in there.");
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                 }
@@ -294,7 +294,7 @@ public class GuiMerchant extends GuiScreen {
                 //int stackCount = false;
                 ArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
                 if (chests == null | chests.size() == 0) {
-                        ModSimukraft.sendChat("Merchant: Please place a chest down here, and place stacks of 64 blocks in there.");
+                        ModSim.sendChat("Merchant: Please place a chest down here, and place stacks of 64 blocks in there.");
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                 } else {
@@ -305,7 +305,7 @@ public class GuiMerchant extends GuiScreen {
                                 if (is != null && is.stackSize == 64) {
                                         stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
                                         if (stackPrice > 0.0F) {
-                                                GameStates var10000 = ModSimukraft.states;
+                                                GameStates var10000 = ModSim.states;
                                                 var10000.credits += stackPrice;
                                                 PricesForBlocks.adjustPrice((Block)block, false);
                                                 total += stackPrice;
@@ -315,10 +315,10 @@ public class GuiMerchant extends GuiScreen {
                         }
 
                         if (total == 0.0F) {
-                                ModSimukraft.sendChat("Merchant: There were no valid stacks I want to buy from you in the chest?!");
+                                ModSim.sendChat("Merchant: There were no valid stacks I want to buy from you in the chest?!");
                         } else {
-                                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
-                                ModSimukraft.sendChat("Sold all valid stacks for a total of " + ModSimukraft.displayMoney(total));
+                                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                                ModSim.sendChat("Sold all valid stacks for a total of " + ModSim.displayMoney(total));
                         }
 
                         this.mc.currentScreen = null;

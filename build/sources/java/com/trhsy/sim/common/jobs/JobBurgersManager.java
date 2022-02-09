@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -60,7 +60,7 @@ public class JobBurgersManager extends Job {
         }
 
         if (this.theStore != null) {
-            if (!ModSimukraft.isDayTime()) {
+            if (!ModSim.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -75,7 +75,7 @@ public class JobBurgersManager extends Job {
             }
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theFolk.statusText = "Checking my errands list";
                         this.theStage = Stage.PICKUPBAKERY;
@@ -95,7 +95,7 @@ public class JobBurgersManager extends Job {
                     }
                 }
 
-                if (!ModSimukraft.isDayTime()) {
+                if (!ModSim.isDayTime()) {
                     this.theStage = Stage.IDLE;
                 }
 
@@ -128,7 +128,7 @@ public class JobBurgersManager extends Job {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSimukraft.log.info("JobBurgersManager: buying " + buy + " out of " + count + " items");
+                    ModSim.log.info("JobBurgersManager: buying " + buy + " out of " + count + " items");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1, pickUpItem.damageDropped(1)), buy, doCompareMeta);
                 }
             }
@@ -169,7 +169,7 @@ public class JobBurgersManager extends Job {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSimukraft.log.info("JobBurgersManager: buying " + buy + " out of " + count + " items");
+                    ModSim.log.info("JobBurgersManager: buying " + buy + " out of " + count + " items");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1), buy, doCompareMeta);
                 }
             }
@@ -208,7 +208,7 @@ public class JobBurgersManager extends Job {
 
     private void stagePickupCheese() {
         if (this.step < 4) {
-            this.doPickup("cheese factory", (new ItemStack(ModSimukraft.itemFood, 1, 0)).getItem(), true);
+            this.doPickup("cheese factory", (new ItemStack(ModSim.itemFood, 1, 0)).getItem(), true);
         } else {
             this.theStage = Stage.PICKUPBUTCHERS;
             this.step = 1;
@@ -245,12 +245,12 @@ public class JobBurgersManager extends Job {
             ArrayList<IInventory> backstoreChests = inventoriesFindClosest((V3) back.get(0), 3);
             boolean ok = this.inventoriesTransferFromFolk(this.theFolk.inventory, backstoreChests, (ItemStack) null);
             if (!ok) {
-                ModSimukraft.sendChat(this.theFolk.name + ": The chest in the kitchen at the Fast food store is full!");
+                ModSim.sendChat(this.theFolk.name + ": The chest in the kitchen at the Fast food store is full!");
             }
 
             this.theStage = Stage.HANGINGOUT;
             this.step = 0;
-            GameStates var10000 = ModSimukraft.states;
+            GameStates var10000 = ModSim.states;
             var10000.credits = (float) ((double) var10000.credits - 2.45D);
         }
 

@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.jobs.JobTerraformer;
 import com.trhsy.sim.common.jobs.TerraformerType;
@@ -80,7 +80,7 @@ public class GuiTerraform extends GuiScreen {
         try {
             JobTerraformer var2 = (JobTerraformer)this.theFolk.theirJob;
         } catch (Exception var4) {
-            ModSimukraft.sendChat("Error: You must hire a terraformer, not a builder");
+            ModSim.sendChat("Error: You must hire a terraformer, not a builder");
             return;
         }
 

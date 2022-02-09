@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
@@ -53,7 +53,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -64,7 +64,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if ((this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) && this.theStage == Stage.INSTORE) {
+            if ((this.theStage != Stage.IDLE || !ModSim.isDayTime()) && this.theStage == Stage.INSTORE) {
                 this.theFolk.statusText = "Serving customers";
                 this.theFolk.updateLocationFromEntity();
                 double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);

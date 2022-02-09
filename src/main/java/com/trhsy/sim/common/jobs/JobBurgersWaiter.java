@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -56,7 +56,7 @@ public class JobBurgersWaiter extends Job {
         }
 
         if (this.theStore != null) {
-            if (!ModSimukraft.isDayTime()) {
+            if (!ModSim.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -71,7 +71,7 @@ public class JobBurgersWaiter extends Job {
             }
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theStage = Stage.SERVING;
                         this.theFolk.statusText = "Serving customers";
@@ -80,7 +80,7 @@ public class JobBurgersWaiter extends Job {
                     }
                 }
 
-                if (!ModSimukraft.isDayTime()) {
+                if (!ModSim.isDayTime()) {
                     this.theStage = Stage.IDLE;
                 }
 
@@ -105,20 +105,20 @@ public class JobBurgersWaiter extends Job {
                 if (is == null) {
                     this.theFolk.statusText = "Wishing we had more customers";
                 } else {
-                    if (is.getItem() == ModSimukraft.itemFood) {
+                    if (is.getItem() == ModSim.itemFood) {
                         is = new ItemStack(is.getItem(), 1, is.getMetadata());
                         inventoriesGet(theChests, is, false, true);
                         this.theFolk.statusText = "Just sold " + is.getDisplayName();
-                        int r = (new Random()).nextInt(ModSimukraft.theFolks.size() - 1);
-                        FolkData folk = (FolkData)ModSimukraft.theFolks.get(r);
+                        int r = (new Random()).nextInt(ModSim.theFolks.size() - 1);
+                        FolkData folk = (FolkData) ModSim.theFolks.get(r);
                         if (folk.levelFood < 10) {
                             ++folk.levelFood;
                         }
 
                         folk.saveThisFolk();
-                        ModSimukraft.log.info("JobBurgersWaiter: Just fed " + folk.name);
-                        GameStates var10000 = ModSimukraft.states;
-                        var10000.credits = (float)((double)var10000.credits - 0.45D);
+                        ModSim.log.info("JobBurgersWaiter: Just fed " + folk.name);
+                        GameStates var10000 = ModSim.states;
+                        var10000.credits = (float) ((double) var10000.credits - 0.45D);
                     } else {
                         this.theFolk.statusText = "Who put " + is.getDisplayName() + " in my chest, folks can't eat that!";
                     }

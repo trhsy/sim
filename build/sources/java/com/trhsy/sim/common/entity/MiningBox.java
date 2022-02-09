@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.entity;
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
@@ -55,8 +55,8 @@ public class MiningBox implements Serializable {
 
         int x;
         MiningBox block;
-        for(x = 0; x < ModSimukraft.theMiningBoxes.size(); ++x) {
-            block = (MiningBox)ModSimukraft.theMiningBoxes.get(x);
+        for(x = 0; x < ModSim.theMiningBoxes.size(); ++x) {
+            block = (MiningBox) ModSim.theMiningBoxes.get(x);
             if (block.location.isSameCoordsAs(location, true, true)) {
                 ret = block;
                 break;
@@ -64,8 +64,8 @@ public class MiningBox implements Serializable {
         }
 
         if (ret == null) {
-            for(x = 0; x < ModSimukraft.theMiningBoxes.size(); ++x) {
-                block = (MiningBox)ModSimukraft.theMiningBoxes.get(x);
+            for(x = 0; x < ModSim.theMiningBoxes.size(); ++x) {
+                block = (MiningBox) ModSim.theMiningBoxes.get(x);
                 if (block.location.isSameCoordsAs(location, false, true)) {
                     ret = block;
                     break;
@@ -78,7 +78,7 @@ public class MiningBox implements Serializable {
 
     public static void loadMiningBoxes() {
         Minecraft mc = Minecraft.getMinecraft();
-        File mineFiles = new File(ModSimukraft.getSavesDataFolder() + "Mining" + File.separator);
+        File mineFiles = new File(ModSim.getSavesDataFolder() + "Mining" + File.separator);
         mineFiles.mkdirs();
         boolean useNewFormat = false;
         File[] arr$ = mineFiles.listFiles();
@@ -97,14 +97,14 @@ public class MiningBox implements Serializable {
         WorldServer theWorld;
         Block id;
         if (useNewFormat) {
-            ModSimukraft.theMiningBoxes.clear();
+            ModSim.theMiningBoxes.clear();
             arr$ = mineFiles.listFiles();
             len$ = arr$.length;
 
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
-                    ArrayList<String> strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
+                    ArrayList<String> strings = ModSim.loadSK2(f.getAbsoluteFile().toString());
                     MiningBox box = new MiningBox();
                     Iterator iterator = strings.iterator();
 
@@ -141,8 +141,8 @@ public class MiningBox implements Serializable {
                     theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
                     if (theWorld != null) {
                         id = theWorld.getBlock(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
-                        if (id == ModSimukraft.miningBox) {
-                            ModSimukraft.theMiningBoxes.add(box);
+                        if (id == ModSim.miningBox) {
+                            ModSim.theMiningBoxes.add(box);
                         } else {
                             f.delete();
                         }
@@ -156,7 +156,7 @@ public class MiningBox implements Serializable {
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".suk")) {
-                    MiningBox mining = (MiningBox)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
+                    MiningBox mining = (MiningBox) ModSim.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (mining != null) {
                         V3 xyz = mining.location;
                         theWorld = MinecraftServer.getServer().worldServerForDimension(xyz.theDimension);
@@ -165,8 +165,8 @@ public class MiningBox implements Serializable {
                         } else {
                             try {
                                 id = theWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
-                                if (id == ModSimukraft.miningBox && mining != null) {
-                                    ModSimukraft.theMiningBoxes.add(mining);
+                                if (id == ModSim.miningBox && mining != null) {
+                                    ModSim.theMiningBoxes.add(mining);
                                 } else {
                                     f.delete();
                                 }
@@ -186,9 +186,9 @@ public class MiningBox implements Serializable {
         if (side == Side.SERVER) {
             ArrayList<String> strings = new ArrayList();
 
-            for(int b = 0; b < ModSimukraft.theMiningBoxes.size(); ++b) {
+            for(int b = 0; b < ModSim.theMiningBoxes.size(); ++b) {
                 try {
-                    MiningBox mining = (MiningBox)ModSimukraft.theMiningBoxes.get(b);
+                    MiningBox mining = (MiningBox) ModSim.theMiningBoxes.get(b);
                     strings.clear();
                     strings.add("location|" + mining.location.toString());
                     if (mining.marker1XYZ != null) {
@@ -205,7 +205,7 @@ public class MiningBox implements Serializable {
                         strings.add("cover|" + mining.addGlassCover);
                         strings.add("hsize|" + mining.size);
                         String xyz = "m" + mining.location.toString().replaceAll(",", "_");
-                        ModSimukraft.saveSK2(ModSimukraft.getSavesDataFolder() + "Mining" + File.separator + xyz + ".sk2", strings);
+                        ModSim.saveSK2(ModSim.getSavesDataFolder() + "Mining" + File.separator + xyz + ".sk2", strings);
                     }
                 } catch (Exception var5) {
                 }

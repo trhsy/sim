@@ -4,7 +4,7 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -44,14 +44,14 @@ public class BlockLightBox extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[8];
-        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightWhite");
-        this.icons[1] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightRed");
-        this.icons[2] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightOrange");
-        this.icons[3] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightYellow");
-        this.icons[4] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightGreen");
-        this.icons[5] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightBlue");
-        this.icons[6] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightPurple");
-        this.icons[7] = iconRegister.registerIcon(ModSimukraft.MODID + ":blockLightRainbow");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":blockLightWhite");
+        this.icons[1] = iconRegister.registerIcon(ModSim.MODID + ":blockLightRed");
+        this.icons[2] = iconRegister.registerIcon(ModSim.MODID + ":blockLightOrange");
+        this.icons[3] = iconRegister.registerIcon(ModSim.MODID + ":blockLightYellow");
+        this.icons[4] = iconRegister.registerIcon(ModSim.MODID + ":blockLightGreen");
+        this.icons[5] = iconRegister.registerIcon(ModSim.MODID + ":blockLightBlue");
+        this.icons[6] = iconRegister.registerIcon(ModSim.MODID + ":blockLightPurple");
+        this.icons[7] = iconRegister.registerIcon(ModSim.MODID + ":blockLightRainbow");
     }
 
     @Override

@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 
 /**
  * ========================================
@@ -29,6 +29,6 @@ public class ThreadGuiMerchant implements Runnable {
         } catch (Exception var2) {
         }
 
-        this.guiMerchant.mc.theWorld.playSound(this.guiMerchant.mc.thePlayer.posX, this.guiMerchant.mc.thePlayer.posY, this.guiMerchant.mc.thePlayer.posZ, ModSimukraft.MODID + ":merchm", 1.0F, 1.0F, false);
+        this.guiMerchant.mc.theWorld.playSound(this.guiMerchant.mc.thePlayer.posX, this.guiMerchant.mc.thePlayer.posY, this.guiMerchant.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
     }
 }

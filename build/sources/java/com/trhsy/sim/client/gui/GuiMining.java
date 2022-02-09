@@ -5,7 +5,7 @@ package com.trhsy.sim.client.gui;/**
  */
 
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.MiningBox;
 import com.trhsy.sim.common.jobs.Vocation;
@@ -78,7 +78,7 @@ public class GuiMining extends GuiScreen {
             }
 
             GuiButton gb = null;
-            if (ModSimukraft.gameMode != GameMode.HARDCORE) {
+            if (ModSim.gameMode != GameMode.HARDCORE) {
                 this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
                 this.buttonList.add(gb = new GuiButton(3, this.width / 2 - 100, 160, j));
             }
@@ -97,7 +97,7 @@ public class GuiMining extends GuiScreen {
     }
 
     private void extraButtons() {
-        if (ModSimukraft.gameMode != GameMode.HARDCORE) {
+        if (ModSim.gameMode != GameMode.HARDCORE) {
             String i = "";
             String j = "";
             if (this.theMiningBox.discards == 0) {

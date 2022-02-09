@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -66,7 +66,7 @@ public class JobButcher extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -84,7 +84,7 @@ public class JobButcher extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATSHOP) {
                     this.theStage = Stage.GOINGTOMEATFARM;
                 } else if (this.theStage == Stage.GOINGTOMEATFARM) {
@@ -98,7 +98,7 @@ public class JobButcher extends Job implements Serializable {
                 }
             }
 
-            if (!ModSimukraft.isDayTime()) {
+            if (!ModSim.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -220,10 +220,10 @@ public class JobButcher extends Job implements Serializable {
             this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
             this.openCloseChest((IInventory)this.chestsAtShop.get(0), 2000);
             if (this.pay > 0.0F) {
-                GameStates var10000 = ModSimukraft.states;
+                GameStates var10000 = ModSim.states;
                 var10000.credits -= this.pay;
-                ModSimukraft.sendChat(this.theFolk.name + " has collected meat and has been paid " + ModSimukraft.displayMoney(this.pay) + " Sim-u-credits.");
-                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
+                ModSim.sendChat(this.theFolk.name + " has collected meat and has been paid " + ModSim.displayMoney(this.pay) + " Sim-u-credits.");
+                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
             this.step = 2;
@@ -244,7 +244,7 @@ public class JobButcher extends Job implements Serializable {
             ItemStack piece = null;
             this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
 
-            for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
+            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
                 piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.porkchop, 1), false, false);
                 if (piece == null) {
                     piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.chicken, 1), false, false);
@@ -255,14 +255,14 @@ public class JobButcher extends Job implements Serializable {
                 }
 
                 if (piece != null) {
-                    FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
+                    FolkData folk = (FolkData) ModSim.theFolks.get(f);
                     folk.levelFood = 10;
                     ++sell;
                 }
             }
 
             if (sell > 0) {
-                ModSimukraft.sendChat(this.theFolk.name + " has sold " + sell + " pieces of meat to folks today.");
+                ModSim.sendChat(this.theFolk.name + " has sold " + sell + " pieces of meat to folks today.");
             }
 
             this.step = 4;
@@ -276,7 +276,7 @@ public class JobButcher extends Job implements Serializable {
 
         while(!found) {
             try {
-                Building farm = (Building)ModSimukraft.theBuildings.get(this.currentFarmNum);
+                Building farm = (Building) ModSim.theBuildings.get(this.currentFarmNum);
                 if (farm.displayNameWithoutPK.contains("Cattle Farm") || farm.displayNameWithoutPK.contains("Pig Farm") || farm.displayNameWithoutPK.contains("Chicken Farm")) {
                     found = true;
                     ++this.currentFarmNum;
@@ -284,7 +284,7 @@ public class JobButcher extends Job implements Serializable {
                 }
 
                 ++this.currentFarmNum;
-                if (this.currentFarmNum > ModSimukraft.theBuildings.size() - 1) {
+                if (this.currentFarmNum > ModSim.theBuildings.size() - 1) {
                     return null;
                 }
             } catch (Exception var3) {

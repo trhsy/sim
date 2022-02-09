@@ -5,7 +5,7 @@ package com.trhsy.sim.client.render;/**
  */
 
 import com.trhsy.sim.client.model.ModelWindmill;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.TileEntityWindmill;
 import com.trhsy.sim.common.entity.EntityWindmill;
 import com.trhsy.sim.common.entity.V3;
@@ -33,7 +33,7 @@ public class RenderWindmill extends Render {
         this.modelWindmill = modelWindmill;
 
         for(int c = 0; c < 16; ++c) {
-            myTextures[c] = new ResourceLocation(ModSimukraft.MODID + "", "textures/models/entityWindmill" + c + ".png");
+            myTextures[c] = new ResourceLocation(ModSim.MODID + "", "textures/models/entityWindmill" + c + ".png");
         }
 
     }
@@ -42,7 +42,7 @@ public class RenderWindmill extends Render {
         this.entity = (EntityWindmill)theEntity;
         if (this.entity != null) {
             int meta = -1;
-            V3 v3 = Job.findClosestBlockType(new V3((int)this.entity.posX, (int)this.entity.posY - 1, (int)this.entity.posZ), ModSimukraft.windmill, 5);
+            V3 v3 = Job.findClosestBlockType(new V3((int) this.entity.posX, (int) this.entity.posY - 1, (int) this.entity.posZ), ModSim.windmill, 5);
             if (v3 != null) {
                 TileEntityWindmill teWindmill = (TileEntityWindmill)this.entity.worldObj.getTileEntity(v3.x.intValue(), v3.y.intValue(), v3.z.intValue());
                 if (teWindmill != null) {

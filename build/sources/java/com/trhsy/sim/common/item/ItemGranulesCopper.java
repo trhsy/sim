@@ -4,7 +4,7 @@ package com.trhsy.sim.common.item;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,7 +34,7 @@ public class ItemGranulesCopper extends Item {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSimukraft.MODID + ":granulesCopper");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":granulesCopper");
     }
 
     @Override

@@ -5,7 +5,7 @@ package com.trhsy.sim.client.gui;/**
  */
 
 import com.trhsy.sim.common.PathBox;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.client.gui.GuiButton;
@@ -120,7 +120,7 @@ public class GuiPathBox extends GuiScreen {
                     this.initGui();
                 } else if (this.page == 1) {
                     this.thePathBox.pathType = guibutton.displayString;
-                    ModSimukraft.sendChat("Path constructor set to " + guibutton.displayString);
+                    ModSim.sendChat("Path constructor set to " + guibutton.displayString);
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
                 }

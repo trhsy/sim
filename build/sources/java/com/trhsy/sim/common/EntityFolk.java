@@ -62,8 +62,8 @@ public class EntityFolk extends EntityCreature implements INpc {
         this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
         this.tasks.addTask(4, new EntityAISwimming(this));
-        if (!ModSimukraft.proxy.ranStartup) {
-            ModSimukraft.log.info("EntityFolk: Killed system spawned folk");
+        if (!ModSim.proxy.ranStartup) {
+            ModSim.log.info("EntityFolk: Killed system spawned folk");
             this.setDead();
         }
 
@@ -104,7 +104,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 this.theData = FolkData.getFolkDataByEntityId(this.getEntityId());
                 if (this.theData == null && System.currentTimeMillis() - this.ghostTimer > 5000L) {
-                    ModSimukraft.log.info("EntityFolk: " + this.getEntityId() + " - their data has been null for more than 5s, so killing");
+                    ModSim.log.info("EntityFolk: " + this.getEntityId() + " - their data has been null for more than 5s, so killing");
                     this.setDead();
                 }
             }
@@ -119,16 +119,16 @@ public class EntityFolk extends EntityCreature implements INpc {
             if (System.currentTimeMillis() - this.greetTimer > 1000L) {
                 Random r = new Random();
                 double dist = (double)this.theData.getDistanceToPlayer();
-                if (ModSimukraft.states != null) {
+                if (ModSim.states != null) {
                     long var10000 = System.currentTimeMillis();
                     FolkData var10001 = this.theData;
                     Long ls = var10000 - FolkData.anyFolkLastSpoke;
-                    if (ModSimukraft.configFolkTalkingEnglish && ls > 5000L && (!this.theData.greetedToday & dist < 5.0D || this.theData.vocation == Vocation.BURGERSWAITER && dist < 5.0D && r.nextInt(20) == 2)) {
+                    if (ModSim.configFolkTalkingEnglish && ls > 5000L && (!this.theData.greetedToday & dist < 5.0D || this.theData.vocation == Vocation.BURGERSWAITER && dist < 5.0D && r.nextInt(20) == 2)) {
                         this.theData.greetedToday = true;
                         FolkData var18 = this.theData;
                         FolkData.anyFolkLastSpoke = System.currentTimeMillis();
                         int sf = r.nextInt(25) + 1;
-                        String fn = ModSimukraft.MODID + ":";
+                        String fn = ModSim.MODID + ":";
                         if (this.theData.vocation != null && this.theData.vocation == Vocation.BURGERSWAITER) {
                             sf = r.nextInt(6);
                             fn = fn + "burger";
@@ -176,7 +176,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                                     }
                             }
                         } else if (this.theData.age >= 18) {
-                            if (ModSimukraft.isDayTime()) {
+                            if (ModSim.isDayTime()) {
                                 if (sf == 1) {
                                     if (this.theData.gender == 0) {
                                         fn = fn + "daymone";
@@ -273,7 +273,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                         if (r.nextBoolean()) {
                             try {
-                                ModSimukraft.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1.0F, 1.0F, false);
+                                ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1.0F, 1.0F, false);
                             } catch (Exception var12) {
                             }
                         }
@@ -335,13 +335,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                 try {
                     dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
                 } catch (Exception var14) {
-                    ModSimukraft.log.warning("Folk's theData.destination was null in moveEntity()");
+                    ModSim.log.warning("Folk's theData.destination was null in moveEntity()");
                     return;
                 }
 
                 if (dist <= 2.0D) {
                     try {
-                        ModSimukraft.log.info("EntityFolk: " + this.theData.name + " has arrived at " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
+                        ModSim.log.info("EntityFolk: " + this.theData.name + " has arrived at " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
                     } catch (Exception var13) {
                     }
 
@@ -379,7 +379,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (this.theData.timeStartedGotoing != null && !donttimeout && System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null) {
                     this.getNavigator().clearPathEntity();
                     if (dist > 2.0D) {
-                        ModSimukraft.log.info("EntityFolk: " + this.theData.name + " took too long to walk, so beaming...");
+                        ModSim.log.info("EntityFolk: " + this.theData.name + " took too long to walk, so beaming...");
                         this.theData.stayPut = true;
                         this.theData.timeStartedGotoing = System.currentTimeMillis();
                         this.theData.beamMeTo(this.theData.destination);
@@ -439,13 +439,13 @@ public class EntityFolk extends EntityCreature implements INpc {
         } else if (this.theData.vocation == Vocation.DAIRYFARMER) {
             return new ItemStack(Items.milk_bucket, 1);
         } else if (this.theData.vocation == Vocation.CHEESEMAKER) {
-            return new ItemStack(ModSimukraft.blockCheese, 1);
+            return new ItemStack(ModSim.blockCheese, 1);
         } else if (this.theData.vocation == Vocation.BURGERSMANAGER) {
-            return new ItemStack(ModSimukraft.itemFood, 1, 3);
+            return new ItemStack(ModSim.itemFood, 1, 3);
         } else if (this.theData.vocation == Vocation.BURGERSFRYCOOK) {
             return new ItemStack(Items.iron_shovel, 1);
         } else if (this.theData.vocation == Vocation.BURGERSWAITER) {
-            return new ItemStack(ModSimukraft.itemFood, 1, 2);
+            return new ItemStack(ModSim.itemFood, 1, 2);
         } else if (this.theData.vocation == Vocation.FISHERMAN) {
             JobFisherman jf = (JobFisherman)this.theData.theirJob;
             return jf.theStage == Stage.IDLE ? new ItemStack(Items.fish, 1) : new ItemStack(Items.fishing_rod, 1);
@@ -465,7 +465,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             return false;
         } else {
             if (this.theData.theirJob != null) {
-                if (this.theData.vocation == Vocation.MERCHANT && ModSimukraft.isDayTime()) {
+                if (this.theData.vocation == Vocation.MERCHANT && ModSim.isDayTime()) {
                     ui = new GuiMerchant();
                 } else {
                     ui = new GuiEntityFolk(this.theData, entityplayer);
@@ -476,11 +476,11 @@ public class EntityFolk extends EntityCreature implements INpc {
 
             mc.displayGuiScreen((GuiScreen)ui);
             if (this.theData.age < 18) {
-                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSimukraft.MODID + ":helloc", 1.0F, 1.0F, false);
+                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":helloc", 1.0F, 1.0F, false);
             } else if (this.theData.gender == 0) {
-                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSimukraft.MODID + ":hellom", 1.0F, 1.0F, false);
+                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellom", 1.0F, 1.0F, false);
             } else {
-                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSimukraft.MODID + ":hellof", 1.0F, 1.0F, false);
+                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellof", 1.0F, 1.0F, false);
             }
 
             return true;
@@ -523,10 +523,10 @@ public class EntityFolk extends EntityCreature implements INpc {
 
         if (this.theData == null) {
             return null;
-        } else if (ModSimukraft.configFolkTalking) {
+        } else if (ModSim.configFolkTalking) {
             if (System.currentTimeMillis() - this.lastHurt > 10000L) {
                 this.lastHurt = System.currentTimeMillis();
-                return this.theData.gender == 0 ? ModSimukraft.MODID + ":OuchM" : ModSimukraft.MODID + ":OuchF";
+                return this.theData.gender == 0 ? ModSim.MODID + ":OuchM" : ModSim.MODID + ":OuchF";
             } else {
                 return null;
             }

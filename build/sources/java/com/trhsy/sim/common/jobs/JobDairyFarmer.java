@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
@@ -65,7 +65,7 @@ public class JobDairyFarmer extends Job {
         }
 
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -78,7 +78,7 @@ public class JobDairyFarmer extends Job {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATFARM) {
                     this.stageArrived();
                 } else if (this.theStage == Stage.WAITINGFORMILKING) {
@@ -133,11 +133,11 @@ public class JobDairyFarmer extends Job {
         if (this.farmChests.size() > 0) {
             boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.milk_bucket, 1), true);
             if (!ok) {
-                ModSimukraft.sendChat(this.theFolk.name + "'s dairy farm chests are full of milk!");
+                ModSim.sendChat(this.theFolk.name + "'s dairy farm chests are full of milk!");
                 this.theFolk.statusText = "Can't work, the chests are full";
                 this.theStage = Stage.CANTWORK;
             } else {
-                GameStates var10000 = ModSimukraft.states;
+                GameStates var10000 = ModSim.states;
                 var10000.credits -= 0.05F;
                 this.theStage = Stage.WAITINGFORMILKING;
             }

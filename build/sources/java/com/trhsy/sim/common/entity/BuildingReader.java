@@ -5,7 +5,7 @@ package com.trhsy.sim.common.entity;/**
  */
 
 import com.trhsy.sim.common.GameMode;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -207,13 +207,13 @@ public class BuildingReader implements Serializable {
             }
 
             this.blocksInBuilding = 0;
-            File f = new File(ModSimukraft.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            File f = new File(ModSim.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
                 System.out.println("Cannot find file");
                 return;
             }
 
-            FileInputStream fstream = new FileInputStream(ModSimukraft.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            FileInputStream fstream = new FileInputStream(ModSim.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine = br.readLine().toString().toLowerCase().trim();
@@ -251,9 +251,9 @@ public class BuildingReader implements Serializable {
                             if (letter.contentEquals("!")) {
                                 this.structure[akeyNumber] = "air,999";
                             } else if (letter.contentEquals("$")) {
-                                this.structure[akeyNumber] = "" + ModSimukraft.controlBox;
+                                this.structure[akeyNumber] = "" + ModSim.controlBox;
                             } else if (letter.contentEquals("*")) {
-                                this.structure[akeyNumber] = "" + ModSimukraft.lightBox;
+                                this.structure[akeyNumber] = "" + ModSim.lightBox;
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[akeyNumber] = "air," + cha;
                             } else {
@@ -529,7 +529,7 @@ public class BuildingReader implements Serializable {
         Map.Entry pairs;
         ItemStack is;
         int val;
-        if (ModSimukraft.gameMode == GameMode.NORMAL) {
+        if (ModSim.gameMode == GameMode.NORMAL) {
             name = "";
 
             try {
@@ -559,11 +559,11 @@ public class BuildingReader implements Serializable {
                 }
             }
         } else {
-            if (ModSimukraft.gameMode == GameMode.CREATIVE) {
+            if (ModSim.gameMode == GameMode.CREATIVE) {
                 return;
             }
 
-            if (ModSimukraft.gameMode == GameMode.HARDCORE) {
+            if (ModSim.gameMode == GameMode.HARDCORE) {
                 name = "";
 
                 try {

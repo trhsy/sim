@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
@@ -66,7 +66,7 @@ public class JobGlassMaker extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -87,7 +87,7 @@ public class JobGlassMaker extends Job implements Serializable {
                     this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
                 }
 
-                if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.SCANFORSAND) {
                         this.stageScanForSand();
                     } else if (this.theStage == Stage.GOTOSANDBLOCK) {
@@ -178,7 +178,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 this.mc.theWorld.playSound(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z, "step.sand", 1.0F, 1.0F, false);
                 this.theFolk.inventory.add(new ItemStack(Blocks.sand, 1));
                 this.theFolk.statusText = "Diggy diggy sand, got " + this.theFolk.inventory.size();
-                GameStates var10000 = ModSimukraft.states;
+                GameStates var10000 = ModSim.states;
                 var10000.credits = (float)((double)var10000.credits - 0.012D);
                 if (this.theFolk.inventory.size() < 64) {
                     this.theStage = Stage.SCANFORSAND;
@@ -230,7 +230,7 @@ public class JobGlassMaker extends Job implements Serializable {
         this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
         this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         if (this.factoryFurnace == null) {
-            ModSimukraft.sendChat(this.theFolk.name + ": Where's my furnace gone!");
+            ModSim.sendChat(this.theFolk.name + ": Where's my furnace gone!");
         } else {
             ItemStack currentSand;
             ItemStack gotFuel;
@@ -253,7 +253,7 @@ public class JobGlassMaker extends Job implements Serializable {
                     }
 
                     if (gotFuel == null) {
-                        ModSimukraft.sendChat(this.theFolk.name + " (Glass maker) doesn't have any fuel for their furnace");
+                        ModSim.sendChat(this.theFolk.name + " (Glass maker) doesn't have any fuel for their furnace");
                         this.theStage = Stage.SCANFORSAND;
                         this.step = 1;
                         return;
@@ -294,7 +294,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 if (currentSand != null) {
                     this.theFolk.statusText = "Putting glass into storage";
                     this.inventoriesPut(this.factoryChests, currentSand, true);
-                    GameStates var10000 = ModSimukraft.states;
+                    GameStates var10000 = ModSim.states;
                     var10000.credits = (float)((double)var10000.credits - 0.005D * (double)currentSand.stackSize);
                     this.factoryFurnace.setInventorySlotContents(2, (ItemStack)null);
                 } else {

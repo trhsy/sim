@@ -5,7 +5,7 @@ package com.trhsy.sim.client.gui;/**
  */
 
 import com.trhsy.sim.client.ClientTickHandler;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.CourierTask;
 import com.trhsy.sim.common.entity.V3;
 import net.minecraft.client.gui.GuiButton;
@@ -50,8 +50,8 @@ public class GuiBeamPlayerTo extends GuiScreen {
         int y = 40;
         int idx = 2;
 
-        for(int f = 0; f < ModSimukraft.theCourierPoints.size(); ++f) {
-            V3 cpoint = (V3)ModSimukraft.theCourierPoints.get(f);
+        for (int f = 0; f < ModSim.theCourierPoints.size(); ++f) {
+            V3 cpoint = (V3) ModSim.theCourierPoints.get(f);
             this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
             ++idx;
             x += 110;
@@ -71,7 +71,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
     public void drawScreen(int i, int j, float f) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, "Choose a point to beam to...", this.width / 2, 17, 16777215);
-        if (ModSimukraft.theCourierPoints.size() == 0) {
+        if (ModSim.theCourierPoints.size() == 0) {
             this.drawCenteredString(this.fontRendererObj, "You don't have any courier/beaming points!", this.width / 2, 37, 16752800);
             this.drawCenteredString(this.fontRendererObj, "Place a single Sim-U-Marker down and right click it", this.width / 2, 57, 16752800);
             this.drawCenteredString(this.fontRendererObj, "to make one. You can then beam there using ANY control box.", this.width / 2, 77, 16752800);
@@ -91,8 +91,8 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 V3 safePoint = v.clone();
                 Double var6 = safePoint.y;
                 Double var7 = safePoint.y = safePoint.y + 1.0D;
-                ModSimukraft.sendChat("Beaming you to " + name);
-                this.mc.displayGuiScreen((GuiScreen)null);
+                ModSim.sendChat("Beaming you to " + name);
+                this.mc.displayGuiScreen((GuiScreen) null);
                 ClientTickHandler.beamingPlayer = this.thePlayer;
                 ClientTickHandler.beamingStage = 1;
                 ClientTickHandler.beamingStartedAt = System.currentTimeMillis();

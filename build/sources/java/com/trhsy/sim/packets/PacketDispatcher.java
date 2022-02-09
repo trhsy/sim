@@ -4,7 +4,7 @@ package com.trhsy.sim.packets;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -64,6 +64,6 @@ public class PacketDispatcher {
     }
 
     static {
-        dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel(ModSimukraft.MODID);
+        dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel(ModSim.MODID);
     }
 }

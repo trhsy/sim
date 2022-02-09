@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -68,7 +68,7 @@ public class JobBaker extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -91,7 +91,7 @@ public class JobBaker extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATSHOP) {
                     this.theStage = Stage.GOINGTOWHEATFARM;
                     this.step = 1;
@@ -231,9 +231,9 @@ public class JobBaker extends Job implements Serializable {
                 this.theFolk.stayPut = true;
                 if (this.theFolk.theEntity != null) {
                     if (this.theFolk.gender == 0) {
-                        this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":bakerm", 1.0F, 1.0F, false);
+                        this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerm", 1.0F, 1.0F, false);
                     } else {
-                        this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSimukraft.MODID + ":bakerf", 1.0F, 1.0F, false);
+                        this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerf", 1.0F, 1.0F, false);
                     }
                 }
 
@@ -249,10 +249,10 @@ public class JobBaker extends Job implements Serializable {
     private void stageSellingBread() {
         if (this.step == 1) {
             if (this.pay > 0.0F) {
-                GameStates var10000 = ModSimukraft.states;
+                GameStates var10000 = ModSim.states;
                 var10000.credits -= this.pay;
-                ModSimukraft.sendChat(this.theFolk.name + " has made some bread and has been paid " + ModSimukraft.displayMoney(this.pay) + " Sim-u-credits.");
-                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSimukraft.MODID + ":cash", 1.0F, 1.0F, false);
+                ModSim.sendChat(this.theFolk.name + " has made some bread and has been paid " + ModSim.displayMoney(this.pay) + " Sim-u-credits.");
+                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
             this.step = 2;
@@ -264,19 +264,19 @@ public class JobBaker extends Job implements Serializable {
             this.theFolk.statusText = "Closing the shop";
             //int sell = false;
             ItemStack breadStack = null;
-            if (ModSimukraft.theFolks.size() > 1) {
-                int sell = ModSimukraft.theFolks.size() + 1 + (new Random()).nextInt(ModSimukraft.theFolks.size());
+            if (ModSim.theFolks.size() > 1) {
+                int sell = ModSim.theFolks.size() + 1 + (new Random()).nextInt(ModSim.theFolks.size());
                 this.bakeryChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
                 breadStack = inventoriesGet(this.bakeryChests, new ItemStack(Items.bread, sell), false, false);
             }
 
             if (breadStack == null) {
-                ModSimukraft.sendChat(this.theFolk.name + " did not have any bread to sell today, do you have an active wheat farm?");
+                ModSim.sendChat(this.theFolk.name + " did not have any bread to sell today, do you have an active wheat farm?");
             } else {
-                ModSimukraft.sendChat(this.theFolk.name + " has sold " + breadStack.stackSize + " loafs of bread to folks today.");
+                ModSim.sendChat(this.theFolk.name + " has sold " + breadStack.stackSize + " loafs of bread to folks today.");
 
-                for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-                    FolkData folk = (FolkData)ModSimukraft.theFolks.get(f);
+                for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+                    FolkData folk = (FolkData) ModSim.theFolks.get(f);
                     if (breadStack.stackSize > 0) {
                         folk.levelFood = 10;
                         --breadStack.stackSize;
@@ -295,7 +295,7 @@ public class JobBaker extends Job implements Serializable {
 
         while(!found) {
             try {
-                FarmingBox farm = (FarmingBox)ModSimukraft.theFarmingBoxes.get(this.currentFarmNum);
+                FarmingBox farm = (FarmingBox) ModSim.theFarmingBoxes.get(this.currentFarmNum);
                 if (farm.farmType == FarmType.WHEAT) {
                     found = true;
                     ++this.currentFarmNum;
@@ -303,7 +303,7 @@ public class JobBaker extends Job implements Serializable {
                 }
 
                 ++this.currentFarmNum;
-                if (this.currentFarmNum > ModSimukraft.theFarmingBoxes.size() - 1) {
+                if (this.currentFarmNum > ModSim.theFarmingBoxes.size() - 1) {
                     return null;
                 }
             } catch (Exception var4) {

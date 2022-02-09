@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.TileEntityWindmill;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
@@ -89,11 +89,11 @@ public abstract class Job {
                 }
             }
 
-            if (ModSimukraft.isDayTime() && theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
+            if (ModSim.isDayTime() && theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
                 theFolk.action = FolkAction.ONWAYTOWORK;
                 theFolk.stayPut = false;
                 if (theFolk.destination == null) {
-                    theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod)null);
+                    theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
                 }
             }
 
@@ -159,7 +159,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSimukraft.log.warning("Job: placeIntoInventory() could not place " + is.getDisplayName() + " in null slot " + g);
+                        ModSim.log.warning("Job: placeIntoInventory() could not place " + is.getDisplayName() + " in null slot " + g);
                         placedOK = false;
                     } else if (is.getItem() == inStack.getItem() && is.getMetadata() == inStack.getMetadata() && is.stackSize < is.getMaxStackSize()) {
                         int isBefore = chest.getStackInSlot(g).stackSize;
@@ -171,7 +171,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSimukraft.log.warning("Job: placeIntoInventory() could not inc Stacksize for " + is.getDisplayName() + " in slot " + g);
+                        ModSim.log.warning("Job: placeIntoInventory() could not inc Stacksize for " + is.getDisplayName() + " in slot " + g);
                         placedOK = false;
                     }
                 }
@@ -407,7 +407,7 @@ public abstract class Job {
                 if (okToPlace) {
                     placed = this.inventoriesPut(toChests, folkStack, true);
                     if (!placed) {
-                        ModSimukraft.log.warning("Job: Could not place stack of " + folkStack.getDisplayName() + " in chest");
+                        ModSim.log.warning("Job: Could not place stack of " + folkStack.getDisplayName() + " in chest");
                         return false;
                     }
                 }
@@ -805,8 +805,8 @@ public abstract class Job {
         new ArrayList();
         Building shortestDist = null;
 
-        for(int x = 0; x < ModSimukraft.theBuildings.size(); ++x) {
-            Building b = (Building)ModSimukraft.theBuildings.get(x);
+        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
+            Building b = (Building) ModSim.theBuildings.get(x);
             if (b.displayName.toLowerCase().contains(searchWord.toLowerCase())) {
                 if (shortestDist.primaryXYZ == null) {
                     shortestDist = b;

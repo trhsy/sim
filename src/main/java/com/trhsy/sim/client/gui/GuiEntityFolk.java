@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.Relationship;
 import net.minecraft.client.Minecraft;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * ========================================
  **/
 public class GuiEntityFolk extends GuiScreen {
-    private static final ResourceLocation myBackgroundTexture = new ResourceLocation(ModSimukraft.MODID + "", "textures/gui/guiFolk.png");
+    private static final ResourceLocation myBackgroundTexture = new ResourceLocation(ModSim.MODID + "", "textures/gui/guiFolk.png");
     private int currentPage = 0;
     private int mouseCount = 0;
     private FolkData theFolk;

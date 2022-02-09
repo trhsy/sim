@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -71,9 +71,9 @@ public class JobCheesemaker extends Job {
 
         if (this.theCheeseFactory == null) {
             this.theFolk.selfFire();
-            ModSimukraft.sendChat("There was a problem with the Cheese factory, try re-starting Minecraft");
+            ModSim.sendChat("There was a problem with the Cheese factory, try re-starting Minecraft");
         } else {
-            if (!ModSimukraft.isDayTime()) {
+            if (!ModSim.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -88,7 +88,7 @@ public class JobCheesemaker extends Job {
             }
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATFACTORY) {
                         this.stageArrivedAtFactory();
                     } else if (this.theStage == Stage.GOINGTODAIRYFARM) {
@@ -108,7 +108,7 @@ public class JobCheesemaker extends Job {
                     }
                 }
 
-                if (!ModSimukraft.isDayTime()) {
+                if (!ModSim.isDayTime()) {
                     this.theStage = Stage.IDLE;
                 }
 
@@ -139,7 +139,7 @@ public class JobCheesemaker extends Job {
             this.theStage = Stage.COLLECTINGMILK;
             this.step = 1;
         } else if (dairyFarms.isEmpty()) {
-            ModSimukraft.sendChat(this.theFolk.name + " has retired, as there are no dairy farms");
+            ModSim.sendChat(this.theFolk.name + " has retired, as there are no dairy farms");
             this.theFolk.selfFire();
         } else {
             this.theStage = Stage.GOINGTOTANK;
@@ -153,19 +153,19 @@ public class JobCheesemaker extends Job {
                 this.step = 2;
                 this.theFolk.isWorking = true;
             } else {
-                ModSimukraft.log.info("JobCheeseMaker: not arrived at farm yet");
+                ModSim.log.info("JobCheeseMaker: not arrived at farm yet");
             }
         } else if (this.step == 2) {
             this.chestsAtDairy = Job.inventoriesFindClosest(this.farm.primaryXYZ, 5);
             if (this.chestsAtDairy.isEmpty()) {
-                ModSimukraft.sendChat(this.theFolk.name + ": Can't find any chests at the dairy farm, I quit!");
+                ModSim.sendChat(this.theFolk.name + ": Can't find any chests at the dairy farm, I quit!");
                 this.theFolk.selfFire();
                 return;
             }
 
             this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtDairy, new ItemStack(Items.milk_bucket, 1), (Block)null);
             if (this.theFolk.inventory == null || this.theFolk.inventory.isEmpty()) {
-                ModSimukraft.sendChat(this.theFolk.name + " hasn't found any milk at the dairy today.");
+                ModSim.sendChat(this.theFolk.name + " hasn't found any milk at the dairy today.");
                 this.theStage = Stage.SLICECHEESE;
                 this.step = 1;
                 this.theFolk.isWorking = false;
@@ -180,7 +180,7 @@ public class JobCheesemaker extends Job {
                 this.step = 1;
                 this.theFolk.isWorking = false;
             } else {
-                ModSimukraft.log.warning("JobCheesemaker: no tank top point");
+                ModSim.log.warning("JobCheesemaker: no tank top point");
                 this.theFolk.selfFire();
             }
         }
@@ -193,7 +193,7 @@ public class JobCheesemaker extends Job {
                 this.step = 2;
                 this.theFolk.statusText = "Preparing to fill the tank";
             } else {
-                ModSimukraft.log.info("JobCheeseMaker: not arrived at back yet");
+                ModSim.log.info("JobCheeseMaker: not arrived at back yet");
             }
         } else if (this.step == 2) {
             this.theStage = Stage.EMPTYINGMILK;
@@ -231,12 +231,12 @@ public class JobCheesemaker extends Job {
                         break label61;
                     }
 
-                    milkBlock = (V3)i$.next();
+                    milkBlock = (V3) i$.next();
                     id = this.jobWorld.getBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
                     meta = this.jobWorld.getBlockMetadata(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
-                } while(id != null && (id != ModSimukraft.blockFluidMilk || meta != 1));
+                } while (id != null && (id != ModSim.blockFluidMilk || meta != 1));
 
-                this.jobWorld.setBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue(), ModSimukraft.blockFluidMilk, 0, 3);
+                this.jobWorld.setBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue(), ModSim.blockFluidMilk, 0, 3);
 
                 try {
                     this.theFolk.inventory.remove(0);
@@ -280,7 +280,7 @@ public class JobCheesemaker extends Job {
                 this.stirCount = 0;
                 this.step = 2;
             } else {
-                ModSimukraft.sendChat("There's a problem with the cheese factory, place a building constructor down and re-build it");
+                ModSim.sendChat("There's a problem with the cheese factory, place a building constructor down and re-build it");
                 this.theFolk.selfFire();
             }
         } else if (this.step == 2) {
@@ -348,7 +348,7 @@ public class JobCheesemaker extends Job {
                 cheese = (V3)milkBlocks.get(m);
                 id = this.jobWorld.getBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
                 dist = this.jobWorld.getBlockMetadata(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
-                if (id == ModSimukraft.blockFluidMilk && dist == 0) {
+                if (id == ModSim.blockFluidMilk && dist == 0) {
                     this.jobWorld.setBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue(), id, 0, 3);
                     ++milkGotCount;
                     if (milkGotCount > 1) {
@@ -361,11 +361,11 @@ public class JobCheesemaker extends Job {
                 Iterator i$ = cheeseBlocks.iterator();
 
                 while(i$.hasNext()) {
-                    cheese = (V3)i$.next();
+                    cheese = (V3) i$.next();
                     id = this.jobWorld.getBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
                     dist = cheese.getDistanceTo(currentStirPos);
-                    if (id != ModSimukraft.blockCheese && dist < 5) {
-                        this.jobWorld.setBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue(), ModSimukraft.blockCheese, 0, 3);
+                    if (id != ModSim.blockCheese && dist < 5) {
+                        this.jobWorld.setBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue(), ModSim.blockCheese, 0, 3);
                         placedCheese = true;
                         break;
                     }
@@ -380,7 +380,7 @@ public class JobCheesemaker extends Job {
 
         } else {
             this.theFolk.selfFire();
-            ModSimukraft.sendChat("There was a problem with the Cheese factory, try re-building it - no milk blocks");
+            ModSim.sendChat("There was a problem with the Cheese factory, try re-building it - no milk blocks");
         }
     }
 
@@ -409,13 +409,13 @@ public class JobCheesemaker extends Job {
                 while(i$.hasNext()) {
                     block = (V3)i$.next();
                     id = this.jobWorld.getBlock(block.x.intValue(), block.y.intValue(), block.z.intValue());
-                    if (((V3)stirPositions.get(0)).getDistanceTo(block) < 5 && id == ModSimukraft.blockCheese) {
+                    if (((V3) stirPositions.get(0)).getDistanceTo(block) < 5 && id == ModSim.blockCheese) {
                         gotBlock = true;
-                        this.theFolk.inventory.add(new ItemStack(ModSimukraft.blockCheese));
+                        this.theFolk.inventory.add(new ItemStack(ModSim.blockCheese));
                         this.jobWorld.setBlock(block.x.intValue(), block.y.intValue(), block.z.intValue(), id, 0, 3);
                         this.theFolk.isWorking = true;
-                        GameStates var10000 = ModSimukraft.states;
-                        var10000.credits = (float)((double)var10000.credits - 0.45D);
+                        GameStates var10000 = ModSim.states;
+                        var10000.credits = (float) ((double) var10000.credits - 0.45D);
                         break;
                     }
                 }
@@ -438,9 +438,9 @@ public class JobCheesemaker extends Job {
                 while(i$.hasNext()) {
                     block = (V3)i$.next();
                     id = this.jobWorld.getBlock(block.x.intValue(), block.y.intValue(), block.z.intValue());
-                    if (((V3)stirPositions.get(1)).getDistanceTo(block) < 5 && id == ModSimukraft.blockCheese) {
+                    if (((V3) stirPositions.get(1)).getDistanceTo(block) < 5 && id == ModSim.blockCheese) {
                         gotBlock = true;
-                        this.theFolk.inventory.add(new ItemStack(ModSimukraft.blockCheese));
+                        this.theFolk.inventory.add(new ItemStack(ModSim.blockCheese));
                         this.jobWorld.setBlock(block.x.intValue(), block.y.intValue(), block.z.intValue(), id, 0, 3);
                         break;
                     }
@@ -460,7 +460,7 @@ public class JobCheesemaker extends Job {
         ArrayList<V3> slicewaypoint = this.theCheeseFactory.getSpecialBlocks(5);
         if (slicewaypoint.isEmpty()) {
             this.theFolk.selfFire();
-            ModSimukraft.sendChat("There was a problem with the Cheese factory, try re-building it - waypoint issue");
+            ModSim.sendChat("There was a problem with the Cheese factory, try re-building it - waypoint issue");
         } else {
             if (this.step == 1) {
                 this.theFolk.gotoXYZ((V3)slicewaypoint.get(0), (GotoMethod)null);
@@ -475,7 +475,7 @@ public class JobCheesemaker extends Job {
                 if (this.step == 3) {
                     chests = Job.inventoriesFindClosest((V3)slicewaypoint.get(0), 4);
                     if (chests.isEmpty()) {
-                        ModSimukraft.sendChat(this.theFolk.name + ": Someone has stolen the chest in the cheese factory, I quit!");
+                        ModSim.sendChat(this.theFolk.name + ": Someone has stolen the chest in the cheese factory, I quit!");
                         this.theFolk.selfFire();
                     }
 
@@ -484,11 +484,11 @@ public class JobCheesemaker extends Job {
                 } else if (this.step == 4) {
                     chests = Job.inventoriesFindClosest((V3)slicewaypoint.get(0), 4);
                     this.theFolk.statusText = "Slicing cheese";
-                    ItemStack cheese = inventoriesGet(chests, new ItemStack(ModSimukraft.blockCheese, 1), false, false);
+                    ItemStack cheese = inventoriesGet(chests, new ItemStack(ModSim.blockCheese, 1), false, false);
                     if (cheese != null) {
-                        boolean placedOK = this.inventoriesPut(chests, new ItemStack(ModSimukraft.itemFood, 9, 0), true);
+                        boolean placedOK = this.inventoriesPut(chests, new ItemStack(ModSim.itemFood, 9, 0), true);
                         if (!placedOK) {
-                            ModSimukraft.sendChat(this.theFolk.name + "'s chest at the cheese factory is full of cheese!");
+                            ModSim.sendChat(this.theFolk.name + "'s chest at the cheese factory is full of cheese!");
                             this.theFolk.selfFire();
                         }
                     } else {

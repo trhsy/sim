@@ -1,7 +1,7 @@
 package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.EntityFolk;
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.jobs.*;
@@ -138,14 +138,14 @@ public class FolkData implements Serializable {
         }
 
         try {
-            ModSimukraft.log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + ModSimukraft.theFolks.size() + " folks in total");
+            ModSim.log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + ModSim.theFolks.size() + " folks in total");
         } catch (Exception var4) {
         }
 
         this.inventory = new ArrayList();
         this.setTheirJob(this.vocation);
         this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
-        ModSimukraft.theFolks.add(this);
+        ModSim.theFolks.add(this);
     }
 
     public FolkData(World theWorld) {
@@ -191,8 +191,8 @@ public class FolkData implements Serializable {
         this.location = this.getLocationCloseToPlayer();
         if (this.location != null) {
             this.respawnEntity(theWorld);
-            ModSimukraft.theFolks.add(this);
-            ModSimukraft.sendChat(this.name + " has just wandered into the area.");
+            ModSim.theFolks.add(this);
+            ModSim.sendChat(this.name + " has just wandered into the area.");
         }
     }
 
@@ -255,13 +255,13 @@ public class FolkData implements Serializable {
 
         this.location = Job.findAdjacentSpace(mother.location, mworld);
         this.respawnEntity(theWorld);
-        ModSimukraft.theFolks.add(this);
-        ModSimukraft.sendChat(this.name + " has just been born!");
-        World world = ModSimukraft.proxy.getClientWorld();
+        ModSim.theFolks.add(this);
+        ModSim.sendChat(this.name + " has just been born!");
+        World world = ModSim.proxy.getClientWorld();
         if (world != null) {
             EntityPlayer p = Minecraft.getMinecraft().thePlayer;
             if (p != null) {
-                ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":birth", 1.0F, 1.0F, false);
+                ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":birth", 1.0F, 1.0F, false);
             }
         }
 
@@ -306,7 +306,7 @@ public class FolkData implements Serializable {
                         }
 
                         this.entityId = this.theEntity.getEntityId();
-                        ModSimukraft.log.info("FolkData:repawnEntity() " + this.name + " at " + this.location.toString() + " in dim " + this.location.theDimension + " ENTITY:" + this.theEntity.getEntityId());
+                        ModSim.log.info("FolkData:repawnEntity() " + this.name + " at " + this.location.toString() + " in dim " + this.location.theDimension + " ENTITY:" + this.theEntity.getEntityId());
                     }
 
                 }
@@ -315,8 +315,8 @@ public class FolkData implements Serializable {
     }
 
     public static void triggerAllUpdates() {
-        for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-            FolkData fd = (FolkData)ModSimukraft.theFolks.get(f);
+        for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+            FolkData fd = (FolkData) ModSim.theFolks.get(f);
             fd.onUpdate();
         }
 
@@ -346,14 +346,14 @@ public class FolkData implements Serializable {
 
             long t = MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L;
             if (t < 2000L && this.pregnancyStage >= 1.0F) {
-                Iterator i$ = ModSimukraft.theBuildings.iterator();
+                Iterator i$ = ModSim.theBuildings.iterator();
 
                 while(i$.hasNext()) {
                     Building build = (Building)i$.next();
                     if (build != null && build.primaryXYZ != null && build.displayName.contains("Clinic") && this.destination == null && !build.blockSpecial.isEmpty()) {
                         V3 bed = (V3)build.blockSpecial.get(0);
                         this.gotoXYZ(bed, (GotoMethod)null);
-                        ModSimukraft.sendChat(this.name + " is about to have a baby, she's on her way to the clinic!");
+                        ModSim.sendChat(this.name + " is about to have a baby, she's on her way to the clinic!");
                     }
                 }
 
@@ -393,14 +393,14 @@ public class FolkData implements Serializable {
             boolean gotWanderPoint = false;
             if (this.action == FolkAction.WANDER && this.isSpawned() && this.employedAt == null && this.age >= 18 && !this.statusText.contains("baby")) {
                 int xo;
-                for(xo = 0; xo < ModSimukraft.theBuildings.size(); ++xo) {
-                    Building b = (Building)ModSimukraft.theBuildings.get(rand.nextInt(ModSimukraft.theBuildings.size()));
+                for(xo = 0; xo < ModSim.theBuildings.size(); ++xo) {
+                    Building b = (Building) ModSim.theBuildings.get(rand.nextInt(ModSim.theBuildings.size()));
                     double dist = (double)this.location.getDistanceTo(b.primaryXYZ);
                     if (b.type.contentEquals("commercial") && dist < 40.0D) {
                         boolean hasShopKeeper = false;
 
-                        for(int f = 0; f < ModSimukraft.theFolks.size(); ++f) {
-                            FolkData keeper = (FolkData)ModSimukraft.theFolks.get(f);
+                        for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+                            FolkData keeper = (FolkData) ModSim.theFolks.get(f);
                             if (keeper.employedAt != null && keeper.employedAt.isSameCoordsAs(b.primaryXYZ, true, true)) {
                                 hasShopKeeper = true;
                                 break;
@@ -408,7 +408,7 @@ public class FolkData implements Serializable {
                         }
 
                         if (hasShopKeeper) {
-                            ModSimukraft.log.info("FolkData:onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
+                            ModSim.log.info("FolkData:onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
                             this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                             this.destination.doNotTimeout = true;
                             this.statusText = "Shopping at the " + b.displayName;
@@ -423,7 +423,7 @@ public class FolkData implements Serializable {
                     } else {
                         if (b.type.contentEquals("industrial") && dist < 40.0D && !b.displayName.toLowerCase().contains("farm")) {
                             try {
-                                ModSimukraft.log.info("FolkData: onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
+                                ModSim.log.info("FolkData: onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
                                 this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                                 this.destination.doNotTimeout = true;
                                 this.statusText = "Visiting the " + b.displayName;
@@ -444,7 +444,7 @@ public class FolkData implements Serializable {
 
                             try {
                                 if (!resy.name.contentEquals(this.name) && resy.hangingWith == null && (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME)) {
-                                    ModSimukraft.log.info("FolkData:onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
+                                    ModSim.log.info("FolkData:onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
                                     this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                                     gotWanderPoint = true;
                                     this.statusText = "Hanging out with " + resy.name;
@@ -474,7 +474,7 @@ public class FolkData implements Serializable {
                         Double var38 = wanderTo.y;
                     }
 
-                    ModSimukraft.log.info("FolkData:onUpdate() WANDER COMMAND FOR " + this.name + " to " + wanderTo.toString());
+                    ModSim.log.info("FolkData:onUpdate() WANDER COMMAND FOR " + this.name + " to " + wanderTo.toString());
                     this.gotoXYZ(wanderTo, GotoMethod.WALK);
                     if (this.destination != null) {
                         this.destination.doNotTimeout = true;
@@ -495,7 +495,7 @@ public class FolkData implements Serializable {
                 this.statusText = "Wandering";
             }
 
-            if (!ModSimukraft.isDayTime() && Relationship.isFolkLivingWithSomeone(this) && this.matingStage < 0.0F) {
+            if (!ModSim.isDayTime() && Relationship.isFolkLivingWithSomeone(this) && this.matingStage < 0.0F) {
                 this.tryForBaby();
             }
 
@@ -519,27 +519,27 @@ public class FolkData implements Serializable {
                 this.updateLocationFromEntity();
                 range = this.getDistanceToPlayer();
                 if (range >= 50 && this.theEntity != null) {
-                    ModSimukraft.log.info("FolkData: onSecTasks - Manually Despawned " + this.name + " as they are " + range + " blocks away");
+                    ModSim.log.info("FolkData: onSecTasks - Manually Despawned " + this.name + " as they are " + range + " blocks away");
                     this.theEntity.setDead();
                 }
             }
 
-            if (ModSimukraft.isDayTime() && this.employedAt != null && this.action != FolkAction.ONWAYTOWORK && this.action != FolkAction.ATWORK && this.pregnancyStage == 0.0F) {
-                ModSimukraft.log.info("FolkData: " + this.name + " is going to work");
+            if (ModSim.isDayTime() && this.employedAt != null && this.action != FolkAction.ONWAYTOWORK && this.action != FolkAction.ATWORK && this.pregnancyStage == 0.0F) {
+                ModSim.log.info("FolkData: " + this.name + " is going to work");
                 this.statusText = "Going to work";
                 this.action = FolkAction.ONWAYTOWORK;
                 this.gotoXYZ(this.employedAt, (GotoMethod)null);
                 return;
             }
 
-            if (this.pregnancyStage > 0.0F && this.employedAt != null && ModSimukraft.isDayTime()) {
+            if (this.pregnancyStage > 0.0F && this.employedAt != null && ModSim.isDayTime()) {
                 this.statusText = "On Maternity leave";
             }
 
-            if (ModSimukraft.isDayTime() && this.employedAt != null && this.action != FolkAction.ATWORK && this.destination == null && this.pregnancyStage == 0.0F) {
+            if (ModSim.isDayTime() && this.employedAt != null && this.action != FolkAction.ATWORK && this.destination == null && this.pregnancyStage == 0.0F) {
                 this.statusText = "Going to work";
                 this.action = FolkAction.ONWAYTOWORK;
-                ModSimukraft.log.warning("FolkData:onUpdate() " + this.name + " is still going to work");
+                ModSim.log.warning("FolkData:onUpdate() " + this.name + " is still going to work");
                 this.updateLocationFromEntity();
                 V3 temp = this.employedAt.clone();
                 temp.x = temp.x + 5.0D;
@@ -561,7 +561,7 @@ public class FolkData implements Serializable {
                 this.stayPut = true;
             }
 
-            if (ModSimukraft.isDayTime() && this.statusText.contains("for a baby")) {
+            if (ModSim.isDayTime() && this.statusText.contains("for a baby")) {
                 this.statusText = "Wandering";
                 this.action = FolkAction.WANDER;
             }
@@ -574,7 +574,7 @@ public class FolkData implements Serializable {
                 }
             }
 
-            if (ModSimukraft.isDayTime() && this.employedAt == null && this.action == FolkAction.ATHOME) {
+            if (ModSim.isDayTime() && this.employedAt == null && this.action == FolkAction.ATHOME) {
                 this.isWorking = false;
                 if ((new Random()).nextInt(4) == 1) {
                     this.statusText = "Staying Home";
@@ -595,7 +595,7 @@ public class FolkData implements Serializable {
             }
 
             int chance;
-            if (!ModSimukraft.isDayTime() && !isSoldier) {
+            if (!ModSim.isDayTime() && !isSoldier) {
                 this.action = FolkAction.WANDER;
                 this.isWorking = false;
                 if (this.getHome() == null) {
@@ -614,7 +614,7 @@ public class FolkData implements Serializable {
                             liveAt = this.getHome().primaryXYZ.clone();
                         }
                     } catch (Exception var13) {
-                        ModSimukraft.log.warning(this.name + " has no liveAt");
+                        ModSim.log.warning(this.name + " has no liveAt");
                     }
 
                     if (liveAt != null) {
@@ -647,7 +647,7 @@ public class FolkData implements Serializable {
             if (System.currentTimeMillis() - this.timeSinceLastSave > (long)about10) {
                 Side side = FMLCommonHandler.instance().getEffectiveSide();
                 if (side == Side.SERVER) {
-                    ModSimukraft.network.sendToServer(new UpdateFolkPositionMessage(this.location.toString() + ";" + this.name));
+                    ModSim.network.sendToServer(new UpdateFolkPositionMessage(this.location.toString() + ";" + this.name));
                     this.saveThisFolk();
                 }
 
@@ -657,10 +657,10 @@ public class FolkData implements Serializable {
             if ((this.statusText.startsWith("Hanging out ") || this.statusText.startsWith("Shopping at the ")) && this.destination == null && this.theEntity != null) {
                 ++this.talkCounter;
                 if (this.talkCounter == 12) {
-                    if (ModSimukraft.configFolkTalking) {
+                    if (ModSim.configFolkTalking) {
                         chance = rand.nextInt(26) + 97;
-                        String letter = ModSimukraft.MODID + ":blarg" + Character.toString((char)chance);
-                        ModSimukraft.proxy.getClientWorld().playSound(this.location.x, this.location.y, this.location.z, letter, 1.0F, 1.0F, false);
+                        String letter = ModSim.MODID + ":blarg" + Character.toString((char)chance);
+                        ModSim.proxy.getClientWorld().playSound(this.location.x, this.location.y, this.location.z, letter, 1.0F, 1.0F, false);
                     }
 
                     this.talkCounter = 0;
@@ -671,7 +671,7 @@ public class FolkData implements Serializable {
             }
 
             if (this.matingStage >= 0.0F && this.matingStage < 1.0F && this.gender == 1 && this.pregnancyStage == 0.0F) {
-                if (ModSimukraft.isDayTime()) {
+                if (ModSim.isDayTime()) {
                     this.matingStage = -1.0F;
                 } else {
                     male = Relationship.isFolkLivingWithSomeone(this, true);
@@ -698,13 +698,13 @@ public class FolkData implements Serializable {
             } else if (this.matingStage >= 1.0F && this.matingStage < 1.1F) {
                 this.matingStage = 1.1F;
                 chance = rand.nextInt(7);
-                ModSimukraft.log.info("FolkData: Finished Trying for baby - chance=" + chance);
+                ModSim.log.info("FolkData: Finished Trying for baby - chance=" + chance);
                 male = Relationship.isFolkLivingWithSomeone(this, true);
                 this.statusText = "Relaxing at home";
                 male.statusText = "Relaxing at home";
                 if (chance == 1 && this.age < 45) {
                     this.pregnancyStage = 0.1F;
-                    ModSimukraft.sendChat("Good news! " + this.name + " and " + male.name + " are expecting a baby!");
+                    ModSim.sendChat("Good news! " + this.name + " and " + male.name + " are expecting a baby!");
                     if (this.isSpawned()) {
                         this.theEntity.setJumping(true);
                     }
@@ -713,11 +713,11 @@ public class FolkData implements Serializable {
                         male.theEntity.setJumping(true);
                     }
 
-                    World world = ModSimukraft.proxy.getClientWorld();
+                    World world = ModSim.proxy.getClientWorld();
                     if (world != null) {
                         EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                         if (p != null) {
-                            ModSimukraft.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSimukraft.MODID + ":pregnant", 1.0F, 1.0F, false);
+                            ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":pregnant", 1.0F, 1.0F, false);
                         }
                     }
                 }
@@ -755,8 +755,8 @@ public class FolkData implements Serializable {
         if (this.action == FolkAction.WANDER) {
             Building.loadAllBuildings();
 
-            for(int b = 0; b < ModSimukraft.theBuildings.size(); ++b) {
-                Building building = (Building)ModSimukraft.theBuildings.get(b);
+            for(int b = 0; b < ModSim.theBuildings.size(); ++b) {
+                Building building = (Building) ModSim.theBuildings.get(b);
                 if (building.tennants.size() == 0 && building.buildingComplete && building.type.contentEquals("residential")) {
                     building.tennants.add(this.name);
                     this.action = FolkAction.GOINGHOME;
@@ -767,8 +767,8 @@ public class FolkData implements Serializable {
                         this.gotoXYZ(building.primaryXYZ, (GotoMethod)null);
                     }
 
-                    ModSimukraft.states.saveStates();
-                    ModSimukraft.sendChat(this.name + " is moving into their " + building.displayNameWithoutPK);
+                    ModSim.states.saveStates();
+                    ModSim.sendChat(this.name + " is moving into their " + building.displayNameWithoutPK);
                     this.statusText = "Moved into my " + building.displayNameWithoutPK;
                     Building.saveAllBuildings();
                     break;
@@ -855,7 +855,7 @@ public class FolkData implements Serializable {
         try {
             ret = new V3(p.posX, 5.0D, p.posZ, p.dimension);
         } catch (Exception var9) {
-            ModSimukraft.log.warning("getLocationCloseToPlayer: player was null, returned null V3");
+            ModSim.log.warning("getLocationCloseToPlayer: player was null, returned null V3");
             return new V3(0.0D, 5.0D, 0.0D, 0);
         }
 
@@ -909,16 +909,16 @@ public class FolkData implements Serializable {
         for(int go = 0; go < 200; ++go) {
             int i;
             if (gender == 0) {
-                i = randomGenerator.nextInt(ModSimukraft.configMaleNames.length);
-                firstName = ModSimukraft.configMaleNames[i].trim();
+                i = randomGenerator.nextInt(ModSim.configMaleNames.length);
+                firstName = ModSim.configMaleNames[i].trim();
             } else {
-                i = randomGenerator.nextInt(ModSimukraft.configFemaleNames.length);
-                firstName = ModSimukraft.configFemaleNames[i].trim();
+                i = randomGenerator.nextInt(ModSim.configFemaleNames.length);
+                firstName = ModSim.configFemaleNames[i].trim();
             }
 
-            i = randomGenerator.nextInt(ModSimukraft.configSurnames.length);
+            i = randomGenerator.nextInt(ModSim.configSurnames.length);
             if (lastName.contentEquals("")) {
-                lastName = ModSimukraft.configSurnames[i].trim();
+                lastName = ModSim.configSurnames[i].trim();
             } else {
                 lastName = lastNameOptional;
             }
@@ -937,7 +937,7 @@ public class FolkData implements Serializable {
     }
 
     public void selfFire() {
-        ModSimukraft.log.info("FolkData: selfFire() " + this.name);
+        ModSim.log.info("FolkData: selfFire() " + this.name);
         this.isWorking = false;
         if (this.inventory.size() > 0) {
             int count = 0;
@@ -962,7 +962,7 @@ public class FolkData implements Serializable {
             }
 
             if (count > 0) {
-                ModSimukraft.sendChat(this.name + " has dropped " + count + " items from their inventory");
+                ModSim.sendChat(this.name + " has dropped " + count + " items from their inventory");
             }
         }
 
@@ -1040,9 +1040,9 @@ public class FolkData implements Serializable {
                 }
 
                 try {
-                    ModSimukraft.log.info("FolkData: GOTOXYZ() for " + this.name + " to " + whereTo.toString() + " - Method:" + this.gotoMethod.toString() + " DIM:" + whereTo.theDimension);
+                    ModSim.log.info("FolkData: GOTOXYZ() for " + this.name + " to " + whereTo.toString() + " - Method:" + this.gotoMethod.toString() + " DIM:" + whereTo.theDimension);
                 } catch (Exception var9) {
-                    ModSimukraft.log.info("FolkData: GOTOXYZ() for " + this.name + " - NULL whereTo");
+                    ModSim.log.info("FolkData: GOTOXYZ() for " + this.name + " - NULL whereTo");
                     return;
                 }
 
@@ -1093,9 +1093,9 @@ public class FolkData implements Serializable {
         this.stayPut = true;
         this.updateLocationFromEntity();
         if (this.beamingTo != null) {
-            ModSimukraft.log.warning("FolkData:beamMeTo() already beaming " + this.name);
+            ModSim.log.warning("FolkData:beamMeTo() already beaming " + this.name);
         } else if (whereToIn == null) {
-            ModSimukraft.log.warning("FolkData: beamMeTo() whereTo was NULL, cancelled beaming");
+            ModSim.log.warning("FolkData: beamMeTo() whereTo was NULL, cancelled beaming");
         } else {
             this.timeStartedGotoing = System.currentTimeMillis();
             V3 whereTo = whereToIn.clone();
@@ -1124,14 +1124,14 @@ public class FolkData implements Serializable {
             }
 
             this.destination = whereTo.clone();
-            ModSimukraft.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
+            ModSim.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
             this.stayPut = true;
             if (this.isSpawned()) {
                 this.theEntity.getNavigator().clearPathEntity();
             }
 
             try {
-                if (ModSimukraft.proxy.getClientWorld() != null) {
+                if (ModSim.proxy.getClientWorld() != null) {
                 }
 
                 this.beamingTo = whereTo.clone();
@@ -1153,7 +1153,7 @@ public class FolkData implements Serializable {
                     }
                 }
 
-                ModSimukraft.log.info("FolkData: doBeaming() complete for " + this.name + " to " + this.beamingTo.toString() + " (dim " + this.beamingTo.theDimension + ")");
+                ModSim.log.info("FolkData: doBeaming() complete for " + this.name + " to " + this.beamingTo.toString() + " (dim " + this.beamingTo.theDimension + ")");
                 this.location = this.beamingTo.clone();
                 this.destination = null;
                 this.beamingTo = null;
@@ -1174,14 +1174,14 @@ public class FolkData implements Serializable {
 
         for(int p = 0; p < 10; ++p) {
             try {
-                if (!ModSimukraft.configDisableBeamEffect) {
+                if (!ModSim.configDisableBeamEffect) {
                     theWorld.spawnParticle("portal", this.location.x + random.nextDouble() - 0.5D, this.location.y - 1.0D, this.location.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
                 }
             } catch (Exception var7) {
             }
 
             try {
-                if (!ModSimukraft.configDisableBeamEffect) {
+                if (!ModSim.configDisableBeamEffect) {
                     theWorld.spawnParticle("portal", this.beamingTo.x + random.nextDouble() - 0.5D, this.beamingTo.y - 1.0D, this.beamingTo.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
                 }
             } catch (Exception var6) {
@@ -1191,8 +1191,8 @@ public class FolkData implements Serializable {
     }
 
     public static void loadAndSpawnFolks() {
-        ModSimukraft.theFolks.clear();
-        File folksFolder = new File(ModSimukraft.getSavesDataFolder() + "folks" + File.separator);
+        ModSim.theFolks.clear();
+        File folksFolder = new File(ModSim.getSavesDataFolder() + "folks" + File.separator);
         if (!folksFolder.exists()) {
             folksFolder.mkdirs();
         }
@@ -1218,7 +1218,7 @@ public class FolkData implements Serializable {
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
-                    ArrayList<String> strings = ModSimukraft.loadSK2(f.getAbsoluteFile().toString());
+                    ArrayList<String> strings = ModSim.loadSK2(f.getAbsoluteFile().toString());
                     FolkData folkd = new FolkData();
                     Iterator iterator = strings.iterator();
 
@@ -1286,7 +1286,7 @@ public class FolkData implements Serializable {
                     }
 
                     if (folkd != null) {
-                        ModSimukraft.log.info("FolkData: loadAndSpawnFolks() Loaded " + folkd.name + " using new file system");
+                        ModSim.log.info("FolkData: loadAndSpawnFolks() Loaded " + folkd.name + " using new file system");
                         folkd.hasLoaded();
                     }
                 }
@@ -1298,7 +1298,7 @@ public class FolkData implements Serializable {
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".suk")) {
-                    FolkData folkd = (FolkData)ModSimukraft.proxy.loadObject(f.getAbsoluteFile().toString());
+                    FolkData folkd = (FolkData) ModSim.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (folkd != null) {
                         folkd.hasLoaded();
                     } else {
@@ -1311,7 +1311,7 @@ public class FolkData implements Serializable {
     }
 
     public void saveThisFolk() {
-        String folder = ModSimukraft.getSavesDataFolder() + "folks" + File.separator;
+        String folder = ModSim.getSavesDataFolder() + "folks" + File.separator;
         File f = new File(folder);
         if (!f.exists()) {
             f.mkdirs();
@@ -1358,15 +1358,15 @@ public class FolkData implements Serializable {
 
             strings.add("terraformradius|" + this.terraformerRadius);
             if (!this.name.contentEquals("")) {
-                ModSimukraft.saveSK2(folder + this.name + ".sk2", strings);
+                ModSim.saveSK2(folder + this.name + ".sk2", strings);
             }
         }
 
     }
 
     public Building getHome() {
-        for(int b = 0; b < ModSimukraft.theBuildings.size(); ++b) {
-            Building home = (Building)ModSimukraft.theBuildings.get(b);
+        for(int b = 0; b < ModSim.theBuildings.size(); ++b) {
+            Building home = (Building) ModSim.theBuildings.get(b);
 
             for(int t = 0; t < home.tennants.size(); ++t) {
                 String tennant = (String)home.tennants.get(t);
@@ -1381,7 +1381,7 @@ public class FolkData implements Serializable {
 
     public static void generateNewFolk(World world) {
         ArrayList<FolkData> fds = getFolkHomeless();
-        if (fds.size() == 0 && ModSimukraft.theFolks.size() < ModSimukraft.configPopulationLimit) {
+        if (fds.size() == 0 && ModSim.theFolks.size() < ModSim.configPopulationLimit) {
             new FolkData(world);
         }
 
@@ -1390,8 +1390,8 @@ public class FolkData implements Serializable {
     public static FolkData getFolkByName(String name) {
         FolkData f = null;
 
-        for(int x = 0; x < ModSimukraft.theFolks.size(); ++x) {
-            f = (FolkData)ModSimukraft.theFolks.get(x);
+        for(int x = 0; x < ModSim.theFolks.size(); ++x) {
+            f = (FolkData) ModSim.theFolks.get(x);
             if (f.name.contentEquals(name)) {
                 return f;
             }
@@ -1403,8 +1403,8 @@ public class FolkData implements Serializable {
     public static FolkData getFolkByLocation(V3 loc) {
         FolkData f = null;
 
-        for(int x = 0; x < ModSimukraft.theFolks.size(); ++x) {
-            f = (FolkData)ModSimukraft.theFolks.get(x);
+        for(int x = 0; x < ModSim.theFolks.size(); ++x) {
+            f = (FolkData) ModSim.theFolks.get(x);
             if (f.location.isSameCoordsAs(loc, true, false)) {
                 return f;
             }
@@ -1416,8 +1416,8 @@ public class FolkData implements Serializable {
     public static FolkData getFolkByEmployedAt(V3 employedAt) {
         FolkData f = null;
 
-        for(int x = 0; x < ModSimukraft.theFolks.size(); ++x) {
-            f = (FolkData)ModSimukraft.theFolks.get(x);
+        for(int x = 0; x < ModSim.theFolks.size(); ++x) {
+            f = (FolkData) ModSim.theFolks.get(x);
             if (f.employedAt != null && f.employedAt.isSameCoordsAs(employedAt, true, false)) {
                 return f;
             }
@@ -1429,8 +1429,8 @@ public class FolkData implements Serializable {
     public static ArrayList<FolkData> getFolksByEmployedAt(V3 v) {
         ArrayList<FolkData> ret = new ArrayList();
 
-        for(int x = 0; x < ModSimukraft.theFolks.size(); ++x) {
-            FolkData f = (FolkData)ModSimukraft.theFolks.get(x);
+        for(int x = 0; x < ModSim.theFolks.size(); ++x) {
+            FolkData f = (FolkData) ModSim.theFolks.get(x);
             if (f.employedAt != null && f.employedAt.isSameCoordsAs(v, true, false)) {
                 ret.add(f);
             }
@@ -1442,8 +1442,8 @@ public class FolkData implements Serializable {
     public static ArrayList getFolkUnemployed(boolean showEmployed) {
         ArrayList f = new ArrayList();
 
-        for(int x = 0; x < ModSimukraft.theFolks.size(); ++x) {
-            FolkData folk = (FolkData)ModSimukraft.theFolks.get(x);
+        for(int x = 0; x < ModSim.theFolks.size(); ++x) {
+            FolkData folk = (FolkData) ModSim.theFolks.get(x);
             if (showEmployed) {
                 if (folk.employedAt != null) {
                     f.add(folk);
@@ -1459,8 +1459,8 @@ public class FolkData implements Serializable {
     public static ArrayList getFolkHomeless() {
         ArrayList f = new ArrayList();
 
-        for(int x = 0; x < ModSimukraft.theFolks.size(); ++x) {
-            FolkData folk = (FolkData)ModSimukraft.theFolks.get(x);
+        for(int x = 0; x < ModSim.theFolks.size(); ++x) {
+            FolkData folk = (FolkData) ModSim.theFolks.get(x);
             if (folk.getHome() == null) {
                 f.add(folk);
             }
@@ -1470,8 +1470,8 @@ public class FolkData implements Serializable {
     }
 
     public static FolkData getFolkDataByEntityId(int id) {
-        for(int i = 0; i < ModSimukraft.theFolks.size(); ++i) {
-            FolkData fd = (FolkData)ModSimukraft.theFolks.get(i);
+        for(int i = 0; i < ModSim.theFolks.size(); ++i) {
+            FolkData fd = (FolkData) ModSim.theFolks.get(i);
             if (fd.theEntity != null && fd.theEntity.getEntityId() == id) {
                 return fd;
             }
@@ -1482,7 +1482,7 @@ public class FolkData implements Serializable {
 
     public void eventDied(DamageSource d) {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
-        ModSimukraft.log.info("eventDied in FolkData fired on " + side.toString() + " side");
+        ModSim.log.info("eventDied in FolkData fired on " + side.toString() + " side");
         String oldJob = "";
         if (this.vocation != null) {
             oldJob = " (" + this.vocation.toString() + ")";
@@ -1557,13 +1557,13 @@ public class FolkData implements Serializable {
             only = "They were " + this.age + " years old, oh well, they had a good long life!";
         }
 
-        ModSimukraft.sendChat(this.name + oldJob + " has just died! " + deathBy + only);
+        ModSim.sendChat(this.name + oldJob + " has just died! " + deathBy + only);
         this.action = FolkAction.WANDER;
         i = 0;
 
         int q;
-        for(q = 0; q < ModSimukraft.theFolks.size(); ++q) {
-            FolkData fo = (FolkData)ModSimukraft.theFolks.get(q);
+        for(q = 0; q < ModSim.theFolks.size(); ++q) {
+            FolkData fo = (FolkData) ModSim.theFolks.get(q);
             if (fo.name.contentEquals(this.name)) {
                 i = q;
                 break;
@@ -1573,35 +1573,35 @@ public class FolkData implements Serializable {
         this.evictThem();
 
         try {
-            for(q = 0; q < ModSimukraft.theRelationships.size(); ++q) {
+            for(q = 0; q < ModSim.theRelationships.size(); ++q) {
                 try {
-                    Relationship rel = (Relationship)ModSimukraft.theRelationships.get(q);
+                    Relationship rel = (Relationship) ModSim.theRelationships.get(q);
                     if (rel.folk1.name.contentEquals(this.name) || rel.folk2.name.contentEquals(this.name)) {
                         String fn = rel.folk1.name.replaceAll(" ", "") + rel.folk2.name.replaceAll(" ", "");
-                        File f = new File(ModSimukraft.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2");
+                        File f = new File(ModSim.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2");
                         f.delete();
-                        ModSimukraft.theRelationships.remove(q);
+                        ModSim.theRelationships.remove(q);
                     }
                 } catch (Exception var11) {
                     var11.printStackTrace();
                 }
             }
 
-            File f = new File(ModSimukraft.getSavesDataFolder() + "folks" + File.separator + this.name + ".sk2");
+            File f = new File(ModSim.getSavesDataFolder() + "folks" + File.separator + this.name + ".sk2");
             f.delete();
-            if (i >= 0 && i < ModSimukraft.theFolks.size()) {
-                ModSimukraft.theFolks.remove(i);
+            if (i >= 0 && i < ModSim.theFolks.size()) {
+                ModSim.theFolks.remove(i);
             }
         } catch (Exception var12) {
-            ModSimukraft.log.warning("FolkData: eventDied() " + var12.toString());
+            ModSim.log.warning("FolkData: eventDied() " + var12.toString());
         }
 
     }
 
     public void evictThem() {
         if (this.getHome() != null) {
-            for(int b = 0; b < ModSimukraft.theBuildings.size(); ++b) {
-                Building building = (Building)ModSimukraft.theBuildings.get(b);
+            for(int b = 0; b < ModSim.theBuildings.size(); ++b) {
+                Building building = (Building) ModSim.theBuildings.get(b);
                 if (building != null && this.getHome() != null && building.primaryXYZ.isSameCoordsAs(this.getHome().primaryXYZ, true, false)) {
                     building.removeTennant(this.name);
                 }

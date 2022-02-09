@@ -4,7 +4,7 @@ package com.trhsy.sim.common.item.food;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -43,7 +43,7 @@ public class ItemSUKFood extends ItemFood {
         this.icons = new IIcon[names.length];
 
         for(int i = 0; i < this.icons.length; ++i) {
-            this.icons[i] = par1IconRegister.registerIcon(ModSimukraft.MODID + ":" + names[i]);
+            this.icons[i] = par1IconRegister.registerIcon(ModSim.MODID + ":" + names[i]);
         }
 
     }

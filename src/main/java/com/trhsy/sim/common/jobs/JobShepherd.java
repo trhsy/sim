@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
@@ -68,7 +68,7 @@ public class JobShepherd extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -81,7 +81,7 @@ public class JobShepherd extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimukraft.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATFARM) {
                     this.theStage = Stage.WAITINGFORWOOL;
                 } else if (this.theStage == Stage.WAITINGFORWOOL) {
@@ -150,7 +150,7 @@ public class JobShepherd extends Job implements Serializable {
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
                 this.theFolk.isWorking = true;
-                this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSimukraft.MODID + ":shears", 1.0F, 1.0F, false);
+                this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1.0F, 1.0F, false);
                 Thread t = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -194,7 +194,7 @@ public class JobShepherd extends Job implements Serializable {
             double var8 = 10.0D;
 
             try {
-                ModSimukraft.proxy.getClientWorld().spawnParticle("explode", ent.posX + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double)(rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
+                ModSim.proxy.getClientWorld().spawnParticle("explode", ent.posX + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
             } catch (Exception var13) {
             }
         }
@@ -207,7 +207,7 @@ public class JobShepherd extends Job implements Serializable {
     }
 
     private boolean placeWoolIntoAChest(int metaColor, int amount) {
-        GameStates var10000 = ModSimukraft.states;
+        GameStates var10000 = ModSim.states;
         var10000.credits -= 0.02F * (float)amount;
         this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
         this.inventoriesPut(this.farmChests, new ItemStack(Blocks.wool, amount, metaColor), true);

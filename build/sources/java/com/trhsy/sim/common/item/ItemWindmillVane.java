@@ -4,7 +4,7 @@ package com.trhsy.sim.common.item;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,7 +40,7 @@ public class ItemWindmillVane extends Item {
         this.icons = new IIcon[16];
 
         for(int i = 0; i <= 15; ++i) {
-            this.icons[i] = iconRegister.registerIcon(ModSimukraft.MODID + ":windmillvane" + i);
+            this.icons[i] = iconRegister.registerIcon(ModSim.MODID + ":windmillvane" + i);
         }
 
     }

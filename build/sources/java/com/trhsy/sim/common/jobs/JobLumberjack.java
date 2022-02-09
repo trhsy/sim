@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.ModSimukraft;
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
@@ -75,14 +75,14 @@ public class JobLumberjack extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSimukraft.isDayTime()) {
+        if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
         super.onUpdateGoingToWork(this.theFolk);
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage == Stage.IDLE && ModSimukraft.isDayTime()) {
+            if (this.theStage == Stage.IDLE && ModSim.isDayTime()) {
                 this.theStage = Stage.SCANFORTREE;
             } else if (this.theStage == Stage.ARRIVEDATMILL) {
                 this.theStage = Stage.SCANFORTREE;
@@ -131,7 +131,7 @@ public class JobLumberjack extends Job implements Serializable {
         }
 
         try {
-            this.foundWoodAt = findClosestBlockType(searchpos, Blocks.log, ModSimukraft.configLumberArea, false);
+            this.foundWoodAt = findClosestBlockType(searchpos, Blocks.log, ModSim.configLumberArea, false);
             this.foundWoodAt.theDimension = this.jobWorld.provider.dimensionId;
         } catch (Exception var5) {
             var5.printStackTrace();
@@ -140,7 +140,7 @@ public class JobLumberjack extends Job implements Serializable {
         this.theStage = Stage.GOTOTREE;
         this.onRoute = false;
         if (this.foundWoodAt == null) {
-            ModSimukraft.sendChat(this.theFolk.name + " could not find any wood in the area.");
+            ModSim.sendChat(this.theFolk.name + " could not find any wood in the area.");
             this.theFolk.selfFire();
         }
     }
@@ -313,9 +313,9 @@ public class JobLumberjack extends Job implements Serializable {
                 this.millChests = inventoriesFindClosest(this.theFolk.employedAt, 6);
                 this.inventoriesTransferFromFolk(this.theFolk.inventory, this.millChests, new ItemStack(Blocks.log));
                 this.pay = (float)dist * 0.03F;
-                GameStates var10000 = ModSimukraft.states;
+                GameStates var10000 = ModSim.states;
                 var10000.credits -= this.pay;
-                ModSimukraft.sendChat(this.theFolk.name + " has delivered " + dist + " logs at the lumbermill");
+                ModSim.sendChat(this.theFolk.name + " has delivered " + dist + " logs at the lumbermill");
                 this.theStage = Stage.SCANFORTREE;
                 this.step = 1;
             }
