@@ -2,11 +2,14 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLadder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import java.util.Map;
  **/
 public class Building implements Serializable {
     private static final long serialVersionUID = -1132989807904279141L;
+
     public String displayName;
     public String type;
     public String[] structure;
@@ -228,7 +232,7 @@ public class Building implements Serializable {
             in.close();
             this.rent = (float)this.blocksInBuilding * 0.01F;
         } catch (Exception var20) {
-            ModSim.log.warning("Building loadStructure() " + var20.toString());
+            ModSim.log.warn("建筑 loadStructure() " + var20.getMessage());
         }
 
     }
@@ -516,7 +520,7 @@ public class Building implements Serializable {
                 World buildingWorld = MinecraftServer.getServer().worldServerForDimension(building.primaryXYZ.theDimension);
                 Block id = buildingWorld.getBlock(pxyz.x.intValue(), pxyz.y.intValue(), pxyz.z.intValue());
                 String xyz = "b" + building.primaryXYZ.toString().replaceAll(",", "_");
-                if (id != ModSim.controlBox && id != ModSim.buildingConstructor) {
+                if (id != BlockLoader.blockControlBox && id != BlockLoader.constructorBox) {
                     File f = new File(ModSim.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
                     if (f.exists()) {
                         f.delete();
@@ -591,7 +595,7 @@ public class Building implements Serializable {
             }
         }
 
-        ModSim.log.info("Building.saveAllBuildings " + ModSim.theBuildings.size() + " buildings");
+        ModSim.log.info("建筑物.saveAllBuildings " + ModSim.theBuildings.size() + " 建筑");
     }
 
     public static void loadAllBuildings() {
@@ -743,7 +747,7 @@ public class Building implements Serializable {
                             ModSim.theBuildings.add(build);
                         } else {
                             fs.delete();
-                            ModSim.log.info("Building: Deleted building as id=" + id + " or dupe");
+                            ModSim.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
                         }
                     }
                 }
@@ -795,7 +799,7 @@ public class Building implements Serializable {
                     Building.initBuildingsOfType("industrial");
                     Building.initBuildingsOfType("other");
                     Building.runningInitThread = false;
-                    ModSim.log.info("Building: Thread Done Initialising all buildings from disk");
+                    ModSim.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
                 }
             });
             t.start();

@@ -2,8 +2,7 @@ package com.trhsy.sim.common;
 
 import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
-import com.trhsy.sim.common.loader.BlockLoader;
-import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -24,14 +23,19 @@ import java.io.ObjectInputStream;
 public class CommonProxy {
 
     public boolean ranStartup = false;
+
     public CommonProxy() {
     }
+
+    public void registerRenderInfo() {
+    }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 初始化之前加载
      * @Date 11:46 2022/1/23
      * @Param [event]
-     * @return void
      **/
     public void preInit(FMLPreInitializationEvent event) {
         //加载配置
@@ -42,6 +46,7 @@ public class CommonProxy {
         new ItemLoader(event);
         //加载所以方块
         new BlockLoader(event);
+
     }
     /**
      * @Author fan
@@ -51,7 +56,10 @@ public class CommonProxy {
      * @return void
      **/
     public void init(FMLInitializationEvent event) {
-
+        //加载合成表，燃烧规则
+        new CraftingLoader();
+        //事件
+        new EventLoader();
     }
     /**
      * @Author fan
@@ -62,15 +70,6 @@ public class CommonProxy {
      **/
     public void postInit(FMLPostInitializationEvent event) {
 
-    }
-    /**
-     * @Author fan
-     * @Description //TODO 注册
-     * @Date 11:42 2022/1/23
-     * @Param []
-     * @return void
-     **/
-    public void registerRenderInfo(){
     }
     /**
      * @Author fan
@@ -97,7 +96,7 @@ public class CommonProxy {
             o = in2.readObject();
             in2.close();
         } catch (Exception var5) {
-            ModSim.log.info("OLD LOADER - Could not load object " + var5.getMessage());
+            ModSim.log.info("旧加载程序-无法加载对象 " + var5.getMessage());
         }
 
         return o;

@@ -11,8 +11,10 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,13 +23,14 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName JobCourier
- * @Description todo
+ * @Description todo 信使
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:46
  * ========================================
  **/
 public class JobCourier extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207901844141L;
+
     public Vocation vocation = null;
     public FolkData theFolk = null;
     public Stage theStage;
@@ -101,7 +104,7 @@ public class JobCourier extends Job implements Serializable {
             this.currentTask = 0;
             this.courierTasks.clear();
 
-            for(int t = 0; t < ModSim.theCourierTasks.size(); ++t) {
+            for (int t = 0; t < ModSim.theCourierTasks.size(); ++t) {
                 CourierTask task = (CourierTask) ModSim.theCourierTasks.get(t);
                 if (task != null && task.pickup != null && task.folkname.contentEquals(this.theFolk.name)) {
                     try {
@@ -113,7 +116,7 @@ public class JobCourier extends Job implements Serializable {
             }
 
             if (this.courierTasks.size() == 0) {
-                this.theFolk.statusText = "No pickups or deliveries to do!";
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.deliveries");
             } else {
                 this.theStage = Stage.GOINGTOPICKUP;
                 this.onRoute = false;
@@ -126,7 +129,7 @@ public class JobCourier extends Job implements Serializable {
             CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
             this.pickup = task.pickup;
             if (this.pickup != null) {
-                this.theFolk.statusText = "On my way to " + this.pickup.name + " (pick-up)";
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.pickup.name + I18n.format("container.sim.job.courier.pick_up");
                 V3 d = this.pickup.clone();
                 Double var4 = d.y;
                 Double var5 = d.y = d.y + 1.0D;
@@ -157,7 +160,7 @@ public class JobCourier extends Job implements Serializable {
         this.chests.clear();
         this.chests = inventoriesFindClosest(pickup, 4);
         if (this.chests.size() == 0) {
-            ModSim.log.warning("JobCourier: StagePickingup() No chest at pickup:" + pickup.name + ", removing task.");
+            ModSim.log.warn("JobCourier: StagePickingup() 拾取时没有宝箱：" + pickup.name + "，移除任务。");
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
                 this.currentTask = 0;
@@ -169,9 +172,9 @@ public class JobCourier extends Job implements Serializable {
         } else {
             this.theFolk.stayPut = true;
             this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.statusText = "Picking up items";
-            ModSim.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier) found " + this.chests.size() + " chests at " + pickup.name);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack)null, ModSim.lightBox);
+            this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
+            ModSim.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, ModSim.lightBox);
         }
 
         if (this.theFolk.inventory.size() == 0) {
@@ -185,7 +188,7 @@ public class JobCourier extends Job implements Serializable {
             }
         } else {
             this.theStage = Stage.GOINGTODROPOFF;
-            this.theFolk.statusText = "Going to drop-off point";
+            this.theFolk.statusText = I18n.format("container.sim.job.courier.Going");
             this.onRoute = false;
         }
 
@@ -205,11 +208,11 @@ public class JobCourier extends Job implements Serializable {
 
         if (this.dropoff == null) {
             this.dropoff = this.theFolk.employedAt;
-            this.dropoff.name = "The depot";
+            this.dropoff.name = I18n.format("container.sim.job.courier.The_depot");
         }
 
         if (!this.onRoute) {
-            this.theFolk.statusText = "On my way to " + this.dropoff.name + " (drop-off)";
+            this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.dropoff.name + I18n.format("container.sim.job.courier.drop_off");
             V3 d = this.dropoff.clone();
             if (d == null) {
                 d = this.theFolk.employedAt.clone();
@@ -241,13 +244,13 @@ public class JobCourier extends Job implements Serializable {
         V3 dropoff = task.dropoff;
         if (dropoff == null) {
             dropoff = this.theFolk.employedAt;
-            dropoff.name = "The Depot";
+            dropoff.name = I18n.format("container.sim.job.courier.The_depot");
         }
 
         this.chests.clear();
         this.chests = inventoriesFindClosest(dropoff, 5);
         if (this.chests.size() == 0) {
-            ModSim.log.warning("JobCourierL dropoff() No chest found at dropoff");
+            ModSim.log.warn("JobCourierL dropoff() 下车时没有找到箱子");
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
                 this.currentTask = 0;
@@ -257,9 +260,9 @@ public class JobCourier extends Job implements Serializable {
             }
         } else {
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Dropping items off";
+            this.theFolk.statusText = I18n.format("container.sim.job.courier.Dropping");
             this.theFolk.action = FolkAction.ATWORK;
-            ModSim.log.info("JobCourier: " + this.theFolk.name + " found " + this.chests.size() + " chests at " + dropoff.name);
+            ModSim.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
 
             while(this.theFolk.inventory.size() > 0) {
                 int oldSize = this.theFolk.inventory.size();
@@ -267,14 +270,14 @@ public class JobCourier extends Job implements Serializable {
                 var10000.credits -= 0.11F;
                 ItemStack invItem = (ItemStack)this.theFolk.inventory.get(0);
                 if (this.theFolk.inventory.size() > 1) {
-                    this.theFolk.statusText = this.theFolk.inventory.size() + " stacks of items to unload";
+                    this.theFolk.statusText = this.theFolk.inventory.size() + I18n.format("container.sim.job.courier.unload");
                 } else {
-                    this.theFolk.statusText = "Last load...";
+                    this.theFolk.statusText = I18n.format("container.sim.job.courier.Last");
                 }
 
                 boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chests, (ItemStack)null);
                 if (!placed) {
-                    ModSim.sendChat(this.theFolk.name + " (Courier) can't place items into chest at " + dropoff.name + " because it's full, add more chests there, or empty them.");
+                    ModSim.sendChat(this.theFolk.name +I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
                     break;
                 }
             }
@@ -282,7 +285,7 @@ public class JobCourier extends Job implements Serializable {
 
         ++this.currentTask;
         if (this.currentTask >= this.courierTasks.size()) {
-            this.theFolk.statusText = "Checking my task list";
+            this.theFolk.statusText = I18n.format("container.sim.job.courier.task_list");
             this.currentTask = 0;
             this.timeSinceLastCycle = System.currentTimeMillis();
             this.theFolk.stayPut = false;
@@ -301,7 +304,7 @@ public class JobCourier extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the depot";
+            this.theFolk.statusText = I18n.format("container.sim.job.courier.Arrived");
             this.theStage = Stage.ATDEPOT;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

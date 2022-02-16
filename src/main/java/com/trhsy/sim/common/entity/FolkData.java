@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.Serializable;
@@ -33,6 +35,7 @@ import java.util.Random;
  **/
 public class FolkData implements Serializable {
     private static final long serialVersionUID = -2617939828256928361L;
+
     public V3 employedAt = null;
     public Vocation vocation = null;
     public transient Job theirJob = null;
@@ -83,7 +86,7 @@ public class FolkData implements Serializable {
         this.stayPut = false;
         this.destination = null;
         this.location = null;
-        this.statusText = "Wandering";
+        this.statusText = I18n.format("container.sim.folk_data.Wandering");
         this.status1 = "";
         this.status2 = "";
         this.status3 = "";
@@ -154,7 +157,7 @@ public class FolkData implements Serializable {
         this.stayPut = false;
         this.destination = null;
         this.location = null;
-        this.statusText = "Wandering";
+        this.statusText = I18n.format("container.sim.folk_data.Wandering");
         this.status1 = "";
         this.status2 = "";
         this.status3 = "";
@@ -192,7 +195,8 @@ public class FolkData implements Serializable {
         if (this.location != null) {
             this.respawnEntity(theWorld);
             ModSim.theFolks.add(this);
-            ModSim.sendChat(this.name + " has just wandered into the area.");
+            String just = I18n.format("container.sim.folk_data_just");
+            ModSim.sendChat(this.name + just);
         }
     }
 
@@ -202,7 +206,7 @@ public class FolkData implements Serializable {
         this.stayPut = false;
         this.destination = null;
         this.location = null;
-        this.statusText = "Wandering";
+        this.statusText = I18n.format("container.sim.folk_data.Wandering");
         this.status1 = "";
         this.status2 = "";
         this.status3 = "";
@@ -256,7 +260,8 @@ public class FolkData implements Serializable {
         this.location = Job.findAdjacentSpace(mother.location, mworld);
         this.respawnEntity(theWorld);
         ModSim.theFolks.add(this);
-        ModSim.sendChat(this.name + " has just been born!");
+        String born = I18n.format("container.sim.folk_data_born");
+        ModSim.sendChat(this.name + born);
         World world = ModSim.proxy.getClientWorld();
         if (world != null) {
             EntityPlayer p = Minecraft.getMinecraft().thePlayer;
@@ -351,15 +356,16 @@ public class FolkData implements Serializable {
                 while(i$.hasNext()) {
                     Building build = (Building)i$.next();
                     if (build != null && build.primaryXYZ != null && build.displayName.contains("Clinic") && this.destination == null && !build.blockSpecial.isEmpty()) {
-                        V3 bed = (V3)build.blockSpecial.get(0);
+                        V3 bed = (V3) build.blockSpecial.get(0);
                         this.gotoXYZ(bed, (GotoMethod) null);
-                        ModSim.sendChat(this.name + " is about to have a baby, she's on her way to the clinic!");
+                        String baby = I18n.format("container.sim.folk_data_baby");
+                        ModSim.sendChat(this.name + baby);
                     }
                 }
 
                 this.action = FolkAction.HAVINGBABY;
             } else if (t > 2000L && this.pregnancyStage >= 1.0F) {
-                this.statusText = "Just had a baby";
+                this.statusText = I18n.format("container.sim.folk_data_a_baby");
                 this.pregnancyStage = 0.0F;
                 male = Relationship.isFolkLivingWithSomeone(this, true);
                 new FolkData(MinecraftServer.getServer().worldServerForDimension(0), this, male);
@@ -385,13 +391,13 @@ public class FolkData implements Serializable {
                         }
                     }
                 } catch (Exception var16) {
-                    System.out.println("Non-critical Exception in SimCity:");
-                    var16.printStackTrace();
+                    ModSim.log.info("模拟城镇的关键异常:" + var16.getMessage());
+                    //var16.printStackTrace();
                 }
             }
 
             boolean gotWanderPoint = false;
-            if (this.action == FolkAction.WANDER && this.isSpawned() && this.employedAt == null && this.age >= 18 && !this.statusText.contains("baby")) {
+            if (this.action == FolkAction.WANDER && this.isSpawned() && this.employedAt == null && this.age >= 18 && !this.statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
                 int xo;
                 for (xo = 0; xo < ModSim.theBuildings.size(); ++xo) {
                     Building b = (Building) ModSim.theBuildings.get(rand.nextInt(ModSim.theBuildings.size()));
@@ -408,13 +414,13 @@ public class FolkData implements Serializable {
                         }
 
                         if (hasShopKeeper) {
-                            ModSim.log.info("FolkData:onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
+                            ModSim.log.info("FolkData:onUpdate() " + this.name + " 徘徊在 " + b.displayName + " " + dist + " 个街区之外。");
                             this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                             this.destination.doNotTimeout = true;
-                            this.statusText = "Shopping at the " + b.displayName;
+                            this.statusText = I18n.format("container.sim.folk_data_Shopping") + b.displayName;
                             gotWanderPoint = true;
                             if (this.hangingWith != null) {
-                                this.hangingWith.statusText = "Wandering";
+                                this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
                                 this.hangingWith.hangingWith = null;
                                 this.hangingWith = null;
                             }
@@ -423,16 +429,16 @@ public class FolkData implements Serializable {
                     } else {
                         if (b.type.contentEquals("industrial") && dist < 40.0D && !b.displayName.toLowerCase().contains("farm")) {
                             try {
-                                ModSim.log.info("FolkData: onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
+                                ModSim.log.info("FolkData: onUpdate() " + this.name + "徘徊在" + b.displayName + " " + dist + " 个街区之外。");
                                 this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                                 this.destination.doNotTimeout = true;
-                                this.statusText = "Visiting the " + b.displayName;
+                                this.statusText = I18n.format("container.sim.folk_data_Visiting") + b.displayName;
                                 gotWanderPoint = true;
                             } catch (Exception var14) {
                             }
 
                             if (this.hangingWith != null) {
-                                this.hangingWith.statusText = "Wandering";
+                                this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
                                 this.hangingWith.hangingWith = null;
                                 this.hangingWith = null;
                             }
@@ -444,16 +450,17 @@ public class FolkData implements Serializable {
 
                             try {
                                 if (!resy.name.contentEquals(this.name) && resy.hangingWith == null && (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME)) {
-                                    ModSim.log.info("FolkData:onUpdate() " + this.name + " is wandering to " + b.displayName + " " + dist + " blocks away.");
+                                    ModSim.log.info("FolkData:onUpdate() " + this.name + " 徘徊在 " + b.displayName + " " + dist + " 个街区之外。");
                                     this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                                     gotWanderPoint = true;
-                                    this.statusText = "Hanging out with " + resy.name;
+                                    String hanging = I18n.format("container.sim.folk_data_Hanging");
+                                    this.statusText = hanging + resy.name;
                                     resy.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                                     if (this.destination != null) {
                                         this.destination.doNotTimeout = true;
                                     }
 
-                                    resy.statusText = "Hanging out with " + this.name;
+                                    resy.statusText = hanging + this.name;
                                     this.hangingWith = resy;
                                     resy.hangingWith = this;
                                     break;
@@ -474,13 +481,13 @@ public class FolkData implements Serializable {
                         Double var38 = wanderTo.y;
                     }
 
-                    ModSim.log.info("FolkData:onUpdate() WANDER COMMAND FOR " + this.name + " to " + wanderTo.toString());
+                    ModSim.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
                     this.gotoXYZ(wanderTo, GotoMethod.WALK);
                     if (this.destination != null) {
                         this.destination.doNotTimeout = true;
                     }
 
-                    this.statusText = "Wandering";
+                    this.statusText = I18n.format("container.sim.folk_data.Wandering");
                     this.stayPut = false;
                 }
             } else if (this.action == FolkAction.WANDER && this.isSpawned() && this.age < 18) {
@@ -492,7 +499,7 @@ public class FolkData implements Serializable {
 
             if (this.hangingWith != null && !this.hangingWith.statusText.contains(this.name)) {
                 this.hangingWith = null;
-                this.statusText = "Wandering";
+                this.statusText = I18n.format("container.sim.folk_data.Wandering");
             }
 
             if (!ModSim.isDayTime() && Relationship.isFolkLivingWithSomeone(this) && this.matingStage < 0.0F) {
@@ -504,7 +511,7 @@ public class FolkData implements Serializable {
 
         if (now - this.timeSinceLastStatusUpdate > 1000L) {
             this.updateStatusLines();
-            if (this.statusText.contentEquals("Going to my new job...")) {
+            if (this.statusText.contentEquals(I18n.format("container.sim.gui.button_Going"))) {
                 this.stayPut = false;
             }
 
@@ -519,27 +526,27 @@ public class FolkData implements Serializable {
                 this.updateLocationFromEntity();
                 range = this.getDistanceToPlayer();
                 if (range >= 50 && this.theEntity != null) {
-                    ModSim.log.info("FolkData: onSecTasks - Manually Despawned " + this.name + " as they are " + range + " blocks away");
+                    ModSim.log.info("FolkData: onSecTasks - 手动剥离 " + this.name + " 因为它们距离 " + range + " 街区远");
                     this.theEntity.setDead();
                 }
             }
 
             if (ModSim.isDayTime() && this.employedAt != null && this.action != FolkAction.ONWAYTOWORK && this.action != FolkAction.ATWORK && this.pregnancyStage == 0.0F) {
-                ModSim.log.info("FolkData: " + this.name + " is going to work");
-                this.statusText = "Going to work";
+                ModSim.log.info("FolkData: " + this.name + " 要工作了");
+                this.statusText = I18n.format("container.sim.folk_data_Going_work");
                 this.action = FolkAction.ONWAYTOWORK;
                 this.gotoXYZ(this.employedAt, (GotoMethod) null);
                 return;
             }
 
             if (this.pregnancyStage > 0.0F && this.employedAt != null && ModSim.isDayTime()) {
-                this.statusText = "On Maternity leave";
+                this.statusText = I18n.format("container.sim.folk_data_Maternity_leave");
             }
 
             if (ModSim.isDayTime() && this.employedAt != null && this.action != FolkAction.ATWORK && this.destination == null && this.pregnancyStage == 0.0F) {
-                this.statusText = "Going to work";
+                this.statusText = I18n.format("container.sim.folk_data_Going_work");
                 this.action = FolkAction.ONWAYTOWORK;
-                ModSim.log.warning("FolkData:onUpdate() " + this.name + " is still going to work");
+                ModSim.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
                 this.updateLocationFromEntity();
                 V3 temp = this.employedAt.clone();
                 temp.x = temp.x + 5.0D;
@@ -549,38 +556,39 @@ public class FolkData implements Serializable {
             }
 
             if (this.action == FolkAction.ONWAYTOWORK) {
-                this.statusText = "Going to work";
+                this.statusText = I18n.format("container.sim.folk_data_Going_work");
                 this.stayPut = false;
                 if (this.destination == null) {
-                    this.gotoXYZ(this.employedAt, (GotoMethod)null);
+                    this.gotoXYZ(this.employedAt, (GotoMethod) null);
                 }
             }
 
             if (this.action == FolkAction.STAYINGHOME && this.hangingWith == null) {
-                this.statusText = "Staying at home";
+                this.statusText = I18n.format("container.sim.folk_data_Staying_home");
                 this.stayPut = true;
             }
 
-            if (ModSim.isDayTime() && this.statusText.contains("for a baby")) {
-                this.statusText = "Wandering";
+            if (ModSim.isDayTime() && this.statusText.contains(I18n.format("container.sim.folk_data.for_a_baby"))) {
+                this.statusText = I18n.format("container.sim.folk_data.Wandering");
                 this.action = FolkAction.WANDER;
             }
 
             if (this.action == FolkAction.HAVINGBABY) {
                 if (this.pregnancyStage < 1.0F) {
-                    this.statusText = "Just had a baby";
+
+                    this.statusText = I18n.format("container.sim.folk_data_a_baby");
                 } else {
-                    this.statusText = "Having a baby!";
+                    this.statusText = I18n.format("container.sim.folk_data_Having_baby");
                 }
             }
 
             if (ModSim.isDayTime() && this.employedAt == null && this.action == FolkAction.ATHOME) {
                 this.isWorking = false;
                 if ((new Random()).nextInt(4) == 1) {
-                    this.statusText = "Staying Home";
+                    this.statusText = I18n.format("container.sim.folk_data_Staying_home");
                     this.action = FolkAction.STAYINGHOME;
                 } else {
-                    this.statusText = "Wandering";
+                    this.statusText = I18n.format("container.sim.folk_data.Wandering");
                     this.action = FolkAction.WANDER;
                 }
             }
@@ -599,7 +607,7 @@ public class FolkData implements Serializable {
                 this.action = FolkAction.WANDER;
                 this.isWorking = false;
                 if (this.getHome() == null) {
-                    this.statusText = "Wandering";
+                    this.statusText = I18n.format("container.sim.folk_data.Wandering");
                     this.stayPut = false;
                 } else {
                     if (this.gotoMethod == GotoMethod.WALK) {
@@ -614,7 +622,7 @@ public class FolkData implements Serializable {
                             liveAt = this.getHome().primaryXYZ.clone();
                         }
                     } catch (Exception var13) {
-                        ModSim.log.warning(this.name + " has no liveAt");
+                        ModSim.log.warn(this.name + " 没有现场直播" + var13.getMessage());
                     }
 
                     if (liveAt != null) {
@@ -623,14 +631,14 @@ public class FolkData implements Serializable {
                             this.stayPut = false;
                             this.gotoXYZ(liveAt, (GotoMethod)null);
                             this.action = FolkAction.GOINGHOME;
-                            this.statusText = "Going Home";
+                            this.statusText = I18n.format("container.sim.folk_data_Going_home");
                             this.isWorking = false;
                         }
 
-                        if (chance <= 1 && !this.statusText.contains("baby")) {
+                        if (chance <= 1 && !this.statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
                             this.stayPut = true;
                             this.action = FolkAction.ATHOME;
-                            this.statusText = "Relaxing at home";
+                            this.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
                             this.isWorking = false;
                         }
                     }
@@ -684,13 +692,13 @@ public class FolkData implements Serializable {
                             double d2 = rand.nextDouble() * 0.5D;
                             theWorld.spawnParticle("heart", this.theEntity.posX, this.theEntity.posY + 2.1D, this.theEntity.posZ, d0, d1, d2);
                             male.updateLocationFromEntity();
-                            if ((double)this.matingStage < 0.15D) {
+                            if ((double) this.matingStage < 0.15D) {
                                 this.gotoXYZ(male.location, GotoMethod.SHIFT);
                             }
 
                             theWorld.spawnParticle("heart", male.location.x, male.location.y + 2.1D, male.location.z, d0, d1, d2);
-                            this.statusText = "Trying for a baby";
-                            male.statusText = "Trying for a baby";
+                            this.statusText = I18n.format("container.sim.folk_data_Trying_baby");
+                            male.statusText = I18n.format("container.sim.folk_data_Trying_baby");
                             male.stayPut = true;
                         }
                     }
@@ -698,13 +706,17 @@ public class FolkData implements Serializable {
             } else if (this.matingStage >= 1.0F && this.matingStage < 1.1F) {
                 this.matingStage = 1.1F;
                 chance = rand.nextInt(7);
-                ModSim.log.info("FolkData: Finished Trying for baby - chance=" + chance);
+                ModSim.log.info("FolkData: 完成了婴儿机会的尝试=" + chance);
                 male = Relationship.isFolkLivingWithSomeone(this, true);
-                this.statusText = "Relaxing at home";
-                male.statusText = "Relaxing at home";
+                this.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
+                male.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
                 if (chance == 1 && this.age < 45) {
                     this.pregnancyStage = 0.1F;
-                    ModSim.sendChat("Good news! " + this.name + " and " + male.name + " are expecting a baby!");
+
+                    String news = I18n.format("container.sim.folk_data_Good_news");
+                    String and = I18n.format("container.sim.folk_data_and");
+                    String expecting_a_baby = I18n.format("container.sim.folk_data_expecting_a_baby");
+                    ModSim.sendChat(news + this.name + and + male.name + expecting_a_baby);
                     if (this.isSpawned()) {
                         this.theEntity.setJumping(true);
                     }
@@ -768,8 +780,10 @@ public class FolkData implements Serializable {
                     }
 
                     ModSim.states.saveStates();
-                    ModSim.sendChat(this.name + " is moving into their " + building.displayNameWithoutPK);
-                    this.statusText = "Moved into my " + building.displayNameWithoutPK;
+                    String moving = I18n.format("container.sim.folk_data_moving");
+                    String Moved = I18n.format("container.sim.folk_data_Moved");
+                    ModSim.sendChat(this.name + moving + building.displayNameWithoutPK);
+                    this.statusText = Moved + building.displayNameWithoutPK;
                     Building.saveAllBuildings();
                     break;
                 }
@@ -855,7 +869,7 @@ public class FolkData implements Serializable {
         try {
             ret = new V3(p.posX, 5.0D, p.posZ, p.dimension);
         } catch (Exception var9) {
-            ModSim.log.warning("getLocationCloseToPlayer: player was null, returned null V3");
+            ModSim.log.warn("getLocationCloseToPlayer: 玩家为空，返回空V3" + var9.getMessage());
             return new V3(0.0D, 5.0D, 0.0D, 0);
         }
 
@@ -962,7 +976,10 @@ public class FolkData implements Serializable {
             }
 
             if (count > 0) {
-                ModSim.sendChat(this.name + " has dropped " + count + " items from their inventory");
+                String has_dropped = I18n.format("container.sim.folk_data_has_dropped");
+                String inventory = I18n.format("container.sim.folk_data_inventory");
+
+                ModSim.sendChat(this.name + has_dropped + count + inventory);
             }
         }
 
@@ -980,7 +997,7 @@ public class FolkData implements Serializable {
         this.vocation = null;
         this.theirJob = null;
         this.action = FolkAction.WANDER;
-        this.statusText = "Wandering";
+        this.statusText = I18n.format("container.sim.folk_data.Wandering");
         this.stayPut = false;
         this.saveThisFolk();
     }
@@ -1093,9 +1110,9 @@ public class FolkData implements Serializable {
         this.stayPut = true;
         this.updateLocationFromEntity();
         if (this.beamingTo != null) {
-            ModSim.log.warning("FolkData:beamMeTo() already beaming " + this.name);
+            ModSim.log.warn("FolkData:beamMeTo()已经喜气洋洋了 " + this.name);
         } else if (whereToIn == null) {
-            ModSim.log.warning("FolkData: beamMeTo() whereTo was NULL, cancelled beaming");
+            ModSim.log.warn("FolkData: beamMeTo() whereTo was NULL, cancelled beaming");
         } else {
             this.timeStartedGotoing = System.currentTimeMillis();
             V3 whereTo = whereToIn.clone();
@@ -1153,7 +1170,7 @@ public class FolkData implements Serializable {
                     }
                 }
 
-                ModSim.log.info("FolkData: doBeaming() complete for " + this.name + " to " + this.beamingTo.toString() + " (dim " + this.beamingTo.theDimension + ")");
+                ModSim.log.info("FolkData: doBeaming() 完成 " + this.name + " to " + this.beamingTo.toString() + " (dim " + this.beamingTo.theDimension + ")");
                 this.location = this.beamingTo.clone();
                 this.destination = null;
                 this.beamingTo = null;
@@ -1286,7 +1303,7 @@ public class FolkData implements Serializable {
                     }
 
                     if (folkd != null) {
-                        ModSim.log.info("FolkData: loadAndSpawnFolks() Loaded " + folkd.name + " using new file system");
+                        ModSim.log.info("FolkData: loadAndSpawnFolks() 加载 " + folkd.name + " 使用新的文件系统");
                         folkd.hasLoaded();
                     }
                 }
@@ -1482,7 +1499,7 @@ public class FolkData implements Serializable {
 
     public void eventDied(DamageSource d) {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
-        ModSim.log.info("eventDied in FolkData fired on " + side.toString() + " side");
+        ModSim.log.info("在FolkData发生的事件中死亡 " + side.toString() + " side");
         String oldJob = "";
         if (this.vocation != null) {
             oldJob = " (" + this.vocation.toString() + ")";
@@ -1492,112 +1509,111 @@ public class FolkData implements Serializable {
         this.vocation = null;
         String deathBy = "";
         if (d == DamageSource.cactus) {
-            deathBy = "(death by cactus... the worst kind.) ";
+            deathBy = I18n.format("container.sim.folk_data_death_cactus");
         }
 
         if (d == DamageSource.drown) {
-            deathBy = "(drowned) ";
+            deathBy = I18n.format("container.sim.folk_data_death_drowned");
         }
 
         if (d == DamageSource.generic) {
-            deathBy = "(Natural causes/old age) ";
+            deathBy = I18n.format("container.sim.folk_data_death_old");
         }
 
         if (d == DamageSource.inFire) {
-            deathBy = "(Spontanious combustion) ";
+            deathBy = I18n.format("container.sim.folk_data_death_combustion");
         }
 
         if (d == DamageSource.lava) {
-            deathBy = "(while walking on lava) ";
-        }
+            deathBy = I18n.format("container.sim.folk_data_death_lava");
 
-        if (d == DamageSource.onFire) {
-            deathBy = "(Burned alive!) ";
-        }
-
-        if (d == DamageSource.outOfWorld) {
-            deathBy = "(Fell out of the world!) ";
-        }
-
-        if (d == DamageSource.starve) {
-            deathBy = "(starvation, Build farms, bakeries and grocery stores!) ";
-        }
-
-        if (d == DamageSource.fall) {
-            deathBy = "(Fell off a cliff, or were they pushed?!)";
-        }
-
-        if (d == DamageSource.inWall) {
-            deathBy = "(Buried alive under gravel/sand)";
-        }
-
-        int i;
-        if (deathBy.contentEquals("")) {
-            Random r = new Random();
-            i = r.nextInt(6);
-            if (i == 0) {
-                deathBy = "(Electrocuted while in bath) ";
-            } else if (i == 1) {
-                deathBy = "(Tripped on roller-skate on stairs) ";
-            } else if (i == 2) {
-                deathBy = "(Trampled by cows) ";
-            } else if (i == 3) {
-                deathBy = "(Ran over by minecart) ";
-            } else if (i == 4) {
-                deathBy = "(Slipped on banana skin) ";
-            } else if (i == 5) {
-                deathBy = "(killed by Notch) ";
+            if (d == DamageSource.onFire) {
+                deathBy = I18n.format("container.sim.folk_data_death_Burned");
             }
-        }
 
-        String only = "";
-        if (this.age < 80) {
-            only = "They were only " + this.age + " years old.";
-        } else {
-            only = "They were " + this.age + " years old, oh well, they had a good long life!";
-        }
-
-        ModSim.sendChat(this.name + oldJob + " has just died! " + deathBy + only);
-        this.action = FolkAction.WANDER;
-        i = 0;
-
-        int q;
-        for (q = 0; q < ModSim.theFolks.size(); ++q) {
-            FolkData fo = (FolkData) ModSim.theFolks.get(q);
-            if (fo.name.contentEquals(this.name)) {
-                i = q;
-                break;
+            if (d == DamageSource.outOfWorld) {
+                deathBy = I18n.format("container.sim.folk_data_death_Fell");
             }
-        }
 
-        this.evictThem();
+            if (d == DamageSource.starve) {
+                deathBy = I18n.format("container.sim.folk_data_death_starvation");
+            }
 
-        try {
-            for (q = 0; q < ModSim.theRelationships.size(); ++q) {
-                try {
-                    Relationship rel = (Relationship) ModSim.theRelationships.get(q);
-                    if (rel.folk1.name.contentEquals(this.name) || rel.folk2.name.contentEquals(this.name)) {
-                        String fn = rel.folk1.name.replaceAll(" ", "") + rel.folk2.name.replaceAll(" ", "");
-                        File f = new File(ModSim.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2");
-                        f.delete();
-                        ModSim.theRelationships.remove(q);
-                    }
-                } catch (Exception var11) {
-                    var11.printStackTrace();
+            if (d == DamageSource.fall) {
+                deathBy = I18n.format("container.sim.folk_data_death_cliff");
+            }
+
+            if (d == DamageSource.inWall) {
+                deathBy = I18n.format("container.sim.folk_data_death_under");
+            }
+
+            int i;
+            if (deathBy.contentEquals("")) {
+                Random r = new Random();
+                i = r.nextInt(6);
+                if (i == 0) {
+                    deathBy = I18n.format("container.sim.folk_data_death_by_Electrocuted");
+                } else if (i == 1) {
+                    deathBy = I18n.format("container.sim.folk_data_death_by_Tripped");
+                } else if (i == 2) {
+                    deathBy = I18n.format("container.sim.folk_data_death_by_Trampled");
+                } else if (i == 3) {
+                    deathBy = I18n.format("container.sim.folk_data_death_by_Ran");
+                } else if (i == 4) {
+                    deathBy = I18n.format("container.sim.folk_data_death_by_Slipped");
+                } else if (i == 5) {
+                    deathBy = I18n.format("container.sim.folk_data_death_by_killed");
                 }
             }
 
-            File f = new File(ModSim.getSavesDataFolder() + "folks" + File.separator + this.name + ".sk2");
-            f.delete();
-            if (i >= 0 && i < ModSim.theFolks.size()) {
-                ModSim.theFolks.remove(i);
+            String only = "";
+            if (this.age < 80) {
+                only = I18n.format("container.sim.folk_data_death_by_They") + this.age + I18n.format("container.sim.folk_data_death_by_years");
+            } else {
+                only = I18n.format("container.sim.folk_data_death_by_were") + this.age + I18n.format("container.sim.folk_data_death_by_life");
             }
-        } catch (Exception var12) {
-            ModSim.log.warning("FolkData: eventDied() " + var12.toString());
+
+            ModSim.sendChat(this.name + oldJob + I18n.format("container.sim.folk_data_death_by_died") + deathBy + only);
+            this.action = FolkAction.WANDER;
+            i = 0;
+
+            int q;
+            for (q = 0; q < ModSim.theFolks.size(); ++q) {
+                FolkData fo = (FolkData) ModSim.theFolks.get(q);
+                if (fo.name.contentEquals(this.name)) {
+                    i = q;
+                    break;
+                }
+            }
+
+            this.evictThem();
+
+            try {
+                for (q = 0; q < ModSim.theRelationships.size(); ++q) {
+                    try {
+                        Relationship rel = (Relationship) ModSim.theRelationships.get(q);
+                        if (rel.folk1.name.contentEquals(this.name) || rel.folk2.name.contentEquals(this.name)) {
+                            String fn = rel.folk1.name.replaceAll(" ", "") + rel.folk2.name.replaceAll(" ", "");
+                            File f = new File(ModSim.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2");
+                            f.delete();
+                            ModSim.theRelationships.remove(q);
+                        }
+                    } catch (Exception var11) {
+                        var11.printStackTrace();
+                    }
+                }
+
+                File f = new File(ModSim.getSavesDataFolder() + "folks" + File.separator + this.name + ".sk2");
+                f.delete();
+                if (i >= 0 && i < ModSim.theFolks.size()) {
+                    ModSim.theFolks.remove(i);
+                }
+            } catch (Exception var12) {
+                ModSim.log.warn("FolkData: eventDied() " + var12.toString());
+            }
+
         }
-
     }
-
     public void evictThem() {
         if (this.getHome() != null) {
             for (int b = 0; b < ModSim.theBuildings.size(); ++b) {

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName BlockConstructorBox
- * @Description todo 牛奶块
+ * @Description todo 建筑箱
  * @Author Administrator
  * @Date 2022/1/26 0026下午 5:09
  * ========================================
@@ -37,7 +37,7 @@ public class BlockConstructorBox extends Block {
 
     public BlockConstructorBox() {
         super(Material.wood);
-        this.setUnlocalizedName("block.constructorBox.name");
+        this.setUnlocalizedName("constructorBox");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -57,7 +57,7 @@ public class BlockConstructorBox extends Block {
     @Override
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
         if (!par1World.isRemote) {
-            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            par1World.playSoundEffect((double) par2, (double) par3, (double) par4, ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         }
 
         FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double)par2, (double)par3, (double)par4, par1World.provider.dimensionId));
@@ -71,7 +71,7 @@ public class BlockConstructorBox extends Block {
     @Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4) {
         if (!par1World.isRemote) {
-            par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
+            par1World.playSoundEffect((double) par2, (double) par3, (double) par4, ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
         }
 
         super.onBlockAdded(par1World, par2, par3, par4);
@@ -80,7 +80,7 @@ public class BlockConstructorBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer thePlayer, int par6, float par7, float par8, float par9) {
-        par1World.playSoundEffect((double)par2, (double)par3, (double)par4, ModSim.MODID + ":computer", 1.0F, 1.0F);
+        par1World.playSoundEffect((double) par2, (double) par3, (double) par4, ModSim.MODID + ":computer", 1.0F, 1.0F);
         int px = (int)Math.floor(thePlayer.posX);
         int py = (int)Math.floor(thePlayer.posY);
         int pz = (int)Math.floor(thePlayer.posZ);

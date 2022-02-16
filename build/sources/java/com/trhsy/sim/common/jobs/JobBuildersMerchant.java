@@ -8,6 +8,7 @@ import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 
 import java.io.Serializable;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
  * ========================================
  *
  * @ClassName JobBuildersMerchant
- * @Description todo
+ * @Description todo 建设者商人
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:39
  * ========================================
@@ -65,7 +66,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
             if ((this.theStage != Stage.IDLE || !ModSim.isDayTime()) && this.theStage == Stage.INSTORE) {
-                this.theFolk.statusText = "Serving customers";
+                this.theFolk.statusText = I18n.format("container.sim.job.merchant");
                 this.theFolk.updateLocationFromEntity();
                 double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 5.0D && this.theFolk.destination == null) {
@@ -88,7 +89,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the store";
+            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
             this.theStage = Stage.INSTORE;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);

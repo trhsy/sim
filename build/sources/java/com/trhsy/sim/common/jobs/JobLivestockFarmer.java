@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -30,7 +31,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobLivestockFarmer
- * @Description todo
+ * @Description todo 畜牧业者
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:50
  * ========================================
@@ -99,7 +100,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
     private void stageArrived() {
         this.vocation = this.theFolk.vocation;
         this.theStage = Stage.WAITINGFORMATUREANIMAL;
-        this.theFolk.statusText = "Starting work on the farm";
+        this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Starting");
         //int count = false;
         int count;
         if (this.vocation == Vocation.CATTLEFARMER) {
@@ -131,13 +132,13 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
         List list = null;
         if (this.vocation == Vocation.CATTLEFARMER) {
-            this.theFolk.statusText = "Feeding the cows";
+            this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Feeding");
             list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
         } else if (this.vocation == Vocation.CHICKENFARMER) {
-            this.theFolk.statusText = "Feeding the chickens";
+            this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.chickens");
             list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
         } else if (this.vocation == Vocation.PIGFARMER) {
-            this.theFolk.statusText = "Feeding the pigs";
+            this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.pigs");
             list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
         }
 
@@ -175,7 +176,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 }
 
                 this.theStage = Stage.WAITINGFORMATUREANIMAL;
-                this.theFolk.statusText = "Raking the manure";
+                this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Raking");
             }
 
         }
@@ -183,7 +184,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
     private void stageSlaughtering() {
         Random rand = new Random();
-        this.theFolk.statusText = "Off with their head!";
+        this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Off");
         if (this.theFolk.theEntity != null) {
             this.theFolk.theEntity.faceEntity(this.redShirt, 1.0F, 1.0F);
         }
@@ -208,7 +209,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
         if (!ok) {
             this.theStage = Stage.CANTWORK;
-            ModSim.sendChat(this.theFolk.name + "'s livestock farm chests are full!");
+            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.livestock.farmer.chests"));
         } else {
             GameStates var10000 = ModSim.states;
             var10000.credits -= 0.02F * (float)quant;
@@ -217,7 +218,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
     }
 
     private void stageCantWork() {
-        this.theFolk.statusText = "Can't work, the chests are full of meat";
+        this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.meat");
     }
 
     private void procreate(EntityAnimal parentAnimal, V3 pos) {
@@ -267,7 +268,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the farm";
+            this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Arrived");
             this.theStage = Stage.ARRIVEDATFARM;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

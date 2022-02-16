@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
@@ -23,7 +24,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobEggFarmer
- * @Description todo
+ * @Description todo 蛋农
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:48
  * ========================================
@@ -86,7 +87,7 @@ public class JobEggFarmer extends Job {
     private void stageArrived() {
         this.vocation = this.theFolk.vocation;
         this.theStage = Stage.FEEDINGCHICKENS;
-        this.theFolk.statusText = "Feeding Chickens";
+        this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.Feeding");
         //int count = false;
         int count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityChicken.class);
         if (count < 6) {
@@ -102,12 +103,12 @@ public class JobEggFarmer extends Job {
             this.theFolk.beamMeTo(this.theFolk.employedAt);
         }
 
-        this.theFolk.statusText = "Raking Manure";
+        this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.Raking");
         this.theStage = Stage.COLLECTINGEGGS;
     }
 
     private void stageCollectingEggs() {
-        this.theFolk.statusText = "Collecting Eggs";
+        this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.Collecting");
         this.theStage = Stage.STORINGEGGS;
         this.theFolk.isWorking = true;
     }
@@ -115,14 +116,14 @@ public class JobEggFarmer extends Job {
     private void stageStoringEggs() {
         Random rand = new Random();
         int c = rand.nextInt(7);
-        this.theFolk.statusText = "Storing Eggs in refrigerated chest";
+        this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.Storing");
         this.theFolk.isWorking = false;
         this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         if (this.farmChests.size() > 0) {
             boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.egg, c + 1, 0), true);
             if (!ok) {
-                ModSim.sendChat(this.theFolk.name + "'s egg farm chests are full of eggs!");
-                this.theFolk.statusText = "Can't work, the chests are full";
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.egg.farmer.chests"));
+                this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.chests");
                 this.theStage = Stage.CANTWORK;
             } else {
                 GameStates var10000 = ModSim.states;
@@ -130,7 +131,7 @@ public class JobEggFarmer extends Job {
                 this.theStage = Stage.FEEDINGCHICKENS;
             }
         } else {
-            this.theFolk.statusText = "Who stole my egg chests!";
+            this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.egg_chests");
             this.theStage = Stage.CANTWORK;
         }
 
@@ -146,7 +147,7 @@ public class JobEggFarmer extends Job {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the farm";
+            this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.Arrived");
             this.theStage = Stage.ARRIVEDATFARM;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

@@ -6,6 +6,8 @@ import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.entity.enums.Level;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.client.resources.I18n;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.Serializable;
@@ -21,6 +23,7 @@ import java.util.Random;
  **/
 public class Relationship implements Serializable {
     private static final long serialVersionUID = -1617919828251928361L;
+
     public FolkData folk1 = null;
     public FolkData folk2 = null;
     public Level theLevel;
@@ -48,26 +51,27 @@ public class Relationship implements Serializable {
 
     @Override
     public String toString() {
+
         if (this.theLevel == Level.AQUAINTANCE) {
-            return "is an aquaintance with";
+            return I18n.format("container.sim.relation_ship_aquaintance");
         } else if (this.theLevel == Level.BESTFRIENDS) {
-            return "is best friends with";
+            return I18n.format("container.sim.relation_ship_friends");
         } else if (this.theLevel == Level.DESPISE) {
-            return "despises";
+            return I18n.format("container.sim.relation_ship_despises");
         } else if (this.theLevel == Level.DISLIKE) {
-            return "dislikes";
+            return I18n.format("container.sim.relation_ship_dislikes");
         } else if (this.theLevel == Level.ENEMY) {
-            return "is an ememy of";
+            return I18n.format("container.sim.relation_ship_ememy");
         } else if (this.theLevel == Level.FRIEND) {
-            return "is friends with";
+            return I18n.format("container.sim.relation_ship_is_friends");
         } else if (this.theLevel == Level.GOODFRIEND) {
-            return "is good friends with";
+            return I18n.format("container.sim.relation_ship_good_friends");
         } else if (this.theLevel == Level.HATE) {
-            return "hates";
+            return I18n.format("container.sim.relation_ship_hates");
         } else if (this.theLevel == Level.MARRIED) {
-            return "is married to";
+            return I18n.format("container.sim.relation_ship_married");
         } else {
-            return this.theLevel == Level.PARTNER ? "is living with" : "has an unknown relationship with";
+            return this.theLevel == Level.PARTNER ? I18n.format("container.sim.relation_ship_living") : I18n.format("container.sim.relation_ship_relationship");
         }
     }
 
@@ -83,57 +87,57 @@ public class Relationship implements Serializable {
         }
 
         if (this.theLevel == Level.AQUAINTANCE) {
-            return other + ": Aquaintance";
+            return other + ": " + I18n.format("container.sim.relation_ship_level_Aquaintance");
         } else if (this.theLevel == Level.BESTFRIENDS) {
-            return other + ": Best friends";
+            return other + ": " + I18n.format("container.sim.relation_ship_Best_friends");
         } else if (this.theLevel == Level.DESPISE) {
-            return other + ": Despise";
+            return other + ": " + I18n.format("container.sim.relation_ship_Despise");
         } else if (this.theLevel == Level.DISLIKE) {
-            return other + ": Dislike";
+            return other + ": " + I18n.format("container.sim.relation_ship_Dislike");
         } else if (this.theLevel == Level.ENEMY) {
-            return other + ": Enemy";
+            return other + ": " + I18n.format("container.sim.relation_ship_Enemy");
         } else if (this.theLevel == Level.FRIEND) {
-            return other + ": Friends";
+            return other + ": " + I18n.format("container.sim.relation_ship_Friends");
         } else if (this.theLevel == Level.GOODFRIEND) {
-            return other + ": Good friends";
+            return other + ": " + I18n.format("container.sim.relation_ship_Good_friends");
         } else if (this.theLevel == Level.HATE) {
-            return other + ": Hate";
+            return other + ": " + I18n.format("container.sim.relation_ship_Hate");
         } else if (this.theLevel == Level.MARRIED) {
-            return other + ": Married";
+            return other + ": " + I18n.format("container.sim.relation_ship_Married");
         } else if (this.theLevel == Level.PARTNER) {
-            return other + ": Partner";
+            return other + ": " + I18n.format("container.sim.relation_ship_Partner");
         } else if (this.theLevel == Level.MOTHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": Mother" : other + ": Daughter";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Mother") : other + ": " + I18n.format("container.sim.relation_ship_Daughter");
         } else if (this.theLevel == Level.MOTHERSON) {
-            return fother.age > folk.age ? other + ": Mother" : other + ": Son";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Mother") : other + ": " + I18n.format("container.sim.relation_ship_Son");
         } else if (this.theLevel == Level.FATHERSON) {
-            return fother.age > folk.age ? other + ": Father" : other + ": Son";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Father") : other + ": " + I18n.format("container.sim.relation_ship_Son");
         } else if (this.theLevel == Level.FATHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": Father" : other + ": Daughter";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Father") : other + ": " + I18n.format("container.sim.relation_ship_Daughter");
         } else if (this.theLevel == Level.SISTERSISTER) {
-            return other + ": Sister";
+            return other + ": " + I18n.format("container.sim.relation_ship_Sister");
         } else if (this.theLevel == Level.BROTHERBROTHER) {
-            return other + ": Brother";
+            return other + ": " + I18n.format("container.sim.relation_ship_Brother");
         } else if (this.theLevel == Level.SISTERBROTHER) {
-            return fother.gender == 0 ? other + ": Brother" : other + ": Sister";
+            return fother.gender == 0 ? other + ": " + I18n.format("container.sim.relation_ship_Brother") : other + ": " + I18n.format("container.sim.relation_ship_Sister");
         } else if (this.theLevel == Level.GRANDFATHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": Grandfather" : other + ": Granddaughter";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandfather") : other + ": " + I18n.format("container.sim.relation_ship_Granddaughter");
         } else if (this.theLevel == Level.GRANDFATHERSON) {
-            return fother.age > folk.age ? other + ": Grandfather" : other + ": Grandson";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandfather") : other + ": " + I18n.format("container.sim.relation_ship_Grandson");
         } else if (this.theLevel == Level.GRANDMOTHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": Grandmother" : other + ": Granddaughter";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandmother") : other + ": " + I18n.format("container.sim.relation_ship_Granddaughter");
         } else if (this.theLevel == Level.GRANDMOTHERSON) {
-            return fother.age > folk.age ? other + ": Grandmother" : other + ": Grandson";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandmother") : other + ": " + I18n.format("container.sim.relation_ship_Grandson");
         } else if (this.theLevel == Level.AUNTNEPHEW) {
-            return fother.age > folk.age ? other + ": Aunt" : other + ": Nephew";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Aunt") : other + ": " + I18n.format("container.sim.relation_ship_Nephew");
         } else if (this.theLevel == Level.AUNTNEICE) {
-            return fother.age > folk.age ? other + ": Aunt" : other + ": Neice";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Aunt") : other + ": " + I18n.format("container.sim.relation_ship_Neice");
         } else if (this.theLevel == Level.UNCLENEPHEW) {
-            return fother.age > folk.age ? other + ": Uncle" : other + ": Nephew";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Uncle") : other + ": " + I18n.format("container.sim.relation_ship_Nephew");
         } else if (this.theLevel == Level.UNCLENEICE) {
-            return fother.age > folk.age ? other + ": Uncle" : other + ": Neice";
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Uncle") : other + ": " + I18n.format("container.sim.relation_ship_Neice");
         } else {
-            return other + ": has an unknown relationship";
+            return other + ": " + I18n.format("container.sim.relation_ship_relationship");
         }
     }
 
@@ -302,7 +306,7 @@ public class Relationship implements Serializable {
 
     public void levelIncrease(int byAmount) {
         String oldLevel = this.toFullString();
-        ModSim.log.info("Relationship: + current level and sublevel:" + this.theLevel.toString() + " " + this.theSubLevel);
+        ModSim.log.info("Relationship: + 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
         this.theSubLevel += byAmount;
         if (this.theSubLevel > 100) {
             if (this.theLevel == Level.AQUAINTANCE) {
@@ -557,7 +561,7 @@ public class Relationship implements Serializable {
 
     public static void meddleWithRelationship(FolkData folk1, FolkData folk2) {
         if (folk1.name.contentEquals(folk2.name)) {
-            ModSim.log.warning("Relationship: meddleWithRelationship() with same folk for both");
+            ModSim.log.warn("关系: 干涉关系() 两个人都是同一个人");
         } else {
             Relationship rel = getRelationshipBetween(folk1, folk2);
             if (rel == null) {

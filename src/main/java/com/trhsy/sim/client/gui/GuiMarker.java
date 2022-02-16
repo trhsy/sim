@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.Marker;
+import com.trhsy.sim.common.entity.Marker;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
@@ -140,6 +140,7 @@ public class GuiMarker extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseClicked(int i, int j, int k) {
         if (this.theGuiTextField1 != null) {
             this.theGuiTextField1.mouseClicked(i, j, k);
@@ -148,6 +149,7 @@ public class GuiMarker extends GuiScreen {
         super.mouseClicked(i, j, k);
     }
 
+    @Override
     protected void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.currentScreen = null;

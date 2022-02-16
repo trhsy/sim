@@ -5,7 +5,7 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.client.gui.GuiMining;
-import com.trhsy.sim.common.Marker;
+import com.trhsy.sim.common.entity.Marker;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FolkData;
@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -37,7 +38,10 @@ public class BlockMiningBox extends Block {
 
     public BlockMiningBox() {
         super(Material.wood);
-        this.setUnlocalizedName("block.MiningBox.name");
+        this.setStepSound(Block.soundTypeWood);
+        this.setHardness(2.0F);
+        this.setResistance(1.0F);
+        this.setUnlocalizedName("MiningBox");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -57,7 +61,8 @@ public class BlockMiningBox extends Block {
     @Override
     public void onBlockAdded(World world, int i, int j, int k) {
         if (BlockMarker.markers.isEmpty()) {
-            ModSim.sendChat("You need to place down 3 markers first to mark out the mining area");
+            String Mining_box_area = I18n.format("container.sim.Mining_box_area");
+            ModSim.sendChat(Mining_box_area);
         } else {
             MiningBox m;
             ModSim.theMiningBoxes.add(m = new MiningBox(new V3((double) i, (double) j, (double) k, world.provider.dimensionId)));
@@ -107,7 +112,8 @@ public class BlockMiningBox extends Block {
         } catch (Exception var14) {
             var14.printStackTrace();
             if (world.isRemote) {
-                ModSim.sendChat("Sorry, there was a problem with this mining box, try place it again");
+                String Mining_box_Sorry = I18n.format("container.sim.Mining_box_Sorry");
+                ModSim.sendChat(Mining_box_Sorry);
             }
         }
 

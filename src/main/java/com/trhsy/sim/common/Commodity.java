@@ -8,7 +8,7 @@ import java.util.Random;
 
 /**
  * @ClassName Commodity
- * @Description todo
+ * @Description todo 商品
  * @Author Tian
  * @Date 2022/1/2320:18
  **/
@@ -57,12 +57,19 @@ public class Commodity {
 
     private static void setupAvailableItems() {
         availableItems.clear();
+        //末影珍珠
         availableItems.add(new ItemStack(Items.ender_pearl));
+        //火焰棒
         availableItems.add(new ItemStack(Items.blaze_rod));
+        //骨
         availableItems.add(new ItemStack(Items.bone));
+        //火药
         availableItems.add(new ItemStack(Items.gunpowder));
+        //粘液球
         availableItems.add(new ItemStack(Items.slime_ball));
+        //细绳
         availableItems.add(new ItemStack(Items.string));
+        //蜘蛛眼
         availableItems.add(new ItemStack(Items.spider_eye));
     }
 }

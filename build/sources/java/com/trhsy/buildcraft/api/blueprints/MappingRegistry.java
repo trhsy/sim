@@ -64,11 +64,11 @@ public class MappingRegistry {
 
     public Item getItemForId(int id) throws MappingNotFoundException {
         if (id >= this.idToItem.size()) {
-            throw new MappingNotFoundException("no item mapping at position " + id);
+            throw new MappingNotFoundException("位置没有项目映射 " + id);
         } else {
             Item result = (Item)this.idToItem.get(id);
             if (result == null) {
-                throw new MappingNotFoundException("no item mapping at position " + id);
+                throw new MappingNotFoundException("位置没有项目映射 " + id);
             } else {
                 return result;
             }

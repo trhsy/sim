@@ -17,6 +17,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -30,7 +31,7 @@ import java.util.Map;
  * ========================================
  *
  * @ClassName GuiBuildingConstructor
- * @Description todo
+ * @Description todo 建筑箱
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:27
  * ========================================
@@ -59,11 +60,11 @@ public class GuiBuildingConstructor extends GuiScreen {
         } else {
             this.theWorkers.clear();
 
-            for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
                 FolkData folk = (FolkData) ModSim.theFolks.get(f);
                 if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
                     if (folk.vocation == Vocation.BUILDER) {
-                        JobBuilder theirJob = (JobBuilder)folk.theirJob;
+                        JobBuilder theirJob = (JobBuilder) folk.theirJob;
                         if (theirJob.theStage == Stage.IDLE) {
                             theirJob.theStage = Stage.WORKERASSIGNED;
                         }
@@ -107,93 +108,125 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
 
             this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, "Building Constructor", this.width / 2, 17, 16777215);
-            String s = "Idle";
-            String t = "Not chosen yet";
+            String sim_gui_BC_Constructor = I18n.format("container.sim.sim_gui_BC_Constructor");
+            this.drawCenteredString(this.fontRendererObj, sim_gui_BC_Constructor, this.width / 2, 17, 16777215);
+            String sim_gui_BC_Idle = I18n.format("container.sim.sim_gui_BC_Idle");
+            String sim_gui_BC_chosen = I18n.format("container.sim.sim_gui_BC_chosen");
+            String s = sim_gui_BC_Idle;
+            String t = sim_gui_BC_chosen;
 
             try {
                 if (this.theWorkers.size() > 0) {
-                    JobBuilder theirJob = (JobBuilder)((FolkData)this.theWorkers.get(0)).theirJob;
+                    JobBuilder theirJob = (JobBuilder) ((FolkData) this.theWorkers.get(0)).theirJob;
                     s = theirJob.theStage.toString();
-                    if (((FolkData)this.theWorkers.get(0)).theBuilding != null) {
-                        t = ((FolkData)this.theWorkers.get(0)).theBuilding.displayName;
+                    if (((FolkData) this.theWorkers.get(0)).theBuilding != null) {
+                        t = ((FolkData) this.theWorkers.get(0)).theBuilding.displayName;
                     }
                 }
             } catch (Exception var11) {
-                s = "on their way";
+                String sim_gui_BC_their = I18n.format("container.sim.sim_gui_BC_their");
+                s = sim_gui_BC_their;
                 t = "";
             }
+            String sim_gui_BC_Current = I18n.format("container.sim.sim_gui_BC_Current");
+            String sim_gui_BC_Building = I18n.format("container.sim.sim_gui_BC_Building");
+            this.drawCenteredString(this.fontRendererObj, sim_gui_BC_Current + s, this.width / 2, 30, 11206655);
+            this.drawCenteredString(this.fontRendererObj, sim_gui_BC_Building + t, this.width / 2, 40, 11206655);
+            switch (this.currentPage) {
+                case 0:
+                    String sim_gui_BC_building_constructor = I18n.format("container.sim.sim_gui_BC_building_constructor");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_building_constructor, this.width / 2, 100, 16777130);
+                    break;
+                case 1:
+                    String sim_gui_BC_building = I18n.format("container.sim.sim_gui_BC_building");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_building, this.width / 2, 100, 16777130);
+                    break;
+                case 2:
+                    String  sim_gui_BC_residential= I18n.format("container.sim.sim_gui_BC_residential");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_residential, this.width / 2, 50, 16777130);
+                    this.tfSearch.drawTextBox();
+                    break;
+                case 3:
+                    String sim_gui_BC_unemployed = I18n.format("container.sim.sim_gui_BC_unemployed");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_unemployed, this.width / 2, 50, 16777130);
+                    break;
+                case 4:
+                    String sim_gui_BC_employees = I18n.format("container.sim.sim_gui_BC_employees");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_employees, this.width / 2, 50, 16777130);
+                    break;
+                case 5:
+                    String sim_gui_BC_commercial = I18n.format("container.sim.sim_gui_BC_commercial");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_commercial, this.width / 2, 50, 16777130);
+                    this.tfSearch.drawTextBox();
+                    break;
+                case 6:
+                    String sim_gui_BC_industrial = I18n.format("container.sim.sim_gui_BC_industrial");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_industrial, this.width / 2, 50, 16777130);
+                    this.tfSearch.drawTextBox();
+                    break;
+                case 7:
+                    String sim_gui_BC_Now_choose = I18n.format("container.sim.sim_gui_BC_Now_choose");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_Now_choose, this.width / 2, 50, 16777130);
+                    this.tfSearch.drawTextBox();
+                    break;
+                case 8:
+                    String sim_gui_BC_requirements_for = I18n.format("container.sim.sim_gui_BC_requirements_for");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_BC_requirements_for + this.selectedBuilding.displayNameWithoutPK, this.width / 2, 50, 16777130);
+                    int y = 70;
+                    Iterator it = this.selectedBuilding.requirements.entrySet().iterator();
 
-            this.drawCenteredString(this.fontRendererObj, "Current status: " + s, this.width / 2, 30, 11206655);
-            this.drawCenteredString(this.fontRendererObj, "Building type: " + t, this.width / 2, 40, 11206655);
-            if (this.currentPage == 0) {
-                this.drawCenteredString(this.fontRendererObj, "Please choose a task for this building constructor", this.width / 2, 100, 16777130);
-            } else if (this.currentPage == 1) {
-                this.drawCenteredString(this.fontRendererObj, "Please choose a type of building", this.width / 2, 100, 16777130);
-            } else if (this.currentPage == 2) {
-                this.drawCenteredString(this.fontRendererObj, "Now choose the residential building to build", this.width / 2, 50, 16777130);
-                this.tfSearch.drawTextBox();
-            } else if (this.currentPage == 3) {
-                this.drawCenteredString(this.fontRendererObj, "Choose an unemployed Sim-U-Folk you want to hire", this.width / 2, 50, 16777130);
-            } else if (this.currentPage == 4) {
-                this.drawCenteredString(this.fontRendererObj, "Here are all your employees", this.width / 2, 50, 16777130);
-            } else if (this.currentPage == 5) {
-                this.drawCenteredString(this.fontRendererObj, "Now choose the commercial building to build", this.width / 2, 50, 16777130);
-                this.tfSearch.drawTextBox();
-            } else if (this.currentPage == 6) {
-                this.drawCenteredString(this.fontRendererObj, "Now choose the industrial building to build", this.width / 2, 50, 16777130);
-                this.tfSearch.drawTextBox();
-            } else if (this.currentPage == 7) {
-                this.drawCenteredString(this.fontRendererObj, "Now choose the other type of building to build", this.width / 2, 50, 16777130);
-                this.tfSearch.drawTextBox();
-            } else if (this.currentPage == 8) {
-                this.drawCenteredString(this.fontRendererObj, "Building requirements for " + this.selectedBuilding.displayNameWithoutPK, this.width / 2, 50, 16777130);
-                int y = 70;
-                Iterator it = this.selectedBuilding.requirements.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pairs = (Map.Entry) it.next();
+                        ItemStack is = (ItemStack) pairs.getKey();
+                        if (is != null) {
+                            if (y + 20 > this.height - 20) {
+                                String sim_gui_BC_block_types = I18n.format("container.sim.sim_gui_BC_block_types");
+                                this.drawString(this.fontRendererObj, sim_gui_BC_block_types, 90, y, 16777215);
+                            } else {
+                                String itemName = is.getDisplayName();
+                                if (itemName.toLowerCase().contentEquals("oak wood")) {
+                                    itemName = "Logs";
+                                }
 
-                while(it.hasNext()) {
-                    Map.Entry pairs = (Map.Entry)it.next();
-                    ItemStack is = (ItemStack)pairs.getKey();
-                    if (is != null) {
-                        if (y + 20 > this.height - 20) {
-                            this.drawString(this.fontRendererObj, "...and several more block types", 90, y, 16777215);
-                        } else {
-                            String itemName = is.getDisplayName();
-                            if (itemName.toLowerCase().contentEquals("oak wood")) {
-                                itemName = "Logs";
+                                if (itemName.toLowerCase().contains("oak wood planks")) {
+                                    itemName = "Planks";
+                                }
+
+                                this.displayReq(itemName, (Integer) pairs.getValue(), y);
+                                y += 15;
                             }
-
-                            if (itemName.toLowerCase().contains("oak wood planks")) {
-                                itemName = "Planks";
-                            }
-
-                            this.displayReq(itemName, (Integer)pairs.getValue(), y);
-                            y += 15;
                         }
                     }
-                }
+                    break;
+                default:
+                    break;
             }
         } catch (Exception var12) {
-            var12.printStackTrace();
+            //var12.printStackTrace();
+            ModSim.log.error(var12.getMessage());
         }
-
         super.drawScreen(i, j, f);
     }
 
     private void displayReq(String block, int qty, int y) {
-        double stacks = Math.floor((double)(qty / 64));
+        double stacks = Math.floor((double) (qty / 64));
         this.drawString(this.fontRendererObj, qty + "", 90, y, 16777215);
         this.drawString(this.fontRendererObj, "x", 125, y, 16777215);
         this.drawString(this.fontRendererObj, block, 150, y, 16777215);
+        String sim_gui_BC_less = I18n.format("container.sim.sim_gui_BC_less");
+        String sim_gui_BC_exactly = I18n.format("container.sim.sim_gui_BC_exactly");
+        String sim_gui_BC_about_2 = I18n.format("container.sim.sim_gui_BC_about_2");
+        String sim_gui_BC_about = I18n.format("container.sim.sim_gui_BC_about");
+        String sim_gui_BC_stacks = I18n.format("container.sim.sim_gui_BC_stacks");
         String st = "";
         if (qty < 64) {
-            st = "(less than one stack)";
+            st =sim_gui_BC_less;
         } else if (qty == 64) {
-            st = "(exactly 1 stack)";
+            st = sim_gui_BC_exactly;
         } else if (qty >= 64 && qty < 128) {
-            st = "(about 2 stacks)";
+            st = sim_gui_BC_about_2;
         } else {
-            st = "(about " + (int)(stacks + 1.0D) + " stacks)";
+            st = sim_gui_BC_about + (int) (stacks + 1.0D) + sim_gui_BC_stacks;
         }
 
         this.drawString(this.fontRendererObj, st, 250, y, 16777215);
@@ -202,55 +235,70 @@ public class GuiBuildingConstructor extends GuiScreen {
     private void showPage() {
         this.mc.setIngameNotInFocus();
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 2, 12, 50, 20, "Done"));
+        String sim_gui_BC_Done = I18n.format("container.sim.sim_gui_BC_Done");
+        this.buttonList.add(new GuiButton(0, 2, 12, 50, 20, sim_gui_BC_Done));
         if (this.selectedBuilding == null) {
             this.selectedBuilding = Building.getBuildingByConBox(this.constructorLoc);
         }
 
         if (this.currentPage == 0) {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 60, 150, 120, 20, "Choose building"));
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 180, 150, 120, 20, "Hire builder"));
-            String w = "worker";
+            String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
+            String sim_gui_BC_Hire_builder = I18n.format("container.sim.sim_gui_BC_Hire_builder");
+            this.buttonList.add(new GuiButton(2, this.width / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
+            String sim_gui_BC_worker = I18n.format("container.sim.sim_gui_BC_worker");
+            String w = sim_gui_BC_worker;
             if (this.theWorkers.size() == 1) {
-                w = ((FolkData)this.theWorkers.get(0)).name;
+                w = ((FolkData) this.theWorkers.get(0)).name;
             } else if (this.theWorkers.size() > 1) {
-                w = "Staff (" + this.theWorkers.size() + ")";
+                String sim_gui_BC_Staff = I18n.format("container.sim.sim_gui_BC_Staff");
+                w = sim_gui_BC_Staff+"(" + this.theWorkers.size() + ")";
             }
-
-            this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, "Fire " + w));
-            this.buttonList.add(new GuiButton(4, this.width / 2 + 60, 170, 120, 20, "Show Employees"));
+            String sim_gui_BC_Fire = I18n.format("container.sim.sim_gui_BC_Fire");
+            this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
+            String sim_gui_BC_Show_Employees = I18n.format("container.sim.sim_gui_BC_Show_Employees");
+            this.buttonList.add(new GuiButton(4, this.width / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
+            String sim_gui_BC_Terraform_area = I18n.format("container.sim.sim_gui_BC_Terraform_area");
             this.buttonList.add(new GuiButton(5, -600, 170, 120, 20, "-"));
-            this.buttonList.add(new GuiButton(6, this.width / 2 - 60, 170, 120, 20, "Terraform area"));
-            this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, "Hire terraformer"));
+            this.buttonList.add(new GuiButton(6, this.width / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
+            String sim_gui_BC_Hire_terraformer = I18n.format("container.sim.sim_gui_BC_Hire_terraformer");
+            this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, sim_gui_BC_Hire_terraformer));
             if (this.theWorkers.size() == 0) {
-                ((GuiButton)this.buttonList.get(1)).enabled = false;
-                ((GuiButton)this.buttonList.get(2)).enabled = true;
-                ((GuiButton)this.buttonList.get(3)).enabled = false;
-                ((GuiButton)this.buttonList.get(6)).enabled = false;
-                ((GuiButton)this.buttonList.get(7)).enabled = true;
+                ((GuiButton) this.buttonList.get(1)).enabled = false;
+                ((GuiButton) this.buttonList.get(2)).enabled = true;
+                ((GuiButton) this.buttonList.get(3)).enabled = false;
+                ((GuiButton) this.buttonList.get(6)).enabled = false;
+                ((GuiButton) this.buttonList.get(7)).enabled = true;
             } else {
-                ((GuiButton)this.buttonList.get(1)).enabled = true;
-                ((GuiButton)this.buttonList.get(2)).enabled = false;
-                ((GuiButton)this.buttonList.get(3)).enabled = true;
-                ((GuiButton)this.buttonList.get(6)).enabled = true;
-                ((GuiButton)this.buttonList.get(7)).enabled = false;
+                ((GuiButton) this.buttonList.get(1)).enabled = true;
+                ((GuiButton) this.buttonList.get(2)).enabled = false;
+                ((GuiButton) this.buttonList.get(3)).enabled = true;
+                ((GuiButton) this.buttonList.get(6)).enabled = true;
+                ((GuiButton) this.buttonList.get(7)).enabled = false;
             }
         } else if (this.currentPage == 1) {
-            this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 150, 100, 20, "Residential"));
-            this.buttonList.add(new GuiButton(6, this.width / 2 - 100, 150, 100, 20, "Commercial"));
-            this.buttonList.add(new GuiButton(7, this.width / 2, 150, 100, 20, "Industrial"));
-            this.buttonList.add(new GuiButton(8, this.width / 2 + 100, 150, 100, 20, "Other"));
+            String sim_gui_BC_Residential = I18n.format("container.sim.sim_gui_BC_Residential");
+            String sim_gui_BC_Commercial = I18n.format("container.sim.sim_gui_BC_Commercial");
+            String sim_gui_BC_Industrial = I18n.format("container.sim.sim_gui_BC_Industrial");
+            String sim_gui_BC_Other = I18n.format("container.sim.sim_gui_BC_Other");
+            this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 150, 100, 20, sim_gui_BC_Residential));
+            this.buttonList.add(new GuiButton(6, this.width / 2 - 100, 150, 100, 20, sim_gui_BC_Commercial));
+            this.buttonList.add(new GuiButton(7, this.width / 2, 150, 100, 20, sim_gui_BC_Industrial));
+            this.buttonList.add(new GuiButton(8, this.width / 2 + 100, 150, 100, 20, sim_gui_BC_Other));
         } else if (this.currentPage != 3) {
             int x;
             int y;
             int idx;
             if (this.currentPage == 4) {
                 try {
-                     x = 10;y = 65;idx = 1;
+                    x = 10;
+                    y = 65;
+                    idx = 1;
 
-                    for(y = 0; y < ModSim.theFolks.size(); ++y) {
+                    for (y = 0; y < ModSim.theFolks.size(); ++y) {
                         FolkData folk = (FolkData) ModSim.theFolks.get(y);
-                        this.buttonList.add(new GuiButton(idx, x, y, 100, 20, "Fire " + folk.name));
+                        String sim_gui_BC_Fire = I18n.format("container.sim.sim_gui_BC_Fire");
+                        this.buttonList.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
                         ++x;
                         x += 100;
                         if (x + 100 > this.width) {
@@ -267,8 +315,10 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
                 if (this.currentPage == 8) {
-                    this.buttonList.add(new GuiButton(1001, this.width / 2 - 100, this.height - 25, 100, 20, "Go Back"));
-                    this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 25, 100, 20, "Build it!"));
+                    String sim_gui_BC_Go_Back = I18n.format("container.sim.sim_gui_BC_Go_Back");
+                    this.buttonList.add(new GuiButton(1001, this.width / 2 - 100, this.height - 25, 100, 20, sim_gui_BC_Go_Back));
+                    String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
+                    this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 25, 100, 20, sim_gui_BC_Build_it));
                 }
             } else {
                 ArrayList<Building> houses = new ArrayList();
@@ -296,24 +346,24 @@ public class GuiBuildingConstructor extends GuiScreen {
                 y = 60;
                 idx = 1;
                 if (houses != null) {
-                    for(int b = 0; b <= houses.size(); ++b) {
+                    for (int b = 0; b <= houses.size(); ++b) {
                         int boff = b + this.buildingOffset;
                         if (boff < 0) {
                             boff = 0;
                             this.buildingOffset = 0;
                         }
-
+                        String sim_gui_BC_Page = I18n.format("container.sim.sim_gui_BC_Page");
                         if (boff < houses.size()) {
                             if (houses.get(boff) != null) {
                                 String line3 = "";
-                                Building building = (Building)houses.get(boff);
+                                Building building = (Building) houses.get(boff);
                                 String realCost = "";
                                 if (this.theWorkers.size() > 1) {
-                                    realCost = " (" + ModSim.displayMoney((float)building.blocksInBuilding * 0.02F * (float)this.theWorkers.size()) + ")";
+                                    realCost = " (" + ModSim.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
                                 }
 
                                 String line2 = building.ltrCount + " x " + building.ftbCount + " x " + building.layerCount;
-                                line3 = ModSim.displayMoney((float)building.blocksInBuilding * 0.02F) + realCost;
+                                line3 = ModSim.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
                                 String line4 = building.author;
                                 GuiButton b3;
                                 this.buttonList.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
@@ -341,16 +391,16 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 ++idx;
                                 ++this.buildingsOnPage;
                                 if (this.buildingOffset > 0) {
-                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< Page"));
+                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<"+sim_gui_BC_Page));
                                 }
 
                                 if (y + 20 + 20 + 20 + 20 > this.height) {
-                                    this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, "Page >"));
+                                    this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, sim_gui_BC_Page+">"));
                                     break;
                                 }
                             }
                         } else {
-                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< Page!"));
+                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<"+sim_gui_BC_Page));
                         }
                     }
 
@@ -358,7 +408,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                         this.fixedBuildingCount = this.buildingsOnPage;
                     }
                 } else {
-                    this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, "Nothing found, go back and choose another"));
+                    String sim_gui_BC_Nothing_found = I18n.format("container.sim.sim_gui_BC_Nothing_found");
+                    this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
                 }
             }
         }
@@ -378,14 +429,15 @@ public class GuiBuildingConstructor extends GuiScreen {
                     this.mc.setIngameFocus();
                 } else {
                     if (this.currentPage == 0) {
-                        if (guibutton.displayString.contentEquals("Choose building")) {
+                        String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
+                        if (guibutton.displayString.contentEquals(sim_gui_BC_Choose_building)) {
                             this.currentPage = 1;
                             this.showPage();
                         } else {
                             GuiEmployFolk gui;
                             if (guibutton.id == 2) {
                                 gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
-                                this.mc.displayGuiScreen((GuiScreen)null);
+                                this.mc.displayGuiScreen((GuiScreen) null);
                                 this.mc.displayGuiScreen(gui);
                             } else if (guibutton.id == 3) {
                                 this.fireAllFolksForThisBuilding();
@@ -393,16 +445,16 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 this.showPage();
                             } else if (guibutton.id == 4) {
                                 GuiScreen guiScreen = new GuiShowEmployees();
-                                this.mc.displayGuiScreen((GuiScreen)null);
+                                this.mc.displayGuiScreen((GuiScreen) null);
                                 this.mc.displayGuiScreen(guiScreen);
                             } else if (guibutton.id != 5) {
                                 if (guibutton.id == 6) {
-                                    GuiScreen guiScreen = new GuiTerraform((FolkData)this.theWorkers.get(0));
-                                    this.mc.displayGuiScreen((GuiScreen)null);
+                                    GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
+                                    this.mc.displayGuiScreen((GuiScreen) null);
                                     this.mc.displayGuiScreen(guiScreen);
                                 } else if (guibutton.id == 7) {
                                     gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
-                                    this.mc.displayGuiScreen((GuiScreen)null);
+                                    this.mc.displayGuiScreen((GuiScreen) null);
                                     this.mc.displayGuiScreen(gui);
                                 }
                             }
@@ -423,7 +475,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                         }
                     } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
                         if (this.currentPage == 8) {
-                            if (guibutton.displayString.contentEquals("Build it!")) {
+                            String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
+                            if (guibutton.displayString.contentEquals(sim_gui_BC_Build_it)) {
                                 if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
                                     ModSim.theBuildings.remove(this.selectedBuilding);
                                 }
@@ -433,13 +486,13 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 this.selectedBuilding.saveThisBuilding();
                                 ModSim.network.sendToAll(new LoadBuildingMessage("GuiBuildingCon"));
 
-                                for(int i = 0; i < this.theWorkers.size(); ++i) {
-                                    FolkData theWorker = (FolkData)this.theWorkers.get(i);
+                                for (int i = 0; i < this.theWorkers.size(); ++i) {
+                                    FolkData theWorker = (FolkData) this.theWorkers.get(i);
                                     theWorker.theBuilding = this.selectedBuilding;
                                     theWorker.saveThisFolk();
                                 }
 
-                                this.mc.displayGuiScreen((GuiScreen)null);
+                                this.mc.displayGuiScreen((GuiScreen) null);
                                 this.mc.setIngameFocus();
                                 return;
                             }
@@ -485,7 +538,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                         }
 
                         String pkPrefix = "";
-                        pkPrefix = (String)this.pkIndex.get(guibutton.id);
+                        pkPrefix = (String) this.pkIndex.get(guibutton.id);
                         this.selectedBuilding = Building.getFromAllBuildings(pkPrefix + guibutton.displayString, type);
 
                         try {
@@ -503,10 +556,10 @@ public class GuiBuildingConstructor extends GuiScreen {
     }
 
     public void fireAllFolksForThisBuilding() {
-        for(int i = 0; i < this.theWorkers.size(); ++i) {
-            FolkData worker = (FolkData)this.theWorkers.get(i);
+        for (int i = 0; i < this.theWorkers.size(); ++i) {
+            FolkData worker = (FolkData) this.theWorkers.get(i);
             if (worker.vocation == Vocation.BUILDER) {
-                JobBuilder theirJob = (JobBuilder)worker.theirJob;
+                JobBuilder theirJob = (JobBuilder) worker.theirJob;
                 theirJob.theStage = Stage.IDLE;
                 worker.theBuilding = null;
             }
@@ -520,7 +573,7 @@ public class GuiBuildingConstructor extends GuiScreen {
     @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
         } else {
             if (this.tfSearch != null) {

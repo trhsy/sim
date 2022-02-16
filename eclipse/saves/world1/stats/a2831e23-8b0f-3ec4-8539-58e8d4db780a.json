@@ -1,0 +1,13 @@
+{
+  "stat.flyOneCm": 1149,
+  "stat.walkOneCm": 7954,
+  "stat.jump": 7,
+  "stat.playOneMinute": 2415,
+  "achievement.exploreAllBiomes": {
+    "value": 0,
+    "progress": [
+      "Beach",
+      "Plains"
+    ]
+  }
+}

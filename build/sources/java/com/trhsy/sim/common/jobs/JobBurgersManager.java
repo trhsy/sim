@@ -11,11 +11,14 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ItemLoader;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -23,12 +26,13 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName JobBurgersManager
- * @Description todo
+ * @Description todo 经理
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:43
  * ========================================
  **/
 public class JobBurgersManager extends Job {
+
     public Vocation vocation = null;
     public FolkData theFolk = null;
     public Stage theStage;
@@ -77,7 +81,7 @@ public class JobBurgersManager extends Job {
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
                 if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
-                        this.theFolk.statusText = "Checking my errands list";
+                        this.theFolk.statusText = I18n.format("container.sim.job.manager.Checking");
                         this.theStage = Stage.PICKUPBAKERY;
                         this.step = 1;
                     } else if (this.theStage == Stage.PICKUPBAKERY) {
@@ -115,20 +119,20 @@ public class JobBurgersManager extends Job {
             }
 
             this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
-            this.theFolk.statusText = "On my way to the " + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
+            this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
             this.step = 2;
         } else if (this.step == 2) {
             if (this.theFolk.destination == null) {
                 this.step = 3;
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = "Buying items at the " + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
+            this.theFolk.statusText = I18n.format("container.sim.job.manager.Buying") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
             ArrayList<IInventory> chests = inventoriesFindClosest(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, 5);
             if (!chests.isEmpty()) {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSim.log.info("JobBurgersManager: buying " + buy + " out of " + count + " items");
+                    ModSim.log.info("JobBurgersManager: 购买 " + count + " 件商品中购买 " + buy + " 件");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1, pickUpItem.damageDropped(1)), buy, doCompareMeta);
                 }
             }
@@ -136,7 +140,7 @@ public class JobBurgersManager extends Job {
             ++this.currentPickup;
             if (this.currentPickup <= this.pickupBuildings.size() - 1) {
                 this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
-                this.theFolk.statusText = "On my way to the " + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
+                this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                 this.step = 2;
             } else {
                 this.step = 4;
@@ -156,20 +160,20 @@ public class JobBurgersManager extends Job {
             }
 
             this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
-            this.theFolk.statusText = "On my way to the " + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
+            this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
             this.step = 2;
         } else if (this.step == 2) {
             if (this.theFolk.destination == null) {
                 this.step = 3;
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = "Buying items at the " + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
+            this.theFolk.statusText = I18n.format("container.sim.job.manager.Buying_items")  + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
             ArrayList<IInventory> chests = inventoriesFindClosest(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, 5);
             if (!chests.isEmpty()) {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSim.log.info("JobBurgersManager: buying " + buy + " out of " + count + " items");
+                    ModSim.log.info("JobBurgersManager: 购买 " + buy + " out of " + count + " 物品");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1), buy, doCompareMeta);
                 }
             }
@@ -177,7 +181,7 @@ public class JobBurgersManager extends Job {
             ++this.currentPickup;
             if (this.currentPickup <= this.pickupBuildings.size() - 1) {
                 this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
-                this.theFolk.statusText = "On my way to the " + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
+                this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                 this.step = 2;
             } else {
                 this.step = 4;
@@ -208,7 +212,7 @@ public class JobBurgersManager extends Job {
 
     private void stagePickupCheese() {
         if (this.step < 4) {
-            this.doPickup("cheese factory", (new ItemStack(ModSim.itemFood, 1, 0)).getItem(), true);
+            this.doPickup("cheese factory", (new ItemStack(ItemLoader.itemFoods, 1,0)).getItem(), true);
         } else {
             this.theStage = Stage.PICKUPBUTCHERS;
             this.step = 1;
@@ -229,7 +233,7 @@ public class JobBurgersManager extends Job {
     private void stageDropoff() {
         ArrayList back;
         if (this.step == 1) {
-            this.theFolk.statusText = "On my way back to the store";
+            this.theFolk.statusText = I18n.format("container.sim.job.dropoff.On_my");
             back = this.theStore.getSpecialBlocks(0);
             if (!back.isEmpty()) {
                 this.theFolk.gotoXYZ((V3) back.get(0), (GotoMethod) null);
@@ -240,12 +244,12 @@ public class JobBurgersManager extends Job {
                 this.step = 3;
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = "Unloading ingredients";
+            this.theFolk.statusText = I18n.format("container.sim.job.dropoff.Unloading");
             back = this.theStore.getSpecialBlocks(0);
             ArrayList<IInventory> backstoreChests = inventoriesFindClosest((V3) back.get(0), 3);
             boolean ok = this.inventoriesTransferFromFolk(this.theFolk.inventory, backstoreChests, (ItemStack) null);
             if (!ok) {
-                ModSim.sendChat(this.theFolk.name + ": The chest in the kitchen at the Fast food store is full!");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.dropoff.chest"));
             }
 
             this.theStage = Stage.HANGINGOUT;
@@ -266,25 +270,25 @@ public class JobBurgersManager extends Job {
         String say = "";
         switch (this.step) {
             case 0:
-                say = "Counting today's takings";
+                say = I18n.format("container.sim.job.dropoff.Counting");
                 break;
             case 1:
-                say = "Cancelling staff leave";
+                say = I18n.format("container.sim.job.dropoff.Cancelling");
                 break;
             case 2:
-                say = "Being very bossy";
+                say = I18n.format("container.sim.job.dropoff.Being");
                 break;
             case 3:
-                say = "Doing my taxes";
+                say = I18n.format("container.sim.job.dropoff.Doing");
                 break;
             case 4:
-                say = "Disciplining staff";
+                say = I18n.format("container.sim.job.dropoff.Disciplining");
                 break;
             case 5:
-                say = "Reducing staff wages";
+                say = I18n.format("container.sim.job.dropoff.Reducing");
                 break;
             case 6:
-                say = "Adjusting menu font";
+                say = I18n.format("container.sim.job.dropoff.Adjusting");
         }
 
         ++this.step;
@@ -302,7 +306,7 @@ public class JobBurgersManager extends Job {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the store";
+            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
             this.theStage = Stage.ARRIVEDATSTORE;
             ArrayList<V3> back = this.theStore.getSpecialBlocks(0);
             if (!back.isEmpty()) {

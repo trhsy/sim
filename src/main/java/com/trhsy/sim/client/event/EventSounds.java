@@ -4,6 +4,7 @@ package com.trhsy.sim.client.event;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSim;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,7 +32,7 @@ public class EventSounds {
             for(int x = 0; x < sounds.length; ++x) {
             }
         } catch (Exception var4) {
-            System.err.println("Failed to register one or more sounds.");
+            ModSim.log.error("注册一个或多个声音失败.:" + var4.getMessage());
         }
 
     }

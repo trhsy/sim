@@ -6,8 +6,10 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.WorldServer;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.Serializable;
@@ -22,6 +24,7 @@ import java.util.Iterator;
  **/
 public class FarmingBox implements Serializable {
     private static final long serialVersionUID = -4049876797684922153L;
+
     public V3 location;
     public V3 marker1XYZ;
     public V3 marker2XYZ;
@@ -124,7 +127,7 @@ public class FarmingBox implements Serializable {
         V3 c = m1.clone();
         int length = this.getSizeLength();
         if (length == 1) {
-            ModSim.log.warning("FarmingBox: Farm size cannot be determined, using 5x5 default");
+            ModSim.log.warn("FarmingBox: 无法使用5x5默认值确定农场大小");
         }
 
         for(int o = 0; o <= length; ++o) {
@@ -256,7 +259,7 @@ public class FarmingBox implements Serializable {
             loadFarmingBoxes();
         }
 
-        for(int x = 0; x < ModSim.theFarmingBoxes.size(); ++x) {
+        for (int x = 0; x < ModSim.theFarmingBoxes.size(); ++x) {
             FarmingBox block = (FarmingBox) ModSim.theFarmingBoxes.get(x);
             if (block.location.isSameCoordsAs(xyz, true, true)) {
                 ret = block;
@@ -365,7 +368,8 @@ public class FarmingBox implements Serializable {
                         }
                     } else {
                         f.delete();
-                        ModSim.sendChat("One of your farming boxes had a problem with it, you may have to replace it");
+                        String s= I18n.format("container.sim.farming_box_boxes");
+                        ModSim.sendChat(s);
                     }
                 }
             }
@@ -378,7 +382,7 @@ public class FarmingBox implements Serializable {
         if (side == Side.SERVER) {
             ArrayList<String> strings = new ArrayList();
 
-            for(int b = 0; b < ModSim.theFarmingBoxes.size(); ++b) {
+            for (int b = 0; b < ModSim.theFarmingBoxes.size(); ++b) {
                 FarmingBox farming = (FarmingBox) ModSim.theFarmingBoxes.get(b);
                 strings.clear();
                 if (farming != null && farming.location != null && farming.marker1XYZ != null) {

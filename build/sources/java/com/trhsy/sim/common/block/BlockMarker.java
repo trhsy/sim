@@ -6,7 +6,7 @@ package com.trhsy.sim.common.block;/**
 
 import com.trhsy.sim.client.gui.GuiMarker;
 import com.trhsy.sim.common.EntityAlignBeam;
-import com.trhsy.sim.common.Marker;
+import com.trhsy.sim.common.entity.Marker;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;
@@ -16,6 +16,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,7 +45,10 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
     public BlockMarker() {
         super(Material.wood);
-        this.setUnlocalizedName("block.MarkerBar.name");
+        this.setStepSound(Block.soundTypeWood);
+        this.setHardness(2.0F);
+        this.setResistance(1.0F);
+        this.setUnlocalizedName("MarkerBar");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.setLightLevel(0.1F);
@@ -81,12 +85,12 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @Override
     public void onBlockDestroyedByPlayer(World world, int i, int j, int k, int meta) {
         try {
-            for(int m = 0; m < markers.size(); ++m) {
-                Marker marker = (Marker)markers.get(m);
+            for (int m = 0; m < markers.size(); ++m) {
+                Marker marker = (Marker) markers.get(m);
 
-                for(int mm = 0; mm < 4; ++mm) {
+                for (int mm = 0; mm < 4; ++mm) {
                     try {
-                        ((EntityAlignBeam)marker.beams.get(mm)).setDead();
+                        ((EntityAlignBeam) marker.beams.get(mm)).setDead();
                     } catch (Exception var10) {
                     }
                 }
@@ -108,23 +112,23 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             String helpText = "";
             if (markers.size() == 1) {
                 markerCaption = "Front-Left";
-                helpText = "You can place two more markers to mark out an area for a farm or mine etc. If you wish to do this, place another marker at the front-right position now";
-                System.out.println(markers.size());
+                helpText = I18n.format("container.sim.box_Marker_left");
+                ModSim.log.info(markers.size());
             } else if (markers.size() == 2) {
                 markerCaption = "Front-Right";
-                helpText = "Finally, place a marker at the Rear-Left position";
-                System.out.println(markers.size());
+                helpText =I18n.format("container.sim.box_Marker_right");
+                ModSim.log.info(markers.size());
             } else if (markers.size() == 3) {
                 markerCaption = "Rear-Left";
-                helpText = "You're done, now you can place down a mining box, farming box or right-click the front-left marker to copy a structure!";
-                System.out.println(markers.size());
+                helpText =I18n.format("container.sim.box_Marker_Rear_Left");
+                ModSim.log.info(markers.size());
             } else {
-                System.out.println(markers.size());
-                markerCaption = "Too many Markers!";
+                ModSim.log.info(markers.size());
+                markerCaption =I18n.format("container.sim.box_Marker_Markers");
             }
 
             if (markers.size() < 4) {
-                V3 pos = new V3((double)i, (double)j, (double)k, world.provider.dimensionId);
+                V3 pos = new V3((double) i, (double) j, (double) k, world.provider.dimensionId);
                 pos.y = pos.y + 0.01D;
                 if (ModSim.configEnableMarkerAlignmentBeams) {
                     EntityAlignBeam beam = new EntityAlignBeam(world);
@@ -175,9 +179,9 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     public static Marker getMarker(V3 position) {
         Marker ret = null;
 
-        for(int i = 0; i < markers.size(); ++i) {
-            Marker m = (Marker)markers.get(i);
-            if ((double)m.x == position.x && (double)m.y == position.y && (double)m.z == position.z) {
+        for (int i = 0; i < markers.size(); ++i) {
+            Marker m = (Marker) markers.get(i);
+            if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
                 ret = m;
                 break;
             }
@@ -189,8 +193,8 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        this.location = new V3((double)i, (double)j, (double)k, entityplayer.dimension);
-        world.playSoundEffect((double)i, (double)j, (double)k, ModSim.MODID + ":computer", 1.0F, 1.0F);
+        this.location = new V3((double) i, (double) j, (double) k, entityplayer.dimension);
+        world.playSoundEffect((double) i, (double) j, (double) k, ModSim.MODID + ":computer", 1.0F, 1.0F);
         GuiMarker ui = new GuiMarker(this.location, entityplayer);
         Minecraft mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(ui);

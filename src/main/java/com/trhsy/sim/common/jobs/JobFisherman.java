@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -23,7 +24,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobFisherman
- * @Description todo
+ * @Description todo 渔夫
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:48
  * ========================================
@@ -90,10 +91,10 @@ public class JobFisherman extends Job implements Serializable {
         V3 water = Job.findClosestBlockType(this.theFolk.employedAt, Blocks.water, 5, false);
         if (water == null) {
             this.theStage = Stage.CANTWORK;
-            ModSim.sendChat(this.theFolk.name + " (Fisherman) can't find any fish in the area");
+            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.Fisherman"));
         } else {
             this.theStage = Stage.FISHING;
-            this.theFolk.statusText = "Casting out my line";
+            this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.Casting");
             this.fishCount = 0;
             if (!this.jobWorld.isRemote) {
             }
@@ -102,7 +103,7 @@ public class JobFisherman extends Job implements Serializable {
     }
 
     private void stageCantWork() {
-        this.theFolk.statusText = "Ain't no fish 'round here!";
+        this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.round");
     }
 
     private void stageFishing() {
@@ -110,7 +111,7 @@ public class JobFisherman extends Job implements Serializable {
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 3) {
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Fishing";
+            this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.Fishing");
             if (System.currentTimeMillis() - this.timeSinceLastCaughtFish > 50000L) {
                 this.theStage = Stage.CAUGHTFISH;
             }
@@ -127,14 +128,14 @@ public class JobFisherman extends Job implements Serializable {
 
     private void stageCaughtFish() {
         this.timeSinceLastCaughtFish = System.currentTimeMillis();
-        this.theFolk.statusText = "Caught a fish, yay!";
+        this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.Caught");
         ++this.fishCount;
         GameStates var10000 = ModSim.states;
         var10000.credits -= 0.02F;
         this.dockChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
         if (this.dockChests.size() == 0) {
-            this.theFolk.statusText = "Damn! someone stole my fishing chests!";
-            ModSim.sendChat(this.theFolk.name + " (fisherman) can't find any chests at the dock!");
+            this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.someone");
+            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.dock"));
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.dropItem(Items.fish, 1);
             }
@@ -156,7 +157,7 @@ public class JobFisherman extends Job implements Serializable {
         if (this.mc.getIntegratedServer().worldServers[0].getWorldTime() % 24000L < 11600L) {
             this.theStage = Stage.IDLE;
         } else {
-            this.theFolk.statusText = "All done for today, caught " + this.fishCount + " fish!";
+            this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.caught_done") + this.fishCount + I18n.format("container.sim.job.fisherman.farmer.fish");
             if (this.step == 1) {
                 //int sell = false;
                 ItemStack fishStack = null;
@@ -171,7 +172,7 @@ public class JobFisherman extends Job implements Serializable {
                     return;
                 }
 
-                ModSim.sendChat(this.theFolk.name + " caught " + this.fishCount + " fish today and has sold " + fishStack.stackSize + " to folks.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.caughts") + this.fishCount + I18n.format("container.sim.job.fisherman.farmer.and_has") + fishStack.stackSize + I18n.format("container.sim.job.fisherman.farmer.to_folks"));
 
                 for (int f = 0; f < ModSim.theFolks.size(); ++f) {
                     FolkData folk = (FolkData) ModSim.theFolks.get(f);
@@ -195,7 +196,7 @@ public class JobFisherman extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the dock";
+            this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.Arrived");
             this.theStage = Stage.ARRIVEDATDOCK;
             this.timeSinceLastCaughtFish = System.currentTimeMillis();
         } else {

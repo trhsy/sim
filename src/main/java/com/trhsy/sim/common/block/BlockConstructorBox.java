@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName BlockConstructorBox
- * @Description todo 牛奶块
+ * @Description todo 建筑箱
  * @Author Administrator
  * @Date 2022/1/26 0026下午 5:09
  * ========================================
@@ -37,7 +37,7 @@ public class BlockConstructorBox extends Block {
 
     public BlockConstructorBox() {
         super(Material.wood);
-        this.setUnlocalizedName("block.constructorBox.name");
+        this.setUnlocalizedName("constructorBox");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 

@@ -2,11 +2,14 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLadder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import java.util.Map;
  **/
 public class Building implements Serializable {
     private static final long serialVersionUID = -1132989807904279141L;
+
     public String displayName;
     public String type;
     public String[] structure;
@@ -228,7 +232,7 @@ public class Building implements Serializable {
             in.close();
             this.rent = (float)this.blocksInBuilding * 0.01F;
         } catch (Exception var20) {
-            ModSim.log.warning("Building loadStructure() " + var20.toString());
+            ModSim.log.warn("建筑 loadStructure() " + var20.getMessage());
         }
 
     }
@@ -382,7 +386,7 @@ public class Building implements Serializable {
             loadAllBuildings();
         }
 
-        for(int x = 0; x < ModSim.theBuildings.size(); ++x) {
+        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
             try {
                 b = (Building) ModSim.theBuildings.get(x);
                 if (b.primaryXYZ.isSameCoordsAs(primaryXYZ, false, true)) {
@@ -398,7 +402,7 @@ public class Building implements Serializable {
     public static Building getBuildingBySearch(String searchWord) {
         Building b = null;
 
-        for(int x = 0; x < ModSim.theBuildings.size(); ++x) {
+        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
             b = (Building) ModSim.theBuildings.get(x);
             if (b.displayName.contains(searchWord)) {
                 return b;
@@ -411,7 +415,7 @@ public class Building implements Serializable {
     public static ArrayList<Building> getBuildingBySearch(String searchWord, boolean findAll) {
         ArrayList<Building> ret = new ArrayList();
 
-        for(int x = 0; x < ModSim.theBuildings.size(); ++x) {
+        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
             Building b = (Building) ModSim.theBuildings.get(x);
             if (b.displayName.toLowerCase().contains(searchWord.toLowerCase())) {
                 ret.add(b);
@@ -424,7 +428,7 @@ public class Building implements Serializable {
     public static Building getBuildingByConBox(V3 conBoxLoc) {
         Building b = null;
 
-        for(int x = 0; x < ModSim.theBuildings.size(); ++x) {
+        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
             b = (Building) ModSim.theBuildings.get(x);
 
             try {
@@ -508,7 +512,7 @@ public class Building implements Serializable {
         Minecraft mc = Minecraft.getMinecraft();
         ArrayList<String> strings = new ArrayList();
 
-        for(int b = 0; b < ModSim.theBuildings.size(); ++b) {
+        for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
             strings.clear();
             Building building = (Building) ModSim.theBuildings.get(b);
             if (building != null && building.primaryXYZ != null) {
@@ -516,7 +520,7 @@ public class Building implements Serializable {
                 World buildingWorld = MinecraftServer.getServer().worldServerForDimension(building.primaryXYZ.theDimension);
                 Block id = buildingWorld.getBlock(pxyz.x.intValue(), pxyz.y.intValue(), pxyz.z.intValue());
                 String xyz = "b" + building.primaryXYZ.toString().replaceAll(",", "_");
-                if (id != ModSim.controlBox && id != ModSim.buildingConstructor) {
+                if (id != BlockLoader.blockControlBox && id != BlockLoader.constructorBox) {
                     File f = new File(ModSim.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
                     if (f.exists()) {
                         f.delete();
@@ -591,7 +595,7 @@ public class Building implements Serializable {
             }
         }
 
-        ModSim.log.info("Building.saveAllBuildings " + ModSim.theBuildings.size() + " buildings");
+        ModSim.log.info("建筑物.saveAllBuildings " + ModSim.theBuildings.size() + " 建筑");
     }
 
     public static void loadAllBuildings() {
@@ -743,7 +747,7 @@ public class Building implements Serializable {
                             ModSim.theBuildings.add(build);
                         } else {
                             fs.delete();
-                            ModSim.log.info("Building: Deleted building as id=" + id + " or dupe");
+                            ModSim.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
                         }
                     }
                 }
@@ -753,15 +757,15 @@ public class Building implements Serializable {
     }
 
     public static void checkTennants() {
-        for(int b = 0; b < ModSim.theBuildings.size(); ++b) {
+        for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
             Building building = (Building) ModSim.theBuildings.get(b);
 
-            for(int t = 0; t < building.tennants.size(); ++t) {
+            for (int t = 0; t < building.tennants.size(); ++t) {
                 try {
-                    String tennant = (String)building.tennants.get(t);
+                    String tennant = (String) building.tennants.get(t);
                     boolean exists = false;
 
-                    for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+                    for (int f = 0; f < ModSim.theFolks.size(); ++f) {
                         FolkData folk = (FolkData) ModSim.theFolks.get(f);
                         if (folk.name.contentEquals(tennant)) {
                             exists = true;
@@ -795,7 +799,7 @@ public class Building implements Serializable {
                     Building.initBuildingsOfType("industrial");
                     Building.initBuildingsOfType("other");
                     Building.runningInitThread = false;
-                    ModSim.log.info("Building: Thread Done Initialising all buildings from disk");
+                    ModSim.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
                 }
             });
             t.start();

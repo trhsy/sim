@@ -225,6 +225,7 @@ public class CourierTask implements Serializable {
                             names = names + " " + point.name;
                             strings.add("location|" + point.toString());
                             strings.add("name|" + point.name);
+
                             ModSim.saveSK2(ModSim.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2", strings);
                         }
                     } else {

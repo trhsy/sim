@@ -14,11 +14,13 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
  **/
 public class JobBuilder extends Job implements Serializable {
     private static final long serialVersionUID = -1177665807904279141L;
+
     public Stage theStage;
     public FolkData theFolk = null;
     public Vocation vocation = null;
@@ -111,13 +114,13 @@ public class JobBuilder extends Job implements Serializable {
                     int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                     if (dist <= 3 && this.theStage == Stage.WORKERASSIGNED) {
                         this.theFolk.action = FolkAction.ATWORK;
-                        this.theFolk.statusText = "Arrived at work";
+                        this.theFolk.statusText = I18n.format("container.sim.job.builder_Arrived");
                         this.theStage = Stage.BLUEPRINT;
                     }
 
                     if (dist < 10 && this.theStage == Stage.WORKERASSIGNED && this.theFolk.destination == null) {
                         this.theFolk.action = FolkAction.ATWORK;
-                        this.theFolk.statusText = "Arrived at work";
+                        this.theFolk.statusText = I18n.format("container.sim.job.builder_Arrived");
                         this.theStage = Stage.BLUEPRINT;
                     }
 
@@ -145,9 +148,9 @@ public class JobBuilder extends Job implements Serializable {
     private void stageBlueprint() {
         this.theBuilding = this.theFolk.theBuilding;
         if (this.theBuilding == null) {
-            this.theFolk.statusText = "Please choose which building I should build";
+            this.theFolk.statusText = I18n.format("container.sim.job.builder_building");
         } else {
-            this.theFolk.statusText = "Looking through blueprints...";
+            this.theFolk.statusText = I18n.format("container.sim.job.builder_blueprints");
             this.theFolk.updateLocationFromEntity();
             double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist < 4.0D) {
@@ -181,15 +184,15 @@ public class JobBuilder extends Job implements Serializable {
         this.theFolk.isWorking = false;
         int dist;
         if (this.step == 1) {
-            this.theFolk.statusText = "Checking building resources...";
+            this.theFolk.statusText = I18n.format("container.sim.job.builder_Checking");
             this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             if (this.constructorChests.size() == 0) {
-                this.theFolk.statusText = "Please place at least one chest/storage block near to constructor block.";
+                this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_block");
             } else {
                 try {
                     ((IInventory)this.constructorChests.get(0)).openChest();
                 } catch (Exception var2) {
-                    ModSim.log.info("JobBuilder:JobBuilder's chest was null");
+                    ModSim.log.info("JobBuilder:JobBuilder's 的箱子是空的");
                 }
 
                 this.step = 2;
@@ -251,7 +254,8 @@ public class JobBuilder extends Job implements Serializable {
                     this.bz = this.cz + 1;
                 } else {
                     if (!this.theBuilding.buildDirection.contentEquals("+z")) {
-                        ModSim.sendChat("Can't determine the direction to build in, please stand on one of the four sides of the constructor when you right-click it");
+                        ;
+                        ModSim.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
                         this.theFolk.selfFire();
                         return;
                     }
@@ -259,10 +263,10 @@ public class JobBuilder extends Job implements Serializable {
                     this.bz = this.cz - 1;
                 }
 
-                ModSim.sendChat(this.theFolk.name + " has started building a " + this.theBuilding.displayNameWithoutPK);
-                this.theFolk.statusText = "Building " + this.theBuilding.displayNameWithoutPK;
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_building") + this.theBuilding.displayNameWithoutPK);
+                this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                 if (this.theBuilding == null || this.theBuilding.layerCount == 0) {
-                    ModSim.sendChat(this.theFolk.name + " has misplaced the blueprints, fire them and try someone else.");
+                    ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_misplaced"));
                     return;
                 }
 
@@ -280,7 +284,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theBuilding.blockLocations.clear();
             } else if (this.step == 2) {
                 do {
-                    this.theFolk.statusText = "Building " + this.theBuilding.displayNameWithoutPK;
+                    this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                     if (this.theBuilding.buildDirection.contentEquals("+z")) {
                         this.xo = this.ltr;
                         this.zo = -this.ftb;
@@ -305,7 +309,7 @@ public class JobBuilder extends Job implements Serializable {
                     try {
                         bl = this.theBuilding.structure[this.acount].split(":");
                     } catch (Exception var17) {
-                        ModSim.log.warning("JobBuilder: NULL block in building, using Air instead");
+                        ModSim.log.warn("JobBuilder: 建筑中的空块,改用空气");
                         bl = "0:0".split(":");
                     }
 
@@ -325,7 +329,7 @@ public class JobBuilder extends Job implements Serializable {
                             this.theBuilding.primaryXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
                             this.theBuilding.saveThisBuilding();
                         } catch (Exception var16) {
-                            ModSim.log.info("JobBuilder:build is null");
+                            ModSim.log.info("JobBuilder:构建为空");
                         }
                     }
 
@@ -369,7 +373,7 @@ public class JobBuilder extends Job implements Serializable {
                             }
                         } catch (Exception var15) {
                             want = "?";
-                            ModSim.log.info("JobBuilder:wantItemStack nulled out, wantIS was null, blockID=" + blockId);
+                            ModSim.log.info("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
                         }
                     } else {
                         want = "???";
@@ -433,10 +437,10 @@ public class JobBuilder extends Job implements Serializable {
                                 want = "Logs";
                             }
 
-                            this.theFolk.statusText = "Waiting for " + want;
+                            this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Waiting") + want;
                             if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ModSim.configMaterialReminderInterval * 60 * 1000)) {
                                 this.lastNotifiedOfMaterials = System.currentTimeMillis();
-                                ModSim.sendChat(this.theFolk.name + " (who's building a " + this.theFolk.theBuilding.displayNameWithoutPK + ") needs more " + want);
+                                ModSim.sendChat(this.theFolk.name + " ( " + I18n.format("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.format("container.sim.job.builder_constructor_started_more") + want);
                             }
 
                             this.step = 3;
@@ -465,7 +469,7 @@ public class JobBuilder extends Job implements Serializable {
 
                                     int aft = (int)Math.floor((double)this.theFolk.levelBuilder);
                                     if (b4 != aft) {
-                                        ModSim.sendChat(this.theFolk.name + " has just levelled up to Builder Level " + aft);
+                                        ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_levelled") + aft);
                                     }
 
                                     if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
@@ -484,7 +488,7 @@ public class JobBuilder extends Job implements Serializable {
                                         var25.credits -= 0.02F;
                                     }
                                 } catch (Exception var18) {
-                                    ModSim.log.warning("JobBuilder: Possible non-existant block (from other mod) ID=" + blockId);
+                                    ModSim.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
 
                                     try {
                                         this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, blockId, 0, 3);
@@ -541,12 +545,12 @@ public class JobBuilder extends Job implements Serializable {
 
             if (this.theBuilding != null) {
                 this.theBuilding.buildingComplete = true;
-                ModSim.sendChat(this.theFolk.name + " has completed building a " + this.theBuilding.displayNameWithoutPK);
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
                 ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                 this.theBuilding.saveThisBuilding();
                 this.theFolk.theBuilding = null;
             } else {
-                ModSim.sendChat("Error: could not set the building that " + this.theFolk.name + " was building " + "to 'complete', try rebuilding right away (no cost) to try again");
+                ModSim.sendChat(I18n.format("container.sim.job.builder_constructor_Error") + this.theFolk.name + I18n.format("container.sim.job.builder_constructor_was_building"));
             }
         }
 
@@ -583,7 +587,7 @@ public class JobBuilder extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the building site";
+            this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_site");
             this.theStage = Stage.BLUEPRINT;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

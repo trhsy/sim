@@ -16,6 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 /**
  * ========================================
@@ -26,14 +27,24 @@ import net.minecraft.world.World;
  * @Date 2022/1/26 0026下午 5:48
  * ========================================
  **/
-public class CommonTickHandler {private World serverWorld = null;
+public class CommonTickHandler {
+
+    private World serverWorld = null;
+    /*最后勾选*/
     Long lastSecondTickAt = 0L;
+    /*最后勾选*/
     Long lastMinuteTickAt = 0L;
+    /*运行mod ui*/
     GuiRunMod runModui = null;
+    /*当前世界*/
     String currentWorld = "";
+
     Minecraft mc = Minecraft.getMinecraft();
+    /*最后重置*/
     long lastReset = 0L;
+    /*是否已经启动*/
     boolean haveRunStartup = false;
+
     int ticks = 0;
     public static final SimpleNetworkWrapper INSTANCE;
 
@@ -53,7 +64,8 @@ public class CommonTickHandler {private World serverWorld = null;
 
     public void onTickInGame() {
         if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("guimainmenu")) {
-            ModSim.log.info("CommTH: in Gui Main menu");
+            //CommTH:在Gui主菜单中
+            ModSim.log.info("CommTH: 在Gui主菜单中");
         }
 
         if (ModSim.states.gameModeNumber == 10) {
@@ -74,11 +86,15 @@ public class CommonTickHandler {private World serverWorld = null;
 
             if (now - this.lastSecondTickAt > 1000L) {
                 if (!ModSim.proxy.ranStartup) {
-                    System.out.println("Haven't run startup - doing that now");
+                    //还没有启动——现在就这么做
+                    //ModSim.log.info("Haven't run startup - doing that now");
+                    ModSim.log.info("还没有启动——现在就这么做");
                     this.serverWorld = MinecraftServer.getServer().getEntityWorld();
                     this.currentWorld = ModSim.getSavesDataFolder();
-                    ModSim.log.info("CommTH: Startup - set serverWorld/currentWorld");
-                    System.out.println("Running Reset World Function");
+                    //CommTH: Startup - set serverWorld/currentWorld
+                    ModSim.log.info("CommTH: 启动 - 设置 serverWorld/currentWorld");
+                    ModSim.log.info("运行重置世界功能");
+                    //ModSim.log.info("Running Reset World Function");
                     ModSim.resetAndLoadNewWorld();
                 } else {
                     if (!this.currentWorld.contentEquals(ModSim.getSavesDataFolder()) && now - this.lastReset > 30000L) {
@@ -107,7 +123,8 @@ public class CommonTickHandler {private World serverWorld = null;
                     MiningBox.saveMiningBoxes();
                     FarmingBox.saveFarmingBoxes();
                     Relationship.saveRelationships();
-                    ModSim.log.info("CTH: Saved game data in " + (System.currentTimeMillis() - start) + " ms");
+                    ModSim.log.info("CTH: 将游戏数据保存在 " + (System.currentTimeMillis() - start) + " ms");
+                    //Saved game data in
                 }
 
                 this.lastMinuteTickAt = now;
@@ -120,7 +137,8 @@ public class CommonTickHandler {private World serverWorld = null;
         if (System.currentTimeMillis() - this.lastReset > 30000L) {
             this.lastReset = System.currentTimeMillis();
             Side side = FMLCommonHandler.instance().getEffectiveSide();
-            ModSim.log.info(side.toString() + "-side CommTH: resetSimUKraft()");
+            //side CommTH: resetSimUKraft()
+            ModSim.log.info(side.toString() + "-side CommTH: 重置SimUKraft()");
         }
 
     }

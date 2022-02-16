@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.Marker;
+import com.trhsy.sim.common.entity.Marker;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
@@ -62,13 +62,16 @@ public class GuiControlBox extends GuiScreen {
 
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void updateScreen() {
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, "Done"));
@@ -309,6 +312,7 @@ public class GuiControlBox extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int i, int j, float f) {
         try {
             if (this.mouseCount < 10) {
@@ -555,18 +559,19 @@ public class GuiControlBox extends GuiScreen {
         }
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         this.mc.setIngameFocus();
     }
 
+    @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.displayGuiScreen((GuiScreen)null);
             this.mc.setIngameFocus();
         }
     }
-
     private void rotateStairs() {
         World theWorld = this.mc.getIntegratedServer().worldServerForDimension(this.theBuilding.primaryXYZ.theDimension);
         theWorld.playSoundEffect(this.theBuilding.primaryXYZ.x, this.theBuilding.primaryXYZ.y, this.theBuilding.primaryXYZ.z, ModSim.MODID + ":computer", 1.0F, 2.0F);

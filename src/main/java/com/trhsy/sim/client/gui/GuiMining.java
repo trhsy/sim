@@ -35,11 +35,12 @@ public class GuiMining extends GuiScreen {
         this.theMiningBox = miningBlock;
         this.theWorkers = folks;
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void updateScreen() {
         if (this.tfSize != null) {
             this.tfSize.updateCursorCounter();
@@ -47,6 +48,7 @@ public class GuiMining extends GuiScreen {
 
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Done"));
@@ -95,7 +97,6 @@ public class GuiMining extends GuiScreen {
 
         }
     }
-
     private void extraButtons() {
         if (ModSim.gameMode != GameMode.HARDCORE) {
             String i = "";
@@ -123,6 +124,7 @@ public class GuiMining extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int i, int j, float f) {
         try {
             if (this.mouseCount < 10) {
@@ -170,6 +172,7 @@ public class GuiMining extends GuiScreen {
 
     }
 
+    @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
             if (guibutton.id == 0) {
@@ -227,6 +230,7 @@ public class GuiMining extends GuiScreen {
         }
     }
 
+    @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.displayGuiScreen((GuiScreen)null);
@@ -247,6 +251,7 @@ public class GuiMining extends GuiScreen {
         }
     }
 
+    @Override
     public void mouseClicked(int i, int j, int k) {
         if (this.tfSize != null) {
             this.tfSize.mouseClicked(i, j, k);

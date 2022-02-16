@@ -1,5 +1,6 @@
 package com.trhsy.sim.client;
 
+import com.trhsy.sim.client.loader.ItemRenderLoader;
 import com.trhsy.sim.client.model.ModelAlignBeam;
 import com.trhsy.sim.client.model.ModelConBox;
 import com.trhsy.sim.client.model.ModelFolkFemale;
@@ -83,6 +84,7 @@ public class ClientProxy  extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         //调用父类的方法
         super.preInit(event);
+        new ItemRenderLoader();
     }
 
     @Override

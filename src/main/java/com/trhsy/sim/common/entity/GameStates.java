@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.ModSim;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.Iterator;
  **/
 public class GameStates implements Serializable {
     private static final long serialVersionUID = -2617900998876928361L;
+
     public int population = 0;
     public float credits = 10.0F;
     public boolean cheatMode = false;
@@ -74,11 +76,15 @@ public class GameStates implements Serializable {
     public void saveStates() {
         String folder = ModSim.getSavesDataFolder();
         ArrayList<String> strings = new ArrayList();
+        //金额
         strings.add("credits|" + this.credits);
+        //游戏状态
         strings.add("gamemode|" + this.gameModeNumber);
+        //星期几
         strings.add("dayofweek|" + this.dayOfWeek);
+        //最后一次更新
         strings.add("lastupdatecheck|" + this.lastUpdateCheck);
         ModSim.saveSK2(folder + "settings.sk2", strings);
-        ModSim.log.info("GameStates: saveStates() called BOTH sides, credits saved as " + this.credits);
+        ModSim.log.info("GameStates: saveStates() called BOTH sides, 金额存储为 " + this.credits);
     }
 }

@@ -26,7 +26,7 @@ public final class BCLog {
     }
 
     public static void initLog() {
-        logger.info("Starting BuildCraft " + getVersion());
+        logger.info("开始建造工艺 " + getVersion());
         logger.info("Copyright (c) SpaceToad, 2011-2014");
         logger.info("http://www.mod-buildcraft.com");
     }

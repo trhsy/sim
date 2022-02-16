@@ -33,9 +33,10 @@ public class RenderFolk extends RenderBiped {
         super(modelbase, 1.0F);
     }
 
-    protected ResourceLocation func_110775_a(Entity entity) {
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
         if (entity instanceof EntityFolk) {
-            EntityFolk theFolk = (EntityFolk)entity;
+            EntityFolk theFolk = (EntityFolk) entity;
             ResourceLocation myTexture = new ResourceLocation(ModSim.MODID + "", "skins/" + theFolk.getTexture());
             return myTexture;
         } else {

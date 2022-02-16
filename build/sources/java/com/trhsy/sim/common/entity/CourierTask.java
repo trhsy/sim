@@ -31,7 +31,7 @@ public class CourierTask implements Serializable {
     public static V3 getCourierPoint(String name) {
         new V3();
 
-        for(int x = 0; x < ModSim.theCourierPoints.size(); ++x) {
+        for (int x = 0; x < ModSim.theCourierPoints.size(); ++x) {
             V3 v = (V3) ModSim.theCourierPoints.get(x);
             if (v.name.contentEquals(name)) {
                 return v;
@@ -44,7 +44,7 @@ public class CourierTask implements Serializable {
     private static boolean alreadyGotTask(CourierTask theTask) {
         boolean got = false;
 
-        for(int i = 0; i < ModSim.theCourierTasks.size(); ++i) {
+        for (int i = 0; i < ModSim.theCourierTasks.size(); ++i) {
             CourierTask checkTask = (CourierTask) ModSim.theCourierTasks.get(i);
 
             try {
@@ -63,7 +63,7 @@ public class CourierTask implements Serializable {
     private static boolean alreadyGotPoint(V3 thePoint) {
         boolean got = false;
 
-        for(int i = 0; i < ModSim.theCourierPoints.size(); ++i) {
+        for (int i = 0; i < ModSim.theCourierPoints.size(); ++i) {
             V3 checkPoint = (V3) ModSim.theCourierPoints.get(i);
             if (checkPoint.isSameCoordsAs(thePoint, true, true)) {
                 got = true;
@@ -214,7 +214,7 @@ public class CourierTask implements Serializable {
         if (side == Side.SERVER) {
             int mofo;
             ArrayList strings;
-            for(mofo = 0; mofo < ModSim.theCourierPoints.size(); ++mofo) {
+            for (mofo = 0; mofo < ModSim.theCourierPoints.size(); ++mofo) {
                 strings = new ArrayList();
                 V3 point = (V3) ModSim.theCourierPoints.get(mofo);
                 if (point != null) {
@@ -225,6 +225,7 @@ public class CourierTask implements Serializable {
                             names = names + " " + point.name;
                             strings.add("location|" + point.toString());
                             strings.add("name|" + point.name);
+
                             ModSim.saveSK2(ModSim.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2", strings);
                         }
                     } else {
@@ -238,7 +239,7 @@ public class CourierTask implements Serializable {
                 }
             }
 
-            for(mofo = 0; mofo < ModSim.theCourierTasks.size(); ++mofo) {
+            for (mofo = 0; mofo < ModSim.theCourierTasks.size(); ++mofo) {
                 strings = new ArrayList();
                 CourierTask task = (CourierTask) ModSim.theCourierTasks.get(mofo);
                 String fn = "ct" + mofo + task.folkname.replace(" ", "");

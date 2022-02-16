@@ -12,6 +12,7 @@ import com.trhsy.sim.common.entity.enums.FarmType;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -27,7 +28,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobGrocer
- * @Description todo
+ * @Description todo 杂货商
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:50
  * ========================================
@@ -116,7 +117,7 @@ public class JobGrocer extends Job implements Serializable {
     }
 
     private void stageGoingToFoodFarm() {
-        this.theFolk.statusText = "Fetching fresh food from farms";
+        this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Fetching");
         if (!this.onRoute) {
             this.farm = this.getCurrentFarm();
             if (this.farm == null) {
@@ -159,7 +160,7 @@ public class JobGrocer extends Job implements Serializable {
     }
 
     private void stageCollectingFood() {
-        this.theFolk.statusText = "Collecting Fresh Food";
+        this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Collecting");
         if (this.step == 1) {
             if (this.farm == null) {
                 this.theStage = Stage.GOINGTOFOODFARM;
@@ -186,7 +187,7 @@ public class JobGrocer extends Job implements Serializable {
     }
 
     private void stageGoBackToStore() {
-        this.theFolk.statusText = "Taking fresh food back to store";
+        this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Taking");
         if (!this.onRoute) {
             this.onRoute = true;
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
@@ -222,7 +223,7 @@ public class JobGrocer extends Job implements Serializable {
         int f;
         int c;
         if (this.step == 1) {
-            this.theFolk.statusText = "Unloading fresh food";
+            this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Unloading");
             sell = this.getInventoryCount(this.theFolk, Blocks.pumpkin);
             int melons = this.getInventoryCount(this.theFolk, Items.melon);
             f = this.getInventoryCount(this.theFolk, Items.carrot);
@@ -242,27 +243,27 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
             }
 
-            this.theFolk.statusText = "Selling fresh food";
+            this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Selling");
             if (MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L > 11600L) {
                 this.step = 3;
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = "Closing the shop";
+            this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Closing");
             sell = 0;
             ItemStack piece = null;
 
             label58:
-            for(f = 0; f < ModSim.theFolks.size(); ++f) {
-                for(c = 0; c < this.grocerChests.size(); ++c) {
-                    IInventory chest = (IInventory)this.grocerChests.get(c);
+            for (f = 0; f < ModSim.theFolks.size(); ++f) {
+                for (c = 0; c < this.grocerChests.size(); ++c) {
+                    IInventory chest = (IInventory) this.grocerChests.get(c);
                     int g = 0;
 
-                    while(g < chest.getSizeInventory()) {
+                    while (g < chest.getSizeInventory()) {
                         ItemStack chestStack = chest.getStackInSlot(g);
 
                         try {
                             int count = (new Random()).nextInt(3) + 1;
-                            ItemFood food = (ItemFood)chestStack.getItem();
+                            ItemFood food = (ItemFood) chestStack.getItem();
                             piece = inventoriesGet(this.grocerChests, new ItemStack(chestStack.getItem(), count), false, false);
                             FolkData folk = (FolkData) ModSim.theFolks.get(f);
                             folk.levelFood = 10;
@@ -276,9 +277,9 @@ public class JobGrocer extends Job implements Serializable {
             }
 
             if (sell > 0) {
-                ModSim.sendChat(this.theFolk.name + "(grocer) has sold " + sell + " items of food to folks today.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.grocer.farmer.grocer") + sell + I18n.format("container.sim.job.grocer.farmer.folks"));
             } else {
-                ModSim.sendChat(this.theFolk.name + " has no produce to sell to folks today.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.grocer.farmer.today"));
             }
 
             this.step = 4;
@@ -327,7 +328,7 @@ public class JobGrocer extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the store";
+            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
             this.theStage = Stage.ARRIVEDATSHOP;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

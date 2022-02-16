@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
@@ -26,7 +27,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobShepherd
- * @Description todo
+ * @Description todo 牧羊人
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:53
  * ========================================
@@ -99,7 +100,7 @@ public class JobShepherd extends Job implements Serializable {
     private void stageWaiting() {
         Random rand = new Random();
         this.theFolk.isWorking = false;
-        this.theFolk.statusText = "Sharpening Shears";
+        this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Sharpening");
         this.theFolk.stayPut = false;
         List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
         Double playerdist = this.mc.thePlayer.getDistance(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z);
@@ -145,7 +146,7 @@ public class JobShepherd extends Job implements Serializable {
                 this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = "Shearing " + FolkData.generateName(0, true, "") + " the sheep!";
+            this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Shearing") + FolkData.generateName(0, true, "") + I18n.format("container.sim.job.shepherd.farmer.sheep");
             this.sheepToShear.setSheared(true);
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
@@ -166,7 +167,7 @@ public class JobShepherd extends Job implements Serializable {
                         }
 
                         isShearing = false;
-                        theFolk.statusText = "Watching the herd";
+                        theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Watching");
                     }
                 });
                 t.start();
@@ -202,7 +203,7 @@ public class JobShepherd extends Job implements Serializable {
     }
 
     private void stageCantWork() {
-        this.theFolk.statusText = "Can't work, the chests are full of wool";
+        this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.chests");
         this.theFolk.isWorking = false;
     }
 
@@ -260,7 +261,7 @@ public class JobShepherd extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the sheep farm";
+            this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Arrived");
             this.theStage = Stage.ARRIVEDATFARM;
             this.spawnSheepIfNeeded(this.theFolk.employedAt);
         } else {

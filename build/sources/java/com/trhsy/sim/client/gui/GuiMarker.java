@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.Marker;
+import com.trhsy.sim.common.entity.Marker;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
@@ -125,7 +125,7 @@ public class GuiMarker extends GuiScreen {
 
                 point.name = name;
 
-                for(int p = 0; p < ModSim.theCourierPoints.size(); ++p) {
+                for (int p = 0; p < ModSim.theCourierPoints.size(); ++p) {
                     V3 epoint = (V3) ModSim.theCourierPoints.get(p);
                     if (epoint.name.contentEquals(name)) {
                         this.errorText = "Error: The name must be unique, '" + name + "' is already used.";
@@ -139,7 +139,7 @@ public class GuiMarker extends GuiScreen {
 
         }
     }
-
+    @Override
     protected void mouseClicked(int i, int j, int k) {
         if (this.theGuiTextField1 != null) {
             this.theGuiTextField1.mouseClicked(i, j, k);
@@ -147,7 +147,7 @@ public class GuiMarker extends GuiScreen {
 
         super.mouseClicked(i, j, k);
     }
-
+    @Override
     protected void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.currentScreen = null;
@@ -265,12 +265,12 @@ public class GuiMarker extends GuiScreen {
                                 if (iD == Block.getIdFromBlock(ModSim.controlBox)) {
                                     letter = "$";
                                 } else {
-                                    letter = (String)key.get(iD + ":" + meta);
+                                    letter = (String) key.get(iD + ":" + meta);
                                     if (key.get(iD + ":" + meta) == null) {
                                         ++ch;
-                                        key.put(iD + ":" + meta, (new Character((char)ch)).toString());
-                                        keyString = keyString + (new Character((char)ch)).toString() + "=" + iD + ":" + meta + ";";
-                                        letter = (new Character((char)ch)).toString();
+                                        key.put(iD + ":" + meta, (new Character((char) ch)).toString());
+                                        keyString = keyString + (new Character((char) ch)).toString() + "=" + iD + ":" + meta + ";";
+                                        letter = (new Character((char) ch)).toString();
                                     }
                                 }
 

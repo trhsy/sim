@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.PathBox;
+import com.trhsy.sim.common.entity.PathBox;
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.FarmingBox;
@@ -15,6 +15,7 @@ import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -187,7 +188,7 @@ public class GuiEmployFolk extends GuiScreen {
                         }
 
                         FolkData f = FolkData.getFolkByName(folkname);
-                        f.statusText = "Going to my new job...";
+                        f.statusText = I18n.format("container.sim.gui.button_Going");
                         efolks.add(f);
                         this.hireFolks(efolks);
                     }

@@ -40,14 +40,16 @@ public class GuiCourierTasks extends GuiScreen {
         this.theFolk = FolkData.getFolkByName(folkname);
         this.thePlayer = pl;
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void updateScreen() {
     }
 
+    @Override
     public void initGui() {
         this.initscreen();
     }
@@ -103,6 +105,7 @@ public class GuiCourierTasks extends GuiScreen {
 
     }
 
+    @Override
     public void drawScreen(int i, int j, float f) {
         this.drawDefaultBackground();
         if (this.mouseCount < 10) {
@@ -148,6 +151,7 @@ public class GuiCourierTasks extends GuiScreen {
         super.drawScreen(i, j, f);
     }
 
+    @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
             if (guibutton.id == 0) {
@@ -214,11 +218,13 @@ public class GuiCourierTasks extends GuiScreen {
         return null;
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         this.mc.setIngameFocus();
     }
 
+    @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.displayGuiScreen((GuiScreen)null);

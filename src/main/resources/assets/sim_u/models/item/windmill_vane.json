@@ -1,0 +1,57 @@
+{
+  "parent": "builtin/generated",
+  "textures": {
+    "layer0": "sim_u:items/windmill_vane0",
+    "layer1": "sim_u:items/windmill_vane1",
+    "layer2": "sim_u:items/windmill_vane2",
+    "layer3": "sim_u:items/windmill_vane3",
+    "layer4": "sim_u:items/windmill_vane4",
+    "layer5": "sim_u:items/windmill_vane5",
+    "layer6": "sim_u:items/windmill_vane6",
+    "layer7": "sim_u:items/windmill_vane7",
+    "layer8": "sim_u:items/windmill_vane8",
+    "layer9": "sim_u:items/windmill_vane9",
+    "layer10": "sim_u:items/windmill_vane10",
+    "layer11": "sim_u:items/windmill_vane11",
+    "layer12": "sim_u:items/windmill_vane12",
+    "layer13": "sim_u:items/windmill_vane13",
+    "layer14": "sim_u:items/windmill_vane14",
+    "layer15": "sim_u:items/windmill_vane15"
+  },
+  "display": {
+    "thirdperson": {
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        1,
+        -2
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ]
+    },
+    "firstperson": {
+      "rotation": [
+        0,
+        -135,
+        25
+      ],
+      "translation": [
+        0,
+        4,
+        2
+      ],
+      "scale": [
+        1.7,
+        1.7,
+        1.7
+      ]
+    }
+  }
+}

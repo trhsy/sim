@@ -12,6 +12,7 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -29,7 +30,7 @@ import java.util.List;
  * ========================================
  *
  * @ClassName JobLumberjack
- * @Description todo
+ * @Description todo 伐木工人
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:51
  * ========================================
@@ -140,7 +141,7 @@ public class JobLumberjack extends Job implements Serializable {
         this.theStage = Stage.GOTOTREE;
         this.onRoute = false;
         if (this.foundWoodAt == null) {
-            ModSim.sendChat(this.theFolk.name + " could not find any wood in the area.");
+            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.wood"));
             this.theFolk.selfFire();
         }
     }
@@ -148,7 +149,7 @@ public class JobLumberjack extends Job implements Serializable {
     private void stageGotoTree() {
         this.theFolk.isWorking = false;
         if (!this.onRoute) {
-            this.theFolk.statusText = "Going to tree...";
+            this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Going");
             this.theFolk.gotoXYZ(this.foundWoodAt, (GotoMethod)null);
             this.startedGoing = System.currentTimeMillis();
             this.onRoute = true;
@@ -181,7 +182,7 @@ public class JobLumberjack extends Job implements Serializable {
         int i;
         int l;
         if (this.step == 1) {
-            this.theFolk.statusText = "Choppy Choppy tree!";
+            this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Choppy");
             this.theFolk.isWorking = true;
 
             for(i = 0; i < 20; ++i) {
@@ -256,7 +257,7 @@ public class JobLumberjack extends Job implements Serializable {
                 }
 
                 count = this.getInventoryCount(this.theFolk, Blocks.log);
-                this.theFolk.statusText = "Got " + count + " logs so far";
+                this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Got") + count + I18n.format("container.sim.job.lumberjack.farmer.logs_so_far");
                 this.theFolk.stayPut = false;
                 this.foundWoodAt.y = this.foundWoodAt.y + 1.0D;
                 this.step = 2;
@@ -292,7 +293,7 @@ public class JobLumberjack extends Job implements Serializable {
     private void stageReturnWood() {
         this.theFolk.isWorking = false;
         if (this.step == 1) {
-            this.theFolk.statusText = "Delivering wood back to base";
+            this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Delivering");
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
             this.step = 2;
         } else {
@@ -315,7 +316,7 @@ public class JobLumberjack extends Job implements Serializable {
                 this.pay = (float)dist * 0.03F;
                 GameStates var10000 = ModSim.states;
                 var10000.credits -= this.pay;
-                ModSim.sendChat(this.theFolk.name + " has delivered " + dist + " logs at the lumbermill");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.delivered") + dist + I18n.format("container.sim.job.lumberjack.farmer.lumbermill"));
                 this.theStage = Stage.SCANFORTREE;
                 this.step = 1;
             }
@@ -330,7 +331,7 @@ public class JobLumberjack extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "I'm a lumberjack, and I'm ok";
+            this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.a_lumberjack");
             this.theStage = Stage.ARRIVEDATMILL;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

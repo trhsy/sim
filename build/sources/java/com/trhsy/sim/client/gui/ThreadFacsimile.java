@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.Marker;
+import com.trhsy.sim.common.entity.Marker;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
@@ -134,12 +134,12 @@ public class ThreadFacsimile extends Thread {
                             if (iD == Block.getIdFromBlock(ModSim.controlBox)) {
                                 letter = "$";
                             } else {
-                                letter = (String)key.get(iD + ":" + meta);
+                                letter = (String) key.get(iD + ":" + meta);
                                 if (key.get(iD + ":" + meta) == null) {
                                     ++ch;
-                                    key.put(iD + ":" + meta, (new Character((char)ch)).toString());
-                                    keyString = keyString + (new Character((char)ch)).toString() + "=" + iD + ":" + meta + ";";
-                                    letter = (new Character((char)ch)).toString();
+                                    key.put(iD + ":" + meta, (new Character((char) ch)).toString());
+                                    keyString = keyString + (new Character((char) ch)).toString() + "=" + iD + ":" + meta + ";";
+                                    letter = (new Character((char) ch)).toString();
                                 }
                             }
 

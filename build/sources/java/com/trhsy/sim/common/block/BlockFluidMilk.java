@@ -6,6 +6,7 @@ package com.trhsy.sim.common.block;/**
 
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
+import com.trhsy.sim.common.fluid.FluidMilk;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -26,8 +27,8 @@ public class BlockFluidMilk extends BlockFluidClassic {
     private IIcon[] icons;
 
     public BlockFluidMilk() {
-        super(ModSim.SUKfluidMilk, Material.water);
-        this.setUnlocalizedName("block.fluidMilk.name");
+        super(new FluidMilk(), Material.water);
+        this.setUnlocalizedName("fluidMilk");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }

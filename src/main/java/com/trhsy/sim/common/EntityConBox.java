@@ -7,11 +7,13 @@ package com.trhsy.sim.common;/**
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.Job;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,6 +28,7 @@ import java.util.Random;
  * ========================================
  **/
 public class EntityConBox extends Entity{
+
     public float boxYaw = 0.0F;
     public int textColor = 11534255;
     public FolkData theFolk = null;
@@ -53,7 +56,7 @@ public class EntityConBox extends Entity{
                 this.setDead();
             }
 
-            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), ModSim.buildingConstructor, 5);
+            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), BlockLoader.constructorBox, 5);
             if (conblocks.size() < 1) {
                 this.setDead();
             }
@@ -66,7 +69,7 @@ public class EntityConBox extends Entity{
     }
 
     public static FolkData getFolk(V3 where) {
-        V3 con = Job.findClosestBlockType(where, ModSim.buildingConstructor, 6, false);
+        V3 con = Job.findClosestBlockType(where, BlockLoader.constructorBox, 6, false);
         FolkData ret = null;
 
         for (int f = 0; f < ModSim.theFolks.size(); ++f) {

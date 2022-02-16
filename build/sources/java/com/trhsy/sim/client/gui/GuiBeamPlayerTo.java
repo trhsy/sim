@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.CourierTask;
 import com.trhsy.sim.common.entity.V3;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 
@@ -17,7 +18,7 @@ import org.lwjgl.input.Keyboard;
  * ========================================
  *
  * @ClassName GuiBeamPlayerTo
- * @Description todo
+ * @Description todo 光束播放机
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:26
  * ========================================
@@ -45,12 +46,12 @@ public class GuiBeamPlayerTo extends GuiScreen {
 
     private void initscreen() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, "Cancel"));
+        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, I18n.format("container.sim.sim_gui_player_to_Cancel")));
         int x = 10;
         int y = 40;
         int idx = 2;
 
-        for(int f = 0; f < ModSim.theCourierPoints.size(); ++f) {
+        for (int f = 0; f < ModSim.theCourierPoints.size(); ++f) {
             V3 cpoint = (V3) ModSim.theCourierPoints.get(f);
             this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
             ++idx;
@@ -70,11 +71,12 @@ public class GuiBeamPlayerTo extends GuiScreen {
     @Override
     public void drawScreen(int i, int j, float f) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, "Choose a point to beam to...", this.width / 2, 17, 16777215);
+        String sim_gui_BPT_Choose = I18n.format("container.sim.sim_gui_BPT_Choose");
+        this.drawCenteredString(this.fontRendererObj, sim_gui_BPT_Choose, this.width / 2, 17, 16777215);
         if (ModSim.theCourierPoints.size() == 0) {
-            this.drawCenteredString(this.fontRendererObj, "You don't have any courier/beaming points!", this.width / 2, 37, 16752800);
-            this.drawCenteredString(this.fontRendererObj, "Place a single Sim-U-Marker down and right click it", this.width / 2, 57, 16752800);
-            this.drawCenteredString(this.fontRendererObj, "to make one. You can then beam there using ANY control box.", this.width / 2, 77, 16752800);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_You"), this.width / 2, 37, 16752800);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_Place"), this.width / 2, 57, 16752800);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_to"), this.width / 2, 77, 16752800);
         }
 
         super.drawScreen(i, j, f);
@@ -91,8 +93,8 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 V3 safePoint = v.clone();
                 Double var6 = safePoint.y;
                 Double var7 = safePoint.y = safePoint.y + 1.0D;
-                ModSim.sendChat("Beaming you to " + name);
-                this.mc.displayGuiScreen((GuiScreen)null);
+                ModSim.sendChat(I18n.format("container.sim.sim_gui_Beaming") + name);
+                this.mc.displayGuiScreen((GuiScreen) null);
                 ClientTickHandler.beamingPlayer = this.thePlayer;
                 ClientTickHandler.beamingStage = 1;
                 ClientTickHandler.beamingStartedAt = System.currentTimeMillis();

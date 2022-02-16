@@ -1,0 +1,96 @@
+package com.trhsy.sim.common.loader;
+
+import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
+/**
+ * 合成表
+ */
+public class CraftingLoader {
+
+    public CraftingLoader() {
+        registerRecipe();
+        registerSmelting();
+        registerFuel();
+    }
+
+    /**
+     * 注册合成表
+     */
+    private static void registerRecipe() {
+        //有序合成表
+        //for(int x = 0; x < 16; ++x) {
+        //    GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.itemWindmillSails, 1, x));
+        //}
+        /*GameRegistry.addShapedRecipe(new ItemStack(BlockLoader.constructorBox), new Object[]{
+                "##", "##", '#', Blocks.vine
+        });
+        //无需合成
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.vine, 4), BlockLoader.constructorBox);*/
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.constructorBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Blocks.crafting_table});
+
+        /*GameRegistry.addRecipe(new ItemStack(BlockLoader.marker, 3), new Object[]{"G", "S", 'S', Items.stick, 'G', new ItemStack(Items.dye, 1, 11)});
+        if (ModSim.configUseExpensiveRecipies) {
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
+        } else {
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_pickaxe});
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_hoe});
+        }
+
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.lightBox, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 1), new Object[]{lightBox, new ItemStack(Items.dye, 1, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 2), new Object[]{lightBox, new ItemStack(Items.dye, 1, 14)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 3), new Object[]{lightBox, new ItemStack(Items.dye, 1, 11)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 4), new Object[]{lightBox, new ItemStack(Items.dye, 1, 10)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 5), new Object[]{lightBox, new ItemStack(Items.dye, 1, 4)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 6), new Object[]{lightBox, new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 7), new Object[]{lightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheese, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(itemFood, 1, 0)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.itemFood, 9, 0), new Object[]{new ItemStack(blockCheese)});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCompositeBrick, 1), new Object[]{"CSC", "SIS", "CSC", 'C', Blocks.hardened_clay, 'S', Blocks.stone, 'I', Blocks.fence});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.itemWindmillBase), new Object[]{" C ", "CCC", "CCC", 'C', blockCompositeBrick});
+
+        int c;
+        for (c = 0; c < 16; ++c) {
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.itemWindmillVane, 1, c), new Object[]{"WWW", "SSS", 'S', Items.stick, 'W', new ItemStack(Blocks.wool, 1, c)});
+        }
+
+        for (c = 0; c < 16; ++c) {
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.itemWindmillSails, 1, c), new Object[]{" V ", "VPV", " V ", 'V', new ItemStack(itemWindmillVane, 1, c), 'P', Blocks.planks});
+        }
+
+        for (c = 0; c < 16; ++c) {
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.windmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(itemWindmillSails, 1, c), 'B', itemWindmillBase});
+        }*/
+    }
+
+    /**
+     * 注册提炼
+     */
+    private static void registerSmelting() {
+        //待烧炼的物品  烧炼后的物品  烧炼后玩家可以得到的经验
+        //GameRegistry.addSmelting(BlockLoader.constructorBox, new ItemStack(Items.coal), 0.5F);
+        GameRegistry.addSmelting(ItemLoader.itemGranulesGold, new ItemStack(Items.gold_ingot), 0.1F);
+        GameRegistry.addSmelting(ItemLoader.itemGranulesIron, new ItemStack(Items.iron_ingot), 0.1F);
+        //带创建
+//        GameRegistry.addSmelting(ItemLoader.itemGranulesTin, new ItemStack(Items.tin_ingot), 0.1F);
+//        GameRegistry.addSmelting(ItemLoader.itemGranulesCopper, new ItemStack(Items.copper_ingot), 0.1F);
+    }
+
+    /**
+     * 燃料
+     */
+    private static void registerFuel() {
+        //
+        /*GameRegistry.registerFuelHandler(new IFuelHandler() {
+            @Override
+            public int getBurnTime(ItemStack fuel) {
+                return Items.diamond != fuel.getItem() ? 0 : 12800;
+            }
+        });*/
+    }
+}

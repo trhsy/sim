@@ -7,9 +7,11 @@ package com.trhsy.sim.common;/**
 import com.trhsy.sim.client.gui.GuiEntityFolk;
 import com.trhsy.sim.client.gui.GuiMerchant;
 import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.item.food.ItemFoods;
 import com.trhsy.sim.common.jobs.JobFisherman;
 import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.ItemLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -27,6 +29,7 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
@@ -40,6 +43,7 @@ import java.util.*;
  * ========================================
  **/
 public class EntityFolk extends EntityCreature implements INpc {
+
     public FolkData theData = null;
     private long ghostTimer = -1L;
     private long greetTimer = 0L;
@@ -335,7 +339,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 try {
                     dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
                 } catch (Exception var14) {
-                    ModSim.log.warning("Folk's theData.destination was null in moveEntity()");
+                    ModSim.log.warn("Folk's theData.destination was null in moveEntity()");
                     return;
                 }
 
@@ -399,7 +403,8 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
     }
 
-    public ItemStack func_70694_bm() {
+    @Override
+    public ItemStack getHeldItem() {
         if (this.theData == null) {
             return null;
         } else if (this.theData.theirJob == null) {
@@ -441,11 +446,11 @@ public class EntityFolk extends EntityCreature implements INpc {
         } else if (this.theData.vocation == Vocation.CHEESEMAKER) {
             return new ItemStack(ModSim.blockCheese, 1);
         } else if (this.theData.vocation == Vocation.BURGERSMANAGER) {
-            return new ItemStack(ModSim.itemFood, 1, 3);
+            return new ItemStack(ItemLoader.itemFoods, 1, 3);
         } else if (this.theData.vocation == Vocation.BURGERSFRYCOOK) {
             return new ItemStack(Items.iron_shovel, 1);
         } else if (this.theData.vocation == Vocation.BURGERSWAITER) {
-            return new ItemStack(ModSim.itemFood, 1, 2);
+            return new ItemStack(ItemLoader.itemFoods, 1, 2);
         } else if (this.theData.vocation == Vocation.FISHERMAN) {
             JobFisherman jf = (JobFisherman)this.theData.theirJob;
             return jf.theStage == Stage.IDLE ? new ItemStack(Items.fish, 1) : new ItemStack(Items.fishing_rod, 1);

@@ -1,35 +1,0 @@
-
-m	java:S116"SRename this field "Vane1rod" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓË¥Êşÿÿÿÿ
-m	java:S116"SRename this field "Vane2rod" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æ¸µÆşÿÿÿÿ
-h	java:S116"SRename this field "Vane3rod" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ø²®
-h	java:S116"SRename this field "Vane4rod" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ¡¹¤
-n	java:S116"TRename this field "Vane1main" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ô¬•‡ıÿÿÿÿ
-n	java:S116"TRename this field "Vane2main" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€‘„“üÿÿÿÿ
-n	java:S116"TRename this field "Vane3main" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óöĞóşÿÿÿÿ
-i	java:S116"TRename this field "Vane4main" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êüœÍ
-k	java:S116"WRename this field "WindmillAxle" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»›¥\
-p	java:S116"VRename this field "WindmillTop" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›†¶ÿÿÿÿÿ
-p	java:S116"VRename this field "WindmillMid" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚·ÄÃøÿÿÿÿ
-l	java:S116 "WRename this field "WindmillBase" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÇÄæ
-M
-java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
-o
-java:S1104"TMake Vane1rod a static final constant or non-public and provide accessors if needed.(ÓË¥Êşÿÿÿÿ
-o
-java:S1104"TMake Vane2rod a static final constant or non-public and provide accessors if needed.(æ¸µÆşÿÿÿÿ
-j
-java:S1104"TMake Vane3rod a static final constant or non-public and provide accessors if needed.(®ø²®
-j
-java:S1104"TMake Vane4rod a static final constant or non-public and provide accessors if needed.(İ¡¹¤
-p
-java:S1104"UMake Vane1main a static final constant or non-public and provide accessors if needed.(ô¬•‡ıÿÿÿÿ
-p
-java:S1104"UMake Vane2main a static final constant or non-public and provide accessors if needed.(€‘„“üÿÿÿÿ
-p
-java:S1104"UMake Vane3main a static final constant or non-public and provide accessors if needed.(óöĞóşÿÿÿÿ
-k
-java:S1104"UMake Vane4main a static final constant or non-public and provide accessors if needed.(êüœÍ
-m
-java:S1104"XMake WindmillAxle a static final constant or non-public and provide accessors if needed.(»›¥\
-t
-java:S1104!"YMake renderTexture a static final constant or non-public and provide accessors if needed.(÷á¨Íøÿÿÿÿ

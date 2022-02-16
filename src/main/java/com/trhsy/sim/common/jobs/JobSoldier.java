@@ -8,6 +8,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
@@ -25,8 +26,8 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobSoldier
- * @Description todo
- * @Author Administrator
+ * @Description todo 士兵
+ * @Author Administratr
  * @Date 2022/1/27 0027下午 3:54
  * ========================================
  **/
@@ -87,7 +88,7 @@ public class JobSoldier extends Job implements Serializable {
         this.theFolk.isWorking = false;
         this.theFolk.stayPut = false;
         this.theFolk.action = FolkAction.ATWORK;
-        this.theFolk.statusText = "Patroling town";
+        this.theFolk.statusText = I18n.format("container.sim.job.soldier.farmer.Patroling");
         this.runDelay = 10000;
         if (this.jobWorld == null) {
             this.jobWorld = MinecraftServer.getServer().worldServerForDimension(this.theFolk.employedAt.theDimension);
@@ -124,7 +125,7 @@ public class JobSoldier extends Job implements Serializable {
                 this.runDelay = 1000;
                 this.theStage = Stage.ATTACKING;
                 this.count = 100;
-                this.theFolk.statusText = "Going to attack a " + this.badGuy.getEntityData();
+                this.theFolk.statusText = I18n.format("container.sim.job.soldier.farmer.Going") + this.badGuy.getEntityData();
                 if (this.theFolk.isSpawned()) {
                     this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), GotoMethod.WALK);
                 } else {
@@ -178,7 +179,7 @@ public class JobSoldier extends Job implements Serializable {
                             }
                         }
 
-                        this.theFolk.statusText = "Killed " + this.badGuy.getEntityData();
+                        this.theFolk.statusText = I18n.format("container.sim.job.soldier.farmer.Killed") + this.badGuy.getEntityData();
                         this.theFolk.isWorking = false;
                     }
 
@@ -217,7 +218,7 @@ public class JobSoldier extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Reporting for duty";
+            this.theFolk.statusText = I18n.format("container.sim.job.soldier.farmer.Reporting");
             this.theStage = Stage.ONPATROL;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

@@ -4,7 +4,7 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.Marker;
+import com.trhsy.sim.common.entity.Marker;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
@@ -57,18 +57,21 @@ public class GuiControlBox extends GuiScreen {
         this.theBuilding = Building.getBuilding(location);
         this.theFolk = folk;
         if (ModSim.isDayTime()) {
-            this.theFolk.gotoXYZ(location, (GotoMethod)null);
+            this.theFolk.gotoXYZ(location, (GotoMethod) null);
         }
 
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void updateScreen() {
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, "Done"));
@@ -91,7 +94,7 @@ public class GuiControlBox extends GuiScreen {
                 this.employeeCount = 0;
                 this.employees.clear();
 
-                for(fc = 0; fc < ModSim.theFolks.size(); ++fc) {
+                for (fc = 0; fc < ModSim.theFolks.size(); ++fc) {
                     folk = (FolkData) ModSim.theFolks.get(fc);
                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                         this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, "Fire " + folk.name));
@@ -290,7 +293,7 @@ public class GuiControlBox extends GuiScreen {
                 down = 70;
                 int idx = 2;
 
-                for(fc = 0; fc < ModSim.theFolks.size(); ++fc) {
+                for (fc = 0; fc < ModSim.theFolks.size(); ++fc) {
                     folk = (FolkData) ModSim.theFolks.get(fc);
                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                         if (this.theBuilding.displayName.contains("Barracks")) {
@@ -309,6 +312,7 @@ public class GuiControlBox extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int i, int j, float f) {
         try {
             if (this.mouseCount < 10) {
@@ -343,7 +347,7 @@ public class GuiControlBox extends GuiScreen {
                         this.fontRendererObj.drawString("Employees :", 5, 57, 16777088);
                         down = 70;
 
-                        for(down = 0; down < ModSim.theFolks.size(); ++down) {
+                        for (down = 0; down < ModSim.theFolks.size(); ++down) {
                             FolkData folk = (FolkData) ModSim.theFolks.get(down);
                             if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                                 this.fontRendererObj.drawString(folk.name + " (" + folk.age + ") - " + folk.vocation.toString(), 20, down, 16777120);
@@ -497,7 +501,7 @@ public class GuiControlBox extends GuiScreen {
                             World theWorld = this.playerWhoClickedIt.worldObj;
                             bindex = 0;
 
-                            for(int i = 0; i < ModSim.theBuildings.size(); ++i) {
+                            for (int i = 0; i < ModSim.theBuildings.size(); ++i) {
                                 Building build = (Building) ModSim.theBuildings.get(i);
 
                                 try {
@@ -530,7 +534,7 @@ public class GuiControlBox extends GuiScreen {
 
                             theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1.0F, 1.0F);
                             ModSim.theBuildings.remove(bindex);
-                            this.mc.displayGuiScreen((GuiScreen)null);
+                            this.mc.displayGuiScreen((GuiScreen) null);
                         }
                     } else {
                         folkname = guibutton.displayString.substring(guibutton.displayString.indexOf(" ")).trim();
@@ -555,18 +559,18 @@ public class GuiControlBox extends GuiScreen {
         }
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         this.mc.setIngameFocus();
     }
-
+    @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.displayGuiScreen((GuiScreen)null);
             this.mc.setIngameFocus();
         }
     }
-
     private void rotateStairs() {
         World theWorld = this.mc.getIntegratedServer().worldServerForDimension(this.theBuilding.primaryXYZ.theDimension);
         theWorld.playSoundEffect(this.theBuilding.primaryXYZ.x, this.theBuilding.primaryXYZ.y, this.theBuilding.primaryXYZ.z, ModSim.MODID + ":computer", 1.0F, 2.0F);

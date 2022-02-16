@@ -11,11 +11,14 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ItemLoader;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,12 +27,13 @@ import java.util.Iterator;
  * ========================================
  *
  * @ClassName JobCheesemaker
- * @Description todo
+ * @Description todo 奶酪制造商
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:45
  * ========================================
  **/
 public class JobCheesemaker extends Job {
+
     public Vocation vocation = null;
     public FolkData theFolk = null;
     public Stage theStage;
@@ -71,7 +75,7 @@ public class JobCheesemaker extends Job {
 
         if (this.theCheeseFactory == null) {
             this.theFolk.selfFire();
-            ModSim.sendChat("There was a problem with the Cheese factory, try re-starting Minecraft");
+            ModSim.sendChat(I18n.format("container.sim.job.cheese_maker.There"));
         } else {
             if (!ModSim.isDayTime()) {
                 this.theStage = Stage.IDLE;
@@ -130,7 +134,7 @@ public class JobCheesemaker extends Job {
     }
 
     private void stageGoingToDairyFarm() {
-        this.theFolk.statusText = "Going to collect milk";
+        this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Going");
         ++this.currentFarmNum;
         ArrayList<Building> dairyFarms = Building.getBuildingBySearch("Dairy Farm", true);
         if (!dairyFarms.isEmpty() && dairyFarms.size() - 1 <= this.currentFarmNum) {
@@ -139,7 +143,7 @@ public class JobCheesemaker extends Job {
             this.theStage = Stage.COLLECTINGMILK;
             this.step = 1;
         } else if (dairyFarms.isEmpty()) {
-            ModSim.sendChat(this.theFolk.name + " has retired, as there are no dairy farms");
+            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.has_retired"));
             this.theFolk.selfFire();
         } else {
             this.theStage = Stage.GOINGTOTANK;
@@ -147,29 +151,29 @@ public class JobCheesemaker extends Job {
     }
 
     private void stageCollectingMilk() {
-        this.theFolk.statusText = "Collecting milk";
+        this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Collecting");
         if (this.step == 1) {
             if (this.theFolk.destination == null && this.theFolk.location.getDistanceTo(this.farm.primaryXYZ) < 5) {
                 this.step = 2;
                 this.theFolk.isWorking = true;
             } else {
-                ModSim.log.info("JobCheeseMaker: not arrived at farm yet");
+                ModSim.log.info("JobCheeseMaker: 还没到农场");
             }
         } else if (this.step == 2) {
             this.chestsAtDairy = Job.inventoriesFindClosest(this.farm.primaryXYZ, 5);
             if (this.chestsAtDairy.isEmpty()) {
-                ModSim.sendChat(this.theFolk.name + ": Can't find any chests at the dairy farm, I quit!");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.I_quit"));
                 this.theFolk.selfFire();
                 return;
             }
 
             this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtDairy, new ItemStack(Items.milk_bucket, 1), (Block)null);
             if (this.theFolk.inventory == null || this.theFolk.inventory.isEmpty()) {
-                ModSim.sendChat(this.theFolk.name + " hasn't found any milk at the dairy today.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.dairy"));
                 this.theStage = Stage.SLICECHEESE;
                 this.step = 1;
                 this.theFolk.isWorking = false;
-                this.theFolk.statusText = "No Milk to process, gonna be an easy day today!";
+                this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.process");
                 return;
             }
 
@@ -180,7 +184,7 @@ public class JobCheesemaker extends Job {
                 this.step = 1;
                 this.theFolk.isWorking = false;
             } else {
-                ModSim.log.warning("JobCheesemaker: no tank top point");
+                ModSim.log.warn("JobCheesemaker: 没有罐顶点");
                 this.theFolk.selfFire();
             }
         }
@@ -191,9 +195,9 @@ public class JobCheesemaker extends Job {
         if (this.step == 1) {
             if (this.theFolk.destination == null) {
                 this.step = 2;
-                this.theFolk.statusText = "Preparing to fill the tank";
+                this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Preparing");
             } else {
-                ModSim.log.info("JobCheeseMaker: not arrived at back yet");
+                ModSim.log.info("JobCheeseMaker: 还没到后面");
             }
         } else if (this.step == 2) {
             this.theStage = Stage.EMPTYINGMILK;
@@ -206,9 +210,9 @@ public class JobCheesemaker extends Job {
         if (this.step == 1) {
             if (this.theFolk.inventory != null && !this.theFolk.inventory.isEmpty()) {
                 if (this.theFolk.inventory.size() > 1) {
-                    this.theFolk.statusText = "Emptying " + this.theFolk.inventory.size() + " buckets of milk";
+                    this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptying") + this.theFolk.inventory.size() + I18n.format("container.sim.job.cheese_maker.buckets");
                 } else {
-                    this.theFolk.statusText = "Emptied all the milk";
+                    this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptied");
                 }
 
                 this.theFolk.isWorking = true;
@@ -268,7 +272,7 @@ public class JobCheesemaker extends Job {
     private void stageStiring() {
         ArrayList<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
         if (this.step == 1) {
-            this.theFolk.statusText = "Checking milk viscosity";
+            this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.viscosity");
             if (!stirPositions.isEmpty()) {
                 if (this.tubToggle) {
                     this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(0), (GotoMethod)null);
@@ -280,7 +284,7 @@ public class JobCheesemaker extends Job {
                 this.stirCount = 0;
                 this.step = 2;
             } else {
-                ModSim.sendChat("There's a problem with the cheese factory, place a building constructor down and re-build it");
+                ModSim.sendChat(I18n.format("container.sim.job.cheese_maker.constructor"));
                 this.theFolk.selfFire();
             }
         } else if (this.step == 2) {
@@ -291,25 +295,25 @@ public class JobCheesemaker extends Job {
             String say = "";
             switch(this.stirCount) {
                 case 0:
-                    say = "Stirring the milk";
+                    say = I18n.format("container.sim.job.cheese_maker.Stirring");
                     break;
                 case 1:
-                    say = "Adding top secret ingredient";
+                    say = I18n.format("container.sim.job.cheese_maker.ingredient");
                     break;
                 case 2:
-                    say = "Adding bacterial culture";
+                    say = I18n.format("container.sim.job.cheese_maker.bacterial");
                     break;
                 case 3:
-                    say = "Removing unwanted spores";
+                    say = I18n.format("container.sim.job.cheese_maker.unwanted");
                     break;
                 case 4:
-                    say = "Checking fermentation progress";
+                    say = I18n.format("container.sim.job.cheese_maker.fermentation");
                     break;
                 case 5:
-                    say = "Adding Rennet";
+                    say = I18n.format("container.sim.job.cheese_maker.Adding");
                     break;
                 case 6:
-                    say = "Reticulating Cheese splines";
+                    say = I18n.format("container.sim.job.cheese_maker.Reticulating");
             }
 
             this.theFolk.statusText = say;
@@ -380,14 +384,14 @@ public class JobCheesemaker extends Job {
 
         } else {
             this.theFolk.selfFire();
-            ModSim.sendChat("There was a problem with the Cheese factory, try re-building it - no milk blocks");
+            ModSim.sendChat(I18n.format("container.sim.job.cheese_maker.Cheese_factory"));
         }
     }
 
     private void stageHarvestCheese() {
         ArrayList<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
         ArrayList<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
-        this.theFolk.statusText = "Extracting Cheese blocks";
+        this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Extracting");
         if (this.step == 1) {
             this.theFolk.gotoXYZ((V3)stirPositions.get(0), (GotoMethod)null);
             this.step = 2;
@@ -449,7 +453,7 @@ public class JobCheesemaker extends Job {
                 if (!gotBlock) {
                     this.step = 1;
                     this.theStage = Stage.SLICECHEESE;
-                    this.theFolk.statusText = "Counting cheese blocks";
+                    this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Counting");
                 }
             }
         }
@@ -460,7 +464,7 @@ public class JobCheesemaker extends Job {
         ArrayList<V3> slicewaypoint = this.theCheeseFactory.getSpecialBlocks(5);
         if (slicewaypoint.isEmpty()) {
             this.theFolk.selfFire();
-            ModSim.sendChat("There was a problem with the Cheese factory, try re-building it - waypoint issue");
+            ModSim.sendChat(I18n.format("container.sim.job.cheese_maker.problem"));
         } else {
             if (this.step == 1) {
                 this.theFolk.gotoXYZ((V3)slicewaypoint.get(0), (GotoMethod)null);
@@ -475,27 +479,27 @@ public class JobCheesemaker extends Job {
                 if (this.step == 3) {
                     chests = Job.inventoriesFindClosest((V3)slicewaypoint.get(0), 4);
                     if (chests.isEmpty()) {
-                        ModSim.sendChat(this.theFolk.name + ": Someone has stolen the chest in the cheese factory, I quit!");
+                        ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.Someone"));
                         this.theFolk.selfFire();
                     }
 
                     this.inventoriesTransferFromFolk(this.theFolk.inventory, chests, (ItemStack)null);
                     this.step = 4;
                 } else if (this.step == 4) {
-                    chests = Job.inventoriesFindClosest((V3)slicewaypoint.get(0), 4);
-                    this.theFolk.statusText = "Slicing cheese";
+                    chests = Job.inventoriesFindClosest((V3) slicewaypoint.get(0), 4);
+                    this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Slicing");
                     ItemStack cheese = inventoriesGet(chests, new ItemStack(ModSim.blockCheese, 1), false, false);
                     if (cheese != null) {
-                        boolean placedOK = this.inventoriesPut(chests, new ItemStack(ModSim.itemFood, 9, 0), true);
+                        boolean placedOK = this.inventoriesPut(chests, new ItemStack(ItemLoader.itemFoods, 9, 0), true);
                         if (!placedOK) {
-                            ModSim.sendChat(this.theFolk.name + "'s chest at the cheese factory is full of cheese!");
+                            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.factory"));
                             this.theFolk.selfFire();
                         }
                     } else {
                         this.step = 5;
                     }
                 } else if (this.step == 5) {
-                    this.theFolk.statusText = "I love cheese!";
+                    this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.love_cheese");
                 }
             }
 
@@ -509,7 +513,7 @@ public class JobCheesemaker extends Job {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the factory";
+            this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.the_factory");
             this.theStage = Stage.ARRIVEDATFACTORY;
             this.currentFarmNum = 0;
         } else {

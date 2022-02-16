@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.PathBox;
+import com.trhsy.sim.common.entity.PathBox;
 import com.trhsy.sim.common.entity.FolkData;
 import net.minecraft.inventory.IInventory;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName JobPathBuilder
- * @Description todo
+ * @Description todo 路径构建器
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:53
  * ========================================

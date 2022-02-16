@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "sim_u:light_box"
+    }
+  }
+}

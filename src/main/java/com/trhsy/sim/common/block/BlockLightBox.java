@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -37,7 +38,7 @@ public class BlockLightBox extends Block {
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setTickRandomly(true);
-        this.setUnlocalizedName("block.lightBox.name");
+        this.setUnlocalizedName("lightBox");
     }
 
     @Override
@@ -69,10 +70,11 @@ public class BlockLightBox extends Block {
         return j;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Block blockId, CreativeTabs par2CreativeTabs, List par3List) {
-        for(int meta = 0; meta < 8; ++meta) {
-            par3List.add(new ItemStack(blockId, 1, meta));
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List par3List) {
+        for (int meta = 0; meta < 8; ++meta) {
+            par3List.add(new ItemStack(itemIn, 1, meta));
         }
 
     }

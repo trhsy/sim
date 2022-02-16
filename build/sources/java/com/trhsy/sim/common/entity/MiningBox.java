@@ -55,7 +55,7 @@ public class MiningBox implements Serializable {
 
         int x;
         MiningBox block;
-        for(x = 0; x < ModSim.theMiningBoxes.size(); ++x) {
+        for (x = 0; x < ModSim.theMiningBoxes.size(); ++x) {
             block = (MiningBox) ModSim.theMiningBoxes.get(x);
             if (block.location.isSameCoordsAs(location, true, true)) {
                 ret = block;
@@ -64,7 +64,7 @@ public class MiningBox implements Serializable {
         }
 
         if (ret == null) {
-            for(x = 0; x < ModSim.theMiningBoxes.size(); ++x) {
+            for (x = 0; x < ModSim.theMiningBoxes.size(); ++x) {
                 block = (MiningBox) ModSim.theMiningBoxes.get(x);
                 if (block.location.isSameCoordsAs(location, false, true)) {
                     ret = block;
@@ -186,7 +186,7 @@ public class MiningBox implements Serializable {
         if (side == Side.SERVER) {
             ArrayList<String> strings = new ArrayList();
 
-            for(int b = 0; b < ModSim.theMiningBoxes.size(); ++b) {
+            for (int b = 0; b < ModSim.theMiningBoxes.size(); ++b) {
                 try {
                     MiningBox mining = (MiningBox) ModSim.theMiningBoxes.get(b);
                     strings.clear();

@@ -33,11 +33,12 @@ public class GuiFarming extends GuiScreen {
         this.theFarmingBox = farmingBox;
         this.theFolk = folk;
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void initGui() {
         try {
             if (this.theFarmingBox.level == 0) {
@@ -87,6 +88,7 @@ public class GuiFarming extends GuiScreen {
         super.initGui();
     }
 
+    @Override
     public void drawScreen(int i, int j, float f) {
         if (this.mouseCount < 10) {
             ++this.mouseCount;
@@ -129,6 +131,7 @@ public class GuiFarming extends GuiScreen {
 
     }
 
+    @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
             if (guibutton.id == 0) {

@@ -209,7 +209,7 @@ public class BuildingReader implements Serializable {
             this.blocksInBuilding = 0;
             File f = new File(ModSim.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
-                System.out.println("Cannot find file");
+                ModSim.log.warn("找不到文件");
                 return;
             }
 
@@ -402,7 +402,7 @@ public class BuildingReader implements Serializable {
                             this.rent = (float)this.blocksInBuilding * 0.01F;
                             this.corpTax = 3.0F;
                         } catch (Exception var18) {
-                            System.out.println("Caught exception: " + var18.toString());
+                            ModSim.log.error("Caught exception: " + var18.getMessage());
                         }
                     }
                 }
@@ -515,7 +515,7 @@ public class BuildingReader implements Serializable {
                 br.close();
             }
         } catch (Exception var19) {
-            System.out.println("Caught exception: " + var19.toString());
+            ModSim.log.info("Caught exception: " + var19.getMessage());
         }
 
     }

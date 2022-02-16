@@ -1,0 +1,17 @@
+{
+  "stat.flyOneCm": 215,
+  "stat.walkOneCm": 48186,
+  "stat.useItem.355": 3,
+  "stat.drop": 8,
+  "stat.jump": 80,
+  "stat.playOneMinute": 35804,
+  "achievement.openInventory": 14,
+  "achievement.exploreAllBiomes": {
+    "value": 0,
+    "progress": [
+      "Beach",
+      "Ocean",
+      "Plains"
+    ]
+  }
+}

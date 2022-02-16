@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName JobButcher
- * @Description todo
+ * @Description todo 屠夫
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:45
  * ========================================
@@ -120,7 +121,7 @@ public class JobButcher extends Job implements Serializable {
     }
 
     private void stageGoingToFarm() {
-        this.theFolk.statusText = "Fetching meat from livestock farms";
+        this.theFolk.statusText = I18n.format("container.sim.job.butcher.Fetching");
         this.theFolk.action = FolkAction.ATWORK;
         if (!this.onRoute) {
             this.farm = this.getCurrentFarm();
@@ -159,7 +160,7 @@ public class JobButcher extends Job implements Serializable {
     }
 
     private void stageCollectingMeat() {
-        this.theFolk.statusText = "Collecting Meat from chests";
+        this.theFolk.statusText = I18n.format("container.sim.job.butcher.Collecting");
         this.theFolk.action = FolkAction.ATWORK;
         if (this.step == 1) {
             this.chestsAtFarm.clear();
@@ -180,7 +181,7 @@ public class JobButcher extends Job implements Serializable {
 
     private void stageGoBackToStore() {
         this.theFolk.action = FolkAction.ATWORK;
-        this.theFolk.statusText = "Taking meat back to butchers shop";
+        this.theFolk.statusText = I18n.format("container.sim.job.butcher.Taking");
         if (!this.onRoute) {
             this.onRoute = true;
             this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
@@ -194,7 +195,7 @@ public class JobButcher extends Job implements Serializable {
                 }
 
                 this.theFolk.stayPut = true;
-                this.theFolk.statusText = "Unloading meat";
+                this.theFolk.statusText = I18n.format("container.sim.job.butcher.Unloading");
                 int meat1 = this.getInventoryCount(this.theFolk, Items.porkchop);
                 int meat2 = this.getInventoryCount(this.theFolk, Items.chicken);
                 int meat3 = this.getInventoryCount(this.theFolk, Items.beef);
@@ -215,14 +216,14 @@ public class JobButcher extends Job implements Serializable {
 
     private void stageSellingMeat() {
         this.theFolk.action = FolkAction.ATWORK;
-        this.theFolk.statusText = "Selling meat to customers";
+        this.theFolk.statusText = I18n.format("container.sim.job.butcher.Selling");
         if (this.step == 1) {
             this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
             this.openCloseChest((IInventory)this.chestsAtShop.get(0), 2000);
             if (this.pay > 0.0F) {
                 GameStates var10000 = ModSim.states;
                 var10000.credits -= this.pay;
-                ModSim.sendChat(this.theFolk.name + " has collected meat and has been paid " + ModSim.displayMoney(this.pay) + " Sim-u-credits.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.collected") + ModSim.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
                 this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
@@ -238,13 +239,13 @@ public class JobButcher extends Job implements Serializable {
                 this.theFolk.beamMeTo(this.theFolk.employedAt);
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = "Closing the shop";
+            this.theFolk.statusText = I18n.format("container.sim.job.butcher.Closing");
             int sell = 0;
             boolean notEnough = false;
             ItemStack piece = null;
             this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
 
-            for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
                 piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.porkchop, 1), false, false);
                 if (piece == null) {
                     piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.chicken, 1), false, false);
@@ -262,7 +263,7 @@ public class JobButcher extends Job implements Serializable {
             }
 
             if (sell > 0) {
-                ModSim.sendChat(this.theFolk.name + " has sold " + sell + " pieces of meat to folks today.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.has_sold") + sell + I18n.format("container.sim.job.butcher.folks"));
             }
 
             this.step = 4;
@@ -302,7 +303,7 @@ public class JobButcher extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the shop";
+            this.theFolk.statusText = I18n.format("container.sim.job.butcher.Arrived");
             this.theStage = Stage.ARRIVEDATSHOP;
             this.currentFarmNum = 0;
         } else {

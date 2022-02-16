@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
@@ -22,6 +23,7 @@ import java.util.Random;
  * ========================================
  **/
 public class EntityWindmill extends Entity {
+
     public float sailRotation = 0.0F;
     private float sailSpeed = 0.0F;
     private float sailSpeedModifer = 0.0F;
@@ -36,7 +38,7 @@ public class EntityWindmill extends Entity {
 
     @Override
     public void setDead() {
-        ModSim.log.info("EntityWindmill: setDead() called");
+        ModSim.log.info("EntityWindmill: setDead() 调用");
         super.setDead();
     }
 

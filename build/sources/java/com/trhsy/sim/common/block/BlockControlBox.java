@@ -17,6 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -39,7 +40,10 @@ public class BlockControlBox extends Block {
     @SideOnly(Side.CLIENT)
     public BlockControlBox() {
         super(Material.wood);
-        this.setUnlocalizedName("block.controlBox.name");
+        this.setStepSound(Block.soundTypeWood);
+        this.setHardness(10.0F);
+        this.setResistance(1.0F);
+        this.setUnlocalizedName("controlBox");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -69,7 +73,8 @@ public class BlockControlBox extends Block {
                         return this.icons[3];
                 }
             default:
-                System.out.println("Invalid metadata for " + this.getUnlocalizedName());
+                
+                ModSim.log.info("元数据无效 " + this.getUnlocalizedName());
                 return this.icons[0];
         }
     }
@@ -77,17 +82,18 @@ public class BlockControlBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        world.playSoundEffect((double)i, (double)j, (double)k, ModSim.MODID + ":computer", 1.0F, 1.0F);
+        world.playSoundEffect((double) i, (double) j, (double) k, ModSim.MODID + ":computer", 1.0F, 1.0F);
         GuiControlBox ui = null;
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
         if (world.getBlockMetadata(i, j, k) != 0 && world.getBlockMetadata(i, j, k) != 2) {
             if (ModSim.gameMode == GameMode.CREATIVE) {
-                mc.displayGuiScreen((GuiScreen)null);
-                ModSim.sendChat("The Bank is not active when in Creative Mode (as there's no money!)");
+                mc.displayGuiScreen((GuiScreen) null);
+                String control_box_Creative = I18n.format("container.sim.control_box_Creative");
+                ModSim.sendChat(control_box_Creative);
             } else {
-                ui2 = new GuiBankATM(new V3((double)i, (double)j, (double)k, entityplayer.dimension), entityplayer);
+                ui2 = new GuiBankATM(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
                 mc.displayGuiScreen(ui2);
             }
         } else {
@@ -97,8 +103,15 @@ public class BlockControlBox extends Block {
 
         return true;
     }
-
-    public int func_149745_a(Random random) {
+    /**
+     * @Author fan
+     * @Description //TODO 返回块销毁时要丢弃的项目数量。
+     * @Date 16:50 2022/2/12
+     * @Param [random]
+     * @return int
+     **/
+    @Override
+    public int quantityDropped(Random random) {
         return 0;
     }
 }

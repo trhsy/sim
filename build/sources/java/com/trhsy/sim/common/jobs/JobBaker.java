@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.enums.FarmType;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -112,7 +113,8 @@ public class JobBaker extends Job implements Serializable {
     }
 
     private void stageGoingToWheatFarm() {
-        this.theFolk.statusText = "Fetching wheat from farms";
+
+        this.theFolk.statusText = I18n.format("container.sim.job.Baker_Fetching");
         if (this.theFolk.destination == null && this.step == 1) {
             this.farm = this.getCurrentFarm();
             if (this.farm == null) {
@@ -154,7 +156,7 @@ public class JobBaker extends Job implements Serializable {
     }
 
     private void stageCollectingWheat() {
-        this.theFolk.statusText = "Collecting Wheat";
+        this.theFolk.statusText = I18n.format("container.sim.job.Baker_Collecting");
         this.runDelay = 1000;
         if (this.step == 1) {
             this.farmChests = inventoriesFindClosest(this.farm.getLocation(), 5);
@@ -175,7 +177,7 @@ public class JobBaker extends Job implements Serializable {
     }
 
     private void stageGoBackToBakery() {
-        this.theFolk.statusText = "Taking wheat back to bakery";
+        this.theFolk.statusText = I18n.format("container.sim.job.Baker_Taking");
         if (this.theFolk.destination == null && this.step == 1) {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
             this.runDelay = 100;
@@ -199,7 +201,7 @@ public class JobBaker extends Job implements Serializable {
     }
 
     private void stageMakeBread() {
-        this.theFolk.statusText = "Baking bread";
+        this.theFolk.statusText = I18n.format("container.sim.job.Baker_Baking_bread");
         this.bakeryChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
         if (this.bakeryChests != null && this.bakeryChests.size() != 0) {
             int wheat;
@@ -227,7 +229,7 @@ public class JobBaker extends Job implements Serializable {
                 this.step = 3;
             } else if (this.step == 3) {
                 ((IInventory)this.bakeryChests.get(0)).closeChest();
-                this.theFolk.statusText = "Selling bread to customers";
+                this.theFolk.statusText = I18n.format("container.sim.job.Baker_Selling");
                 this.theFolk.stayPut = true;
                 if (this.theFolk.theEntity != null) {
                     if (this.theFolk.gender == 0) {
@@ -242,7 +244,7 @@ public class JobBaker extends Job implements Serializable {
             }
 
         } else {
-            this.theFolk.statusText = "Who stole the chest from my bakery!!";
+            this.theFolk.statusText = I18n.format("container.sim.job.Baker_Who");
         }
     }
 
@@ -251,7 +253,7 @@ public class JobBaker extends Job implements Serializable {
             if (this.pay > 0.0F) {
                 GameStates var10000 = ModSim.states;
                 var10000.credits -= this.pay;
-                ModSim.sendChat(this.theFolk.name + " has made some bread and has been paid " + ModSim.displayMoney(this.pay) + " Sim-u-credits.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.Baker_paid") + ModSim.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
                 this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
@@ -261,7 +263,7 @@ public class JobBaker extends Job implements Serializable {
                 this.step = 3;
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = "Closing the shop";
+            this.theFolk.statusText = I18n.format("container.sim.job.Baker_Closing");
             //int sell = false;
             ItemStack breadStack = null;
             if (ModSim.theFolks.size() > 1) {
@@ -271,11 +273,11 @@ public class JobBaker extends Job implements Serializable {
             }
 
             if (breadStack == null) {
-                ModSim.sendChat(this.theFolk.name + " did not have any bread to sell today, do you have an active wheat farm?");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.Baker_today"));
             } else {
-                ModSim.sendChat(this.theFolk.name + " has sold " + breadStack.stackSize + " loafs of bread to folks today.");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.has_sold") + breadStack.stackSize + I18n.format("container.sim.job.folks_today"));
 
-                for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+                for (int f = 0; f < ModSim.theFolks.size(); ++f) {
                     FolkData folk = (FolkData) ModSim.theFolks.get(f);
                     if (breadStack.stackSize > 0) {
                         folk.levelFood = 10;
@@ -321,7 +323,7 @@ public class JobBaker extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the Bakery";
+            this.theFolk.statusText = I18n.format("container.sim.job.Baker_Arrived");
             this.theStage = Stage.ARRIVEDATSHOP;
             this.currentFarmNum = 0;
         } else {

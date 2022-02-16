@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
@@ -35,6 +36,7 @@ import java.util.*;
  * ========================================
  **/
 public abstract class Job {
+
     Minecraft mc = Minecraft.getMinecraft();
     public int step = 1;
     ArrayList<V3> closestBlocks = new ArrayList();
@@ -159,7 +161,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSim.log.warning("Job: placeIntoInventory() could not place " + is.getDisplayName() + " in null slot " + g);
+                        ModSim.log.warn("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + g);
                         placedOK = false;
                     } else if (is.getItem() == inStack.getItem() && is.getMetadata() == inStack.getMetadata() && is.stackSize < is.getMaxStackSize()) {
                         int isBefore = chest.getStackInSlot(g).stackSize;
@@ -171,7 +173,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSim.log.warning("Job: placeIntoInventory() could not inc Stacksize for " + is.getDisplayName() + " in slot " + g);
+                        ModSim.log.warn("Job: placeIntoInventory() could not inc Stacksize for " + is.getDisplayName() + " in slot " + g);
                         placedOK = false;
                     }
                 }
@@ -407,7 +409,7 @@ public abstract class Job {
                 if (okToPlace) {
                     placed = this.inventoriesPut(toChests, folkStack, true);
                     if (!placed) {
-                        ModSim.log.warning("Job: Could not place stack of " + folkStack.getDisplayName() + " in chest");
+                        ModSim.log.warn("Job: Could not place stack of " + folkStack.getDisplayName() + " in chest");
                         return false;
                     }
                 }

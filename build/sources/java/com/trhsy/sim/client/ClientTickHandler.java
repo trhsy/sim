@@ -78,7 +78,7 @@ public class ClientTickHandler {
             MiningBox.saveMiningBoxes();
             FarmingBox.saveFarmingBoxes();
 
-            for(int f = 0; f < ModSim.theFolks.size(); ++f) {
+            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
                 FolkData folk = (FolkData) ModSim.theFolks.get(f);
                 folk.updateLocationFromEntity();
                 folk.saveThisFolk();

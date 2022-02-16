@@ -29,7 +29,13 @@ public class BlockCheeseBlock extends Block {
 
     public BlockCheeseBlock() {
         super(Material.ground);
-        this.setUnlocalizedName("block.cheeseBlock.name");
+        //用于设定走在方块上的响声。
+        this.setStepSound(Block.soundTypeCloth);
+        //设定方块的硬度，如黑曜石是50，铁块5，金块3，圆石2，石头1.5，南瓜1，泥土0.5，甘蔗0，基岩-1。
+        this.setHardness(0.1F);
+        //设定方块的爆炸抗性，如木头的抗性为4，石头为10，黑曜石为2000，基岩为6000000。
+        this.setResistance(0.5F);
+        this.setUnlocalizedName("cheeseBlock");
         this.setTextureName(ModSim.MODID + ":" + "cheeseBlock");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
@@ -40,10 +46,12 @@ public class BlockCheeseBlock extends Block {
         this.icons = new IIcon[1];
         this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":cheeseblock");
     }
+
     private static void register(Block block, String name) {
         //注册方块
-        GameRegistry.registerBlock(block,name);
+        GameRegistry.registerBlock(block, name);
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {

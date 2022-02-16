@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.init.Items;
@@ -23,7 +24,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobDairyFarmer
- * @Description todo
+ * @Description todo 奶农
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:47
  * ========================================
@@ -98,7 +99,7 @@ public class JobDairyFarmer extends Job {
     private void stageArrived() {
         this.vocation = this.theFolk.vocation;
         this.theStage = Stage.WAITINGFORMILKING;
-        this.theFolk.statusText = "Warming up cow's udders";
+        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Warming");
         //int count = false;
         int count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityCow.class);
         if (count < 6) {
@@ -114,27 +115,27 @@ public class JobDairyFarmer extends Job {
             this.theFolk.beamMeTo(this.theFolk.employedAt);
         }
 
-        this.theFolk.statusText = "Sterilizing empty bucket";
+        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Sterilizing");
         this.theStage = Stage.MILKING;
     }
 
     private void stageMilking() {
         Random rand = new Random();
         int c = rand.nextInt(6);
-        this.theFolk.statusText = "Milking " + this.cowNames[c] + " the cow";
+        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Milking") + this.cowNames[c] + I18n.format("container.sim.job.dairy.farmer.the_cow");
         this.theStage = Stage.STORINGMILK;
         this.theFolk.isWorking = true;
     }
 
     private void stageStoringMilk() {
-        this.theFolk.statusText = "Storing Milk in refrigerated chest";
+        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Storing");
         this.theFolk.isWorking = false;
         this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         if (this.farmChests.size() > 0) {
             boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.milk_bucket, 1), true);
             if (!ok) {
-                ModSim.sendChat(this.theFolk.name + "'s dairy farm chests are full of milk!");
-                this.theFolk.statusText = "Can't work, the chests are full";
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.dairy.farmer.dairy"));
+                this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.chests");
                 this.theStage = Stage.CANTWORK;
             } else {
                 GameStates var10000 = ModSim.states;
@@ -142,7 +143,7 @@ public class JobDairyFarmer extends Job {
                 this.theStage = Stage.WAITINGFORMILKING;
             }
         } else {
-            this.theFolk.statusText = "Who stole my dairy chests!";
+            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Who");
             this.theStage = Stage.CANTWORK;
         }
 
@@ -158,7 +159,7 @@ public class JobDairyFarmer extends Job {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the farm";
+            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Arrived");
             this.theStage = Stage.ARRIVEDATFARM;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

@@ -25,9 +25,13 @@ import net.minecraft.util.IIcon;
 public class BlockCompositeBrick extends Block {
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
-
-    public BlockCompositeBrick(Material par2Material) {
-        super(par2Material);
+    public BlockCompositeBrick() {
+        super(Material.rock);
+        this.setStepSound(Block.soundTypeStone);
+        this.setHardness(8.0F);
+        this.setResistance(7.0F);
+        this.setUnlocalizedName("compositeBrick");
+        this.setTextureName(ModSim.MODID + ":" + "compositeBrick");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -35,7 +39,7 @@ public class BlockCompositeBrick extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":compositebrick");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":compositeBrick");
     }
 
     @Override

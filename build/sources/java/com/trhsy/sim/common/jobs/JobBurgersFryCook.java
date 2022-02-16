@@ -11,6 +11,8 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ItemLoader;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName JobBurgersFryCook
- * @Description todo
+ * @Description todo 厨师
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:40
  * ========================================
@@ -95,7 +97,7 @@ public class JobBurgersFryCook extends Job {
     }
 
     private void stageNoIngrediants() {
-        this.theFolk.statusText = "I can't cook without ingrediants!";
+        this.theFolk.statusText = I18n.format("container.sim.job.Arrived_ingrediants");
         this.theStage = Stage.MAKEFOOD;
         this.step = 1;
     }
@@ -130,7 +132,7 @@ public class JobBurgersFryCook extends Job {
                         if (this.step == 1) {
                             int c;
                             if (this.tryMeta == 3) {
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(ModSim.itemFood, 1, 0), true);
+                                c = this.getItemCountInChests(chestsIn, new ItemStack(ItemLoader.itemFoods, 1,0), true);
                                 if (c == 0) {
                                     this.tryMeta = 1;
                                     return;
@@ -148,9 +150,9 @@ public class JobBurgersFryCook extends Job {
                                     return;
                                 }
 
-                                this.isMakeFood = new ItemStack(ModSim.itemFood, 1, 3);
+                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1,3);
                                 this.step = 2;
-                                this.theFolk.statusText = "Cooking up a Cheeseburger";
+                                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Cooking");
                             } else if (this.tryMeta == 1) {
                                 c = this.getItemCountInChests(chestsIn, new ItemStack(Items.beef, 1), false);
                                 if (c == 0) {
@@ -164,9 +166,9 @@ public class JobBurgersFryCook extends Job {
                                     return;
                                 }
 
-                                this.isMakeFood = new ItemStack(ModSim.itemFood, 1, 1);
+                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1,1);
                                 this.step = 2;
-                                this.theFolk.statusText = "Cooking a tasty Hamburger";
+                                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Hamburger");
                             } else if (this.tryMeta == 2) {
                                 c = this.getItemCountInChests(chestsIn, new ItemStack(Items.potato), false);
                                 if (c == 0) {
@@ -174,9 +176,9 @@ public class JobBurgersFryCook extends Job {
                                     return;
                                 }
 
-                                this.isMakeFood = new ItemStack(ModSim.itemFood, 1, 2);
+                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1,2);
                                 this.step = 2;
-                                this.theFolk.statusText = "Cooking a serving of Fries";
+                                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Fries");
                             }
 
                             if (this.step == 1) {
@@ -186,7 +188,7 @@ public class JobBurgersFryCook extends Job {
                             }
                         } else if (this.step == 2) {
                             if (this.isMakeFood.getMetadata() == 3) {
-                                inventoriesGet(chestsIn, new ItemStack(ModSim.itemFood, 1, 0), false, true);
+                                inventoriesGet(chestsIn, new ItemStack(ItemLoader.itemFoods, 1,0), false, true);
                                 inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
                                 inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
                                 this.tryMeta = 1;
@@ -202,7 +204,7 @@ public class JobBurgersFryCook extends Job {
                             this.inventoriesPut(chestsOut, this.isMakeFood, true);
                             this.theFolk.isWorking = false;
                             this.step = 1;
-                            this.theFolk.statusText = "Checking Ingrediants";
+                            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Checking_Ingrediants");
                             GameStates var10000 = ModSim.states;
                             var10000.credits = (float)((double)var10000.credits - 0.45D);
                         }
@@ -220,7 +222,7 @@ public class JobBurgersFryCook extends Job {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the store";
+            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
             this.theStage = Stage.ARRIVEDATSTORE;
             ArrayList<V3> back = this.theStore.getSpecialBlocks(1);
             if (!back.isEmpty()) {

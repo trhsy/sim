@@ -11,8 +11,11 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ItemLoader;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,12 +24,13 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobBurgersWaiter
- * @Description todo
+ * @Description todo 服务员
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:44
  * ========================================
  **/
 public class JobBurgersWaiter extends Job {
+
     public Vocation vocation = null;
     public FolkData theFolk = null;
     public Stage theStage;
@@ -74,7 +78,7 @@ public class JobBurgersWaiter extends Job {
                 if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theStage = Stage.SERVING;
-                        this.theFolk.statusText = "Serving customers";
+                        this.theFolk.statusText = I18n.format("container.sim.job.merchant");
                     } else if (this.theStage == Stage.SERVING) {
                         this.stageServing();
                     }
@@ -103,12 +107,12 @@ public class JobBurgersWaiter extends Job {
 
                 ItemStack is = inventoriesGet(theChests, (ItemStack)null, true, false);
                 if (is == null) {
-                    this.theFolk.statusText = "Wishing we had more customers";
+                    this.theFolk.statusText = I18n.format("container.sim.job.serving.Wishing");
                 } else {
-                    if (is.getItem() == ModSim.itemFood) {
+                    if (is.getItem() == ItemLoader.itemFoods) {
                         is = new ItemStack(is.getItem(), 1, is.getMetadata());
                         inventoriesGet(theChests, is, false, true);
-                        this.theFolk.statusText = "Just sold " + is.getDisplayName();
+                        this.theFolk.statusText = I18n.format("container.sim.job.merchant.Just_sold") + is.getDisplayName();
                         int r = (new Random()).nextInt(ModSim.theFolks.size() - 1);
                         FolkData folk = (FolkData) ModSim.theFolks.get(r);
                         if (folk.levelFood < 10) {
@@ -116,11 +120,11 @@ public class JobBurgersWaiter extends Job {
                         }
 
                         folk.saveThisFolk();
-                        ModSim.log.info("JobBurgersWaiter: Just fed " + folk.name);
+                        ModSim.log.info("JobBurgersWaiter: 刚吃过 " + folk.name);
                         GameStates var10000 = ModSim.states;
                         var10000.credits = (float) ((double) var10000.credits - 0.45D);
                     } else {
-                        this.theFolk.statusText = "Who put " + is.getDisplayName() + " in my chest, folks can't eat that!";
+                        this.theFolk.statusText = I18n.format("container.sim.job.merchant.Who_put") + is.getDisplayName() + I18n.format("container.sim.job.merchant.my_chest");
                     }
 
                 }
@@ -135,7 +139,7 @@ public class JobBurgersWaiter extends Job {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText = "Arrived at the store";
+            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
             this.theStage = Stage.ARRIVEDATSTORE;
             ArrayList<V3> back = this.theStore.getSpecialBlocks(2);
             if (!back.isEmpty()) {
