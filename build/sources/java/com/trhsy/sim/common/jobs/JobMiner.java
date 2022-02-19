@@ -627,7 +627,7 @@ public class JobMiner extends Job implements Serializable {
                         ItemStack stack = (ItemStack)minedStacks.get(s);
                         if (stack != null) {
                             this.lastMinedBlockName = stack.getDisplayName();
-                            this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Diggy")+ this.lastMinedBlockName + "!";
+                            this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Diggy") + this.lastMinedBlockName + "!";
                             placedOk = this.inventoriesPut(this.miningChests, stack, false);
                         }
                     }

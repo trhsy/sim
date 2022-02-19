@@ -142,7 +142,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                     this.drawCenteredString(this.fontRendererObj, sim_gui_BC_building, this.width / 2, 100, 16777130);
                     break;
                 case 2:
-                    String  sim_gui_BC_residential= I18n.format("container.sim.sim_gui_BC_residential");
+                    String sim_gui_BC_residential = I18n.format("container.sim.sim_gui_BC_residential");
                     this.drawCenteredString(this.fontRendererObj, sim_gui_BC_residential, this.width / 2, 50, 16777130);
                     this.tfSearch.drawTextBox();
                     break;
@@ -220,7 +220,7 @@ public class GuiBuildingConstructor extends GuiScreen {
         String sim_gui_BC_stacks = I18n.format("container.sim.sim_gui_BC_stacks");
         String st = "";
         if (qty < 64) {
-            st =sim_gui_BC_less;
+            st = sim_gui_BC_less;
         } else if (qty == 64) {
             st = sim_gui_BC_exactly;
         } else if (qty >= 64 && qty < 128) {
@@ -252,7 +252,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                 w = ((FolkData) this.theWorkers.get(0)).name;
             } else if (this.theWorkers.size() > 1) {
                 String sim_gui_BC_Staff = I18n.format("container.sim.sim_gui_BC_Staff");
-                w = sim_gui_BC_Staff+"(" + this.theWorkers.size() + ")";
+                w = sim_gui_BC_Staff + "(" + this.theWorkers.size() + ")";
             }
             String sim_gui_BC_Fire = I18n.format("container.sim.sim_gui_BC_Fire");
             this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
@@ -391,16 +391,16 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 ++idx;
                                 ++this.buildingsOnPage;
                                 if (this.buildingOffset > 0) {
-                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<"+sim_gui_BC_Page));
+                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
                                 }
 
                                 if (y + 20 + 20 + 20 + 20 > this.height) {
-                                    this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, sim_gui_BC_Page+">"));
+                                    this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, sim_gui_BC_Page + ">"));
                                     break;
                                 }
                             }
                         } else {
-                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<"+sim_gui_BC_Page));
+                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
                         }
                     }
 

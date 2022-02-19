@@ -29,6 +29,7 @@ import java.util.List;
  **/
 public class ItemWindmillSails extends Item {
     private IIcon[] icons;
+
     public ItemWindmillSails() {
         super();
         this.maxStackSize = 64;
@@ -42,21 +43,23 @@ public class ItemWindmillSails extends Item {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[16];
-        for(int i = 0; i < 16; ++i) {
+        for (int i = 0; i < 16; ++i) {
             this.icons[i] = iconRegister.registerIcon(ModSim.MODID + ":windmill_sails" + i);
         }
 
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-        for(int x = 0; x < 16; ++x) {
+        for (int x = 0; x < 16; ++x) {
             subItems.add(new ItemStack(this, 1, x));
         }
     }
+
     @Override
     public String getUnlocalizedName(ItemStack is) {
-        return this.getUnlocalizedName()+is.getMetadata();
+        return this.getUnlocalizedName() + is.getMetadata();
         //return "item.windmillSails" + is.getMetadata();
     }
 
@@ -65,10 +68,12 @@ public class ItemWindmillSails extends Item {
     public IIcon getIconFromDamage(int meta) {
         return meta >= 0 && meta < 16 ? this.icons[meta] : this.icons[0];
     }
+
     @Override
     public int getMetadata(int par1) {
         return par1;
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

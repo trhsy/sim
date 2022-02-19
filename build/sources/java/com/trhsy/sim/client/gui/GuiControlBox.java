@@ -564,6 +564,7 @@ public class GuiControlBox extends GuiScreen {
         Keyboard.enableRepeatEvents(false);
         this.mc.setIngameFocus();
     }
+
     @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {

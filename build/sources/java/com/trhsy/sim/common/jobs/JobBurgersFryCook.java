@@ -132,7 +132,7 @@ public class JobBurgersFryCook extends Job {
                         if (this.step == 1) {
                             int c;
                             if (this.tryMeta == 3) {
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(ItemLoader.itemFoods, 1,0), true);
+                                c = this.getItemCountInChests(chestsIn, new ItemStack(ItemLoader.itemFoods, 1, 0), true);
                                 if (c == 0) {
                                     this.tryMeta = 1;
                                     return;
@@ -150,7 +150,7 @@ public class JobBurgersFryCook extends Job {
                                     return;
                                 }
 
-                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1,3);
+                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1, 3);
                                 this.step = 2;
                                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Cooking");
                             } else if (this.tryMeta == 1) {
@@ -166,7 +166,7 @@ public class JobBurgersFryCook extends Job {
                                     return;
                                 }
 
-                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1,1);
+                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1, 1);
                                 this.step = 2;
                                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Hamburger");
                             } else if (this.tryMeta == 2) {
@@ -176,7 +176,7 @@ public class JobBurgersFryCook extends Job {
                                     return;
                                 }
 
-                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1,2);
+                                this.isMakeFood = new ItemStack(ItemLoader.itemFoods, 1, 2);
                                 this.step = 2;
                                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Fries");
                             }
@@ -188,7 +188,7 @@ public class JobBurgersFryCook extends Job {
                             }
                         } else if (this.step == 2) {
                             if (this.isMakeFood.getMetadata() == 3) {
-                                inventoriesGet(chestsIn, new ItemStack(ItemLoader.itemFoods, 1,0), false, true);
+                                inventoriesGet(chestsIn, new ItemStack(ItemLoader.itemFoods, 1, 0), false, true);
                                 inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
                                 inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
                                 this.tryMeta = 1;

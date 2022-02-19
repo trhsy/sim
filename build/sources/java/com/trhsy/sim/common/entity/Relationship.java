@@ -87,57 +87,57 @@ public class Relationship implements Serializable {
         }
 
         if (this.theLevel == Level.AQUAINTANCE) {
-            return other + ": "+I18n.format("container.sim.relation_ship_level_Aquaintance");
+            return other + ": " + I18n.format("container.sim.relation_ship_level_Aquaintance");
         } else if (this.theLevel == Level.BESTFRIENDS) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Best_friends");
+            return other + ": " + I18n.format("container.sim.relation_ship_Best_friends");
         } else if (this.theLevel == Level.DESPISE) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Despise");
+            return other + ": " + I18n.format("container.sim.relation_ship_Despise");
         } else if (this.theLevel == Level.DISLIKE) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Dislike");
+            return other + ": " + I18n.format("container.sim.relation_ship_Dislike");
         } else if (this.theLevel == Level.ENEMY) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Enemy");
+            return other + ": " + I18n.format("container.sim.relation_ship_Enemy");
         } else if (this.theLevel == Level.FRIEND) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Friends");
+            return other + ": " + I18n.format("container.sim.relation_ship_Friends");
         } else if (this.theLevel == Level.GOODFRIEND) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Good_friends");
+            return other + ": " + I18n.format("container.sim.relation_ship_Good_friends");
         } else if (this.theLevel == Level.HATE) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Hate");
+            return other + ": " + I18n.format("container.sim.relation_ship_Hate");
         } else if (this.theLevel == Level.MARRIED) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Married");
+            return other + ": " + I18n.format("container.sim.relation_ship_Married");
         } else if (this.theLevel == Level.PARTNER) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Partner");
+            return other + ": " + I18n.format("container.sim.relation_ship_Partner");
         } else if (this.theLevel == Level.MOTHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Mother") : other + ": "+I18n.format("container.sim.relation_ship_Daughter");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Mother") : other + ": " + I18n.format("container.sim.relation_ship_Daughter");
         } else if (this.theLevel == Level.MOTHERSON) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Mother") : other + ": "+I18n.format("container.sim.relation_ship_Son");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Mother") : other + ": " + I18n.format("container.sim.relation_ship_Son");
         } else if (this.theLevel == Level.FATHERSON) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Father") : other + ": "+I18n.format("container.sim.relation_ship_Son");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Father") : other + ": " + I18n.format("container.sim.relation_ship_Son");
         } else if (this.theLevel == Level.FATHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Father") : other + ": "+I18n.format("container.sim.relation_ship_Daughter");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Father") : other + ": " + I18n.format("container.sim.relation_ship_Daughter");
         } else if (this.theLevel == Level.SISTERSISTER) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Sister");
+            return other + ": " + I18n.format("container.sim.relation_ship_Sister");
         } else if (this.theLevel == Level.BROTHERBROTHER) {
-            return other + ": "+I18n.format("container.sim.relation_ship_Brother");
+            return other + ": " + I18n.format("container.sim.relation_ship_Brother");
         } else if (this.theLevel == Level.SISTERBROTHER) {
-            return fother.gender == 0 ? other + ": "+I18n.format("container.sim.relation_ship_Brother") : other + ": "+I18n.format("container.sim.relation_ship_Sister");
+            return fother.gender == 0 ? other + ": " + I18n.format("container.sim.relation_ship_Brother") : other + ": " + I18n.format("container.sim.relation_ship_Sister");
         } else if (this.theLevel == Level.GRANDFATHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Grandfather") : other + ": "+I18n.format("container.sim.relation_ship_Granddaughter");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandfather") : other + ": " + I18n.format("container.sim.relation_ship_Granddaughter");
         } else if (this.theLevel == Level.GRANDFATHERSON) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Grandfather") : other + ": "+I18n.format("container.sim.relation_ship_Grandson");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandfather") : other + ": " + I18n.format("container.sim.relation_ship_Grandson");
         } else if (this.theLevel == Level.GRANDMOTHERDAUGHTER) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Grandmother") : other + ": "+I18n.format("container.sim.relation_ship_Granddaughter");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandmother") : other + ": " + I18n.format("container.sim.relation_ship_Granddaughter");
         } else if (this.theLevel == Level.GRANDMOTHERSON) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Grandmother") : other + ": "+I18n.format("container.sim.relation_ship_Grandson");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Grandmother") : other + ": " + I18n.format("container.sim.relation_ship_Grandson");
         } else if (this.theLevel == Level.AUNTNEPHEW) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Aunt") : other + ": "+I18n.format("container.sim.relation_ship_Nephew");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Aunt") : other + ": " + I18n.format("container.sim.relation_ship_Nephew");
         } else if (this.theLevel == Level.AUNTNEICE) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Aunt") : other + ": "+I18n.format("container.sim.relation_ship_Neice");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Aunt") : other + ": " + I18n.format("container.sim.relation_ship_Neice");
         } else if (this.theLevel == Level.UNCLENEPHEW) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Uncle") : other + ": "+I18n.format("container.sim.relation_ship_Nephew");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Uncle") : other + ": " + I18n.format("container.sim.relation_ship_Nephew");
         } else if (this.theLevel == Level.UNCLENEICE) {
-            return fother.age > folk.age ? other + ": "+I18n.format("container.sim.relation_ship_Uncle") : other + ": "+I18n.format("container.sim.relation_ship_Neice");
+            return fother.age > folk.age ? other + ": " + I18n.format("container.sim.relation_ship_Uncle") : other + ": " + I18n.format("container.sim.relation_ship_Neice");
         } else {
-            return other + ": "+I18n.format("container.sim.relation_ship_relationship");
+            return other + ": " + I18n.format("container.sim.relation_ship_relationship");
         }
     }
 

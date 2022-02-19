@@ -32,7 +32,7 @@ public class EventSounds {
             for(int x = 0; x < sounds.length; ++x) {
             }
         } catch (Exception var4) {
-            ModSim.log.error("注册一个或多个声音失败.:"+var4.getMessage());
+            ModSim.log.error("注册一个或多个声音失败.:" + var4.getMessage());
         }
 
     }

@@ -532,7 +532,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     if (ModSim.gameMode != GameMode.CREATIVE) {
                         seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat_seeds, 1), false, false);
                         if (seed == null) {
-                            this.theFolk.statusText =I18n.format("container.sim.job.crop.farmer.No_more");
+                            this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.No_more");
                             this.theStage = Stage.HANGOUT;
                             this.step = 1;
                             return;
@@ -642,7 +642,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             ItemStack chestStack = chest.getStackInSlot(g);
                             if (chestStack != null) {
                                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Planting") + chestStack.getDisplayName();
-                                 seed = inventoriesGet(this.farmingChests, new ItemStack(chestStack.getItem(), 1), false, false);
+                                seed = inventoriesGet(this.farmingChests, new ItemStack(chestStack.getItem(), 1), false, false);
                                 if (seed != null) {
                                     this.jobWorld.setBlock(this.xxx, this.yyy - 1, this.zzz, Blocks.farmland, 0, 3);
                                     hasSown = seed.getItem().onItemUse(seed, this.mc.thePlayer, this.jobWorld, this.xxx, this.yyy - 1, this.zzz, 1, 0.0F, 0.0F, 0.0F);

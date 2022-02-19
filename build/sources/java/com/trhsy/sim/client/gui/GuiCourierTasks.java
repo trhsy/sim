@@ -44,9 +44,11 @@ public class GuiCourierTasks extends GuiScreen {
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     @Override
     public void updateScreen() {
     }
+
     @Override
     public void initGui() {
         this.initscreen();
@@ -102,6 +104,7 @@ public class GuiCourierTasks extends GuiScreen {
         }
 
     }
+
     @Override
     public void drawScreen(int i, int j, float f) {
         this.drawDefaultBackground();
@@ -147,6 +150,7 @@ public class GuiCourierTasks extends GuiScreen {
 
         super.drawScreen(i, j, f);
     }
+
     @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
@@ -213,11 +217,13 @@ public class GuiCourierTasks extends GuiScreen {
 
         return null;
     }
+
     @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         this.mc.setIngameFocus();
     }
+
     @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {

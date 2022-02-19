@@ -121,7 +121,7 @@ public class JobBaker extends Job implements Serializable {
                 this.theStage = Stage.GOBACKTOBAKERY;
                 this.step = 1;
             } else {
-                this.theFolk.gotoXYZ(this.farm.getLocation(), (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.farm.getLocation(), (GotoMethod) null);
                 this.runDelay = 1000;
                 this.step = 2;
             }
@@ -228,7 +228,7 @@ public class JobBaker extends Job implements Serializable {
                 this.theFolk.inventory.clear();
                 this.step = 3;
             } else if (this.step == 3) {
-                ((IInventory)this.bakeryChests.get(0)).closeChest();
+                ((IInventory) this.bakeryChests.get(0)).closeChest();
                 this.theFolk.statusText = I18n.format("container.sim.job.Baker_Selling");
                 this.theFolk.stayPut = true;
                 if (this.theFolk.theEntity != null) {

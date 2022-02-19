@@ -23,16 +23,19 @@ import java.io.ObjectInputStream;
 public class CommonProxy {
 
     public boolean ranStartup = false;
+
     public CommonProxy() {
     }
-    public void registerRenderInfo(){
+
+    public void registerRenderInfo() {
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 初始化之前加载
      * @Date 11:46 2022/1/23
      * @Param [event]
-     * @return void
      **/
     public void preInit(FMLPreInitializationEvent event) {
         //加载配置

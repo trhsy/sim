@@ -139,6 +139,7 @@ public class GuiMarker extends GuiScreen {
 
         }
     }
+
     @Override
     protected void mouseClicked(int i, int j, int k) {
         if (this.theGuiTextField1 != null) {
@@ -147,6 +148,7 @@ public class GuiMarker extends GuiScreen {
 
         super.mouseClicked(i, j, k);
     }
+
     @Override
     protected void keyTyped(char c, int i) {
         if (i == 1) {

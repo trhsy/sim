@@ -28,13 +28,15 @@ import java.util.List;
  **/
 public class ItemWindmillBase extends Item {
     private IIcon[] icons;
+
     public ItemWindmillBase() {
         super();
         this.maxStackSize = 64;
         this.setUnlocalizedName("windmillBase");
-        this.setTextureName(ModSim.MODID+":windmill_base");
+        this.setTextureName(ModSim.MODID + ":windmill_base");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {

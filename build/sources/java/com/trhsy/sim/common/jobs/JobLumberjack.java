@@ -150,7 +150,7 @@ public class JobLumberjack extends Job implements Serializable {
         this.theFolk.isWorking = false;
         if (!this.onRoute) {
             this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Going");
-            this.theFolk.gotoXYZ(this.foundWoodAt, (GotoMethod)null);
+            this.theFolk.gotoXYZ(this.foundWoodAt, (GotoMethod) null);
             this.startedGoing = System.currentTimeMillis();
             this.onRoute = true;
         } else {
@@ -294,7 +294,7 @@ public class JobLumberjack extends Job implements Serializable {
         this.theFolk.isWorking = false;
         if (this.step == 1) {
             this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Delivering");
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
             this.step = 2;
         } else {
             int dist;

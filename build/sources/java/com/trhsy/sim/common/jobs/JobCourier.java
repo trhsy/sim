@@ -277,7 +277,7 @@ public class JobCourier extends Job implements Serializable {
 
                 boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chests, (ItemStack)null);
                 if (!placed) {
-                    ModSim.sendChat(this.theFolk.name +I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
+                    ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
                     break;
                 }
             }

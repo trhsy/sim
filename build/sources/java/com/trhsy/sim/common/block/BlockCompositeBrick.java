@@ -25,6 +25,7 @@ import net.minecraft.util.IIcon;
 public class BlockCompositeBrick extends Block {
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
+
     public BlockCompositeBrick() {
         super(Material.rock);
         this.setStepSound(Block.soundTypeStone);

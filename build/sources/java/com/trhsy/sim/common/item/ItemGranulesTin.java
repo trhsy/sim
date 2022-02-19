@@ -33,15 +33,17 @@ public class ItemGranulesTin extends Item {
         super();
         this.maxStackSize = 64;
         this.setUnlocalizedName("granulesTin");
-        this.setTextureName(ModSim.MODID+":granules_tin");
+        this.setTextureName(ModSim.MODID + ":granules_tin");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
         this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":granules_tin");
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
@@ -49,11 +51,13 @@ public class ItemGranulesTin extends Item {
         par3List.add(granules_tin);
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int par1) {
         return this.icons[0];
     }
+
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
         return this.icons[0];

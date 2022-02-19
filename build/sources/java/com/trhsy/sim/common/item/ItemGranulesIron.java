@@ -33,9 +33,10 @@ public class ItemGranulesIron extends Item {
         super();
         this.maxStackSize = 64;
         this.setUnlocalizedName("granulesIron");
-        this.setTextureName(ModSim.MODID+":granules_iron");
+        this.setTextureName(ModSim.MODID + ":granules_iron");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {

@@ -64,7 +64,7 @@ public class BlockControlBox extends Block {
             case 0:
                 return this.icons[0];
             case 1:
-                switch(par1) {
+                switch (par1) {
                     case 0:
                         return this.icons[1];
                     case 1:
@@ -73,7 +73,7 @@ public class BlockControlBox extends Block {
                         return this.icons[3];
                 }
             default:
-                
+
                 ModSim.log.info("元数据无效 " + this.getUnlocalizedName());
                 return this.icons[0];
         }
@@ -97,18 +97,19 @@ public class BlockControlBox extends Block {
                 mc.displayGuiScreen(ui2);
             }
         } else {
-            ui = new GuiControlBox(new V3((double)i, (double)j, (double)k, entityplayer.dimension), entityplayer);
+            ui = new GuiControlBox(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
             mc.displayGuiScreen(ui);
         }
 
         return true;
     }
+
     /**
+     * @return int
      * @Author fan
      * @Description //TODO 返回块销毁时要丢弃的项目数量。
      * @Date 16:50 2022/2/12
      * @Param [random]
-     * @return int
      **/
     @Override
     public int quantityDropped(Random random) {

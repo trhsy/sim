@@ -368,7 +368,7 @@ public class FarmingBox implements Serializable {
                         }
                     } else {
                         f.delete();
-                        String s= I18n.format("container.sim.farming_box_boxes");
+                        String s = I18n.format("container.sim.farming_box_boxes");
                         ModSim.sendChat(s);
                     }
                 }

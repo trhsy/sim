@@ -28,13 +28,15 @@ import java.util.List;
  **/
 public class ItemGranulesGold extends Item {
     private IIcon[] icons;
+
     public ItemGranulesGold() {
         super();
         this.maxStackSize = 64;
         this.setUnlocalizedName("granulesGold");
-        this.setTextureName(ModSim.MODID+":granules_gold");
+        this.setTextureName(ModSim.MODID + ":granules_gold");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {

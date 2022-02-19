@@ -167,7 +167,7 @@ public class JobBurgersManager extends Job {
                 this.step = 3;
             }
         } else if (this.step == 3) {
-            this.theFolk.statusText = I18n.format("container.sim.job.manager.Buying_items")  + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
+            this.theFolk.statusText = I18n.format("container.sim.job.manager.Buying_items") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
             ArrayList<IInventory> chests = inventoriesFindClosest(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, 5);
             if (!chests.isEmpty()) {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
@@ -212,7 +212,7 @@ public class JobBurgersManager extends Job {
 
     private void stagePickupCheese() {
         if (this.step < 4) {
-            this.doPickup("cheese factory", (new ItemStack(ItemLoader.itemFoods, 1,0)).getItem(), true);
+            this.doPickup("cheese factory", (new ItemStack(ItemLoader.itemFoods, 1, 0)).getItem(), true);
         } else {
             this.theStage = Stage.PICKUPBUTCHERS;
             this.step = 1;

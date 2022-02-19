@@ -486,11 +486,11 @@ public class JobCheesemaker extends Job {
                     this.inventoriesTransferFromFolk(this.theFolk.inventory, chests, (ItemStack)null);
                     this.step = 4;
                 } else if (this.step == 4) {
-                    chests = Job.inventoriesFindClosest((V3)slicewaypoint.get(0), 4);
+                    chests = Job.inventoriesFindClosest((V3) slicewaypoint.get(0), 4);
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Slicing");
                     ItemStack cheese = inventoriesGet(chests, new ItemStack(ModSim.blockCheese, 1), false, false);
                     if (cheese != null) {
-                        boolean placedOK = this.inventoriesPut(chests, new ItemStack(ItemLoader.itemFoods, 9,0), true);
+                        boolean placedOK = this.inventoriesPut(chests, new ItemStack(ItemLoader.itemFoods, 9, 0), true);
                         if (!placedOK) {
                             ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.factory"));
                             this.theFolk.selfFire();

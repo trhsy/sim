@@ -45,9 +45,11 @@ public class GuiEntityFolk extends GuiScreen {
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     @Override
     public void updateScreen() {
     }
+
     @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
@@ -226,6 +228,7 @@ public class GuiEntityFolk extends GuiScreen {
         }
 
     }
+
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
@@ -270,10 +273,12 @@ public class GuiEntityFolk extends GuiScreen {
 
         }
     }
+
     @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
+
     @Override
     protected void keyTyped(char c, int i) {
         if (i == 1) {
@@ -281,6 +286,7 @@ public class GuiEntityFolk extends GuiScreen {
             this.mc.setIngameFocus();
         }
     }
+
     @Override
     protected void mouseClicked(int i, int j, int k) {
         super.mouseClicked(i, j, k);

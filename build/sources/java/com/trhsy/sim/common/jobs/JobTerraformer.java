@@ -304,7 +304,7 @@ public class JobTerraformer extends Job {
             Double y = (double)this.closestBlocks.size();
             Double percent = (x - y) / x;
             percent = percent * 100.0D;
-            this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.Terraforming")+", " + percent.intValue() + " % "+I18n.format("container.sim.job.terra.farmer.complete");
+            this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent.intValue() + " % " + I18n.format("container.sim.job.terra.farmer.complete");
             V3 v = (V3)this.closestBlocks.get(0);
             GameStates var10000;
             if (this.theType == TerraformerType.WATERTODIRT) {
@@ -450,7 +450,7 @@ public class JobTerraformer extends Job {
 
     private void stageComplete() {
         this.theFolk.isWorking = false;
-        ModSim.sendChat(this.theFolk.name +I18n.format("container.sim.job.terra.farmer.has_completed"));
+        ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.terra.farmer.has_completed"));
         this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
         this.theFolk.stayPut = false;
         this.theFolk.terraformerRadius = 1;

@@ -39,6 +39,7 @@ public class GuiMining extends GuiScreen {
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     @Override
     public void updateScreen() {
         if (this.tfSize != null) {
@@ -46,6 +47,7 @@ public class GuiMining extends GuiScreen {
         }
 
     }
+
     @Override
     public void initGui() {
         this.buttonList.clear();
@@ -121,6 +123,7 @@ public class GuiMining extends GuiScreen {
             this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, j));
         }
     }
+
     @Override
     public void drawScreen(int i, int j, float f) {
         try {
@@ -168,6 +171,7 @@ public class GuiMining extends GuiScreen {
         }
 
     }
+
     @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
@@ -225,6 +229,7 @@ public class GuiMining extends GuiScreen {
             }
         }
     }
+
     @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
@@ -245,6 +250,7 @@ public class GuiMining extends GuiScreen {
 
         }
     }
+
     @Override
     public void mouseClicked(int i, int j, int k) {
         if (this.tfSize != null) {

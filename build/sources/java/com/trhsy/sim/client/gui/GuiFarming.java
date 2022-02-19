@@ -37,6 +37,7 @@ public class GuiFarming extends GuiScreen {
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     @Override
     public void initGui() {
         try {
@@ -86,6 +87,7 @@ public class GuiFarming extends GuiScreen {
 
         super.initGui();
     }
+
     @Override
     public void drawScreen(int i, int j, float f) {
         if (this.mouseCount < 10) {
@@ -128,6 +130,7 @@ public class GuiFarming extends GuiScreen {
         }
 
     }
+
     @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {

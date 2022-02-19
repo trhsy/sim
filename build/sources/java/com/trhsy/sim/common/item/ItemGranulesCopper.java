@@ -32,7 +32,7 @@ public class ItemGranulesCopper extends Item {
         super();
         this.maxStackSize = 64;
         this.setUnlocalizedName("granulesCopper");
-        this.setTextureName(ModSim.MODID+":granules_copper");
+        this.setTextureName(ModSim.MODID + ":granules_copper");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 

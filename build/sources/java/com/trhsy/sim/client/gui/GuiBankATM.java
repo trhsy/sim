@@ -96,9 +96,9 @@ public class GuiBankATM extends GuiScreen {
                         if (is != null) {
                             String sim_gui_ATMs_Sell_1 = I18n.format("container.sim.sim_gui_ATMs_Sell_1");
                             String sim_gui_ATMs_Sell = I18n.format("container.sim.sim_gui_ATMs_Sell");
-                            String sim_gui_ATMs_for= I18n.format("container.sim.sim_gui_ATMs_for");
+                            String sim_gui_ATMs_for = I18n.format("container.sim.sim_gui_ATMs_for");
                             if (is.getItem() == Items.diamond) {
-                                
+
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSim.displayMoney(PricesForBlocks.bankPriceDiamond)));
 
                                 this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSim.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.stackSize)));
@@ -112,11 +112,11 @@ public class GuiBankATM extends GuiScreen {
                                 this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSim.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.stackSize)));
                                 offset += 20;
                             } else if (is.getItem() == Items.glowstone_dust) {
-                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1+ ModSim.displayMoney(PricesForBlocks.bankPriceGlowstone)));
+                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSim.displayMoney(PricesForBlocks.bankPriceGlowstone)));
                                 this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSim.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.stackSize)));
                                 offset += 20;
                             } else if (is.getItem() == Items.gold_ingot) {
-                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1+ ModSim.displayMoney(PricesForBlocks.bankPriceGold)));
+                                this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSim.displayMoney(PricesForBlocks.bankPriceGold)));
                                 this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSim.displayMoney(PricesForBlocks.bankPriceGold * (float) is.stackSize)));
                                 offset += 20;
                             }
@@ -130,7 +130,7 @@ public class GuiBankATM extends GuiScreen {
                         this.buttonList.add(new GuiButton(inv + 300, this.width / 2 + 20, offset, 20, 20, "+"));
                         offset += 20;
                     }
-                    String sim_gui_ATMs_Buy= I18n.format("container.sim.sim_gui_ATMs_Buy");
+                    String sim_gui_ATMs_Buy = I18n.format("container.sim.sim_gui_ATMs_Buy");
                     this.buttonList.add(new GuiButton(400, this.width - 60, this.height - 30, 50, 20, sim_gui_ATMs_Buy));
                 }
             }
@@ -146,24 +146,24 @@ public class GuiBankATM extends GuiScreen {
         }
 
         this.drawDefaultBackground();
-        String sim_gui_ATMs_Ltd= I18n.format("container.sim.sim_gui_ATMs_Ltd");
+        String sim_gui_ATMs_Ltd = I18n.format("container.sim.sim_gui_ATMs_Ltd");
         this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Ltd, this.width / 2, 5, 16777215);
         if (this.theScreen == ATMscreen.START) {
-            String sim_gui_ATMs_Welcome= I18n.format("container.sim.sim_gui_ATMs_Welcome");
+            String sim_gui_ATMs_Welcome = I18n.format("container.sim.sim_gui_ATMs_Welcome");
             this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Welcome, this.width / 2, 15, 65280);
-            String sim_gui_ATMs_exchange= I18n.format("container.sim.sim_gui_ATMs_exchange");
+            String sim_gui_ATMs_exchange = I18n.format("container.sim.sim_gui_ATMs_exchange");
             this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_exchange, this.width / 2, 25, 65280);
-            String sim_gui_ATMs_Diamonds= I18n.format("container.sim.sim_gui_ATMs_Diamonds");
+            String sim_gui_ATMs_Diamonds = I18n.format("container.sim.sim_gui_ATMs_Diamonds");
             this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Diamonds, this.width / 2, 35, 65280);
         } else {
             int offset;
             if (this.theScreen == ATMscreen.DEPOSIT) {
                 offset = 35;
                 boolean playerHasItems = false;
-                String sim_gui_ATMs_Items= I18n.format("container.sim.sim_gui_ATMs_Items");
+                String sim_gui_ATMs_Items = I18n.format("container.sim.sim_gui_ATMs_Items");
                 this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Items, this.width / 2, 15, 65280);
 
-                for(int inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); ++inv) {
+                for (int inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); ++inv) {
                     ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
                     if (is != null && (is.getItem() == Items.diamond || is.getItem() == Items.emerald || is.getItem() == Items.redstone || is.getItem() == Items.glowstone_dust || is.getItem() == Items.gold_ingot)) {
                         this.drawString(this.fontRendererObj, is.stackSize + " x " + is.getDisplayName(), 40, offset, 65280);
@@ -173,15 +173,15 @@ public class GuiBankATM extends GuiScreen {
                 }
 
                 if (!playerHasItems) {
-                    String sim_gui_ATMs_sorry= I18n.format("container.sim.sim_gui_ATMs_sorry");
+                    String sim_gui_ATMs_sorry = I18n.format("container.sim.sim_gui_ATMs_sorry");
                     this.drawString(this.fontRendererObj, sim_gui_ATMs_sorry, 40, offset, 65280);
                 }
             } else if (this.theScreen == ATMscreen.COMMODITIES) {
-                String sim_gui_ATMs_today= I18n.format("container.sim.sim_gui_ATMs_today");
+                String sim_gui_ATMs_today = I18n.format("container.sim.sim_gui_ATMs_today");
                 this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_today, this.width / 2, 20, 65280);
                 offset = 35;
                 if (ModSim.theCommodities.size() == 0) {
-                    String sim_gui_ATMs_later= I18n.format("container.sim.sim_gui_ATMs_later");
+                    String sim_gui_ATMs_later = I18n.format("container.sim.sim_gui_ATMs_later");
                     this.drawString(this.fontRendererObj, sim_gui_ATMs_later, 20, offset, 65280);
                 }
 

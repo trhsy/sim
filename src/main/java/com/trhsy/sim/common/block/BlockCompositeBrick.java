@@ -32,7 +32,7 @@ public class BlockCompositeBrick extends Block {
         this.setHardness(8.0F);
         this.setResistance(7.0F);
         this.setUnlocalizedName("compositeBrick");
-        this.setTextureName(ModSim.MODID + ":" + "compositeBrick");
+        this.setTextureName(ModSim.MODID + ":" + "composite_brick");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -40,7 +40,7 @@ public class BlockCompositeBrick extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":compositeBrick");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":composite_brick");
     }
 
     @Override

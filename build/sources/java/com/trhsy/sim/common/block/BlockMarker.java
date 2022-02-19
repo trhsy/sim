@@ -116,15 +116,15 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 ModSim.log.info(markers.size());
             } else if (markers.size() == 2) {
                 markerCaption = "Front-Right";
-                helpText =I18n.format("container.sim.box_Marker_right");
+                helpText = I18n.format("container.sim.box_Marker_right");
                 ModSim.log.info(markers.size());
             } else if (markers.size() == 3) {
                 markerCaption = "Rear-Left";
-                helpText =I18n.format("container.sim.box_Marker_Rear_Left");
+                helpText = I18n.format("container.sim.box_Marker_Rear_Left");
                 ModSim.log.info(markers.size());
             } else {
                 ModSim.log.info(markers.size());
-                markerCaption =I18n.format("container.sim.box_Marker_Markers");
+                markerCaption = I18n.format("container.sim.box_Marker_Markers");
             }
 
             if (markers.size() < 4) {

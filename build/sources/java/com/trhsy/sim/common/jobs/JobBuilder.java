@@ -187,7 +187,7 @@ public class JobBuilder extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.builder_Checking");
             this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             if (this.constructorChests.size() == 0) {
-                this.theFolk.statusText =I18n.format("container.sim.job.builder_constructor_block");
+                this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_block");
             } else {
                 try {
                     ((IInventory)this.constructorChests.get(0)).openChest();
@@ -284,7 +284,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theBuilding.blockLocations.clear();
             } else if (this.step == 2) {
                 do {
-                    this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building")  + this.theBuilding.displayNameWithoutPK;
+                    this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                     if (this.theBuilding.buildDirection.contentEquals("+z")) {
                         this.xo = this.ltr;
                         this.zo = -this.ftb;
@@ -440,7 +440,7 @@ public class JobBuilder extends Job implements Serializable {
                             this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Waiting") + want;
                             if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ModSim.configMaterialReminderInterval * 60 * 1000)) {
                                 this.lastNotifiedOfMaterials = System.currentTimeMillis();
-                                ModSim.sendChat(this.theFolk.name + " ( "+I18n.format("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")"+I18n.format("container.sim.job.builder_constructor_started_more") + want);
+                                ModSim.sendChat(this.theFolk.name + " ( " + I18n.format("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.format("container.sim.job.builder_constructor_started_more") + want);
                             }
 
                             this.step = 3;
@@ -550,7 +550,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theBuilding.saveThisBuilding();
                 this.theFolk.theBuilding = null;
             } else {
-                ModSim.sendChat(I18n.format("container.sim.job.builder_constructor_Error") + this.theFolk.name +I18n.format("container.sim.job.builder_constructor_was_building"));
+                ModSim.sendChat(I18n.format("container.sim.job.builder_constructor_Error") + this.theFolk.name + I18n.format("container.sim.job.builder_constructor_was_building"));
             }
         }
 
@@ -587,7 +587,7 @@ public class JobBuilder extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
-            this.theFolk.statusText =I18n.format("container.sim.job.builder_constructor_site");
+            this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_site");
             this.theStage = Stage.BLUEPRINT;
         } else {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);

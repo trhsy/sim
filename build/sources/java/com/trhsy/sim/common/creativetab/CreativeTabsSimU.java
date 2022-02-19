@@ -26,6 +26,7 @@ public class CreativeTabsSimU extends CreativeTabs {
 
     /**
      * 用于设置是否有搜索框
+     *
      * @return
      */
     @Override

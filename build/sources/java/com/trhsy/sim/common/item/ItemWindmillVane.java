@@ -29,6 +29,7 @@ import java.util.List;
  **/
 public class ItemWindmillVane extends Item {
     private IIcon[] icons;
+
     public ItemWindmillVane() {
         super();
         this.maxStackSize = 64;
@@ -54,11 +55,12 @@ public class ItemWindmillVane extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-        for(int x = 0; x < 16; ++x) {
+        for (int x = 0; x < 16; ++x) {
             subItems.add(new ItemStack(this, 1, x));
         }
 
     }
+
     @Override
     public String getUnlocalizedName(ItemStack is) {
         return this.getUnlocalizedName();
