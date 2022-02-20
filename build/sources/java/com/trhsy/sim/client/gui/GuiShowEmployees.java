@@ -57,7 +57,7 @@ public class GuiShowEmployees extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, "No money needed, everything free, no blocks required, be creative!", this.width / 2, 160, 16776960);
             this.drawCenteredString(this.fontRendererObj, "Builders require ALL blocks, harder gameplay", this.width / 2, 210, 16776960);
         } catch (Exception var5) {
-            ModSim.log.error("在绘制字符串/屏幕时捕获异常："+var5.getMessage());
+            ModSim.log.error("在绘制字符串/屏幕时捕获异常：" + var5.getMessage());
         }
 
         super.drawScreen(i, j, f);

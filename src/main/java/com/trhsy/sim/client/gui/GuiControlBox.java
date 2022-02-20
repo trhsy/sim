@@ -323,7 +323,7 @@ public class GuiControlBox extends GuiScreen {
             }
 
             this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Building_Control_Panel"), this.width / 2, 17, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_Building_Control_Panel"), this.width / 2, 17, 16777215);
             if (this.theBuilding == null) {
                 this.fontRendererObj.drawString(I18n.format("container.sim.on_this_building") + "(" + this.location.toString() + ")", 5, 77, 16711680);
                 this.fontRendererObj.drawString(I18n.format("container.sim.this_Building"), 5, 97, 16711680);
@@ -338,8 +338,8 @@ public class GuiControlBox extends GuiScreen {
                     isComplete = I18n.format("container.sim.Active_Building");
                 }
 
-                this.fontRendererObj.drawString(I18n.format("container.sim.Building") + " : " + this.theBuilding.displayNameWithoutPK + author, 5, 37, 16777088);
-                this.fontRendererObj.drawString(I18n.format("container.sim.Type") + " : " + this.theBuilding.type + " (" + isComplete + ")", 5, 47, 16777088);
+                this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.theBuilding.displayNameWithoutPK + author, 5, 37, 16777088);
+                this.fontRendererObj.drawString(I18n.format("container.sim.sim_Type") + " : " + this.theBuilding.type + " (" + isComplete + ")", 5, 47, 16777088);
                 int down;
                 if (!this.theBuilding.type.contentEquals("residential")) {
                     if (!this.theBuilding.type.contentEquals("industrial") && !this.theBuilding.type.contentEquals("commercial")) {

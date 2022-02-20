@@ -66,7 +66,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
             if ((this.theStage != Stage.IDLE || !ModSim.isDayTime()) && this.theStage == Stage.INSTORE) {
-                this.theFolk.statusText = I18n.format("container.sim.job.merchant");
+                this.theFolk.statusText = I18n.format("container.sim.job.serving_customers");
                 this.theFolk.updateLocationFromEntity();
                 double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 5.0D && this.theFolk.destination == null) {

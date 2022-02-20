@@ -78,7 +78,7 @@ public class JobBurgersWaiter extends Job {
                 if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theStage = Stage.SERVING;
-                        this.theFolk.statusText = I18n.format("container.sim.job.merchant");
+                        this.theFolk.statusText = I18n.format("container.sim.job.serving_customers");
                     } else if (this.theStage == Stage.SERVING) {
                         this.stageServing();
                     }

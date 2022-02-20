@@ -319,6 +319,7 @@ public class ModSim {
         EntityRegistry.registerModEntity(EntityWindmill.class, "SUKWindmill", 3, this, 250, 1, false);
         proxy.registerRenderInfo();
         proxy.registerMisc();
+//        updateCheck();
     }
 
 
@@ -480,11 +481,11 @@ public class ModSim {
                 return;
             }
 
-            String baseURL = "https://gitee.com/trhsy/mc-sim-u/blob/1.7.10/";
-            String ver = this.downloadFile(baseURL + "sim-version.txt", getSimukraftFolder() + File.separator + "simukraft.txt");
+            String baseURL = "https://www.dropbox.com/s/i51v1lsq0u89elw/";
+            String ver = this.downloadFile(baseURL + "version.txt", getSimukraftFolder() + File.separator + "simukraft.txt");
             if (ver != null) {
                 ver = ver.trim();
-                if (!ver.contentEquals("")) {
+                if (!ver.contentEquals("") && !"1.1.0 Beta".contentEquals(ver)) {
                     if (!VERSION.contentEquals(ver)) {
                         sendChat("**** NEW update of SimCity available (from " + VERSION + " to " + ver + ") at satscape.wordpress.com/simukraft");
                     }
@@ -501,7 +502,7 @@ public class ModSim {
                 high = o;
             }
 
-            String newbs = this.downloadFile(baseURL + "backend.php?cmd=getnew&n=" + high + "&i=" + this.getTheirId() + "&v=" + VERSION, getSimukraftFolder() + File.separator + "simukraft.txt");
+            String newbs = this.downloadFile(baseURL, getSimukraftFolder() + File.separator + "simukraft.txt");
             if (newbs.length() == 0) {
                 return;
             }

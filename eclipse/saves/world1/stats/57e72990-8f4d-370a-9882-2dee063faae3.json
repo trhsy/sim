@@ -1,0 +1,11 @@
+{
+  "stat.walkOneCm": 135,
+  "stat.playOneMinute": 2372,
+  "achievement.openInventory": 1,
+  "achievement.exploreAllBiomes": {
+    "value": 0,
+    "progress": [
+      "Plains"
+    ]
+  }
+}

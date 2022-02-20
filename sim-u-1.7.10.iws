@@ -4,483 +4,707 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="739ba155-7832-4807-9829-bb5bc7d1bab8" name="变更" comment="修复加载配置">
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-19_10.04.41-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-19_10.05.39-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-19_10.07.12-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-19_10.08.11-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-19_10.09.02-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-19_10.14.26-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.12.38-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.13.12-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.17.52-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.19.14-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.20.29-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.21.50-client.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-19-3.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-19-4.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-19-5.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-19-6.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-19-7.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-2.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-3.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-4.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-5.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/playerdata/21a01de8-0b44-3383-b9a2-01a459723de1.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/stats/21a01de8-0b44-3383-b9a2-01a459723de1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc-sim-u.ipr" afterDir="false" />
+    <list default="true" id="739ba155-7832-4807-9829-bb5bc7d1bab8" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.24.05-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.34.12-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.37.37-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_18.40.15-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_21.13.32-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/crash-reports/crash-2022-02-20_21.23.57-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-6.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-7.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/水果店.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/肯打鸡.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶牛农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶酪工厂.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/渔业码头.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/牛牛君农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/猪猪君农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/玻璃制品厂.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/羊羊君农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/魔都养鸡场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/Dorfkirche.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID117-Exploitation Cube.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID123-Concrete tower TOP.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID124-Modern Skyscraper.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID126-Aqua House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID128-Hillside Studio.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID130-Village Farm.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID132-Village Library.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID133-Sky Love.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID136-Mob Destroyer MKII.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID140-Lighthouse Midage Style.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID142-Tree Trap 1600.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID151-Watchtower.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID152-Sandstone Studio.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID153-2 Bedroom Trailer.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID154-5 Lane Bowling Alley.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID155-10 Lane Bowling Alley.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID156-Railway On-Ramp.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID157-Railway Off-Ramp.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID158-Railway Short Reg.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID159-Railway Medium Reg.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID160-Railway Long Reg.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID161-Railway Short Powered.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID162-Railway Medium Powered.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID163-Railway Long Powered.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID164-Railway Right Turn.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID165-Railway Left Turn.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID166-Ice Skating Rink.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID167-Cathedral2 South.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID168-Trad Lighthouse.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID169-Minefield.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID173-Lair of Vechz.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID184-Portable Beach.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID186-Street medium poor.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID191-Road Rail Section.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID200-Road Containment Unit.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID204-Magnet Train.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID205-Movie Theatre.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID206-Stables.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID208-Luxury Apts BASE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID210-Graveyard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID218-Main Street.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID220-Road n Rail.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID221-Two lane highway.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID233-Igloo Entrence.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID234-School House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID235-Fire Station.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID236-Pet Shop.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID240-Black-White Skyscraper.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID241-Orange Skyscraper.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID242-Poor Mans Sim-U-Logo.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID244-Cobblestone Torch.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID245-Yuribos Depot.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID247-Long wood outhouse.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID248-Floating Library.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID250-AMEONNA HOUSE c1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID251-AMEONNA HOUSE c2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID252-Iron house.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID253-Station-8-Destin-WEST.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID257-Sim Bank.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID259-Bennithon Medium House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID261-Whirlpool.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID263-Mayor house.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID265-Auto-Wheat harvester.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID266-Large Modern Home.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID267-Medieval Inn.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID269-Observation tower (W).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID271-Apartment Module E.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID272-Village Well.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID275-Boat House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID276-Flowepot House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID277-Creeper House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID278-Pumpkin House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID279-Spider House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID280-Steve House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID281-Cheese House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID282-Chicken House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID283-Piggy House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID284-Sheep House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID285-Cute Tiny Cottage.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID286-Small Oriental Temple.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID288-Storage House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID290-Mace alchemist(W).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID291-Mace Blacksmith(E).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID292-Mace Chapel(N).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID293-Mace Cottage 1(W).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID294-Mace Desert Market(N).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID295-Mace House-Basement(W).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID296-Mace Outside Storage (E).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID297-Mace Princess Tower (S).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID298-Mace Sand Temple (S).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID299-Mace House-Pond (E) 1Dn.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID300-Mace Mini-Castle (S) 2Dn.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID301-Mace Warehouse (N) 5Dn.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID302-Mace Forgotton Lot.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID303-Mace 3-Story SandHome (W).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID304-Mace Statue.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID307-Tiny House with Slabs..txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID314-Glass water fountian.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID315-Skeleton Home.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID316-Zombie Home.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID319-Modern House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID320-Wood Mansion With Library.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID321-house with porch.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID330-Apocalypse Shelter 1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID331-Modest Mansion.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID332-Small Library.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID334-Large 2 story building.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID335-Cute Teapot House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID339-Yule Tree House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID341-Stone iron Bridge.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID342-Xardas Tower.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID345-Christmas Tree.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID349-Compact House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID359-Stair (Wood).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID36-Giant Sim-U-Kraft Logo.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID360-Stairwell (Stone).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID364-Street Lamp.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID365-Boat Home (For Water).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID366-Boat Home (For Land).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID367-Storage Room.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID370-Castle Lazuli.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID372-Cool House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID373-WoolMart .txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID375-Flower Shop.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID376-Funeral Home.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID377-McDonalds.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID378-Cobblestone Farm.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID384-Cobblestone Generator.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID386-House v1.0.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID387-Wooden House Deluxe.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID392-4 Apartments.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID393-Cathedral.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID398-Archery Range.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID400-Modern Mansion.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID401-Medium Manor.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID405-Sears Tower.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID407-Hospital.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID408-Viking Ship.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID412-Green House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID415-Hobo Shack.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID417-Miniture Sized Ship.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID418-Iron Cafe.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID419-White House.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID420-Nice Horse Stable.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID421-Subway Station.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID422-Train Station.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID425-Scraper of The Sky.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID426-Northern Getaway.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID430-Nordic Mansion.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID431-Modern Apts LOBBY.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID433-Modern Apts ROOF.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID435-Lg Decorative Greenhouse.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID440-Small Crop Harvester.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID441-Cow Cooker.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID444-Two World Trade Center.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID447-Huge Palace.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID450-Small Fountain.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID451-MediumEpicHouse.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/Radio Station.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/Town square.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/一号大型城堡.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/中型农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/二号大型城堡.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/你的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/办公楼.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/北寺.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/北欧塔.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/北欧大厦.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/喷泉广场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/图书馆.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/地狱旅馆.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/城墙.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/塔节.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/大型市政府.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/大城墙.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/大教堂.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/大门.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/守望台.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/小型商店.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/小型屋子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/岩浆水井.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/市中心.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/广场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/木桥.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/林场4t.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/林场9t.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/水塔.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/水宫.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/水尖塔.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/混泥土基座.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/温室.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/温室2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/热气球.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/现代城市广场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/玻璃楼.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/监狱.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/石头碉堡.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/砖和金属的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/社区游泳池.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/禅意花园.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/种树场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/粮仓.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/紧凑的木屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/老酒馆.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/自动南瓜农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/自动西瓜农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/良好的岩浆.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/萤石塔.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/角落.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/谷仓.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/迷宫.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/金属砖楼.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/钓鱼角落.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/16单元.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/1单元.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/2室房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/2层楼住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/4单元.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/4层公寓.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/8单元.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/Berghutte.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/KMS中型房屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/KMS大厦.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/KMS大型房屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/fierys中型房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/kelseys房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/villager房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/wangling.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/上流社会的公寓.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/世界贸易中心.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/东方都德之家酒店.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/两层双屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/两层楼的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/两故事掩体.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/中世纪.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/中世纪住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/中型农场房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/中型土坯房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/中等的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/伐木工住房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/候机室.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/先进的贫民房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/公寓A.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/公寓B.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/公寓C.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/公寓D.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/公寓木屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/农民房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/别墅A.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/别墅B.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/别墅C.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/别墅D.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/北欧风住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/卵石房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/古雅小屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/可爱的家.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/史诗般的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/堆叠木房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/复式住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/多区域房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/大土坯房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/大型2层住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/大型稳定的谷仓.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/大房子A.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/大房子B.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/大砖房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/天堂之房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/好正常的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/学者住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/守卫塔.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/容易小屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/宽敞的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/宽敞的木屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小型住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小巧木屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小房子B.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小房子C.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小木屋O.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小砖房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/巨型宝石大厦.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/巨型树屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/市长木房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/平房和农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/平房（2层）.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/强迫症沙居.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/彩色的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/拐角房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/掩体.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/有车库的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/木屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/木质小屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/未来的木屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/村图书馆.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/村屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/树屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/沙漠绿洲.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/没有羊毛的住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/泥土住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/混凝土主塔.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/湖边小屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/漂亮的乡村别墅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/爱情小屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/狂野之屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/现代APTS.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/现代化住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/现代房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/现代木屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/现代木房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/现代的房子2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/现代的房子V2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/甜瓜和南瓜农场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/石房子II.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/砂岩单间.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/砂岩棚户.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/砂的石头房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/砖块金属住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/砖房迷宫.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/苦力怕房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/蘑菇房.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/虚空寺.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/诺德的房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/豪华APTS.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/贫民屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/起动器的卵石.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/起动器的木头.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/起动器的羊毛.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/蹩脚的小屋.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/迷你住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/郊区牧场.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/郊区门廊.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/都铎王朝住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/金字塔.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/铁匠住宅.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/铁房子.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/阴阳家.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/隐士家.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/鹅卵石隔间.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/special/乡村教堂.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/version.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/playerdata/3dc62e7d-7679-3ce7-b3a5-cf513aa6eb7c.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/playerdata/4e36b848-09be-34a2-9bc7-7017a804cbc3.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/playerdata/57e72990-8f4d-370a-9882-2dee063faae3.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/playerdata/6634a609-43e8-3247-9054-c77a3a707d73.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/stats/3dc62e7d-7679-3ce7-b3a5-cf513aa6eb7c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/stats/4e36b848-09be-34a2-9bc7-7017a804cbc3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/stats/57e72990-8f4d-370a-9882-2dee063faae3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/world1/stats/6634a609-43e8-3247-9054-c77a3a707d73.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/client/event/EventSounds.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/client/event/EventSounds.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/client/gui/GuiControlBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/client/gui/GuiControlBox.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/client/gui/GuiShowEmployees.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/client/gui/GuiShowEmployees.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/CommonProxy.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/CommonProxy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/EntityConBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/EntityConBox.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/EntityFolk.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/EntityFolk.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/PacketHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/PacketHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/block/BlockCompositeBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/block/BlockCompositeBrick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/entity/BuildingReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/entity/BuildingReader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/entity/FolkData.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/entity/FolkData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobCropFarmer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobCropFarmer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobEggFarmer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobEggFarmer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobBuildersMerchant.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobBuildersMerchant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobBurgersWaiter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/trhsy/sim/common/jobs/JobBurgersWaiter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/assets/sim_u/lang/en_US.lang" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/assets/sim_u/lang/zh_CN.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/textures/blocks/compositebrick.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/buildcraft/api/core/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/buildcraft/api/core/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/CoughF.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/CoughM.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/LaughF.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/LaughM.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/OuchF.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/OuchM.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/SneezeF.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/SneezeM.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/bakerf.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/bakerm.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/beamdown.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/beamdowntwo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/beamf.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/beamm.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/birth.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blarga.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargb.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargc.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargd.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blarge.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargf.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargg.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargh.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargi.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargj.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargk.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargl.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargm.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargn.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargp.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargq.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargr.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargs.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargt.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargu.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargv.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargw.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargx.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargy.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/blargz.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerfa.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerfb.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerfc.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerfd.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerfe.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerff.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerma.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgermb.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgermc.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgermd.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgerme.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/burgermf.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/cash.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/cashshort.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/cheesemachine.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/computer.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/construction.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/constructoractivated.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/cspeaka.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/cspeakb.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/cspeakc.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/dayfone.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/dayfthree.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/dayftwo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/daymone.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/daymthree.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/daymtwo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/feight.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fnine.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fone.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fseven.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeaka.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakb.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakc.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakd.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeake.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakf.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakg.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakh.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeaki.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakj.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakk.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakl.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakm.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakn.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeako.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakp.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakq.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeakr.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fspeaks.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fthree.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/ftwo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/fwxbad.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/hellof.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/hellom.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/lightone.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/meight.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/merchm.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mfive.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mfour.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mnine.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mone.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mseven.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/msix.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeaka.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakb.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakc.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakd.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeake.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakf.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakg.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakh.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeaki.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakj.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakk.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakl.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakm.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakn.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeako.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakp.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakq.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeakr.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mspeaks.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mthree.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mtwo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/mwxbad.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/nightfone.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/nightfthree.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/nightftwo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/nightmone.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/nightmthree.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/nightmtwo.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/powerdown.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/pregnant.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/readyf.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/readym.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/rooster.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/shears.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/welcome.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/assets/sim_u/sound/windmill.ogg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/event/EventSounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/event/EventSounds.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiControlBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiControlBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiCourierTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiCourierTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiRunMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiRunMod.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiShowEmployees.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/client/gui/GuiShowEmployees.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/CommonProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/CommonProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/EntityConBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/EntityConBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/EntityFolk.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/EntityFolk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/PacketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/PacketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/block/BlockCompositeBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/block/BlockCompositeBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/entity/BuildingReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/entity/BuildingReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/entity/FolkData.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/entity/FolkData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobCropFarmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobCropFarmer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobEggFarmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobEggFarmer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobBuildersMerchant.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobBuildersMerchant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobBurgersWaiter.java" beforeDir="false" afterPath="$PROJECT_DIR$/build/sources/java/com/trhsy/sim/common/jobs/JobBurgersWaiter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/config/splash.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/config/splash.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-02-19-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-19-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-02-20-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-02-20-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-2.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-02-20-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-3.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-02-20-4.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-4.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-02-20-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-02-20-5.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/杂货店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/汉堡店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/肉铺.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/肉铺.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/诊所.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/诊所.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/面包店.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/commercial/面包店.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/仓库.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/仓库.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/伐木场.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/伐木场.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/养牛场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/养猪场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/养鸡场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/军营.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/军营.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶牛场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶酪厂.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶酪厂2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/渔场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/玻璃厂.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/羊场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/鸡蛋农场.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/鸡蛋农场.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID102-塔段.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID103-GH小市政厅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID108-大教堂.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID109-乡村教堂.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID11-井.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID110-木桥.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID115-水宫 .txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID116-中型农场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID117-利用多维数据集.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID12-农场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID121-混凝土塔基.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID123-混凝土塔顶.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID124-现代摩天大楼.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID126-水屋酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID128-希尔赛德工作室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID13-熔岩井.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID130-乡村农场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID132-乡村图书馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID133-天空之爱.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID136-暴民驱逐舰MKII.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID14-水方尖碑.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID140-灯塔中景风格.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID142-树木陷阱 1600.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID151-瞭望塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID152-砂岩工作室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID153-2 卧室拖车.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID154-5 保龄球道.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID155-10 保龄球道.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID156-铁路入口匝道.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID157-铁路出口匝道.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID158-铁路短区段.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID159-铁路中段.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID16-谷仓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID160-铁路长区.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID161-铁路短动力.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID162-铁路中型动力.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID163-铁路长动力.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID164-铁路右转.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID165-铁路左转.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID166-Ice 溜冰场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID167-南大教堂2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID168-特拉德灯塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID169-雷区.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID173-维克兹巢穴.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID18-砖房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID184-轻便海滩.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID186-街道中等贫民区.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID19-林场4t.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID191-公路铁路段.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID2-大城堡.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID20-林场 9t.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID200-道路围堵装置.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID204-磁链.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID205-电影院.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID206-马厩.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID208-豪华Apts基地.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID210-墓地.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID218-大街.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID22-砖房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID220-公路和铁路.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID221-双车道公路.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID233-冰屋入口.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID234-校舍.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID235-消防站.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID236-宠物店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID24-粮仓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID240-黑白摩天大楼.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID241-橙色摩天大楼.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID242-穷人Sim-U-Logo.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID244-鹅卵石火炬.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID245-尤里斯仓库.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID247-长木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID248-浮动库.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID25-先进城市广场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID250-阿蒙纳之家酒店c1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID251-阿蒙纳之家酒店 c2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID252-铁屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID253-Station-8号车站.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID257-模拟银行.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID259-本尼森中屋酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID261-漩涡.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID263-市长府.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID265-自动小麦收获机.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID266-大型现代化住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID267-中世纪酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID269-观景台(W).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID271-公寓单元 E.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID272-村井.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID275-船坞.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID276-Flowepot酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID277-爬行屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID278-南瓜屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID279-蜘蛛屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID28-喷泉广场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID280-史蒂夫·豪斯.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID281-奶酪屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID282-鸡舍.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID283-猪舍.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID284-羊舍.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID285-可爱的小屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID286-东方小庙.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID288-仓库.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID29-温室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID290-梅斯炼金术士(W).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID291-梅斯铁匠(E).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID292-梅斯教堂(N).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID293-梅斯别墅酒店 1(W).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID294-梅斯沙漠市场(N).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID295-梅斯之家地下室(W).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID296-外贮 (E).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID297-梅斯公主大厦(S).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID298-梅斯沙庙(S).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID299-梅斯之家池塘（E）1Dn.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID30-小型木屋 .txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID300-梅斯迷你城堡（S）2Dn.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID301-梅斯仓库（N）5Dn.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID302-梅斯·福格顿地段.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID303-梅斯3层沙宅（W）.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID304-梅斯雕像.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID307-有石板的小房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID31-地狱汽车旅馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID314-玻璃水喷泉.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID315-骷髅之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID316-僵尸之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID319-现代住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID32-禅园.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID320-带图书馆的伍德大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID321-带门廊的房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID330-启示录庇护所1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID331-朴素的大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID332-小型图书馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID334-大型二层建筑.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID335-可爱茶壶屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID339-圣诞树屋酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID34-北方寺院.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID341-石铁桥.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID342-沙达斯大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID345-圣诞树.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID349-紧凑型住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID359-楼梯（木制）.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID36-巨型Sim-U-Kraft标志.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID360-楼梯间（石头）.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID364-路灯.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID365-乘船回家（水上）.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID366-乘船回家（陆上）.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID367-储藏室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID370-拉祖利城堡.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID372-凉亭.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID373-羊毛市场 .txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID375-花店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID376-殡仪馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID377-麦当劳.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID378-鹅卵石农场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID384-鹅卵石发电机.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID386-房屋 v1.0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID387-豪华木屋酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID392-4 公寓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID393-大教堂.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID398-射箭场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID4-大城堡.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID40-广场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID400-现代大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID401-中庄园.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID405-西尔斯大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID407-医院.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID408-海盗船.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID412-温室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID415-流浪汉小屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID417-小型船舶.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID418-铁咖啡馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID419-白宫.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID420-漂亮的马厩.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID421-地铁站.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID422-火车站.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID425-天空的刮刀.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID426-北方度假酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID430-北欧大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID431-现代Apts大厅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID433-现代Apts屋顶.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID435-Lg 装饰温室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID44-钓鱼角.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID440-小型作物收割机.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID441-奶牛炊具.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID442-PAB LDB.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID442-PAB LDB.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID444-世贸中心二期.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID447-大皇宫.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID45-叶老酒馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID450-小喷泉.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID451-医学院.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID47-图书馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID48-林场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID53-卵石沙坑.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID56-西部自动瓜场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID57-12 小房子公寓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID6-北欧大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID60-小店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID61-乡村教堂.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID63-TT 小镇墙.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID64-TT 大城墙.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID66-TT 角.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID67-TT 大门.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID68-TT 望塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID69-社区游泳池.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID70-热气球.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID71-Sim-U-迷宫.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID72-市中心.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID73-水塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID75-监狱.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID77-熔岩和水井.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID78-北欧大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID80-温室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID82-西部迷你瓜农场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/PKID9-你的房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/乡村教堂.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/乡村教堂.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/办公大楼.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/城市广场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/other/玻璃塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/2 故事屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID1-铁匠之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID10-瑞夫之家酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID114-未来派木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID118-大型土坯房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID119-树屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID120-2 客房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID122-混凝土主塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID125-堆叠式四层公寓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID127-警卫塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID131-乡村别墅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID132-乡村图书馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID135-石屋 II.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID137-平房(2 storey).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID138-蘑菇屋!.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID139-古雅的小屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID141-小木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID143-好学住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID144-中世纪住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID145-都铎住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID146-联排别墅 A.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID147-联排别墅 B.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID148-联排别墅 C.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID150-联排别墅 D.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID17-平房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID170-木屋公寓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID174-小房子 B.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID175-穷人之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID176-没有羊毛的家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID180-宽敞的房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID182-多生物群落之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID188-巨石大厦.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID189-木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID193-2层大房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID202-迷宫砖房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID209-豪华公寓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID211-巨树屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID212-可堆叠木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID213-初学者之家+车库.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID214-4 单元.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID215-8 单元.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID216-16 单元.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID217-单间牢房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID219-砂岩沙漠绿洲.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID22-砖房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID230-迎阳楼.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID231-冥府.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID232-冰屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID243-隐士之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID246-金字塔.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID249-火热中屋酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID254-安逸小屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID255-西瓜南瓜农场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID258-农舍与农场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID260-中土之家酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID264-街角小屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID268-鹅卵石屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID27-中型土坯房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID273-沙石屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID274-漂亮的普通房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID289-强迫症沙居.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID3-小房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID30-小型木屋 .txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID305-掩体.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID306-两层地堡.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID311-凯尔西之家酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID313-村民住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID323-可爱家庭旅馆.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID324-伯格胡特.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID328-小房子 C.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID33-诺兹之家酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID333-大房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID337-砂岩单体.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID338-砂岩棚屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID343-小木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID344-小砖房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID348-美丽乡村别墅酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID35-现代住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID352-市长府.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID353-郊区门廊.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID354-起动鹅卵石.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID355-起绒羊毛.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID356-起子木.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID357-高级穷人之家酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID362-希姆利斯豪斯酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID363-两层公寓.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID37-kms中之家酒店 1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID374-铁之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID38-kms 大房子 1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID385-鹅卵石隔间.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID388-中型农舍.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID389-现代木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID39-kms 公馆 1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID390-现代住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID391-现代木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID396-廉价小屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID397-现代住宅.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID402-东都铎大厦1号.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID403-现代住宅 v2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID406-世贸中心.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID409-史诗之家.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID41-莱克豪斯酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID410-伐木工人之家酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID411-农舍.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID413-大砖房.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID42-爱情小屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID427-中世纪培养基.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID429-爬行立方体.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID43-郊区牧场.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID432-现代Apts主要.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID437-大马厩.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID46-布朗斯通公寓 .txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID5-北欧之家酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID50-公寓单元 C.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID51-公寓单元 D.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID52-宽敞的木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID7-超小房子e.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID8-寄宿室.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/PKID83-木屋.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/两层楼.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/中庭酒店.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/公寓单元 A.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/公寓单元 B.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/大房子.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小房子.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/小房子.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/residential/彩色房子.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/DIM-1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/DIM-1/data/villages.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/DIM1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/DIM1/data/villages.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/data/villages.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/level.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/level.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/level.dat_old" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/level.dat_old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/playerdata/fdd35a29-06a9-343e-abe1-1b90a6820307.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/playerdata/fdd35a29-06a9-343e-abe1-1b90a6820307.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/region/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/region/r.-1.-1.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/region/r.-1.0.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/region/r.0.-1.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/region/r.0.0.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/session.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/Relationships/YvetteOaktoesJesusHogpen.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/Relationships/YvetteOaktoesJesusHogpen.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/folks/Jesus Hogpen.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/folks/Jesus Hogpen.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/folks/Yvette Oaktoes.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/folks/Yvette Oaktoes.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/settings.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/simukraft/settings.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/world1/stats/fdd35a29-06a9-343e-abe1-1b90a6820307.json" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/world1/stats/fdd35a29-06a9-343e-abe1-1b90a6820307.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/usernamecache.json" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/usernamecache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/buildcraft/api/core/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/buildcraft/api/core/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/event/EventSounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/event/EventSounds.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiControlBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiControlBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiCourierTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiCourierTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiRunMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiRunMod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiShowEmployees.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiShowEmployees.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/EntityConBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/EntityConBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/EntityFolk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/EntityFolk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/PacketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/PacketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/BuildingReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/BuildingReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCropFarmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCropFarmer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobEggFarmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobEggFarmer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuildersMerchant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuildersMerchant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBurgersWaiter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBurgersWaiter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/lang/en_US.lang" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/lang/zh_CN.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/CoughF.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/CoughF.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/CoughM.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/CoughM.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/LaughF.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/LaughF.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/LaughM.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/LaughM.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/OuchF.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/OuchF.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/OuchM.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/OuchM.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/SneezeF.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/SneezeF.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/SneezeM.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/SneezeM.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/bakerf.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/bakerf.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/bakerm.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/bakerm.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/beamdown.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/beamdown.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/beamdowntwo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/beamdowntwo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/beamf.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/beamf.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/beamm.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/beamm.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/birth.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/birth.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blarga.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blarga.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargb.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargb.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargc.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargc.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargd.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargd.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blarge.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blarge.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargf.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargf.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargg.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargg.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargh.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargh.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargi.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargi.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargj.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargj.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargk.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargk.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargl.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargl.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargm.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargm.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargn.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargn.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargp.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargp.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargq.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargq.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargr.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargr.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargs.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargs.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargt.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargt.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargu.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargu.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargv.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargv.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargw.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargw.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargx.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargx.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargy.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargy.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/blargz.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/blargz.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerfa.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerfa.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerfb.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerfb.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerfc.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerfc.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerfd.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerfd.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerfe.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerfe.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerff.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerff.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerma.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerma.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgermb.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgermb.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgermc.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgermc.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgermd.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgermd.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgerme.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgerme.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/burgermf.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/burgermf.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/cash.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/cash.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/cashshort.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/cashshort.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/cheesemachine.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/cheesemachine.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/computer.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/computer.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/construction.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/construction.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/constructoractivated.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/constructoractivated.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/cspeaka.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/cspeaka.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/cspeakb.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/cspeakb.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/cspeakc.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/cspeakc.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/dayfone.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/dayfone.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/dayfthree.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/dayfthree.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/dayftwo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/dayftwo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/daymone.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/daymone.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/daymthree.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/daymthree.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/daymtwo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/daymtwo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/feight.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/feight.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fnine.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fnine.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fone.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fone.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fseven.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fseven.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeaka.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeaka.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakb.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakb.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakc.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakc.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakd.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakd.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeake.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeake.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakf.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakf.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakg.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakg.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakh.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakh.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeaki.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeaki.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakj.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakj.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakk.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakk.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakl.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakl.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakm.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakm.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakn.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakn.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeako.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeako.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakp.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakp.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakq.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakq.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeakr.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeakr.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fspeaks.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fspeaks.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fthree.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fthree.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/ftwo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/ftwo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/fwxbad.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/fwxbad.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/hellof.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/hellof.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/hellom.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/hellom.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/lightone.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/lightone.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/meight.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/meight.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/merchm.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/merchm.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mfive.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mfive.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mfour.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mfour.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mnine.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mnine.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mone.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mone.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mseven.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mseven.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/msix.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/msix.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeaka.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeaka.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakb.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakb.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakc.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakc.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakd.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakd.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeake.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeake.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakf.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakf.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakg.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakg.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakh.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakh.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeaki.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeaki.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakj.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakj.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakk.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakk.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakl.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakl.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakm.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakm.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakn.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakn.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeako.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeako.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakp.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakp.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakq.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakq.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeakr.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeakr.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mspeaks.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mspeaks.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mthree.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mthree.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mtwo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mtwo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/mwxbad.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/mwxbad.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/nightfone.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/nightfone.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/nightfthree.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/nightfthree.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/nightftwo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/nightftwo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/nightmone.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/nightmone.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/nightmthree.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/nightmthree.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/nightmtwo.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/nightmtwo.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/powerdown.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/powerdown.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/pregnant.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/pregnant.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/readyf.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/readyf.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/readym.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/readym.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/rooster.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/rooster.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/shears.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/shears.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/welcome.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/welcome.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sound/windmill.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim_u/sounds/windmill.ogg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -884,7 +1108,7 @@
       <workItem from="1644646657602" duration="16323000" />
       <workItem from="1644801751880" duration="83932000" />
       <workItem from="1645236205837" duration="11877000" />
-      <workItem from="1645351178198" duration="3953000" />
+      <workItem from="1645351178198" duration="6886000" />
     </task>
     <task id="LOCAL-00001" summary="修复加载配置">
       <created>1644368634708</created>
@@ -900,7 +1124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645246778386</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="修复加载配置">
+      <created>1645362930368</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1645362930368</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
