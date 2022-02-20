@@ -317,6 +317,7 @@ public class ModSim {
         EntityRegistry.registerModEntity(EntityConBox.class, "ConBox", 2, this, 250, 2, true);
         EntityRegistry.registerGlobalEntityID(EntityWindmill.class, "SUKWindmill", EntityRegistry.findGlobalUniqueEntityId());
         EntityRegistry.registerModEntity(EntityWindmill.class, "SUKWindmill", 3, this, 250, 1, false);
+        proxy.registerRenderInfo();
         proxy.registerMisc();
     }
 
@@ -393,7 +394,7 @@ public class ModSim {
             FarmingBox.loadFarmingBoxes();
             FolkData.loadAndSpawnFolks();
             Relationship.loadRelationships();
-            updateCheck();
+//            updateCheck();
             isDay = isDayTime();
             Building.checkTennants();
             proxy.ranStartup = true;
@@ -479,8 +480,8 @@ public class ModSim {
                 return;
             }
 
-            String baseURL = "http://satscape.no-ip.info:7254/simukraftstore/";
-            String ver = this.downloadFile(baseURL + "simukraft-version.txt", getSimukraftFolder() + File.separator + "simukraft.txt");
+            String baseURL = "https://gitee.com/trhsy/mc-sim-u/blob/1.7.10/";
+            String ver = this.downloadFile(baseURL + "sim-version.txt", getSimukraftFolder() + File.separator + "simukraft.txt");
             if (ver != null) {
                 ver = ver.trim();
                 if (!ver.contentEquals("")) {

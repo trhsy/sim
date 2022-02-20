@@ -67,7 +67,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
         this.tasks.addTask(4, new EntityAISwimming(this));
         if (!ModSim.proxy.ranStartup) {
-            ModSim.log.info("EntityFolk: Killed system spawned folk");
+            ModSim.log.info("实体人：被杀死的系统产生的人");
             this.setDead();
         }
 
@@ -108,7 +108,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 this.theData = FolkData.getFolkDataByEntityId(this.getEntityId());
                 if (this.theData == null && System.currentTimeMillis() - this.ghostTimer > 5000L) {
-                    ModSim.log.info("EntityFolk: " + this.getEntityId() + " - their data has been null for more than 5s, so killing");
+                    ModSim.log.info("实体人: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以");
                     this.setDead();
                 }
             }
@@ -345,7 +345,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 if (dist <= 2.0D) {
                     try {
-                        ModSim.log.info("EntityFolk: " + this.theData.name + " has arrived at " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
+                        ModSim.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
                     } catch (Exception var13) {
                     }
 
@@ -383,7 +383,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (this.theData.timeStartedGotoing != null && !donttimeout && System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null) {
                     this.getNavigator().clearPathEntity();
                     if (dist > 2.0D) {
-                        ModSim.log.info("EntityFolk: " + this.theData.name + " took too long to walk, so beaming...");
+                        ModSim.log.info("实体人: " + this.theData.name + " 散步太久，所以喜气洋洋...");
                         this.theData.stayPut = true;
                         this.theData.timeStartedGotoing = System.currentTimeMillis();
                         this.theData.beamMeTo(this.theData.destination);

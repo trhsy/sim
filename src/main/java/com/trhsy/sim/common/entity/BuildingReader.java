@@ -515,7 +515,7 @@ public class BuildingReader implements Serializable {
                 br.close();
             }
         } catch (Exception var19) {
-            ModSim.log.info("Caught exception: " + var19.getMessage());
+            ModSim.log.error("被抓住的例外: " + var19.getMessage());
         }
 
     }

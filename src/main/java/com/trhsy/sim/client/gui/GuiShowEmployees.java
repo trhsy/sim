@@ -35,7 +35,7 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     public void initGui() {
-        ModSim.log.info("Initializing GUI");
+        ModSim.log.info("初始化GUI");
         this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, "Do NOT run SimCity"));
         this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 90, "Normal Mode"));
         this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, "Creative Mode"));
@@ -57,7 +57,7 @@ public class GuiShowEmployees extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, "No money needed, everything free, no blocks required, be creative!", this.width / 2, 160, 16776960);
             this.drawCenteredString(this.fontRendererObj, "Builders require ALL blocks, harder gameplay", this.width / 2, 210, 16776960);
         } catch (Exception var5) {
-            ModSim.log.info("Caught Exception while drawing strings/screen");
+            ModSim.log.error("在绘制字符串/屏幕时捕获异常：" + var5.getMessage());
         }
 
         super.drawScreen(i, j, f);
@@ -67,10 +67,10 @@ public class GuiShowEmployees extends GuiScreen {
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 0) {
             ModSim.states.gameModeNumber = 10;
-            ModSim.log.info("Turning off SimCity Reloaded");
+            ModSim.log.info("关闭重新加载的模拟城市");
         } else if (guibutton.id == 1) {
             ModSim.states.gameModeNumber = 0;
-            ModSim.log.info("Playing SimCity Reloaded in normal mode");
+            ModSim.log.info("在正常模式下重新加载模拟城市");
             FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
         } else if (guibutton.id == 2) {
             ModSim.states.gameModeNumber = 1;

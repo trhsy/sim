@@ -1,6 +1,10 @@
 {
-  "stat.playOneMinute": 1196,
-  "achievement.openInventory": 1,
+  "stat.useItem.54": 1,
+  "stat.walkOneCm": 3597,
+  "stat.jump": 5,
+  "stat.playOneMinute": 7958,
+  "achievement.openInventory": 6,
+  "achievement.mineWood": 6,
   "achievement.exploreAllBiomes": {
     "value": 0,
     "progress": [

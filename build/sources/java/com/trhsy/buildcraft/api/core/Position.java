@@ -61,21 +61,21 @@ public class Position implements ISerializable {
     }
 
     public Position(TileEntity tile) {
-        this.x = (double)tile.xCoord;
-        this.y = (double)tile.yCoord;
-        this.z = (double)tile.zCoord;
+        this.x = (double) tile.xCoord;
+        this.y = (double) tile.yCoord;
+        this.z = (double) tile.zCoord;
         this.orientation = ForgeDirection.UNKNOWN;
     }
 
     public Position(BlockIndex index) {
-        this.x = (double)index.x;
-        this.y = (double)index.y;
-        this.z = (double)index.z;
+        this.x = (double) index.x;
+        this.y = (double) index.y;
+        this.z = (double) index.z;
         this.orientation = ForgeDirection.UNKNOWN;
     }
 
     public void moveRight(double step) {
-        switch(this.orientation) {
+        switch (this.orientation) {
             case SOUTH:
                 this.x -= step;
                 break;
@@ -96,7 +96,7 @@ public class Position implements ISerializable {
     }
 
     public void moveForwards(double step) {
-        switch(this.orientation) {
+        switch (this.orientation) {
             case SOUTH:
                 this.z += step;
                 break;
@@ -123,7 +123,7 @@ public class Position implements ISerializable {
     }
 
     public void moveUp(double step) {
-        switch(this.orientation) {
+        switch (this.orientation) {
             case SOUTH:
             case NORTH:
             case EAST:
@@ -145,7 +145,7 @@ public class Position implements ISerializable {
         nbttagcompound.setDouble("i", this.x);
         nbttagcompound.setDouble("j", this.y);
         nbttagcompound.setDouble("k", this.z);
-        nbttagcompound.setByte("orientation", (byte)this.orientation.ordinal());
+        nbttagcompound.setByte("orientation", (byte) this.orientation.ordinal());
     }
 
     public void readFromNBT(NBTTagCompound nbttagcompound) {
@@ -173,7 +173,7 @@ public class Position implements ISerializable {
         double dy = this.y - newPosition.y;
         double dz = this.z - newPosition.z;
         double sqrDis = dx * dx + dy * dy + dz * dz;
-        return !(sqrDis > (double)(f * f));
+        return !(sqrDis > (double) (f * f));
     }
 
     @Override

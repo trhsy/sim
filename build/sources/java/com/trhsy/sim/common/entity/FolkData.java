@@ -141,7 +141,7 @@ public class FolkData implements Serializable {
         }
 
         try {
-            ModSim.log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + ModSim.theFolks.size() + " folks in total");
+            ModSim.log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + ModSim.theFolks.size() + " 所有人");
         } catch (Exception var4) {
         }
 
@@ -311,7 +311,7 @@ public class FolkData implements Serializable {
                         }
 
                         this.entityId = this.theEntity.getEntityId();
-                        ModSim.log.info("FolkData:repawnEntity() " + this.name + " at " + this.location.toString() + " in dim " + this.location.theDimension + " ENTITY:" + this.theEntity.getEntityId());
+                        ModSim.log.info("FolkData:repawnEntity() " + this.name + " 在 " + this.location.toString() + " 昏暗中 " + this.location.theDimension + " ENTITY:" + this.theEntity.getEntityId());
                     }
 
                 }

@@ -1,6 +1,7 @@
 package com.trhsy.sim.common;
 
 import com.trhsy.sim.client.ClientTickHandler;
+import com.trhsy.sim.client.event.EventSounds;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.*;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -10,6 +11,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -46,7 +48,7 @@ public class CommonProxy {
         new ItemLoader(event);
         //加载所以方块
         new BlockLoader(event);
-
+        MinecraftForge.EVENT_BUS.register(new EventSounds());
     }
     /**
      * @Author fan

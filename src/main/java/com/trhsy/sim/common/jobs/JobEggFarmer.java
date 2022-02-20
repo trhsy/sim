@@ -122,8 +122,8 @@ public class JobEggFarmer extends Job {
         if (this.farmChests.size() > 0) {
             boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.egg, c + 1, 0), true);
             if (!ok) {
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.egg.farmer.chests"));
-                this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.chests");
+                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.egg.farmer.chests_eggs"));
+                this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.chests_full");
                 this.theStage = Stage.CANTWORK;
             } else {
                 GameStates var10000 = ModSim.states;

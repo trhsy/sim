@@ -497,7 +497,7 @@ public class JobCropFarmer extends Job implements Serializable {
                         if (hasSown || done) {
                             if (done) {
                                 this.theStage = Stage.HANGOUT;
-                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing");
+                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing_farm");
                                 this.step = 1;
                                 this.theFolk.isWorking = false;
                                 this.inventoriesTransferFromFolk(this.theFolk.inventory, this.farmingChests, (ItemStack)null);

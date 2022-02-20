@@ -36,7 +36,7 @@ public class GuiRunMod extends GuiScreen {
 
     @Override
     public void initGui() {
-        //ModSim.log.info("Initializing GUI");
+        //ModSim.log.info("初始化GUI");
         ModSim.log.info("初始化GUI");
         String not_run = I18n.format("container.sim.not_run");
         String normal = I18n.format("container.sim.normal");

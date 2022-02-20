@@ -15,8 +15,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 public class EventLoader {
     public EventLoader() {
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new EventSounds());
-
     }
 
     ///**

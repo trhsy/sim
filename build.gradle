@@ -41,7 +41,7 @@ dependencies {
     //compile "some.group:artifact:version"
 //    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.1'
 //    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.79'
-    implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
+//    compile "com.google.guava:guava:version:31.0.1-jre"
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
