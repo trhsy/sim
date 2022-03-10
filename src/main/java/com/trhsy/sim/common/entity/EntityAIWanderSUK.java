@@ -1,4 +1,4 @@
-package com.trhsy.sim.common;/**
+package com.trhsy.sim.common.entity;/**
  * @author trhsy
  * @date 2022/1/26 0026
  * @apiNote
