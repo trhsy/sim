@@ -31,7 +31,7 @@ import java.util.Iterator;
  * ========================================
  *
  * @ClassName GuiControlBox
- * @Description todo
+ * @Description todo 控制箱
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:28
  * ========================================
@@ -114,28 +114,29 @@ public class GuiControlBox extends GuiScreen {
 
             GuiButton b;
             if (this.theBuilding.type.contentEquals("commercial")) {
-                if (this.theBuilding.displayName.contains("Bakery")) {
+                System.out.println("***************************commercial*********************");
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Bakery"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Baker")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Grocery Store")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Grocery_Store"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Grocer")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Butchers")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Butchers"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Butcher")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Burgers")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
                     ArrayList<FolkData> employees = FolkData.getFolksByEmployedAt(this.theBuilding.primaryXYZ);
                     Boolean flag = false;
                     GuiButton b1;
@@ -191,7 +192,7 @@ public class GuiControlBox extends GuiScreen {
             }
 
             if (this.theBuilding.type.contentEquals("industrial")) {
-                if (this.theBuilding.displayName.contains("Lumbermill")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Lumbermill"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Lumberjack")));
                     if (this.employeeCount > 4) {
                         b.enabled = false;
@@ -202,7 +203,7 @@ public class GuiControlBox extends GuiScreen {
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Builders Merchant")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Builders_Merchant"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Merchant")));
                     GuiButton b2;
                     this.buttonList.add(b2 = new GuiButton(25, 10, this.height - 50, 100, 20, I18n.format("container.sim.Buy_Sell")));
@@ -215,77 +216,77 @@ public class GuiControlBox extends GuiScreen {
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Barracks")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Train_Soldier")));
                     if (this.employeeCount > 9) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Sheep Farm")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Sheep_Farm"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Shepherd")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Egg Farm")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Egg_Farm"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Egg_Farmer")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Cattle Farm")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Cattle_Farm"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Cattle_farmer")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Pig Farm")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Pig_Farm"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Pig_farmer")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Chicken Farm")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Chicken_Farm"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Chicken_farmer")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Depot")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Depot"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Courier")));
                     if (this.employeeCount > 3) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Glass Factory")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Glass_Factory"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Glass_maker")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Fishing Dock")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Fishing_Dock"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Fisherman")));
                     if (this.employeeCount > 1) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Dairy Farm")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Dairy_Farm"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Dairy_farmer")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
                     }
                 }
 
-                if (this.theBuilding.displayName.contains("Cheese Factory")) {
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Cheese_Factory"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire_Cheesemaker")));
                     if (this.employeeCount > 0) {
                         b.enabled = false;
@@ -298,9 +299,9 @@ public class GuiControlBox extends GuiScreen {
                 for (fc = 0; fc < ModSim.theFolks.size(); ++fc) {
                     folk = (FolkData) ModSim.theFolks.get(fc);
                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
-                        if (this.theBuilding.displayName.contains("Barracks")) {
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
                             this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Dismiss") + folk.name));
-                        } else if (this.theBuilding.displayName.contains("Burgers")) {
+                        } else if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
                             this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Fire") + folk.vocation.toString()));
                         } else {
                             this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") + folk.name));
@@ -323,7 +324,7 @@ public class GuiControlBox extends GuiScreen {
             }
 
             this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_Building_Control_Panel"), this.width / 2, 17, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Building_Control_Panel"), this.width / 2, 17, 16777215);
             if (this.theBuilding == null) {
                 this.fontRendererObj.drawString(I18n.format("container.sim.on_this_building") + "(" + this.location.toString() + ")", 5, 77, 16711680);
                 this.fontRendererObj.drawString(I18n.format("container.sim.this_Building"), 5, 97, 16711680);
@@ -389,86 +390,86 @@ public class GuiControlBox extends GuiScreen {
                 this.mc.setIngameFocus();
             } else {
                 GuiEmployFolk ui;
-                if (guibutton.displayString.contentEquals("Hire Lumberjack")) {
+                if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Lumberjack"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.LUMBERJACK);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Baker")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Baker"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.BAKER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Train Soldier")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Soldier"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.SOLDIER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Shepherd")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Shepherd"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.SHEPHERD);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Grocer")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Grocer"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.GROCER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Courier")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Courier"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.COURIER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Merchant")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Merchant"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.MERCHANT);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Butcher")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Butcher"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.BUTCHER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Egg Farmer")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Egg_Farmer"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.EGGFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Pig farmer")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Pig_farmer"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.PIGFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Cattle farmer")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Cattle_farmer"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.CATTLEFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Chicken farmer")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Chicken_farmer"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.CHICKENFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Glass maker")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Glass_maker"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.GLASSMAKER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Fisherman")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Fisherman"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.FISHERMAN);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Dairy farmer")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Dairy_farmer"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.DAIRYFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Cheesemaker")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Cheesemaker"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.CHEESEMAKER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Manager")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Manager"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.BURGERSMANAGER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Fry Cook")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Fry_Cook"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.BURGERSFRYCOOK);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contentEquals("Hire Waiter")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Hire_Waiter"))) {
                     this.mc.currentScreen = null;
                     ui = new GuiEmployFolk(this.location, "", Vocation.BURGERSWAITER);
                     this.mc.displayGuiScreen(ui);
                 } else {
                     int bindex;
                     String folkname;
-                    if (!guibutton.displayString.contains("Fire ") && !guibutton.displayString.contains("Dismiss ")) {
+                    if (!guibutton.displayString.contains(I18n.format("container.sim.gui_btn_name_Fire")) && !guibutton.displayString.contains(I18n.format("container.sim.gui_btn_name_Dismiss"))) {
                         if (guibutton.displayString.contentEquals("Fix House")) {
                             Building b;
                             ModSim.theBuildings.add(b = new Building("Repaired House", "residential", this.location, this.location, true));
@@ -477,19 +478,19 @@ public class GuiControlBox extends GuiScreen {
                             b.author = "Satscape";
                             this.theBuilding = b;
                             Building.saveAllBuildings();
-                        } else if (guibutton.displayString.contentEquals("Set Lumber area")) {
+                        } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Set_Lumber_area"))) {
                             this.theBuilding.lumbermillMarker = ((Marker)BlockMarker.markers.get(0)).toV3();
                             guibutton.enabled = false;
                         } else if (guibutton.id == 21) {
                             GuiScreen gui = new GuiShowEmployees();
                             this.mc.displayGuiScreen((GuiScreen)null);
                             this.mc.displayGuiScreen(gui);
-                        } else if (guibutton.displayString.contentEquals("Tasks")) {
+                        } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Tasks"))) {
                             folkname = (String)this.employees.get(guibutton.id);
                             GuiScreen gui = new GuiCourierTasks(this.location, folkname, this.playerWhoClickedIt);
                             this.mc.displayGuiScreen((GuiScreen)null);
                             this.mc.displayGuiScreen(gui);
-                        } else if (guibutton.displayString.contentEquals("Buy/Sell")) {
+                        } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Buy_Sell"))) {
                             GuiScreen uiGuiScreen = new GuiMerchant();
                             this.mc.displayGuiScreen((GuiScreen)null);
                             this.mc.displayGuiScreen(uiGuiScreen);
@@ -497,9 +498,9 @@ public class GuiControlBox extends GuiScreen {
                             GuiScreen guiScreen = new GuiBeamPlayerTo(this.playerWhoClickedIt);
                             this.mc.displayGuiScreen((GuiScreen)null);
                             this.mc.displayGuiScreen(guiScreen);
-                        } else if (guibutton.displayString.contentEquals("Rotate Stairs")) {
+                        } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Rotate_Stairs"))) {
                             this.rotateStairs();
-                        } else if (guibutton.displayString.contentEquals("Demolish!")) {
+                        } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Demolish"))) {
                             World theWorld = this.playerWhoClickedIt.worldObj;
                             bindex = 0;
 
@@ -541,7 +542,7 @@ public class GuiControlBox extends GuiScreen {
                     } else {
                         folkname = guibutton.displayString.substring(guibutton.displayString.indexOf(" ")).trim();
                         guibutton.enabled = false;
-                        if (this.theBuilding.displayName.contains("Depot")) {
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_btn_name_Depot"))) {
                             for(bindex = 0; bindex < this.buttonList.size(); ++bindex) {
                                 GuiButton but = (GuiButton)this.buttonList.get(bindex);
                                 if (but.yPosition == guibutton.yPosition) {

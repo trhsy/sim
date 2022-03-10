@@ -53,8 +53,8 @@ import java.util.Random;
  **/
 @Mod(modid = ModSim.MODID, name = ModSim.NAME, version = ModSim.VERSION, useMetadata = true, dependencies = "required-after:Forge@[9.10,)")
 public class ModSim {
-    public static final String MODID = "sim_u";
-    public static final String NAME = "sim";
+    public static final String MODID = "sim";
+    public static final String NAME = "Simulated town";
     public static final String VERSION = "1.1.0 Beta";
     /**
      * 将生成该mod的实例注册到对应mod的id里面，也可以访问其他mod的，要注意这里的id和此mod的id相同
@@ -300,14 +300,14 @@ public class ModSim {
 
         GameRegistry.registerTileEntity(TileEntityWindmill.class, "tileentitywindmill");
 
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.white.name", "Sim-U-Light (white)");
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.red.name", "Sim-U-Light (red)");
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.orange.name", "Sim-U-Light (orange)");
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.yellow.name", "Sim-U-Light (yellow)");
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.green.name", "Sim-U-Light (green)");
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.blue.name", "Sim-U-Light (blue)");
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.purple.name", "Sim-U-Light (purple)");
-        LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.rainbow.name", "Sim-U-Light (rainbow)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.white.name", "Sim-U-Light (white)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.red.name", "Sim-U-Light (red)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.orange.name", "Sim-U-Light (orange)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.yellow.name", "Sim-U-Light (yellow)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.green.name", "Sim-U-Light (green)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.blue.name", "Sim-U-Light (blue)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.purple.name", "Sim-U-Light (purple)");
+        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.rainbow.name", "Sim-U-Light (rainbow)");
 
         EntityRegistry.registerGlobalEntityID(EntityAlignBeam.class, "AlignBeam", EntityRegistry.findGlobalUniqueEntityId());
         EntityRegistry.registerModEntity(EntityAlignBeam.class, "AlignBeam", 0, this, 250, 10, false);
@@ -477,7 +477,7 @@ public class ModSim {
             Thread.sleep(15000L);
             File check = new File(getSimukraftFolder() + "/buildings/");
             if (!check.exists()) {
-                sendChat(getSimukraftFolder() + "/buildings/  folder is missing, SimCity is not correctly installed, please copy the simukraft folder AND the zip file.");
+                sendChat(getSimukraftFolder() + I18n.format("container.sim.main_buildings"));
                 return;
             }
 
@@ -487,7 +487,7 @@ public class ModSim {
                 ver = ver.trim();
                 if (!ver.contentEquals("") && !"1.1.0 Beta".contentEquals(ver)) {
                     if (!VERSION.contentEquals(ver)) {
-                        sendChat("**** NEW update of SimCity available (from " + VERSION + " to " + ver + ") at satscape.wordpress.com/simukraft");
+                        sendChat(I18n.format("container.sim.main_available"));
                     }
 
                     Long now = System.currentTimeMillis();
@@ -691,8 +691,8 @@ public class ModSim {
                     }
 
                     if (totalRent > 0.0F) {
-                        ModSim.sendChat("Collected " + ModSim.displayMoney(totalRent) + " Sim-u-credits in rent today.");
-                        ModSim.sendChat("Collected " + ModSim.displayMoney(totalCorpTax) + " Sim-u-credits in corporation tax today.");
+                        ModSim.sendChat(I18n.format("container.sim.main_Collected") + ModSim.displayMoney(totalRent) + I18n.format("container.sim.main_rent_today"));
+                        ModSim.sendChat(I18n.format("container.sim.main_Collected") + ModSim.displayMoney(totalCorpTax) + I18n.format("container.sim.main_tax_today"));
                         GameStates var10000 = ModSim.states;
                         var10000.credits += totalRent;
                         var10000 = ModSim.states;
@@ -702,7 +702,7 @@ public class ModSim {
                             ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                         }
                     } else if (ModSim.gameMode != GameMode.CREATIVE) {
-                        ModSim.sendChat("No rent collected today, you should hire a folk to build a residential house.");
+                        ModSim.sendChat(I18n.format("container.sim.main_No_rent"));
                     }
 
                 }
@@ -729,12 +729,12 @@ public class ModSim {
                     ++folk.age;
                     if (f == 17 && folk.age == 18) {
                         folk.evictThem();
-                        sendChat(folk.name + " is now 18 years old, they'll start looking for a house and you can now employ them too.");
+                        sendChat(folk.name + I18n.format("container.sim.main_is_now"));
                     }
                 }
 
                 if (folk.age > 110 && rand.nextInt(10) == 5) {
-                    sendChat(folk.name + " is old and not feeling very well...oh no!");
+                    sendChat(folk.name + I18n.format("container.sim.main_is_old"));
                     folk.eventDied(DamageSource.generic);
                 }
             }
@@ -747,7 +747,7 @@ public class ModSim {
                     if (f == fl) {
                         --folk.levelFood;
                         if (folk.levelFood == 0) {
-                            sendChat(folk.name + " is VERY hungry, you should build a farm, grocery, bakery or throw some food at them.");
+                            sendChat(folk.name + I18n.format("container.sim.main_is_VERY"));
                         }
                     }
                 }
@@ -758,7 +758,7 @@ public class ModSim {
                         JobSoldier job = (JobSoldier) folk.theirJob;
                         float pay = (float) job.kills * 0.2F;
                         if (job.kills > 0) {
-                            sendChat("Paid " + folk.name + " " + displayMoney(pay) + " Sim-u-credits for killing " + job.kills + " hostile mobs yesterday.");
+                            sendChat(I18n.format("container.sim.main_Paid1") + folk.name + " " + displayMoney(pay) + I18n.format("container.sim.main_Paid2") + job.kills + I18n.format("container.sim.main_Paid3"));
                             GameStates var10000 = states;
                             var10000.credits -= pay;
                             job.kills = 0;

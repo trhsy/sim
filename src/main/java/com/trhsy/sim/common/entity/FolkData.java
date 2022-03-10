@@ -1,6 +1,5 @@
 package com.trhsy.sim.common.entity;
 
-import com.trhsy.sim.common.EntityFolk;
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;

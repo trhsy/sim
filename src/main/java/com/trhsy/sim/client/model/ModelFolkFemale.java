@@ -4,7 +4,7 @@ package com.trhsy.sim.client.model;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.EntityFolk;
+import com.trhsy.sim.common.entity.EntityFolk;
 import com.trhsy.sim.common.entity.FolkData;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;

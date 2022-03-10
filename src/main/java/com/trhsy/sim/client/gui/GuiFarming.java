@@ -13,13 +13,14 @@ import com.trhsy.sim.common.entity.enums.FarmType;
 import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
 /**
  * ========================================
  *
  * @ClassName GuiFarming
- * @Description todo
+ * @Description todo 耕种
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:29
  * ========================================
@@ -50,15 +51,16 @@ public class GuiFarming extends GuiScreen {
         }
 
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Done"));
+
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
         if (this.theFolk == null) {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Hire Farmer"));
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.gui_Farming_Hire_Farmer")));
         } else {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Fire " + this.theFolk.name));
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.sim_gui_BC_Fire") + this.theFolk.name));
         }
 
         try {
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, this.theFarmingBox.farmType.toString() + " farm"));
+            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm")));
         } catch (Exception var2) {
             var2.printStackTrace();
         }
@@ -68,17 +70,17 @@ public class GuiFarming extends GuiScreen {
             switch(this.theFarmingBox.level) {
                 case 1:
                     if (this.theFarmingBox.farmType != FarmType.SUGAR && this.theFarmingBox.farmType != FarmType.CACTUS) {
-                        this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, "Upgrade to Level " + (this.theFarmingBox.level + 1)));
+                        this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, I18n.format("container.sim.gui_Farming_Upgrade") + (this.theFarmingBox.level + 1)));
                     } else {
-                        this.buttonList.add(b = new GuiButton(3, this.width / 2 - 100, 140, "Fully upgraded"));
+                        this.buttonList.add(b = new GuiButton(3, this.width / 2 - 100, 140, I18n.format("container.sim.gui_Farming_Fully_upgraded")));
                         b.enabled = false;
                     }
                     break;
                 case 2:
-                    this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, "Upgrade to Level " + (this.theFarmingBox.level + 1)));
+                    this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, I18n.format("container.sim.gui_Farming_Upgrade") + (this.theFarmingBox.level + 1)));
                     break;
                 case 3:
-                    this.buttonList.add(b = new GuiButton(3, this.width / 2 - 100, 140, "Fully upgraded"));
+                    this.buttonList.add(b = new GuiButton(3, this.width / 2 - 100, 140, I18n.format("container.sim.gui_Farming_Fully_upgraded")));
                     b.enabled = false;
             }
         } catch (Exception var3) {
@@ -98,29 +100,29 @@ public class GuiFarming extends GuiScreen {
         try {
             this.drawDefaultBackground();
             if (this.theFarmingBox == null) {
-                this.drawCenteredString(this.fontRendererObj, "ERROR WITH FARMING BOX, Place 3 markers, then place Farming box", this.width / 2, 17, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_ERROR_WITH"), this.width / 2, 17, 16777215);
                 return;
             }
 
-            this.drawCenteredString(this.fontRendererObj, "Level " + this.theFarmingBox.level + " " + this.theFarmingBox.farmType.toString() + " Farm", this.width / 2, 17, 8454016);
+            this.drawCenteredString(this.fontRendererObj, " " + this.theFarmingBox.level + I18n.format("container.sim.gui_Level") + this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm"), this.width / 2, 17, 8454016);
 
             try {
                 if (this.theFarmingBox.marker1XYZ == null) {
-                    this.drawCenteredString(this.fontRendererObj, "Error: No markers placed - 3 markers are needed to farm an area.", this.width / 2, 27, 16711680);
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_No"), this.width / 2, 27, 16711680);
                 }
             } catch (Exception var5) {
-                this.drawCenteredString(this.fontRendererObj, "Error: Place markers BEFORE the farming box.", this.width / 2, 27, 16711680);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Place"), this.width / 2, 27, 16711680);
             }
 
             if (this.theFarmingBox.level == 1 && this.theFarmingBox.farmType == FarmType.SUGAR) {
-                this.drawCenteredString(this.fontRendererObj, "Cannot upgrade sugar cane farms above level 1", this.width / 2, 130, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_cactus"), this.width / 2, 130, 16777215);
             } else if (this.theFarmingBox.level == 1 && this.theFarmingBox.farmType == FarmType.CACTUS) {
-                this.drawCenteredString(this.fontRendererObj, "Cannot upgrade cactus farms above level 1", this.width / 2, 130, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_sugar"), this.width / 2, 130, 16777215);
             } else if (this.theFarmingBox.level < 3) {
                 if (ModSim.gameMode != GameMode.CREATIVE) {
-                    this.drawCenteredString(this.fontRendererObj, "Upgrade will cost " + ModSim.displayMoney(this.getUpgradeCost()) + " credits", this.width / 2, 130, 16777215);
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Upgrade_will_cost") + ModSim.displayMoney(this.getUpgradeCost()) + I18n.format("container.sim.gui_Farming_text_credits"), this.width / 2, 130, 16777215);
                 } else {
-                    this.drawCenteredString(this.fontRendererObj, "Upgrade is Free", this.width / 2, 130, 16777215);
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Upgrade_is_Free"), this.width / 2, 130, 16777215);
                 }
             }
 
@@ -138,10 +140,10 @@ public class GuiFarming extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
             } else {
-                if (guibutton.displayString.contentEquals("Hire Farmer")) {
+                if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_Farming_Hire_Farmer"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.theFarmingBox, Vocation.CROPFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith("Fire ")) {
+                } else if (guibutton.displayString.startsWith("container.sim.sim_gui_BC_Fire")) {
                     this.theFolk.selfFire();
                     guibutton.enabled = false;
                     this.mc.currentScreen = null;
@@ -165,7 +167,7 @@ public class GuiFarming extends GuiScreen {
                         this.theFarmingBox.farmType = FarmType.POTATO;
                     }
 
-                    guibutton.displayString = this.theFarmingBox.farmType.toString() + " farm";
+                    guibutton.displayString = this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm");
                 } else if (guibutton.id == 3) {
                     float cash = ModSim.states.credits;
                     if (ModSim.gameMode == GameMode.CREATIVE) {
@@ -173,7 +175,7 @@ public class GuiFarming extends GuiScreen {
                     }
 
                     if (this.getUpgradeCost() > cash) {
-                        guibutton.displayString = "NOT ENOUGH";
+                        guibutton.displayString = I18n.format("container.sim.gui_Farming_text_NOT_ENOUGH");
                         guibutton.enabled = false;
                     } else {
                         if (this.theFarmingBox.getSizeLength() >= 4 && this.theFarmingBox.getSizeWidth() >= 4) {
@@ -189,7 +191,7 @@ public class GuiFarming extends GuiScreen {
                             return;
                         }
 
-                        guibutton.displayString = "TOO SMALL";
+                        guibutton.displayString = I18n.format("container.sim.gui_Farming_text_TOO_SMALL");
                         guibutton.enabled = false;
                     }
                 }

@@ -1,5 +1,7 @@
 package com.trhsy.sim.common.entity.enums;
 
+import net.minecraft.client.resources.I18n;
+
 /**
  * @author trhsy
  * @date 2022/1/25 0025
@@ -19,21 +21,21 @@ public enum FolkAction {
 
     @Override
     public String toString() {
-        String ret = "doing nothing";
+        String ret = I18n.format("container.sim.FolkAction1");
         if (this == WANDER) {
-            ret = "just wandering";
+            ret = I18n.format("container.sim.FolkAction2");
         } else if (this == ATWORK) {
-            ret = "at work";
+            ret = I18n.format("container.sim.FolkAction3");
         } else if (this == ONWAYTOWORK) {
-            ret = "on my way to work";
+            ret = I18n.format("container.sim.FolkAction4");
         } else if (this == ATHOME) {
-            ret = "relaxing at home";
+            ret = I18n.format("container.sim.FolkAction5");
         } else if (this == GOINGHOME) {
-            ret = "going home";
+            ret = I18n.format("container.sim.FolkAction6");
         } else if (this == STAYINGHOME) {
-            ret = "staying at home";
+            ret = I18n.format("container.sim.FolkAction7");
         } else if (this == HAVINGBABY) {
-            ret = "having a baby";
+            ret = I18n.format("container.sim.FolkAction8");
         }
 
         return ret;

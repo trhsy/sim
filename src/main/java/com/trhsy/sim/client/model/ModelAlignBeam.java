@@ -22,7 +22,7 @@ public class ModelAlignBeam extends ModelBase {
     public String renderTexture = "";
 
     public ModelAlignBeam() {
-        this.renderTexture = "/mods/sim_u/textures/models/entityBeam.png";
+        this.renderTexture = "/mods/sim/textures/models/entityBeam.png";
         this.theBeam = new ModelRenderer(this, 0, 1);
         this.theBeam.addBox(-0.4F, 0.0F, -0.4F, 2550, 1, 1);
         this.theBeam.setRotationPoint(-0.0F, 0.0F, -0.0F);

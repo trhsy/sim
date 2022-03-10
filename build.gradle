@@ -43,7 +43,6 @@ dependencies {
 //    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.79'
 //    compile "com.google.guava:guava:version:31.0.1-jre"
     // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
     // for more info...

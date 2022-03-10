@@ -5,8 +5,8 @@ package com.trhsy.sim.client.render;/**
  */
 
 import com.trhsy.sim.client.model.ModelConBox;
-import com.trhsy.sim.common.EntityConBox;
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.entity.EntityConBox;
 import com.trhsy.sim.common.entity.V3;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

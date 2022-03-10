@@ -12,6 +12,7 @@ import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName GuiMining
- * @Description todo
+ * @Description todo 采矿
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:35
  * ========================================
@@ -51,7 +52,7 @@ public class GuiMining extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Done"));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
         if (this.theMiningBox != null) {
             if (this.theWorkers != null && this.theWorkers.size() != 0) {
                 this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Fire " + ((FolkData)this.theWorkers.get(0)).name));

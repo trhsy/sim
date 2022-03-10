@@ -5,8 +5,8 @@ package com.trhsy.sim.client.render;/**
  */
 
 import com.trhsy.sim.client.model.ModelAlignBeam;
-import com.trhsy.sim.common.EntityAlignBeam;
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.entity.EntityAlignBeam;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;

@@ -21,7 +21,7 @@ import java.util.HashMap;
  * ========================================
  *
  * @ClassName ThreadFacsimile
- * @Description todo
+ * @Description todo 线程传真
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:30
  * ========================================

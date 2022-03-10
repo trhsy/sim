@@ -116,7 +116,7 @@ public class ClientTickHandler {
                     if (ModSim.gameMode == GameMode.CREATIVE) {
                         this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - Population: " + ModSim.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     } else {
-                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - Population: " + ModSim.theFolks.size() + "   Sim-U-credits: " + ModSim.displayMoney(ModSim.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
+                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - Population: " + ModSim.theFolks.size() + "   credits: " + ModSim.displayMoney(ModSim.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     }
                 } else {
                     this.hud.drawString(this.mc.fontRendererObj, "Loading SimCity...", this.hud.width / 2, 2, 16777215);

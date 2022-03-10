@@ -11,6 +11,7 @@ import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName GuiPathBox
- * @Description todo
+ * @Description todo PathBox
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:35
  * ========================================
@@ -52,7 +53,7 @@ public class GuiPathBox extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Done"));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
         if (this.thePathBox != null) {
             if (this.thePathBox.marker1XYZ != null) {
                 if (this.page == 0) {

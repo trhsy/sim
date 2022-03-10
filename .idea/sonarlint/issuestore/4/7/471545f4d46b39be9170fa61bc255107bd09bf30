@@ -1,0 +1,51 @@
+
+3
+java:S1118)"Hide this public constructor.(â·ÑÂ
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ù‹é³øÿÿÿÿ
+B
+java:S1172)",Remove this unused method parameter "event".(â·ÑÂ
+o
+java:S1104"ZMake constructorBox a static final constant or non-public and provide accessors if needed.(ÔÖÒ6
+w
+java:S1104"\Make blockCheeseBlock a static final constant or non-public and provide accessors if needed.(ÏäÕşÿÿÿÿ
+u
+java:S1104"_Make blockCompositeBrick a static final constant or non-public and provide accessors if needed.(³÷øï
+v
+java:S1104"[Make blockControlBox a static final constant or non-public and provide accessors if needed.(¿áÖâÿÿÿÿÿ
+p
+java:S1104"[Make blockFarmingBox a static final constant or non-public and provide accessors if needed.(“¸5
+u
+java:S1104"ZMake blockFluidMilk a static final constant or non-public and provide accessors if needed.(Å³®ùÿÿÿÿ
+o
+java:S1104"YMake blockLightBox a static final constant or non-public and provide accessors if needed.(…”ïÕ
+m
+java:S1104!"WMake blockMarker a static final constant or non-public and provide accessors if needed.(äş¾Á
+p
+java:S1104#"ZMake blockMiningBox a static final constant or non-public and provide accessors if needed.(¦ğ¯
+{
+java:S1104%"`Make blockPathConstructor a static final constant or non-public and provide accessors if needed.(öá¹õúÿÿÿÿ
+t
+java:S1104'"YMake blockWindmill a static final constant or non-public and provide accessors if needed.(¾ ±Şûÿÿÿÿ
+I
+java:S1444"4Make this "public static constructorBox" field final(ÔÖÒ6
+Q
+java:S1444"6Make this "public static blockCheeseBlock" field final(ÏäÕşÿÿÿÿ
+O
+java:S1444"9Make this "public static blockCompositeBrick" field final(³÷øï
+P
+java:S1444"5Make this "public static blockControlBox" field final(¿áÖâÿÿÿÿÿ
+J
+java:S1444"5Make this "public static blockFarmingBox" field final(“¸5
+O
+java:S1444"4Make this "public static blockFluidMilk" field final(Å³®ùÿÿÿÿ
+I
+java:S1444"3Make this "public static blockLightBox" field final(…”ïÕ
+G
+java:S1444!"1Make this "public static blockMarker" field final(äş¾Á
+J
+java:S1444#"4Make this "public static blockMiningBox" field final(¦ğ¯
+U
+java:S1444%":Make this "public static blockPathConstructor" field final(öá¹õúÿÿÿÿ
+N
+java:S1444'"3Make this "public static blockWindmill" field final(¾ ±Şûÿÿÿÿ

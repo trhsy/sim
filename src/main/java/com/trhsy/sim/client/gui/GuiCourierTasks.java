@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -56,12 +57,12 @@ public class GuiCourierTasks extends GuiScreen {
 
     private void initscreen() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, "Done"));
+        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, I18n.format("container.sim.sim_gui_BC_Done")));
         int idx;
         int t;
         int y;
         if (this.onPage.contentEquals("main")) {
-            this.buttonList.add(new GuiButton(1, 5, this.height - 20, 50, 20, "Add"));
+            this.buttonList.add(new GuiButton(1, 5, this.height - 20, 50, 20, I18n.format("container.sim.gui_btn_name_Add")));
             idx = 2;
             //int y = true;
 
@@ -73,7 +74,7 @@ public class GuiCourierTasks extends GuiScreen {
                         break;
                     }
 
-                    this.buttonList.add(new GuiButton(idx, this.width - 50, y, 50, 20, "Delete"));
+                    this.buttonList.add(new GuiButton(idx, this.width - 50, y, 50, 20, I18n.format("container.sim.gui_btn_name_Delete")));
                     this.tasks.put(idx, t);
                     ++idx;
                 }
@@ -99,7 +100,7 @@ public class GuiCourierTasks extends GuiScreen {
             }
 
             GuiButton b;
-            this.buttonList.add(b = new GuiButton(1, this.width - 160, this.height - 25, 150, 20, "Deliver back to depot"));
+            this.buttonList.add(b = new GuiButton(1, this.width - 160, this.height - 25, 150, 20, I18n.format("container.sim.gui_btn_name_Deliver_back")));
             b.enabled = false;
         }
 
@@ -114,7 +115,7 @@ public class GuiCourierTasks extends GuiScreen {
         }
 
         if (this.onPage.contentEquals("main")) {
-            this.drawCenteredString(this.fontRendererObj, "Courier tasks for " + this.theFolk.name, this.width / 2, 17, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Courier_tasks") + this.theFolk.name, this.width / 2, 17, 16777215);
             int idx = 2;
 
             for (int t = 0; t < ModSim.theCourierTasks.size(); ++t) {
@@ -129,7 +130,7 @@ public class GuiCourierTasks extends GuiScreen {
                         this.fontRendererObj.drawString(ct.pickup.name, 5, y - 5, 16777103);
                         this.fontRendererObj.drawString("->", this.width / 3, y - 5, 16776960);
                         if (ct.dropoff == null) {
-                            this.fontRendererObj.drawString("The Depot", this.width / 2, y - 5, 15794063);
+                            this.fontRendererObj.drawString(I18n.format("container.sim.gui_btn_name_The_Depot"), this.width / 2, y - 5, 15794063);
                         } else {
                             this.fontRendererObj.drawString(ct.dropoff.name, this.width / 2, y - 5, 15794063);
                         }
@@ -142,9 +143,9 @@ public class GuiCourierTasks extends GuiScreen {
             }
         } else if (this.onPage.contentEquals("add")) {
             if (this.newtask.pickup.name.contentEquals("")) {
-                this.drawCenteredString(this.fontRendererObj, "Choose a pick up point", this.width / 2, 17, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_a_pick"), this.width / 2, 17, 16777215);
             } else {
-                this.drawCenteredString(this.fontRendererObj, "Pick up from " + this.newtask.pickup.name + " and drop off at...", this.width / 2, 17, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Pick_up_from") + this.newtask.pickup.name + I18n.format("container.sim.gui_btn_name_and_drop_off")+"...", this.width / 2, 17, 16777215);
             }
         }
 

@@ -4,8 +4,8 @@ package com.trhsy.sim.client.render;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.EntityFolk;
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.entity.EntityFolk;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;

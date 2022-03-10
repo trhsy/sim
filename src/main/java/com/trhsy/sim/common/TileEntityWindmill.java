@@ -4,7 +4,7 @@ package com.trhsy.sim.common;/**
  * @apiNote
  */
 
-import com.trhsy.cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * @Date 2022/1/26 0026下午 6:10
  * ========================================
  **/
-public class TileEntityWindmill extends TileEntity implements IInventory, IEnergyHandler{
+public class TileEntityWindmill extends TileEntity implements IInventory, IEnergyHandler {
     public TileEntityWindmill() {
     }
     @Override

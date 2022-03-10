@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import org.lwjgl.input.Mouse;
@@ -28,7 +29,7 @@ import java.util.HashMap;
  * ========================================
  *
  * @ClassName GuiMarker
- * @Description todo
+ * @Description todo 标记
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:30
  * ========================================
@@ -59,9 +60,9 @@ public class GuiMarker extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Done"));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 100, "Copy structure/building"));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 160, "Set new Courier/Beaming point"));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 100, I18n.format("container.sim.sim_gui_Copy_structure")));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 160, I18n.format("container.sim.sim_gui_Set_new")));
 
         for(int x = 1; x <= 2; ++x) {
             ((GuiButton)this.buttonList.get(x)).enabled = false;
@@ -85,11 +86,11 @@ public class GuiMarker extends GuiScreen {
         }
 
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, "Sim-u-Markers", this.width / 2, 30, 16777215);
-        this.drawCenteredString(this.fontRendererObj, "Markers can be used to make a copy of a building or you can use them to", this.width / 2, 40, 10551295);
-        this.drawCenteredString(this.fontRendererObj, "mark out a mining or food-based farming area.", this.width / 2, 55, 10551295);
-        this.drawCenteredString(this.fontRendererObj, "A single marker can be used to designate a new lumberjack area and more!", this.width / 2, 70, 10551295);
-        this.drawCenteredString(this.fontRendererObj, "TIP: remove old markers after use, before marking a new area.", this.width / 2, 85, 10551295);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Markers"), this.width / 2, 30, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Markers1"), this.width / 2, 40, 10551295);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Markers2"), this.width / 2, 55, 10551295);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Markers3"), this.width / 2, 70, 10551295);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Markers4"), this.width / 2, 85, 10551295);
         this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 50, 16711680);
         if (this.theGuiTextField1 != null) {
             this.theGuiTextField1.drawTextBox();
@@ -104,14 +105,14 @@ public class GuiMarker extends GuiScreen {
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         } else {
-            if (guibutton.displayString.contentEquals("Copy structure/building")) {
+            if (guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_Copy_structure"))) {
                 new GuiMarker.ThreadFacsimile();
-            } else if (guibutton.displayString.contentEquals("Set new Courier/Beaming point")) {
+            } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_Set_new"))) {
                 String s = ((Marker)BlockMarker.markers.get(0)).toString();
                 String[] ss = s.split(",");
                 String name = this.theGuiTextField1.getText().trim();
                 if (name.length() == 0) {
-                    this.errorText = "Please type a name for this Courier/Beaming point";
+                    this.errorText =I18n.format("container.sim.Markers5");
                     this.theGuiTextField1.isFocused();
                     return;
                 }
@@ -119,7 +120,7 @@ public class GuiMarker extends GuiScreen {
                 V3 point = new V3(Double.parseDouble(ss[0]), Double.parseDouble(ss[1]), Double.parseDouble(ss[2]), this.thePlayer.dimension);
                 ArrayList<IInventory> chestInvs = Job.inventoriesFindClosest(point, 5);
                 if (chestInvs.size() == 0) {
-                    this.errorText = "Error: Place at least one chest near the marker.";
+                    this.errorText = I18n.format("container.sim.Markers6");
                     return;
                 }
 

@@ -4,13 +4,13 @@ name|Jesus Hogpen
 age|21
 gender|0
 skin|61
-levelfood|4
+levelfood|1
 levelfun|5
 levelbuilder|10.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-118,69,206,0
+location|-97,67,202,0
 pregnancy|0.0
 building|null
 terraformtype|null

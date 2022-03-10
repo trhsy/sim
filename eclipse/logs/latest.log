@@ -1,30 +1,35 @@
-[22:01:17] [main/INFO]: Setting user: Player809
-[22:01:18] [Client thread/INFO]: LWJGL Version: 2.9.1
-[22:01:25] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:sim
-[22:02:25] [Sound Library Loader/INFO]: Sound engine started
-[22:02:25] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[22:02:25] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[22:02:25] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:sim
-[22:02:26] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[22:02:26] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[22:02:27] [Sound Library Loader/INFO]: Sound engine started
-[22:05:15] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[22:05:15] [Server thread/INFO]: Generating keypair
-[22:05:15] [Server thread/INFO]: Preparing start region for level 0
-[22:05:16] [Server thread/INFO]: Changing view distance to 12, from 10
-[22:05:16] [Server thread/INFO]: Player809[local:E:020bdf07] logged in with entity id 96 at (-119.59123400371666, 68.0, 204.19131873105903)
-[22:05:16] [Server thread/INFO]: Player809 加入了游戏
-[22:05:18] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
-[22:05:21] [Server thread/INFO]: Player809 刚刚获得了 [打开物品栏] 成就！
-[22:05:21] [Client thread/INFO]: [CHAT] Player809 刚刚获得了 [打开物品栏] 成就！
-[22:06:05] [Server thread/INFO]: Saving and pausing game...
-[22:06:05] [Server thread/INFO]: Saving chunks for level 'world1'/Overworld
-[22:06:05] [Server thread/INFO]: Saving chunks for level 'world1'/Nether
-[22:06:05] [Server thread/INFO]: Saving chunks for level 'world1'/The End
-[22:06:06] [Server thread/INFO]: Stopping server
-[22:06:06] [Server thread/INFO]: Saving players
-[22:06:06] [Server thread/INFO]: Saving worlds
-[22:06:06] [Server thread/INFO]: Saving chunks for level 'world1'/Overworld
-[22:06:06] [Server thread/INFO]: Saving chunks for level 'world1'/Nether
-[22:06:06] [Server thread/INFO]: Saving chunks for level 'world1'/The End
-[22:06:07] [Client thread/INFO]: Stopping!
+[17:24:21] [main/INFO]: Setting user: Player170
+[17:24:23] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:24:30] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:24:31] [Sound Library Loader/INFO]: Sound engine started
+[17:24:31] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[17:24:31] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[17:24:31] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:24:32] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:24:32] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:24:33] [Sound Library Loader/INFO]: Sound engine started
+[17:25:11] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[17:25:11] [Server thread/INFO]: Generating keypair
+[17:25:11] [Server thread/INFO]: Preparing start region for level 0
+[17:25:12] [Server thread/INFO]: Changing view distance to 12, from 10
+[17:25:12] [Server thread/INFO]: Player170[local:E:a897fd08] logged in with entity id 193 at (-96.00411306796471, 67.0, 204.843326819945)
+[17:25:12] [Server thread/INFO]: Player170 加入了游戏
+[17:25:13] [Server thread/INFO]: Saving and pausing game...
+[17:25:13] [Server thread/INFO]: Saving chunks for level 'world1'/Overworld
+[17:25:13] [Server thread/INFO]: Saving chunks for level 'world1'/Nether
+[17:25:13] [Server thread/INFO]: Saving chunks for level 'world1'/The End
+[17:25:16] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
+[17:25:16] [Client thread/WARN]: Unable to play unknown soundEvent: sim:
+[17:25:24] [Server thread/INFO]: Player170 刚刚获得了 [打开物品栏] 成就！
+[17:25:24] [Client thread/INFO]: [CHAT] Player170 刚刚获得了 [打开物品栏] 成就！
+[17:31:39] [Client thread/INFO]: [CHAT] No rent collected today, you should hire a folk to build a residential house.
+[17:51:39] [Client thread/INFO]: [CHAT] No rent collected today, you should hire a folk to build a residential house.
+[17:59:25] [Client thread/INFO]: Stopping!
+[17:59:25] [Server thread/INFO]: Stopping server
+[17:59:25] [Server thread/INFO]: Saving players
+[17:59:25] [Server thread/INFO]: Saving worlds
+[17:59:25] [Server thread/INFO]: Saving chunks for level 'world1'/Overworld
+[17:59:25] [Server thread/INFO]: Saving chunks for level 'world1'/Nether
+[17:59:25] [Server thread/INFO]: Saving chunks for level 'world1'/The End
+[17:59:26] [Client Shutdown Thread/INFO]: Stopping server
+[17:59:26] [Client Shutdown Thread/INFO]: Saving players

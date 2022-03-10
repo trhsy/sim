@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName GuiEmployFolk
- * @Description todo
+ * @Description todo 雇佣员工
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:28
  * ========================================
@@ -90,8 +90,8 @@ public class GuiEmployFolk extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 200, this.height - 30, "Cancel"));
-        this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 30, "OK"));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 200, this.height - 30, I18n.format("container.sim.sim_gui_player_to_Cancel")));
+        this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 30, I18n.format("container.sim.gui_btn_name_OK")));
         ArrayList folks = FolkData.getFolkUnemployed(false);
 
         try {
@@ -143,7 +143,7 @@ public class GuiEmployFolk extends GuiScreen {
                 Mouse.setGrabbed(false);
             }
 
-            this.drawCenteredString(this.fontRendererObj, "Choose who you'd like to Employ as a " + this.vocation.toString(), this.width / 2, 17, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_who_you") + this.vocation.toString(), this.width / 2, 17, 16777215);
         } catch (Exception var5) {
             var5.printStackTrace();
         }
@@ -165,14 +165,14 @@ public class GuiEmployFolk extends GuiScreen {
 
                 if (guibutton.id == 1000) {
                     if (ModSim.states.credits <= 0.0F && ModSim.gameMode != GameMode.CREATIVE) {
-                        ModSim.sendChat("You need some Sim-u-Credits to employ folks.");
+                        ModSim.sendChat(I18n.format("container.sim.gui_sendChat_you_need"));
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                         return;
                     }
 
                     if (ModSim.gameMode == GameMode.CREATIVE && this.vocation == Vocation.MERCHANT) {
-                        ModSim.sendChat("Builder's merchant cannot be hired in creative mode");
+                        ModSim.sendChat(I18n.format("container.sim.gui_sendChat_Builder_merchant"));
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                         return;

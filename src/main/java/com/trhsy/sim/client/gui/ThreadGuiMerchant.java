@@ -10,7 +10,7 @@ import com.trhsy.sim.common.ModSim;
  * ========================================
  *
  * @ClassName ThreadGuiMerchant
- * @Description todo
+ * @Description todo 商人
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:34
  * ========================================

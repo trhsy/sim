@@ -4,13 +4,9 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.EntityConBox;
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import net.minecraft.block.Block;

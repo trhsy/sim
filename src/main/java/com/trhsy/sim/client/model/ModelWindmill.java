@@ -30,7 +30,7 @@ public class ModelWindmill extends ModelBase {
     ModelRenderer WindmillTop;
     ModelRenderer WindmillMid;
     ModelRenderer WindmillBase;
-    public String renderTexture = "/mods/sim_u/textures/models/entityWindmill.png";
+    public String renderTexture = "/mods/sim/textures/models/entityWindmill.png";
 
     public ModelWindmill() {
         this.textureWidth = 512;
