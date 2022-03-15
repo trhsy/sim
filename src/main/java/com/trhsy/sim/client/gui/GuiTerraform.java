@@ -11,6 +11,7 @@ import com.trhsy.sim.common.jobs.TerraformerType;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
 /**
@@ -40,16 +41,16 @@ public class GuiTerraform extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, "Cancel Request"));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 200, 30, 200, 20, "'Sealand' (water to land)"));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 200, 50, 200, 20, "'Nature' (plants saplings)"));
-        this.buttonList.add(new GuiButton(3, this.width / 2 - 200, 70, 200, 20, "'Lawnmower' (cuts all long grass)"));
-        this.buttonList.add(new GuiButton(4, this.width / 2 - 200, 90, 200, 20, "'Flattenizer' (flatten area)"));
-        this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 110, 200, 20, "'Value Pack' (single layer of dirt)"));
-        this.buttonList.add(new GuiButton(6, this.width / 2, 30, 200, 20, "'Glacial' (Freeze water, add snow)"));
-        this.buttonList.add(new GuiButton(7, this.width / 2, 50, 200, 20, "'Moisturizer' (Adds water to lava)"));
-        this.buttonList.add(new GuiButton(8, this.width / 2, 70, 200, 20, "'Thermalizer' (Collects lava)"));
-        this.buttonList.add(new GuiButton(9, this.width / 2, 90, 200, 20, "'De-icer' (Removes snow)"));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.Terraform1")));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 200, 30, 200, 20, I18n.format("container.sim.Terraform2")));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 200, 50, 200, 20, I18n.format("container.sim.Terraform3")));
+        this.buttonList.add(new GuiButton(3, this.width / 2 - 200, 70, 200, 20, I18n.format("container.sim.Terraform4")));
+        this.buttonList.add(new GuiButton(4, this.width / 2 - 200, 90, 200, 20, I18n.format("container.sim.Terraform5")));
+        this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 110, 200, 20, I18n.format("container.sim.Terraform6")));
+        this.buttonList.add(new GuiButton(6, this.width / 2, 30, 200, 20, I18n.format("container.sim.Terraform7")));
+        this.buttonList.add(new GuiButton(7, this.width / 2, 50, 200, 20, I18n.format("container.sim.Terraform8")));
+        this.buttonList.add(new GuiButton(8, this.width / 2, 70, 200, 20, I18n.format("container.sim.Terraform9")));
+        this.buttonList.add(new GuiButton(9, this.width / 2, 90, 200, 20, I18n.format("container.sim.Terraform10")));
         this.tfRadius = new GuiTextField(this.fontRendererObj, this.width / 2 - 50, this.height - 55, 100, 20);
         this.tfRadius.setMaxStringLength(5);
         this.tfRadius.setText("30");
@@ -63,8 +64,8 @@ public class GuiTerraform extends GuiScreen {
         }
 
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, "Terraforming - Please choose a Terraforming theme", this.width / 2, 17, 16777215);
-        this.drawCenteredString(this.fontRendererObj, "Radius (1 to 60)", this.width / 2, this.height - 70, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform11"), this.width / 2, 17, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform12"), this.width / 2, this.height - 70, 16777215);
         this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 80, 16744576);
         this.tfRadius.drawTextBox();
         super.drawScreen(i, j, f);
@@ -80,7 +81,7 @@ public class GuiTerraform extends GuiScreen {
         try {
             JobTerraformer var2 = (JobTerraformer)this.theFolk.theirJob;
         } catch (Exception var4) {
-            ModSim.sendChat("Error: You must hire a terraformer, not a builder");
+            ModSim.sendChat(I18n.format("container.sim.Terraform13"));
             return;
         }
 
@@ -88,7 +89,7 @@ public class GuiTerraform extends GuiScreen {
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         } else if (Integer.parseInt(this.tfRadius.getText().trim()) > 60) {
-            this.errorText = "ERROR: the radius must be 60 or less";
+            this.errorText = I18n.format("container.sim.Terraform14");
         } else if (guibutton.id == 1) {
             this.theFolk.terraformerType = TerraformerType.WATERTODIRT;
             this.theFolk.terraformerRadius = Integer.parseInt(this.tfRadius.getText().trim());

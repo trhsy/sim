@@ -2,6 +2,8 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.block.BlockControlBox;
+import com.trhsy.sim.common.block.BlockLightBox;
 import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLadder;
@@ -167,11 +169,16 @@ public class Building implements Serializable {
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine = br.readLine().toString().toLowerCase().trim();
+            //建筑尺寸 例如 5x5x3
             String[] d = strLine.split("x");
             int[] di = new int[]{Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2])};
+
             this.structure = new String[di[0] * di[1] * di[2]];
+            //长
             this.ltrCount = di[0];
+            //宽
             this.ftbCount = di[1];
+            //高
             this.layerCount = di[2];
             strLine = br.readLine().toString().trim();
             HashMap thekey = new HashMap();
@@ -179,9 +186,12 @@ public class Building implements Serializable {
 
             int acount;
             for(acount = 0; acount < d.length; ++acount) {
+                //A=0:0;C=101:0;D=26:0;E=26:8;F=47:0;G=50:5;AU=Razor9119;
                 String[] k = d[acount].split("=");
+                //         A     0:0
                 thekey.put(k[0], k[1]);
                 if (k[0].toUpperCase().contentEquals("AU")) {
+                    //Razor 9119
                     this.author = k[1].trim();
                 }
             }
@@ -198,16 +208,20 @@ public class Building implements Serializable {
                         try {
                             String ch = strLine.substring(bcount, bcount + 1);
                             char cha = ch.charAt(0);
+                            //结构
                             if (ch.contentEquals("!")) {
                                 this.structure[acount] = "999:999";
                             } else if (ch.contentEquals("$")) {
-                                this.structure[acount] = "" + Block.getIdFromBlock(ModSim.controlBox) + ":0";
+                                //控制箱
+                                System.out.println("控制箱");
+                                this.structure[acount] = "" + Block.getIdFromBlock(new BlockControlBox()) + ":0";
                             } else if (ch.contentEquals("*")) {
-                                this.structure[acount] = Block.getIdFromBlock(ModSim.lightBox) + ":0";
+                                //灯箱
+                                this.structure[acount] = Block.getIdFromBlock(new BlockLightBox()) + ":0";
                             } else if (ch.contentEquals("+")) {
-                                this.structure[acount] = Block.getIdFromBlock(ModSim.lightBox) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(new BlockLightBox()) + ":3";
                             } else if (ch.contentEquals("-")) {
-                                this.structure[acount] = Block.getIdFromBlock(ModSim.lightBox) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(new BlockLightBox()) + ":5";
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[acount] = "999:" + cha;
                             } else {

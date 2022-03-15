@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -72,13 +73,13 @@ public class GuiMerchant extends GuiScreen {
 
         this.drawDefaultBackground();
         if (this.currentPage == 0) {
-            this.drawCenteredString(this.fontRendererObj, "Hello, how can I help you today?", this.width / 2, 5, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Merchant0"), this.width / 2, 5, 16777215);
         } else if (this.currentPage == 1) {
-            this.drawCenteredString(this.fontRendererObj, "I've got some bargains for you...", this.width / 2, 5, 16777215);
-            this.drawString(this.fontRendererObj, "Block pack", 2, 25, 16777120);
-            this.drawString(this.fontRendererObj, "Price per pack", 100, 25, 16777120);
-            this.drawString(this.fontRendererObj, "Quantity (packs of 64)", 200, 25, 16777120);
-            this.drawString(this.fontRendererObj, "Sub-total", 350, 25, 16777120);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Merchant1"), this.width / 2, 5, 16777215);
+            this.drawString(this.fontRendererObj, I18n.format("container.sim.Merchant2"), 2, 25, 16777120);
+            this.drawString(this.fontRendererObj, I18n.format("container.sim.Merchant3"), 100, 25, 16777120);
+            this.drawString(this.fontRendererObj, I18n.format("container.sim.Merchant4"), 200, 25, 16777120);
+            this.drawString(this.fontRendererObj, I18n.format("container.sim.Merchant5"), 350, 25, 16777120);
             String blockName = "";
             String price = "";
             Float fprice = 0.0F;
@@ -134,10 +135,10 @@ public class GuiMerchant extends GuiScreen {
 
     private void showPage() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 2, 2, 50, 20, "Goodbye!"));
+        this.buttonList.add(new GuiButton(0, 2, 2, 50, 20, I18n.format("container.sim.Merchant6")));
         if (this.currentPage == 0) {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 70, "I want to buy building materials"));
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 90, "I want to sell building materials"));
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 70, I18n.format("container.sim.Merchant7")));
+            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 90, I18n.format("container.sim.Merchant8")));
         } else {
             int b;
             if (this.currentPage == 1) {
@@ -146,14 +147,14 @@ public class GuiMerchant extends GuiScreen {
                     this.buttonList.add(new GuiButton(200 + b, 270, 35 + b * 20, 20, 20, ">"));
                 }
 
-                this.buttonList.add(new GuiButton(2, this.width - 100, this.height - 20, 100, 20, "* Buy *"));
+                this.buttonList.add(new GuiButton(2, this.width - 100, this.height - 20, 100, 20, I18n.format("container.sim.Merchant9")));
             } else if (this.currentPage == 2) {
                 for (b = 0; b < 9; ++b) {
                     this.buttonList.add(new GuiButton(100 + b, 250, 35 + b * 20, 20, 20, "<"));
                     this.buttonList.add(new GuiButton(200 + b, 270, 35 + b * 20, 20, 20, ">"));
                 }
 
-                this.buttonList.add(new GuiButton(2, this.width - 100, this.height - 20, 100, 20, "* Sell *"));
+                this.buttonList.add(new GuiButton(2, this.width - 100, this.height - 20, 100, 20, I18n.format("container.sim.Merchant10")));
             }
         }
 
@@ -191,7 +192,7 @@ public class GuiMerchant extends GuiScreen {
                             quantities.set(guibutton.id - 200, q);
                         } else if (guibutton.id == 2) {
                             if (ModSim.states.credits < this.totalCost) {
-                                ModSim.sendChat("Merchant: 'Sorry, your card has been declined, you could try buying less.'");
+                                ModSim.sendChat(I18n.format("container.sim.Merchant11"));
                                 this.mc.currentScreen = null;
                                 this.mc.setIngameFocus();
                             } else {
@@ -280,7 +281,7 @@ public class GuiMerchant extends GuiScreen {
             });
             t.start();
         } else {
-            ModSim.sendChat("Merchant: Please place a chest down here, and I will place your items in there.");
+            ModSim.sendChat(I18n.format("container.sim.Merchant12"));
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         }
@@ -295,7 +296,7 @@ public class GuiMerchant extends GuiScreen {
         //int stackCount = false;
         ArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
         if (chests == null | chests.size() == 0) {
-            ModSim.sendChat("Merchant: Please place a chest down here, and place stacks of 64 blocks in there.");
+            ModSim.sendChat(I18n.format("container.sim.Merchant13"));
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         } else {
@@ -316,10 +317,10 @@ public class GuiMerchant extends GuiScreen {
             }
 
             if (total == 0.0F) {
-                ModSim.sendChat("Merchant: There were no valid stacks I want to buy from you in the chest?!");
+                ModSim.sendChat(I18n.format("container.sim.Merchant14"));
             } else {
                 this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
-                ModSim.sendChat("Sold all valid stacks for a total of " + ModSim.displayMoney(total));
+                ModSim.sendChat(I18n.format("container.sim.Merchant15") + ModSim.displayMoney(total));
             }
 
             this.mc.currentScreen = null;

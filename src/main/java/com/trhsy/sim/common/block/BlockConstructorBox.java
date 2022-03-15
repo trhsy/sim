@@ -38,14 +38,16 @@ public class BlockConstructorBox extends Block {
     public BlockConstructorBox() {
         super(Material.wood);
         this.setUnlocalizedName("constructorBox");
+        this.setTextureName(ModSim.MODID + ":" + "constructor_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
+
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":blockConstruction");
+        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":constructor_box");
     }
 
     @Override

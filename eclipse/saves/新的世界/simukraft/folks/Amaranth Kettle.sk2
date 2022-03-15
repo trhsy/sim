@@ -1,0 +1,17 @@
+employedat|null
+vocation|null
+name|Amaranth Kettle
+age|18
+gender|0
+skin|17
+levelfood|10
+levelfun|5
+levelbuilder|1.0
+levelminer|1.0
+levelsoldier|1.0
+stayput|false
+location|252,5,-1496,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

@@ -470,7 +470,7 @@ public class GuiControlBox extends GuiScreen {
                     int bindex;
                     String folkname;
                     if (!guibutton.displayString.contains(I18n.format("container.sim.gui_btn_name_Fire")) && !guibutton.displayString.contains(I18n.format("container.sim.gui_btn_name_Dismiss"))) {
-                        if (guibutton.displayString.contentEquals("Fix House")) {
+                        if (guibutton.displayString.contentEquals(I18n.format("container.sim.Fix_House"))) {
                             Building b;
                             ModSim.theBuildings.add(b = new Building("Repaired House", "residential", this.location, this.location, true));
                             b.buildingComplete = true;
@@ -479,7 +479,7 @@ public class GuiControlBox extends GuiScreen {
                             this.theBuilding = b;
                             Building.saveAllBuildings();
                         } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Set_Lumber_area"))) {
-                            this.theBuilding.lumbermillMarker = ((Marker)BlockMarker.markers.get(0)).toV3();
+                            this.theBuilding.lumbermillMarker = ((Marker) BlockMarker.markers.get(0)).toV3();
                             guibutton.enabled = false;
                         } else if (guibutton.id == 21) {
                             GuiScreen gui = new GuiShowEmployees();

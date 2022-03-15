@@ -129,13 +129,13 @@ public class GuiMarker extends GuiScreen {
                 for (int p = 0; p < ModSim.theCourierPoints.size(); ++p) {
                     V3 epoint = (V3) ModSim.theCourierPoints.get(p);
                     if (epoint.name.contentEquals(name)) {
-                        this.errorText = "Error: The name must be unique, '" + name + "' is already used.";
+                        this.errorText = I18n.format("container.sim.Markers7") + name + I18n.format("container.sim.Markers8");
                         return;
                     }
                 }
 
                 ModSim.theCourierPoints.add(point);
-                this.errorText = "Courier/Beaming point '" + name + "' has been added.";
+                this.errorText = I18n.format("container.sim.Markers9") + name + I18n.format("container.sim.Markers10");
             }
 
         }
@@ -168,6 +168,7 @@ public class GuiMarker extends GuiScreen {
             this.start();
         }
 
+        @Override
         public void run() {
             V3 cxyz = GuiMarker.this.location;
             V3 Lxyz = ((Marker) BlockMarker.markers.get(1)).toV3();
@@ -210,8 +211,8 @@ public class GuiMarker extends GuiScreen {
                     }
                 } else {
                     if (cx != ex) {
-                        GuiMarker.this.errorText = "Please stand facing the primary marker with the rear marker in the distance.";
-                        ModSim.sendChat("Could not copy building, Technical info:cx=" + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
+                        GuiMarker.this.errorText = I18n.format("container.sim.Markers11");
+                        ModSim.sendChat(I18n.format("container.sim.Markers12") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
                         return;
                     }
 
@@ -293,13 +294,13 @@ public class GuiMarker extends GuiScreen {
                     }
 
                     if (layerLines.size() == 0) {
-                        GuiMarker.this.errorText = "Error, could not capture all blocks, try standing closer to marker and try again";
+                        GuiMarker.this.errorText = I18n.format("container.sim.Markers13");
                         return;
                     }
 
                     File check = new File(ModSim.getSimukraftFolder() + "/buildings/");
                     if (!check.exists()) {
-                        ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/  folder is missing, The mod is not correctly installed, please copy the simukraft folder AND the zip file.");
+                        ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Markers14"));
                         return;
                     }
 
@@ -317,7 +318,7 @@ public class GuiMarker extends GuiScreen {
 
                     out.close();
                     Thread.sleep(500L);
-                    GuiMarker.this.errorText = "Building copied and stored as 'My Build" + f + "' in Other buildings.";
+                    GuiMarker.this.errorText = I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16");
                     GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, ModSim.MODID + ":computer", 1.0F, 1.0F);
                     Building.initialiseAllBuildings();
                 } catch (Exception var33) {
@@ -325,7 +326,7 @@ public class GuiMarker extends GuiScreen {
                 }
 
             } else {
-                GuiMarker.this.errorText = "ERROR: Markers not placed correctly, try again.";
+                GuiMarker.this.errorText = I18n.format("container.sim.Markers17");
             }
         }
     }

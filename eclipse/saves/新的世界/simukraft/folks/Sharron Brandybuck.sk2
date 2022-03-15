@@ -1,0 +1,17 @@
+employedat|null
+vocation|null
+name|Sharron Brandybuck
+age|18
+gender|1
+skin|3
+levelfood|6
+levelfun|5
+levelbuilder|100.0
+levelminer|1.0
+levelsoldier|1.0
+stayput|false
+location|250,4,-1488,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

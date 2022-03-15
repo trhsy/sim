@@ -40,6 +40,7 @@ public class BlockFarmingBox extends Block {
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("farmingBox");
+        this.setTextureName(ModSim.MODID + ":" + "farming_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -47,7 +48,7 @@ public class BlockFarmingBox extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":blockFarming");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":farming_box");
     }
 
     @Override

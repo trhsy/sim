@@ -58,13 +58,13 @@ public class GuiPathBox extends GuiScreen {
             if (this.thePathBox.marker1XYZ != null) {
                 if (this.page == 0) {
                     if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Fire " + ((FolkData)this.theWorkers.get(0)).name));
-                        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 60, "Choose path type"));
+                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Mining1") + ((FolkData) this.theWorkers.get(0)).name));
+                        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 60, I18n.format("container.sim.PathBox1")));
                     } else {
-                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Hire Path Builder"));
+                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.PathBox2")));
                     }
                 } else if (this.page == 1) {
-                    this.buttonList.add(new GuiButton(1, 10, 20, "Wooden Bridge"));
+                    this.buttonList.add(new GuiButton(1, 10, 20, I18n.format("container.sim.PathBox3")));
                 }
 
             }
@@ -80,14 +80,14 @@ public class GuiPathBox extends GuiScreen {
             }
 
             this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, "Path Constructor", this.width / 2, 17, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.PathBox4"), this.width / 2, 17, 16777215);
 
             try {
                 if (this.thePathBox.marker1XYZ == null) {
-                    this.drawCenteredString(this.fontRendererObj, "Error: No marker placed - place a marker down first", this.width / 2, 27, 16711680);
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.PathBox5"), this.width / 2, 27, 16711680);
                 }
             } catch (Exception var5) {
-                this.drawCenteredString(this.fontRendererObj, "Error: No marker placed - place a marker down first", this.width / 2, 27, 16711680);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.PathBox6"), this.width / 2, 27, 16711680);
             }
 
             super.drawScreen(i, j, f);
@@ -104,24 +104,24 @@ public class GuiPathBox extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
             } else {
-                if (guibutton.displayString.contentEquals("Hire Path Builder")) {
+                if (guibutton.displayString.contentEquals(I18n.format("container.sim.PathBox7"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.thePathBox, Vocation.PATHBUILDER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith("Fire ")) {
-                    for(int i = 0; i < this.theWorkers.size(); ++i) {
-                        FolkData folk = (FolkData)this.theWorkers.get(i);
+                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Mining1"))) {
+                    for (int i = 0; i < this.theWorkers.size(); ++i) {
+                        FolkData folk = (FolkData) this.theWorkers.get(i);
                         folk.selfFire();
                     }
 
                     guibutton.enabled = false;
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
-                } else if (guibutton.displayString.contentEquals("Choose path type")) {
+                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.PathBox8"))) {
                     this.page = 1;
                     this.initGui();
                 } else if (this.page == 1) {
                     this.thePathBox.pathType = guibutton.displayString;
-                    ModSim.sendChat("Path constructor set to " + guibutton.displayString);
+                    ModSim.sendChat(I18n.format("container.sim.PathBox9") + guibutton.displayString);
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
                 }
