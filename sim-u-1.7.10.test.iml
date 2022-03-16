@@ -33,7 +33,7 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="file://D:/maven/.grable/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.4.1614-1.7.10/start" />
+          <root url="file://$MODULE_DIR$/../../../maven/.grable/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.4.1614-1.7.10/start" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.loader;
 
+import com.trhsy.sim.common.TileEntityWindmill;
 import com.trhsy.sim.common.block.*;
 import com.trhsy.sim.common.fluid.FluidMilk;
 import com.trhsy.sim.common.item.ItemBlockWindmill;
@@ -64,7 +65,7 @@ public class BlockLoader {
         register(blockPathConstructor, "path_constructor");
         register(blockMarker, "marker_bar_block");
         register(blockWindmill, "block_windmill");
-
+        GameRegistry.registerTileEntity(TileEntityWindmill.class, "tileentitywindmill");
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 1), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 1)});
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 2), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 14)});
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 3), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 11)});

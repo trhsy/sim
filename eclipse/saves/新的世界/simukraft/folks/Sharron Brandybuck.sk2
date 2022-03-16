@@ -1,17 +1,17 @@
-employedat|249,4,-1491,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|Sharron Brandybuck
 age|19
 gender|1
 skin|3
-levelfood|10
+levelfood|9
 levelfun|5
 levelbuilder|100.0
 levelminer|1.0
-levelsoldier|1.0
+levelsoldier|100.0
 stayput|false
-location|248,4,-1495,0
+location|249,4,-1497,0
 pregnancy|0.0
-building|1ตฅิช.txt|residential||-x
+building|null
 terraformtype|null
 terraformradius|1

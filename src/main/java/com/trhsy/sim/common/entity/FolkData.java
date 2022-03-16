@@ -793,7 +793,7 @@ public class FolkData implements Serializable {
 
     private void updateStatusLines() {
         if (this.vocation == null) {
-            this.status1 = "Unemployed";
+            this.status1 = I18n.format("container.sim.folkData1");
         } else {
             try {
                 this.status1 = this.vocation.toString();
@@ -803,35 +803,35 @@ public class FolkData implements Serializable {
         }
 
         if (this.getHome() != null) {
-            this.status2 = "Home owner";
+            this.status2 = I18n.format("container.sim.folkData2");
         } else {
-            this.status2 = "Homeless";
+            this.status2 = I18n.format("container.sim.folkData3");
         }
 
         if (!Relationship.isFolkLivingWithSomeone(this)) {
-            this.status3 = "Single";
+            this.status3 = I18n.format("container.sim.folkData4");
         } else {
-            this.status3 = "Living with someone";
+            this.status3 = I18n.format("container.sim.folkData5");
         }
 
         if (this.levelFood == 10) {
-            this.status4 = "Well fed";
+            this.status4 =I18n.format("container.sim.folkData6");
         } else if (this.levelFood > 5) {
-            this.status4 = "A little hungry";
+            this.status4 = I18n.format("container.sim.folkData7");
         } else if (this.levelFood > 1) {
-            this.status4 = "Quite hungry";
+            this.status4 = I18n.format("container.sim.folkData8");
         } else {
-            this.status4 = "VERY hungry!";
+            this.status4 = I18n.format("container.sim.folkData9");
         }
 
         if (this.levelFun == 10) {
-            this.status5 = "Having a blast!";
+            this.status5 = I18n.format("container.sim.folkData10");
         } else if (this.levelFun > 5) {
-            this.status5 = "Enjoying themself";
+            this.status5 = I18n.format("container.sim.folkData11");
         } else if (this.levelFun > 1) {
-            this.status5 = "Bored";
+            this.status5 = I18n.format("container.sim.folkData12");
         } else {
-            this.status5 = "Stressed";
+            this.status5 = I18n.format("container.sim.folkData13");
         }
 
     }

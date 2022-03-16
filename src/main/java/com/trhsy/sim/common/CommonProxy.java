@@ -44,6 +44,8 @@ public class CommonProxy {
         new ConfigLoader(event);
         //加载物品栏
         new CreativeTabsLoader(event);
+        //加载流体
+        //new FluidLoader(event);
         //加载所以物品
         new ItemLoader(event);
         //加载所以方块

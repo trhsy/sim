@@ -4,6 +4,8 @@ package com.trhsy.sim.common.fluid;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSim;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -17,8 +19,12 @@ import net.minecraftforge.fluids.FluidRegistry;
  * ========================================
  **/
 public class FluidMilk extends Fluid {
+    public static final ResourceLocation still = new ResourceLocation(ModSim.MODID + ":" + "milk_still");
+    public static final ResourceLocation flowing = new ResourceLocation(ModSim.MODID + ":" + "milk_flow");
+
     public FluidMilk() {
         super("fluidMilk");
+        this.setUnlocalizedName("fluidMilk");
         this.setDensity(10);
         this.setViscosity(1000);
         FluidRegistry.registerFluid(this);

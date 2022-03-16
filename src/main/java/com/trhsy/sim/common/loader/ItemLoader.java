@@ -62,16 +62,16 @@ public class ItemLoader {
 
     public ItemLoader(FMLPreInitializationEvent event) {
         //调用注册物品方法（函数）
-        register(itemGranulesCopper, "sim_granules_copper");
-        register(itemGranulesGold, "sim_granules_gold");
-        register(itemGranulesIron, "sim_granules_iron");
-        register(itemGranulesTin, "sim_granules_tin");
-        register(itemWindmillBase, "sim_windmill_base");
-        register(itemWindmillSails, "sim_windmill_sails");
-        register(itemWindmillVane, "sim_windmill_vane");
-        register(itemFoods, "sim_foods");
-        //register(itemBlockWindmill, "sim_block_windmill");
-        //register(itemBlockLightBox, "sim_block_light_box");
+        register(itemGranulesCopper, "granules_copper");
+        register(itemGranulesGold, "granules_gold");
+        register(itemGranulesIron, "granules_iron");
+        register(itemGranulesTin, "granules_tin");
+        register(itemWindmillBase, "windmill_base");
+        register(itemWindmillSails, "windmill_sails");
+        register(itemWindmillVane, "windmill_vane");
+        register(itemFoods, "foods");
+        //register(itemBlockWindmill, "block_windmill");
+        //register(itemBlockLightBox, "light_box");
 
     }
 

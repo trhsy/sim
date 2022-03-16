@@ -214,14 +214,14 @@ public class Building implements Serializable {
                             } else if (ch.contentEquals("$")) {
                                 //控制箱
                                 System.out.println("控制箱");
-                                this.structure[acount] = "" + Block.getIdFromBlock(new BlockControlBox()) + ":0";
+                                this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
                             } else if (ch.contentEquals("*")) {
                                 //灯箱
-                                this.structure[acount] = Block.getIdFromBlock(new BlockLightBox()) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
                             } else if (ch.contentEquals("+")) {
-                                this.structure[acount] = Block.getIdFromBlock(new BlockLightBox()) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
                             } else if (ch.contentEquals("-")) {
-                                this.structure[acount] = Block.getIdFromBlock(new BlockLightBox()) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[acount] = "999:" + cha;
                             } else {

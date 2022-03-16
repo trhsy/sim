@@ -264,17 +264,17 @@ public class ModSim {
             ModSim.log.warn("SimCity error - Mod未正确安装, ./minecraft/mods/Simukraft/ 文件夹丢失了 - 从提供的zip文件复制此文件");
         }
 
-        GameRegistry.registerTileEntity(TileEntityWindmill.class, "tileentitywindmill");
 
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.white.name", "Sim-U-Light (white)");
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.red.name", "Sim-U-Light (red)");
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.orange.name", "Sim-U-Light (orange)");
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.yellow.name", "Sim-U-Light (yellow)");
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.green.name", "Sim-U-Light (green)");
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.blue.name", "Sim-U-Light (blue)");
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.purple.name", "Sim-U-Light (purple)");
-        //LanguageRegistry.instance().addStringLocalization("tile.blockSUKLight.rainbow.name", "Sim-U-Light (rainbow)");
 
+        /*LanguageRegistry.instance().addStringLocalization("tile.lightBox.white.name", I18n.format("tile.lightBox.white.name"));
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.red.name", I18n.format("tile.lightBox.red..name"));
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.orange.name", I18n.format("tile.lightBox.orange.name"));
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.yellow.name", I18n.format("tile.lightBox.yellow.name"));
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.green.name", I18n.format("tile.lightBox.green.name"));
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.blue.name", I18n.format("Stile.lightBox.blue.name"));
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.purple.name", I18n.format("Stile.lightBox.purple.name"));
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.rainbow.name", I18n.format("tile.lightBox.rainbow.name"));
+*/
         EntityRegistry.registerGlobalEntityID(EntityAlignBeam.class, "AlignBeam", EntityRegistry.findGlobalUniqueEntityId());
         EntityRegistry.registerModEntity(EntityAlignBeam.class, "AlignBeam", 0, this, 250, 10, false);
         EntityRegistry.registerGlobalEntityID(EntityFolk.class, "Folk", EntityRegistry.findGlobalUniqueEntityId());

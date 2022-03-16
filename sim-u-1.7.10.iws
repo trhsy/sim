@@ -4,6 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="739ba155-7832-4807-9829-bb5bc7d1bab8" name="变更" comment="2022-03-16凌晨修补">
+      <change beforePath="$PROJECT_DIR$/.shelf/_2022_3_15_19_14____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.shelf/_2022_3_15_19_14____.xml" afterDir="false" />
     <list default="true" id="739ba155-7832-4807-9829-bb5bc7d1bab8" name="变更" comment="修复加载配置">
       <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-16-3.log.gz" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-16-4.log.gz" afterDir="false" />
@@ -820,6 +822,9 @@
       <workItem from="1646892648480" duration="726000" />
       <workItem from="1646897098375" duration="7114000" />
       <workItem from="1647407647056" duration="17048000" />
+      <workItem from="1645236205837" duration="11877000" />
+      <workItem from="1645351178198" duration="6886000" />
+      <workItem from="1647348160544" duration="13091000" />
     </task>
     <task id="LOCAL-00001" summary="修复加载配置">
       <created>1644368634708</created>
@@ -829,6 +834,28 @@
       <updated>1644368634708</updated>
     </task>
     <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="修复加载配置">
+      <created>1645246778386</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1645246778386</updated>
+    </task>
+    <task id="LOCAL-00003" summary="修复加载配置">
+      <created>1645362930368</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1645362930368</updated>
+    </task>
+    <task id="LOCAL-00004" summary="2022-03-16凌晨修补">
+      <created>1647361220127</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1647361220127</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -892,7 +919,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="修复加载配置" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复加载配置" />
+    <MESSAGE value="2022-03-16凌晨修补" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-03-16凌晨修补" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
