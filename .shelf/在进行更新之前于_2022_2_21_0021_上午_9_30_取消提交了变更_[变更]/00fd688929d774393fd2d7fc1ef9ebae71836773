@@ -1,0 +1,23 @@
+
+E
+java:S3740\"/Provide the parametrized type for this generic.(Ñ¥âä
+O
+java:S5993"9Change the visibility of this constructor to "protected".(°¥µ©
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+D
+java:S1172".Remove this unused method parameter "context".(óœŒÊ
+Z
+java:S1172l"?Remove these unused method parameters "context", "x", "y", "z".(Åö€ºûÿÿÿÿ
+P
+java:S3400†"9Remove this method and declare a constant for this value.(È¸å
+‚
+java:S1319O"gThe type of "stacks" should be an interface such as "List" rather than the implementation "LinkedList".(„á«ùÿÿÿÿ
+‚
+java:S1319U"mThe type of "requirements" should be an interface such as "List" rather than the implementation "LinkedList".(¾˜ø
+†
+java:S1319X"kThe type of "stacksUsed" should be an interface such as "List" rather than the implementation "LinkedList".(·ö”Òúÿÿÿÿ
+‡
+java:S1319d"qThe return type of this method should be an interface such as "List" rather than the implementation "LinkedList".(î›Î»
+„
+java:S1319d"nThe type of "stackConsumed" should be an interface such as "List" rather than the implementation "LinkedList".(î›Î»

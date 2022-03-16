@@ -1,0 +1,37 @@
+
+J
+java:S3740m"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
+K
+java:S3740»"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
+H
+java:S1135"2Complete the task associated to this TODO comment.(÷ò±¸
+>	java:S108/")Either remove or fill this block of code.(²¹Ô´
+h
+java:S3776O"RRefactor this method to reduce its Cognitive Complexity from 91 to the 15 allowed.(åş‡ú
+L
+java:S1854P"6Remove this useless assignment to local variable "mc".(è™áâ
+=
+java:S1481P"'Remove this unused "mc" local variable.(è™áâ
+V	java:S899“";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899¤";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899«";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+n
+java:S3776¸"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(üÄ‹Æşÿÿÿÿ
+?	java:S108Ò")Either remove or fill this block of code.(Æƒæí
+k	java:S117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ–Ë¡ıÿÿÿÿ
+k	java:S117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+k	java:S117W"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
+j
+java:S1104"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
+q
+java:S1104"VMake marker1XYZ a static final constant or non-public and provide accessors if needed.(¥¦×‚üÿÿÿÿ
+l
+java:S1104"VMake marker2XYZ a static final constant or non-public and provide accessors if needed.(ïÃ˜‘
+l
+java:S1104"VMake marker3XYZ a static final constant or non-public and provide accessors if needed.(½ûñ
+o
+java:S1104"TMake discards a static final constant or non-public and provide accessors if needed.(–µÿÿÿÿÿ
+o
+java:S1104"YMake addGlassCover a static final constant or non-public and provide accessors if needed.(ŠÎ®ò
+k
+java:S1104"PMake size a static final constant or non-public and provide accessors if needed.(™Åİˆıÿÿÿÿ

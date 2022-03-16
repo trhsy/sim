@@ -1,0 +1,29 @@
+
+D
+java:S1948")Make "blockID" transient or serializable.(íÀÈ†üÿÿÿÿ
+M
+java:S1135	"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+i
+java:S2975"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(È–Ë
+^
+java:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(È–Ë
+r
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "retV".(ôç¬å
+h
+java:S1104"MMake x a static final constant or non-public and provide accessors if needed.(³‚ĞÓûÿÿÿÿ
+h
+java:S1104"MMake y a static final constant or non-public and provide accessors if needed.(ÆŠ‡Óşÿÿÿÿ
+h
+java:S1104"MMake z a static final constant or non-public and provide accessors if needed.(¾ÈÑ÷şÿÿÿÿ
+f
+java:S1104"PMake name a static final constant or non-public and provide accessors if needed.(Ñê¨Ú
+n
+java:S1104"SMake blockID a static final constant or non-public and provide accessors if needed.(íÀÈ†üÿÿÿÿ
+k
+java:S1104"PMake meta a static final constant or non-public and provide accessors if needed.(ıÄ¢Ëıÿÿÿÿ
+n
+java:S1104"XMake theDimension a static final constant or non-public and provide accessors if needed.(ıÈñ«
+u
+java:S1104"ZMake destinationAcc a static final constant or non-public and provide accessors if needed.(â¦äûÿÿÿÿ
+s
+java:S1104"XMake doNotTimeout a static final constant or non-public and provide accessors if needed.(Úş”øÿÿÿÿ

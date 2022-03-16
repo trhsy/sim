@@ -1,0 +1,17 @@
+
+—
+java:S1186""€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ê‚ó¤
+M
+java:S1135"2Complete the task associated to this TODO comment.(íïÊýøÿÿÿÿ
+V	java:S125'"<This block of commented-out lines of code should be removed.(œõŠÁøÿÿÿÿ
+Q	java:S125G"<This block of commented-out lines of code should be removed.(Žèé
+Q	java:S125R"<This block of commented-out lines of code should be removed.(ƒÚÊó
+V	java:S125V"<This block of commented-out lines of code should be removed.(Õ‹¥àúÿÿÿÿ
+f	java:S117)"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Ýóü
+k	java:S117<"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îê÷éýÿÿÿÿ
+f	java:S117="QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ÚÕ…
+f	java:S117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þš•Ê
+f	java:S117?"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»ôƒÞ
+f	java:S117@"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÓõò
+i
+java:S1104"SMake running a static final constant or non-public and provide accessors if needed.(×²ºÐ

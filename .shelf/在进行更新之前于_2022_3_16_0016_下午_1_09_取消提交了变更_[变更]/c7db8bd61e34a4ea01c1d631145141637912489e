@@ -1,0 +1,44 @@
+
+J
+java:S3740"/Provide the parametrized type for this generic.(¼¶”ôşÿÿÿÿ
+H
+java:S1135"2Complete the task associated to this TODO comment.(øå­¸
+m
+java:S37765"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(ºÂ…ºÿÿÿÿÿ
+i
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(‡àñ¯
+Q
+java:S1854—":Remove this useless assignment to local variable "others".(¹İÀõ
+G
+java:S1481•"+Remove this unused "others" local variable.(¸¿Œ—şÿÿÿÿ
+i
+java:S3776±"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(÷ÿ¯¶
+L
+java:S1854Û"5Remove this useless assignment to local variable "i".(ºêÔ´
+?	java:S108ö")Either remove or fill this block of code.(Æƒæí
+G
+java:S1144e"1Remove this unused private "extraButtons" method.(Ú«·¹
+p
+java:S1192B"UDefine a constant instead of duplicating this literal "Keep all block types" 3 times.(ÎÃãûÿÿÿÿ
+s
+java:S1192J"]Define a constant instead of duplicating this literal "Discard Dirt, sand and Stone" 3 times.(ÁÅ¼Ï
+
+java:S1192N"fDefine a constant instead of duplicating this literal "Cover with glass (put glass in chest)" 3 times.(Èí¶÷ûÿÿÿÿ
+m
+java:S1192F"WDefine a constant instead of duplicating this literal "Discard Dirt and Stone" 3 times.(Ë­óË
+l
+java:S1192H"VDefine a constant instead of duplicating this literal "Discard Dirt and Sand" 3 times.(‚×åŞ
+o
+java:S1192D"TDefine a constant instead of duplicating this literal "Discard Dirt blocks" 3 times.(‰†¨èúÿÿÿÿ
+f
+java:S1192P"PDefine a constant instead of duplicating this literal "Leave mine open" 3 times.(–ïÂÿ
+D
+java:S1121V".Extract the assignment out of this expression.(û‹ï
+{
+java:S1319#"eThe type of "folks" should be an interface such as "List" rather than the implementation "ArrayList".(²à¯¥
+Q
+java:S1141‹"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141”"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Ÿ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ

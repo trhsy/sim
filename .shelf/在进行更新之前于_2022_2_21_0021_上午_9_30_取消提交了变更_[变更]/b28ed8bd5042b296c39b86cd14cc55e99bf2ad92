@@ -1,0 +1,17 @@
+
+K
+java:S3740…"/Provide the parametrized type for this generic.( ‡§©üÿÿÿÿ
+M
+java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+J
+java:S1905˜".Remove this unnecessary cast to "ItemStack[]".(£ü¹İûÿÿÿÿ
+l	java:S117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡çÓÜúÿÿÿÿ
+l	java:S117¨"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+g
+java:S1104"QMake block a static final constant or non-public and provide accessors if needed.(ÜêŞ£
+k
+java:S1104"PMake meta a static final constant or non-public and provide accessors if needed.(ıÄ¢Ëıÿÿÿÿ
+x
+java:S1104"]Make defaultPermission a static final constant or non-public and provide accessors if needed.(®¯Ñüÿÿÿÿ
+y
+java:S1104 "^Make storedRequirements a static final constant or non-public and provide accessors if needed.(®äÁ•ÿÿÿÿÿ
