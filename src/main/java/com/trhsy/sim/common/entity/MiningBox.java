@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.loader.BlockLoader;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
@@ -141,7 +142,7 @@ public class MiningBox implements Serializable {
                     theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
                     if (theWorld != null) {
                         id = theWorld.getBlock(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
-                        if (id == ModSim.miningBox) {
+                        if (id == BlockLoader.blockMiningBox) {
                             ModSim.theMiningBoxes.add(box);
                         } else {
                             f.delete();
@@ -165,7 +166,7 @@ public class MiningBox implements Serializable {
                         } else {
                             try {
                                 id = theWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
-                                if (id == ModSim.miningBox && mining != null) {
+                                if (id == BlockLoader.blockMiningBox && mining != null) {
                                     ModSim.theMiningBoxes.add(mining);
                                 } else {
                                     f.delete();

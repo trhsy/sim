@@ -101,7 +101,7 @@ public class GuiControlBox extends GuiScreen {
                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                         this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") + folk.name));
                         this.employees.put(idx + 100, folk.name);
-                        if (this.theBuilding.displayName.contains("Depot")) {
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Depot"))) {
                             this.buttonList.add(new GuiButton(idx + 100, this.width - 190, down - 6, 50, 20, I18n.format("container.sim.Tasks")));
                         }
 
@@ -472,7 +472,7 @@ public class GuiControlBox extends GuiScreen {
                     if (!guibutton.displayString.contains(I18n.format("container.sim.gui_btn_name_Fire")) && !guibutton.displayString.contains(I18n.format("container.sim.gui_btn_name_Dismiss"))) {
                         if (guibutton.displayString.contentEquals(I18n.format("container.sim.Fix_House"))) {
                             Building b;
-                            ModSim.theBuildings.add(b = new Building("Repaired House", "residential", this.location, this.location, true));
+                            ModSim.theBuildings.add(b = new Building(I18n.format("container.sim.Repaired_House"), "residential", this.location, this.location, true));
                             b.buildingComplete = true;
                             b.capacity = -1;
                             b.author = "Satscape";

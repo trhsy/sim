@@ -1,10 +1,18 @@
 package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.common.block.*;
+import com.trhsy.sim.common.fluid.FluidMilk;
 import com.trhsy.sim.common.item.ItemBlockWindmill;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 
 /**
  * @ClassName BlockLoader
@@ -37,23 +45,39 @@ public class BlockLoader {
     public static Block blockPathConstructor = new BlockPathConstructor();
     /*风车*/
     public static Block blockWindmill = new BlockWindmill();
+    /*
+        液体牛奶
+         */
+    public static Fluid fluidMilk;
+
 
     public BlockLoader(FMLPreInitializationEvent event) {
-        register(constructorBox, "sim_constructor_box");
-        register(blockCheeseBlock, "sim_cheese");
-        register(blockCompositeBrick, "sim_composite_brick");
-        register(blockControlBox, "sim_control_box");
-        register(blockFarmingBox, "sim_farming_box");
-        register(blockFluidMilk, "sim_fluid_Milk");
-        register(blockLightBox, "sim_light_box");
-        register(blockMiningBox, "sim_mining_box");
-        register(blockPathConstructor, "sim_path_constructor");
-        register(blockMarker, "sim_marker");
+        fluidMilk = new FluidMilk();
+        register(constructorBox, "constructor_box");
+        register(blockCheeseBlock, "cheese_block");
+        register(blockCompositeBrick, "composite_brick");
+        register(blockControlBox, "control_box");
+        register(blockFarmingBox, "farming_box");
+        register(blockFluidMilk, "fluid_milk");
+        register(blockLightBox, "light_box");
+        register(blockMiningBox, "mining_box");
+        register(blockPathConstructor, "path_constructor");
+        register(blockMarker, "marker_bar_block");
+        register(blockWindmill, "block_windmill");
 
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 1), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 2), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 14)});
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 3), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 11)});
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 4), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 10)});
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 5), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 4)});
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 6), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 7), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
     }
 
     private static void register(Block block, String name) {
         //注册方块
         GameRegistry.registerBlock(block, name);
     }
+
+
 }

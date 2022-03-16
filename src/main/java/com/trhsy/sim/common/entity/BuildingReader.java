@@ -6,6 +6,7 @@ package com.trhsy.sim.common.entity;/**
 
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.common.ModSim;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -251,9 +252,9 @@ public class BuildingReader implements Serializable {
                             if (letter.contentEquals("!")) {
                                 this.structure[akeyNumber] = "air,999";
                             } else if (letter.contentEquals("$")) {
-                                this.structure[akeyNumber] = "" + ModSim.controlBox;
+                                this.structure[akeyNumber] = "" + BlockLoader.blockControlBox;
                             } else if (letter.contentEquals("*")) {
-                                this.structure[akeyNumber] = "" + ModSim.lightBox;
+                                this.structure[akeyNumber] = "" + BlockLoader.blockLightBox;
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[akeyNumber] = "air," + cha;
                             } else {

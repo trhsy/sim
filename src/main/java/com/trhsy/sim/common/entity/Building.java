@@ -756,7 +756,7 @@ public class Building implements Serializable {
                             dupe = getBuilding(xyz);
                         }
 
-                        if (id == ModSim.controlBox && dupe == null) {
+                        if (id == BlockLoader.blockControlBox && dupe == null) {
                             build.loadStructure();
                             ModSim.theBuildings.add(build);
                         } else {

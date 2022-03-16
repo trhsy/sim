@@ -31,9 +31,11 @@ public class CraftingLoader {
         });
         //无需合成
         GameRegistry.addShapelessRecipe(new ItemStack(Blocks.vine, 4), BlockLoader.constructorBox);*/
+        //控制箱
         GameRegistry.addRecipe(new ItemStack(BlockLoader.constructorBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Blocks.crafting_table});
-
+        //标记棒
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockMarker, 3), new Object[]{"G", "S", 'S', Items.stick, 'G', new ItemStack(Items.dye, 1, 11)});
+        //采矿箱和养殖箱是否弃用最贵的钻石镐合成
         if (ModSim.configUseExpensiveRecipies) {
             GameRegistry.addRecipe(new ItemStack(BlockLoader.blockMiningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
             GameRegistry.addRecipe(new ItemStack(BlockLoader.blockFarmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
@@ -50,23 +52,23 @@ public class CraftingLoader {
         GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 5), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 4)});
         GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 6), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 5)});
         GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 7), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
-        /*GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheeseBlock, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(itemFood, 1, 0)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.itemFood, 9, 0), new Object[]{new ItemStack(blockCheese)});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheeseBlock, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(ItemLoader.itemFoods, 1, 0)});
+        GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemFoods, 9, 0), new Object[]{new ItemStack(ItemLoader.itemFoods, 1, 0)});
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCompositeBrick, 1), new Object[]{"CSC", "SIS", "CSC", 'C', Blocks.hardened_clay, 'S', Blocks.stone, 'I', Blocks.fence});
-        GameRegistry.addRecipe(new ItemStack(BlockLoader.itemWindmillBase), new Object[]{" C ", "CCC", "CCC", 'C', blockCompositeBrick});
+        GameRegistry.addRecipe(new ItemStack(ItemLoader.itemWindmillBase), new Object[]{" C ", "CCC", "CCC", 'C', BlockLoader.blockCompositeBrick});
 
         int c;
         for (c = 0; c < 16; ++c) {
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.itemWindmillVane, 1, c), new Object[]{"WWW", "SSS", 'S', Items.stick, 'W', new ItemStack(Blocks.wool, 1, c)});
+            GameRegistry.addRecipe(new ItemStack(ItemLoader.itemWindmillVane, 1, c), new Object[]{"WWW", "SSS", 'S', Items.stick, 'W', new ItemStack(Blocks.wool, 1, c)});
         }
 
         for (c = 0; c < 16; ++c) {
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.itemWindmillSails, 1, c), new Object[]{" V ", "VPV", " V ", 'V', new ItemStack(itemWindmillVane, 1, c), 'P', Blocks.planks});
+            GameRegistry.addRecipe(new ItemStack(ItemLoader.itemWindmillSails, 1, c), new Object[]{" V ", "VPV", " V ", 'V', new ItemStack(ItemLoader.itemWindmillVane, 1, c), 'P', Blocks.planks});
         }
 
         for (c = 0; c < 16; ++c) {
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.blockWindmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(itemWindmillSails, 1, c), 'B', itemWindmillBase});
-        }*/
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.blockWindmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(ItemLoader.itemWindmillSails, 1, c), 'B', ItemLoader.itemWindmillBase});
+        }
     }
 
     /**

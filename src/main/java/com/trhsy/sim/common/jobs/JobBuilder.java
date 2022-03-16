@@ -9,6 +9,7 @@ import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -320,11 +321,11 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
-                        blockId = ModSim.controlBox;
+                        blockId = BlockLoader.blockControlBox;
                         subtype = 2;
                     }
 
-                    if (blockId == ModSim.controlBox) {
+                    if (blockId == BlockLoader.blockControlBox) {
                         try {
                             this.theBuilding.primaryXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
                             this.theBuilding.saveThisBuilding();
@@ -417,7 +418,7 @@ public class JobBuilder extends Job implements Serializable {
                                         gotBlock = false;
                                     }
 
-                                    if (blockId == ModSim.controlBox) {
+                                    if (blockId == BlockLoader.blockControlBox) {
                                         gotBlock = true;
                                     }
                                 } else {
@@ -451,11 +452,11 @@ public class JobBuilder extends Job implements Serializable {
                         try {
                             if (!alreadyPlaced) {
                                 try {
-                                    if (blockId == ModSim.controlBox || blockId == ModSim.controlBox) {
-                                        blockId = ModSim.controlBox;
+                                    if (blockId == BlockLoader.blockControlBox || blockId == BlockLoader.blockControlBox) {
+                                        blockId = BlockLoader.blockControlBox;
                                     }
 
-                                    if (blockId == ModSim.controlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals("sim-u-bank")) {
+                                    if (blockId == BlockLoader.blockControlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals("sim-u-bank")) {
                                         subtype = 1;
                                     }
 

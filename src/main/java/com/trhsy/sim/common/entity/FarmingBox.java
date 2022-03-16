@@ -2,6 +2,7 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.entity.enums.FarmType;
+import com.trhsy.sim.common.loader.BlockLoader;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
@@ -333,7 +334,7 @@ public class FarmingBox implements Serializable {
                     theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
                     if (theWorld != null) {
                         id = theWorld.getBlock(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
-                        if (id == ModSim.farmingBox) {
+                        if (id == BlockLoader.blockFarmingBox) {
                             ModSim.theFarmingBoxes.add(box);
                         } else {
                             f.delete();
@@ -357,7 +358,7 @@ public class FarmingBox implements Serializable {
                         } else {
                             try {
                                 id = theWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
-                                if (id == ModSim.farmingBox) {
+                                if (id == BlockLoader.blockFarmingBox) {
                                     ModSim.theFarmingBoxes.add(farming);
                                 } else {
                                     f.delete();

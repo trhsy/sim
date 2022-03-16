@@ -1,43 +1,37 @@
-[00:13:31] [main/INFO]: Setting user: Player374
-[00:13:32] [Client thread/INFO]: LWJGL Version: 2.9.1
-[00:13:39] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[00:13:40] [Sound Library Loader/INFO]: Sound engine started
-[00:13:41] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[00:13:41] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[00:13:41] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[00:13:41] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[00:13:42] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[00:13:42] [Sound Library Loader/INFO]: Sound engine started
-[00:13:50] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[00:13:50] [Server thread/INFO]: Generating keypair
-[00:13:50] [Server thread/INFO]: Preparing start region for level 0
-[00:13:50] [Server thread/INFO]: Changing view distance to 12, from 10
-[00:13:51] [Server thread/INFO]: Player374[local:E:f5cca9c1] logged in with entity id 242 at (251.87442946883124, 4.0, -1492.8240663810823)
-[00:13:51] [Server thread/INFO]: Player374 加入了游戏
-[00:13:53] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
-[00:14:11] [Server thread/INFO]: Player374 刚刚获得了 [打开物品栏] 成就！
-[00:14:11] [Client thread/INFO]: [CHAT] Player374 刚刚获得了 [打开物品栏] 成就！
-[00:15:04] [Client thread/INFO]: [CHAT] Sharron Brandybuck已经开始构建一个候机室
-[00:15:04] [Client thread/INFO]: [CHAT] Sharron Brandybuck已完成建设候机室
-[00:15:53] [Server thread/INFO]: [Player374: 您的游戏模式已被设置为 创造模式 ]
-[00:15:53] [Client thread/INFO]: [CHAT] 您的游戏模式已更新
-[00:16:17] [Client thread/INFO]: [CHAT] Amaranth Kettle正在进入他们的Repaired House
-[00:16:53] [Client thread/INFO]: [CHAT] Alan McCoy刚刚进入该地区。
-[00:17:25] [Server thread/INFO]: Saving and pausing game...
-[00:17:25] [Server thread/INFO]: Saving chunks for level '新的世界'/Overworld
-[00:17:25] [Server thread/INFO]: Saving chunks for level '新的世界'/Nether
-[00:17:25] [Server thread/INFO]: Saving chunks for level '新的世界'/The End
-[00:17:45] [Client thread/INFO]: [CHAT] Sharron Brandybuck已经开始构建一个面包店
-[00:17:45] [Client thread/INFO]: [CHAT] Sharron Brandybuck ( 谁在建造面包店)需要更多圆石
-[00:18:24] [Client thread/INFO]: [CHAT] Sharron Brandybuck已完成建设面包店
-[00:19:03] [Server thread/INFO]: Saving and pausing game...
-[00:19:03] [Server thread/INFO]: Saving chunks for level '新的世界'/Overworld
-[00:19:03] [Server thread/INFO]: Saving chunks for level '新的世界'/Nether
-[00:19:03] [Server thread/INFO]: Saving chunks for level '新的世界'/The End
-[00:19:04] [Server thread/INFO]: Stopping server
-[00:19:04] [Server thread/INFO]: Saving players
-[00:19:04] [Server thread/INFO]: Saving worlds
-[00:19:04] [Server thread/INFO]: Saving chunks for level '新的世界'/Overworld
-[00:19:04] [Server thread/INFO]: Saving chunks for level '新的世界'/Nether
-[00:19:04] [Server thread/INFO]: Saving chunks for level '新的世界'/The End
-[00:19:05] [Client thread/INFO]: Stopping!
+[17:35:42] [main/INFO]: Setting user: Player890
+[17:35:45] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:35:55] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:35:56] [Sound Library Loader/INFO]: Sound engine started
+[17:35:56] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[17:35:56] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[17:35:56] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:35:57] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:35:57] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:35:58] [Sound Library Loader/INFO]: Sound engine started
+[17:36:06] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[17:36:06] [Server thread/INFO]: Generating keypair
+[17:36:06] [Server thread/INFO]: Preparing start region for level 0
+[17:36:07] [Server thread/INFO]: Changing view distance to 12, from 10
+[17:36:07] [Server thread/INFO]: Player890[local:E:8ca58753] logged in with entity id 229 at (252.82141887882716, 4.0, -1479.73994997719)
+[17:36:07] [Server thread/INFO]: Player890 加入了游戏
+[17:36:09] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
+[17:36:14] [Server thread/INFO]: Player890 刚刚获得了 [打开物品栏] 成就！
+[17:36:14] [Client thread/INFO]: [CHAT] Player890 刚刚获得了 [打开物品栏] 成就！
+[17:37:28] [Server thread/INFO]: [Player890: 将时间设为 0]
+[17:37:28] [Client thread/INFO]: [CHAT] 将时间设为 0
+[17:37:28] [Client thread/INFO]: [CHAT] 有更多的住宅需求，你有4人没有房子。
+[17:37:31] [Client thread/INFO]: [CHAT] 今天没有收到房租，你应该雇一个人来盖一栋住宅。
+[17:39:57] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个候机室
+[17:39:59] [Client thread/INFO]: [CHAT] Alan McCoy ( 谁在建造候机室)需要更多圆石
+[17:40:29] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设候机室
+[17:41:16] [Server thread/INFO]: Saving and pausing game...
+[17:41:16] [Server thread/INFO]: Saving chunks for level '新的世界'/Overworld
+[17:41:16] [Server thread/INFO]: Saving chunks for level '新的世界'/Nether
+[17:41:16] [Server thread/INFO]: Saving chunks for level '新的世界'/The End
+[17:41:17] [Server thread/INFO]: Stopping server
+[17:41:17] [Server thread/INFO]: Saving players
+[17:41:17] [Server thread/INFO]: Saving worlds
+[17:41:17] [Server thread/INFO]: Saving chunks for level '新的世界'/Overworld
+[17:41:17] [Server thread/INFO]: Saving chunks for level '新的世界'/Nether
+[17:41:17] [Server thread/INFO]: Saving chunks for level '新的世界'/The End
+[17:41:19] [Client thread/INFO]: Stopping!

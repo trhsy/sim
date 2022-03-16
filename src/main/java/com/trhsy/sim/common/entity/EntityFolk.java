@@ -445,7 +445,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         } else if (this.theData.vocation == Vocation.DAIRYFARMER) {
             return new ItemStack(Items.milk_bucket, 1);
         } else if (this.theData.vocation == Vocation.CHEESEMAKER) {
-            return new ItemStack(ModSim.blockCheese, 1);
+            return new ItemStack(ItemLoader.itemFoods, 1, 0);
         } else if (this.theData.vocation == Vocation.BURGERSMANAGER) {
             return new ItemStack(ItemLoader.itemFoods, 1, 3);
         } else if (this.theData.vocation == Vocation.BURGERSFRYCOOK) {

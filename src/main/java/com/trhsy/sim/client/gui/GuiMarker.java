@@ -10,6 +10,7 @@ import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.Job;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -266,7 +267,7 @@ public class GuiMarker extends GuiScreen {
                                 int iD = Block.getIdFromBlock(GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlock(xxx, yyy, zzz));
                                 int meta = GuiMarker.this.mc.getIntegratedServer().worldServerForDimension(GuiMarker.this.thePlayer.dimension).getBlockMetadata(xxx, yyy, zzz);
                                 String letter = "";
-                                if (iD == Block.getIdFromBlock(ModSim.controlBox)) {
+                                if (iD == Block.getIdFromBlock(BlockLoader.blockControlBox)) {
                                     letter = "$";
                                 } else {
                                     letter = (String) key.get(iD + ":" + meta);

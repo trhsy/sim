@@ -4,7 +4,135 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="739ba155-7832-4807-9829-bb5bc7d1bab8" name="变更" comment="修复加载配置" />
+    <list default="true" id="739ba155-7832-4807-9829-bb5bc7d1bab8" name="变更" comment="修复加载配置">
+      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-16-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-16-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/新的世界-20220316-165535.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/playerdata/71ee4b7e-330e-3d50-90a4-3d964a618ea8.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/stats/71ee4b7e-330e-3d50-90a4-3d964a618ea8.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sim-u-1.7.10.api.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sim-u-1.7.10.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sim-u-1.7.10.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sim-u-1.7.10.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_windmill.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/cheese_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/composite_brick.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/constructor_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/control_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/farming_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/fluid_milk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/marker_bar_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/mining_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/path_constructor.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_windmill.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/cheese_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/composite_brick.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/constructor_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/control_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/farming_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/fluid_milk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/marker_bar_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/mining_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/path_constructor.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_windmill.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/cheese_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/composite_brick.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/constructor_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/control_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/farming_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/fluid_milk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/marker_bar_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/mining_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/path_constructor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/5/051efa2d7734cc34577b2bd5ce6a6fb618817c0d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/a/0a682e9f42c5989b6781929bc83726e64376b761" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/7/471545f4d46b39be9170fa61bc255107bd09bf30" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/3/53586b08a8e9716404d91eadcd7155455a51296b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/8/58a9a70d225250b8051ceddd3f2fa2347aaae537" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/1/61a08ee518b79c0a29d6b96a2f73578c27ffda0a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/6/668b8cbb1cb93e93f04fb15592d56454376b0f41" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/3/7386de659517af0fe43bb74df2bc07b9baba0082" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/a/7a89cd76810c0d48da2d3bd7323a1d3097616853" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/b/8b90721d3174cba98b9f25e9fc1b161d1bf35ae1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/2/a238ca38ada392cc4e1dcf98ed9b28ec8740fbc1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/2/a299a1387df8d180b70aca0f5d73763afba46745" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/b/abb7e7acd73fb0b8b6ff1b8cf745a85aecd6b8b5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/b/abbb6158a920057ffd69fc1d1ead5e4262f217ef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/1/b11caf7032bed7751fba5836d6303fba48a0b914" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/8/c8443c27644dcc42c7dabd960053e05b3cdb7b5f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/1/d17c0a56cde7193792e6d395fce6dc5f9f4aef4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/7/d7a03bffeae6fb7b1e630f6f635e471041af84f6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/e/ee15c96e59747d37d184b4be29cac86e585979ea" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/0/f0f77586eaa4fb0cede13f9b48aa31bb6ba6b84e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/4/f46efa78dc42694eb332043c6202c71957619bc3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/7/f75d83c28d2e577e50357013e38228d7cf7d8d04" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/d/fddfe0bb61aedd4805c8e7b9f5444ed9272d01fa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.shelf/_2022_3_15_19_14____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.shelf/_2022_3_15_19_14____.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/config/splash.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/config/splash.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/latest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/DIM-1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/DIM-1/data/villages.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/DIM1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/DIM1/data/villages.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/data/villages.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/level.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/level.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/level.dat_old" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/level.dat_old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/region/r.0.-3.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/region/r.0.-3.mca" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/region/r.0.-4.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/region/r.0.-4.mca" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/session.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/Buildings/b250_6_-1489_0.sk2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/Buildings/b252_4_-1497_0.sk2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Alan McCoy.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Alan McCoy.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Amaranth Kettle.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Amaranth Kettle.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Sharron Brandybuck.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Sharron Brandybuck.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Tammie Arsing.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/folks/Tammie Arsing.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/settings.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/新的世界/simukraft/settings.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/usernamecache.json" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/usernamecache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-sim-u.api.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-sim-u.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-sim-u.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-sim-u.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/ClientTickHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/ClientTickHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiBankATM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiBankATM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiBeamPlayerTo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiBeamPlayerTo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiControlBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiControlBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiMarker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiMarker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/ThreadFacsimile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/ThreadFacsimile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/render/RenderAlignBeam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/render/RenderAlignBeam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/render/RenderWindmill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/render/RenderWindmill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLightBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLightBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/BuildingReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/BuildingReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/EntityFolk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/EntityFolk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FarmingBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FarmingBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/MiningBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/MiningBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCheesemaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCheesemaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCourier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCourier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobMiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobMiner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/Stage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/Stage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/Vocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/Vocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/CraftingLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/CraftingLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/blockATM.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control_box_ATM.png.mcmeta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/blockControlTop.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control_box_top.png.mcmeta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/blockControlTopOther.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control_box_top_other.mcmeta" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -143,7 +271,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/models/item" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -156,11 +284,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\Game\work\sim-u-1.7.10\src\main\resources\assets\sim\models\item" />
+      <recent name="H:\Game\work\sim-u-1.7.10\src\main\resources\assets\sim\models\block" />
       <recent name="H:\Game\work\sim-u-1.7.10\libs" />
       <recent name="H:\Game\work\sim-u-1.7.10\src\main\resources\assets\sim_u\textures\gui" />
       <recent name="H:\Game\work\sim-u-1.7.10\src\main\java\com\trhsy\sim\translate\util" />
-      <recent name="H:\Game\work\sim-u-1.7.10\src\main\java\com\trhsy\sim\translate" />
-      <recent name="H:\Game\work\sim-u-1.7.10\src\main\java\com\trhsy\sim\translate\trans\impl" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="H:\Game\work\sim-u-1.7.10\src\main\resources\assets\sim_u\models\item" />
@@ -691,6 +819,7 @@
       <workItem from="1646884158100" duration="6202000" />
       <workItem from="1646892648480" duration="726000" />
       <workItem from="1646897098375" duration="7114000" />
+      <workItem from="1647407647056" duration="17048000" />
     </task>
     <task id="LOCAL-00001" summary="修复加载配置">
       <created>1644368634708</created>
@@ -704,6 +833,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -768,6 +908,21 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonTickHandler.java</url>
           <line>90</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiBankATM.java</url>
+          <line>251</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiBuildingConstructor.java</url>
+          <line>186</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiCourierTasks.java</url>
+          <line>188</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />

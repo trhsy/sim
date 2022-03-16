@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|Tammie Arsing
-age|18
+age|19
 gender|1
 skin|5
 levelfood|10
@@ -10,7 +10,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|249,4,-1488,0
+location|254,4,-1495,0
 pregnancy|0.0
 building|null
 terraformtype|null

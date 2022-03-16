@@ -10,6 +10,7 @@ import com.trhsy.sim.common.TileEntityWindmill;
 import com.trhsy.sim.common.entity.EntityWindmill;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.Job;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -42,7 +43,7 @@ public class RenderWindmill extends Render {
         this.entity = (EntityWindmill)theEntity;
         if (this.entity != null) {
             int meta = -1;
-            V3 v3 = Job.findClosestBlockType(new V3((int) this.entity.posX, (int) this.entity.posY - 1, (int) this.entity.posZ), ModSim.windmill, 5);
+            V3 v3 = Job.findClosestBlockType(new V3((int) this.entity.posX, (int) this.entity.posY - 1, (int) this.entity.posZ), BlockLoader.blockWindmill, 5);
             if (v3 != null) {
                 TileEntityWindmill teWindmill = (TileEntityWindmill)this.entity.worldObj.getTileEntity(v3.x.intValue(), v3.y.intValue(), v3.z.intValue());
                 if (teWindmill != null) {

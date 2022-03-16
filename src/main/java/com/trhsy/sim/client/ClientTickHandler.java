@@ -16,6 +16,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
@@ -25,7 +26,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName ClientTickHandler
- * @Description todo
+ * @Description todo 客户报价处理程序
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:09
  * ========================================
@@ -101,7 +102,7 @@ public class ClientTickHandler {
                 worldname = this.mc.getIntegratedServer().getFolderName();
                 worldname = MinecraftServer.getServer().getFolderName();
             } catch (Exception var4) {
-                this.hud.drawString(this.mc.fontRendererObj, "SimCity is not SMP", this.hud.width / 2, 2, 16777215);
+                this.hud.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy2"), this.hud.width / 2, 2, 16777215);
                 return;
             }
 
@@ -114,12 +115,12 @@ public class ClientTickHandler {
 
                     HUDoffset = HUDoffset + ModSim.configHUDoffset;
                     if (ModSim.gameMode == GameMode.CREATIVE) {
-                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - Population: " + ModSim.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
+                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSim.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     } else {
-                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - Population: " + ModSim.theFolks.size() + "   credits: " + ModSim.displayMoney(ModSim.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
+                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSim.theFolks.size() + "   " + I18n.format("container.sim.trhsy4") + ": " + ModSim.displayMoney(ModSim.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     }
                 } else {
-                    this.hud.drawString(this.mc.fontRendererObj, "Loading SimCity...", this.hud.width / 2, 2, 16777215);
+                    this.hud.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy5"), this.hud.width / 2, 2, 16777215);
                 }
             } catch (Exception var3) {
                 var3.printStackTrace();

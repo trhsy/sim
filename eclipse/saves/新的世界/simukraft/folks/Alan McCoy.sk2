@@ -1,16 +1,16 @@
 employedat|null
 vocation|null
 name|Alan McCoy
-age|18
+age|19
 gender|0
 skin|48
 levelfood|10
 levelfun|5
-levelbuilder|1.0
+levelbuilder|1.0030001
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|0,5,0,0
+location|250,5,-1495,0
 pregnancy|0.0
 building|null
 terraformtype|null

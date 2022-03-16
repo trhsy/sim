@@ -1,13 +1,24 @@
+
 tile.cheeseBlock.name=奶酪块
 tile.constructorBox.name=建筑盒
 tile.controlBox.name=控制箱
 tile.farmingBox.name=养殖箱
 tile.fluidMilk.name=液体奶
-tile.lightBox.name=灯箱
-tile.lightBox.white.name=灯箱（白）
+tile.lightBox.White.name=灯箱（白）
+tile.lightBox.Red.name=灯箱（红）
+tile.lightBox.Orange.name=灯箱（橙）
+tile.lightBox.Yellow.name=灯箱（黄）
+tile.lightBox.Green.name=灯箱（绿）
+tile.lightBox.Blue.name=灯箱（蓝）
+tile.lightBox.Purple.name=灯箱（紫）
+tile.lightBox.Rainbow.name=灯箱（彩）
+
+
 tile.MarkerBar.name=标记棒
 tile.MiningBox.name=采矿箱
 tile.compositeBrick.name=复合砖
+tile.pathConstructor.name=建造路径块
+tile.windmill.name=风车
 
 item.granulesCopper.name=铜颗粒
 item.granulesGold.name=金颗粒
@@ -37,7 +48,7 @@ item.foodFries.name=炸薯条
 item.foodBurger.name=汉堡
 
 # 创造模式菜单名
-itemGroup.sim_u=模拟城镇
+itemGroup.sim=模拟城镇
 # GUI 汉化
 container.sim.welcome=欢迎来到模拟城镇
 container.sim.welcomes=由TRHSY重制
@@ -750,3 +761,40 @@ container.sim.Facsimile4=文件夹丢失，mod安装不正确，请复制simukra
 container.sim.Facsimile5=建筑复制并存储为“我的建筑”
 container.sim.Facsimile6=“在其他建筑中。
 container.sim.Facsimile7=错误：标记放置不正确，请重试。
+
+container.sim.trhsy1=和
+container.sim.trhsy2=模拟城市不是 SMP
+container.sim.trhsy3=人口
+container.sim.trhsy4=资金
+container.sim.trhsy5=正在加载模拟城市...
+
+container.sim.trhsy6=建筑工已经被雇佣，他们正在赶路
+container.sim.trhsy7=建筑工正在查看蓝图
+container.sim.trhsy8=建筑工正在检查建筑物的资源
+container.sim.trhsy9=建筑工正忙着建筑
+container.sim.trhsy10=建筑工程已经完成
+
+container.sim.Vocation1=建设工
+container.sim.Vocation2=伐木工人
+container.sim.Vocation3=鸡蛋农场主
+container.sim.Vocation4=矿工
+container.sim.Vocation5=农民
+container.sim.Vocation6=面包师
+container.sim.Vocation7=士兵
+container.sim.Vocation8=牧羊人
+container.sim.Vocation9=杂货商
+container.sim.Vocation10=快递员
+container.sim.Vocation11=店长
+container.sim.Vocation12=养牛户
+container.sim.Vocation13=养猪户
+container.sim.Vocation14=养鸡户
+container.sim.Vocation15=屠夫
+container.sim.Vocation16=地形改造者
+container.sim.Vocation17=玻璃制造商
+container.sim.Vocation18=渔夫
+container.sim.Vocation19=路径生成器
+container.sim.Vocation20=养牛户
+container.sim.Vocation21=奶酪匠
+container.sim.Vocation22=快餐经理
+container.sim.Vocation23=快餐炒菜厨师
+container.sim.Vocation24=快餐服务员

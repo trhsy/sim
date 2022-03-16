@@ -224,7 +224,7 @@ public class GuiBankATM extends GuiScreen {
                 if (guibutton.id >= 100 && guibutton.id < 200) {
                     ItemStack is = this.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
                     ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1.0F, 1.0F, false);
-                    String money = guibutton.displayString.substring(guibutton.displayString.indexOf("for ") + 4);
+                    String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy1")) + 4);
                     NumberFormat format = NumberFormat.getInstance();
                     Object number = 0;
 
@@ -249,7 +249,7 @@ public class GuiBankATM extends GuiScreen {
                     Object number = 0;
 
                     try {
-                        number = format.parse(guibutton.displayString.substring(guibutton.displayString.indexOf("for ") + 4));
+                        number = format.parse(guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy1")) + 4));
                     } catch (Exception var8) {
                     }
 

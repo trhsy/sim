@@ -9,6 +9,7 @@ import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 
@@ -132,7 +133,7 @@ public class ThreadFacsimile extends Thread {
                             int iD = Block.getIdFromBlock(guiMarker.mc.getIntegratedServer().worldServerForDimension(guiMarker.thePlayer.dimension).getBlock(xxx, yyy, zzz));
                             int meta = guiMarker.mc.getIntegratedServer().worldServerForDimension(guiMarker.thePlayer.dimension).getBlockMetadata(xxx, yyy, zzz);
                             String letter = "";
-                            if (iD == Block.getIdFromBlock(ModSim.controlBox)) {
+                            if (iD == Block.getIdFromBlock(BlockLoader.blockControlBox)) {
                                 letter = "$";
                             } else {
                                 letter = (String) key.get(iD + ":" + meta);

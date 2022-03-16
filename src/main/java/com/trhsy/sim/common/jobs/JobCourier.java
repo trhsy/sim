@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.BlockLoader;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -174,7 +175,7 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
             ModSim.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, ModSim.lightBox);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.blockLightBox);
         }
 
         if (this.theFolk.inventory.size() == 0) {

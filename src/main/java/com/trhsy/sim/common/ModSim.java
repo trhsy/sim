@@ -5,6 +5,7 @@ import com.trhsy.sim.client.gui.GuiRunMod;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.jobs.JobSoldier;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.packets.client.Handler;
 import com.trhsy.sim.packets.client.UpdateFolkPositionMessage;
 import com.trhsy.sim.packets.server.LoadBuildingMessage;
@@ -35,6 +36,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.Fluid;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
@@ -74,42 +76,6 @@ public class ModSim {
      */
     public static String currentSavePath = "";
     public static boolean configUseExpensiveRecipies = false;
-
-    /*
-    控制箱
-     */
-    public static Block controlBox;
-
-    /*
-    采矿箱
-     */
-    public static Block miningBox;
-
-    /*
-    养殖箱
-     */
-    public static Block farmingBox;
-
-    /*
-    灯箱
-     */
-    public static Block lightBox;
-
-    /*
-    风车
-     */
-    public static Block windmill;
-
-
-    /*
-    奶酪块
-     */
-    public static Block blockCheese;
-
-    /*
-    液体牛奶块
-     */
-    public static Block blockFluidMilk;
 
     /*
     所有民众的数据（用于构建和维护 EntityFolk）
@@ -844,7 +810,7 @@ public class ModSim {
             }
 
             if (farmToUpgradeCounter % 6 == 0) {
-                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), lightBox, 0, 3);
+                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), BlockLoader.blockLightBox, 0, 3);
                 theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
             }
         } else if (farmToUpgrade.level == 2) {
@@ -856,7 +822,7 @@ public class ModSim {
             theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
             if (point.x.intValue() % 5 == 0 && point.z.intValue() % 5 == 0) {
                 theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), Blocks.water, 0, 3);
-                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), lightBox, 0, 3);
+                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), BlockLoader.blockLightBox, 0, 3);
                 theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
                 theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
             }

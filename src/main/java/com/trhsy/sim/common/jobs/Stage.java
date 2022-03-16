@@ -1,5 +1,7 @@
 package com.trhsy.sim.common.jobs;
 
+import net.minecraft.client.resources.I18n;
+
 /**
  * @author trhsy
  * @date 2022/1/27 0027
@@ -93,17 +95,17 @@ public enum Stage {
     public String toString() {
         String ret = "";
         if (this == IDLE) {
-            ret = "Idle";
+            ret = I18n.format("container.sim.sim_gui_BC_Idle");
         } else if (this == WORKERASSIGNED) {
-            ret = "Builder has been hired and on their way";
+            ret = I18n.format("container.sim.trhsy6");
         } else if (this == BLUEPRINT) {
-            ret = "Builder is looking though blueprints";
+            ret = I18n.format("container.sim.trhsy7");
         } else if (this == WAITINGFORRESOURCES) {
-            ret = "Builder is checking the resources for the building";
+            ret = I18n.format("container.sim.trhsy8");
         } else if (this == INPROGRESS) {
-            ret = "Builder is busy building";
+            ret = I18n.format("container.sim.trhsy9");
         } else if (this == COMPLETE) {
-            ret = "Building work is complete";
+            ret = I18n.format("container.sim.trhsy10");
         }
 
         return ret;

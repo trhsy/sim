@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -238,9 +239,9 @@ public class JobCheesemaker extends Job {
                     milkBlock = (V3) i$.next();
                     id = this.jobWorld.getBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
                     meta = this.jobWorld.getBlockMetadata(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
-                } while (id != null && (id != ModSim.blockFluidMilk || meta != 1));
+                } while (id != null && (id != BlockLoader.blockFluidMilk || meta != 1));
 
-                this.jobWorld.setBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue(), ModSim.blockFluidMilk, 0, 3);
+                this.jobWorld.setBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue(), BlockLoader.blockFluidMilk, 0, 3);
 
                 try {
                     this.theFolk.inventory.remove(0);
@@ -352,7 +353,7 @@ public class JobCheesemaker extends Job {
                 cheese = (V3)milkBlocks.get(m);
                 id = this.jobWorld.getBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
                 dist = this.jobWorld.getBlockMetadata(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
-                if (id == ModSim.blockFluidMilk && dist == 0) {
+                if (id == BlockLoader.blockFluidMilk && dist == 0) {
                     this.jobWorld.setBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue(), id, 0, 3);
                     ++milkGotCount;
                     if (milkGotCount > 1) {
@@ -368,8 +369,8 @@ public class JobCheesemaker extends Job {
                     cheese = (V3) i$.next();
                     id = this.jobWorld.getBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
                     dist = cheese.getDistanceTo(currentStirPos);
-                    if (id != ModSim.blockCheese && dist < 5) {
-                        this.jobWorld.setBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue(), ModSim.blockCheese, 0, 3);
+                    if (id != BlockLoader.blockCheeseBlock && dist < 5) {
+                        this.jobWorld.setBlock(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue(), BlockLoader.blockCheeseBlock, 0, 3);
                         placedCheese = true;
                         break;
                     }
@@ -413,9 +414,9 @@ public class JobCheesemaker extends Job {
                 while(i$.hasNext()) {
                     block = (V3)i$.next();
                     id = this.jobWorld.getBlock(block.x.intValue(), block.y.intValue(), block.z.intValue());
-                    if (((V3) stirPositions.get(0)).getDistanceTo(block) < 5 && id == ModSim.blockCheese) {
+                    if (((V3) stirPositions.get(0)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheeseBlock) {
                         gotBlock = true;
-                        this.theFolk.inventory.add(new ItemStack(ModSim.blockCheese));
+                        this.theFolk.inventory.add(new ItemStack(BlockLoader.blockCheeseBlock));
                         this.jobWorld.setBlock(block.x.intValue(), block.y.intValue(), block.z.intValue(), id, 0, 3);
                         this.theFolk.isWorking = true;
                         GameStates var10000 = ModSim.states;
@@ -442,9 +443,9 @@ public class JobCheesemaker extends Job {
                 while(i$.hasNext()) {
                     block = (V3)i$.next();
                     id = this.jobWorld.getBlock(block.x.intValue(), block.y.intValue(), block.z.intValue());
-                    if (((V3) stirPositions.get(1)).getDistanceTo(block) < 5 && id == ModSim.blockCheese) {
+                    if (((V3) stirPositions.get(1)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheeseBlock) {
                         gotBlock = true;
-                        this.theFolk.inventory.add(new ItemStack(ModSim.blockCheese));
+                        this.theFolk.inventory.add(new ItemStack(BlockLoader.blockCheeseBlock));
                         this.jobWorld.setBlock(block.x.intValue(), block.y.intValue(), block.z.intValue(), id, 0, 3);
                         break;
                     }
@@ -488,7 +489,7 @@ public class JobCheesemaker extends Job {
                 } else if (this.step == 4) {
                     chests = Job.inventoriesFindClosest((V3) slicewaypoint.get(0), 4);
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Slicing");
-                    ItemStack cheese = inventoriesGet(chests, new ItemStack(ModSim.blockCheese, 1), false, false);
+                    ItemStack cheese = inventoriesGet(chests, new ItemStack(BlockLoader.blockCheeseBlock, 1), false, false);
                     if (cheese != null) {
                         boolean placedOK = this.inventoriesPut(chests, new ItemStack(ItemLoader.itemFoods, 9, 0), true);
                         if (!placedOK) {
