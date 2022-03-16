@@ -44,6 +44,7 @@ public class BlockControlBox extends Block {
         this.setHardness(10.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("controlBox");
+        //this.setTextureName(ModSim.MODID + ":" + "control_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -51,10 +52,10 @@ public class BlockControlBox extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[4];
-        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":blockControlTop");
-        this.icons[1] = par1IconRegister.registerIcon(ModSim.MODID + ":blockControlSide");
-        this.icons[2] = par1IconRegister.registerIcon(ModSim.MODID + ":blockATM");
-        this.icons[3] = par1IconRegister.registerIcon(ModSim.MODID + ":blockControlTopOther");
+        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_top");
+        this.icons[1] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_side");
+        this.icons[2] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_ATM");
+        this.icons[3] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_top_other");
     }
 
     @Override

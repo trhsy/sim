@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.loader;
 
+import com.trhsy.sim.common.ModSim;
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
@@ -32,24 +33,24 @@ public class CraftingLoader {
         GameRegistry.addShapelessRecipe(new ItemStack(Blocks.vine, 4), BlockLoader.constructorBox);*/
         GameRegistry.addRecipe(new ItemStack(BlockLoader.constructorBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Blocks.crafting_table});
 
-        /*GameRegistry.addRecipe(new ItemStack(BlockLoader.marker, 3), new Object[]{"G", "S", 'S', Items.stick, 'G', new ItemStack(Items.dye, 1, 11)});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockMarker, 3), new Object[]{"G", "S", 'S', Items.stick, 'G', new ItemStack(Items.dye, 1, 11)});
         if (ModSim.configUseExpensiveRecipies) {
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.blockMiningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.blockFarmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.diamond_pickaxe});
         } else {
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.miningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_pickaxe});
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.farmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_hoe});
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.blockMiningBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_pickaxe});
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.blockFarmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_hoe});
         }
 
-        GameRegistry.addRecipe(new ItemStack(BlockLoader.lightBox, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 1), new Object[]{lightBox, new ItemStack(Items.dye, 1, 1)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 2), new Object[]{lightBox, new ItemStack(Items.dye, 1, 14)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 3), new Object[]{lightBox, new ItemStack(Items.dye, 1, 11)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 4), new Object[]{lightBox, new ItemStack(Items.dye, 1, 10)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 5), new Object[]{lightBox, new ItemStack(Items.dye, 1, 4)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 6), new Object[]{lightBox, new ItemStack(Items.dye, 1, 5)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 7), new Object[]{lightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
-        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheese, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(itemFood, 1, 0)});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockLightBox, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 1), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 2), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 14)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 3), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 11)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 4), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 10)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 5), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 4)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 6), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 7), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
+        /*GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheeseBlock, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(itemFood, 1, 0)});
         GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.itemFood, 9, 0), new Object[]{new ItemStack(blockCheese)});
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCompositeBrick, 1), new Object[]{"CSC", "SIS", "CSC", 'C', Blocks.hardened_clay, 'S', Blocks.stone, 'I', Blocks.fence});
         GameRegistry.addRecipe(new ItemStack(BlockLoader.itemWindmillBase), new Object[]{" C ", "CCC", "CCC", 'C', blockCompositeBrick});
@@ -64,7 +65,7 @@ public class CraftingLoader {
         }
 
         for (c = 0; c < 16; ++c) {
-            GameRegistry.addRecipe(new ItemStack(BlockLoader.windmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(itemWindmillSails, 1, c), 'B', itemWindmillBase});
+            GameRegistry.addRecipe(new ItemStack(BlockLoader.blockWindmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(itemWindmillSails, 1, c), 'B', itemWindmillBase});
         }*/
     }
 

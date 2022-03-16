@@ -675,3 +675,92 @@ container.sim.Markers3=A single marker can be used to designate a new lumberjack
 container.sim.Markers4=TIP: remove old markers after use, before marking a new area.
 container.sim.Markers5=Please type a name for this Courier/Beaming point
 container.sim.Markers6=Error: Place at least one chest near the marker.
+
+container.sim.Markers7=Error: The name must be unique,'
+container.sim.Markers8=' is already used.
+container.sim.Markers9=Courier/Beaming point'
+container.sim.Markers10=' has been added.
+container.sim.Markers11=Please stand facing the primary marker with the rear marker in the distance.
+container.sim.Markers12=Could not copy building, Technical info:cx
+container.sim.Markers13=Error, could not capture all blocks, try standing closer to marker and try again
+container.sim.Markers14=folder is missing, The mod is not correctly installed, please copy the simukraft folder AND the zip file.
+container.sim.Markers15=Building copied and stored as 'My Build
+container.sim.Markers16=' in Other buildings.
+container.sim.Markers17=ERROR: Markers not placed correctly, try again.
+
+container.sim.Merchant0=Hello, how can I help you today?
+container.sim.Merchant1=I've got some bargains for you...
+container.sim.Merchant2=Block pack
+container.sim.Merchant3=Price per pack
+container.sim.Merchant4=Quantity (packs of 64)
+container.sim.Merchant5=Sub-total
+container.sim.Merchant6=Goodbye!
+container.sim.Merchant7=I want to buy building materials
+container.sim.Merchant8=I want to sell building materials
+container.sim.Merchant9=* Buy *
+container.sim.Merchant10=* Sell *
+container.sim.Merchant11=Merchant: 'Sorry, your card has been declined, you could try buying less.'
+container.sim.Merchant12=Merchant: Please place a chest down here, and I will place your items in there.
+container.sim.Merchant13=Merchant: Please place a chest down here, and place stacks of 64 blocks in there.
+container.sim.Merchant14=Merchant: There were no valid stacks I want to buy from you in the chest?!
+container.sim.Merchant15=Sold all valid stacks for a total of
+
+container.sim.Mining1=Fire
+container.sim.Mining2=Hire Miner
+container.sim.Mining3=Keep all block types
+container.sim.Mining4=Discard Dirt blocks
+container.sim.Mining5=Discard Dirt and Stone
+container.sim.Mining6=Discard Dirt and Sand
+container.sim.Mining7=Discard Dirt, sand and Stone
+container.sim.Mining8=Cover with glass (put glass in chest)
+container.sim.Mining9=Leave mine open
+container.sim.Mining10=Mining
+container.sim.Mining11=Error: No markers placed - 3 markers are needed to mine vertically, 1 marker for horizontal.
+container.sim.Mining12=Error: Please place markers BEFORE the mining box
+container.sim.Mining13= and
+container.sim.Mining14= other folks
+container.sim.Mining15=Size of Horizontal mine
+
+container.sim.PathBox1=Choose path type
+container.sim.PathBox2=Hire Path Builder
+container.sim.PathBox3=Wooden Bridge
+container.sim.PathBox4=Path Constructor
+container.sim.PathBox5=Error: No marker placed - place a marker down first
+container.sim.PathBox6=Error: No marker placed - place a marker down first
+container.sim.PathBox7=Hire Path Builder
+container.sim.PathBox8=Choose path type
+container.sim.PathBox9=Path constructor set to
+
+container.sim.ShowEmployees1=Do NOT run SimCity
+container.sim.ShowEmployees2=Normal Mode
+container.sim.ShowEmployees3=Creative Mode
+container.sim.ShowEmployees4=Hardcore Mode
+container.sim.ShowEmployees5=Please choose the game mode for SimCity
+container.sim.ShowEmployees6=This mode switches off SimCity for this world
+container.sim.ShowEmployees7=Ideal for beginners and experts. Not too challenging.
+container.sim.ShowEmployees8=No money needed, everything free, no blocks required, be creative!
+container.sim.ShowEmployees9=Builders require ALL blocks, harder gameplay
+
+container.sim.Terraform1=Cancel Request
+container.sim.Terraform2='Sealand' (water to land)
+container.sim.Terraform3='Nature' (plants saplings)
+container.sim.Terraform4='Lawnmower' (cuts all long grass)
+container.sim.Terraform5='Flattenizer' (flatten area)
+container.sim.Terraform6='Value Pack' (single layer of dirt)
+container.sim.Terraform7='Glacial' (Freeze water, add snow)
+container.sim.Terraform8='Moisturizer' (Adds water to lava)
+container.sim.Terraform9='Thermalizer' (Collects lava)
+container.sim.Terraform10='De-icer' (Removes snow)
+container.sim.Terraform11=Terraforming - Please choose a Terraforming theme
+container.sim.Terraform12=Radius (1 to 60)
+container.sim.Terraform13=Error: You must hire a terraformer, not a builder
+container.sim.Terraform14=ERROR: the radius must be 60 or less
+
+container.sim.Facsimile1=Please stand facing the primary marker with the rear marker in the distance.
+container.sim.Facsimile2=Could not copy building, Technical info:cx=
+container.sim.Facsimile3=Error, could not capture all blocks, try standing closer to marker and try again
+container.sim.Facsimile4=folder is missing, The mod is not correctly installed, please copy the simukraft folder AND the zip file.
+container.sim.Facsimile5=Building copied and stored as 'My Build"
+container.sim.Facsimile6=' in Other buildings.
+container.sim.Facsimile7=ERROR: Markers not placed correctly, try again.
+

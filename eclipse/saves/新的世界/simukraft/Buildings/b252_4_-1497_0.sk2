@@ -1,0 +1,11 @@
+displayname|Repaired House
+type|residential
+primaryxyz|252,4,-1497,0
+livingxyz|252,4,-1497,0
+buildingcomplete|true
+capacity|-1
+builddir|
+lmarker|null
+blocksinbuilding|0
+tennants|Amaranth Kettle,
+blocklocs|

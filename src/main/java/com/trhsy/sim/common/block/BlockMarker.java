@@ -49,6 +49,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("MarkerBar");
+        this.setTextureName(ModSim.MODID + ":" + "marker_bar_block");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.setLightLevel(0.1F);
@@ -58,7 +59,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":blockMarker");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":marker_bar_block");
     }
 
     @Override

@@ -29,6 +29,7 @@ public class BlockFluidMilk extends BlockFluidClassic {
     public BlockFluidMilk() {
         super(new FluidMilk(), Material.water);
         this.setUnlocalizedName("fluidMilk");
+        //this.setTextureName(ModSim.MODID + ":" + "milk_still");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }

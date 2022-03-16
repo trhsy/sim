@@ -10,6 +10,7 @@ import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -76,8 +77,8 @@ public class ThreadFacsimile extends Thread {
                 }
             } else {
                 if (cx != ex) {
-                    guiMarker.errorText = "Please stand facing the primary marker with the rear marker in the distance.";
-                    ModSim.sendChat("Could not copy building, Technical info:cx=" + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
+                    guiMarker.errorText = I18n.format("container.sim.Facsimile1");
+                    ModSim.sendChat(I18n.format("container.sim.Facsimile2") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
                     return;
                 }
 
@@ -159,13 +160,13 @@ public class ThreadFacsimile extends Thread {
                 }
 
                 if (layerLines.size() == 0) {
-                    guiMarker.errorText = "Error, could not capture all blocks, try standing closer to marker and try again";
+                    guiMarker.errorText = I18n.format("container.sim.Facsimile3");
                     return;
                 }
 
                 File check = new File(ModSim.getSimukraftFolder() + "/buildings/");
                 if (!check.exists()) {
-                    ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/  folder is missing, The mod is not correctly installed, please copy the simukraft folder AND the zip file.");
+                    ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Facsimile4"));
                     return;
                 }
 
@@ -183,7 +184,7 @@ public class ThreadFacsimile extends Thread {
 
                 out.close();
                 Thread.sleep(500L);
-                guiMarker.errorText = "Building copied and stored as 'My Build" + f + "' in Other buildings.";
+                guiMarker.errorText = I18n.format("container.sim.Facsimile5") + f + I18n.format("container.sim.Facsimile1");
                 guiMarker.mc.theWorld.playSoundEffect(guiMarker.location.x, guiMarker.location.y, guiMarker.location.z, ModSim.MODID + ":computer", 1.0F, 1.0F);
                 Building.initialiseAllBuildings();
             } catch (Exception var33) {
@@ -191,7 +192,7 @@ public class ThreadFacsimile extends Thread {
             }
 
         } else {
-            guiMarker.errorText = "ERROR: Markers not placed correctly, try again.";
+            guiMarker.errorText = I18n.format("container.sim.Facsimile1");
         }
     }
 }

@@ -1,6 +1,13 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "sim:blocks/block_light"
+    "layer0": "sim:blocks/light_block_White",
+    "layer1": "sim:blocks/light_block_Red",
+    "layer2": "sim:blocks/light_block_Orange",
+    "layer3": "sim:blocks/light_block_Yellow",
+    "layer4": "sim:blocks/light_block_Green",
+    "layer5": "sim:blocks/light_block_Blue",
+    "layer6": "sim:blocks/light_block_Purple",
+    "layer7": "sim:blocks/light_block_Rainbow"
   }
 }

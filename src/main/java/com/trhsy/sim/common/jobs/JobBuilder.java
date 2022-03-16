@@ -32,13 +32,16 @@ import java.util.ArrayList;
  **/
 public class JobBuilder extends Job implements Serializable {
     private static final long serialVersionUID = -1177665807904279141L;
-
+    //阶段
     public Stage theStage;
+    //实体人数据
     public FolkData theFolk = null;
+    //职业
     public Vocation vocation = null;
     public int runDelay = 1000;
     public long timeSinceLastRun = 0L;
     private transient ArrayList<IInventory> constructorChests = new ArrayList();
+    //建筑物
     private transient Building theBuilding = null;
     private transient EntityConBox theConBox = null;
     private transient long lastNotifiedOfMaterials = 0L;

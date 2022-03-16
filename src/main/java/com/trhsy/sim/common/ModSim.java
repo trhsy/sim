@@ -588,7 +588,7 @@ public class ModSim {
         if (isDayTime() && !isDay) {
             isDay = true;
             //Night to day transition
-            ModSim.log.info("夜晚转换到白天");
+            ModSim.log.info("天亮了");
             World world = proxy.getClientWorld();
             if (world != null) {
                 EntityPlayer p = Minecraft.getMinecraft().thePlayer;
@@ -635,7 +635,7 @@ public class ModSim {
         if (!isDayTime() && isDay) {
             isDay = false;
             //Day to Night transition
-            ModSim.log.info("白天转换到夜晚");
+            ModSim.log.info("天黑了");
             if (theFolks.size() > 1) {
                 Random rand = new Random();
                 homeless = rand.nextInt(theFolks.size());
@@ -665,7 +665,7 @@ public class ModSim {
         if (theFolks.size() > 0) {
             Random rand = new Random();
             //evolving folks
-            ModSim.log.info("逐步发展");
+            ModSim.log.info("进化的人");
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {

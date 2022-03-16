@@ -55,29 +55,29 @@ public class GuiMining extends GuiScreen {
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
         if (this.theMiningBox != null) {
             if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Fire " + ((FolkData)this.theWorkers.get(0)).name));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Mining1") + ((FolkData) this.theWorkers.get(0)).name));
             } else {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, "Hire Miner"));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Mining2")));
             }
 
             String i = "";
             String j = "";
             if (this.theMiningBox.discards == 0) {
-                i = "Keep all block types";
+                i = I18n.format("container.sim.Mining3");
             } else if (this.theMiningBox.discards == 1) {
-                i = "Discard Dirt blocks";
+                i = I18n.format("container.sim.Mining4");
             } else if (this.theMiningBox.discards == 2) {
-                i = "Discard Dirt and Stone";
+                i = I18n.format("container.sim.Mining5");
             } else if (this.theMiningBox.discards == 3) {
-                i = "Discard Dirt and Sand";
+                i = I18n.format("container.sim.Mining6");
             } else if (this.theMiningBox.discards == 4) {
-                i = "Discard Dirt, sand and Stone";
+                i = I18n.format("container.sim.Mining7");
             }
 
             if (this.theMiningBox.addGlassCover) {
-                j = "Cover with glass (put glass in chest)";
+                j = I18n.format("container.sim.Mining8");
             } else {
-                j = "Leave mine open";
+                j = I18n.format("container.sim.Mining9");
             }
 
             GuiButton gb = null;
@@ -103,21 +103,21 @@ public class GuiMining extends GuiScreen {
             String i = "";
             String j = "";
             if (this.theMiningBox.discards == 0) {
-                i = "Keep all block types";
+                i = I18n.format("container.sim.Mining3");
             } else if (this.theMiningBox.discards == 1) {
-                i = "Discard Dirt blocks";
+                i = I18n.format("container.sim.Mining4");
             } else if (this.theMiningBox.discards == 2) {
-                i = "Discard Dirt and Stone";
+                i = I18n.format("container.sim.Mining5");
             } else if (this.theMiningBox.discards == 3) {
-                i = "Discard Dirt and Sand";
+                i = I18n.format("container.sim.Mining6");
             } else if (this.theMiningBox.discards == 4) {
-                i = "Discard Dirt, sand and Stone";
+                i = I18n.format("container.sim.Mining7");
             }
 
             if (this.theMiningBox.addGlassCover) {
-                j = "Cover with glass (put glass in chest)";
+                j = I18n.format("container.sim.Mining8");
             } else {
-                j = "Leave mine open";
+                j = I18n.format("container.sim.Mining9");
             }
 
             this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
@@ -134,21 +134,21 @@ public class GuiMining extends GuiScreen {
             }
 
             this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, "Mining", this.width / 2, 17, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Mining10"), this.width / 2, 17, 16777215);
 
             try {
                 if (this.theMiningBox.marker1XYZ == null) {
-                    this.drawCenteredString(this.fontRendererObj, "Error: No markers placed - 3 markers are needed to mine vertically, 1 marker for horizontal.", this.width / 2, 27, 16711680);
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Mining11"), this.width / 2, 27, 16711680);
                 }
             } catch (Exception var7) {
-                this.drawCenteredString(this.fontRendererObj, "Error: Please place markers BEFORE the mining box", this.width / 2, 27, 16711680);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Mining12"), this.width / 2, 27, 16711680);
             }
 
             if (this.theWorkers != null && this.theWorkers.size() > 0) {
                 try {
                     String others = "";
                     if (this.theWorkers.size() > 1) {
-                        others = " and " + (this.theWorkers.size() - 1) + " other folks";
+                        others = I18n.format("container.sim.Mining13") + (this.theWorkers.size() - 1) + I18n.format("container.sim.Mining14");
                     }
                 } catch (Exception var6) {
                     var6.printStackTrace();
@@ -158,7 +158,7 @@ public class GuiMining extends GuiScreen {
             if (this.theMiningBox != null) {
                 try {
                     if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
-                        this.drawCenteredString(this.fontRendererObj, "Size of Horizontal mine", this.width / 2, this.height - 60, 16777130);
+                        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Mining14"), this.width / 2, this.height - 60, 16777130);
                         this.tfSize.drawTextBox();
                     }
                 } catch (Exception var5) {
@@ -180,12 +180,12 @@ public class GuiMining extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
             } else {
-                if (guibutton.displayString.contentEquals("Hire Miner")) {
+                if (guibutton.displayString.contentEquals(I18n.format("container.sim.Mining2"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.theMiningBox, Vocation.MINER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith("Fire ")) {
-                    for(int i = 0; i < this.theWorkers.size(); ++i) {
-                        FolkData folk = (FolkData)this.theWorkers.get(i);
+                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Mining1"))) {
+                    for (int i = 0; i < this.theWorkers.size(); ++i) {
+                        FolkData folk = (FolkData) this.theWorkers.get(i);
                         folk.selfFire();
                     }
 
@@ -202,15 +202,15 @@ public class GuiMining extends GuiScreen {
 
                         i = "";
                         if (this.theMiningBox.discards == 0) {
-                            i = "Keep all block types";
+                            i = I18n.format("container.sim.Mining3");
                         } else if (this.theMiningBox.discards == 1) {
-                            i = "Discard Dirt blocks";
+                            i = I18n.format("container.sim.Mining4");
                         } else if (this.theMiningBox.discards == 2) {
-                            i = "Discard Dirt and Stone";
+                            i = I18n.format("container.sim.Mining5");
                         } else if (this.theMiningBox.discards == 3) {
-                            i = "Discard Dirt and Sand";
+                            i = I18n.format("container.sim.Mining6");
                         } else if (this.theMiningBox.discards == 4) {
-                            i = "Discard Dirt, sand and Stone";
+                            i = I18n.format("container.sim.Mining7");
                         }
 
                         guibutton.displayString = i;
@@ -218,9 +218,9 @@ public class GuiMining extends GuiScreen {
                         this.theMiningBox.addGlassCover = !this.theMiningBox.addGlassCover;
                         i = "";
                         if (this.theMiningBox.addGlassCover) {
-                            i = "Cover with glass (put glass in chest)";
+                            i = I18n.format("container.sim.Mining8");
                         } else {
-                            i = "Leave mine open";
+                            i = I18n.format("container.sim.Mining9");
                         }
 
                         guibutton.displayString = i;

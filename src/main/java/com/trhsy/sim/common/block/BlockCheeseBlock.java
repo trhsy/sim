@@ -36,7 +36,7 @@ public class BlockCheeseBlock extends Block {
         //设定方块的爆炸抗性，如木头的抗性为4，石头为10，黑曜石为2000，基岩为6000000。
         this.setResistance(0.5F);
         this.setUnlocalizedName("cheeseBlock");
-        this.setTextureName(ModSim.MODID + ":" + "cheeseBlock");
+        this.setTextureName(ModSim.MODID + ":" + "cheese_block");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -44,7 +44,7 @@ public class BlockCheeseBlock extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":cheeseblock");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":cheese_block");
     }
 
     private static void register(Block block, String name) {

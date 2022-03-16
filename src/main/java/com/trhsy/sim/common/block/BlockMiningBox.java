@@ -42,6 +42,7 @@ public class BlockMiningBox extends Block {
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("MiningBox");
+        this.setTextureName(ModSim.MODID + ":" + "mining_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
@@ -49,7 +50,7 @@ public class BlockMiningBox extends Block {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[1];
-        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":blockMining");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":mining_box");
     }
 
     @Override
