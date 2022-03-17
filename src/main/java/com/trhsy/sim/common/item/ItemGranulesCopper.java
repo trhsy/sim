@@ -36,11 +36,7 @@ public class ItemGranulesCopper extends Item {
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int par1) {
-        return this.icons[0];
-    }
+
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -50,7 +46,8 @@ public class ItemGranulesCopper extends Item {
     }
 
     @Override
-    public IIcon getIcon(ItemStack stack, int pass) {
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int par1) {
         return this.icons[0];
     }
 
@@ -62,5 +59,10 @@ public class ItemGranulesCopper extends Item {
         par3List.add(granules_copper);
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        return this.icons[0];
+    }
+
 
 }

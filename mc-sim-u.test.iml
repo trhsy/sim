@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="sim-u-1.7.10:test" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="com.trhsy.sim" external.system.module.type="sourceSet" external.system.module.version="1.7.10-1.0.0 Beta" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="mc-sim-u:test" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="com.trhsy.sim" external.system.module.type="sourceSet" external.system.module.version="1.7.10-1.0.0 Beta" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
@@ -17,8 +17,8 @@
     <content url="file://$MODULE_DIR$/src/test" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="sim-u-1.7.10.api" />
-    <orderEntry type="module" module-name="sim-u-1.7.10.main" />
+    <orderEntry type="module" module-name="mc-sim-u.api" />
+    <orderEntry type="module" module-name="mc-sim-u.main" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -33,7 +33,7 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="file://D:/maven/.grable/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.4.1614-1.7.10/start" />
+          <root url="file://$MODULE_DIR$/../../../maven/gradle/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.4.1614-1.7.10/start" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -96,5 +96,5 @@
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-linux:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-osx:2.9.1" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="sim-u-1.7.10.main" />
+  <component name="TestModuleProperties" production-module="mc-sim-u.main" />
 </module>

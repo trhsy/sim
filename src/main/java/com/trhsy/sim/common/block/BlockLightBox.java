@@ -49,9 +49,10 @@ public class BlockLightBox extends Block {
 
     @Override
     public String getUnlocalizedName(){
-        String name="tile.lightBox.";
+        String name="";
         for (int i = 0; i < names.length; i++) {
-            name+=names[i];
+            name="tile.lightBox."+names[i];
+            return name;
         }
         return name;
     }

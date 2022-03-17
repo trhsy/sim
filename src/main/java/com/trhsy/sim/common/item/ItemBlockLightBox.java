@@ -34,7 +34,7 @@ public class ItemBlockLightBox extends ItemBlock {
     public ItemBlockLightBox() {
         super(BlockLoader.blockLightBox);
         this.setHasSubtypes(true);
-        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override
