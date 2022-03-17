@@ -6,9 +6,11 @@ import com.trhsy.sim.common.fluid.FluidMilk;
 import com.trhsy.sim.common.item.ItemBlockWindmill;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -54,6 +56,7 @@ public class BlockLoader {
 
     public BlockLoader(FMLPreInitializationEvent event) {
         fluidMilk = new FluidMilk();
+        blockLightBox = new BlockLightBox();
         register(constructorBox, "constructor_box");
         register(blockCheeseBlock, "cheese_block");
         register(blockCompositeBrick, "composite_brick");
@@ -66,6 +69,7 @@ public class BlockLoader {
         register(blockMarker, "marker_bar_block");
         register(blockWindmill, "block_windmill");
         GameRegistry.registerTileEntity(TileEntityWindmill.class, "tileentitywindmill");
+
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 1), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 1)});
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 2), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 14)});
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 3), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 11)});

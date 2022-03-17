@@ -34,7 +34,6 @@ public class ItemWindmillSails extends Item {
         super();
         this.maxStackSize = 64;
         this.setUnlocalizedName("windmillSails");
-//        this.setTextureName(ModSim.MODID + ":windmill_sails");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }

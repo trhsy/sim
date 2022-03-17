@@ -1,0 +1,123 @@
+
+M
+java:S1135"2Complete the task associated to this TODO comment.(á•’‰üÿÿÿÿ
+h
+java:S3776d"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(æôÚ„
+>	java:S108q")Either remove or fill this block of code.(ôÒø‚
+>
+java:S1905ƒ"'Remove this unnecessary cast to "long".(ï·Ï«
+R	java:S125š"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+h
+java:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(›èÊ/
+D	java:S108Ê")Either remove or fill this block of code.(öé”şÿÿÿÿ
+i
+java:S3776Ò"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(…èĞƒ
+2
+java:S3626ë"Remove this redundant jump.(ûÁİ…
+D
+java:S1940Ù"(Use the opposite operator (">") instead.(–ô³‡şÿÿÿÿ
+j
+java:S3776ı"SRefactor this method to reduce its Cognitive Complexity from 177 to the 15 allowed.(úØµ
+X
+java:S1854¢"<Remove this useless assignment to local variable "ltrCount".(®Øßäøÿÿÿÿ
+U
+java:S1854å"9Remove this useless assignment to local variable "var34".(ÔÄÌºøÿÿÿÿ
+P
+java:S1854ä"9Remove this useless assignment to local variable "var32".(‡éŒ°
+U
+java:S1854è"9Remove this useless assignment to local variable "var34".(É£«—ÿÿÿÿÿ
+P
+java:S1854ç"9Remove this useless assignment to local variable "var32".(‡éŒ°
+P
+java:S1854ë"9Remove this useless assignment to local variable "var34".(©†‚Ÿ
+U
+java:S1854ê"9Remove this useless assignment to local variable "var32".(îô´‘øÿÿÿÿ
+P
+java:S1854î"9Remove this useless assignment to local variable "var34".(„£‘
+U
+java:S1854í"9Remove this useless assignment to local variable "var32".(îô´‘øÿÿÿÿ
+X
+java:S1854ó"<Remove this useless assignment to local variable "ltrCount".(®Øßäøÿÿÿÿ
+O
+java:S1854•"8Remove this useless assignment to local variable "meta".(œ¶ßÃ
+U
+java:S1854œ"9Remove this useless assignment to local variable "var24".(ªÜÍúÿÿÿÿ
+P
+java:S1854›"9Remove this useless assignment to local variable "var23".(ºò®˜
+O
+java:S1854Ÿ"9Remove this useless assignment to local variable "var24".(Õ¢ô(
+P
+java:S1854"9Remove this useless assignment to local variable "var23".(ºò®˜
+P
+java:S1854¢"9Remove this useless assignment to local variable "var24".(ÏÚöß
+P
+java:S1854¡"9Remove this useless assignment to local variable "var23".(Ş­¸”
+U
+java:S1854¥"9Remove this useless assignment to local variable "var24".(ĞÍÏÄøÿÿÿÿ
+P
+java:S1854¤"9Remove this useless assignment to local variable "var23".(Ş­¸”
+I
+java:S1481‡"-Remove this unused "ltrCount" local variable.(»ß‘“ùÿÿÿÿ
+W	java:S125 "<This block of commented-out lines of code should be removed.(„‹¼íúÿÿÿÿ
+W
+java:S1119²";Refactor the code to remove this label and the need for it.(Â¨èşÿÿÿÿ
+g
+java:S1764Ñ"KCorrect one of the identical sub-expressions on both sides of operator "&&"(Øİã§ûÿÿÿÿ
+g
+java:S1764Ñ"KCorrect one of the identical sub-expressions on both sides of operator "&&"(Øİã§ûÿÿÿÿ
+D	java:S108İ")Either remove or fill this block of code.(É²Ñâıÿÿÿÿ
+A
+java:S1481á"*Remove this unused "var32" local variable.(òÅ’
+A
+java:S1481â"*Remove this unused "var34" local variable.(†ªø¶
+W	java:S125õ"<This block of commented-out lines of code should be removed.(ßõÍ¤ùÿÿÿÿ
+R
+java:S1119ù";Refactor the code to remove this label and the need for it.(„ûğ©
+@
+java:S1905–")Remove this unnecessary cast to "double".(¾µ¦ï
+F
+java:S1481˜"*Remove this unused "var23" local variable.(è»ºøÿÿÿÿ
+F
+java:S1481™"*Remove this unused "var24" local variable.(™ŠÓéıÿÿÿÿ
+g
+java:S1764Â"KCorrect one of the identical sub-expressions on both sides of operator "&&"(Øİã§ûÿÿÿÿ
+g
+java:S1764Â"KCorrect one of the identical sub-expressions on both sides of operator "&&"(Øİã§ûÿÿÿÿ
+j
+java:S3776Ü"SRefactor this method to reduce its Cognitive Complexity from 124 to the 15 allowed.(“ù•Á
+?	java:S108‚")Either remove or fill this block of code.(Æú…ä
+z
+java:S2142‡"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(öé”şÿÿÿÿ
+D	java:S108‡")Either remove or fill this block of code.(öé”şÿÿÿÿ
+W	java:S125“"<This block of commented-out lines of code should be removed.(„‹¼íúÿÿÿÿ
+?	java:S108")Either remove or fill this block of code.(†äç³
+E
+java:S1905¨")Remove this unnecessary cast to "double".(Õ´üÿÿÿÿ
+g
+java:S1764è"KCorrect one of the identical sub-expressions on both sides of operator "||"(›Õïêÿÿÿÿÿ
+g
+java:S1764è"KCorrect one of the identical sub-expressions on both sides of operator "||"(›Õïêÿÿÿÿÿ
+H
+java:S1905ô",Remove this unnecessary cast to "ItemStack".(˜‘À©ûÿÿÿÿ
+d
+java:S1192›"HDefine a constant instead of duplicating this literal "explode" 3 times.(æÙÑùÿÿÿÿ
+o	java:S135µ"YReduce the total number of break and continue statements in this loop to use at most one.(çòÕ²
+o	java:S135ü"YReduce the total number of break and continue statements in this loop to use at most one.(»›­É
+U
+java:S1155¿">Use isEmpty() to check whether the collection is empty or not.(óæüÈ
+U
+java:S1155©">Use isEmpty() to check whether the collection is empty or not.(µÁ¯Ï
+Z
+java:S1155·">Use isEmpty() to check whether the collection is empty or not.(úé¤‚úÿÿÿÿ
+j
+java:S1104%"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104&"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104'"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104("TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+w
+java:S1104)"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
+A
+java:S5411µ"*Use the primitive boolean expression here.(ªÖ’Œ

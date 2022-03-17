@@ -1,106 +1,11 @@
-[22:09:08] [main/INFO]: Setting user: Player413
-[22:09:09] [Client thread/INFO]: LWJGL Version: 2.9.1
-[22:09:16] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[22:09:17] [Sound Library Loader/INFO]: Sound engine started
-[22:09:17] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[22:09:17] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[22:09:17] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[22:09:17] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[22:09:18] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[22:09:18] [Sound Library Loader/INFO]: Sound engine started
-[22:09:45] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[22:09:45] [Server thread/INFO]: Generating keypair
-[22:09:46] [Server thread/INFO]: Preparing start region for level 0
-[22:09:46] [Server thread/INFO]: Changing view distance to 12, from 10
-[22:09:47] [Server thread/INFO]: Player413[local:E:97ea6c45] logged in with entity id 227 at (246.1510884195431, 4.0, -1490.1341362973214)
-[22:09:47] [Server thread/INFO]: Player413 加入了游戏
-[22:09:49] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
-[22:09:49] [pool-2-thread-1/WARN]: Couldn't look up profile properties for com.mojang.authlib.GameProfile@36a2348[id=cd68c5ef-6a2a-334d-afe7-65c24468cb5c,name=Player413,properties={},legacy=false]
-com.mojang.authlib.exceptions.AuthenticationUnavailableException: Cannot contact authentication server
-	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:71) ~[YggdrasilAuthenticationService.class:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fillGameProfile(YggdrasilMinecraftSessionService.java:158) [YggdrasilMinecraftSessionService.class:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService$1.load(YggdrasilMinecraftSessionService.java:53) [YggdrasilMinecraftSessionService$1.class:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService$1.load(YggdrasilMinecraftSessionService.java:50) [YggdrasilMinecraftSessionService$1.class:?]
-	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3524) [guava-17.0.jar:?]
-	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2317) [guava-17.0.jar:?]
-	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2280) [guava-17.0.jar:?]
-	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2195) [guava-17.0.jar:?]
-	at com.google.common.cache.LocalCache.get(LocalCache.java:3934) [guava-17.0.jar:?]
-	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3938) [guava-17.0.jar:?]
-	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4821) [guava-17.0.jar:?]
-	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4827) [guava-17.0.jar:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fillProfileProperties(YggdrasilMinecraftSessionService.java:148) [YggdrasilMinecraftSessionService.class:?]
-	at net.minecraft.client.resources.SkinManager$3.run(SkinManager.java:139) [SkinManager$3.class:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_181]
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [?:1.8.0_181]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_181]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_181]
-	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_181]
-Caused by: java.net.UnknownHostException: sessionserver.mojang.com
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184) ~[?:1.8.0_181]
-	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172) ~[?:1.8.0_181]
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[?:1.8.0_181]
-	at java.net.Socket.connect(Socket.java:589) ~[?:1.8.0_181]
-	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673) ~[?:1.8.0_181]
-	at sun.net.NetworkClient.doConnect(NetworkClient.java:175) ~[?:1.8.0_181]
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463) ~[?:1.8.0_181]
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558) ~[?:1.8.0_181]
-	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264) ~[?:1.8.0_181]
-	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367) ~[?:1.8.0_181]
-	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1199) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection$6.run(HttpURLConnection.java:1040) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection$6.run(HttpURLConnection.java:1038) ~[?:1.8.0_181]
-	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_181]
-	at java.security.AccessController.doPrivilegedWithCombiner(AccessController.java:782) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1037) ~[?:1.8.0_181]
-	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection.access$200(HttpURLConnection.java:91) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection$9.run(HttpURLConnection.java:1484) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection$9.run(HttpURLConnection.java:1482) ~[?:1.8.0_181]
-	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.8.0_181]
-	at java.security.AccessController.doPrivilegedWithCombiner(AccessController.java:782) ~[?:1.8.0_181]
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1481) ~[?:1.8.0_181]
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:263) ~[?:1.8.0_181]
-	at com.mojang.authlib.HttpAuthenticationService.performGetRequest(HttpAuthenticationService.java:126) ~[HttpAuthenticationService.class:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:54) ~[YggdrasilAuthenticationService.class:?]
-	... 18 more
-[22:09:59] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个1单元
-[22:09:59] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设1单元
-[22:10:08] [Server thread/INFO]: Player413 刚刚获得了 [打开物品栏] 成就！
-[22:10:08] [Client thread/INFO]: [CHAT] Player413 刚刚获得了 [打开物品栏] 成就！
-[22:10:31] [Client thread/INFO]: [CHAT] Amaranth Kettle正在进入他们的1单元
-[22:24:03] [Client thread/INFO]: [CHAT] 今天收了0.42金的房租。
-[22:24:03] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
-[22:34:50] [Server thread/INFO]: [Player413: 将时间设为 0]
-[22:34:50] [Client thread/INFO]: [CHAT] 将时间设为 0
-[22:34:53] [Client thread/INFO]: [CHAT] 今天收了0.42金的房租。
-[22:34:53] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
-[22:34:57] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个面包店
-[22:34:57] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设面包店
-[22:35:48] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个候机室
-[22:35:49] [Client thread/INFO]: [CHAT] Alan McCoy ( 谁在建造候机室)需要更多羊毛
-[22:36:34] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设候机室
-[22:37:09] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个候机室
-[22:37:09] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设候机室
-[22:37:16] [Client thread/INFO]: [CHAT] Tammie Arsing正在进入他们的候机室
-[22:37:42] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个候机室
-[22:37:43] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设候机室
-[22:37:50] [Client thread/INFO]: [CHAT] Alan McCoy正在进入他们的候机室
-[22:38:05] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个候机室
-[22:38:09] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设候机室
-[22:38:56] [Client thread/INFO]: [CHAT] Sharron Brandybuck正在进入他们的候机室
-[22:40:02] [Client thread/INFO]: [CHAT] Alan McCoy已经开始构建一个候机室
-[22:40:02] [Client thread/INFO]: [CHAT] Alan McCoy已完成建设候机室
-[22:40:12] [Server thread/INFO]: Saving and pausing game...
-[22:40:12] [Server thread/INFO]: Saving chunks for level '新的世界'/Overworld
-[22:40:12] [Server thread/INFO]: Saving chunks for level '新的世界'/Nether
-[22:40:12] [Server thread/INFO]: Saving chunks for level '新的世界'/The End
-[22:40:13] [Server thread/INFO]: Stopping server
-[22:40:13] [Server thread/INFO]: Saving players
-[22:40:13] [Server thread/INFO]: Saving worlds
-[22:40:13] [Server thread/INFO]: Saving chunks for level '新的世界'/Overworld
-[22:40:13] [Server thread/INFO]: Saving chunks for level '新的世界'/Nether
-[22:40:13] [Server thread/INFO]: Saving chunks for level '新的世界'/The End
-[22:40:15] [Client thread/INFO]: Stopping!
+[17:58:27] [main/INFO]: Setting user: Player404
+[17:58:28] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:58:34] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:59:33] [Sound Library Loader/INFO]: Sound engine started
+[17:59:33] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[17:59:33] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[17:59:33] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:59:33] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:59:34] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:59:34] [Sound Library Loader/INFO]: Sound engine started
+[17:59:42] [Client thread/INFO]: Stopping!

@@ -1,0 +1,41 @@
+
+3
+java:S1118?"Hide this public constructor.(ó´ˆ˜
+M
+java:S1135"2Complete the task associated to this TODO comment.(•˜ÙŠÿÿÿÿÿ
+B
+java:S1172?",Remove this unused method parameter "event".(ó´ˆ˜
+Q	java:S125:"<This block of commented-out lines of code should be removed.(í¼çÂ
+V	java:S125I"<This block of commented-out lines of code should be removed.(ÈáÝçÿÿÿÿÿ
+y
+java:S1104"^Make itemGranulesCopper a static final constant or non-public and provide accessors if needed.(Þÿˆùÿÿÿÿÿ
+r
+java:S1104 "\Make itemGranulesGold a static final constant or non-public and provide accessors if needed.(‘£†à
+r
+java:S1104$"\Make itemGranulesIron a static final constant or non-public and provide accessors if needed.(‘÷ô 
+v
+java:S1104("[Make itemGranulesTin a static final constant or non-public and provide accessors if needed.(÷ôØÖþÿÿÿÿ
+r
+java:S1104,"\Make itemWindmillBase a static final constant or non-public and provide accessors if needed.(òÛª½
+x
+java:S11040"]Make itemWindmillSails a static final constant or non-public and provide accessors if needed.(¸º©Õÿÿÿÿÿ
+r
+java:S11044"\Make itemWindmillVane a static final constant or non-public and provide accessors if needed.(¡µœœ
+k
+java:S11048"UMake itemFoods a static final constant or non-public and provide accessors if needed.(«°›é
+S
+java:S1444"8Make this "public static itemGranulesCopper" field final(Þÿˆùÿÿÿÿÿ
+L
+java:S1444 "6Make this "public static itemGranulesGold" field final(‘£†à
+L
+java:S1444$"6Make this "public static itemGranulesIron" field final(‘÷ô 
+P
+java:S1444("5Make this "public static itemGranulesTin" field final(÷ôØÖþÿÿÿÿ
+L
+java:S1444,"6Make this "public static itemWindmillBase" field final(òÛª½
+R
+java:S14440"7Make this "public static itemWindmillSails" field final(¸º©Õÿÿÿÿÿ
+L
+java:S14444"6Make this "public static itemWindmillVane" field final(¡µœœ
+E
+java:S14448"/Make this "public static itemFoods" field final(«°›é

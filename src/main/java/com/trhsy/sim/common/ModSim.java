@@ -266,14 +266,7 @@ public class ModSim {
 
 
 
-        /*LanguageRegistry.instance().addStringLocalization("tile.lightBox.white.name", I18n.format("tile.lightBox.white.name"));
-        LanguageRegistry.instance().addStringLocalization("tile.lightBox.red.name", I18n.format("tile.lightBox.red..name"));
-        LanguageRegistry.instance().addStringLocalization("tile.lightBox.orange.name", I18n.format("tile.lightBox.orange.name"));
-        LanguageRegistry.instance().addStringLocalization("tile.lightBox.yellow.name", I18n.format("tile.lightBox.yellow.name"));
-        LanguageRegistry.instance().addStringLocalization("tile.lightBox.green.name", I18n.format("tile.lightBox.green.name"));
-        LanguageRegistry.instance().addStringLocalization("tile.lightBox.blue.name", I18n.format("Stile.lightBox.blue.name"));
-        LanguageRegistry.instance().addStringLocalization("tile.lightBox.purple.name", I18n.format("Stile.lightBox.purple.name"));
-        LanguageRegistry.instance().addStringLocalization("tile.lightBox.rainbow.name", I18n.format("tile.lightBox.rainbow.name"));
+        /*
 */
         EntityRegistry.registerGlobalEntityID(EntityAlignBeam.class, "AlignBeam", EntityRegistry.findGlobalUniqueEntityId());
         EntityRegistry.registerModEntity(EntityAlignBeam.class, "AlignBeam", 0, this, 250, 10, false);
@@ -285,7 +278,7 @@ public class ModSim {
         EntityRegistry.registerModEntity(EntityWindmill.class, "SUKWindmill", 3, this, 250, 1, false);
         proxy.registerRenderInfo();
         proxy.registerMisc();
-//        updateCheck();
+        updateCheck();
     }
 
 
@@ -443,11 +436,11 @@ public class ModSim {
             Thread.sleep(15000L);
             File check = new File(getSimukraftFolder() + "/buildings/");
             if (!check.exists()) {
-                sendChat(getSimukraftFolder() + I18n.format("container.sim.main_buildings"));
+                sendChat(getSimukraftFolder() + "/buildings/ "+I18n.format("container.sim.main_buildings"));
                 return;
             }
 
-            String baseURL = "https://www.dropbox.com/s/i51v1lsq0u89elw/";
+            String baseURL = "https://www.jianguoyun.com/p/DWFS4bwQ-bWvChj-prME";//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
             String ver = this.downloadFile(baseURL + "version.txt", getSimukraftFolder() + File.separator + "simukraft.txt");
             if (ver != null) {
                 ver = ver.trim();
@@ -475,7 +468,7 @@ public class ModSim {
 
             String[] items = newbs.split("!END");
 
-            for (int i = 0; i < items.length - 1; ++i) {
+            /*for (int i = 0; i < items.length - 1; ++i) {
                 String[] fields = items[i].split("!F");
                 String url = baseURL + "catalogue/PKID" + fields[0] + "-" + fields[1] + ".txt";
                 String local = getSimukraftFolder() + "/buildings/" + fields[3] + "/PKID" + fields[0] + "-" + fields[1] + ".txt";
@@ -485,7 +478,7 @@ public class ModSim {
                     this.downloadFile(url, getSimukraftFolder() + File.separator + "cache.txt");
                     sendChat("SimCity: Downloaded new building - '" + fields[1] + "' by " + fields[2] + " (" + fields[3] + ")");
                 }
-            }
+            }*/
         } catch (Exception var13) {
             var13.printStackTrace();
         }

@@ -45,7 +45,7 @@ public class CommonProxy {
         //加载物品栏
         new CreativeTabsLoader(event);
         //加载流体
-        //new FluidLoader(event);
+        new FluidLoader(event);
         //加载所以物品
         new ItemLoader(event);
         //加载所以方块

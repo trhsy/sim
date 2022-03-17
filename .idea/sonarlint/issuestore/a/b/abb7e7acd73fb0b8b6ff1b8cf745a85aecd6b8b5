@@ -1,0 +1,52 @@
+
+J
+java:S3740*"/Provide the parametrized type for this generic.(—€çŒşÿÿÿÿ
+K
+java:S3740ä"/Provide the parametrized type for this generic.(áëÜúÿÿÿÿ
+F
+java:S3740î"/Provide the parametrized type for this generic.(éÀ²¸
+K
+java:S3740–"/Provide the parametrized type for this generic.(ŸîÄ±ûÿÿÿÿ
+K
+java:S3740ß"/Provide the parametrized type for this generic.(¯ª§êÿÿÿÿÿ
+w
+java:S1450*"\Remove the "chestsAtDairy" field and declare it as a local variable in the relevant methods.(—€çŒşÿÿÿÿ
+M
+java:S1135"2Complete the task associated to this TODO comment.(Á¿¦Ëüÿÿÿÿ
+h
+java:S3776B"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(æôÚ„
+=
+java:S1905_"'Remove this unnecessary cast to "long".(ï·Ï«
+D	java:S108‚")Either remove or fill this block of code.(öé”şÿÿÿÿ
+i
+java:S3776Ò"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(Ã¶Œ
+R
+java:S1119æ";Refactor the code to remove this label and the need for it.(ÁüÌÒ
+?	java:S108ø")Either remove or fill this block of code.(²¹Ô´
+n
+java:S3776‘"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(—Ôé¹úÿÿÿÿ
+=	java:S131©""Add a default case to this switch.(‹ Àûÿÿÿÿ
+i
+java:S3776Ö"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(Ñ¤œõ
+n
+java:S3776ˆ"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(ÿ£åşÿÿÿÿ
+n
+java:S3776Ğ"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ÊÚ»¦şÿÿÿÿ
+R	java:S125€"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+E
+java:S1121—".Extract the assignment out of this expression.(–•¦Ú
+J
+java:S1121™".Extract the assignment out of this expression.(òÈµêøÿÿÿÿ
+J
+java:S1066:"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+l	java:S117ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áëÜúÿÿÿÿ
+g	java:S117î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÀ²¸
+l	java:S117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸîÄ±ûÿÿÿÿ
+j
+java:S1104&"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104'"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104("TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104)"TMake runDelay a static final constant or non-public and provide accessors if needed.(µ¸°¦şÿÿÿÿ

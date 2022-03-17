@@ -4,16 +4,19 @@ package com.trhsy.sim.common.item;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.BlockLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ import java.util.List;
  * ========================================
  **/
 public class ItemBlockLightBox extends ItemBlock {
+    private IIcon[] icons;
     public ItemBlockLightBox() {
         super(BlockLoader.blockLightBox);
         this.setHasSubtypes(true);
@@ -35,7 +39,7 @@ public class ItemBlockLightBox extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack is) {
-        if (is.getMetadata() == 0) {
+        /*if (is.getMetadata() == 0) {
             return "tile.lightBox.white";
         } else if (is.getMetadata() == 1) {
             return "tile.lightBox.red";
@@ -51,9 +55,22 @@ public class ItemBlockLightBox extends ItemBlock {
             return "tile.lightBox.purple";
         } else {
             return is.getMetadata() == 7 ? "tile.lightBox.rainbow" : null;
-        }
+        }*/
+        return this.getUnlocalizedName() + is.getMetadata();
     }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister) {
+        this.icons = new IIcon[8];
+        for (int i = 0; i < 8; ++i) {
+            this.icons[i] = iconRegister.registerIcon(ModSim.MODID + ":light_block" + i);
+        }
 
+    }
+    @Override
+    public IIcon getIconFromDamage(int meta) {
+        return meta >= 0 && meta < 8 ? this.icons[meta] : this.icons[0];
+    }
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

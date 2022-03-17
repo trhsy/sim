@@ -1,6 +1,6 @@
 package com.trhsy.sim.client;
 
-import com.trhsy.sim.client.loader.ItemRenderLoader;
+import com.trhsy.sim.common.loader.ItemRenderLoader;
 import com.trhsy.sim.client.model.ModelAlignBeam;
 import com.trhsy.sim.client.model.ModelConBox;
 import com.trhsy.sim.client.model.ModelFolkFemale;

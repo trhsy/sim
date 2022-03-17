@@ -6,15 +6,19 @@ package com.trhsy.sim.common.block;/**
 
 import com.trhsy.sim.common.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Random;
@@ -39,10 +43,18 @@ public class BlockLightBox extends Block {
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setTickRandomly(true);
-        //this.setTextureName(ModSim.MODID + ":" + "light_block_White");
+        this.setTextureName(ModSim.MODID + ":" + "light_block_White");
         this.setUnlocalizedName("lightBox");
     }
 
+    @Override
+    public String getUnlocalizedName(){
+        String name="tile.lightBox.";
+        for (int i = 0; i < names.length; i++) {
+            name+=names[i];
+        }
+        return name;
+    }
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
@@ -50,14 +62,6 @@ public class BlockLightBox extends Block {
         for (int i = 0; i < names.length; i++) {
             this.icons[i] = iconRegister.registerIcon(ModSim.MODID + ":light_block_" + names[i]);
         }
-        /*this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");
-        this.icons[1] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");
-        this.icons[2] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");
-        this.icons[3] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");
-        this.icons[4] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");
-        this.icons[5] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");
-        this.icons[6] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");
-        this.icons[7] = iconRegister.registerIcon(ModSim.MODID + ":light_block_");*/
     }
 
     @Override
@@ -74,14 +78,13 @@ public class BlockLightBox extends Block {
     public int damageDropped(int j) {
         return j;
     }
-
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List par3List) {
-        for (int meta = 0; meta < names.length; ++meta) {
+        for (int meta = 0; meta < 8; ++meta) {
+            //par3List.add(new ItemStack(itemIn, 1, meta));
             par3List.add(new ItemStack(this, 1, meta));
         }
-
     }
 
     @Override

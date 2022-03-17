@@ -9,6 +9,7 @@ import com.trhsy.sim.common.loader.BlockLoader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -43,7 +44,7 @@ public class ItemBlockWindmill extends ItemBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        par3List.add("Granulates ores and generates Buildcraft energy");
+        par3List.add(I18n.format("container.sim.Windmill1"));
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
 

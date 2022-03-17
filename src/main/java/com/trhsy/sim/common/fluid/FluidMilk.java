@@ -27,6 +27,6 @@ public class FluidMilk extends Fluid {
         this.setUnlocalizedName("fluidMilk");
         this.setDensity(10);
         this.setViscosity(1000);
-        FluidRegistry.registerFluid(this);
+        //FluidRegistry.registerFluid(this);
     }
 }

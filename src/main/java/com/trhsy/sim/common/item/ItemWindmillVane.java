@@ -63,7 +63,7 @@ public class ItemWindmillVane extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack is) {
-        return this.getUnlocalizedName();
+        return this.getUnlocalizedName()+ is.getMetadata();
     }
 
     @Override
