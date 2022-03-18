@@ -278,7 +278,7 @@ public class ModSim {
         EntityRegistry.registerModEntity(EntityWindmill.class, "SUKWindmill", 3, this, 250, 1, false);
         proxy.registerRenderInfo();
         proxy.registerMisc();
-        updateCheck();
+        //updateCheck();
     }
 
 

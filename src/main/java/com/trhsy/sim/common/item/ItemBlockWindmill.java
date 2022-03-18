@@ -29,7 +29,7 @@ public class ItemBlockWindmill extends ItemBlock {
     public ItemBlockWindmill() {
         super(BlockLoader.blockWindmill);
         this.setHasSubtypes(true);
-        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     public String getItemDisplayName(ItemStack is) {

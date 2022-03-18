@@ -1,11 +1,3 @@
-[17:58:27] [main/INFO]: Setting user: Player404
-[17:58:28] [Client thread/INFO]: LWJGL Version: 2.9.1
-[17:58:34] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[17:59:33] [Sound Library Loader/INFO]: Sound engine started
-[17:59:33] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[17:59:33] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[17:59:33] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[17:59:33] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[17:59:34] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[17:59:34] [Sound Library Loader/INFO]: Sound engine started
-[17:59:42] [Client thread/INFO]: Stopping!
+[21:42:58] [main/INFO]: Setting user: Player542
+[21:42:59] [Client thread/INFO]: LWJGL Version: 2.9.1
+[21:43:05] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BC Builders, FMLFileResourcePack:BC Robotics, FMLFileResourcePack:BC Silicon, FMLFileResourcePack:BC Energy, FMLFileResourcePack:BC Transport, FMLFileResourcePack:BuildCraft, FMLFileResourcePack:BC Factory, FMLFileResourcePack:Simulated town
