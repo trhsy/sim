@@ -553,6 +553,10 @@
   <component name="JavadocGenerationManager">
     <option name="OTHER_OPTIONS" value="" />
   </component>
+  <component name="PWA">
+    <option name="enabled" value="true" />
+    <option name="wasEnabledAtLeastOnce" value="true" />
+  </component>
   <component name="Palette2">
     <group name="Swing">
       <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
@@ -716,6 +720,13 @@
       <option name="name" value="MavenRepo" />
       <option name="url" value="https://repo1.maven.org/maven2/" />
     </remote-repository>
+  </component>
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="sim-u-1.7.10" />
+      </set>
+    </option>
   </component>
   <component name="SuppressionsComponent">
     <option name="suppComments" value="[]" />

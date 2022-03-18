@@ -33,7 +33,9 @@ minecraft {
     runDir = "eclipse"
 	mappings = "stable_12"
 }
-
+configurations {
+    //externalLibs
+}
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
@@ -44,6 +46,11 @@ dependencies {
 //    compile "com.google.guava:guava:version:31.0.1-jre"
     // real examples
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+    //externalLibs files('libs/buildcraft-7.1.24-api.jar')
+    //implementation gradleApi()
+    //runtimeOnly files('libs/buildcraft-7.1.24-api.jar', 'libs/buildcraft-7.1.24-api.jar')
+    //runtimeOnly fileTree('libs') { include '*.jar' }
+
 
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
