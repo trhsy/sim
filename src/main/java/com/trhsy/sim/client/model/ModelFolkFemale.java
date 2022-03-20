@@ -20,13 +20,19 @@ import net.minecraft.entity.Entity;
  * ========================================
  **/
 public class ModelFolkFemale extends ModelBiped {
+    //女性右侧乳房
     public ModelRenderer rightTit = new ModelRenderer(this, 19, 19);
+    //女性左侧乳房
     public ModelRenderer leftTit;
+    //怀孕
     public ModelRenderer pregnant;
 
     public ModelFolkFemale() {
+
         this.rightTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 4);
+        //设置旋转点
         this.rightTit.setRotationPoint(0.5F, 1.7F, -4.0F);
+
         this.leftTit = new ModelRenderer(this, 19, 19);
         this.leftTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 4);
         this.leftTit.setRotationPoint(-3.5F, 1.7F, -4.0F);
@@ -53,8 +59,9 @@ public class ModelFolkFemale extends ModelBiped {
                 this.pregnant.render(f5);
             }
         }
-
+        //  设置模型的各种旋转角度，然后渲染模型。
         super.render(entity, f, f1, f2, f3, f4, f5);
+        //旋转角度
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     }
 }

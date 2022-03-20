@@ -1,3 +1,43 @@
-[21:42:58] [main/INFO]: Setting user: Player542
-[21:42:59] [Client thread/INFO]: LWJGL Version: 2.9.1
-[21:43:05] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BC Builders, FMLFileResourcePack:BC Robotics, FMLFileResourcePack:BC Silicon, FMLFileResourcePack:BC Energy, FMLFileResourcePack:BC Transport, FMLFileResourcePack:BuildCraft, FMLFileResourcePack:BC Factory, FMLFileResourcePack:Simulated town
+[14:25:41] [main/INFO]: Setting user: Player93
+[14:25:42] [Client thread/INFO]: LWJGL Version: 2.9.1
+[14:25:50] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[14:25:51] [Sound Library Loader/INFO]: Sound engine started
+[14:25:51] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[14:25:51] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[14:25:51] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[14:25:52] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[14:25:52] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[14:25:53] [Sound Library Loader/INFO]: Sound engine started
+[14:25:56] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[14:25:56] [Server thread/INFO]: Generating keypair
+[14:25:56] [Server thread/INFO]: Preparing start region for level 0
+[14:25:57] [Server thread/INFO]: Preparing spawn area: 72%
+[14:25:58] [Server thread/INFO]: Changing view distance to 12, from 10
+[14:25:58] [Server thread/INFO]: Player93[local:E:f7603f42] logged in with entity id 24 at (-0.6167004453496338, 237.0, 4.521938991350405)
+[14:25:58] [Server thread/INFO]: Player93 加入了游戏
+[14:25:59] [Server thread/INFO]: Saving and pausing game...
+[14:25:59] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[14:25:59] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[14:25:59] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[14:26:07] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
+[14:26:55] [Client thread/INFO]: [CHAT] 寮犱簩鐙?已经开始建筑一个小房子
+[14:26:55] [Client thread/INFO]: [CHAT] 寮犱簩鐙? ( 谁在建造小房子)需要更多橡木木板
+[14:27:23] [Server thread/INFO]: Player93 刚刚获得了 [打开物品栏] 成就！
+[14:27:23] [Client thread/INFO]: [CHAT] Player93 刚刚获得了 [打开物品栏] 成就！
+[14:27:58] [Client thread/INFO]: [CHAT] 寮犱簩鐙?已完成建设小房子
+[14:29:04] [Client thread/INFO]: [CHAT] 寮犱簩鐙?已经开始建筑一个小房子 B
+[14:29:04] [Client thread/INFO]: [CHAT] 寮犱簩鐙? ( 谁在建造小房子 B)需要更多橡木木板
+[14:29:47] [Client thread/INFO]: [CHAT] 寮犱簩鐙?已完成建设小房子 B
+[14:30:25] [Client thread/INFO]: [CHAT] 寮犱簩鐙?正在进入他们的小房子 B
+[14:31:07] [Client thread/INFO]: [CHAT] 愫媛 宗政刚刚进入该地区。
+[14:31:16] [Server thread/INFO]: Saving and pausing game...
+[14:31:16] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[14:31:16] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[14:31:16] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[14:31:17] [Server thread/INFO]: Stopping server
+[14:31:17] [Server thread/INFO]: Saving players
+[14:31:17] [Server thread/INFO]: Saving worlds
+[14:31:17] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[14:31:17] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[14:31:17] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[14:31:19] [Client thread/INFO]: Stopping!

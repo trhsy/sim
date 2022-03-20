@@ -29,7 +29,6 @@ public class ConfigLoader {
         logger = event.getModLog();
         //为参数中给定的文件创建配置文件。
         config = new Configuration(event.getSuggestedConfigurationFile());
-
         config.load();
         load();
     }
@@ -48,14 +47,17 @@ public class ConfigLoader {
             p.comment = "This enables or disables the beaming effect (purple particles) - Set to true to turn them off.";
             p = config.get("Settings", "FolkTalking", true);
 
-            ModSim.configFolkTalking = p.getBoolean(false);
+            ModSim.configFolkTalking = p.getBoolean(true);
             //如果人们喋喋不休的谈话变得烦人，那么将其设置为false
             p.comment = "If the folks BLARG talking gets annoying, set this to false";
+
             p = config.get("Settings", "FolkTalkingEnglish", true);
 
             ModSim.configFolkTalkingEnglish = p.getBoolean(true);
+
             //如果说英语的人变得烦人，请将其设置为false
             p.comment = "If the folks ENGLISH talking gets annoying, set this to false";
+
             p = config.get("Settings", "LumbermillArea", 40);
             ModSim.configLumberArea = p.getInt();
 
@@ -98,24 +100,21 @@ public class ConfigLoader {
             ModSim.configStopRain = p.getBoolean(false);
             //这只是一个个人模式：-）如果你也发现你的世界里一直在下雨，这会让你感到烦恼/导致延迟，那么把这个设置为真，你只会有短暂的淋浴
             p.comment = "This is just a personal mod :-) If you too find it rains ALL THE F***ING TIME in your world and it annoys you/causes lag, set this to true and you'll only have brief showers instead";
+
             p = config.get("Names", "MaleNames", I18n.format("container.sim.MaleNames"));
             String temp = p.getString();
-
-
             //这些是随机名字生成器使用的男性名字，请保持格式不变，否则会发生不好的事情。
             p.comment = "These are the male first names used by the random name generator, keep the format the same or bad things will happen.";
             ModSim.configMaleNames = temp.split(",");
+
             p = config.get("Names", "FemaleNames", I18n.format("container.sim.FemaleNames"));
             temp = p.getString();
-
-
             //这些是随机名字生成器使用的女性名字，保持格式不变，否则会发生不好的事情。
             p.comment = "These are the female first names used by the random name generator, keep the format the same or bad things will happen.";
             ModSim.configFemaleNames = temp.split(",");
+
             p = config.get("Names", "LastNames", I18n.format("container.sim.LastNames"));
             temp = p.getString();
-
-
             //这些是随机名称生成器使用的姓氏，请保持格式不变，否则会发生错误。
             p.comment = "These are the last names used by the random name generator, keep the format the same or bad things will happen.";
             ModSim.configSurnames = temp.split(",");
@@ -124,8 +123,9 @@ public class ConfigLoader {
             logger.error("无法分配 block/item ID - " + var7.toString());
         } finally {
             config.save();
+            config.load();
+            logger.info("已完成加载配置... ");
         }
-        logger.info("已完成加载配置... ");
     }
 
     public static Logger logger() {

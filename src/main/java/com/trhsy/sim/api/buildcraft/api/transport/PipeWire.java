@@ -59,7 +59,8 @@ public enum PipeWire {
         } else if (stack.getItem() != item) {
             return false;
         } else {
-            return stack.getItemDamage() == this.ordinal();
+            //return stack.getItemDamage() == this.ordinal();
+            return false;
         }
     }
 

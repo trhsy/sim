@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
  * ========================================
  *
  * @ClassName RenderFolk
- * @Description todo
+ * @Description todo 渲染实体人
  * @Author Administrator
  * @Date 2022/1/27 0027上午 11:21
  * ========================================

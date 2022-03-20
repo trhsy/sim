@@ -39,7 +39,9 @@ public class ClientProxy  extends CommonProxy {
     @Override
     public void registerRenderInfo() {
         RenderingRegistry.registerEntityRenderingHandler(EntityAlignBeam.class, new RenderAlignBeam(new ModelAlignBeam()));
+        //注册女性实体
         RenderingRegistry.registerEntityRenderingHandler(EntityFolk.class, new RenderFolk(new ModelFolkFemale()));
+        //控制箱
         RenderingRegistry.registerEntityRenderingHandler(EntityConBox.class, new RenderConBox(new ModelConBox()));
     }
     @Override

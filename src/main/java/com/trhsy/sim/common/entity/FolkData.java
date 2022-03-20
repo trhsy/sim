@@ -5,12 +5,15 @@ import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.jobs.*;
 import com.trhsy.sim.packets.client.UpdateFolkPositionMessage;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.Language;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -41,6 +44,7 @@ public class FolkData implements Serializable {
     public String name = "";
     public int age = 18;
     public int gender = 0;
+    //皮肤数
     public int skinnumber = 1;
     public int levelFood = 10;
     public int levelFun = 5;
@@ -185,9 +189,9 @@ public class FolkData implements Serializable {
         this.name = generateName(this.gender, false, "");
         this.age = 18;
         if (this.gender == 0) {
-            this.skinnumber = rand.nextInt(63) + 1;
+            this.skinnumber = rand.nextInt(64);
         } else {
-            this.skinnumber = rand.nextInt(58) + 1;
+            this.skinnumber = rand.nextInt(64);
         }
 
         this.location = this.getLocationCloseToPlayer();
@@ -243,7 +247,7 @@ public class FolkData implements Serializable {
         if (this.gender == 0) {
             this.skinnumber = rand.nextInt(63) + 1;
         } else {
-            this.skinnumber = rand.nextInt(58) + 1;
+            this.skinnumber = rand.nextInt(63) + 1;
         }
 
         if (mother.getHome() != null) {
@@ -935,8 +939,13 @@ public class FolkData implements Serializable {
             } else {
                 lastName = lastNameOptional;
             }
-
             test = getFolkByName(firstName + " " + lastName);
+            /*if("en_US".equals(lang)){
+
+            }else{
+                test = getFolkByName(lastName +firstName );
+            }*/
+
             if (test == null) {
                 break;
             }

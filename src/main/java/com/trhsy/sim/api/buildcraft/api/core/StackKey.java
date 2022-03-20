@@ -75,7 +75,7 @@ public final class StackKey {
         } else if (o != null && o.getClass() == StackKey.class) {
             StackKey k = (StackKey)o;
             if (!(this.stack == null ^ k.stack == null) && !(this.fluidStack == null ^ k.fluidStack == null)) {
-                if (this.stack != null && (this.stack.getItem() != k.stack.getItem() || this.stack.getHasSubtypes() && this.stack.getItemDamage() != k.stack.getItemDamage() || !this.objectsEqual(this.stack.getTagCompound(), k.stack.getTagCompound()))) {
+                if (this.stack != null && (this.stack.getItem() != k.stack.getItem() || this.stack.getHasSubtypes() /*&& this.stack.getItemDamage() != k.stack.getItemDamage()*/ || !this.objectsEqual(this.stack.getTagCompound(), k.stack.getTagCompound()))) {
                     return false;
                 } else {
                     return this.fluidStack == null || this.fluidStack.getFluid().getID() == k.fluidStack.getFluid().getID() && this.fluidStack.amount == k.fluidStack.amount && this.objectsEqual(this.fluidStack.tag, k.fluidStack.tag);
@@ -93,7 +93,7 @@ public final class StackKey {
         int result = 7;
         if (this.stack != null) {
             result = 31 * result + this.stack.getItem().hashCode();
-            result = 31 * result + this.stack.getItemDamage();
+            result = 31 * result /*+ this.stack.getItemDamage()*/;
             result = 31 * result + this.objectHashCode(this.stack.getTagCompound());
         }
 

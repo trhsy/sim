@@ -38,7 +38,7 @@ import java.util.*;
  * ========================================
  *
  * @ClassName EntityFolk
- * @Description todo
+ * @Description todo 实体人
  * @Author Administrator
  * @Date 2022/1/26 0026下午 5:53
  * ========================================
@@ -46,27 +46,47 @@ import java.util.*;
 public class EntityFolk extends EntityCreature implements INpc {
 
     public FolkData theData = null;
+    //记忆计时器
     private long ghostTimer = -1L;
+    //问候计时器
     private long greetTimer = 0L;
+    //最后一次受伤
     private long lastHurt = 0L;
+    //日历
     private Calendar cal = new GregorianCalendar();
+    //圣诞节
     private boolean isXmas = false;
+    //找到路了吗
     public boolean gotPath;
 
     public EntityFolk(World par1World) {
         super(par1World);
+        //避开水
         this.getNavigator().setAvoidsWater(false);
+        //会进门
         this.getNavigator().setEnterDoors(true);
+        //破门而入
         this.getNavigator().setBreakDoors(true);
+        //会游泳
         this.getNavigator().setCanSwim(true);
+        //实体人任务
+        //闲置任务
         this.tasks.addTask(1, new EntityAILookIdle(this));
+        //住进屋子
         this.tasks.addTask(2, new EntityAIMoveIndoors(this));
+        //限制开门
         this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
+        //密切注意
         this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1.0F));
+        //密切注意
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+        //开门
         this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
+        //走向限制
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
+        //游泳
         this.tasks.addTask(4, new EntityAISwimming(this));
+        //启动
         if (!ModSim.proxy.ranStartup) {
             ModSim.log.info("实体人：被杀死的系统产生的人");
             this.setDead();
@@ -80,22 +100,37 @@ public class EntityFolk extends EntityCreature implements INpc {
 
     }
 
+    /**
+     * @return java.lang.String
+     * @Author fan
+     * @Description //TODO 获取纹理
+     * @Date 10:24 2022/3/20
+     * @Param []
+     **/
     @SideOnly(Side.CLIENT)
     public String getTexture() {
         if (this.theData != null) {
             if (this.theData.gender == 0) {
-                return this.isXmas ? "MrSanta.png" : "male" + this.theData.skinnumber + ".png";
+                return "male" + this.theData.skinnumber + ".png";
             } else {
-                return this.isXmas ? "MrsSanta.png" : "female" + this.theData.skinnumber + ".png";
+                return "female" + this.theData.skinnumber + ".png";
             }
         } else {
             return "male1.png";
         }
     }
 
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 应用实体属性
+     * @Date 10:24 2022/3/20
+     * @Param []
+     **/
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
+        //共享怪物属性 移动速度
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0D);
     }
 
@@ -115,7 +150,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
         } else {
             if (this.theData.isWorking) {
-                float s = (float)(Math.sin((double)System.currentTimeMillis() * 0.01D) / 10.0D) + 0.1F;
+                float s = (float) (Math.sin((double) System.currentTimeMillis() * 0.01D) / 10.0D) + 0.1F;
                 this.swingProgress = s;
             } else {
                 this.swingProgress = 0.0F;
@@ -123,7 +158,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
             if (System.currentTimeMillis() - this.greetTimer > 1000L) {
                 Random r = new Random();
-                double dist = (double)this.theData.getDistanceToPlayer();
+                double dist = (double) this.theData.getDistanceToPlayer();
                 if (ModSim.states != null) {
                     long var10000 = System.currentTimeMillis();
                     FolkData var10001 = this.theData;
@@ -231,7 +266,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                                         fn = fn + "fspeak";
                                     }
 
-                                    fn = fn + Character.toString((char)(sf + 90));
+                                    fn = fn + Character.toString((char) (sf + 90));
                                 }
                             } else if (sf == 1) {
                                 if (this.theData.gender == 0) {
@@ -273,7 +308,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         } else {
                             sf = r.nextInt(3) + 1;
                             fn = fn + "cspeak";
-                            fn = fn + Character.toString((char)(sf + 96));
+                            fn = fn + Character.toString((char) (sf + 96));
                         }
 
                         if (r.nextBoolean()) {
@@ -299,14 +334,14 @@ public class EntityFolk extends EntityCreature implements INpc {
         List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(2.0D, 4.0D, 2.0D));
         Iterator iterator1 = list1.iterator();
         if (!list1.isEmpty()) {
-            while(iterator1.hasNext()) {
-                Entity entity1 = (Entity)iterator1.next();
+            while (iterator1.hasNext()) {
+                Entity entity1 = (Entity) iterator1.next();
                 if (entity1 instanceof EntityItem) {
-                    EntityItem entityitem = (EntityItem)entity1;
+                    EntityItem entityitem = (EntityItem) entity1;
                     ItemStack is = entityitem.getEntityItem();
 
                     try {
-                        ItemFood food = (ItemFood)is.getItem();
+                        ItemFood food = (ItemFood) is.getItem();
                         if (this.theData.levelFood < 10 && food != null) {
                             this.worldObj.playSoundAtEntity(this, "random.burp", 1.0F, 1.0F);
                             entityitem.setDead();
@@ -314,7 +349,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
                     } catch (Exception var10) {
                     }
-                } else if (entity1 instanceof EntityFolk && (int)this.posX == (int)entity1.posX && (int)this.posZ == (int)entity1.posZ) {
+                } else if (entity1 instanceof EntityFolk && (int) this.posX == (int) entity1.posX && (int) this.posZ == (int) entity1.posZ) {
                     this.motionX += 0.10000000149011612D;
 
                     try {
@@ -332,6 +367,13 @@ public class EntityFolk extends EntityCreature implements INpc {
 
     }
 
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 移动实体
+     * @Date 10:25 2022/3/20
+     * @Param [d, d1, d2]
+     **/
     @Override
     public void moveEntity(double d, double d1, double d2) {
         if (!this.isDead && this.theData != null) {
@@ -340,7 +382,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 try {
                     dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
                 } catch (Exception var14) {
-                    ModSim.log.warn("Folk's theData.destination was null in moveEntity()");
+                    ModSim.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                     return;
                 }
 
@@ -404,6 +446,13 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
     }
 
+    /**
+     * @return net.minecraft.item.ItemStack
+     * @Author fan
+     * @Description //TODO 保留项目
+     * @Date 10:26 2022/3/20
+     * @Param []
+     **/
     @Override
     public ItemStack getHeldItem() {
         if (this.theData == null) {
@@ -411,55 +460,83 @@ public class EntityFolk extends EntityCreature implements INpc {
         } else if (this.theData.theirJob == null) {
             return null;
         } else if (this.theData.vocation == Vocation.CROPFARMER) {
+            //农民
             return new ItemStack(Items.stone_hoe, 1);
         } else if (this.theData.vocation == Vocation.LUMBERJACK) {
+            //伐木工人
             return new ItemStack(Items.stone_axe, 1);
         } else if (this.theData.vocation == Vocation.MINER) {
+            //矿工
             return new ItemStack(Items.stone_pickaxe, 1);
         } else if (this.theData.vocation == Vocation.BAKER) {
+            //面包师
             return new ItemStack(Items.wooden_shovel, 1);
         } else if (this.theData.vocation == Vocation.SOLDIER) {
+            //战士
             return new ItemStack(Items.stone_sword, 1);
         } else if (this.theData.vocation == Vocation.BUILDER) {
+            //建筑者
             return new ItemStack(Blocks.cobblestone, 1);
         } else if (this.theData.vocation == Vocation.SHEPHERD) {
+            //牧羊人
             return new ItemStack(Items.shears, 1);
         } else if (this.theData.vocation == Vocation.GROCER) {
+            //杂货商
             return new ItemStack(Items.melon, 1);
         } else if (this.theData.vocation == Vocation.COURIER) {
+            //快递员
             return new ItemStack(Blocks.chest, 1);
         } else if (this.theData.vocation == Vocation.MERCHANT) {
+            //建筑商
             return new ItemStack(Blocks.brick_block, 1);
         } else if (this.theData.vocation == Vocation.BUTCHER) {
+            //屠夫
             return new ItemStack(Items.porkchop, 1);
         } else if (this.theData.vocation == Vocation.CATTLEFARMER) {
+            //养牛户
             return new ItemStack(Items.golden_axe, 1);
         } else if (this.theData.vocation == Vocation.PIGFARMER) {
+            //养猪户
             return new ItemStack(Items.iron_axe, 1);
         } else if (this.theData.vocation == Vocation.CHICKENFARMER) {
+            //养鸡户
             return new ItemStack(Items.stone_axe, 1);
         } else if (this.theData.vocation == Vocation.TERRAFORMER) {
+            //地形成型机
             return new ItemStack(Items.diamond_shovel, 1);
         } else if (this.theData.vocation == Vocation.GLASSMAKER) {
+            //玻璃工人
             return new ItemStack(Blocks.glass_pane, 1);
         } else if (this.theData.vocation == Vocation.DAIRYFARMER) {
+            //牛奶农
             return new ItemStack(Items.milk_bucket, 1);
         } else if (this.theData.vocation == Vocation.CHEESEMAKER) {
+            //奶酪匠
             return new ItemStack(ItemLoader.itemFoods, 1, 0);
         } else if (this.theData.vocation == Vocation.BURGERSMANAGER) {
+            //汉堡经理
             return new ItemStack(ItemLoader.itemFoods, 1, 3);
         } else if (this.theData.vocation == Vocation.BURGERSFRYCOOK) {
+            //后厨
             return new ItemStack(Items.iron_shovel, 1);
         } else if (this.theData.vocation == Vocation.BURGERSWAITER) {
+            //汉堡服务员
             return new ItemStack(ItemLoader.itemFoods, 1, 2);
         } else if (this.theData.vocation == Vocation.FISHERMAN) {
-            JobFisherman jf = (JobFisherman)this.theData.theirJob;
+            //职业渔夫
+            JobFisherman jf = (JobFisherman) this.theData.theirJob;
             return jf.theStage == Stage.IDLE ? new ItemStack(Items.fish, 1) : new ItemStack(Items.fishing_rod, 1);
         } else {
             return null;
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 互动
+     * @Date 10:35 2022/3/20
+     * @Param [entityplayer]
+     * @return boolean
+     **/
     @Override
     @SideOnly(Side.CLIENT)
     public boolean interact(EntityPlayer entityplayer) {
@@ -480,7 +557,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 ui = new GuiEntityFolk(this.theData, entityplayer);
             }
 
-            mc.displayGuiScreen((GuiScreen)ui);
+            mc.displayGuiScreen((GuiScreen) ui);
             if (this.theData.age < 18) {
                 this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":helloc", 1.0F, 1.0F, false);
             } else if (this.theData.gender == 0) {
@@ -502,7 +579,13 @@ public class EntityFolk extends EntityCreature implements INpc {
     public boolean canBePushed() {
         return true;
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 受伤的声音
+     * @Date 11:04 2022/3/20
+     * @Param []
+     * @return java.lang.String
+     **/
     @Override
     protected String getHurtSound() {
         if (!this.isBurning()) {
@@ -511,10 +594,10 @@ public class EntityFolk extends EntityCreature implements INpc {
                 this.theData.stayPut = false;
             }
 
-            Block idX1 = this.worldObj.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ);
-            Block idX2 = this.worldObj.getBlock((int)this.posX - 1, (int)this.posY, (int)this.posZ);
-            Block idZ1 = this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ + 1);
-            Block idZ2 = this.worldObj.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ - 1);
+            Block idX1 = this.worldObj.getBlock((int) this.posX + 1, (int) this.posY, (int) this.posZ);
+            Block idX2 = this.worldObj.getBlock((int) this.posX - 1, (int) this.posY, (int) this.posZ);
+            Block idZ1 = this.worldObj.getBlock((int) this.posX, (int) this.posY, (int) this.posZ + 1);
+            Block idZ2 = this.worldObj.getBlock((int) this.posX + 1, (int) this.posY, (int) this.posZ - 1);
             this.motionY += 0.4D;
             if (idX1 == null) {
                 this.motionX += 0.8999999761581421D;
