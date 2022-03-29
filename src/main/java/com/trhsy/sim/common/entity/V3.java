@@ -18,6 +18,13 @@ public class V3 implements Serializable, Cloneable {
     public String name = "";
     public Block blockID = null;
     public int meta = 0;
+    /**
+     * @Author fan
+     * @Description //TODO 维度
+     * @Date 11:05 2022/3/26
+     * @Param 
+     * @return 
+     **/
     public int theDimension = 0;
     public Double destinationAcc = 1.5D;
     public boolean doNotTimeout = false;
@@ -89,7 +96,13 @@ public class V3 implements Serializable, Cloneable {
             return ret;
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 获得距离
+     * @Date 11:17 2022/3/26
+     * @Param [other]
+     * @return int
+     **/
     public int getDistanceTo(V3 other) {
         if (other == null) {
             return 0;

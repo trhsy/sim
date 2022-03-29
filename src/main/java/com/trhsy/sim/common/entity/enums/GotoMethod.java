@@ -1,5 +1,7 @@
 package com.trhsy.sim.common.entity.enums;
 
+import net.minecraft.client.resources.I18n;
+
 /**
  * @author trhsy
  * @date 2022/1/25 0025
@@ -16,11 +18,11 @@ public enum GotoMethod {
     @Override
     public String toString() {
         if (this == BEAM) {
-            return "Beaming";
+            return I18n.format("container.sim.GotoMethod1") ;
         } else if (this == SHIFT) {
-            return "Shifting";
+            return I18n.format("container.sim.GotoMethod2");
         } else {
-            return this == WALK ? "Walking" : "";
+            return this == WALK ? I18n.format("container.sim.GotoMethod3") : "";
         }
     }
 }

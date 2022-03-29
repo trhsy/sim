@@ -30,67 +30,109 @@ import java.util.*;
  * ========================================
  *
  * @ClassName Job
- * @Description todo
+ * @Description todo 工作类
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:32
  * ========================================
  **/
 public abstract class Job {
-
+    //返回游戏的singleton Minecraft实例
     Minecraft mc = Minecraft.getMinecraft();
+    //步
     public int step = 1;
     ArrayList<V3> closestBlocks = new ArrayList();
+    //职业
     public Vocation vocation = null;
+    //职场
     public World jobWorld = null;
+    //库存 箱子关闭
     private transient IInventory chestToClose = null;
+    //箱子什么时候关闭
     private transient Long chestToCloseWhen = 0L;
 
     public Job() {
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO  他刚上班
+     * @Date 10:59 2022/3/26
+     * @Param
+     * @return
+     **/
     public abstract void onArrivedAtWork();
-
+    /**
+     * @Author fan
+     * @Description //TODO 重新安排工作
+     * @Date 11:00 2022/3/26
+     * @Param []
+     * @return void
+     **/
     public abstract void resetJob();
-
+    /**
+     * @Author fan
+     * @Description //TODO 更新
+     * @Date 11:00 2022/3/26
+     * @Param []
+     * @return void
+     **/
     public void onUpdate() {
+        //当 关闭箱子不为空   并且 当前时间毫秒 大约关闭箱子时
         if (this.chestToClose != null && System.currentTimeMillis() > this.chestToCloseWhen) {
+            //关上箱子
             this.chestToClose.closeChest();
+            //设置为空
             this.chestToClose = null;
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO     //去上班
+     * @Date 11:02 2022/3/26
+     * @Param [theFolk] 实体人数据
+     * @return void
+     **/
     public void onUpdateGoingToWork(FolkData theFolk) {
+        //如果当前职场为空 则设置职场
         if (this.jobWorld == null) {
             try {
                 this.jobWorld = MinecraftServer.getServer().worldServerForDimension(theFolk.employedAt.theDimension);
             } catch (Exception var7) {
-                var7.printStackTrace();
+                System.out.println(var7.getMessage());
                 return;
             }
         }
-
+        //如果不是在怀孕期间
         if (!(theFolk.pregnancyStage > 0.0F)) {
+            //在上班的路上
             if (theFolk.action == FolkAction.ONWAYTOWORK) {
                 //int dist = false;
+                //被解雇
                 if (theFolk.gotoMethod == GotoMethod.WALK) {
+                    //不再留在原地
                     theFolk.stayPut = false;
+                    //更新实体人位置
                     theFolk.updateLocationFromEntity();
                 }
-
+                //获得距离
                 int dist = theFolk.location.getDistanceTo(theFolk.employedAt);
+                //如果距离小于等于1 工作中
                 if (dist <= 1) {
+                    //工作中
                     theFolk.action = FolkAction.ATWORK;
+                    //他刚上班
                     this.onArrivedAtWork();
+                    //如果大于1小于3
                 } else if (dist > 1 && dist < 3) {
+                    //复制当前数据
                     V3 work = theFolk.employedAt.clone();
-                    Double var5 = work.y;
-                    Double var6 = work.y = work.y + 1.0D;
+                    work.y = work.y + 1.0D;
+                    //去位置
                     theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                     theFolk.location = work;
                 }
             }
-
+            //
             if (ModSim.isDayTime() && theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
                 theFolk.action = FolkAction.ONWAYTOWORK;
                 theFolk.stayPut = false;
@@ -101,7 +143,13 @@ public abstract class Job {
 
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 获得库存清单
+     * @Date 11:23 2022/3/26
+     * @Param [theFolk, item]
+     * @return int
+     **/
     public int getInventoryCount(FolkData theFolk, Item item) {
         int ret = 0;
 

@@ -37,7 +37,13 @@ import java.util.Random;
  **/
 public class FolkData implements Serializable {
     private static final long serialVersionUID = -2617939828256928361L;
-
+    /**
+     * @Author fan
+     * @Description //TODO 雇佣的
+     * @Date 11:04 2022/3/26
+     * @Param 
+     * @return 
+     **/
     public V3 employedAt = null;
     public Vocation vocation = null;
     public transient Job theirJob = null;
@@ -51,6 +57,13 @@ public class FolkData implements Serializable {
     public float levelBuilder = 1.0F;
     public float levelMiner = 1.0F;
     public float levelSoldier = 1.0F;
+    /**
+     * @Author fan
+     * @Description //TODO 活动 行动
+     * @Date 11:06 2022/3/26
+     * @Param 
+     * @return 
+     **/
     public FolkAction action;
     public FolkAction actionArrival;
     public Boolean stayPut;
@@ -63,6 +76,13 @@ public class FolkData implements Serializable {
     public String status4;
     public String status5;
     public float shaggingStage;
+    /*
+     * @Author fan
+     * @Description //TODO 妊娠期
+     * @Date 11:06 2022/3/26
+     * @Param
+     * @return
+     **/
     public float pregnancyStage;
     public transient boolean isWorking;
     public boolean greetedToday;
