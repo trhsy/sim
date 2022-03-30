@@ -66,7 +66,13 @@ public class FolkData implements Serializable {
      **/
     public FolkAction action;
     public FolkAction actionArrival;
+    /**
+     * 留在原地
+     */
     public Boolean stayPut;
+    /**
+     * 目的地
+     */
     public V3 destination;
     public V3 location;
     public String statusText;

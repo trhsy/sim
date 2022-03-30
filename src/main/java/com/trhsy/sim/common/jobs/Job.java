@@ -132,11 +132,15 @@ public abstract class Job {
                     theFolk.location = work;
                 }
             }
-            //
+            //  是否白天               活动的              去工作路上                             活动中                工作中
             if (ModSim.isDayTime() && theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
+                //活动设置为去工作路上
                 theFolk.action = FolkAction.ONWAYTOWORK;
+                //设置原地不动为否
                 theFolk.stayPut = false;
+                //如果目的地为空
                 if (theFolk.destination == null) {
+                    //设置目的地
                     theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
                 }
             }
@@ -145,17 +149,21 @@ public abstract class Job {
     }
     /**
      * @Author fan
-     * @Description //TODO 获得库存清单
+     * @Description //TODO 获得物品库存清单
      * @Date 11:23 2022/3/26
      * @Param [theFolk, item]
      * @return int
      **/
     public int getInventoryCount(FolkData theFolk, Item item) {
+        //声明库存为0
         int ret = 0;
-
+        //循环库存
         for(int i = 0; i < theFolk.inventory.size(); ++i) {
+            //当前方块的数量
             ItemStack is = (ItemStack)theFolk.inventory.get(i);
+            //如果物品 对上
             if (is.getItem() == item) {
+                //赋值物品数量
                 ret += is.stackSize;
             }
         }
@@ -163,12 +171,22 @@ public abstract class Job {
         return ret;
     }
 
+    /**
+     *  获得方块的库存
+     * @param theFolk
+     * @param item
+     * @return
+     */
     public int getInventoryCount(FolkData theFolk, Block item) {
+        //声明库存为0
         int ret = 0;
-
+        //循环库存
         for(int i = 0; i < theFolk.inventory.size(); ++i) {
+            //当前方块的数量
             ItemStack is = (ItemStack)theFolk.inventory.get(i);
+            //如果物品 对上
             if (Block.getBlockFromName(is.getDisplayName()) == item) {
+                //赋值物品数量
                 ret += is.stackSize;
             }
         }
@@ -176,26 +194,44 @@ public abstract class Job {
         return ret;
     }
 
+    /**
+     * 找到熔炉
+     * @param v
+     * @return
+     */
     public TileEntityFurnace findFurnace(V3 v) {
+        //声明熔炉实体
         TileEntityFurnace ret = null;
+        //查找最近的块类型
         V3 vRet = findClosestBlockType(v, Blocks.furnace, 5, false);
+        //如果等于空重新赋值
         if (vRet == null) {
             vRet = findClosestBlockType(v, Blocks.furnace, 5, false);
         }
-
+        //如果不为空
         if (vRet != null) {
+            //世界服务器的维度                                                       维度
             World theWorld = MinecraftServer.getServer().worldServerForDimension(vRet.theDimension);
+            //设置熔炉位置 转换为int
             ret = (TileEntityFurnace)theWorld.getTileEntity(vRet.x.intValue(), vRet.y.intValue(), vRet.z.intValue());
         }
 
         return ret;
     }
 
+    /**
+     * 存货卖出价
+     * @param chest
+     * @param inStack
+     * @return
+     */
     private static boolean inventoryPut(IInventory chest, ItemStack inStack) {
         Boolean placedOK = false;
+        //如果物品为空
         if (inStack == null) {
             return true;
         } else {
+            //
             for(int q = 1; q <= inStack.stackSize; ++q) {
                 for(int g = 0; g < chest.getSizeInventory(); ++g) {
                     ItemStack is = chest.getStackInSlot(g);

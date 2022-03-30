@@ -413,6 +413,10 @@ public class ModSim {
         }
     }
 
+    /**
+     * 判断是否半天
+     * @return
+     */
     public static boolean isDayTime() {
         return MinecraftServer.getServer().worldServers[0].getWorldInfo().getWorldTime() % 24000L <= 11999L;
     }
