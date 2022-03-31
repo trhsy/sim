@@ -233,31 +233,33 @@ public abstract class Job {
         } else {
             //
             for(int q = 1; q <= inStack.stackSize; ++q) {
-                for(int g = 0; g < chest.getSizeInventory(); ++g) {
-                    ItemStack is = chest.getStackInSlot(g);
+                for(int i = 0; i < chest.getSizeInventory(); ++i) {
+                    ItemStack is = chest.getStackInSlot(i);
                     if (is == null) {
                         is = inStack.copy();
                         is.stackSize = 1;
-                        chest.setInventorySlotContents(g, is);
-                        ItemStack isTest = chest.getStackInSlot(g);
+                        //将给定的物品堆栈设置为库存中的指定位置（可以是工艺或装甲部分）。
+                        chest.setInventorySlotContents(i, is);
+                        ItemStack isTest = chest.getStackInSlot(i);
                         if (isTest != null) {
                             placedOK = true;
                             break;
                         }
 
-                        ModSim.log.warn("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + g);
+                        ModSim.log.warn("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + i);
                         placedOK = false;
                     } else if (is.getItem() == inStack.getItem() && is.getMetadata() == inStack.getMetadata() && is.stackSize < is.getMaxStackSize()) {
-                        int isBefore = chest.getStackInSlot(g).stackSize;
+                        int isBefore = chest.getStackInSlot(i).stackSize;
                         ++is.stackSize;
-                        chest.setInventorySlotContents(g, is);
-                        int isAfter = chest.getStackInSlot(g).stackSize;
+                        //将给定的物品堆栈设置为库存中的指定位置（可以是工艺或装甲部分）。
+                        chest.setInventorySlotContents(i, is);
+                        int isAfter = chest.getStackInSlot(i).stackSize;
                         if (isAfter > isBefore) {
                             placedOK = true;
                             break;
                         }
 
-                        ModSim.log.warn("Job: placeIntoInventory() could not inc Stacksize for " + is.getDisplayName() + " in slot " + g);
+                        ModSim.log.warn("Job: placeIntoInventory() 无法更改大小 " + is.getDisplayName() + " in slot " + i);
                         placedOK = false;
                     }
                 }
@@ -267,6 +269,15 @@ public abstract class Job {
         }
     }
 
+    /**
+     *  得到库存
+     * @param chests
+     * @param whatItem
+     * @param getRandomItem
+     * @param compareMeta
+     * @param ignoreId
+     * @return
+     */
     public static ItemStack inventoriesGet(ArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta, ItemStack ignoreId) {
         ItemStack retStack = null;
 
@@ -281,6 +292,14 @@ public abstract class Job {
         return null;
     }
 
+    /**
+     *
+     * @param chests
+     * @param whatItem
+     * @param getRandomItem
+     * @param compareMeta
+     * @return
+     */
     public static ItemStack inventoriesGet(ArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta) {
         ItemStack retStack = null;
 
@@ -475,6 +494,13 @@ public abstract class Job {
         return placedOK;
     }
 
+    /**
+     * 存货从民间转移
+     * @param folkInventory
+     * @param toChests
+     * @param specificItems
+     * @return
+     */
     public boolean inventoriesTransferFromFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> toChests, ItemStack specificItems) {
         boolean placed = false;
         boolean okToPlace = false;
@@ -493,7 +519,7 @@ public abstract class Job {
                 if (okToPlace) {
                     placed = this.inventoriesPut(toChests, folkStack, true);
                     if (!placed) {
-                        ModSim.log.warn("Job: Could not place stack of " + folkStack.getDisplayName() + " in chest");
+                        ModSim.log.warn("Job: 无法放置一堆 " + folkStack.getDisplayName() + " in chest");
                         return false;
                     }
                 }
@@ -506,6 +532,14 @@ public abstract class Job {
         return true;
     }
 
+    /**
+     * 转移到民间
+     * @param folkInventory
+     * @param fromChests
+     * @param whatItems
+     * @param ignoreId
+     * @return
+     */
     public boolean inventoriesTransferToFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
         boolean ret = false;
         int limit = 0;
@@ -529,6 +563,15 @@ public abstract class Job {
         return ret;
     }
 
+    /**
+     * 转让仅限于民间
+     * @param folkInventory
+     * @param fromChests
+     * @param whatItems
+     * @param getQty
+     * @param doCompareMeta
+     * @return
+     */
     public int inventoriesTransferLimitedToFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
         int gotSoFar = 0;
         Iterator i$ = fromChests.iterator();
@@ -572,6 +615,13 @@ public abstract class Job {
         return gotSoFar;
     }
 
+    /**
+     * 把物品放在箱子里
+     * @param chests
+     * @param is
+     * @param doCompareMeta
+     * @return
+     */
     public int getItemCountInChests(ArrayList<IInventory> chests, ItemStack is, boolean doCompareMeta) {
         int ret = 0;
         Iterator i$ = chests.iterator();
@@ -594,6 +644,12 @@ public abstract class Job {
         return ret;
     }
 
+    /**
+     * 开采时平移块体
+     * @param world
+     * @param location
+     * @return
+     */
     public ArrayList<ItemStack> translateBlockWhenMined(World world, V3 location) {
         int i = location.x.intValue();
         int j = location.y.intValue();
@@ -607,14 +663,30 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 开关箱子
+     * @param chest
+     * @param msDelay
+     */
     public void openCloseChest(IInventory chest, int msDelay) {
         chest.openChest();
         this.chestToClose = chest;
         this.chestToCloseWhen = System.currentTimeMillis() + (long)msDelay;
     }
 
+    /**
+     * 设置最接近的类型块
+     * @param startXYZ
+     * @param blockIDs
+     * @param distanceLimit
+     * @param needsToSeeSky
+     * @param scanDownwards
+     * @param oneLayerOnly
+     */
     public void setClosestBlocksOfType(final V3 startXYZ, final ArrayList<Block> blockIDs, final int distanceLimit, final boolean needsToSeeSky, final boolean scanDownwards, final boolean oneLayerOnly) {
         Thread t = new Thread(new Runnable() {
+
+            @Override
             public void run() {
                 World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
                 HashMap hm = new HashMap();
@@ -682,6 +754,12 @@ public abstract class Job {
         t.start();
     }
 
+    /**
+     * 库存最接近
+     * @param startXYZ
+     * @param searchDistance
+     * @return
+     */
     public static ArrayList<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
         ArrayList ret = new ArrayList();
 
@@ -714,6 +792,12 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 已经有箱子了
+     * @param chests
+     * @param chest
+     * @return
+     */
     private static boolean alreadyGotChest(ArrayList<IInventory> chests, IInventory chest) {
         boolean ret = false;
         Iterator i$ = chests.iterator();
@@ -729,6 +813,12 @@ public abstract class Job {
         return ret;
     }
 
+    /**
+     * 寻找相邻空间
+     * @param startXYZ
+     * @param world
+     * @return
+     */
     public static V3 findAdjacentSpace(V3 startXYZ, World world) {
         World theWorld = world;
         if (world == null) {
@@ -762,6 +852,14 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 查找最近的块类型
+     * @param startXYZ
+     * @param block
+     * @param searchDistance
+     * @param mustSeeSky
+     * @return
+     */
     public static V3 findClosestBlockType(V3 startXYZ, Block block, int searchDistance, boolean mustSeeSky) {
         World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
         if (theWorld.getBlock(startXYZ.x.intValue(), startXYZ.y.intValue(), startXYZ.z.intValue()) == block) {
@@ -787,6 +885,13 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 查找最近的块类型
+     * @param startXYZ
+     * @param block
+     * @param searchDistance
+     * @return
+     */
     public static V3 findClosestBlockType(V3 startXYZ, Block block, int searchDistance) {
         World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
         if (theWorld.getBlock(startXYZ.x.intValue(), startXYZ.y.intValue(), startXYZ.z.intValue()) == block) {
@@ -810,6 +915,13 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 找到最近的街区
+     * @param startXYZ
+     * @param block
+     * @param distanceLimit
+     * @return
+     */
     public static ArrayList<V3> findClosestBlocks(V3 startXYZ, Block block, int distanceLimit) {
         ArrayList<V3> blocksFound = new ArrayList();
         int count = 0;
@@ -865,6 +977,12 @@ public abstract class Job {
         return retblocksFound;
     }
 
+    /**
+     * 把矿块放进箱子里
+     * @param chests
+     * @param blockXYZ
+     * @return
+     */
     public boolean mineBlockIntoChests(ArrayList<IInventory> chests, V3 blockXYZ) {
         boolean ret = false;
         ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, blockXYZ);
@@ -882,11 +1000,23 @@ public abstract class Job {
         return ret;
     }
 
+    /**
+     * 把动物数记在笔里
+     * @param controlBox
+     * @param animal
+     * @return
+     */
     public int getAnimalCountInPen(V3 controlBox, Class animal) {
         List list = this.jobWorld.getEntitiesWithinAABB(animal, AxisAlignedBB.getBoundingBox(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
         return list == null ? 0 : list.size();
     }
 
+    /**
+     * 去最近的民宅
+     * @param searchWord
+     * @param folk
+     * @return
+     */
     public static V3 getNearestBuildingForFolk(String searchWord, FolkData folk) {
         new ArrayList();
         Building shortestDist = null;

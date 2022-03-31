@@ -35,7 +35,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobCropFarmer
- * @Description todo 农夫
+ * @Description todo 种植业农民
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:46
  * ========================================
@@ -73,6 +73,10 @@ public class JobCropFarmer extends Job implements Serializable {
     public JobCropFarmer() {
     }
 
+    /**
+     * 工作作物农场主
+     * @param folk
+     */
     public JobCropFarmer(FolkData folk) {
         this.theFolk = folk;
         if (this.theStage == null) {

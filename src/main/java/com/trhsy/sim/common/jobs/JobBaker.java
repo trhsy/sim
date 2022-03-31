@@ -26,84 +26,140 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName JobBaker
- * @Description todo
+ * @Description todo 面包师的工作
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:35
  * ========================================
  **/
 public class JobBaker extends Job implements Serializable {
+
     private static final long serialVersionUID = -1177112153304279141L;
+    /*
+    职业
+     */
     public Vocation vocation = null;
+    /*
+
+     */
     public Stage theStage;
+    /*
+        模拟NPC
+     */
     public FolkData theFolk;
+    /*
+    默认运行延迟 1m
+     */
     public transient int runDelay = 1000;
+    /*
+    上次运动后的时间
+     */
     public transient long timeSinceLastRun = 0L;
+    /*
+    支付/付款
+     */
     private transient float pay = 0.0F;
+    /*
+    面包店/烘焙箱
+     */
     private transient ArrayList<IInventory> bakeryChests = null;
+    /*
+    农场箱子
+     */
     private transient ArrayList<IInventory> farmChests = new ArrayList();
+    /*
+    当前农场数量
+     */
     private transient int currentFarmNum = 0;
+    /*
+    养殖箱
+     */
     private transient FarmingBox farm = null;
 
+    /**
+     * 初始化面包师工作
+     */
     public JobBaker() {
     }
 
     public JobBaker(FolkData folk) {
+        //设置面包师的人选
         this.theFolk = folk;
+        //如果状态为空
         if (this.theStage == null) {
+            //设置为闲置的
             this.theStage = Stage.IDLE;
         }
-
+        //如果不为空
         if (this.theFolk != null) {
+            //目的地为空
             if (this.theFolk.destination == null) {
+                //设置目的地为雇佣地点
                 this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
             }
 
         }
     }
 
+    /**
+     * 重新安排工作
+     */
     @Override
     public void resetJob() {
         this.theStage = Stage.IDLE;
     }
 
+    /**
+     * 更新
+     */
     @Override
     public void onUpdate() {
         super.onUpdate();
+        //闲置
         if (!ModSim.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
-
+        //继续工作
         super.onUpdateGoingToWork(this.theFolk);
+        //到达商店
         if (this.theStage == Stage.ARRIVEDATSHOP) {
             this.runDelay = 10000;
         }
-
+        //收集小麦
         if (this.theStage == Stage.COLLECTINGWHEAT) {
             this.runDelay = 1000;
         }
-
+        //卖面包
         if (this.theStage == Stage.SELLINGBREAD) {
             this.runDelay = 10000;
         }
-
+        //做面包
         if (this.theStage == Stage.MAKEBREAD) {
             this.runDelay = 10000;
         }
-
+        //当前时间毫秒    减去              上次跑步后的时间       大于等于     运行延迟
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+            //上次跑步后的时间
             this.timeSinceLastRun = System.currentTimeMillis();
+            //状态不是闲置并且 是黑夜
             if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+                //到达商店
                 if (this.theStage == Stage.ARRIVEDATSHOP) {
+                    //去农场
                     this.theStage = Stage.GOINGTOWHEATFARM;
                     this.step = 1;
+                    //去农场
                 } else if (this.theStage == Stage.GOINGTOWHEATFARM) {
                     this.stageGoingToWheatFarm();
+                    //收集小麦
                 } else if (this.theStage == Stage.COLLECTINGWHEAT) {
                     this.stageCollectingWheat();
+                    //回到面包店
                 } else if (this.theStage == Stage.GOBACKTOBAKERY) {
                     this.stageGoBackToBakery();
+                    //做面包
                 } else if (this.theStage == Stage.MAKEBREAD) {
                     this.stageMakeBread();
+                    //卖面包
                 } else if (this.theStage == Stage.SELLINGBREAD) {
                     this.stageSellingBread();
                 }
@@ -112,6 +168,9 @@ public class JobBaker extends Job implements Serializable {
         }
     }
 
+    /**
+     * 去麦田
+     */
     private void stageGoingToWheatFarm() {
 
         this.theFolk.statusText = I18n.format("container.sim.job.Baker_Fetching");
@@ -155,6 +214,9 @@ public class JobBaker extends Job implements Serializable {
 
     }
 
+    /**
+     * 分期收集小麦
+     */
     private void stageCollectingWheat() {
         this.theFolk.statusText = I18n.format("container.sim.job.Baker_Collecting");
         this.runDelay = 1000;
@@ -176,6 +238,9 @@ public class JobBaker extends Job implements Serializable {
 
     }
 
+    /**
+     * 回到面包店
+     */
     private void stageGoBackToBakery() {
         this.theFolk.statusText = I18n.format("container.sim.job.Baker_Taking");
         if (this.theFolk.destination == null && this.step == 1) {
@@ -200,6 +265,9 @@ public class JobBaker extends Job implements Serializable {
 
     }
 
+    /**
+     * 做面包
+     */
     private void stageMakeBread() {
         this.theFolk.statusText = I18n.format("container.sim.job.Baker_Baking_bread");
         this.bakeryChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
@@ -248,6 +316,9 @@ public class JobBaker extends Job implements Serializable {
         }
     }
 
+    /**
+     *卖面包
+     */
     private void stageSellingBread() {
         if (this.step == 1) {
             if (this.pay > 0.0F) {
@@ -292,6 +363,10 @@ public class JobBaker extends Job implements Serializable {
 
     }
 
+    /**
+     * 获取当前农场
+     * @return
+     */
     private FarmingBox getCurrentFarm() {
         boolean found = false;
 
@@ -316,6 +391,9 @@ public class JobBaker extends Job implements Serializable {
         return null;
     }
 
+    /**
+     * 他刚上班
+     */
     @Override
     public void onArrivedAtWork() {
         //int dist = false;

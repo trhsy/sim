@@ -1,5 +1,7 @@
 package com.trhsy.sim.common.entity.enums;
 
+import net.minecraft.client.resources.I18n;
+
 /**
  * @author trhsy
  * @date 2022/1/25 0025
@@ -21,21 +23,21 @@ public enum FarmType {
     @Override
     public String toString() {
         if (this == CARROT) {
-            return "Carrot";
+            return I18n.format("container.sim.FarmType1");
         } else if (this == MELON) {
-            return "Melon";
+            return I18n.format("container.sim.FarmType2");
         } else if (this == POTATO) {
-            return "Potato";
+            return I18n.format("container.sim.FarmType3");
         } else if (this == PUMPKIN) {
-            return "Pumpkin";
+            return I18n.format("container.sim.FarmType4");
         } else if (this == WHEAT) {
-            return "Wheat";
+            return I18n.format("container.sim.FarmType5");
         } else if (this == CUSTOM) {
-            return "Custom";
+            return I18n.format("container.sim.FarmType6");
         } else if (this == SUGAR) {
-            return "Sugar cane";
+            return I18n.format("container.sim.FarmType7");
         } else {
-            return this == CACTUS ? "Cactus" : "Unknown";
+            return this == CACTUS ? I18n.format("container.sim.FarmType8") : I18n.format("container.sim.FarmType9");
         }
     }
 }

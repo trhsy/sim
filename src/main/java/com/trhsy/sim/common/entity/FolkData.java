@@ -651,7 +651,7 @@ public class FolkData implements Serializable {
                             liveAt = this.getHome().primaryXYZ.clone();
                         }
                     } catch (Exception var13) {
-                        ModSim.log.warn(this.name + " 没有现场直播" + var13.getMessage());
+                        ModSim.log.warn(this.name + " 没有住在" + var13.getMessage());
                     }
 
                     if (liveAt != null) {

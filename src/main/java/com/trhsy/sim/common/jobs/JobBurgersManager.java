@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * ========================================
  *
  * @ClassName JobBurgersManager
- * @Description todo 经理
+ * @Description todo 漢堡店经理
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:43
  * ========================================

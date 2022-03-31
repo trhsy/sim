@@ -1,43 +1,59 @@
-[14:25:41] [main/INFO]: Setting user: Player93
-[14:25:42] [Client thread/INFO]: LWJGL Version: 2.9.1
-[14:25:50] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[14:25:51] [Sound Library Loader/INFO]: Sound engine started
-[14:25:51] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[14:25:51] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[14:25:51] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[14:25:52] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[14:25:52] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[14:25:53] [Sound Library Loader/INFO]: Sound engine started
-[14:25:56] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[14:25:56] [Server thread/INFO]: Generating keypair
-[14:25:56] [Server thread/INFO]: Preparing start region for level 0
-[14:25:57] [Server thread/INFO]: Preparing spawn area: 72%
-[14:25:58] [Server thread/INFO]: Changing view distance to 12, from 10
-[14:25:58] [Server thread/INFO]: Player93[local:E:f7603f42] logged in with entity id 24 at (-0.6167004453496338, 237.0, 4.521938991350405)
-[14:25:58] [Server thread/INFO]: Player93 ��������Ϸ
-[14:25:59] [Server thread/INFO]: Saving and pausing game...
-[14:25:59] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[14:25:59] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[14:25:59] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[14:26:07] [Client thread/INFO]: [CHAT] ��ӭ����ģ�����1.1.0 Beta��TRHSY����
-[14:26:55] [Client thread/INFO]: [CHAT] 张二�?�Ѿ���ʼ����һ��С����
-[14:26:55] [Client thread/INFO]: [CHAT] 张二�? ( ˭�ڽ���С����)��Ҫ������ľľ��
-[14:27:23] [Server thread/INFO]: Player93 �ոջ���� [����Ʒ��] �ɾͣ�
-[14:27:23] [Client thread/INFO]: [CHAT] Player93 �ոջ���� [����Ʒ��] �ɾͣ�
-[14:27:58] [Client thread/INFO]: [CHAT] 张二�?����ɽ���С����
-[14:29:04] [Client thread/INFO]: [CHAT] 张二�?�Ѿ���ʼ����һ��С���� B
-[14:29:04] [Client thread/INFO]: [CHAT] 张二�? ( ˭�ڽ���С���� B)��Ҫ������ľľ��
-[14:29:47] [Client thread/INFO]: [CHAT] 张二�?����ɽ���С���� B
-[14:30:25] [Client thread/INFO]: [CHAT] 张二�?���ڽ������ǵ�С���� B
-[14:31:07] [Client thread/INFO]: [CHAT] ��� �����ոս���õ�����
-[14:31:16] [Server thread/INFO]: Saving and pausing game...
-[14:31:16] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[14:31:16] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[14:31:16] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[14:31:17] [Server thread/INFO]: Stopping server
-[14:31:17] [Server thread/INFO]: Saving players
-[14:31:17] [Server thread/INFO]: Saving worlds
-[14:31:17] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[14:31:17] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[14:31:17] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[14:31:19] [Client thread/INFO]: Stopping!
+[18:03:10] [main/INFO]: Setting user: Player745
+[18:03:12] [Client thread/INFO]: LWJGL Version: 2.9.1
+[18:03:24] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[18:03:25] [Sound Library Loader/INFO]: Sound engine started
+[18:03:27] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[18:03:27] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[18:03:27] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[18:03:28] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[18:03:28] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[18:03:29] [Sound Library Loader/INFO]: Sound engine started
+[18:08:22] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[18:08:22] [Server thread/INFO]: Generating keypair
+[18:08:23] [Server thread/INFO]: Preparing start region for level 0
+[18:08:24] [Server thread/INFO]: Changing view distance to 12, from 10
+[18:08:24] [Server thread/INFO]: Player745[local:E:a1316994] logged in with entity id 29 at (14.330325645281262, 237.0, -59.49434838573579)
+[18:08:24] [Server thread/INFO]: Player745 加入了游戏
+[18:08:26] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
+[18:08:27] [Client thread/INFO]: [CHAT] 采矿箱有个问题琳瑷 都我在用。请把它换掉
+[18:08:37] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
+[18:08:45] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
+[18:08:48] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
+[18:08:50] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
+[18:08:52] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
+[18:09:24] [Server thread/INFO]: Player745 刚刚获得了 [打开物品栏] 成就！
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
+[18:09:24] [Client thread/INFO]: [CHAT] Player745 刚刚获得了 [打开物品栏] 成就！
+[18:09:24] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 57972ms behind, skipping 1159 tick(s)
+[18:09:25] [Server thread/INFO]: [Player745: 将时间设为 0]
+[18:09:25] [Client thread/INFO]: [CHAT] 将时间设为 0
+[18:09:28] [Client thread/INFO]: [CHAT] 今天收了32.90金的房租。
+[18:09:28] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
+[18:09:32] [Client thread/INFO]: [CHAT] 张二狗已经开始建筑一个诊所
+[18:09:32] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
+[18:09:34] [Client thread/INFO]: [CHAT] 张二狗 ( 谁在建造诊所)需要更多泥土
+[18:09:39] [Client thread/INFO]: [CHAT] 你可以再放置两个标记来标记农场或矿井等区域。如果你想这样做，现在在右前方位置放置另一个标记
+[18:09:42] [Client thread/INFO]: [CHAT] 最后，在左后位置放置一个标记
+[18:09:45] [Client thread/INFO]: [CHAT] 完成后，现在可以放置采矿箱、耕种箱或右键单击左前标记来复制结构！
+[18:12:34] [Client thread/INFO]: [CHAT] 张二狗 ( 谁在建造诊所)需要更多石砖
+[18:13:20] [Client thread/INFO]: [CHAT] 张二狗已完成建设诊所
+[18:13:50] [Server thread/INFO]: Saving and pausing game...
+[18:13:50] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:13:50] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:13:50] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:13:51] [Server thread/INFO]: Stopping server
+[18:13:51] [Server thread/INFO]: Saving players
+[18:13:51] [Server thread/INFO]: Saving worlds
+[18:13:51] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:13:51] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:13:51] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:13:52] [Client thread/INFO]: Stopping!

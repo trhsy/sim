@@ -17,7 +17,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName EntityWindmill
- * @Description todo
+ * @Description todo 风车实体
  * @Author Administrator
  * @Date 2022/1/26 0026下午 5:55
  * ========================================

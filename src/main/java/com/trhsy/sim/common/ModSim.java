@@ -354,7 +354,7 @@ public class ModSim {
             FarmingBox.loadFarmingBoxes();
             FolkData.loadAndSpawnFolks();
             Relationship.loadRelationships();
-//            updateCheck();
+            updateCheck();
             isDay = isDayTime();
             Building.checkTennants();
             proxy.ranStartup = true;
@@ -444,7 +444,7 @@ public class ModSim {
                 return;
             }
 
-            String baseURL = "https://www.jianguoyun.com/p/DWFS4bwQ-bWvChj-prME";//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
+            String baseURL = "https://www.dropbox.com/s/i51v1lsq0u89elw/";//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
             String ver = this.downloadFile(baseURL + "version.txt", getSimukraftFolder() + File.separator + "simukraft.txt");
             if (ver != null) {
                 ver = ver.trim();
