@@ -54,6 +54,7 @@ public class ItemLoader {
     奶酪
      */
     public static Item itemFoods = new ItemFoods();
+    public static Item itemDrinks = new ItemDrink();
     /*风车*/
     //public static Item itemBlockWindmill = new ItemBlockWindmill();
     /*灯箱*/
@@ -71,6 +72,7 @@ public class ItemLoader {
         register(itemWindmillSails, "windmill_sails");
         register(itemWindmillVane, "windmill_vane");
         register(itemFoods, "foods");
+        register(itemDrinks, "drinks");
         //register(itemBlockWindmill, "block_windmill");
         //register(itemBlockLightBox, "light_box");
 

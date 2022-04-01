@@ -3,6 +3,7 @@ package com.trhsy.sim.common.loader;
 import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.client.event.EventSounds;
 import com.trhsy.sim.common.CommonTickHandler;
+import com.trhsy.sim.common.UpdateChecker;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
@@ -15,6 +16,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 public class EventLoader {
     public EventLoader() {
         MinecraftForge.EVENT_BUS.register(this);
+        FMLCommonHandler.instance().bus().register(new UpdateChecker());
     }
 
     ///**

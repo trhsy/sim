@@ -43,11 +43,11 @@ public class BlockLightBox extends Block {
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setTickRandomly(true);
-        this.setTextureName(ModSim.MODID + ":" + "light_block_White");
+        //this.setTextureName(ModSim.MODID + ":" + "light_block_White");
         this.setUnlocalizedName("lightBox");
     }
 
-    @Override
+   /* @Override
     public String getUnlocalizedName(){
         String name="";
         for (int i = 0; i < names.length; i++) {
@@ -55,7 +55,8 @@ public class BlockLightBox extends Block {
             return name;
         }
         return name;
-    }
+    }*/
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
@@ -79,12 +80,13 @@ public class BlockLightBox extends Block {
     public int damageDropped(int j) {
         return j;
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List par3List) {
         for (int meta = 0; meta < 8; ++meta) {
             //par3List.add(new ItemStack(itemIn, 1, meta));
-            par3List.add(new ItemStack(this, 1, meta));
+            par3List.add(new ItemStack(itemIn, 1, meta));
         }
     }
 

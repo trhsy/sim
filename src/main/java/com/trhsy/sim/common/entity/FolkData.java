@@ -651,7 +651,7 @@ public class FolkData implements Serializable {
                             liveAt = this.getHome().primaryXYZ.clone();
                         }
                     } catch (Exception var13) {
-                        ModSim.log.warn(this.name + " 没有住在" + var13.getMessage());
+                        ModSim.log.error(this.name + " 没有住在" + var13.getMessage());
                     }
 
                     if (liveAt != null) {
@@ -965,12 +965,13 @@ public class FolkData implements Serializable {
             } else {
                 lastName = lastNameOptional;
             }
-            test = getFolkByName(firstName + " " + lastName);
-            /*if("en_US".equals(lang)){
 
+            String lang=FMLCommonHandler.instance().getCurrentLanguage();
+            if("en_US".equals(lang)){
+                test = getFolkByName(firstName + " " + lastName);
             }else{
                 test = getFolkByName(lastName +firstName );
-            }*/
+            }
 
             if (test == null) {
                 break;

@@ -5,84 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88cd931b-e04f-4445-80ed-e699d00a6dc9" name="变更" comment="job">
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/9/09920b0a82ca32250d16d0c18f3660ba7839700a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/8/88cea2563c77521e4e27996f6a2854223fe7e3ca" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-21-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-2.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-3.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-4.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-5.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/0dba4657-9c98-3a17-999f-e412cc5ea8b2.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/1c0e06f3-9808-3189-8407-cec21f7f6640.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/2854591c-b60f-3cde-b807-30391bb3ef3d.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/dec201cc-1fa4-3af7-9261-26208e4b16bf.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/f109a640-cd93-3f49-a1e7-75407085bbf0.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b-10_237_-16_0.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b-4_238_-4_0.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b-6_237_29_0.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b12_237_-23_0.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b17_237_15_0.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b21_237_3_0.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Farming/f9_237_-37_0.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Relationships/展鹏赖欢妍曾.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Relationships/展鹏赖瑛傲国.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Relationships/张二狗展鹏赖.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Relationships/张二狗瑛傲国.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/欢妍 曾.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/瑛傲 国.sk2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/0dba4657-9c98-3a17-999f-e412cc5ea8b2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/1c0e06f3-9808-3189-8407-cec21f7f6640.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/2854591c-b60f-3cde-b807-30391bb3ef3d.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/dec201cc-1fa4-3af7-9261-26208e4b16bf.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/f109a640-cd93-3f49-a1e7-75407085bbf0.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/5/051efa2d7734cc34577b2bd5ce6a6fb618817c0d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/a/0a682e9f42c5989b6781929bc83726e64376b761" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/b/0b29589ae3a13026f84284e244e055cb6523a53a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/d/1dbf301451a3b9ba4199e1b999aaad2dbcf6d663" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/e/1e2c546d562563c829ae291d31065d853e0e33af" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/9/39b472f39cce2e4feb97b083e4b1b50ddf80ae02" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/9/493b57e69c59647f15350d6140c6d5e0141a9582" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/d/4dd69533c70adb89b74a2388f8b527e5f1f35106" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/8/58a9a70d225250b8051ceddd3f2fa2347aaae537" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/a/5a4cbd61ae0296b00f801542c1e415de219fcea8" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/d/5d5db6b8fde25783269ce0da9790539898d6a3a5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/1/61a08ee518b79c0a29d6b96a2f73578c27ffda0a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/6/6687380d4803aac4ff939a3f0dedcb36e1129515" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/7/672dab2e44b0b4658d6d090d445527eee2690f8f" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/3/7386de659517af0fe43bb74df2bc07b9baba0082" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/5/75bf41ec1250c865cdf3b874a0bd8efe5f6f822e" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/d/8dd836d9cf64015a3e2979849139b353ba905a76" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/2/a299a1387df8d180b70aca0f5d73763afba46745" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/b/abb7e7acd73fb0b8b6ff1b8cf745a85aecd6b8b5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/b/abbb6158a920057ffd69fc1d1ead5e4262f217ef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/d/ad1375c336a3946ab62b060323d47ad8b7d89357" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/e/ae5e46a6384095396232f02509934ffe95a3a7d2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/2/b2954eefd1d25f417af3a35b0dffbf10f91743f5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/e/be1657641b5fc2b87c400b4711a60528bcaae83c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/3/c332e9971eb6e89168ff2f78593e2493b539b6e9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/2/d200d3946d79ef536a38a4cc495523bab4d746b4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/4/d4547634bf416b0c473dd664e26929c46478a6ee" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/7/d7a03bffeae6fb7b1e630f6f635e471041af84f6" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/5/e504c6bf3c351444680bbee3df69598e99c6e025" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/8/e83a15a5d5eee6c44de60c04106a2f64eaac2d3f" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/a/eab7e18d7a710f666bb5e8fb49a6665cd9327dc5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/0/f0f77586eaa4fb0cede13f9b48aa31bb6ba6b84e" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/4/f46efa78dc42694eb332043c6202c71957619bc3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/d/fddfe0bb61aedd4805c8e7b9f5444ed9272d01fa" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/d/fdef4d2e7067a6d0ea9f4c075cd10b3c54375b15" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-01-1.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-01-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-01-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/version.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/27903c96-6327-3ab4-9463-21017fd8955d.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/5648fab5-fa61-330e-8fa7-aea962bdfd7c.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/playerdata/681f539b-8bb8-3f85-85e5-a2945f6c6539.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/27903c96-6327-3ab4-9463-21017fd8955d.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/5648fab5-fa61-330e-8fa7-aea962bdfd7c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclipse/saves/sim/stats/681f539b-8bb8-3f85-85e5-a2945f6c6539.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/UpdateChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/food/ItemDrink.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/drinkBeer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/drinkBeerEmpty.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/f/3ff460e92f13c13ea693eddc6f2f7c7afe017cbd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/7/471545f4d46b39be9170fa61bc255107bd09bf30" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/6/668b8cbb1cb93e93f04fb15592d56454376b0f41" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/6/668b8cbb1cb93e93f04fb15592d56454376b0f41" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/7/778f227315eae616560ac159192027fd6d34b514" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/5/85d7d0bd0e94cf60520f3b89420d1e02ce38f1c3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/e/cec07feae85a16c23b10dff4a3e488bf6361adf1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/config/splash.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/config/splash.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-03-31-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-03-31-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-2.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-03-31-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-3.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-03-31-4.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-4.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-03-31-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-5.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-03-31-6.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-6.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-03-31-7.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-03-31-7.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶酪厂.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶酪工厂.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶酪厂2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/奶酪工厂2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/玻璃厂.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/玻璃工厂.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/羊场.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/Simukraft/buildings/industrial/牧羊场.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/DIM-1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/DIM-1/data/villages.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/DIM1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/DIM1/data/villages.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/data/villages.dat" afterDir="false" />
@@ -93,28 +57,38 @@
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.-1.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.0.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/session.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b-4_237_-4_0.sk2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b-8_237_2_0.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/Buildings/b-8_237_2_0.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/寮犱簩鐙�.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/展鹏 赖.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/张二狗.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/张二狗.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/愫媛 宗政.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/靖宇 鬱.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/昀然 訾.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/昀然 訾.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/欢妍 曾.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/欢妍 曾.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/欣娟 丰.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/欣娟 丰.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/琳瑷 都.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/琳瑷 都.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/瑛傲 国.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/瑛傲 国.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/靖宇 鬱.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/靖宇 鬱.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/settings.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/settings.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/usernamecache.json" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/usernamecache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/assets/sim/lang/en_US.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/assets/sim/lang/zh_CN.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/assets/sim/textures/blocks/control_box_top_other.mcmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/ModSim$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/ModSim$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/ModSim.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/ModSim.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/block/BlockLightBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/block/BlockLightBox.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/entity/FolkData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/entity/FolkData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/item/ItemBlockLightBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/item/ItemBlockLightBox.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/BlockLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/BlockLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/EventLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/EventLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/ItemLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/ItemLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiControlBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiControlBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/EntityWindmill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/EntityWindmill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLightBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLightBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Marker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Marker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/enums/FarmType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/enums/FarmType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/Job.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBaker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBurgersManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBurgersManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCourier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCourier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCropFarmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobCropFarmer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/ItemBlockLightBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/ItemBlockLightBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control_box_top_other.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control_box_top_other.png.mcmeta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +134,44 @@
     </breakpoint_any>
     <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sim-u-1.7.10" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sim-u-1.7.10" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sim-u-1.7.10" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -207,6 +219,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\Game\work\sim-u-1.7.10\src\main\resources\assets\sim\textures\items" />
+    </key>
   </component>
   <component name="RunManager" selected="应用程序.Minecraft Client">
     <configuration default="true" factoryName="Applet" type="Applet">
@@ -240,6 +258,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Client" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../sim-u-1.7.10\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="sim-u-1.7.10" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
     <configuration name="Minecraft Server" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
       <module name="sim-u-1.7.10" />
@@ -251,12 +286,50 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../sim-u-1.7.10\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="sim-u-1.7.10" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="sim-u-1.7.10 [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
@@ -282,9 +355,15 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Gradle.sim-u-1.7.10 [build]" />
       <item itemvalue="应用程序.Minecraft Client" />
       <item itemvalue="应用程序.Minecraft Server" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.sim-u-1.7.10 [build]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500">
@@ -309,7 +388,9 @@
       <option name="presentableId" value="Default" />
       <updated>1648617182300</updated>
       <workItem from="1648617184911" duration="3540000" />
-      <workItem from="1648702872832" duration="17053000" />
+      <workItem from="1648702872832" duration="19292000" />
+      <workItem from="1648774464631" duration="15031000" />
+      <workItem from="1648791069907" duration="3906000" />
     </task>
     <task id="LOCAL-00001" summary="job">
       <created>1648621301357</created>
@@ -356,21 +437,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java</url>
-          <line>467</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java</url>
-          <line>447</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/ModSim.java</url>
-          <line>518</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/Job.java</url>
           <line>235</line>
@@ -380,6 +446,26 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiControlBox.java</url>
           <line>677</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/UpdateChecker.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java</url>
+          <line>648</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/UpdateChecker.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java</url>
+          <line>968</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

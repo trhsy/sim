@@ -1,0 +1,77 @@
+
+J
+java:S3740$"/Provide the parametrized type for this generic.(ëøÑÔûÿÿÿÿ
+E
+java:S3740%"/Provide the parametrized type for this generic.(ÁÓ€£
+—
+java:S11862"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÏĞç
+—
+java:S1186)"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±ğ›Ñ
+H
+java:S1135"2Complete the task associated to this TODO comment.(€º½å
+h
+java:S3776D"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(‡àñ¯
+@
+java:S1905x"*Remove this unnecessary cast to "Integer".(Ü´³
+@
+java:S1905y"*Remove this unnecessary cast to "Integer".(¼‘ÿ¢
+D	java:S108‚")Either remove or fill this block of code.(Ş…‚âûÿÿÿÿ
+i
+java:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 56 to the 15 allowed.(À¥¡è
+F
+java:S1905¸"*Remove this unnecessary cast to "Integer".(Ìá˜ûÿÿÿÿ
+A
+java:S1905¾"*Remove this unnecessary cast to "Integer".(›ÒÆ•
+F
+java:S1905Í"*Remove this unnecessary cast to "Integer".(Ìá˜ûÿÿÿÿ
+A
+java:S1905Ó"*Remove this unnecessary cast to "Integer".(›ÒÆ•
+A
+java:S1905Ô"*Remove this unnecessary cast to "Integer".(ÆŠ¿
+n
+java:S3776á"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(±ÔÛúÿÿÿÿ
+Z
+java:S1854æ">Remove this useless assignment to local variable "stackPrice".(ãôéİşÿÿÿÿ
+R	java:S125ã"<This block of commented-out lines of code should be removed.(ÏŠµŠ
+C
+java:S1481å"'Remove this unused "ok" local variable.(‰İıÂøÿÿÿÿ
+A
+java:S1905ê"*Remove this unnecessary cast to "Integer".(¯‹Ÿ»
+D
+java:S1905‚"-Remove this unnecessary cast to "IInventory".(–÷‚
+u
+java:S2142”"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ôÒø‚
+?	java:S108”")Either remove or fill this block of code.(ôÒø‚
+Z
+java:S1854§">Remove this useless assignment to local variable "stackPrice".(ãôéİşÿÿÿÿ
+F
+java:S1481£"*Remove this unused "stack" local variable.(¶—î¥ùÿÿÿÿ
+R	java:S125¤"<This block of commented-out lines of code should be removed.(ÏŠµŠ
+C
+java:S1481¦"'Remove this unused "ok" local variable.(‰İıÂøÿÿÿÿ
+W	java:S125¨"<This block of commented-out lines of code should be removed.(–Êş“üÿÿÿÿ
+‚
+java:S2178ª"fCorrect this "|" to "||" and extract the right operand to a variable if it should always be evaluated.(ğÑ…áÿÿÿÿÿ
+I
+java:S1905±"-Remove this unnecessary cast to "IInventory".(ïå–ÿşÿÿÿÿ
+D
+java:S1905²"-Remove this unnecessary cast to "IInventory".(šŸ¬Ê
+I
+java:S1905º"-Remove this unnecessary cast to "IInventory".(ä––¥şÿÿÿÿ
+?
+java:S1185Ù"(Remove this method to simply inherit it.(Ñäâ†
+n
+java:S3776İ"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(„ôäİûÿÿÿÿ
+M
+java:S1854Ş"6Remove this useless assignment to local variable "mc".(è™áâ
+>
+java:S1481Ş"'Remove this unused "mc" local variable.(è™áâ
+t	java:S135ä"YReduce the total number of break and continue statements in this loop to use at most one.(ø§¨õüÿÿÿÿ
+Z
+java:S1155è">Use isEmpty() to check whether the collection is empty or not.(ÀÅ¯¨ùÿÿÿÿ
+Z
+java:S1155ª">Use isEmpty() to check whether the collection is empty or not.(ğÑ…áÿÿÿÿÿ
+Z
+java:S2259ç"CA "NullPointerException" could be thrown; "stack" is nullable here.(üÂó©
+[
+java:S2583í"DChange this condition so that it does not always evaluate to "false"(Ï¹ëƒ

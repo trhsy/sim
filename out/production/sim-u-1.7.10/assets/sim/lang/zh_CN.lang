@@ -62,6 +62,8 @@ item.foodCheese.name=奶酪
 item.foodFries.name=炸薯条
 item.foodBurger.name=汉堡
 
+item.drinkBeerEmpty.name=空酒瓶
+item.drinkBeer.name=酒瓶
 # 创造模式菜单名
 itemGroup.sim=模拟城镇
 # GUI 汉化
