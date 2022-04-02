@@ -31,24 +31,6 @@ java:S3740Œ"/Provide the parametrized type for this generic.(Åìúıûÿÿÿÿ
 java:S1186Ë"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Úœ©Ñÿÿÿÿÿ
 x
 java:S1845—"aRename method "demolishBlocks" to prevent any misunderstanding/clash with field "demolishBlocks".(Ûş¾÷
-3
-java:S2386S"Make this member "protected".(ÌŒ¶ö
-8
-java:S2386W"Make this member "protected".(…šøûÿÿÿÿÿ
-8
-java:S2386["Make this member "protected".(×£Êúÿÿÿÿ
-8
-java:S2386_"Make this member "protected".(ËÂÎúûÿÿÿÿ
-8
-java:S2386c"Make this member "protected".(÷ßŒşûÿÿÿÿ
-8
-java:S2386g"Make this member "protected".(šÆı½øÿÿÿÿ
-8
-java:S2386k"Make this member "protected".(­‹ğ»üÿÿÿÿ
-3
-java:S2386s"Make this member "protected".(Ò’ƒ
-9
-java:S2386‡"Make this member "protected".(‡ùÖÕûÿÿÿÿ
 M
 java:S11354"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
 M
@@ -57,8 +39,6 @@ M
 java:S2696ı"6Make the enclosing method "static" or remove this set.(”å”Ÿ
 W	java:S125†"<This block of commented-out lines of code should be removed.(½›ğêıÿÿÿÿ
 R	java:S125˜"<This block of commented-out lines of code should be removed.(–¢Ÿä
-]
-java:S3457ª"AFormat specifiers should be used instead of string concatenation.(¾¿•ıÿÿÿÿ
 Q	java:S899Ä";Do something with the "boolean" value returned by "delete".(´’çô
 R	java:S125Õ"<This block of commented-out lines of code should be removed.(…„ö·
 E
@@ -74,17 +54,9 @@ R	java:S125Ç"<This block of commented-out lines of code should be removed.(‘¿
 :
 java:S2119í"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
 ?	java:S108ñ")Either remove or fill this block of code.(Û´€¨
-G
-java:S1905ô"+Remove this unnecessary cast to "FolkData".(¦¶—¨ùÿÿÿÿ
-B
-java:S1905õ"+Remove this unnecessary cast to "FolkData".(“›Í¡
 :
 java:S2119ÿ"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
 D	java:S108‚")Either remove or fill this block of code.(áš›Áúÿÿÿÿ
-G
-java:S1905…"+Remove this unnecessary cast to "FolkData".(¦ÿ™çşÿÿÿÿ
-G
-java:S1905†"+Remove this unnecessary cast to "FolkData".(¦¶—¨ùÿÿÿÿ
 n
 java:S3776—"RRefactor this method to reduce its Cognitive Complexity from 82 to the 15 allowed.(”•ªšıÿÿÿÿ
 :
@@ -92,39 +64,13 @@ java:S2119™"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
 u
 java:S2142¡"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(Æƒæí
 ?	java:S108¡")Either remove or fill this block of code.(Æƒæí
-B
-java:S1905¨"+Remove this unnecessary cast to "Building".(– ” 
-X
-java:S3457®"AFormat specifiers should be used instead of string concatenation.(«ÀŞÆ
-B
-java:S1905Ë"+Remove this unnecessary cast to "FolkData".(·¸ÿ£
-G
-java:S1905é"+Remove this unnecessary cast to "FolkData".(é‹Ä¡ıÿÿÿÿ
-G
-java:S1905ó"+Remove this unnecessary cast to "FolkData".(é‹Ä¡ıÿÿÿÿ
-?
-java:S1905ö"(Remove this unnecessary cast to "float".(…Œ™Ó
-A
-java:S1905Ÿ"%Remove this unnecessary cast to "V3".(§–Ö­ÿÿÿÿÿ
 5
 java:S2119£"Save and re-use this "Random".(ü§Ñ©
 ?	java:S108¥")Either remove or fill this block of code.(Æƒæí
 n
 java:S3776¬"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(õ½ùÛüÿÿÿÿ
-<
-java:S1905¸"%Remove this unnecessary cast to "V3".(şÍ¨Ş
 i
 java:S1871À"MThis branch's code block is the same as the block for the branch on line 702.(½áÅñùÿÿÿÿ
-<
-java:S1905Ö"%Remove this unnecessary cast to "V3".(şÍ¨Ş
-h
-java:S1128"FRemove this unused import 'cpw.mods.fml.common.registry.GameRegistry'.(—®¸øùÿÿÿÿ8Áèº–ş/
-l
-java:S1128"JRemove this unused import 'cpw.mods.fml.common.registry.LanguageRegistry'.(ùìä¨şÿÿÿÿ8Áèº–ş/
-^
-java:S1128'"<Remove this unused import 'net.minecraftforge.fluids.Fluid'.(”Ø»Øúÿÿÿÿ8Âèº–ş/
-K
-java:S1128+")Remove this unused import 'java.net.URL'.(ñìÁ„üÿÿÿÿ8Âèº–ş/
 F
 java:S1144Á"/Remove this unused private "getTheirId" method.(á‘î‘
 ~
@@ -157,12 +103,6 @@ g	java:S117å"QRename this local variable to match the regular expression '^[a
 g	java:S117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë¨¬Ë
 l	java:S117Š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÉ›ùùÿÿÿÿ
 l	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åìúıûÿÿÿÿ
-U
-java:S1155˜">Use isEmpty() to check whether the collection is empty or not.(ÓÄõ†
-Z
-java:S1155©">Use isEmpty() to check whether the collection is empty or not.(•Â‘úÿÿÿÿ
-Z
-java:S1155˜">Use isEmpty() to check whether the collection is empty or not.(áË¥°úÿÿÿÿ
 z
 java:S1488©"^Immediately return this expression instead of assigning it to the temporary variable "output".(¦Æó©şÿÿÿÿ
 r
@@ -301,11 +241,7 @@ E
 java:S1444Ä".Make this "public static gameMode" field final(µÊ¢ï
 D
 java:S1444È"-Make this "public static network" field final(‡Ê×£
-x
-java:S2629ª"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¾¿•ıÿÿÿÿ
-N
-java:S2629®"7Use the built-in formatting to construct this argument.(«ÀŞÆ
-h
-java:S2095û"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(­¨½òùÿÿÿÿ
 h
 java:S2095‹"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(ë¹Ôûÿÿÿÿ
+h
+java:S2095û"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(­¨½òùÿÿÿÿ

@@ -355,7 +355,7 @@ public class ModSim {
             Relationship.loadRelationships();
             updateCheck();
             isDay = isDayTime();
-            Building.checkTennants();
+            Building.checkTenants();
             proxy.ranStartup = true;
         }
     }
@@ -550,7 +550,7 @@ public class ModSim {
                     if (ModSim.gameMode != GameMode.CREATIVE) {
                         for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
                             Building building = (Building) ModSim.theBuildings.get(b);
-                            if (building.type.contentEquals("residential") && building.tennants.size() > 0) {
+                            if (building.type.contentEquals("residential") && building.tenants.size() > 0) {
                                 if (building.rent == null || building.rent == 0.0F) {
                                     building.rent = 1.0F;
                                 }

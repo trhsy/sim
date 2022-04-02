@@ -43,11 +43,11 @@ public class ItemLoader {
      */
     public static Item itemWindmillBase = new ItemWindmillBase();
     /**
-     * 风车
+     * 风车帆
      */
     public static Item itemWindmillSails = new ItemWindmillSails();
     /**
-     * 风车帆
+     * 风车叶片
      */
     public static Item itemWindmillVane = new ItemWindmillVane();
     /*

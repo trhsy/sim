@@ -23,12 +23,8 @@ public class UpdateChecker {
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         try {
-            File check = new File(ModSim.getSimukraftFolder() + "/buildings/");
-            if (!check.exists()) {
-                ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.main_buildings"));
-                return;
-            }
-            String baseURL = "https://www.jianguoyun.com/d/home#/sandbox/14da907/3267f0bd2b7be3e3/%2F/?previewingFileName=version.txt";//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
+
+            String baseURL = "https://www.dropbox.com/s/i51v1lsq0u89elw/version.txt";//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
             String ver = this.downloadFile(baseURL, ModSim.getSimukraftFolder() + File.separator + "version.txt");
             if (ver != null) {
                 ver = ver.trim();
@@ -37,16 +33,22 @@ public class UpdateChecker {
                     Long now = System.currentTimeMillis();
                     ModSim.states.lastUpdateCheck = now;
                     ModSim.states.saveStates();
+                    File check = new File(ModSim.getSimukraftFolder() + "/buildings/");
+                    if (check.exists()) {
+                        //ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.main_buildings"));
+                        //return;
+                        check.delete();
+                    }
                 }
             }
 
-            int high = getHighestPKID("residential");
+            /*int high = getHighestPKID("residential");
             int o = getHighestPKID("other");
             if (o > high) {
                 high = o;
             }
 
-            /*String newbs = this.downloadFile(baseURL, ModSim.getSimukraftFolder() + File.separator + "version.txt");
+            String newbs = this.downloadFile(baseURL, ModSim.getSimukraftFolder() + File.separator + "version.txt");
             if (newbs.length() == 0) {
                 return;
             }
@@ -78,15 +80,22 @@ public class UpdateChecker {
      * @return
      */
     public int getHighestPKID(String type) {
+        //查看当前路径下 的 文件
         File actual = new File(ModSim.getSimukraftFolder() + File.separator + "buildings" + File.separator + type + File.separator);
+        //获得文件列表
         File[] listFiles = actual.listFiles();
-
+        //循环
         for (int i = 0; i < listFiles.length; ++i) {
             File f = listFiles[i];
+            //文件名开头是 PKID
             if (f.getName().startsWith("PKID")) {
+                //查找名字中带 -
                 this.m1 = f.getName().indexOf("-");
+                //如果找到
                 if (this.m1 > 0) {
+                    //截取pkid 后面的数字
                     String id = f.getName().substring(4, this.m1);
+                    //如果大于 则赋值
                     if (Integer.parseInt(id) > this.highest) {
                         this.highest = Integer.parseInt(id);
                     }

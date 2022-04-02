@@ -8,11 +8,3 @@ X	java:S1253"<This block of commented-out lines of code should be removed.(¨Â
 Y
 java:S1172K"CRemove these unused method parameters "par1", "par2Random", "par3".(–œğœ
 P	java:S125X"<This block of commented-out lines of code should be removed.(¢ ˜p
-l
-java:S1128	"JRemove this unused import 'cpw.mods.fml.common.registry.LanguageRegistry'.(ùìä¨şÿÿÿÿ8½ÊÉ™ş/
-]
-java:S1128"@Remove this unused import 'net.minecraft.client.resources.I18n'.(éˆÂ¶8¿ÊÉ™ş/
-b
-java:S1128"@Remove this unused import 'net.minecraft.tileentity.TileEntity'.(’÷Ôøùÿÿÿÿ8ÁÊÉ™ş/
-S
-java:S1128"6Remove this unused import 'net.minecraft.world.World'.(ÁÓÇ¾8ÁÊÉ™ş/

@@ -117,7 +117,7 @@ public class CommonTickHandler {
                     Long start = System.currentTimeMillis();
                     FolkData.generateNewFolk(this.serverWorld);
                     ModSim.states.saveStates();
-                    Building.checkTennants();
+                    Building.checkTenants();
                     Building.saveAllBuildings();
                     CourierTask.saveCourierTasksAndPoints();
                     MiningBox.saveMiningBoxes();

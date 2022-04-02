@@ -1,9 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "layer0": "sim:blocks/control_box_top",
-    "layer1": "sim:blocks/control_box_side",
-    "layer2": "sim:blocks/control_box_ATM",
-    "layer3": "sim:blocks/control_box_top_other"
-  }
-}
