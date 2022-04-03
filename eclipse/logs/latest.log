@@ -1,59 +1,11 @@
-[18:03:10] [main/INFO]: Setting user: Player745
-[18:03:12] [Client thread/INFO]: LWJGL Version: 2.9.1
-[18:03:24] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[18:03:25] [Sound Library Loader/INFO]: Sound engine started
-[18:03:27] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[18:03:27] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[18:03:27] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[18:03:28] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[18:03:28] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[18:03:29] [Sound Library Loader/INFO]: Sound engine started
-[18:08:22] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[18:08:22] [Server thread/INFO]: Generating keypair
-[18:08:23] [Server thread/INFO]: Preparing start region for level 0
-[18:08:24] [Server thread/INFO]: Changing view distance to 12, from 10
-[18:08:24] [Server thread/INFO]: Player745[local:E:a1316994] logged in with entity id 29 at (14.330325645281262, 237.0, -59.49434838573579)
-[18:08:24] [Server thread/INFO]: Player745 加入了游戏
-[18:08:26] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.1.0 Beta由TRHSY重制
-[18:08:27] [Client thread/INFO]: [CHAT] 采矿箱有个问题琳瑷 都我在用。请把它换掉
-[18:08:37] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
-[18:08:45] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
-[18:08:48] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
-[18:08:50] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
-[18:08:52] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
-[18:09:24] [Server thread/INFO]: Player745 刚刚获得了 [打开物品栏] 成就！
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] 你需要先放下3个标记棒来标出矿区
-[18:09:24] [Client thread/INFO]: [CHAT] Player745 刚刚获得了 [打开物品栏] 成就！
-[18:09:24] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 57972ms behind, skipping 1159 tick(s)
-[18:09:25] [Server thread/INFO]: [Player745: 将时间设为 0]
-[18:09:25] [Client thread/INFO]: [CHAT] 将时间设为 0
-[18:09:28] [Client thread/INFO]: [CHAT] 今天收了32.90金的房租。
-[18:09:28] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
-[18:09:32] [Client thread/INFO]: [CHAT] 张二狗已经开始建筑一个诊所
-[18:09:32] [Client thread/INFO]: [CHAT] 抱歉，此采矿箱出现问题，请重新放置
-[18:09:34] [Client thread/INFO]: [CHAT] 张二狗 ( 谁在建造诊所)需要更多泥土
-[18:09:39] [Client thread/INFO]: [CHAT] 你可以再放置两个标记来标记农场或矿井等区域。如果你想这样做，现在在右前方位置放置另一个标记
-[18:09:42] [Client thread/INFO]: [CHAT] 最后，在左后位置放置一个标记
-[18:09:45] [Client thread/INFO]: [CHAT] 完成后，现在可以放置采矿箱、耕种箱或右键单击左前标记来复制结构！
-[18:12:34] [Client thread/INFO]: [CHAT] 张二狗 ( 谁在建造诊所)需要更多石砖
-[18:13:20] [Client thread/INFO]: [CHAT] 张二狗已完成建设诊所
-[18:13:50] [Server thread/INFO]: Saving and pausing game...
-[18:13:50] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[18:13:50] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[18:13:50] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[18:13:51] [Server thread/INFO]: Stopping server
-[18:13:51] [Server thread/INFO]: Saving players
-[18:13:51] [Server thread/INFO]: Saving worlds
-[18:13:51] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[18:13:51] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[18:13:51] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[18:13:52] [Client thread/INFO]: Stopping!
+[21:48:26] [main/INFO]: Setting user: Player810
+[21:48:27] [Client thread/INFO]: LWJGL Version: 2.9.1
+[21:48:37] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[21:48:38] [Sound Library Loader/INFO]: Sound engine started
+[21:48:39] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[21:48:39] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[21:48:39] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[21:48:40] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[21:48:40] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[21:48:41] [Sound Library Loader/INFO]: Sound engine started
+[21:49:37] [Client thread/INFO]: Stopping!
