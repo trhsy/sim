@@ -3,26 +3,40 @@
 java:S11189"Hide this public constructor.(â·ÑÂ
 M
 java:S1135"2Complete the task associated to this TODO comment.(Ù‹é³øÿÿÿÿ
-;
-java:S3010:"&Remove this assignment of "fluidMilk".(š”í0
 @
-java:S3010;"*Remove this assignment of "blockLightBox".(ÿëÑ™
+java:S3010:"*Remove this assignment of "blockLightBox".(ÿëÑ™
 B
 java:S11729",Remove this unused method parameter "event".(â·ÑÂ
-N
-java:S3878I"8Remove this array creation and simply pass the elements.(ıÌ„‰
-N
-java:S3878J"8Remove this array creation and simply pass the elements.(Š–ù´
-N
-java:S3878K"8Remove this array creation and simply pass the elements.(úöº–
-S
-java:S3878L"8Remove this array creation and simply pass the elements.(¤ï·şÿÿÿÿ
-N
-java:S3878M"8Remove this array creation and simply pass the elements.(âŒÈÒ
-N
-java:S3878N"8Remove this array creation and simply pass the elements.(ÅğŞ
-N
-java:S3878O"8Remove this array creation and simply pass the elements.(ÄÊ‡à
+_
+java:S1874G"=Remove this use of "addStringLocalization"; it is deprecated.(úû¾ûÿÿÿÿ8ÎÌş/
+Z
+java:S1874H"=Remove this use of "addStringLocalization"; it is deprecated.(Çùì®8ÏÌş/
+Y
+java:S1874I"=Remove this use of "addStringLocalization"; it is deprecated.(ääÍ78ĞÌş/
+Z
+java:S1874J"=Remove this use of "addStringLocalization"; it is deprecated.(ÕöœŒ8ĞÌş/
+_
+java:S1874K"=Remove this use of "addStringLocalization"; it is deprecated.(ÊÈäÅùÿÿÿÿ8ÑÌş/
+Z
+java:S1874L"=Remove this use of "addStringLocalization"; it is deprecated.(¸‹Şÿ8ÑÌş/
+Z
+java:S1874M"=Remove this use of "addStringLocalization"; it is deprecated.(´±½Ğ8ÒÌş/
+_
+java:S1874N"=Remove this use of "addStringLocalization"; it is deprecated.(š®Çüüÿÿÿÿ8ÓÌş/
+U
+java:S3878O"8Remove this array creation and simply pass the elements.(ıÌ„‰8ÓÌş/
+U
+java:S3878P"8Remove this array creation and simply pass the elements.(Š–ù´8ÜÌş/
+U
+java:S3878Q"8Remove this array creation and simply pass the elements.(úöº–8İÌş/
+Z
+java:S3878R"8Remove this array creation and simply pass the elements.(¤ï·şÿÿÿÿ8ŞÌş/
+U
+java:S3878S"8Remove this array creation and simply pass the elements.(âŒÈÒ8ŞÌş/
+U
+java:S3878T"8Remove this array creation and simply pass the elements.(ÅğŞ8áÌş/
+U
+java:S3878U"8Remove this array creation and simply pass the elements.(ÄÊ‡à8äÌş/
 o
 java:S1104"ZMake constructorBox a static final constant or non-public and provide accessors if needed.(ÔÖÒ6
 w
@@ -45,8 +59,8 @@ java:S1104."ZMake blockMiningBox a static final constant or non-public and prov
 java:S11040"`Make blockPathConstructor a static final constant or non-public and provide accessors if needed.(öá¹õúÿÿÿÿ
 t
 java:S11042"YMake blockWindmill a static final constant or non-public and provide accessors if needed.(¾ ±Şûÿÿÿÿ
-p
-java:S11046"UMake fluidMilk a static final constant or non-public and provide accessors if needed.(Œ²ÀÂùÿÿÿÿ
+j
+java:S11046"UMake fluidMilk a static final constant or non-public and provide accessors if needed.(‡Şr
 I
 java:S1444"4Make this "public static constructorBox" field final(ÔÖÒ6
 Q
@@ -69,5 +83,5 @@ U
 java:S14440":Make this "public static blockPathConstructor" field final(öá¹õúÿÿÿÿ
 N
 java:S14442"3Make this "public static blockWindmill" field final(¾ ±Şûÿÿÿÿ
-J
-java:S14446"/Make this "public static fluidMilk" field final(Œ²ÀÂùÿÿÿÿ
+D
+java:S14446"/Make this "public static fluidMilk" field final(‡Şr
