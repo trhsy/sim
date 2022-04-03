@@ -1,0 +1,34 @@
+
+[	java:S112&"FDefine and throw a dedicated exception instead of using a generic one.(õ¡Œ‰
+J
+java:S3740"/Provide the parametrized type for this generic.(ùş¹Åùÿÿÿÿ
+J
+java:S3740"/Provide the parametrized type for this generic.(÷âşØûÿÿÿÿ
+E
+java:S3740"/Provide the parametrized type for this generic.(Â«ë
+E
+java:S3740"/Provide the parametrized type for this generic.(ßşÈ
+J
+java:S3740"/Provide the parametrized type for this generic.(ëîÌÄşÿÿÿÿ
+J
+java:S3740"/Provide the parametrized type for this generic.(Æ€‚şÿÿÿÿ
+E
+java:S3740"/Provide the parametrized type for this generic.(§ÛË‡
+J
+java:S3740"/Provide the parametrized type for this generic.(Çÿ•©úÿÿÿÿ
+D
+java:S3740"/Provide the parametrized type for this generic.(•‹…$
+O
+java:S5993"9Change the visibility of this constructor to "protected".(¡§çŒ
+3
+java:S1118"Hide this public constructor.(¡§çŒ
+ƒ
+java:S1319"hThe type of "aiRobots" should be an interface such as "List" rather than the implementation "ArrayList".(ùş¹Åùÿÿÿÿ
+r
+java:S1104"\Make registryProvider a static final constant or non-public and provide accessors if needed.( »º²
+o
+java:S1104"TMake aiRobots a static final constant or non-public and provide accessors if needed.(ùş¹Åùÿÿÿÿ
+L
+java:S1444"6Make this "public static registryProvider" field final( »º²
+I
+java:S1444".Make this "public static aiRobots" field final(ùş¹Åùÿÿÿÿ

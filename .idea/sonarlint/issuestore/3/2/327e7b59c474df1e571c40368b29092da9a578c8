@@ -1,0 +1,19 @@
+
+v
+java:S1104"YMake assemblyTable a static final constant or non-public and provide accessors if needed.(Âè8ôû™Şù/
+~
+java:S1104"\Make integrationTable a static final constant or non-public and provide accessors if needed.(Æõ¦Æûÿÿÿÿ8õû™Şù/
+q
+java:S1104	"TMake refinery a static final constant or non-public and provide accessors if needed.(Ø–›8÷û™Şù/
+y
+java:S1104
+"\Make programmingTable a static final constant or non-public and provide accessors if needed.(«¨ı8ùû™Şù/
+P
+java:S1444"3Make this "public static assemblyTable" field final(Âè8ûû™Şù/
+X
+java:S1444"6Make this "public static integrationTable" field final(Æõ¦Æûÿÿÿÿ8ıû™Şù/
+K
+java:S1444	".Make this "public static refinery" field final(Ø–›8ÿû™Şù/
+S
+java:S1444
+"6Make this "public static programmingTable" field final(«¨ı8‚ü™Şù/

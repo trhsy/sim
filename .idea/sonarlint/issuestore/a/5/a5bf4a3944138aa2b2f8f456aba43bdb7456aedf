@@ -1,0 +1,67 @@
+
+E
+java:S3740&"/Provide the parametrized type for this generic.(­¤ı¦
+J
+java:S3740'"/Provide the parametrized type for this generic.(Ë¬˜úıÿÿÿÿ
+J
+java:S3740("/Provide the parametrized type for this generic.(áø®«ûÿÿÿÿ
+J
+java:S3740)"/Provide the parametrized type for this generic.(®à²¯ıÿÿÿÿ
+J
+java:S3740*"/Provide the parametrized type for this generic.(’—ğşùÿÿÿÿ
+E
+java:S3740+"/Provide the parametrized type for this generic.(ñ››ä
+K
+java:S3740®"/Provide the parametrized type for this generic.(ªÿÉ×şÿÿÿÿ
+E
+java:S3740Î"/Provide the parametrized type for this generic.(¥¾°%
+L
+java:S3740Î"/Provide the parametrized type for this generic.(¥¾°%8Í¢öåù/
+K
+java:S3740õ"/Provide the parametrized type for this generic.(Ûô‚öûÿÿÿÿ
+F
+java:S3740…"/Provide the parametrized type for this generic.(î‹‡›
+K
+java:S3740”"/Provide the parametrized type for this generic.(ë£ƒ•úÿÿÿÿ
+K
+java:S3740¨"/Provide the parametrized type for this generic.(Êˆ‰Ñûÿÿÿÿ
+K
+java:S3740‚"/Provide the parametrized type for this generic.(æ»Ÿïøÿÿÿÿ
+œ
+java:S1186-"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(†‹Çüÿÿÿÿ
+M
+java:S1135 "2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
+i
+java:S3776©"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ö“Í
+i
+java:S3776É"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(ÁÛØÑ
+i
+java:S3776ñ"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Éõ 
+n
+java:S3776 "RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(©¹Âÿÿÿÿÿ
+i
+java:S3776À"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(€±ó»
+|
+java:S1319&"fThe type of "blockToId" should be an interface such as "Map" rather than the implementation "HashMap".(­¤ı¦
+„
+java:S1319'"iThe type of "idToBlock" should be an interface such as "List" rather than the implementation "ArrayList".(Ë¬˜úıÿÿÿÿ
+€
+java:S1319("eThe type of "itemToId" should be an interface such as "Map" rather than the implementation "HashMap".(áø®«ûÿÿÿÿ
+ƒ
+java:S1319)"hThe type of "idToItem" should be an interface such as "List" rather than the implementation "ArrayList".(®à²¯ıÿÿÿÿ
+‚
+java:S1319*"gThe type of "entityToId" should be an interface such as "Map" rather than the implementation "HashMap".(’—ğşùÿÿÿÿ
+€
+java:S1319+"jThe type of "idToEntity" should be an interface such as "List" rather than the implementation "ArrayList".(ñ››ä
+k
+java:S1104&"UMake blockToId a static final constant or non-public and provide accessors if needed.(­¤ı¦
+p
+java:S1104'"UMake idToBlock a static final constant or non-public and provide accessors if needed.(Ë¬˜úıÿÿÿÿ
+o
+java:S1104("TMake itemToId a static final constant or non-public and provide accessors if needed.(áø®«ûÿÿÿÿ
+o
+java:S1104)"TMake idToItem a static final constant or non-public and provide accessors if needed.(®à²¯ıÿÿÿÿ
+q
+java:S1104*"VMake entityToId a static final constant or non-public and provide accessors if needed.(’—ğşùÿÿÿÿ
+l
+java:S1104+"VMake idToEntity a static final constant or non-public and provide accessors if needed.(ñ››ä

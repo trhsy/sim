@@ -1,0 +1,23 @@
+
+X
+java:S3066‚"<Lower the visibility of this setter or remove it altogether.(Èçà‘üÿÿÿÿ
+l
+java:S1845""QRename field "VALUES" to prevent any misunderstanding/clash with method "values".(ÆŸ¨Çøÿÿÿÿ
+8
+java:S2386""Make this member "protected".(ÆŸ¨Çøÿÿÿÿ
+8
+java:S2386#"Make this member "protected".(ğ‹™ªùÿÿÿÿ
+8
+java:S2386$"Make this member "protected".(§ˆ³ÿüÿÿÿÿ
+3
+java:S2386%"Make this member "protected".(±íêƒ
+3
+java:S2386&"Make this member "protected".(äô¶­
+9
+java:S2119N"Save and re-use this "Random".(–İÕ«ÿÿÿÿÿ
+P
+java:S1161s":Add the "@Override" annotation above this method signature(Á»›ê
+r
+java:S1488R"\Immediately return this expression instead of assigning it to the temporary variable "next".(œ¤¹à
+u
+java:S1488W"`Immediately return this expression instead of assigning it to the temporary variable "previous".(è³÷"
