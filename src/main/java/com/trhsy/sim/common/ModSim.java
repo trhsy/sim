@@ -57,7 +57,7 @@ import java.util.Random;
 public class ModSim {
     public static final String MODID = "sim";
     public static final String NAME = "Simulated town";
-    public static final String VERSION = "1.1.0 Beta";
+    public static final String VERSION = "1.0.1 Beta";
     /**
      * 将生成该mod的实例注册到对应mod的id里面，也可以访问其他mod的，要注意这里的id和此mod的id相同
      */
@@ -199,8 +199,7 @@ public class ModSim {
      */
     public static SimpleNetworkWrapper network;
     private static GuiRunMod runModui = null;
-    int highest = 0;
-    int m1 = 0;
+
     public ModSim() {
 
     }
@@ -356,7 +355,7 @@ public class ModSim {
             Relationship.loadRelationships();
             updateCheck();
             isDay = isDayTime();
-            Building.checkTennants();
+            Building.checkTenants();
             proxy.ranStartup = true;
         }
     }
@@ -438,51 +437,9 @@ public class ModSim {
     public void start() {
         try {
             Thread.sleep(15000L);
-            File check = new File(getSimukraftFolder() + "/buildings/");
-            if (!check.exists()) {
-                sendChat(getSimukraftFolder() + "/buildings/ "+I18n.format("container.sim.main_buildings"));
-                return;
-            }
 
-            String baseURL = "https://www.dropbox.com/s/i51v1lsq0u89elw/";//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
-            String ver = this.downloadFile(baseURL + "version.txt", getSimukraftFolder() + File.separator + "simukraft.txt");
-            if (ver != null) {
-                ver = ver.trim();
-                if (!ver.contentEquals("") && !"1.1.0 Beta".contentEquals(ver)) {
-                    if (!VERSION.contentEquals(ver)) {
-                        sendChat(I18n.format("container.sim.main_available"));
-                    }
 
-                    Long now = System.currentTimeMillis();
-                    states.lastUpdateCheck = now;
-                    states.saveStates();
-                }
-            }
 
-            int high = this.getHighestPKID("residential");
-            int o = this.getHighestPKID("other");
-            if (o > high) {
-                high = o;
-            }
-
-            String newbs = this.downloadFile(baseURL, getSimukraftFolder() + File.separator + "simukraft.txt");
-            if (newbs.length() == 0) {
-                return;
-            }
-
-            String[] items = newbs.split("!END");
-
-            /*for (int i = 0; i < items.length - 1; ++i) {
-                String[] fields = items[i].split("!F");
-                String url = baseURL + "catalogue/PKID" + fields[0] + "-" + fields[1] + ".txt";
-                String local = getSimukraftFolder() + "/buildings/" + fields[3] + "/PKID" + fields[0] + "-" + fields[1] + ".txt";
-                String ret = this.downloadFile(url, local);
-                if (!ret.contentEquals("")) {
-                    url = baseURL + "backend.php?cmd=got&pk=" + fields[0];
-                    this.downloadFile(url, getSimukraftFolder() + File.separator + "cache.txt");
-                    sendChat("SimCity: Downloaded new building - '" + fields[1] + "' by " + fields[2] + " (" + fields[3] + ")");
-                }
-            }*/
         } catch (Exception var13) {
             var13.printStackTrace();
         }
@@ -493,55 +450,6 @@ public class ModSim {
         return null;
     }
 
-    public int getHighestPKID(String type) {
-        File actual = new File(getSimukraftFolder() + File.separator + "buildings" + File.separator + type + File.separator);
-        File[] arr$ = actual.listFiles();
-        int len$ = arr$.length;
-
-        for (int i$ = 0; i$ < len$; ++i$) {
-            File f = arr$[i$];
-            if (f.getName().startsWith("PKID")) {
-                this.m1 = f.getName().indexOf("-");
-                if (this.m1 > 0) {
-                    String id = f.getName().substring(4, this.m1);
-                    if (Integer.parseInt(id) > this.highest) {
-                        this.highest = Integer.parseInt(id);
-                    }
-                }
-            }
-        }
-
-        return this.highest;
-    }
-
-    public String downloadFile(String url, String localFile) {
-        String ret = "";
-        ModSim.log.info("下载文件" + url);
-        url = url.replace(" ", "%20");
-
-        try {
-            BufferedInputStream in = new BufferedInputStream((new URL(url)).openStream());
-            FileOutputStream fos = new FileOutputStream(localFile);
-            BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
-            byte[] data = new byte[4096];
-            boolean var8 = false;
-
-            int x;
-            while ((x = in.read(data, 0, 4096)) >= 0) {
-                bout.write(data, 0, x);
-            }
-
-            bout.flush();
-            ret = new String(data);
-            bout.close();
-            in.close();
-        } catch (Exception var9) {
-            ret = "";
-            var9.printStackTrace();
-        }
-
-        return ret;
-    }
 
     public static void dayTransitionHandler() {
         //FolkData folk1;
@@ -642,7 +550,7 @@ public class ModSim {
                     if (ModSim.gameMode != GameMode.CREATIVE) {
                         for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
                             Building building = (Building) ModSim.theBuildings.get(b);
-                            if (building.type.contentEquals("residential") && building.tennants.size() > 0) {
+                            if (building.type.contentEquals("residential") && building.tenants.size() > 0) {
                                 if (building.rent == null || building.rent == 0.0F) {
                                     building.rent = 1.0F;
                                 }

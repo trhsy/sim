@@ -61,6 +61,10 @@ item.foodCheeseburger.name=Cheese burger
 item.foodCheese.name=Cheese
 item.foodFries.name=Fries
 item.foodBurger.name=Burger
+
+item.drinkBeerEmpty.name=drinkBeer Empty
+item.drinkBeer.name=drinkBeer
+
 container.sim.welcome=Welcome to SimCity
 container.sim.welcomes=Reproduced by Trhsy
 container.sim.not_run=Do NOT run SimCity

@@ -1,0 +1,75 @@
+
+E
+java:S3740("/Provide the parametrized type for this generic.(¥ÁŸ‡
+A
+java:S2387""+"vocation" is the name of a field in "Job".(ùŒé’
+M
+java:S1135"2Complete the task associated to this TODO comment.(Õ»ïúÿÿÿÿ
+h
+java:S3776D"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(æôÚ„
+=
+java:S1905U"'Remove this unnecessary cast to "long".(ï·Ï«
+?	java:S108€")Either remove or fill this block of code.(ôÒø‚
+E
+java:S1905Œ")Remove this unnecessary cast to "double".(œÔ¶ûÿÿÿÿ
+D	java:S108•")Either remove or fill this block of code.(öé”şÿÿÿÿ
+T
+java:S1854¨"8Remove this useless assignment to local variable "var6".(Ø½•òşÿÿÿÿ
+T
+java:S1854§"8Remove this useless assignment to local variable "var5".(Á×À¬ÿÿÿÿÿ
+E
+java:S1905")Remove this unnecessary cast to "double".(œÔ¶ûÿÿÿÿ
+E
+java:S1481§")Remove this unused "var5" local variable.(Á×À¬ÿÿÿÿÿ
+E
+java:S1481¨")Remove this unused "var6" local variable.(Ø½•òşÿÿÿÿ
+E
+java:S1940¬")Use the opposite operator ("<=") instead.(–óŸ·ûÿÿÿÿ
+?	java:S108®")Either remove or fill this block of code.(ƒàó›
+E
+java:S1905·")Remove this unnecessary cast to "double".(¿‰õıÿÿÿÿ
+?	java:S108¾")Either remove or fill this block of code.(±ÛÃ™
+O
+java:S1854Ë"8Remove this useless assignment to local variable "var4".(ÂÌ®­
+O
+java:S1854Ê"8Remove this useless assignment to local variable "var3".(ôˆÌ¾
+V
+java:S1854İ":Remove this useless assignment to local variable "placed".(Ü‡¼´şÿÿÿÿ
+@
+java:S1481Ê")Remove this unused "var3" local variable.(ôˆÌ¾
+@
+java:S1481Ë")Remove this unused "var4" local variable.(ÂÌ®­
+@
+java:S1905Ó")Remove this unnecessary cast to "double".(½ò¿‡
+D
+java:S1905Ü"-Remove this unnecessary cast to "IInventory".(»¿’é
+G
+java:S1481İ"+Remove this unused "placed" local variable.(Ü‡¼´şÿÿÿÿ
+?	java:S108á")Either remove or fill this block of code.(Æƒæí
+i
+java:S3776æ"RRefactor this method to reduce its Cognitive Complexity from 45 to the 15 allowed.(ÕÈ³
+R
+java:S1854ñ";Remove this useless assignment to local variable "gotFuel".(İ¤Ê¯
+R
+java:S1854‘";Remove this useless assignment to local variable "gotFuel".(İ¤Ê¯
+2
+java:S3626£"Remove this redundant jump.(ûÁİ…
+E
+java:S1905«")Remove this unnecessary cast to "double".(¸ïÀÅúÿÿÿÿ
+E
+java:S1905«")Remove this unnecessary cast to "double".(¸ïÀÅúÿÿÿÿ
+R	java:S125¹"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+J
+java:S10667"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+j
+java:S1104""TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104#"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104$"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104%"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+w
+java:S1104&"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
+S
+java:S2589"7Remove this expression which always evaluates to "true"(‡†®ÿÿÿÿÿ
