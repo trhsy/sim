@@ -1,9 +1,0 @@
-
-U
-java:S5993"9Change the visibility of this constructor to "protected".(²ˆ¿58ñã‚Şù/
-S
-java:S1172"6Remove these unused method parameters "type", "stack".(’ƒ±Ÿ8óã‚Şù/
-H
-java:S1168"+Return an empty collection instead of null.(¥¹ï8ä‚Şù/
-o
-java:S2786"RRemove this redundant "static" qualifier; nested enum types are implicitly static.(Ğ«“„8‚ä‚Şù/

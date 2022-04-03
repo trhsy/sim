@@ -1,23 +1,0 @@
-
-l
-java:S1845#"QRename field "VALUES" to prevent any misunderstanding/clash with method "values".(ÆŸ¨Çøÿÿÿÿ
-8
-java:S2386#"Make this member "protected".(ÆŸ¨Çøÿÿÿÿ
-8
-java:S2386$"Make this member "protected".(ð‹™ªùÿÿÿÿ
-8
-java:S2386%"Make this member "protected".(§ˆ³ÿüÿÿÿÿ
-3
-java:S2386&"Make this member "protected".(±íêƒ
-3
-java:S2386'"Make this member "protected".(äô¶­
-@
-java:S2119O"Save and re-use this "Random".(–ÝÕ«ÿÿÿÿÿ8ÍìËûé/
-f	java:S117y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ‹Ì»
-e	java:S117z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æ–îk
-l	java:S117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òðÛ‰ùÿÿÿÿ
-l	java:S117ˆ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
-r
-java:S1488S"\Immediately return this expression instead of assigning it to the temporary variable "next".(œ¤¹à
-u
-java:S1488X"`Immediately return this expression instead of assigning it to the temporary variable "previous".(è³÷"

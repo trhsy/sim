@@ -1,16 +1,0 @@
-
-n
-java:S1845"QRename field "VALUES" to prevent any misunderstanding/clash with method "values".(¬¹ÈÊ8êØÝãù/
-:
-java:S2386"Make this member "protected".(¬¹ÈÊ8ìØÝãù/
-}
-java:S39239"[Remove this conditional structure or edit its code blocks so that they're not all the same.(Ç„éÙþÿÿÿÿ8Ï´ÌÑú/
-c
-java:S1126;"AReplace this if-then-else statement by a single return statement.(§¯œúÿÿÿÿ8Ò´ÌÑú/
-]	java:S125>"<This block of commented-out lines of code should be removed.(Â†×Æüÿÿÿÿ8×´ÌÑú/
-m
-java:S1104"PMake item a static final constant or non-public and provide accessors if needed.(Ì´ï8ýØÝãù/
-G
-java:S1444"*Make this "public static item" field final(Ì´ï8þØÝãù/
-V
-java:S35168"9Refactor this method to not always return the same value.(šÍéê8µÌÑú/

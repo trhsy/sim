@@ -1,10 +1,0 @@
-
-8
-java:S1118"Hide this public constructor.(ìàË±üÿÿÿÿ
-U
-java:S3878!"8Remove this array creation and simply pass the elements.(ê˜‡ß8³ºÑ®ï/
-]	java:S125"<This block of commented-out lines of code should be removed.(äõÙ…ÿÿÿÿÿ8ÜíÏÁî/
-X	java:S125#"<This block of commented-out lines of code should be removed.(‹ì±Ş8ÏºÑ®ï/
-V	java:S125L"<This block of commented-out lines of code should be removed.(µÒö¯øÿÿÿÿ
-]	java:S125P"<This block of commented-out lines of code should be removed.(¥í…İşÿÿÿÿ8ÔºÑ®ï/
-Q	java:S125Y"<This block of commented-out lines of code should be removed.(¢ÚÏ–
