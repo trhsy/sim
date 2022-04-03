@@ -1,0 +1,17 @@
+employedat|null
+vocation|null
+name|冉俊誉
+age|18
+gender|0
+skin|49
+levelfood|10
+levelfun|5
+levelbuilder|1.0
+levelminer|1.0
+levelsoldier|1.0
+stayput|false
+location|0,5,0,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

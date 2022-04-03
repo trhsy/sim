@@ -1,0 +1,135 @@
+
+J
+java:S37403"/Provide the parametrized type for this generic.(›ªä¯üÿÿÿÿ
+J
+java:S37403"/Provide the parametrized type for this generic.(›ªä¯üÿÿÿÿ
+F
+java:S3740º"/Provide the parametrized type for this generic.(ñ¾å×
+F
+java:S3740Ë"/Provide the parametrized type for this generic.(ªà‡
+K
+java:S3740Ü"/Provide the parametrized type for this generic.(Â‹±ıÿÿÿÿ
+K
+java:S3740á"/Provide the parametrized type for this generic.(È†ûİÿÿÿÿÿ
+K
+java:S3740¨"/Provide the parametrized type for this generic.(¦õ–šûÿÿÿÿ
+—
+java:S1186e"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÏĞç
+H
+java:S1135""2Complete the task associated to this TODO comment.(ß¦àû
+n
+java:S3776l"SRefactor this method to reduce its Cognitive Complexity from 211 to the 15 allowed.(ºÂ…ºÿÿÿÿÿ
+B
+java:S1905"+Remove this unnecessary cast to "FolkData".(ÓÜ°
+T	java:S106"9Replace this use of System.out or System.err by a logger.(‚ªåÒıÿÿÿÿ
+Y
+java:S1117¶"=Rename "employees" which hides the field declared at line 51.(µ ûÃşÿÿÿÿ
+G
+java:S1905Ş"+Remove this unnecessary cast to "FolkData".(“½¾‡øÿÿÿÿ
+i
+java:S3776÷"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(‡àñ¯
+T
+java:S1854—"8Remove this useless assignment to local variable "down".(çùîÄøÿÿÿÿ
+>	java:S108“")Either remove or fill this block of code.(ØƒÊ@
+B
+java:S1905š"+Remove this unnecessary cast to "FolkData".(®ìŞ©
+E
+java:S1905«")Remove this unnecessary cast to "String".(Ñ‹¬Äúÿÿÿÿ
+j
+java:S3776¾"SRefactor this method to reduce its Cognitive Complexity from 109 to the 15 allowed.(÷ÿ¯¶
+E
+java:S1905´")Remove this unnecessary cast to "Marker".(íé¡óıÿÿÿÿ
+G
+java:S1905Ò"+Remove this unnecessary cast to "Building".(ñ¥¢úüÿÿÿÿ
+W
+java:S1117×";Rename "theFolk" which hides the field declared at line 47.(µ¬‚šùÿÿÿÿ
+?	java:S108Ü")Either remove or fill this block of code.(±ÛÃ™
+M
+java:S2696à"6Make the enclosing method "static" or remove this set.(¼ªÁğ
+E
+java:S1905ì")Remove this unnecessary cast to "double".(¦¡‰úÿÿÿÿ
+E
+java:S1905ì")Remove this unnecessary cast to "double".(¦¡‰úÿÿÿÿ
+E
+java:S1905ì")Remove this unnecessary cast to "double".(¦¡‰úÿÿÿÿ
+@
+java:S1905í")Remove this unnecessary cast to "double".(”‚ª©
+@
+java:S1905í")Remove this unnecessary cast to "double".(”‚ª©
+@
+java:S1905í")Remove this unnecessary cast to "double".(”‚ª©
+o
+java:S3776¥"SRefactor this method to reduce its Cognitive Complexity from 102 to the 15 allowed.(’œ³µüÿÿÿÿ
+W	java:S125ª"<This block of commented-out lines of code should be removed.(›¿äÅÿÿÿÿÿ
+b
+java:S1764²"KCorrect one of the identical sub-expressions on both sides of operator "&&"(øÄ¤
+Y	java:S125œ"<This block of commented-out lines of code should be removed.(Êşÿò8î©®ùı/
+i
+java:S1192"SDefine a constant instead of duplicating this literal "container.sim.Fire" 3 times.(ú¬'
+g
+java:S1192„"KDefine a constant instead of duplicating this literal "commercial" 3 times.(Ç™È¦üÿÿÿÿ
+g
+java:S1192„"KDefine a constant instead of duplicating this literal "industrial" 3 times.(Ç™È¦üÿÿÿÿ
+E
+java:S1121¡".Extract the assignment out of this expression.(„Êú
+J
+java:S1121¨".Extract the assignment out of this expression.(¢Ú˜šÿÿÿÿÿ
+J
+java:S1121¯".Extract the assignment out of this expression.(ñ°ûËşÿÿÿÿ
+J
+java:S1121¹".Extract the assignment out of this expression.(ùÌÓùÿÿÿÿ
+J
+java:S1121Ê".Extract the assignment out of this expression.(†öÚóûÿÿÿÿ
+J
+java:S1121Û".Extract the assignment out of this expression.(ÔÏ‹ùÿÿÿÿ
+E
+java:S1121ï".Extract the assignment out of this expression.(ÓÄ°¦
+J
+java:S1121ú".Extract the assignment out of this expression.(±âÓùÿÿÿÿ
+J
+java:S1121ü".Extract the assignment out of this expression.(’Œ›¾ùÿÿÿÿ
+J
+java:S1121‡".Extract the assignment out of this expression.(×ûé¯øÿÿÿÿ
+E
+java:S1121".Extract the assignment out of this expression.(ÍØÕá
+E
+java:S1121•".Extract the assignment out of this expression.(ãÇëÓ
+J
+java:S1121œ".Extract the assignment out of this expression.(Çùôµúÿÿÿÿ
+E
+java:S1121£".Extract the assignment out of this expression.(‘‚ñ‹
+E
+java:S1121ª".Extract the assignment out of this expression.(‘«ê¨
+E
+java:S1121±".Extract the assignment out of this expression.(õùõ¯
+J
+java:S1121¸".Extract the assignment out of this expression.(Ï¼Ğÿÿÿÿÿ
+E
+java:S1121¿".Extract the assignment out of this expression.(Î£œÀ
+J
+java:S1121Æ".Extract the assignment out of this expression.(—¢Å»ûÿÿÿÿ
+J
+java:S1121Í".Extract the assignment out of this expression.(­°Ğèüÿÿÿÿ
+J
+java:S1121Ô".Extract the assignment out of this expression.(­°Ğèüÿÿÿÿ
+Q
+java:S1121¬".Extract the assignment out of this expression.(÷©—ùÿÿÿÿ8¸Ÿïùı/
+l	java:S117á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È†ûİÿÿÿÿÿ
+T
+java:S1155w">Use isEmpty() to check whether the collection is empty or not.(ßîçè
+Z
+java:S1155£">Use isEmpty() to check whether the collection is empty or not.(üÚÙ€ùÿÿÿÿ
+j
+java:S1104+"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
+r
+java:S1104-"WMake theBuilding a static final constant or non-public and provide accessors if needed.(»ÜäÓúÿÿÿÿ
+n
+java:S1104/"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+o
+java:S11041"YMake employeeCount a static final constant or non-public and provide accessors if needed.(íËø¨
+F
+java:S5411Ä"*Use the primitive boolean expression here.(ıü‡Ìûÿÿÿÿ
+F
+java:S5411Õ"*Use the primitive boolean expression here.(ıü‡Ìûÿÿÿÿ
+F
+java:S5411æ"*Use the primitive boolean expression here.(ıü‡Ìûÿÿÿÿ

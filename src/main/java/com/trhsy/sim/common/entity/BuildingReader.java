@@ -45,7 +45,7 @@ public class BuildingReader implements Serializable {
     public String displayNameWithoutPK = "";
     public Float rent = 0.0F;
     public Float corpTax = 0.0F;
-    public ArrayList<String> tennants = new ArrayList();
+    public ArrayList<String> tenants = new ArrayList();
     public ArrayList<V3> blockLocations = new ArrayList();
     public transient HashMap<ItemStack, Integer> requirements = new HashMap();
     public transient V3 conBoxLocation = null;
@@ -129,10 +129,10 @@ public class BuildingReader implements Serializable {
     }
 
     public void removeTennant(String tennant) {
-        for(int t = 0; t < this.tennants.size(); ++t) {
-            String ten = (String)this.tennants.get(t);
+        for(int t = 0; t < this.tenants.size(); ++t) {
+            String ten = (String)this.tenants.get(t);
             if (ten.contentEquals(tennant)) {
-                this.tennants.remove(t);
+                this.tenants.remove(t);
                 break;
             }
         }

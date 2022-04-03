@@ -45,7 +45,8 @@ public class Building implements Serializable {
     public String author = "Satscape";
     public String displayNameWithoutPK = "";
     public Float rent = 0.0F;
-    public ArrayList<String> tennants = new ArrayList();
+    //租户
+    public ArrayList<String> tenants = new ArrayList();
     public ArrayList<V3> blockLocations = new ArrayList();
     public transient HashMap<ItemStack, Integer> requirements = new HashMap();
     public transient V3 conBoxLocation = null;
@@ -110,7 +111,7 @@ public class Building implements Serializable {
         ret.author = this.author;
         ret.displayNameWithoutPK = this.displayNameWithoutPK;
         ret.rent = this.rent;
-        ret.tennants = new ArrayList();
+        ret.tenants = new ArrayList();
         ret.blockLocations = new ArrayList();
         ret.blockSpecial = new ArrayList();
         ret.loadStructure();
@@ -132,10 +133,10 @@ public class Building implements Serializable {
     }
 
     public void removeTennant(String tennant) {
-        for(int t = 0; t < this.tennants.size(); ++t) {
-            String ten = (String)this.tennants.get(t);
+        for(int t = 0; t < this.tenants.size(); ++t) {
+            String ten = (String)this.tenants.get(t);
             if (ten.contentEquals(tennant)) {
-                this.tennants.remove(t);
+                this.tenants.remove(t);
                 break;
             }
         }
@@ -480,8 +481,8 @@ public class Building implements Serializable {
             }
 
             strings.add("blocksinbuilding|" + this.blocksInBuilding);
-            String temp = "tennants|";
-            Iterator i$ = this.tennants.iterator();
+            String temp = "tenants|";
+            Iterator i$ = this.tenants.iterator();
 
             while(i$.hasNext()) {
                 String tennant = (String)i$.next();
@@ -559,8 +560,8 @@ public class Building implements Serializable {
                     }
 
                     strings.add("blocksinbuilding|" + building.blocksInBuilding);
-                    String temp = "tennants|";
-                    Iterator i$ = building.tennants.iterator();
+                    String temp = "tenants|";
+                    Iterator i$ = building.tenants.iterator();
 
                     while(i$.hasNext()) {
                         String tennant = (String)i$.next();
@@ -687,9 +688,9 @@ public class Building implements Serializable {
                                 int lengths;
                                 int i_j;
                                 String block;
-                                if (name.contentEquals("tennants")) {
+                                if (name.contentEquals("tenants")) {
                                     if (value.trim().contentEquals("")) {
-                                        build.tennants.clear();
+                                        build.tenants.clear();
                                     } else {
                                         blocks = value.split(",");
                                         array = blocks;
@@ -698,7 +699,7 @@ public class Building implements Serializable {
                                         for(i_j = 0; i_j < lengths; ++i_j) {
                                             block = array[i_j];
                                             if (!block.trim().contentEquals("")) {
-                                                build.tennants.add(block);
+                                                build.tenants.add(block);
                                             }
                                         }
                                     }
@@ -770,13 +771,13 @@ public class Building implements Serializable {
 
     }
 
-    public static void checkTennants() {
+    public static void checkTenants() {
         for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
             Building building = (Building) ModSim.theBuildings.get(b);
 
-            for (int t = 0; t < building.tennants.size(); ++t) {
+            for (int t = 0; t < building.tenants.size(); ++t) {
                 try {
-                    String tennant = (String) building.tennants.get(t);
+                    String tennant = (String) building.tenants.get(t);
                     boolean exists = false;
 
                     for (int f = 0; f < ModSim.theFolks.size(); ++f) {
@@ -788,7 +789,7 @@ public class Building implements Serializable {
                     }
 
                     if (!exists) {
-                        building.tennants.remove(tennant);
+                        building.tenants.remove(tennant);
                     }
                 } catch (Exception var7) {
                     var7.printStackTrace();

@@ -416,15 +416,15 @@ public class GuiControlBox extends GuiScreen {
                     }
                 } else {
                     String s = "";
-                    if (this.theBuilding.tennants.size() > 1 || this.theBuilding.tennants.size() == 0) {
+                    if (this.theBuilding.tenants.size() > 1 || this.theBuilding.tenants.size() == 0) {
                         s = "s";
                     }
 
-                    this.fontRendererObj.drawString(this.theBuilding.tennants.size() + I18n.format("container.sim.Resident") + s + " :", 5, 57, 16777088);
+                    this.fontRendererObj.drawString(this.theBuilding.tenants.size() + I18n.format("container.sim.Resident") + s + " :", 5, 57, 16777088);
                     down = 70;
 
-                    for(int t = 0; t < this.theBuilding.tennants.size(); ++t) {
-                        String folkname = (String)this.theBuilding.tennants.get(t);
+                    for(int t = 0; t < this.theBuilding.tenants.size(); ++t) {
+                        String folkname = (String)this.theBuilding.tenants.get(t);
                         this.fontRendererObj.drawString(folkname, 20, down, 16777120);
                         down += 20;
                     }

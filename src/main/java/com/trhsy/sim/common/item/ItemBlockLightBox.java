@@ -39,7 +39,7 @@ public class ItemBlockLightBox extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack is) {
-        /*if (is.getMetadata() == 0) {
+        if (is.getMetadata() == 0) {
             return "tile.lightBox.white";
         } else if (is.getMetadata() == 1) {
             return "tile.lightBox.red";
@@ -55,8 +55,8 @@ public class ItemBlockLightBox extends ItemBlock {
             return "tile.lightBox.purple";
         } else {
             return is.getMetadata() == 7 ? "tile.lightBox.rainbow" : null;
-        }*/
-        return this.getUnlocalizedName() + is.getMetadata();
+        }
+        //return this.getUnlocalizedName() + is.getMetadata();
     }
     @Override
     @SideOnly(Side.CLIENT)

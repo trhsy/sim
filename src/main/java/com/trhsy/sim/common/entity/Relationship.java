@@ -331,7 +331,7 @@ public class Relationship implements Serializable {
                     }
 
                     if (newhome != null) {
-                        newhome.tennants.add(this.folk1.name);
+                        newhome.tenants.add(this.folk1.name);
                     }
 
                     Building.saveAllBuildings();

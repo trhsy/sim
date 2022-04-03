@@ -1,0 +1,73 @@
+
+J
+java:S3740+"/Provide the parametrized type for this generic.(Ø•’Ëûÿÿÿÿ
+K
+java:S3740ê"/Provide the parametrized type for this generic.(¯û‘ıÿÿÿÿ
+A
+java:S2387$"+"vocation" is the name of a field in "Job".(ùŒé’
+M
+java:S1135"2Complete the task associated to this TODO comment.(õœ°Ôûÿÿÿÿ
+h
+java:S3776<"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(æôÚ„
+=
+java:S1905Q"'Remove this unnecessary cast to "long".(ï·Ï«
+F
+java:S1905y"+Remove this unnecessary cast to "Building".(’Å²ˆıÿÿÿÿ
+F
+java:S1905z"+Remove this unnecessary cast to "Building".(Ü£èšşÿÿÿÿ
+G
+java:S1905"+Remove this unnecessary cast to "Building".(…ƒÄ´ÿÿÿÿÿ
+G
+java:S1905‚"+Remove this unnecessary cast to "Building".(ëÈÜüùÿÿÿÿ
+]
+java:S3457‡"AFormat specifiers should be used instead of string concatenation.(¿‚äşÿÿÿÿ
+G
+java:S1905"+Remove this unnecessary cast to "Building".(’Å²ˆıÿÿÿÿ
+G
+java:S1905"+Remove this unnecessary cast to "Building".(Ü£èšşÿÿÿÿ
+G
+java:S1905¢"+Remove this unnecessary cast to "Building".(’Å²ˆıÿÿÿÿ
+G
+java:S1905£"+Remove this unnecessary cast to "Building".(Ü£èšşÿÿÿÿ
+B
+java:S1905ª"+Remove this unnecessary cast to "Building".(Âÿ†‘
+G
+java:S1905«"+Remove this unnecessary cast to "Building".(ëÈÜüùÿÿÿÿ
+X
+java:S3457°"AFormat specifiers should be used instead of string concatenation.(öƒ×
+G
+java:S1905·"+Remove this unnecessary cast to "Building".(’Å²ˆıÿÿÿÿ
+G
+java:S1905¸"+Remove this unnecessary cast to "Building".(Ü£èšşÿÿÿÿ
+@
+java:S1905‚")Remove this unnecessary cast to "double".(’§êŠ
+<
+java:S1905‹"%Remove this unnecessary cast to "V3".(¯Ÿ¡Ã
+=	java:S131""Add a default case to this switch.(Àşÿÿÿÿ
+R	java:S125°"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+<
+java:S1905¹"%Remove this unnecessary cast to "V3".(ÒÆ³÷
+W
+java:S1128"<Remove this unused import 'org.apache.logging.log4j.Logger'.(»¯øÿÿÿÿ
+C
+java:S1144o"-Remove this unused private "doPickup" method.(Ğ¡Û
+{
+java:S1192z"`Define a constant instead of duplicating this literal "container.sim.job.manager.On_my" 4 times.(Ü£èšşÿÿÿÿ
+J
+java:S10664"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+Y
+java:S1155t">Use isEmpty() to check whether the collection is empty or not.(Ê˜Æşÿÿÿÿ
+Z
+java:S1155">Use isEmpty() to check whether the collection is empty or not.(Ê˜Æşÿÿÿÿ
+j
+java:S1104$"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104%"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104&"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104'"TMake runDelay a static final constant or non-public and provide accessors if needed.(µ¸°¦şÿÿÿÿ
+S
+java:S2629‡"7Use the built-in formatting to construct this argument.(¿‚äşÿÿÿÿ
+N
+java:S2629°"7Use the built-in formatting to construct this argument.(öƒ×

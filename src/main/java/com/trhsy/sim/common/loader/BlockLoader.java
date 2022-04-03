@@ -51,11 +51,10 @@ public class BlockLoader {
     /*
         液体牛奶
          */
-    public static Fluid fluidMilk;
+    public static Fluid fluidMilk=new FluidMilk();
 
 
     public BlockLoader(FMLPreInitializationEvent event) {
-        fluidMilk = new FluidMilk();
         blockLightBox = new BlockLightBox();
         register(constructorBox, "constructor_box");
         register(blockCheeseBlock, "cheese_block");
@@ -69,7 +68,14 @@ public class BlockLoader {
         register(blockMarker, "marker_bar_block");
         register(blockWindmill, "block_windmill");
         GameRegistry.registerTileEntity(TileEntityWindmill.class, "tileentitywindmill");
-
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.White.name", "灯箱(白色)");
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.Red.name", "灯箱(红色)");
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.Orange.name", "灯箱(橙色)");
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.Yellow.name", "灯箱(黄色)");
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.Green.name", "灯箱(绿色)");
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.Blue.name", "灯箱(蓝色)");
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.Purple.name", "灯箱(紫色)");
+        LanguageRegistry.instance().addStringLocalization("tile.lightBox.Rainbow.name", "灯箱(彩色)");
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 1), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 1)});
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 2), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 14)});
         GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 3), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 11)});

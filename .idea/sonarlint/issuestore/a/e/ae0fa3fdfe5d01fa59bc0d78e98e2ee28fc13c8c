@@ -1,0 +1,230 @@
+
+J
+java:S3740+"/Provide the parametrized type for this generic.(¹±ÑÄøÿÿÿÿ
+M
+java:S3740Ä"/Provide the parametrized type for this generic.(¯×¤”8ÖíÄóı/
+M
+java:S3740"/Provide the parametrized type for this generic.(¯×¤”8ãíÄóı/
+R
+java:S3740Á"/Provide the parametrized type for this generic.(¸Ñ±Ãúÿÿÿÿ8åíÄóı/
+M
+java:S3740ó"/Provide the parametrized type for this generic.(ŒûĞÁ8åíÄóı/
+R
+java:S3740´"/Provide the parametrized type for this generic.(‰¼§°şÿÿÿÿ8æíÄóı/
+R
+java:S3740´"/Provide the parametrized type for this generic.(‰¼§°şÿÿÿÿ8çíÄóı/
+R
+java:S3740î"/Provide the parametrized type for this generic.(À€½Æşÿÿÿÿ8èíÄóı/
+M
+java:S3740ü"/Provide the parametrized type for this generic.(şßœ 8éíÄóı/
+M
+java:S3740ü"/Provide the parametrized type for this generic.(şßœ 8ëíÄóı/
+M
+java:S3740£"/Provide the parametrized type for this generic.(ŒûĞÁ8ïíÄóı/
+R
+java:S3740"/Provide the parametrized type for this generic.(Î—ç§øÿÿÿÿ8ğíÄóı/
+R
+java:S3740Æ"/Provide the parametrized type for this generic.(“©îÃúÿÿÿÿ8òíÄóı/
+F
+java:S3740ñ"/Provide the parametrized type for this generic.(ø¼œ‘
+M
+java:S3740ò"/Provide the parametrized type for this generic.(ÂáÙË8õíÄóı/
+M
+java:S3740ı"/Provide the parametrized type for this generic.(şî›Ö8÷íÄóı/
+T
+java:S59935"9Change the visibility of this constructor to "protected".(İ§øãüÿÿÿÿ
+K
+java:S20651"0Remove the "transient" modifier from this field.(ğñËˆúÿÿÿÿ
+K
+java:S20653"0Remove the "transient" modifier from this field.(ÙŞß€şÿÿÿÿ
+H
+java:S1135!"2Complete the task associated to this TODO comment.(‘–øî
+T
+java:S11359"2Complete the task associated to this TODO comment.(Û°ò»ûÿÿÿÿ8³œÁÊı/
+T
+java:S1135A"2Complete the task associated to this TODO comment.(¦®Å‡úÿÿÿÿ8·œÁÊı/
+T
+java:S1135I"2Complete the task associated to this TODO comment.(´ÎÔ‚ûÿÿÿÿ8ÊœÁÊı/
+h
+java:S3776_"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(›Ÿê®
+T
+java:S1135Z"2Complete the task associated to this TODO comment.(©×·æûÿÿÿÿ8ßœÁÊı/
+U	java:S106e"9Replace this use of System.out or System.err by a logger.(–•ÑŠ8íœÁÊı/
+D
+java:S1940j")Use the opposite operator ("<=") instead.(•ï‰İúÿÿÿÿ
+Q	java:S125m"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+P
+java:S1135˜"2Complete the task associated to this TODO comment.(ÂåÂ‹8—İæÊı/
+O
+java:S1905£",Remove this unnecessary cast to "ItemStack".(Ã‘ÉÕûÿÿÿÿ8ˆïÄóı/
+O
+java:S1905º",Remove this unnecessary cast to "ItemStack".(Ã‘ÉÕûÿÿÿÿ8ÆğÄóı/
+u
+java:S3776ä"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(–ÿ™ûÿÿÿÿ8ÕˆÂËı/
+d
+java:S3457ù"AFormat specifiers should be used instead of string concatenation.(×ÿõĞûÿÿÿÿ8òÉôøı/
+d
+java:S3457†"AFormat specifiers should be used instead of string concatenation.(­Å¾×üÿÿÿÿ8óÉôøı/
+M
+java:S1172™"/Remove this unused method parameter "ignoreId".(ëõÔÿ8¾îÄóı/
+P
+java:S1905"-Remove this unnecessary cast to "IInventory".(ª«××ùÿÿÿÿ8ÄîÄóı/
+P
+java:S1905³"-Remove this unnecessary cast to "IInventory".(ª«××ùÿÿÿÿ8ÆîÄóı/
+u
+java:S3776½"RRefactor this method to reduce its Cognitive Complexity from 61 to the 15 allowed.(¥ƒœöûÿÿÿÿ8×îÄóı/
+]
+java:S1854Ã"?Remove this useless assignment to local variable "returnStack".(’¼¯¡8ØîÄóı/
+A
+java:S2119Ğ"Save and re-use this "Random".(ÊæÔ…ùÿÿÿÿ8ŞîÄóı/
+p
+java:S3776‰"RRefactor this method to reduce its Cognitive Complexity from 57 to the 15 allowed.(åÈùÿ8óîÄóı/
+]
+java:S1854"?Remove this useless assignment to local variable "returnStack".(’¼¯¡8õîÄóı/
+A
+java:S2119œ"Save and re-use this "Random".(ÊæÔ…ùÿÿÿÿ8úîÄóı/
+K
+java:S1905Õ"-Remove this unnecessary cast to "IInventory".(•ıù¿8ÿîÄóı/
+K
+java:S1905ç"-Remove this unnecessary cast to "IInventory".(•ıù¿8ƒïÄóı/
+J
+java:S1905ş",Remove this unnecessary cast to "ItemStack".(şˆÙ²8•Êôøı/
+d
+java:S3457Š"AFormat specifiers should be used instead of string concatenation.(à€Úùÿÿÿÿ8—Êôøı/
+M
+java:S1172Ÿ"/Remove this unused method parameter "ignoreId".(¹Ä¸‡8ïÄóı/
+P
+java:S1905¥"-Remove this unnecessary cast to "IInventory".(İ×Š„ùÿÿÿÿ8ïÄóı/
+p
+java:S3776¿"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(Çÿ§8šïÄóı/
+i
+java:S1871ı"MThis branch's code block is the same as the block for the branch on line 635.(Éü‰ëùÿÿÿÿ
+I
+java:S1168“"+Return an empty collection instead of null.(¥¹ï8«ïÄóı/
+E
+java:S1905¢"'Remove this unnecessary cast to "long".(¥Åä8¯ïÄóı/
+u
+java:S3776®"RRefactor this method to reduce its Cognitive Complexity from 88 to the 15 allowed.(¸±äğÿÿÿÿÿ8·ïÄóı/
+F
+java:S1905Ë"(Remove this unnecessary cast to "Block".(ô‹¨”8ÇïÄóı/
+u
+java:S3776û"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(İÛñÅøÿÿÿÿ8×ïÄóı/
+l
+java:S4201"IRemove this unnecessary null check; "instanceof" returns false for nulls.(Ï‡ÔĞıÿÿÿÿ8àïÄóı/
+P
+java:S1905‚"-Remove this unnecessary cast to "IInventory".(ïëşÇùÿÿÿÿ8ãïÄóı/
+l
+java:S4201"IRemove this unnecessary null check; "instanceof" returns false for nulls.(¸Ù²€üÿÿÿÿ8èïÄóı/
+P
+java:S1905"-Remove this unnecessary cast to "IInventory".(ïëşÇùÿÿÿÿ8êïÄóı/
+[
+java:S1854¾"8Remove this useless assignment to local variable "var6".(°ú’òşÿÿÿÿ8îïÄóı/
+T
+java:S1854½"8Remove this useless assignment to local variable "var5".(ÍáÒŸøÿÿÿÿ
+V
+java:S1854Ä"8Remove this useless assignment to local variable "var6".(™¡µØ8òïÄóı/
+T
+java:S1854Ã"8Remove this useless assignment to local variable "var5".(÷ùİúÿÿÿÿ
+V
+java:S1854Ê"8Remove this useless assignment to local variable "var6".(½·—À8õïÄóı/
+T
+java:S1854É"8Remove this useless assignment to local variable "var5".(íï®šùÿÿÿÿ
+V
+java:S1854Ğ"8Remove this useless assignment to local variable "var6".(æ²Â’8úïÄóı/
+T
+java:S1854Ï"8Remove this useless assignment to local variable "var5".(íï®šùÿÿÿÿ
+E
+java:S1481½")Remove this unused "var5" local variable.(ÍáÒŸøÿÿÿÿ
+L
+java:S1481¾")Remove this unused "var6" local variable.(°ú’òşÿÿÿÿ8ğÄóı/
+F
+java:S1905¿"(Remove this unnecessary cast to "World".(Ö¹¶ß8‚ğÄóı/
+F
+java:S1905Å"(Remove this unnecessary cast to "World".(Ö¹¶ß8ƒğÄóı/
+F
+java:S1905Ë"(Remove this unnecessary cast to "World".(Ö¹¶ß8„ğÄóı/
+K
+java:S1905Ñ"(Remove this unnecessary cast to "World".(’¹´®ıÿÿÿÿ8‡ğÄóı/
+p
+java:S3776ß"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(İ§÷˜8“ğÄóı/
+O
+java:S1172ß"1Remove this unused method parameter "mustSeeSky".(İ§÷˜8–ğÄóı/
+p
+java:S3776ÿ"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ª÷‰Û8®ğÄóı/
+p
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ôçÔÅ8ºğÄóı/
+H
+java:S1481Ÿ"*Remove this unused "count" local variable.(æÕ¿¼8ÀğÄóı/
+C
+java:S1905¾"%Remove this unnecessary cast to "V3".(‰×Ò’8ëÊôøı/
+O
+java:S1905ß",Remove this unnecessary cast to "ItemStack".(˜‘À©ûÿÿÿÿ8ğÊôøı/
+I
+java:S1905"+Remove this unnecessary cast to "Building".(¶Şı†8ôÊôøı/
+^
+java:S1128"<Remove this unused import 'org.apache.logging.log4j.Logger'.(»¯øÿÿÿÿ8õÊôøı/
+T
+java:S1144½"1Remove this unused private "inventoryGet" method.(¥ƒœöûÿÿÿÿ8ËğÄóı/
+{	java:S135ì"YReduce the total number of break and continue statements in this loop to use at most one.(†ÍÌ¹şÿÿÿÿ8ûêËı/
+„
+java:S1319™"fThe type of "chests" should be an interface such as "List" rather than the implementation "ArrayList".(ëõÔÿ8ÔğÄóı/
+‰
+java:S1319¯"fThe type of "chests" should be an interface such as "List" rather than the implementation "ArrayList".(ÊÎßâøÿÿÿÿ8ÕğÄóı/
+‰
+java:S1319Ñ"fThe type of "chests" should be an interface such as "List" rather than the implementation "ArrayList".(†É¾ªùÿÿÿÿ8×ğÄóı/
+‰
+java:S1319ã"fThe type of "chests" should be an interface such as "List" rather than the implementation "ArrayList".(ÒÍ¥ûÿÿÿÿ8ÙğÄóı/
+
+java:S1319ø"mThe type of "folkInventory" should be an interface such as "List" rather than the implementation "ArrayList".(âÂ„¦şÿÿÿÿ8ÜğÄóı/
+‹
+java:S1319ø"hThe type of "toChests" should be an interface such as "List" rather than the implementation "ArrayList".(âÂ„¦şÿÿÿÿ8ßğÄóı/
+‹
+java:S1319Ÿ"mThe type of "folkInventory" should be an interface such as "List" rather than the implementation "ArrayList".(¹Ä¸‡8àğÄóı/
+ˆ
+java:S1319Ÿ"jThe type of "fromChests" should be an interface such as "List" rather than the implementation "ArrayList".(¹Ä¸‡8àğÄóı/
+‹
+java:S1319¿"mThe type of "folkInventory" should be an interface such as "List" rather than the implementation "ArrayList".(Çÿ§8áğÄóı/
+ˆ
+java:S1319¿"jThe type of "fromChests" should be an interface such as "List" rather than the implementation "ArrayList".(Çÿ§8âğÄóı/
+‰
+java:S1319ñ"fThe type of "chests" should be an interface such as "List" rather than the implementation "ArrayList".(Õ”ÄÃÿÿÿÿÿ8âğÄóı/
+
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ÃìÏA8âğÄóı/
+‹
+java:S1319®"hThe type of "blockIDs" should be an interface such as "List" rather than the implementation "ArrayList".(¸±äğÿÿÿÿÿ8ãğÄóı/
+“
+java:S1319û"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İÛñÅøÿÿÿÿ8ãğÄóı/
+
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ôçÔÅ8æğÄóı/
+‰
+java:S1319Ú"fThe type of "chests" should be an interface such as "List" rather than the implementation "ArrayList".(‡¡”øıÿÿÿÿ8çğÄóı/
+s	java:S117Á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸Ñ±Ãúÿÿÿÿ8êğÄóı/
+n	java:S117ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒûĞÁ8ëğÄóı/
+s	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÿÿÿÿÿ8îğÄóı/
+n	java:S117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒûĞÁ8ñğÄóı/
+[
+java:S1155Í">Use isEmpty() to check whether the collection is empty or not.(äóÌF8óğÄóı/
+[
+java:S1155™">Use isEmpty() to check whether the collection is empty or not.(äóÌF8ôğÄóı/
+\
+java:S1155Ç">Use isEmpty() to check whether the collection is empty or not.(æ¬…Õ8£Ëôøı/
+~
+java:S1488ì"[Immediately return this expression instead of assigning it to the temporary variable "ret".(´ü¶ úÿÿÿÿ8÷ğÄóı/
+~
+java:S1488‹"[Immediately return this expression instead of assigning it to the temporary variable "ret".(´ü¶ úÿÿÿÿ8ùğÄóı/
+k
+java:S1104*"PMake step a static final constant or non-public and provide accessors if needed.(£•Óêûÿÿÿÿ
+j
+java:S1104-"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+o
+java:S1104/"TMake jobWorld a static final constant or non-public and provide accessors if needed.(ßç…Íûÿÿÿÿ
+Z
+java:S2629ù"7Use the built-in formatting to construct this argument.(×ÿõĞûÿÿÿÿ8°Ëôøı/
+Z
+java:S2629†"7Use the built-in formatting to construct this argument.(­Å¾×üÿÿÿÿ8²Ëôøı/
+m
+java:S2259"JA "NullPointerException" could be thrown; "shortestDist" is nullable here.(ÿüÃ†úÿÿÿÿ8Òöóı/
+m
+java:S2259ƒ"JA "NullPointerException" could be thrown; "shortestDist" is nullable here.(ÑáåÙøÿÿÿÿ8Îöóı/
+Z
+java:S2589´"7Remove this expression which always evaluates to "true"(¹Æ…êúÿÿÿÿ8®…Åóı/

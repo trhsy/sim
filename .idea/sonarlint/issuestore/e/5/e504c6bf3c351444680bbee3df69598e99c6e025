@@ -1,0 +1,42 @@
+
+J
+java:S3740a"/Provide the parametrized type for this generic.(â×ñúÿÿÿÿ
+J
+java:S3740a"/Provide the parametrized type for this generic.(â×ñúÿÿÿÿ
+E
+java:S3740c"/Provide the parametrized type for this generic.(¿®’î
+E
+java:S3740c"/Provide the parametrized type for this generic.(¿®’î
+M
+java:S1135"2Complete the task associated to this TODO comment.(á€·œúÿÿÿÿ
+h
+java:S3776&"RRefactor this method to reduce its Cognitive Complexity from 78 to the 15 allowed.(“–ış
+Q
+java:S1854A"6Remove this useless assignment to local variable "cy".(İ÷İâøÿÿÿÿ
+P	java:S125,"<This block of commented-out lines of code should be removed.(¦©õG
+V	java:S125="<This block of commented-out lines of code should be removed.(ä†Çøÿÿÿÿ
+B
+java:S1481A"'Remove this unused "cy" local variable.(İ÷İâøÿÿÿÿ
+P	java:S125_"<This block of commented-out lines of code should be removed.(¶ÈÄ8
+u
+java:S2142¿"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ÚŠÆÍ
+?
+java:S2129"#Remove this "Character" constructor(‚£›Øûÿÿÿÿ
+?
+java:S2129"#Remove this "Character" constructor(‰Î³ıÿÿÿÿ
+:
+java:S2129"#Remove this "Character" constructor(ï›ÿ™
+t
+java:S1192Q"YDefine a constant instead of duplicating this literal "container.sim.Facsimile1" 3 times.(ö£ ùÿÿÿÿ
+f	java:S117)"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûÄßÿ
+k	java:S117*"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç‘³¨şÿÿÿÿ
+Z
+java:S1155£">Use isEmpty() to check whether the collection is empty or not.(éÅµ«ùÿÿÿÿ
+8
+java:S1643"Use a StringBuilder instead.(‰Î³ıÿÿÿÿ
+3
+java:S1643”"Use a StringBuilder instead.(”¨½Õ
+c
+java:S2095²"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(ë·è¹
+d
+java:S2095±"HUse try-with-resources or close this "FileWriter" in a "finally" clause.(°·ışÿÿÿÿ

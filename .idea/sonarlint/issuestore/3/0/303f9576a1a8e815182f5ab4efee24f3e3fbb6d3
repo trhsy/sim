@@ -1,0 +1,39 @@
+
+E
+java:S3740&"/Provide the parametrized type for this generic.(Ë÷¥ü
+A
+java:S2387!"+"vocation" is the name of a field in "Job".(ùŒé’
+
+java:S1186˜"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÖÂŠÚÿÿÿÿÿ
+o
+java:S1450&"YRemove the "farmChests" field and declare it as a local variable in the relevant methods.(Ë÷¥ü
+K
+java:S2065$"0Remove the "transient" modifier from this field.(ˆ×²®úÿÿÿÿ
+K
+java:S2065%"0Remove the "transient" modifier from this field.(èÅö¯ûÿÿÿÿ
+G
+java:S1135"2Complete the task associated to this TODO comment.(ĞòÕ
+h
+java:S3776?"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(æôÚ„
+=
+java:S1905P"'Remove this unnecessary cast to "long".(ï·Ï«
+P	java:S125g"<This block of commented-out lines of code should be removed.(î€·
+?
+java:S1905q")Remove this unnecessary cast to "double".(½ò¿‡
+9
+java:S2119{"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
+R	java:S125"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+J
+java:S10660"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+U
+java:S1155†">Use isEmpty() to check whether the collection is empty or not.(Õ¶ä‚
+j
+java:S1104!"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+n
+java:S1104""SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+j
+java:S1104#"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+o
+java:S1104$"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+w
+java:S1104%"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ

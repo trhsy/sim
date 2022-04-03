@@ -277,7 +277,7 @@ public class FolkData implements Serializable {
         }
 
         if (mother.getHome() != null) {
-            mother.getHome().tennants.add(this.name);
+            mother.getHome().tenants.add(this.name);
         }
 
         mother.updateLocationFromEntity();
@@ -474,8 +474,8 @@ public class FolkData implements Serializable {
                             break;
                         }
 
-                        if (b.type.contentEquals("residential") && dist < 40.0D && this.hangingWith == null && b.tennants != null && b.tennants.size() > 0) {
-                            FolkData resy = getFolkByName((String)b.tennants.get(0));
+                        if (b.type.contentEquals("residential") && dist < 40.0D && this.hangingWith == null && b.tenants != null && b.tenants.size() > 0) {
+                            FolkData resy = getFolkByName((String)b.tenants.get(0));
 
                             try {
                                 if (!resy.name.contentEquals(this.name) && resy.hangingWith == null && (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME)) {
@@ -651,7 +651,7 @@ public class FolkData implements Serializable {
                             liveAt = this.getHome().primaryXYZ.clone();
                         }
                     } catch (Exception var13) {
-                        ModSim.log.warn(this.name + " 没有住在" + var13.getMessage());
+                        ModSim.log.error(this.name + " 没有住在" + var13.getMessage());
                     }
 
                     if (liveAt != null) {
@@ -798,8 +798,8 @@ public class FolkData implements Serializable {
 
             for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
                 Building building = (Building) ModSim.theBuildings.get(b);
-                if (building.tennants.size() == 0 && building.buildingComplete && building.type.contentEquals("residential")) {
-                    building.tennants.add(this.name);
+                if (building.tenants.size() == 0 && building.buildingComplete && building.type.contentEquals("residential")) {
+                    building.tenants.add(this.name);
                     this.action = FolkAction.GOINGHOME;
                     this.actionArrival = FolkAction.STAYINGHOME;
                     if (building.livingXYZ != null) {
@@ -948,7 +948,7 @@ public class FolkData implements Serializable {
         String firstName = "";
         String lastName = "";
         FolkData test = null;
-
+        String name="";
         for(int go = 0; go < 200; ++go) {
             int i;
             if (gender == 0) {
@@ -965,23 +965,26 @@ public class FolkData implements Serializable {
             } else {
                 lastName = lastNameOptional;
             }
-            test = getFolkByName(firstName + " " + lastName);
-            /*if("en_US".equals(lang)){
 
+            String lang=FMLCommonHandler.instance().getCurrentLanguage();
+
+            if("en_US".equals(lang)){
+                name = firstName + " " + lastName;
             }else{
-                test = getFolkByName(lastName +firstName );
-            }*/
-
+                name = lastName +firstName;
+            }
+            test=getFolkByName(name);
             if (test == null) {
+                break;
+            }else{
+                name=name+ " II";
                 break;
             }
         }
 
-        if (test != null) {
-            lastName = lastName + " II";
-        }
 
-        return !firstNameOnly ? firstName + " " + lastName : firstName;
+
+        return name;
     }
 
     public void selfFire() {
@@ -1419,8 +1422,8 @@ public class FolkData implements Serializable {
         for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
             Building home = (Building) ModSim.theBuildings.get(b);
 
-            for (int t = 0; t < home.tennants.size(); ++t) {
-                String tennant = (String) home.tennants.get(t);
+            for (int t = 0; t < home.tenants.size(); ++t) {
+                String tennant = (String) home.tenants.get(t);
                 if (tennant.contentEquals(this.name)) {
                     return home;
                 }
