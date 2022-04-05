@@ -1093,7 +1093,8 @@ public class FolkData implements Serializable {
                 try {
                     ModSim.log.info("FolkData: GOTOXYZ() for " + this.name + " to " + whereTo.toString() + " - Method:" + this.gotoMethod.toString() + " DIM:" + whereTo.theDimension);
                 } catch (Exception var9) {
-                    ModSim.log.info("FolkData: GOTOXYZ() for " + this.name + " - NULL whereTo");
+
+                    ModSim.log.error("FolkData: GOTOXYZ() for " + this.name + " - NULL whereTo");
                     return;
                 }
 

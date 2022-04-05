@@ -210,7 +210,7 @@ public class Building implements Serializable {
                                 this.structure[acount] = "999:999";
                             } else if (ch.contentEquals("$")) {
                                 //控制箱
-                                System.out.println("控制箱");
+                                //System.out.println("控制箱");
                                 this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
                             } else if (ch.contentEquals("*")) {
                                 //灯箱

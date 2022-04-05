@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2173b2a-f174-4232-9e03-d241a0a0e6e0" name="变更" comment="">
+      <change beforePath="$PROJECT_DIR$/eclipse/config/sim.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/config/sim.cfg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/config/splash.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/config/splash.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-1.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-2.log.gz" afterDir="false" />
@@ -16,8 +17,6 @@
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/sim/Simukraft.zip" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/sim/Simukraft.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/mods/sim/buildings/residential/kms中之家酒店 1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/mods/sim/buildings/residential/kms中之家酒店 1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/DIM-1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/DIM-1/data/villages.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/DIM1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/DIM1/data/villages.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/data/Mineshaft.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/data/Mineshaft.dat" afterDir="false" />
@@ -29,21 +28,20 @@
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.-1.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.0.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/session.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/哈宇杰.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/哈宇杰.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/严展鹏.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/严展鹏.sk2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/寇心曼.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/寇心曼.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/成惜婷.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/成惜婷.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/景佳俊.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/景佳俊.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/爱智宇.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/爱智宇.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/言向荣.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/言向荣.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/settings.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/settings.sk2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eclipse/usernamecache.json" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/usernamecache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/CommonProxy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/CommonProxy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/UpdateChecker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/EventLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sim-u-1.7.10/com/trhsy/sim/common/loader/EventLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/UpdateChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/util/UpdateChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiEntityFolk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiEntityFolk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,7 +220,7 @@
       <option name="presentableId" value="Default" />
       <updated>1649140088604</updated>
       <workItem from="1649140091531" duration="6993000" />
-      <workItem from="1649150602291" duration="1819000" />
+      <workItem from="1649150602291" duration="4120000" />
     </task>
     <servers />
   </component>
@@ -248,6 +246,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBurgersFryCook.java</url>
           <line>79</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint suspend="NONE" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java</url>
+          <line>212</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

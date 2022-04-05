@@ -201,7 +201,7 @@ public class GuiEntityFolk extends GuiScreen {
             //int disoffset = true;
             this.drawCenteredString(this.fontRendererObj, this.theFolk.name + I18n.format("container.sim.gui_Folk_Needs"), this.width / 2, 10, 16777215);
             this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Hunger")+":", left, 50, 0);
-            this.fontRendererObj.drawString(this.theFolk.status4, this.width / 2, 30, 128);
+            this.fontRendererObj.drawString(this.theFolk.status4, this.width /3, 30, 128);
             this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Fun"), left, 50, 0);
             this.fontRendererObj.drawString(this.theFolk.status5, this.width / 2, 40, 128);
         }

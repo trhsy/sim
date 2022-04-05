@@ -192,7 +192,7 @@ public class JobBuilder extends Job implements Serializable {
                 try {
                     ((IInventory)this.constructorChests.get(0)).openChest();
                 } catch (Exception var2) {
-                    ModSim.log.info("JobBuilder:JobBuilder's 的箱子是空的");
+                    ModSim.log.error("JobBuilder:JobBuilder's 的箱子是空的");
                 }
 
                 this.step = 2;
@@ -309,7 +309,7 @@ public class JobBuilder extends Job implements Serializable {
                     try {
                         bl = this.theBuilding.structure[this.acount].split(":");
                     } catch (Exception var17) {
-                        ModSim.log.warn("JobBuilder: 建筑中的空块,改用空气");
+                        ModSim.log.error("JobBuilder: 建筑中的空块,改用空气");
                         bl = "0:0".split(":");
                     }
 
@@ -330,7 +330,7 @@ public class JobBuilder extends Job implements Serializable {
                             this.theBuilding.primaryXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
                             this.theBuilding.saveThisBuilding();
                         } catch (Exception var16) {
-                            ModSim.log.info("JobBuilder:构建为空");
+                            ModSim.log.error("JobBuilder:构建为空");
                         }
                     }
 
@@ -361,6 +361,7 @@ public class JobBuilder extends Job implements Serializable {
                         }
                     } catch (Exception var20) {
                         this.theFolk.selfFire();
+                        ModSim.log.info("错误:" ,var20.getMessage());
                         return;
                     }
 
@@ -375,7 +376,7 @@ public class JobBuilder extends Job implements Serializable {
                             }
                         } catch (Exception var15) {
                             want = "?";
-                            ModSim.log.info("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
+                            ModSim.log.error("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
                         }
                     } else {
                         want = "???";
@@ -490,17 +491,19 @@ public class JobBuilder extends Job implements Serializable {
                                         var25.credits -= 0.02F;
                                     }
                                 } catch (Exception var18) {
-                                    ModSim.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
+                                    ModSim.log.error("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
 
                                     try {
                                         this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, blockId, 0, 3);
                                     } catch (Exception var14) {
-                                        var14.printStackTrace();
+                                        //var14.printStackTrace();
+                                        ModSim.log.error("错误：",var14.getMessage());
                                     }
                                 }
                             }
                         } catch (Exception var19) {
-                            var19.printStackTrace();
+                            //var19.printStackTrace();
+                            ModSim.log.error("错误：",var19.getMessage());
                         }
                     }
 
