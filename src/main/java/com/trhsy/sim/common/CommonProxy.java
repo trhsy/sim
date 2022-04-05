@@ -5,6 +5,7 @@ import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.client.event.EventSounds;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.*;
+import com.trhsy.sim.util.UpdateChecker;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

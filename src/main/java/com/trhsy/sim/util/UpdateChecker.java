@@ -1,4 +1,4 @@
-package com.trhsy.sim.common;
+package com.trhsy.sim.util;
 
 import com.trhsy.sim.ModSim;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -77,60 +77,12 @@ public class UpdateChecker {
                         }
                     }
 
-
-
-                    /*if (entryFile.exists()) {
-                        //检测文件是否允许删除，如果不允许删除，将会抛出SecurityException
-                        SecurityManager securityManager = new SecurityManager();
-                        securityManager.checkDelete(entryFilePath);
-                        //删除已存在的目标文件
-                        entryFile.delete();
-                    }*/
-
-
                 }
-                File simFiles = new File(simFile);
-                simFiles.delete();
-                /*ver = ver.trim();
-                if (!ver.contentEquals("") && !ModSim.VERSION.contentEquals(ver)) {
-                    ModSim.sendChat(I18n.format("container.sim.main_available"));
-                    Long now = System.currentTimeMillis();
-                    ModSim.states.lastUpdateCheck = now;
-                    ModSim.states.saveStates();
-                    File check = new File(ModSim.getSimukraftFolder() + "/buildings/");
-                    if(!check.exists()&& !check.isDirectory()){
-                        logger.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/buildings/ 文件夹丢失了 - 重新创建此文件夹");
-                        check.mkdir();
-                    }
-
-                }*/
 
             }
+            File simFiles = new File(simFile);
+            simFiles.delete();
 
-            /*int high = getHighestPKID("residential");
-            int o = getHighestPKID("other");
-            if (o > high) {
-                high = o;
-            }
-
-            String newbs = this.downloadFile(baseURL, ModSim.getSimukraftFolder() + File.separator + "version.txt");
-            if (newbs.length() == 0) {
-                return;
-            }
-
-            String[] items = newbs.split("!END");
-
-            for (int i = 0; i < items.length - 1; ++i) {
-                String[] fields = items[i].split("!F");
-                String url = baseURL + "catalogue/PKID" + fields[0] + "-" + fields[1] + ".txt";
-                String local = getSimukraftFolder() + "/buildings/" + fields[3] + "/PKID" + fields[0] + "-" + fields[1] + ".txt";
-                String ret = this.downloadFile(url, local);
-                if (!ret.contentEquals("")) {
-                    url = baseURL + "backend.php?cmd=got&pk=" + fields[0];
-                    this.downloadFile(url, getSimukraftFolder() + File.separator + "cache.txt");
-                    sendChat("SimCity: Downloaded new building - '" + fields[1] + "' by " + fields[2] + " (" + fields[3] + ")");
-                }
-            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -172,6 +124,8 @@ public class UpdateChecker {
     }
 
     public String downloadFile(String url, String localFile) {
+        File f=new File(localFile);
+        f.delete();
         //String ret = "";
         //logger.info("将从此链接下载文件：\n" + url);
         //url = url.replace(" ", "%20");

@@ -1,5 +1,5 @@
-employedat|null
-vocation|null
+employedat|16,237,-50,0
+vocation|BUTCHER
 name|成惜婷
 age|18
 gender|1
@@ -10,7 +10,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|0,5,0,0
+location|16,237,-49,0
 pregnancy|0.0
 building|null
 terraformtype|null
