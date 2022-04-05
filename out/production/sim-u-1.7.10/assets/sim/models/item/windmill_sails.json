@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sim:items/windmill_sails0",
+    "layer1": "sim:items/windmill_sails1",
+    "layer2": "sim:items/windmill_sails2",
+    "layer3": "sim:items/windmill_sails3",
+    "layer4": "sim:items/windmill_sails4",
+    "layer5": "sim:items/windmill_sails5",
+    "layer6": "sim:items/windmill_sails6",
+    "layer7": "sim:items/windmill_sails7",
+    "layer8": "sim:items/windmill_sails8",
+    "layer9": "sim:items/windmill_sails9",
+    "layer10": "sim:items/windmill_sails10",
+    "layer11": "sim:items/windmill_sails11",
+    "layer12": "sim:items/windmill_sails12",
+    "layer13": "sim:items/windmill_sails13",
+    "layer14": "sim:items/windmill_sails14",
+    "layer15": "sim:items/windmill_sails15"
+  }
+}

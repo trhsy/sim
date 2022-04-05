@@ -1,0 +1,32 @@
+[17:02:17] [main/INFO]: Setting user: Player589
+[17:02:19] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:02:32] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:02:35] [Sound Library Loader/INFO]: Sound engine started
+[17:02:36] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[17:02:36] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[17:02:36] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:02:37] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:02:37] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:02:38] [Sound Library Loader/INFO]: Sound engine started
+[17:02:53] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[17:02:53] [Server thread/INFO]: Generating keypair
+[17:02:53] [Server thread/INFO]: Preparing start region for level 0
+[17:02:54] [Server thread/INFO]: Changing view distance to 12, from 10
+[17:02:54] [Server thread/INFO]: Player589[local:E:0583e523] logged in with entity id 19 at (-8.300185217249524, 237.0, -23.91084808001155)
+[17:02:54] [Server thread/INFO]: Player589 加入了游戏
+[17:02:56] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.1 Beta由TRHSY重制
+[17:03:12] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 15272ms behind, skipping 305 tick(s)
+[17:03:30] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 18540ms behind, skipping 370 tick(s)
+[17:03:36] [Client thread/INFO]: [CHAT] 爱智宇已经开始建筑一个kms中之家酒店 1
+[17:03:36] [Client thread/INFO]: [CHAT] 爱智宇已完成建设kms中之家酒店 1
+[17:03:38] [Server thread/INFO]: Saving and pausing game...
+[17:03:38] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[17:03:38] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[17:03:38] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[17:03:39] [Server thread/INFO]: Stopping server
+[17:03:39] [Server thread/INFO]: Saving players
+[17:03:39] [Server thread/INFO]: Saving worlds
+[17:03:39] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[17:03:39] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[17:03:39] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[17:03:40] [Client thread/INFO]: Stopping!

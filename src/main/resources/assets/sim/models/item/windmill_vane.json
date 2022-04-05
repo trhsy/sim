@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sim:items/windmill_vane0",
+    "layer1": "sim:items/windmill_vane1",
+    "layer2": "sim:items/windmill_vane2",
+    "layer3": "sim:items/windmill_vane3",
+    "layer4": "sim:items/windmill_vane4",
+    "layer5": "sim:items/windmill_vane5",
+    "layer6": "sim:items/windmill_vane6",
+    "layer7": "sim:items/windmill_vane7",
+    "layer8": "sim:items/windmill_vane8",
+    "layer9": "sim:items/windmill_vane9",
+    "layer10": "sim:items/windmill_vane10",
+    "layer11": "sim:items/windmill_vane11",
+    "layer12": "sim:items/windmill_vane12",
+    "layer13": "sim:items/windmill_vane13",
+    "layer14": "sim:items/windmill_vane14",
+    "layer15": "sim:items/windmill_vane15"
+  }
+}
