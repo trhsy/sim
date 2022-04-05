@@ -1,17 +1,0 @@
-
-K
-java:S3740"/Provide the parametrized type for this generic.( ‡§©üÿÿÿÿ
-3
-java:S2386"Make this member "protected".(È†åÑ
-M
-java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
-J
-java:S1905”".Remove this unnecessary cast to "ItemStack[]".(£ü¹İûÿÿÿÿ
-g
-java:S1104"QMake block a static final constant or non-public and provide accessors if needed.(ÜêŞ£
-k
-java:S1104"PMake meta a static final constant or non-public and provide accessors if needed.(ıÄ¢Ëıÿÿÿÿ
-x
-java:S1104 "]Make defaultPermission a static final constant or non-public and provide accessors if needed.(®¯Ñüÿÿÿÿ
-y
-java:S1104!"^Make storedRequirements a static final constant or non-public and provide accessors if needed.(®äÁ•ÿÿÿÿÿ

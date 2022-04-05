@@ -1,12 +1,0 @@
-
-M
-java:S1135"2Complete the task associated to this TODO comment.(Ç–ˆşÿÿÿÿ
-Q	java:S125%"<This block of commented-out lines of code should be removed.(£ùß¿
-X	java:S125;"<This block of commented-out lines of code should be removed.(¶è¶¶8¬µŞ™ş/
-k
-java:S1128"PRemove this unused import 'com.trhsy.sim.common.creativetab.CreativeTabsLoader'.(Ãòâªúÿÿÿÿ
-L
-java:S1128"6Remove this unused import 'net.minecraft.block.Block'.(Í£ı¾
-X
-java:S1128"BRemove this unused import 'net.minecraft.block.material.Material'.(¸ê²ğ
-f	java:S117M"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şÚş 
