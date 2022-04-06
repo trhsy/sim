@@ -5,8 +5,8 @@ package com.trhsy.sim.client.gui.blocks;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.client.gui.GuiEmployFolk;
-import com.trhsy.sim.client.gui.GuiShowEmployees;
+import com.trhsy.sim.client.gui.folk.GuiEmployFolk;
+import com.trhsy.sim.client.gui.folk.GuiShowEmployees;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
@@ -247,7 +247,7 @@ public class GuiBuildingConstructor extends GuiScreen {
         if (this.currentPage == 0) {
             String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
             this.buttonList.add(new GuiButton(1, this.width / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
-            String sim_gui_BC_Hire_builder = I18n.format("container.sim.sim_gui_BC_Hire_builder");
+            String sim_gui_BC_Hire_builder = I18n.format("container.sim.Hire1");
             this.buttonList.add(new GuiButton(2, this.width / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
             String sim_gui_BC_worker = I18n.format("container.sim.sim_gui_BC_worker");
             String w = sim_gui_BC_worker;
@@ -257,15 +257,14 @@ public class GuiBuildingConstructor extends GuiScreen {
                 String sim_gui_BC_Staff = I18n.format("container.sim.sim_gui_BC_Staff");
                 w = sim_gui_BC_Staff + "(" + this.theWorkers.size() + ")";
             }
-            String sim_gui_BC_Fire = I18n.format("container.sim.sim_gui_BC_Fire");
+            String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
             this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
             String sim_gui_BC_Show_Employees = I18n.format("container.sim.sim_gui_BC_Show_Employees");
             this.buttonList.add(new GuiButton(4, this.width / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
             String sim_gui_BC_Terraform_area = I18n.format("container.sim.sim_gui_BC_Terraform_area");
             this.buttonList.add(new GuiButton(5, -600, 170, 120, 20, "-"));
             this.buttonList.add(new GuiButton(6, this.width / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
-            String sim_gui_BC_Hire_terraformer = I18n.format("container.sim.sim_gui_BC_Hire_terraformer");
-            this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, sim_gui_BC_Hire_terraformer));
+            this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, I18n.format("container.sim.Hire22")));
             if (this.theWorkers.size() == 0) {
                 ((GuiButton) this.buttonList.get(1)).enabled = false;
                 ((GuiButton) this.buttonList.get(2)).enabled = true;
@@ -300,7 +299,7 @@ public class GuiBuildingConstructor extends GuiScreen {
 
                     for (y = 0; y < ModSim.theFolks.size(); ++y) {
                         FolkData folk = (FolkData) ModSim.theFolks.get(y);
-                        String sim_gui_BC_Fire = I18n.format("container.sim.sim_gui_BC_Fire");
+                        String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
                         this.buttonList.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
                         ++x;
                         x += 100;

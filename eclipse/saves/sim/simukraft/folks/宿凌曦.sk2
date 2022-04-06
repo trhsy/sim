@@ -1,0 +1,17 @@
+employedat|-3,237,-89,0
+vocation|GLASSMAKER
+name|宿凌曦
+age|20
+gender|1
+skin|51
+levelfood|10
+levelfun|5
+levelbuilder|1.0
+levelminer|1.0
+levelsoldier|9.0
+stayput|false
+location|-2,238,-88,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

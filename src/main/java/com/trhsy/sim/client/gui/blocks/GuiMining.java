@@ -4,11 +4,11 @@ package com.trhsy.sim.client.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.client.gui.GuiEmployFolk;
+import com.trhsy.sim.client.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.MiningBox;
+import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -56,9 +56,9 @@ public class GuiMining extends GuiScreen {
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
         if (this.theMiningBox != null) {
             if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Mining1") + ((FolkData) this.theWorkers.get(0)).name));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
             } else {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Mining2")));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire21")));
             }
 
             String i = "";
@@ -181,10 +181,10 @@ public class GuiMining extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
             } else {
-                if (guibutton.displayString.contentEquals(I18n.format("container.sim.Mining2"))) {
+                if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire21"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.theMiningBox, Vocation.MINER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Mining1"))) {
+                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
                     for (int i = 0; i < this.theWorkers.size(); ++i) {
                         FolkData folk = (FolkData) this.theWorkers.get(i);
                         folk.selfFire();

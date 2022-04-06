@@ -131,8 +131,9 @@ public class JobCourier extends Job implements Serializable {
             if (this.pickup != null) {
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.pickup.name + I18n.format("container.sim.job.courier.pick_up");
                 V3 d = this.pickup.clone();
-                Double var4 = d.y;
-                Double var5 = d.y = d.y + 1.0D;
+                //Double var4 = d.y;
+                //Double var5 = d.y = d.y + 1.0D;
+                d=new V3(d.x,d.y+1.0D,d.z,d.theDimension);
                 this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
                 this.onRoute = true;
             } else {
@@ -214,6 +215,7 @@ public class JobCourier extends Job implements Serializable {
         if (!this.onRoute) {
             this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.dropoff.name + I18n.format("container.sim.job.courier.drop_off");
             V3 d = this.dropoff.clone();
+            d=new V3(d.x,d.y+1.0D,d.z,d.theDimension);
             if (d == null) {
                 d = this.theFolk.employedAt.clone();
             }
@@ -242,6 +244,7 @@ public class JobCourier extends Job implements Serializable {
     private void stageDroppingOff() {
         CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
         V3 dropoff = task.dropoff;
+        dropoff=new V3(dropoff.x,dropoff.y+1.0D,dropoff.z,dropoff.theDimension);
         if (dropoff == null) {
             dropoff = this.theFolk.employedAt;
             dropoff.name = I18n.format("container.sim.job.courier.The_depot");

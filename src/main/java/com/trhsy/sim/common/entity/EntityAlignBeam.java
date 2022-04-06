@@ -5,8 +5,7 @@ package com.trhsy.sim.common.entity;/**
  */
 
 import com.trhsy.sim.common.block.BlockMarker;
-import com.trhsy.sim.common.entity.Marker;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.block.functionality.Marker;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;

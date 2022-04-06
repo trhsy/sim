@@ -1,0 +1,17 @@
+employedat|-100,236,-146,0
+vocation|SHEPHERD
+name|娄懿梦
+age|20
+gender|1
+skin|6
+levelfood|10
+levelfun|5
+levelbuilder|1.0
+levelminer|1.0
+levelsoldier|9.0
+stayput|false
+location|32,237,8,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

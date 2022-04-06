@@ -5,6 +5,7 @@ package com.trhsy.sim.client.gui;/**
  */
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.client.gui.folk.GuiMerchant;
 
 /**
  * ========================================

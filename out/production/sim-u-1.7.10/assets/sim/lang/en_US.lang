@@ -120,13 +120,13 @@ container.sim.sim_gui_BC_about=(about
 container.sim.sim_gui_BC_stacks=stacks)
 container.sim.sim_gui_BC_Done=Done
 container.sim.sim_gui_BC_Choose_building=Choose building
-container.sim.sim_gui_BC_Hire_builder=Hire builder
+
 container.sim.sim_gui_BC_worker=worker
 container.sim.sim_gui_BC_Staff=Staff
-container.sim.sim_gui_BC_Fire=Fire
+
 container.sim.sim_gui_BC_Show_Employees=Show Employees
 container.sim.sim_gui_BC_Terraform_area=Terraform area
-container.sim.sim_gui_BC_Hire_terraformer=Hire terraformer
+
 container.sim.sim_gui_BC_Residential=Residential
 container.sim.sim_gui_BC_Commercial=Commercial
 container.sim.sim_gui_BC_Industrial=Industrial
@@ -186,6 +186,7 @@ container.sim.folk_data_Hanging=Hanging out with
 container.sim.folk_data_Going_work=Going to work
 container.sim.folk_data_Maternity_leave=On Maternity leave
 container.sim.folk_data_Staying_home=Staying home
+container.sim.employees=home
 container.sim.folk_data_Having_baby=Having a baby!
 container.sim.folk_data_Going_home=Going Home
 container.sim.folk_data_Relaxing_home=Relaxing at home
@@ -510,30 +511,11 @@ container.sim.Demolish=Demolish
 container.sim.Rotate_Stairs=Rotate Stairs
 
 container.sim.Beam_me_to=Beam me to
-container.sim.Fire=Fire
+
 container.sim.Tasks=Tasks
-container.sim.Hire_Baker=Hire Baker
-container.sim.Hire_Grocer=Hire Grocer
-container.sim.Hire_Butcher=Hire Butcher
-container.sim.Hire_Manager=Hire Manager
-container.sim.Hire_Fry_Cook=Hire Fry Cook
-container.sim.Hire_Waiter=Hire Waiter
-container.sim.Hire_Lumberjack=Hire Lumberjack
-container.sim.Set_Lumber_area=Set Lumber area
-container.sim.Hire_Merchant=Hire Merchant
-container.sim.Buy_Sell=Buy/Sell
-container.sim.Train_Soldier=Train Soldier
-container.sim.Hire_Shepherd=Hire Shepherd
-container.sim.Hire_Egg_Farmer=Hire Egg Farmer
-container.sim.Hire_Cattle_farmer=Hire Cattle farmer
-container.sim.Hire_Pig_farmer=Hire Pig farmer
-container.sim.Hire_Chicken_farmer=Hire Chicken farmer
-container.sim.Hire_Courier=Hire Courier
-container.sim.Hire_Glass_maker=Hire Glass maker
-container.sim.Hire_Fisherman=Hire Fisherman
-container.sim.Hire_Dairy_farmer=Hire Dairy farmer
-container.sim.Hire_Cheesemaker=Hire Cheesemaker
-container.sim.Dismiss=Dismiss
+
+
+
 container.sim.Building_Control_Panel=Building Control Panel
 container.sim.on_this_building=ERROR: lost info on this building
 container.sim.this_Building=only click 'fix house' below if this Building IS a house
@@ -561,32 +543,17 @@ container.sim.gui_contains_Glass_Factory=Glass Factory
 container.sim.gui_contains_Fishing_Dock=Fishing Dock
 container.sim.gui_contains_Dairy_Farm=Dairy Farm
 container.sim.gui_contains_Cheese_Factory=Cheese Factory
-container.sim.gui_contains_Cheese_Factory2=Cheese Factory2
-container.sim.gui_btn_name_Hire_Lumberjack=Hire Lumberjack
+container.sim.gui_contains_Brick_factory=Brick factory
+
 container.sim.gui_btn_name_Depot=Depot
 container.sim.gui_btn_name_Demolish=Demolish
 container.sim.gui_btn_name_Set_Lumber_area=Set Lumber area
 container.sim.gui_btn_name_Tasks=Tasks
 container.sim.gui_btn_name_Buy_Sell=Buy/Sell
-container.sim.gui_btn_name_Fire=Fire
-container.sim.gui_btn_name_Hire_Waiter=Hire Waiter
-container.sim.gui_btn_name_Hire_Fry_Cook=Hire Fry Cook
-container.sim.gui_btn_name_Hire_Manager=Hire Manager
-container.sim.gui_btn_name_Hire_Cheesemaker=Hire Cheesemaker
-container.sim.gui_btn_name_Hire_Baker=Hire Baker
-container.sim.gui_btn_name_Hire_Soldier=Hire Soldier
-container.sim.gui_btn_name_Hire_Shepherd=Hire Shepherd
-container.sim.gui_btn_name_Hire_Grocer=Hire Grocer
-container.sim.gui_btn_name_Hire_Courier=Hire Courier
-container.sim.gui_btn_name_Hire_Merchant=Hire Merchant
-container.sim.gui_btn_name_Hire_Dairy_farmer=Hire Dairy farmer
-container.sim.gui_btn_name_Hire_Fisherman=Hire Fisherman
-container.sim.gui_btn_name_Hire_Glass_maker=Hire Glass maker
-container.sim.gui_btn_name_Hire_Chicken_farmer=Hire Chicken farmer
-container.sim.gui_btn_name_Hire_Pig_farmer=Hire Pig farmer
-container.sim.gui_btn_name_Hire_Egg_Farmer=Hire Egg Farmer
-container.sim.gui_btn_name_Hire_Cattle_farmer=Hire Cattle farmer
-container.sim.gui_btn_name_Dismiss=Dismiss
+
+
+
+
 container.sim.gui_btn_name_Add=Add
 
 container.sim.gui_btn_name_Delete=Delete
@@ -641,7 +608,7 @@ container.sim.gui_Folk_Goodbye=Goodbye
 container.sim.gui_Folk_Relationshipss=Relationships
 container.sim.gui_Folk_Needss=Needs
 
-container.sim.gui_Farming_Hire_Farmer=Hire Farmer
+
 container.sim.gui_Farm=farm
 container.sim.gui_Farming_Upgrade=Upgrade to Level
 container.sim.gui_Farming_Fully_upgraded=Fully upgraded
@@ -716,8 +683,6 @@ container.sim.Merchant13=Merchant: Please place a chest down here, and place sta
 container.sim.Merchant14=Merchant: There were no valid stacks I want to buy from you in the chest?!
 container.sim.Merchant15=Sold all valid stacks for a total of
 
-container.sim.Mining1=Fire
-container.sim.Mining2=Hire Miner
 container.sim.Mining3=Keep all block types
 container.sim.Mining4=Discard Dirt blocks
 container.sim.Mining5=Discard Dirt and Stone
@@ -733,12 +698,11 @@ container.sim.Mining14= other folks
 container.sim.Mining15=Size of Horizontal mine
 
 container.sim.PathBox1=Choose path type
-container.sim.PathBox2=Hire Path Builder
 container.sim.PathBox3=Wooden Bridge
 container.sim.PathBox4=Path Constructor
 container.sim.PathBox5=Error: No marker placed - place a marker down first
 container.sim.PathBox6=Error: No marker placed - place a marker down first
-container.sim.PathBox7=Hire Path Builder
+
 container.sim.PathBox8=Choose path type
 container.sim.PathBox9=Path constructor set to
 
@@ -812,6 +776,8 @@ container.sim.Vocation21=Cheesemaker
 container.sim.Vocation22=Fast Food Manager
 container.sim.Vocation23=Fast Food Fry Cook
 container.sim.Vocation24=Fast Food Waiter
+container.sim.Vocation25=Bricklayer
+
 container.sim.folkData1=Unemployed
 container.sim.folkData2=Home owner
 container.sim.folkData3=Homeless
@@ -841,6 +807,62 @@ container.sim.FarmType7=Sugar cane
 container.sim.FarmType8=Cactus
 container.sim.FarmType9=Unknown
 
+container.sim.Overworld=Overworld
+container.sim.end=end
+container.sim.hell=hell
+container.sim.dim=dim
+
+
+container.sim.SimMenuWarning=YOU MUST RELOAD YOUR CLIENT BEFORE PLAYING ON ANOTHER WORLD
+
 container.sim.LastNames=Acorn, Aferditie, Alebuckle, AnchorArms,  Anvilbrow, Arsette, Arsing, Astley, Bacon, Bailey, Beiber, Bijoux, Bilberry, Binkydiggle, Bitterpool, Blonk, Blueberry, Booth, Boothby, Boozewob, Brandybuck, Brocx, Bugger, Bumbletoad, Bumfondle, Bunce, Buntflog, Button, Butts, Claus, Clinton, Clutz, Cox, Creaper, Cupid, Curlynoggin, Dalek, Dapplewink, Dent, Derp, Derpy, Diaper, Diggle, Dimfury, Dimplegourd, Dimplehorn, Donglefart, Dover, Dugbloron, Dulek, Dumbledug, Eaglefeathers, Easyrider, Featherbottom, Featheroak, Firsty, Fitzwilliam, Flashheart, Flickersand, Flintrock, Freckles, Fumblemore, Garlicfeet, Gawkroger, Giggerty, Glitterbreath, Goodbody, Gravy, Grayblade, Griffin, Griswold, Grubb, Handy, Hather, Havealot, Head, Hogpen, Hunt, Jabberwocky, Jaffa, Jibberjabba, Jigglybop, Jingles, Jones, Kegbuster, Kettle, Kitchen, Kneebiter, LaForce, Laforge, Lister, Loordes, MacArse, Maplebutton, Marblemantle, Mayflower, McBucket, McBurp, McCoy, McDonald, McFries, McNugget, Merry, Moist, Moneypenny, Mucus, Mugwort, Nabaztag, Neon, Nibbles, Oaktoes, O'Brian, O'Leary, O'Mygod, O'Notch, O'Reily, Pebble,  Peculier, Persson, Picard, Plank, Plop, Plumdrop, Plunder, Plunder, Potter, Power, Reed, Riker, Rumble, Shadespyre, Shakespeare, Sherman, Silverwood, Smith, Snot, Sparklebutter, Spitznoggle, Steelfinger, Strider, Stumbletoe, Tate, Testificate, Thornburrow, Twinklefig, Twistybees, Underwood, Vader, Walsch, Windywings, Winterbottom, Wonker, Yenocheq, Yog, Zaragamba,Flooberwag,Norsepapper
 container.sim.FemaleNames=Adele, Agnes, Alice, Alouette, Amelia, Angela, Anne, Annette, Annie, Anthuria, Audrey, Belladonna, Bellinda, Beryl, Betty, BigDoris, Blossom, Bluebell, Breezy, Bridget, Bubbles, Bunty, Chalice, Charlotte, Chibi, ChiChi, Chlodeswinthe, Cinnamon, Coco, Connie, Cosette, Cressida, Cynthia, Daphne, Dimpleblossom, Dimples, Druscilla, Elizabeth, Elphina, Ermengarde, Essence, Fe Fe, Finola, Floris, Foofi, Forsythia, Foxglove, Francesca, Freesia, Frida, Funnysplash, Gardenia, Georgette, Giggles, Gladys, Glimmer, Gossamer, Gwendoline, Hannah, Harriet,  Hayley, Hazel, Heidi, Helga, Hilary, Himiltrud, Honor, Honoria, Hortensia, Hyacinth, Imeena, Iris, Jane, Janet, Joanne, Juliet, Kali, Karen, Kate, Kathy, Katrina, Kay, Kerry, Kristy, Lavinia, Leeta, LiloLil, Lisa, Lizette, Lobelia, Louise, Lucretia, Lumiona, Luna, Lurleen, Lyndis, Lynette, Macey, Madonna, Maggie, Maple, Marie, Marilee,  Martha, Mary, Maude, Maureen,  Maxine, Maya, Michelle, Mikki, Mildred,  Millie, Minnie, Morningpuff, Morticia, Myrtle, Mystery, Neen, Nicolette, Nightshade, Nina, Ninja, Odette, Olive, Pansy, Pansy, Paprika, Patricia, Peachy, Pearl, Persephone, Phoebe, Pinky, Plumeria, Poppy, Posy, Primrose, Priscilla, Queenie, Quintessa, Rebbeca, Rhonda, Ronni, Rosa, Rosette, Ruby, Scarlet, Schmarina, Semolina, Serena, Severa, Sharron, Sheila, Subrina, Sunflower, Susan, Susie, Suzette, Suzie, Talula, Tamara, Tammie, Tansy, Tera, Tessa, Tiffaney, Tourmaline, Trina, Trinity, Trish, Trudi, Truffles, Tulipdance, Twinkleboots, Ukara, Ursula, Velocity, Velvet, Vervain, Violet, Violet, Wilma, Winterwillow, Xyla, Yvette
 container.sim.MaleNames=Aaron, Adam, Alan, Albatrude, Alexander, Amaranth, Andrew, Angelo, Baldric, Bartholomew, Basher, Beau, Ben, Benie, Bennie, Bill, Blaize, Bob, Boots, Brad, Bradley, Breaker, Brian, Bruce, Butler, Cable, Caeser, Carlos, Carrington, Cassius, Clarence, CrazyDave, Dan, Darren, Darth, David, Derek, Dorian, Dougal, Drake, Drakkar, Draven, Earl, Ed, Edward, Fane, Fark, Fernando, Frank, Frankie, Fred, Gabe, Gary, Ged, Gerry, Glynne, Godfrey, Grendel, Grunter, Happy, Harry, Hercules, Horatio, Howard, Ike, Isaac, Jack, James, Jay, Jean-Luc, Jens, Jeremy, Jerry, Jessie, Jesus, Jim, Jimmy, Joe, John, Jose, Jose, Joseph, Juan, Justin, Justin, Kellam, Ken, Kevin, Knuckles, Lars, Lazarus, Lewis, Loki, Lorenzo, Louis,Lumpy, Lynk, Malcolm, Markus, Martin, Maximus, Michael,Mozart, Noire, Norman, Notch, Obsidian, Olaf, Oswaldo, Oxnard, Ozzy, Perkin, Pete, Philip, Pumpkin, Ralph, Randy, Red, Reks, Rick, Rogue, Romeo, Roy,Samuel, Schmitty, Scott, Sean, Seifer, Seth, Seymour, Sheldon, Sid, Simon, Slash, Spud, Steele, Stephen, Steve, Steven, Storm, Stryker, Tazer, Thunder, Tidus, Todd, Tom, Uther, Valen, Vance, Velderveer, Victor, Virion, Wayne, Wendle, William, Willie, Wolfgang, Wyatt, Xensor, Yoda, Zac, Zander, Zelroth, Zero, Zorro
+
+
+container.sim.Hire1=Hire builder
+container.sim.Hire2=Hire Waiter
+container.sim.Hire3=Hire Fry Cook
+container.sim.Hire4=Hire Manager
+container.sim.Hire5=Hire Cheesemaker
+container.sim.Hire6=Hire Baker
+container.sim.Hire7=Hire Soldier
+container.sim.Hire8=Hire Shepherd
+container.sim.Hire9=Hire Grocer
+container.sim.Hire10=Hire Courier
+container.sim.Hire11=Hire Merchant
+container.sim.Hire12=Hire Dairy farmer
+container.sim.Hire13=Hire Fisherman
+container.sim.Hire14=Hire Glass maker
+container.sim.Hire15=Hire Chicken farmer
+container.sim.Hire16=Hire Pig farmer
+container.sim.Hire17=Hire Egg Farmer
+container.sim.Hire18=Hire Cattle farmer
+container.sim.Hire19=Hire Lumberjack
+container.sim.Hire20=Hire Butcher
+container.sim.Hire21=Hire Miner
+container.sim.Hire22=Hire terraformer
+container.sim.Hire23=Hire Bricklayer
+container.sim.Hire24=Hire Path Builder
+container.sim.Hire25=Hire Farmer
+
+
+container.sim.Fire=Fire
+container.sim.Dismiss=Dismiss
+
+container.sim.Arrived=Arrived
+container.sim.brick=brick
+container.sim.glass=glass
+
+container.sim.Buy_Sell=Buy/Sell
+container.sim.Set_Lumber_area=Set Lumber area
+
+container.sim.JobBrickMaker1=Is there any clay around here?
+container.sim.JobBrickMaker2=Go dig some clay
+container.sim.JobBrickMaker3=I got clay
+container.sim.JobBrickMaker4=My stove is missing!
+container.sim.JobBrickMaker5=Check the combustion furnace
+container.sim.JobBrickMaker6=(brick factory) there is no fuel in the stove. Please add fuel. Thank you!
+container.sim.JobBrickMaker7=Add clay to the furnace
+container.sim.JobBrickMaker8=Put bricks in storage
+container.sim.JobBrickMaker9=No tiles were obtained

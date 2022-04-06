@@ -1,0 +1,17 @@
+employedat|-55,236,-48,0
+vocation|CATTLEFARMER
+name|东郭骏年
+age|19
+gender|0
+skin|25
+levelfood|9
+levelfun|5
+levelbuilder|1.0
+levelminer|9.0
+levelsoldier|9.0
+stayput|true
+location|34,239,-112,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

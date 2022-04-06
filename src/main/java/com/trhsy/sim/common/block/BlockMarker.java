@@ -4,9 +4,9 @@ package com.trhsy.sim.common.block;/**
  * @apiNote
  */
 
-import com.trhsy.sim.client.gui.GuiMarker;
+import com.trhsy.sim.client.gui.blocks.GuiMarker;
 import com.trhsy.sim.common.entity.EntityAlignBeam;
-import com.trhsy.sim.common.entity.Marker;
+import com.trhsy.sim.common.block.functionality.Marker;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;

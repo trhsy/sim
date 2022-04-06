@@ -19,6 +19,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ import java.util.Random;
  **/
 public class FolkData implements Serializable {
     private static final long serialVersionUID = -2617939828256928361L;
+    public static Logger log;
     /**
      * @Author fan
      * @Description //TODO 雇佣的
@@ -169,6 +171,7 @@ public class FolkData implements Serializable {
         try {
             ModSim.log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + ModSim.theFolks.size() + " 所有人");
         } catch (Exception var4) {
+            //log.error("错误",var4.getMessage());
         }
 
         this.inventory = new ArrayList();
@@ -575,7 +578,8 @@ public class FolkData implements Serializable {
                 ModSim.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
                 this.updateLocationFromEntity();
                 V3 temp = this.employedAt.clone();
-                temp.x = temp.x + 5.0D;
+                //temp.x = temp.x + 5.0D;
+                temp= new V3(temp.x+5.D,temp.y,temp.z,temp.theDimension);
                 this.gotoXYZ(temp, GotoMethod.SHIFT);
                 this.gotoXYZ(this.employedAt, (GotoMethod) null);
                 return;
@@ -643,10 +647,18 @@ public class FolkData implements Serializable {
                     V3 liveAt = null;
 
                     try {
-                        liveAt = this.getHome().livingXYZ.clone();
+                        Building home=this.getHome();
+                        if(home!=null){
+                            if(home.livingXYZ==null){
+                                liveAt = this.getHome().primaryXYZ.clone();
+                            }else{
+                                liveAt = this.getHome().livingXYZ.clone();
+                            }
+                        }
+                        /*liveAt = this.getHome().livingXYZ.clone();
                         if (liveAt == null) {
                             liveAt = this.getHome().primaryXYZ.clone();
-                        }
+                        }*/
                     } catch (Exception var13) {
                         ModSim.log.error(this.name + " 没有住在" + var13.getMessage());
                     }
@@ -788,7 +800,7 @@ public class FolkData implements Serializable {
         }
 
     }
-
+    //无家可归者之家
     private void getHomeForHomeless() {
         if (this.action == FolkAction.WANDER) {
             Building.loadAllBuildings();
@@ -1698,6 +1710,8 @@ public class FolkData implements Serializable {
                 this.theirJob = new JobTerraformer(this);
             } else if (this.vocation == Vocation.FISHERMAN) {
                 this.theirJob = new JobFisherman(this);
+            } else if (this.vocation == Vocation.BRICKMAKER) {
+                this.theirJob = new JobBrickMaker(this);
             } else if (this.vocation != Vocation.PATHBUILDER) {
                 if (this.vocation == Vocation.DAIRYFARMER) {
                     this.theirJob = new JobDairyFarmer(this);

@@ -32,8 +32,11 @@ import java.util.Random;
  * ========================================
  **/
 public class JobSoldier extends Job implements Serializable {
+    //职业
     public Vocation vocation = null;
+    //实体人
     public FolkData theFolk = null;
+    //阶段
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;

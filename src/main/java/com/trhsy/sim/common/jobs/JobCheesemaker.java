@@ -136,7 +136,7 @@ public class JobCheesemaker extends Job {
     private void stageGoingToDairyFarm() {
         this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Going");
         ++this.currentFarmNum;
-        ArrayList<Building> dairyFarms = Building.getBuildingBySearch("Dairy Farm", true);
+        ArrayList<Building> dairyFarms = Building.getBuildingBySearch(I18n.format("container.sim.gui_contains_Dairy_Farm"), true);
         if (!dairyFarms.isEmpty() && dairyFarms.size() - 1 <= this.currentFarmNum) {
             this.farm = (Building)dairyFarms.get(this.currentFarmNum);
             this.theFolk.gotoXYZ(this.farm.primaryXYZ, GotoMethod.BEAM);

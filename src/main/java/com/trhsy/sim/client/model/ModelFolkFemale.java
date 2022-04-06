@@ -29,12 +29,12 @@ public class ModelFolkFemale extends ModelBiped {
 
     public ModelFolkFemale() {
 
-        this.rightTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 4);
+        this.rightTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 5);
         //设置旋转点
         this.rightTit.setRotationPoint(0.5F, 1.7F, -4.0F);
 
         this.leftTit = new ModelRenderer(this, 19, 19);
-        this.leftTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 4);
+        this.leftTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 5);
         this.leftTit.setRotationPoint(-3.5F, 1.7F, -4.0F);
         this.pregnant = new ModelRenderer(this, 18, 20);
         this.pregnant.addBox(0.0F, 0.0F, -1.0F, 5, 6, 5);

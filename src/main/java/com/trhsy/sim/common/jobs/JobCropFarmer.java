@@ -6,7 +6,7 @@ package com.trhsy.sim.common.jobs;/**
 
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FarmingBox;
+import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;

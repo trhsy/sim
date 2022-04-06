@@ -31,7 +31,8 @@ public enum Vocation {
     BURGERSMANAGER,
     BURGERSFRYCOOK,
     BURGERSWAITER,
-    EGGFARMER;
+    EGGFARMER,
+    BRICKMAKER;
 
     private Vocation() {
     }
@@ -84,6 +85,8 @@ public enum Vocation {
                 return BURGERSMANAGER;
             } else if (s.contentEquals(I18n.format("container.sim.Vocation23"))) {
                 return BURGERSFRYCOOK;
+            }else if(s.contentEquals(I18n.format("container.sim.Vocation25"))){
+                return BRICKMAKER;
             } else {
                 return s.contentEquals(I18n.format("container.sim.Vocation24")) ? BURGERSWAITER : null;
             }
@@ -140,7 +143,9 @@ public enum Vocation {
             return I18n.format("container.sim.Vocation22");
         } else if (this == BURGERSFRYCOOK) {
             return I18n.format("container.sim.Vocation23");
-        } else {
+        } else if (this == BRICKMAKER) {
+            return I18n.format("container.sim.Vocation25");
+        }  else {
             return this == BURGERSWAITER ? I18n.format("container.sim.Vocation24") : "";
         }
     }

@@ -18,7 +18,7 @@ import java.util.Random;
 
 /**
  * @ClassName BlockCityBox
- * @Description todo
+ * @Description todo 城市控制方块
  * @Author Tian
  * @Date 2022/4/414:07
  **/
@@ -50,7 +50,7 @@ public class BlockCityBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        world.playSoundEffect((double)i, (double)j, (double)k, "ashjacksimukraftreloaded:computer", 1.0F, 1.0F);
+        world.playSoundEffect((double)i, (double)j, (double)k, ModSim.MODID+":computer", 1.0F, 1.0F);
         GuiCityBox ui = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();

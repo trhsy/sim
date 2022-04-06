@@ -6,7 +6,7 @@ package com.trhsy.sim.common.block;/**
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
-import com.trhsy.sim.common.fluid.FluidMilk;
+import com.trhsy.sim.common.block.fluid.FluidMilk;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
  * ========================================
  *
  * @ClassName BlockFluidMilk
- * @Description todo
+ * @Description todo 流体牛奶
  * @Author Administrator
  * @Date 2022/1/26 0026下午 4:52
  * ========================================

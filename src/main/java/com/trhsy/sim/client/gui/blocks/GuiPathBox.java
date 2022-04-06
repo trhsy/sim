@@ -4,9 +4,9 @@ package com.trhsy.sim.client.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.client.gui.GuiEmployFolk;
-import com.trhsy.sim.common.entity.PathBox;
+import com.trhsy.sim.client.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.block.functionality.PathBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.client.gui.GuiButton;
@@ -59,10 +59,10 @@ public class GuiPathBox extends GuiScreen {
             if (this.thePathBox.marker1XYZ != null) {
                 if (this.page == 0) {
                     if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Mining1") + ((FolkData) this.theWorkers.get(0)).name));
+                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
                         this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 60, I18n.format("container.sim.PathBox1")));
                     } else {
-                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.PathBox2")));
+                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire24")));
                     }
                 } else if (this.page == 1) {
                     this.buttonList.add(new GuiButton(1, 10, 20, I18n.format("container.sim.PathBox3")));
@@ -105,10 +105,10 @@ public class GuiPathBox extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
             } else {
-                if (guibutton.displayString.contentEquals(I18n.format("container.sim.PathBox7"))) {
+                if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire24"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.thePathBox, Vocation.PATHBUILDER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Mining1"))) {
+                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
                     for (int i = 0; i < this.theWorkers.size(); ++i) {
                         FolkData folk = (FolkData) this.theWorkers.get(i);
                         folk.selfFire();

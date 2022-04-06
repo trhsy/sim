@@ -123,13 +123,13 @@ container.sim.sim_gui_BC_about=(大约
 container.sim.sim_gui_BC_stacks=堆)
 container.sim.sim_gui_BC_Done=完成
 container.sim.sim_gui_BC_Choose_building=选择建筑
-container.sim.sim_gui_BC_Hire_builder=雇佣建筑工
+
 container.sim.sim_gui_BC_worker=员工
 container.sim.sim_gui_BC_Staff=工作人员
-container.sim.sim_gui_BC_Fire=解雇
+
 container.sim.sim_gui_BC_Show_Employees=显示员工
 container.sim.sim_gui_BC_Terraform_area=地形改造区
-container.sim.sim_gui_BC_Hire_terraformer=雇佣地形改造师
+
 container.sim.sim_gui_BC_Residential=住宅
 container.sim.sim_gui_BC_Commercial=商业
 container.sim.sim_gui_BC_Industrial=工业
@@ -188,6 +188,7 @@ container.sim.folk_data_Hanging=和朋友一起玩
 container.sim.folk_data_Going_work=去工作
 container.sim.folk_data_Maternity_leave=休产假
 container.sim.folk_data_Staying_home=待在家里
+container.sim.employees=在家
 container.sim.folk_data_Having_baby=生孩子！
 container.sim.folk_data_Going_home=回家
 container.sim.folk_data_Relaxing_home=在家放松
@@ -437,7 +438,7 @@ container.sim.job.shepherd.farmer.Arrived=来到羊场
 container.sim.job.miner.farmer.There=采矿箱有个问题
 container.sim.job.miner.farmer.using=我在用。请把它换掉
 container.sim.job.miner.farmer.Finished=今天的工作做完了
-container.sim.job.miner.farmer.Arrived=到达矿场
+container.sim.job.miner.farmer.Arrived=到达矿区
 container.sim.job.miner.farmer.stopped=他的箱子装满了，他们已经停止挖掘了。
 container.sim.job.miner.farmer.All=所有箱子都满了，清空它们或添加更多箱子
 container.sim.job.miner.farmer.Checking=检查储物箱...
@@ -508,51 +509,35 @@ container.sim.job.egg.farmer.chests_eggs=的鸡蛋农场的箱子里装满了鸡
 container.sim.job.egg.farmer.chests_full=不能工作，箱子是满的
 container.sim.job.egg.farmer.egg_chests=谁偷了我的蛋箱！
 container.sim.job.egg.farmer.Arrived=到达农场
+
 container.sim.Fix_House=修理房子
 container.sim.Demolish=拆除
 container.sim.Rotate_Stairs=旋转楼梯
 
-container.sim.Show_Employees=显示员工
 container.sim.Beam_me_to=将我传送到
-container.sim.Fire=解雇
+
 container.sim.Tasks=任务
-container.sim.Hire_Baker=雇佣面包师
-container.sim.Hire_Grocer=雇佣杂货商
-container.sim.Hire_Butcher=雇佣屠夫
-container.sim.Hire_Manager=雇佣汉堡店经理
-container.sim.Hire_Fry_Cook=雇佣油炸厨师
-container.sim.Hire_Waiter=雇佣服务员
-container.sim.Hire_Lumberjack=雇佣伐木工人
+
 container.sim.Set_Lumber_area=设置木材面积
-container.sim.Hire_Merchant=雇佣商人
+
 container.sim.Buy_Sell=买/卖
-container.sim.Train_Soldier=雇佣士兵
-container.sim.Hire_Shepherd=雇佣牧羊人
-container.sim.Hire_Egg_Farmer=雇佣蛋农
-container.sim.Hire_Cattle_farmer=雇佣养牛农民
-container.sim.Hire_Pig_farmer=雇佣养猪户
-container.sim.Hire_Chicken_farmer=雇佣养鸡场主
-container.sim.Hire_Courier=雇佣快递员
-container.sim.Hire_Glass_maker=雇佣玻璃制造商
-container.sim.Hire_Fisherman=雇佣渔夫
-container.sim.Hire_Dairy_farmer=雇佣奶农
-container.sim.Hire_Cheesemaker=雇佣奶酪匠
-container.sim.Dismiss=解雇
+
+
 container.sim.Building_Control_Panel=构建控制面板
 container.sim.on_this_building= 错误：此建筑的信息丢失
 container.sim.this_Building=如果此建筑是房屋，请仅单击下面的“修复房屋”
-container.sim.Under_construction=正在修复中
+container.sim.Under_construction=正在建设/修复中
 container.sim.Active_Building=建筑可用
 container.sim.sim_Building=建筑
 container.sim.sim_Type=类型
-container.sim.Employees=雇员
+container.sim.Employees=员工
 container.sim.Resident=居民
 container.sim.Repaired_House=修建房子
+
 container.sim.gui_contains_Bakery=面包店
 container.sim.gui_contains_Grocery_Store=杂货店
 container.sim.gui_contains_Butchers=肉铺
 container.sim.gui_contains_Burgers=汉堡店
-
 container.sim.gui_contains_Lumbermill=伐木场
 container.sim.gui_contains_Builders_Merchant=建筑商
 container.sim.gui_contains_Barracks=军营
@@ -566,32 +551,18 @@ container.sim.gui_contains_Glass_Factory=玻璃工厂
 container.sim.gui_contains_Fishing_Dock=渔场
 container.sim.gui_contains_Dairy_Farm=奶牛场
 container.sim.gui_contains_Cheese_Factory=奶酪工厂
-container.sim.gui_contains_Cheese_Factory2=奶酪工厂2
-container.sim.gui_btn_name_Hire_Lumberjack=雇佣伐木工人
+container.sim.gui_contains_Brick_factory=板砖厂
+
+
+
 container.sim.gui_btn_name_Depot=仓库
 container.sim.gui_btn_name_Demolish=拆除
 container.sim.gui_btn_name_Set_Lumber_area=设置砍伐面积
 container.sim.gui_btn_name_Tasks=任务
 container.sim.gui_btn_name_Buy_Sell=买/卖
-container.sim.gui_btn_name_Fire=烧制
-container.sim.gui_btn_name_Hire_Waiter=雇佣服务员
-container.sim.gui_btn_name_Hire_Fry_Cook=雇佣油炸厨师
-container.sim.gui_btn_name_Hire_Manager=雇佣汉堡店经理
-container.sim.gui_btn_name_Hire_Cheesemaker=雇佣奶酪匠
-container.sim.gui_btn_name_Hire_Baker=雇佣面包师
-container.sim.gui_btn_name_Hire_Soldier=雇佣士兵
-container.sim.gui_btn_name_Hire_Shepherd=雇佣牧羊人
-container.sim.gui_btn_name_Hire_Grocer=雇佣杂货商
-container.sim.gui_btn_name_Hire_Courier=雇佣快递员
-container.sim.gui_btn_name_Hire_Merchant=雇佣商人
-container.sim.gui_btn_name_Hire_Dairy_farmer=雇佣牛奶农
-container.sim.gui_btn_name_Hire_Fisherman=雇佣渔夫
-container.sim.gui_btn_name_Hire_Glass_maker=雇佣玻璃制造商
-container.sim.gui_btn_name_Hire_Chicken_farmer=雇佣养鸡场主
-container.sim.gui_btn_name_Hire_Pig_farmer=雇佣养猪户
-container.sim.gui_btn_name_Hire_Egg_Farmer=雇佣蛋农
-container.sim.gui_btn_name_Hire_Cattle_farmer=雇佣养牛户
-container.sim.gui_btn_name_Dismiss=解雇
+
+
+
 container.sim.gui_btn_name_Add=添加
 
 container.sim.gui_btn_name_Delete=删除
@@ -647,7 +618,7 @@ container.sim.gui_Folk_Relationshipss=关系
 container.sim.gui_Folk_Needss=需要
 
 
-container.sim.gui_Farming_Hire_Farmer=农场主
+
 container.sim.gui_Farm=农场
 container.sim.gui_Farming_Upgrade=升级到
 container.sim.gui_Farming_Fully_upgraded=全面升级
@@ -722,8 +693,7 @@ container.sim.Merchant13=商人：请在这里放一个箱子，然后在里面�
 container.sim.Merchant14=商人：箱子里没有我想从你那里买的有效书堆？！
 container.sim.Merchant15=售出所有有效的堆叠，总共
 
-container.sim.Mining1=烧制
-container.sim.Mining2=雇佣矿工
+
 container.sim.Mining3=保留所有块类型
 container.sim.Mining4=丢弃泥土块
 container.sim.Mining5=丢弃泥土和石头
@@ -739,12 +709,11 @@ container.sim.Mining14= 其他人
 container.sim.Mining15=水平井的规模
 
 container.sim.PathBox1=选择路径类型
-container.sim.PathBox2=雇佣路径建设者
+
 container.sim.PathBox3=木桥
 container.sim.PathBox4=路径构造器
 container.sim.PathBox5=错误：未放置标记 - 先放置标记
 container.sim.PathBox6=错误：未放置标记 - 先放置标记
-container.sim.PathBox7=雇用路径生成器
 container.sim.PathBox8=选择路径类型
 container.sim.PathBox9=路径构造器设置为
 
@@ -795,7 +764,7 @@ container.sim.trhsy10=建筑工程已经完成
 
 container.sim.Vocation1=建筑工
 container.sim.Vocation2=伐木工人
-container.sim.Vocation3=鸡蛋农场主
+container.sim.Vocation3=鸡蛋农
 container.sim.Vocation4=矿工
 container.sim.Vocation5=农民
 container.sim.Vocation6=面包师
@@ -812,11 +781,40 @@ container.sim.Vocation16=地形改造者
 container.sim.Vocation17=玻璃制造商
 container.sim.Vocation18=渔夫
 container.sim.Vocation19=路径生成器
-container.sim.Vocation20=养牛户
+container.sim.Vocation20=牛奶农
 container.sim.Vocation21=奶酪匠
-container.sim.Vocation22=快餐经理
-container.sim.Vocation23=快餐炒菜厨师
-container.sim.Vocation24=快餐服务员
+container.sim.Vocation22=汉堡店经理
+container.sim.Vocation23=油炸厨师
+container.sim.Vocation24=服务员
+container.sim.Vocation25=板砖工匠
+
+container.sim.Hire1=雇佣建筑工
+container.sim.Hire2=雇佣服务员
+container.sim.Hire3=雇佣油炸厨师
+container.sim.Hire4=雇佣汉堡店经理
+container.sim.Hire5=雇佣奶酪匠
+container.sim.Hire6=雇佣面包师
+container.sim.Hire7=雇佣士兵
+container.sim.Hire8=雇佣牧羊人
+container.sim.Hire9=雇佣杂货商
+container.sim.Hire10=雇佣快递员
+container.sim.Hire11=雇佣商人
+container.sim.Hire12=雇佣牛奶农
+container.sim.Hire13=雇佣渔夫
+container.sim.Hire14=雇佣玻璃制造商
+container.sim.Hire15=雇佣养鸡户
+container.sim.Hire16=雇佣养猪户
+container.sim.Hire17=雇佣鸡蛋农
+container.sim.Hire18=雇佣养牛户
+container.sim.Hire19=雇佣伐木工人
+container.sim.Hire20=雇佣屠夫
+container.sim.Hire21=雇佣矿工
+container.sim.Hire22=雇佣地形改造师
+container.sim.Hire23=雇佣板砖工匠
+container.sim.Hire24=雇佣路径建设者
+container.sim.Hire25=雇佣农民
+
+
 
 container.sim.folkData1=失业的
 container.sim.folkData2=拥有自己的房子
@@ -837,6 +835,9 @@ container.sim.GotoMethod1=热
 container.sim.GotoMethod2=移动
 container.sim.GotoMethod3=解雇
 
+container.sim.Fire=解雇
+container.sim.Dismiss=免职
+
 container.sim.FarmType1=胡萝卜
 container.sim.FarmType2=甜瓜
 container.sim.FarmType3=马铃薯
@@ -847,6 +848,24 @@ container.sim.FarmType7=甘蔗
 container.sim.FarmType8=仙人掌
 container.sim.FarmType9=未知
 
+container.sim.Overworld=主世界
+container.sim.end=末地
+container.sim.hell=地狱
+container.sim.dim=暗淡
+container.sim.SimMenuWarning=在另一个世界玩之前，您必须重新加载您的客户端
+
+container.sim.JobBrickMaker1=这附近有没有粘土？
+container.sim.JobBrickMaker2=去挖掘一些粘土
+container.sim.JobBrickMaker3=我得到粘土惹
+container.sim.JobBrickMaker4=我的炉子不见了！
+container.sim.JobBrickMaker5=检查燃烧炉
+container.sim.JobBrickMaker6=（板砖厂）炉子里没有任何燃料，请添加燃料谢谢！
+container.sim.JobBrickMaker7=添加粘土到炉子内
+container.sim.JobBrickMaker8=把砖入库
+container.sim.JobBrickMaker9=没有取得任何版砖
+container.sim.Arrived=到达
+container.sim.brick=砖
+container.sim.glass=玻璃
 container.sim.LastNames=赵,钱,孙,李,周,吴,郑,王,冯,陈,褚,卫,蒋,沈,韩,杨,朱,秦,尤,许,何,吕,施,张,孔,曹,严,华,金,魏,陶,姜,戚,谢,邹,喻,柏,水,窦,章,云,苏,潘,葛,奚,范,彭,郎,鲁,韦,昌,,马,苗,凤,花,方,俞,任,袁,柳,酆,鲍,史,唐,费,廉,岑,薛,雷,贺,倪,汤,滕,殷,罗,毕,郝,邬,安,常,乐,于,时,傅,皮,卞,齐,康,伍,余,元,卜,顾,孟,平,黄,和,穆,萧,尹,姚,邵,湛,汪,祁,毛,禹,狄,米,贝,明,臧,计,伏,成,戴,谈,宋,茅,庞,熊,纪,舒,屈,项,祝,董,梁,杜,阮,蓝,闵,席,季,麻,强,贾,路,娄,危,江,童,颜,郭,梅,盛,林,刁,钟,徐,邱,骆,高,夏,蔡,田,樊,胡,凌,霍,虞,万,支,柯,昝,管,卢,莫,经,房,裘,缪,干,解,应,宗,丁,宣,贲,邓,郁,单,杭,洪,包,诸,左,石,崔,吉,钮,龚,程,嵇,邢,滑,裴,陆,荣,翁,荀,羊,於,惠,甄,曲,家,封,芮,羿,储,靳,汲,邴,糜,松,井,段,富,巫,乌,焦,巴,弓,牧,隗,山,谷,车,侯,宓,蓬,全,郗,班,仰,秋,仲,伊,宫,宁,仇,栾,暴,甘,钭,厉,戎,祖,武,符,刘,景,詹,束,龙,,叶幸,司,韶,郜,黎,蓟,薄,印,宿,白,怀蒲,邰,从,鄂,索,咸,籍,赖,卓,蔺,屠,蒙,池,乔,阴,鬱,胥,能,苍,双,闻莘,党,翟,谭,贡,劳,逄,姬,申,扶,堵,冉,宰郦,雍,郤,璩,桑,桂,濮,牛,寿,通边,扈,燕,冀,郏,浦,尚,农,温,别,庄,晏,柴,瞿,阎,充慕,连,茹,习,宦,艾,鱼,容,向,古,易,慎,戈,廖,庾,终,暨,居,衡,步,都,,耿,满,弘,匡,国,文,寇,广禄,阙,东,欧,殳,沃,利,蔚,越,夔,隆,师,巩,厍,聂,晁勾,,敖,融,冷,訾,,辛,阚,那,简饶,,空,曾,毋,沙,乜,养,,鞠,须,丰,巢,关,蒯相,,查,后,荆,红,游竺权逯,盖益桓公,万俟,司马,上官,欧阳,夏侯,诸葛,闻人,东方,赫连,皇甫,尉迟,公羊,澹台,公冶,宗政,濮阳。淳于,单于,太叔,申屠,公孙,仲孙,轩辕,令狐,钟离,宇文,长孙,慕容,鲜于,闾丘,司徒,司空,丌官,司寇,仉督,子车,颛孙,端木,巫马,公西,漆雕,乐正,壤驷,公良,拓跋,夹谷,宰父,谷梁，晋,楚,闫,法,汝,鄢,涂,钦,段干,百里,东郭,南门,呼延,归,海,羊舌,微生,岳,帅,缑,亢,况郈,有琴,梁丘,左丘,东门,西门,商,牟,佘,佴,伯,赏,南宫,墨,哈,谯,笪，年,爱,阳,佟,第五,言,福
 container.sim.FemaleNames=霏怡,雅诗,凝如,筠枫,蕴齐,媛楚,小妙,芯融,萱春,阳雪,馨静,凝湘,凝云,香怡,宜涵,雅奇,柔婉,梦媛,夏雅,菡芝,流蕾,仪梦,丽愫,韶丹,映婕,芷尔,澜烟,宇秋,心曼,云慧,欢妍,慧晴,惠筱,欣凡,菱曦,湘涵,曼铭,佩惠,语琪,倚家,听洛,怡紫,凌曦,恨萍,彤娜,元莲,含风,凝羽,谷凝,飘纯,悠舒,松秋,婉梓,琳伶,悦雪,婧颖,宣芳,瑾彤,采馨,柔雅,艺淳,清思,嫣英,柚如,芷熙,芸萱,筱萱,雪洛,筱璐,琳静,贞文,彤新,湘美,晨欣,语莲,敏思,玲慧,颍丝,宛伊,然希,桑涵,如瑞,丽琀,宛艺,阳云,佩卿,妙熙,曼铃,歆希,欣楚,愫媛,慧琳,梅彦,笑敏,云璐,颖春,馨娴,忆平,婷锦,雅玮,贞妍,怡语,熙嘉,然梅,子初,嘉熙,语晓,佳元,瞳姝,儿嘉,宁旻,瑛傲,蔓梦,欣缘,镟寒,轩香,雪怡,惠涵,青赫,颖一,苇雁,惜婷,思慧,沛永,文南,慧嘉,佳畅,云悦,郗欣,熙祎,铭敏,艺蔓,梦泽,铭素,和巧,琦惠,燕佑,曦娇,夏馨,初嘉,聪汶,倪芯,聆玉,媚彤,一雯,玥忆,菁雅,雅小,婉慧,绮雨,倪怀,岚海,婵曦,园涵,莺昕,懿梦,岚琳,尚天,颖子,欣冰,琳瑷,靖曼,博筠,琪怡,秀俊,意岚,薇曼,珍寄,侨伊,雁语,媛瑜,雨淑,骞纱,菱莺,檀珍,漫维,彤蕾,倩真,祺朵,旻敏,雨琳,菡雁,欣娟,碧莉,畅曦,瑾泉,梅熹,钰翠,平怡,娅丹,丽愫,晓岚
 

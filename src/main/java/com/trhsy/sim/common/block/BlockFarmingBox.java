@@ -5,10 +5,10 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.client.gui.blocks.GuiFarming;
-import com.trhsy.sim.common.entity.Marker;
+import com.trhsy.sim.common.block.functionality.Marker;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
-import com.trhsy.sim.common.entity.FarmingBox;
+import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;

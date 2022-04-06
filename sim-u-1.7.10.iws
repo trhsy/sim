@@ -1,48 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2173b2a-f174-4232-9e03-d241a0a0e6e0" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/eclipse/config/sim.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/config/sim.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/config/splash.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/config/splash.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-1.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-2.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-3.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-4.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-4.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-5.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-6.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-6.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/2022-04-05-7.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/2022-04-05-7.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-2.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-3.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-client-latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/fml-junk-earlystartup.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/logs/latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/DIM-1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/DIM-1/data/villages.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/DIM1/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/DIM1/data/villages.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/data/Mineshaft.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/data/Mineshaft.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/data/villages.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/data/villages.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/level.dat" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/level.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/level.dat_old" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/level.dat_old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.-1.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/region/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/session.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/严展鹏.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/严展鹏.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/寇心曼.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/寇心曼.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/成惜婷.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/成惜婷.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/景佳俊.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/景佳俊.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/爱智宇.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/爱智宇.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/言向荣.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/folks/言向荣.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/settings.sk2" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/saves/sim/simukraft/settings.sk2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eclipse/usernamecache.json" beforeDir="false" afterPath="$PROJECT_DIR$/eclipse/usernamecache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.7.10.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.7.10.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiEntityFolk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/GuiEntityFolk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
-    </list>
+    <list default="true" id="a0581b56-a4cd-4281-a9e4-bb54a883fc83" name="变更" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,8 +47,23 @@
     <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -98,7 +72,7 @@
     <option name="LAST_EDITED_MODULE_NAME" />
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
-  <component name="ProjectId" id="27MpttsJsFtgDVq89buqfUuEZqD" />
+  <component name="ProjectId" id="27P7GTFl3XDuh3xohzDTTowEvwU" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state />
@@ -122,6 +96,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../simukraft-1.7.10-1.0.2a By KyLin默寒汉化" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager" selected="应用程序.Minecraft Client">
     <configuration default="true" factoryName="Applet" type="Applet">
@@ -214,21 +190,17 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b2173b2a-f174-4232-9e03-d241a0a0e6e0" name="变更" comment="" />
-      <created>1649140088604</created>
+      <changelist id="a0581b56-a4cd-4281-a9e4-bb54a883fc83" name="变更" comment="" />
+      <created>1649209780319</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1649140088604</updated>
-      <workItem from="1649140091531" duration="6993000" />
-      <workItem from="1649150602291" duration="4120000" />
+      <updated>1649209780319</updated>
+      <workItem from="1649209790351" duration="26674000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.cfg" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
@@ -237,27 +209,27 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/gui/blocks/GuiControlBox.java</url>
-          <line>678</line>
-          <option name="timeStamp" value="3" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java</url>
+          <line>662</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/jobs/JobBurgersFryCook.java</url>
-          <line>79</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java</url>
+          <line>1442</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
-        <line-breakpoint suspend="NONE" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/Building.java</url>
-          <line>212</line>
-          <option name="timeStamp" value="6" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java</url>
+          <line>665</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entity/FolkData.java</url>
+          <line>649</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <pin-to-top-manager>
-      <pinned-members>
-        <PinnedItemInfo parentTag="java.util.TreeMap$Entry" memberName="value" />
-      </pinned-members>
-    </pin-to-top-manager>
   </component>
 </project>

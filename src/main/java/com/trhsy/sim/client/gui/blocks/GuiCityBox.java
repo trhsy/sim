@@ -1,6 +1,6 @@
 package com.trhsy.sim.client.gui.blocks;
 
-import com.trhsy.sim.client.gui.GuiBeamPlayerTo;
+import com.trhsy.sim.client.gui.other.GuiBeamPlayerTo;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;

@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.loader;
 
-import com.trhsy.sim.common.fluid.FluidMilk;
+import com.trhsy.sim.common.block.fluid.FluidMilk;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;

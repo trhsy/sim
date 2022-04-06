@@ -5,11 +5,11 @@ package com.trhsy.sim.common.block;/**
  */
 
 import com.trhsy.sim.client.gui.blocks.GuiMining;
-import com.trhsy.sim.common.entity.Marker;
+import com.trhsy.sim.common.block.functionality.Marker;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.MiningBox;
+import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.V3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -4,7 +4,7 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.PathBox;
+import com.trhsy.sim.common.block.functionality.PathBox;
 import com.trhsy.sim.common.entity.FolkData;
 import net.minecraft.inventory.IInventory;
 

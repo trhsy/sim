@@ -5,7 +5,9 @@ package com.trhsy.sim.common;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.client.gui.GuiRunMod;
+import com.trhsy.sim.client.gui.other.GuiRunMod;
+import com.trhsy.sim.common.block.functionality.FarmingBox;
+import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import cpw.mods.fml.common.FMLCommonHandler;

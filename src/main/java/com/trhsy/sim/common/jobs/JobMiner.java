@@ -8,7 +8,7 @@ import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.MiningBox;
+import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
@@ -155,6 +155,7 @@ public class JobMiner extends Job implements Serializable {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
+            //来到矿区
             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Arrived");
             this.step = 1;
             this.theStage = Stage.WAITINGFORCHEST;
@@ -169,10 +170,11 @@ public class JobMiner extends Job implements Serializable {
         this.theFolk.isWorking = false;
         if (this.isChestsFull) {
             if (System.currentTimeMillis() - this.timeSinceLastChestFullMessage > 120000L) {
+                //箱子已经装，满
                 ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.miner.farmer.stopped"));
                 this.timeSinceLastChestFullMessage = System.currentTimeMillis();
             }
-
+            //所有的箱子都满了，请清空或添加更多的箱子
             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.All");
             this.miningChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             ItemStack is = new ItemStack(Blocks.dirt, 1);
@@ -185,9 +187,11 @@ public class JobMiner extends Job implements Serializable {
                 this.setNextMineableBlock();
             }
         } else {
+            //检查储物箱......
             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Checking");
             this.miningChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             if (this.miningChests.size() == 0) {
+                //至少有一个附近的矿业盒
                 this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.mining");
             } else {
                 this.theStage = Stage.BEAMINGDOWN;
@@ -216,6 +220,7 @@ public class JobMiner extends Job implements Serializable {
             if (this.theFolk.location.getDistanceTo(this.vNextMineableBlock) >= 10 && !(this.vNextMineableBlock.y <= 20.0D)) {
                 if (this.step == 1) {
                     if (this.theFolk.beamingTo == null) {
+                        //Beam me down, Scotty!
                         this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Beam");
                         if (this.theFolk.theEntity != null) {
                             if (this.theFolk.gender == 0) {
@@ -245,6 +250,7 @@ public class JobMiner extends Job implements Serializable {
         this.theFolk.beamMeTo(this.theFolk.employedAt.clone());
         this.theStage = Stage.IDLE;
         this.theFolk.action = FolkAction.WANDER;
+        //他们已经完成了挖掘矿井
         ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.miner.farmer.finished"));
         this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
     }
@@ -257,6 +263,7 @@ public class JobMiner extends Job implements Serializable {
         V3 m2 = this.theMiningBox.marker2XYZ;
         V3 m3 = this.theMiningBox.marker3XYZ;
         if (m1 == null) {
+            //矿井中遇到了一个问题。
             ModSim.sendChat(I18n.format("container.sim.job.miner.farmer.markers"));
         } else {
             boolean ltrCount;
@@ -326,6 +333,7 @@ public class JobMiner extends Job implements Serializable {
                             id = this.jobWorld.getBlock(xxx, l, zzz);
                             this.jobWorld.getBlockMetadata(xxx, l, zzz);
                             if (id == Blocks.bedrock) {
+                                //因为该矿井现已达到基岩，从矿井底部返回地面。
                                 ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.miner.farmer.bedrock"));
                                 this.theFolk.beamMeTo(this.theFolk.employedAt);
                                 this.theFolk.selfFire();
@@ -349,20 +357,19 @@ public class JobMiner extends Job implements Serializable {
                 }
             } else {
                 V3 vMine = new V3(m1.x, m1.y, m1.z, this.theFolk.employedAt.theDimension);
-                Double var32;
-                Double var34;
+
                 if (this.mineHorizontalDir.contentEquals("+x")) {
-                    var32 = vMine.x;
-                    var34 = vMine.x = vMine.x + 1.0D;
+
+                    vMine=new V3(vMine.x+1.0D,vMine.y,vMine.z,vMine.theDimension);
                 } else if (this.mineHorizontalDir.contentEquals("-x")) {
-                    var32 = vMine.x;
-                    var34 = vMine.x = vMine.x - 1.0D;
+
+                    vMine=new V3(vMine.x- 1.0D,vMine.y,vMine.z,vMine.theDimension);
                 } else if (this.mineHorizontalDir.contentEquals("+z")) {
-                    var32 = vMine.z;
-                    var34 = vMine.z = vMine.z + 1.0D;
+
+                    vMine=new V3(vMine.x,vMine.y,vMine.z+ 1.0D,vMine.theDimension);
                 } else if (this.mineHorizontalDir.contentEquals("-z")) {
-                    var32 = vMine.z;
-                    var34 = vMine.z = vMine.z - 1.0D;
+
+                    vMine=new V3(vMine.x,vMine.y,vMine.z- 1.0D,vMine.theDimension);
                 }
 
                 V3 vMineable = new V3();
@@ -404,20 +411,19 @@ public class JobMiner extends Job implements Serializable {
                                 meta = this.jobWorld.getBlockMetadata(vMineable.x.intValue(), vMineable.y.intValue(), vMineable.z.intValue());
                                 if (ltr % 10 == 0 && (double)btt == Math.floor((double)(this.theMiningBox.size / 2)) && ltr == 0) {
                                     V3 lightbox = vMineable.clone();
-                                    Double var23;
-                                    Double var24;
+
                                     if (this.mineHorizontalDir.contentEquals("+x")) {
-                                        var23 = lightbox.z;
-                                        var24 = lightbox.z = lightbox.z - 1.0D;
+
+                                        lightbox=new V3(lightbox.x,lightbox.y,lightbox.z- 1.0D,lightbox.theDimension);
                                     } else if (this.mineHorizontalDir.contentEquals("-x")) {
-                                        var23 = lightbox.z;
-                                        var24 = lightbox.z = lightbox.z + 1.0D;
+
+                                        lightbox=new V3(lightbox.x,lightbox.y,lightbox.z+ 1.0D,lightbox.theDimension);
                                     } else if (this.mineHorizontalDir.contentEquals("+z")) {
-                                        var23 = lightbox.x;
-                                        var24 = lightbox.x = lightbox.x + 1.0D;
+
+                                        lightbox=new V3(lightbox.x+ 1.0D,lightbox.y,lightbox.z,lightbox.theDimension);
                                     } else if (this.mineHorizontalDir.contentEquals("-z")) {
-                                        var23 = lightbox.x;
-                                        var24 = lightbox.x = lightbox.x - 1.0D;
+
+                                        lightbox=new V3(lightbox.x- 1.0D,lightbox.y,lightbox.z,lightbox.theDimension);
                                     }
 
                                     Block lbid = this.jobWorld.getBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue());
@@ -459,6 +465,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (!flagFound) {
+                    //因为水平矿井已达到1公里极限。如果你需要一个较长的矿井，则重新设置一个挖掘点。
                     ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.miner.farmer.horizontal"));
                     this.theFolk.beamMeTo(this.theFolk.employedAt);
                     this.theFolk.isWorking = false;
@@ -553,6 +560,7 @@ public class JobMiner extends Job implements Serializable {
 
                 int aft = (int) Math.floor((double) this.theFolk.levelMiner);
                 if (b4 != aft) {
+                    //刚刚矿工等级提升了
                     ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.miner.farmer.levelled") + aft);
                 }
             } else {
@@ -627,6 +635,7 @@ public class JobMiner extends Job implements Serializable {
                         ItemStack stack = (ItemStack)minedStacks.get(s);
                         if (stack != null) {
                             this.lastMinedBlockName = stack.getDisplayName();
+                            //发现采矿洞穴
                             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Diggy") + this.lastMinedBlockName + "!";
                             placedOk = this.inventoriesPut(this.miningChests, stack, false);
                         }

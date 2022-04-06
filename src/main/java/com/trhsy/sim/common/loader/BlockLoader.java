@@ -1,20 +1,17 @@
 package com.trhsy.sim.common.loader;
 
-import com.trhsy.sim.common.TileEntityWindmill;
+import com.trhsy.sim.common.block.functionality.TileEntityWindmill;
 import com.trhsy.sim.common.block.*;
-import com.trhsy.sim.common.fluid.FluidMilk;
+import com.trhsy.sim.common.block.BlockSpecialBlock;
+import com.trhsy.sim.common.block.fluid.FluidMilk;
 import com.trhsy.sim.common.item.ItemBlockLightBox;
-import com.trhsy.sim.common.item.ItemBlockWindmill;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 

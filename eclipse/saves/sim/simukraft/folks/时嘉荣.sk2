@@ -1,0 +1,17 @@
+employedat|null
+vocation|null
+name|时嘉荣
+age|20
+gender|0
+skin|17
+levelfood|10
+levelfun|5
+levelbuilder|1.0
+levelminer|1.0
+levelsoldier|9.0
+stayput|false
+location|33,238,69,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

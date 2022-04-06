@@ -7,7 +7,7 @@ import net.minecraft.util.IIcon;
 
 /**
  * @ClassName BlockLivingBlock
- * @Description todo
+ * @Description todo 活动区域，地毯
  * @Author Tian
  * @Date 2022/4/413:50
  **/

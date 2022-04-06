@@ -1,14 +1,14 @@
 employedat|-2,238,9,0
 vocation|BURGERSWAITER
 name|言向荣
-age|19
+age|21
 gender|0
 skin|23
-levelfood|8
+levelfood|10
 levelfun|5
 levelbuilder|1.0
 levelminer|1.0
-levelsoldier|1.0
+levelsoldier|9.0
 stayput|false
 location|-1,239,9,0
 pregnancy|0.0

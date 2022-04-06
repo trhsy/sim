@@ -1,0 +1,17 @@
+employedat|-102,236,-99,0
+vocation|CHICKENFARMER
+name|伯俊瀚
+age|18
+gender|0
+skin|51
+levelfood|10
+levelfun|5
+levelbuilder|1.0
+levelminer|1.0
+levelsoldier|9.0
+stayput|false
+location|-101,237,-98,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

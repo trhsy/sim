@@ -6,7 +6,7 @@ package com.trhsy.sim.client.render;/**
 
 import com.trhsy.sim.client.model.ModelWindmill;
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.TileEntityWindmill;
+import com.trhsy.sim.common.block.functionality.TileEntityWindmill;
 import com.trhsy.sim.common.entity.EntityWindmill;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.Job;

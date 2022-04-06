@@ -22,7 +22,7 @@ public enum GotoMethod {
         } else if (this == SHIFT) {
             return I18n.format("container.sim.GotoMethod2");
         } else {
-            return this == WALK ? I18n.format("container.sim.GotoMethod3") : "";
+            return this == WALK ? I18n.format("container.sim.Fire") : "";
         }
     }
 }

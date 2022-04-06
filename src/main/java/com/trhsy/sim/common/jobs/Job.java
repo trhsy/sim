@@ -5,7 +5,7 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.TileEntityWindmill;
+import com.trhsy.sim.common.block.functionality.TileEntityWindmill;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
@@ -125,7 +125,8 @@ public abstract class Job {
                 } else if (dist > 1 && dist < 3) {
                     //复制当前数据
                     V3 work = theFolk.employedAt.clone();
-                    work.y = work.y + 1.0D;
+                    //work.y = work.y + 1.0D;
+                    work=new V3(work.x,work.y+1.0D,work.z,work.theDimension);
                     //去位置
                     theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                     theFolk.location = work;
@@ -825,26 +826,26 @@ public abstract class Job {
         }
 
         V3 test = startXYZ.clone();
-        Double var5 = test.x;
-        Double var6 = test.x = test.x + 1.0D;
+        //Double var5 = test.x;
+        //Double var6 = test.x = test.x + 1.0D;
+        test=new V3(test.x+1.0D,test.y,test.z,test.theDimension);
         if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
             return test;
         } else {
             test = startXYZ.clone();
-            var5 = test.x;
-            var6 = test.x = test.x - 1.0D;
+
+            test=new V3(test.x- 1.0D,test.y,test.z,test.theDimension);
             if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
                 return test;
             } else {
                 test = startXYZ.clone();
-                var5 = test.z;
-                var6 = test.z = test.z + 1.0D;
+                test=new V3(test.x+1.0D,test.y,test.z,test.theDimension);
                 if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
                     return test;
                 } else {
                     test = startXYZ.clone();
-                    var5 = test.z;
-                    var6 = test.z = test.z - 1.0D;
+
+                    test=new V3(test.x,test.y,test.z- 1.0D,test.theDimension);
                     return ((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue()) ? test : startXYZ;
                 }
             }

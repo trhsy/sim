@@ -1,10 +1,12 @@
 package com.trhsy.sim;
 
 import com.trhsy.sim.client.ClientProxy;
-import com.trhsy.sim.client.gui.GuiRunMod;
+import com.trhsy.sim.client.gui.other.GuiRunMod;
 import com.trhsy.sim.common.Commodity;
 import com.trhsy.sim.common.CommonProxy;
 import com.trhsy.sim.common.GameMode;
+import com.trhsy.sim.common.block.functionality.FarmingBox;
+import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.jobs.JobSoldier;
 import com.trhsy.sim.common.jobs.Vocation;

@@ -1,0 +1,17 @@
+employedat|-13,237,-75,0
+vocation|BRICKMAKER
+name|步知新
+age|20
+gender|0
+skin|57
+levelfood|10
+levelfun|5
+levelbuilder|1.0
+levelminer|1.0
+levelsoldier|9.0
+stayput|true
+location|50,238,44,0
+pregnancy|0.0
+building|null
+terraformtype|null
+terraformradius|1

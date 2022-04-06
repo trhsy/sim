@@ -4,10 +4,10 @@ package com.trhsy.sim.client.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.client.gui.GuiEmployFolk;
+import com.trhsy.sim.client.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FarmingBox;
+import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.enums.FarmType;
@@ -55,9 +55,9 @@ public class GuiFarming extends GuiScreen {
 
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
         if (this.theFolk == null) {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.gui_Farming_Hire_Farmer")));
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire25")));
         } else {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.sim_gui_BC_Fire") + this.theFolk.name));
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") +" "+ this.theFolk.name));
         }
 
         try {
@@ -141,10 +141,10 @@ public class GuiFarming extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
             } else {
-                if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_Farming_Hire_Farmer"))) {
+                if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire25"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.theFarmingBox, Vocation.CROPFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith("container.sim.sim_gui_BC_Fire")) {
+                } else if (guibutton.displayString.startsWith("container.sim.Fire")) {
                     this.theFolk.selfFire();
                     guibutton.enabled = false;
                     this.mc.currentScreen = null;

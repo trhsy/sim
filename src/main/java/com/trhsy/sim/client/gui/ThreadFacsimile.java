@@ -4,7 +4,8 @@ package com.trhsy.sim.client.gui;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.Marker;
+import com.trhsy.sim.client.gui.blocks.GuiMarker;
+import com.trhsy.sim.common.block.functionality.Marker;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;

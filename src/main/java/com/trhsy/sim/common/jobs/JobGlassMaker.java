@@ -107,13 +107,14 @@ public class JobGlassMaker extends Job implements Serializable {
             }
         }
     }
-
+    //这里没有沙子？
     private void stageCantWork() {
         this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.There");
     }
 
     private void stageScanForSand() {
-        if (this.theFolk.statusText.contains("Arrived") || this.theFolk.statusText.contains("glass")) {
+        //去挖掘一些沙子
+        if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.glass"))) {
             this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Going");
         }
 
@@ -164,8 +165,9 @@ public class JobGlassMaker extends Job implements Serializable {
             if (this.gotoCount > 2) {
                 this.gotoCount = 0;
                 V3 bs = this.blockOfSand.clone();
-                Double var5 = bs.y;
-                Double var6 = bs.y = bs.y + 1.0D;
+               /* Double var5 = bs.y;
+                Double var6 = bs.y = bs.y + 1.0D;*/
+                bs=new V3(bs.x-1.0D,bs.y+1.0D,bs.z,bs.theDimension);
                 this.theFolk.beamMeTo(bs);
             }
 
@@ -178,6 +180,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 this.jobWorld.setBlock(this.blockOfSand.x.intValue(), this.blockOfSand.y.intValue(), this.blockOfSand.z.intValue(), this.blockOfSand.blockID, 0, 3);
                 this.mc.theWorld.playSound(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z, "step.sand", 1.0F, 1.0F, false);
                 this.theFolk.inventory.add(new ItemStack(Blocks.sand, 1));
+                //我得到沙子惹！
                 this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.inventory.size();
                 GameStates var10000 = ModSim.states;
                 var10000.credits = (float)((double)var10000.credits - 0.012D);
@@ -199,8 +202,9 @@ public class JobGlassMaker extends Job implements Serializable {
         try {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
-                Double var3 = adj.y;
-                Double var4 = adj.y = adj.y + 1.0D;
+                /*Double var3 = adj.y;
+                Double var4 = adj.y = adj.y + 1.0D;*/
+                adj=new V3(adj.x-1.0D,adj.y+ 1.0D,adj.z,adj.theDimension);
                 this.theFolk.gotoXYZ(adj, (GotoMethod)null);
                 this.step = 2;
             } else if (this.step == 2) {
@@ -231,6 +235,7 @@ public class JobGlassMaker extends Job implements Serializable {
         this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
         this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         if (this.factoryFurnace == null) {
+            //我的炉子不见了
             ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.glass.farmer.Where"));
         } else {
             ItemStack currentSand;
