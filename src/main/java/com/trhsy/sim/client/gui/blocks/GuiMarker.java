@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.Job;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -299,16 +300,16 @@ public class GuiMarker extends GuiScreen {
                         return;
                     }
 
-                    File check = new File(ModSim.getSimukraftFolder() + "/buildings/");
+                    File check = new File(UpdateChecker.getSimukraftFolder() + "/buildings/");
                     if (!check.exists()) {
-                        ModSim.sendChat(ModSim.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Markers14"));
+                        ModSim.sendChat(UpdateChecker.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Markers14"));
                         return;
                     }
 
                     String f = String.valueOf(System.currentTimeMillis());
                     ltr = f.length();
                     f = f.substring(ltr - 6);
-                    FileWriter fstream = new FileWriter(ModSim.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
+                    FileWriter fstream = new FileWriter(UpdateChecker.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
                     BufferedWriter out = new BufferedWriter(fstream);
                     out.write(ltrCountx + "x" + ftbCountx + "x" + layerLines.size() + "\r\n");
                     out.write(keyString + "\r\n");

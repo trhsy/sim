@@ -93,10 +93,13 @@ public class JobCheesemaker extends Job {
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
                 if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+                    //到达工厂
                     if (this.theStage == Stage.ARRIVEDATFACTORY) {
                         this.stageArrivedAtFactory();
+                        //去奶牛场
                     } else if (this.theStage == Stage.GOINGTODAIRYFARM) {
                         this.stageGoingToDairyFarm();
+                        //收集牛奶
                     } else if (this.theStage == Stage.COLLECTINGMILK) {
                         this.stageCollectingMilk();
                     } else if (this.theStage == Stage.GOINGTOTANK) {
@@ -121,6 +124,9 @@ public class JobCheesemaker extends Job {
         }
     }
 
+    /**
+     * 到达工厂
+     */
     private void stageArrivedAtFactory() {
         try {
             ArrayList<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
@@ -133,6 +139,9 @@ public class JobCheesemaker extends Job {
         this.currentFarmNum = -1;
     }
 
+    /**
+     * 去奶牛场
+     */
     private void stageGoingToDairyFarm() {
         this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Going");
         ++this.currentFarmNum;
@@ -150,6 +159,9 @@ public class JobCheesemaker extends Job {
         }
     }
 
+    /**
+     * 收集牛奶
+     */
     private void stageCollectingMilk() {
         this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Collecting");
         if (this.step == 1) {
@@ -184,7 +196,7 @@ public class JobCheesemaker extends Job {
                 this.step = 1;
                 this.theFolk.isWorking = false;
             } else {
-                ModSim.log.warn("JobCheesemaker: 没有罐顶点");
+                ModSim.log.warn("JobCheesemaker: 没有蓄水池");
                 this.theFolk.selfFire();
             }
         }
@@ -460,6 +472,9 @@ public class JobCheesemaker extends Job {
 
     }
 
+    /**
+     * 切片奶酪
+     */
     private void stageSliceCheese() {
         ArrayList<V3> slicewaypoint = this.theCheeseFactory.getSpecialBlocks(5);
         if (slicewaypoint.isEmpty()) {

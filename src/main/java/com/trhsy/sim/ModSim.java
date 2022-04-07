@@ -14,6 +14,7 @@ import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.packets.client.Handler;
 import com.trhsy.sim.packets.client.UpdateFolkPositionMessage;
 import com.trhsy.sim.packets.server.LoadBuildingMessage;
+import com.trhsy.sim.util.UpdateChecker;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -57,7 +58,7 @@ import java.util.Random;
 public class ModSim {
     public static final String MODID = "sim";
     public static final String NAME = "Simulated town";
-    public static final String VERSION = "1.0.1 Beta";
+    public static final String VERSION = "1.0.2 Beta";
     /**
      * 将生成该mod的实例注册到对应mod的id里面，也可以访问其他mod的，要注意这里的id和此mod的id相同
      */
@@ -340,25 +341,6 @@ public class ModSim {
         return ret;
     }
 
-    /**
-     * 获取模拟城市建筑文文件夹
-     *
-     * @return
-     */
-    public static String getSimukraftFolder() {
-        try {
-            String strmc = (new File(".")).getAbsolutePath();
-            strmc = strmc.substring(0, strmc.length() - 1);
-            File checks = new File(strmc + File.separator + "mods" + File.separator + "sim");
-            if(!checks.exists()&& !checks.isDirectory()){
-                log.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/ 文件夹丢失了 - 重新创建此文件夹");
-                checks.mkdir();
-            }
-            return (checks).getAbsolutePath();
-        } catch (Exception var1) {
-            return "";
-        }
-    }
 
     /**
      * 判断是否半天

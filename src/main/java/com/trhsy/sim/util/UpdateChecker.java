@@ -15,11 +15,14 @@ import java.util.zip.ZipFile;
  * 更新检查器
  */
 public class UpdateChecker {
-    private static Logger logger;
+
+
     int highest = 0;
     int m1 = 0;
+    private static Logger logger;
 
     public UpdateChecker(FMLPreInitializationEvent event) {
+        logger = event.getModLog();
         onUpdate();
     }
 
@@ -31,14 +34,20 @@ public class UpdateChecker {
             if("en_US".equals(lang)) {
                 baseURL = "https://trhsy.github.io/sim/Simukraft_en_US.zip";
             }
-            String unzipFilePath= ModSim.getSimukraftFolder();
+            String unzipFilePath= getSimukraftFolder();
+                File checks = new File(unzipFilePath+ File.separator);
+                File[] checkss = checks.listFiles();
+
+                for (File f : checkss) {
+                    deleteFile(f);
+                }
+                checks.mkdir();
             String simFile=unzipFilePath+ File.separator + "Simukraft.zip";
             String ver = this.downloadFile(baseURL,  simFile);
             if (ver != null) {
                 File zipFile = new File(ver);
-                //创建解压缩文件保存的路径
-                File unzipFileDir = new File(unzipFilePath);
                 //开始解压
+                logger.info("开始解压：",zipFile.getName());
                 ZipEntry entry = null;
                 String entryFilePath = null, entryDirPath = null;
                 File entryFile = null, entryDir = null;
@@ -68,20 +77,22 @@ public class UpdateChecker {
                         }
                         bos.flush();
                         bos.close();
+                        //logger.info("创建解压文件：",entryFile.getName());
                     }else {
                         entryDirPath = entryFilePath.substring(0, entryFilePath.length()-1);
                         entryDir = new File(entryDirPath);
                         //如果文件夹路径不存在，则创建文件夹
                         if (!entryDir.exists() || !entryDir.isDirectory()) {
                             entryDir.mkdirs();
+                            logger.info("创建解压文件夹：",entryDir.getName());
                         }
                     }
 
                 }
 
             }
-            File simFiles = new File(simFile);
-            simFiles.delete();
+
+            new File(simFile).deleteOnExit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,7 +100,41 @@ public class UpdateChecker {
 
 
     }
-
+    /**
+     * 获取模拟城市建筑文文件夹
+     *
+     * @return
+     */
+    public static String getSimukraftFolder() {
+        try {
+            String strmc = (new File(".")).getAbsolutePath();
+            strmc = strmc.substring(0, strmc.length() - 1);
+            File checks = new File(strmc + File.separator + "mods" + File.separator + "sim");
+            if(!checks.exists()&& !checks.isDirectory()){
+                logger.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/ 文件夹丢失了 - 重新创建此文件夹");
+                checks.mkdir();
+            }
+            return (checks).getAbsolutePath();
+        } catch (Exception var1) {
+            return "";
+        }
+    }
+    public static void deleteFile(File file){
+        //logger.info("开始删除文件/文件夹：",file.getName());
+        if(file.exists()){
+            file.delete();
+        }
+        if(file.exists()){
+            File[] paths = file.listFiles();
+            for(File str:paths){
+                deleteFile(str);
+            }
+            file.delete();
+            paths = null;	// lets gc do its works
+        }
+        //logger.info("完成删除文件/文件夹：",file.getName());
+        file = null;	// lets gc do its works
+    }
     /**
      * 获得最高的PKID
      *
@@ -98,7 +143,7 @@ public class UpdateChecker {
      */
     public int getHighestPKID(String type) {
         //查看当前路径下 的 文件
-        File actual = new File(ModSim.getSimukraftFolder() + File.separator + "buildings" + File.separator + type + File.separator);
+        File actual = new File(getSimukraftFolder() + File.separator + "buildings" + File.separator + type + File.separator);
         //获得文件列表
         File[] listFiles = actual.listFiles();
         //循环
@@ -125,9 +170,9 @@ public class UpdateChecker {
 
     public String downloadFile(String url, String localFile) {
         File f=new File(localFile);
-        f.delete();
+        deleteFile(f);
         //String ret = "";
-        //logger.info("将从此链接下载文件：\n" + url);
+        logger.info("将从此链接下载文件：\n",url);
         //url = url.replace(" ", "%20");
 
         try {

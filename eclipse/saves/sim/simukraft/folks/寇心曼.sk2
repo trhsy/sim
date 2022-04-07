@@ -1,7 +1,7 @@
-employedat|-73,237,-186,0
+employedat|-73,237,-184,0
 vocation|CROPFARMER
 name|寇心曼
-age|20
+age|21
 gender|1
 skin|15
 levelfood|10
@@ -10,7 +10,7 @@ levelbuilder|9.0
 levelminer|9.0
 levelsoldier|9.0
 stayput|false
-location|-72,238,-185,0
+location|-72,238,-183,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -65,11 +65,14 @@ public class JobBurgersFryCook extends Job {
             }
 
             super.onUpdateGoingToWork(this.theFolk);
+            //到货商店
             if (this.theStage == Stage.ARRIVEDATSTORE) {
+                //工作中
                 this.theFolk.action = FolkAction.ATWORK;
                 this.runDelay = 11000;
             } else if (this.theStage == Stage.NOINGREDIANTS) {
                 this.runDelay = 30000;
+                //做食物
             } else if (this.theStage == Stage.MAKEFOOD) {
                 this.runDelay = 15000;
             } else {
@@ -80,6 +83,7 @@ public class JobBurgersFryCook extends Job {
                 if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theStage = Stage.MAKEFOOD;
+                        //做食物
                     } else if (this.theStage == Stage.MAKEFOOD) {
                         this.stageMakeFood();
                     } else if (this.theStage == Stage.NOINGREDIANTS) {
@@ -224,6 +228,7 @@ public class JobBurgersFryCook extends Job {
     @Override
     public void onArrivedAtWork() {
         //int dist = false;
+        //在工作
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;

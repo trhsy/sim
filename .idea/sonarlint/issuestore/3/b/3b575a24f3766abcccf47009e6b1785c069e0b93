@@ -1,0 +1,28 @@
+
+—
+java:S11863"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÏĞç
+H
+java:S1135"2Complete the task associated to this TODO comment.(ÀÓÌÜ
+h
+java:S3776="RRefactor this method to reduce its Cognitive Complexity from 52 to the 15 allowed.(‡àñ¯
+>	java:S108“")Either remove or fill this block of code.(…êğD
+E
+java:S1905š")Remove this unnecessary cast to "double".(·šáÁúÿÿÿÿ
+@
+java:S1905")Remove this unnecessary cast to "double".(Â‰ Ø
+@
+java:S1905¦")Remove this unnecessary cast to "double".(şÉ Ë
+F
+java:S1905¼"/Remove this unnecessary cast to "Relationship".(ı¤Ò
+D	java:S108Ä")Either remove or fill this block of code.(’Üåøÿÿÿÿ
+R	java:S125É"<This block of commented-out lines of code should be removed.(¯Ì„
+i
+java:S3776ë"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(À¥¡è
+?
+java:S1185¥"(Remove this method to simply inherit it.(Ñäâ†
+K
+java:S1068$"0Remove this unused "entityplayer" private field.(üê’–ûÿÿÿÿ
+s
+java:S1192Û"\Define a constant instead of duplicating this literal "container.sim.gui_Folk_Back" 4 times.(ƒ¹Ã‰
+t
+java:S1192™"]Define a constant instead of duplicating this literal "container.sim.gui_Folk_of_10" 3 times.(âİó

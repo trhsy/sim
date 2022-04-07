@@ -3,6 +3,7 @@ package com.trhsy.sim.common.entity;
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -157,12 +158,12 @@ public class Building implements Serializable {
             }
 
             this.blocksInBuilding = 0;
-            File f = new File(ModSim.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
                 return;
             }
 
-            FileInputStream fstream = new FileInputStream(ModSim.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            FileInputStream fstream = new FileInputStream(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine = br.readLine().toString().toLowerCase().trim();
@@ -818,7 +819,7 @@ public class Building implements Serializable {
     }
 
     public static Building getBuildingForFolk(String partialFilename, String type) {
-        File f = new File(ModSim.getSimukraftFolder() + "/buildings/" + type + "/" + partialFilename);
+        File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + type + "/" + partialFilename);
         if (f.exists()) {
             String name = f.getName().substring(0, f.getName().length() - 4);
             Building build = new Building(name, type);
@@ -830,7 +831,7 @@ public class Building implements Serializable {
     }
 
     private static void initBuildingsOfType(String type) {
-        File f = new File(ModSim.getSimukraftFolder() + "/buildings/" + type);
+        File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + type);
 
         for(int i = 0; i < f.list().length; ++i) {
             String name = f.list()[i];

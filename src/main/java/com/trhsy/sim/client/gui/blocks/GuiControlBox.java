@@ -160,7 +160,7 @@ public class GuiControlBox extends GuiScreen {
 
             GuiButton b;
             if (this.theBuilding.type.contentEquals("commercial")) {
-                System.out.println("***************************commercial*********************");
+                //System.out.println("***************************commercial*********************");
                 //面包店
                 if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Bakery"))) {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire6")));

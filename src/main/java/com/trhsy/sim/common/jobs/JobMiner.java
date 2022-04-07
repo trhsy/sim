@@ -516,7 +516,7 @@ public class JobMiner extends Job implements Serializable {
             public void run() {
                 for(int d = 0; d < 5; ++d) {
                     try {
-                        jobWorld.playSound(vNextMineableBlock.x, vNextMineableBlock.y, vNextMineableBlock.z, "dig.stone", 1.0F, 1.0F, false);
+                        JobMiner.this.jobWorld.playSound(vNextMineableBlock.x, vNextMineableBlock.y, vNextMineableBlock.z, "dig.stone", 1.0F, 1.0F, false);
                     } catch (Exception var4) {
                     }
 

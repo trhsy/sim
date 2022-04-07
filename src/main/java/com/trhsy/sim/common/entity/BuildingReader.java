@@ -7,6 +7,7 @@ package com.trhsy.sim.common.entity;/**
 import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -208,13 +209,13 @@ public class BuildingReader implements Serializable {
             }
 
             this.blocksInBuilding = 0;
-            File f = new File(ModSim.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
                 ModSim.log.warn("找不到文件");
                 return;
             }
 
-            FileInputStream fstream = new FileInputStream(ModSim.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            FileInputStream fstream = new FileInputStream(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine = br.readLine().toString().toLowerCase().trim();

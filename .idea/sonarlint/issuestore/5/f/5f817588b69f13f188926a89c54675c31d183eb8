@@ -1,0 +1,26 @@
+
+—
+java:S1186'"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÏĞç
+M
+java:S1135"2Complete the task associated to this TODO comment.(¾ÜÑ¹ıÿÿÿÿ
+@
+java:S19057"%Remove this unnecessary cast to "V3".(¡à‰Óıÿÿÿÿ
+N
+java:S1854_"8Remove this useless assignment to local variable "var7".(…ªš»
+S
+java:S1854^"8Remove this useless assignment to local variable "var6".(°ÙÏ±ıÿÿÿÿ
+D
+java:S1481^")Remove this unused "var6" local variable.(°ÙÏ±ıÿÿÿÿ
+?
+java:S1481_")Remove this unused "var7" local variable.(…ªš»
+Q
+java:S2696b"6Make the enclosing method "static" or remove this set.(ƒë¤¨ıÿÿÿÿ
+Q
+java:S2696c"6Make the enclosing method "static" or remove this set.(ßÎ‹Åÿÿÿÿÿ
+Q
+java:S2696d"6Make the enclosing method "static" or remove this set.(’êè˜üÿÿÿÿ
+L
+java:S2696e"6Make the enclosing method "static" or remove this set.(¯Â˜ã
+k	java:S117J"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§é›˜ûÿÿÿÿ
+Y
+java:S1155L">Use isEmpty() to check whether the collection is empty or not.(¥Ö²ûÿÿÿÿ

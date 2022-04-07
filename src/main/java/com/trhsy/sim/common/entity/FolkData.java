@@ -348,6 +348,9 @@ public class FolkData implements Serializable {
         }
     }
 
+    /**
+     * 触发所有更新
+     */
     public static void triggerAllUpdates() {
         for (int f = 0; f < ModSim.theFolks.size(); ++f) {
             FolkData fd = (FolkData) ModSim.theFolks.get(f);
@@ -356,6 +359,10 @@ public class FolkData implements Serializable {
 
     }
 
+    /**
+     * 服务器到客户端位置更新
+     * @param newLocation
+     */
     public void serverToClientLocationUpdate(V3 newLocation) {
         this.location = newLocation.clone();
         if (this.theEntity != null) {
@@ -368,6 +375,9 @@ public class FolkData implements Serializable {
 
     }
 
+    /**
+     * 更新
+     */
     public void onUpdate() {
         Random rand = new Random();
         Long now = System.currentTimeMillis();
@@ -575,7 +585,7 @@ public class FolkData implements Serializable {
             if (ModSim.isDayTime() && this.employedAt != null && this.action != FolkAction.ATWORK && this.destination == null && this.pregnancyStage == 0.0F) {
                 this.statusText = I18n.format("container.sim.folk_data_Going_work");
                 this.action = FolkAction.ONWAYTOWORK;
-                ModSim.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
+                //ModSim.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
                 this.updateLocationFromEntity();
                 V3 temp = this.employedAt.clone();
                 //temp.x = temp.x + 5.0D;
@@ -667,6 +677,7 @@ public class FolkData implements Serializable {
                         chance = this.location.getDistanceTo(liveAt);
                         if (chance > 1 && this.destination == null) {
                             this.stayPut = false;
+                            liveAt=new V3(liveAt.x+3.0D,liveAt.y+3.0D,liveAt.z,liveAt.theDimension);
                             this.gotoXYZ(liveAt, (GotoMethod)null);
                             this.action = FolkAction.GOINGHOME;
                             this.statusText = I18n.format("container.sim.folk_data_Going_home");
@@ -812,9 +823,11 @@ public class FolkData implements Serializable {
                     this.action = FolkAction.GOINGHOME;
                     this.actionArrival = FolkAction.STAYINGHOME;
                     if (building.livingXYZ != null) {
-                        this.gotoXYZ(building.livingXYZ, (GotoMethod) null);
+                        V3 v3=new V3(building.livingXYZ.x+1.0D,building.livingXYZ.y+1.0D,building.livingXYZ.z,building.livingXYZ.theDimension);
+                        this.gotoXYZ(v3, (GotoMethod) null);
                     } else {
-                        this.gotoXYZ(building.primaryXYZ, (GotoMethod) null);
+                        V3 v3=new V3(building.primaryXYZ.x+1.0D,building.primaryXYZ.y+1.0D,building.primaryXYZ.z,building.primaryXYZ.theDimension);
+                        this.gotoXYZ(v3, (GotoMethod) null);
                     }
 
                     ModSim.states.saveStates();
@@ -995,7 +1008,7 @@ public class FolkData implements Serializable {
 
         return name;
     }
-
+    //自行解雇
     public void selfFire() {
         ModSim.log.info("FolkData: selfFire() " + this.name);
         this.isWorking = false;
@@ -1103,9 +1116,8 @@ public class FolkData implements Serializable {
                 }
 
                 try {
-                    ModSim.log.info("FolkData: GOTOXYZ() for " + this.name + " to " + whereTo.toString() + " - Method:" + this.gotoMethod.toString() + " DIM:" + whereTo.theDimension);
+                    //ModSim.log.info("FolkData: GOTOXYZ() for " + this.name + " to " + whereTo.toString() + " - Method:" + this.gotoMethod.toString() + " DIM:" + whereTo.theDimension);
                 } catch (Exception var9) {
-
                     ModSim.log.error("FolkData: GOTOXYZ() for " + this.name + " - NULL whereTo");
                     return;
                 }
@@ -1157,7 +1169,7 @@ public class FolkData implements Serializable {
         this.stayPut = true;
         this.updateLocationFromEntity();
         if (this.beamingTo != null) {
-            ModSim.log.warn("FolkData:beamMeTo()已经喜气洋洋了 " + this.name);
+            //ModSim.log.warn("FolkData:beamMeTo()已经喜气洋洋了 " + this.name);
         } else if (whereToIn == null) {
             ModSim.log.warn("FolkData: beamMeTo() whereTo was NULL, cancelled beaming");
         } else {
@@ -1188,7 +1200,7 @@ public class FolkData implements Serializable {
             }
 
             this.destination = whereTo.clone();
-            ModSim.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
+            //ModSim.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
             this.stayPut = true;
             if (this.isSpawned()) {
                 this.theEntity.getNavigator().clearPathEntity();
@@ -1217,7 +1229,7 @@ public class FolkData implements Serializable {
                     }
                 }
 
-                ModSim.log.info("FolkData: doBeaming() 完成 " + this.name + " to " + this.beamingTo.toString() + " (dim " + this.beamingTo.theDimension + ")");
+                //ModSim.log.info("FolkData: doBeaming() 完成 " + this.name + " to " + this.beamingTo.toString() + " (dim " + this.beamingTo.theDimension + ")");
                 this.location = this.beamingTo.clone();
                 this.destination = null;
                 this.beamingTo = null;

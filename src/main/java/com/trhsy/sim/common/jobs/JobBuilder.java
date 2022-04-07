@@ -314,7 +314,7 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     blockId = Block.getBlockFromName(bl[0]);
-                    ModSim.log.info("***************blockId:" + blockId);
+                    //ModSim.log.info("***************blockId:" + blockId);
                     int subtype = Integer.parseInt(bl[1]);
                     if (blockId == Blocks.grass) {
                         blockId = Blocks.dirt;
@@ -370,7 +370,7 @@ public class JobBuilder extends Job implements Serializable {
                     if (wantIS != null && wantIS != null) {
                         try {
                             want = wantIS.getDisplayName();
-                            ModSim.log.info("*******************ItemStack:" + want);
+                            //ModSim.log.info("*******************ItemStack:" + want);
                             if (blockId != null) {
                                 this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
                             }

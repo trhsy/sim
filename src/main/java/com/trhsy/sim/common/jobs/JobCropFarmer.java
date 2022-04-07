@@ -41,17 +41,26 @@ import java.util.Random;
  **/
 public class JobCropFarmer extends Job implements Serializable {
     private static final long serialVersionUID = -1177112214234279141L;
-
+    //职业
     public Vocation vocation = null;
+    //实体人书籍
     public FolkData theFolk = null;
+    //状态
     public Stage theStage;
+
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
+    //完成一些工作
     private transient boolean doneSomeWork = false;
+    //养殖箱
     private transient FarmingBox farmingBlock = null;
+
     private transient ArrayList<IInventory> farmingChests = new ArrayList();
+    //去哪里
     private transient String farmDir = "";
+    //未破坏统计
     private transient int ftbCount = 0;
+    //最后统计
     private transient int ltrCount = 0;
     private transient int xo = 0;
     private transient int zo = 0;
@@ -65,8 +74,11 @@ public class JobCropFarmer extends Job implements Serializable {
     private transient int ftb = 1;
     private transient int ltr = -1;
     private transient int meta = 0;
+    //最后一个农业周期
     private transient long lastFarmCycle = 0L;
+    //最后的收获
     private transient long lastCustomHarvest = 0L;
+    //行计数器
     private transient int rowCounter = 0;
 
     public JobCropFarmer() {
@@ -79,64 +91,90 @@ public class JobCropFarmer extends Job implements Serializable {
     public JobCropFarmer(FolkData folk) {
         this.theFolk = folk;
         if (this.theStage == null) {
+            //状态闲置
             this.theStage = Stage.IDLE;
         }
 
         if (this.theFolk != null) {
+            //目的地为空重新设置 为雇佣地
             if (this.theFolk.destination == null) {
                 this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
             }
-
+            //设置养殖箱位置
             this.farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(folk.employedAt);
+            //延迟
             this.runDelay = 1000;
         }
     }
 
+    /**
+     * 重置工作
+     */
     @Override
     public void resetJob() {
+        //设置闲置
         this.theStage = Stage.IDLE;
         this.theFolk.isWorking = false;
     }
 
+    /**
+     * 更新
+     */
     @Override
     public void onUpdate() {
+        //养殖箱子不等于1
         if (ModSim.theFarmingBoxes.size() != 0) {
             super.onUpdate();
             if (!ModSim.isDayTime()) {
+                //闲置
                 this.theStage = Stage.IDLE;
             }
-
+            //去上班
             super.onUpdateGoingToWork(this.theFolk);
+            //检查箱子
             if (this.theStage == Stage.CHECKINGFORCHESTS) {
                 this.runDelay = 1000;
+                //延迟
             }
-
+            //收获季节                                                     锄地                              种植种子
             if (this.theStage == Stage.HARVEST || this.theStage == Stage.HOELAND || this.theStage == Stage.PLANTSEEDS) {
                 this.runDelay = 500;
+                //延迟
             }
-
+            //闲逛
             if (this.theStage == Stage.HANGOUT) {
+                //步
                 if (this.step == 1) {
                     this.runDelay = 1000;
+                    //延迟
                 } else {
                     this.runDelay = 60000;
+                    //延迟
                 }
             }
-
+            //当前时间毫秒- 上次跑步后的时间 》=当前运行延迟
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                //上次跑步后的时间=当前时间毫秒
                 this.timeSinceLastRun = System.currentTimeMillis();
+                //闲置 或者 晚上
                 if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+                    //如果到达农场
                     if (this.theStage == Stage.ARRIVEDATFARM) {
+                        //检查箱子
                         this.theStage = Stage.CHECKINGFORCHESTS;
                     } else if (this.theStage == Stage.CHECKINGFORCHESTS) {
                         this.stageCheckingForChests();
                     } else if (this.theStage == Stage.HARVEST) {
+                        //收获季节
                         this.stageHarvest();
                     } else if (this.theStage == Stage.HOELAND) {
+                        //锄地
                         this.stageHoeland();
                     } else if (this.theStage == Stage.PLANTSEEDS) {
+                        //种种子
                         this.stagePlantSeeds();
                     } else if (this.theStage == Stage.HANGOUT) {
+                        //闲逛
                         this.stageHangout();
                     }
                 }
@@ -145,7 +183,11 @@ public class JobCropFarmer extends Job implements Serializable {
         }
     }
 
+    /**
+     * 检查箱子
+     */
     public void stageCheckingForChests() {
+        //检查箱子
         if (this.farmingChests.isEmpty()) {
             this.farmingChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         }
@@ -172,6 +214,9 @@ public class JobCropFarmer extends Job implements Serializable {
 
     }
 
+    /**
+     * 设置农业
+     */
     private void setupFarming() {
         this.ftb = 0;
         this.ltr = -1;
@@ -215,6 +260,10 @@ public class JobCropFarmer extends Job implements Serializable {
         }
     }
 
+    /**
+     * 设置地址
+     * @return
+     */
     private boolean setXYZ() {
         boolean ret = false;
         ++this.ltr;
@@ -252,6 +301,9 @@ public class JobCropFarmer extends Job implements Serializable {
         }
     }
 
+    /**
+     * 收获
+     */
     public void stageHarvest() {
         if (this.farmingBlock == null || this.farmingBlock.farmType == null) {
             ModSim.sendChat(I18n.format("container.sim.job.crop.farmer.problem"));
@@ -381,6 +433,10 @@ public class JobCropFarmer extends Job implements Serializable {
 
     }
 
+    /**
+     * 收割庄稼
+     * @param v3center
+     */
     private void pickUpDroppedCrops(V3 v3center) {
         if (this.theFolk.theEntity != null) {
             List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(v3center.x, v3center.y, v3center.z, v3center.x + 1.0D, v3center.y + 1.0D, v3center.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
@@ -409,8 +465,13 @@ public class JobCropFarmer extends Job implements Serializable {
         }
     }
 
+    /**
+     * 锄地
+     */
     public void stageHoeland() {
+
         if (this.step == 1) {
+
             this.setupFarming();
             this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Tilling");
             this.theFolk.stayPut = true;
@@ -425,6 +486,7 @@ public class JobCropFarmer extends Job implements Serializable {
             while(!hasTilled && !done) {
                 done = this.setXYZ();
                 if (done) {
+                    //种植种子
                     this.theStage = Stage.PLANTSEEDS;
                     this.step = 1;
                     return;
@@ -481,6 +543,9 @@ public class JobCropFarmer extends Job implements Serializable {
 
     }
 
+    /**
+     * 种植种子
+     */
     public void stagePlantSeeds() {
         if (this.step == 1) {
             this.setupFarming();
@@ -489,8 +554,8 @@ public class JobCropFarmer extends Job implements Serializable {
             this.step = 2;
             this.theFolk.isWorking = true;
         } else if (this.step == 2) {
-            boolean done = false;
-            boolean hasSown = false;
+            boolean done = false;//完成
+            boolean hasSown = false;//播下
 
             while(true) {
                 Block gid;
@@ -512,7 +577,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
                         done = this.setXYZ();
                         if (done) {
-                            this.theStage = Stage.HANGOUT;
+                            this.theStage = Stage.HANGOUT;//闲置
                             this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing");
                             this.step = 1;
                             return;
@@ -520,8 +585,8 @@ public class JobCropFarmer extends Job implements Serializable {
 
                         gid = this.jobWorld.getBlock(this.xxx, this.yyy - 1, this.zzz);
                         aid = this.jobWorld.getBlock(this.xxx, this.yyy, this.zzz);
-                    } while(gid != Blocks.sand && gid != Blocks.grass && gid != Blocks.dirt && gid != Blocks.farmland);
-                } while(aid != null);
+                    } while(gid != Blocks.sand && gid != Blocks.grass && gid != Blocks.dirt && gid != Blocks.farmland);//gid不是沙子 不是草 不是泥土 不是耕地
+                } while(aid != Blocks.air);// aid 不是空 栅栏
 
                 try {
                     if (this.farmingBlock.farmType != FarmType.CUSTOM) {

@@ -186,7 +186,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 this.drawString(this.fontRendererObj, sim_gui_BC_block_types, 90, y, 16777215);
                             } else {
                                 String itemName = is.getDisplayName();
-                                System.out.println("****************************oak wood*****************************");
+                                //System.out.println("****************************oak wood*****************************");
                                 if (itemName.toLowerCase().contentEquals("oak wood")) {
                                     itemName = "Logs";
                                 }

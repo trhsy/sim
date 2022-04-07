@@ -338,10 +338,14 @@ public class Relationship implements Serializable {
                         try {
                             this.folk1.action = FolkAction.GOINGHOME;
                             this.folk1.actionArrival = FolkAction.ATHOME;
-                            this.folk1.gotoXYZ(this.folk1.getHome().primaryXYZ, (GotoMethod)null);
+                            V3 v3=this.folk1.getHome().primaryXYZ;
+                            v3=new V3(v3.x+1.0D,v3.y+1.0D,v3.z,v3.theDimension);
+                            this.folk1.gotoXYZ(v3, (GotoMethod)null);
                             this.folk2.action = FolkAction.GOINGHOME;
                             this.folk2.actionArrival = FolkAction.ATHOME;
-                            this.folk2.gotoXYZ(this.folk2.getHome().primaryXYZ, (GotoMethod)null);
+                            V3 v32=this.folk2.getHome().primaryXYZ;
+                            v32=new V3(v32.x+1.0D,v32.y+1.0D,v32.z,v32.theDimension);
+                            this.folk2.gotoXYZ(v32, (GotoMethod)null);
                         } catch (Exception var6) {
                         }
                     }

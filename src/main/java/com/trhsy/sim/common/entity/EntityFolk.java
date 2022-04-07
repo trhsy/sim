@@ -393,7 +393,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 if (dist <= 2.0D) {
                     try {
-                        ModSim.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
+                        //ModSim.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
                     } catch (Exception var13) {
                         //log.error("错误",var13.getMessage());
                     }

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|熙贤
-age|18
+age|19
 gender|0
 skin|39
 levelfood|10
@@ -10,7 +10,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|9.0
 stayput|false
-location|0,5,0,0
+location|-60,238,-8,0
 pregnancy|0.0
 building|null
 terraformtype|null
