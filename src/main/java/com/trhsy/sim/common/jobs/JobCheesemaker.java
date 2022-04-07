@@ -15,6 +15,7 @@ import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -102,14 +103,19 @@ public class JobCheesemaker extends Job {
                         //收集牛奶
                     } else if (this.theStage == Stage.COLLECTINGMILK) {
                         this.stageCollectingMilk();
+                        //去储水池
                     } else if (this.theStage == Stage.GOINGTOTANK) {
                         this.stageGoingToTank();
+                        //倒牛奶
                     } else if (this.theStage == Stage.EMPTYINGMILK) {
                         this.stageEmptyingMilk();
+                        //搅拌
                     } else if (this.theStage == Stage.STIRING) {
                         this.stageStiring();
+                        //收获奶酪
                     } else if (this.theStage == Stage.HARVESTCHEESE) {
                         this.stageHarvestCheese();
+                        //切片奶酪
                     } else if (this.theStage == Stage.SLICECHEESE) {
                         this.stageSliceCheese();
                     }
@@ -143,18 +149,26 @@ public class JobCheesemaker extends Job {
      * 去奶牛场
      */
     private void stageGoingToDairyFarm() {
+        //去收集牛奶
         this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Going");
+        //当前农场数量
         ++this.currentFarmNum;
+        //通过搜索获得建筑 奶牛场
         ArrayList<Building> dairyFarms = Building.getBuildingBySearch(I18n.format("container.sim.gui_contains_Dairy_Farm"), true);
+        //如果奶牛场不为空，或者 奶牛场个数-1小于等于当前奶牛农场值
         if (!dairyFarms.isEmpty() && dairyFarms.size() - 1 <= this.currentFarmNum) {
             this.farm = (Building)dairyFarms.get(this.currentFarmNum);
+            //去农场
             this.theFolk.gotoXYZ(this.farm.primaryXYZ, GotoMethod.BEAM);
+            //切换状态为 收集牛奶
             this.theStage = Stage.COLLECTINGMILK;
             this.step = 1;
-        } else if (dairyFarms.isEmpty()) {
+        } else if (dairyFarms.isEmpty()) { //如果等于空
+            //否则 没有检测到奶牛场，员工自动退休
             ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.has_retired"));
-            this.theFolk.selfFire();
+            this.theFolk.selfFire();//自动辞职
         } else {
+            //否则去蓄水池
             this.theStage = Stage.GOINGTOTANK;
         }
     }
@@ -163,35 +177,47 @@ public class JobCheesemaker extends Job {
      * 收集牛奶
      */
     private void stageCollectingMilk() {
+        //收集牛奶
         this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Collecting");
         if (this.step == 1) {
+            //如果npc 目的地为空 并且距离小于5
             if (this.theFolk.destination == null && this.theFolk.location.getDistanceTo(this.farm.primaryXYZ) < 5) {
                 this.step = 2;
+                //在工作中
                 this.theFolk.isWorking = true;
             } else {
                 ModSim.log.info("JobCheeseMaker: 还没到农场");
             }
         } else if (this.step == 2) {
+            //库存最接近
             this.chestsAtDairy = Job.inventoriesFindClosest(this.farm.primaryXYZ, 5);
+            //为空
             if (this.chestsAtDairy.isEmpty()) {
+                //当前位置在奶牛场找不到箱子，我辞职了！
                 ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.I_quit"));
                 this.theFolk.selfFire();
                 return;
             }
-
+            //库存转移到民间 牛奶场的箱子                                                       牛奶桶
             this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtDairy, new ItemStack(Items.milk_bucket, 1), (Block)null);
+            //如果npc 库存为空
             if (this.theFolk.inventory == null || this.theFolk.inventory.isEmpty()) {
+                //今天在牛奶场没找到牛奶。
                 ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.dairy"));
+                //设置为切奶酪
                 this.theStage = Stage.SLICECHEESE;
                 this.step = 1;
                 this.theFolk.isWorking = false;
+                //没有牛奶可加工，今天会很轻松！
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.process");
                 return;
             }
-
+            //奶酪厂 获取特除方块 3
             ArrayList<V3> tanktop = this.theCheeseFactory.getSpecialBlocks(3);
             if (!tanktop.isEmpty()) {
+                //对齐光波
                 this.theFolk.gotoXYZ((V3)tanktop.get(0), GotoMethod.BEAM);
+                //去蓄水池
                 this.theStage = Stage.GOINGTOTANK;
                 this.step = 1;
                 this.theFolk.isWorking = false;
@@ -202,28 +228,47 @@ public class JobCheesemaker extends Job {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 去蓄水池
+     * @Date 21:46 2022/4/7
+     * @Param []
+     * @return void
+     **/
     private void stageGoingToTank() {
         if (this.step == 1) {
             if (this.theFolk.destination == null) {
+
                 this.step = 2;
+                //准备加满水槽
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Preparing");
             } else {
                 ModSim.log.info("JobCheeseMaker: 还没到后面");
             }
         } else if (this.step == 2) {
+            //倒牛奶
             this.theStage = Stage.EMPTYINGMILK;
             this.step = 1;
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 倒牛奶
+     * @Date 21:47 2022/4/7
+     * @Param []
+     * @return void
+     **/
     private void stageEmptyingMilk() {
         if (this.step == 1) {
+            //如果NPC库存不等于空
             if (this.theFolk.inventory != null && !this.theFolk.inventory.isEmpty()) {
+                //库存大于1
                 if (this.theFolk.inventory.size() > 1) {
+                    //倒了 N 桶牛奶
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptying") + this.theFolk.inventory.size() + I18n.format("container.sim.job.cheese_maker.buckets");
                 } else {
+                    //倒了所有的牛奶
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptied");
                 }
 
@@ -235,22 +280,24 @@ public class JobCheesemaker extends Job {
             }
         } else if (this.step == 2) {
             ArrayList<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
+            int lightID = Block.getIdFromBlock(BlockLoader.lightBox);
+            ModSim.log.info(Integer.toString(lightID));
             boolean filledOk = false;
-            Iterator i$ = milkblocks.iterator();
+            Iterator iterator = milkblocks.iterator();
 
             label61: {
                 V3 milkBlock;
                 Block id;
                 int meta;
                 do {
-                    if (!i$.hasNext()) {
+                    if (!iterator.hasNext()) {
                         break label61;
                     }
-
-                    milkBlock = (V3) i$.next();
+                    //牛奶
+                    milkBlock = (V3) iterator.next();
                     id = this.jobWorld.getBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
                     meta = this.jobWorld.getBlockMetadata(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
-                } while (id != null && (id != BlockLoader.blockFluidMilk || meta != 1));
+                } while (id != Blocks.air && (id != BlockLoader.blockFluidMilk || meta != 1));
 
                 this.jobWorld.setBlock(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue(), BlockLoader.blockFluidMilk, 0, 3);
 
@@ -263,6 +310,7 @@ public class JobCheesemaker extends Job {
             }
 
             if (filledOk) {
+                //停止工作
                 this.theFolk.isWorking = false;
                 this.step = 1;
             } else {
@@ -280,10 +328,17 @@ public class JobCheesemaker extends Job {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 搅拌
+     * @Date 21:59 2022/4/7
+     * @Param []
+     * @return void
+     **/
     private void stageStiring() {
         ArrayList<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
         if (this.step == 1) {
+            //检查牛奶粘度
             this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.viscosity");
             if (!stirPositions.isEmpty()) {
                 if (this.tubToggle) {
@@ -296,6 +351,7 @@ public class JobCheesemaker extends Job {
                 this.stirCount = 0;
                 this.step = 2;
             } else {
+                //有的奶酪厂出了问题，把建筑构造下来，重新构建它
                 ModSim.sendChat(I18n.format("container.sim.job.cheese_maker.constructor"));
                 this.theFolk.selfFire();
             }
@@ -307,24 +363,31 @@ public class JobCheesemaker extends Job {
             String say = "";
             switch(this.stirCount) {
                 case 0:
+                    //搅拌牛奶
                     say = I18n.format("container.sim.job.cheese_maker.Stirring");
                     break;
                 case 1:
+                    //加入绝密成分
                     say = I18n.format("container.sim.job.cheese_maker.ingredient");
                     break;
                 case 2:
+                    //添加细菌培养
                     say = I18n.format("container.sim.job.cheese_maker.bacterial");
                     break;
                 case 3:
+                    //除去不需要的孢子
                     say = I18n.format("container.sim.job.cheese_maker.unwanted");
                     break;
                 case 4:
+                    //检查发酵进度
                     say = I18n.format("container.sim.job.cheese_maker.fermentation");
                     break;
                 case 5:
+                    //加入凝乳酶
                     say = I18n.format("container.sim.job.cheese_maker.Adding");
                     break;
                 case 6:
+                    //网条状奶酪
                     say = I18n.format("container.sim.job.cheese_maker.Reticulating");
             }
 
@@ -349,7 +412,13 @@ public class JobCheesemaker extends Job {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 将牛奶转化为奶酪
+     * @Date 22:01 2022/4/7
+     * @Param [currentStirPos]
+     * @return void
+     **/
     private void transformMilkToCheese(V3 currentStirPos) {
         ArrayList<V3> milkBlocks = this.theCheeseFactory.getSpecialBlocks(0);
         ArrayList<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
@@ -396,13 +465,21 @@ public class JobCheesemaker extends Job {
 
         } else {
             this.theFolk.selfFire();
+            //有一个与奶酪工厂问题，请尝试重新建立它 - 没有奶块
             ModSim.sendChat(I18n.format("container.sim.job.cheese_maker.Cheese_factory"));
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 收获奶酪
+     * @Date 22:02 2022/4/7
+     * @Param []
+     * @return void
+     **/
     private void stageHarvestCheese() {
         ArrayList<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
         ArrayList<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
+        //提取奶酪块
         this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Extracting");
         if (this.step == 1) {
             this.theFolk.gotoXYZ((V3)stirPositions.get(0), (GotoMethod)null);
@@ -414,16 +491,16 @@ public class JobCheesemaker extends Job {
             }
         } else {
             boolean gotBlock;
-            Iterator i$;
+            Iterator iterator;
             V3 block;
             Block id;
             if (this.step == 3) {
                 this.theFolk.isWorking = false;
                 gotBlock = false;
-                i$ = cheeseBlocks.iterator();
+                iterator = cheeseBlocks.iterator();
 
-                while(i$.hasNext()) {
-                    block = (V3)i$.next();
+                while(iterator.hasNext()) {
+                    block = (V3)iterator.next();
                     id = this.jobWorld.getBlock(block.x.intValue(), block.y.intValue(), block.z.intValue());
                     if (((V3) stirPositions.get(0)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheeseBlock) {
                         gotBlock = true;
@@ -449,10 +526,10 @@ public class JobCheesemaker extends Job {
             } else if (this.step == 5) {
                 this.theFolk.isWorking = false;
                 gotBlock = false;
-                i$ = cheeseBlocks.iterator();
+                iterator = cheeseBlocks.iterator();
 
-                while(i$.hasNext()) {
-                    block = (V3)i$.next();
+                while(iterator.hasNext()) {
+                    block = (V3)iterator.next();
                     id = this.jobWorld.getBlock(block.x.intValue(), block.y.intValue(), block.z.intValue());
                     if (((V3) stirPositions.get(1)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheeseBlock) {
                         gotBlock = true;
@@ -465,6 +542,7 @@ public class JobCheesemaker extends Job {
                 if (!gotBlock) {
                     this.step = 1;
                     this.theStage = Stage.SLICECHEESE;
+                    //计算奶酪块
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Counting");
                 }
             }
@@ -479,6 +557,7 @@ public class JobCheesemaker extends Job {
         ArrayList<V3> slicewaypoint = this.theCheeseFactory.getSpecialBlocks(5);
         if (slicewaypoint.isEmpty()) {
             this.theFolk.selfFire();
+            //有一个与奶酪厂的问题，尝试重新建立它的航点问题
             ModSim.sendChat(I18n.format("container.sim.job.cheese_maker.problem"));
         } else {
             if (this.step == 1) {
@@ -494,6 +573,7 @@ public class JobCheesemaker extends Job {
                 if (this.step == 3) {
                     chests = Job.inventoriesFindClosest((V3)slicewaypoint.get(0), 4);
                     if (chests.isEmpty()) {
+                        //有人在奶酪工厂箱子里偷奶酪，我不干了！
                         ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.Someone"));
                         this.theFolk.selfFire();
                     }
@@ -502,6 +582,7 @@ public class JobCheesemaker extends Job {
                     this.step = 4;
                 } else if (this.step == 4) {
                     chests = Job.inventoriesFindClosest((V3) slicewaypoint.get(0), 4);
+                    //奶酪工厂的箱子装满了奶酪！
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Slicing");
                     ItemStack cheese = inventoriesGet(chests, new ItemStack(BlockLoader.blockCheeseBlock, 1), false, false);
                     if (cheese != null) {
@@ -514,13 +595,20 @@ public class JobCheesemaker extends Job {
                         this.step = 5;
                     }
                 } else if (this.step == 5) {
+                    //我喜欢的奶酪！
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.love_cheese");
                 }
             }
 
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 到达工厂
+     * @Date 22:03 2022/4/7
+     * @Param []
+     * @return void
+     **/
     @Override
     public void onArrivedAtWork() {
         //int dist = false;
@@ -528,6 +616,7 @@ public class JobCheesemaker extends Job {
         if (dist <= 1) {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.stayPut = true;
+            //到达工厂
             this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.the_factory");
             this.theStage = Stage.ARRIVEDATFACTORY;
             this.currentFarmNum = 0;

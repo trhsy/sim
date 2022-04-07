@@ -10,7 +10,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|9.0
 stayput|false
-location|-60,238,-8,0
+location|-30,237,0,0
 pregnancy|0.0
 building|null
 terraformtype|null

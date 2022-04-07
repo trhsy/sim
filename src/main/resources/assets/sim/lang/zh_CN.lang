@@ -142,7 +142,7 @@ container.sim.sim_gui_player_to_Cancel=取消
 container.sim.sim_gui_player_to_You=你没有任何信使/光束点！
 container.sim.sim_gui_player_to_Place=向下放置一个标记棒并右键单击它
 container.sim.sim_gui_player_to_to=做一个。 然后，您可以使用任何控制箱向那里发送信号。
-container.sim.sim_gui_Beaming=向你微笑
+container.sim.sim_gui_Beaming=将你传送到
 
 
 container.sim.sim_settings=你的模拟城镇设置文件已损坏，我必须重新创建一个
@@ -336,9 +336,9 @@ container.sim.job.cheese_maker.I_quit=当前位置在奶牛场找不到箱子，
 container.sim.job.cheese_maker.dairy=今天在牛奶场没找到牛奶。
 container.sim.job.cheese_maker.process=没有牛奶可加工，今天会很轻松！
 container.sim.job.cheese_maker.Preparing=准备加满水槽
-container.sim.job.cheese_maker.Emptying=清空
-container.sim.job.cheese_maker.buckets=一桶牛奶
-container.sim.job.cheese_maker.Emptied=喝光了所有的牛奶
+container.sim.job.cheese_maker.Emptying=倒了
+container.sim.job.cheese_maker.buckets=桶牛奶
+container.sim.job.cheese_maker.Emptied=倒掉了了所有的牛奶
 container.sim.job.cheese_maker.viscosity=检查牛奶粘度
 container.sim.job.cheese_maker.constructor=奶酪工厂出了问题，放下一个建筑箱，重新建造
 container.sim.job.cheese_maker.Stirring=搅拌牛奶
