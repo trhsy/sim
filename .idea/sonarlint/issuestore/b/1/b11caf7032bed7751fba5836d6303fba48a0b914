@@ -1,0 +1,77 @@
+
+8
+java:S1118("Hide this public constructor.(†ãö‰øÿÿÿÿ
+H
+java:S1135"2Complete the task associated to this TODO comment.(…Ê»‹
+9
+java:S3010)"#Remove this assignment of "logger".(…Ì¨“
+8
+java:S3010+"#Remove this assignment of "config".(œØª\
+@
+java:S2386x"*Make member "configMaleNames" "protected".(ó©‹¯
+C
+java:S2386€",Make member "configFemaleNames" "protected".(ÅÛ¯è
+@
+java:S2386‡")Make member "configSurnames" "protected".(¥äİÜ
+]
+java:S3457Š"AFormat specifiers should be used instead of string concatenation.(Ğàåñüÿÿÿÿ
+[
+java:S1192s"FDefine a constant instead of duplicating this literal "Names" 3 times.(¨­Ö!
+e
+java:S11926"JDefine a constant instead of duplicating this literal "Settings" 10 times.(Ãš¼àÿÿÿÿÿ
+m
+java:S1104"RMake config a static final constant or non-public and provide accessors if needed.(¡ëëàùÿÿÿÿ
+|
+java:S1104"aMake configPopulationLimit a static final constant or non-public and provide accessors if needed.(Æğöîûÿÿÿÿ
+w
+java:S1104"\Make configLumberArea a static final constant or non-public and provide accessors if needed.(‹§ß»ıÿÿÿÿ
+~
+java:S1104"cMake configDisableBeamEffect a static final constant or non-public and provide accessors if needed.(„ßîˆüÿÿÿÿ
+s
+java:S1104"]Make configFolkTalking a static final constant or non-public and provide accessors if needed.(ı‡Ø¢
+‡
+java:S1104"lMake configEnableMarkerAlignmentBeams a static final constant or non-public and provide accessors if needed.(Î€úƒúÿÿÿÿ
+
+java:S1104"fMake configUseExpensiveRecipies a static final constant or non-public and provide accessors if needed.(·äóºøÿÿÿÿ
+…
+java:S1104"jMake configMaterialReminderInterval a static final constant or non-public and provide accessors if needed.(Àé€ÿÿÿÿÿ
+v
+java:S1104"[Make configHUDoffset a static final constant or non-public and provide accessors if needed.(ş¹¨àúÿÿÿÿ
+p
+java:S1104 "ZMake configStopRain a static final constant or non-public and provide accessors if needed.(å±Ş‹
+z
+java:S1104!"dMake configFolkTalkingEnglish a static final constant or non-public and provide accessors if needed.(äéŒ›
+q
+java:S1104""[Make configMaleNames a static final constant or non-public and provide accessors if needed.(„”ú€
+x
+java:S1104#"]Make configFemaleNames a static final constant or non-public and provide accessors if needed.(Ì£ùÿÿÿÿ
+u
+java:S1104$"ZMake configSurnames a static final constant or non-public and provide accessors if needed.(–İÔ³úÿÿÿÿ
+G
+java:S1444",Make this "public static config" field final(¡ëëàùÿÿÿÿ
+V
+java:S1444";Make this "public static configPopulationLimit" field final(Æğöîûÿÿÿÿ
+Q
+java:S1444"6Make this "public static configLumberArea" field final(‹§ß»ıÿÿÿÿ
+X
+java:S1444"=Make this "public static configDisableBeamEffect" field final(„ßîˆüÿÿÿÿ
+M
+java:S1444"7Make this "public static configFolkTalking" field final(ı‡Ø¢
+a
+java:S1444"FMake this "public static configEnableMarkerAlignmentBeams" field final(Î€úƒúÿÿÿÿ
+[
+java:S1444"@Make this "public static configUseExpensiveRecipies" field final(·äóºøÿÿÿÿ
+_
+java:S1444"DMake this "public static configMaterialReminderInterval" field final(Àé€ÿÿÿÿÿ
+P
+java:S1444"5Make this "public static configHUDoffset" field final(ş¹¨àúÿÿÿÿ
+J
+java:S1444 "4Make this "public static configStopRain" field final(å±Ş‹
+T
+java:S1444!">Make this "public static configFolkTalkingEnglish" field final(äéŒ›
+K
+java:S1444""5Make this "public static configMaleNames" field final(„”ú€
+R
+java:S1444#"7Make this "public static configFemaleNames" field final(Ì£ùÿÿÿÿ
+O
+java:S1444$"4Make this "public static configSurnames" field final(–İÔ³úÿÿÿÿ

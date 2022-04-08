@@ -1,0 +1,426 @@
+
+K
+java:S3740‚"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740±"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740Ê"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740û"/Provide the parametrized type for this generic.(ú”÷˜ÿÿÿÿÿ
+K
+java:S3740‰"/Provide the parametrized type for this generic.(ÚÇ¶€ıÿÿÿÿ
+K
+java:S3740“
+"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
+K
+java:S3740ö
+"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
+F
+java:S3740â"/Provide the parametrized type for this generic.(§—³
+F
+java:S3740î"/Provide the parametrized type for this generic.(àº¹š
+E
+java:S3740ï"/Provide the parametrized type for this generic.(§›èz
+E
+java:S3740ï"/Provide the parametrized type for this generic.(§›èz
+K
+java:S3740ÿ"/Provide the parametrized type for this generic.(óª¯ëüÿÿÿÿ
+E
+java:S3740€"/Provide the parametrized type for this generic.(§›èz
+E
+java:S3740€"/Provide the parametrized type for this generic.(§›èz
+m
+java:S1450m"WRemove the "entityId" field and declare it as a local variable in the relevant methods.(êù¸¸
+H
+java:S1135 "2Complete the task associated to this TODO comment.(úĞùâ
+H
+java:S1135)"2Complete the task associated to this TODO comment.(ë•‚ø
+M
+java:S1135="2Complete the task associated to this TODO comment.(éŞÔıÿÿÿÿ
+H
+java:S1135V"2Complete the task associated to this TODO comment.(ğé’ã
+X
+java:S3457¬"AFormat specifiers should be used instead of string concatenation.(¯ÂÎ°
+W	java:S125®"<This block of commented-out lines of code should be removed.(Œƒ£üÿÿÿÿ
+w
+java:S3923Ù"[Remove this conditional structure or edit its code blocks so that they're not all the same.(’ºß¯ûÿÿÿÿ
+w
+java:S3923‘"[Remove this conditional structure or edit its code blocks so that they're not all the same.(’ºß¯ûÿÿÿÿ
+E
+java:S1905±")Remove this unnecessary cast to "double".(š¿¶üÿÿÿÿ
+E
+java:S1905±")Remove this unnecessary cast to "double".(š¿¶üÿÿÿÿ
+E
+java:S1905¶")Remove this unnecessary cast to "double".(Ä÷Ö•úÿÿÿÿ
+E
+java:S1905¶")Remove this unnecessary cast to "double".(Ä÷Ö•úÿÿÿÿ
+E
+java:S1905»")Remove this unnecessary cast to "double".(Ò©—‚ıÿÿÿÿ
+E
+java:S1905»")Remove this unnecessary cast to "double".(Ò©—‚ıÿÿÿÿ
+?	java:S108¿")Either remove or fill this block of code.(†äç³
+n
+java:S3776Ë"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(µò†Öùÿÿÿÿ
+]
+java:S3457×"AFormat specifiers should be used instead of string concatenation.(Ûé®îşÿÿÿÿ
+G
+java:S1905ä"+Remove this unnecessary cast to "FolkData".(¶œõÙıÿÿÿÿ
+j
+java:S3776ı"SRefactor this method to reduce its Cognitive Complexity from 304 to the 15 allowed.(æôÚ„
+U
+java:S1854ˆ"9Remove this useless assignment to local variable "var38".(™¿Şøÿÿÿÿ
+P
+java:S1854‡"9Remove this useless assignment to local variable "var40".(Îúª¥
+:
+java:S2119ş"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
+R	java:S125€"<This block of commented-out lines of code should be removed.( ‡Å
+A
+java:S1905"%Remove this unnecessary cast to "V3".(ÿ•ÊÅüÿÿÿÿ
+]
+java:S3457±"AFormat specifiers should be used instead of string concatenation.(è„¡ğüÿÿÿÿ
+W	java:S125²"<This block of commented-out lines of code should be removed.(ö¢ç½ùÿÿÿÿ
+B
+java:S1905º"+Remove this unnecessary cast to "Building".(åŸÃ€
+@
+java:S1905»")Remove this unnecessary cast to "double".(ÛÖ¼¼
+G
+java:S1905À"+Remove this unnecessary cast to "FolkData".(Å¡û®úÿÿÿÿ
+X
+java:S3457È"AFormat specifiers should be used instead of string concatenation.(æó®‘
+X
+java:S3457×"AFormat specifiers should be used instead of string concatenation.(æó®‘
+?	java:S108Ü")Either remove or fill this block of code.(İİÆÔ
+@
+java:S1905è")Remove this unnecessary cast to "String".(Ï‡ÜŸ
+X
+java:S3457ì"AFormat specifiers should be used instead of string concatenation.(æó®‘
+D	java:S108û")Either remove or fill this block of code.(ŸöÑ—ùÿÿÿÿ
+@
+java:S1905„")Remove this unnecessary cast to "double".(ÄÏ§ê
+@
+java:S1905„")Remove this unnecessary cast to "double".(ÄÏ§ê
+F
+java:S1481†"*Remove this unused "var40" local variable.( ô‡ˆıÿÿÿÿ
+F
+java:S1481ˆ"*Remove this unused "var38" local variable.(™¿Şøÿÿÿÿ
+X
+java:S3457‹"AFormat specifiers should be used instead of string concatenation.(ÌûÕô
+>
+java:S1905¤"'Remove this unnecessary cast to "long".(¨Í†ï
+X
+java:S3457¸"AFormat specifiers should be used instead of string concatenation.(¿šì³
+]
+java:S3457¾"AFormat specifiers should be used instead of string concatenation.(ÎÂ•üÿÿÿÿ
+W	java:S125Ì"<This block of commented-out lines of code should be removed.(Æ¡¹¹ûÿÿÿÿ
+R	java:S125Ï"<This block of commented-out lines of code should be removed.(­ËŒƒ
+:
+java:S2119ó"Save and re-use this "Random".(‹ò…ãıÿÿÿÿ
+R	java:S125œ"<This block of commented-out lines of code should be removed.(éØ¿©
+X
+java:S3457¡"AFormat specifiers should be used instead of string concatenation.(èÓ¹ÿ
+>
+java:S1905À"'Remove this unnecessary cast to "long".(Ÿ¿Ê™
+E
+java:S1905è")Remove this unnecessary cast to "double".(Ø“Ê–şÿÿÿÿ
+X
+java:S3457ö"AFormat specifiers should be used instead of string concatenation.(‹¶üÂ
+B
+java:S1905´"+Remove this unnecessary cast to "Building".(– ” 
+n
+java:S3776Î"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(‹‚âõøÿÿÿÿ
+?	java:S108ÿ")Either remove or fill this block of code.(ôÒø‚
+i
+java:S3776”"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(“»½Æ
+O
+java:S1854­"8Remove this useless assignment to local variable "var8".(Ë¥Œã
+O
+java:S1854¬"8Remove this useless assignment to local variable "var7".(•›•í
+X
+java:S3457›"AFormat specifiers should be used instead of string concatenation.(ºáñü
+@
+java:S1905¤")Remove this unnecessary cast to "double".(ãşüè
+@
+java:S1481¬")Remove this unused "var7" local variable.(•›•í
+@
+java:S1481­")Remove this unused "var8" local variable.(Ë¥Œã
+K
+java:S1172È"4Remove this unused method parameter "firstNameOnly".(…Û·ß
+5
+java:S2119É"Save and re-use this "Random".(õ¾§ü
+h
+java:S3776ô"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(òÇš
+]
+java:S3457õ"AFormat specifiers should be used instead of string concatenation.(ÕÍ»Ÿøÿÿÿÿ
+H
+java:S1905û",Remove this unnecessary cast to "ItemStack".(ğ»éÏøÿÿÿÿ
+?
+java:S1905ÿ"(Remove this unnecessary cast to "float".(Íı€ø
+D	java:S108€")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ
+?
+java:S1905„"(Remove this unnecessary cast to "float".(±ÄŞ°
+?	java:S108…")Either remove or fill this block of code.(Æƒæí
+Y
+java:S1117"=Rename "inventory" which hides the field declared at line 98.(ÙÒéáùÿÿÿÿ
+n
+java:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 93 to the 15 allowed.(ˆË„ñüÿÿÿÿ
+^
+java:S1854Ø"BRemove this useless assignment to local variable "methodOfTravel".(ÀŒ™ºıÿÿÿÿ
+W	java:S125ß"<This block of commented-out lines of code should be removed.(¬‹Çşÿÿÿÿ
+]
+java:S3457á"AFormat specifiers should be used instead of string concatenation.(…¤Ëçúÿÿÿÿ
+E
+java:S1905é")Remove this unnecessary cast to "double".(Óõíªıÿÿÿÿ
+E
+java:S1905ê")Remove this unnecessary cast to "double".(¦Ğ‡áúÿÿÿÿ
+?	java:S108ö")Either remove or fill this block of code.(²¹Ô´
+?	java:S108ü")Either remove or fill this block of code.(±ÛÃ™
+n
+java:S3776	"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Ïåªşÿÿÿÿ
+O
+java:S1854¥	"8Remove this useless assignment to local variable "var9".(Ä¨Ø®
+O
+java:S1854¤	"8Remove this useless assignment to local variable "var8".(â®ä¸
+W	java:S125”	"<This block of commented-out lines of code should be removed.(àë–‹ıÿÿÿÿ
+@
+java:S1481¤	")Remove this unused "var8" local variable.(â®ä¸
+@
+java:S1481¥	")Remove this unused "var9" local variable.(Ä¨Ø®
+E
+java:S1905ª	")Remove this unnecessary cast to "double".(«§¸¹şÿÿÿÿ
+E
+java:S1905¬	")Remove this unnecessary cast to "double".(Ä’æíûÿÿÿÿ
+X	java:S125³	"<This block of commented-out lines of code should be removed.(Â°‰X8à±°›€0
+>	java:S108º	")Either remove or fill this block of code.(¢ÂŞC
+?	java:S108¾	")Either remove or fill this block of code.(šå“¹
+i
+java:S3776Ä	"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(‹øßÔ
+W	java:S125Ğ	"<This block of commented-out lines of code should be removed.(õ˜ßùÿÿÿÿ
+4
+java:S2119Ş	"Save and re-use this "Random".(¼İÅf
+@
+java:S1905ß	")Remove this unnecessary cast to "double".(õ»˜³
+?	java:S108è	")Either remove or fill this block of code.(±ÛÃ™
+D	java:S108ï	")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ
+i
+java:S3776õ	"RRefactor this method to reduce its Cognitive Complexity from 90 to the 15 allowed.(š‡õ¼
+X
+java:S3457Õ
+"AFormat specifiers should be used instead of string concatenation.(À¿—–
+V	java:S899å
+";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+i
+java:S3776í
+"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(…´Ù¢
+G
+java:S1905¥"+Remove this unnecessary cast to "Building".(Í¤øÿÿÿÿ
+E
+java:S1905¨")Remove this unnecessary cast to "String".(±ı™´ûÿÿÿÿ
+@
+java:S1905¾"+Remove this unnecessary cast to "FolkData".(†óF
+@
+java:S1905Ë"+Remove this unnecessary cast to "FolkData".(†óF
+@
+java:S1905Ø"+Remove this unnecessary cast to "FolkData".(†óF
+B
+java:S1905å"+Remove this unnecessary cast to "FolkData".(ğóÑ­
+G
+java:S1905ò"+Remove this unnecessary cast to "FolkData".(Ï°³Äıÿÿÿÿ
+G
+java:S1905ƒ"+Remove this unnecessary cast to "FolkData".(Ï°³Äıÿÿÿÿ
+G
+java:S1905"+Remove this unnecessary cast to "FolkData".(»ûğĞüÿÿÿÿ
+n
+java:S3776—"RRefactor this method to reduce its Cognitive Complexity from 48 to the 15 allowed.(»–öµûÿÿÿÿ
+R
+java:S1854£";Remove this useless assignment to local variable "deathBy".(€ó‡
+R
+java:S1854§";Remove this useless assignment to local variable "deathBy".(©ĞŒç
+R
+java:S1854«";Remove this useless assignment to local variable "deathBy".(ÓÏŠò
+Q
+java:S1854¯";Remove this useless assignment to local variable "deathBy".(‚âÂp
+]
+java:S3457™"AFormat specifiers should be used instead of string concatenation.(ÁÌÇÇÿÿÿÿÿ
+5
+java:S2119Ë"Save and re-use this "Random".(¡Å”¦
+G
+java:S1905é"+Remove this unnecessary cast to "FolkData".(æ‡‰ùÿÿÿÿ
+F
+java:S1905õ"/Remove this unnecessary cast to "Relationship".(±– æ
+_
+java:S5361÷"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğ‹êä
+_
+java:S5361÷"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğ‹êä
+V	java:S899ù";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899‚";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+X
+java:S3457‡"AFormat specifiers should be used instead of string concatenation.(¨òèà
+B
+java:S1905"+Remove this unnecessary cast to "Building".(– ” 
+i
+java:S3776˜"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(Ó€¦œ
+B
+java:S1068m",Remove this unused "entityId" private field.(êù¸¸
+‚
+java:S1192²"fDefine a constant instead of duplicating this literal "container.sim.folk_data_Relaxing_home" 3 times.(˜–ßŒùÿÿÿÿ
+k
+java:S1192È"TDefine a constant instead of duplicating this literal " ä¸ªè¡—åŒºä¹‹å¤–ã€‚" 3 times.(æó®‘
+
+java:S1192¿"cDefine a constant instead of duplicating this literal "container.sim.folk_data_Going_work" 3 times.(È£Óıÿÿÿÿ
+]
+java:S1192÷	"FDefine a constant instead of duplicating this literal "folks" 3 times.( ‚âµ
+~
+java:S1192u"cDefine a constant instead of duplicating this literal "container.sim.folk_data.Wandering" 11 times.(Æ™‡Ìüÿÿÿÿ
+n	java:S135¹"YReduce the total number of break and continue statements in this loop to use at most one.(Üí¼\
+t	java:S135Î"YReduce the total number of break and continue statements in this loop to use at most one.(ó÷Î«şÿÿÿÿ
+F
+java:S1066Í"/Merge this if statement with the enclosing one.(Ì‰ı
+K
+java:S1066Î"/Merge this if statement with the enclosing one.(¿ÙÇûÿÿÿÿ
+K
+java:S1066Ï"/Merge this if statement with the enclosing one.(Âß“èüÿÿÿÿ
+„
+java:S1319b"iThe type of "inventory" should be an interface such as "List" rather than the implementation "ArrayList".(€¸£Éıÿÿÿÿ
+‡
+java:S1319á"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ö¡Ã¹
+‡
+java:S1319î"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(àº¹š
+Œ
+java:S1319ÿ"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(óª¯ëüÿÿÿÿ
+Q
+java:S1141ô"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+l	java:S117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚÇ¶€ıÿÿÿÿ
+g	java:S117ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Úîß
+l	java:S117Ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù¿Ë©şÿÿÿÿ
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¡ô¡øÿÿÿÿ
+l	java:S117ı	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àêÕ†úÿÿÿÿ
+l	java:S117ş	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+l	java:S117€
+"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
+Z
+java:S1155ç">Use isEmpty() to check whether the collection is empty or not.(Ùáï¡üÿÿÿÿ
+U
+java:S1155µ">Use isEmpty() to check whether the collection is empty or not.(²ÌÓ³
+U
+java:S1155÷">Use isEmpty() to check whether the collection is empty or not.(€ÜÅŠ
+Z
+java:S1155´">Use isEmpty() to check whether the collection is empty or not.(éªÔÜúÿÿÿÿ
+3
+java:S1643ê"Use a StringBuilder instead.(½Ê¾Ø
+r
+java:S1488Á"[Immediately return this expression instead of assigning it to the temporary variable "ret".(ñ”™ö
+e
+java:S1104&"OMake log a static final constant or non-public and provide accessors if needed.(ÖÌåâ
+q
+java:S1104."VMake employedAt a static final constant or non-public and provide accessors if needed.(›®ûÖÿÿÿÿÿ
+j
+java:S1104/"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+j
+java:S11040"TMake theirJob a static final constant or non-public and provide accessors if needed.(–Â´ü
+f
+java:S11041"PMake name a static final constant or non-public and provide accessors if needed.(Ñê¨Ú
+e
+java:S11042"OMake age a static final constant or non-public and provide accessors if needed.(ÉÅ„‡
+h
+java:S11043"RMake gender a static final constant or non-public and provide accessors if needed.(¡Å÷
+l
+java:S11045"VMake skinnumber a static final constant or non-public and provide accessors if needed.(¤§ù³
+k
+java:S11046"UMake levelFood a static final constant or non-public and provide accessors if needed.(éĞê§
+o
+java:S11047"TMake levelFun a static final constant or non-public and provide accessors if needed.(ğ¤¾›ÿÿÿÿÿ
+n
+java:S11048"XMake levelBuilder a static final constant or non-public and provide accessors if needed.(¯ôÛ
+l
+java:S11049"VMake levelMiner a static final constant or non-public and provide accessors if needed.(—¥Ç
+n
+java:S1104:"XMake levelSoldier a static final constant or non-public and provide accessors if needed.(Ùİßé
+m
+java:S1104B"RMake action a static final constant or non-public and provide accessors if needed.(µÓÈøşÿÿÿÿ
+t
+java:S1104C"YMake actionArrival a static final constant or non-public and provide accessors if needed.(ÿ¬¾Ãøÿÿÿÿ
+i
+java:S1104G"SMake stayPut a static final constant or non-public and provide accessors if needed.(ùÊô¯
+r
+java:S1104K"WMake destination a static final constant or non-public and provide accessors if needed.( ±àøÿÿÿÿ
+j
+java:S1104L"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
+l
+java:S1104M"VMake statusText a static final constant or non-public and provide accessors if needed.(õåæÍ
+i
+java:S1104N"SMake status1 a static final constant or non-public and provide accessors if needed.(Çò›Ÿ
+n
+java:S1104O"SMake status2 a static final constant or non-public and provide accessors if needed.(¯æ¾Ìûÿÿÿÿ
+n
+java:S1104P"SMake status3 a static final constant or non-public and provide accessors if needed.(İ±Íÿùÿÿÿÿ
+i
+java:S1104Q"SMake status4 a static final constant or non-public and provide accessors if needed.(«¸Ñù
+i
+java:S1104R"SMake status5 a static final constant or non-public and provide accessors if needed.(»“Ü×
+t
+java:S1104S"YMake shaggingStage a static final constant or non-public and provide accessors if needed.(êùŸ¥üÿÿÿÿ
+o
+java:S1104["ZMake pregnancyStage a static final constant or non-public and provide accessors if needed.(Ï›†
+k
+java:S1104\"UMake isWorking a static final constant or non-public and provide accessors if needed.(†¦”ê
+s
+java:S1104]"XMake greetedToday a static final constant or non-public and provide accessors if needed.(¤‘Ñúÿÿÿÿ
+w
+java:S1104^"\Make anyFolkLastSpoke a static final constant or non-public and provide accessors if needed.(í¦–íşÿÿÿÿ
+m
+java:S1104_"WMake theBuilding a static final constant or non-public and provide accessors if needed.(½¯Û±
+q
+java:S1104`"[Make terraformerType a static final constant or non-public and provide accessors if needed.(ØÈÓı
+r
+java:S1104a"]Make terraformerRadius a static final constant or non-public and provide accessors if needed.(éè¨R
+p
+java:S1104b"UMake inventory a static final constant or non-public and provide accessors if needed.(€¸£Éıÿÿÿÿ
+p
+java:S1104c"UMake theEntity a static final constant or non-public and provide accessors if needed.(¢Õ‹ıÿÿÿÿ
+t
+java:S1104d"^Make timeStartedGotoing a static final constant or non-public and provide accessors if needed.(ÇĞĞÒ
+q
+java:S1104e"VMake gotoMethod a static final constant or non-public and provide accessors if needed.(ïÌ˜äıÿÿÿÿ
+p
+java:S1104i"UMake beamingTo a static final constant or non-public and provide accessors if needed.(³œß†şÿÿÿÿ
+?
+java:S1444&")Make this "public static log" field final(ÖÌåâ
+Q
+java:S1444^"6Make this "public static anyFolkLastSpoke" field final(í¦–íşÿÿÿÿ
+s
+java:S2629¬"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¯ÂÎ°
+x
+java:S2629×"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(Ûé®îşÿÿÿÿ
+N
+java:S2629È"7Use the built-in formatting to construct this argument.(æó®‘
+N
+java:S2629×"7Use the built-in formatting to construct this argument.(æó®‘
+N
+java:S2629ì"7Use the built-in formatting to construct this argument.(æó®‘
+s
+java:S2629‹"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(ÌûÕô
+N
+java:S2629¸"7Use the built-in formatting to construct this argument.(¿šì³
+S
+java:S2629¾"7Use the built-in formatting to construct this argument.(ÎÂ•üÿÿÿÿ
+N
+java:S2629ö"7Use the built-in formatting to construct this argument.(‹¶üÂ
+S
+java:S2629õ"7Use the built-in formatting to construct this argument.(ÕÍ»Ÿøÿÿÿÿ
+N
+java:S2629Õ
+"7Use the built-in formatting to construct this argument.(À¿—–
+x
+java:S2629™"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(ÁÌÇÇÿÿÿÿÿ
+f
+java:S2259„"OA "NullPointerException" could be thrown; "getClosestPlayer()" can return null.(±ÄŞ°
+c
+java:S2259È	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(£„ü„øÿÿÿÿ
+h
+java:S2259ş"LA "NullPointerException" could be thrown; "getFolkByName()" can return null.(Ô˜„±ıÿÿÿÿ
+[
+java:S2259—"DA "NullPointerException" could be thrown; "mother" is nullable here.(©¢Ñà
+^
+java:S2259Ñ	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(ŞÒ°Æ
+`
+java:S2259±"DA "NullPointerException" could be thrown; "father" is nullable here.(š¿¶üÿÿÿÿ

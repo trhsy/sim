@@ -1,0 +1,83 @@
+
+F
+java:S3740‘"/Provide the parametrized type for this generic.(¨¶¯
+K
+java:S3740¡"/Provide the parametrized type for this generic.(èÑñÉøÿÿÿÿ
+E
+java:S3740º"/Provide the parametrized type for this generic.(…”±^
+K
+java:S3740ñ"/Provide the parametrized type for this generic.(§Úııÿÿÿÿ
+K
+java:S3740ç"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
+K
+java:S3740¡"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
+K
+java:S3740á"/Provide the parametrized type for this generic.(”µ¬ùıÿÿÿÿ
+H
+java:S1135"2Complete the task associated to this TODO comment.(ÌâÎÙ
+h
+java:S3776M"RRefactor this method to reduce its Cognitive Complexity from 54 to the 15 allowed.(¢õÔú
+?	java:S108®")Either remove or fill this block of code.(Æƒæí
+n
+java:S3776¸"RRefactor this method to reduce its Cognitive Complexity from 69 to the 15 allowed.(»ö¥áøÿÿÿÿ
+i
+java:S3776²"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(¸ì¹÷
+]
+java:S3457´"AFormat specifiers should be used instead of string concatenation.(İÂŞùÿÿÿÿ
+D	java:S108İ")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ
+B
+java:S1905Œ"+Remove this unnecessary cast to "Building".(– ” 
+V	java:S899“";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+n
+java:S3776™"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(áÒáñøÿÿÿÿ
+d
+java:S1871¯"MThis branch's code block is the same as the block for the branch on line 413.(²µç¤
+^
+java:S5361Ç"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ÂÕŞ
+n
+java:S3776Ì"RRefactor this method to reduce its Cognitive Complexity from 75 to the 15 allowed.(ÕÂÀµûÿÿÿÿ
+F
+java:S1905¥"/Remove this unnecessary cast to "Relationship".(£ï±‘
+_
+java:S5361¦"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğ‹êä
+_
+java:S5361¦"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğ‹êä
+?	java:S108®")Either remove or fill this block of code.(Æƒæí
+5
+java:S2119½"Save and re-use this "Random".(¡Å”¦
+F
+java:S1905Ë"/Remove this unnecessary cast to "Relationship".(£ï±‘
+?	java:S108Ù")Either remove or fill this block of code.(Æƒæí
+K
+java:S1905å"/Remove this unnecessary cast to "Relationship".(»ÙÍ„ıÿÿÿÿ
+?	java:S108é")Either remove or fill this block of code.(Æú…ä
+F
+java:S1905õ"/Remove this unnecessary cast to "Relationship".(Õû¢¨
+H
+java:S1172ÿ"1Remove this unused method parameter "returnFolk".(´êÚ
+F
+java:S1905ƒ"/Remove this unnecessary cast to "Relationship".(Õû¢¨
+‡
+java:S1319à"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(¬óÜ­
+g	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨¶¯
+l	java:S117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èÑñÉøÿÿÿÿ
+f	java:S117º"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…”±^
+g	java:S117Ğ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó¼¬
+l	java:S117Ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+l	java:S117Ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
+g
+java:S1104"QMake folk1 a static final constant or non-public and provide accessors if needed.(¬¨„Ê
+l
+java:S1104"QMake folk2 a static final constant or non-public and provide accessors if needed.(¿­ä˜ùÿÿÿÿ
+o
+java:S1104"TMake theLevel a static final constant or non-public and provide accessors if needed.(ÏÜˆúÿÿÿÿ
+r
+java:S1104"WMake theSubLevel a static final constant or non-public and provide accessors if needed.(¦ëÃûùÿÿÿÿ
+q
+java:S1104"[Make isBloodRelation a static final constant or non-public and provide accessors if needed.(©‰ü’
+x
+java:S2629´"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(İÂŞùÿÿÿÿ
+_
+java:S2259Ö"CA "NullPointerException" could be thrown; "folk2" is nullable here.(âÓä®ùÿÿÿÿ
+Z
+java:S2259Ò"CA "NullPointerException" could be thrown; "folk2" is nullable here.(İ«ı£
