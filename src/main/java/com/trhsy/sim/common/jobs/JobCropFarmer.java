@@ -307,7 +307,7 @@ public class JobCropFarmer extends Job implements Serializable {
      */
     public void stageHarvest() {
         if (this.farmingBlock == null || this.farmingBlock.farmType == null) {
-            ModSimReloaded.sendChat(I18n.format("container.sim.job.crop.farmer.problem"));
+            ModSimReloaded.sendChat(I18n.format("container.sim.job.crop.farmer.problem"));//农业区出现问题，请重新设置
             if (this.theFolk != null) {
                 this.theFolk.selfFire();
             }
@@ -315,6 +315,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
         if (this.step == 1) {
             this.setupFarming();
+            //收获
             this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Harvesting");
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist > 3) {
@@ -335,11 +336,12 @@ public class JobCropFarmer extends Job implements Serializable {
             }
 
             while(true) {
-                while(!hasHarvest) {
+                while(!hasHarvest) {//有收获
                     this.id = this.jobWorld.getBlock(this.xxx, this.yyy, this.zzz);
                     this.meta = this.jobWorld.getBlockMetadata(this.xxx, this.yyy, this.zzz);
 
                     try {
+                        //实体人没有死亡          不是定制 不是甘蔗不是仙人掌
                         if (!this.theFolk.isSpawned() && this.farmingBlock.farmType != FarmType.CUSTOM && this.farmingBlock.farmType != FarmType.SUGAR && this.farmingBlock.farmType != FarmType.CACTUS && this.meta < 7) {
                             ++this.meta;
                             this.jobWorld.setBlock(this.xxx, this.yyy, this.zzz, this.id, this.meta, 3);
@@ -348,9 +350,13 @@ public class JobCropFarmer extends Job implements Serializable {
                     }
 
                     boolean canHarvest = false;
+                    //收获的块
                     V3 harvestBlock = new V3((double)this.xxx, (double)this.yyy, (double)this.zzz, this.jobWorld.provider.dimensionId);
+                    //
                     ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
+                    //
                     if (this.farmingBlock.farmType != FarmType.SUGAR && this.farmingBlock.farmType != FarmType.CACTUS) {
+                        //
                         if (this.id == Blocks.melon_block || this.id == Blocks.pumpkin || this.farmingBlock.farmType == FarmType.CUSTOM || this.meta >= 7) {
                             if (this.id != Blocks.pumpkin_stem && this.id != Blocks.melon_stem) {
                                 canHarvest = true;
@@ -435,16 +441,17 @@ public class JobCropFarmer extends Job implements Serializable {
     }
 
     /**
-     * 收割庄稼
+     * 捡掉的庄稼
      * @param v3center
      */
     private void pickUpDroppedCrops(V3 v3center) {
         if (this.theFolk.theEntity != null) {
+            //获取AABB中的实体，排除实体
             List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(v3center.x, v3center.y, v3center.z, v3center.x + 1.0D, v3center.y + 1.0D, v3center.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
-            Iterator iterator1 = list1.iterator();
+            //Iterator iterator1 = list1.iterator();
             if (!list1.isEmpty()) {
-                while(iterator1.hasNext()) {
-                    Entity entity1 = (Entity)iterator1.next();
+                for (int i = 0; i < list1.size(); i++) {
+                    Entity entity1 =(Entity)list1.get(i);
                     if (entity1 instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem)entity1;
                         ItemStack is = entityitem.getEntityItem();
@@ -461,6 +468,24 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
                     }
                 }
+                /*while(iterator1.hasNext()) {
+                    Entity entity1 = (Entity)iterator1.next();
+                    if (entity1 instanceof EntityItem) {
+                        EntityItem entityitem = (EntityItem)entity1;
+                        ItemStack is = entityitem.getEntityItem();
+
+                        try {
+                            ItemFood food = (ItemFood)is.getItem();
+                            if (food != null) {
+                                boolean ok = this.inventoriesPut(this.farmingChests, is, false);
+                                if (ok) {
+                                    entityitem.setDead();
+                                }
+                            }
+                        } catch (Exception var9) {
+                        }
+                    }
+                }*/
             }
 
         }
@@ -736,6 +761,9 @@ public class JobCropFarmer extends Job implements Serializable {
 
     }
 
+    /**
+     * 晾晒
+     */
     public void stageHangout() {
         if (this.step == 1) {
             this.lastFarmCycle = System.currentTimeMillis();
@@ -784,6 +812,9 @@ public class JobCropFarmer extends Job implements Serializable {
 
     }
 
+    /**
+     * 上班
+     */
     @Override
     public void onArrivedAtWork() {
         //int dist = false;

@@ -883,6 +883,7 @@ public class Building implements Serializable {
                     Building.initBuildingsOfType("commercial");
                     Building.initBuildingsOfType("industrial");
                     Building.initBuildingsOfType("other");
+                    Building.initBuildingsOfType("special");
                     Building.runningInitThread = false;
                     ModSimReloaded.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
                 }

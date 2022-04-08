@@ -67,13 +67,14 @@ public class JobCheesemaker extends Job {
     public void onUpdate() {
         super.onUpdate();
         if (this.theCheeseFactory == null) {
-            this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
-        }
-
-        if (this.theCheeseFactory == null) {
             Building.loadAllBuildings();
             this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
         }
+
+        /*if (this.theCheeseFactory == null) {
+            Building.loadAllBuildings();
+            this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
+        }*/
 
         if (this.theCheeseFactory == null) {
             this.theFolk.selfFire();
