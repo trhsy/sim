@@ -58,7 +58,7 @@ java:S3740ù"/Provide the parametrized type for this generic.(²„åš8üóÙ»€0
 R
 java:S3740Ê"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ8‚ôÙ»€0
 R
-java:S3740§"/Provide the parametrized type for this generic.(ŸîÄ±ûÿÿÿÿ8†ôÙ»€0
+java:S3740¨"/Provide the parametrized type for this generic.(ŸîÄ±ûÿÿÿÿ8†ôÙ»€0
 ]
 java:S1948%";Make "infrastructureRequirement" transient or serializable.(ó·ë˜ÿÿÿÿÿ8ßÖŽ¶€0
 U
@@ -160,12 +160,12 @@ java:S1905Ñ")Remove this unnecessary cast to "String".(Äˆ¶¨8 öÙ»€0
 N
 java:S1905Õ"+Remove this unnecessary cast to "FolkData".(š—«Øùÿÿÿÿ8´Ò”¼€0
 D
-java:S1075ÿ"&Remove this hard-coded path-delimiter.(ŒÉß8«öÙ»€0
+java:S1075€"&Remove this hard-coded path-delimiter.(ŒÉß8«öÙ»€0
 
-java:S2142 "^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ÿ½ó«úÿÿÿÿ8¹öÙ»€0
-K	java:S108 ")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ8ºöÙ»€0
+java:S2142¡"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ÿ½ó«úÿÿÿÿ8¹öÙ»€0
+K	java:S108¡")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ8ºöÙ»€0
 u
-java:S3776¦"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(À¿Éœûÿÿÿÿ8»öÙ»€0
+java:S3776§"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(À¿Éœûÿÿÿÿ8»öÙ»€0
 n
 java:S1192—"KDefine a constant instead of duplicating this literal "commercial" 4 times.(š˜¡üÿÿÿÿ8ÂöÙ»€0
 i
@@ -175,7 +175,7 @@ java:S1192²"LDefine a constant instead of duplicating this literal "/buildings
 m
 java:S1192Î"JDefine a constant instead of duplicating this literal "Buildings" 4 times.(ŽšïÖûÿÿÿÿ8ÆöÙ»€0
 f
-java:S1192"HDefine a constant instead of duplicating this literal "special" 3 times.(²®ªÿ8ÇöÙ»€0
+java:S1192"HDefine a constant instead of duplicating this literal "special" 4 times.(²®ªÿ8ÇöÙ»€0
 n
 java:S1192™"KDefine a constant instead of duplicating this literal "industrial" 4 times.(ÕšŽóýÿÿÿÿ8ÈöÙ»€0
 o
@@ -204,7 +204,7 @@ l	java:S117±"QRename this local variable to match the regular expression '^[a
 s	java:S117²"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ8ÜöÙ»€0
 s	java:S117´"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ8ÜöÙ»€0
 s	java:S117ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êýËÂüÿÿÿÿ8ÝöÙ»€0
-s	java:S117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸîÄ±ûÿÿÿÿ8ßöÙ»€0
+s	java:S117¨"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸîÄ±ûÿÿÿÿ8ßöÙ»€0
 a
 java:S1155Õ">Use isEmpty() to check whether the collection is empty or not.(˜ä‡Àøÿÿÿÿ8ÐÒ”¼€0
 a

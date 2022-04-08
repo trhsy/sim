@@ -1,6 +1,24 @@
 
 H
 java:S1135"2Complete the task associated to this TODO comment.(ÚÚƒ
+F
+java:S1905F")Remove this unnecessary cast to "double".(ú„êÓ8ËØøÃ€0
+F
+java:S1905F")Remove this unnecessary cast to "double".(ú„êÓ8ÌØøÃ€0
+F
+java:S1905F")Remove this unnecessary cast to "double".(ú„êÓ8ÎØøÃ€0
+K
+java:S1905X")Remove this unnecessary cast to "Marker".(­ÉÂÌûÿÿÿÿ8åØøÃ€0
+K
+java:S1905Y")Remove this unnecessary cast to "Marker".(¬ˆƒ¡ûÿÿÿÿ8æØøÃ€0
+E
+java:S1905Z")Remove this unnecessary cast to "Marker".(ÁÏ¹K8æØøÃ€0
+F
+java:S1905f")Remove this unnecessary cast to "double".(Ø¼ş·8éØøÃ€0
+F
+java:S1905f")Remove this unnecessary cast to "double".(Ø¼ş·8êØøÃ€0
+F
+java:S1905f")Remove this unnecessary cast to "double".(Ø¼ş·8êØøÃ€0
 D
 java:S1121T".Extract the assignment out of this expression.(Øš–‰
 f	java:S117M"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èÒÆ…

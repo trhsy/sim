@@ -117,6 +117,8 @@ o
 java:S1104("TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
 w
 java:S1104)"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
+
+java:S2629·"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(Â¿±ðûÿÿÿÿ8ä™Ì¾€0
 A
 java:S5411·"*Use the primitive boolean expression here.(ªÖ’Œ
 W

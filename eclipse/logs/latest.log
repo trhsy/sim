@@ -1,109 +1,70 @@
-[12:49:23] [main/INFO]: Setting user: Player658
-[12:49:25] [Client thread/INFO]: LWJGL Version: 2.9.1
-[12:49:45] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[12:49:52] [Sound Library Loader/INFO]: Sound engine started
-[12:49:56] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[12:49:56] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[12:49:56] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[12:49:58] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[12:49:59] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[12:50:01] [Sound Library Loader/INFO]: Sound engine started
-[12:51:57] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[12:51:57] [Server thread/INFO]: Generating keypair
-[12:51:57] [Server thread/INFO]: Preparing start region for level 0
-[12:51:58] [Server thread/INFO]: Preparing spawn area: 71%
-[12:51:58] [Server thread/INFO]: Changing view distance to 12, from 10
-[12:52:00] [Server thread/INFO]: Player658[local:E:0c5bd36b] logged in with entity id 121 at (4.105555643419039, 237.0, -60.17090326019209)
-[12:52:00] [Server thread/INFO]: Player658 加入了游戏
-[12:52:01] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.2 Beta由TRHSY重制
-[12:52:07] [Server thread/INFO]: Player658 刚刚获得了 [打开物品栏] 成就！
-[12:52:07] [Client thread/INFO]: [CHAT] Player658 刚刚获得了 [打开物品栏] 成就！
-[12:52:07] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 4657ms behind, skipping 93 tick(s)
-[12:52:27] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 4607ms behind, skipping 92 tick(s)
-[12:56:29] [Client thread/INFO]: [CHAT] 任俊杰从他们的库存中取走了2件物品
-[12:58:42] [Server thread/INFO]: Saving and pausing game...
-[12:58:42] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[12:58:42] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[12:58:42] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[12:58:42] [Server thread/INFO]: Stopping server
-[12:58:42] [Server thread/INFO]: Saving players
-[12:58:42] [Server thread/INFO]: Saving worlds
-[12:58:42] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[12:58:42] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[12:58:42] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[12:58:46] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[12:58:46] [Server thread/INFO]: Generating keypair
-[12:58:46] [Server thread/INFO]: Preparing start region for level 0
-[12:58:46] [Server thread/INFO]: Changing view distance to 12, from 10
-[12:58:47] [Server thread/INFO]: Player658[local:E:e300226f] logged in with entity id 9306 at (3.7269614149691987, 237.08655251119842, -63.11901045517854)
-[12:58:47] [Server thread/INFO]: Player658 加入了游戏
-[12:58:51] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 4368ms behind, skipping 87 tick(s)
-[12:59:08] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 4772ms behind, skipping 95 tick(s)
-[12:59:23] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2310ms behind, skipping 46 tick(s)
-[12:59:25] [Client thread/INFO]: [CHAT] 司空睿哲今天没有面包卖，你有一个活跃的小麦农场吗？
-[12:59:25] [Client thread/INFO]: [CHAT] 成惜婷今天卖了29块肉给大家。
-[12:59:25] [Client thread/INFO]: [CHAT] 扈泽林 今天没有产品可以卖给人们。
-[13:00:26] [Server thread/INFO]: [Player658: 将时间设为 0]
-[13:00:26] [Client thread/INFO]: [CHAT] 将时间设为 0
-[13:00:29] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2413ms behind, skipping 48 tick(s)
-[13:00:32] [Server thread/INFO]: Saving and pausing game...
-[13:00:32] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[13:00:32] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[13:00:32] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[13:00:45] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3203ms behind, skipping 64 tick(s)
-[13:00:50] [Server thread/INFO]: Saving and pausing game...
-[13:00:50] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[13:00:50] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[13:00:50] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[13:00:59] [Client thread/INFO]: [CHAT] 爱智宇已经开始建筑一个奶酪工厂
-[13:00:59] [Client thread/INFO]: [CHAT] 爱智宇已完成建设奶酪工厂
-[13:01:01] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2619ms behind, skipping 52 tick(s)
-[13:01:20] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 6310ms behind, skipping 126 tick(s)
-[13:01:38] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 5590ms behind, skipping 111 tick(s)
-[13:01:57] [Client thread/INFO]: [CHAT] 奶酪工厂出了问题，放下一个建筑箱，重新建造
-[13:01:57] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 5976ms behind, skipping 119 tick(s)
-[13:02:15] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 8704ms behind, skipping 174 tick(s)
-[13:02:18] [Server thread/INFO]: Saving and pausing game...
-[13:02:18] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[13:02:18] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[13:02:18] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[13:02:32] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2814ms behind, skipping 56 tick(s)
-[13:02:52] [Client thread/INFO]: [CHAT] 爱智宇已经开始建筑一个奶酪工厂
-[13:02:52] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 5224ms behind, skipping 104 tick(s)
-[13:03:19] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 11111ms behind, skipping 222 tick(s)
-[13:03:31] [Client thread/INFO]: [CHAT] 爱智宇已完成建设奶酪工厂
-[13:03:33] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 8366ms behind, skipping 167 tick(s)
-[13:03:45] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3014ms behind, skipping 60 tick(s)
-[13:04:12] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 9431ms behind, skipping 188 tick(s)
-[13:04:48] [Server thread/INFO]: Saving and pausing game...
-[13:04:48] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[13:04:48] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[13:04:48] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[13:04:48] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 29504ms behind, skipping 590 tick(s)
-[13:06:58] [Client thread/INFO]: [CHAT] 任俊杰从他们的库存中取走了3件物品
-[13:07:02] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3826ms behind, skipping 76 tick(s)
-[13:07:24] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 8866ms behind, skipping 177 tick(s)
-[13:07:35] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3073ms behind, skipping 61 tick(s)
-[13:07:47] [Client thread/INFO]: [CHAT] 爱智宇已经开始建筑一个奶酪工厂
-[13:08:07] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 12098ms behind, skipping 241 tick(s)
-[13:08:24] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 8148ms behind, skipping 162 tick(s)
-[13:08:24] [Client thread/INFO]: [CHAT] 爱智宇已完成建设奶酪工厂
-[13:08:54] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 17814ms behind, skipping 356 tick(s)
-[13:08:58] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3215ms behind, skipping 64 tick(s)
-[13:09:14] [Client thread/INFO]: [CHAT] 任俊杰今天在牛奶场没找到牛奶。
-[13:09:20] [Client thread/INFO]: [CHAT] 奶酪工厂出了问题，试着重建它——航路点问题
-[13:09:31] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 13683ms behind, skipping 273 tick(s)
-[13:09:42] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 7545ms behind, skipping 150 tick(s)
-[13:09:53] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2990ms behind, skipping 59 tick(s)
-[13:10:15] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 8561ms behind, skipping 171 tick(s)
-[13:10:27] [Server thread/INFO]: Saving and pausing game...
-[13:10:27] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[13:10:27] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[13:10:27] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[13:10:27] [Server thread/INFO]: Stopping server
-[13:10:27] [Server thread/INFO]: Saving players
-[13:10:27] [Server thread/INFO]: Saving worlds
-[13:10:27] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[13:10:27] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[13:10:27] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[13:10:32] [Client thread/INFO]: Stopping!
+[18:14:55] [main/INFO]: Setting user: Player226
+[18:14:57] [Client thread/INFO]: LWJGL Version: 2.9.1
+[18:15:07] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[18:15:20] [Sound Library Loader/INFO]: Sound engine started
+[18:15:23] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[18:15:23] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[18:15:23] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[18:15:24] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[18:15:25] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[18:15:25] [Sound Library Loader/INFO]: Sound engine started
+[18:16:48] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[18:16:48] [Server thread/INFO]: Generating keypair
+[18:16:48] [Server thread/INFO]: Converting map!
+[18:16:48] [Server thread/INFO]: Scanning folders...
+[18:16:48] [Server thread/INFO]: Total conversion count is 0
+[18:16:48] [Server thread/WARN]: Unable to find spawn biome
+[18:16:49] [Server thread/INFO]: Preparing start region for level 0
+[18:16:50] [Server thread/INFO]: Preparing spawn area: 39%
+[18:16:51] [Server thread/INFO]: Preparing spawn area: 74%
+[18:16:51] [Server thread/INFO]: Changing view distance to 12, from 10
+[18:16:52] [Server thread/INFO]: Player226[local:E:85d05342] logged in with entity id 0 at (9.5, 237.0, -6.5)
+[18:16:52] [Server thread/INFO]: Player226 加入了游戏
+[18:16:54] [Server thread/INFO]: Saving and pausing game...
+[18:16:54] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:16:58] [Client thread/INFO]: [CHAT] 戎熙贤刚刚进入该地区。
+[18:17:11] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:17:11] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:17:11] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.2 Beta由TRHSY重制
+[18:17:19] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 24932ms behind, skipping 498 tick(s)
+[18:17:19] [Server thread/INFO]: Saving and pausing game...
+[18:17:19] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:17:20] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:17:20] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:17:34] [Server thread/INFO]: Player226 刚刚获得了 [打开物品栏] 成就！
+[18:17:34] [Client thread/INFO]: [CHAT] Player226 刚刚获得了 [打开物品栏] 成就！
+[18:17:36] [Server thread/INFO]: Saving and pausing game...
+[18:17:36] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:17:39] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:17:39] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:17:39] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3038ms behind, skipping 60 tick(s)
+[18:17:42] [Server thread/INFO]: Saving and pausing game...
+[18:17:42] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:17:43] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:17:43] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:19:43] [Server thread/INFO]: Saving and pausing game...
+[18:19:43] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:19:43] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:19:43] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:20:48] [Server thread/INFO]: [Player226: 您的游戏模式已被设置为 创造模式 ]
+[18:20:48] [Client thread/INFO]: [CHAT] 您的游戏模式已更新
+[18:21:11] [Server thread/INFO]: [Player226: 您的游戏模式已被设置为 生存模式 ]
+[18:21:11] [Client thread/INFO]: [CHAT] 您的游戏模式已更新
+[18:25:17] [Client thread/INFO]: [CHAT] 戎熙贤已经开始建筑一个廉价小屋
+[18:25:21] [Client thread/INFO]: [CHAT] 戎熙贤 ( 谁在建造廉价小屋)需要更多圆石
+[18:26:28] [Server thread/INFO]: [Player226: 您的游戏模式已被设置为 创造模式 ]
+[18:26:28] [Client thread/INFO]: [CHAT] 您的游戏模式已更新
+[18:27:06] [Client thread/INFO]: [CHAT] 戎熙贤已完成建设廉价小屋
+[18:27:50] [Client thread/INFO]: [CHAT] 戎熙贤正在进入他们的廉价小屋
+[18:27:54] [Client thread/INFO]: [CHAT] 邱佩卿刚刚进入该地区。
+[18:28:30] [Server thread/INFO]: Saving and pausing game...
+[18:28:30] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:28:30] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:28:30] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:28:31] [Server thread/INFO]: Stopping server
+[18:28:31] [Server thread/INFO]: Saving players
+[18:28:31] [Server thread/INFO]: Saving worlds
+[18:28:31] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:28:31] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:28:31] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:28:33] [Client thread/INFO]: Stopping!

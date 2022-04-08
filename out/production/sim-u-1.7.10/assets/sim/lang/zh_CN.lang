@@ -836,7 +836,7 @@ container.sim.GotoMethod2=移动
 container.sim.GotoMethod3=解雇
 
 container.sim.Fire=解雇
-container.sim.Dismiss=免职
+container.sim.Dismiss=解雇
 
 container.sim.FarmType1=胡萝卜
 container.sim.FarmType2=甜瓜
