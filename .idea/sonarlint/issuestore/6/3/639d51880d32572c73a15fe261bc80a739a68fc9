@@ -1,30 +1,32 @@
 
 J
-java:S3740+"/Provide the parametrized type for this generic.(±ˆ£ışÿÿÿÿ
+java:S3740,"/Provide the parametrized type for this generic.(±ˆ£ışÿÿÿÿ
 E
-java:S3740`"/Provide the parametrized type for this generic.( ¬
+java:S3740a"/Provide the parametrized type for this generic.( ¬
 K
-java:S3740¶"/Provide the parametrized type for this generic.(Ÿÿğüşÿÿÿÿ
+java:S3740·"/Provide the parametrized type for this generic.(Ÿÿğüşÿÿÿÿ
 M
-java:S1135"2Complete the task associated to this TODO comment.(è—¬üÿÿÿÿ
-Q	java:S125j"<This block of commented-out lines of code should be removed.(Íû¾
+java:S1135"2Complete the task associated to this TODO comment.(è—¬üÿÿÿÿ
+Q	java:S125k"<This block of commented-out lines of code should be removed.(Íû¾
 D
-java:S1905m")Remove this unnecessary cast to "double".(Ø¥ãËÿÿÿÿÿ
+java:S1905n")Remove this unnecessary cast to "double".(Ø¥ãËÿÿÿÿÿ
 ?
-java:S1905p")Remove this unnecessary cast to "double".(çèÌ
+java:S1905q")Remove this unnecessary cast to "double".(çèÌ
 D
-java:S1905s")Remove this unnecessary cast to "double".(­³Åùÿÿÿÿ
+java:S1905t")Remove this unnecessary cast to "double".(­³Åùÿÿÿÿ
 i
-java:S3776œ"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(÷ÿ¯¶
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(÷ÿ¯¶
 H
-java:S1905¹",Remove this unnecessary cast to "GuiButton".( ˆõûÿÿÿÿ
+java:S1905º",Remove this unnecessary cast to "GuiButton".( ˆõûÿÿÿÿ
 A
-java:S1905Ì"+Remove this unnecessary cast to "FolkData".(Œ›¡w
+java:S1905Í"+Remove this unnecessary cast to "FolkData".(Œ›¡w
 i
-java:S1871Ù"MThis branch's code block is the same as the block for the branch on line 214.(×¾¾Íÿÿÿÿÿ
+java:S1871Ú"MThis branch's code block is the same as the block for the branch on line 215.(×¾¾Íÿÿÿÿÿ
+N
+java:S1905á"+Remove this unnecessary cast to "FolkData".(ûƒ¢±úÿÿÿÿ8Äúå»€0
 G
-java:S1905æ"+Remove this unnecessary cast to "FolkData".(©¦«òùÿÿÿÿ
+java:S1905ç"+Remove this unnecessary cast to "FolkData".(©¦«òùÿÿÿÿ
 I
-java:S1135€"2Complete the task associated to this TODO comment.(˜âÅ»
+java:S1135"2Complete the task associated to this TODO comment.(˜âÅ»
 }
-java:S1319Ê"fThe type of "efolks" should be an interface such as "List" rather than the implementation "ArrayList".(èÂ×è
+java:S1319Ë"fThe type of "efolks" should be an interface such as "List" rather than the implementation "ArrayList".(èÂ×è

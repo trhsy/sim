@@ -6,6 +6,7 @@ package com.trhsy.sim.client.gui.other;/**
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -36,8 +37,8 @@ public class GuiRunMod extends GuiScreen {
 
     @Override
     public void initGui() {
-        //ModSim.log.info("初始化GUI");
-        ModSim.log.info("初始化GUI");
+        //ModSimReloaded.log.info("初始化GUI");
+        ModSimReloaded.log.info("初始化GUI");
         String not_run = I18n.format("container.sim.not_run");
         String normal = I18n.format("container.sim.normal");
         String creative = I18n.format("container.sim.creative");
@@ -68,8 +69,8 @@ public class GuiRunMod extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, sim_gui_everything, this.width / 2, 160, 16776960);
             this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
         } catch (Exception var5) {
-            //ModSim.log.info("Caught Exception while drawing strings/screen");
-            ModSim.log.error("在绘制字符串/屏幕时捕获异常", var5.getMessage());
+            //ModSimReloaded.log.info("Caught Exception while drawing strings/screen");
+            ModSimReloaded.log.warning("在绘制字符串/屏幕时捕获异常"+var5.getMessage());
         }
 
         super.drawScreen(i, j, f);
@@ -78,21 +79,21 @@ public class GuiRunMod extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 0) {
-            ModSim.states.gameModeNumber = 10;
-            //ModSim.log.info("Turning off SimCity Reloaded");
-            ModSim.log.info("关闭重新加载的模拟城市");
+            ModSimReloaded.states.gameModeNumber = 10;
+            //ModSimReloaded.log.info("Turning off SimCity Reloaded");
+            ModSimReloaded.log.info("关闭重新加载的模拟城市");
         } else if (guibutton.id == 1) {
-            ModSim.states.gameModeNumber = 0;
-            //ModSim.log.info("Playing SimCity Reloaded in normal mode");
-            ModSim.log.info("在正常模式下重新加载模拟城市");
+            ModSimReloaded.states.gameModeNumber = 0;
+            //ModSimReloaded.log.info("Playing SimCity Reloaded in normal mode");
+            ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
             FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
         } else if (guibutton.id == 2) {
-            ModSim.states.gameModeNumber = 1;
+            ModSimReloaded.states.gameModeNumber = 1;
         } else if (guibutton.id == 3) {
-            ModSim.states.gameModeNumber = 2;
+            ModSimReloaded.states.gameModeNumber = 2;
         }
 
-        ModSim.states.saveStates();
+        ModSimReloaded.states.saveStates();
         this.running = false;
         this.mc.currentScreen = null;
         this.mc.setIngameFocus();

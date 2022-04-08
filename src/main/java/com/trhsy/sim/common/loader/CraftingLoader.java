@@ -44,7 +44,7 @@ public class CraftingLoader {
         * */
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockMarker, 3), new Object[]{"G", "S", 'S', Items.stick, 'G', new ItemStack(Items.dye, 1, 11)});
         //采矿箱和养殖箱是否弃用最贵的钻石镐合成
-        if (ModSim.configUseExpensiveRecipies) {
+        if (ConfigLoader.configUseExpensiveRecipies) {
             /** 采矿箱 养殖箱
              * 木板 木板 木板
              * 圆石 镐子/锄头 圆石

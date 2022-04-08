@@ -1,21 +1,17 @@
 
 J
-java:S3740"/Provide the parametrized type for this generic.(´„Ë·ùÿÿÿÿ
+java:S3740"/Provide the parametrized type for this generic.(´„Ë·ùÿÿÿÿ
 M
-java:S1135"2Complete the task associated to this TODO comment.(êð·¥øÿÿÿÿ
+java:S1135"2Complete the task associated to this TODO comment.(êð·¥øÿÿÿÿ
 H
-java:S1135%"2Complete the task associated to this TODO comment.(À×øñ
-V	java:S125."<This block of commented-out lines of code should be removed.(ë©†‹üÿÿÿÿ
+java:S1135&"2Complete the task associated to this TODO comment.(À×øñ
+V	java:S125/"<This block of commented-out lines of code should be removed.(ë©†‹üÿÿÿÿ
 h
-java:S3776Y"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(‡àñ¯
+java:S3776Z"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(‡àñ¯
 U
-java:S1854m":Remove this useless assignment to local variable "status".(”é¾˜ýÿÿÿÿ
-?	java:S108€")Either remove or fill this block of code.(†äç³
-W	java:S125"<This block of commented-out lines of code should be removed.(ƒÈ—»ÿÿÿÿÿ
-X
-java:S3457”"AFormat specifiers should be used instead of string concatenation.(©Ä²¾
-Y	java:S125œ"<This block of commented-out lines of code should be removed.(·Éü¦8Çâøïÿ/
-c
-java:S1128	"ARemove this unused import 'cpw.mods.fml.common.FMLCommonHandler'.(íÕ…úÿÿÿÿÿ8¼¾ðÿ/
+java:S1854n":Remove this useless assignment to local variable "status".(”é¾˜ýÿÿÿÿ
+?	java:S108")Either remove or fill this block of code.(†äç³
+W	java:S125Ž"<This block of commented-out lines of code should be removed.(ƒÈ—»ÿÿÿÿÿ
+Y	java:S125"<This block of commented-out lines of code should be removed.(·Éü¦8Çâøïÿ/
 P
-java:S1141~"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+java:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ

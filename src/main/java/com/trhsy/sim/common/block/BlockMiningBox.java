@@ -11,6 +11,7 @@ import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -63,10 +64,10 @@ public class BlockMiningBox extends Block {
     public void onBlockAdded(World world, int i, int j, int k) {
         if (BlockMarker.markers.isEmpty()) {
             String Mining_box_area = I18n.format("container.sim.Mining_box_area");
-            ModSim.sendChat(Mining_box_area);
+            ModSimReloaded.sendChat(Mining_box_area);
         } else {
             MiningBox m;
-            ModSim.theMiningBoxes.add(m = new MiningBox(new V3((double) i, (double) j, (double) k, world.provider.dimensionId)));
+            ModSimReloaded.theMiningBoxes.add(m = new MiningBox(new V3((double) i, (double) j, (double) k, world.provider.dimensionId)));
             if (BlockMarker.markers.size() == 1) {
                 m.marker1XYZ = ((Marker)BlockMarker.markers.get(0)).toV3();
                 m.marker2XYZ = null;
@@ -93,7 +94,7 @@ public class BlockMiningBox extends Block {
         }
 
         MiningBox m = MiningBox.getMiningBlockByBoxXYZ(new V3(i, j, k));
-        ModSim.theMiningBoxes.remove(m);
+        ModSimReloaded.theMiningBoxes.remove(m);
         world.playSoundEffect((double) i, (double) j, (double) k, ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         super.onBlockDestroyedByPlayer(world, i, j, k, meta);
     }
@@ -114,7 +115,7 @@ public class BlockMiningBox extends Block {
             var14.printStackTrace();
             if (world.isRemote) {
                 String Mining_box_Sorry = I18n.format("container.sim.Mining_box_Sorry");
-                ModSim.sendChat(Mining_box_Sorry);
+                ModSimReloaded.sendChat(Mining_box_Sorry);
             }
         }
 

@@ -142,7 +142,7 @@ container.sim.sim_gui_player_to_Cancel=取消
 container.sim.sim_gui_player_to_You=你没有任何信使/光束点！
 container.sim.sim_gui_player_to_Place=向下放置一个标记棒并右键单击它
 container.sim.sim_gui_player_to_to=做一个。 然后，您可以使用任何控制箱向那里发送信号。
-container.sim.sim_gui_Beaming=向你微笑
+container.sim.sim_gui_Beaming=将你传送到
 
 
 container.sim.sim_settings=你的模拟城镇设置文件已损坏，我必须重新创建一个

@@ -4,13 +4,14 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.util.GameMode;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -90,7 +91,7 @@ public class JobBuilder extends Job implements Serializable {
     public void onUpdate() {
         if (this.theFolk != null) {
             super.onUpdate();
-            if (!ModSim.isDayTime()) {
+            if (!ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -124,7 +125,7 @@ public class JobBuilder extends Job implements Serializable {
                         this.theStage = Stage.BLUEPRINT;
                     }
 
-                    if ((this.theStage == Stage.IDLE || this.theStage == Stage.WORKERASSIGNED) && ModSim.isDayTime()) {
+                    if ((this.theStage == Stage.IDLE || this.theStage == Stage.WORKERASSIGNED) && ModSimReloaded.isDayTime()) {
                         if (this.theFolk.action != FolkAction.ONWAYTOWORK) {
                             this.theStage = Stage.WORKERASSIGNED;
                         }
@@ -192,7 +193,7 @@ public class JobBuilder extends Job implements Serializable {
                 try {
                     ((IInventory)this.constructorChests.get(0)).openChest();
                 } catch (Exception var2) {
-                    ModSim.log.error("JobBuilder:JobBuilder's 的箱子是空的");
+                    ModSimReloaded.log.warning("JobBuilder:JobBuilder's 的箱子是空的");
                 }
 
                 this.step = 2;
@@ -255,7 +256,7 @@ public class JobBuilder extends Job implements Serializable {
                 } else {
                     if (!this.theBuilding.buildDirection.contentEquals("+z")) {
                         ;
-                        ModSim.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
+                        ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
                         this.theFolk.selfFire();
                         return;
                     }
@@ -263,10 +264,10 @@ public class JobBuilder extends Job implements Serializable {
                     this.bz = this.cz - 1;
                 }
 
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_building") + this.theBuilding.displayNameWithoutPK);
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_building") + this.theBuilding.displayNameWithoutPK);
                 this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                 if (this.theBuilding == null || this.theBuilding.layerCount == 0) {
-                    ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_misplaced"));
+                    ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_misplaced"));
                     return;
                 }
 
@@ -309,12 +310,12 @@ public class JobBuilder extends Job implements Serializable {
                     try {
                         bl = this.theBuilding.structure[this.acount].split(":");
                     } catch (Exception var17) {
-                        ModSim.log.error("JobBuilder: 建筑中的空块,改用空气");
+                        ModSimReloaded.log.warning("JobBuilder: 建筑中的空块,改用空气");
                         bl = "0:0".split(":");
                     }
 
                     blockId = Block.getBlockFromName(bl[0]);
-                    //ModSim.log.info("***************blockId:" + blockId);
+                    //ModSimReloaded.log.info("***************blockId:" + blockId);
                     int subtype = Integer.parseInt(bl[1]);
                     if (blockId == Blocks.grass) {
                         blockId = Blocks.dirt;
@@ -330,7 +331,7 @@ public class JobBuilder extends Job implements Serializable {
                             this.theBuilding.primaryXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
                             this.theBuilding.saveThisBuilding();
                         } catch (Exception var16) {
-                            ModSim.log.error("JobBuilder:构建为空");
+                            ModSimReloaded.log.warning("JobBuilder:构建为空");
                         }
                     }
 
@@ -361,7 +362,7 @@ public class JobBuilder extends Job implements Serializable {
                         }
                     } catch (Exception var20) {
                         this.theFolk.selfFire();
-                        ModSim.log.info("错误:" ,var20.getMessage());
+                        ModSimReloaded.log.info("错误:" +var20.getMessage());
                         return;
                     }
 
@@ -370,13 +371,13 @@ public class JobBuilder extends Job implements Serializable {
                     if (wantIS != null && wantIS != null) {
                         try {
                             want = wantIS.getDisplayName();
-                            //ModSim.log.info("*******************ItemStack:" + want);
+                            //ModSimReloaded.log.info("*******************ItemStack:" + want);
                             if (blockId != null) {
                                 this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
                             }
                         } catch (Exception var15) {
                             want = "?";
-                            ModSim.log.error("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
+                            ModSimReloaded.log.warning("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
                         }
                     } else {
                         want = "???";
@@ -394,7 +395,7 @@ public class JobBuilder extends Job implements Serializable {
                         boolean gotBlock = false;
                         boolean requiredBlocks = blockId == Blocks.planks || blockId == Blocks.cobblestone || blockId == Blocks.glass || blockId == Blocks.wool || blockId == Blocks.brick_block || blockId == Blocks.dirt || blockId == Blocks.stonebrick || blockId == Blocks.fence || blockId == Blocks.stone || blockId == Blocks.log;
                         ItemStack got;
-                        if (ModSim.gameMode == GameMode.NORMAL) {
+                        if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
                             if (requiredBlocks) {
                                 this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
                                 got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
@@ -406,9 +407,9 @@ public class JobBuilder extends Job implements Serializable {
                             } else {
                                 gotBlock = true;
                             }
-                        } else if (ModSim.gameMode == GameMode.CREATIVE) {
+                        } else if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                             gotBlock = true;
-                        } else if (ModSim.gameMode == GameMode.HARDCORE) {
+                        } else if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
                             if (blockId != null) {
                                 if (blockId != Blocks.grass && blockId != Blocks.water && blockId != Blocks.water && blockId != Blocks.lava && blockId != Blocks.lava && blockId != Blocks.wall_sign && blockId != Blocks.cake && blockId != Blocks.stone_slab && blockId != Blocks.wooden_slab && blockId != Blocks.double_wooden_slab && blockId != Blocks.double_stone_slab && blockId != Blocks.farmland && blockId != Blocks.wooden_door && blockId != Blocks.iron_door && blockId != Blocks.bed) {
                                     this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -443,7 +444,7 @@ public class JobBuilder extends Job implements Serializable {
                             this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Waiting") + want;
                             if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ConfigLoader.configMaterialReminderInterval * 60 * 1000)) {
                                 this.lastNotifiedOfMaterials = System.currentTimeMillis();
-                                ModSim.sendChat(this.theFolk.name + " ( " + I18n.format("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.format("container.sim.job.builder_constructor_started_more") + want);
+                                ModSimReloaded.sendChat(this.theFolk.name + " ( " + I18n.format("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.format("container.sim.job.builder_constructor_started_more") + want);
                             }
 
                             this.step = 3;
@@ -472,7 +473,7 @@ public class JobBuilder extends Job implements Serializable {
 
                                     int aft = (int)Math.floor((double)this.theFolk.levelBuilder);
                                     if (b4 != aft) {
-                                        ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_levelled") + aft);
+                                        ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_levelled") + aft);
                                     }
 
                                     if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
@@ -486,24 +487,24 @@ public class JobBuilder extends Job implements Serializable {
                                         this.mc.theWorld.spawnParticle("explode", (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0.0D, 0.10000000149011612D, 0.0D);
                                     }
 
-                                    if (blockId != null && ModSim.gameMode != GameMode.CREATIVE) {
-                                        GameStates var25 = ModSim.states;
+                                    if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                        GameStates var25 = ModSimReloaded.states;
                                         var25.credits -= 0.02F;
                                     }
                                 } catch (Exception var18) {
-                                    ModSim.log.error("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
+                                    ModSimReloaded.log.warning("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
 
                                     try {
                                         this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, blockId, 0, 3);
                                     } catch (Exception var14) {
                                         //var14.printStackTrace();
-                                        ModSim.log.error("错误：",var14.getMessage());
+                                        ModSimReloaded.log.warning("错误："+var14.getMessage());
                                     }
                                 }
                             }
                         } catch (Exception var19) {
                             //var19.printStackTrace();
-                            ModSim.log.error("错误：",var19.getMessage());
+                            ModSimReloaded.log.warning("错误："+var19.getMessage());
                         }
                     }
 
@@ -524,7 +525,7 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     if (blockId != null && !alreadyPlaced) {
-                        if (ModSim.gameMode == GameMode.CREATIVE) {
+                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                             this.runDelay = 0;
                         } else {
                             this.runDelay = (int) (2000.0F / this.theFolk.levelBuilder);
@@ -550,12 +551,12 @@ public class JobBuilder extends Job implements Serializable {
 
             if (this.theBuilding != null) {
                 this.theBuilding.buildingComplete = true;
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
                 ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                 this.theBuilding.saveThisBuilding();
                 this.theFolk.theBuilding = null;
             } else {
-                ModSim.sendChat(I18n.format("container.sim.job.builder_constructor_Error") + this.theFolk.name + I18n.format("container.sim.job.builder_constructor_was_building"));
+                ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_Error") + this.theFolk.name + I18n.format("container.sim.job.builder_constructor_was_building"));
             }
         }
 
@@ -569,16 +570,16 @@ public class JobBuilder extends Job implements Serializable {
         boolean activeBuilders = false;
 
         int b;
-        for (b = 0; b < ModSim.theFolks.size(); ++b) {
-            FolkData fd = (FolkData) ModSim.theFolks.get(b);
+        for (b = 0; b < ModSimReloaded.theFolks.size(); ++b) {
+            FolkData fd = (FolkData) ModSimReloaded.theFolks.get(b);
             if (fd.vocation == Vocation.BUILDER) {
                 activeBuilders = true;
             }
         }
 
         if (!activeBuilders) {
-            for (b = 0; b < ModSim.theBuildings.size(); ++b) {
-                Building building = (Building) ModSim.theBuildings.get(b);
+            for (b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
+                Building building = (Building) ModSimReloaded.theBuildings.get(b);
                 building.buildingComplete = true;
             }
         }

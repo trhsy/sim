@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.Job;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
@@ -128,15 +129,15 @@ public class GuiMarker extends GuiScreen {
 
                 point.name = name;
 
-                for (int p = 0; p < ModSim.theCourierPoints.size(); ++p) {
-                    V3 epoint = (V3) ModSim.theCourierPoints.get(p);
+                for (int p = 0; p < ModSimReloaded.theCourierPoints.size(); ++p) {
+                    V3 epoint = (V3) ModSimReloaded.theCourierPoints.get(p);
                     if (epoint.name.contentEquals(name)) {
                         this.errorText = I18n.format("container.sim.Markers7") + name + I18n.format("container.sim.Markers8");
                         return;
                     }
                 }
 
-                ModSim.theCourierPoints.add(point);
+                ModSimReloaded.theCourierPoints.add(point);
                 this.errorText = I18n.format("container.sim.Markers9") + name + I18n.format("container.sim.Markers10");
             }
 
@@ -214,7 +215,7 @@ public class GuiMarker extends GuiScreen {
                 } else {
                     if (cx != ex) {
                         GuiMarker.this.errorText = I18n.format("container.sim.Markers11");
-                        ModSim.sendChat(I18n.format("container.sim.Markers12") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
+                        ModSimReloaded.sendChat(I18n.format("container.sim.Markers12") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
                         return;
                     }
 
@@ -302,7 +303,7 @@ public class GuiMarker extends GuiScreen {
 
                     File check = new File(UpdateChecker.getSimukraftFolder() + "/buildings/");
                     if (!check.exists()) {
-                        ModSim.sendChat(UpdateChecker.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Markers14"));
+                        ModSimReloaded.sendChat(UpdateChecker.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Markers14"));
                         return;
                     }
 

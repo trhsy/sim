@@ -11,6 +11,7 @@ import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -65,7 +66,7 @@ public class BlockFarmingBox extends Block {
         }
 
         FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double) par2, (double) par3, (double) par4, par1World.provider.dimensionId));
-        ModSim.theFarmingBoxes.remove(m);
+        ModSimReloaded.theFarmingBoxes.remove(m);
         par1World.playSoundEffect((double) par2, (double) par3, (double) par4, ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
     }
@@ -74,13 +75,13 @@ public class BlockFarmingBox extends Block {
     public void onBlockAdded(World par1World, int par2, int par3, int par4) {
         if (BlockMarker.markers.isEmpty()) {
             String farming_box_isEmpty = I18n.format("container.sim.farming_box_isEmpty");
-            ModSim.sendChat(farming_box_isEmpty);
+            ModSimReloaded.sendChat(farming_box_isEmpty);
         } else if (BlockMarker.markers.size() != 3) {
             String farming_box_size = I18n.format("container.sim.farming_box_size");
-            ModSim.sendChat(farming_box_size + BlockMarker.markers.size());
+            ModSimReloaded.sendChat(farming_box_size + BlockMarker.markers.size());
         } else {
             FarmingBox m;
-            ModSim.theFarmingBoxes.add(m = new FarmingBox(new V3((double) par2, (double) par3, (double) par4, par1World.provider.dimensionId)));
+            ModSimReloaded.theFarmingBoxes.add(m = new FarmingBox(new V3((double) par2, (double) par3, (double) par4, par1World.provider.dimensionId)));
 
             try {
                 int first = BlockMarker.markers.size() - 3;
@@ -108,7 +109,7 @@ public class BlockFarmingBox extends Block {
             mc.displayGuiScreen(new GuiFarming(farmingBlock, folk));
         } catch (Exception var13) {
             String farming_box_Sorry = I18n.format("container.sim.farming_box_Sorry");
-            ModSim.sendChat(farming_box_Sorry);
+            ModSimReloaded.sendChat(farming_box_Sorry);
         }
 
         return true;

@@ -1,58 +1,54 @@
 
 E
-java:S3740"/Provide the parametrized type for this generic.(¥ÁŸ‡
+java:S3740 "/Provide the parametrized type for this generic.(¥ÁŸ‡
 A
-java:S2387"+"vocation" is the name of a field in "Job".(ùŒé’
+java:S2387"+"vocation" is the name of a field in "Job".(ùŒé’
 h
-java:S3776;"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(æôÚ„
+java:S3776<"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(æôÚ„
 =
-java:S1905L"'Remove this unnecessary cast to "long".(ï·Ï«
->	java:S108w")Either remove or fill this block of code.(ôÒø‚
+java:S1905M"'Remove this unnecessary cast to "long".(ï·Ï«
+>	java:S108x")Either remove or fill this block of code.(ôÒø‚
 @
-java:S1905ƒ")Remove this unnecessary cast to "double".(‘ù†­
-D	java:S108Œ")Either remove or fill this block of code.(öé”şÿÿÿÿ
+java:S1905„")Remove this unnecessary cast to "double".(‘ù†­
+D	java:S108")Either remove or fill this block of code.(öé”şÿÿÿÿ
 @
-java:S1905•")Remove this unnecessary cast to "double".(‘ù†­
-W	java:S125"<This block of commented-out lines of code should be removed.(Ó‰Û‘øÿÿÿÿ
+java:S1905–")Remove this unnecessary cast to "double".(‘ù†­
+W	java:S125Ÿ"<This block of commented-out lines of code should be removed.(Ó‰Û‘øÿÿÿÿ
 E
-java:S1940¤")Use the opposite operator ("<=") instead.(–óŸ·ûÿÿÿÿ
-?	java:S108¦")Either remove or fill this block of code.(ƒàó›
-E
-java:S1905¯")Remove this unnecessary cast to "double".(¿‰õıÿÿÿÿ
-?	java:S108¶")Either remove or fill this block of code.(±ÛÃ™
+java:S1940¥")Use the opposite operator ("<=") instead.(–óŸ·ûÿÿÿÿ
+?	java:S108§")Either remove or fill this block of code.(ƒàó›
+?	java:S108·")Either remove or fill this block of code.(±ÛÃ™
 V
-java:S1854Ö":Remove this useless assignment to local variable "placed".(Ü‡¼´şÿÿÿÿ
-Y	java:S125Â"<This block of commented-out lines of code should be removed.(âßâ8·™Ÿïÿ/
+java:S1854×":Remove this useless assignment to local variable "placed".(Ü‡¼´şÿÿÿÿ
+Y	java:S125Ã"<This block of commented-out lines of code should be removed.(âßâ8·™Ÿïÿ/
 @
-java:S1905Ì")Remove this unnecessary cast to "double".(½ò¿‡
+java:S1905Í")Remove this unnecessary cast to "double".(½ò¿‡
 D
-java:S1905Õ"-Remove this unnecessary cast to "IInventory".(»¿’é
+java:S1905Ö"-Remove this unnecessary cast to "IInventory".(»¿’é
 G
-java:S1481Ö"+Remove this unused "placed" local variable.(Ü‡¼´şÿÿÿÿ
-?	java:S108Ú")Either remove or fill this block of code.(Æƒæí
+java:S1481×"+Remove this unused "placed" local variable.(Ü‡¼´şÿÿÿÿ
+?	java:S108Û")Either remove or fill this block of code.(Æƒæí
 i
-java:S3776ß"RRefactor this method to reduce its Cognitive Complexity from 45 to the 15 allowed.(ÕÈ³
+java:S3776à"RRefactor this method to reduce its Cognitive Complexity from 45 to the 15 allowed.(ÕÈ³
 R
-java:S1854ê";Remove this useless assignment to local variable "gotFuel".(İ¤Ê¯
+java:S1854ë";Remove this useless assignment to local variable "gotFuel".(İ¤Ê¯
 R
-java:S1854Š";Remove this useless assignment to local variable "gotFuel".(İ¤Ê¯
+java:S1854‹";Remove this useless assignment to local variable "gotFuel".(İ¤Ê¯
 2
-java:S3626œ"Remove this redundant jump.(ûÁİ…
+java:S3626"Remove this redundant jump.(ûÁİ…
 @
-java:S1905¤")Remove this unnecessary cast to "double".(µä•Æ
-@
-java:S1905¤")Remove this unnecessary cast to "double".(µä•Æ
+java:S1905¥")Remove this unnecessary cast to "double".(µä•Æ
 J
-java:S1066."/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+java:S1066/"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
 j
-java:S1104"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+java:S1104"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
 n
-java:S1104"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+java:S1104"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
 j
-java:S1104"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+java:S1104"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
 o
-java:S1104"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+java:S1104"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
 w
-java:S1104"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
+java:S1104"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
 S
-java:S2589ˆ"7Remove this expression which always evaluates to "true"(‡†®ÿÿÿÿÿ
+java:S2589‰"7Remove this expression which always evaluates to "true"(‡†®ÿÿÿÿÿ

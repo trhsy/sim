@@ -5,6 +5,7 @@ package com.trhsy.sim.packets;/**
  */
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;

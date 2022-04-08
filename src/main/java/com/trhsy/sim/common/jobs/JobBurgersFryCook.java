@@ -12,6 +12,7 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -60,7 +61,7 @@ public class JobBurgersFryCook extends Job {
         }
 
         if (this.theStore != null) {
-            if (!ModSim.isDayTime()) {
+            if (!ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -80,7 +81,7 @@ public class JobBurgersFryCook extends Job {
             }
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theStage = Stage.MAKEFOOD;
                         //做食物
@@ -91,7 +92,7 @@ public class JobBurgersFryCook extends Job {
                     }
                 }
 
-                if (!ModSim.isDayTime()) {
+                if (!ModSimReloaded.isDayTime()) {
                     this.theStage = Stage.IDLE;
                 }
 
@@ -215,7 +216,7 @@ public class JobBurgersFryCook extends Job {
                             this.theFolk.isWorking = false;
                             this.step = 1;
                             this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Checking_Ingrediants");
-                            GameStates var10000 = ModSim.states;
+                            GameStates var10000 = ModSimReloaded.states;
                             var10000.credits = (float)((double)var10000.credits - 0.45D);
                         }
 

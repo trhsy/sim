@@ -104,7 +104,7 @@ public class CommonProxy {
             o = in2.readObject();
             in2.close();
         } catch (Exception var5) {
-            ModSim.log.info("旧加载程序-无法加载对象 " + var5.getMessage());
+            ModSimReloaded.log.info("旧加载程序-无法加载对象 " + var5.getMessage());
         }
 
         return o;

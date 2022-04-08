@@ -2,6 +2,7 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.jobs.Job;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.inventory.IInventory;
@@ -31,8 +32,8 @@ public class CourierTask implements Serializable {
     public static V3 getCourierPoint(String name) {
         new V3();
 
-        for (int x = 0; x < ModSim.theCourierPoints.size(); ++x) {
-            V3 v = (V3) ModSim.theCourierPoints.get(x);
+        for (int x = 0; x < ModSimReloaded.theCourierPoints.size(); ++x) {
+            V3 v = (V3) ModSimReloaded.theCourierPoints.get(x);
             if (v.name.contentEquals(name)) {
                 return v;
             }
@@ -44,8 +45,8 @@ public class CourierTask implements Serializable {
     private static boolean alreadyGotTask(CourierTask theTask) {
         boolean got = false;
 
-        for (int i = 0; i < ModSim.theCourierTasks.size(); ++i) {
-            CourierTask checkTask = (CourierTask) ModSim.theCourierTasks.get(i);
+        for (int i = 0; i < ModSimReloaded.theCourierTasks.size(); ++i) {
+            CourierTask checkTask = (CourierTask) ModSimReloaded.theCourierTasks.get(i);
 
             try {
                 if (checkTask.pickup.name.contentEquals(theTask.name)) {
@@ -63,8 +64,8 @@ public class CourierTask implements Serializable {
     private static boolean alreadyGotPoint(V3 thePoint) {
         boolean got = false;
 
-        for (int i = 0; i < ModSim.theCourierPoints.size(); ++i) {
-            V3 checkPoint = (V3) ModSim.theCourierPoints.get(i);
+        for (int i = 0; i < ModSimReloaded.theCourierPoints.size(); ++i) {
+            V3 checkPoint = (V3) ModSimReloaded.theCourierPoints.get(i);
             if (checkPoint.isSameCoordsAs(thePoint, true, true)) {
                 got = true;
                 break;
@@ -75,11 +76,11 @@ public class CourierTask implements Serializable {
     }
 
     public static void loadCourierTasksAndPoints() {
-        ModSim.theCourierPoints.clear();
-        ModSim.theCourierTasks.clear();
-        File courierPoints = new File(ModSim.getSavesDataFolder() + "CourierPoints" + File.separator);
+        ModSimReloaded.theCourierPoints.clear();
+        ModSimReloaded.theCourierTasks.clear();
+        File courierPoints = new File(ModSimReloaded.getSavesDataFolder() + "CourierPoints" + File.separator);
         courierPoints.mkdirs();
-        File courierTasks = new File(ModSim.getSavesDataFolder() + "CourierTasks" + File.separator);
+        File courierTasks = new File(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator);
         courierTasks.mkdirs();
 
         boolean useNewFormat = false;
@@ -109,7 +110,7 @@ public class CourierTask implements Serializable {
             for(m1 = 0; m1 < lengths; ++m1) {
                 f = listFiles[m1];
                 if (f.getName().endsWith(".sk2")) {
-                    strings = ModSim.loadSK2(f.getAbsoluteFile().toString());
+                    strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     V3 v = new V3();
                     iterator = strings.iterator();
 
@@ -128,7 +129,7 @@ public class CourierTask implements Serializable {
                     }
 
                     if (v != null && !alreadyGotPoint(v)) {
-                        ModSim.theCourierPoints.add(v);
+                        ModSimReloaded.theCourierPoints.add(v);
                     } else {
                         f.delete();
                     }
@@ -141,7 +142,7 @@ public class CourierTask implements Serializable {
             for(m1 = 0; m1 < lengths; ++m1) {
                 f = listFiles[m1];
                 if (f.getName().endsWith(".sk2")) {
-                    strings = ModSim.loadSK2(f.getAbsoluteFile().toString());
+                    strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     CourierTask ct = new CourierTask();
                     iterator = strings.iterator();
 
@@ -168,7 +169,7 @@ public class CourierTask implements Serializable {
                     }
 
                     if (!alreadyGotTask(ct) && ct != null && ct.dropoff != null && ct.pickup != null) {
-                        ModSim.theCourierTasks.add(ct);
+                        ModSimReloaded.theCourierTasks.add(ct);
                     } else {
                         f.delete();
                     }
@@ -183,7 +184,7 @@ public class CourierTask implements Serializable {
                 if (f.getName().endsWith(".suk")) {
                     V3 point = (V3) ModSim.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (!alreadyGotPoint(point)) {
-                        ModSim.theCourierPoints.add(point);
+                        ModSimReloaded.theCourierPoints.add(point);
                     } else {
                         f.delete();
                     }
@@ -198,7 +199,7 @@ public class CourierTask implements Serializable {
                 if (f.getName().endsWith(".suk")) {
                     CourierTask task = (CourierTask) ModSim.proxy.loadObject(f.getAbsoluteFile().toString());
                     if (!alreadyGotTask(task)) {
-                        ModSim.theCourierTasks.add(task);
+                        ModSimReloaded.theCourierTasks.add(task);
                     } else {
                         f.delete();
                     }
@@ -214,9 +215,9 @@ public class CourierTask implements Serializable {
         if (side == Side.SERVER) {
             int mofo;
             ArrayList strings;
-            for (mofo = 0; mofo < ModSim.theCourierPoints.size(); ++mofo) {
+            for (mofo = 0; mofo < ModSimReloaded.theCourierPoints.size(); ++mofo) {
                 strings = new ArrayList();
-                V3 point = (V3) ModSim.theCourierPoints.get(mofo);
+                V3 point = (V3) ModSimReloaded.theCourierPoints.get(mofo);
                 if (point != null) {
                     ArrayList<IInventory> chests = Job.inventoriesFindClosest(point, 5);
                     String fn = "cp" + point.x.intValue() + "_" + point.y.intValue() + "_" + point.z.intValue() + "_D" + point.theDimension;
@@ -226,11 +227,11 @@ public class CourierTask implements Serializable {
                             strings.add("location|" + point.toString());
                             strings.add("name|" + point.name);
 
-                            ModSim.saveSK2(ModSim.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2", strings);
+                            ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2", strings);
                         }
                     } else {
                         try {
-                            File fi = new File(ModSim.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2");
+                            File fi = new File(ModSimReloaded.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2");
                             fi.delete();
                         } catch (Exception var9) {
                             var9.printStackTrace();
@@ -239,9 +240,9 @@ public class CourierTask implements Serializable {
                 }
             }
 
-            for (mofo = 0; mofo < ModSim.theCourierTasks.size(); ++mofo) {
+            for (mofo = 0; mofo < ModSimReloaded.theCourierTasks.size(); ++mofo) {
                 strings = new ArrayList();
-                CourierTask task = (CourierTask) ModSim.theCourierTasks.get(mofo);
+                CourierTask task = (CourierTask) ModSimReloaded.theCourierTasks.get(mofo);
                 String fn = "ct" + mofo + task.folkname.replace(" ", "");
                 boolean okToSave = true;
                 strings.add("folk|" + task.folkname);
@@ -259,7 +260,7 @@ public class CourierTask implements Serializable {
                 strings.add("repeat|" + task.repeat);
                 strings.add("name|" + task.name);
                 if (okToSave) {
-                    ModSim.saveSK2(ModSim.getSavesDataFolder() + "CourierTasks" + File.separator + fn + ".sk2", strings);
+                    ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator + fn + ".sk2", strings);
                 }
             }
         }

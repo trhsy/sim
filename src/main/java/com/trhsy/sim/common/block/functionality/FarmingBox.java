@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FarmType;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
@@ -128,7 +129,7 @@ public class FarmingBox implements Serializable {
         V3 c = m1.clone();
         int length = this.getSizeLength();
         if (length == 1) {
-            ModSim.log.warn("FarmingBox: 无法使用5x5默认值确定农场大小");
+            ModSimReloaded.log.warning("FarmingBox: 无法使用5x5默认值确定农场大小");
         }
 
         for(int o = 0; o <= length; ++o) {
@@ -256,12 +257,12 @@ public class FarmingBox implements Serializable {
 
     public static FarmingBox getFarmingBlockByBoxXYZ(V3 xyz) {
         FarmingBox ret = null;
-        if (ModSim.theFarmingBoxes.size() == 0) {
+        if (ModSimReloaded.theFarmingBoxes.size() == 0) {
             loadFarmingBoxes();
         }
 
-        for (int x = 0; x < ModSim.theFarmingBoxes.size(); ++x) {
-            FarmingBox block = (FarmingBox) ModSim.theFarmingBoxes.get(x);
+        for (int x = 0; x < ModSimReloaded.theFarmingBoxes.size(); ++x) {
+            FarmingBox block = (FarmingBox) ModSimReloaded.theFarmingBoxes.get(x);
             if (block.location.isSameCoordsAs(xyz, true, true)) {
                 ret = block;
                 break;
@@ -273,7 +274,7 @@ public class FarmingBox implements Serializable {
 
     public static void loadFarmingBoxes() {
         Minecraft mc = Minecraft.getMinecraft();
-        File farmFiles = new File(ModSim.getSavesDataFolder() + "Farming" + File.separator);
+        File farmFiles = new File(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator);
         farmFiles.mkdirs();
         boolean useNewFormat = false;
         File[] arr$ = farmFiles.listFiles();
@@ -292,14 +293,14 @@ public class FarmingBox implements Serializable {
         WorldServer theWorld;
         Block id;
         if (useNewFormat) {
-            ModSim.theFarmingBoxes.clear();
+            ModSimReloaded.theFarmingBoxes.clear();
             arr$ = farmFiles.listFiles();
             len$ = arr$.length;
 
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
-                    ArrayList<String> strings = ModSim.loadSK2(f.getAbsoluteFile().toString());
+                    ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     FarmingBox box = new FarmingBox();
                     Iterator iterator = strings.iterator();
 
@@ -335,7 +336,7 @@ public class FarmingBox implements Serializable {
                     if (theWorld != null) {
                         id = theWorld.getBlock(box.location.x.intValue(), box.location.y.intValue(), box.location.z.intValue());
                         if (id == BlockLoader.blockFarmingBox) {
-                            ModSim.theFarmingBoxes.add(box);
+                            ModSimReloaded.theFarmingBoxes.add(box);
                         } else {
                             f.delete();
                         }
@@ -359,7 +360,7 @@ public class FarmingBox implements Serializable {
                             try {
                                 id = theWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
                                 if (id == BlockLoader.blockFarmingBox) {
-                                    ModSim.theFarmingBoxes.add(farming);
+                                    ModSimReloaded.theFarmingBoxes.add(farming);
                                 } else {
                                     f.delete();
                                 }
@@ -370,7 +371,7 @@ public class FarmingBox implements Serializable {
                     } else {
                         f.delete();
                         String s = I18n.format("container.sim.farming_box_boxes");
-                        ModSim.sendChat(s);
+                        ModSimReloaded.sendChat(s);
                     }
                 }
             }
@@ -383,8 +384,8 @@ public class FarmingBox implements Serializable {
         if (side == Side.SERVER) {
             ArrayList<String> strings = new ArrayList();
 
-            for (int b = 0; b < ModSim.theFarmingBoxes.size(); ++b) {
-                FarmingBox farming = (FarmingBox) ModSim.theFarmingBoxes.get(b);
+            for (int b = 0; b < ModSimReloaded.theFarmingBoxes.size(); ++b) {
+                FarmingBox farming = (FarmingBox) ModSimReloaded.theFarmingBoxes.get(b);
                 strings.clear();
                 if (farming != null && farming.location != null && farming.marker1XYZ != null) {
                     try {
@@ -395,7 +396,7 @@ public class FarmingBox implements Serializable {
                         strings.add("type|" + farming.farmType.name());
                         strings.add("level|" + farming.level);
                         String xyz = "f" + farming.location.toString().replaceAll(",", "_");
-                        ModSim.saveSK2(ModSim.getSavesDataFolder() + "Farming" + File.separator + xyz + ".sk2", strings);
+                        ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator + xyz + ".sk2", strings);
                     } catch (Exception var5) {
                     }
                 }

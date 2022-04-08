@@ -1,157 +1,151 @@
 
 J
-java:S3740|"/Provide the parametrized type for this generic.(Î–ñôúÿÿÿÿ
+java:S3740}"/Provide the parametrized type for this generic.(Î–ñôúÿÿÿÿ
 F
-java:S3740£"/Provide the parametrized type for this generic.(şßœ 
+java:S3740¤"/Provide the parametrized type for this generic.(şßœ 
 F
-java:S3740£"/Provide the parametrized type for this generic.(şßœ 
+java:S3740¤"/Provide the parametrized type for this generic.(şßœ 
 K
-java:S3740°"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
+java:S3740±"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
 K
-java:S3740€"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
+java:S3740"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
 H
-java:S1135"2Complete the task associated to this TODO comment.(ÚÚƒ
+java:S1135"2Complete the task associated to this TODO comment.(ÚÚƒ
 L
-java:S1854Z"6Remove this useless assignment to local variable "m3".(ÒßéÜ
+java:S1854["6Remove this useless assignment to local variable "m3".(ÒßéÜ
 >
-java:S1481T")Remove this unused "var1" local variable.(–Ï(
+java:S1481U")Remove this unused "var1" local variable.(–Ï(
 =
-java:S1481Z"'Remove this unused "m3" local variable.(ÒßéÜ
+java:S1481["'Remove this unused "m3" local variable.(ÒßéÜ
 K
-java:S1854m"6Remove this useless assignment to local variable "m2".(¤êD
+java:S1854n"6Remove this useless assignment to local variable "m2".(¤êD
 >
-java:S1481h")Remove this unused "var1" local variable.(–Ï(
+java:S1481i")Remove this unused "var1" local variable.(–Ï(
 <
-java:S1481m"'Remove this unused "m2" local variable.(¤êD
+java:S1481n"'Remove this unused "m2" local variable.(¤êD
 @
-java:S1905Š")Remove this unnecessary cast to "double".(ıÈ£¥
+java:S1905‹")Remove this unnecessary cast to "double".(ıÈ£¥
 @
-java:S1905Œ")Remove this unnecessary cast to "double".(éÑ’ô
+java:S1905")Remove this unnecessary cast to "double".(éÑ’ô
 E
-java:S1905")Remove this unnecessary cast to "double".(Ğêßƒùÿÿÿÿ
+java:S1905")Remove this unnecessary cast to "double".(Ğêßƒùÿÿÿÿ
 E
-java:S1905")Remove this unnecessary cast to "double".(úÑğ»ûÿÿÿÿ
+java:S1905‘")Remove this unnecessary cast to "double".(úÑğ»ûÿÿÿÿ
 @
-java:S1905•")Remove this unnecessary cast to "double".(¯¼İÍ
+java:S1905–")Remove this unnecessary cast to "double".(¯¼İÍ
 E
-java:S1905—")Remove this unnecessary cast to "double".(ÖÖîüÿÿÿÿ
+java:S1905˜")Remove this unnecessary cast to "double".(ÖÖîüÿÿÿÿ
 E
-java:S1905™")Remove this unnecessary cast to "double".(’Åûÿÿÿÿ
+java:S1905š")Remove this unnecessary cast to "double".(’Åûÿÿÿÿ
 @
-java:S1905›")Remove this unnecessary cast to "double".(†òø‘
+java:S1905œ")Remove this unnecessary cast to "double".(†òø‘
 n
-java:S3776¢"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(Ø‘ºèüÿÿÿÿ
+java:S3776£"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(Ø‘ºèüÿÿÿÿ
 R
-java:S1854¦"6Remove this useless assignment to local variable "m1".(ŸúÀúÿÿÿÿ
+java:S1854§"6Remove this useless assignment to local variable "m1".(ŸúÀúÿÿÿÿ
 P
-java:S1854²"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
+java:S1854³"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
 T
-java:S1854±"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854²"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 P
-java:S1854µ"9Remove this useless assignment to local variable "var10".(‚Ó’»
+java:S1854¶"9Remove this useless assignment to local variable "var10".(‚Ó’»
 T
-java:S1854´"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854µ"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 P
-java:S1854¸"9Remove this useless assignment to local variable "var10".(û‘ıü
+java:S1854¹"9Remove this useless assignment to local variable "var10".(û‘ıü
 T
-java:S1854·"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854¸"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 U
-java:S1854»"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
+java:S1854¼"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
 T
-java:S1854º"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854»"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 P
-java:S1854Ä"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
+java:S1854Å"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
 T
-java:S1854Ã"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854Ä"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 P
-java:S1854Ç"9Remove this useless assignment to local variable "var10".(‚Ó’»
+java:S1854È"9Remove this useless assignment to local variable "var10".(‚Ó’»
 T
-java:S1854Æ"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854Ç"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 P
-java:S1854Ê"9Remove this useless assignment to local variable "var10".(û‘ıü
+java:S1854Ë"9Remove this useless assignment to local variable "var10".(û‘ıü
 T
-java:S1854É"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854Ê"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 U
-java:S1854Í"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
+java:S1854Î"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
 T
-java:S1854Ì"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854Í"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 P
-java:S1854Ö"9Remove this useless assignment to local variable "var10".(‚Ó’»
+java:S1854×"9Remove this useless assignment to local variable "var10".(‚Ó’»
 T
-java:S1854Õ"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854Ö"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 P
-java:S1854Ù"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
+java:S1854Ú"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
 T
-java:S1854Ø"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854Ù"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 U
-java:S1854Ü"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
+java:S1854İ"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
 T
-java:S1854Û"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854Ü"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 P
-java:S1854ß"9Remove this useless assignment to local variable "var10".(û‘ıü
+java:S1854à"9Remove this useless assignment to local variable "var10".(û‘ıü
 T
-java:S1854Ş"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854ß"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 P
-java:S1854è"9Remove this useless assignment to local variable "var10".(‚Ó’»
+java:S1854é"9Remove this useless assignment to local variable "var10".(‚Ó’»
 T
-java:S1854ç"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854è"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 P
-java:S1854ë"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
+java:S1854ì"9Remove this useless assignment to local variable "var10".(ÎÆ°ã
 T
-java:S1854ê"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
+java:S1854ë"8Remove this useless assignment to local variable "var9".(È¬¿•øÿÿÿÿ
 U
-java:S1854î"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
+java:S1854ï"9Remove this useless assignment to local variable "var10".(ïóÙÕøÿÿÿÿ
 T
-java:S1854í"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854î"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 P
-java:S1854ñ"9Remove this useless assignment to local variable "var10".(û‘ıü
+java:S1854ò"9Remove this useless assignment to local variable "var10".(û‘ıü
 T
-java:S1854ğ"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
+java:S1854ñ"8Remove this useless assignment to local variable "var9".(‹»›Ûıÿÿÿÿ
 C
-java:S1481¦"'Remove this unused "m1" local variable.(ŸúÀúÿÿÿÿ
+java:S1481§"'Remove this unused "m1" local variable.(ŸúÀúÿÿÿÿ
 @
-java:S1481­")Remove this unused "var9" local variable.(„ÉÄÆ
+java:S1481®")Remove this unused "var9" local variable.(„ÉÄÆ
 A
-java:S1481®"*Remove this unused "var10" local variable.(àâçö
-K
-java:S1905ˆ"-Remove this unnecessary cast to "FarmingBox".(ôÕÆÇ8øò–€0
+java:S1481¯"*Remove this unused "var10" local variable.(àâçö
 n
-java:S3776’"RRefactor this method to reduce its Cognitive Complexity from 90 to the 15 allowed.(²É¯²ıÿÿÿÿ
+java:S3776“"RRefactor this method to reduce its Cognitive Complexity from 90 to the 15 allowed.(²É¯²ıÿÿÿÿ
 M
-java:S1854“"6Remove this useless assignment to local variable "mc".(è™áâ
+java:S1854”"6Remove this useless assignment to local variable "mc".(è™áâ
 >
-java:S1481“"'Remove this unused "mc" local variable.(è™áâ
-V	java:S899Ô";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
-V	java:S899å";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
-V	java:S899ì";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
-V	java:S899ó";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
-K
-java:S1905ƒ"-Remove this unnecessary cast to "FarmingBox".(…¤©8±øò–€0
+java:S1481”"'Remove this unused "mc" local variable.(è™áâ
+V	java:S899Õ";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899æ";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899í";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899ô";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
 d
-java:S5361"HReplace this call to "replaceAll()" by a call to the "replace()" method.(şËƒ€üÿÿÿÿ
-?	java:S108")Either remove or fill this block of code.(Æƒæí
+java:S5361"HReplace this call to "replaceAll()" by a call to the "replace()" method.(şËƒ€üÿÿÿÿ
+?	java:S108")Either remove or fill this block of code.(Æƒæí
 ‹
-java:S1319{"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ùôâşÿÿÿÿ
+java:S1319|"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ùôâşÿÿÿÿ
 Œ
-java:S1319¢"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ø‘ºèüÿÿÿÿ
-g	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶È¥ƒ
-l	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
-l	java:S117š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
-Z
-java:S1155ƒ">Use isEmpty() to check whether the collection is empty or not.(š•—úÿÿÿÿ
+java:S1319£"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ø‘ºèüÿÿÿÿ
+g	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶È¥ƒ
+l	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+l	java:S117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
 j
-java:S1104"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
+java:S1104"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
 q
-java:S1104"VMake marker1XYZ a static final constant or non-public and provide accessors if needed.(¥¦×‚üÿÿÿÿ
+java:S1104"VMake marker1XYZ a static final constant or non-public and provide accessors if needed.(¥¦×‚üÿÿÿÿ
 l
-java:S1104"VMake marker2XYZ a static final constant or non-public and provide accessors if needed.(ïÃ˜‘
+java:S1104 "VMake marker2XYZ a static final constant or non-public and provide accessors if needed.(ïÃ˜‘
 l
-java:S1104 "VMake marker3XYZ a static final constant or non-public and provide accessors if needed.(½ûñ
+java:S1104!"VMake marker3XYZ a static final constant or non-public and provide accessors if needed.(½ûñ
 o
-java:S1104!"TMake farmType a static final constant or non-public and provide accessors if needed.(§şôƒùÿÿÿÿ
+java:S1104""TMake farmType a static final constant or non-public and provide accessors if needed.(§şôƒùÿÿÿÿ
 g
-java:S1104""QMake level a static final constant or non-public and provide accessors if needed.(Ì–íï
-_
-java:S2583-"DChange this condition so that it does not always evaluate to "false"(Ÿ‘Ñ×şÿÿÿÿ
-_
-java:S2583:"DChange this condition so that it does not always evaluate to "false"(Ÿ‘Ñ×şÿÿÿÿ
+java:S1104#"QMake level a static final constant or non-public and provide accessors if needed.(Ì–íï
+f
+java:S2583;"DChange this condition so that it does not always evaluate to "false"(Ÿ‘Ñ×şÿÿÿÿ8èÀÔº€0
+f
+java:S2583."DChange this condition so that it does not always evaluate to "false"(Ÿ‘Ñ×şÿÿÿÿ8èÀÔº€0

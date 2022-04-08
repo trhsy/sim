@@ -9,6 +9,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.PricesForBlocks;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.Job;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -191,8 +192,8 @@ public class GuiMerchant extends GuiScreen {
                             ++q;
                             quantities.set(guibutton.id - 200, q);
                         } else if (guibutton.id == 2) {
-                            if (ModSim.states.credits < this.totalCost) {
-                                ModSim.sendChat(I18n.format("container.sim.Merchant11"));
+                            if (ModSimReloaded.states.credits < this.totalCost) {
+                                ModSimReloaded.sendChat(I18n.format("container.sim.Merchant11"));
                                 this.mc.currentScreen = null;
                                 this.mc.setIngameFocus();
                             } else {
@@ -257,7 +258,7 @@ public class GuiMerchant extends GuiScreen {
                         stack = new ItemStack(block, 64);
                         this.placeIntoChest((IInventory) chests.get(0), stack, stack.getMetadata(), 64);
                         stackPrice = PricesForBlocks.getPrice(block, true);
-                        GameStates var10000 = ModSim.states;
+                        GameStates var10000 = ModSimReloaded.states;
                         var10000.credits -= stackPrice;
                     }
 
@@ -281,7 +282,7 @@ public class GuiMerchant extends GuiScreen {
             });
             t.start();
         } else {
-            ModSim.sendChat(I18n.format("container.sim.Merchant12"));
+            ModSimReloaded.sendChat(I18n.format("container.sim.Merchant12"));
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         }
@@ -296,7 +297,7 @@ public class GuiMerchant extends GuiScreen {
         //int stackCount = false;
         ArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
         if (chests == null | chests.size() == 0) {
-            ModSim.sendChat(I18n.format("container.sim.Merchant13"));
+            ModSimReloaded.sendChat(I18n.format("container.sim.Merchant13"));
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         } else {
@@ -307,7 +308,7 @@ public class GuiMerchant extends GuiScreen {
                 if (is != null && is.stackSize == 64) {
                     stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
                     if (stackPrice > 0.0F) {
-                        GameStates var10000 = ModSim.states;
+                        GameStates var10000 = ModSimReloaded.states;
                         var10000.credits += stackPrice;
                         PricesForBlocks.adjustPrice((Block) block, false);
                         total += stackPrice;
@@ -317,10 +318,10 @@ public class GuiMerchant extends GuiScreen {
             }
 
             if (total == 0.0F) {
-                ModSim.sendChat(I18n.format("container.sim.Merchant14"));
+                ModSimReloaded.sendChat(I18n.format("container.sim.Merchant14"));
             } else {
                 this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
-                ModSim.sendChat(I18n.format("container.sim.Merchant15") + ModSim.displayMoney(total));
+                ModSimReloaded.sendChat(I18n.format("container.sim.Merchant15") + ModSimReloaded.displayMoney(total));
             }
 
             this.mc.currentScreen = null;

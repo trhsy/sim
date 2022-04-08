@@ -5,11 +5,11 @@ package com.trhsy.sim.client.gui.blocks;/**
  */
 
 import com.trhsy.sim.client.gui.folk.GuiEmployFolk;
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.util.GameMode;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -82,7 +82,7 @@ public class GuiMining extends GuiScreen {
             }
 
             GuiButton gb = null;
-            if (ModSim.gameMode != GameMode.HARDCORE) {
+            if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
                 this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
                 this.buttonList.add(gb = new GuiButton(3, this.width / 2 - 100, 160, j));
             }
@@ -100,7 +100,7 @@ public class GuiMining extends GuiScreen {
         }
     }
     private void extraButtons() {
-        if (ModSim.gameMode != GameMode.HARDCORE) {
+        if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
             String i = "";
             String j = "";
             if (this.theMiningBox.discards == 0) {

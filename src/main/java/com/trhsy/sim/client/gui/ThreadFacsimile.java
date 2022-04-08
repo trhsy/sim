@@ -11,6 +11,7 @@ import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -81,7 +82,7 @@ public class ThreadFacsimile extends Thread {
             } else {
                 if (cx != ex) {
                     guiMarker.errorText = I18n.format("container.sim.Facsimile1");
-                    ModSim.sendChat(I18n.format("container.sim.Facsimile2") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
+                    ModSimReloaded.sendChat(I18n.format("container.sim.Facsimile2") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
                     return;
                 }
 
@@ -169,7 +170,7 @@ public class ThreadFacsimile extends Thread {
 
                 File check = new File(UpdateChecker.getSimukraftFolder() + "/buildings/");
                 if (!check.exists()) {
-                    ModSim.sendChat(UpdateChecker.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Facsimile4"));
+                    ModSimReloaded.sendChat(UpdateChecker.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Facsimile4"));
                     return;
                 }
 

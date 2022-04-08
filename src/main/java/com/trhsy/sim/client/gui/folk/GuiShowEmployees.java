@@ -6,6 +6,7 @@ package com.trhsy.sim.client.gui.folk;/**
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -39,7 +40,7 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     public void initGui() {
-        ModSim.log.info("初始化GUI");
+        ModSimReloaded.log.info("初始化GUI");
         this.folks = FolkData.getFolkUnemployed(true);
         this.showPage();
         super.initGui();
@@ -145,7 +146,7 @@ public class GuiShowEmployees extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.ShowEmployees8"), this.width / 2, 160, 16776960);
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.ShowEmployees9"), this.width / 2, 210, 16776960);*/
         } catch (Exception var5) {
-            ModSim.log.error("在绘制字符串/屏幕时捕获异常：" + var5.getMessage());
+            ModSimReloaded.log.warning("在绘制字符串/屏幕时捕获异常：" + var5.getMessage());
         }
 
         super.drawScreen(i, j, f);
@@ -154,19 +155,19 @@ public class GuiShowEmployees extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         /*if (guibutton.id == 0) {
-            ModSim.states.gameModeNumber = 10;
-            ModSim.log.info("关闭重新加载的模拟城市");
+            ModSimReloaded.states.gameModeNumber = 10;
+            ModSimReloaded.log.info("关闭重新加载的模拟城市");
         } else if (guibutton.id == 1) {
-            ModSim.states.gameModeNumber = 0;
-            ModSim.log.info("在正常模式下重新加载模拟城市");
+            ModSimReloaded.states.gameModeNumber = 0;
+            ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
             FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
         } else if (guibutton.id == 2) {
-            ModSim.states.gameModeNumber = 1;
+            ModSimReloaded.states.gameModeNumber = 1;
         } else if (guibutton.id == 3) {
-            ModSim.states.gameModeNumber = 2;
+            ModSimReloaded.states.gameModeNumber = 2;
         }
 
-        ModSim.states.saveStates();
+        ModSimReloaded.states.saveStates();
         this.running = false;
         this.mc.currentScreen = null;
         this.mc.setIngameFocus();*/

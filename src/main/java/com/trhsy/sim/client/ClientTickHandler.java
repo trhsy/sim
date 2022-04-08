@@ -4,12 +4,13 @@ package com.trhsy.sim.client;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.util.GameMode;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -68,7 +69,7 @@ public class ClientTickHandler {
         }
 
         try {
-            if (ModSim.states.gameModeNumber <= 0) {
+            if (ModSimReloaded.states.gameModeNumber <= 0) {
                 return;
             }
         } catch (Exception var3) {
@@ -76,14 +77,14 @@ public class ClientTickHandler {
 
         if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
             ConfigLoader.config.save();
-            ModSim.states.saveStates();
+            ModSimReloaded.states.saveStates();
             Building.saveAllBuildings();
             CourierTask.saveCourierTasksAndPoints();
             MiningBox.saveMiningBoxes();
             FarmingBox.saveFarmingBoxes();
 
-            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
-                FolkData folk = (FolkData) ModSim.theFolks.get(f);
+            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
                 folk.updateLocationFromEntity();
                 folk.saveThisFolk();
             }
@@ -98,7 +99,7 @@ public class ClientTickHandler {
             String worldname = "unknown";
 
             try {
-                if (ModSim.states.gameModeNumber == 10) {
+                if (ModSimReloaded.states.gameModeNumber == 10) {
                     return;
                 }
 
@@ -117,10 +118,10 @@ public class ClientTickHandler {
                     }
 
                     HUDoffset = HUDoffset + ConfigLoader.configHUDoffset;
-                    if (ModSim.gameMode == GameMode.CREATIVE) {
-                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSim.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
+                    if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size(), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     } else {
-                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSim.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSim.theFolks.size() + "   " + I18n.format("container.sim.trhsy4") + ": " + ModSim.displayMoney(ModSim.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
+                        this.hud.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size() + "   " + I18n.format("container.sim.trhsy4") + ": " + ModSimReloaded.displayMoney(ModSimReloaded.states.credits), this.hud.width / 2, 2 + HUDoffset, 16777215);
                     }
                 } else {
                     this.hud.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy5"), this.hud.width / 2, 2, 16777215);

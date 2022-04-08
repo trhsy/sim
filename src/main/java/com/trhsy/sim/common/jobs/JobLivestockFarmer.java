@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -71,7 +72,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -82,7 +83,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATFARM) {
                     this.stageArrived();
                 } else if (this.theStage == Stage.WAITINGFORMATUREANIMAL) {
@@ -209,9 +210,9 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
         if (!ok) {
             this.theStage = Stage.CANTWORK;
-            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.livestock.farmer.chests"));
+            ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.livestock.farmer.chests"));
         } else {
-            GameStates var10000 = ModSim.states;
+            GameStates var10000 = ModSimReloaded.states;
             var10000.credits -= 0.02F * (float)quant;
             this.theStage = Stage.WAITINGFORMATUREANIMAL;
         }

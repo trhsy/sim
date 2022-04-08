@@ -12,6 +12,7 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
@@ -63,7 +64,7 @@ public class JobBurgersManager extends Job {
         }
 
         if (this.theStore != null) {
-            if (!ModSim.isDayTime()) {
+            if (!ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -78,7 +79,7 @@ public class JobBurgersManager extends Job {
             }
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theFolk.statusText = I18n.format("container.sim.job.manager.Checking");
                         this.theStage = Stage.PICKUPBAKERY;
@@ -98,7 +99,7 @@ public class JobBurgersManager extends Job {
                     }
                 }
 
-                if (!ModSim.isDayTime()) {
+                if (!ModSimReloaded.isDayTime()) {
                     this.theStage = Stage.IDLE;
                 }
 
@@ -131,7 +132,7 @@ public class JobBurgersManager extends Job {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSim.log.info("JobBurgersManager: 购买 " + count + " 件商品中购买 " + buy + " 件");
+                    ModSimReloaded.log.info("JobBurgersManager: 购买 " + count + " 件商品中购买 " + buy + " 件");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1, pickUpItem.damageDropped(1)), buy, doCompareMeta);
                 }
             }
@@ -172,7 +173,7 @@ public class JobBurgersManager extends Job {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSim.log.info("JobBurgersManager: 购买 " + buy + " out of " + count + " 物品");
+                    ModSimReloaded.log.info("JobBurgersManager: 购买 " + buy + " out of " + count + " 物品");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1), buy, doCompareMeta);
                 }
             }
@@ -248,12 +249,12 @@ public class JobBurgersManager extends Job {
             ArrayList<IInventory> backstoreChests = inventoriesFindClosest((V3) back.get(0), 3);
             boolean ok = this.inventoriesTransferFromFolk(this.theFolk.inventory, backstoreChests, (ItemStack) null);
             if (!ok) {
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.dropoff.chest"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.dropoff.chest"));
             }
 
             this.theStage = Stage.HANGINGOUT;
             this.step = 0;
-            GameStates var10000 = ModSim.states;
+            GameStates var10000 = ModSimReloaded.states;
             var10000.credits = (float) ((double) var10000.credits - 2.45D);
         }
 

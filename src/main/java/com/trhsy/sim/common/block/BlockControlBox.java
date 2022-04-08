@@ -6,10 +6,11 @@ package com.trhsy.sim.common.block;/**
 
 import com.trhsy.sim.client.gui.blocks.GuiBankATM;
 import com.trhsy.sim.client.gui.blocks.GuiControlBox;
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.util.GameMode;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -75,7 +76,7 @@ public class BlockControlBox extends Block {
                 }
             default:
 
-                ModSim.log.info("元数据无效 " + this.getUnlocalizedName());
+                ModSimReloaded.log.info("元数据无效 " + this.getUnlocalizedName());
                 return this.icons[0];
         }
     }
@@ -89,10 +90,10 @@ public class BlockControlBox extends Block {
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
         if (world.getBlockMetadata(i, j, k) != 0 && world.getBlockMetadata(i, j, k) != 2) {
-            if (ModSim.gameMode == GameMode.CREATIVE) {
+            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 mc.displayGuiScreen((GuiScreen) null);
                 String control_box_Creative = I18n.format("container.sim.control_box_Creative");
-                ModSim.sendChat(control_box_Creative);
+                ModSimReloaded.sendChat(control_box_Creative);
             } else {
                 ui2 = new GuiBankATM(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
                 mc.displayGuiScreen(ui2);

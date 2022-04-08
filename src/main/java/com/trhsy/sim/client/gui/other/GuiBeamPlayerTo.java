@@ -8,6 +8,7 @@ import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.CourierTask;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -51,8 +52,8 @@ public class GuiBeamPlayerTo extends GuiScreen {
         int y = 40;
         int idx = 2;
 
-        for (int f = 0; f < ModSim.theCourierPoints.size(); ++f) {
-            V3 cpoint = (V3) ModSim.theCourierPoints.get(f);
+        for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
+            V3 cpoint = (V3) ModSimReloaded.theCourierPoints.get(f);
             this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
             ++idx;
             x += 110;
@@ -73,7 +74,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
         this.drawDefaultBackground();
         String sim_gui_BPT_Choose = I18n.format("container.sim.sim_gui_BPT_Choose");
         this.drawCenteredString(this.fontRendererObj, sim_gui_BPT_Choose, this.width / 2, 17, 16777215);
-        if (ModSim.theCourierPoints.size() == 0) {
+        if (ModSimReloaded.theCourierPoints.size() == 0) {
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_You"), this.width / 2, 37, 16752800);
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_Place"), this.width / 2, 57, 16752800);
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_to"), this.width / 2, 77, 16752800);
@@ -93,7 +94,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 V3 safePoint = v.clone();
                 Double var6 = safePoint.y;
                 Double var7 = safePoint.y = safePoint.y + 1.0D;
-                ModSim.sendChat(I18n.format("container.sim.sim_gui_Beaming") + name);
+                ModSimReloaded.sendChat(I18n.format("container.sim.sim_gui_Beaming") + name);
                 this.mc.displayGuiScreen((GuiScreen) null);
                 ClientTickHandler.beamingPlayer = this.thePlayer;
                 ClientTickHandler.beamingStage = 1;

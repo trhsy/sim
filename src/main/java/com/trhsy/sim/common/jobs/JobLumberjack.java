@@ -12,6 +12,7 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -77,14 +78,14 @@ public class JobLumberjack extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
         super.onUpdateGoingToWork(this.theFolk);
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage == Stage.IDLE && ModSim.isDayTime()) {
+            if (this.theStage == Stage.IDLE && ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.SCANFORTREE;
             } else if (this.theStage == Stage.ARRIVEDATMILL) {
                 this.theStage = Stage.SCANFORTREE;
@@ -142,7 +143,7 @@ public class JobLumberjack extends Job implements Serializable {
         this.theStage = Stage.GOTOTREE;
         this.onRoute = false;
         if (this.foundWoodAt == null) {
-            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.wood"));
+            ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.wood"));
             this.theFolk.selfFire();
         }
     }
@@ -315,9 +316,9 @@ public class JobLumberjack extends Job implements Serializable {
                 this.millChests = inventoriesFindClosest(this.theFolk.employedAt, 6);
                 this.inventoriesTransferFromFolk(this.theFolk.inventory, this.millChests, new ItemStack(Blocks.log));
                 this.pay = (float)dist * 0.03F;
-                GameStates var10000 = ModSim.states;
+                GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= this.pay;
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.delivered") + dist + I18n.format("container.sim.job.lumberjack.farmer.lumbermill"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.delivered") + dist + I18n.format("container.sim.job.lumberjack.farmer.lumbermill"));
                 this.theStage = Stage.SCANFORTREE;
                 this.step = 1;
             }

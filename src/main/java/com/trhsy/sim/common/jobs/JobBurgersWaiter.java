@@ -12,6 +12,7 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -59,7 +60,7 @@ public class JobBurgersWaiter extends Job {
         }
 
         if (this.theStore != null) {
-            if (!ModSim.isDayTime()) {
+            if (!ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -74,7 +75,7 @@ public class JobBurgersWaiter extends Job {
             }
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                     if (this.theStage == Stage.ARRIVEDATSTORE) {
                         this.theStage = Stage.SERVING;
                         this.theFolk.statusText = I18n.format("container.sim.job.serving_customers");
@@ -83,7 +84,7 @@ public class JobBurgersWaiter extends Job {
                     }
                 }
 
-                if (!ModSim.isDayTime()) {
+                if (!ModSimReloaded.isDayTime()) {
                     this.theStage = Stage.IDLE;
                 }
 
@@ -112,15 +113,15 @@ public class JobBurgersWaiter extends Job {
                         is = new ItemStack(is.getItem(), 1, is.getMetadata());
                         inventoriesGet(theChests, is, false, true);
                         this.theFolk.statusText = I18n.format("container.sim.job.merchant.Just_sold") + is.getDisplayName();
-                        int r = (new Random()).nextInt(ModSim.theFolks.size() - 1);
-                        FolkData folk = (FolkData) ModSim.theFolks.get(r);
+                        int r = (new Random()).nextInt(ModSimReloaded.theFolks.size() - 1);
+                        FolkData folk = (FolkData) ModSimReloaded.theFolks.get(r);
                         if (folk.levelFood < 10) {
                             ++folk.levelFood;
                         }
 
                         folk.saveThisFolk();
-                        ModSim.log.info("JobBurgersWaiter: 刚吃过 " + folk.name);
-                        GameStates var10000 = ModSim.states;
+                        ModSimReloaded.log.info("JobBurgersWaiter: 刚吃过 " + folk.name);
+                        GameStates var10000 = ModSimReloaded.states;
                         var10000.credits = (float) ((double) var10000.credits - 0.45D);
                     } else {
                         this.theFolk.statusText = I18n.format("container.sim.job.merchant.Who_put") + is.getDisplayName() + I18n.format("container.sim.job.merchant.my_chest");

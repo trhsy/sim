@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.enums.FarmType;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -115,7 +116,7 @@ public class JobBaker extends Job implements Serializable {
     public void onUpdate() {
         super.onUpdate();
         //闲置
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
         //继续工作
@@ -141,7 +142,7 @@ public class JobBaker extends Job implements Serializable {
             //上次跑步后的时间
             this.timeSinceLastRun = System.currentTimeMillis();
             //状态不是闲置并且 是黑夜
-            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                 //到达商店
                 if (this.theStage == Stage.ARRIVEDATSHOP) {
                     //去农场
@@ -322,9 +323,9 @@ public class JobBaker extends Job implements Serializable {
     private void stageSellingBread() {
         if (this.step == 1) {
             if (this.pay > 0.0F) {
-                GameStates var10000 = ModSim.states;
+                GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= this.pay;
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.Baker_paid") + ModSim.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.Baker_paid") + ModSimReloaded.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
                 this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
@@ -337,19 +338,19 @@ public class JobBaker extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.Baker_Closing");
             //int sell = false;
             ItemStack breadStack = null;
-            if (ModSim.theFolks.size() > 1) {
-                int sell = ModSim.theFolks.size() + 1 + (new Random()).nextInt(ModSim.theFolks.size());
+            if (ModSimReloaded.theFolks.size() > 1) {
+                int sell = ModSimReloaded.theFolks.size() + 1 + (new Random()).nextInt(ModSimReloaded.theFolks.size());
                 this.bakeryChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
                 breadStack = inventoriesGet(this.bakeryChests, new ItemStack(Items.bread, sell), false, false);
             }
 
             if (breadStack == null) {
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.Baker_today"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.Baker_today"));
             } else {
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.has_sold") + breadStack.stackSize + I18n.format("container.sim.job.folks_today"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.has_sold") + breadStack.stackSize + I18n.format("container.sim.job.folks_today"));
 
-                for (int f = 0; f < ModSim.theFolks.size(); ++f) {
-                    FolkData folk = (FolkData) ModSim.theFolks.get(f);
+                for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
                     if (breadStack.stackSize > 0) {
                         folk.levelFood = 10;
                         --breadStack.stackSize;
@@ -372,7 +373,7 @@ public class JobBaker extends Job implements Serializable {
 
         while(!found) {
             try {
-                FarmingBox farm = (FarmingBox) ModSim.theFarmingBoxes.get(this.currentFarmNum);
+                FarmingBox farm = (FarmingBox) ModSimReloaded.theFarmingBoxes.get(this.currentFarmNum);
                 if (farm.farmType == FarmType.WHEAT) {
                     found = true;
                     ++this.currentFarmNum;
@@ -380,7 +381,7 @@ public class JobBaker extends Job implements Serializable {
                 }
 
                 ++this.currentFarmNum;
-                if (this.currentFarmNum > ModSim.theFarmingBoxes.size() - 1) {
+                if (this.currentFarmNum > ModSimReloaded.theFarmingBoxes.size() - 1) {
                     return null;
                 }
             } catch (Exception var4) {

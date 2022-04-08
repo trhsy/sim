@@ -8,6 +8,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 
 import java.io.Serializable;
@@ -54,7 +55,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -65,7 +66,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if ((this.theStage != Stage.IDLE || !ModSim.isDayTime()) && this.theStage == Stage.INSTORE) {
+            if ((this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) && this.theStage == Stage.INSTORE) {
                 this.theFolk.statusText = I18n.format("container.sim.job.serving_customers");
                 this.theFolk.updateLocationFromEntity();
                 double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);

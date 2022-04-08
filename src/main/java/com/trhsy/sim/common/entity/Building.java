@@ -1,11 +1,12 @@
 package com.trhsy.sim.common.entity;
 
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.infrastructure.Infrastructure;
 import com.trhsy.sim.common.infrastructure.InfrastructureElectricity;
 import com.trhsy.sim.common.infrastructure.InfrastructureWater;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.util.GameMode;
 import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -307,7 +308,7 @@ public class Building implements Serializable {
             in.close();
             this.rent = (float) this.blocksInBuilding * 0.01F;
         } catch (Exception var20) {
-            ModSim.log.warn("建筑 loadStructure() " + var20.getMessage());
+            ModSimReloaded.log.warning("建筑 loadStructure() " + var20.getMessage());
         }
 
     }
@@ -321,7 +322,7 @@ public class Building implements Serializable {
         Map.Entry pairs;
         ItemStack is;
         int val;
-        if (ModSim.gameMode == GameMode.NORMAL) {
+        if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
             name = "";
 
             try {
@@ -351,11 +352,11 @@ public class Building implements Serializable {
                 }
             }
         } else {
-            if (ModSim.gameMode == GameMode.CREATIVE) {
+            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 return;
             }
 
-            if (ModSim.gameMode == GameMode.HARDCORE) {
+            if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
                 name = "";
 
                 try {
@@ -457,15 +458,21 @@ public class Building implements Serializable {
         return retBuildings;
     }
 
+    /**
+     * 获取建筑物
+     *
+     * @param primaryXYZ
+     * @return
+     */
     public static Building getBuilding(V3 primaryXYZ) {
         Building b = null;
-        if (ModSim.theBuildings.size() == 0) {
+        if (ModSimReloaded.theBuildings.size() == 0) {
             loadAllBuildings();
         }
 
-        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
+        for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
             try {
-                b = (Building) ModSim.theBuildings.get(x);
+                b = (Building) ModSimReloaded.theBuildings.get(x);
                 if (b.primaryXYZ.isSameCoordsAs(primaryXYZ, false, true)) {
                     return b;
                 }
@@ -479,8 +486,8 @@ public class Building implements Serializable {
     public static Building getBuildingBySearch(String searchWord) {
         Building b = null;
 
-        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
-            b = (Building) ModSim.theBuildings.get(x);
+        for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
+            b = (Building) ModSimReloaded.theBuildings.get(x);
             if (b.displayName.contains(searchWord)) {
                 return b;
             }
@@ -492,8 +499,8 @@ public class Building implements Serializable {
     public static ArrayList<Building> getBuildingBySearch(String searchWord, boolean findAll) {
         ArrayList<Building> ret = new ArrayList();
 
-        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
-            Building b = (Building) ModSim.theBuildings.get(x);
+        for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
+            Building b = (Building) ModSimReloaded.theBuildings.get(x);
             if (b.displayName.toLowerCase().contains(searchWord.toLowerCase())) {
                 ret.add(b);
             }
@@ -505,8 +512,8 @@ public class Building implements Serializable {
     public static Building getBuildingByConBox(V3 conBoxLoc) {
         Building b = null;
 
-        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
-            b = (Building) ModSim.theBuildings.get(x);
+        for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
+            b = (Building) ModSimReloaded.theBuildings.get(x);
 
             try {
                 if (b.conBoxLocation.isSameCoordsAs(conBoxLoc, true, true)) {
@@ -580,7 +587,7 @@ public class Building implements Serializable {
                 strings.add(temp);
             }
 
-            ModSim.saveSK2(ModSim.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2", strings);
+            ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2", strings);
         }
 
     }
@@ -589,16 +596,16 @@ public class Building implements Serializable {
         Minecraft mc = Minecraft.getMinecraft();
         ArrayList<String> strings = new ArrayList();
 
-        for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
+        for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
             strings.clear();
-            Building building = (Building) ModSim.theBuildings.get(b);
+            Building building = (Building) ModSimReloaded.theBuildings.get(b);
             if (building != null && building.primaryXYZ != null) {
                 V3 pxyz = building.primaryXYZ;
                 World buildingWorld = MinecraftServer.getServer().worldServerForDimension(building.primaryXYZ.theDimension);
                 Block id = buildingWorld.getBlock(pxyz.x.intValue(), pxyz.y.intValue(), pxyz.z.intValue());
                 String xyz = "b" + building.primaryXYZ.toString().replaceAll(",", "_");
                 if (id != BlockLoader.blockControlBox && id != BlockLoader.constructorBox) {
-                    File f = new File(ModSim.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
+                    File f = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
                     if (f.exists()) {
                         f.delete();
                     }
@@ -667,16 +674,16 @@ public class Building implements Serializable {
                     } catch (Exception var11) {
                     }
 
-                    ModSim.saveSK2(ModSim.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2", strings);
+                    ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2", strings);
                 }
             }
         }
 
-        ModSim.log.info("建筑物.saveAllBuildings " + ModSim.theBuildings.size() + " 建筑");
+        ModSimReloaded.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 建筑");
     }
 
     public static void loadAllBuildings() {
-        File buildingsFolder = new File(ModSim.getSavesDataFolder() + "Buildings" + File.separator);
+        File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
         buildingsFolder.mkdirs();
         boolean useNewFormat = false;
         File[] arr$ = buildingsFolder.listFiles();
@@ -694,7 +701,7 @@ public class Building implements Serializable {
 
         Building build;
         if (useNewFormat) {
-            ModSim.theBuildings.clear();
+            ModSimReloaded.theBuildings.clear();
             arr$ = buildingsFolder.listFiles();
             len$ = arr$.length;
 
@@ -702,7 +709,7 @@ public class Building implements Serializable {
             for (i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
-                    ArrayList<String> strings = ModSim.loadSK2(f.getAbsoluteFile().toString());
+                    ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     build = new Building();
                     Iterator iterator = strings.iterator();
 
@@ -712,7 +719,7 @@ public class Building implements Serializable {
                             do {
                                 if (!iterator.hasNext()) {
                                     build.loadStructure();
-                                    ModSim.theBuildings.add(build);
+                                    ModSimReloaded.theBuildings.add(build);
                                     continue label166;
                                 }
 
@@ -802,7 +809,7 @@ public class Building implements Serializable {
             }
         } else {
             Minecraft mc = Minecraft.getMinecraft();
-            ModSim.theBuildings.clear();
+            ModSimReloaded.theBuildings.clear();
             File[] array = buildingsFolder.listFiles();
             i$ = arr$.length;
 
@@ -815,16 +822,16 @@ public class Building implements Serializable {
                         World buildingWorld = MinecraftServer.getServer().worldServerForDimension(build.primaryXYZ.theDimension);
                         Block id = buildingWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
                         Building dupe = null;
-                        if (ModSim.theBuildings.size() > 0) {
+                        if (ModSimReloaded.theBuildings.size() > 0) {
                             dupe = getBuilding(xyz);
                         }
 
                         if (id == BlockLoader.blockControlBox && dupe == null) {
                             build.loadStructure();
-                            ModSim.theBuildings.add(build);
+                            ModSimReloaded.theBuildings.add(build);
                         } else {
                             fs.delete();
-                            ModSim.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
+                            ModSimReloaded.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
                         }
                     }
                 }
@@ -834,16 +841,16 @@ public class Building implements Serializable {
     }
 
     public static void checkTenants() {
-        for (int b = 0; b < ModSim.theBuildings.size(); ++b) {
-            Building building = (Building) ModSim.theBuildings.get(b);
+        for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
+            Building building = (Building) ModSimReloaded.theBuildings.get(b);
 
             for (int t = 0; t < building.tenants.size(); ++t) {
                 try {
                     String tennant = (String) building.tenants.get(t);
                     boolean exists = false;
 
-                    for (int f = 0; f < ModSim.theFolks.size(); ++f) {
-                        FolkData folk = (FolkData) ModSim.theFolks.get(f);
+                    for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                        FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
                         if (folk.name.contentEquals(tennant)) {
                             exists = true;
                             break;
@@ -877,7 +884,7 @@ public class Building implements Serializable {
                     Building.initBuildingsOfType("industrial");
                     Building.initBuildingsOfType("other");
                     Building.runningInitThread = false;
-                    ModSim.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
+                    ModSimReloaded.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
                 }
             });
             t.start();

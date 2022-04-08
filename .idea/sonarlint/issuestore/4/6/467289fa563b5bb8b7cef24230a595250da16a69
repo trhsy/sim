@@ -1,39 +1,39 @@
 
 J
-java:S3740o"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
+java:S3740p"/Provide the parametrized type for this generic.(éŠ¿¨ùÿÿÿÿ
 K
-java:S3740½"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
+java:S3740¾"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ
 H
-java:S1135"2Complete the task associated to this TODO comment.(÷ò±¸
->	java:S1081")Either remove or fill this block of code.(²¹Ô´
+java:S1135"2Complete the task associated to this TODO comment.(÷ò±¸
+>	java:S1082")Either remove or fill this block of code.(²¹Ô´
 h
-java:S3776Q"RRefactor this method to reduce its Cognitive Complexity from 91 to the 15 allowed.(åş‡ú
+java:S3776R"RRefactor this method to reduce its Cognitive Complexity from 91 to the 15 allowed.(åş‡ú
 L
-java:S1854R"6Remove this useless assignment to local variable "mc".(è™áâ
+java:S1854S"6Remove this useless assignment to local variable "mc".(è™áâ
 =
-java:S1481R"'Remove this unused "mc" local variable.(è™áâ
-V	java:S899•";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
-V	java:S899¦";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
-V	java:S899­";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+java:S1481S"'Remove this unused "mc" local variable.(è™áâ
+V	java:S899–";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899§";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
+V	java:S899®";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
 n
-java:S3776º"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(üÄ‹Æşÿÿÿÿ
+java:S3776»"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(üÄ‹Æşÿÿÿÿ
 d
-java:S5361Ñ"HReplace this call to "replaceAll()" by a call to the "replace()" method.(—ƒ°£ûÿÿÿÿ
-?	java:S108Ô")Either remove or fill this block of code.(Æƒæí
-k	java:S117V"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ–Ë¡ıÿÿÿÿ
-k	java:S117W"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
-k	java:S117Y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
+java:S5361Ò"HReplace this call to "replaceAll()" by a call to the "replace()" method.(—ƒ°£ûÿÿÿÿ
+?	java:S108Õ")Either remove or fill this block of code.(Æƒæí
+k	java:S117W"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ–Ë¡ıÿÿÿÿ
+k	java:S117X"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÎ‘€üÿÿÿÿ
+k	java:S117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
 j
-java:S1104"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
+java:S1104"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
 q
-java:S1104"VMake marker1XYZ a static final constant or non-public and provide accessors if needed.(¥¦×‚üÿÿÿÿ
+java:S1104"VMake marker1XYZ a static final constant or non-public and provide accessors if needed.(¥¦×‚üÿÿÿÿ
 l
-java:S1104"VMake marker2XYZ a static final constant or non-public and provide accessors if needed.(ïÃ˜‘
+java:S1104"VMake marker2XYZ a static final constant or non-public and provide accessors if needed.(ïÃ˜‘
 l
-java:S1104"VMake marker3XYZ a static final constant or non-public and provide accessors if needed.(½ûñ
+java:S1104"VMake marker3XYZ a static final constant or non-public and provide accessors if needed.(½ûñ
 o
-java:S1104"TMake discards a static final constant or non-public and provide accessors if needed.(–µÿÿÿÿÿ
+java:S1104"TMake discards a static final constant or non-public and provide accessors if needed.(–µÿÿÿÿÿ
 o
-java:S1104"YMake addGlassCover a static final constant or non-public and provide accessors if needed.(ŠÎ®ò
+java:S1104 "YMake addGlassCover a static final constant or non-public and provide accessors if needed.(ŠÎ®ò
 k
-java:S1104 "PMake size a static final constant or non-public and provide accessors if needed.(™Åİˆıÿÿÿÿ
+java:S1104!"PMake size a static final constant or non-public and provide accessors if needed.(™Åİˆıÿÿÿÿ

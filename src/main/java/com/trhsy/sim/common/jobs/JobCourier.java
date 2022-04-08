@@ -12,6 +12,7 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -69,7 +70,7 @@ public class JobCourier extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -82,7 +83,7 @@ public class JobCourier extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage == Stage.IDLE && ModSim.isDayTime()) {
+            if (this.theStage == Stage.IDLE && ModSimReloaded.isDayTime()) {
                 this.onUpdateGoingToWork(this.theFolk);
             } else if (this.theStage == Stage.ATDEPOT) {
                 this.stageAtDepot();
@@ -104,8 +105,8 @@ public class JobCourier extends Job implements Serializable {
             this.currentTask = 0;
             this.courierTasks.clear();
 
-            for (int t = 0; t < ModSim.theCourierTasks.size(); ++t) {
-                CourierTask task = (CourierTask) ModSim.theCourierTasks.get(t);
+            for (int t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
+                CourierTask task = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
                 if (task != null && task.pickup != null && task.folkname.contentEquals(this.theFolk.name)) {
                     try {
                         this.courierTasks.add(task);
@@ -161,7 +162,7 @@ public class JobCourier extends Job implements Serializable {
         this.chests.clear();
         this.chests = inventoriesFindClosest(pickup, 4);
         if (this.chests.size() == 0) {
-            ModSim.log.warn("JobCourier: StagePickingup() 拾取时没有宝箱：" + pickup.name + "，移除任务。");
+            ModSimReloaded.log.warning("JobCourier: StagePickingup() 拾取时没有宝箱：" + pickup.name + "，移除任务。");
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
                 this.currentTask = 0;
@@ -174,7 +175,7 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.stayPut = true;
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
-            ModSim.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
+            ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
             this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.blockLightBox);
         }
 
@@ -253,7 +254,7 @@ public class JobCourier extends Job implements Serializable {
         this.chests.clear();
         this.chests = inventoriesFindClosest(dropoff, 5);
         if (this.chests.size() == 0) {
-            ModSim.log.warn("JobCourierL dropoff() 下车时没有找到箱子");
+            ModSimReloaded.log.warning("JobCourierL dropoff() 下车时没有找到箱子");
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
                 this.currentTask = 0;
@@ -265,11 +266,11 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.stayPut = true;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Dropping");
             this.theFolk.action = FolkAction.ATWORK;
-            ModSim.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
+            ModSimReloaded.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
 
             while(this.theFolk.inventory.size() > 0) {
                 int oldSize = this.theFolk.inventory.size();
-                GameStates var10000 = ModSim.states;
+                GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= 0.11F;
                 ItemStack invItem = (ItemStack)this.theFolk.inventory.get(0);
                 if (this.theFolk.inventory.size() > 1) {
@@ -280,7 +281,7 @@ public class JobCourier extends Job implements Serializable {
 
                 boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chests, (ItemStack)null);
                 if (!placed) {
-                    ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
+                    ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
                     break;
                 }
             }

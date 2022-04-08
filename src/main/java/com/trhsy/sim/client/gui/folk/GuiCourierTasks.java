@@ -9,6 +9,7 @@ import com.trhsy.sim.client.gui.blocks.GuiControlBox;
 import com.trhsy.sim.common.entity.CourierTask;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -67,8 +68,8 @@ public class GuiCourierTasks extends GuiScreen {
             idx = 2;
             //int y = true;
 
-            for (t = 0; t < ModSim.theCourierTasks.size(); ++t) {
-                CourierTask ct = (CourierTask) ModSim.theCourierTasks.get(t);
+            for (t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
+                CourierTask ct = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
                 if (ct.folkname.contentEquals(this.theFolk.name)) {
                     y = 30 + (idx - 2) * 20;
                     if (y + 20 > this.height) {
@@ -85,8 +86,8 @@ public class GuiCourierTasks extends GuiScreen {
             y = 40;
             t = 2;
 
-            for (int f = 0; f < ModSim.theCourierPoints.size(); ++f) {
-                V3 cpoint = (V3) ModSim.theCourierPoints.get(f);
+            for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
+                V3 cpoint = (V3) ModSimReloaded.theCourierPoints.get(f);
                 this.buttonList.add(new GuiButton(t, idx, y, 110, 20, cpoint.name));
                 ++t;
                 idx += 110;
@@ -119,8 +120,8 @@ public class GuiCourierTasks extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Courier_tasks") + this.theFolk.name, this.width / 2, 17, 16777215);
             int idx = 2;
 
-            for (int t = 0; t < ModSim.theCourierTasks.size(); ++t) {
-                CourierTask ct = (CourierTask) ModSim.theCourierTasks.get(t);
+            for (int t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
+                CourierTask ct = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
                 if (ct.folkname.contentEquals(this.theFolk.name)) {
                     int y = 40 + (idx - 2) * 20;
                     if (y + 20 > this.height) {
@@ -168,9 +169,9 @@ public class GuiCourierTasks extends GuiScreen {
                     } else if (guibutton.id >= 2) {
                         int tidx = (Integer)this.tasks.get(guibutton.id);
                         String fn = "ct" + tidx + this.theFolk.name.replace(" ", "");
-                        File file = new File(ModSim.getSavesDataFolder() + "CourierTasks" + File.separator + fn + ".sk2");
+                        File file = new File(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator + fn + ".sk2");
                         file.delete();
-                        ModSim.theCourierTasks.remove(tidx);
+                        ModSimReloaded.theCourierTasks.remove(tidx);
                         this.buttonList.remove(guibutton.id);
                         this.initscreen();
                     }
@@ -198,8 +199,8 @@ public class GuiCourierTasks extends GuiScreen {
 
                         guibutton.enabled = false;
                         this.newtask.folkname = this.theFolk.name;
-                        this.newtask.name = "Task " + (ModSim.theCourierTasks.size() + 1) + "";
-                        ModSim.theCourierTasks.add(this.newtask);
+                        this.newtask.name = "Task " + (ModSimReloaded.theCourierTasks.size() + 1) + "";
+                        ModSimReloaded.theCourierTasks.add(this.newtask);
                         this.onPage = "main";
                         this.initscreen();
                     }

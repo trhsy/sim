@@ -1,84 +1,99 @@
 
 J
-java:S3740)"/Provide the parametrized type for this generic.(—€çŒşÿÿÿÿ
-K
-java:S3740ï"/Provide the parametrized type for this generic.(áëÜúÿÿÿÿ
-F
-java:S3740ù"/Provide the parametrized type for this generic.(éÀ²¸
-K
-java:S3740¡"/Provide the parametrized type for this generic.(ŸîÄ±ûÿÿÿÿ
-K
-java:S3740í"/Provide the parametrized type for this generic.(¯ª§êÿÿÿÿÿ
-A
-java:S2387%"+"vocation" is the name of a field in "Job".(ùŒé’
-w
-java:S1450)"\Remove the "chestsAtDairy" field and declare it as a local variable in the relevant methods.(—€çŒşÿÿÿÿ
+java:S3740+"/Provide the parametrized type for this generic.(—€çŒşÿÿÿÿ
 M
-java:S1135"2Complete the task associated to this TODO comment.(Á¿¦Ëüÿÿÿÿ
-h
-java:S3776A"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(æôÚ„
-=
-java:S1905^"'Remove this unnecessary cast to "long".(ï·Ï«
-;
-java:S1905…"%Remove this unnecessary cast to "V3".(«Ö‘Y
-D	java:S108‡")Either remove or fill this block of code.(öé”şÿÿÿÿ
-G
-java:S1905–"+Remove this unnecessary cast to "Building".(¨ı¹Êûÿÿÿÿ
-A
-java:S1905Â"%Remove this unnecessary cast to "V3".(ëÖÆşÿÿÿÿ
-i
-java:S3776İ"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(Ã¶Œ
+java:S3740 "/Provide the parametrized type for this generic.(Ó«µ8†ê÷µ€0
+F
+java:S3740À"/Provide the parametrized type for this generic.(éÀ²¸
 R
-java:S1119ñ";Refactor the code to remove this label and the need for it.(ÁüÌÒ
-?	java:S108ƒ")Either remove or fill this block of code.(²¹Ô´
+java:S3740ğ"/Provide the parametrized type for this generic.(İ´œèÿÿÿÿÿ8ˆê÷µ€0
+K
+java:S3740¾"/Provide the parametrized type for this generic.(¯ª§êÿÿÿÿÿ
+A
+java:S2387'"+"vocation" is the name of a field in "Job".(ùŒé’
+w
+java:S1450+"\Remove the "chestsAtDairy" field and declare it as a local variable in the relevant methods.(—€çŒşÿÿÿÿ
+M
+java:S1135 "2Complete the task associated to this TODO comment.(Á¿¦Ëüÿÿÿÿ
+h
+java:S3776C"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(æôÚ„
+=
+java:S1905a"'Remove this unnecessary cast to "long".(ï·Ï«
 ;
-java:S1905‘"%Remove this unnecessary cast to "V3".(«Ö‘Y
-n
-java:S3776œ"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(—Ôé¹úÿÿÿÿ
-<
-java:S1905¢"%Remove this unnecessary cast to "V3".(–•¦Ú
+java:S1905"%Remove this unnecessary cast to "V3".(«Ö‘Y
+D	java:S108")Either remove or fill this block of code.(öé”şÿÿÿÿ
+G
+java:S1905¢"+Remove this unnecessary cast to "Building".(¨ı¹Êûÿÿÿÿ
 A
-java:S1905¤"%Remove this unnecessary cast to "V3".(òÈµêøÿÿÿÿ
-=	java:S131´""Add a default case to this switch.(‹ Àûÿÿÿÿ
+java:S1905İ"%Remove this unnecessary cast to "V3".(ëÖÆşÿÿÿÿ
+U
+java:S1135ë"2Complete the task associated to this TODO comment.(˜œ¯¤ûÿÿÿÿ8Âê÷µ€0
 i
-java:S3776á"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(Ñ¤œõ
-A
-java:S1905ì"%Remove this unnecessary cast to "V3".(Ÿ¤–×ÿÿÿÿÿ
+java:S3776ˆ"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(Ã¶Œ
+P
+java:S1135ƒ"2Complete the task associated to this TODO comment.(ÃêÈ8Øê÷µ€0
+R
+java:S1119¢";Refactor the code to remove this label and the need for it.(ÁüÌÒ
+?	java:S108´")Either remove or fill this block of code.(²¹Ô´
+;
+java:S1905Ã"%Remove this unnecessary cast to "V3".(«Ö‘Y
 n
-java:S3776“"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(ÿ£åşÿÿÿÿ
-A
-java:S1905˜"%Remove this unnecessary cast to "V3".(‹¢„¯ùÿÿÿÿ
-A
-java:S1905¬"%Remove this unnecessary cast to "V3".(½†ëÉúÿÿÿÿ
-@
-java:S1905²")Remove this unnecessary cast to "double".(ğ’ÒÆ
+java:S3776Ô"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(—Ôé¹úÿÿÿÿ
+U
+java:S1135Ï"2Complete the task associated to this TODO comment.(äéÅ„şÿÿÿÿ8ïê÷µ€0
 <
-java:S1905º"%Remove this unnecessary cast to "V3".(í÷Şæ
+java:S1905Û"%Remove this unnecessary cast to "V3".(–•¦Ú
 A
-java:S1905É"%Remove this unnecessary cast to "V3".(³©î§øÿÿÿÿ
+java:S1905İ"%Remove this unnecessary cast to "V3".(òÈµêøÿÿÿÿ
+=	java:S131î""Add a default case to this switch.(‹ Àûÿÿÿÿ
+i
+java:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(Ñ¤œõ
+U
+java:S1135£"2Complete the task associated to this TODO comment.(Äç¡Ìûÿÿÿÿ8üê÷µ€0
+A
+java:S1905³"%Remove this unnecessary cast to "V3".(Ÿ¤–×ÿÿÿÿÿ
 n
-java:S3776Ş"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ÊÚ»¦şÿÿÿÿ
+java:S3776á"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(ÿ£åşÿÿÿÿ
+P
+java:S1135Ü"2Complete the task associated to this TODO comment.(ÿŠ·‰8ˆë÷µ€0
 A
-java:S1905å"%Remove this unnecessary cast to "V3".(ò™öúÿÿÿÿ
+java:S1905ç"%Remove this unnecessary cast to "V3".(‹¢„¯ùÿÿÿÿ
+A
+java:S1905û"%Remove this unnecessary cast to "V3".(½†ëÉúÿÿÿÿ
+G
+java:S1905")Remove this unnecessary cast to "double".(ğ’ÒÆ8ÿ®‘¼€0
 <
-java:S1905ï"%Remove this unnecessary cast to "V3".(‰ßÙ…
+java:S1905‰"%Remove this unnecessary cast to "V3".(í÷Şæ
+A
+java:S1905˜"%Remove this unnecessary cast to "V3".(³©î§øÿÿÿÿ
+n
+java:S3776®"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ÊÚ»¦şÿÿÿÿ
+H
+java:S1905¶"%Remove this unnecessary cast to "V3".(ò™öúÿÿÿÿ8˜ë÷µ€0
 <
-java:S1905ø"%Remove this unnecessary cast to "V3".(‰ßÙ…
-R	java:S125"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+java:S1905À"%Remove this unnecessary cast to "V3".(‰ßÙ…
+<
+java:S1905Ê"%Remove this unnecessary cast to "V3".(‰ßÙ…
+P
+java:S1135á"2Complete the task associated to this TODO comment.(ãÈ¦ğ8ë÷µ€0
+R	java:S125è"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+N
+java:S1128"1Remove this unused import 'com.trhsy.sim.ModSim'.(ª…Öâ8§¯‘¼€0
 E
-java:S1121¢".Extract the assignment out of this expression.(–•¦Ú
+java:S1121Û".Extract the assignment out of this expression.(–•¦Ú
 J
-java:S1121¤".Extract the assignment out of this expression.(òÈµêøÿÿÿÿ
+java:S1121İ".Extract the assignment out of this expression.(òÈµêøÿÿÿÿ
 J
-java:S10669"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
-l	java:S117ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áëÜúÿÿÿÿ
-g	java:S117ù"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÀ²¸
-l	java:S117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸîÄ±ûÿÿÿÿ
+java:S1066;"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+g	java:S117À"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÀ²¸
 j
-java:S1104%"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+java:S1104'"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
 n
-java:S1104&"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+java:S1104("SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
 j
-java:S1104'"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+java:S1104)"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
 o
-java:S1104("TMake runDelay a static final constant or non-public and provide accessors if needed.(µ¸°¦şÿÿÿÿ
+java:S1104*"TMake runDelay a static final constant or non-public and provide accessors if needed.(µ¸°¦şÿÿÿÿ
+A
+java:S2629"$Invoke method(s) only conditionally.(á§
+8Å¯‘¼€0

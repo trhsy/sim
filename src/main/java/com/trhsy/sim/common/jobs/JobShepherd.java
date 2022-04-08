@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
@@ -69,7 +70,7 @@ public class JobShepherd extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -82,7 +83,7 @@ public class JobShepherd extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATFARM) {
                     this.theStage = Stage.WAITINGFORWOOL;
                 } else if (this.theStage == Stage.WAITINGFORWOOL) {
@@ -208,7 +209,7 @@ public class JobShepherd extends Job implements Serializable {
     }
 
     private boolean placeWoolIntoAChest(int metaColor, int amount) {
-        GameStates var10000 = ModSim.states;
+        GameStates var10000 = ModSimReloaded.states;
         var10000.credits -= 0.02F * (float)amount;
         this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
         this.inventoriesPut(this.farmChests, new ItemStack(Blocks.wool, amount, metaColor), true);

@@ -1,6 +1,7 @@
 package com.trhsy.sim.common;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -32,7 +33,7 @@ public class Commodity {
         }
 
         Random rand = new Random();
-        ModSim.theCommodities.clear();
+        ModSimReloaded.theCommodities.clear();
         int count = rand.nextInt(3) + 2;
 
         for(int it = 0; it < count; ++it) {
@@ -41,8 +42,8 @@ public class Commodity {
             float price = 300.0F + (float) rand.nextInt(300) + rand.nextFloat() * 100.0F;
             boolean gotIt = false;
 
-            for (int shit = 0; shit < ModSim.theCommodities.size(); ++shit) {
-                Commodity cshit = (Commodity) ModSim.theCommodities.get(shit);
+            for (int shit = 0; shit < ModSimReloaded.theCommodities.size(); ++shit) {
+                Commodity cshit = (Commodity) ModSimReloaded.theCommodities.get(shit);
                 if (cshit.theItemStack.getDisplayName().contentEquals(((ItemStack) availableItems.get(index)).getDisplayName())) {
                     gotIt = true;
                     break;
@@ -50,7 +51,7 @@ public class Commodity {
             }
 
             if (!gotIt) {
-                ModSim.theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
+                ModSimReloaded.theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
             }
         }
 

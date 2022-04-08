@@ -17,6 +17,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -84,7 +85,7 @@ public class GuiControlBox extends GuiScreen {
         this.theBuilding = Building.getBuilding(location);
         this.theFolk = folk;
         //是否白天
-        if (ModSim.isDayTime()) {
+        if (ModSimReloaded.isDayTime()) {
             this.theFolk.gotoXYZ(location, (GotoMethod) null);
         }
 
@@ -142,8 +143,8 @@ public class GuiControlBox extends GuiScreen {
                 //员工清理
                 this.employees.clear();
 
-                for (int fc = 0; fc < ModSim.theFolks.size(); ++fc) {
-                    folk = (FolkData) ModSim.theFolks.get(fc);
+                for (int fc = 0; fc < ModSimReloaded.theFolks.size(); ++fc) {
+                    folk = (FolkData) ModSimReloaded.theFolks.get(fc);
                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                         this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") +" "+folk.name));
                         this.employees.put(idx + 100, folk.name);
@@ -255,7 +256,7 @@ public class GuiControlBox extends GuiScreen {
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire11")));
                     GuiButton b2;
                     this.buttonList.add(b2 = new GuiButton(25, 10, this.height - 50, 100, 20, I18n.format("container.sim.Buy_Sell")));
-                    if (!ModSim.isDayTime() || this.employeeCount == 0) {
+                    if (!ModSimReloaded.isDayTime() || this.employeeCount == 0) {
                         b2.enabled = false;
                     }
 
@@ -351,8 +352,8 @@ public class GuiControlBox extends GuiScreen {
                 down = 70;
                 int idx = 2;
 
-                for (int i = 0; i < ModSim.theFolks.size(); ++i) {
-                    folk = (FolkData) ModSim.theFolks.get(i);
+                for (int i = 0; i < ModSimReloaded.theFolks.size(); ++i) {
+                    folk = (FolkData) ModSimReloaded.theFolks.get(i);
                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
                             this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Dismiss") +" "+ folk.name));
@@ -411,8 +412,8 @@ public class GuiControlBox extends GuiScreen {
                         this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + " :", 5, 57, 16777088);
                         down = 70;
 
-                        for (down = 0; down < ModSim.theFolks.size(); ++down) {
-                            FolkData folk = (FolkData) ModSim.theFolks.get(down);
+                        for (down = 0; down < ModSimReloaded.theFolks.size(); ++down) {
+                            FolkData folk = (FolkData) ModSimReloaded.theFolks.get(down);
                             if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                                 this.fontRendererObj.drawString(folk.name + " (" + folk.age + ") - " + folk.vocation.toString(), 20, down, 16777120);
                                 down += 20;
@@ -563,7 +564,7 @@ public class GuiControlBox extends GuiScreen {
                         //修理房子
                         if (guibutton.displayString.contentEquals(I18n.format("container.sim.Fix_House"))) {
                             Building b;
-                            ModSim.theBuildings.add(b = new Building(I18n.format("container.sim.Repaired_House"), "residential", this.location, this.location, true));
+                            ModSimReloaded.theBuildings.add(b = new Building(I18n.format("container.sim.Repaired_House"), "residential", this.location, this.location, true));
                             b.buildingComplete = true;
                             b.capacity = -1;
                             b.author = "Satscape";
@@ -600,8 +601,8 @@ public class GuiControlBox extends GuiScreen {
                             World theWorld = this.playerWhoClickedIt.worldObj;
                             bindex = 0;
 
-                            for (int i = 0; i < ModSim.theBuildings.size(); ++i) {
-                                Building build = (Building) ModSim.theBuildings.get(i);
+                            for (int i = 0; i < ModSimReloaded.theBuildings.size(); ++i) {
+                                Building build = (Building) ModSimReloaded.theBuildings.get(i);
 
                                 try {
                                     if (build.primaryXYZ.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true)) {
@@ -615,15 +616,15 @@ public class GuiControlBox extends GuiScreen {
                                 }
                             }
 
-                            ModSim.demolishWorld = theWorld;
+                            ModSimReloaded.demolishWorld = theWorld;
                             Iterator iterator = this.theBuilding.blockLocations.iterator();
 
                             while(iterator.hasNext()) {
                                 V3 blockLoc = (V3)iterator.next();
                                 Block l = theWorld.getBlock(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue());
-                                if (l != null && ModSim.demolishBlocks.size() < 500) {
+                                if (l != null && ModSimReloaded.demolishBlocks.size() < 500) {
                                     blockLoc.blockID = l;
-                                    ModSim.demolishBlocks.add(blockLoc);
+                                    ModSimReloaded.demolishBlocks.add(blockLoc);
                                 }
 
                                 theWorld.setBlock(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), Blocks.air, 0, 3);
@@ -632,7 +633,7 @@ public class GuiControlBox extends GuiScreen {
                             }
 
                             theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1.0F, 1.0F);
-                            ModSim.theBuildings.remove(bindex);
+                            ModSimReloaded.theBuildings.remove(bindex);
                             this.mc.displayGuiScreen((GuiScreen) null);
                         }
                     } else {

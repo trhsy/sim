@@ -10,6 +10,7 @@ import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
@@ -68,43 +69,43 @@ public class CommonTickHandler {
     public void onTickInGame() {
         if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("guimainmenu")) {
             //CommTH:在Gui主菜单中
-            ModSim.log.info("CommTH: 在Gui主菜单中");
+            ModSimReloaded.log.info("CommTH: 在Gui主菜单中");
         }
 
-        if (ModSim.states.gameModeNumber == 10) {
+        if (ModSimReloaded.states.gameModeNumber == 10) {
             ModSim.proxy.ranStartup = true;
         } else {
             Long now = System.currentTimeMillis();
             if (this.serverWorld != null) {
                 FolkData.triggerAllUpdates();
-                ModSim.dayTransitionHandler();
-                if (ModSim.farmToUpgrade != null) {
-                    ModSim.upgradeFarm();
+                ModSimReloaded.dayTransitionHandler();
+                if (ModSimReloaded.farmToUpgrade != null) {
+                    ModSimReloaded.upgradeFarm();
                 }
 
-                if (ModSim.demolishBlocks.size() > 0) {
-                    ModSim.demolishBlocks();
+                if (ModSimReloaded.demolishBlocks.size() > 0) {
+                    ModSimReloaded.demolishBlocks();
                 }
             }
 
             if (now - this.lastSecondTickAt > 1000L) {
                 if (!ModSim.proxy.ranStartup) {
                     //还没有启动——现在就这么做
-                    //ModSim.log.info("Haven't run startup - doing that now");
-                    ModSim.log.info("还没有启动——现在就这么做");
+                    //ModSimReloaded.log.info("Haven't run startup - doing that now");
+                    ModSimReloaded.log.info("还没有启动——现在就这么做");
                     this.serverWorld = MinecraftServer.getServer().getEntityWorld();
-                    this.currentWorld = ModSim.getSavesDataFolder();
+                    this.currentWorld = ModSimReloaded.getSavesDataFolder();
                     //CommTH: Startup - set serverWorld/currentWorld
-                    ModSim.log.info("CommTH: 启动 - 设置 serverWorld/currentWorld");
-                    ModSim.log.info("运行重置世界功能");
-                    //ModSim.log.info("Running Reset World Function");
-                    ModSim.resetAndLoadNewWorld();
+                    ModSimReloaded.log.info("CommTH: 启动 - 设置 serverWorld/currentWorld");
+                    ModSimReloaded.log.info("运行重置世界功能");
+                    //ModSimReloaded.log.info("Running Reset World Function");
+                    ModSimReloaded.resetAndLoadNewWorld();
                 } else {
-                    if (!this.currentWorld.contentEquals(ModSim.getSavesDataFolder()) && now - this.lastReset > 30000L) {
-                        ModSim.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSim.getSavesDataFolder());
-                        this.currentWorld = ModSim.getSavesDataFolder();
+                    if (!this.currentWorld.contentEquals(ModSimReloaded.getSavesDataFolder()) && now - this.lastReset > 30000L) {
+                        ModSimReloaded.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSimReloaded.getSavesDataFolder());
+                        this.currentWorld = ModSimReloaded.getSavesDataFolder();
                         ModSim.proxy.ranStartup = false;
-                        ModSim.resetAndLoadNewWorld();
+                        ModSimReloaded.resetAndLoadNewWorld();
                     }
 
                     if (this.serverWorld.isRaining() && this.serverWorld.getWorldInfo().getRainTime() > 1 && ConfigLoader.configStopRain) {
@@ -119,14 +120,14 @@ public class CommonTickHandler {
                 if (this.lastMinuteTickAt > 0L) {
                     Long start = System.currentTimeMillis();
                     FolkData.generateNewFolk(this.serverWorld);
-                    ModSim.states.saveStates();
+                    ModSimReloaded.states.saveStates();
                     Building.checkTenants();
                     Building.saveAllBuildings();
                     CourierTask.saveCourierTasksAndPoints();
                     MiningBox.saveMiningBoxes();
                     FarmingBox.saveFarmingBoxes();
                     Relationship.saveRelationships();
-                    ModSim.log.info("CTH: 将游戏数据保存在 " + (System.currentTimeMillis() - start) + " ms");
+                    ModSimReloaded.log.info("CTH: 将游戏数据保存在 " + (System.currentTimeMillis() - start) + " ms");
                     //Saved game data in
                 }
 
@@ -141,7 +142,7 @@ public class CommonTickHandler {
             this.lastReset = System.currentTimeMillis();
             Side side = FMLCommonHandler.instance().getEffectiveSide();
             //side CommTH: resetSimUKraft()
-            ModSim.log.info(side.toString() + "-side CommTH: 重置SimUKraft()");
+            ModSimReloaded.log.info(side.toString() + "-side CommTH: 重置SimUKraft()");
         }
 
     }

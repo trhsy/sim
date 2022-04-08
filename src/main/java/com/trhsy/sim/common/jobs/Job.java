@@ -11,6 +11,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
@@ -133,7 +134,7 @@ public abstract class Job {
                 }
             }
             //  是否白天               活动的              去工作路上                             活动中                工作中
-            if (ModSim.isDayTime() && theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
+            if (ModSimReloaded.isDayTime() && theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
                 //活动设置为去工作路上
                 theFolk.action = FolkAction.ONWAYTOWORK;
                 //设置原地不动为否
@@ -246,7 +247,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSim.log.warn("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + i);
+                        ModSimReloaded.log.warning("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + i);
                         placedOK = false;
                     } else if (is.getItem() == inStack.getItem() && is.getMetadata() == inStack.getMetadata() && is.stackSize < is.getMaxStackSize()) {
                         int isBefore = chest.getStackInSlot(i).stackSize;
@@ -259,7 +260,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSim.log.warn("Job: placeIntoInventory() 无法更改大小 " + is.getDisplayName() + " in slot " + i);
+                        ModSimReloaded.log.warning("Job: placeIntoInventory() 无法更改大小 " + is.getDisplayName() + " in slot " + i);
                         placedOK = false;
                     }
                 }
@@ -519,7 +520,7 @@ public abstract class Job {
                 if (okToPlace) {
                     placed = this.inventoriesPut(toChests, folkStack, true);
                     if (!placed) {
-                        ModSim.log.warn("Job: 无法放置一堆 " + folkStack.getDisplayName() + " in chest");
+                        ModSimReloaded.log.warning("Job: 无法放置一堆 " + folkStack.getDisplayName() + " in chest");
                         return false;
                     }
                 }
@@ -1021,8 +1022,8 @@ public abstract class Job {
         new ArrayList();
         Building shortestDist = null;
 
-        for (int x = 0; x < ModSim.theBuildings.size(); ++x) {
-            Building b = (Building) ModSim.theBuildings.get(x);
+        for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
+            Building b = (Building) ModSimReloaded.theBuildings.get(x);
             if (b.displayName.toLowerCase().contains(searchWord.toLowerCase())) {
                 if (shortestDist.primaryXYZ == null) {
                     shortestDist = b;

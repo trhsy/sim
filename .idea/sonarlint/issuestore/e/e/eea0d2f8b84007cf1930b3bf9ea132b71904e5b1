@@ -1,15 +1,7 @@
 
 M
-java:S1135"2Complete the task associated to this TODO comment.(Ëó†±ÿÿÿÿÿ
-V	java:S125/"<This block of commented-out lines of code should be removed.(÷ˆÿÞûÿÿÿÿ
-\
-java:S3457N"AFormat specifiers should be used instead of string concatenation.(ðÕÇûÿÿÿÿ
-?
-java:S1905V")Remove this unnecessary cast to "double".(Ø¼þ·
-?
-java:S1905V")Remove this unnecessary cast to "double".(Ø¼þ·
-?
-java:S1905V")Remove this unnecessary cast to "double".(Ø¼þ·
+java:S1135 "2Complete the task associated to this TODO comment.(Ëó†±ÿÿÿÿÿ
+V	java:S1250"<This block of commented-out lines of code should be removed.(÷ˆÿÞûÿÿÿÿ
 M
-java:S1135o"2Complete the task associated to this TODO comment.(ÚúƒÇþÿÿÿÿ
-e	java:S117^"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éû”w
+java:S1135p"2Complete the task associated to this TODO comment.(ÚúƒÇþÿÿÿÿ
+e	java:S117_"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éû”w

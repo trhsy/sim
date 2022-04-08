@@ -1,22 +1,22 @@
 
 A
-java:S2387"+"vocation" is the name of a field in "Job".(ùŒé’
+java:S2387"+"vocation" is the name of a field in "Job".(ùŒé’
 M
-java:S1135"2Complete the task associated to this TODO comment.(ŒÑÙşÿÿÿÿ
+java:S1135"2Complete the task associated to this TODO comment.(ŒÑÙşÿÿÿÿ
 =
-java:S1905B"'Remove this unnecessary cast to "long".(ï·Ï«
+java:S1905C"'Remove this unnecessary cast to "long".(ï·Ï«
 ?
-java:S1905G")Remove this unnecessary cast to "double".(½ò¿‡
-Q	java:S125V"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+java:S1905H")Remove this unnecessary cast to "double".(½ò¿‡
+Q	java:S125W"<This block of commented-out lines of code should be removed.(¾ÊöÊ
 J
-java:S1066*"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
+java:S1066+"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
 j
-java:S1104"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
+java:S1104"TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
 n
-java:S1104"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
+java:S1104"SMake theFolk a static final constant or non-public and provide accessors if needed.(õñ‹şÿÿÿÿ
 j
-java:S1104"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
+java:S1104"TMake theStage a static final constant or non-public and provide accessors if needed.(Ö ·ï
 o
-java:S1104"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
+java:S1104"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
 w
-java:S1104"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
+java:S1104"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ

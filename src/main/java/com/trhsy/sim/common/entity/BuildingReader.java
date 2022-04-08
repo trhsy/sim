@@ -4,9 +4,10 @@ package com.trhsy.sim.common.entity;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.util.GameMode;
 import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -211,7 +212,7 @@ public class BuildingReader implements Serializable {
             this.blocksInBuilding = 0;
             File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
-                ModSim.log.warn("找不到文件");
+                ModSimReloaded.log.warning("找不到文件");
                 return;
             }
 
@@ -404,7 +405,7 @@ public class BuildingReader implements Serializable {
                             this.rent = (float)this.blocksInBuilding * 0.01F;
                             this.corpTax = 3.0F;
                         } catch (Exception var18) {
-                            ModSim.log.error("Caught exception: " + var18.getMessage());
+                            ModSimReloaded.log.warning("Caught exception: " + var18.getMessage());
                         }
                     }
                 }
@@ -517,7 +518,7 @@ public class BuildingReader implements Serializable {
                 br.close();
             }
         } catch (Exception var19) {
-            ModSim.log.error("被抓住的例外: " + var19.getMessage());
+            ModSimReloaded.log.warning("被抓住的例外: " + var19.getMessage());
         }
 
     }
@@ -531,7 +532,7 @@ public class BuildingReader implements Serializable {
         Map.Entry pairs;
         ItemStack is;
         int val;
-        if (ModSim.gameMode == GameMode.NORMAL) {
+        if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
             name = "";
 
             try {
@@ -561,11 +562,11 @@ public class BuildingReader implements Serializable {
                 }
             }
         } else {
-            if (ModSim.gameMode == GameMode.CREATIVE) {
+            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 return;
             }
 
-            if (ModSim.gameMode == GameMode.HARDCORE) {
+            if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
                 name = "";
 
                 try {

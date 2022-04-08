@@ -8,6 +8,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.packets.SimukraftPacket;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -54,10 +55,10 @@ public class PacketHandler implements IMessageHandler<SimukraftPacket, IMessage>
                     folk.serverToClientLocationUpdate(newpos);
                 }
             } else if (cmd.contentEquals("gamereset")) {
-                ModSim.resetAndLoadNewWorld();
+                ModSimReloaded.resetAndLoadNewWorld();
             }
 
-            ModSim.log.info("PacketHandler: " + sside + "-收到了侧包: " + cmd);
+            ModSimReloaded.log.info("PacketHandler: " + sside + "-收到了侧包: " + cmd);
             return null;
         } catch (Exception var11) {
             var11.printStackTrace();

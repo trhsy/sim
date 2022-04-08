@@ -1,0 +1,52 @@
+
+J
+java:S3740"/Provide the parametrized type for this generic.(¼¶”ôşÿÿÿÿ
+H
+java:S1135"2Complete the task associated to this TODO comment.(øå­¸
+m
+java:S37766"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(ºÂ…ºÿÿÿÿÿ
+F
+java:S1905;"+Remove this unnecessary cast to "FolkData".(ˆ²Òâøÿÿÿÿ
+i
+java:S3776‚"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(‡àñ¯
+V
+java:S1854˜":Remove this useless assignment to local variable "others".(¡””èşÿÿÿÿ
+G
+java:S1481–"+Remove this unused "others" local variable.(¸¿Œ—şÿÿÿÿ
+i
+java:S3776²"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(÷ÿ¯¶
+L
+java:S1854Ü"5Remove this useless assignment to local variable "i".(ºêÔ´
+G
+java:S1905½"+Remove this unnecessary cast to "FolkData".(ØŒÙÎşÿÿÿÿ
+?	java:S108÷")Either remove or fill this block of code.(Æƒæí
+G
+java:S1144f"1Remove this unused private "extraButtons" method.(Ú«·¹
+q
+java:S1192I"VDefine a constant instead of duplicating this literal "container.sim.Mining6" 3 times.(ºáÙ¯üÿÿÿÿ
+l
+java:S1192K"VDefine a constant instead of duplicating this literal "container.sim.Mining7" 3 times.(Ô¼
+l
+java:S1192E"VDefine a constant instead of duplicating this literal "container.sim.Mining4" 3 times.(îã¨æ
+l
+java:S1192G"VDefine a constant instead of duplicating this literal "container.sim.Mining5" 3 times.(à€ßâ
+q
+java:S1192O"VDefine a constant instead of duplicating this literal "container.sim.Mining8" 3 times.(ıêúÌüÿÿÿÿ
+q
+java:S1192Q"VDefine a constant instead of duplicating this literal "container.sim.Mining9" 3 times.(üæ‚Çüÿÿÿÿ
+q
+java:S1192C"VDefine a constant instead of duplicating this literal "container.sim.Mining3" 3 times.( òú‡øÿÿÿÿ
+D
+java:S1121W".Extract the assignment out of this expression.(û‹ï
+{
+java:S1319$"eThe type of "folks" should be an interface such as "List" rather than the implementation "ArrayList".(²à¯¥
+Q
+java:S1141Œ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141•"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141 "5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Y
+java:S1155:">Use isEmpty() to check whether the collection is empty or not.(«–©·ûÿÿÿÿ
+Z
+java:S1155”">Use isEmpty() to check whether the collection is empty or not.(„¦ñüÿÿÿÿ

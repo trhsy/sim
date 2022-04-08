@@ -5,13 +5,14 @@ package com.trhsy.sim.client.gui.blocks;/**
  */
 
 import com.trhsy.sim.client.gui.folk.GuiEmployFolk;
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.enums.FarmType;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.util.GameMode;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -120,8 +121,8 @@ public class GuiFarming extends GuiScreen {
             } else if (this.theFarmingBox.level == 1 && this.theFarmingBox.farmType == FarmType.CACTUS) {
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_sugar"), this.width / 2, 130, 16777215);
             } else if (this.theFarmingBox.level < 3) {
-                if (ModSim.gameMode != GameMode.CREATIVE) {
-                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Upgrade_will_cost") + ModSim.displayMoney(this.getUpgradeCost()) + I18n.format("container.sim.gui_Farming_text_credits"), this.width / 2, 130, 16777215);
+                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Upgrade_will_cost") + ModSimReloaded.displayMoney(this.getUpgradeCost()) + I18n.format("container.sim.gui_Farming_text_credits"), this.width / 2, 130, 16777215);
                 } else {
                     this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Upgrade_is_Free"), this.width / 2, 130, 16777215);
                 }
@@ -170,8 +171,8 @@ public class GuiFarming extends GuiScreen {
 
                     guibutton.displayString = this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm");
                 } else if (guibutton.id == 3) {
-                    float cash = ModSim.states.credits;
-                    if (ModSim.gameMode == GameMode.CREATIVE) {
+                    float cash = ModSimReloaded.states.credits;
+                    if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                         cash = 1000.0F;
                     }
 
@@ -180,13 +181,13 @@ public class GuiFarming extends GuiScreen {
                         guibutton.enabled = false;
                     } else {
                         if (this.theFarmingBox.getSizeLength() >= 4 && this.theFarmingBox.getSizeWidth() >= 4) {
-                            if (ModSim.gameMode != GameMode.CREATIVE) {
-                                GameStates var10000 = ModSim.states;
+                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                GameStates var10000 = ModSimReloaded.states;
                                 var10000.credits -= this.getUpgradeCost();
                             }
 
-                            ModSim.farmToUpgradeCounter = 0;
-                            ModSim.farmToUpgrade = this.theFarmingBox;
+                            ModSimReloaded.farmToUpgradeCounter = 0;
+                            ModSimReloaded.farmToUpgrade = this.theFarmingBox;
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;

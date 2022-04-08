@@ -76,6 +76,7 @@ public class ItemLoader {
         register(itemDrinks, "drinks");
         //register(itemBlockWindmill, "block_windmill");
         //register(itemBlockLightBox, "light_box");
+        nameItems();
 
     }
 

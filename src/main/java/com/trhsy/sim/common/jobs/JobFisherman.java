@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -57,7 +58,7 @@ public class JobFisherman extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -70,7 +71,7 @@ public class JobFisherman extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATDOCK) {
                     this.stageArrived();
                 } else if (this.theStage == Stage.FISHING) {
@@ -91,7 +92,7 @@ public class JobFisherman extends Job implements Serializable {
         V3 water = Job.findClosestBlockType(this.theFolk.employedAt, Blocks.water, 5, false);
         if (water == null) {
             this.theStage = Stage.CANTWORK;
-            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.Fisherman"));
+            ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.Fisherman"));
         } else {
             this.theStage = Stage.FISHING;
             this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.Casting");
@@ -130,12 +131,12 @@ public class JobFisherman extends Job implements Serializable {
         this.timeSinceLastCaughtFish = System.currentTimeMillis();
         this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.Caught");
         ++this.fishCount;
-        GameStates var10000 = ModSim.states;
+        GameStates var10000 = ModSimReloaded.states;
         var10000.credits -= 0.02F;
         this.dockChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
         if (this.dockChests.size() == 0) {
             this.theFolk.statusText = I18n.format("container.sim.job.fisherman.farmer.someone");
-            ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.dock"));
+            ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.dock"));
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.dropItem(Items.fish, 1);
             }
@@ -161,8 +162,8 @@ public class JobFisherman extends Job implements Serializable {
             if (this.step == 1) {
                 //int sell = false;
                 ItemStack fishStack = null;
-                if (ModSim.theFolks.size() > 1) {
-                    int sell = ModSim.theFolks.size() + 1;
+                if (ModSimReloaded.theFolks.size() > 1) {
+                    int sell = ModSimReloaded.theFolks.size() + 1;
                     this.dockChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
                     fishStack = inventoriesGet(this.dockChests, new ItemStack(Items.fish, sell), false, false);
                 }
@@ -172,10 +173,10 @@ public class JobFisherman extends Job implements Serializable {
                     return;
                 }
 
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.caughts") + this.fishCount + I18n.format("container.sim.job.fisherman.farmer.and_has") + fishStack.stackSize + I18n.format("container.sim.job.fisherman.farmer.to_folks"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.fisherman.farmer.caughts") + this.fishCount + I18n.format("container.sim.job.fisherman.farmer.and_has") + fishStack.stackSize + I18n.format("container.sim.job.fisherman.farmer.to_folks"));
 
-                for (int f = 0; f < ModSim.theFolks.size(); ++f) {
-                    FolkData folk = (FolkData) ModSim.theFolks.get(f);
+                for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
                     if (fishStack.stackSize > 0) {
                         folk.levelFood = 10;
                         --fishStack.stackSize;

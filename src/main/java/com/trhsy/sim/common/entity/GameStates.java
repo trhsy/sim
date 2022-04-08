@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 
 import java.io.File;
 import java.io.Serializable;
@@ -32,9 +33,9 @@ public class GameStates implements Serializable {
     }
 
     public void loadStates() {
-        File f = new File(ModSim.getSavesDataFolder() + "settings.sk2");
+        File f = new File(ModSimReloaded.getSavesDataFolder() + "settings.sk2");
         if (!f.exists()) {
-            ModSim.states = (GameStates) ModSim.proxy.loadObject(ModSim.getSavesDataFolder() + "settings.suk");
+            ModSimReloaded.states = (GameStates) ModSim.proxy.loadObject(ModSimReloaded.getSavesDataFolder() + "settings.suk");
         } else {
             this.loadStates2();
         }
@@ -42,7 +43,7 @@ public class GameStates implements Serializable {
     }
 
     private void loadStates2() {
-        ArrayList<String> strings = ModSim.loadSK2(ModSim.getSavesDataFolder() + "settings.sk2");
+        ArrayList<String> strings = ModSimReloaded.loadSK2(ModSimReloaded.getSavesDataFolder() + "settings.sk2");
         Iterator i$ = strings.iterator();
 
         while(i$.hasNext()) {
@@ -73,7 +74,7 @@ public class GameStates implements Serializable {
     }
 
     public void saveStates() {
-        String folder = ModSim.getSavesDataFolder();
+        String folder = ModSimReloaded.getSavesDataFolder();
         ArrayList<String> strings = new ArrayList();
         //金额
         strings.add("credits|" + this.credits);
@@ -83,7 +84,7 @@ public class GameStates implements Serializable {
         strings.add("dayofweek|" + this.dayOfWeek);
         //最后一次更新
         strings.add("lastupdatecheck|" + this.lastUpdateCheck);
-        ModSim.saveSK2(folder + "settings.sk2", strings);
-        ModSim.log.info("GameStates: saveStates() called BOTH sides, 金额存储为 " + this.credits);
+        ModSimReloaded.saveSK2(folder + "settings.sk2", strings);
+        ModSimReloaded.log.info("GameStates: saveStates() called BOTH sides, 金额存储为 " + this.credits);
     }
 }

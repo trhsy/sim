@@ -9,6 +9,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.functionality.PathBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -122,7 +123,7 @@ public class GuiPathBox extends GuiScreen {
                     this.initGui();
                 } else if (this.page == 1) {
                     this.thePathBox.pathType = guibutton.displayString;
-                    ModSim.sendChat(I18n.format("container.sim.PathBox9") + guibutton.displayString);
+                    ModSimReloaded.sendChat(I18n.format("container.sim.PathBox9") + guibutton.displayString);
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
                 }

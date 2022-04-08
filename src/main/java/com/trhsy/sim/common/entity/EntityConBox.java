@@ -7,6 +7,7 @@ package com.trhsy.sim.common.entity;/**
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.jobs.Job;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,7 +39,7 @@ public class EntityConBox extends Entity{
         this.noClip = true;
         this.ignoreFrustumCheck = true;
         if (!ModSim.proxy.ranStartup) {
-            ModSim.log.info("EntityConBox: 被杀死的系统产生了ConBox");
+            ModSimReloaded.log.info("EntityConBox: 被杀死的系统产生了ConBox");
             this.setDead();
         }
 
@@ -49,7 +50,7 @@ public class EntityConBox extends Entity{
     public void onUpdate() {
         if (System.currentTimeMillis() - this.lastCheck > 10000L) {
             if (this.theFolk != null && this.theFolk.theBuilding == null) {
-                ModSim.log.info("EntityConBox: 建筑完成后移除conBox");
+                ModSimReloaded.log.info("EntityConBox: 建筑完成后移除conBox");
                 this.spawnExplosionParticle(this);
                 this.setDead();
             }
@@ -70,10 +71,10 @@ public class EntityConBox extends Entity{
         V3 con = Job.findClosestBlockType(where, BlockLoader.constructorBox, 6, false);
         FolkData ret = null;
 
-        for (int f = 0; f < ModSim.theFolks.size(); ++f) {
-            FolkData fd = (FolkData) ModSim.theFolks.get(f);
+        for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+            FolkData fd = (FolkData) ModSimReloaded.theFolks.get(f);
             if (fd.employedAt != null && fd.employedAt.isSameCoordsAs(where, true, false)) {
-                ModSim.log.info("EntityConBox: 找到人 " + fd.name);
+                ModSimReloaded.log.info("EntityConBox: 找到人 " + fd.name);
                 ret = fd;
                 break;
             }

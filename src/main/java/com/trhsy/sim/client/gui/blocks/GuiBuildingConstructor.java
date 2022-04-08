@@ -13,6 +13,7 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.jobs.JobBuilder;
 import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.packets.server.LoadBuildingMessage;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -62,8 +63,8 @@ public class GuiBuildingConstructor extends GuiScreen {
         } else {
             this.theWorkers.clear();
 
-            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
-                FolkData folk = (FolkData) ModSim.theFolks.get(f);
+            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
                 if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
                     if (folk.vocation == Vocation.BUILDER) {
                         JobBuilder theirJob = (JobBuilder) folk.theirJob;
@@ -206,7 +207,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
         } catch (Exception var12) {
             //var12.printStackTrace();
-            ModSim.log.error(var12.getMessage());
+            ModSimReloaded.log.warning(var12.getMessage());
         }
         super.drawScreen(i, j, f);
     }
@@ -297,8 +298,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                     y = 65;
                     idx = 1;
 
-                    for (y = 0; y < ModSim.theFolks.size(); ++y) {
-                        FolkData folk = (FolkData) ModSim.theFolks.get(y);
+                    for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
+                        FolkData folk = (FolkData) ModSimReloaded.theFolks.get(y);
                         String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
                         this.buttonList.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
                         ++x;
@@ -361,11 +362,11 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 Building building = (Building) houses.get(boff);
                                 String realCost = "";
                                 if (this.theWorkers.size() > 1) {
-                                    realCost = " (" + ModSim.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
+                                    realCost = " (" + ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
                                 }
 
                                 String line2 = building.ltrCount + " x " + building.ftbCount + " x " + building.layerCount;
-                                line3 = ModSim.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
+                                line3 = ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
                                 String line4 = building.author;
                                 GuiButton b3;
                                 this.buttonList.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
@@ -480,11 +481,11 @@ public class GuiBuildingConstructor extends GuiScreen {
                             String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
                             if (guibutton.displayString.contentEquals(sim_gui_BC_Build_it)) {
                                 if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
-                                    ModSim.theBuildings.remove(this.selectedBuilding);
+                                    ModSimReloaded.theBuildings.remove(this.selectedBuilding);
                                 }
 
                                 this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
-                                ModSim.theBuildings.add(this.selectedBuilding);
+                                ModSimReloaded.theBuildings.add(this.selectedBuilding);
                                 this.selectedBuilding.saveThisBuilding();
                                 ModSim.network.sendToAll(new LoadBuildingMessage("GuiBuildingCon"));
 

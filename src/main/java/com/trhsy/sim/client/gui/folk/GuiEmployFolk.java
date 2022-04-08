@@ -5,7 +5,6 @@ package com.trhsy.sim.client.gui.folk;/**
  */
 
 import com.trhsy.sim.client.gui.blocks.*;
-import com.trhsy.sim.common.GameMode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.block.functionality.PathBox;
@@ -14,6 +13,8 @@ import com.trhsy.sim.common.block.functionality.MiningBox;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.util.GameMode;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -165,15 +166,15 @@ public class GuiEmployFolk extends GuiScreen {
                 }
 
                 if (guibutton.id == 1000) {
-                    if (ModSim.states.credits <= 0.0F && ModSim.gameMode != GameMode.CREATIVE) {
-                        ModSim.sendChat(I18n.format("container.sim.gui_sendChat_you_need"));
+                    if (ModSimReloaded.states.credits <= 0.0F && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_you_need"));
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                         return;
                     }
 
-                    if (ModSim.gameMode == GameMode.CREATIVE && this.vocation == Vocation.MERCHANT) {
-                        ModSim.sendChat(I18n.format("container.sim.gui_sendChat_Builder_merchant"));
+                    if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE && this.vocation == Vocation.MERCHANT) {
+                        ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_Builder_merchant"));
                         this.mc.currentScreen = null;
                         this.mc.setIngameFocus();
                         return;
@@ -204,7 +205,7 @@ public class GuiEmployFolk extends GuiScreen {
             FolkData efolk = (FolkData)efolks.get(i);
             efolk.employedAt = this.controlBoxLocation;
             efolk.setTheirJob(this.vocation);
-            if (ModSim.isDayTime()) {
+            if (ModSimReloaded.isDayTime()) {
                 efolk.gotoXYZ(efolk.employedAt, (GotoMethod) null);
             }
         }

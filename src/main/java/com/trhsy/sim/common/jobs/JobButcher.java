@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
@@ -67,7 +68,7 @@ public class JobButcher extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -85,7 +86,7 @@ public class JobButcher extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATSHOP) {
                     this.theStage = Stage.GOINGTOMEATFARM;
                 } else if (this.theStage == Stage.GOINGTOMEATFARM) {
@@ -99,7 +100,7 @@ public class JobButcher extends Job implements Serializable {
                 }
             }
 
-            if (!ModSim.isDayTime()) {
+            if (!ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
 
@@ -221,9 +222,9 @@ public class JobButcher extends Job implements Serializable {
             this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
             this.openCloseChest((IInventory)this.chestsAtShop.get(0), 2000);
             if (this.pay > 0.0F) {
-                GameStates var10000 = ModSim.states;
+                GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= this.pay;
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.collected") + ModSim.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.collected") + ModSimReloaded.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
                 this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
             }
 
@@ -245,7 +246,7 @@ public class JobButcher extends Job implements Serializable {
             ItemStack piece = null;
             this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
 
-            for (int f = 0; f < ModSim.theFolks.size(); ++f) {
+            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
                 piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.porkchop, 1), false, false);
                 if (piece == null) {
                     piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.chicken, 1), false, false);
@@ -256,14 +257,14 @@ public class JobButcher extends Job implements Serializable {
                 }
 
                 if (piece != null) {
-                    FolkData folk = (FolkData) ModSim.theFolks.get(f);
+                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
                     folk.levelFood = 10;
                     ++sell;
                 }
             }
 
             if (sell > 0) {
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.has_sold") + sell + I18n.format("container.sim.job.butcher.folks"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.has_sold") + sell + I18n.format("container.sim.job.butcher.folks"));
             }
 
             this.step = 4;
@@ -277,7 +278,7 @@ public class JobButcher extends Job implements Serializable {
 
         while(!found) {
             try {
-                Building farm = (Building) ModSim.theBuildings.get(this.currentFarmNum);
+                Building farm = (Building) ModSimReloaded.theBuildings.get(this.currentFarmNum);
                 if (farm.displayNameWithoutPK.contains("Cattle Farm") || farm.displayNameWithoutPK.contains("Pig Farm") || farm.displayNameWithoutPK.contains("Chicken Farm")) {
                     found = true;
                     ++this.currentFarmNum;
@@ -285,7 +286,7 @@ public class JobButcher extends Job implements Serializable {
                 }
 
                 ++this.currentFarmNum;
-                if (this.currentFarmNum > ModSim.theBuildings.size() - 1) {
+                if (this.currentFarmNum > ModSimReloaded.theBuildings.size() - 1) {
                     return null;
                 }
             } catch (Exception var3) {

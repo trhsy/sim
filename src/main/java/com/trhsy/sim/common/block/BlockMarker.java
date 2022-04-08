@@ -11,6 +11,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -115,17 +116,17 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             if (markers.size() == 1) {
                 markerCaption = "Front-Left";
                 helpText = I18n.format("container.sim.box_Marker_left");
-                ModSim.log.info(markers.size());
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
             } else if (markers.size() == 2) {
                 markerCaption = "Front-Right";
                 helpText = I18n.format("container.sim.box_Marker_right");
-                ModSim.log.info(markers.size());
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
             } else if (markers.size() == 3) {
                 markerCaption = "Rear-Left";
                 helpText = I18n.format("container.sim.box_Marker_Rear_Left");
-                ModSim.log.info(markers.size());
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
             } else {
-                ModSim.log.info(markers.size());
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
                 markerCaption = I18n.format("container.sim.box_Marker_Markers");
             }
 
@@ -170,7 +171,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             }
 
             if (!helpText.contentEquals("")) {
-                ModSim.sendChat(helpText);
+                ModSimReloaded.sendChat(helpText);
             }
 
             super.onBlockPlacedBy(world, i, j, k, player, is);

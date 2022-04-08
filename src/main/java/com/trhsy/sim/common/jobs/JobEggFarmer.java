@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
@@ -54,7 +55,7 @@ public class JobEggFarmer extends Job {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -67,7 +68,7 @@ public class JobEggFarmer extends Job {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                 if (this.theStage == Stage.ARRIVEDATFARM) {
                     this.stageArrived();
                 } else if (this.theStage == Stage.FEEDINGCHICKENS) {
@@ -122,11 +123,11 @@ public class JobEggFarmer extends Job {
         if (this.farmChests.size() > 0) {
             boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.egg, c + 1, 0), true);
             if (!ok) {
-                ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.job.egg.farmer.chests_eggs"));
+                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.egg.farmer.chests_eggs"));
                 this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.chests_full");
                 this.theStage = Stage.CANTWORK;
             } else {
-                GameStates var10000 = ModSim.states;
+                GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= 0.05F;
                 this.theStage = Stage.FEEDINGCHICKENS;
             }

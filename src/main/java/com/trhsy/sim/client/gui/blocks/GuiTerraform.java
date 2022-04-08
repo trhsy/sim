@@ -8,6 +8,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.jobs.JobTerraformer;
 import com.trhsy.sim.common.jobs.TerraformerType;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -81,7 +82,7 @@ public class GuiTerraform extends GuiScreen {
         try {
             JobTerraformer var2 = (JobTerraformer)this.theFolk.theirJob;
         } catch (Exception var4) {
-            ModSim.sendChat(I18n.format("container.sim.Terraform13"));
+            ModSimReloaded.sendChat(I18n.format("container.sim.Terraform13"));
             return;
         }
 

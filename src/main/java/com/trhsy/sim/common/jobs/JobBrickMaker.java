@@ -6,6 +6,7 @@ import com.trhsy.sim.common.entity.GameStates;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -58,7 +59,7 @@ public class JobBrickMaker extends Job implements Serializable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!ModSim.isDayTime()) {
+        if (!ModSimReloaded.isDayTime()) {
             this.theStage = Stage.IDLE;
         }
 
@@ -79,7 +80,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
                 }
 
-                if (this.theStage != Stage.IDLE || !ModSim.isDayTime()) {
+                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                     if (this.theStage == Stage.SCANFORCLAY) {
                         this.stageScanForClay();
                     } else if (this.theStage == Stage.GOTOCLAYBLOCK) {
@@ -171,7 +172,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.mc.theWorld.playSound(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z, "step.sand", 1.0F, 1.0F, false);
                 this.theFolk.inventory.add(new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
                 this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.inventory.size();
-                GameStates var10000 = ModSim.states;
+                GameStates var10000 = ModSimReloaded.states;
                 var10000.credits = (float)((double)var10000.credits - 0.012D);
                 if (this.theFolk.inventory.size() < 64) {
                     this.theStage = Stage.SCANFORCLAY;
@@ -224,7 +225,7 @@ public class JobBrickMaker extends Job implements Serializable {
         this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
         this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         if (this.factoryFurnace == null) {
-            ModSim.sendChat(this.theFolk.name + "："+I18n.format("container.sim.JobBrickMaker4"));
+            ModSimReloaded.sendChat(this.theFolk.name + "："+I18n.format("container.sim.JobBrickMaker4"));
         } else {
             ItemStack currentClay;
             ItemStack gotFuel;
@@ -247,7 +248,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     }
 
                     if (gotFuel == null) {
-                        ModSim.sendChat(this.theFolk.name + I18n.format("container.sim.JobBrickMaker6"));
+                        ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.JobBrickMaker6"));
                         this.theStage = Stage.SCANFORCLAY;
                         this.step = 1;
                         return;
@@ -288,7 +289,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 if (currentClay != null) {
                     this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker8");
                     this.inventoriesPut(this.factoryChests, currentClay, true);
-                    GameStates var10000 = ModSim.states;
+                    GameStates var10000 = ModSimReloaded.states;
                     var10000.credits = (float)((double)var10000.credits - 0.005D * (double)currentClay.stackSize);
                     this.factoryFurnace.setInventorySlotContents(2, (ItemStack)null);
                 } else {
