@@ -66,36 +66,42 @@ public class JobCheesemaker extends Job {
     @Override
     public void onUpdate() {
         super.onUpdate();
+        //
         if (this.theCheeseFactory == null) {
             Building.loadAllBuildings();
             this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
         }
 
-        /*if (this.theCheeseFactory == null) {
+        if (this.theCheeseFactory == null) {
             Building.loadAllBuildings();
             this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
-        }*/
+        }
 
         if (this.theCheeseFactory == null) {
             this.theFolk.selfFire();
             //奶酪工厂出了问题，试着重新启动Minecraft
             ModSimReloaded.sendChat(I18n.format("container.sim.job.cheese_maker.There"));
         } else {
+            //是晚上，状态设置为闲置
             if (!ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.IDLE;
             }
-
+            //去工作
             super.onUpdateGoingToWork(this.theFolk);
+            //到达工厂
             if (this.theStage == Stage.ARRIVEDATFACTORY) {
+                //工作中
                 this.theFolk.action = FolkAction.ATWORK;
                 this.runDelay = 11000;
+                //倒牛奶
             } else if (this.theStage == Stage.EMPTYINGMILK) {
                 this.runDelay = 1000;
             } else {
                 this.runDelay = 5000;
             }
-
+            //当前时间-时间间隔>=停顿时间
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                //状态不是闲置 或者 是夜晚
                 if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
                     //到达工厂
                     if (this.theStage == Stage.ARRIVEDATFACTORY) {
@@ -123,11 +129,12 @@ public class JobCheesemaker extends Job {
                         this.stageSliceCheese();
                     }
                 }
-
+                //是夜晚
                 if (!ModSimReloaded.isDayTime()) {
+                    //状态 闲置
                     this.theStage = Stage.IDLE;
                 }
-
+                // 时间间隔邓毅当前系统时间
                 this.timeSinceLastRun = System.currentTimeMillis();
             }
         }
@@ -138,6 +145,7 @@ public class JobCheesemaker extends Job {
      */
     private void stageArrivedAtFactory() {
         try {
+            //特殊方块 5
             ArrayList<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
             ArrayList<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
             this.inventoriesTransferToFolk(this.theFolk.inventory, chests, new ItemStack(Items.milk_bucket, 64), (Block)null);
@@ -283,7 +291,7 @@ public class JobCheesemaker extends Job {
             }
         } else if (this.step == 2) {
             ArrayList<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
-            int lightID = Block.getIdFromBlock(BlockLoader.lightBox);
+            int lightID = Block.getIdFromBlock(BlockLoader.blockLightBox);
             ModSimReloaded.log.info(Integer.toString(lightID));
             boolean filledOk = false;
             Iterator iterator = milkblocks.iterator();

@@ -271,21 +271,21 @@ public class Building implements Serializable {
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) +":" + cha;
                             } else if (ch.contentEquals("Ã€")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
                             } else if (ch.contentEquals("Ã†")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":1";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":1";
                             } else if (ch.contentEquals("Ã‡")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":2";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":2";
                             } else if (ch.contentEquals("Ãˆ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
                             } else if (ch.contentEquals("ÃŒ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":4";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":4";
                             } else if (ch.contentEquals("Ã�")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
                             } else if (ch.contentEquals("Ã‘")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":6";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
                             } else if (ch.contentEquals("Ã’")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":7";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
                             }else {
                                 this.structure[acount] = (String) thekey.get(ch);
                                 String[] sbid = this.structure[acount].split(":");
@@ -686,13 +686,10 @@ public class Building implements Serializable {
         File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
         buildingsFolder.mkdirs();
         boolean useNewFormat = false;
-        File[] arr$ = buildingsFolder.listFiles();
-        int len$ = arr$.length;
-
-        int i$;
+        File[] files = buildingsFolder.listFiles();
         File f;
-        for (i$ = 0; i$ < len$; ++i$) {
-            f = arr$[i$];
+        for (int i = 0; i < files.length; ++i) {
+            f = files[i];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
                 break;
@@ -702,12 +699,10 @@ public class Building implements Serializable {
         Building build;
         if (useNewFormat) {
             ModSimReloaded.theBuildings.clear();
-            arr$ = buildingsFolder.listFiles();
-            len$ = arr$.length;
-
+            File[] arr = buildingsFolder.listFiles();
             label166:
-            for (i$ = 0; i$ < len$; ++i$) {
-                f = arr$[i$];
+            for (int i = 0; i < arr.length; ++i) {
+                f = arr[i];
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     build = new Building();
@@ -755,7 +750,6 @@ public class Building implements Serializable {
                                 String[] blocks;
                                 String[] array;
                                 int lengths;
-                                int i_j;
                                 String block;
                                 if (name.contentEquals("tenants")) {
                                     if (value.trim().contentEquals("")) {
@@ -765,7 +759,7 @@ public class Building implements Serializable {
                                         array = blocks;
                                         lengths = blocks.length;
 
-                                        for (i_j = 0; i_j < lengths; ++i_j) {
+                                        for (int i_j = 0; i_j < lengths; ++i_j) {
                                             block = array[i_j];
                                             if (!block.trim().contentEquals("")) {
                                                 build.tenants.add(block);
@@ -778,8 +772,8 @@ public class Building implements Serializable {
                                         array = blocks;
                                         lengths = blocks.length;
 
-                                        for (i_j = 0; i_j < lengths; ++i_j) {
-                                            block = array[i_j];
+                                        for (int i1 = 0; i1 < lengths; ++i1) {
+                                            block = array[i1];
                                             if (block.contains(",")) {
                                                 build.blockLocations.add(new V3(block));
                                             }
@@ -788,9 +782,8 @@ public class Building implements Serializable {
                                 } else if (name.contentEquals("blockspecial") && value.contains("B") && value.contains(",")) {
                                     blocks = value.split("B");
                                     array = blocks;
-                                    len$ = blocks.length;
 
-                                    for (i_j = 0; i_j < len$; ++i_j) {
+                                    for (int i_j = 0; i_j < blocks.length; ++i_j) {
                                         block = array[i_j];
                                         if (block.contains(",")) {
                                             int p1 = block.lastIndexOf(",");
@@ -811,10 +804,8 @@ public class Building implements Serializable {
             Minecraft mc = Minecraft.getMinecraft();
             ModSimReloaded.theBuildings.clear();
             File[] array = buildingsFolder.listFiles();
-            i$ = arr$.length;
-
-            for (int i = 0; i < i; ++i) {
-                File fs = arr$[i];
+            for (int i = 0; i < array.length; ++i) {
+                File fs = array[i];
                 if (fs.getName().endsWith(".suk")) {
                     build = (Building) ModSim.proxy.loadObject(fs.getAbsoluteFile().toString());
                     if (build != null) {

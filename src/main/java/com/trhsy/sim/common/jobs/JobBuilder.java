@@ -149,8 +149,10 @@ public class JobBuilder extends Job implements Serializable {
     private void stageBlueprint() {
         this.theBuilding = this.theFolk.theBuilding;
         if (this.theBuilding == null) {
+            //请您选择要我建造的建筑
             this.theFolk.statusText = I18n.format("container.sim.job.builder_building");
         } else {
+            //翻翻蓝图......
             this.theFolk.statusText = I18n.format("container.sim.job.builder_blueprints");
             this.theFolk.updateLocationFromEntity();
             double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
@@ -185,9 +187,11 @@ public class JobBuilder extends Job implements Serializable {
         this.theFolk.isWorking = false;
         int dist;
         if (this.step == 1) {
+            //检查建设资源...
             this.theFolk.statusText = I18n.format("container.sim.job.builder_Checking");
             this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             if (this.constructorChests.size() == 0) {
+                //至少附近有一个箱子/存储方块。
                 this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_block");
             } else {
                 try {
@@ -255,7 +259,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.bz = this.cz + 1;
                 } else {
                     if (!this.theBuilding.buildDirection.contentEquals("+z")) {
-                        ;
+                        //不能确定建造的方向，当你右键点击它时请站在构造的四边之一
                         ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
                         this.theFolk.selfFire();
                         return;
@@ -336,11 +340,11 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     V3 v3;
-                    if (Block.getIdFromBlock(blockId) == 999 && subtype == 999) {
+                    if (blockId == BlockLoader.livingBlock && this.theBuilding.type == "residential") {
                         this.theBuilding.livingXYZ = new V3((double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), this.theFolk.employedAt.theDimension);
                         blockId = null;
                         subtype = 0;
-                    } else if (Block.getIdFromBlock(blockId) == 999 && subtype >= 0 && subtype <= 9) {
+                    } else if (blockId == BlockLoader.specialBlock && this.theBuilding.type != "residential") {
                         v3 = new V3((double)(this.bx + this.xo), (double)(this.by + this.l), (double)(this.bz + this.zo), this.theFolk.employedAt.theDimension);
                         v3.meta = subtype;
                         this.theBuilding.blockSpecial.add(v3);

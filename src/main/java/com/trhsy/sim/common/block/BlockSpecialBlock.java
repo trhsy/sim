@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.block;
 
+import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,6 +23,7 @@ public class BlockSpecialBlock extends Block {
         this.setHardness(100.0F);
         //设置块的爆炸阻力。返回对象以便于构造。
         this.setResistance(100.0F);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
     /**
      * @Author fan

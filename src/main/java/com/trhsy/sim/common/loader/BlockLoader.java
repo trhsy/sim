@@ -39,7 +39,7 @@ public class BlockLoader {
     public static Block blockFluidMilk = new BlockFluidMilk();
     /*灯箱*/
     public static Block blockLightBox = new BlockLightBox();
-    public static Block lightBox = Block.getBlockFromItem(new ItemBlockLightBox(blockLightBox));
+    //public static Block lightBox = Block.getBlockFromItem(new ItemBlockLightBox(blockLightBox));
     public static Block cityBox=new BlockCityBox();
     static Block lightBoxRed;
     static Block lightBoxOrange;
@@ -55,12 +55,13 @@ public class BlockLoader {
     //public static Block blockPathConstructor = new BlockPathConstructor();
     /*风车*/
     public static Block blockWindmill = new BlockWindmill();
+    /*特除方块*/
     public static Block specialBlock=new BlockSpecialBlock();
     /*
         液体牛奶
          */
     public static Fluid fluidMilk = new FluidMilk();
-
+    public BlockLoader(){}
 
     public BlockLoader(FMLPreInitializationEvent event) {
         blockLightBox = new BlockLightBox();
@@ -73,20 +74,14 @@ public class BlockLoader {
         register(blockFluidMilk, "fluid_milk");
         register(blockLightBox, "light_box");
         register(blockMiningBox, "mining_box");
-        //register(blockPathConstructor, "path_constructor");
+        register(specialBlock, "special_block");
         register(blockMarker, "marker_bar_block");
         register(blockWindmill, "block_windmill");
         register(cityBox, "city_box");
         nameBlocks();
         GameRegistry.registerTileEntity(TileEntityWindmill.class, "tileentitywindmill");
 
-        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 1), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 1)});
-        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 2), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 14)});
-        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 3), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 11)});
-        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 4), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 10)});
-        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 5), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 4)});
-        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 6), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 5)});
-        GameRegistry.addShapelessRecipe(new ItemStack(blockLightBox, 1, 7), new Object[]{blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
+
     }
 
     private static void register(Block block, String name) {

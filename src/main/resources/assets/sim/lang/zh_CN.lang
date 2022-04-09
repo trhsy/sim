@@ -690,8 +690,8 @@ container.sim.Merchant10=* 出售 *
 container.sim.Merchant11=商户：“对不起，您的卡被拒绝了，您可以试着少买一些。”
 container.sim.Merchant12=商人：请在下面放一个箱子，我会把你的东西放进去。
 container.sim.Merchant13=商人：请在这里放一个箱子，然后在里面放64个街区。
-container.sim.Merchant14=商人：箱子里没有我想从你那里买的有效书堆？！
-container.sim.Merchant15=售出所有有效的堆叠，总共
+container.sim.Merchant14=商人：箱子里没有我想从你那里买的有效物品？！
+container.sim.Merchant15=售出所有有效的物品，总共
 
 
 container.sim.Mining3=保留所有块类型

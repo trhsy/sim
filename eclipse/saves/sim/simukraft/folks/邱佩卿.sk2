@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|-268,237,-277,0
+vocation|MERCHANT
 name|邱佩卿
-age|18
+age|22
 gender|1
 skin|49
 levelfood|10
@@ -10,7 +10,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|0,5,0,0
+location|-267,238,-276,0
 pregnancy|0.0
 building|null
 terraformtype|null

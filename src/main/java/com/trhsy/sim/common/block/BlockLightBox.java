@@ -80,9 +80,9 @@ public class BlockLightBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        for (int meta = 0; meta < 8; ++meta) {
+        for (int i = 0; i < 8; ++i) {
             //par3List.add(new ItemStack(itemIn, 1, meta));
-            list.add(new ItemStack(item, 1, meta));
+            list.add(new ItemStack(item, 1, i));
         }
     }
 

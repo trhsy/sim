@@ -67,7 +67,7 @@ public class CraftingLoader {
         GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 7), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
         //九个奶酪片合成奶酪块
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheeseBlock, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(ItemLoader.itemFoods, 1, 0)});
-        GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemFoods, 9, 0), new Object[]{new ItemStack(BlockLoader.blockCheeseBlock)});
+        GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemFoods, 9, 0), new Object[]{BlockLoader.blockCheeseBlock});
         /* 复合砖
         * 硬化黏土 石头 硬化黏土
         * 石头 栅栏 石头

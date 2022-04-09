@@ -28,7 +28,7 @@ import java.util.List;
  **/
 public class ItemBlockLightBox extends ItemBlock {
     private IIcon[] icons;
-    public ItemBlockLightBox(Block par1) {
+    public ItemBlockLightBox(Block par1, Block block) {
         super(par1);
         this.setHasSubtypes(true);
         //this.setCreativeTab(CreativeTabsLoader.tabSimU);
