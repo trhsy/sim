@@ -176,7 +176,7 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
             ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.blockLightBox);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.LightBoxWhite);
         }
 
         if (this.theFolk.inventory.size() == 0) {

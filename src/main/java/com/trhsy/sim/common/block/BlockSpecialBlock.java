@@ -18,12 +18,12 @@ import java.util.List;
 public class BlockSpecialBlock extends Block {
     public BlockSpecialBlock() {
         super(Material.air);
-        this.setUnlocalizedName("blockspecial");
+        this.setUnlocalizedName("blockSpecial");
         //设置打破一个区块所需的点击次数。
         this.setHardness(100.0F);
         //设置块的爆炸阻力。返回对象以便于构造。
         this.setResistance(100.0F);
-        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
     /**
      * @Author fan

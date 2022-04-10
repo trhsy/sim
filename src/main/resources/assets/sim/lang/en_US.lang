@@ -3,19 +3,29 @@ tile.constructorBox.name=constructor box
 tile.controlBox.name=control box
 tile.farmingBox.name=farming box
 tile.fluidMilk.name=fluid Milk
-tile.lightBox.White.name=light block（White）
-tile.lightBox.Red.name=light block（Red）
-tile.lightBox.Orange.name=light block（Orange）
-tile.lightBox.Yellow.name=light block（Yellow）
-tile.lightBox.Green.name=light block（Green）
-tile.lightBox.Blue.name=light block（Blue）
-tile.lightBox.Purple.name=light block（Purple）
-tile.lightBox.Rainbow.name=light block（Rainbow）
+tile.lightBox.white.name=light block(White)
+tile.lightBox.red.name=light block(Red)
+tile.lightBox.orange.name=light block(Orange)
+tile.lightBox.yellow.name=light block(Yellow)
+tile.lightBox.green.name=light block(Green)
+tile.lightBox.blue.name=light block(Blue)
+tile.lightBox.purple.name=light block(Purple)
+tile.lightBox.rainbow.name=light block(Rainbow)
+tile.livingBlock.name=carpet
 tile.MarkerBar.name=marker bar
 tile.compositeBrick.name=composite brick
 tile.MiningBox.name=mining box
 tile.pathConstructor.name=path Constructor
 tile.windmill.name=Windmill
+
+tile.blockCarbonDioxide.name=Carbon Dioxide
+tile.blockRadiationGas.name=Radiation Gas
+tile.blockSulphurDioxide.name=Sulphur Dioxide
+tile.blockGasDispenser.carbonDioxide.name=Carbon Dioxide Gas Dispenser
+tile.blockGasDispenser.sulphurDioxide.name=Sulphur Dioxide Gas Dispenser
+tile.blockGasDispenser.radiationGas.name=Radiation Gas Gas Dispenser
+
+tile.blockSpecial.name=Special
 
 item.granulesCopper.name=Copper granules
 item.granulesCopper.info=Place into furnace to make Copper ingots

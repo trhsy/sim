@@ -509,7 +509,7 @@ public class ModSimReloaded {
                 }
 
                 if (farmToUpgradeCounter % 6 == 0) {
-                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), BlockLoader.blockLightBox, 0, 3);
+                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), BlockLoader.lightBoxYellow, 0, 3);
                     theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
                 }
             } else if (farmToUpgrade.level == 2) {
@@ -521,7 +521,7 @@ public class ModSimReloaded {
                 theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
                 if (point.x.intValue() % 5 == 0 && point.z.intValue() % 5 == 0) {
                     theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), Blocks.water, 0, 3);
-                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), BlockLoader.blockLightBox, 0, 3);
+                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), BlockLoader.lightBoxYellow, 0, 3);
                     theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
                     theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
                 }

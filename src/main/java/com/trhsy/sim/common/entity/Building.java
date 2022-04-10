@@ -245,11 +245,11 @@ public class Building implements Serializable {
                                 this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
                             } else if (ch.contentEquals("*")) {
                                 //灯箱
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.LightBoxWhite) + ":0";
                             } else if (ch.contentEquals("+")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxYellow) + ":3";
                             } else if (ch.contentEquals("-")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxBlue) + ":5";
                             } else if (ch.contentEquals("0")) {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":0";
                             } else if (ch.contentEquals("1")) {
@@ -271,21 +271,21 @@ public class Building implements Serializable {
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) +":" + cha;
                             } else if (ch.contentEquals("Ã€")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.LightBoxWhite) + ":0";
                             } else if (ch.contentEquals("Ã†")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":1";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxRed) + ":1";
                             } else if (ch.contentEquals("Ã‡")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":2";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxOrange) + ":2";
                             } else if (ch.contentEquals("Ãˆ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxYellow) + ":3";
                             } else if (ch.contentEquals("ÃŒ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":4";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxGreen) + ":4";
                             } else if (ch.contentEquals("Ã�")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxBlue) + ":5";
                             } else if (ch.contentEquals("Ã‘")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxPurple) + ":6";
                             } else if (ch.contentEquals("Ã’")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxRainbow) + ":7";
                             }else {
                                 this.structure[acount] = (String) thekey.get(ch);
                                 String[] sbid = this.structure[acount].split(":");

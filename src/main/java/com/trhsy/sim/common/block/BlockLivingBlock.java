@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @ClassName BlockLivingBlock
@@ -29,5 +30,14 @@ public class BlockLivingBlock extends BlockCarpet {
             list.add(new ItemStack(item, 1, i));
         }
 
+    }
+    @Override
+    public int damageDropped(int meta)
+    {
+        return meta;
+    }
+    @Override
+    public int quantityDropped(Random rand) {
+        return 0;
     }
 }

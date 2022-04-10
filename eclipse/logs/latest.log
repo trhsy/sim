@@ -1,56 +1,33 @@
-[00:45:53] [main/INFO]: Setting user: Player47
-[00:45:54] [Client thread/INFO]: LWJGL Version: 2.9.1
-[00:46:05] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[00:46:09] [Sound Library Loader/INFO]: Sound engine started
-[00:46:11] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[00:46:11] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[00:46:11] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[00:46:12] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[00:46:12] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[00:46:13] [Sound Library Loader/INFO]: Sound engine started
-[00:46:18] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[00:46:18] [Server thread/INFO]: Generating keypair
-[00:46:18] [Server thread/INFO]: Preparing start region for level 0
-[00:46:19] [Server thread/INFO]: Preparing spawn area: 96%
-[00:46:19] [Server thread/INFO]: Changing view distance to 12, from 10
-[00:46:20] [Server thread/INFO]: Player47[local:E:57fe9edc] logged in with entity id 12 at (-287.2736779525838, 237.0, -269.63743436498044)
-[00:46:20] [Server thread/INFO]: Player47 加入了游戏
-[00:46:43] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 21014ms behind, skipping 420 tick(s)
-[00:46:43] [Server thread/INFO]: Saving and pausing game...
-[00:46:43] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[00:46:43] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[00:46:43] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[00:46:54] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.2 Beta由TRHSY重制
-[00:47:11] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 6846ms behind, skipping 136 tick(s)
-[00:47:46] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 19853ms behind, skipping 397 tick(s)
-[00:48:08] [Server thread/INFO]: Player47 刚刚获得了 [打开物品栏] 成就！
-[00:48:08] [Client thread/INFO]: [CHAT] Player47 刚刚获得了 [打开物品栏] 成就！
-[00:48:38] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 20292ms behind, skipping 405 tick(s)
-[00:51:40] [Client thread/INFO]: [CHAT] 你需要先放置3个标记棒来标出农业区域
-[00:51:40] [Client thread/INFO]: [CHAT] 你需要先放置3个标记棒来标出农业区域
-[00:51:41] [Client thread/INFO]: [CHAT] 抱歉，此农耕箱出现问题，请尝试更换。
-[00:51:41] [Client thread/INFO]: [CHAT] 抱歉，此农耕箱出现问题，请尝试更换。
-[00:51:48] [Client thread/INFO]: [CHAT] 你可以再放置两个标记来标记农场或矿井等区域。如果你想这样做，现在在右前方位置放置另一个标记
-[00:52:08] [Client thread/INFO]: [CHAT] 最后，在左后位置放置一个标记
-[00:52:22] [Client thread/INFO]: [CHAT] 完成后，现在可以放置采矿箱、耕种箱或右键单击左前标记来复制结构！
-[00:52:56] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 12922ms behind, skipping 258 tick(s)
-[00:53:26] [Client thread/INFO]: [CHAT] 单锦凯今天没有面包卖，你有一个活跃的小麦农场吗？
-[00:53:50] [Server thread/WARN]: Unable to play unknown soundEvent: sim:
-[00:55:13] [Client thread/INFO]: [CHAT] /time <set|add> <数值>
-[00:55:18] [Server thread/INFO]: [Player47: 将时间设为 0]
-[00:55:18] [Client thread/INFO]: [CHAT] 将时间设为 0
-[00:55:21] [Client thread/INFO]: [CHAT] 今天收了31.40金的房租。
-[00:55:21] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
-[00:55:50] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 7610ms behind, skipping 152 tick(s)
-[00:55:50] [Server thread/INFO]: Saving and pausing game...
-[00:55:50] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[00:55:50] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[00:55:50] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[01:00:06] [Client thread/INFO]: [CHAT] 单锦凯做了一些面包并得到报酬21.20资金
-[01:00:49] [Client thread/INFO]: [CHAT] 售出所有有效的物品，总共19.06
-[01:01:02] [Client thread/INFO]: [CHAT] 商人：箱子里没有我想从你那里买的有效物品？！
-[01:04:50] [Server thread/INFO]: Saving and pausing game...
-[01:04:50] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[01:04:50] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[01:04:50] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[01:05:30] [Client Shutdown Thread/INFO]: Stopping server
+[22:04:07] [main/INFO]: Setting user: Player588
+[22:04:08] [Client thread/INFO]: LWJGL Version: 2.9.1
+[22:04:16] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[22:04:21] [Sound Library Loader/INFO]: Sound engine started
+[22:04:22] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[22:04:22] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[22:04:22] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[22:04:23] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[22:04:23] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[22:04:24] [Sound Library Loader/INFO]: Sound engine started
+[22:05:12] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[22:05:12] [Server thread/INFO]: Generating keypair
+[22:05:13] [Server thread/INFO]: Preparing start region for level 0
+[22:05:14] [Server thread/INFO]: Changing view distance to 12, from 10
+[22:05:14] [Server thread/INFO]: Player588[local:E:675069e7] logged in with entity id 12 at (-320.4352158717493, 237.0, -273.0861023534367)
+[22:05:14] [Server thread/INFO]: Player588 加入了游戏
+[22:05:14] [Server thread/WARN]: Fetching addPacket for removed entity
+[22:05:14] [Server thread/WARN]: Fetching addPacket for removed entity
+[22:05:14] [Server thread/WARN]: Fetching addPacket for removed entity
+[22:05:16] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.2 Beta由TRHSY重制
+[22:05:17] [Server thread/INFO]: Player588 刚刚获得了 [打开物品栏] 成就！
+[22:05:17] [Client thread/INFO]: [CHAT] Player588 刚刚获得了 [打开物品栏] 成就！
+[22:05:47] [Server thread/INFO]: Saving and pausing game...
+[22:05:47] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[22:05:47] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[22:05:47] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[22:05:48] [Server thread/INFO]: Stopping server
+[22:05:48] [Server thread/INFO]: Saving players
+[22:05:48] [Server thread/INFO]: Saving worlds
+[22:05:48] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[22:05:48] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[22:05:48] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[22:05:50] [Client thread/INFO]: Stopping!

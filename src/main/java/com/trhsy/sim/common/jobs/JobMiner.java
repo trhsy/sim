@@ -428,16 +428,16 @@ public class JobMiner extends Job implements Serializable {
                                     }
 
                                     Block lbid = this.jobWorld.getBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue());
-                                    if (this.miningChests.size() > 0 && lbid != BlockLoader.blockLightBox) {
+                                    if (this.miningChests.size() > 0 && lbid != BlockLoader.LightBoxWhite) {
                                         ItemStack light = null;
 
                                         for (int lightmeta = 0; light == null && lightmeta < 8; ++lightmeta) {
-                                            light = inventoriesGet(this.miningChests, new ItemStack(BlockLoader.blockLightBox, 1, lightmeta), false, true);
+                                            light = inventoriesGet(this.miningChests, new ItemStack(BlockLoader.LightBoxWhite, 1, lightmeta), false, true);
                                         }
 
                                         if (light != null) {
                                             ModSimReloaded.log.info("灯箱放置在 " + lightbox.toString());
-                                            this.jobWorld.setBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue(), BlockLoader.blockLightBox, light.getMetadata(), 3);
+                                            this.jobWorld.setBlock(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue(), BlockLoader.LightBoxWhite, light.getMetadata(), 3);
                                         }
                                     }
                                 }

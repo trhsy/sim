@@ -57,14 +57,14 @@ public class CraftingLoader {
             GameRegistry.addRecipe(new ItemStack(BlockLoader.blockFarmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_hoe});
         }
         //四个火把合成灯箱
-        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockLightBox, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 1), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 2), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 14)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 3), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 11)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 4), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 10)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 5), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 4)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 6), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 5)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 7), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.LightBoxWhite, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxRed, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxOrange, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 14)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxYellow, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 11)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxGreen, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 10)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxBlue, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 4)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxPurple, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxRainbow, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
         //九个奶酪片合成奶酪块
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheeseBlock, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(ItemLoader.itemFoods, 1, 0)});
         GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemFoods, 9, 0), new Object[]{BlockLoader.blockCheeseBlock});
