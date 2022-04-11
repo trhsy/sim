@@ -27,6 +27,21 @@ tile.blockGasDispenser.radiationGas.name=Radiation Gas Gas Dispenser
 
 tile.blockSpecial.name=Special
 
+container.sim.sim_gui_BC1=Now select a special type of building
+container.sim.sim_gui_BC2=Architectural details
+container.sim.sim_gui_BC3=Building name
+container.sim.sim_gui_BC4=explain
+container.sim.sim_gui_BC5=author
+container.sim.sim_gui_BC6=cost
+container.sim.sim_gui_BC7=size
+container.sim.sim_gui_BC8=The number of corresponding block structures should be
+container.sim.sim_gui_BC_special=special
+container.sim.sim_gui_BC9=oak wood
+container.sim.sim_gui_BC_Go_demand=demand
+container.sim.sim_gui_BC10=Logs
+container.sim.sim_gui_BC11=oak wood planks
+container.sim.sim_gui_BC12=Planks
+
 item.granulesCopper.name=Copper granules
 item.granulesCopper.info=Place into furnace to make Copper ingots
 item.granulesGold.name=Gold granules
@@ -163,6 +178,15 @@ container.sim.simSat=Sat
 container.sim.sim_residential=There is a demand for more residential housing, you have
 container.sim.sim_residentials=folks without a home.
 
+container.sim.Merchant16=Planks
+container.sim.Merchant17=Logs
+container.sim.Merchant18=Cobblestone
+container.sim.Merchant19=Stone
+container.sim.Merchant20=Glass
+container.sim.Merchant21=Wool
+container.sim.Merchant22=Bricks
+container.sim.Merchant23=Stone Bricks
+container.sim.Merchant24=Fence
 
 
 container.sim.granules_copper=Place into furnace to make Copper ingots

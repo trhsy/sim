@@ -36,12 +36,18 @@ import java.util.ArrayList;
  * ========================================
  **/
 public class GuiBankATM extends GuiScreen {
+    //银行地址
     private V3 bankLocation = null;
+    //玩家
     private EntityPlayer thePlayer = null;
+    //鼠标计数
     private int mouseCount = 0;
+    //银屏
     private ATMscreen theScreen;
     private ArrayList<Commodity> cart;
+    //错误文本
     private String errorText;
+
     long fuckingBodge;
 
     public GuiBankATM(V3 location, EntityPlayer player) {
@@ -74,6 +80,7 @@ public class GuiBankATM extends GuiScreen {
         if (robbed) {
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
+            //看起来你已经抢了银行！
             String sim_gui_ATMs = I18n.format("container.sim.sim_gui_ATMs");
             ModSimReloaded.sendChat(sim_gui_ATMs);
         } else {
@@ -83,8 +90,10 @@ public class GuiBankATM extends GuiScreen {
 
             this.buttonList.clear();
             if (this.theScreen == ATMscreen.START) {
+                //寄存物品
                 String sim_gui_ATMs_Deposit = I18n.format("container.sim.sim_gui_ATMs_Deposit");
                 this.buttonList.add(new GuiButton(0, this.width / 2 - 50, 50, 100, 20, sim_gui_ATMs_Deposit));
+                //购买商品
                 String sim_gui_ATMs_Commodities = I18n.format("container.sim.sim_gui_ATMs_Commodities");
                 this.buttonList.add(new GuiButton(1, this.width / 2 - 50, 70, 100, 20, sim_gui_ATMs_Commodities));
             } else {

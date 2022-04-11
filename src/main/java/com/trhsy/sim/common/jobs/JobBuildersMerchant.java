@@ -17,7 +17,7 @@ import java.io.Serializable;
  * ========================================
  *
  * @ClassName JobBuildersMerchant
- * @Description todo 建设者商人
+ * @Description todo 建设商人的工作
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:39
  * ========================================
@@ -67,6 +67,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
             if ((this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) && this.theStage == Stage.INSTORE) {
+                //为顾客服务中
                 this.theFolk.statusText = I18n.format("container.sim.job.serving_customers");
                 this.theFolk.updateLocationFromEntity();
                 double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
@@ -82,6 +83,9 @@ public class JobBuildersMerchant extends Job implements Serializable {
         }
     }
 
+    /**
+     * 抵达商店
+     */
     @Override
     public void onArrivedAtWork() {
         //int dist = false;

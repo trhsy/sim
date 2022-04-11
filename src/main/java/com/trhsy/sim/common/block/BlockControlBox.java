@@ -81,6 +81,19 @@ public class BlockControlBox extends Block {
         }
     }
 
+    /**
+     * 块激活
+     * @param world
+     * @param i
+     * @param j
+     * @param k
+     * @param entityplayer
+     * @param par6
+     * @param par7
+     * @param par8
+     * @param par9
+     * @return
+     */
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
@@ -92,6 +105,7 @@ public class BlockControlBox extends Block {
         if (world.getBlockMetadata(i, j, k) != 0 && world.getBlockMetadata(i, j, k) != 2) {
             if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 mc.displayGuiScreen((GuiScreen) null);
+                //银行在创造模式下不活动（因为没有钱！）
                 String control_box_Creative = I18n.format("container.sim.control_box_Creative");
                 ModSimReloaded.sendChat(control_box_Creative);
             } else {

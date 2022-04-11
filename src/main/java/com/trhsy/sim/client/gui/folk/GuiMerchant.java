@@ -89,31 +89,40 @@ public class GuiMerchant extends GuiScreen {
 
             for (int b = 0; b < 9; ++b) {
                 if (b == 0) {
-                    blockName = "Planks";
+                    //木板
+                    blockName = I18n.format("container.sim.Merchant16");
                     fprice = PricesForBlocks.getPrice(Blocks.planks, true);
                 } else if (b == 1) {
-                    blockName = "Logs";
+                    //木材
+                    blockName = I18n.format("container.sim.Merchant17");;
                     fprice = PricesForBlocks.getPrice(Blocks.log, true);
                 } else if (b == 2) {
-                    blockName = "Cobblestone";
+                    //圆石
+                    blockName = I18n.format("container.sim.Merchant18");;
                     fprice = PricesForBlocks.getPrice(Blocks.cobblestone, true);
                 } else if (b == 3) {
-                    blockName = "Stone";
+                    //石头
+                    blockName = I18n.format("container.sim.Merchant19");;
                     fprice = PricesForBlocks.getPrice(Blocks.stone, true);
                 } else if (b == 4) {
-                    blockName = "Glass";
+                    //玻璃
+                    blockName = I18n.format("container.sim.Merchant20");;
                     fprice = PricesForBlocks.getPrice(Blocks.glass, true);
                 } else if (b == 5) {
-                    blockName = "Wool";
+                    //羊毛
+                    blockName = I18n.format("container.sim.Merchant21");;
                     fprice = PricesForBlocks.getPrice(Blocks.wool, true);
                 } else if (b == 6) {
-                    blockName = "Bricks";
+                    //板砖
+                    blockName = I18n.format("container.sim.Merchant22");;
                     fprice = PricesForBlocks.getPrice(Blocks.brick_block, true);
                 } else if (b == 7) {
-                    blockName = "Stone Bricks";
+                    //石砖
+                    blockName = I18n.format("container.sim.Merchant23");;
                     fprice = PricesForBlocks.getPrice(Blocks.stonebrick, true);
                 } else if (b == 8) {
-                    blockName = "Fence";
+                    //栏栅
+                    blockName = I18n.format("container.sim.Merchant24");;
                     fprice = PricesForBlocks.getPrice(Blocks.fence, true);
                 }
 
@@ -223,7 +232,11 @@ public class GuiMerchant extends GuiScreen {
         }
     }
 
+    /**
+     * 买东西
+     */
     private void buyStuff() {
+        ModSimReloaded.log.info("准备买东西");
         ItemStack stack = null;
         //int quant = false;
         Block block = null;
@@ -233,6 +246,7 @@ public class GuiMerchant extends GuiScreen {
         if (chests != null && chests.size() != 0) {
             for (int i = 0; i < 9; ++i) {
                 int quant = (Integer) quantities.get(i);
+                ModSimReloaded.log.info(String.valueOf(quant));
                 if (quant > 0) {
                     if (i == 0) {
                         block = Blocks.planks;
@@ -305,7 +319,7 @@ public class GuiMerchant extends GuiScreen {
 
             for (int g = 0; g < ((IInventory) chests.get(0)).getSizeInventory(); ++g) {
                 ItemStack is = ((IInventory) chests.get(0)).getStackInSlot(g);
-                if (is != null && is.stackSize == 64) {
+                if (is != null && is.stackSize >= 1) {
                     stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
                     if (stackPrice > 0.0F) {
                         GameStates var10000 = ModSimReloaded.states;
@@ -347,33 +361,43 @@ public class GuiMerchant extends GuiScreen {
         super.mouseClicked(i, j, k);
     }
 
+    /**
+     * 放到箱子里
+     * @param chest
+     * @param stack
+     * @param idmeta
+     * @param quantity
+     * @return
+     */
     public boolean placeIntoChest(IInventory chest, ItemStack stack, int idmeta, int quantity) {
         Minecraft mc = Minecraft.getMinecraft();
         Boolean placedOK = false;
-        if (stack != null) {
-            return true;
+        if (stack == null) {
+            placedOK=true;
         } else {
-            for (int q = 1; q <= quantity; ++q) {
-                for (int g = 0; g < chest.getSizeInventory(); ++g) {
-                    ItemStack is = chest.getStackInSlot(g);
+            //for (int q = 1; q <= quantity; ++q) {
+                for (int i = 0; i < chest.getSizeInventory(); ++i) {
+                    ItemStack is = chest.getStackInSlot(i);
+
                     if (is == null) {
-                        is = new ItemStack(stack.getItem(), 1, idmeta);
-                        chest.setInventorySlotContents(g, is);
+                        is = new ItemStack(stack.getItem(), 64, idmeta);
+                        chest.setInventorySlotContents(i, is);
                         placedOK = true;
                         break;
                     }
 
                     if (is == stack && is.getMetadata() == idmeta && is.stackSize < 64) {
                         ++is.stackSize;
-                        chest.setInventorySlotContents(g, is);
+                        chest.setInventorySlotContents(1, is);
                         placedOK = true;
                         break;
                     }
                 }
-            }
+            //}
 
-            return placedOK;
+
         }
+        return placedOK;
     }
 }
 

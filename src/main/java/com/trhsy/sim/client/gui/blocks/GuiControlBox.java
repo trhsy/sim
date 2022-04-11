@@ -253,8 +253,10 @@ public class GuiControlBox extends GuiScreen {
                 }
                 //建筑商
                 if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Builders_Merchant"))) {
+                    //雇佣商人
                     this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire11")));
                     GuiButton b2;
+                    //买/卖
                     this.buttonList.add(b2 = new GuiButton(25, 10, this.height - 50, 100, 20, I18n.format("container.sim.Buy_Sell")));
                     if (!ModSimReloaded.isDayTime() || this.employeeCount == 0) {
                         b2.enabled = false;
