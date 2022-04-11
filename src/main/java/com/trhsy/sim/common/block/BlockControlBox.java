@@ -52,37 +52,29 @@ public class BlockControlBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister) {
-        this.icons = new IIcon[4];
-        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_top");
-        this.icons[1] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_side");
-        this.icons[2] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_ATM");
-        this.icons[3] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_top_other");
+        this.icons = new IIcon[1];
+        this.icons[0] = par1IconRegister.registerIcon(ModSim.MODID + ":control_box_top");//顶部
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int par2) {
-        switch(par2) {
+        /*switch (par2) {
             case 0:
                 return this.icons[0];
             case 1:
-                switch (par1) {
-                    case 0:
-                        return this.icons[1];
-                    case 1:
-                        return this.icons[2];
-                    default:
-                        return this.icons[3];
-                }
+                return this.icons[1];
             default:
 
                 ModSimReloaded.log.info("元数据无效 " + this.getUnlocalizedName());
                 return this.icons[0];
-        }
+        }*/
+        return this.icons[0];
     }
 
     /**
      * 块激活
+     *
      * @param world
      * @param i
      * @param j
@@ -102,7 +94,8 @@ public class BlockControlBox extends Block {
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
-        if (world.getBlockMetadata(i, j, k) != 0 && world.getBlockMetadata(i, j, k) != 2) {
+        int ma = world.getBlockMetadata(i, j, k);
+        if (ma != 0 && ma != 2) {
             if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 mc.displayGuiScreen((GuiScreen) null);
                 //银行在创造模式下不活动（因为没有钱！）

@@ -205,8 +205,8 @@ public class GuiEntityFolk extends GuiScreen {
             this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Hunger")+":", this.width /3, 20, 0);
 
             this.fontRendererObj.drawString(this.theFolk.status4, this.width / 2, 20, 128);
-            this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Fun")+":", this.width / 2, 40, 0);
-            this.fontRendererObj.drawString(this.theFolk.status5, this.width / 3, 40, 128);
+            this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Fun")+":", this.width / 3, 40, 0);
+            this.fontRendererObj.drawString(this.theFolk.status5, this.width / 2, 40, 128);
         }
 
         super.drawScreen(i, j, f);

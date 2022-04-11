@@ -10,10 +10,18 @@ java:S1135"2Complete the task associated to this TODO comment.(›³¿Ó
 h
 java:S3776<"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(˜”ËÀ
 Q	java:S125E"<This block of commented-out lines of code should be removed.(‡žöô
+P
+java:S1905H".Remove this unnecessary cast to "CourierTask".(óîÖõþÿÿÿÿ8§¹ÿ¹0
+G
+java:S1905Z"%Remove this unnecessary cast to "V3".(‘çØûÿÿÿÿ8©¹ÿ¹0
 h
 java:S3776p"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(‡àñ¯
+P
+java:S1905|".Remove this unnecessary cast to "CourierTask".(óîÖõþÿÿÿÿ8¯¹ÿ¹0
 i
 java:S3776ž"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(÷ÿ¯¶
 V	java:S899­";Do something with the "boolean" value returned by "delete".(²Œ­ûÿÿÿÿ
+N
+java:S1128"1Remove this unused import 'com.trhsy.sim.ModSim'.(ª…Öâ8¾¹ÿ¹0
 I
 java:S1121i".Extract the assignment out of this expression.(Û‚“Úûÿÿÿÿ

@@ -54,12 +54,19 @@ public class JobMiner extends Job implements Serializable {
     public JobMiner() {
     }
 
+    /**
+     * 重置工作
+     */
     @Override
     public void resetJob() {
         this.theStage = Stage.IDLE;
         this.theFolk.isWorking = false;
     }
 
+    /**
+     * 职业矿工
+     * @param folk
+     */
     public JobMiner(FolkData folk) {
         this.theFolk = folk;
         if (this.theStage == null) {
@@ -72,6 +79,7 @@ public class JobMiner extends Job implements Serializable {
         }
 
         if (this.theMiningBox == null) {
+            //采矿箱有个问题
             ModSimReloaded.sendChat(I18n.format("container.sim.job.miner.farmer.There") + this.theFolk.name + I18n.format("container.sim.job.miner.farmer.using"));
             this.theFolk.selfFire();
         } else {
@@ -103,7 +111,8 @@ public class JobMiner extends Job implements Serializable {
         try {
             if (!ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.IDLE;
-                this.theFolk.action = FolkAction.WANDER;
+                this.theFolk.action = FolkAction.WANDER;//游荡
+                //今天的工作做完了
                 this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Finished");
                 this.theFolk.isWorking = false;
                 return;
@@ -112,7 +121,7 @@ public class JobMiner extends Job implements Serializable {
             super.onUpdateGoingToWork(this.theFolk);
         } catch (Exception var2) {
         }
-
+        //等待箱子
         if (this.theStage == Stage.WAITINGFORCHEST) {
             this.runDelay = 6000;
         }
@@ -120,9 +129,10 @@ public class JobMiner extends Job implements Serializable {
         if (this.theStage == Stage.BEAMINGDOWN) {
             this.runDelay = 4000;
         }
-
+        //挖矿
         if (this.theStage == Stage.MINING) {
             this.runDelay = (int)(2000.0F / this.theFolk.levelMiner);
+            //是创造模式
             if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 this.runDelay = 10;
             }
@@ -130,11 +140,12 @@ public class JobMiner extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
+            //挖矿
             if (this.theFolk.vocation != Vocation.MINER) {
                 this.theFolk.selfFire();
             } else {
                 if (this.theStage == Stage.IDLE && ModSimReloaded.isDayTime()) {
-                    this.theStage = Stage.WAITINGFORCHEST;
+                    this.theStage = Stage.WAITINGFORCHEST;//等待箱子
                 } else if (this.theStage == Stage.WAITINGFORCHEST) {
                     this.stageWaitingForChest();
                 } else if (this.theStage == Stage.BEAMINGDOWN) {
@@ -256,6 +267,9 @@ public class JobMiner extends Job implements Serializable {
         this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
     }
 
+    /**
+     * 设置下一个可开采区块
+     */
     private void setNextMineableBlock() {
         int xxx = 0;
         int yyy = 0;
@@ -480,6 +494,9 @@ public class JobMiner extends Job implements Serializable {
         }
     }
 
+    /**
+     * 挖矿
+     */
     private void stageMining() {
         this.theFolk.isWorking = true;
         if (this.theFolk.theEntity != null) {
@@ -487,10 +504,11 @@ public class JobMiner extends Job implements Serializable {
         } else {
             this.theFolk.location.theDimension = this.theFolk.employedAt.theDimension;
         }
-
+        //到达工作地点
         this.theFolk.action = FolkAction.ATWORK;
+        //是孕期
         if (this.theFolk.isSpawned() && System.currentTimeMillis() - this.timeSinceLastGoto > 7000L) {
-            this.theFolk.updateLocationFromEntity();
+            this.theFolk.updateLocationFromEntity();//从实体更新位置
             if (this.theFolk.location.y - this.vNextMineableBlock.y > 4.0D) {
                 this.vNextMineableBlock.doNotTimeout = false;
                 if (this.vNextMineableBlock.y > 20.0D) {
@@ -502,7 +520,7 @@ public class JobMiner extends Job implements Serializable {
                 this.vNextMineableBlock.doNotTimeout = true;
                 if (this.vNextMineableBlock.y > 20.0D) {
                     this.theFolk.stayPut = false;
-                    this.theFolk.gotoXYZ(this.vNextMineableBlock, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.vNextMineableBlock, GotoMethod.WALK);//行走
                 } else {
                     this.theFolk.stayPut = true;
                 }
@@ -531,12 +549,13 @@ public class JobMiner extends Job implements Serializable {
         });
         t.start();
         if (this.lastMinedBlockName.contentEquals("")) {
+            //挖掘挖掘
             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Diggy");
         }
 
-        Block id = null;
+        //Block id = null;
         //int idmeta = false;
-        id = this.jobWorld.getBlock(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
+         int id = Block.getIdFromBlock(this.jobWorld.getBlock(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue()));
         int idmeta = this.jobWorld.getBlockMetadata(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
         if (this.jobWorld != null) {
             ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, this.vNextMineableBlock);
@@ -589,7 +608,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 1) {
-                    if (id != Blocks.dirt && id != Blocks.grass) {
+                    if (id != Block.getIdFromBlock(Blocks.dirt) && id != Block.getIdFromBlock(Blocks.grass)) {
                         keep = true;
                     } else {
                         keep = false;
@@ -597,7 +616,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 2) {
-                    if (id != Blocks.dirt && id != Blocks.grass && id != Blocks.stone && id != Blocks.cobblestone) {
+                    if (id != Block.getIdFromBlock(Blocks.dirt) && id != Block.getIdFromBlock(Blocks.grass) && id != Block.getIdFromBlock(Blocks.stone) && id != Block.getIdFromBlock(Blocks.cobblestone)) {
                         keep = true;
                     } else {
                         keep = false;
@@ -605,7 +624,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 3) {
-                    if (id != Blocks.dirt && id != Blocks.grass && id != Blocks.sand) {
+                    if (id != Block.getIdFromBlock(Blocks.dirt) && id != Block.getIdFromBlock(Blocks.grass) && id != Block.getIdFromBlock(Blocks.sand)) {
                         keep = true;
                     } else {
                         keep = false;
@@ -613,7 +632,7 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theMiningBox.discards == 4) {
-                    if (id != Blocks.dirt && id != Blocks.grass && id != Blocks.stone && id != Blocks.cobblestone && id != Blocks.sand) {
+                    if (id != Block.getIdFromBlock(Blocks.dirt) && id != Block.getIdFromBlock(Blocks.grass) && id != Block.getIdFromBlock(Blocks.stone) && id != Block.getIdFromBlock(Blocks.cobblestone) && id != Block.getIdFromBlock(Blocks.sand)) {
                         keep = true;
                     } else {
                         keep = false;
@@ -621,7 +640,8 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 try {
-                    if (id == Blocks.water || id == Blocks.water || id == Blocks.lava || id == Blocks.lava || id == Blocks.tallgrass || id.toString().toLowerCase().contains("oil")) {
+                    Block block = Block.getBlockById(id);
+                    if (id == Block.getIdFromBlock(Blocks.water) || id == Block.getIdFromBlock(Blocks.water) || id == Block.getIdFromBlock(Blocks.lava) || id == Block.getIdFromBlock(Blocks.lava) || id == Block.getIdFromBlock(Blocks.tallgrass) || block.toString().toLowerCase().contains("oil")) {
                         keep = false;
                     }
                 } catch (Exception var10) {
@@ -636,7 +656,7 @@ public class JobMiner extends Job implements Serializable {
                         ItemStack stack = (ItemStack)minedStacks.get(s);
                         if (stack != null) {
                             this.lastMinedBlockName = stack.getDisplayName();
-                            //发现采矿洞穴
+                            //挖掘挖掘
                             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Diggy") + this.lastMinedBlockName + "!";
                             placedOk = this.inventoriesPut(this.miningChests, stack, false);
                         }
@@ -647,7 +667,7 @@ public class JobMiner extends Job implements Serializable {
                     this.isChestsFull = true;
                     this.theStage = Stage.WAITINGFORCHEST;
                     this.theFolk.inventory.clear();
-                    this.theFolk.inventory.add(new ItemStack(id, idmeta, 1));
+                    this.theFolk.inventory.add(new ItemStack(Block.getBlockById(id), idmeta, 1));
                 }
 
                 this.setNextMineableBlock();

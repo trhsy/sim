@@ -1,0 +1,61 @@
+
+E
+java:S3740,"/Provide the parametrized type for this generic.(­ËÔù
+
+java:S1186Õ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(–êëçüÿÿÿÿ
+
+java:S1186Ù"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¢¿ÑĞşÿÿÿÿ
+:
+java:S2386,"Make this member "protected".(­ËÔù8‘ŒÀ²0
+M
+java:S1135%"2Complete the task associated to this TODO comment.(ºËÃşÿÿÿÿ
+F
+java:S1905\")Remove this unnecessary cast to "Marker".(…¿¸Ë8 ŒÀ²0
+T
+java:S1905`"2Remove this unnecessary cast to "EntityAlignBeam".(¥Û¶¢ÿÿÿÿÿ8¬ŒÀ²0
+>	java:S108a")Either remove or fill this block of code.(šå“¹
+C	java:S108e")Either remove or fill this block of code.(à¨¸€ûÿÿÿÿ
+m
+java:S3776m"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(ºéü´üÿÿÿÿ
+Q
+java:S2696n"6Make the enclosing method "static" or remove this set.(Ù€ˆÒûÿÿÿÿ
+L
+java:S1905º")Remove this unnecessary cast to "Marker".(Åè¬Éşÿÿÿÿ8ÑŒÀ²0
+L
+java:S1905»")Remove this unnecessary cast to "double".(î äİşÿÿÿÿ8ÑŒÀ²0
+L
+java:S1905»")Remove this unnecessary cast to "double".(î äİşÿÿÿÿ8ÒŒÀ²0
+L
+java:S1905»")Remove this unnecessary cast to "double".(î äİşÿÿÿÿ8ÒŒÀ²0
+G
+java:S1905È")Remove this unnecessary cast to "double".(Ø¼ş·8ÔŒÀ²0
+G
+java:S1905È")Remove this unnecessary cast to "double".(Ø¼ş·8ÔŒÀ²0
+G
+java:S1905È")Remove this unnecessary cast to "double".(Ø¼ş·8ÔŒÀ²0
+I
+java:S1135Ñ"2Complete the task associated to this TODO comment.(˜âÅ»
+D
+java:S1121q".Extract the assignment out of this expression.(ÛÛà´
+}
+java:S1319,"gThe type of "markers" should be an interface such as "List" rather than the implementation "ArrayList".(­ËÔù
+P
+java:S1141_"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+p
+java:S1104+"UMake hasPlaced a static final constant or non-public and provide accessors if needed.(ş…»Ïüÿÿÿÿ
+i
+java:S1104,"SMake markers a static final constant or non-public and provide accessors if needed.(­ËÔù
+j
+java:S1104-"TMake location a static final constant or non-public and provide accessors if needed.(Ö¡—
+J
+java:S1444+"/Make this "public static hasPlaced" field final(ş…»Ïüÿÿÿÿ
+C
+java:S1444,"-Make this "public static markers" field final(­ËÔù
+F
+java:S2629w"$Invoke method(s) only conditionally.(üˆ—Ğıÿÿÿÿ8üŒÀ²0
+F
+java:S2629{"$Invoke method(s) only conditionally.(üˆ—Ğıÿÿÿÿ8ıŒÀ²0
+F
+java:S2629"$Invoke method(s) only conditionally.(üˆ—Ğıÿÿÿÿ8ıŒÀ²0
+G
+java:S2629"$Invoke method(s) only conditionally.(üˆ—Ğıÿÿÿÿ8ıŒÀ²0

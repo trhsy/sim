@@ -655,7 +655,7 @@ public abstract class Job {
         int i = location.x.intValue();
         int j = location.y.intValue();
         int k = location.z.intValue();
-        Block block = Blocks.air;
+        Block block = world.getBlock(i,j,k);
         if (block == null) {
             return null;
         } else {

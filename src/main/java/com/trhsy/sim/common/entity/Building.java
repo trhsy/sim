@@ -10,6 +10,7 @@ import com.trhsy.sim.util.GameMode;
 import com.trhsy.sim.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
@@ -242,7 +243,14 @@ public class Building implements Serializable {
                             } else if (ch.contentEquals("$")) {
                                 //控制箱
                                 //System.out.println("控制箱");
-                                this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
+                                if(this.displayName.contentEquals(I18n.format("container.sim.ATMs"))){
+                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockATMControlBox)+":0";
+                                }else if("other".equals(this.type)){
+                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockOtherControlBox)+":0";
+                                }else{
+                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox)+":0";
+                                }
+
                             } else if (ch.contentEquals("*")) {
                                 //灯箱
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.LightBoxWhite) + ":0";

@@ -379,13 +379,13 @@ java:S2629Ö
 java:S2629š"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(÷¥ÌÖùÿÿÿÿ8ıËª¿€0
 `
 java:S2259²"DA "NullPointerException" could be thrown; "father" is nullable here.(š¿¶üÿÿÿÿ
-^
-java:S2259Ò	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(ŞÒ°Æ
-h
-java:S2259ÿ"LA "NullPointerException" could be thrown; "getFolkByName()" can return null.(Ô˜„±ıÿÿÿÿ
-c
-java:S2259É	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(£„ü„øÿÿÿÿ
-f
-java:S2259…"OA "NullPointerException" could be thrown; "getClosestPlayer()" can return null.(±ÄŞ°
 [
 java:S2259˜"DA "NullPointerException" could be thrown; "mother" is nullable here.(©¢Ñà
+f
+java:S2259…"OA "NullPointerException" could be thrown; "getClosestPlayer()" can return null.(±ÄŞ°
+h
+java:S2259ÿ"LA "NullPointerException" could be thrown; "getFolkByName()" can return null.(Ô˜„±ıÿÿÿÿ
+^
+java:S2259Ò	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(ŞÒ°Æ
+c
+java:S2259É	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(£„ü„øÿÿÿÿ

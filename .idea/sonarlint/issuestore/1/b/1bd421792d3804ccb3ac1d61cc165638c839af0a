@@ -25,11 +25,15 @@ java:S1905ß"-Remove this unnecessary cast to "IInventory".(ë¦Òî
 java:S1905î")Remove this unnecessary cast to "double".(½ò¿‡
 J
 java:S1481õ".Remove this unused "notEnough" local variable.(´‡Ò‹ÿÿÿÿÿ
+N
+java:S1905„"+Remove this unnecessary cast to "FolkData".(š—«Øùÿÿÿÿ8üäù¹0
 ?	java:S108")Either remove or fill this block of code.(²Œ½¦
 P
 java:S1854›"9Remove this useless assignment to local variable "found".(·”íŒ
 T
 java:S1117™"8Rename "farm" which hides the field declared at line 43.(ñ¹„øÿÿÿÿ
+N
+java:S1905™"+Remove this unnecessary cast to "Building".(ñ¹„øÿÿÿÿ8ƒåù¹0
 R	java:S125®"<This block of commented-out lines of code should be removed.(¾ÊöÊ
 J
 java:S10668"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ

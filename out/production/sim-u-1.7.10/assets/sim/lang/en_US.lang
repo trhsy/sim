@@ -145,7 +145,7 @@ container.sim.sim_gui_BC_about=(about
 container.sim.sim_gui_BC_stacks=stacks)
 container.sim.sim_gui_BC_Done=Done
 container.sim.sim_gui_BC_Choose_building=Choose building
-
+container.sim.ATMs=bank
 container.sim.sim_gui_BC_worker=worker
 container.sim.sim_gui_BC_Staff=Staff
 

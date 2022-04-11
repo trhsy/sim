@@ -145,7 +145,7 @@ public class GuiFarming extends GuiScreen {
                 if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire25"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.theFarmingBox, Vocation.CROPFARMER);
                     this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.contains("container.sim.Fire")) {
+                } else if (guibutton.displayString.contains(I18n.format("container.sim.Fire"))) {
                     this.theFolk.selfFire();
                     guibutton.enabled = false;
                     this.mc.currentScreen = null;

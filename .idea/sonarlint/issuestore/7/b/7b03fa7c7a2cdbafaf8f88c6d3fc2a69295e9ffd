@@ -1,0 +1,77 @@
+
+J
+java:S37407"/Provide the parametrized type for this generic.(ËúÄ´ÿÿÿÿÿ
+M
+java:S1135!"2Complete the task associated to this TODO comment.(…Óíûÿÿÿÿ
+m
+java:S3776?"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(ºÂ…ºÿÿÿÿÿ
+C
+java:S1905s"(Remove this unnecessary cast to "float".(—©›ÿøÿÿÿÿ
+C
+java:S1905w"(Remove this unnecessary cast to "float".(³’‚ùÿÿÿÿ
+C
+java:S1905{"(Remove this unnecessary cast to "float".(°ƒÁ‹üÿÿÿÿ
+C
+java:S1905"(Remove this unnecessary cast to "float".(­ÓÜúýÿÿÿÿ
+?
+java:S1905ƒ"(Remove this unnecessary cast to "float".(³«²¹
+i
+java:S3776™"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(‡àñ¯
+H
+java:S1905È",Remove this unnecessary cast to "Commodity".(£®Ÿéøÿÿÿÿ
+H
+java:S1905Í",Remove this unnecessary cast to "Commodity".(Šš›²ùÿÿÿÿ
+j
+java:S3776Þ"SRefactor this method to reduce its Cognitive Complexity from 106 to the 15 allowed.(À¥¡è
+?	java:S108ô")Either remove or fill this block of code.(†äç³
+?	java:S108ˆ")Either remove or fill this block of code.(²¹Ô´
+C
+java:S1905•",Remove this unnecessary cast to "Commodity".(ÎÈõõ
+H
+java:S1905˜",Remove this unnecessary cast to "Commodity".(¬Á–×þÿÿÿÿ
+B
+java:S1905¤",Remove this unnecessary cast to "Commodity".(ÓÃî"
+H
+java:S1905¨",Remove this unnecessary cast to "Commodity".(ï¨óéþÿÿÿÿ
+H
+java:S1905Â",Remove this unnecessary cast to "Commodity".(¬Á–×þÿÿÿÿ
+?
+java:S1905Å"(Remove this unnecessary cast to "float".(ÝÛîø
+H
+java:S1905Ð",Remove this unnecessary cast to "Commodity".(¬Á–×þÿÿÿÿ
+H
+java:S1905Ö",Remove this unnecessary cast to "Commodity".(ä°úðùÿÿÿÿ
+t	java:S135—"YReduce the total number of break and continue statements in this loop to use at most one.( å•çÿÿÿÿÿ
+f	java:S117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðý¬
+f	java:S117^"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ÚÜÏ
+k	java:S117a"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ôªÚúÿÿÿÿ
+f	java:S117l"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨üÇï
+f	java:S117m"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðØñö
+k	java:S117n"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éñ™žûÿÿÿÿ
+g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éŒ€
+g	java:S117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ÷Ÿ
+g	java:S117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦„¯Ë
+l	java:S117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¦Š§ýÿÿÿÿ
+l	java:S117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ÷Íüÿÿÿÿÿ
+l	java:S117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄåÚÎüÿÿÿÿ
+g	java:S117»"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—‡éæ
+g	java:S117¿"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çõÑ
+l	java:S117Ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò²‹ƒþÿÿÿÿ
+g	java:S117á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ÚÜÏ
+l	java:S117â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ôªÚúÿÿÿÿ
+l	java:S117¹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿„–ýÿÿÿÿ
+g	java:S117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ú†Æá
+g	java:S117Ê"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®âŽ
+g	java:S117à"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áíã—
+S
+java:S1155B">Use isEmpty() to check whether the collection is empty or not.(ýæ´D
+S
+java:S1155G">Use isEmpty() to check whether the collection is empty or not.(ýæ´D
+S
+java:S1155L">Use isEmpty() to check whether the collection is empty or not.(ýæ´D
+T
+java:S1155W">Use isEmpty() to check whether the collection is empty or not.(Úœš
+U
+java:S1155Â">Use isEmpty() to check whether the collection is empty or not.(Úœš
+Z
+java:S1155¸">Use isEmpty() to check whether the collection is empty or not.(Œ¥ÃÍþÿÿÿÿ

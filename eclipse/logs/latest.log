@@ -1,42 +1,32 @@
-[14:00:01] [main/INFO]: Setting user: Player323
-[14:00:03] [Client thread/INFO]: LWJGL Version: 2.9.1
-[14:00:20] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[14:00:27] [Sound Library Loader/INFO]: Sound engine started
-[14:00:29] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[14:00:29] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[14:00:29] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[14:00:30] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[14:00:31] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[14:00:31] [Sound Library Loader/INFO]: Sound engine started
-[14:02:34] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[14:02:34] [Server thread/INFO]: Generating keypair
-[14:02:34] [Server thread/INFO]: Preparing start region for level 0
-[14:02:35] [Server thread/INFO]: Preparing spawn area: 50%
-[14:02:36] [Server thread/INFO]: Changing view distance to 12, from 10
-[14:02:37] [Server thread/INFO]: Player323[local:E:07081b30] logged in with entity id 12 at (-267.56162437485335, 238.0, -273.90205885882386)
-[14:02:37] [Server thread/INFO]: Player323 加入了游戏
-[14:02:37] [Server thread/WARN]: Fetching addPacket for removed entity
-[14:02:37] [Server thread/WARN]: Fetching addPacket for removed entity
-[14:02:37] [Server thread/WARN]: Fetching addPacket for removed entity
-[14:02:37] [Server thread/WARN]: Fetching addPacket for removed entity
-[14:02:38] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.2 Beta由TRHSY重制
-[14:02:48] [Client thread/INFO]: [CHAT] 售出所有有效的物品，总共0.20
-[14:02:54] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2192ms behind, skipping 43 tick(s)
-[14:03:09] [Server thread/INFO]: Saving and pausing game...
-[14:03:09] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[14:03:09] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[14:03:09] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[14:03:27] [Server thread/INFO]: [Player323: 将时间设为 0]
-[14:03:27] [Client thread/INFO]: [CHAT] 将时间设为 0
-[14:03:30] [Client thread/INFO]: [CHAT] 今天收了31.40金的房租。
-[14:03:30] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
-[14:04:00] [Server thread/INFO]: Saving and pausing game...
-[14:04:00] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[14:04:00] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[14:04:00] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[14:04:00] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 12336ms behind, skipping 246 tick(s)
-[14:04:13] [Client thread/INFO]: [CHAT] 售出所有有效的物品，总共17.73
-[14:04:19] [Server thread/INFO]: Saving and pausing game...
-[14:04:19] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[14:04:19] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[14:04:19] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[17:40:31] [main/INFO]: Setting user: Player522
+[17:40:33] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:40:43] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:40:49] [Sound Library Loader/INFO]: Sound engine started
+[17:40:51] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[17:40:51] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[17:40:51] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[17:40:52] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:40:52] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:40:53] [Sound Library Loader/INFO]: Sound engine started
+[17:41:55] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[17:41:55] [Server thread/INFO]: Generating keypair
+[17:41:56] [Server thread/INFO]: Preparing start region for level 0
+[17:41:57] [Server thread/INFO]: Preparing spawn area: 64%
+[17:41:57] [Server thread/INFO]: Changing view distance to 12, from 10
+[17:41:58] [Server thread/INFO]: Player522[local:E:f05f89a2] logged in with entity id 12 at (-329.28119053001996, 238.0, -301.08721608666195)
+[17:41:58] [Server thread/INFO]: Player522 加入了游戏
+[17:41:58] [Server thread/WARN]: Fetching addPacket for removed entity
+[17:41:58] [Server thread/WARN]: Fetching addPacket for removed entity
+[17:42:00] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.2 Beta由TRHSY重制
+[17:42:07] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 4319ms behind, skipping 86 tick(s)
+[17:42:11] [Server thread/INFO]: Saving and pausing game...
+[17:42:11] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[17:42:11] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[17:42:11] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[17:43:05] [Client thread/INFO]: [CHAT] 单锦凯做了一些面包并得到报酬0.20资金
+[17:43:14] [Server thread/INFO]: Player522 刚刚获得了 [打开物品栏] 成就！
+[17:43:14] [Client thread/INFO]: [CHAT] Player522 刚刚获得了 [打开物品栏] 成就！
+[17:50:45] [Client thread/INFO]: [CHAT] 单锦凯今天卖了11个面包给人们。
+[18:00:49] [Client thread/INFO]: [CHAT] 今天收了31.40金的房租。
+[18:00:49] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
+[18:05:33] [Client Shutdown Thread/INFO]: Stopping server

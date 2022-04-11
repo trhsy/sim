@@ -44,7 +44,7 @@ public class JobCropFarmer extends Job implements Serializable {
     private static final long serialVersionUID = -1177112214234279141L;
     //职业
     public Vocation vocation = null;
-    //实体人书籍
+    //实体人
     public FolkData theFolk = null;
     //状态
     public Stage theStage;
@@ -328,6 +328,7 @@ public class JobCropFarmer extends Job implements Serializable {
             boolean done = this.setXYZ();
             boolean hasHarvest = false;
             if (done) {
+                //锄地
                 this.theStage = Stage.HOELAND;
                 this.step = 1;
                 this.theFolk.isWorking = false;

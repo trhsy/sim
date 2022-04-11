@@ -167,7 +167,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
                 }
             }
-
+            //等待资源
             this.theStage = Stage.WAITINGFORRESOURCES;
             this.step = 1;
             if (this.theConBox == null) {
@@ -267,10 +267,12 @@ public class JobBuilder extends Job implements Serializable {
 
                     this.bz = this.cz - 1;
                 }
-
+                //开始建造
                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_building") + this.theBuilding.displayNameWithoutPK);
+                //建造中
                 this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                 if (this.theBuilding == null || this.theBuilding.layerCount == 0) {
+                    //建筑图纸错误，删除中，请尝试其他建筑
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_misplaced"));
                     return;
                 }
@@ -289,6 +291,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theBuilding.blockLocations.clear();
             } else if (this.step == 2) {
                 do {
+                    //已经开始建筑一个
                     this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                     if (this.theBuilding.buildDirection.contentEquals("+z")) {
                         this.xo = this.ltr;
@@ -326,7 +329,7 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
-                        blockId = BlockLoader.blockControlBox;
+                        blockId = BlockLoader.blockOtherControlBox;
                         subtype = 2;
                     }
 
@@ -351,10 +354,6 @@ public class JobBuilder extends Job implements Serializable {
                         blockId = null;
                         subtype = 0;
                     }
-
-                    v3 = null;
-                    boolean var7 = false;
-
                     Block currBlockId;
                     try {
                         currBlockId = this.jobWorld.getBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
@@ -437,12 +436,13 @@ public class JobBuilder extends Job implements Serializable {
 
                         if (!gotBlock) {
                             this.theStage = Stage.WAITINGFORRESOURCES;
-                            if (want.toLowerCase().contentEquals("oak wood planks")) {
-                                want = "Planks";
+                            //木板
+                            if (want.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC11"))) {
+                                want = I18n.format("container.sim.sim_gui_BC12");
                             }
-
-                            if (want.toLowerCase().contentEquals("oak wood")) {
-                                want = "Logs";
+//原木
+                            if (want.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC9"))){
+                                want =I18n.format("container.sim.sim_gui_BC10");
                             }
 
                             this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Waiting") + want;
@@ -458,11 +458,11 @@ public class JobBuilder extends Job implements Serializable {
                         try {
                             if (!alreadyPlaced) {
                                 try {
-                                    if (blockId == BlockLoader.blockControlBox || blockId == BlockLoader.blockControlBox) {
-                                        blockId = BlockLoader.blockControlBox;
+                                    if (blockId != BlockLoader.blockControlBox || blockId != BlockLoader.blockOtherControlBox) {
+                                        blockId = BlockLoader.blockATMControlBox;
                                     }
 
-                                    if (blockId == BlockLoader.blockControlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals("sim-u-bank")) {
+                                    if (blockId == BlockLoader.blockATMControlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals(I18n.format("container.sim.ATMs"))) {
                                         subtype = 1;
                                     }
 

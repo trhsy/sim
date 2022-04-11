@@ -38,6 +38,9 @@ public class BlockLoader {
     public static Block blockCompositeBrick = new BlockCompositeBrick();
     /*控制箱*/
     public static Block blockControlBox = new BlockControlBox();
+
+    public static Block blockATMControlBox = new BlockATMControlBox();
+    public static Block blockOtherControlBox = new BlockOtherControlBox();
     /*农田箱*/
     public static Block blockFarmingBox = new BlockFarmingBox();
     /*块流体牛奶*/
@@ -85,6 +88,10 @@ public class BlockLoader {
         register(blockCheeseBlock, "cheese_block");
         register(blockCompositeBrick, "composite_brick");
         register(blockControlBox, "control_box");
+
+        register(blockATMControlBox, "control_box_ATM");
+        register(blockOtherControlBox, "control_box_other");
+
         register(blockFarmingBox, "farming_box");
         register(blockFluidMilk, "fluid_milk");
 

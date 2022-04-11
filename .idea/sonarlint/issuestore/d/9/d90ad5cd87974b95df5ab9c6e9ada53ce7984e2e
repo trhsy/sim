@@ -47,6 +47,8 @@ java:S1905ƒ"-Remove this unnecessary cast to "IInventory".(ÊÈ÷ùÿÿÿÿ
 java:S2119Š"Save and re-use this "Random".(Ã«´íşÿÿÿÿ
 E
 java:S1481‹")Remove this unused "food" local variable.(Í°Éûÿÿÿÿ
+N
+java:S1905"+Remove this unnecessary cast to "FolkData".(š—«Øùÿÿÿÿ8ê®û¹0
 ?	java:S108Ÿ")Either remove or fill this block of code.(²Œ½¦
 i
 java:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ç–µ–
@@ -54,7 +56,11 @@ P
 java:S1854¼"9Remove this useless assignment to local variable "found".(·”íŒ
 O
 java:S1117¦"8Rename "farm" which hides the field declared at line 48.(Ûš™Ó
+P
+java:S1905«"-Remove this unnecessary cast to "FarmingBox".(Œ¢•­úÿÿÿÿ8€¯û¹0
 R	java:S125Ç"<This block of commented-out lines of code should be removed.(¾ÊöÊ
+N
+java:S1128"1Remove this unused import 'com.trhsy.sim.ModSim'.(ª…Öâ8„¯û¹0
 J
 java:S1066B"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
 U

@@ -1,0 +1,95 @@
+
+J
+java:S3740%"/Provide the parametrized type for this generic.(ëøÑÔûÿÿÿÿ
+E
+java:S3740&"/Provide the parametrized type for this generic.(ÁÓ€£
+—
+java:S11863"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÏĞç
+—
+java:S1186*"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±ğ›Ñ
+H
+java:S1135"2Complete the task associated to this TODO comment.(€º½å
+h
+java:S3776E"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(‡àñ¯
+7
+java:S1116a"Remove this empty statement.(‚¯Åêıÿÿÿÿ
+7
+java:S1116e"Remove this empty statement.(ÍºÙÊûÿÿÿÿ
+1
+java:S1116i"Remove this empty statement.(Ò¬æ\
+7
+java:S1116m"Remove this empty statement.(Àı®Êıÿÿÿÿ
+2
+java:S1116q"Remove this empty statement.(„€áÛ
+7
+java:S1116u"Remove this empty statement.(¾„ÑÖúÿÿÿÿ
+7
+java:S1116y"Remove this empty statement.(ç¹®Ÿøÿÿÿÿ
+2
+java:S1116}"Remove this empty statement.(Î»ßª
+A
+java:S1905‚"*Remove this unnecessary cast to "Integer".(Ü´³
+A
+java:S1905ƒ"*Remove this unnecessary cast to "Integer".(¼‘ÿ¢
+D	java:S108Œ")Either remove or fill this block of code.(Ş…‚âûÿÿÿÿ
+i
+java:S3776®"RRefactor this method to reduce its Cognitive Complexity from 56 to the 15 allowed.(À¥¡è
+F
+java:S1905Â"*Remove this unnecessary cast to "Integer".(Ìá˜ûÿÿÿÿ
+A
+java:S1905È"*Remove this unnecessary cast to "Integer".(›ÒÆ•
+F
+java:S1905×"*Remove this unnecessary cast to "Integer".(Ìá˜ûÿÿÿÿ
+A
+java:S1905İ"*Remove this unnecessary cast to "Integer".(›ÒÆ•
+A
+java:S1905Ş"*Remove this unnecessary cast to "Integer".(ÆŠ¿
+n
+java:S3776î"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(±ÔÛúÿÿÿÿ
+Z
+java:S1854ô">Remove this useless assignment to local variable "stackPrice".(ãôéİşÿÿÿÿ
+R	java:S125ñ"<This block of commented-out lines of code should be removed.(ÏŠµŠ
+C
+java:S1481ó"'Remove this unused "ok" local variable.(‰İıÂøÿÿÿÿ
+A
+java:S1905ø"*Remove this unnecessary cast to "Integer".(¯‹Ÿ»
+D
+java:S1905‘"-Remove this unnecessary cast to "IInventory".(–÷‚
+u
+java:S2142£"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ôÒø‚
+?	java:S108£")Either remove or fill this block of code.(ôÒø‚
+Z
+java:S1854¶">Remove this useless assignment to local variable "stackPrice".(ãôéİşÿÿÿÿ
+F
+java:S1481²"*Remove this unused "stack" local variable.(¶—î¥ùÿÿÿÿ
+R	java:S125³"<This block of commented-out lines of code should be removed.(ÏŠµŠ
+C
+java:S1481µ"'Remove this unused "ok" local variable.(‰İıÂøÿÿÿÿ
+W	java:S125·"<This block of commented-out lines of code should be removed.(–Êş“üÿÿÿÿ
+‚
+java:S2178¹"fCorrect this "|" to "||" and extract the right operand to a variable if it should always be evaluated.(ğÑ…áÿÿÿÿÿ
+I
+java:S1905À"-Remove this unnecessary cast to "IInventory".(ïå–ÿşÿÿÿÿ
+D
+java:S1905Á"-Remove this unnecessary cast to "IInventory".(šŸ¬Ê
+?
+java:S1905Ç"(Remove this unnecessary cast to "Block".(“üå»
+I
+java:S1905É"-Remove this unnecessary cast to "IInventory".(ä––¥şÿÿÿÿ
+?
+java:S1185è"(Remove this method to simply inherit it.(Ñäâ†
+M
+java:S1854õ"6Remove this useless assignment to local variable "mc".(è™áâ
+K
+java:S1172ô"/Remove this unused method parameter "quantity".(„ôäİûÿÿÿÿ
+>
+java:S1481õ"'Remove this unused "mc" local variable.(è™áâ
+Q	java:S125ú"<This block of commented-out lines of code should be removed.(çÇÙ
+W	java:S125Œ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+t	java:S135û"YReduce the total number of break and continue statements in this loop to use at most one.(†ÍÌ¹şÿÿÿÿ
+Z
+java:S1155ö">Use isEmpty() to check whether the collection is empty or not.(ÀÅ¯¨ùÿÿÿÿ
+Z
+java:S1155¹">Use isEmpty() to check whether the collection is empty or not.(ğÑ…áÿÿÿÿÿ
+;
+java:S2629ù"$Invoke method(s) only conditionally.(Š˜ó¬
