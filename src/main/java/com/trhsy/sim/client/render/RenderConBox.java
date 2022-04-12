@@ -43,9 +43,9 @@ public class RenderConBox extends Render{
     public void doRender(Entity var1, double x, double y, double z, float boxYaw, float TextYaw) {
         this.entity = (EntityConBox)var1;
         this.renderManager.renderEngine.bindTexture(myTexture);
-        x += Math.sin((double)(this.entity.boxYaw / 20.0F)) / 10.0D;
-        z += Math.cos((double)(this.entity.boxYaw / 20.0F)) / 10.0D;
-        y += Math.sin((double)(this.entity.boxYaw / 10.0F)) / 10.0D;
+        x += Math.sin((double)(this.entity.boxYaw / 20.0F)) / 10;
+        z += Math.cos((double)(this.entity.boxYaw / 20.0F)) / 10;
+        y += Math.sin((double)(this.entity.boxYaw / 10.0F)) / 10;
         GL11.glPushMatrix();
         GL11.glTranslatef((float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F);
         GL11.glRotatef(this.entity.boxYaw, 0.0F, 1.0F, 0.0F);
@@ -81,7 +81,7 @@ public class RenderConBox extends Render{
                             Map.Entry pairs = (Map.Entry)it.next();
                             if (pairs.getValue() != null) {
                                 String st = pairs.getValue().toString();
-                                double stacks = Math.ceil(Double.parseDouble(st) / 64.0D);
+                                double stacks = Math.ceil(Double.parseDouble(st) / 64);
                                 String ss = "";
                                 if ((int)stacks == 0) {
                                     ss = "less than 1 stack";
@@ -129,7 +129,7 @@ public class RenderConBox extends Render{
 
     private void displayText(String theString, float scale, float xpos, float ypos, float zpos, int col) {
         double dist = (double)this.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
-        if (!(dist > 15.0D)) {
+        if (!(dist > 15)) {
             FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
             GL11.glPushMatrix();
             GL11.glTranslatef(xpos, ypos, zpos);

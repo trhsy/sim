@@ -131,7 +131,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         //共享怪物属性 移动速度
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
         } else {
             if (this.theData.isWorking) {
-                float s = (float) (Math.sin((double) System.currentTimeMillis() * 0.01D) / 10.0D) + 0.1F;
+                float s = (float) (Math.sin((double) System.currentTimeMillis() * 0.01) / 10) + 0.1F;
                 this.swingProgress = s;
             } else {
                 this.swingProgress = 0.0F;
@@ -163,7 +163,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     long var10000 = System.currentTimeMillis();
                     FolkData var10001 = this.theData;
                     Long ls = var10000 - FolkData.anyFolkLastSpoke;
-                    if (ConfigLoader.configFolkTalkingEnglish && ls > 5000L && (!this.theData.greetedToday & dist < 5.0D || this.theData.vocation == Vocation.BURGERSWAITER && dist < 5.0D && r.nextInt(20) == 2)) {
+                    if (ConfigLoader.configFolkTalkingEnglish && ls > 5000L && (!this.theData.greetedToday & dist < 5.0 || this.theData.vocation == Vocation.BURGERSWAITER && dist < 5.0 && r.nextInt(20) == 2)) {
                         this.theData.greetedToday = true;
                         FolkData var18 = this.theData;
                         FolkData.anyFolkLastSpoke = System.currentTimeMillis();
@@ -333,7 +333,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
         }
 
-        List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(2.0D, 4.0D, 2.0D));
+        List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(this.posX, this.posY, this.posZ, this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).expand(2.0, 4.0, 2.0));
         Iterator iterator1 = list1.iterator();
         if (!list1.isEmpty()) {
             while (iterator1.hasNext()) {
@@ -382,7 +382,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public void moveEntity(double d, double d1, double d2) {
         if (!this.isDead && this.theData != null) {
-            double dist = 0.0D;
+            double dist = 0;
             if (this.theData.destination != null && this.theData.beamingTo == null) {
                 try {
                     dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
@@ -392,7 +392,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     return;
                 }
 
-                if (dist <= 2.0D) {
+                if (dist <= 2.0) {
                     try {
                         //ModSimReloaded.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
                     } catch (Exception var13) {
@@ -400,8 +400,8 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }
 
                     this.theData.updateLocationFromEntity();
-                    this.motionX = 0.0D;
-                    this.motionZ = 0.0D;
+                    this.motionX = 0;
+                    this.motionZ = 0;
                     this.theData.stayPut = true;
                     this.theData.destination = null;
                     this.getNavigator().clearPathEntity();
@@ -434,7 +434,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 if (this.theData.timeStartedGotoing != null && !donttimeout && System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null) {
                     this.getNavigator().clearPathEntity();
-                    if (dist > 2.0D) {
+                    if (dist > 2.0) {
                         ModSimReloaded.log.info("实体人: " + this.theData.name + " 散步太久，所以喜气洋洋...");
                         this.theData.stayPut = true;
                         this.theData.timeStartedGotoing = System.currentTimeMillis();
@@ -444,9 +444,9 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
 
             if (this.theData.stayPut) {
-                this.motionX = 0.0D;
-                this.motionY = 0.0D;
-                this.motionZ = 0.0D;
+                this.motionX = 0;
+                this.motionY = 0;
+                this.motionZ = 0;
                 this.getNavigator().clearPathEntity();
             } else {
                 super.moveEntity(d, d1, d2);
@@ -609,13 +609,13 @@ public class EntityFolk extends EntityCreature implements INpc {
             Block idZ2 = this.worldObj.getBlock((int) this.posX + 1, (int) this.posY, (int) this.posZ - 1);
             this.motionY += 0.4D;
             if (idX1 == null) {
-                this.motionX += 0.8999999761581421D;
+                this.motionX += 0.8999999761581421;
             } else if (idX2 == null) {
-                this.motionX -= 0.8999999761581421D;
+                this.motionX -= 0.8999999761581421;
             } else if (idZ1 == null) {
-                this.motionZ += 0.8999999761581421D;
+                this.motionZ += 0.8999999761581421;
             } else if (idZ2 == null) {
-                this.motionZ -= 0.8999999761581421D;
+                this.motionZ -= 0.8999999761581421;
             }
         }
 

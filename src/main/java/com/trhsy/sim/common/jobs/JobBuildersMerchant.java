@@ -71,11 +71,11 @@ public class JobBuildersMerchant extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.serving_customers");
                 this.theFolk.updateLocationFromEntity();
                 double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-                if (dist > 5.0D && this.theFolk.destination == null) {
+                if (dist > 5 && this.theFolk.destination == null) {
                     this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
                 }
 
-                if (dist <= 5.0D) {
+                if (dist <= 5) {
                     this.theFolk.stayPut = true;
                 }
             }

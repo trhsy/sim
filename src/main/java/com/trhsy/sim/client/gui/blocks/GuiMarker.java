@@ -271,21 +271,21 @@ public class GuiMarker extends GuiScreen {
                                 String letter = "";
                                 if (iD == Block.getIdFromBlock(BlockLoader.blockControlBox)) {
                                     letter = "$";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.LightBoxWhite) && meta == 0) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 0) {
                                     letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBoxRed) && meta == 1) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 1) {
                                     letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBoxOrange) && meta == 2) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 2) {
                                     letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBoxYellow) && meta == 3) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 3) {
                                     letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBoxGreen) && meta == 4) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 4) {
                                     letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBoxBlue) && meta == 5) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 5) {
                                     letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBoxPurple) && meta == 6) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 6) {
                                     letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBoxRainbow) && meta == 7) {
+                                } else if (iD == Block.getIdFromBlock(BlockLoader.lightBox) && meta == 7) {
                                     letter = "ï¿½";
                                 } else {
                                     letter = (String) key.get(iD + ":" + meta);

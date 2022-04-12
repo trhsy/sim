@@ -142,8 +142,8 @@ public class JobButcher extends Job implements Serializable {
             int dist = this.theFolk.location.getDistanceTo(this.farm.primaryXYZ);
             if (dist < 3) {
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.motionX = 0.0D;
-                    this.theFolk.theEntity.motionZ = 0.0D;
+                    this.theFolk.theEntity.motionX = 0;
+                    this.theFolk.theEntity.motionZ = 0;
                 }
 
                 this.onRoute = false;
@@ -188,11 +188,11 @@ public class JobButcher extends Job implements Serializable {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
         } else {
             double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            if (dist < 2.0D) {
+            if (dist < 2) {
                 this.onRoute = false;
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.motionX = 0.0D;
-                    this.theFolk.theEntity.motionZ = 0.0D;
+                    this.theFolk.theEntity.motionX = 0;
+                    this.theFolk.theEntity.motionZ = 0;
                 }
 
                 this.theFolk.stayPut = true;
@@ -236,7 +236,7 @@ public class JobButcher extends Job implements Serializable {
 
             this.theFolk.updateLocationFromEntity();
             double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            if (dist > 8.0D) {
+            if (dist > 8) {
                 this.theFolk.beamMeTo(this.theFolk.employedAt);
             }
         } else if (this.step == 3) {

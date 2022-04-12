@@ -291,7 +291,7 @@ public class JobCheesemaker extends Job {
             }
         } else if (this.step == 2) {
             ArrayList<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
-            int lightID = Block.getIdFromBlock(BlockLoader.LightBoxWhite);
+            int lightID = Block.getIdFromBlock(BlockLoader.lightBox);
             ModSimReloaded.log.info(Integer.toString(lightID));
             boolean filledOk = false;
             Iterator iterator = milkblocks.iterator();

@@ -21,27 +21,18 @@ public class CraftingLoader {
      * 注册合成表
      */
     private static void registerRecipe() {
-        //有序合成表
-        //for(int x = 0; x < 16; ++x) {
-        //    GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.itemWindmillSails, 1, x));
-        //}
-        /*GameRegistry.addShapedRecipe(new ItemStack(BlockLoader.constructorBox), new Object[]{
-                "##", "##", '#', Blocks.vine
-        });
-        //无需合成
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.vine, 4), BlockLoader.constructorBox);*/
 
         /*控制箱
-        *木板 木板 木板
-        *圆石 工作台 圆石
-        *圆石 圆石 圆石
-        * */
+         *木板 木板 木板
+         *圆石 工作台 圆石
+         *圆石 圆石 圆石
+         * */
         GameRegistry.addRecipe(new ItemStack(BlockLoader.constructorBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Blocks.crafting_table});
         /* 标记棒
-        * 黄色燃料
-        * 木棍
-        * 木棍
-        * */
+         * 黄色燃料
+         * 木棍
+         * 木棍
+         * */
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockMarker, 3), new Object[]{"G", "S", 'S', Items.stick, 'G', new ItemStack(Items.dye, 1, 11)});
         //采矿箱和养殖箱是否弃用最贵的钻石镐合成
         if (ConfigLoader.configUseExpensiveRecipies) {
@@ -57,22 +48,22 @@ public class CraftingLoader {
             GameRegistry.addRecipe(new ItemStack(BlockLoader.blockFarmingBox, 1), new Object[]{"PPP", "CWC", "CCC", 'C', Blocks.cobblestone, 'P', Blocks.planks, 'W', Items.stone_hoe});
         }
         //四个火把合成灯箱
-        GameRegistry.addRecipe(new ItemStack(BlockLoader.LightBoxWhite, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxRed, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 1)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxOrange, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 14)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxYellow, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 11)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxGreen, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 10)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxBlue, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 4)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxPurple, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 5)});
-        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBoxRainbow, 1, 1), new Object[]{BlockLoader.LightBoxWhite, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.lightBox, 2), new Object[]{"LL", "LL", 'L', Blocks.torch});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 1), new Object[]{BlockLoader.lightBox, new ItemStack(Items.dye, 1, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 2), new Object[]{BlockLoader.lightBox, new ItemStack(Items.dye, 1, 14)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 3), new Object[]{BlockLoader.lightBox, new ItemStack(Items.dye, 1, 11)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 4), new Object[]{BlockLoader.lightBox, new ItemStack(Items.dye, 1, 10)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 5), new Object[]{BlockLoader.lightBox, new ItemStack(Items.dye, 1, 4)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 6), new Object[]{BlockLoader.lightBox, new ItemStack(Items.dye, 1, 5)});
+        GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.lightBox, 1, 7), new Object[]{BlockLoader.lightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
         //九个奶酪片合成奶酪块
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheeseBlock, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(ItemLoader.itemFoods, 1, 0)});
         GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemFoods, 9, 0), new Object[]{BlockLoader.blockCheeseBlock});
         /* 复合砖
-        * 硬化黏土 石头 硬化黏土
-        * 石头 栅栏 石头
-        * 硬化黏土 石头 硬化黏土
-        * */
+         * 硬化黏土 石头 硬化黏土
+         * 石头 栅栏 石头
+         * 硬化黏土 石头 硬化黏土
+         * */
         GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCompositeBrick, 1), new Object[]{"CSC", "SIS", "CSC", 'C', Blocks.hardened_clay, 'S', Blocks.stone, 'I', Blocks.fence});
         /* 风车底座
          *       复合砖
@@ -80,7 +71,14 @@ public class CraftingLoader {
          * 复合砖 复合砖 复合砖
          */
         GameRegistry.addRecipe(new ItemStack(ItemLoader.itemWindmillBase), new Object[]{" C ", "CCC", "CCC", 'C', BlockLoader.blockCompositeBrick});
-
+/*
+GameRegistry.addRecipe(new ItemStack(pathConstructor, 1), new Object[]{
+"PPP", "CWC", "CCC",
+'C', Block.cobblestone,
+'P', Block.planks,
+'W', buildingConstructor
+});
+*/
         int c;
         for (c = 0; c < 16; ++c) {
             /** 风车叶片
@@ -106,6 +104,7 @@ public class CraftingLoader {
              *
              */
             GameRegistry.addRecipe(new ItemStack(BlockLoader.blockWindmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(ItemLoader.itemWindmillSails, 1, c), 'B', ItemLoader.itemWindmillBase});
+
         }
     }
 

@@ -22,6 +22,7 @@ public class ItemDrink extends ItemBucketMilk {
     public static final String[] names = new String[]{"drinkBeerEmpty", "drinkBeer"};
 
     public ItemDrink() {
+        super(); //6个半红心，当吃了0.6f时默认为ItemFood
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setHasSubtypes(true);
     }

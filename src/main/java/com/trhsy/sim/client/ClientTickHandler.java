@@ -136,19 +136,19 @@ public class ClientTickHandler {
     private void beamingPlayer() {
         Minecraft mc = Minecraft.getMinecraft();
         Random random = new Random();
-        beamingPlayer.motionX = 0.0D;
-        beamingPlayer.motionY = 0.0D;
-        beamingPlayer.motionZ = 0.0D;
-        Double d4 = ((double)random.nextFloat() - 2.0D) * 2.0D;
+        beamingPlayer.motionX = 0;
+        beamingPlayer.motionY = 0;
+        beamingPlayer.motionZ = 0;
+        Double d4 = ((double)random.nextFloat() - 2) * 2;
 
         for(int p = 0; p < 20; ++p) {
             try {
-                mc.theWorld.spawnParticle("portal", beamingPlayer.posX + random.nextDouble() - 0.5D, beamingPlayer.posY - 1.0D, beamingPlayer.posZ + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                mc.theWorld.spawnParticle("portal", beamingPlayer.posX + random.nextDouble() - 0.5D, beamingPlayer.posY - 1, beamingPlayer.posZ + random.nextDouble() - 0.5D, 0, -d4, 0);
             } catch (Exception var7) {
             }
 
             try {
-                mc.theWorld.spawnParticle("portal", beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1.0D, beamingTo.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                mc.theWorld.spawnParticle("portal", beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1, beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
             } catch (Exception var6) {
             }
         }

@@ -112,7 +112,7 @@ public class JobDairyFarmer extends Job {
     private void stageWaiting() {
         this.theFolk.updateLocationFromEntity();
         double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist > 10.0D) {
+        if (dist > 10) {
             this.theFolk.beamMeTo(this.theFolk.employedAt);
         }
 
@@ -178,7 +178,7 @@ public class JobDairyFarmer extends Job {
 
         for(int c = 1; c <= count; ++c) {
             newAnimal = new EntityCow(this.jobWorld);
-            newAnimal.setLocationAndAngles(controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z, 0.0F, 0.0F);
+            newAnimal.setLocationAndAngles(controlBox.x + 1, controlBox.y + 1, controlBox.z, 0.0F, 0.0F);
             if (!this.jobWorld.isRemote) {
                 this.jobWorld.spawnEntityInWorld(newAnimal);
             }

@@ -20,16 +20,16 @@ J
 java:S1905 ".Remove this unnecessary cast to "CourierTask".(ÓÎ£àùÿÿÿÿ
 V
 java:S1117¡":Rename "pickup" which hides the field declared at line 44.(äø·µýÿÿÿÿ
-T
-java:S1854á"8Remove this useless assignment to local variable "var5".(ÕÜ©Âÿÿÿÿÿ
+O
+java:S1854á"8Remove this useless assignment to local variable "var5".(ã©ù®
 T
 java:S1854à"8Remove this useless assignment to local variable "var4".(¬³‰£ýÿÿÿÿ
 J
 java:S1905È".Remove this unnecessary cast to "CourierTask".(ÓÎ£àùÿÿÿÿ
 E
 java:S1481à")Remove this unused "var4" local variable.(¬³‰£ýÿÿÿÿ
-E
-java:S1481á")Remove this unused "var5" local variable.(ÕÜ©Âÿÿÿÿÿ
+@
+java:S1481á")Remove this unused "var5" local variable.(ã©ù®
 @
 java:S1905ê")Remove this unnecessary cast to "double".(‘ãŽ¹
 i
@@ -50,7 +50,7 @@ C
 java:S1481“",Remove this unused "invItem" local variable.(ÝÈ¡¸
 R	java:S125²"<This block of commented-out lines of code should be removed.(¾ÊöÊ
 N
-java:S1128"1Remove this unused import 'com.trhsy.sim.ModSim'.(ª…Öâ8âÒïÁ€0
+java:S1128"1Remove this unused import 'com.trhsy.sim.ModSim'.(ª…Öâ8¥®è0
 J
 java:S1066:"/Merge this if statement with the enclosing one.(Ï³ßˆùÿÿÿÿ
 Y

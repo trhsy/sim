@@ -630,8 +630,8 @@ public class GuiControlBox extends GuiScreen {
                                 }
 
                                 theWorld.setBlock(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), Blocks.air, 0, 3);
-                                this.mc.theWorld.spawnParticle("explode", (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0.0D, 0.30000001192092896D, 0.0D);
-                                this.mc.theWorld.spawnParticle("flame", (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0.0D, 0.4000000059604645D, 0.0D);
+                                this.mc.theWorld.spawnParticle("explode", (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0, 0.30000001192092896D, 0);
+                                this.mc.theWorld.spawnParticle("flame", (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0, 0.4000000059604645D, 0);
                             }
 
                             theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1.0F, 1.0F);

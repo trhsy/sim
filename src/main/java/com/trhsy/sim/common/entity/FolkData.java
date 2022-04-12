@@ -442,7 +442,7 @@ public class FolkData implements Serializable {
                 for (xo = 0; xo < ModSimReloaded.theBuildings.size(); ++xo) {
                     Building b = (Building) ModSimReloaded.theBuildings.get(rand.nextInt(ModSimReloaded.theBuildings.size()));
                     double dist = (double) this.location.getDistanceTo(b.primaryXYZ);
-                    if (b.type.contentEquals("commercial") && dist < 40.0D) {
+                    if (b.type.contentEquals("commercial") && dist < 40) {
                         boolean hasShopKeeper = false;
 
                         for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
@@ -467,7 +467,7 @@ public class FolkData implements Serializable {
                             break;
                         }
                     } else {
-                        if (b.type.contentEquals("industrial") && dist < 40.0D && !b.displayName.toLowerCase().contains("farm")) {
+                        if (b.type.contentEquals("industrial") && dist < 40 && !b.displayName.toLowerCase().contains("farm")) {
                             try {
                                 ModSimReloaded.log.info("FolkData: onUpdate() " + this.name + "徘徊在" + b.displayName + " " + dist + " 个街区之外。");
                                 this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
@@ -485,7 +485,7 @@ public class FolkData implements Serializable {
                             break;
                         }
 
-                        if (b.type.contentEquals("residential") && dist < 40.0D && this.hangingWith == null && b.tenants != null && b.tenants.size() > 0) {
+                        if (b.type.contentEquals("residential") && dist < 40 && this.hangingWith == null && b.tenants != null && b.tenants.size() > 0) {
                             FolkData resy = getFolkByName((String)b.tenants.get(0));
 
                             try {
@@ -517,7 +517,7 @@ public class FolkData implements Serializable {
                     V3 wanderTo = new V3(this.location.x + (double)xo, this.location.y, this.location.z + (double)zo, this.location.theDimension);
 
                     Double var40;
-                    for(WorldServer world = MinecraftServer.getServer().worldServerForDimension(this.location.theDimension); world.getBlock(wanderTo.x.intValue(), wanderTo.y.intValue(), wanderTo.z.intValue()) != null && wanderTo.y < 255.0D; var40 = wanderTo.y = wanderTo.y + 1.0D) {
+                    for(WorldServer world = MinecraftServer.getServer().worldServerForDimension(this.location.theDimension); world.getBlock(wanderTo.x.intValue(), wanderTo.y.intValue(), wanderTo.z.intValue()) != null && wanderTo.y < 255.0; var40 = wanderTo.y = wanderTo.y + 1.0) {
                         Double var38 = wanderTo.y;
                     }
 
@@ -589,7 +589,7 @@ public class FolkData implements Serializable {
                 //ModSimReloaded.log.warning("FolkData:onUpdate() " + this.name + " 还在工作");
                 this.updateLocationFromEntity();
                 V3 temp = this.employedAt.clone();
-                //temp.x = temp.x + 5.0D;
+                //temp.x = temp.x + 5.0;
                 temp= new V3(temp.x+5.D,temp.y,temp.z,temp.theDimension);
                 this.gotoXYZ(temp, GotoMethod.SHIFT);
                 this.gotoXYZ(this.employedAt, (GotoMethod) null);
@@ -678,7 +678,7 @@ public class FolkData implements Serializable {
                         chance = this.location.getDistanceTo(liveAt);
                         if (chance > 1 && this.destination == null) {
                             this.stayPut = false;
-                            liveAt=new V3(liveAt.x+3.0D,liveAt.y+3.0D,liveAt.z,liveAt.theDimension);
+                            liveAt=new V3(liveAt.x+3.0,liveAt.y+3.0,liveAt.z,liveAt.theDimension);
                             this.gotoXYZ(liveAt, (GotoMethod)null);
                             this.action = FolkAction.GOINGHOME;
                             this.statusText = I18n.format("container.sim.folk_data_Going_home");
@@ -740,13 +740,13 @@ public class FolkData implements Serializable {
                             double d0 = rand.nextDouble() * 0.5D;
                             double d1 = rand.nextDouble() * 0.5D;
                             double d2 = rand.nextDouble() * 0.5D;
-                            theWorld.spawnParticle("heart", this.theEntity.posX, this.theEntity.posY + 2.1D, this.theEntity.posZ, d0, d1, d2);
+                            theWorld.spawnParticle("heart", this.theEntity.posX, this.theEntity.posY + 2.1, this.theEntity.posZ, d0, d1, d2);
                             male.updateLocationFromEntity();
                             if ((double) this.matingStage < 0.15D) {
                                 this.gotoXYZ(male.location, GotoMethod.SHIFT);
                             }
 
-                            theWorld.spawnParticle("heart", male.location.x, male.location.y + 2.1D, male.location.z, d0, d1, d2);
+                            theWorld.spawnParticle("heart", male.location.x, male.location.y + 2.1, male.location.z, d0, d1, d2);
                             this.statusText = I18n.format("container.sim.folk_data_Trying_baby");
                             male.statusText = I18n.format("container.sim.folk_data_Trying_baby");
                             male.stayPut = true;
@@ -824,10 +824,10 @@ public class FolkData implements Serializable {
                     this.action = FolkAction.GOINGHOME;
                     this.actionArrival = FolkAction.STAYINGHOME;
                     if (building.livingXYZ != null) {
-                        V3 v3=new V3(building.livingXYZ.x+1.0D,building.livingXYZ.y+1.0D,building.livingXYZ.z,building.livingXYZ.theDimension);
+                        V3 v3=new V3(building.livingXYZ.x+1.0,building.livingXYZ.y+1.0,building.livingXYZ.z,building.livingXYZ.theDimension);
                         this.gotoXYZ(v3, (GotoMethod) null);
                     } else {
-                        V3 v3=new V3(building.primaryXYZ.x+1.0D,building.primaryXYZ.y+1.0D,building.primaryXYZ.z,building.primaryXYZ.theDimension);
+                        V3 v3=new V3(building.primaryXYZ.x+1.0,building.primaryXYZ.y+1.0,building.primaryXYZ.z,building.primaryXYZ.theDimension);
                         this.gotoXYZ(v3, (GotoMethod) null);
                     }
 
@@ -919,10 +919,10 @@ public class FolkData implements Serializable {
 
         V3 ret;
         try {
-            ret = new V3(p.posX, 5.0D, p.posZ, p.dimension);
+            ret = new V3(p.posX, 5.0, p.posZ, p.dimension);
         } catch (Exception var9) {
             ModSimReloaded.log.warning("getLocationCloseToPlayer: 玩家为空，返回空V3" + var9.getMessage());
-            return new V3(0.0D, 5.0D, 0.0D, 0);
+            return new V3(0.0, 5.0, 0.0, 0);
         }
 
         boolean found = false;
@@ -930,7 +930,7 @@ public class FolkData implements Serializable {
 
         try {
             for(int go = 30; go > 1; --go) {
-                ret = new V3(p.posX, 5.0D, p.posZ + (double)go, p.dimension);
+                ret = new V3(p.posX, 5.0, p.posZ + (double)go, p.dimension);
 
                 while(!found) {
                     bid = p.worldObj.getBlock(ret.x.intValue(), ret.y.intValue(), ret.z.intValue());
@@ -939,8 +939,8 @@ public class FolkData implements Serializable {
                     }
 
                     Double var7 = ret.y;
-                    Double var8 = ret.y = ret.y + 1.0D;
-                    if (ret.y > 200.0D) {
+                    Double var8 = ret.y = ret.y + 1.0;
+                    if (ret.y > 200) {
                         break;
                     }
                 }
@@ -953,13 +953,13 @@ public class FolkData implements Serializable {
             var10.printStackTrace();
         }
 
-        return !found ? new V3(0.0D, 5.0D, 0.0D, 0) : ret;
+        return !found ? new V3(0.0, 5.0, 0.0, 0) : ret;
     }
 
     public static EntityPlayer getClosestPlayer(V3 location) {
         try {
             World world = MinecraftServer.getServer().worldServerForDimension(location.theDimension);
-            EntityPlayer ret = world.getClosestPlayer(location.x, location.y, location.z, 60.0D);
+            EntityPlayer ret = world.getClosestPlayer(location.x, location.y, location.z, 60);
             return ret;
         } catch (Exception var3) {
             return null;
@@ -1187,7 +1187,7 @@ public class FolkData implements Serializable {
                 }
 
                 Double var8 = whereTo.y;
-                Double var9 = whereTo.y = whereTo.y + 1.0D;
+                Double var9 = whereTo.y = whereTo.y + 1.0;
             }
 
             try {
@@ -1195,7 +1195,7 @@ public class FolkData implements Serializable {
                 whereTo.x = (double)xxx + 0.5D;
                 xxx = whereTo.z.intValue();
                 whereTo.z = (double)xxx + 0.5D;
-                whereTo.y = whereTo.y - 199.0D;
+                whereTo.y = whereTo.y - 199.0;
             } catch (Exception var11) {
                 return;
             }
@@ -1245,21 +1245,21 @@ public class FolkData implements Serializable {
         }
 
         Random random = new Random();
-        Double d4 = ((double)random.nextFloat() - 2.0D) * 2.0D;
+        Double d4 = ((double)random.nextFloat() - 2.0) * 2.0;
         this.stayPut = true;
         World theWorld = Minecraft.getMinecraft().theWorld;
 
         for(int p = 0; p < 10; ++p) {
             try {
                 if (!ConfigLoader.configDisableBeamEffect) {
-                    theWorld.spawnParticle("portal", this.location.x + random.nextDouble() - 0.5D, this.location.y - 1.0D, this.location.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                    theWorld.spawnParticle("portal", this.location.x + random.nextDouble() - 0.5D, this.location.y - 1.0, this.location.z + random.nextDouble() - 0.5D, 0, -d4, 0);
                 }
             } catch (Exception var7) {
             }
 
             try {
                 if (!ConfigLoader.configDisableBeamEffect) {
-                    theWorld.spawnParticle("portal", this.beamingTo.x + random.nextDouble() - 0.5D, this.beamingTo.y - 1.0D, this.beamingTo.z + random.nextDouble() - 0.5D, 0.0D, -d4, 0.0D);
+                    theWorld.spawnParticle("portal", this.beamingTo.x + random.nextDouble() - 0.5D, this.beamingTo.y - 1.0, this.beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
                 }
             } catch (Exception var6) {
             }

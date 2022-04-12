@@ -181,7 +181,7 @@ public class ModSimReloaded {
     }
 
     /**
-     * 发送信息
+     * 帮助功能，向所有世界/维度的所有玩家发送聊天信息
      * @param theText
      */
     public static void sendChat(String theText) {
@@ -201,7 +201,7 @@ public class ModSimReloaded {
     }
 
     /**
-     * 保存数据文件夹
+     * 以字符串形式获取“.minecraft/saves/CURRENTWORLD/simukraft/”文件夹 保存数据文件夹
      * @return
      */
     public static String getSavesDataFolder() {
@@ -509,7 +509,7 @@ public class ModSimReloaded {
                 }
 
                 if (farmToUpgradeCounter % 6 == 0) {
-                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), BlockLoader.lightBoxYellow, 0, 3);
+                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), BlockLoader.lightBox, 0, 3);
                     theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
                 }
             } else if (farmToUpgrade.level == 2) {
@@ -521,7 +521,7 @@ public class ModSimReloaded {
                 theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
                 if (point.x.intValue() % 5 == 0 && point.z.intValue() % 5 == 0) {
                     theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), Blocks.water, 0, 3);
-                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), BlockLoader.lightBoxYellow, 0, 3);
+                    theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), BlockLoader.lightBox, 0, 3);
                     theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
                     theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
                 }

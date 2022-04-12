@@ -27,8 +27,7 @@ import java.util.List;
  * ========================================
  **/
 public class ItemBlockLightBox extends ItemBlock {
-    private IIcon[] icons;
-    public ItemBlockLightBox(Block par1, Block block) {
+    public ItemBlockLightBox(Block par1) {
         super(par1);
         this.setHasSubtypes(true);
         //this.setCreativeTab(CreativeTabsLoader.tabSimU);
@@ -55,19 +54,7 @@ public class ItemBlockLightBox extends ItemBlock {
         }
         //return this.getUnlocalizedName() + is.getMetadata();
     }
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-        this.icons = new IIcon[8];
-        for (int i = 0; i < 8; ++i) {
-            this.icons[i] = iconRegister.registerIcon(ModSim.MODID + ":light_block" + i);
-        }
 
-    }
-    @Override
-    public IIcon getIconFromDamage(int meta) {
-        return meta >= 0 && meta < 8 ? this.icons[meta] : this.icons[0];
-    }
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

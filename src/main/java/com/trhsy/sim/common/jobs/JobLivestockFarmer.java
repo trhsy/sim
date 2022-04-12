@@ -127,20 +127,20 @@ public class JobLivestockFarmer extends Job implements Serializable {
         this.vocation = this.theFolk.vocation;
         this.theFolk.updateLocationFromEntity();
         double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist > 10.0D) {
+        if (dist > 10) {
             this.theFolk.beamMeTo(this.theFolk.employedAt);
         }
 
         List list = null;
         if (this.vocation == Vocation.CATTLEFARMER) {
             this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Feeding");
-            list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
+            list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).expand(4, 2, 4));
         } else if (this.vocation == Vocation.CHICKENFARMER) {
             this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.chickens");
-            list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
+            list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).expand(4.0, 2.0, 4.0));
         } else if (this.vocation == Vocation.PIGFARMER) {
             this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.pigs");
-            list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(4.0D, 2.0D, 4.0D));
+            list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0, this.theFolk.employedAt.y + 1.0, this.theFolk.employedAt.z + 1.0).expand(4.0, 2.0, 4.0));
         }
 
         int adultCount = 0;
@@ -234,7 +234,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 double d = rand.nextGaussian() * 0.02D;
                 double d1 = rand.nextGaussian() * 0.02D;
                 double d2 = rand.nextGaussian() * 0.02D;
-                this.mc.theWorld.spawnParticle("heart", pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0D, d, d1, d2);
+                this.mc.theWorld.spawnParticle("heart", pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, d, d1, d2);
             }
 
             parentAnimal.worldObj.spawnEntityInWorld(babyAnimal);
@@ -254,7 +254,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 newAnimal = new EntityChicken(this.jobWorld);
             }
 
-            ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.x, controlBox.y + 1.0D, controlBox.z, 0.0F, 0.0F);
+            ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
             if (!this.jobWorld.isRemote) {
                 this.jobWorld.spawnEntityInWorld((Entity)newAnimal);
             }

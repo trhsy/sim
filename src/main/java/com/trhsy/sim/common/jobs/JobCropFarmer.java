@@ -448,7 +448,7 @@ public class JobCropFarmer extends Job implements Serializable {
     private void pickUpDroppedCrops(V3 v3center) {
         if (this.theFolk.theEntity != null) {
             //获取AABB中的实体，排除实体
-            List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(v3center.x, v3center.y, v3center.z, v3center.x + 1.0D, v3center.y + 1.0D, v3center.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
+            List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(v3center.x, v3center.y, v3center.z, v3center.x + 1.0, v3center.y + 1.0, v3center.z + 1.0).expand(3.0, 2.0, 3.0));
             //Iterator iterator1 = list1.iterator();
             if (!list1.isEmpty()) {
                 for (int i = 0; i < list1.size(); i++) {

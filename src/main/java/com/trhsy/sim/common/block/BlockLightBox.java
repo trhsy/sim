@@ -30,9 +30,8 @@ import java.util.Random;
  **/
 public class BlockLightBox extends Block {
     private IIcon[] icons;
-    //public static final String[] names = new String[]{"White", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Rainbow"};
-    public String name;
-    public BlockLightBox(String name) {
+    public static final String[] names = new String[]{"White", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Rainbow"};
+    public BlockLightBox() {
         super(Material.wood);
         this.setLightLevel(1.0F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
@@ -40,34 +39,38 @@ public class BlockLightBox extends Block {
         this.setHardness(2.0F);
         this.setResistance(1.0F);
         this.setTickRandomly(true);
-        this.name=name;
         //this.setTextureName(ModSim.MODID + ":" + "light_block_White");
-        //this.setUnlocalizedName("lightBox");
+        this.setUnlocalizedName("lightBox");
     }
     @Override
     public int damageDropped(int metadata) {
         return metadata;
     }
 
-    @Override
-    public String getUnlocalizedName(){
-        return "tile.lightBox."+this.name;
-    }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        this.icons = new IIcon[1];
-        for (int i = 0; i < this.icons.length; i++) {
-            this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":light_block_" + this.name);
-        }
+        this.icons = new IIcon[8];
+        /*for (int i = 0; i < this.icons.length; i++) {
+            this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":light_block_" + names[i]);
+        }*/
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":light_block_White");
+        this.icons[1] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Red");
+        this.icons[2] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Orange");
+        this.icons[3] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Yellow");
+        this.icons[4] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Green");
+        this.icons[5] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Blue");
+        this.icons[6] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Purple");
+        this.icons[7] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Rainbow");
+
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        //return meta < 8 && meta >= 0 ? this.icons[meta] : this.icons[0];
-        return this.icons[meta];
+        return meta < 8 && meta >= 0 ? this.icons[meta] : this.icons[0];
+        //return this.icons[meta];
     }
 
     public BlockLightBox idDropped(int par1, Random par2Random, int par3) {
@@ -86,7 +89,7 @@ public class BlockLightBox extends Block {
 
     @Override
     public int getBlockColor() {
-        return 16777215;
+        return 0xffffff;
     }
 
 }

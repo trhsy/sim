@@ -132,7 +132,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
             if (markers.size() < 4) {
                 V3 pos = new V3((double) i, (double) j, (double) k, world.provider.dimensionId);
-                pos.y = pos.y + 0.01D;
+                pos.y = pos.y + 0.01;
                 if (ConfigLoader.configEnableMarkerAlignmentBeams) {
                     EntityAlignBeam beam = new EntityAlignBeam(world);
                     ma.caption = markerCaption;

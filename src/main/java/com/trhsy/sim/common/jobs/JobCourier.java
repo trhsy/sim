@@ -133,8 +133,8 @@ public class JobCourier extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.pickup.name + I18n.format("container.sim.job.courier.pick_up");
                 V3 d = this.pickup.clone();
                 //Double var4 = d.y;
-                //Double var5 = d.y = d.y + 1.0D;
-                d=new V3(d.x,d.y+1.0D,d.z,d.theDimension);
+                //Double var5 = d.y = d.y + 1;
+                d=new V3(d.x,d.y+1,d.z,d.theDimension);
                 this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
                 this.onRoute = true;
             } else {
@@ -146,7 +146,7 @@ public class JobCourier extends Job implements Serializable {
             }
 
             double dist = (double)this.theFolk.location.getDistanceTo(this.pickup);
-            if (dist < 3.0D) {
+            if (dist < 3) {
                 this.theStage = Stage.PICKINGUP;
                 this.onRoute = false;
             } else if (this.theFolk.destination == null) {
@@ -176,7 +176,7 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
             ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.LightBoxWhite);
+            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.lightBox);
         }
 
         if (this.theFolk.inventory.size() == 0) {
@@ -216,13 +216,13 @@ public class JobCourier extends Job implements Serializable {
         if (!this.onRoute) {
             this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.dropoff.name + I18n.format("container.sim.job.courier.drop_off");
             V3 d = this.dropoff.clone();
-            d=new V3(d.x,d.y+1.0D,d.z,d.theDimension);
+            d=new V3(d.x,d.y+1,d.z,d.theDimension);
             if (d == null) {
                 d = this.theFolk.employedAt.clone();
             }
 
             Double var4 = d.y;
-            Double var5 = d.y = d.y + 1.0D;
+            Double var5 = d.y = d.y + 1;
             this.theFolk.beamMeTo(d);
             this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
             this.onRoute = true;
@@ -232,7 +232,7 @@ public class JobCourier extends Job implements Serializable {
             }
 
             double dist = (double)this.theFolk.location.getDistanceTo(this.dropoff);
-            if (dist < 4.0D) {
+            if (dist < 4) {
                 this.theStage = Stage.DROPPINGOFF;
                 this.onRoute = false;
             } else if (this.theFolk.destination == null) {
@@ -245,7 +245,7 @@ public class JobCourier extends Job implements Serializable {
     private void stageDroppingOff() {
         CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
         V3 dropoff = task.dropoff;
-        dropoff=new V3(dropoff.x,dropoff.y+1.0D,dropoff.z,dropoff.theDimension);
+        dropoff=new V3(dropoff.x,dropoff.y+1,dropoff.z,dropoff.theDimension);
         if (dropoff == null) {
             dropoff = this.theFolk.employedAt;
             dropoff.name = I18n.format("container.sim.job.courier.The_depot");

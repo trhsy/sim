@@ -128,7 +128,7 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.gotoXYZ(this.farm.getLocation(), (GotoMethod)null);
             }
         } else {
-            double dist = 0.0D;
+            double dist = 0;
 
             try {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -140,10 +140,10 @@ public class JobGrocer extends Job implements Serializable {
                 this.theStage = Stage.GOBACKTOSTORE;
             }
 
-            if (dist < 3.0D) {
+            if (dist < 3) {
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.motionX = 0.0D;
-                    this.theFolk.theEntity.motionZ = 0.0D;
+                    this.theFolk.theEntity.motionX = 0;
+                    this.theFolk.theEntity.motionZ = 0;
                 }
 
                 this.onRoute = false;
@@ -198,10 +198,10 @@ public class JobGrocer extends Job implements Serializable {
             }
 
             double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            if (dist <= 1.0D) {
+            if (dist <= 1) {
                 if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.motionX = 0.0D;
-                    this.theFolk.theEntity.motionZ = 0.0D;
+                    this.theFolk.theEntity.motionX = 0;
+                    this.theFolk.theEntity.motionZ = 0;
                 }
 
                 this.onRoute = false;

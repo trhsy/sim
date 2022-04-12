@@ -59,26 +59,20 @@ java:S1905¼")Remove this unnecessary cast to "double".(Ò©—‚ıÿÿÿÿ
 ?	java:S108À")Either remove or fill this block of code.(†äç³
 n
 java:S3776Ì"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(µò†Öùÿÿÿÿ
-I
-java:S1905å"+Remove this unnecessary cast to "FolkData".(‰İ©÷8±Çª¿€0
 j
 java:S3776ş"SRefactor this method to reduce its Cognitive Complexity from 304 to the 15 allowed.(æôÚ„
 U
 java:S1854‰"9Remove this useless assignment to local variable "var38".(™¿Şøÿÿÿÿ
-P
-java:S1854ˆ"9Remove this useless assignment to local variable "var40".(Îúª¥
+U
+java:S1854ˆ"9Remove this useless assignment to local variable "var40".(¬áßùÿÿÿÿ
 :
 java:S2119ÿ"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
 R	java:S125"<This block of commented-out lines of code should be removed.( ‡Å
 H
 java:S1905"%Remove this unnecessary cast to "V3".(ÿ•ÊÅüÿÿÿÿ8ÅÇª¿€0
 W	java:S125³"<This block of commented-out lines of code should be removed.(ö¢ç½ùÿÿÿÿ
-I
-java:S1905»"+Remove this unnecessary cast to "Building".(üñˆ‚8ËÇª¿€0
 G
 java:S1905¼")Remove this unnecessary cast to "double".(ÛÖ¼¼8ÒÇª¿€0
-N
-java:S1905Á"+Remove this unnecessary cast to "FolkData".(™•­˜ÿÿÿÿÿ8×Çª¿€0
 ?	java:S108İ")Either remove or fill this block of code.(İİÆÔ
 G
 java:S1905é")Remove this unnecessary cast to "String".(Ï‡ÜŸ8ãÇª¿€0
@@ -94,7 +88,7 @@ java:S1481‰"*Remove this unused "var38" local variable.(™¿Şøÿÿÿÿ
 >
 java:S1905¥"'Remove this unnecessary cast to "long".(¨Í†ï
 W	java:S125Í"<This block of commented-out lines of code should be removed.(Åù­Ÿùÿÿÿÿ
-R	java:S125Ğ"<This block of commented-out lines of code should be removed.(­ËŒƒ
+W	java:S125Ğ"<This block of commented-out lines of code should be removed.(ŞäÜÅüÿÿÿÿ
 :
 java:S2119ô"Save and re-use this "Random".(‹ò…ãıÿÿÿÿ
 R	java:S125"<This block of commented-out lines of code should be removed.(éØ¿©
@@ -102,23 +96,21 @@ R	java:S125"<This block of commented-out lines of code should be removed.(éØ
 java:S1905Á"'Remove this unnecessary cast to "long".(Ÿ¿Ê™
 E
 java:S1905é")Remove this unnecessary cast to "double".(Ø“Ê–şÿÿÿÿ
-I
-java:S1905µ"+Remove this unnecessary cast to "Building".(÷›Ÿì8•Èª¿€0
 n
 java:S3776Ï"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(‹‚âõøÿÿÿÿ
 ?	java:S108€")Either remove or fill this block of code.(ôÒø‚
 i
 java:S3776•"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(“»½Æ
 O
-java:S1854®"8Remove this useless assignment to local variable "var8".(Ë¥Œã
+java:S1854®"8Remove this useless assignment to local variable "var8".(‹ÍÔ
 O
 java:S1854­"8Remove this useless assignment to local variable "var7".(•›•í
-@
-java:S1905¥")Remove this unnecessary cast to "double".(ãşüè
+E
+java:S1905¥")Remove this unnecessary cast to "double".(Òş¢Òıÿÿÿÿ
 @
 java:S1481­")Remove this unused "var7" local variable.(•›•í
 @
-java:S1481®")Remove this unused "var8" local variable.(Ë¥Œã
+java:S1481®")Remove this unused "var8" local variable.(‹ÍÔ
 K
 java:S1172É"4Remove this unused method parameter "firstNameOnly".(…Û·ß
 5
@@ -127,8 +119,6 @@ h
 java:S3776õ"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(òÇš
 H
 java:S1905ü",Remove this unnecessary cast to "ItemStack".(ğ»éÏøÿÿÿÿ
-F
-java:S1905€"(Remove this unnecessary cast to "float".(Íı€ø8ŞÈª¿€0
 D	java:S108")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ
 ?
 java:S1905…"(Remove this unnecessary cast to "float".(±ÄŞ°
@@ -148,15 +138,15 @@ java:S1905ë")Remove this unnecessary cast to "double".(¦Ğ‡áúÿÿÿÿ
 ?	java:S108ı")Either remove or fill this block of code.(±ÛÃ™
 n
 java:S3776‘	"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Ïåªşÿÿÿÿ
-O
-java:S1854¦	"8Remove this useless assignment to local variable "var9".(Ä¨Ø®
+T
+java:S1854¦	"8Remove this useless assignment to local variable "var9".(à“‘äùÿÿÿÿ
 O
 java:S1854¥	"8Remove this useless assignment to local variable "var8".(â®ä¸
 R	java:S125•	"<This block of commented-out lines of code should be removed.(ŞÖ—¶
 @
 java:S1481¥	")Remove this unused "var8" local variable.(â®ä¸
-@
-java:S1481¦	")Remove this unused "var9" local variable.(Ä¨Ø®
+E
+java:S1481¦	")Remove this unused "var9" local variable.(à“‘äùÿÿÿÿ
 E
 java:S1905«	")Remove this unnecessary cast to "double".(«§¸¹şÿÿÿÿ
 E
@@ -170,7 +160,7 @@ R	java:S125Ñ	"<This block of commented-out lines of code should be removed.(€
 4
 java:S2119ß	"Save and re-use this "Random".(¼İÅf
 @
-java:S1905à	")Remove this unnecessary cast to "double".(õ»˜³
+java:S1905à	")Remove this unnecessary cast to "double".(¥ßĞ”
 ?	java:S108é	")Either remove or fill this block of code.(±ÛÃ™
 D	java:S108ğ	")Either remove or fill this block of code.(ÿ½ó«úÿÿÿÿ
 i
@@ -180,24 +170,8 @@ V	java:S899æ
 i
 java:S3776î
 "RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(…´Ù¢
-I
-java:S1905¦"+Remove this unnecessary cast to "Building".(ıı©¬8¹Éª¿€0
 L
 java:S1905©")Remove this unnecessary cast to "String".(±ı™´ûÿÿÿÿ8¼Éª¿€0
-I
-java:S1905¿"+Remove this unnecessary cast to "FolkData".(ûáş¡8ÁÉª¿€0
-I
-java:S1905Ì"+Remove this unnecessary cast to "FolkData".(ûáş¡8ÂÉª¿€0
-I
-java:S1905Ù"+Remove this unnecessary cast to "FolkData".(ûáş¡8ÆÉª¿€0
-N
-java:S1905æ"+Remove this unnecessary cast to "FolkData".(ÙÄñäúÿÿÿÿ8ÓÉª¿€0
-I
-java:S1905ó"+Remove this unnecessary cast to "FolkData".(÷‹Âü8×Éª¿€0
-I
-java:S1905„"+Remove this unnecessary cast to "FolkData".(÷‹Âü8ÛÉª¿€0
-I
-java:S1905"+Remove this unnecessary cast to "FolkData".(ôÂê¯8ßÉª¿€0
 n
 java:S3776˜"RRefactor this method to reduce its Cognitive Complexity from 48 to the 15 allowed.(»–öµûÿÿÿÿ
 R
@@ -210,18 +184,8 @@ Q
 java:S1854°";Remove this useless assignment to local variable "deathBy".(‚âÂp
 5
 java:S2119Ì"Save and re-use this "Random".(¡Å”¦
-N
-java:S1905ê"+Remove this unnecessary cast to "FolkData".(àÄÂĞşÿÿÿÿ8íÉª¿€0
-R
-java:S1905ö"/Remove this unnecessary cast to "Relationship".(™›ş²ûÿÿÿÿ8ñÉª¿€0
-f
-java:S5361ø"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğ‹êä8òÉª¿€0
-f
-java:S5361ø"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğ‹êä8óÉª¿€0
 V	java:S899ú";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
 V	java:S899ƒ";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ
-I
-java:S1905"+Remove this unnecessary cast to "Building".(÷›Ÿì8ŠÊª¿€0
 i
 java:S3776™"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(Ó€¦œ
 B
@@ -263,7 +227,7 @@ l	java:S117ÿ	"QRename this local variable to match the regular expression '^[a
 l	java:S117
 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€£ÇÔÿÿÿÿÿ
 a
-java:S1155è">Use isEmpty() to check whether the collection is empty or not.(Ùáï¡üÿÿÿÿ8ÄËª¿€0
+java:S1155è">Use isEmpty() to check whether the collection is empty or not.(Åİçüøÿÿÿÿ8ÄËª¿€0
 \
 java:S1155¶">Use isEmpty() to check whether the collection is empty or not.(²ÌÓ³8ÆËª¿€0
 U
@@ -272,8 +236,8 @@ U
 java:S1155µ">Use isEmpty() to check whether the collection is empty or not.(Áï«·
 3
 java:S1643ë"Use a StringBuilder instead.(½Ê¾Ø
-r
-java:S1488Â"[Immediately return this expression instead of assigning it to the temporary variable "ret".(ñ”™ö
+w
+java:S1488Â"[Immediately return this expression instead of assigning it to the temporary variable "ret".(ïì†ıÿÿÿÿ
 e
 java:S1104'"OMake log a static final constant or non-public and provide accessors if needed.(ÖÌåâ
 q
@@ -352,40 +316,15 @@ java:S1104j"UMake beamingTo a static final constant or non-public and provide a
 java:S1444'")Make this "public static log" field final(ÖÌåâ
 Q
 java:S1444_"6Make this "public static anyFolkLastSpoke" field final(í¦–íşÿÿÿÿ
-
-java:S2629­"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(ù´²ëıÿÿÿÿ8òËª¿€0
-
-java:S2629Ø"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(Æ¹€›üÿÿÿÿ8òËª¿€0
-U
-java:S2629É"7Use the built-in formatting to construct this argument.(¨Ôùà8÷Ëª¿€0
-U
-java:S2629Ø"7Use the built-in formatting to construct this argument.(¨Ôùà8ùËª¿€0
-U
-java:S2629í"7Use the built-in formatting to construct this argument.(¨Ôùà8ùËª¿€0
-z
-java:S2629Œ"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(ËŒ†Ê8ùËª¿€0
-U
-java:S2629¹"7Use the built-in formatting to construct this argument.(²·”°8úËª¿€0
-U
-java:S2629¿"7Use the built-in formatting to construct this argument.(Ä€ˆÚ8úËª¿€0
-Z
-java:S2629÷"7Use the built-in formatting to construct this argument.(¯ˆ½°ûÿÿÿÿ8úËª¿€0
-U
-java:S2629ö"7Use the built-in formatting to construct this argument.(õÿÒ®8ûËª¿€0
-U
-java:S2629Ö
-"7Use the built-in formatting to construct this argument.(‡Ê²Æ8üËª¿€0
-
-java:S2629š"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(÷¥ÌÖùÿÿÿÿ8ıËª¿€0
+^
+java:S2259Ò	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(ŞÒ°Æ
+h
+java:S2259ÿ"LA "NullPointerException" could be thrown; "getFolkByName()" can return null.(Ô˜„±ıÿÿÿÿ
 `
 java:S2259²"DA "NullPointerException" could be thrown; "father" is nullable here.(š¿¶üÿÿÿÿ
 [
 java:S2259˜"DA "NullPointerException" could be thrown; "mother" is nullable here.(©¢Ñà
 f
 java:S2259…"OA "NullPointerException" could be thrown; "getClosestPlayer()" can return null.(±ÄŞ°
-h
-java:S2259ÿ"LA "NullPointerException" could be thrown; "getFolkByName()" can return null.(Ô˜„±ıÿÿÿÿ
-^
-java:S2259Ò	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(ŞÒ°Æ
 c
 java:S2259É	"GA "NullPointerException" could be thrown; "beamingTo" is nullable here.(£„ü„øÿÿÿÿ

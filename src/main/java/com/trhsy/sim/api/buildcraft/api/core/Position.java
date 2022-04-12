@@ -25,9 +25,9 @@ public class Position implements ISerializable {
     public ForgeDirection orientation;
 
     public Position() {
-        this.x = 0.0D;
-        this.y = 0.0D;
-        this.z = 0.0D;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
         this.orientation = ForgeDirection.UNKNOWN;
     }
 

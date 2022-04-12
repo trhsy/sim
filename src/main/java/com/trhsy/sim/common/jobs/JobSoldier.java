@@ -99,7 +99,7 @@ public class JobSoldier extends Job implements Serializable {
 
         if (System.currentTimeMillis() - this.timeSinceLastBTB > 120000L) {
             if (this.theFolk.isSpawned()) {
-                EntityPlayer player = this.jobWorld.getClosestPlayer(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, 50.0D);
+                EntityPlayer player = this.jobWorld.getClosestPlayer(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, 50);
                 if (player != null) {
                     this.theFolk.gotoXYZ(new V3(player.posX, player.posY, player.posZ, player.dimension), GotoMethod.WALK);
                 }
@@ -113,14 +113,14 @@ public class JobSoldier extends Job implements Serializable {
 
             V3 wanderTo;
             Double var6;
-            for(wanderTo = new V3(this.theFolk.location.x + (double)xo, this.theFolk.location.y - 1.0D, this.theFolk.location.z + (double)zo, this.theFolk.location.theDimension); this.jobWorld.getBlock(wanderTo.x.intValue(), wanderTo.y.intValue(), wanderTo.z.intValue()) != null && wanderTo.y < 255.0D; var6 = wanderTo.y = wanderTo.y + 1.0D) {
+            for(wanderTo = new V3(this.theFolk.location.x + (double)xo, this.theFolk.location.y - 1, this.theFolk.location.z + (double)zo, this.theFolk.location.theDimension); this.jobWorld.getBlock(wanderTo.x.intValue(), wanderTo.y.intValue(), wanderTo.z.intValue()) != null && wanderTo.y < 255; var6 = wanderTo.y = wanderTo.y + 1) {
                 Double var5 = wanderTo.y;
             }
 
             this.theFolk.gotoXYZ(wanderTo, GotoMethod.WALK);
         }
 
-        List list = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0D, this.theFolk.employedAt.y + 1.0D, this.theFolk.employedAt.z + 1.0D).expand(100.0D, 5.0D, 100.0D));
+        List list = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0, this.theFolk.employedAt.y + 1.0, this.theFolk.employedAt.z + 1.0).expand(100, 5.0, 100));
 
         try {
             this.badGuy = this.findClosestHostileMob(list);

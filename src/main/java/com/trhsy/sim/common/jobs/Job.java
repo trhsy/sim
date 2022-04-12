@@ -126,8 +126,8 @@ public abstract class Job {
                 } else if (dist > 1 && dist < 3) {
                     //复制当前数据
                     V3 work = theFolk.employedAt.clone();
-                    //work.y = work.y + 1.0D;
-                    work=new V3(work.x,work.y+1.0D,work.z,work.theDimension);
+                    //work.y = work.y + 1;
+                    work=new V3(work.x,work.y+1,work.z,work.theDimension);
                     //去位置
                     theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                     theFolk.location = work;
@@ -828,25 +828,25 @@ public abstract class Job {
 
         V3 test = startXYZ.clone();
         //Double var5 = test.x;
-        //Double var6 = test.x = test.x + 1.0D;
-        test=new V3(test.x+1.0D,test.y,test.z,test.theDimension);
+        //Double var6 = test.x = test.x + 1;
+        test=new V3(test.x+1,test.y,test.z,test.theDimension);
         if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
             return test;
         } else {
             test = startXYZ.clone();
 
-            test=new V3(test.x- 1.0D,test.y,test.z,test.theDimension);
+            test=new V3(test.x- 1,test.y,test.z,test.theDimension);
             if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
                 return test;
             } else {
                 test = startXYZ.clone();
-                test=new V3(test.x+1.0D,test.y,test.z,test.theDimension);
+                test=new V3(test.x+1,test.y,test.z,test.theDimension);
                 if (((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue())) {
                     return test;
                 } else {
                     test = startXYZ.clone();
 
-                    test=new V3(test.x,test.y,test.z- 1.0D,test.theDimension);
+                    test=new V3(test.x,test.y,test.z- 1,test.theDimension);
                     return ((World)theWorld).isAirBlock(test.x.intValue(), test.y.intValue(), test.z.intValue()) ? test : startXYZ;
                 }
             }
@@ -953,7 +953,7 @@ public abstract class Job {
         }
 
         ci = 0;
-        double cd = 999.0D;
+        double cd = 999;
 
         for(sx = 0; sx < blocksFound.size(); ++sx) {
             V3 v = (V3)blocksFound.get(sx);
@@ -1008,7 +1008,7 @@ public abstract class Job {
      * @return
      */
     public int getAnimalCountInPen(V3 controlBox, Class animal) {
-        List list = this.jobWorld.getEntitiesWithinAABB(animal, AxisAlignedBB.getBoundingBox(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D).expand(3.0D, 2.0D, 3.0D));
+        List list = this.jobWorld.getEntitiesWithinAABB(animal, AxisAlignedBB.getBoundingBox(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1, controlBox.y + 1, controlBox.z + 1).expand(3.0, 2.0, 3.0));
         return list == null ? 0 : list.size();
     }
 

@@ -256,7 +256,7 @@ public class BuildingReader implements Serializable {
                             } else if (letter.contentEquals("$")) {
                                 this.structure[akeyNumber] = "" + BlockLoader.blockControlBox;
                             } else if (letter.contentEquals("*")) {
-                                this.structure[akeyNumber] = "" + BlockLoader.LightBoxWhite;
+                                this.structure[akeyNumber] = "" + BlockLoader.lightBox;
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[akeyNumber] = "air," + cha;
                             } else {

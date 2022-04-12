@@ -188,7 +188,7 @@ public class JobBaker extends Job implements Serializable {
         }
 
         if (this.step == 2) {
-            double dist = 0.0D;
+            double dist = 0;
             if (this.farm != null) {
                 this.runDelay = 1000;
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -196,13 +196,13 @@ public class JobBaker extends Job implements Serializable {
                 }
 
                 dist = (double)this.theFolk.location.getDistanceTo(this.farm.getLocation());
-                if (dist <= 1.0D) {
+                if (dist <= 1) {
                     this.theStage = Stage.COLLECTINGWHEAT;
                     this.step = 1;
                     this.theFolk.stayPut = true;
                     if (this.theFolk.theEntity != null) {
-                        this.theFolk.theEntity.motionX = 0.0D;
-                        this.theFolk.theEntity.motionZ = 0.0D;
+                        this.theFolk.theEntity.motionX = 0;
+                        this.theFolk.theEntity.motionZ = 0;
                     }
 
                     this.runDelay = 1000;

@@ -18,19 +18,13 @@ java:S1905ƒ"(Remove this unnecessary cast to "float".(³«²¹
 i
 java:S3776™"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(‡àñ¯
 H
-java:S1905È",Remove this unnecessary cast to "Commodity".(£®Ÿéøÿÿÿÿ
-H
 java:S1905Í",Remove this unnecessary cast to "Commodity".(Šš›²ùÿÿÿÿ
 j
 java:S3776Þ"SRefactor this method to reduce its Cognitive Complexity from 106 to the 15 allowed.(À¥¡è
 ?	java:S108ô")Either remove or fill this block of code.(†äç³
 ?	java:S108ˆ")Either remove or fill this block of code.(²¹Ô´
-C
-java:S1905•",Remove this unnecessary cast to "Commodity".(ÎÈõõ
 H
 java:S1905˜",Remove this unnecessary cast to "Commodity".(¬Á–×þÿÿÿÿ
-B
-java:S1905¤",Remove this unnecessary cast to "Commodity".(ÓÃî"
 H
 java:S1905¨",Remove this unnecessary cast to "Commodity".(ï¨óéþÿÿÿÿ
 H
@@ -39,8 +33,6 @@ java:S1905Â",Remove this unnecessary cast to "Commodity".(¬Á–×þÿÿÿÿ
 java:S1905Å"(Remove this unnecessary cast to "float".(ÝÛîø
 H
 java:S1905Ð",Remove this unnecessary cast to "Commodity".(¬Á–×þÿÿÿÿ
-H
-java:S1905Ö",Remove this unnecessary cast to "Commodity".(ä°úðùÿÿÿÿ
 t	java:S135—"YReduce the total number of break and continue statements in this loop to use at most one.( å•çÿÿÿÿÿ
 f	java:S117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðý¬
 f	java:S117^"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ÚÜÏ
@@ -69,9 +61,5 @@ S
 java:S1155G">Use isEmpty() to check whether the collection is empty or not.(ýæ´D
 S
 java:S1155L">Use isEmpty() to check whether the collection is empty or not.(ýæ´D
-T
-java:S1155W">Use isEmpty() to check whether the collection is empty or not.(Úœš
-U
-java:S1155Â">Use isEmpty() to check whether the collection is empty or not.(Úœš
 Z
 java:S1155¸">Use isEmpty() to check whether the collection is empty or not.(Œ¥ÃÍþÿÿÿÿ

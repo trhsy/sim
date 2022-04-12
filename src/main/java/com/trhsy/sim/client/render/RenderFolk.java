@@ -62,12 +62,12 @@ public class RenderFolk extends RenderBiped {
         float f6 = 0.2F;
         if (entityFolk.theData != null && entityFolk != null) {
             double dist = (double)entityFolk.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
-            if (dist < 40.0D) {
+            if (dist < 40) {
                 if (entityFolk.theData.age < 18) {
                     this.displayText(entityFolk.theData.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float)d, (float)d1 + f3 + f6 - 0.4F, (float)d2, entityFolk);
                     this.displayText(entityFolk.theData.statusText, 0.02F, -256, (float)d, (float)d1 + f3 + f6 - 0.7F, (float)d2, entityFolk);
                     this.displayText(entityFolk.theData.status4, 0.02F, -256, (float)d, (float)d1 + f3 + f6 - 1.0F, (float)d2, entityFolk);
-                } else if (dist >= 4.0D) {
+                } else if (dist >= 4) {
                     this.displayText(entityFolk.theData.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float)d, (float)d1 + f3 + f6, (float)d2, entityFolk);
                     this.displayText(entityFolk.theData.statusText, 0.02F, -256, (float)d, (float)d1 + f3 + f6 - 0.3F, (float)d2, entityFolk);
                 } else {
@@ -101,10 +101,10 @@ public class RenderFolk extends RenderBiped {
         tessellator.startDrawingQuads();
         int j = fontrenderer.getStringWidth(s) / 2;
         tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-        tessellator.addVertex((double)(-j - 1), -1.0D, 0.0D);
-        tessellator.addVertex((double)(-j - 1), 8.0D, 0.0D);
-        tessellator.addVertex((double)(j + 1), 8.0D, 0.0D);
-        tessellator.addVertex((double)(j + 1), -1.0D, 0.0D);
+        tessellator.addVertex((double)(-j - 1), -1, 0);
+        tessellator.addVertex((double)(-j - 1), 8, 0);
+        tessellator.addVertex((double)(j + 1), 8, 0);
+        tessellator.addVertex((double)(j + 1), -1, 0);
         tessellator.draw();
         GL11.glEnable(3553);
         fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, i);

@@ -17,9 +17,9 @@ import com.trhsy.sim.api.buildcraft.api.core.Position;
  * ========================================
  **/
 public class Translation {
-    public double x = 0.0D;
-    public double y = 0.0D;
-    public double z = 0.0D;
+    public double x = 0;
+    public double y = 0;
+    public double z = 0;
 
     public Translation() {
     }

@@ -156,7 +156,7 @@ public class JobBuilder extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.builder_blueprints");
             this.theFolk.updateLocationFromEntity();
             double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            if (dist < 4.0D) {
+            if (dist < 4) {
                 this.theFolk.stayPut = true;
             }
 
@@ -174,7 +174,7 @@ public class JobBuilder extends Job implements Serializable {
                 World world = MinecraftServer.getServer().worldServerForDimension(this.theFolk.location.theDimension);
                 this.theConBox = new EntityConBox(world);
                 this.theConBox.theFolk = this.theFolk;
-                this.theConBox.setLocationAndAngles(this.theFolk.employedAt.x + 2.0D, this.theFolk.employedAt.y, this.theFolk.employedAt.z, 0.0F, 0.0F);
+                this.theConBox.setLocationAndAngles(this.theFolk.employedAt.x + 2, this.theFolk.employedAt.y, this.theFolk.employedAt.z, 0.0F, 0.0F);
                 if (!world.isRemote) {
                     world.spawnEntityInWorld(this.theConBox);
                 }
@@ -240,6 +240,7 @@ public class JobBuilder extends Job implements Serializable {
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist > 5 && this.theFolk.destination == null) {
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            return;
         } else {
             if (this.step == 1) {
                 this.cx = this.theFolk.employedAt.x.intValue();
@@ -257,7 +258,9 @@ public class JobBuilder extends Job implements Serializable {
                     this.bx = this.cx - 1;
                 } else if (this.theBuilding.buildDirection.contentEquals("-z")) {
                     this.bz = this.cz + 1;
-                } else {
+                } else if(this.theBuilding.buildDirection.contentEquals("+z")){
+                    this.bz = cz - 1;
+                }else {
                     if (!this.theBuilding.buildDirection.contentEquals("+z")) {
                         //不能确定建造的方向，当你右键点击它时请站在构造的四边之一
                         ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
@@ -313,7 +316,7 @@ public class JobBuilder extends Job implements Serializable {
                     }
 
                     String[] bl = null;
-
+                    int st = 0;
                     try {
                         bl = this.theBuilding.structure[this.acount].split(":");
                     } catch (Exception var17) {
@@ -323,14 +326,14 @@ public class JobBuilder extends Job implements Serializable {
 
                     blockId = Block.getBlockFromName(bl[0]);
                     //ModSimReloaded.log.info("***************blockId:" + blockId);
-                    int subtype = Integer.parseInt(bl[1]);
+                    int subtype =  Integer.parseInt(bl[1]);;
                     if (blockId == Blocks.grass) {
                         blockId = Blocks.dirt;
                     }
 
                     if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
                         blockId = BlockLoader.blockOtherControlBox;
-                        subtype = 2;
+                        subtype = 2;//控制箱其他
                     }
 
                     if (blockId == BlockLoader.blockControlBox) {
@@ -355,9 +358,10 @@ public class JobBuilder extends Job implements Serializable {
                         subtype = 0;
                     }
                     Block currBlockId;
+                    int currBlockMeta = 0;
                     try {
                         currBlockId = this.jobWorld.getBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                        int currBlockMeta = this.jobWorld.getBlockMetadata(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                        currBlockMeta = this.jobWorld.getBlockMetadata(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
                         if (blockId != currBlockId && (blockId != Blocks.dirt || currBlockId != Blocks.grass) && (blockId != Blocks.grass || currBlockId != Blocks.dirt)) {
                             alreadyPlaced = false;
                         } else {
@@ -385,15 +389,13 @@ public class JobBuilder extends Job implements Serializable {
                     } else {
                         want = "???";
                     }
-
-                    if (!alreadyPlaced && currBlockId != null) {
-                        V3 blockToRemove = new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                        this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                        this.mineBlockIntoChests(this.constructorChests, blockToRemove);
-                        this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, Blocks.air, 0, 3);
-                        this.theFolk.isWorking = true;
-                    }
-
+                        if (!alreadyPlaced &&currBlockId != null) {
+                            V3 blockToRemove = new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                            this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+                            this.mineBlockIntoChests(this.constructorChests, blockToRemove);
+                            this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, Blocks.air, 0, 3);
+                            this.theFolk.isWorking = true;
+                        }
                     if (!alreadyPlaced) {
                         boolean gotBlock = false;
                         boolean requiredBlocks = blockId == Blocks.planks || blockId == Blocks.cobblestone || blockId == Blocks.glass || blockId == Blocks.wool || blockId == Blocks.brick_block || blockId == Blocks.dirt || blockId == Blocks.stonebrick || blockId == Blocks.fence || blockId == Blocks.stone || blockId == Blocks.log;
@@ -458,40 +460,43 @@ public class JobBuilder extends Job implements Serializable {
                         try {
                             if (!alreadyPlaced) {
                                 try {
-                                    if (blockId != BlockLoader.blockControlBox || blockId != BlockLoader.blockOtherControlBox) {
-                                        blockId = BlockLoader.blockATMControlBox;
+                                    if (blockId == BlockLoader.livingBlock) {
+                                        alreadyPlaced = true;
                                     }
 
                                     if (blockId == BlockLoader.blockATMControlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals(I18n.format("container.sim.ATMs"))) {
                                         subtype = 1;
                                     }
+                                    //把积木放好
+                                    if(!alreadyPlaced){
+                                        this.theFolk.stayPut = true;
+                                        this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, blockId, subtype, 3);
+                                        this.jobWorld.markBlockForUpdate(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                                    }
 
-                                    this.theFolk.stayPut = true;
-                                    this.jobWorld.setBlock(this.bx + this.xo, this.by + this.l, this.bz + this.zo, blockId, subtype, 3);
-                                    this.jobWorld.markBlockForUpdate(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
                                     int b4 = (int) Math.floor((double) this.theFolk.levelBuilder);
                                     if (this.theFolk.levelBuilder < 10.0F) {
                                         FolkData var10000 = this.theFolk;
-                                        var10000.levelBuilder = (float)((double)var10000.levelBuilder + 0.001D / (double)b4);
+                                        var10000.levelBuilder = (float)((double)var10000.levelBuilder + 0.001 / (double)b4);
                                     }
 
                                     int aft = (int)Math.floor((double)this.theFolk.levelBuilder);
                                     if (b4 != aft) {
                                         ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_levelled") + aft);
                                     }
-
+                                    //每2秒播放一次音效
                                     if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
                                         this.mc.theWorld.playSound((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), ModSim.MODID + ":construction", 1.0F, 1.0F, false);
                                         this.soundLastPlayed = System.currentTimeMillis();
                                     }
 
                                     if (this.mc.theWorld.isRemote) {
-                                        this.mc.theWorld.spawnParticle("explode", (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0.0D, 0.30000001192092896D, 0.0D);
-                                        this.mc.theWorld.spawnParticle("explode", (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0.0D, 0.20000000298023224D, 0.0D);
-                                        this.mc.theWorld.spawnParticle("explode", (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0.0D, 0.10000000149011612D, 0.0D);
+                                        this.mc.theWorld.spawnParticle("explode", (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.3f, 0);
+                                        this.mc.theWorld.spawnParticle("explode", (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.2f, 0);
+                                        this.mc.theWorld.spawnParticle("explode", (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.1f, 0);
                                     }
 
-                                    if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                    if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE && blockId != BlockLoader.livingBlock) {
                                         GameStates var25 = ModSimReloaded.states;
                                         var25.credits -= 0.02F;
                                     }
@@ -512,14 +517,14 @@ public class JobBuilder extends Job implements Serializable {
                         }
                     }
 
-                    ++this.acount;
-                    ++this.ltr;
+                    this.acount++;
+                    this.ltr++;
                     if (this.ltr == this.theBuilding.ltrCount) {
                         this.ltr = 0;
-                        ++this.ftb;
+                        this.ftb++;
                         if (this.ftb == this.theBuilding.ftbCount) {
                             this.ftb = 0;
-                            ++this.l;
+                            this.l++;
                             if (this.l == this.theBuilding.layerCount) {
                                 this.theStage = Stage.COMPLETE;
                                 this.stageComplete();

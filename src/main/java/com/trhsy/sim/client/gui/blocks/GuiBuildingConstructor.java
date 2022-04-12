@@ -253,7 +253,7 @@ public class GuiBuildingConstructor extends GuiScreen {
         } else if (qty >= 64 && qty < 128) {
             st = sim_gui_BC_about_2;
         } else {
-            st = sim_gui_BC_about + (int) (stacks + 1.0D) + sim_gui_BC_stacks;
+            st = sim_gui_BC_about + (int) (stacks + 1.0) + sim_gui_BC_stacks;
         }
 
         this.drawString(this.fontRendererObj, st, 250, y, 16777215);

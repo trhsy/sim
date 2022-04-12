@@ -48,9 +48,9 @@ public class EntityAlignBeam extends Entity {
 
     @Override
     public void moveEntity(double par1, double par3, double par5) {
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
+        this.motionX = 0;
+        this.motionY = 0;
+        this.motionZ = 0;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class EntityAlignBeam extends Entity {
 
     @Override
     public void setVelocity(double par1, double par3, double par5) {
-        super.setVelocity(0.0D, 0.0D, 0.0D);
+        super.setVelocity(0, 0, 0);
     }
 
     @Override

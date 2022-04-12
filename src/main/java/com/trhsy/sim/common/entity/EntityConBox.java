@@ -90,10 +90,10 @@ public class EntityConBox extends Entity{
             double var2 = rand.nextGaussian() * 0.02D;
             double var4 = rand.nextGaussian() * 0.02D;
             double var6 = rand.nextGaussian() * 0.02D;
-            double var8 = 10.0D;
+            double var8 = 10;
 
             try {
-                ModSim.proxy.getClientWorld().spawnParticle("explode", ent.posX + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var2 * var8, ent.posY + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0D - var6 * var8, var2, var4, var6);
+                ModSim.proxy.getClientWorld().spawnParticle("explode", ent.posX + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0 - var2 * var8, ent.posY + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0 - var6 * var8, var2, var4, var6);
             } catch (Exception var13) {
             }
         }

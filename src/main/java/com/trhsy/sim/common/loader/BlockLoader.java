@@ -8,6 +8,7 @@ import com.trhsy.sim.common.block.gases.BlockCarbonDioxide;
 import com.trhsy.sim.common.block.gases.BlockGasDispenser;
 import com.trhsy.sim.common.block.gases.BlockRadiationGas;
 import com.trhsy.sim.common.block.gases.BlockSulphurDioxide;
+import com.trhsy.sim.common.item.ItemBlockFolkLivingBlock;
 import com.trhsy.sim.common.item.ItemBlockLightBox;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -47,14 +48,7 @@ public class BlockLoader {
     public static Block blockFluidMilk = new BlockFluidMilk();
     public static Block cityBox=new BlockCityBox();
     /*灯箱*/
-    public static Block LightBoxWhite = new BlockLightBox("white");
-    public static Block lightBoxRed = new BlockLightBox("red");
-    public static Block lightBoxOrange = new BlockLightBox("orange");
-    public static Block lightBoxYellow = new BlockLightBox("yellow");
-    public static Block lightBoxGreen = new BlockLightBox("green");
-    public static Block lightBoxBlue = new BlockLightBox("blue");
-    public static Block lightBoxPurple = new BlockLightBox("purple");
-    public static Block lightBoxRainbow = new BlockLightBox("rainbow");
+    public static Block lightBox = new BlockLightBox();
     /*标记棒*/
     public static Block blockMarker = new BlockMarker();
     /*挖矿箱*/
@@ -83,7 +77,8 @@ public class BlockLoader {
     public BlockLoader(){}
 
     public BlockLoader(FMLPreInitializationEvent event) {
-        GameRegistry.registerBlock(livingBlock, "living_block");
+        GameRegistry.registerBlock(livingBlock, ItemBlockFolkLivingBlock.class, "living_block");
+        GameRegistry.registerBlock(lightBox,ItemBlockLightBox.class, "light_box");
         register(constructorBox, "constructor_box");
         register(blockCheeseBlock, "cheese_block");
         register(blockCompositeBrick, "composite_brick");
@@ -96,14 +91,14 @@ public class BlockLoader {
         register(blockFluidMilk, "fluid_milk");
 
 
-        register(LightBoxWhite, "light_box_white");
+        /*register(LightBoxWhite, "light_box_white");
         register(lightBoxRed, "light_box_red");
         register(lightBoxOrange, "light_box_orange");
         register(lightBoxYellow, "light_box_yellow");
         register(lightBoxGreen, "light_box_green");
         register(lightBoxBlue, "light_box_blue");
         register(lightBoxPurple, "light_box_purple");
-        register(lightBoxRainbow, "light_box_rainbow");
+        register(lightBoxRainbow, "light_box_rainbow");*/
 
         register(blockMiningBox, "mining_box");
         register(specialBlock, "special_block");

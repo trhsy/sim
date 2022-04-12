@@ -1,10 +1,8 @@
 
 E
 java:S3740;"/Provide the parametrized type for this generic.(™£‡
-E
-java:S3740Ã"/Provide the parametrized type for this generic.(ë—ºF
-A
-java:S2387."+"vocation" is the name of a field in "Job".(ùŒé’
+F
+java:S3740Ã"/Provide the parametrized type for this generic.(Š±íÅ
 g
 java:S1450F"QRemove the "my" field and declare it as a local variable in the relevant methods.(ş¨€³
 M
@@ -33,18 +31,6 @@ java:S3776À"RRefactor this method to reduce its Cognitive Complexity from 26 t
 R	java:S125Ø"<This block of commented-out lines of code should be removed.(Œºş
 n
 java:S3776ò"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(’Ìƒ¨üÿÿÿÿ
-G
-java:S1905˜")Remove this unnecessary cast to "double".(Û÷â‰8²¤‡²0
-G
-java:S1905˜")Remove this unnecessary cast to "double".(Û÷â‰8²¤‡²0
-G
-java:S1905˜")Remove this unnecessary cast to "double".(Û÷â‰8³¤‡²0
-G
-java:S1905¬")Remove this unnecessary cast to "double".(Û÷â‰8¶¤‡²0
-G
-java:S1905¬")Remove this unnecessary cast to "double".(Û÷â‰8·¤‡²0
-G
-java:S1905¬")Remove this unnecessary cast to "double".(Û÷â‰8·¤‡²0
 o
 java:S3776À"SRefactor this method to reduce its Cognitive Complexity from 169 to the 15 allowed.(ÛùÌôÿÿÿÿÿ
 2
@@ -54,12 +40,6 @@ R
 java:S1119Ü";Refactor the code to remove this label and the need for it.(Ş–ïİ
 K
 java:S1905Ş"-Remove this unnecessary cast to "IInventory".(„Ô”Ó8Ç¤‡²0
-L
-java:S1905ó")Remove this unnecessary cast to "double".(½’­Ÿıÿÿÿÿ8Ê¤‡²0
-L
-java:S1905ó")Remove this unnecessary cast to "double".(½’­Ÿıÿÿÿÿ8Ë¤‡²0
-L
-java:S1905ó")Remove this unnecessary cast to "double".(½’­Ÿıÿÿÿÿ8Ë¤‡²0
 i
 java:S3776€"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(‹‡¾
 2
@@ -67,14 +47,10 @@ java:S3626ª"Remove this redundant jump.(ûÁİ…
 :
 java:S2119†"Save and re-use this "Random".(ğ¸´şÿÿÿÿ
 R	java:S125µ"<This block of commented-out lines of code should be removed.(¾ÊöÊ
-L
-java:S1128"/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ8ö¤‡²0
 F
 java:S10687"0Remove this unused "doneSomeWork" private field.(Ä©¡
 <
 java:S1068F"&Remove this unused "my" private field.(ş¨€³
-Y
-java:S1155">Use isEmpty() to check whether the collection is empty or not.(´šıÒûÿÿÿÿ
 j
 java:S1104."TMake vocation a static final constant or non-public and provide accessors if needed.(ùŒé’
 n
@@ -85,5 +61,3 @@ o
 java:S11044"TMake runDelay a static final constant or non-public and provide accessors if needed.(ˆ×²®úÿÿÿÿ
 w
 java:S11045"\Make timeSinceLastRun a static final constant or non-public and provide accessors if needed.(èÅö¯ûÿÿÿÿ
-z
-java:S2629Ä"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(‹–­¤8ı¤‡²0

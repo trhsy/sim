@@ -66,10 +66,10 @@ public class RenderAlignBeam extends Render {
         tessellator.startDrawingQuads();
         int j = fontrenderer.getStringWidth(s) / 2;
         tessellator.setColorRGBA_F(1.0F, 0.0F, 0.0F, 0.25F);
-        tessellator.addVertex((double)(-j - 1), -1.0D, 0.0D);
-        tessellator.addVertex((double)(-j - 1), 8.0D, 0.0D);
-        tessellator.addVertex((double)(j + 1), 8.0D, 0.0D);
-        tessellator.addVertex((double)(j + 1), -1.0D, 0.0D);
+        tessellator.addVertex((double)(-j - 1), -1, 0);
+        tessellator.addVertex((double)(-j - 1), 8, 0);
+        tessellator.addVertex((double)(j + 1), 8, 0);
+        tessellator.addVertex((double)(j + 1), -1, 0);
         tessellator.draw();
         GL11.glEnable(3553);
         fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, i);

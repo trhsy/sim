@@ -151,11 +151,11 @@ public class GuiEntityFolk extends GuiScreen {
             this.fontRendererObj.drawString(words, sec, 87, 128);
             this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Building_skill"), left, 97, 0);
             this.fontRendererObj.drawString((int)this.theFolk.levelBuilder + I18n.format("container.sim.gui_Folk_of_10"), sec, 97, 128);
-            double w = 128.0D * ((double)(this.theFolk.levelBuilder % 1.0F * 1000.0F) / 1000.0D);
+            double w = 128 * ((double)(this.theFolk.levelBuilder % 1.0F * 1000.0F) / 1000);
             this.drawGradientRect(sec, 97, (int)w + sec, 105, 1358888960, 1358954240);
             this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Mining_skill"), left, 107, 0);
             this.fontRendererObj.drawString((int)this.theFolk.levelMiner + I18n.format("container.sim.gui_Folk_of_10"), sec, 107, 128);
-            w = 128.0D * ((double)(this.theFolk.levelMiner % 1.0F * 1000.0F) / 1000.0D);
+            w = 128 * ((double)(this.theFolk.levelMiner % 1.0F * 1000.0F) / 1000);
             this.drawGradientRect(sec, 107, (int)w + sec, 115, 1358888960, 1358954240);
             if (this.theFolk.levelSoldier < 1.0F) {
                 this.theFolk.levelSoldier = 1.0F;
@@ -163,7 +163,7 @@ public class GuiEntityFolk extends GuiScreen {
 
             this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Soldier_skill"), left, 117, 0);
             this.fontRendererObj.drawString((int)this.theFolk.levelSoldier + I18n.format("container.sim.gui_Folk_of_10"), sec, 117, 128);
-            w = 128.0D * ((double)(this.theFolk.levelSoldier % 1.0F * 1000.0F) / 1000.0D);
+            w = 128 * ((double)(this.theFolk.levelSoldier % 1.0F * 1000.0F) / 1000);
             this.drawGradientRect(sec, 117, (int)w + sec, 125, 1358888960, 1358954240);
             if (this.theFolk.pregnancyStage > 0.0F) {
                 this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Medical_status"), left, 127, 0);

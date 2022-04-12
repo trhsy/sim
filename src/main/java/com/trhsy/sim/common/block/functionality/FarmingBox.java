@@ -77,7 +77,7 @@ public class FarmingBox implements Serializable {
             return ret;
         } catch (Exception var5) {
             var5.printStackTrace();
-            return new V3(0.0D, 0.0D, 0.0D, 0);
+            return new V3(0, 0, 0, 0);
         }
     }
 
@@ -90,9 +90,9 @@ public class FarmingBox implements Serializable {
             V3 m2 = this.getMarkerVector(2);
             V3 m3 = this.getMarkerVector(3);
             if (m1.x.intValue() == m2.x.intValue()) {
-                ltr = (int)(Math.abs(m2.z - m1.z) - 1.0D);
+                ltr = (int)(Math.abs(m2.z - m1.z) - 1.0);
             } else {
-                ltr = (int)(Math.abs(m2.x - m1.x) - 1.0D);
+                ltr = (int)(Math.abs(m2.x - m1.x) - 1.0);
             }
         } catch (Exception var5) {
             return 5;
@@ -110,9 +110,9 @@ public class FarmingBox implements Serializable {
             V3 m2 = this.getMarkerVector(2);
             V3 m3 = this.getMarkerVector(3);
             if (m1.x.intValue() == m3.x.intValue()) {
-                ftb = (int)(Math.abs(m3.z - m1.z) - 1.0D);
+                ftb = (int)(Math.abs(m3.z - m1.z) - 1.0);
             } else {
-                ftb = (int)(Math.abs(m3.x - m1.x) - 1.0D);
+                ftb = (int)(Math.abs(m3.x - m1.x) - 1.0);
             }
         } catch (Exception var5) {
             return 5;
@@ -174,72 +174,72 @@ public class FarmingBox implements Serializable {
             Double var9;
             Double var10;
             for(i = 0; i <= this.getSizeWidth() + 1; ++i) {
-                if (m2.x - b.x > 1.0D) {
+                if (m2.x - b.x > 1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x + 1.0D;
-                } else if (m2.x - b.x < -1.0D) {
+                    var10 = c.x = c.x + 1.0;
+                } else if (m2.x - b.x < -1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x - 1.0D;
-                } else if (m2.z - b.z > 1.0D) {
+                    var10 = c.x = c.x - 1.0;
+                } else if (m2.z - b.z > 1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z + 1.0D;
-                } else if (m2.z - b.z < -1.0D) {
+                    var10 = c.z = c.z + 1.0;
+                } else if (m2.z - b.z < -1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z - 1.0D;
+                    var10 = c.z = c.z - 1.0;
                 }
 
                 ret.add(c.clone());
             }
 
             for(i = 0; i <= this.getSizeLength() + 2; ++i) {
-                if (m3.x - b.x > 1.0D) {
+                if (m3.x - b.x > 1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x + 1.0D;
-                } else if (m3.x - b.x < -1.0D) {
+                    var10 = c.x = c.x + 1.0;
+                } else if (m3.x - b.x < -1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x - 1.0D;
-                } else if (m3.z - b.z > 1.0D) {
+                    var10 = c.x = c.x - 1.0;
+                } else if (m3.z - b.z > 1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z + 1.0D;
-                } else if (m3.z - b.z < -1.0D) {
+                    var10 = c.z = c.z + 1.0;
+                } else if (m3.z - b.z < -1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z - 1.0D;
+                    var10 = c.z = c.z - 1.0;
                 }
 
                 ret.add(c.clone());
             }
 
             for(i = 0; i <= this.getSizeWidth() + 2; ++i) {
-                if (m2.x - b.x > 1.0D) {
+                if (m2.x - b.x > 1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x - 1.0D;
-                } else if (m2.x - b.x < -1.0D) {
+                    var10 = c.x = c.x - 1.0;
+                } else if (m2.x - b.x < -1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x + 1.0D;
-                } else if (m2.z - b.z > 1.0D) {
+                    var10 = c.x = c.x + 1.0;
+                } else if (m2.z - b.z > 1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z - 1.0D;
-                } else if (m2.z - b.z < -1.0D) {
+                    var10 = c.z = c.z - 1.0;
+                } else if (m2.z - b.z < -1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z + 1.0D;
+                    var10 = c.z = c.z + 1.0;
                 }
 
                 ret.add(c.clone());
             }
 
             for(i = 0; i <= this.getSizeLength() + 2; ++i) {
-                if (m3.x - b.x > 1.0D) {
+                if (m3.x - b.x > 1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x - 1.0D;
-                } else if (m3.x - b.x < -1.0D) {
+                    var10 = c.x = c.x - 1.0;
+                } else if (m3.x - b.x < -1.0) {
                     var9 = c.x;
-                    var10 = c.x = c.x + 1.0D;
-                } else if (m3.z - b.z > 1.0D) {
+                    var10 = c.x = c.x + 1.0;
+                } else if (m3.z - b.z > 1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z - 1.0D;
-                } else if (m3.z - b.z < -1.0D) {
+                    var10 = c.z = c.z - 1.0;
+                } else if (m3.z - b.z < -1.0) {
                     var9 = c.z;
-                    var10 = c.z = c.z + 1.0D;
+                    var10 = c.z = c.z + 1.0;
                 }
 
                 ret.add(c.clone());

@@ -253,11 +253,11 @@ public class Building implements Serializable {
 
                             } else if (ch.contentEquals("*")) {
                                 //灯箱
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.LightBoxWhite) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":0";
                             } else if (ch.contentEquals("+")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxYellow) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":3";
                             } else if (ch.contentEquals("-")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxBlue) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":5";
                             } else if (ch.contentEquals("0")) {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":0";
                             } else if (ch.contentEquals("1")) {
@@ -279,22 +279,25 @@ public class Building implements Serializable {
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) +":" + cha;
                             } else if (ch.contentEquals("Ã€")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.LightBoxWhite) + ":0";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":0";
                             } else if (ch.contentEquals("Ã†")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxRed) + ":1";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":1";
                             } else if (ch.contentEquals("Ã‡")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxOrange) + ":2";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":2";
                             } else if (ch.contentEquals("Ãˆ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxYellow) + ":3";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":3";
                             } else if (ch.contentEquals("ÃŒ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxGreen) + ":4";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":4";
                             } else if (ch.contentEquals("Ã�")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxBlue) + ":5";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":5";
                             } else if (ch.contentEquals("Ã‘")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxPurple) + ":6";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":6";
                             } else if (ch.contentEquals("Ã’")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBoxRainbow) + ":7";
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":7";
+                            }else if((int)cha >=48 && (int)cha <=57){
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock)+":"+cha;
                             }else {
+
                                 this.structure[acount] = (String) thekey.get(ch);
                                 String[] sbid = this.structure[acount].split(":");
                                 int bid = Integer.parseInt(sbid[0]);

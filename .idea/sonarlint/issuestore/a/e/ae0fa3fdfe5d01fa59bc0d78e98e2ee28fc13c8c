@@ -27,8 +27,8 @@ K
 java:S3740Ç"/Provide the parametrized type for this generic.(“©îÃúÿÿÿÿ
 F
 java:S3740ò"/Provide the parametrized type for this generic.(ø¼œ‘
-F
-java:S3740ó"/Provide the parametrized type for this generic.(ÂáÙË
+K
+java:S3740ó"/Provide the parametrized type for this generic.(™œøÿÿÿÿ
 F
 java:S3740ş"/Provide the parametrized type for this generic.(şî›Ö
 T
@@ -53,13 +53,9 @@ N	java:S106e"9Replace this use of System.out or System.err by a logger.(–•ÑŠ
 D
 java:S1940j")Use the opposite operator ("<=") instead.(•ï‰İúÿÿÿÿ
 Q	java:S125m"<This block of commented-out lines of code should be removed.(¾ÊöÊ
-Q	java:S125"<This block of commented-out lines of code should be removed.(íÊ¬^
+R	java:S125"<This block of commented-out lines of code should be removed.(¸¬†
 I
 java:S1135™"2Complete the task associated to this TODO comment.(ÂåÂ‹
-H
-java:S1905¤",Remove this unnecessary cast to "ItemStack".(Ã‘ÉÕûÿÿÿÿ
-H
-java:S1905»",Remove this unnecessary cast to "ItemStack".(Ã‘ÉÕûÿÿÿÿ
 n
 java:S3776å"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(–ÿ™ûÿÿÿÿ
 F
@@ -137,8 +133,6 @@ H
 java:S1905à",Remove this unnecessary cast to "ItemStack".(˜‘À©ûÿÿÿÿ
 I
 java:S1905‚"+Remove this unnecessary cast to "Building".(ò¬š«8¼Ü¸Â€0
-N
-java:S1128"1Remove this unused import 'com.trhsy.sim.ModSim'.(ª…Öâ8ÖÍá¾0
 M
 java:S1144¾"1Remove this unused private "inventoryGet" method.(¥ƒœöûÿÿÿÿ
 t	java:S135í"YReduce the total number of break and continue statements in this loop to use at most one.(†ÍÌ¹şÿÿÿÿ

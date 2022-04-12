@@ -4,13 +4,13 @@ name|盛知新
 age|21
 gender|0
 skin|58
-levelfood|10
+levelfood|9
 levelfun|5
 levelbuilder|1.042002
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-345,241,-227,0
+location|-287,237,-287,0
 pregnancy|0.0
 building|null
 terraformtype|null

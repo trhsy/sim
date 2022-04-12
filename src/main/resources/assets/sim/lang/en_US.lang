@@ -900,3 +900,4 @@ container.sim.JobBrickMaker6=(brick factory) there is no fuel in the stove. Plea
 container.sim.JobBrickMaker7=Add clay to the furnace
 container.sim.JobBrickMaker8=Put bricks in storage
 container.sim.JobBrickMaker9=No tiles were obtained
+container.sim.Living1=Place this when marking a build to specify where a folk will stand at night

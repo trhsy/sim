@@ -130,7 +130,7 @@ public class JobBrickMaker extends Job implements Serializable {
 
             this.theFolk.updateLocationFromEntity();
             double dist = (double)this.theFolk.location.getDistanceTo(this.blockOfClay);
-            if (dist > 4.0D && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
+            if (dist > 4.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
                 this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod)null);
                 this.theFolk.stayPut = false;
@@ -148,7 +148,7 @@ public class JobBrickMaker extends Job implements Serializable {
         this.theFolk.isWorking = true;
         this.theFolk.updateLocationFromEntity();
         double dist = (double)this.theFolk.location.getDistanceTo(this.blockOfClay);
-        if (dist > 6.0D && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
+        if (dist > 6.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
             this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod)null);
             this.theFolk.stayPut = false;
             this.lastGotocmd = System.currentTimeMillis();
@@ -157,14 +157,14 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.gotoCount = 0;
                 V3 bs = this.blockOfClay.clone();
                 /*Double var5 = bs.y;
-                Double var6 = bs.y = bs.y + 1.0D;*/
-                bs=new V3(bs.x-1.0D,bs.y+ 1.0D,bs.z,bs.theDimension);
+                Double var6 = bs.y = bs.y + 1.0;*/
+                bs=new V3(bs.x-1.0,bs.y+ 1.0,bs.z,bs.theDimension);
                 this.theFolk.beamMeTo(bs);
             }
 
-        } else if (!(dist > 6.0D)) {
+        } else if (!(dist > 6.0)) {
             try {
-                if (dist < 6.0D) {
+                if (dist < 6.0) {
                 }
 
                 this.gotoCount = 0;
@@ -193,8 +193,8 @@ public class JobBrickMaker extends Job implements Serializable {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
                 /*Double var3 = adj.y;
-                Double var4 = adj.y = adj.y + 1.0D;*/
-                adj=new V3(adj.x-1.0D,adj.y+1.0D,adj.z,adj.theDimension);
+                Double var4 = adj.y = adj.y + 1.0;*/
+                adj=new V3(adj.x-1.0,adj.y+1.0,adj.z,adj.theDimension);
                 this.theFolk.gotoXYZ(adj, (GotoMethod)null);
                 this.step = 2;
             } else if (this.step == 2) {
@@ -203,7 +203,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 }
 
                 double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-                if (dist < 4.0D) {
+                if (dist < 4.0) {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {

@@ -184,7 +184,7 @@ public class JobTerraformer extends Job {
                     blockIDs.add(Blocks.tallgrass);
                     blockIDs.add(Blocks.red_flower);
                     blockIDs.add(Blocks.yellow_flower);
-                    v = new V3(this.theFolk.employedAt.x, this.theFolk.employedAt.y - 1.0D, this.theFolk.employedAt.z, this.theFolk.employedAt.theDimension);
+                    v = new V3(this.theFolk.employedAt.x, this.theFolk.employedAt.y - 1, this.theFolk.employedAt.z, this.theFolk.employedAt.theDimension);
                     this.closestBlocks = null;
                     this.setClosestBlocksOfType(v, blockIDs, this.radius, false, true, true);
                 } else if (this.theType == TerraformerType.GLACIAL) {
@@ -304,7 +304,7 @@ public class JobTerraformer extends Job {
             Double x = (double)this.totalBlockCount;
             Double y = (double)this.closestBlocks.size();
             Double percent = (x - y) / x;
-            percent = percent * 100.0D;
+            percent = percent * 100;
             this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent.intValue() + " % " + I18n.format("container.sim.job.terra.farmer.complete");
             V3 v = (V3)this.closestBlocks.get(0);
             GameStates var10000;

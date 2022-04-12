@@ -161,7 +161,7 @@ public class JobLumberjack extends Job implements Serializable {
             }
 
             double dist = (double)this.theFolk.location.getDistanceTo(this.foundWoodAt);
-            if (dist < 7.0D) {
+            if (dist < 7) {
                 this.theStage = Stage.CHOPPINGTREE;
                 this.theFolk.stayPut = true;
                 this.step = 1;
@@ -261,7 +261,7 @@ public class JobLumberjack extends Job implements Serializable {
                 count = this.getInventoryCount(this.theFolk, Blocks.log);
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Got") + count + I18n.format("container.sim.job.lumberjack.farmer.logs_so_far");
                 this.theFolk.stayPut = false;
-                this.foundWoodAt.y = this.foundWoodAt.y + 1.0D;
+                this.foundWoodAt.y = this.foundWoodAt.y + 1;
                 this.step = 2;
             } else if (this.step == 4) {
                 if (this.theFolk.isSpawned()) {
@@ -343,7 +343,7 @@ public class JobLumberjack extends Job implements Serializable {
 
     private void pickUpSaplings() {
         if (this.theFolk.isSpawned()) {
-            List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, this.theFolk.theEntity.posX + 1.0D, this.theFolk.theEntity.posY + 1.0D, this.theFolk.theEntity.posZ + 1.0D).expand(3.0D, 4.0D, 3.0D));
+            List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, AxisAlignedBB.getBoundingBox(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, this.theFolk.theEntity.posX + 1, this.theFolk.theEntity.posY + 1, this.theFolk.theEntity.posZ + 1).expand(3, 4, 3));
             Iterator iterator1 = list1.iterator();
             if (!list1.isEmpty()) {
                 while(iterator1.hasNext()) {
