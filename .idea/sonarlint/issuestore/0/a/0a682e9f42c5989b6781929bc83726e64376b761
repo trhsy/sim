@@ -51,6 +51,8 @@ java:S1905ï"(Remove this unnecessary cast to "float".(πÜÂ 
 i
 java:S3776é"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(ö¶úô
 W	java:S125è"<This block of commented-out lines of code should be removed.(˛´†˛¸ˇˇˇˇ
+N
+java:S1128"1Remove this unused import 'com.trhsy.sim.ModSim'.(™Ö÷‚8˘óØãÇ0
 K
 java:S10686"0Remove this unused "buildingsRes" private field.(Œæﬁñˇˇˇˇˇ
 K

@@ -49,6 +49,12 @@ public class BlockLoader {
     public static Block cityBox=new BlockCityBox();
     /*灯箱*/
     public static Block lightBox = new BlockLightBox();
+    static Block lightBoxRed;
+    static Block lightBoxOrange;
+    static Block lightBoxYellow;
+    static Block lightBoxGreen;
+    static Block lightBoxBlue;
+    static Block lightBoxPurple;
     /*标记棒*/
     public static Block blockMarker = new BlockMarker();
     /*挖矿箱*/
