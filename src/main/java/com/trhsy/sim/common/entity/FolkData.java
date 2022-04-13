@@ -678,7 +678,7 @@ public class FolkData implements Serializable {
                         chance = this.location.getDistanceTo(liveAt);
                         if (chance > 1 && this.destination == null) {
                             this.stayPut = false;
-                            liveAt=new V3(liveAt.x+3.0,liveAt.y+3.0,liveAt.z,liveAt.theDimension);
+                            liveAt=new V3(liveAt.x+1.0,liveAt.y+1.0,liveAt.z,liveAt.theDimension);
                             this.gotoXYZ(liveAt, (GotoMethod)null);
                             this.action = FolkAction.GOINGHOME;
                             this.statusText = I18n.format("container.sim.folk_data_Going_home");

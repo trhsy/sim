@@ -47,7 +47,6 @@ public class BlockLightBox extends Block {
         return metadata;
     }
 
-
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
@@ -55,14 +54,14 @@ public class BlockLightBox extends Block {
         /*for (int i = 0; i < this.icons.length; i++) {
             this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":light_block_" + names[i]);
         }*/
-        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":light_block_White");
-        this.icons[1] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Red");
-        this.icons[2] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Orange");
-        this.icons[3] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Yellow");
-        this.icons[4] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Green");
-        this.icons[5] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Blue");
-        this.icons[6] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Purple");
-        this.icons[7] = iconRegister.registerIcon(ModSim.MODID + ":light_block_Rainbow");
+        this.icons[0] = iconRegister.registerIcon(ModSim.MODID + ":light_block_white");
+        this.icons[1] = iconRegister.registerIcon(ModSim.MODID + ":light_block_red");
+        this.icons[2] = iconRegister.registerIcon(ModSim.MODID + ":light_block_orange");
+        this.icons[3] = iconRegister.registerIcon(ModSim.MODID + ":light_block_yellow");
+        this.icons[4] = iconRegister.registerIcon(ModSim.MODID + ":light_block_green");
+        this.icons[5] = iconRegister.registerIcon(ModSim.MODID + ":light_block_blue");
+        this.icons[6] = iconRegister.registerIcon(ModSim.MODID + ":light_block_purple");
+        this.icons[7] = iconRegister.registerIcon(ModSim.MODID + ":light_block_rainbow");
 
     }
 
@@ -73,10 +72,6 @@ public class BlockLightBox extends Block {
         //return this.icons[meta];
     }
 
-    public BlockLightBox idDropped(int par1, Random par2Random, int par3) {
-        return this;
-    }
-
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -85,6 +80,10 @@ public class BlockLightBox extends Block {
             //par3List.add(new ItemStack(itemIn, 1, meta));
             list.add(new ItemStack(item, 1, i));
         }
+    }
+    @Override
+    public Item getItemDropped(int par1, Random par2Random, int par3) {
+        return Item.getItemFromBlock(this);
     }
 
     @Override
