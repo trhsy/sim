@@ -1,21 +1,0 @@
-
-J
-java:S3740"/Provide the parametrized type for this generic.(Ÿ©õù¯ˇˇˇˇ
-G
-java:S1135"2Complete the task associated to this TODO comment.(¢®Ö'
-9
-java:S2119#"Save and re-use this "Random".(öü´Ì¯ˇˇˇˇ
->
-java:S1905*"(Remove this unnecessary cast to "float".(›‚¡Ï
-B
-java:S1905/",Remove this unnecessary cast to "ItemStack".(˘˛¶Ó
-G
-java:S19056",Remove this unnecessary cast to "ItemStack".(ÿö˚ˇ˛ˇˇˇˇ
-T
-java:S1155">Use isEmpty() to check whether the collection is empty or not.(ÖÔ¶í
-n
-java:S1104"XMake theItemStack a static final constant or non-public and provide accessors if needed.(Ωàñè
-j
-java:S1104"TMake quantity a static final constant or non-public and provide accessors if needed.(ÎØßÇ
-k
-java:S1104"UMake priceEach a static final constant or non-public and provide accessors if needed.(ÒÒ—º
