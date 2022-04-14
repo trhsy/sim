@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "layer0": "sim:blocks/milk_still",
-    "layer1": "sim:blocks/milk_flow"
-  }
-}

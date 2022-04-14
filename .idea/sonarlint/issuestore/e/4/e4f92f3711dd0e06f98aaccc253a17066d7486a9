@@ -1,9 +1,0 @@
-
-—
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(åœüà
-f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡øã§
-f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«Ç¯À
-f
-java:S1301"KReplace this "switch" statement by "if" statements to increase readability.(–­¸ıÿÿÿÿ
-f
-java:S1301"KReplace this "switch" statement by "if" statements to increase readability.(–­¸ıÿÿÿÿ

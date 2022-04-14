@@ -1,34 +1,0 @@
-
-Q
-java:S3740/"/Provide the parametrized type for this generic.(Åìúıûÿÿÿÿ8œ¥ï»€0
-Q
-java:S3740N"/Provide the parametrized type for this generic.(™ÙÓÆüÿÿÿÿ8œ¥ï»€0
-£
-java:S1186 "€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(•Ææ¼ÿÿÿÿÿ8¥ï»€0
-T
-java:S1135"2Complete the task associated to this TODO comment.(ûØŞ„üÿÿÿÿ8¢¥ï»€0
-j
-java:S1192$"MDefine a constant instead of duplicating this literal "settings.sk2" 3 times.(°È˜è8¬¥ï»€0
-r	java:S117/"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åìúıûÿÿÿÿ8­¥ï»€0
-q
-java:S1104"VMake population a static final constant or non-public and provide accessors if needed.(ç³úôÿÿÿÿÿ
-n
-java:S1104"SMake credits a static final constant or non-public and provide accessors if needed.(ó†ìÄşÿÿÿÿ
-k
-java:S1104"UMake cheatMode a static final constant or non-public and provide accessors if needed.(”ğ«
-p
-java:S1104"ZMake gameModeNumber a static final constant or non-public and provide accessors if needed.(Ãæ•·
-p
-java:S1104"UMake dayOfWeek a static final constant or non-public and provide accessors if needed.(Å‚šıÿÿÿÿ
-v
-java:S1104"[Make lastUpdateCheck a static final constant or non-public and provide accessors if needed.(‘Ğ®äşÿÿÿÿ
-m
-java:S1104"RMake userId a static final constant or non-public and provide accessors if needed.(¿ÍÂÄÿÿÿÿÿ
-}
-java:S1104"[Make populationLimit a static final constant or non-public and provide accessors if needed.(– ¬Õıÿÿÿÿ8­¥ï»€0
-l
-java:S1104"VMake lumberArea a static final constant or non-public and provide accessors if needed.(ˆèÄœ
-x
-java:S1104"]Make disableBeamEffect a static final constant or non-public and provide accessors if needed.(è°úÿÿÿÿ
-r
-java:S1104"UMake folkNoise a static final constant or non-public and provide accessors if needed.(ÁŒ”8®¥ï»€0

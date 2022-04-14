@@ -1,17 +1,0 @@
-
-—
-java:S1186$"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ğ†ø­
-M
-java:S1135"2Complete the task associated to this TODO comment.(ú·±–ùÿÿÿÿ
-E
-java:S1905L"/Remove this unnecessary cast to "EntityPlayer".(À­à±
-G
-java:S1135P"2Complete the task associated to this TODO comment.(ìÁÜ
-C
-java:S1185]"(Remove this method to simply inherit it.(™¥•‡ÿÿÿÿÿ
-C
-java:S1185b"(Remove this method to simply inherit it.(àÃƒºøÿÿÿÿ
-k
-java:S2095?"PUse try-with-resources or close this "ObjectOutputStream" in a "finally" clause.(¥€ë˜øÿÿÿÿ
-i
-java:S2095>"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(¿ØÌûÿÿÿÿ
