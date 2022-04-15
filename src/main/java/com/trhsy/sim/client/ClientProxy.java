@@ -1,5 +1,6 @@
 package com.trhsy.sim.client;
 
+import com.trhsy.sim.client.loader.ItemRenderLoader;
 import com.trhsy.sim.common.CommonProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,6 +16,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        new ItemRenderLoader();
     }
 
     /**用于该Mod的初始化,这时候应该为Mod进行设置，如注册合成表和烧炼系统，并且向其他Mod发送交互信息。

@@ -47,6 +47,7 @@ public class ModSim {
      * 所有Mod初始化之前调用,这时候应该加载配置文件，实例化物品和方块，并注册它们。
      * @param event
      */
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
     }
@@ -55,6 +56,7 @@ public class ModSim {
      * 用于该Mod的初始化,这时候应该为Mod进行设置，如注册合成表和烧炼系统，并且向其他Mod发送交互信息。
      * @param event
      */
+    @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
     }
@@ -63,6 +65,7 @@ public class ModSim {
      *在所有Mod都初始化之后调用,这时候应该接收其他Mod发送的交互信息，并完成对Mod的设置
      * @param event
      */
+    @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
     }
