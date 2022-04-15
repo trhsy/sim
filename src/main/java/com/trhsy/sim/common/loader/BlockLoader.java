@@ -48,6 +48,7 @@ public class BlockLoader {
 
     /**
      * 注册模型
+     *
      * @param block
      */
     @SideOnly(Side.CLIENT)

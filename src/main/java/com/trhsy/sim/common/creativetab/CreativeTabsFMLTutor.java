@@ -23,7 +23,7 @@ public class CreativeTabsFMLTutor extends CreativeTabs {
     @Override
     public Item getTabIconItem() {
 
-        return Item.getItemFromBlock(BlockLoader.constructorBox);
+        return Item.getItemFromBlock(BlockLoader.blockConstructorBox);
     }
     /**
      * 用于设置是否有搜索框
