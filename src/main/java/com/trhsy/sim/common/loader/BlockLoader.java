@@ -45,7 +45,7 @@ public class BlockLoader {
         register(blockControlBox, new ItemMultiTexture(blockControlBox, blockControlBox, new Function<ItemStack, String>() {
             @Override
             public String apply(ItemStack input) {
-                return EnumControlBoxMaterial.values()[input.getMetadata() >> 3].getName();
+                return EnumControlBoxMaterial.values()[input.getMetadata() >> 1].getName();
             }
         }), "block_control_box");
     }
@@ -86,9 +86,9 @@ public class BlockLoader {
      */
     @SideOnly(Side.CLIENT)
     private static void registerRender(Block block) {
-        ModelResourceLocation model = new ModelResourceLocation(block.getRegistryName(), "inventory");
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, model);
-
+        /*ModelResourceLocation model = new ModelResourceLocation(block.getRegistryName(), "inventory");
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, model);*/
+        registerRender(block, 0, block.getRegistryName());
     }
 
     /**
