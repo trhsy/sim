@@ -8,21 +8,29 @@ import net.minecraft.util.IStringSerializable;
  * @Param 
  * @return 
  **/
-public enum EnumControlBoxMaterial implements IStringSerializable {
-    ATM("ATM"), side("side"),other("other");
-    private String name;
+public enum EnumControlBoxMaterial implements IStringSerializable, EnumBlock.IEnumMeta {
+    TOP,
+    ATM,
+    OTHER;
+    private EnumControlBoxMaterial(){
 
-    private EnumControlBoxMaterial(String material) {
-        this.name = material;
+    }
+    public final int meta = this.ordinal();
+
+    public static EnumControlBoxMaterial fromMeta(int meta) {
+        if (meta < 0 || meta >= values().length) {
+            meta = 0;
+        }
+
+        return values()[meta];
+    }
+    @Override
+    public int getMeta() {
+        return this.meta;
     }
 
     @Override
     public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
+        return this.toString();
     }
 }

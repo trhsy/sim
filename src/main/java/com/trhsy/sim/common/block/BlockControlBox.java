@@ -2,8 +2,11 @@ package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.tileentity.TileEntityMetalControlBox;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -17,9 +20,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -31,51 +41,57 @@ import java.util.List;
  * @Author Tian
  * @Date 2022/4/1921:48
  **/
-public class BlockControlBox extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-    //public static final PropertyBool BURNING = PropertyBool.create("burning");
-    public static final PropertyEnum<EnumControlBoxMaterial> MATERIAL = PropertyEnum.create("material", EnumControlBoxMaterial.class);
+public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
+    public static final PropertyEnum<EnumControlBoxMaterial> TYPE = PropertyEnum.create("type", EnumControlBoxMaterial.class);
 
-    @SideOnly(Side.CLIENT)
     public BlockControlBox() {
-        super(Material.wood);
+        super(Material.wood,TYPE,EnumControlBoxMaterial.class);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(10.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("controlBox");
         //this.setTextureName(ModSim.MODID + ":" + "control_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MATERIAL, EnumControlBoxMaterial.ATM));
+        //this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MATERIAL, EnumControlBoxMaterial.ATM));
     }
-
-
-    @Override
-    protected BlockState createBlockState() {
-//        return new BlockState(this, FACING, BURNING, MATERIAL);
-        return new BlockState(this,FACING,MATERIAL);
-    }
-
 
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        list.add(new ItemStack(itemIn, 1, 0));
-        list.add(new ItemStack(itemIn, 1, 1));
-        list.add(new ItemStack(itemIn, 1, 2));
-        list.add(new ItemStack(itemIn, 1, 3));
+        EnumControlBoxMaterial[] boxMaterials=EnumControlBoxMaterial.values();
+        for (int i = 0; i < boxMaterials.length; i++) {
+            EnumControlBoxMaterial type = boxMaterials[i];
+            list.add(new ItemStack(this, 1, type.meta));
+        }
+    }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return ((EnumControlBoxMaterial)state.getValue(TYPE)).meta;
     }
 
-    /**
+    @Override
+    public int damageDropped(IBlockState state) {
+        return this.getMetaFromState(state);
+    }
+    @Override
+    protected BlockState createBlockState() {
+        return new BlockState(this, new IProperty[]{TYPE});
+    }
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(TYPE, EnumControlBoxMaterial.fromMeta(meta));
+    }
+/**
      * @return boolean
      * @Author fan
      * @Description //TODO 当右键方块时
      * @Date 22:33 2022/4/27
      * @Param [world, i, j, k, entityplayer, par6, par7, par8, par9]
-     **/
+     **//*
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
         world.playSoundEffect((double) i, (double) j, (double) k, ModSim.MODID + ":computer", 1.0F, 1.0F);
-        /*GuiControlBox ui = null;
+        GuiControlBox ui = null;
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
@@ -93,49 +109,9 @@ public class BlockControlBox extends Block {
         } else {
             ui = new GuiControlBox(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
             mc.displayGuiScreen(ui);
-        }*/
+        }
 
         return true;
-    }
+    }*/
 
-    @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ,
-                                     int meta, EntityLivingBase placer) {
-        IBlockState origin = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-        return origin.withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
-
-
-    /**
-     * @return net.minecraft.block.state.IBlockState
-     * @Author fan
-     * @Description //TODO 将给定元数据转换为此块的BlockState
-     * @Date 22:21 2022/4/27
-     * @Param [meta]
-     **/
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        EnumFacing facing = EnumFacing.getHorizontal(meta & 3);
-        EnumControlBoxMaterial material = EnumControlBoxMaterial.values()[meta >> 3];
-        return this.getDefaultState().withProperty(FACING, facing).withProperty(MATERIAL, material);
-    }
-
-    /**
-     * @return int
-     * @Author fan
-     * @Description //TODO 将BlockState转换为正确的元数据值
-     * @Date 22:27 2022/4/27
-     * @Param [state]
-     **/
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        int facing = state.getValue(FACING).getHorizontalIndex();
-        int material = state.getValue(MATERIAL).ordinal() << 3;
-        return facing | material;
-    }
-
-    @Override
-    public int damageDropped(IBlockState state) {
-        return state.getValue(MATERIAL).ordinal() << 3;
-    }
 }
