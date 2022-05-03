@@ -2,10 +2,7 @@ package com.trhsy.sim.common.loader;
 
 import com.google.common.base.Function;
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.block.BlockConstructorBox;
-import com.trhsy.sim.common.block.BlockControlBox;
-import com.trhsy.sim.common.block.EnumBlock;
-import com.trhsy.sim.common.block.EnumControlBoxMaterial;
+import com.trhsy.sim.common.block.*;
 import com.trhsy.sim.common.item.ItemBlockMeta;
 import com.trhsy.sim.common.util.Util;
 import net.minecraft.block.Block;
@@ -37,6 +34,15 @@ public class BlockLoader {
      * 控制盒
      **/
     public static Block blockControlBox;
+    /**
+     * @Author fan
+     * @Description //TODO 奶酪块
+     * @Date 17:20 2022/5/3
+     * @Param 
+     * @return 
+     **/
+    public static Block blockCheese=new BlockCheese();
+    public static Block blockCityBox=new BlockCityBox();
 
     /**
      * 加载方块
@@ -50,7 +56,9 @@ public class BlockLoader {
         /**控制盒**/
         blockControlBox= registerEnumBlock(new BlockControlBox(),"block_control_box");
         ItemBlockMeta.setMappingProperty(blockControlBox,BlockControlBox.TYPE);
-        //registers(, "block_control_box");
+        register(blockCheese, "block_cheese");
+        register(blockCityBox, "block_city_box");
+
     }
 
     /**
@@ -69,12 +77,11 @@ public class BlockLoader {
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
         registerRender(blockConstructorBox);
-        //registerRender(blockControlBox);
-        //registerStateMapper(blockControlBox, new StateMap.Builder().withName(BlockControlBox.TYPE).withSuffix("_block_control_box").ignore(BlockControlBox.TYPE).build());
-
         registerRender(blockControlBox, 0, ModSim.MODID+":block_control_box_top");
         registerRender(blockControlBox, 1, ModSim.MODID+":block_control_box_atm");
         registerRender(blockControlBox, 2, ModSim.MODID+":block_control_box_other");
+        registerRender(blockCheese);
+        registerRender(blockCityBox);
     }
 
     @SideOnly(Side.CLIENT)

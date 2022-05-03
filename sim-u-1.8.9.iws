@@ -2,44 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90bd937a-8167-4bd4-94a3-265fd7c0fa51" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/EnumBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/ItemBlockMeta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/tileentity/TileEntityMetalControlBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/util/LocUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/util/RecipeMatch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/util/RecipeMatchRegistry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/util/Util.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_control_box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_control_box_atm.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_control_box_other.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_control_box_top.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_control_box_atm.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_control_box_other.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_control_box_top.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_control_box_atm.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_control_box_other.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_control_box_top.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/cache.properties.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/cache.properties.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileSnapshots.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/taskArtifacts.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/taskArtifacts.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/gradle.log" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/gradle.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/simulated-1.8.9-1.0.0 Beta-sources.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/simulated-1.8.9-1.0.0 Beta-sources.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/simulated-1.8.9-1.0.0 Beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/simulated-1.8.9-1.0.0 Beta.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCheese.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCityBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_cheese.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_cheese.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_city_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_cheese.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_city_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.8.9.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.8.9.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockControlBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockControlBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/EnumControlBoxMaterial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/EnumControlBoxMaterial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_control_box.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_control_box.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control/block_control_box.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control/block_control_box.png.mcmeta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box_ATM.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control/block_control_box_atm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box_ATM.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control/block_control_box_atm.png.mcmeta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box_other.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control/block_control_box_other.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box_other.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control/block_control_box_other.png.mcmeta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_control_box_side.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/control/block_control_box_side.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/cheese_block.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_cheese.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/path_constructor.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_city_box.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,13 +104,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\blockstates" />
+      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\models\item" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\models\block" />
+      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\blockstates" />
       <recent name="H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\main\resources\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -301,7 +276,8 @@
       <workItem from="1650025109299" duration="6600000" />
       <workItem from="1650374946220" duration="4701000" />
       <workItem from="1651068733597" duration="2953000" />
-      <workItem from="1651242012394" duration="54526000" />
+      <workItem from="1651242012394" duration="54819000" />
+      <workItem from="1651555615806" duration="4583000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1650025716233</created>
@@ -317,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651071694281</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="2022-5-2控制箱">
+      <created>1651501797370</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651501797370</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,7 +320,8 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <MESSAGE value="2" />
-    <option name="LAST_COMMIT_MESSAGE" value="2" />
+    <MESSAGE value="2022-5-2控制箱" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-5-2控制箱" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
 </project>
