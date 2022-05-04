@@ -42,7 +42,32 @@ public class BlockLoader {
      * @return 
      **/
     public static Block blockCheese=new BlockCheese();
+    /**
+     * @Author fan
+     * @Description //TODO 城市路径
+     * @Date 8:04 2022/5/4
+     * @Param
+     * @return
+     **/
     public static Block blockCityBox=new BlockCityBox();
+    /**
+     * @Author fan
+     * @Description //TODO 复合砖
+     * @Date 8:05 2022/5/4
+     * @Param
+     * @return
+     **/
+    public static Block blockCompositeBrick=new BlockCompositeBrick();
+    /**
+     * @Author fan
+     * @Description //TODO 养殖箱
+     * @Date 10:02 2022/5/4
+     * @Param
+     * @return
+     **/
+    public static Block blockFarmingBox=new BlockFarmingBox();
+    public static Block blockLightBox;
+    public static Block blockLiving=new BlockLiving();
 
     /**
      * 加载方块
@@ -56,9 +81,19 @@ public class BlockLoader {
         /**控制盒**/
         blockControlBox= registerEnumBlock(new BlockControlBox(),"block_control_box");
         ItemBlockMeta.setMappingProperty(blockControlBox,BlockControlBox.TYPE);
+        /**奶酪块**/
         register(blockCheese, "block_cheese");
+        /**城市路径**/
         register(blockCityBox, "block_city_box");
-
+        /**复合砖**/
+        register(blockCompositeBrick, "block_composite_brick");
+        /**养殖箱**/
+        register(blockFarmingBox, "block_farming_box");
+        /**灯箱**/
+        blockLightBox= registerEnumBlock(new BlockLightBox(),"block_light_box");
+        ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.TYPE);
+        /**毛毯，生活区，夜晚移动**/
+        register(blockLiving, "block_living");
     }
 
     /**
@@ -82,6 +117,32 @@ public class BlockLoader {
         registerRender(blockControlBox, 2, ModSim.MODID+":block_control_box_other");
         registerRender(blockCheese);
         registerRender(blockCityBox);
+        registerRender(blockCompositeBrick);
+        registerRender(blockFarmingBox);
+        registerRender(blockLightBox, 0, ModSim.MODID+":block_light_box_white");
+        registerRender(blockLightBox, 1, ModSim.MODID+":block_light_box_red");
+        registerRender(blockLightBox, 2, ModSim.MODID+":block_light_box_orange");
+        registerRender(blockLightBox, 3, ModSim.MODID+":block_light_box_yellow");
+        registerRender(blockLightBox, 4, ModSim.MODID+":block_light_box_green");
+        registerRender(blockLightBox, 5, ModSim.MODID+":block_light_box_blue");
+        registerRender(blockLightBox, 6, ModSim.MODID+":block_light_box_purple");
+        registerRender(blockLightBox, 7, ModSim.MODID+":block_light_box_rainbow");
+        registerRender(blockLiving,0,ModSim.MODID+":block_living_white");
+        registerRender(blockLiving,1,ModSim.MODID+":block_living_orange");
+        registerRender(blockLiving,2,ModSim.MODID+":block_living_magenta");
+        registerRender(blockLiving,3,ModSim.MODID+":block_living_light_blue");
+        registerRender(blockLiving,4,ModSim.MODID+":block_living_yellow");
+        registerRender(blockLiving,5,ModSim.MODID+":block_living_lime");
+        registerRender(blockLiving,6,ModSim.MODID+":block_living_pink");
+        registerRender(blockLiving,7,ModSim.MODID+":block_living_gray");
+        registerRender(blockLiving,8,ModSim.MODID+":block_living_silver");
+        registerRender(blockLiving,9,ModSim.MODID+":block_living_cyan");
+        registerRender(blockLiving,10,ModSim.MODID+":block_living_purple");
+        registerRender(blockLiving,11,ModSim.MODID+":block_living_blue");
+        registerRender(blockLiving,12,ModSim.MODID+":block_living_brown");
+        registerRender(blockLiving,13,ModSim.MODID+":block_living_green");
+        registerRender(blockLiving,14,ModSim.MODID+":block_living_red");
+        registerRender(blockLiving,15,ModSim.MODID+":block_living_black");
     }
 
     @SideOnly(Side.CLIENT)

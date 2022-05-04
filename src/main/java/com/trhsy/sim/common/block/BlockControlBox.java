@@ -18,6 +18,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -50,6 +51,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
         this.setHardness(10.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("controlBox");
+        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumControlBoxMaterial.TOP));
         //this.setTextureName(ModSim.MODID + ":" + "control_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         //this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MATERIAL, EnumControlBoxMaterial.ATM));
