@@ -1,0 +1,6 @@
+{
+  "parent": "block/air",
+  "textures": {
+    "all": "sim:blocks/block_special"
+  }
+}

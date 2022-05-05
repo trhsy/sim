@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 
 /**
  * @ClassName BlockCompositeBrick
- * @Description todo
+ * @Description todo 复合砖
  * @Author Tian
  * @Date 2022/5/48:03
  **/

@@ -2,63 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90bd937a-8167-4bd4-94a3-265fd7c0fa51" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCompositeBrick.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockFarmingBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLightBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLiving.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/EnumBlockLightBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_composite_brick.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_farming_box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_light_box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_living.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_composite_brick.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_farming_box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_blue.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_green.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_orange.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_purple.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_rainbow.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_red.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_white.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_light_box_yellow.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_living.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_composite_brick.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_farming_box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_blue.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_green.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_orange.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_purple.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_rainbow.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_red.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_white.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_light_box_yellow.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_orange.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_purple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_rainbow.png.mcmeta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/living/block_living_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockMiningBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockSpecial.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/EnumBlockLiving.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_marker.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_mining_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_special.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_living_brown.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_marker.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_mining_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_special.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_living_brown.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_marker.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_mining_box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_special.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.8.9.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.8.9.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockControlBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockControlBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCityBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCityBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCompositeBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCompositeBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockFarmingBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockFarmingBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLightBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLightBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLiving.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockLiving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/EnumBlockLightBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/EnumBlockLightBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_living.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_living.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/composite_brick.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_composite_brick.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/farming_box.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_farming_box.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_rainbow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light/block_light_rainbow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_rainbow.png.mcmeta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/light_block_yellow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_living_silver.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_living_silver.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/marker_bar_block.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_marker.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/mining_box.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/block_mining_box.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,14 +121,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/models/block" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/models/item" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\models\block" />
-      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\living" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\models\item" />
+      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\models\block" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\blockstates" />
+      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\living" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -324,7 +296,8 @@
       <workItem from="1651068733597" duration="2953000" />
       <workItem from="1651242012394" duration="54819000" />
       <workItem from="1651555615806" duration="5465000" />
-      <workItem from="1651622512852" duration="19299000" />
+      <workItem from="1651622512852" duration="19448000" />
+      <workItem from="1651742534480" duration="14749000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1650025716233</created>
@@ -354,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651590405463</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="2022-5-4复合砖，养殖箱，灯箱，生活区地毯">
+      <created>1651677154733</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651677154733</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,10 +353,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="2" />
     <MESSAGE value="2022-5-2控制箱" />
     <MESSAGE value="2022-5-3奶酪块，城市箱子" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022-5-3奶酪块，城市箱子" />
+    <MESSAGE value="2022-5-4复合砖，养殖箱，灯箱，生活区地毯" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-5-4复合砖，养殖箱，灯箱，生活区地毯" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

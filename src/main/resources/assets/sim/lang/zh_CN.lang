@@ -14,7 +14,24 @@ tile.block_light_box.green.name=灯箱(绿)
 tile.block_light_box.blue.name=灯箱(蓝)
 tile.block_light_box.purple.name=灯箱(紫)
 tile.block_light_box.rainbow.name=灯箱(彩)
-tile.livingBlock.name=地毯
+tile.block_living.name=地毯
+tile.block_living.black.name=地毯(黑)
+tile.block_living.blue.name=地毯(蓝)
+tile.block_living.brown.name=地毯(棕)
+tile.block_living.cyan.name=地毯(青)
+tile.block_living.gray.name=地毯(灰)
+tile.block_living.green.name=地毯(绿)
+tile.block_living.light_blue.name=地毯(浅蓝)
+tile.block_living.lime.name=地毯(浅绿)
+tile.block_living.magenta.name=地毯(品红)
+tile.block_living.orange.name=地毯(橙)
+tile.block_living.pink.name=地毯(粉)
+tile.block_living.purple.name=地毯(紫)
+tile.block_living.red.name=地毯(红)
+tile.block_living.silver.name=地毯(银白)
+tile.block_living.white.name=地毯(白)
+tile.block_living.yellow.name=地毯(黄)
+
 tile.blockCarbonDioxide.name=二氧化碳
 tile.blockRadiationGas.name=辐射气体
 tile.blockSulphurDioxide.name=二氧化硫
@@ -24,8 +41,8 @@ tile.blockGasDispenser.radiationGas.name=辐射气体充气机
 tile.blockSpecial.name=特制
 
 
-tile.MarkerBar.name=标记棒
-tile.MiningBox.name=采矿箱
+tile.markerBar.name=标记棒
+tile.miningBox.name=采矿箱
 tile.compositeBrick.name=复合砖
 tile.pathConstructor.name=建造路径块
 tile.windmill.name=风车

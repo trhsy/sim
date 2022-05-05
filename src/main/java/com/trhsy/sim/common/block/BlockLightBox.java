@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * @ClassName BlockLightBox
- * @Description todo
+ * @Description todo 灯箱
  * @Author Tian
  * @Date 2022/5/49:58
  **/
@@ -26,7 +26,7 @@ public class BlockLightBox extends EnumBlock<EnumBlockLightBox> {
     public static final PropertyEnum<EnumBlockLightBox> TYPE = PropertyEnum.create("type", EnumBlockLightBox.class);
     public BlockLightBox() {
         super(Material.wood,TYPE,EnumBlockLightBox.class);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLightBox.WHITE));
+        //this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLightBox.WHITE));
         this.setLightLevel(1.0F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setStepSound(Block.soundTypeWood);

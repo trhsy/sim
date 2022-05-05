@@ -4,12 +4,12 @@ import net.minecraft.util.IStringSerializable;
 
 public enum EnumBlockLightBox implements IStringSerializable, EnumBlock.IEnumMeta {
     WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, RAINBOW;
-
+    public final int meta = this.ordinal();
     private EnumBlockLightBox() {
 
     }
 
-    public final int meta = this.ordinal();
+
 
     public static EnumBlockLightBox fromMeta(int meta) {
         if (meta < 0 || meta >= values().length) {
@@ -27,4 +27,5 @@ public enum EnumBlockLightBox implements IStringSerializable, EnumBlock.IEnumMet
     public String getName() {
         return this.toString();
     }
+
 }

@@ -66,8 +66,16 @@ public class BlockLoader {
      * @return
      **/
     public static Block blockFarmingBox=new BlockFarmingBox();
+    /**灯箱**/
     public static Block blockLightBox;
-    public static Block blockLiving=new BlockLiving();
+    /**地毯**/
+    public static Block blockLiving;
+    /**标记棒**/
+    public static Block blockMarker=new BlockMarker();
+    /**采矿箱**/
+    public static Block blockMiningBox=new BlockMiningBox();
+    /**特制方块空气**/
+    public static Block blockSpecial=new BlockSpecial();
 
     /**
      * 加载方块
@@ -89,11 +97,19 @@ public class BlockLoader {
         register(blockCompositeBrick, "block_composite_brick");
         /**养殖箱**/
         register(blockFarmingBox, "block_farming_box");
+        /**标记棒**/
+        register(blockMarker,"block_marker");
+        /**采矿箱**/
+        register(blockMiningBox,"block_mining_box");
+        /**特制方块空气**/
+        register(blockSpecial,"block_special");
         /**灯箱**/
         blockLightBox= registerEnumBlock(new BlockLightBox(),"block_light_box");
         ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.TYPE);
         /**毛毯，生活区，夜晚移动**/
-        register(blockLiving, "block_living");
+        blockLiving= registerEnumBlock(new BlockLiving(),"block_living");
+        ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
+
     }
 
     /**
@@ -143,6 +159,9 @@ public class BlockLoader {
         registerRender(blockLiving,13,ModSim.MODID+":block_living_green");
         registerRender(blockLiving,14,ModSim.MODID+":block_living_red");
         registerRender(blockLiving,15,ModSim.MODID+":block_living_black");
+        registerRender(blockMarker);
+        registerRender(blockMiningBox);
+        registerRender(blockSpecial);
     }
 
     @SideOnly(Side.CLIENT)

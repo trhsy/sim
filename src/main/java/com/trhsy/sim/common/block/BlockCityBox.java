@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @ClassName BlockCityBox
- * @Description todo
+ * @Description todo 城市路径块
  * @Author Tian
  * @Date 2022/5/322:47
  **/
