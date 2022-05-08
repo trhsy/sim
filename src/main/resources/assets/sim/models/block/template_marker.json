@@ -1,0 +1,49 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#block_marker",
+    "all": "#block_marker",
+    "bottom": "#block_marker"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        10,
+        16,
+        10
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "texture": "#block_marker",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#block_marker",
+          "cullface": "up"
+        },
+        "west": {
+          "texture": "#block_marker",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#block_marker",
+          "cullface": "east"
+        },
+        "north": {
+          "texture": "#block_marker",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#block_marker",
+          "cullface": "south"
+        }
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/block_special",
+  "parent": "sim:block/block_windmill",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

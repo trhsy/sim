@@ -76,7 +76,8 @@ public class BlockLoader {
     public static Block blockMiningBox=new BlockMiningBox();
     /**特制方块空气**/
     public static Block blockSpecial=new BlockSpecial();
-
+    /**风车**/
+    public static Block blockWindmill=new BlockWindmill();
     /**
      * 加载方块
      *
@@ -109,6 +110,8 @@ public class BlockLoader {
         /**毛毯，生活区，夜晚移动**/
         blockLiving= registerEnumBlock(new BlockLiving(),"block_living");
         ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
+        /**风车**/
+        register(blockWindmill,"block_windmill");
 
     }
 
@@ -162,6 +165,7 @@ public class BlockLoader {
         registerRender(blockMarker);
         registerRender(blockMiningBox);
         registerRender(blockSpecial);
+        registerRender(blockWindmill);
     }
 
     @SideOnly(Side.CLIENT)

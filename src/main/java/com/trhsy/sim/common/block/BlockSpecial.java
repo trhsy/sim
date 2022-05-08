@@ -1,7 +1,11 @@
 package com.trhsy.sim.common.block;
 
+import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @ClassName BlockSpecialBlock
@@ -9,14 +13,11 @@ import net.minecraft.block.material.Material;
  * @Author Tian
  * @Date 2022/5/523:30
  **/
-public class BlockSpecial extends Block {
+public class BlockSpecial extends BlockAir {
+    public static final ResourceLocation still = new ResourceLocation(ModSim.MODID + ":" + "block_special");
     public BlockSpecial() {
-        super(Material.air);
+//        super(Material.air);
         this.setUnlocalizedName("blockSpecial");
-        //设置打破一个区块所需的点击次数。
-        this.setHardness(100.0F);
-        //设置块的爆炸阻力。返回对象以便于构造。
-        this.setResistance(100.0F);
-        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 }

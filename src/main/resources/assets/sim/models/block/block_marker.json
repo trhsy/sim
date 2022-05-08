@@ -1,6 +1,6 @@
 {
-  "parent": "block/cube_all",
+  "parent": "sim:block/template_marker",
   "textures": {
-    "all": "sim:blocks/block_marker"
+    "block_marker": "sim:blocks/block_marker"
   }
 }
