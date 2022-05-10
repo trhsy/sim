@@ -107,7 +107,7 @@ item.foodBurger.name=Burger
 
 item.drinkBeerEmpty.name=drinkBeer Empty
 item.drinkBeer.name=drinkBeer
-
+item.bucketMilk.name=Milk Bucket
 container.sim.welcome=Welcome to SimCity
 container.sim.welcomes=Reproduced by Trhsy
 container.sim.not_run=Do NOT run SimCity

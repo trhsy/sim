@@ -2,24 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90bd937a-8167-4bd4-94a3-265fd7c0fa51" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockWindmill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/FluidMilk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/FluidLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_windmill.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_windmill.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/template_marker.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_windmill.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/ItemBucketMilk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/blockstates/block_fluid_milk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_bucket_milk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/bucket_milk.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.8.9.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.8.9.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockMarker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockMarker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockSpecial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockSpecial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/loader/ItemRenderLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/loader/ItemRenderLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/BlockFluidMilk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/BlockFluidMilk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/FluidMilk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/FluidMilk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/BlockLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_marker.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_marker.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_special.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/block/block_special.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_special.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/block_special.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/milk_flow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_flow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/milk_flow.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_flow.png.mcmeta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/milk_still.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_still.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/milk_still.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_still.png.mcmeta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/FluidLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/FluidLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_flow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/fluid/milk_flow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_flow.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/fluid/milk_flow.png.mcmeta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_still.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/fluid/milk_still.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/blocks/fluid/milk_still.png.mcmeta" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/fluid/milk_still.png.mcmeta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,15 +111,15 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/models/item" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\items" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\models\item" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\models\block" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\blockstates" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\living" />
-      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\fluid" />
@@ -289,7 +290,8 @@
       <workItem from="1651622512852" duration="19448000" />
       <workItem from="1651742534480" duration="15005000" />
       <workItem from="1651843335887" duration="2727000" />
-      <workItem from="1651924524371" duration="23722000" />
+      <workItem from="1651924524371" duration="29419000" />
+      <workItem from="1652102040768" duration="5562000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1650025716233</created>
@@ -333,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651769289985</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="2022-5-08 标记棒，流体">
+      <created>1652022746596</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1652022746596</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,7 +368,8 @@
     <MESSAGE value="2022-5-3奶酪块，城市箱子" />
     <MESSAGE value="2022-5-4复合砖，养殖箱，灯箱，生活区地毯" />
     <MESSAGE value="2022-5-5 块" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022-5-5 块" />
+    <MESSAGE value="2022-5-08 标记棒，流体" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-5-08 标记棒，流体" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

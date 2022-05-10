@@ -1,9 +1,6 @@
 package com.trhsy.sim.common;
 
-import com.trhsy.sim.common.loader.BlockLoader;
-import com.trhsy.sim.common.loader.CreativeTabsLoader;
-import com.trhsy.sim.common.loader.FluidLoader;
-import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -19,12 +16,15 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         /**创造模式物品栏**/
         new CreativeTabsLoader(event);
+        /**流体注册加载**/
+        new FluidLoader(event);
         /**物品加载注册**/
         new ItemLoader(event);
         /**方块加载注册**/
         new BlockLoader(event);
-        /**流体注册加载**/
-        new FluidLoader(event);
+        /**事件加载**/
+        new EventLoader();
+
     }
 
     /**

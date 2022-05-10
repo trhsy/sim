@@ -3,6 +3,7 @@ package com.trhsy.sim.common.loader;
 import com.google.common.base.Function;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.*;
+import com.trhsy.sim.common.block.fluid.BlockFluidMilk;
 import com.trhsy.sim.common.item.ItemBlockMeta;
 import com.trhsy.sim.common.util.Util;
 import net.minecraft.block.Block;
@@ -78,6 +79,8 @@ public class BlockLoader {
     public static Block blockSpecial=new BlockSpecial();
     /**风车**/
     public static Block blockWindmill=new BlockWindmill();
+    /**牛奶方块**/
+    public static Block blockFluidMilk=new BlockFluidMilk();
     /**
      * 加载方块
      *
@@ -112,6 +115,8 @@ public class BlockLoader {
         ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
         /**风车**/
         register(blockWindmill,"block_windmill");
+        /**流体牛奶方块**/
+        register(blockFluidMilk,"block_fluid_milk");
 
     }
 

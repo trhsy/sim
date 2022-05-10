@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.loader;
 
+import com.trhsy.sim.common.item.ItemBucketMilk;
 import com.trhsy.sim.common.item.ItemGranulesCopper;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -13,14 +14,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * 物品加载类
  */
 public class ItemLoader {
+    /**铜粒儿**/
     public static Item itemGranulesCopper=new ItemGranulesCopper();
+    /**牛奶桶**/
+    public static Item itemBucketMilk=new ItemBucketMilk();
     /**
      * 加载物品
      *
      * @param event
      */
     public ItemLoader(FMLPreInitializationEvent event) {
+        /**铜粒儿**/
         register(itemGranulesCopper, "item_granules_copper");
+        /**牛奶桶**/
+        register(itemBucketMilk, "item_bucket_milk");
     }
 
     /**
@@ -42,7 +49,10 @@ public class ItemLoader {
      **/
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
+        /**铜粒儿**/
         registerRender(itemGranulesCopper);
+        /**牛奶桶**/
+        registerRender(itemBucketMilk);
     }
 
     @SideOnly(Side.CLIENT)
