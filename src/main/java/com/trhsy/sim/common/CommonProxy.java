@@ -1,6 +1,8 @@
 package com.trhsy.sim.common;
 
+import com.trhsy.sim.common.config.SimConfigSync;
 import com.trhsy.sim.common.loader.*;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -14,6 +16,8 @@ public class CommonProxy {
      * @param event
      */
     public void preInit(FMLPreInitializationEvent event) {
+        /**配置**/
+        ConfigLoader.load(event);
         /**创造模式物品栏**/
         new CreativeTabsLoader(event);
         /**流体注册加载**/
@@ -24,6 +28,9 @@ public class CommonProxy {
         new BlockLoader(event);
         /**事件加载**/
         new EventLoader();
+        /**合成表**/
+        new CraftingLoader();
+
 
     }
 
@@ -41,5 +48,6 @@ public class CommonProxy {
      */
     public void postInit(FMLPostInitializationEvent event) {
 
+        MinecraftForge.EVENT_BUS.register(new SimConfigSync());
     }
 }
