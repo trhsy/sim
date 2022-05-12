@@ -30,7 +30,7 @@ public class FluidLoader {
 
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
-        registerFluidRender((BlockFluidBase) BlockLoader.blockFluidMilk, "block_fluid_milk");
+        registerFluidRender((BlockFluidBase) BlockLoader.blockFluidMilk, "fluid_milk");
     }
 
     public FluidLoader(FMLPreInitializationEvent event) {
@@ -39,6 +39,7 @@ public class FluidLoader {
             fluidMilk = FluidRegistry.getFluid(fluidMilk.getName());
         } else {
             FluidRegistry.registerFluid(fluidMilk);
+            FluidRegistry.addBucketForFluid(fluidMilk);
         }
     }
 

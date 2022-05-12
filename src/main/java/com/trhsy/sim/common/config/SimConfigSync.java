@@ -39,6 +39,7 @@ public class SimConfigSync {
             ConfigSyncPacket packet = new ConfigSyncPacket();
             packet.categories.add(ConfigLoader.Modules);
             packet.categories.add(ConfigLoader.Gameplay);
+            packet.categories.add(ConfigLoader.Nameplay);
             TinkerNetwork.sendTo(packet, (EntityPlayerMP)event.player);
         }
     }

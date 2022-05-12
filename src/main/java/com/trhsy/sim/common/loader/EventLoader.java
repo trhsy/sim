@@ -1,6 +1,9 @@
 package com.trhsy.sim.common.loader;
 
+import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
@@ -16,7 +19,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * @Date 2022/5/921:38
  **/
 public class EventLoader {
+    /**自定义的事件在这里被注册**/
     public static final EventBus EVENT_BUS = new EventBus();
+
     public EventLoader() {
         MinecraftForge.EVENT_BUS.register(this);
         EventLoader.EVENT_BUS.register(this);
@@ -31,6 +36,7 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void onFillBucket(FillBucketEvent event) {
+        System.out.println("桶被盛装的事件");
         //获取区块位置
         BlockPos blockpos = event.target.getBlockPos();
         //获取区块状态
@@ -45,4 +51,15 @@ public class EventLoader {
             event.setResult(Event.Result.ALLOW);
         }
     }
+
+    @SubscribeEvent
+    public void onPlayerClickGrassBlock(PlayerRightClickGrassBlockEvent event) {
+        System.out.println("来了");
+        if (!event.world.isRemote) {
+            BlockPos pos = event.pos;
+            Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
+            event.world.spawnEntityInWorld(tnt);
+        }
+    }
+
 }

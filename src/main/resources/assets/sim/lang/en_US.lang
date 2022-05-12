@@ -1,3 +1,4 @@
+configgui.title=sim config gui
 tile.cheeseBlock.name=cheese block
 tile.constructorBox.name=constructor box
 tile.block_control_box.top.name=control box

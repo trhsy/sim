@@ -116,7 +116,7 @@ public class BlockLoader {
         /**风车**/
         register(blockWindmill,"block_windmill");
         /**流体牛奶方块**/
-        register(blockFluidMilk,"block_fluid_milk");
+        register(blockFluidMilk,"fluid_milk");
 
     }
 

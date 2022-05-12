@@ -15,7 +15,7 @@ import java.util.Locale;
  * @Author Tian
  * @Date 2022/5/1122:54
  **/
-public class SimConfig implements SimConfiguration{
+public class SimConfig implements IConfiguration{
     private Configuration config;
     private final String confPath;
     private final String description;

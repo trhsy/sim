@@ -5,6 +5,7 @@ import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
@@ -21,12 +22,13 @@ import java.util.Set;
  **/
 public class ConfigGui extends GuiConfig {
     public ConfigGui(GuiScreen parentScreen) {
-        super(parentScreen, getConfigElements(), "sim", false, false, Util.prefix("configgui.title"));
+        super(parentScreen, getConfigElements(), "sim", false, false, I18n.format("configgui.title"));
     }
     private static List<IConfigElement> getConfigElements() {
         List<IConfigElement> list = Lists.newArrayList();
-        list.add(new ConfigElement(ConfigLoader.Modules));
+//        list.add(new ConfigElement(ConfigLoader.Modules));
         list.add(new ConfigElement(ConfigLoader.Gameplay));
+        list.add(new ConfigElement(ConfigLoader.Nameplay));
         return list;
     }
 

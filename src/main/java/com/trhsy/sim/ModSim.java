@@ -2,6 +2,9 @@ package com.trhsy.sim;
 
 import com.trhsy.sim.client.ClientProxy;
 import com.trhsy.sim.common.CommonProxy;
+import com.trhsy.sim.common.config.PulseManager;
+import com.trhsy.sim.common.loader.ConfigLoader;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -12,7 +15,14 @@ import org.apache.logging.log4j.Logger;
 /**
  * 指的是Mod接受的Minecraft版本，当版本不对时，FML会优雅地抛出一个错误而不是继续加载这个Mod
  */
-@Mod(modid = ModSim.MODID, name = ModSim.NAME, version = ModSim.VERSION, useMetadata = true, dependencies = "required-after:Forge@[9.10,)",acceptedMinecraftVersions = "1.8.9")
+@Mod(
+        modid = ModSim.MODID,
+        name = ModSim.NAME,
+        version = ModSim.VERSION,
+        useMetadata = true,
+        guiFactory="com.trhsy.sim.common.gui.ConfigGui$ConfigGuiFactory",
+        dependencies = "required-after:Forge@[11.15.1.1761,)",
+        acceptedMinecraftVersions = "1.8.9")
 public class ModSim {
     /**模组id 指的就是该Mod的唯一标识符**/
     public static final String MODID = "sim";
@@ -35,7 +45,11 @@ public class ModSim {
     public static ClientProxy clientProxy;
     /**日志**/
     public static Logger log;
-
+    public static PulseManager pulseManager;
+    static {
+        pulseManager = new PulseManager(String.valueOf(ConfigLoader.pulseConfig));
+        FluidRegistry.enableUniversalBucket();
+    }
     /**
      *
      */
