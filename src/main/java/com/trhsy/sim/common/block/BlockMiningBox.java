@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 
 /**
  * @ClassName BlockMiningBox
- * @Description todo
+ * @Description todo 挖矿箱
  * @Author Tian
  * @Date 2022/5/523:27
  **/

@@ -2,6 +2,7 @@ package com.trhsy.sim.common.block.fluid;
 
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
 /**
@@ -16,6 +17,6 @@ public class BlockFluidMilk extends BlockFluidClassic {
         this.setUnlocalizedName("fluidMilk");
         //this.setTextureName(ModSim.MODID + ":" + "milk_still");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
-
     }
+
 }

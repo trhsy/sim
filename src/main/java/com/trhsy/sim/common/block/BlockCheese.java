@@ -12,7 +12,7 @@ import net.minecraft.block.material.Material;
  **/
 public class BlockCheese extends Block{
     public BlockCheese() {
-        super(Material.ground);
+        super(Material.cake);
         //用于设定走在方块上的响声。
         this.setStepSound(Block.soundTypeCloth);
         //设定方块的硬度，如黑曜石是50，铁块5，金块3，圆石2，石头1.5，南瓜1，泥土0.5，甘蔗0，基岩-1。

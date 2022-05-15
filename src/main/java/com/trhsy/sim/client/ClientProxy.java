@@ -2,6 +2,7 @@ package com.trhsy.sim.client;
 
 import com.trhsy.sim.client.loader.ItemRenderLoader;
 import com.trhsy.sim.common.CommonProxy;
+import com.trhsy.sim.common.loader.KeyLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -25,6 +26,8 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
+        /**热键**/
+        new KeyLoader();
     }
 
     /**在所有Mod都初始化之后调用,这时候应该接收其他Mod发送的交互信息，并完成对Mod的设置

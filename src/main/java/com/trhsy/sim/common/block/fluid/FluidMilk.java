@@ -23,4 +23,5 @@ public class FluidMilk extends Fluid {
         this.setTemperature(300);//用于设置这个流体的温度，使用热力学温标，也就是开尔文，默认为室温，也就是300
         //FluidRegistry.registerFluid(this);
     }
+
 }

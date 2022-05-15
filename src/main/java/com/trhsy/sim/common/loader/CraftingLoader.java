@@ -112,6 +112,11 @@ GameRegistry.addRecipe(new ItemStack(pathConstructor, 1), new Object[]{
             //GameRegistry.addRecipe(new ItemStack(BlockLoader.blockWindmill, 1, c), new Object[]{"S", "B", 'S', new ItemStack(ItemLoader.itemWindmillSails, 1, c), 'B', ItemLoader.itemWindmillBase});
 
         }
+
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.copperPickaxe), new Object[]
+                {
+                        "###", " * ", " * ", '#', Items.redstone, '*', Items.stick
+                });
     }
 
     /**

@@ -2,15 +2,22 @@ package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @ClassName EventLoader
@@ -19,7 +26,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * @Date 2022/5/921:38
  **/
 public class EventLoader {
-    /**自定义的事件在这里被注册**/
+    /**
+     * 自定义的事件在这里被注册
+     **/
     public static final EventBus EVENT_BUS = new EventBus();
 
     public EventLoader() {
@@ -52,6 +61,13 @@ public class EventLoader {
         }
     }
 
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 右键草方块
+     * @Date 23:47 2022/5/13
+     * @Param [event]
+     **/
     @SubscribeEvent
     public void onPlayerClickGrassBlock(PlayerRightClickGrassBlockEvent event) {
         System.out.println("来了");
@@ -59,6 +75,23 @@ public class EventLoader {
             BlockPos pos = event.pos;
             Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
             event.world.spawnEntityInWorld(tnt);
+        }
+    }
+
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 热键时间
+     * @Date 23:47 2022/5/13
+     * @Param [event]
+     **/
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
+        if (KeyLoader.showTime.isPressed()) {
+            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            World world = Minecraft.getMinecraft().theWorld;
+            player.addChatMessage(new ChatComponentTranslation("chat.sim.time", world.getTotalWorldTime()));
         }
     }
 

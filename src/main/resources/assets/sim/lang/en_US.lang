@@ -920,3 +920,17 @@ container.sim.JobBrickMaker7=Add clay to the furnace
 container.sim.JobBrickMaker8=Put bricks in storage
 container.sim.JobBrickMaker9=No tiles were obtained
 container.sim.Living1=Place this when marking a build to specify where a folk will stand at night
+key.sim.showTime=show time
+key.categories.sim=SimCity
+chat.sim.time=The total world time is: %s.
+
+item.copperPickaxe.name=Copper Pickaxe
+item.copperHoe.name=Copper Hoe
+item.copperAxe.name=Copper Axe
+item.copperSword.name=Copper Sword
+item.copperSpade.name=Copper Spade
+
+item.copperHelmet.name=Copper Helmet
+item.copperChestplate.name=Copper Chestplate
+item.copperLeggings.name=Copper Leggings
+item.copperBoots.name=Copper Boots
