@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "sim:items/copper_spade"
+    "layer0": "sim:items/copper/copper_shovel"
   },
   "display": {
     "thirdperson": {

@@ -2,7 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90bd937a-8167-4bd4-94a3-265fd7c0fa51" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/ItemCopperIngot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.8.9.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.8.9.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/CraftingLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/CraftingLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_axe.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_axe.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_boots.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_boots.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_chestplate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_chestplate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_helmet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_helmet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_hoe.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_hoe.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_leggings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_leggings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_pickaxe.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_pickaxe.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_spade.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_spade.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_sword.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_sword.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_granules_copper.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_granules_copper.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_axe.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_axe.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_boots.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_boots.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_chestplate.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_chestplate.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_helmet.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_helmet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_hoe.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_hoe.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_ingot.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_ingot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_leggings.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_leggings.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_pickaxe.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_pickaxe.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_shovel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_shovel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_spade.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_sword.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_sword.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/item_granules_copper.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper/copper_granules.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/models/1" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_ingot.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +134,7 @@
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\living" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\items\copper" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\fluid" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\light" />
       <recent name="D:\work\works\sim-u\sim-u-1.8.9\src\main\resources\assets\sim\textures\blocks\control" />
@@ -282,6 +311,7 @@
       <workItem from="1652272484728" duration="22919000" />
       <workItem from="1652447609894" duration="3906000" />
       <workItem from="1652508945889" duration="21365000" />
+      <workItem from="1652706964093" duration="3962000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1650025716233</created>

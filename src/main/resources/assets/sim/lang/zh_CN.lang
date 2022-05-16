@@ -929,7 +929,7 @@ container.sim.MaleNames=泽林,沛荣,嘉浩,睿哲,志源,昀然,知新,熙贤,
 key.sim.showTime=显示时间
 key.categories.sim=模拟城市
 chat.sim.time=现在时间是: %s.
-
+item.copperIngot.name=铜锭
 item.copperPickaxe.name=铜镐
 item.copperHoe.name=铜锄
 item.copperAxe.name=铜斧

@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.common.item.ItemBucketMilk;
+import com.trhsy.sim.common.item.ItemCopperIngot;
 import com.trhsy.sim.common.item.ItemGranulesCopper;
 import com.trhsy.sim.common.item.armor.ItemCopperArmor;
 import com.trhsy.sim.common.item.food.ItemBurger;
@@ -22,6 +23,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemLoader {
     /**铜粒儿**/
     public static Item itemGranulesCopper=new ItemGranulesCopper();
+    /**铜锭**/
+    public static Item itemCopperIngot=new ItemCopperIngot();
+
     /**铜镐**/
     public static ItemPickaxe copperPickaxe = new ItemCopperPickaxe();
     /**铜锄头**/
@@ -57,8 +61,12 @@ public class ItemLoader {
      * @param event
      */
     public ItemLoader(FMLPreInitializationEvent event) {
+
         /**铜粒儿**/
         register(itemGranulesCopper, "item_granules_copper");
+        /**铜锭**/
+        register(itemCopperIngot, "item_copper_ingot");
+
         /**铜镐**/
         register(copperPickaxe, "item_copper_pickaxe");
         /**铜锄头**/
@@ -110,6 +118,9 @@ public class ItemLoader {
     public static void registerRenders() {
         /**铜粒儿**/
         registerRender(itemGranulesCopper);
+        /**铜锭**/
+        registerRender(itemCopperIngot);
+
         /**铜镐**/
         registerRender(copperPickaxe);
         /**铜锄头**/

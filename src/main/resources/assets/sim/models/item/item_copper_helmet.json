@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "sim:items/copper_helmet"
+    "layer0": "sim:items/copper/copper_helmet"
   },
   "display": {
     "thirdperson": {

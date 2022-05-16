@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "sim:items/copper_leggings"
+    "layer0": "sim:items/copper/copper_leggings"
   },
   "display": {
     "thirdperson": {

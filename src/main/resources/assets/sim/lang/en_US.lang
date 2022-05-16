@@ -923,7 +923,7 @@ container.sim.Living1=Place this when marking a build to specify where a folk wi
 key.sim.showTime=show time
 key.categories.sim=SimCity
 chat.sim.time=The total world time is: %s.
-
+item.copperIngot.name=Copper Ingot
 item.copperPickaxe.name=Copper Pickaxe
 item.copperHoe.name=Copper Hoe
 item.copperAxe.name=Copper Axe
