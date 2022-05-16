@@ -2,51 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90bd937a-8167-4bd4-94a3-265fd7c0fa51" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/armor/ItemCopperArmor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/food/ItemBurger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/food/ItemCheese.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/food/ItemCheeseburger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/food/ItemFries.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/tool/ItemCopperAxe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/tool/ItemCopperHoe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/tool/ItemCopperPickaxe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/tool/ItemCopperSpade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/item/tool/ItemCopperSword.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/KeyLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/food_burger.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/food_cheese.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/food_cheese_burger.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/food_fries.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_axe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_boots.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_chestplate.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_helmet.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_hoe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_leggings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_pickaxe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_spade.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/models/item/item_copper_sword.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_boots.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_chestplate.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_helmet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_leggings.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/copper_pickaxe.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/models/1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.8.9.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.8.9.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/ClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCheese.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockCheese.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockMiningBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/BlockMiningBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/BlockFluidMilk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/BlockFluidMilk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/FluidMilk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/block/fluid/FluidMilk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/CraftingLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/CraftingLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EventLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/ItemLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/foodBurger.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/food_burger.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/foodCheese.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/food_cheese.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/foodCheeseburger.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/food_cheese_burger.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/foodFries.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/textures/items/food_fries.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -325,7 +281,7 @@
       <workItem from="1652102040768" duration="5562000" />
       <workItem from="1652272484728" duration="22919000" />
       <workItem from="1652447609894" duration="3906000" />
-      <workItem from="1652508945889" duration="20762000" />
+      <workItem from="1652508945889" duration="21365000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1650025716233</created>
@@ -390,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652364953162</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="2022-5-015 工具装备">
+      <created>1652622272839</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1652622272839</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,7 +385,8 @@
     <MESSAGE value="2022-5-08 标记棒，流体" />
     <MESSAGE value="2022-5-08 配置" />
     <MESSAGE value="2022-5-012 牛奶桶" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022-5-012 牛奶桶" />
+    <MESSAGE value="2022-5-015 工具装备" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-5-015 工具装备" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
