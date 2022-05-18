@@ -33,7 +33,8 @@ public class CommonProxy {
         /**合成表**/
         new CraftingLoader();
 
-
+        /**矿物生成**/
+        new WorldGeneratorLoader();
     }
 
     /**

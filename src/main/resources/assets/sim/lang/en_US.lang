@@ -924,6 +924,7 @@ key.sim.showTime=show time
 key.categories.sim=SimCity
 chat.sim.time=The total world time is: %s.
 item.copperIngot.name=Copper Ingot
+item.tinIngot.name=Tin Ingot
 item.copperPickaxe.name=Copper Pickaxe
 item.copperHoe.name=Copper Hoe
 item.copperAxe.name=Copper Axe
@@ -934,3 +935,7 @@ item.copperHelmet.name=Copper Helmet
 item.copperChestplate.name=Copper Chestplate
 item.copperLeggings.name=Copper Leggings
 item.copperBoots.name=Copper Boots
+
+tile.copperBlockOre.name=Copper Ore
+tile.tinBlockOre.name=Tin Ore
+tile.copperBlock.name=Copper Block

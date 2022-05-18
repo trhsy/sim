@@ -7,6 +7,7 @@ import com.trhsy.sim.common.block.fluid.BlockFluidMilk;
 import com.trhsy.sim.common.item.ItemBlockMeta;
 import com.trhsy.sim.common.util.Util;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -81,6 +82,12 @@ public class BlockLoader {
     public static Block blockWindmill=new BlockWindmill();
     /**牛奶方块**/
     public static Block blockFluidMilk=new BlockFluidMilk();
+    /**铜块**/
+    public static Block blockCopper=new BlockCopper();
+    /**铜矿**/
+    public static BlockOre blockCopperOre=new BlockCopperOre();
+    /**铜矿**/
+    public static BlockOre blockTinOre=new BlockTinOre();
     /**
      * 加载方块
      *
@@ -117,6 +124,12 @@ public class BlockLoader {
         register(blockWindmill,"block_windmill");
         /**流体牛奶方块**/
         register(blockFluidMilk,"fluid_milk");
+        /**铜块**/
+        register(blockCopper,"block_copper");
+        /**铜矿**/
+        register(blockCopperOre,"block_copper_ore");
+        /**锡矿**/
+        register(blockTinOre,"block_tin_ore");
 
     }
 
@@ -171,6 +184,12 @@ public class BlockLoader {
         registerRender(blockMiningBox);
         registerRender(blockSpecial);
         registerRender(blockWindmill);
+        /**铜块**/
+        registerRender(blockCopper);
+        /**铜矿**/
+        registerRender(blockCopperOre);
+        /**锡矿**/
+        registerRender(blockTinOre);
     }
 
     @SideOnly(Side.CLIENT)

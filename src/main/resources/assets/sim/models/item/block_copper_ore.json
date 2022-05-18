@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/block_special",
+  "parent": "sim:block/block_copper_ore",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],
