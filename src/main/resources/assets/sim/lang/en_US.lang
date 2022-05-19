@@ -923,19 +923,31 @@ container.sim.Living1=Place this when marking a build to specify where a folk wi
 key.sim.showTime=show time
 key.categories.sim=SimCity
 chat.sim.time=The total world time is: %s.
+
 item.copperIngot.name=Copper Ingot
-item.tinIngot.name=Tin Ingot
+
 item.copperPickaxe.name=Copper Pickaxe
 item.copperHoe.name=Copper Hoe
 item.copperAxe.name=Copper Axe
 item.copperSword.name=Copper Sword
 item.copperSpade.name=Copper Spade
-
 item.copperHelmet.name=Copper Helmet
 item.copperChestplate.name=Copper Chestplate
 item.copperLeggings.name=Copper Leggings
 item.copperBoots.name=Copper Boots
-
 tile.copperBlockOre.name=Copper Ore
-tile.tinBlockOre.name=Tin Ore
+
 tile.copperBlock.name=Copper Block
+
+tile.tinBlockOre.name=Tin Ore
+item.tinIngot.name=Tin Ingot
+tile.tinBlock.name=Tin Block
+item.tinPickaxe.name=Tin Pickaxe
+item.tinHoe.name=Tin Hoe
+item.tinAxe.name=Tin Axe
+item.tinSword.name=Tin Sword
+item.tinSpade.name=Tin Spade
+item.tinHelmet.name=Tin Helmet
+item.tinChestplate.name=Tin Chestplate
+item.tinLeggings.name=Tin Leggings
+item.tinBoots.name=Tin Boots

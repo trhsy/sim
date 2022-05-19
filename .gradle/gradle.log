@@ -12,50 +12,46 @@ See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more i
          by: Searge, ProfMobius, Fesh0r,         
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
-file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\api\resources', not found
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
 Version string '1.8.9-1.0.0 Beta' does not match SemVer specification 
 You should try SemVer : http://semver.org/
 All projects evaluated.
 Selected primary task 'idea' from project :
 Tasks to be executed: [task ':deobfCompileDummyTask', task ':deobfProvidedDummyTask', task ':ideaModule', task ':ideaProject', task ':ideaWorkspace', task ':idea']
-:deobfCompileDummyTask (Thread[Daemon worker,5,main]) started.
+:deobfCompileDummyTask (Thread[main,5,main]) started.
 :deobfCompileDummyTask
-Executing task ':deobfCompileDummyTask' (up-to-date check took 0.001 secs) due to:
+Executing task ':deobfCompileDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfCompileDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.012 secs.
-:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) started.
+:deobfCompileDummyTask (Thread[main,5,main]) completed. Took 0.033 secs.
+:deobfProvidedDummyTask (Thread[main,5,main]) started.
 :deobfProvidedDummyTask
 Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.005 secs.
-:ideaModule (Thread[Daemon worker,5,main]) started.
+:deobfProvidedDummyTask (Thread[main,5,main]) completed. Took 0.009 secs.
+:ideaModule (Thread[main,5,main]) started.
 :ideaModule
-Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\taskArtifacts.bin
-Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\fileSnapshots.bin
-Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\fileHashes.bin
-Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\outputFileStates.bin
-Executing task ':ideaModule' (up-to-date check took 0.089 secs) due to:
+Executing task ':ideaModule' (up-to-date check took 0.023 secs) due to:
   Task.upToDateWhen is false.
-file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
-file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
-file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
-file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
-:ideaModule (Thread[Daemon worker,5,main]) completed. Took 1.766 secs.
-:ideaProject (Thread[Daemon worker,5,main]) started.
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+:ideaModule (Thread[main,5,main]) completed. Took 1.646 secs.
+:ideaProject (Thread[main,5,main]) started.
 :ideaProject
 Executing task ':ideaProject' (up-to-date check took 0.0 secs) due to:
   Task.upToDateWhen is false.
-:ideaProject (Thread[Daemon worker,5,main]) completed. Took 0.147 secs.
-:ideaWorkspace (Thread[Daemon worker,5,main]) started.
+:ideaProject (Thread[main,5,main]) completed. Took 0.074 secs.
+:ideaWorkspace (Thread[main,5,main]) started.
 :ideaWorkspace
-Executing task ':ideaWorkspace' (up-to-date check took 0.0 secs) due to:
+Executing task ':ideaWorkspace' (up-to-date check took 0.001 secs) due to:
   Task.upToDateWhen is false.
-:ideaWorkspace (Thread[Daemon worker,5,main]) completed. Took 0.379 secs.
-:idea (Thread[Daemon worker,5,main]) started.
+:ideaWorkspace (Thread[main,5,main]) completed. Took 0.378 secs.
+:idea (Thread[main,5,main]) started.
 :idea
 Skipping task ':idea' as it has no actions.
-:idea (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:idea (Thread[main,5,main]) completed. Took 0.006 secs.
 
 BUILD SUCCESSFUL
 
-Total time: 33.616 secs
+Total time: 9.088 secs

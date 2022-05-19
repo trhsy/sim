@@ -30,7 +30,7 @@ public class ItemCopperPickaxe extends ItemPickaxe {
      * @Param
      * @return
      **/
-    public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 250, 16.0F, 2.0F, 22);
+    public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 500, 16.0F, 2.0F, 22);
     public ItemCopperPickaxe()
     {
         super(REDSTONE);

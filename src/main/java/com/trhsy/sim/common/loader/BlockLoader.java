@@ -84,6 +84,8 @@ public class BlockLoader {
     public static Block blockFluidMilk=new BlockFluidMilk();
     /**铜块**/
     public static Block blockCopper=new BlockCopper();
+    /**锡块**/
+    public static Block blockTin=new BlockTin();
     /**铜矿**/
     public static BlockOre blockCopperOre=new BlockCopperOre();
     /**铜矿**/
@@ -126,6 +128,8 @@ public class BlockLoader {
         register(blockFluidMilk,"fluid_milk");
         /**铜块**/
         register(blockCopper,"block_copper");
+        /**锡块**/
+        register(blockTin,"block_tin");
         /**铜矿**/
         register(blockCopperOre,"block_copper_ore");
         /**锡矿**/
@@ -186,6 +190,8 @@ public class BlockLoader {
         registerRender(blockWindmill);
         /**铜块**/
         registerRender(blockCopper);
+        /**锡块**/
+        registerRender(blockTin);
         /**铜矿**/
         registerRender(blockCopperOre);
         /**锡矿**/

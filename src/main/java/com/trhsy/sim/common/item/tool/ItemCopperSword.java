@@ -30,7 +30,7 @@ public class ItemCopperSword extends ItemSword {
      * @Param
      * @return
      **/
-    public static final ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 250, 16.0F, 4.0F, 22);
+    public static final ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 500, 16.0F, 4.0F, 22);
     public ItemCopperSword()
     {
         super(REDSTONE);
