@@ -32,18 +32,18 @@ public class WorldGeneratorTinOre extends WorldGenerator {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
         // TODO
-        if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.CUSTOM)) {
-            System.out.println("开始生成铜矿");
+        if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.GOLD)) {
+            //System.out.println("开始生成铜矿");
             for (int i = 0; i < 4; ++i) {
-                int posX = pos.getX() + rand.nextInt(32);
-                int posY = 16 + rand.nextInt(32);
-                int posZ = pos.getZ() + rand.nextInt(32);
+                int posX = pos.getX() + rand.nextInt(16);
+                int posY = 16 + rand.nextInt(16);
+                int posZ = pos.getZ() + rand.nextInt(16);
                 BlockPos blockpos = new BlockPos(posX, posY, posZ);
                 BiomeGenBase biomeGenBase = world.getBiomeGenForCoords(blockpos);
                 //System.out.println("锡矿降雨量："+biomeGenBase.getIntRainfall());
-                //if (biomeGenBase.getIntRainfall() < rand.nextInt(65536)) {
+                if (biomeGenBase.getIntRainfall() < rand.nextInt(65536)) {
                     glowstoneGenerator.generate(world, rand, blockpos);
-                //}
+                }
             }
         }
         return true;
