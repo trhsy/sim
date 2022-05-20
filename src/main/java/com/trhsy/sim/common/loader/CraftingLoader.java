@@ -64,7 +64,7 @@ public class CraftingLoader {
         GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 7), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
         //九个奶酪片合成奶酪块
         //GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheese, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(ItemLoader.itemFoods, 1, 0)});
-        //GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemFoods, 9, 0), new Object[]{BlockLoader.blockCheese});
+        //GameRegistry.addRecipe(new ItemStack(ItemLoader.itemFoods, 9, 0), new Object[]{BlockLoader.blockCheese});
         /* 复合砖
          * 硬化黏土 石头 硬化黏土
          * 石头 栅栏 石头
@@ -117,6 +117,8 @@ GameRegistry.addRecipe(new ItemStack(pathConstructor, 1), new Object[]{
                 {
                         "###", "###", "###", '#', ItemLoader.itemCopperIngot
                 });
+        /**一个铜块等于九个铜锭**/
+        GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemCopperIngot, 9), BlockLoader.blockCopper);
         /**铜镐
          * 铜锭 铜锭 铜锭
          *     木棍
@@ -126,12 +128,12 @@ GameRegistry.addRecipe(new ItemStack(pathConstructor, 1), new Object[]{
                 {
                         "###", " * ", " * ", '#', ItemLoader.itemCopperIngot, '*', Items.stick
                 });
-        /**锄头**/
+        /**铜锄头**/
         GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.copperHoe), new Object[]
                 {
                         "## ", " * ", " * ", '#', ItemLoader.itemCopperIngot, '*', Items.stick
                 });
-        /**斧子**/
+        /**铜斧子**/
         GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.copperAxe), new Object[]
                 {
                         "## ", "#* ", " * ", '#', ItemLoader.itemCopperIngot, '*', Items.stick
@@ -166,6 +168,63 @@ GameRegistry.addRecipe(new ItemStack(pathConstructor, 1), new Object[]{
                 {
                         "# #", "# #", '#', ItemLoader.itemCopperIngot
                 });
+
+        /**锡块**/
+        GameRegistry.addShapedRecipe(new ItemStack(BlockLoader.blockTin), new Object[]
+                {
+                        "###", "###", "###", '#', ItemLoader.itemTinIngot
+                });
+        /**一个铜块等于九个铜锭**/
+        GameRegistry.addShapelessRecipe(new ItemStack(ItemLoader.itemTinIngot, 9), BlockLoader.blockTin);
+        /**锡镐
+         * 锡锭 锡锭 锡锭
+         *     木棍
+         *     木棍
+         * **/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinPickaxe), new Object[]
+                {
+                        "###", " * ", " * ", '#', ItemLoader.itemTinIngot, '*', Items.stick
+                });
+        /**锡锄头**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinHoe), new Object[]
+                {
+                        "## ", " * ", " * ", '#', ItemLoader.itemTinIngot, '*', Items.stick
+                });
+        /**锡斧子**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinAxe), new Object[]
+                {
+                        "## ", "#* ", " * ", '#', ItemLoader.itemTinIngot, '*', Items.stick
+                });
+        /**锡锹**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinSpade), new Object[]
+                {
+                        " # ", " * ", " * ", '#', ItemLoader.itemTinIngot, '*', Items.stick
+                });
+        /**锡剑**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinSword), new Object[]
+                {
+                        " # ", " # "," * ", '#', ItemLoader.itemTinIngot, '*', Items.stick
+                });
+        /**锡头盔**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinHelmet), new Object[]
+                {
+                        "###", "# #", '#', ItemLoader.itemTinIngot
+                });
+        /**锡甲**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinChestplate), new Object[]
+                {
+                        "# #", "###", "###", '#', ItemLoader.itemTinIngot
+                });
+        /**锡护腿**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinLeggings), new Object[]
+                {
+                        "###", "# #", "# #", '#', ItemLoader.itemTinIngot
+                });
+        /**锡鞋**/
+        GameRegistry.addShapedRecipe(new ItemStack(ItemLoader.tinBoots), new Object[]
+                {
+                        "# #", "# #", '#', ItemLoader.itemTinIngot
+                });
     }
 
     /**
@@ -177,11 +236,18 @@ GameRegistry.addRecipe(new ItemStack(pathConstructor, 1), new Object[]{
      **/
     private static void registerSmelting() {
         //待烧炼的物品  烧炼后的物品  烧炼后玩家可以得到的经验
-//        GameRegistry.addSmelting(ItemLoader.itemGranulesGold, new ItemStack(Items.gold_ingot), 0.1F);
-//        GameRegistry.addSmelting(ItemLoader.itemGranulesIron, new ItemStack(Items.iron_ingot), 0.1F);
-        //带创建
-        //GameRegistry.addSmelting(ItemLoader.itemGranulesTin, new ItemStack(Items.tin_ingot), 0.1F);
+        //烧金粒得金锭
+        GameRegistry.addSmelting(ItemLoader.itemGranulesGold, new ItemStack(Items.gold_ingot), 0.1F);
+        //烧铁粒得铁锭
+        GameRegistry.addSmelting(ItemLoader.itemGranulesIron, new ItemStack(Items.iron_ingot), 0.1F);
+        //烧锡粒得锡锭
+        GameRegistry.addSmelting(ItemLoader.itemGranulesTin, new ItemStack(ItemLoader.itemTinIngot), 0.1F);
+        //烧铜粒得铜锭
         GameRegistry.addSmelting(ItemLoader.itemGranulesCopper, new ItemStack(ItemLoader.itemCopperIngot), 0.1F);
+        //烧锡矿得锡锭
+        GameRegistry.addSmelting(BlockLoader.blockTinOre, new ItemStack(ItemLoader.itemTinIngot), 0.1F);
+        //烧铜矿得铜锭
+        GameRegistry.addSmelting(BlockLoader.blockCopperOre, new ItemStack(ItemLoader.itemCopperIngot), 0.1F);
     }
 
     /**

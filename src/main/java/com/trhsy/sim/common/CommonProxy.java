@@ -35,6 +35,8 @@ public class CommonProxy {
 
         /**矿物生成**/
         new WorldGeneratorLoader();
+        /**矿物辞典**/
+        new OreDictionaryLoader(event);
     }
 
     /**

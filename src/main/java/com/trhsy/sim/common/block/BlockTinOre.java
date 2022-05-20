@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.block;
 
+import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
 import net.minecraft.block.Block;
@@ -51,6 +52,6 @@ public class BlockTinOre extends BlockOre {
      */
     @Override
     public Item getItemDropped(IBlockState iBlockState, Random random, int p_getItemDropped_3_) {
-        return ItemLoader.itemTinIngot;
+        return Item.getItemFromBlock(BlockLoader.blockTinOre);
     }
 }

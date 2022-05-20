@@ -75,15 +75,24 @@ public class ItemLoader {
     public static ItemArmor tinBoots = new ItemTinArmor.Boots();
 
     /**牛奶桶**/
-    public static Item itemBucketMilk=new ItemBucketMilk();
+    public static ItemBucket itemBucketMilk=new ItemBucketMilk();
     /**汉堡**/
-    public static Item itemBurger=new ItemBurger();
+    public static ItemFood itemBurger=new ItemBurger();
     /**薯条**/
-    public static Item itemFries=new ItemFries();
+    public static ItemFood itemFries=new ItemFries();
     /**奶酪**/
-    public static Item itemCheese=new ItemCheese();
+    public static ItemFood itemCheese=new ItemCheese();
     /**奶酪汉堡**/
-    public static Item itemCheeseburger=new ItemCheeseburger();
+    public static ItemFood itemCheeseburger=new ItemCheeseburger();
+
+    /**风车底座**/
+    public static Item itemWindmillBase=new ItemWindmillBase();
+
+    /**风车帆**/
+    public static Item itemWindmillSails=new ItemWindmillSails();
+    /**风车叶片**/
+    public static Item itemWindmillVane=new ItemWindmillVane();
+
     /**
      * 加载物品
      *
@@ -152,6 +161,14 @@ public class ItemLoader {
         register(itemCheese, "food_cheese");
         /**奶酪汉堡**/
         register(itemCheeseburger, "food_cheese_burger");
+
+        /**风车底座**/
+        register(itemWindmillBase, "item_windmill_base");
+
+        /**风车帆**/
+        register(itemWindmillSails, "item_windmill_sails");
+        /**风车叶片**/
+        register(itemWindmillVane, "item_windmill_vane");
     }
 
     /**
@@ -175,6 +192,12 @@ public class ItemLoader {
     public static void registerRenders() {
         /**铜粒儿**/
         registerRender(itemGranulesCopper);
+        /**锡粒儿**/
+        registerRender(itemGranulesTin);
+        /**铁粒儿**/
+        registerRender(itemGranulesIron);
+        /**金粒儿**/
+        registerRender(itemGranulesGold);
         /**铜锭**/
         registerRender(itemCopperIngot);
         /**锡锭**/
@@ -229,6 +252,13 @@ public class ItemLoader {
         registerRender(itemCheese);
         /**奶酪汉堡**/
         registerRender(itemCheeseburger);
+
+        /**风车底座**/
+        registerRender(itemWindmillBase);
+        /**风车帆**/
+        registerRender(itemWindmillSails);
+        /**风车叶片**/
+        registerRender(itemWindmillVane);
     }
 
     @SideOnly(Side.CLIENT)
