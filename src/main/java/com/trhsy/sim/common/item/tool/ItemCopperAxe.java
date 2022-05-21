@@ -15,7 +15,7 @@ public class ItemCopperAxe extends ItemAxe {
     /**
      * @Author fan
      * @Description //TODO 枚举 WOOD，STONE，IRON，EMERALD，GOLD
-     *                          木头、石头、铁、钻石、金
+     * 木头、石头、铁、钻石、金
      * WOOD(0, 59, 2.0F, 0.0F, 15),
      * STONE(1, 131, 4.0F, 1.0F, 5),
      * IRON(2, 250, 6.0F, 2.0F, 14),
@@ -31,8 +31,8 @@ public class ItemCopperAxe extends ItemAxe {
      * @return
      **/
     public static final ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 500, 16.0F, 4.0F, 22);
-    public ItemCopperAxe()
-    {
+
+    public ItemCopperAxe() {
         super(REDSTONE);
         this.setUnlocalizedName("copperAxe");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);

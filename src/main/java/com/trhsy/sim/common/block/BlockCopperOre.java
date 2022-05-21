@@ -54,6 +54,6 @@ public class BlockCopperOre extends BlockOre {
      */
     @Override
     public Item getItemDropped(IBlockState iBlockState, Random random, int p_getItemDropped_3_) {
-        return ItemLoader.itemCopperIngot;
+        return Item.getItemFromBlock(BlockLoader.blockCopperOre);
     }
 }

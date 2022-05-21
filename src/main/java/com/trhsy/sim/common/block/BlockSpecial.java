@@ -17,6 +17,10 @@ public class BlockSpecial extends BlockAir {
     public static final ResourceLocation still = new ResourceLocation(ModSim.MODID + ":" + "block_special");
     public BlockSpecial() {
 //        super(Material.air);
+        //this.setRiseRate(5);
+        this.setTickRandomly(true);
+        this.disableStats();
+        this.setHardness(0.0F);
         this.setUnlocalizedName("blockSpecial");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
