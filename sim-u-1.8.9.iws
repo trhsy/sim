@@ -1,152 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90bd937a-8167-4bd4-94a3-265fd7c0fa51" name="变更" comment="2022-5-015 工具装备">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/entity/EntityRenderFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/entity/EntityRenderLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/entity/RenderEntityFolk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entiy/EntityFolk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/entiy/FolkData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/loader/EntityLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female15.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female17.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female18.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female19.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female20.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female21.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female22.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female23.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female24.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female26.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female27.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female28.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female29.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female30.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female31.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female33.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female34.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female35.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female36.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female37.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female38.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female39.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female40.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female41.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female42.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female43.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female44.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female45.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female46.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female47.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female48.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female49.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female50.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female51.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female52.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female53.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female54.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female55.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female56.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female57.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female58.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female59.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female60.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female61.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female62.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female63.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male15.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male17.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male18.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male19.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male20.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male21.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male22.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male23.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male24.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male26.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male27.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male28.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male29.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male30.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male31.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male33.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male34.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male35.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male36.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male37.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male38.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male39.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male40.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male41.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male42.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male43.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male44.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male45.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male46.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male47.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male48.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male49.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male50.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male51.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male52.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male53.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male54.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male55.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male56.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male57.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male58.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male59.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male60.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male61.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male62.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male63.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/cache.properties.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/cache.properties.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/fileSnapshots.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/taskArtifacts.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/2.7/taskArtifacts/taskArtifacts.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/gradle.log" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/gradle.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim-u-1.8.9.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.8.9.iml" afterDir="false" />
+    <list default="true" id="90bd937a-8167-4bd4-94a3-265fd7c0fa51" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/female0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/skins/male0.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim-u-1.8.9.iws" beforeDir="false" afterPath="$PROJECT_DIR$/sim-u-1.8.9.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/client/ClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trhsy/sim/common/CommonProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/en_US.lang" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/sim/lang/zh_CN.lang" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -570,7 +428,7 @@
       <workItem from="1653030163160" duration="543000" />
       <workItem from="1653031819296" duration="7566000" />
       <workItem from="1653136486593" duration="9736000" />
-      <workItem from="1653209061815" duration="6272000" />
+      <workItem from="1653209061815" duration="6630000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1650025716233</created>
@@ -649,7 +507,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652954342571</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="2022-5-015 工具装备">
+      <created>1653227865479</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1653227865479</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -682,9 +547,9 @@
     <MESSAGE value="2022-5-08 标记棒，流体" />
     <MESSAGE value="2022-5-08 配置" />
     <MESSAGE value="2022-5-012 牛奶桶" />
-    <MESSAGE value="2022-5-015 工具装备" />
     <MESSAGE value="2022-5-019 工具装备" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022-5-019 工具装备" />
+    <MESSAGE value="2022-5-015 工具装备" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-5-015 工具装备" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
