@@ -22,13 +22,20 @@ public class ItemWindmillSails extends Item {
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }
+
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-        for (int x = 0; x < 16; ++x) {
-            subItems.add(new ItemStack(this, 1, x));
-        }
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+//        for (int x = 0; x < 16; ++x) {
+        getSubBlocks(itemIn, tab, subItems);
+//        }
     }
+
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+        list.add(new ItemStack(itemIn, 1, 0));
+    }
+
     @Override
     public String getUnlocalizedName(ItemStack is) {
         return this.getUnlocalizedName() + is.getMetadata();
