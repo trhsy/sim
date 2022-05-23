@@ -951,3 +951,5 @@ item.tinHelmet.name=Tin Helmet
 item.tinChestplate.name=Tin Chestplate
 item.tinLeggings.name=Tin Leggings
 item.tinBoots.name=Tin Boots
+
+entity.sim.EntityFolk.name=Town residents

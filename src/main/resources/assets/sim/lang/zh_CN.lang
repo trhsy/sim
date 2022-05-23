@@ -955,3 +955,5 @@ item.tinHelmet.name=锡头盔
 item.tinChestplate.name=锡护甲
 item.tinLeggings.name=锡护腿
 item.tinBoots.name=锡靴子
+
+entity.sim.EntityFolk.name=小镇居民

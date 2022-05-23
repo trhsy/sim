@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * 服务端代理
  */
 public class CommonProxy {
-
+    public boolean ranStartup = false;
     /**
      * 所有Mod初始化之前调用,这时候应该加载配置文件，实例化物品和方块，并注册它们。
      * @param event
@@ -37,6 +37,8 @@ public class CommonProxy {
         new WorldGeneratorLoader();
         /**矿物辞典**/
         new OreDictionaryLoader(event);
+        /**实体加载**/
+        new EntityLoader();
     }
 
     /**
