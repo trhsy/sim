@@ -20,38 +20,38 @@ Selected primary task 'idea' from project :
 Tasks to be executed: [task ':deobfCompileDummyTask', task ':deobfProvidedDummyTask', task ':ideaModule', task ':ideaProject', task ':ideaWorkspace', task ':idea']
 :deobfCompileDummyTask (Thread[main,5,main]) started.
 :deobfCompileDummyTask
-Executing task ':deobfCompileDummyTask' (up-to-date check took 0.0 secs) due to:
+Executing task ':deobfCompileDummyTask' (up-to-date check took 0.001 secs) due to:
   Task has not declared any outputs.
-:deobfCompileDummyTask (Thread[main,5,main]) completed. Took 0.043 secs.
+:deobfCompileDummyTask (Thread[main,5,main]) completed. Took 0.022 secs.
 :deobfProvidedDummyTask (Thread[main,5,main]) started.
 :deobfProvidedDummyTask
 Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfProvidedDummyTask (Thread[main,5,main]) completed. Took 0.008 secs.
+:deobfProvidedDummyTask (Thread[main,5,main]) completed. Took 0.007 secs.
 :ideaModule (Thread[main,5,main]) started.
 :ideaModule
-Executing task ':ideaModule' (up-to-date check took 0.018 secs) due to:
+Executing task ':ideaModule' (up-to-date check took 0.006 secs) due to:
   Task.upToDateWhen is false.
 file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
 file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
 file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
 file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-:ideaModule (Thread[main,5,main]) completed. Took 2.379 secs.
+:ideaModule (Thread[main,5,main]) completed. Took 1.037 secs.
 :ideaProject (Thread[main,5,main]) started.
 :ideaProject
 Executing task ':ideaProject' (up-to-date check took 0.001 secs) due to:
   Task.upToDateWhen is false.
-:ideaProject (Thread[main,5,main]) completed. Took 0.062 secs.
+:ideaProject (Thread[main,5,main]) completed. Took 0.077 secs.
 :ideaWorkspace (Thread[main,5,main]) started.
 :ideaWorkspace
-Executing task ':ideaWorkspace' (up-to-date check took 0.001 secs) due to:
+Executing task ':ideaWorkspace' (up-to-date check took 0.0 secs) due to:
   Task.upToDateWhen is false.
-:ideaWorkspace (Thread[main,5,main]) completed. Took 0.376 secs.
+:ideaWorkspace (Thread[main,5,main]) completed. Took 0.358 secs.
 :idea (Thread[main,5,main]) started.
 :idea
 Skipping task ':idea' as it has no actions.
-:idea (Thread[main,5,main]) completed. Took 0.005 secs.
+:idea (Thread[main,5,main]) completed. Took 0.006 secs.
 
 BUILD SUCCESSFUL
 
-Total time: 9.109 secs
+Total time: 7.589 secs
