@@ -27,13 +27,16 @@ public class ItemWindmillSails extends Item {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 //        for (int x = 0; x < 16; ++x) {
-        getSubBlocks(itemIn, tab, subItems);
+//            subItems.add(new ItemStack(itemIn, 1, x));
 //        }
+        getSubBlocks(itemIn,tab,subItems);
     }
 
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        list.add(new ItemStack(itemIn, 1, 0));
+        for (int x = 0; x < 16; ++x) {
+            list.add(new ItemStack(itemIn, 1, x));
+        }
     }
 
     @Override
