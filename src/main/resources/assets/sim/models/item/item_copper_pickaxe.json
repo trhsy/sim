@@ -1,5 +1,5 @@
 {
-  "parent": "builtin/generated",
+  "parent": "sim:item/default_item",
   "textures": {
     "layer0": "sim:items/copper/copper_pickaxe"
   },

@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -35,8 +36,10 @@ public class ItemWindmillSails extends Item {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (int x = 0; x < 16; ++x) {
-            list.add(new ItemStack(itemIn, 1, x));
+            list.add(new ItemStack(this, 1, x));
         }
+        //list.add(new ItemStack(this));
+
     }
 
     @Override

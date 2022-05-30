@@ -1,5 +1,7 @@
 package com.trhsy.sim.common.loader;
 
+import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.block.EnumBlock;
 import com.trhsy.sim.common.item.*;
 import com.trhsy.sim.common.item.ItemBucketMilk;
 import com.trhsy.sim.common.item.armor.ItemCopperArmor;
@@ -9,6 +11,8 @@ import com.trhsy.sim.common.item.food.ItemCheese;
 import com.trhsy.sim.common.item.food.ItemCheeseburger;
 import com.trhsy.sim.common.item.food.ItemFries;
 import com.trhsy.sim.common.item.tool.*;
+import com.trhsy.sim.common.util.Util;
+import net.minecraft.block.Block;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.*;
 import net.minecraftforge.client.model.ModelLoader;
@@ -16,6 +20,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Locale;
 
 /**
  * 物品加载类
@@ -89,9 +95,9 @@ public class ItemLoader {
     public static Item itemWindmillBase=new ItemWindmillBase();
 
     /**风车帆**/
-    public static Item itemWindmillSails=new ItemWindmillSails();
+    public static Item itemWindmillSails;
     /**风车叶片**/
-    public static Item itemWindmillVane=new ItemWindmillVane();
+    public static Item itemWindmillVane;
 
     /**
      * 加载物品
@@ -166,9 +172,9 @@ public class ItemLoader {
         register(itemWindmillBase, "item_windmill_base");
 
         /**风车帆**/
-        register(itemWindmillSails, "item_windmill_sails");
+        itemWindmillSails=registerItem(new ItemWindmillSails(),"item_windmill_sails");
         /**风车叶片**/
-        register(itemWindmillVane, "item_windmill_vane");
+        itemWindmillVane=registerItem(new ItemWindmillVane(),"item_windmill_vane");
     }
 
     /**
@@ -256,14 +262,61 @@ public class ItemLoader {
         /**风车底座**/
         registerRender(itemWindmillBase);
         /**风车帆**/
-        registerRender(itemWindmillSails);
+        registerRender(itemWindmillSails,0, ModSim.MODID+":item_windmill_sails0");
+        registerRender(itemWindmillSails,1,ModSim.MODID+":item_windmill_sails1");
+        registerRender(itemWindmillSails,2,ModSim.MODID+":item_windmill_sails2");
+        registerRender(itemWindmillSails,3,ModSim.MODID+":item_windmill_sails3");
+        registerRender(itemWindmillSails,4,ModSim.MODID+":item_windmill_sails4");
+        registerRender(itemWindmillSails,5,ModSim.MODID+":item_windmill_sails5");
+        registerRender(itemWindmillSails,6,ModSim.MODID+":item_windmill_sails6");
+        registerRender(itemWindmillSails,7,ModSim.MODID+":item_windmill_sails7");
+        registerRender(itemWindmillSails,8,ModSim.MODID+":item_windmill_sails8");
+        registerRender(itemWindmillSails,9,ModSim.MODID+":item_windmill_sails9");
+        registerRender(itemWindmillSails,10,ModSim.MODID+":item_windmill_sails10");
+        registerRender(itemWindmillSails,11,ModSim.MODID+":item_windmill_sails11");
+        registerRender(itemWindmillSails,12,ModSim.MODID+":item_windmill_sails12");
+        registerRender(itemWindmillSails,13,ModSim.MODID+":item_windmill_sails13");
+        registerRender(itemWindmillSails,14,ModSim.MODID+":item_windmill_sails14");
+        registerRender(itemWindmillSails,15,ModSim.MODID+":item_windmill_sails15");
         /**风车叶片**/
-        registerRender(itemWindmillVane);
-    }
+        registerRender(itemWindmillVane,0,ModSim.MODID+":item_windmill_vane0");
+        registerRender(itemWindmillVane,1,ModSim.MODID+":item_windmill_vane1");
+        registerRender(itemWindmillVane,2,ModSim.MODID+":item_windmill_vane2");
+        registerRender(itemWindmillVane,3,ModSim.MODID+":item_windmill_vane3");
+        registerRender(itemWindmillVane,4,ModSim.MODID+":item_windmill_vane4");
+        registerRender(itemWindmillVane,5,ModSim.MODID+":item_windmill_vane5");
+        registerRender(itemWindmillVane,6,ModSim.MODID+":item_windmill_vane6");
+        registerRender(itemWindmillVane,7,ModSim.MODID+":item_windmill_vane7");
+        registerRender(itemWindmillVane,8,ModSim.MODID+":item_windmill_vane8");
+        registerRender(itemWindmillVane,9,ModSim.MODID+":item_windmill_vane9");
+        registerRender(itemWindmillVane,10,ModSim.MODID+"item_windmill_vane10");
+        registerRender(itemWindmillVane,11,ModSim.MODID+":item_windmill_vane11");
+        registerRender(itemWindmillVane,12,ModSim.MODID+":item_windmill_vane12");
+        registerRender(itemWindmillVane,13,ModSim.MODID+":item_windmill_vane13");
+        registerRender(itemWindmillVane,14,ModSim.MODID+":item_windmill_vane14");
+        registerRender(itemWindmillVane,15,ModSim.MODID+":item_windmill_vane15");
 
+
+    }
+    protected static <T extends Item> T registerItem(T item, String name) {
+        if (!name.equals(name.toLowerCase(Locale.US))) {
+            throw new IllegalArgumentException(String.format("未本地化的名称必须全部小写！项目: %s", name));
+        } else {
+            item.setUnlocalizedName(Util.prefix(name));
+            item.setRegistryName(Util.getResource(name));
+            GameRegistry.registerItem(item, name);
+            return item;
+        }
+    }
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item) {
+        /**ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
+        ModelLoader.setCustomModelResourceLocation(item, 0, model);**/
+        registerRender(item, 0, item.getRegistryName());
+    }
+    @SideOnly(Side.CLIENT)
+    private static void registerRender(Item item,int meta,String name) {
         ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
-        ModelLoader.setCustomModelResourceLocation(item, 0, model);
+        ModelLoader.setCustomModelResourceLocation(item, meta, model);
     }
 }
