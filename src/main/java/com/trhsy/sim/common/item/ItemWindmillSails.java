@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -41,7 +42,16 @@ public class ItemWindmillSails extends Item {
         //list.add(new ItemStack(this));
 
     }
-
+    public String func_77653_i(ItemStack stack) {
+        String name = super.func_77653_i(stack);
+        int i = stack.func_77952_i();
+        if (stack.func_77952_i() > 15) {
+            return name + " (" + StatCollector.func_74838_a("pe.debug.metainvalid.name") + ")";
+        } else {
+            String color = " (" + StatCollector.func_74838_a(this.unlocalizedColors[i]) + ")";
+            return name + color;
+        }
+    }
     @Override
     public String getUnlocalizedName(ItemStack is) {
         return this.getUnlocalizedName() + is.getMetadata();
