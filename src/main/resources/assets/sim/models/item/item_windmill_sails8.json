@@ -1,0 +1,6 @@
+{
+  "parent": "sim:item/item_windmill_sails",
+  "textures": {
+    "layer0": "sim:items/sails/windmill_sails8"
+  }
+}
