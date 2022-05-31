@@ -15,7 +15,7 @@ public class ItemWindmillVane extends Item {
     public ItemWindmillVane() {
         super();
         this.maxStackSize = 64;
-        this.setUnlocalizedName("windmillVane");
+        this.setUnlocalizedName("item_windmill_vane");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 

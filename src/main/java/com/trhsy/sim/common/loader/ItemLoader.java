@@ -172,9 +172,22 @@ public class ItemLoader {
         register(itemWindmillBase, "item_windmill_base");
 
         /**风车帆**/
+        //register(itemWindmillSails, "item_windmill_sails");
         itemWindmillSails=registerItem(new ItemWindmillSails(),"item_windmill_sails");
         /**风车叶片**/
+        //register(itemWindmillVane, "item_windmill_vane");
         itemWindmillVane=registerItem(new ItemWindmillVane(),"item_windmill_vane");
+    }
+
+    protected static <T extends Item> T registerItem(T item, String name) {
+        if (!name.equals(name.toLowerCase(Locale.US))) {
+            throw new IllegalArgumentException(String.format("未本地化的名称必须全部小写！项目: %s", name));
+        } else {
+            item.setUnlocalizedName(Util.prefix(name));
+            item.setRegistryName(Util.getResource(name));
+            GameRegistry.registerItem(item, name);
+            return item;
+        }
     }
 
     /**
@@ -262,7 +275,7 @@ public class ItemLoader {
         /**风车底座**/
         registerRender(itemWindmillBase);
         /**风车帆**/
-        registerRender(itemWindmillSails,0, ModSim.MODID+":item_windmill_sails0");
+        registerRender(itemWindmillSails,0,ModSim.MODID+":item_windmill_sails0");
         registerRender(itemWindmillSails,1,ModSim.MODID+":item_windmill_sails1");
         registerRender(itemWindmillSails,2,ModSim.MODID+":item_windmill_sails2");
         registerRender(itemWindmillSails,3,ModSim.MODID+":item_windmill_sails3");
@@ -298,16 +311,7 @@ public class ItemLoader {
 
 
     }
-    protected static <T extends Item> T registerItem(T item, String name) {
-        if (!name.equals(name.toLowerCase(Locale.US))) {
-            throw new IllegalArgumentException(String.format("未本地化的名称必须全部小写！项目: %s", name));
-        } else {
-            item.setUnlocalizedName(Util.prefix(name));
-            item.setRegistryName(Util.getResource(name));
-            GameRegistry.registerItem(item, name);
-            return item;
-        }
-    }
+
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item) {
         /**ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
@@ -316,7 +320,7 @@ public class ItemLoader {
     }
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item,int meta,String name) {
-        ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
+        ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
         ModelLoader.setCustomModelResourceLocation(item, meta, model);
     }
 }
