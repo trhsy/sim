@@ -302,7 +302,7 @@ public class ItemLoader {
         registerRender(itemWindmillVane,7,ModSim.MODID+":item_windmill_vane7");
         registerRender(itemWindmillVane,8,ModSim.MODID+":item_windmill_vane8");
         registerRender(itemWindmillVane,9,ModSim.MODID+":item_windmill_vane9");
-        registerRender(itemWindmillVane,10,ModSim.MODID+"item_windmill_vane10");
+        registerRender(itemWindmillVane,10,ModSim.MODID+":item_windmill_vane10");
         registerRender(itemWindmillVane,11,ModSim.MODID+":item_windmill_vane11");
         registerRender(itemWindmillVane,12,ModSim.MODID+":item_windmill_vane12");
         registerRender(itemWindmillVane,13,ModSim.MODID+":item_windmill_vane13");

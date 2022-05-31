@@ -23,19 +23,17 @@ public class ItemWindmillVane extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        //for (int x = 0; x < 16; ++x) {
-        //    subItems.add(new ItemStack(itemIn, 1, x));
-        //}
-        getSubBlocks(itemIn, tab, subItems);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (int x = 0; x < 16; x++) {
-            list.add(new ItemStack(this, 1, x));
+        for (int x = 0; x < 16; ++x) {
+            subItems.add(new ItemStack(this, 1, x));
         }
     }
+    public String getTexture(String name) {
+        return "sim:" + name;
+    }
 
+    public String getTexture(String folder, String name) {
+        return "sim:" + folder + "/" + name;
+    }
     @Override
     public String getUnlocalizedName(ItemStack is) {
         return this.getUnlocalizedName()+ is.getMetadata();
