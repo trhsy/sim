@@ -4,11 +4,16 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * @ClassName BlockCityBox
@@ -25,14 +30,26 @@ public class BlockCityBox extends Block {
         this.setUnlocalizedName("city_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
+    @Override
     @SideOnly(Side.CLIENT)
-    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        world.playSoundEffect((double)i, (double)j, (double)k, ModSim.MODID+":computer", 1.0F, 1.0F);
-//        GuiCityBox ui = null;
+    public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
+        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1.0F, 1.0F);
+        //GuiCityBox ui = null;
 //        Minecraft mc = Minecraft.getMinecraft();
 //        mc.setIngameNotInFocus();
 //        ui = new GuiCityBox(new V3((double)i, (double)j, (double)k, entityplayer.dimension), entityplayer);
 //        mc.displayGuiScreen(ui);
         return true;
+    }
+
+    /**
+     * 掉落数量为0，方块敲了就消失
+     * @param random
+     * @return
+     */
+    @Override
+    public int quantityDropped(Random random) {
+        return 0;
     }
 }

@@ -24,4 +24,8 @@ public class BlockSpecial extends BlockAir {
         this.setUnlocalizedName("blockSpecial");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+    @Override
+    public boolean isOpaqueCube() {
+        return true;
+    }
 }

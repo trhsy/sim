@@ -35,6 +35,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @ClassName BlockControlBox
@@ -46,7 +47,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     public static final PropertyEnum<EnumControlBoxMaterial> TYPE = PropertyEnum.create("type", EnumControlBoxMaterial.class);
 
     public BlockControlBox() {
-        super(Material.wood,TYPE,EnumControlBoxMaterial.class);
+        super(Material.wood, TYPE, EnumControlBoxMaterial.class);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(10.0F);
         this.setResistance(1.0F);
@@ -60,40 +61,50 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        EnumControlBoxMaterial[] boxMaterials=EnumControlBoxMaterial.values();
+        EnumControlBoxMaterial[] boxMaterials = EnumControlBoxMaterial.values();
         for (int i = 0; i < boxMaterials.length; i++) {
             EnumControlBoxMaterial type = boxMaterials[i];
             list.add(new ItemStack(this, 1, type.meta));
         }
     }
+
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumControlBoxMaterial)state.getValue(TYPE)).meta;
+        return ((EnumControlBoxMaterial) state.getValue(TYPE)).meta;
     }
 
     @Override
     public int damageDropped(IBlockState state) {
         return this.getMetaFromState(state);
     }
+
     @Override
     protected BlockState createBlockState() {
         return new BlockState(this, new IProperty[]{TYPE});
     }
+
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(TYPE, EnumControlBoxMaterial.fromMeta(meta));
     }
-/**
-     * @return boolean
-     * @Author fan
-     * @Description //TODO 当右键方块时
-     * @Date 22:33 2022/4/27
-     * @Param [world, i, j, k, entityplayer, par6, par7, par8, par9]
-     **//*
+
+    /**
+     * 当右键方块时
+     * @param world
+     * @param blockPos
+     * @param iBlockState
+     * @param thePlayer
+     * @param enumFacing
+     * @param par7
+     * @param par8
+     * @param par9
+     * @return
+     */
+    @Override
     @SideOnly(Side.CLIENT)
-    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-        world.playSoundEffect((double) i, (double) j, (double) k, ModSim.MODID + ":computer", 1.0F, 1.0F);
-        GuiControlBox ui = null;
+    public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
+        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+        /*GuiControlBox ui = null;
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
@@ -111,9 +122,19 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
         } else {
             ui = new GuiControlBox(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
             mc.displayGuiScreen(ui);
-        }
+        }*/
 
         return true;
-    }*/
+    }
+
+    /**
+     * 销毁时要丢弃的项目数量
+     * @param random
+     * @return
+     */
+    @Override
+    public int quantityDropped(Random random) {
+        return 0;
+    }
 
 }

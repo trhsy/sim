@@ -4,6 +4,7 @@ tile.constructorBox.name=constructor box
 tile.block_control_box.top.name=control box
 tile.block_control_box.atm.name=ATM control box
 tile.block_control_box.other.name=other control box
+tile.city_box.name=city box
 tile.farmingBox.name=farming box
 tile.fluidMilk.name=fluid Milk
 tile.block_light_box.white.name=light block(White)

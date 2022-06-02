@@ -40,7 +40,6 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
         this.setUnlocalizedName("livingBlock");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
-
   /*  @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {

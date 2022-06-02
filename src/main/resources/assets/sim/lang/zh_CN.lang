@@ -4,6 +4,7 @@ tile.constructorBox.name=建筑盒
 tile.block_control_box.top.name=控制箱
 tile.block_control_box.atm.name=银行控制箱
 tile.block_control_box.other.name=其他控制箱
+tile.city_box.name=城市箱
 tile.farmingBox.name=养殖箱
 tile.fluidMilk.name=液体奶
 tile.block_light_box.white.name=灯箱(白)
