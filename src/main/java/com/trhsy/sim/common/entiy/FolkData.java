@@ -235,7 +235,7 @@ public class FolkData {
 //            sendChat(this.name + just);
 //        }
     }
-/*
+
     public FolkData(World theWorld, FolkData mother, FolkData father) {
         this.action = FolkAction.WANDER;
         this.actionArrival = null;
@@ -353,23 +353,23 @@ public class FolkData {
                 }
             }
         }
-    }*/
+    }
 
     /**
      * 触发所有更新
-     *//*
+     */
     public static void triggerAllUpdates() {
         for (int f = 0; f < theFolks.size(); ++f) {
             FolkData fd = (FolkData) theFolks.get(f);
             fd.onUpdate();
         }
 
-    }*/
+    }
 
     /**
      * 服务器到客户端位置更新
      * @param newLocation
-     *//*
+     */
     public void serverToClientLocationUpdate(V3 newLocation) {
         this.location = newLocation.clone();
         if (this.theEntity != null) {
@@ -382,9 +382,9 @@ public class FolkData {
 
     }
 
-    *//**
+    /**
      * 更新
-     *//*
+     */
     public void onUpdate() {
         Random rand = new Random();
         Long now = System.currentTimeMillis();
@@ -1750,5 +1750,5 @@ public class FolkData {
             this.theirJob.resetJob();
             this.theirJob.step = 1;
         }
-    }*/
+    }
 }

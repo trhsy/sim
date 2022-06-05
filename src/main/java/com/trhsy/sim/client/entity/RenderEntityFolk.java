@@ -7,6 +7,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
@@ -19,12 +20,12 @@ import javax.swing.text.html.parser.Entity;
 
 /**
  * @ClassName RenderEntityFolk
- * @Description todo 实体渲染模型
+ * @Description todo 男性NPC
  * @Author Tian
  * @Date 2022/5/2216:56
  **/
 @SideOnly(Side.CLIENT)
-public class RenderEntityFolk extends RenderLiving<EntityFolk> {
+public class RenderEntityFolk extends RenderBiped<EntityFolk> {
     public RenderEntityFolk(RenderManager renderManager) {
         /**
          * @Author fan
@@ -38,7 +39,6 @@ public class RenderEntityFolk extends RenderLiving<EntityFolk> {
         super(renderManager, new ModelBiped(), 0.5F);
     }
 
-    @Override
     protected ResourceLocation getEntityTexture(EntityFolk entity) {
         if (entity instanceof EntityFolk) {
             EntityFolk theFolk = (EntityFolk) entity;

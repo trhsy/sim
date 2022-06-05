@@ -1,6 +1,6 @@
 package com.trhsy.sim.client;
 
-import com.trhsy.sim.client.entity.EntityRenderLoader;
+import com.trhsy.sim.client.loader.EntityRenderLoader;
 import com.trhsy.sim.client.loader.ItemRenderLoader;
 import com.trhsy.sim.common.CommonProxy;
 import com.trhsy.sim.common.loader.KeyLoader;
