@@ -99,7 +99,7 @@ itemGroup.sim=模拟城镇
 # GUI 汉化
 container.sim.ATMs=银行
 container.sim.welcome=欢迎来到模拟城镇
-container.sim.welcomes=由TRHSY重制
+container.sim.welcomes=由TRHSY重制,更多资讯请关注公众号: dasha5000
 container.sim.not_run=不运行模拟城镇
 container.sim.normal=正常模式
 container.sim.creative=创造模式

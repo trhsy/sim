@@ -1,23 +1,36 @@
 package com.trhsy.sim.common.entiy;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
+
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
 /**
  * @ClassName FolkData
- * @Description todo
+ * @Description todo 实体人数据信息
  * @Author Tian
  * @Date 2022/5/2120:43
  **/
-public class FolkData {
+public class FolkData implements Serializable {
     private static final long serialVersionUID = -2617939828256928361L;
-    public static Logger log;
     /**
      * @Author fan
      * @Description //TODO 雇佣的
@@ -25,9 +38,9 @@ public class FolkData {
      * @Param
      * @return
      **/
-    /*public V3 employedAt = null;
+    public V3 employedAt = null;
     public Vocation vocation = null;
-    public transient Job theirJob = null;*/
+    public transient Job theirJob = null;
     //姓名
     public String name = "";
     //年龄
@@ -53,8 +66,8 @@ public class FolkData {
      * @Param
      * @return
      **/
-//    public FolkAction action;
-//    public FolkAction actionArrival;
+    public FolkAction action;
+    public FolkAction actionArrival;
     /**
      * 留在原地
      */
@@ -62,8 +75,8 @@ public class FolkData {
     /**
      * 目的地
      */
-//    public V3 destination;
-//    public V3 location;
+    public V3 destination;
+    public V3 location;
     //状态文本
     public String statusText;
     //状态1
@@ -87,9 +100,9 @@ public class FolkData {
     //最后说话的时间
     public static transient long anyFolkLastSpoke = 0L;
     //建筑物
-    /*public Building theBuilding;
+    public Building theBuilding;
     //地形成型器类型
-    public TerraformerType terraformerType;*/
+    public TerraformerType terraformerType;
     //地形形成器半径
     public int terraformerRadius;
     //物品库存
@@ -98,14 +111,14 @@ public class FolkData {
     public transient EntityFolk theEntity;
     //开始去的时间
     public transient Long timeStartedGotoing;
-//    public transient GotoMethod gotoMethod;
+    public transient GotoMethod gotoMethod;
     //自上次保存以来的时间
     private transient long timeSinceLastSave;
     //自上次状态更新以来的时间
     private transient long timeSinceLastStatusUpdate;
     //自最后一分钟起的时间
     private transient long timeSinceLastMinute;
-//    public transient V3 beamingTo;
+    public transient V3 beamingTo;
     //挂起
     private transient FolkData hangingWith;
     //通话计数器
@@ -116,11 +129,11 @@ public class FolkData {
     private transient int entityId;
 
     public FolkData() {
-//        this.action = FolkAction.WANDER;
-//        this.actionArrival = null;
+        this.action = FolkAction.WANDER;
+       this.actionArrival = null;
         this.stayPut = false;
-//        this.destination = null;
-//        this.location = null;
+        this.destination = null;
+        this.location = null;
         this.statusText = I18n.format("container.sim.folk_data.Wandering");
         this.status1 = "";
         this.status2 = "";
@@ -131,17 +144,17 @@ public class FolkData {
         this.pregnancyStage = 0.0F;
         this.isWorking = false;
         this.greetedToday = false;
-//        this.theBuilding = null;
-//        this.terraformerType = null;
+        this.theBuilding = null;
+        this.terraformerType = null;
         this.terraformerRadius = 1;
         this.inventory = new ArrayList();
         this.theEntity = null;
         this.timeStartedGotoing = 0L;
-//        this.gotoMethod = null;
+        this.gotoMethod = null;
         this.timeSinceLastSave = 0L;
         this.timeSinceLastStatusUpdate = 0L;
         this.timeSinceLastMinute = 0L;
-//        this.beamingTo = null;
+        this.beamingTo = null;
         this.hangingWith = null;
         this.talkCounter = 0;
         this.matingStage = -1.0F;
@@ -150,7 +163,7 @@ public class FolkData {
     public void hasLoaded() {
         String voc = "none";
         String vocat = "";
-        /*if (this.vocation != null && this.employedAt != null) {
+        if (this.vocation != null && this.employedAt != null) {
             voc = this.vocation.toString();
             vocat = this.employedAt.toString();
         }
@@ -161,7 +174,7 @@ public class FolkData {
 
         if (this.vocation == null) {
             this.employedAt = null;
-        }*/
+        }
 
         if (this.levelMiner < 1.0F) {
             this.levelMiner = 1.0F;
@@ -176,23 +189,23 @@ public class FolkData {
         }
 
         try {
-//            log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + theFolks.size() + " 所有人");
+            log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + ModSimReloaded.theFolks.size() + " 所有人");
         } catch (Exception var4) {
             //log.error("错误"+var4.getMessage());
         }
 
         this.inventory = new ArrayList();
-//        this.setTheirJob(this.vocation);
-//        this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
-//        theFolks.add(this);
+       this.setTheirJob(this.vocation);
+        this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
+        ModSimReloaded.theFolks.add(this);
     }
 
     public FolkData(World theWorld) {
-//        this.action = FolkAction.WANDER;
-//        this.actionArrival = null;
+        this.action = FolkAction.WANDER;
+        this.actionArrival = null;
         this.stayPut = false;
-//        this.destination = null;
-//        this.location = null;
+        this.destination = null;
+        this.location = null;
         this.statusText = I18n.format("container.sim.folk_data.Wandering");
         this.status1 = "";
         this.status2 = "";
@@ -203,23 +216,23 @@ public class FolkData {
         this.pregnancyStage = 0.0F;
         this.isWorking = false;
         this.greetedToday = false;
-//        this.theBuilding = null;
-//        this.terraformerType = null;
+        this.theBuilding = null;
+        this.terraformerType = null;
         this.terraformerRadius = 1;
         this.inventory = new ArrayList();
         this.theEntity = null;
         this.timeStartedGotoing = 0L;
-//        this.gotoMethod = null;
+        this.gotoMethod = null;
         this.timeSinceLastSave = 0L;
         this.timeSinceLastStatusUpdate = 0L;
         this.timeSinceLastMinute = 0L;
-//        this.beamingTo = null;
+        this.beamingTo = null;
         this.hangingWith = null;
         this.talkCounter = 0;
         this.matingStage = -1.0F;
         Random rand = new Random();
         this.gender = rand.nextInt(2);
-//        this.name = generateName(this.gender, false, "");
+        this.name = generateName(this.gender, false, "");
         this.age = 18;
         if (this.gender == 0) {
             this.skinnumber = rand.nextInt(64);
@@ -227,13 +240,13 @@ public class FolkData {
             this.skinnumber = rand.nextInt(64);
         }
 
-//        this.location = this.getLocationCloseToPlayer();
-//        if (this.location != null) {
-//            this.respawnEntity(theWorld);
-//            theFolks.add(this);
-//            String just = I18n.format("container.sim.folk_data_just");
-//            sendChat(this.name + just);
-//        }
+        this.location = this.getLocationCloseToPlayer();
+        if (this.location != null) {
+            this.respawnEntity(theWorld);
+            ModSimReloaded.theFolks.add(this);
+            String just = I18n.format("container.sim.folk_data_just");
+            ModSimReloaded.sendChat(this.name + just);
+        }
     }
 
     public FolkData(World theWorld, FolkData mother, FolkData father) {
@@ -1381,7 +1394,7 @@ public class FolkData {
             for(i$ = 0; i$ < len$; ++i$) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".suk")) {
-                    FolkData folkd = (FolkData) ModSim.proxy.loadObject(f.getAbsoluteFile().toString());
+                    FolkData folkd = (FolkData) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
                     if (folkd != null) {
                         folkd.hasLoaded();
                     } else {
@@ -1462,6 +1475,10 @@ public class FolkData {
         return null;
     }
 
+    /**
+     * 生成一个新的NPC
+     * @param world
+     */
     public static void generateNewFolk(World world) {
         ArrayList<FolkData> fds = getFolkHomeless();
         if (fds.size() == 0 && theFolks.size() < ConfigLoader.configPopulationLimit) {

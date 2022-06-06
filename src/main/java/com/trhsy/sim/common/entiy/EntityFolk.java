@@ -2,8 +2,11 @@ package com.trhsy.sim.common.entiy;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ItemLoader;
+import javafx.stage.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.*;
 import net.minecraft.entity.INpc;
@@ -11,6 +14,8 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
@@ -34,7 +39,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     public FolkData theData = null;
     //记忆计时器
     private long ghostTimer = -1L;
-    //问候计时器
+    //问候/打招呼计时器
     private long greetTimer = 0L;
     //最后一次受伤
     private long lastHurt = 0L;
@@ -55,7 +60,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
         //会捡起地上的东西
         this.setCanPickUpLoot(true);
-//        this.setEquipmentDropChance(1, 1);
+        //this.setEquipmentDropChance(1, 1);
         //实体人任务
         //避免实体
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
@@ -141,29 +146,41 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     public void onUpdate() {
+        //如果NPC数据信息为空
         if (this.theData == null) {
+            //npc 没有死
             if (!this.isDead) {
+                //定时器为初始值，定义当前时间
                 if (this.ghostTimer == -1L) {
                     this.ghostTimer = System.currentTimeMillis();
                 }
-
+                //重新赋值NPC数据，实体 ID 的民间数据
                 this.theData = FolkData.getFolkDataByEntityId(this.getEntityId());
+                //如果实体人数据还是空，并且五秒钟没有回复判断为死亡
                 if (this.theData == null && System.currentTimeMillis() - this.ghostTimer > 5000L) {
-                    ModSim.log.info("实体人: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以");
+                    ModSim.log.info("实体人: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以判定为死亡");
+                    //设置死亡
                     this.setDead();
                 }
             }
+
         } else {
+            //如果实体人工作中
             if (this.theData.isWorking) {
+
                 float s = (float) (Math.sin((double) System.currentTimeMillis() * 0.01) / 10) + 0.1F;
+                //工作进度
                 this.swingProgress = s;
             } else {
                 this.swingProgress = 0.0F;
             }
-
+            //当前时间减去打招呼的时间大于1000
             if (System.currentTimeMillis() - this.greetTimer > 1000L) {
+                //定义随机值
                 Random r = new Random();
+                //获取到玩家的距离
                 double dist = (double) this.theData.getDistanceToPlayer();
+
                 if (ModSimReloaded.states != null) {
                     long var10000 = System.currentTimeMillis();
                     FolkData var10001 = this.theData;
@@ -392,13 +409,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                 try {
                     dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
                 } catch (Exception var14) {
-                    ModSimReloaded.log.warning("人们 theData.destination 中的目标为空 moveEntity()");
+                    ModSim.log.warning("人们 theData.destination 中的目标为空 moveEntity()");
                     return;
                 }
 
                 if (dist <= 2.0) {
                     try {
-                        //ModSimReloaded.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
+                        //ModSim.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
                     } catch (Exception var13) {
                         //log.error("错误"+var13.getMessage());
                     }
@@ -439,7 +456,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (this.theData.timeStartedGotoing != null && !donttimeout && System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null) {
                     this.getNavigator().clearPathEntity();
                     if (dist > 2.0) {
-                        ModSimReloaded.log.info("实体人: " + this.theData.name + " 散步太久，所以喜气洋洋...");
+                        ModSim.log.info("实体人: " + this.theData.name + " 散步太久，所以喜气洋洋...");
                         this.theData.stayPut = true;
                         this.theData.timeStartedGotoing = System.currentTimeMillis();
                         this.theData.beamMeTo(this.theData.destination);

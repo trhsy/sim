@@ -39,6 +39,8 @@ public class CommonProxy {
         new OreDictionaryLoader(event);
         /**实体加载**/
         new EntityLoader();
+        /**加载GUI**/
+        new GuiElementLoader();
     }
 
     /**
