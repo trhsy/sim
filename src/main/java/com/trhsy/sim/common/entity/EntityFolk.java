@@ -1,8 +1,9 @@
-package com.trhsy.sim.common.entiy;
+package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import javafx.stage.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 

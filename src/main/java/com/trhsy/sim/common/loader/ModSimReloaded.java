@@ -3,10 +3,12 @@ package com.trhsy.sim.common.loader;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.BlockFarmingBox;
 import com.trhsy.sim.common.block.BlockMiningBox;
-import com.trhsy.sim.common.entiy.FolkData;
-import com.trhsy.sim.common.entiy.GameMode;
-import com.trhsy.sim.common.entiy.GameStates;
+import com.trhsy.sim.common.entity.*;
+import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.entity.functionality.MiningBox;
 import com.trhsy.sim.common.gui.GuiRunMod;
+import com.trhsy.sim.common.jobs.JobSoldier;
+import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -15,6 +17,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -56,11 +59,11 @@ public class ModSimReloaded {
     /*
     所有的采矿箱
      */
-    public static ArrayList<BlockMiningBox> theMiningBoxes = new ArrayList();
+    public static ArrayList<MiningBox> theMiningBoxes = new ArrayList();
     /*
     所有养殖箱
      */
-    public static ArrayList<BlockFarmingBox> theFarmingBoxes = new ArrayList();
+    public static ArrayList<FarmingBox> theFarmingBoxes = new ArrayList();
     /*
    所有情感关系
     */
@@ -76,7 +79,7 @@ public class ModSimReloaded {
     /*
     用于在update（）调用中升级作物农场
      */
-    public static BlockFarmingBox farmToUpgrade = null;
+    public static FarmingBox farmToUpgrade = null;
     /*
     升级作物农场计数
      */
@@ -454,7 +457,7 @@ public class ModSimReloaded {
                 updown = rand.nextBoolean();
                 PricesForBlocks.adjustPrice(Blocks.stonebrick, updown);
                 updown = rand.nextBoolean();
-                PricesForBlocks.adjustPrice(Blocks.fence, updown);
+                PricesForBlocks.adjustPrice(Blocks.oak_fence, updown);
             }
 
             states.saveStates();
@@ -473,7 +476,8 @@ public class ModSimReloaded {
 
                 try {
                     Block block = Block.getBlockFromName(blockLoc.name);
-                    block.dropBlockAsItem(demolishWorld, blockLoc.x.intValue(), blockLoc.y.intValue() + 10 + (new Random()).nextInt(20), blockLoc.z.intValue(), 0, 0);
+                    BlockPos blockPos=new BlockPos(blockLoc.x.intValue(), blockLoc.y.intValue() + 10 + (new Random()).nextInt(20), blockLoc.z.intValue());
+                    block.dropBlockAsItem(demolishWorld, blockPos, block.getDefaultState(), 0);
                     demolishBlocks.remove(0);
                 } catch (Exception var5) {
                 }
@@ -496,10 +500,12 @@ public class ModSimReloaded {
 
             point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
             theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
-            Block id = theWorld.getBlock(point.x.intValue(), point.y.intValue(), point.z.intValue());
+
+            Block id = theWorld.getBlockState(new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue())).getBlock();
             boolean destroy = false;
             if (id != null) {
-                TileEntity te = theWorld.getTileEntity(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                BlockPos blockPos=new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                TileEntity te = theWorld.getTileEntity(blockPos);
                 if (te == null) {
                     destroy = true;
                 } else if (!(te instanceof IInventory)) {
@@ -510,14 +516,17 @@ public class ModSimReloaded {
             }
 
             if (destroy) {
-                theWorld.breakBlock(point.x.intValue(), point.y.intValue(), point.z.intValue(), true);
-                theWorld.setBlock(point.x.intValue(), point.y.intValue(), point.z.intValue(), Blocks.fence, 0, 3);
-                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue(), point.z.intValue());
+
+                theWorld.destroyBlock(new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue()), true);
+                BlockPos blockPos2=new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                theWorld.setBlockState(blockPos2,Blocks.oak_fence.getDefaultState(),3);
+                theWorld.markBlockForUpdate(blockPos2);
             }
 
             if (farmToUpgradeCounter % 6 == 0) {
-                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), BlockLoader.lightBox, 0, 3);
-                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
+                BlockPos blockPos2=new BlockPos(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
+                theWorld.setBlockState(blockPos2,BlockLoader.blockLightBox.getDefaultState(),3);
+                theWorld.markBlockForUpdate(blockPos2);
             }
         } else if (farmToUpgrade.level == 2) {
             if (farmToUpgradePoints == null) {
@@ -527,10 +536,12 @@ public class ModSimReloaded {
             point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
             theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
             if (point.x.intValue() % 5 == 0 && point.z.intValue() % 5 == 0) {
-                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 1, point.z.intValue(), Blocks.water, 0, 3);
-                theWorld.setBlock(point.x.intValue(), point.y.intValue() - 2, point.z.intValue(), BlockLoader.lightBox, 0, 3);
-                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
-                theWorld.markBlockForUpdate(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
+                BlockPos blockPos1=new BlockPos(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
+                theWorld.setBlockState(blockPos1,Blocks.water.getDefaultState(),3);
+                BlockPos blockPos2=new BlockPos(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
+                theWorld.setBlockState(blockPos2,BlockLoader.blockLightBox.getDefaultState(),3);
+                theWorld.markBlockForUpdate(blockPos1);
+                theWorld.markBlockForUpdate(blockPos2);
             }
         }
 

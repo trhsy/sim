@@ -1,4 +1,4 @@
-package com.trhsy.sim.common.entiy;
+package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -6,7 +6,6 @@ import com.trhsy.sim.common.loader.ModSimReloaded;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * 游戏状态
@@ -92,17 +91,7 @@ public class GameStates implements Serializable {
                     default:
                         break;
                 }
-                   /* if (name.contentEquals("credits")) {
-                        this.credits = Float.parseFloat(value);
-                    } else if (name.contentEquals("gamemode")) {
-                        this.gameModeNumber = Integer.parseInt(value);
-                    } else if (name.contentEquals("dayofweek")) {
-                        this.dayOfWeek = Integer.parseInt(value);
-                    } else if (name.contentEquals("lastupdatecheck")) {
-                        this.lastUpdateCheck = Long.parseLong(value);
-                    } else if (name.contentEquals("uid")) {
-                        this.userId = Long.parseLong(value);
-                    }*/
+
             }
         }
 

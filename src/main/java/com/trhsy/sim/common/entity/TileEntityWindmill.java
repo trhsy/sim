@@ -1,4 +1,4 @@
-package com.trhsy.sim.common.entiy;
+package com.trhsy.sim.common.entity;
 
 import net.minecraft.tileentity.TileEntity;
 

@@ -1,7 +1,9 @@
-package com.trhsy.sim.common.entiy;
+package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entiy.infrastructure.Infrastructure;
+import com.trhsy.sim.common.entity.infrastructure.Infrastructure;
+import com.trhsy.sim.common.entity.infrastructure.InfrastructureElectricity;
+import com.trhsy.sim.common.entity.infrastructure.InfrastructureWater;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.common.util.UpdateChecker;
@@ -10,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import java.io.*;
@@ -93,7 +96,8 @@ public class Building implements Serializable {
 
     /**
      * 初始化建筑物
-     * @param fname 名称
+     *
+     * @param fname   名称
      * @param theType 类型
      */
     public Building(String fname, String theType) {
@@ -112,10 +116,11 @@ public class Building implements Serializable {
 
     /**
      * 初始化建筑物
-     * @param fname 名称
-     * @param theType 类型
-     * @param pxyz 主体xyz
-     * @param lxyz 生活区 xyz
+     *
+     * @param fname      名称
+     * @param theType    类型
+     * @param pxyz       主体xyz
+     * @param lxyz       生活区 xyz
      * @param isComplete 是否已经完成
      */
     public Building(String fname, String theType, V3 pxyz, V3 lxyz, boolean isComplete) {
@@ -132,6 +137,7 @@ public class Building implements Serializable {
 
     /**
      * 建筑克隆
+     *
      * @return
      */
     @Override
@@ -198,6 +204,7 @@ public class Building implements Serializable {
 
     /**
      * 获得空方块
+     *
      * @param meta
      * @return
      */
@@ -217,6 +224,7 @@ public class Building implements Serializable {
 
     /**
      * 移除租户
+     *
      * @param tennant
      */
     public void removeTennant(String tennant) {
@@ -254,15 +262,17 @@ public class Building implements Serializable {
             }
             //已经建筑的方块为0
             this.blocksInBuilding = 0;
-
+            //加载所有建筑物
             File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
+                ModSim.log.info("建筑物不存在，加载失败");
                 return;
             }
-
-            FileInputStream fstream = new FileInputStream(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            //转换数据
+            FileInputStream fstream = new FileInputStream(f);
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            //读取信息
             String strLine = br.readLine().toString().toLowerCase().trim();
             //建筑尺寸 例如 5x5x3
             String[] d = strLine.split("x");
@@ -276,14 +286,14 @@ public class Building implements Serializable {
             //高
             this.layerCount = di[2];
             this.dimensions = d[0] + "x" + d[1] + "x" + d[2];
+            //建筑信息
             strLine = br.readLine().toString().trim();
             HashMap thekey = new HashMap();
             d = strLine.split(";");
 
-            int acount;
-            for (acount = 0; acount < d.length; ++acount) {
+            for (int i = 0; i < d.length; ++i) {
                 //A=0:0;C=101:0;D=26:0;E=26:8;F=47:0;G=50:5;AU=Razor9119;
-                String[] k = d[acount].split("=");
+                String[] k = d[i].split("=");
                 //         A     0:0
                 thekey.put(k[0], k[1]);
                 if (k[0].toUpperCase().contentEquals("AU")) {
@@ -303,82 +313,108 @@ public class Building implements Serializable {
                     }
                 }
             }
-
-            acount = 0;
-            //int bcount = false;
-
+            int acount = 0;
+            //循环遍历高
             for (int i = 0; i < this.layerCount; ++i) {
                 strLine = br.readLine().trim();
                 int bcount = 0;
-
+                //宽
                 for (int ftb = 0; ftb < this.ftbCount; ++ftb) {
+                    //长
                     for (int ltr = 0; ltr < this.ltrCount; ++ltr) {
                         try {
                             String ch = strLine.substring(bcount, bcount + 1);
                             char cha = ch.charAt(0);
-                            //结构
-                            if (ch.contentEquals("!")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.livingBlock) + ":0";
-                            } else if (ch.contentEquals("$")) {
-                                //控制箱
-                                //System.out.println("控制箱");
-                                if(this.displayName.contentEquals(I18n.format("container.sim.ATMs"))){
-                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockATMControlBox)+":0";
-                                }else if("other".equals(this.type)){
-                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockOtherControlBox)+":0";
-                                }else{
-                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox)+":0";
-                                }
+                            switch (ch){
+                                case "!":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLiving) + ":0";
+                                    break;
+                                case "$":
+                                    //控制箱
+                                    if (this.displayName.contentEquals(I18n.format("container.sim.ATMs"))) {
+                                        this.structure[i] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":1";
+                                    } else if ("other".equals(this.type)||"special".equals(this.type)) {
+                                        this.structure[i] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":2";
+                                    } else {
+                                        this.structure[i] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
+                                    }
+                                    break;
+                                case "*":
+                                    //灯箱
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                                    break;
+                                case "+":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                                    break;
+                                case "-":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                                    break;
+                                case "0":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":0";
+                                    break;
+                                case "1":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":1";
+                                    break;
+                                case "2":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":2";
+                                    break;
+                                case "3":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":3";
+                                    break;
+                                case "4":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":4";
+                                    break;
+                                case "5":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":5";
+                                    break;
+                                case "6":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":6";
+                                    break;
 
-                            } else if (ch.contentEquals("*")) {
-                                //灯箱
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":0";
-                            } else if (ch.contentEquals("+")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":3";
-                            } else if (ch.contentEquals("-")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":5";
-                            } else if (ch.contentEquals("0")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":0";
-                            } else if (ch.contentEquals("1")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":1";
-                            } else if (ch.contentEquals("2")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":2";
-                            } else if (ch.contentEquals("3")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":3";
-                            } else if (ch.contentEquals("4")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":4";
-                            } else if (ch.contentEquals("5")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":5";
-                            } else if (ch.contentEquals("6")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":6";
-                            } else if (ch.contentEquals("7")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":7";
-                            } else if (ch.contentEquals("8")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) + ":8";
-                            } else if (cha >= '0' && cha <= '9') {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock) +":" + cha;
-                            } else if (ch.contentEquals("Ã€")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":0";
-                            } else if (ch.contentEquals("Ã†")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":1";
-                            } else if (ch.contentEquals("Ã‡")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":2";
-                            } else if (ch.contentEquals("Ãˆ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":3";
-                            } else if (ch.contentEquals("ÃŒ")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":4";
-                            } else if (ch.contentEquals("Ã�")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":5";
-                            } else if (ch.contentEquals("Ã‘")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":6";
-                            } else if (ch.contentEquals("Ã’")) {
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.lightBox) + ":7";
-                            }else if((int)cha >=48 && (int)cha <=57){
-                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.specialBlock)+":"+cha;
-                            }else {
-
-                                this.structure[acount] = (String) thekey.get(ch);
-                                String[] sbid = this.structure[acount].split(":");
+                                case "7":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":7";
+                                    break;
+                                case "8":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":8";
+                                    break;
+                                case "9":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":9";
+                                    break;
+                                case "Ã€":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                                    break;
+                                case "Ã†":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":1";
+                                    break;
+                                case "Ã‡":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":2";
+                                    break;
+                                case "Ãˆ":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                                    break;
+                                case "ÃŒ":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":4";
+                                    break;
+                                case "Ã�":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                                    break;
+                                case "Ã‘":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
+                                    break;
+                                case "Ã’":
+                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
+                                    break;
+                                default:
+                                    break;
+                            }
+                            //生活区地毯
+                            if (cha >= '0' && cha <= '9') {
+                                this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
+                            } else if ((int) cha >= 48 && (int) cha <= 57) {
+                                this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
+                            } else {
+                                this.structure[i] = (String) thekey.get(ch);
+                                String[] sbid = this.structure[i].split(":");
                                 int bid = Integer.parseInt(sbid[0]);
                                 this.addToRequirements(Block.getBlockById(bid), 1);
                             }
@@ -396,56 +432,54 @@ public class Building implements Serializable {
 
             br.close();
             in.close();
+            //租金
             this.rent = (float) this.blocksInBuilding * 0.01F;
         } catch (Exception var20) {
-            ModSimReloaded.log.warning("建筑 loadStructure() " + var20.getMessage());
+            ModSim.log.warn("建筑加载异常:" + var20.getMessage());
         }
 
     }
 
+    /**
+     * 添加到需求中
+     * @param block
+     * @param amount
+     */
     private void addToRequirements(Block block, int amount) {
-        //int val = false;
+        //得到当前块
         ItemStack theBlock = new ItemStack(block, 1, 0);
-        String name;
-        Iterator it;
-        boolean got;
-        Map.Entry pairs;
-        ItemStack is;
-        int val;
+        String name= "";
+        //如果游戏模式为普通
         if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
-            name = "";
-
             try {
+                //获取方块名称
                 name = theBlock.getDisplayName().toLowerCase();
             } catch (Exception var11) {
                 name = "????";
             }
-
+            //如果 名字包含 木板，圆石，玻璃，羊毛，砖块，泥土，石砖，栅栏，石头，木头，石板，并且不包含 门，楼梯，草方块
             if (name.contains("planks") || name.contentEquals("cobblestone") || name.contentEquals("glass") || name.contains("wool") || name.contentEquals("bricks") || name.contentEquals("dirt") || name.contentEquals("stone bricks") || name.contentEquals("fence") || name.contentEquals("stone") || name.contains("wood") && !name.contains("slab") && !name.contains("door") && !name.contains("stairs") && !name.contains("grass")) {
-                it = this.requirements.entrySet().iterator();
-                got = false;
-
-                while (it.hasNext()) {
-                    pairs = (Map.Entry) it.next();
-                    is = (ItemStack) pairs.getKey();
-                    if (is.getItem() == theBlock.getItem()) {
-                        val = (Integer) pairs.getValue();
-                        ++val;
-                        pairs.setValue(val);
+                boolean got = false;
+                int val;
+                for (Map.Entry<ItemStack,Integer> entry: this.requirements.entrySet()){
+                    ItemStack it =(ItemStack) entry.getKey();
+                    if(it.getItem()==theBlock.getItem()){
+                        val=entry.getValue();
+                        entry.setValue(++val);
                         got = true;
                         break;
                     }
                 }
-
                 if (!got) {
                     this.requirements.put(theBlock, 1);
                 }
             }
         } else {
+            //创造模式
             if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 return;
             }
-
+            //专家模式
             if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
                 name = "";
 
@@ -456,21 +490,17 @@ public class Building implements Serializable {
                 }
 
                 if (!name.contains("grass") && !name.contains("bed")) {
-                    it = this.requirements.entrySet().iterator();
-                    got = false;
-
-                    while (it.hasNext()) {
-                        pairs = (Map.Entry) it.next();
-                        is = (ItemStack) pairs.getKey();
-                        if (is.getItem() == theBlock.getItem()) {
-                            val = (Integer) pairs.getValue();
-                            ++val;
-                            pairs.setValue(val);
+                    boolean got = false;
+                    int val;
+                    for (Map.Entry<ItemStack,Integer> entry: this.requirements.entrySet()){
+                        ItemStack it =(ItemStack) entry.getKey();
+                        if(it.getItem()==theBlock.getItem()){
+                            val=entry.getValue();
+                            entry.setValue(++val);
                             got = true;
                             break;
                         }
                     }
-
                     if (!got) {
                         this.requirements.put(theBlock, 1);
                     }
@@ -480,6 +510,11 @@ public class Building implements Serializable {
 
     }
 
+    /**
+     * 复制数组数列
+     * @param from
+     * @param to
+     */
     private static void copyArrayList(ArrayList<Building> from, ArrayList<Building> to) {
         for (int i = 0; i < from.size(); ++i) {
             to.add(from.get(i));
@@ -487,6 +522,12 @@ public class Building implements Serializable {
 
     }
 
+    /**
+     * 获取建筑蓝图
+     * @param theType
+     * @param searchWords
+     * @return
+     */
     public static ArrayList<Building> getBuildingBlueprints(String theType, String searchWords) {
         ArrayList retBuildings = new ArrayList();
 
@@ -692,9 +733,9 @@ public class Building implements Serializable {
             if (building != null && building.primaryXYZ != null) {
                 V3 pxyz = building.primaryXYZ;
                 World buildingWorld = MinecraftServer.getServer().worldServerForDimension(building.primaryXYZ.theDimension);
-                Block id = buildingWorld.getBlock(pxyz.x.intValue(), pxyz.y.intValue(), pxyz.z.intValue());
+                Block id = buildingWorld.getBlockState(new BlockPos(pxyz.x.intValue(), pxyz.y.intValue(), pxyz.z.intValue())).getBlock();
                 String xyz = "b" + building.primaryXYZ.toString().replaceAll(",", "_");
-                if (id != BlockLoader.blockControlBox && id != BlockLoader.constructorBox) {
+                if (id != BlockLoader.blockControlBox && id != BlockLoader.blockConstructorBox) {
                     File f = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
                     if (f.exists()) {
                         f.delete();
@@ -769,7 +810,7 @@ public class Building implements Serializable {
             }
         }
 
-        ModSimReloaded.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 建筑");
+        ModSim.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 建筑");
     }
 
     public static void loadAllBuildings() {
@@ -897,11 +938,11 @@ public class Building implements Serializable {
             for (int i = 0; i < array.length; ++i) {
                 File fs = array[i];
                 if (fs.getName().endsWith(".suk")) {
-                    build = (Building) ModSim.proxy.loadObject(fs.getAbsoluteFile().toString());
+                    build = (Building) ModSimReloaded.loadObject(fs.getAbsoluteFile().toString());
                     if (build != null) {
                         V3 xyz = build.primaryXYZ;
                         World buildingWorld = MinecraftServer.getServer().worldServerForDimension(build.primaryXYZ.theDimension);
-                        Block id = buildingWorld.getBlock(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue());
+                        Block id = buildingWorld.getBlockState(new BlockPos(xyz.x.intValue(), xyz.y.intValue(), xyz.z.intValue())).getBlock();
                         Building dupe = null;
                         if (ModSimReloaded.theBuildings.size() > 0) {
                             dupe = getBuilding(xyz);
@@ -912,7 +953,7 @@ public class Building implements Serializable {
                             ModSimReloaded.theBuildings.add(build);
                         } else {
                             fs.delete();
-                            ModSimReloaded.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
+                            ModSim.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
                         }
                     }
                 }
@@ -966,7 +1007,7 @@ public class Building implements Serializable {
                     Building.initBuildingsOfType("other");
                     Building.initBuildingsOfType("special");
                     Building.runningInitThread = false;
-                    ModSimReloaded.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
+                    ModSim.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
                 }
             });
             t.start();
@@ -1001,7 +1042,7 @@ public class Building implements Serializable {
                 buildingsInd.add(build);
             } else if (type.contentEquals("other")) {
                 buildingsOth.add(build);
-            }else if (type.contentEquals("special")) {
+            } else if (type.contentEquals("special")) {
                 buildingsSpec.add(build);
             }
 
@@ -1052,11 +1093,11 @@ public class Building implements Serializable {
                     return build.clone();
                 }
             }
-        }else if (type.contentEquals("special")) {
+        } else if (type.contentEquals("special")) {
             i$ = buildingsSpec.iterator();
 
-            while(i$.hasNext()) {
-                build = (Building)i$.next();
+            while (i$.hasNext()) {
+                build = (Building) i$.next();
                 if (build.displayName.contentEquals(fullname)) {
                     return build.clone();
                 }

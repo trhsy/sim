@@ -1,7 +1,10 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.entity.GameMode;
+import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.common.tileentity.TileEntityMetalControlBox;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -104,7 +107,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        /*GuiControlBox ui = null;
+        GuiControlBox ui = null;
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
@@ -122,7 +125,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
         } else {
             ui = new GuiControlBox(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
             mc.displayGuiScreen(ui);
-        }*/
+        }
 
         return true;
     }

@@ -1,20 +1,16 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entiy.FolkData;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
 
 /**
  * 建筑箱

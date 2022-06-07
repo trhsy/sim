@@ -1,7 +1,7 @@
 package com.trhsy.sim.common.gui;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entiy.FolkData;
+import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

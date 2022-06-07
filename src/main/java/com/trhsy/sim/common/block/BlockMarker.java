@@ -1,8 +1,12 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.entity.EntityAlignBeam;
+import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.entity.functionality.Marker;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,8 +34,8 @@ import java.util.ArrayList;
  **/
 public class BlockMarker extends Block implements IExtendedEntityProperties {
     public static boolean hasPlaced = false;
-    /*public static ArrayList<Marker> markers = new ArrayList();
-    public V3 location;*/
+    public static ArrayList<Marker> markers = new ArrayList();
+    public V3 location;
 
     public BlockMarker() {
         super(Material.wood);
@@ -73,7 +77,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     }
     @Override
     public void onBlockDestroyedByPlayer(World world, BlockPos blockPos, IBlockState iBlockState) {
-        /*try {
+        try {
             for (int m = 0; m < markers.size(); ++m) {
                 Marker marker = (Marker) markers.get(m);
 
@@ -87,13 +91,13 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         } catch (Exception var11) {
         }
 
-        markers.clear();*/
+        markers.clear();
         super.onBlockDestroyedByPlayer(world,blockPos,iBlockState);
     }
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos blockPos,IBlockState iBlockState, EntityLivingBase player, ItemStack is) {
-        /*hasPlaced = true;
+        hasPlaced = true;
         if (world.isRemote) {
             Marker ma;
             markers.add(ma = new Marker(i, j, k, world.provider.dimensionId));
@@ -162,10 +166,10 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
             super.onBlockPlacedBy(world, i, j, k, player, is);
         }
-        */
+
     }
 
-    /*public static Marker getMarker(V3 position) {
+    public static Marker getMarker(V3 position) {
         Marker ret = null;
 
         for (int i = 0; i < markers.size(); ++i) {
@@ -177,16 +181,16 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         }
 
         return ret;
-    }*/
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        //this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), entityplayer.dimension);
+        this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), entityplayer.dimension);
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        //GuiMarker ui = new GuiMarker(this.location, entityplayer);
+        GuiMarker ui = new GuiMarker(this.location, entityplayer);
         Minecraft mc = Minecraft.getMinecraft();
-        //mc.displayGuiScreen(ui);
+        mc.displayGuiScreen(ui);
         return true;
     }
     @Override

@@ -1,4 +1,4 @@
-package com.trhsy.sim.common.entiy.infrastructure;
+package com.trhsy.sim.common.entity.infrastructure;
 
 /**
  * 基础设施

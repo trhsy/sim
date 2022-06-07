@@ -3,6 +3,7 @@ package com.trhsy.sim.common;
 import com.trhsy.sim.common.config.PulseManager;
 import com.trhsy.sim.common.config.SimConfigSync;
 import com.trhsy.sim.common.loader.*;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -13,6 +14,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  */
 public class CommonProxy {
     public boolean ranStartup = false;
+
+    public CommonProxy() {
+    }
     /**
      * 所有Mod初始化之前调用,这时候应该加载配置文件，实例化物品和方块，并注册它们。
      * @param event
@@ -60,4 +64,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new SimConfigSync());
     }
 
+    public World getClientWorld() {
+        return null;
+    }
 }

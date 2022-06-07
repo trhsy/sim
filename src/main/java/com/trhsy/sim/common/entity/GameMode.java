@@ -1,4 +1,4 @@
-package com.trhsy.sim.common.entiy;
+package com.trhsy.sim.common.entity;
 
 public class GameMode {
     public static GameMode.GAMEMODES gameMode = null;

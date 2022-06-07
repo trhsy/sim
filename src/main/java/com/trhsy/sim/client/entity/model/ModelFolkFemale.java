@@ -1,7 +1,7 @@
 package com.trhsy.sim.client.entity.model;
 
-import com.trhsy.sim.common.entiy.EntityFolk;
-import com.trhsy.sim.common.entiy.FolkData;
+import com.trhsy.sim.common.entity.EntityFolk;
+import com.trhsy.sim.common.entity.FolkData;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

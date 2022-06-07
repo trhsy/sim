@@ -1,22 +1,19 @@
 package com.trhsy.sim.client.entity;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entiy.EntityFolk;
+import com.trhsy.sim.common.entity.EntityFolk;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-
-import javax.swing.text.html.parser.Entity;
 
 /**
  * @ClassName RenderEntityFolk

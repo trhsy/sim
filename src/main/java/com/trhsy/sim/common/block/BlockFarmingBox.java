@@ -1,8 +1,12 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entiy.FolkData;
+import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.entity.functionality.Marker;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -40,13 +44,13 @@ public class BlockFarmingBox extends Block {
      */
     @Override
     public void onBlockDestroyedByPlayer(World world, BlockPos blockPos, IBlockState iBlockState) {
-        /*FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double) par2, (double) par3, (double) par4, world.provider.dimensionId));
+        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double) par2, (double) par3, (double) par4, world.provider.dimensionId));
         if (theFolk != null) {
             theFolk.selfFire();
-        }*/
+        }
 
-        //FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double) par2, (double) par3, (double) par4, world.provider.dimensionId));
-        //ModSimReloaded.theFarmingBoxes.remove(m);
+        FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double) par2, (double) par3, (double) par4, world.provider.dimensionId));
+        ModSimReloaded.theFarmingBoxes.remove(m);
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
     }
@@ -59,7 +63,7 @@ public class BlockFarmingBox extends Block {
      */
     @Override
     public void onBlockAdded(World world, BlockPos blockPos, IBlockState iBlockState) {
-       /* if (BlockMarker.markers.isEmpty()) {
+        if (BlockMarker.markers.isEmpty()) {
             String farming_box_isEmpty = I18n.format("container.sim.farming_box_isEmpty");
             ModSimReloaded.sendChat(farming_box_isEmpty);
         } else if (BlockMarker.markers.size() != 3) {
@@ -76,7 +80,7 @@ public class BlockFarmingBox extends Block {
                 m.marker3XYZ = ((Marker)BlockMarker.markers.get(first + 2)).toV3();
             } catch (Exception var7) {
                 var7.printStackTrace();
-            }*/
+            }
 
             super.onBlockAdded(world, blockPos, iBlockState);
     }
@@ -98,7 +102,7 @@ public class BlockFarmingBox extends Block {
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
 
-        /*try {
+        try {
             FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double)i, (double)j, (double)k, entityplayer.dimension));
             farmingBlock.location.theDimension = entityplayer.dimension;
             FolkData folk = FolkData.getFolkByEmployedAt(new V3((double)i, (double)j, (double)k, entityplayer.dimension));
@@ -107,7 +111,7 @@ public class BlockFarmingBox extends Block {
         } catch (Exception var13) {
             String farming_box_Sorry = I18n.format("container.sim.farming_box_Sorry");
             ModSimReloaded.sendChat(farming_box_Sorry);
-        }*/
+        }
 
         return true;
     }
