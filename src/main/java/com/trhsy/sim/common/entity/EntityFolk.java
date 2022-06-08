@@ -1,13 +1,16 @@
 package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.gui.folk.GuiEntityFolk;
+import com.trhsy.sim.common.gui.folk.GuiMerchant;
+import com.trhsy.sim.common.jobs.JobFisherman;
+import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import javafx.stage.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.*;
 import net.minecraft.entity.INpc;
@@ -22,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -409,7 +413,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 try {
                     dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
                 } catch (Exception var14) {
-                    ModSim.log.warning("人们 theData.destination 中的目标为空 moveEntity()");
+                    ModSim.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                     return;
                 }
 
@@ -634,11 +638,14 @@ public class EntityFolk extends EntityCreature implements INpc {
             if (this.theData != null && this.theData.stayPut) {
                 this.theData.stayPut = false;
             }
-
-            Block idX1 = this.worldObj.getBlock((int) this.posX + 1, (int) this.posY, (int) this.posZ);
-            Block idX2 = this.worldObj.getBlock((int) this.posX - 1, (int) this.posY, (int) this.posZ);
-            Block idZ1 = this.worldObj.getBlock((int) this.posX, (int) this.posY, (int) this.posZ + 1);
-            Block idZ2 = this.worldObj.getBlock((int) this.posX + 1, (int) this.posY, (int) this.posZ - 1);
+            BlockPos blockPos1=new BlockPos( this.posX + 1, this.posY, this.posZ);
+            BlockPos blockPos2=new BlockPos( this.posX - 1,  this.posY, this.posZ);
+            BlockPos blockPos3=new BlockPos( this.posX,  this.posY,  this.posZ + 1);
+            BlockPos blockPos4=new BlockPos(this.posX + 1, this.posY, this.posZ - 1);
+            Block idX1 = this.worldObj.getBlockState(blockPos1).getBlock();
+            Block idX2 = this.worldObj.getBlockState(blockPos2).getBlock();
+            Block idZ1 = this.worldObj.getBlockState(blockPos3).getBlock();
+            Block idZ2 = this.worldObj.getBlockState(blockPos4).getBlock();
             this.motionY += 0.4D;
             if (idX1 == null) {
                 this.motionX += 0.8999999761581421;
@@ -671,10 +678,10 @@ public class EntityFolk extends EntityCreature implements INpc {
         return 1000 + r.nextInt(1000);
     }
 
-    @Override
-    public boolean isAIEnabled() {
-        return true;
-    }
+    //@Override
+    //public boolean isAIEnabled() {
+    //    return true;
+    //}
 
     @Override
     public int getMaxSpawnedInChunk() {
@@ -688,13 +695,13 @@ public class EntityFolk extends EntityCreature implements INpc {
 
     @Override
     public AxisAlignedBB getCollisionBox(Entity par1Entity) {
-        return par1Entity.boundingBox;
+        return par1Entity.getCollisionBox(par1Entity);
     }
 
-    @Override
-    public AxisAlignedBB getBoundingBox() {
-        return this.boundingBox;
-    }
+    //@Override
+    //public AxisAlignedBB getBoundingBox() {
+    //    return this.boundingBox;
+    //}
 
     @Override
     public boolean canBeCollidedWith() {
@@ -705,8 +712,6 @@ public class EntityFolk extends EntityCreature implements INpc {
     }
 
     public void onPlayerLogout(EntityPlayer player) {
-    }
-
     }
 
     public void onPlayerRespawn(EntityPlayer player) {

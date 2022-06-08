@@ -44,12 +44,12 @@ public class BlockFarmingBox extends Block {
      */
     @Override
     public void onBlockDestroyedByPlayer(World world, BlockPos blockPos, IBlockState iBlockState) {
-        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double) par2, (double) par3, (double) par4, world.provider.dimensionId));
+        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId()));
         if (theFolk != null) {
             theFolk.selfFire();
         }
 
-        FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double) par2, (double) par3, (double) par4, world.provider.dimensionId));
+        FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId()));
         ModSimReloaded.theFarmingBoxes.remove(m);
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
@@ -71,18 +71,19 @@ public class BlockFarmingBox extends Block {
             ModSimReloaded.sendChat(farming_box_size + BlockMarker.markers.size());
         } else {
             FarmingBox m;
-            ModSimReloaded.theFarmingBoxes.add(m = new FarmingBox(new V3((double) par2, (double) par3, (double) par4, world.provider.dimensionId)));
+            ModSimReloaded.theFarmingBoxes.add(m = new FarmingBox(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId())));
 
             try {
                 int first = BlockMarker.markers.size() - 3;
                 m.marker1XYZ = ((Marker) BlockMarker.markers.get(first)).toV3();
-                m.marker2XYZ = ((Marker)BlockMarker.markers.get(first + 1)).toV3();
-                m.marker3XYZ = ((Marker)BlockMarker.markers.get(first + 2)).toV3();
+                m.marker2XYZ = ((Marker) BlockMarker.markers.get(first + 1)).toV3();
+                m.marker3XYZ = ((Marker) BlockMarker.markers.get(first + 2)).toV3();
             } catch (Exception var7) {
                 var7.printStackTrace();
             }
 
-            super.onBlockAdded(world, blockPos, iBlockState);
+        }
+        super.onBlockAdded(world, blockPos, iBlockState);
     }
 
     /**
@@ -90,7 +91,7 @@ public class BlockFarmingBox extends Block {
      * @param world
      * @param blockPos
      * @param iBlockState
-     * @param thePlayer
+     * @param entityplayer
      * @param enumFacing
      * @param par7
      * @param par8
@@ -99,13 +100,13 @@ public class BlockFarmingBox extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer entityplayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
 
         try {
-            FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3((double)i, (double)j, (double)k, entityplayer.dimension));
+            FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));
             farmingBlock.location.theDimension = entityplayer.dimension;
-            FolkData folk = FolkData.getFolkByEmployedAt(new V3((double)i, (double)j, (double)k, entityplayer.dimension));
+            FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(new GuiFarming(farmingBlock, folk));
         } catch (Exception var13) {

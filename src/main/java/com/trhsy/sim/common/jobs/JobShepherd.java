@@ -16,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
@@ -179,7 +180,7 @@ public class JobShepherd extends Job implements Serializable {
         } else if (this.step == 4) {
             Random ra = new Random();
             int count = ra.nextInt(3) + 1;
-            this.placeWoolIntoAChest(this.sheepToShear.getFleeceColor(), count);
+            this.placeWoolIntoAChest(this.sheepToShear.getFleeceColor().getMetadata(), count);
             this.theStage = Stage.WAITINGFORWOOL;
             this.theFolk.isWorking = false;
             this.step = 1;
@@ -225,29 +226,29 @@ public class JobShepherd extends Job implements Serializable {
             for(int fuck = 0; fuck < 6 - list.size(); ++fuck) {
                 sheep = new EntitySheep(this.jobWorld);
                 sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
-                sheep.setFleeceColor(ra.nextInt(12) + 1);
+                sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
                 this.jobWorld.spawnEntityInWorld(sheep);
             }
         } else if (list.size() == 0) {
             sheep = new EntitySheep(this.jobWorld);
             sheep.setLocationAndAngles(controlBox.x - 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
+            sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
             sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
+            sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
             sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
+            sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
             sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
+            sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
             sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z + 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
+            sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
             sheep.setLocationAndAngles(controlBox.x + 2.0, controlBox.y + 1.0, controlBox.z + 2.0, 0.0F, 0.0F);

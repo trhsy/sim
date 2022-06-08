@@ -23,6 +23,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.*;
@@ -102,6 +103,10 @@ public class ModSimReloaded {
     public static World demolishWorld = null;
     //Gui的运行模式
     private static GuiRunMod runModui = null;
+    /*
+       工作关系
+        */
+    public static SimpleNetworkWrapper network;
 
     public  ModSimReloaded(){
 

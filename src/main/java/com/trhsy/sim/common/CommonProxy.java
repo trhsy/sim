@@ -1,13 +1,15 @@
 package com.trhsy.sim.common;
 
-import com.trhsy.sim.common.config.PulseManager;
 import com.trhsy.sim.common.config.SimConfigSync;
 import com.trhsy.sim.common.loader.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
 
 /**
  * 服务端代理
@@ -66,5 +68,8 @@ public class CommonProxy {
 
     public World getClientWorld() {
         return null;
+    }
+    public EntityPlayer getPlayerEntity(MessageContext ctx) {
+        return ctx.getServerHandler().playerEntity;
     }
 }

@@ -40,35 +40,6 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
         this.setUnlocalizedName("livingBlock");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
-  /*  @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        EnumBlockLiving[] enumBlockLightBoxes = EnumBlockLiving.values();
-        for (int i = 0; i < enumBlockLightBoxes.length; i++) {
-            EnumBlockLiving color = enumBlockLightBoxes[i];
-            list.add(new ItemStack(this, 1, color.meta));
-        }
-    }*/
-
-//    @Override
-//    public int getMetaFromState(IBlockState state) {
-//        return ((EnumBlockLiving) state.getValue(TYPE)).meta;
-//    }
-//
-//    @Override
-//    public int damageDropped(IBlockState state) {
-//        return this.getMetaFromState(state);
-//    }
-//
-//    @Override
-//    protected BlockState createBlockState() {
-//        return new BlockState(this, new IProperty[]{TYPE});
-//    }
-//
-//    @Override
-//    public IBlockState getStateFromMeta(int meta) {
-//        return this.getDefaultState().withProperty(TYPE, EnumBlockLiving.fromMeta(meta));
-//    }
 
     /**
      * Get the MapColor for this Block and the given BlockState
