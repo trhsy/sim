@@ -69,7 +69,7 @@ public class GuiRunMod extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
         } catch (Exception var5) {
             //ModSimReloaded.log.info("Caught Exception while drawing strings/screen");
-            ModSim.log.warn("在绘制字符串/屏幕时捕获异常"+var5.getMessage());
+            ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常"+var5.getMessage());
         }
 
         super.drawScreen(i, j, f);

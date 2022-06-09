@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.util;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -46,7 +47,7 @@ public class UpdateChecker {
             if (ver != null) {
                 File zipFile = new File(ver);
                 //开始解压
-                ModSim.log.info("开始解压：",zipFile.getName());
+                ModSimReloaded.log.info("开始解压：",zipFile.getName());
                 ZipEntry entry = null;
                 String entryFilePath = null, entryDirPath = null;
                 File entryFile = null, entryDir = null;
@@ -76,14 +77,14 @@ public class UpdateChecker {
                         }
                         bos.flush();
                         bos.close();
-                        //ModSim.log.info("创建解压文件：",entryFile.getName());
+                        //ModSimReloaded.log.info("创建解压文件：",entryFile.getName());
                     }else {
                         entryDirPath = entryFilePath.substring(0, entryFilePath.length()-1);
                         entryDir = new File(entryDirPath);
                         //如果文件夹路径不存在，则创建文件夹
                         if (!entryDir.exists() || !entryDir.isDirectory()) {
                             entryDir.mkdirs();
-                            ModSim.log.info("创建解压文件夹：",entryDir.getName());
+                            ModSimReloaded.log.info("创建解压文件夹：",entryDir.getName());
                         }
                     }
 
@@ -110,7 +111,7 @@ public class UpdateChecker {
             strmc = strmc.substring(0, strmc.length() - 1);
             File checks = new File(strmc + File.separator + "mods" + File.separator + "sim");
             if(!checks.exists()&& !checks.isDirectory()){
-                ModSim.log.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/ 文件夹丢失了 - 重新创建此文件夹");
+                ModSimReloaded.log.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/ 文件夹丢失了 - 重新创建此文件夹");
                 checks.mkdir();
             }
             return (checks).getAbsolutePath();
@@ -119,7 +120,7 @@ public class UpdateChecker {
         }
     }
     public static void deleteFile(File file){
-        //ModSim.log.info("开始删除文件/文件夹：",file.getName());
+        //ModSimReloaded.log.info("开始删除文件/文件夹：",file.getName());
         if(file.exists()){
             file.delete();
         }
@@ -131,14 +132,14 @@ public class UpdateChecker {
             file.delete();
             paths = null;	// lets gc do its works
         }
-        //ModSim.log.info("完成删除文件/文件夹：",file.getName());
+        //ModSimReloaded.log.info("完成删除文件/文件夹：",file.getName());
         file = null;	// lets gc do its works
     }
     public String downloadFile(String url, String localFile) {
         File f=new File(localFile);
         deleteFile(f);
         //String ret = "";
-        ModSim.log.info("将从此链接下载文件：\n",url);
+        ModSimReloaded.log.info("将从此链接下载文件：\n",url);
         //url = url.replace(" ", "%20");
 
         try {

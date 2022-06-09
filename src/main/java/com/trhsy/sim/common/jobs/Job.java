@@ -249,7 +249,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSim.log.warn("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + i);
+                        ModSimReloaded.log.warn("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + i);
                         placedOK = false;
                     } else if (is.getItem() == inStack.getItem() && is.getMetadata() == inStack.getMetadata() && is.stackSize < is.getMaxStackSize()) {
                         int isBefore = chest.getStackInSlot(i).stackSize;
@@ -262,7 +262,7 @@ public abstract class Job {
                             break;
                         }
 
-                        ModSim.log.warn("Job: placeIntoInventory() 无法更改大小 " + is.getDisplayName() + " in slot " + i);
+                        ModSimReloaded.log.warn("Job: placeIntoInventory() 无法更改大小 " + is.getDisplayName() + " in slot " + i);
                         placedOK = false;
                     }
                 }
@@ -366,7 +366,7 @@ public abstract class Job {
 
                 if (chestStack != null && !ignore) {
                     if (!compareMeta) {
-                        chestStack.setMetadata(whatItem.getMetadata());
+                        chestStack=whatItem;
                     }
 
                     if (chestStack.isItemEqual(whatItem)) {
@@ -438,7 +438,7 @@ public abstract class Job {
                 chestStack = chest.getStackInSlot(g);
                 if (chestStack != null && !ignore) {
                     if (!compareMeta) {
-                        chestStack.setMetadata(whatItem.getMetadata());
+                        chestStack=whatItem;
                     }
 
                     if (chestStack.isItemEqual(whatItem)) {
@@ -522,7 +522,7 @@ public abstract class Job {
                 if (okToPlace) {
                     placed = this.inventoriesPut(toChests, folkStack, true);
                     if (!placed) {
-                        ModSim.log.warn("Job: 无法放置一堆 " + folkStack.getDisplayName() + " in chest");
+                        ModSimReloaded.log.warn("Job: 无法放置一堆 " + folkStack.getDisplayName() + " in chest");
                         return false;
                     }
                 }

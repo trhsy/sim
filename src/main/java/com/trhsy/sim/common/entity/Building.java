@@ -265,7 +265,7 @@ public class Building implements Serializable {
             //加载所有建筑物
             File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
-                ModSim.log.info("建筑物不存在，加载失败");
+                ModSimReloaded.log.info("建筑物不存在，加载失败");
                 return;
             }
             //转换数据
@@ -435,7 +435,7 @@ public class Building implements Serializable {
             //租金
             this.rent = (float) this.blocksInBuilding * 0.01F;
         } catch (Exception var20) {
-            ModSim.log.warn("建筑加载异常:" + var20.getMessage());
+            ModSimReloaded.log.warn("建筑加载异常:" + var20.getMessage());
         }
 
     }
@@ -810,7 +810,7 @@ public class Building implements Serializable {
             }
         }
 
-        ModSim.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 建筑");
+        ModSimReloaded.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 建筑");
     }
 
     public static void loadAllBuildings() {
@@ -953,7 +953,7 @@ public class Building implements Serializable {
                             ModSimReloaded.theBuildings.add(build);
                         } else {
                             fs.delete();
-                            ModSim.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
+                            ModSimReloaded.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
                         }
                     }
                 }
@@ -1007,7 +1007,7 @@ public class Building implements Serializable {
                     Building.initBuildingsOfType("other");
                     Building.initBuildingsOfType("special");
                     Building.runningInitThread = false;
-                    ModSim.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
+                    ModSimReloaded.log.info("Building: 线程已完成从磁盘初始化所有建筑物");
                 }
             });
             t.start();

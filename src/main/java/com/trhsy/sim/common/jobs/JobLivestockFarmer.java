@@ -22,6 +22,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumParticleTypes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -172,7 +173,8 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 }
 
                 if (a1 != null && a2 != null) {
-                    a2.setPathToEntity(this.jobWorld.getPathEntityToEntity(a2, a1, 20.0F, true, true, true, true));
+                    a2.getNavigator().setPath(a2.getNavigator().getPath(),20);
+                    //a2.setPathToEntity(this.jobWorld.getPathEntityToEntity(a2, a1, 20.0F, true, true, true, true));
                     this.procreate(a1, new V3(a1.posX, a1.posY, a1.posZ, this.theFolk.location.theDimension));
                 }
 
@@ -234,7 +236,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 double d = rand.nextGaussian() * 0.02D;
                 double d1 = rand.nextGaussian() * 0.02D;
                 double d2 = rand.nextGaussian() * 0.02D;
-                this.mc.theWorld.spawnParticle("heart", pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, d, d1, d2);
+                this.mc.theWorld.spawnParticle(EnumParticleTypes.HEART, pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, d, d1, d2);
             }
 
             parentAnimal.worldObj.spawnEntityInWorld(babyAnimal);

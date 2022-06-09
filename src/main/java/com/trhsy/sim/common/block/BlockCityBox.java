@@ -1,6 +1,8 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.gui.blocks.GuiCityBox;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -35,11 +37,11 @@ public class BlockCityBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1.0F, 1.0F);
-        //GuiCityBox ui = null;
-//        Minecraft mc = Minecraft.getMinecraft();
-//        mc.setIngameNotInFocus();
-//        ui = new GuiCityBox(new V3((double)i, (double)j, (double)k, entityplayer.dimension), entityplayer);
-//        mc.displayGuiScreen(ui);
+        GuiCityBox ui = null;
+        Minecraft mc = Minecraft.getMinecraft();
+        mc.setIngameNotInFocus();
+        ui = new GuiCityBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
+        mc.displayGuiScreen(ui);
         return true;
     }
 

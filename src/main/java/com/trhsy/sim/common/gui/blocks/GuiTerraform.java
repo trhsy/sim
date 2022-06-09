@@ -15,6 +15,8 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
+import java.io.IOException;
+
 /**
  * ========================================
  *
@@ -52,7 +54,7 @@ public class GuiTerraform extends GuiScreen {
         this.buttonList.add(new GuiButton(7, this.width / 2, 50, 200, 20, I18n.format("container.sim.Terraform8")));
         this.buttonList.add(new GuiButton(8, this.width / 2, 70, 200, 20, I18n.format("container.sim.Terraform9")));
         this.buttonList.add(new GuiButton(9, this.width / 2, 90, 200, 20, I18n.format("container.sim.Terraform10")));
-        this.tfRadius = new GuiTextField(this.fontRendererObj, this.width / 2 - 50, this.height - 55, 100, 20);
+        this.tfRadius = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 50, this.height - 55, 100, 20);
         this.tfRadius.setMaxStringLength(5);
         this.tfRadius.setText("30");
     }
@@ -142,7 +144,11 @@ public class GuiTerraform extends GuiScreen {
     @Override
     protected void mouseClicked(int i, int j, int k) {
         this.tfRadius.mouseClicked(i, j, k);
-        super.mouseClicked(i, j, k);
+        try {
+            super.mouseClicked(i, j, k);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

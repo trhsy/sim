@@ -124,6 +124,6 @@ public class GameStates implements Serializable {
         strings.add("population|" + this.population);
 
         ModSimReloaded.saveSK2(folder + "settings.sk2", strings);
-        ModSim.log.info("游戏状态: saveStates() called BOTH sides, 金额存储为 " + this.credits);
+        ModSimReloaded.log.info("游戏状态: saveStates() called BOTH sides, 金额存储为 " + this.credits);
     }
 }

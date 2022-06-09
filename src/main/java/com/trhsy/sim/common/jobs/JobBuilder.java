@@ -198,7 +198,7 @@ public class JobBuilder extends Job implements Serializable {
                 try {
                     ((IInventory)this.constructorChests.get(0)).openInventory(mc.thePlayer);
                 } catch (Exception var2) {
-                    ModSim.log.warn("JobBuilder:JobBuilder's 的箱子是空的");
+                    ModSimReloaded.log.warn("JobBuilder:JobBuilder's 的箱子是空的");
                 }
 
                 this.step = 2;
@@ -321,12 +321,12 @@ public class JobBuilder extends Job implements Serializable {
                     try {
                         bl = this.theBuilding.structure[this.acount].split(":");
                     } catch (Exception var17) {
-                        ModSim.log.warn("JobBuilder: 建筑中的空块,改用空气");
+                        ModSimReloaded.log.warn("JobBuilder: 建筑中的空块,改用空气");
                         bl = "0:0".split(":");
                     }
 
                     blockId = Block.getBlockFromName(bl[0]);
-                    //ModSim.log.info("***************blockId:" + blockId);
+                    //ModSimReloaded.log.info("***************blockId:" + blockId);
                     int subtype =  Integer.parseInt(bl[1]);;
                     if (blockId == Blocks.grass) {
                         blockId = Blocks.dirt;
@@ -342,7 +342,7 @@ public class JobBuilder extends Job implements Serializable {
                             this.theBuilding.primaryXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
                             this.theBuilding.saveThisBuilding();
                         } catch (Exception var16) {
-                            ModSim.log.warn("JobBuilder:构建为空");
+                            ModSimReloaded.log.warn("JobBuilder:构建为空");
                         }
                     }
 
@@ -368,7 +368,7 @@ public class JobBuilder extends Job implements Serializable {
                         }
                     } catch (Exception var20) {
                         this.theFolk.selfFire();
-                        ModSim.log.info("错误:" +var20.getMessage());
+                        ModSimReloaded.log.info("错误:" +var20.getMessage());
                         return;
                     }
 
@@ -377,13 +377,13 @@ public class JobBuilder extends Job implements Serializable {
                     if (wantIS != null && wantIS != null) {
                         try {
                             want = wantIS.getDisplayName();
-                            //ModSim.log.info("*******************ItemStack:" + want);
+                            //ModSimReloaded.log.info("*******************ItemStack:" + want);
                             if (blockId != null) {
                                 this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
                             }
                         } catch (Exception var15) {
                             want = "?";
-                            ModSim.log.warn("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
+                            ModSimReloaded.log.warn("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
                         }
                     } else {
                         want = "???";
@@ -502,20 +502,20 @@ public class JobBuilder extends Job implements Serializable {
                                         var25.credits -= 0.02F;
                                     }
                                 } catch (Exception var18) {
-                                    ModSim.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
+                                    ModSimReloaded.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
 
                                     try {
                                         BlockPos blockPos=new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
                                         this.jobWorld.setBlockState(blockPos,blockId.getDefaultState(),3);
                                     } catch (Exception var14) {
                                         //var14.printStackTrace();
-                                        ModSim.log.warn("错误："+var14.getMessage());
+                                        ModSimReloaded.log.warn("错误："+var14.getMessage());
                                     }
                                 }
                             }
                         } catch (Exception var19) {
                             //var19.printStackTrace();
-                            ModSim.log.warn("错误："+var19.getMessage());
+                            ModSimReloaded.log.warn("错误："+var19.getMessage());
                         }
                     }
 

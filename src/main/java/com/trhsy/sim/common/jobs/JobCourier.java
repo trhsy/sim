@@ -162,7 +162,7 @@ public class JobCourier extends Job implements Serializable {
         this.chests.clear();
         this.chests = inventoriesFindClosest(pickup, 4);
         if (this.chests.size() == 0) {
-            ModSim.log.warn("JobCourier: StagePickingup() 拾取时没有宝箱：" + pickup.name + "，移除任务。");
+            ModSimReloaded.log.warn("JobCourier: StagePickingup() 拾取时没有宝箱：" + pickup.name + "，移除任务。");
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
                 this.currentTask = 0;
@@ -175,7 +175,7 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.stayPut = true;
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
-            ModSim.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
+            ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
             this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.blockLightBox);
         }
 
@@ -254,7 +254,7 @@ public class JobCourier extends Job implements Serializable {
         this.chests.clear();
         this.chests = inventoriesFindClosest(dropoff, 5);
         if (this.chests.size() == 0) {
-            ModSim.log.warn("JobCourierL dropoff() 下车时没有找到箱子");
+            ModSimReloaded.log.warn("JobCourierL dropoff() 下车时没有找到箱子");
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
                 this.currentTask = 0;
@@ -266,7 +266,7 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.stayPut = true;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Dropping");
             this.theFolk.action = FolkAction.ATWORK;
-            ModSim.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
+            ModSimReloaded.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
 
             while(this.theFolk.inventory.size() > 0) {
                 int oldSize = this.theFolk.inventory.size();

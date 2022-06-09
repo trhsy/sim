@@ -5,13 +5,16 @@ package com.trhsy.sim.common.gui.folk;/**
  */
 
 import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.gui.GuiRunMod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -42,10 +45,10 @@ public class GuiShowEmployees extends GuiScreen {
         this.folks = FolkData.getFolkUnemployed(true);
         this.showPage();
         super.initGui();
-        /*this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, I18n.format("container.sim.ShowEmployees1")));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, I18n.format("container.sim.ShowEmployees1")));
         this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 90, I18n.format("container.sim.ShowEmployees2")));
         this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, I18n.format("container.sim.ShowEmployees3")));
-        this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, I18n.format("container.sim.ShowEmployees4")));*/
+        this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, I18n.format("container.sim.ShowEmployees4")));
     }
     private void showPage() {
         try {
@@ -137,14 +140,8 @@ public class GuiShowEmployees extends GuiScreen {
                     break;
                 }
             }
-            /*this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.ShowEmployees5"), this.width / 2, 20, 16777215);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.ShowEmployees6"), this.width / 2, 60, 16776960);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.ShowEmployees7"), this.width / 2, 110, 16776960);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.ShowEmployees8"), this.width / 2, 160, 16776960);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.ShowEmployees9"), this.width / 2, 210, 16776960);*/
         } catch (Exception var5) {
-            ModSim.log.warn("在绘制字符串/屏幕时捕获异常：" + var5.getMessage());
+            ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常：" + var5.getMessage());
         }
 
         super.drawScreen(i, j, f);
@@ -152,23 +149,7 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-        /*if (guibutton.id == 0) {
-            ModSimReloaded.states.gameModeNumber = 10;
-            ModSimReloaded.log.info("关闭重新加载的模拟城市");
-        } else if (guibutton.id == 1) {
-            ModSimReloaded.states.gameModeNumber = 0;
-            ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
-            FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
-        } else if (guibutton.id == 2) {
-            ModSimReloaded.states.gameModeNumber = 1;
-        } else if (guibutton.id == 3) {
-            ModSimReloaded.states.gameModeNumber = 2;
-        }
 
-        ModSimReloaded.states.saveStates();
-        this.running = false;
-        this.mc.currentScreen = null;
-        this.mc.setIngameFocus();*/
         if (guibutton.id == 1000) {
             this.folkOffset -= this.folksOnAPage;
             this.showPage();
@@ -199,7 +180,11 @@ public class GuiShowEmployees extends GuiScreen {
     }
     @Override
     public void mouseClicked(int i, int j, int k) {
-        super.mouseClicked(i, j, k);
+        try {
+            super.mouseClicked(i, j, k);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

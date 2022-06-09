@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.EntityAlignBeam;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.functionality.Marker;
+import com.trhsy.sim.common.gui.blocks.GuiMarker;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -100,28 +101,28 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         hasPlaced = true;
         if (world.isRemote) {
             Marker ma;
-            markers.add(ma = new Marker(i, j, k, world.provider.dimensionId));
+            markers.add(ma = new Marker(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId()));
             String markerCaption = "";
             String helpText = "";
             if (markers.size() == 1) {
                 markerCaption = "Front-Left";
                 helpText = I18n.format("container.sim.box_Marker_left");
-                ModSim.log.info(String.valueOf(markers.size()));
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
             } else if (markers.size() == 2) {
                 markerCaption = "Front-Right";
                 helpText = I18n.format("container.sim.box_Marker_right");
-                ModSim.log.info(String.valueOf(markers.size()));
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
             } else if (markers.size() == 3) {
                 markerCaption = "Rear-Left";
                 helpText = I18n.format("container.sim.box_Marker_Rear_Left");
-                ModSim.log.info(String.valueOf(markers.size()));
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
             } else {
-                ModSim.log.info(String.valueOf(markers.size()));
+                ModSimReloaded.log.info(String.valueOf(markers.size()));
                 markerCaption = I18n.format("container.sim.box_Marker_Markers");
             }
 
             if (markers.size() < 4) {
-                V3 pos = new V3((double) i, (double) j, (double) k, world.provider.dimensionId);
+                V3 pos = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId());
                 pos.y = pos.y + 0.01;
                 if (ConfigLoader.configEnableMarkerAlignmentBeams) {
                     EntityAlignBeam beam = new EntityAlignBeam(world);
@@ -164,7 +165,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 ModSimReloaded.sendChat(helpText);
             }
 
-            super.onBlockPlacedBy(world, i, j, k, player, is);
+            super.onBlockPlacedBy(world, blockPos,iBlockState, player, is);
         }
 
     }
@@ -186,9 +187,9 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), entityplayer.dimension);
+        this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        GuiMarker ui = new GuiMarker(this.location, entityplayer);
+        GuiMarker ui = new GuiMarker(this.location, thePlayer);
         Minecraft mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(ui);
         return true;

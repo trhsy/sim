@@ -6,11 +6,13 @@ import com.trhsy.sim.common.CommonProxy;
 import com.trhsy.sim.common.loader.KeyLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import javax.xml.ws.handler.MessageContext;
 
 /**
  * 客户端代理
@@ -48,4 +50,9 @@ public class ClientProxy extends CommonProxy {
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
         return (EntityPlayer)(ctx.side.isClient() ? Minecraft.getMinecraft().thePlayer : super.getPlayerEntity(ctx));
     }
+    @Override
+    public World getClientWorld() {
+        return FMLClientHandler.instance().getClient().theWorld;
+    }
+
 }

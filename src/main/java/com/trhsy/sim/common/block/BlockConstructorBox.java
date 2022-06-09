@@ -1,16 +1,22 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.gui.blocks.GuiBuildingConstructor;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
 
 /**
  * 建筑箱
@@ -53,10 +59,10 @@ public class BlockConstructorBox extends Block {
             world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
         }
 
-        //FolkData theFolk = FolkData.getFolkByEmployedAt(new V3((double)par2, (double)par3, (double)par4, world.provider.dimensionId));
-        //if (theFolk != null) {
-        //    theFolk.selfFire();
-        //}
+        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId()));
+        if (theFolk != null) {
+            theFolk.selfFire();
+        }
 
         super.onBlockDestroyedByPlayer(world, blockPos, iBlockState);
     }
@@ -82,10 +88,10 @@ public class BlockConstructorBox extends Block {
             }
         }
 
-        //V3 loc = new V3((double)par2, (double)par3, (double)par4, thePlayer.dimension);
-        //Minecraft mc = Minecraft.getMinecraft();
-        //GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
-        //mc.displayGuiScreen(ui);
+        V3 loc = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
+        Minecraft mc = Minecraft.getMinecraft();
+        GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
+        mc.displayGuiScreen(ui);
         return true;
     }
 }

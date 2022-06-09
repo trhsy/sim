@@ -199,7 +199,7 @@ public class JobCheesemaker extends Job {
                 //在工作中
                 this.theFolk.isWorking = true;
             } else {
-                ModSim.log.info("JobCheeseMaker: 还没到农场");
+                ModSimReloaded.log.info("JobCheeseMaker: 还没到农场");
             }
         } else if (this.step == 2) {
             //库存最接近
@@ -235,7 +235,7 @@ public class JobCheesemaker extends Job {
                 this.step = 1;
                 this.theFolk.isWorking = false;
             } else {
-                ModSim.log.warn("JobCheesemaker: 没有蓄水池");
+                ModSimReloaded.log.warn("JobCheesemaker: 没有蓄水池");
                 this.theFolk.selfFire();
             }
         }
@@ -256,7 +256,7 @@ public class JobCheesemaker extends Job {
                 //准备加满水槽
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Preparing");
             } else {
-                ModSim.log.info("JobCheeseMaker: 还没到后面");
+                ModSimReloaded.log.info("JobCheeseMaker: 还没到后面");
             }
         } else if (this.step == 2) {
             //倒牛奶
@@ -294,7 +294,7 @@ public class JobCheesemaker extends Job {
         } else if (this.step == 2) {
             ArrayList<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
             int lightID = Block.getIdFromBlock(BlockLoader.blockLightBox);
-            ModSim.log.info(Integer.toString(lightID));
+            ModSimReloaded.log.info(Integer.toString(lightID));
             boolean filledOk = false;
             Iterator iterator = milkblocks.iterator();
 

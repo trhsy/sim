@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class EntityConBox extends Entity{
         this.noClip = true;
         this.ignoreFrustumCheck = true;
         if (!ModSim.proxy.ranStartup) {
-            ModSim.log.info("EntityConBox: 被杀死的系统产生了ConBox");
+            ModSimReloaded.log.info("EntityConBox: 被杀死的系统产生了ConBox");
             this.setDead();
         }
 
@@ -50,12 +51,12 @@ public class EntityConBox extends Entity{
     public void onUpdate() {
         if (System.currentTimeMillis() - this.lastCheck > 10000L) {
             if (this.theFolk != null && this.theFolk.theBuilding == null) {
-                ModSim.log.info("EntityConBox: 建筑完成后移除conBox");
+                ModSimReloaded.log.info("EntityConBox: 建筑完成后移除conBox");
                 this.spawnExplosionParticle(this);
                 this.setDead();
             }
 
-            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), BlockLoader.constructorBox, 5);
+            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), BlockLoader.blockConstructorBox, 5);
             if (conblocks.size() < 1) {
                 this.setDead();
             }
@@ -68,13 +69,13 @@ public class EntityConBox extends Entity{
     }
 
     public static FolkData getFolk(V3 where) {
-        V3 con = Job.findClosestBlockType(where, BlockLoader.constructorBox, 6, false);
+        V3 con = Job.findClosestBlockType(where, BlockLoader.blockConstructorBox, 6, false);
         FolkData ret = null;
 
         for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
             FolkData fd = (FolkData) ModSimReloaded.theFolks.get(f);
             if (fd.employedAt != null && fd.employedAt.isSameCoordsAs(where, true, false)) {
-                ModSim.log.info("EntityConBox: 找到人 " + fd.name);
+                ModSimReloaded.log.info("EntityConBox: 找到人 " + fd.name);
                 ret = fd;
                 break;
             }
@@ -108,10 +109,10 @@ public class EntityConBox extends Entity{
     public AxisAlignedBB getCollisionBox(Entity par1Entity) {
         return null;
     }
-    @Override
-    public AxisAlignedBB getBoundingBox() {
-        return null;
-    }
+    //@Override
+    //public AxisAlignedBB getBoundingBox() {
+    //    return null;
+    //}
     @Override
     public boolean canBePushed() {
         return false;

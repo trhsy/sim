@@ -25,6 +25,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -36,6 +37,8 @@ import java.util.Random;
  * 加载任务
  */
 public class ModSimReloaded {
+    /**日志**/
+    public static Logger log;
     /*
     用于检测我们何时进入世界（非主菜单）以及玩家何时更改世界/地图
      */
@@ -118,7 +121,7 @@ public class ModSimReloaded {
     public static void resetAndLoadNewWorld() {
         //获取有效的线程
         Side side = FMLCommonHandler.instance().getEffectiveSide();
-        ModSim.log.info("重置并加载世界 " + side.toString() + " SIDE");
+        ModSimReloaded.log.info("重置并加载世界 " + side.toString() + " SIDE");
         //建筑对象清除
         theBuildings.clear();
         //快递点清除
@@ -172,7 +175,7 @@ public class ModSimReloaded {
 
         } else {
             if (states.gameModeNumber >= 0) {
-                ModSim.log.info("模拟城市程序已经运行");
+                ModSimReloaded.log.info("模拟城市程序已经运行");
                 ModSim.proxy.ranStartup = true;
             }
             //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
@@ -270,7 +273,7 @@ public class ModSimReloaded {
         if (isDayTime() && !isDay) {
             isDay = true;
             //Night to day transition
-            ModSim.log.info("天亮了");
+            ModSimReloaded.log.info("天亮了");
             World world = ModSim.proxy.getClientWorld();
             if (world != null) {
                 EntityPlayer p = Minecraft.getMinecraft().thePlayer;
@@ -317,7 +320,7 @@ public class ModSimReloaded {
         if (!isDayTime() && isDay) {
             isDay = false;
             //Day to Night transition
-            ModSim.log.info("渡过一晚");
+            ModSimReloaded.log.info("渡过一晚");
             if (theFolks.size() > 1) {
                 Random rand = new Random();
                 homeless = rand.nextInt(theFolks.size());
@@ -346,7 +349,7 @@ public class ModSimReloaded {
         if (theFolks.size() > 0) {
             Random rand = new Random();
             //evolving folks
-            ModSim.log.info("进化的人");
+            ModSimReloaded.log.info("进化的人");
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -365,7 +368,7 @@ public class ModSimReloaded {
                                     building.rent = 1.0F;
                                 }
 
-                                ModSim.log.info("房屋租金 " + building.displayNameWithoutPK + ": " + building.rent + "(" + building.blocksInBuilding + ")");
+                                ModSimReloaded.log.info("房屋租金 " + building.displayNameWithoutPK + ": " + building.rent + "(" + building.blocksInBuilding + ")");
                                 totalRent += building.rent;
                             }
                         }
@@ -556,7 +559,7 @@ public class ModSimReloaded {
             farmToUpgradePoints = null;
             farmToUpgrade = null;
             farmToUpgradeCounter = 0;
-            ModSim.log.info("完成农场升级");
+            ModSimReloaded.log.info("完成农场升级");
         }
     }
 
@@ -629,7 +632,7 @@ public class ModSimReloaded {
             o = in2.readObject();
             in2.close();
         } catch (Exception var5) {
-            ModSim.log.info("旧加载程序-无法加载对象 " + var5.getMessage());
+            ModSimReloaded.log.info("旧加载程序-无法加载对象 " + var5.getMessage());
         }
 
         return o;

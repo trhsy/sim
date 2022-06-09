@@ -16,6 +16,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -88,7 +89,7 @@ public class GuiMining extends GuiScreen {
             }
 
             if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
-                this.tfSize = new GuiTextField(this.fontRendererObj, this.width / 2 - 25, this.height - 50, 50, 15);
+                this.tfSize = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 25, this.height - 50, 50, 15);
                 this.tfSize.setText(this.theMiningBox.size + "");
                 this.tfSize.setFocused(true);
                 this.tfSize.setMaxStringLength(3);
@@ -259,6 +260,10 @@ public class GuiMining extends GuiScreen {
             this.tfSize.mouseClicked(i, j, k);
         }
 
-        super.mouseClicked(i, j, k);
+        try {
+            super.mouseClicked(i, j, k);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

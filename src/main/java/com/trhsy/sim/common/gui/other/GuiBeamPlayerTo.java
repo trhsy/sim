@@ -4,6 +4,7 @@ package com.trhsy.sim.common.gui.other;/**
  * @apiNote
  */
 
+import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.entity.CourierTask;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;

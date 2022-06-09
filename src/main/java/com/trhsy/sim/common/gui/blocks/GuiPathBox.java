@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -141,7 +142,11 @@ public class GuiPathBox extends GuiScreen {
 
     @Override
     public void mouseClicked(int i, int j, int k) {
-        super.mouseClicked(i, j, k);
+        try {
+            super.mouseClicked(i, j, k);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

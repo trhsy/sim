@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -123,7 +124,7 @@ public class GuiMerchant extends GuiScreen {
                 } else if (b == 8) {
                     //栏栅
                     blockName = I18n.format("container.sim.Merchant24");;
-                    fprice = PricesForBlocks.getPrice(Blocks.fence, true);
+                    fprice = PricesForBlocks.getPrice(Blocks.oak_fence, true);
                 }
 
                 price = PricesForBlocks.formatPrice(fprice);
@@ -265,7 +266,7 @@ public class GuiMerchant extends GuiScreen {
                     } else if (i == 7) {
                         block = Blocks.stonebrick;
                     } else if (i == 8) {
-                        block = Blocks.fence;
+                        block = Blocks.oak_fence;
                     }
 
                     for (int c = 1; c <= quant; ++c) {
@@ -358,7 +359,11 @@ public class GuiMerchant extends GuiScreen {
 
     @Override
     protected void mouseClicked(int i, int j, int k) {
-        super.mouseClicked(i, j, k);
+        try {
+            super.mouseClicked(i, j, k);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

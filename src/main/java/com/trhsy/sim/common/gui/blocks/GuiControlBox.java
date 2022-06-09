@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.entity.functionality.Marker;
 import com.trhsy.sim.common.gui.folk.GuiCourierTasks;
 import com.trhsy.sim.common.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.gui.folk.GuiMerchant;
@@ -24,7 +25,10 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -622,15 +626,16 @@ public class GuiControlBox extends GuiScreen {
 
                             while(iterator.hasNext()) {
                                 V3 blockLoc = (V3)iterator.next();
-                                Block l = theWorld.getBlock(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue());
+                                BlockPos blockPos=new BlockPos(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue());
+                                Block l = theWorld.getBlockState(blockPos).getBlock();
                                 if (l != null && ModSimReloaded.demolishBlocks.size() < 500) {
                                     blockLoc.blockID = l;
                                     ModSimReloaded.demolishBlocks.add(blockLoc);
                                 }
 
-                                theWorld.setBlock(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), Blocks.air, 0, 3);
-                                this.mc.theWorld.spawnParticle("explode", (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0, 0.30000001192092896D, 0);
-                                this.mc.theWorld.spawnParticle("flame", (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0, 0.4000000059604645D, 0);
+                                theWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
+                                this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0, 0.30000001192092896D, 0);
+                                this.mc.theWorld.spawnParticle(EnumParticleTypes.FLAME, (double)blockLoc.x.intValue(), (double)blockLoc.y.intValue(), (double)blockLoc.z.intValue(), 0, 0.4000000059604645D, 0);
                             }
 
                             theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1.0F, 1.0F);
@@ -701,7 +706,10 @@ public class GuiControlBox extends GuiScreen {
                     while(iterator.hasNext()) {
                         //得到方块
                         V3 blockLoc = (V3)iterator.next();
-                        ItemStack is = new ItemStack(theWorld.getBlock(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue()), 1, theWorld.getBlockMetadata(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue()));
+                        BlockPos blockPos=new BlockPos(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue());
+                        Block id=theWorld.getBlockState(blockPos).getBlock();
+                        Chunk chunk = theWorld.getChunkFromBlockCoords(blockPos);
+                        ItemStack is = new ItemStack(theWorld.getBlockState(blockPos).getBlock(), 1, id.getMetaFromState(theWorld.getBlockState(blockPos)));
                         int newmeta;
                         if (Block.getBlockFromItem(is.getItem()) != Blocks.acacia_stairs && Block.getBlockFromItem(is.getItem()) != Blocks.birch_stairs && Block.getBlockFromItem(is.getItem()) != Blocks.dark_oak_stairs && Block.getBlockFromItem(is.getItem()) != Blocks.spruce_stairs && Block.getBlockFromItem(is.getItem()) != Blocks.stone_stairs) {
                             if (Block.getBlockFromItem(is.getItem()) != Blocks.torch && Block.getBlockFromItem(is.getItem()) != Blocks.redstone_torch && Block.getBlockFromItem(is.getItem()) != Blocks.redstone_torch) {
@@ -711,8 +719,8 @@ public class GuiControlBox extends GuiScreen {
                                     if (newmeta == 4) {
                                         newmeta = 0;
                                     }
-
-                                    theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 2);
+                                    theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),2);
+                                    //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 2);
                                 } else if (Block.getBlockFromItem(is.getItem()) != Blocks.piston && Block.getBlockFromItem(is.getItem()) != Blocks.piston_extension && Block.getBlockFromItem(is.getItem()) != Blocks.piston_head) {
                                     if (Block.getBlockFromItem(is.getItem()) == Blocks.wall_sign) {
                                         newmeta = is.getMetadata();
@@ -725,18 +733,18 @@ public class GuiControlBox extends GuiScreen {
                                         } else if (newmeta == 12) {
                                             newmeta = 0;
                                         }
-
-                                        theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 2);
+                                        theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),2);
+                                        //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 2);
                                     } else if (Block.getBlockFromItem(is.getItem()) != Blocks.wall_sign && Block.getBlockFromItem(is.getItem()) != Blocks.ladder) {
                                         if (Block.getBlockFromItem(is.getItem()) != Blocks.stone_button && Block.getBlockFromItem(is.getItem()) != Blocks.wooden_button) {
-                                            if (Block.getBlockFromItem(is.getItem()) == Blocks.fence_gate) {
+                                            if (Block.getBlockFromItem(is.getItem()) == Blocks.oak_fence_gate) {
                                                 newmeta = is.getMetadata();
                                                 ++newmeta;
                                                 if (newmeta > 3) {
                                                     newmeta = 0;
                                                 }
-
-                                                theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
+                                                theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),3);
+                                                //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
                                             }
                                         } else {
                                             newmeta = is.getMetadata();
@@ -749,8 +757,8 @@ public class GuiControlBox extends GuiScreen {
                                             } else if (newmeta == 4) {
                                                 newmeta = 1;
                                             }
-
-                                            theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
+                                            theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),3);
+                                            //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
                                         }
                                     } else {
                                         newmeta = is.getMetadata();
@@ -763,8 +771,8 @@ public class GuiControlBox extends GuiScreen {
                                         } else if (newmeta == 4) {
                                             newmeta = 2;
                                         }
-
-                                        theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
+                                        theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),3);
+                                        //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
                                     }
                                 } else {
                                     newmeta = is.getMetadata();
@@ -777,8 +785,8 @@ public class GuiControlBox extends GuiScreen {
                                     } else if (newmeta == 4) {
                                         newmeta = 2;
                                     }
-
-                                    theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
+                                    theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),3);
+                                    //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
                                 }
                             } else {
                                 newmeta = is.getMetadata();
@@ -791,8 +799,8 @@ public class GuiControlBox extends GuiScreen {
                                 } else if (newmeta == 4) {
                                     newmeta = 1;
                                 }
-
-                                theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
+                                theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),3);
+                                //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
                             }
                         } else {
                             newmeta = is.getMetadata();
@@ -805,8 +813,8 @@ public class GuiControlBox extends GuiScreen {
                             } else if (newmeta == 3) {
                                 newmeta = 0;
                             }
-
-                            theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
+                            theWorld.markAndNotifyBlock(blockPos,chunk,id.getDefaultState(),id.getDefaultState(),3);
+                            //theWorld.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
                         }
                     }
 

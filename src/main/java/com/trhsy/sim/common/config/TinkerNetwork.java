@@ -23,21 +23,21 @@ public class TinkerNetwork extends NetworkWrapper{
     }
     public void setup() {
         this.registerPacketClient(ConfigSyncPacket.class);
-//        this.registerPacket(StencilTableSelectionPacket.class);
-//        this.registerPacket(PartCrafterSelectionPacket.class);
-//        this.registerPacket(ToolStationSelectionPacket.class);
-//        this.registerPacket(ToolStationTextPacket.class);
-//        this.registerPacketServer(TinkerStationTabPacket.class);
-//        this.registerPacketServer(InventoryCraftingSyncPacket.class);
-//        this.registerPacketClient(InventorySlotSyncPacket.class);
-//        this.registerPacketClient(EntityMovementChangePacket.class);
-//        this.registerPacketClient(ToolBreakAnimationPacket.class);
-//        this.registerPacketClient(SmelteryFluidUpdatePacket.class);
-//        this.registerPacketClient(SmelteryFuelUpdatePacket.class);
-//        this.registerPacketClient(SmelteryInventoryUpdatePacket.class);
-//        this.registerPacketServer(SmelteryFluidClicked.class);
-//        this.registerPacketClient(FluidUpdatePacket.class);
-//        this.registerPacketClient(FaucetActivationPacket.class);
+        //this.registerPacket(StencilTableSelectionPacket.class);
+        //this.registerPacket(PartCrafterSelectionPacket.class);
+        //this.registerPacket(ToolStationSelectionPacket.class);
+        //this.registerPacket(ToolStationTextPacket.class);
+        //this.registerPacketServer(TinkerStationTabPacket.class);
+        //this.registerPacketServer(InventoryCraftingSyncPacket.class);
+        //this.registerPacketClient(InventorySlotSyncPacket.class);
+        //this.registerPacketClient(EntityMovementChangePacket.class);
+        //this.registerPacketClient(ToolBreakAnimationPacket.class);
+        //this.registerPacketClient(SmelteryFluidUpdatePacket.class);
+        //this.registerPacketClient(SmelteryFuelUpdatePacket.class);
+        //this.registerPacketClient(SmelteryInventoryUpdatePacket.class);
+        //this.registerPacketServer(SmelteryFluidClicked.class);
+        //this.registerPacketClient(FluidUpdatePacket.class);
+        //this.registerPacketClient(FaucetActivationPacket.class);
     }
 
     public static void sendToAll(AbstractPacket packet) {

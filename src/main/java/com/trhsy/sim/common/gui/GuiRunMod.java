@@ -28,7 +28,7 @@ public class GuiRunMod extends GuiScreen {
      */
     @Override
     public void initGui() {
-        ModSim.log.info("初始化GUI");
+        ModSimReloaded.log.info("初始化GUI");
         //不运行模拟城镇
         String not_run = I18n.format("container.sim.not_run");
         //正常模式
@@ -76,7 +76,7 @@ public class GuiRunMod extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, sim_gui_everything, this.width / 2, 160, 16776960);
             this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
         } catch (Exception var5) {
-            ModSim.log.warn("在绘制字符串/屏幕时捕获异常" + var5.getMessage());
+            ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常" + var5.getMessage());
         }
 
         super.drawScreen(i, j, f);
@@ -93,11 +93,11 @@ public class GuiRunMod extends GuiScreen {
             case 0:
                 //不运行模拟城镇 按超过10次
                 ModSimReloaded.states.gameModeNumber = 10;
-                ModSim.log.info("关闭重新加载的模拟城市");
+                ModSimReloaded.log.info("关闭重新加载的模拟城市");
                 break;
             case 1:
                 ModSimReloaded.states.gameModeNumber = 0;
-                ModSim.log.info("在正常模式下重新加载模拟城市");
+                ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
                 FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
                 break;
             case 2:
@@ -108,7 +108,7 @@ public class GuiRunMod extends GuiScreen {
                 break;
             default:
                 ModSimReloaded.states.gameModeNumber = 0;
-                ModSim.log.info("在正常模式下重新加载模拟城市");
+                ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
                 //生成一个新的NPC
                 FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
                 break;

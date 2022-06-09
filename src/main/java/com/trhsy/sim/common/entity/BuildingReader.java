@@ -6,6 +6,7 @@ package com.trhsy.sim.common.entity;/**
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.common.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -210,7 +211,7 @@ public class BuildingReader implements Serializable {
             this.blocksInBuilding = 0;
             File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
-                ModSim.log.warn("找不到文件");
+                ModSimReloaded.log.warn("找不到文件");
                 return;
             }
 
@@ -403,7 +404,7 @@ public class BuildingReader implements Serializable {
                             this.rent = (float)this.blocksInBuilding * 0.01F;
                             this.corpTax = 3.0F;
                         } catch (Exception var18) {
-                            ModSim.log.error("Caught exception: " + var18.getMessage());
+                            ModSimReloaded.log.error("Caught exception: " + var18.getMessage());
                         }
                     }
                 }
@@ -516,7 +517,7 @@ public class BuildingReader implements Serializable {
                 br.close();
             }
         } catch (Exception var19) {
-            ModSim.log.error("被抓住的例外: " + var19.getMessage());
+            ModSimReloaded.log.error("被抓住的例外: " + var19.getMessage());
         }
 
     }

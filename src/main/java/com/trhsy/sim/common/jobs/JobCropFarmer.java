@@ -5,7 +5,6 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.block.functionality.FarmingBox;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.GameMode;
 import com.trhsy.sim.common.entity.GameStates;
@@ -15,7 +14,6 @@ import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.util.GameMode;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -197,7 +195,7 @@ public class JobCropFarmer extends Job implements Serializable {
             this.farmingChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         }
 
-        ModSim.log.info("JobCropFarmer: 在农场发现 " + this.farmingChests.size() + " 箱子");
+        ModSimReloaded.log.info("JobCropFarmer: 在农场发现 " + this.farmingChests.size() + " 箱子");
         this.theFolk.stayPut = true;
         int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
         if (dist > 3) {
@@ -226,13 +224,13 @@ public class JobCropFarmer extends Job implements Serializable {
         this.ftb = 0;
         this.ltr = -1;
         if (this.farmingBlock == null) {
-            ModSim.log.warn("JobCropFarmer: FarmingBlock 为空 - 不存在或未找到？！");
+            ModSimReloaded.log.warn("JobCropFarmer: FarmingBlock 为空 - 不存在或未找到？！");
         } else {
             V3 m1 = this.farmingBlock.marker1XYZ;
             V3 m2 = this.farmingBlock.marker2XYZ;
             V3 m3 = this.farmingBlock.marker3XYZ;
             if (this.farmingBlock.marker1XYZ == null) {
-                ModSim.log.warn("JobCropFarmer: FarmingBlock 的标记为空");
+                ModSimReloaded.log.warn("JobCropFarmer: FarmingBlock 的标记为空");
             } else {
                 try {
                     this.mx = m1.x.intValue();

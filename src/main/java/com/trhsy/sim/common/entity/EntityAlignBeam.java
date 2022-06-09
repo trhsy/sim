@@ -68,9 +68,9 @@ public class EntityAlignBeam extends Entity {
         this.noClip = true;
     }
 
-    @Override
-    public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
-    }
+    //@Override
+    //public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
+    //}
     @Override
     protected void readEntityFromNBT(NBTTagCompound var1) {
     }

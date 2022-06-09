@@ -1,14 +1,22 @@
 package com.trhsy.sim.common;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.config.SimConfigSync;
 import com.trhsy.sim.common.loader.*;
+import com.trhsy.sim.common.util.UpdateChecker;
+import com.trhsy.sim.packets.client.Handler;
+import com.trhsy.sim.packets.client.UpdateFolkPositionMessage;
+import com.trhsy.sim.packets.server.LoadBuildingMessage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 
 /**
@@ -24,6 +32,7 @@ public class CommonProxy {
      * @param event
      */
     public void preInit(FMLPreInitializationEvent event) {
+        new UpdateChecker(event);
         /**配置**/
         ConfigLoader.load(event);
         /**创造模式物品栏**/
@@ -47,6 +56,16 @@ public class CommonProxy {
         new EntityLoader();
         /**加载GUI**/
         new GuiElementLoader();
+
+        ModSimReloaded.log=event.getModLog();
+
+        //新的网络包装器
+        ModSimReloaded.network = NetworkRegistry.INSTANCE.newSimpleChannel(ModSim.MODID);
+        //注册客户端消息系统
+        ModSimReloaded.network.registerMessage(Handler.class, UpdateFolkPositionMessage.class, 1, Side.CLIENT);
+        //注册服务端消息系统
+        ModSimReloaded.network.registerMessage(com.trhsy.sim.packets.server.Handler.class, LoadBuildingMessage.class, 0, Side.SERVER);
+
     }
 
     /**
@@ -67,7 +86,7 @@ public class CommonProxy {
     }
 
     public World getClientWorld() {
-        return null;
+        return FMLClientHandler.instance().getServer().getEntityWorld();
     }
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
         return ctx.getServerHandler().playerEntity;

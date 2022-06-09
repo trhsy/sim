@@ -231,7 +231,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
         } catch (Exception var12) {
             //var12.printStackTrace();
-            ModSim.log.warn(var12.getMessage());
+            ModSimReloaded.log.warn(var12.getMessage());
         }
         super.drawScreen(i, j, f);
     }
@@ -362,7 +362,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                     ArrayList<Building> houses = new ArrayList();
                     String theType = "";
                     this.buildingsOnPage = 0;
-                    this.tfSearch = new GuiTextField(this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);
+                    this.tfSearch = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);
                     this.tfSearch.setText(this.search);
                     this.tfSearch.setFocused(true);
                     this.tfSearch.setMaxStringLength(10);

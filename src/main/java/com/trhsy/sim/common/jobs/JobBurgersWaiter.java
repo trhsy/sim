@@ -120,7 +120,7 @@ public class JobBurgersWaiter extends Job {
                         }
 
                         folk.saveThisFolk();
-                        ModSim.log.info("JobBurgersWaiter: 刚吃过 " + folk.name);
+                        ModSimReloaded.log.info("JobBurgersWaiter: 刚吃过 " + folk.name);
                         GameStates var10000 = ModSimReloaded.states;
                         var10000.credits = (float) ((double) var10000.credits - 0.45D);
                     } else {

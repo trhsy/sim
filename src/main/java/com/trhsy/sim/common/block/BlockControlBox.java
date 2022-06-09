@@ -3,6 +3,8 @@ package com.trhsy.sim.common.block;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.GameMode;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.gui.blocks.GuiBankATM;
+import com.trhsy.sim.common.gui.blocks.GuiControlBox;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.common.tileentity.TileEntityMetalControlBox;
@@ -111,7 +113,8 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
         GuiBankATM ui2 = null;
         Minecraft mc = Minecraft.getMinecraft();
         mc.setIngameNotInFocus();
-        int ma=world.getBlockMetadata(i, j, k);
+        IBlockState iBlockState1=world.getBlockState(blockPos);
+        int ma=iBlockState1.getBlock().getMetaFromState(iBlockState1);
         if (ma != 0 && ma != 2) {
             if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                 mc.displayGuiScreen((GuiScreen) null);
@@ -119,11 +122,11 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
                 String control_box_Creative = I18n.format("container.sim.control_box_Creative");
                 ModSimReloaded.sendChat(control_box_Creative);
             } else {
-                ui2 = new GuiBankATM(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
+                ui2 = new GuiBankATM(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
                 mc.displayGuiScreen(ui2);
             }
         } else {
-            ui = new GuiControlBox(new V3((double) i, (double) j, (double) k, entityplayer.dimension), entityplayer);
+            ui = new GuiControlBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
             mc.displayGuiScreen(ui);
         }
 

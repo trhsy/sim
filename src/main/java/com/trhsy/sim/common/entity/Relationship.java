@@ -306,7 +306,7 @@ public class Relationship implements Serializable {
 
     public void levelIncrease(int byAmount) {
         String oldLevel = this.toFullString();
-        ModSim.log.info("Relationship: + 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
+        ModSimReloaded.log.info("Relationship: + 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
         this.theSubLevel += byAmount;
         if (this.theSubLevel > 100) {
             if (this.theLevel == Level.AQUAINTANCE) {
@@ -565,7 +565,7 @@ public class Relationship implements Serializable {
 
     public static void meddleWithRelationship(FolkData folk1, FolkData folk2) {
         if (folk1.name.contentEquals(folk2.name)) {
-            ModSim.log.warn("关系: 干涉关系() 两个人都是同一个人");
+            ModSimReloaded.log.warn("关系: 干涉关系() 两个人都是同一个人");
         } else {
             Relationship rel = getRelationshipBetween(folk1, folk2);
             if (rel == null) {

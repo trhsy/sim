@@ -17,6 +17,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -293,7 +294,7 @@ public class GuiEntityFolk extends GuiScreen {
     }
 
     @Override
-    protected void mouseClicked(int i, int j, int k) {
+    protected void mouseClicked(int i, int j, int k) throws IOException {
         super.mouseClicked(i, j, k);
     }
 }

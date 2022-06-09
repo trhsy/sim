@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -97,7 +98,7 @@ public abstract class RecipeMatch {
                 for(int i = 0; i < stacks.length; ++i) {
                     if (ItemStack.areItemsEqual(stack, stacks[i]) && ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
                         if (stacks[i].stackSize < stack.stackSize) {
-                            ModSim.log.error("RecipeMatch has incorrect stacksize! {}", new Object[]{stacks[i].toString()});
+                            ModSimReloaded.log.error("RecipeMatch has incorrect stacksize! {}", new Object[]{stacks[i].toString()});
                         } else {
                             stacks[i].stackSize -= stack.stackSize;
                             if (stacks[i].stackSize == 0) {

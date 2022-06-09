@@ -37,7 +37,7 @@ public class EntityWindmill extends Entity {
 
     @Override
     public void setDead() {
-        ModSim.log.info("EntityWindmill: setDead() 调用");
+        ModSimReloaded.log.info("EntityWindmill: setDead() 调用");
         super.setDead();
     }
 
@@ -72,19 +72,19 @@ public class EntityWindmill extends Entity {
         return false;
     }
 
-    @Override
-    public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
-    }
+    //@Override
+    //public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
+    //}
 
     @Override
     public AxisAlignedBB getCollisionBox(Entity par1Entity) {
-        return par1Entity.boundingBox;
+        return par1Entity.getEntityBoundingBox();
     }
 
-    @Override
-    public AxisAlignedBB getBoundingBox() {
-        return this.boundingBox;
-    }
+    //@Override
+    //public AxisAlignedBB getBoundingBox() {
+    //    return this.boundingBox;
+    //}
 
     @Override
     public boolean canBeCollidedWith() {

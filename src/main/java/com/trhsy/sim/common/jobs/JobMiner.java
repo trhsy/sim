@@ -455,7 +455,7 @@ public class JobMiner extends Job implements Serializable {
                                         }
 
                                         if (light != null) {
-                                            ModSim.log.info("灯箱放置在 " + lightbox.toString());
+                                            ModSimReloaded.log.info("灯箱放置在 " + lightbox.toString());
                                             BlockPos blockPos1=new BlockPos(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue());
                                             this.jobWorld.setBlockState(blockPos1,BlockLoader.blockLightBox.getDefaultState(),3);
                                         }

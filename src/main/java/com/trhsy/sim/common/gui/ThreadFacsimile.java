@@ -8,12 +8,16 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.entity.functionality.Marker;
 import com.trhsy.sim.common.gui.blocks.GuiMarker;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.common.util.UpdateChecker;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.BlockPos;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -132,8 +136,10 @@ public class ThreadFacsimile extends Thread {
                             int xxx = bxx + xo;
                             int yyy = byx + l - 1;
                             zzz = bzx + zo;
-                            int iD = Block.getIdFromBlock(guiMarker.mc.getIntegratedServer().worldServerForDimension(guiMarker.thePlayer.dimension).getBlock(xxx, yyy, zzz));
-                            int meta = guiMarker.mc.getIntegratedServer().worldServerForDimension(guiMarker.thePlayer.dimension).getBlockMetadata(xxx, yyy, zzz);
+                            BlockPos blockPos=new BlockPos(xxx, yyy, zzz);
+                            IBlockState blockState=guiMarker.mc.getIntegratedServer().worldServerForDimension(guiMarker.thePlayer.dimension).getBlockState(blockPos);
+                            int iD = Block.getIdFromBlock(blockState.getBlock());
+                            int meta = blockState.getBlock().getMetaFromState(blockState);
                             String letter = "";
                             if (iD == Block.getIdFromBlock(BlockLoader.blockControlBox)) {
                                 letter = "$";

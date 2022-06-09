@@ -4,11 +4,11 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.gui.folk.GuiEntityFolk;
 import com.trhsy.sim.common.gui.folk.GuiMerchant;
 import com.trhsy.sim.common.jobs.JobFisherman;
+import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import javafx.stage.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -92,8 +92,8 @@ public class EntityFolk extends EntityCreature implements INpc {
         this.setCanPickUpLoot(true);
         //启动
         if (!ModSim.proxy.ranStartup) {
-//            ModSim.log.info("实体人：重置npc");
-//            this.setDead();
+            ModSimReloaded.log.info("实体人：重置npc");
+            this.setDead();
         }
 //停用算时间是否是圣诞节
 //        int dom = this.cal.get(5);
@@ -162,7 +162,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 this.theData = FolkData.getFolkDataByEntityId(this.getEntityId());
                 //如果实体人数据还是空，并且五秒钟没有回复判断为死亡
                 if (this.theData == null && System.currentTimeMillis() - this.ghostTimer > 5000L) {
-                    ModSim.log.info("实体人: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以判定为死亡");
+                    ModSimReloaded.log.info("实体人: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以判定为死亡");
                     //设置死亡
                     this.setDead();
                 }
@@ -413,13 +413,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                 try {
                     dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
                 } catch (Exception var14) {
-                    ModSim.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
+                    ModSimReloaded.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                     return;
                 }
 
                 if (dist <= 2.0) {
                     try {
-                        //ModSim.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
+                        //ModSimReloaded.log.info("实体人: " + this.theData.name + " 已经到达 " + this.theData.destination.toString() + " Dim:" + this.theData.destination.theDimension);
                     } catch (Exception var13) {
                         //log.error("错误"+var13.getMessage());
                     }
@@ -438,7 +438,8 @@ public class EntityFolk extends EntityCreature implements INpc {
                 } else {
                     try {
                         if (!this.gotPath) {
-                            PathEntity path = this.worldObj.getEntityPathToXYZ(this, this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue(), 40.0F, true, true, true, true);
+                            PathEntity path =this.getNavigator().getPathToXYZ(this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue());
+                            //PathEntity path = this.worldObj.getEntityPathToXYZ(this, this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue(), 40.0F, true, true, true, true);
                             if (path != null) {
                                 this.getNavigator().setPath(path, 0.30000001192092896D);
                                 this.gotPath = true;
@@ -460,7 +461,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (this.theData.timeStartedGotoing != null && !donttimeout && System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null) {
                     this.getNavigator().clearPathEntity();
                     if (dist > 2.0) {
-                        ModSim.log.info("实体人: " + this.theData.name + " 散步太久，所以喜气洋洋...");
+                        ModSimReloaded.log.info("实体人: " + this.theData.name + " 散步太久，所以喜气洋洋...");
                         this.theData.stayPut = true;
                         this.theData.timeStartedGotoing = System.currentTimeMillis();
                         this.theData.beamMeTo(this.theData.destination);
@@ -545,16 +546,16 @@ public class EntityFolk extends EntityCreature implements INpc {
             return new ItemStack(Items.milk_bucket, 1);
         } else if (this.theData.vocation == Vocation.CHEESEMAKER) {
             //奶酪匠
-            return new ItemStack(ItemLoader.itemFoods, 1, 0);
+            return new ItemStack(ItemLoader.itemCheese, 1, 0);
         } else if (this.theData.vocation == Vocation.BURGERSMANAGER) {
             //汉堡经理
-            return new ItemStack(ItemLoader.itemFoods, 1, 3);
+            return new ItemStack(ItemLoader.itemCheeseburger, 1, 3);
         } else if (this.theData.vocation == Vocation.BURGERSFRYCOOK) {
             //后厨
             return new ItemStack(Items.iron_shovel, 1);
         } else if (this.theData.vocation == Vocation.BURGERSWAITER) {
             //汉堡服务员
-            return new ItemStack(ItemLoader.itemFoods, 1, 2);
+            return new ItemStack(ItemLoader.itemFries, 1, 2);
         } else if (this.theData.vocation == Vocation.FISHERMAN) {
             //职业渔夫
             JobFisherman jf = (JobFisherman) this.theData.theirJob;

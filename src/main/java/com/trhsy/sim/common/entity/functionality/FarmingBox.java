@@ -130,7 +130,7 @@ public class FarmingBox implements Serializable {
         V3 c = m1.clone();
         int length = this.getSizeLength();
         if (length == 1) {
-            ModSim.log.warn("FarmingBox: 无法使用5x5默认值确定农场大小");
+            ModSimReloaded.log.warn("FarmingBox: 无法使用5x5默认值确定农场大小");
         }
 
         for(int o = 0; o <= length; ++o) {

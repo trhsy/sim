@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.entity;
 
+import com.trhsy.sim.common.jobs.Job;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.fml.common.FMLCommonHandler;

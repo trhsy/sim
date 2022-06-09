@@ -43,8 +43,7 @@ public class ModSim {
     public static CommonProxy proxy;
     /**客户端代理**/
     public static ClientProxy clientProxy;
-    /**日志**/
-    public static Logger log;
+
     public static PulseManager pulseManager;
     static {
         pulseManager = new PulseManager(String.valueOf(ConfigLoader.pulseConfig));

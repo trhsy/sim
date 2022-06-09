@@ -5,6 +5,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.entity.functionality.Marker;
+import com.trhsy.sim.common.gui.blocks.GuiFarming;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;

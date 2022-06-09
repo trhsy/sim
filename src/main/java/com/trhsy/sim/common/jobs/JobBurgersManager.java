@@ -132,7 +132,7 @@ public class JobBurgersManager extends Job {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSim.log.info("JobBurgersManager: 购买 " + count + " 件商品中购买 " + buy + " 件");
+                    ModSimReloaded.log.info("JobBurgersManager: 购买 " + count + " 件商品中购买 " + buy + " 件");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1, pickUpItem.damageDropped(pickUpItem.getDefaultState())), buy, doCompareMeta);
                 }
             }
@@ -173,7 +173,7 @@ public class JobBurgersManager extends Job {
                 int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                 int buy = count / 4;
                 if (buy > 0) {
-                    ModSim.log.info("JobBurgersManager: 购买 " + buy + " out of " + count + " 物品");
+                    ModSimReloaded.log.info("JobBurgersManager: 购买 " + buy + " out of " + count + " 物品");
                     this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1), buy, doCompareMeta);
                 }
             }

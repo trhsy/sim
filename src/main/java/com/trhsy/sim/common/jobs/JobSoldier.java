@@ -14,6 +14,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -204,7 +205,9 @@ public class JobSoldier extends Job implements Serializable {
             for(int j = 0; j < mobs.size(); ++j) {
                 Entity entity1 = (Entity)mobs.get(j);
                 if (entity1 instanceof EntityMob || entity1 instanceof IMob) {
-                    PathEntity path = this.jobWorld.getEntityPathToXYZ(this.theFolk.theEntity, (int)entity1.posX, (int)entity1.posY, (int)entity1.posZ, 40.0F, true, true, true, true);
+
+                    PathEntity path =this.theFolk.theEntity.getNavigator().getPathToXYZ(entity1.posX, entity1.posY, entity1.posZ);
+                    //PathEntity path = this.jobWorld.getEntityPathToXYZ(this.theFolk.theEntity, (int)entity1.posX, (int)entity1.posY, (int)entity1.posZ, 40.0F, true, true, true, true);
                     if (path != null) {
                         closestBadGuy = entity1;
                         break;

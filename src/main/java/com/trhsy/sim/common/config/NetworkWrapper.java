@@ -44,6 +44,7 @@ public class NetworkWrapper {
         public AbstactPacketHandler() {
         }
 
+        @Override
         public IMessage onMessage(AbstractPacket packet, MessageContext ctx) {
             return ctx.side == Side.SERVER ? packet.handleServer(ctx.getServerHandler()) : packet.handleClient(ctx.getClientHandler());
         }
