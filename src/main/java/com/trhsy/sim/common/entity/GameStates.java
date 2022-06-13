@@ -71,22 +71,22 @@ public class GameStates implements Serializable {
                         this.userId = Long.parseLong(value);
                         break;
                     case "folkNoise":
-                        this.userId = Long.parseLong(value);
+                        this.folkNoise = Boolean.parseBoolean(value);
                         break;
                     case "disableBeamEffect":
-                        this.userId = Long.parseLong(value);
+                        this.disableBeamEffect = Boolean.parseBoolean(value);
                         break;
                     case "lumberArea":
-                        this.userId = Long.parseLong(value);
+                        this.lumberArea = Integer.parseInt(value);
                         break;
                     case "populationLimit":
-                        this.userId = Long.parseLong(value);
+                        this.populationLimit = Integer.parseInt(value);
                         break;
                     case "cheatMode":
-                        this.userId = Long.parseLong(value);
+                        this.cheatMode = Boolean.parseBoolean(value);
                         break;
                     case "population":
-                        this.userId = Long.parseLong(value);
+                        this.population = Integer.parseInt(value);
                         break;
                     default:
                         break;

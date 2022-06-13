@@ -45,10 +45,6 @@ public class GuiShowEmployees extends GuiScreen {
         this.folks = FolkData.getFolkUnemployed(true);
         this.showPage();
         super.initGui();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, I18n.format("container.sim.ShowEmployees1")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 90, I18n.format("container.sim.ShowEmployees2")));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, I18n.format("container.sim.ShowEmployees3")));
-        this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, I18n.format("container.sim.ShowEmployees4")));
     }
     private void showPage() {
         try {

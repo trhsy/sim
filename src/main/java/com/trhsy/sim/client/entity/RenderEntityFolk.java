@@ -105,13 +105,13 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
         GL11.glBlendFunc(770, 771);
         Tessellator tessellator = Tessellator.getInstance();
         GL11.glDisable(3553);
-        /*tessellator.startDrawingQuads();
+        tessellator.getWorldRenderer().begin(7,tessellator.getWorldRenderer().getVertexFormat());
         int j = fontrenderer.getStringWidth(s) / 2;
-        tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-        tessellator.addVertex((double)(-j - 1), -1, 0);
-        tessellator.addVertex((double)(-j - 1), 8, 0);
-        tessellator.addVertex((double)(j + 1), 8, 0);
-        tessellator.addVertex((double)(j + 1), -1, 0);*/
+        tessellator.getWorldRenderer().putColorRGB_F(0.0F, 0.0F, 0.0F, 0);
+        tessellator.getWorldRenderer().sortVertexData((float) (-j - 1), -1, 0);
+        tessellator.getWorldRenderer().sortVertexData((float)(-j - 1), 8, 0);
+        tessellator.getWorldRenderer().sortVertexData((float)(j + 1), 8, 0);
+        tessellator.getWorldRenderer().sortVertexData((float)(j + 1), -1, 0);
         tessellator.draw();
         GL11.glEnable(3553);
         fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, i);

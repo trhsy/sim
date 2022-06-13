@@ -1,5 +1,7 @@
 package com.trhsy.sim.common.loader;
 
+import com.trhsy.sim.client.ClientTickHandler;
+import com.trhsy.sim.common.entity.CommonTickHandler;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -12,6 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -33,6 +36,8 @@ public class EventLoader {
 
     public EventLoader() {
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
+        MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
         EventLoader.EVENT_BUS.register(this);
     }
 
