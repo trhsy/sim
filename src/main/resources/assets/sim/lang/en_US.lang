@@ -954,3 +954,19 @@ item.tinLeggings.name=Tin Leggings
 item.tinBoots.name=Tin Boots
 
 entity.sim.EntityFolk.name=Town residents
+
+container.sim.building.planks=planks
+container.sim.building.cobblestone=cobblestone
+container.sim.building.glass=glass
+container.sim.building.wool=wool
+container.sim.building.bricks=bricks
+container.sim.building.dirt=dirt
+container.sim.building.stone_bricks=stone bricks
+container.sim.building.fence=fence
+container.sim.building.stone=stone
+container.sim.building.wood=wood
+container.sim.building.slab=slab
+container.sim.building.door=door
+container.sim.building.stairs=stairs
+container.sim.building.grass=grass
+container.sim.building.bed=bed

@@ -454,6 +454,21 @@ public class Building implements Serializable {
         //得到当前块
         ItemStack theBlock = new ItemStack(block, 1);
         String name = "";
+        String planks = I18n.format("container.sim.building.planks");
+        String cobblestone = I18n.format("container.sim.building.cobblestone");
+        String glass = I18n.format("container.sim.building.glass");
+        String wool = I18n.format(" container.sim.building.wool");
+        String bricks = I18n.format("container.sim.building.bricks");
+        String dirt = I18n.format("container.sim.building.dirt");
+        String stone_bricks = I18n.format("container.sim.building.stone_bricks");
+        String fence = I18n.format("container.sim.building.fence");
+        String stone = I18n.format("container.sim.building.stone");
+        String wood = I18n.format("container.sim.building.wood");
+        String slab = I18n.format("container.sim.building.slab");
+        String door = I18n.format("container.sim.building.door");
+        String stairs = I18n.format("container.sim.building.stairs");
+        String grass = I18n.format("container.sim.building.grass");
+        String bed = I18n.format("container.sim.building.bed");
         //如果游戏模式为普通
         if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
             try {
@@ -462,15 +477,28 @@ public class Building implements Serializable {
             } catch (Exception var11) {
                 name = "????";
             }
+            //System.out.println(name);
             //如果 名字包含 木板，圆石，玻璃，羊毛，砖块，泥土，石砖，栅栏，石头，木头，石板，并且不包含 门，楼梯，草方块
-            if (name.contains("planks") || name.contentEquals("cobblestone") || name.contentEquals("glass") || name.contains("wool") || name.contentEquals("bricks") || name.contentEquals("dirt") || name.contentEquals("stone bricks") || name.contentEquals("fence") || name.contentEquals("stone") || name.contains("wood") && !name.contains("slab") && !name.contains("door") && !name.contains("stairs") && !name.contains("grass")) {
+            if (name.contains(planks) || name.contentEquals(cobblestone)
+                    || name.contentEquals(glass) || name.contains(wool)
+                    || name.contentEquals(bricks)
+                    || name.contentEquals(dirt)
+                    || name.contentEquals(stone_bricks)
+                    || name.contentEquals(fence)
+                    || name.contentEquals(stone)
+                    || (name.contains(wood) && !name.contains(slab) && !name.contains(door)
+                    && !name.contains(stairs) && !name.contains(grass))) {
                 boolean got = false;
 
-                for (Map.Entry<ItemStack, Integer> entry : this.requirements.entrySet()) {
-                    ItemStack it = (ItemStack) entry.getKey();
-                    if (it.getItem() == theBlock.getItem()) {
-                        val = entry.getValue();
-                        entry.setValue(val++);
+                Iterator it = requirements.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) it.next();
+                    ItemStack is = (ItemStack) pairs.getKey();
+
+                    if (is.getItem() == theBlock.getItem()) {
+                        val = (Integer) pairs.getValue();
+                        val++;
+                        pairs.setValue(val);
                         got = true;
                         break;
                     }
@@ -492,13 +520,17 @@ public class Building implements Serializable {
                 name = "????";
             }
 
-            if (!name.contains("grass") && !name.contains("bed")) {
+            if (!name.contains(grass) && !name.contains(bed)) {
+                Iterator it = requirements.entrySet().iterator();
                 boolean got = false;
-                for (Map.Entry<ItemStack, Integer> entry : this.requirements.entrySet()) {
-                    ItemStack it = (ItemStack) entry.getKey();
-                    if (it.getItem() == theBlock.getItem()) {
-                        val = entry.getValue();
-                        entry.setValue(val++);
+
+                while (it.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) it.next();
+                    ItemStack is = (ItemStack) pairs.getKey();
+                    if (is.getItem() == theBlock.getItem()) {
+                        val = (Integer) pairs.getValue();
+                        val++;
+                        pairs.setValue(val);
                         got = true;
                         break;
                     }
