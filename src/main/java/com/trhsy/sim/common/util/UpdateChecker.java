@@ -19,8 +19,7 @@ public class UpdateChecker {
     int m1 = 0;
 
     public UpdateChecker(FMLPreInitializationEvent event) {
-
-        File checks = new File(getSimukraftFolder()+ File.separator);
+        File checks = new File(getSimukraftFolder()+ File.separator+"/buildings");
         if(!checks.exists()){
             onUpdate();
         }
@@ -120,7 +119,7 @@ public class UpdateChecker {
         }
     }
     public static void deleteFile(File file){
-        //ModSimReloaded.log.info("开始删除文件/文件夹：",file.getName());
+        ModSimReloaded.log.info("开始删除文件/文件夹");
         if(file.exists()){
             file.delete();
         }
@@ -132,16 +131,14 @@ public class UpdateChecker {
             file.delete();
             paths = null;	// lets gc do its works
         }
-        //ModSimReloaded.log.info("完成删除文件/文件夹：",file.getName());
         file = null;	// lets gc do its works
     }
     public String downloadFile(String url, String localFile) {
         File f=new File(localFile);
-        deleteFile(f);
-        //String ret = "";
-        ModSimReloaded.log.info("将从此链接下载文件：\n",url);
-        //url = url.replace(" ", "%20");
-
+        if(f.exists()){
+            deleteFile(f);
+        }
+        ModSimReloaded.log.info("将从此链接下载文件：\n"+url);
         try {
             URL aURL =new URL(url);
             InputStream is = aURL.openStream();

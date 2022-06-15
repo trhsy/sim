@@ -32,6 +32,7 @@ public class CommonProxy {
      * @param event
      */
     public void preInit(FMLPreInitializationEvent event) {
+        ModSimReloaded.log=event.getModLog();
         new UpdateChecker(event);
         /**配置**/
         ConfigLoader.load(event);
@@ -57,7 +58,7 @@ public class CommonProxy {
         /**加载GUI**/
         new GuiElementLoader();
 
-        ModSimReloaded.log=event.getModLog();
+
 
         //新的网络包装器
         ModSimReloaded.network = NetworkRegistry.INSTANCE.newSimpleChannel(ModSim.MODID);

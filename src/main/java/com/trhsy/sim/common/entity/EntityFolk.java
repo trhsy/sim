@@ -117,7 +117,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     @SideOnly(Side.CLIENT)
     public String getTexture() {
         if (this.theData != null) {
-            System.out.println("实体人性别："+this.theData.gender);
+            //System.out.println("实体人性别："+this.theData.gender);
             if (this.theData.gender == 0) {
                 return "male" + this.theData.skinnumber + ".png";
             } else {

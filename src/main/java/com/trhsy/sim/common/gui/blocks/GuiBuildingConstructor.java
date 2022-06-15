@@ -4,7 +4,6 @@ package com.trhsy.sim.common.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
@@ -155,7 +154,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                     this.tfSearch.drawTextBox();
                     break;
                 case 3:
-                    String sim_gui_BC_unemployed = I18n.format("container.sim.sim_gui_BC_unemployed");//选择一个你想雇佣的失业人员
+                    String sim_gui_BC_unemployed = I18n.format("container.sim.sim_gui_BC_unemployed");//选择一个你想雇佣的NPC
                     this.drawCenteredString(this.fontRendererObj, sim_gui_BC_unemployed, this.width / 2, 50, 16777130);
                     break;
                 case 4:

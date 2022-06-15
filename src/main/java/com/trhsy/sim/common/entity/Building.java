@@ -240,17 +240,16 @@ public class Building implements Serializable {
 
     /**
      * 加载结构
+     * 仅由 Building now 用于在线程中加载结构以减少延迟
      */
     private void loadStructure() {
-        //int[] var10000 = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
         try {
             //需求不为空，清除
             if (this.requirements != null) {
                 this.requirements.clear();
             } else {
                 //重置
-                this.requirements = new HashMap();
+                this.requirements = new HashMap<ItemStack, Integer>();
             }
             //显示不带PK的名称
             this.displayNameWithoutPK = this.displayName;
@@ -286,7 +285,7 @@ public class Building implements Serializable {
             //高
             this.layerCount = di[2];
             this.dimensions = d[0] + "x" + d[1] + "x" + d[2];
-            //建筑信息
+            //建筑信息 key P=5:0;A=23:2; etc
             strLine = br.readLine().toString().trim();
             HashMap thekey = new HashMap();
             d = strLine.split(";");
@@ -313,116 +312,120 @@ public class Building implements Serializable {
                     }
                 }
             }
-            int acount = 0;
+            int acount = 0, bcount = 0;
             //循环遍历高
             for (int i = 0; i < this.layerCount; ++i) {
+                //读一层
                 strLine = br.readLine().trim();
-                int bcount = 0;
+                bcount = 0;
                 //宽
-                for (int ftb = 0; ftb < this.ftbCount; ++ftb) {
+                for (int ftb = 0; ftb < this.ftbCount; ftb++) {
                     //长
-                    for (int ltr = 0; ltr < this.ltrCount; ++ltr) {
+                    for (int ltr = 0; ltr < this.ltrCount; ltr++) {
                         try {
                             String ch = strLine.substring(bcount, bcount + 1);
                             char cha = ch.charAt(0);
-                            switch (ch){
+                            switch (ch) {
                                 case "!":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLiving) + ":0";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLiving) + ":0";
                                     break;
                                 case "$":
                                     //控制箱
                                     if (this.displayName.contentEquals(I18n.format("container.sim.ATMs"))) {
-                                        this.structure[i] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":1";
-                                    } else if ("other".equals(this.type)||"special".equals(this.type)) {
-                                        this.structure[i] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":2";
+                                        this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":1";
+                                    } else if ("other".equals(this.type) || "special".equals(this.type)) {
+                                        this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":2";
                                     } else {
-                                        this.structure[i] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
+                                        this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
                                     }
                                     break;
                                 case "*":
                                     //灯箱
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
                                     break;
                                 case "+":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
                                     break;
                                 case "-":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
                                     break;
                                 case "0":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":0";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":0";
                                     break;
                                 case "1":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":1";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":1";
                                     break;
                                 case "2":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":2";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":2";
                                     break;
                                 case "3":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":3";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":3";
                                     break;
                                 case "4":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":4";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":4";
                                     break;
                                 case "5":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":5";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":5";
                                     break;
                                 case "6":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":6";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":6";
                                     break;
-
                                 case "7":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":7";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":7";
                                     break;
                                 case "8":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":8";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":8";
                                     break;
                                 case "9":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":9";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":9";
                                     break;
                                 case "Ã€":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
                                     break;
                                 case "Ã†":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":1";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":1";
                                     break;
                                 case "Ã‡":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":2";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":2";
                                     break;
                                 case "Ãˆ":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
                                     break;
                                 case "ÃŒ":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":4";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":4";
                                     break;
                                 case "Ã�":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
                                     break;
                                 case "Ã‘":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
                                     break;
                                 case "Ã’":
-                                    this.structure[i] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
                                     break;
                                 default:
                                     break;
                             }
                             //生活区地毯
                             if (cha >= '0' && cha <= '9') {
-                                this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
                             } else if ((int) cha >= 48 && (int) cha <= 57) {
-                                this.structure[i] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
                             } else {
-                                this.structure[i] = (String) thekey.get(ch);
-                                String[] sbid = this.structure[i].split(":");
-                                int bid = Integer.parseInt(sbid[0]);
-                                this.addToRequirements(Block.getBlockById(bid), 1);
+                                String newCh = (String) thekey.get(ch);
+                                if (newCh != null) {
+                                    this.structure[acount] = newCh;
+                                    String[] sbid = this.structure[acount].split(":");
+                                    int bid = Integer.parseInt(sbid[0]);
+                                    this.addToRequirements(Block.getBlockById(bid), 1);
+                                }
+
                             }
 
-                            ++acount;
-                            ++bcount;
+                            acount++;
+                            bcount++;
                             if (!ch.contentEquals("A")) {
-                                ++this.blocksInBuilding;
+                                this.blocksInBuilding++;
                             }
                         } catch (Exception var19) {
                         }
@@ -442,13 +445,15 @@ public class Building implements Serializable {
 
     /**
      * 添加到需求中
+     *
      * @param block
      * @param amount
      */
     private void addToRequirements(Block block, int amount) {
+        int val;
         //得到当前块
-        ItemStack theBlock = new ItemStack(block, 1, 0);
-        String name= "";
+        ItemStack theBlock = new ItemStack(block, 1);
+        String name = "";
         //如果游戏模式为普通
         if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
             try {
@@ -460,12 +465,12 @@ public class Building implements Serializable {
             //如果 名字包含 木板，圆石，玻璃，羊毛，砖块，泥土，石砖，栅栏，石头，木头，石板，并且不包含 门，楼梯，草方块
             if (name.contains("planks") || name.contentEquals("cobblestone") || name.contentEquals("glass") || name.contains("wool") || name.contentEquals("bricks") || name.contentEquals("dirt") || name.contentEquals("stone bricks") || name.contentEquals("fence") || name.contentEquals("stone") || name.contains("wood") && !name.contains("slab") && !name.contains("door") && !name.contains("stairs") && !name.contains("grass")) {
                 boolean got = false;
-                int val;
-                for (Map.Entry<ItemStack,Integer> entry: this.requirements.entrySet()){
-                    ItemStack it =(ItemStack) entry.getKey();
-                    if(it.getItem()==theBlock.getItem()){
-                        val=entry.getValue();
-                        entry.setValue(++val);
+
+                for (Map.Entry<ItemStack, Integer> entry : this.requirements.entrySet()) {
+                    ItemStack it = (ItemStack) entry.getKey();
+                    if (it.getItem() == theBlock.getItem()) {
+                        val = entry.getValue();
+                        entry.setValue(val++);
                         got = true;
                         break;
                     }
@@ -474,44 +479,40 @@ public class Building implements Serializable {
                     this.requirements.put(theBlock, 1);
                 }
             }
-        } else {
+        } else if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
             //创造模式
-            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                return;
-            }
+            return;
+        } else if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
             //专家模式
-            if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
-                name = "";
+            name = "";
 
-                try {
-                    name = theBlock.getDisplayName().toLowerCase();
-                } catch (Exception var10) {
-                    name = "????";
+            try {
+                name = theBlock.getDisplayName().toLowerCase();
+            } catch (Exception var10) {
+                name = "????";
+            }
+
+            if (!name.contains("grass") && !name.contains("bed")) {
+                boolean got = false;
+                for (Map.Entry<ItemStack, Integer> entry : this.requirements.entrySet()) {
+                    ItemStack it = (ItemStack) entry.getKey();
+                    if (it.getItem() == theBlock.getItem()) {
+                        val = entry.getValue();
+                        entry.setValue(val++);
+                        got = true;
+                        break;
+                    }
                 }
-
-                if (!name.contains("grass") && !name.contains("bed")) {
-                    boolean got = false;
-                    int val;
-                    for (Map.Entry<ItemStack,Integer> entry: this.requirements.entrySet()){
-                        ItemStack it =(ItemStack) entry.getKey();
-                        if(it.getItem()==theBlock.getItem()){
-                            val=entry.getValue();
-                            entry.setValue(++val);
-                            got = true;
-                            break;
-                        }
-                    }
-                    if (!got) {
-                        this.requirements.put(theBlock, 1);
-                    }
+                if (!got) {
+                    this.requirements.put(theBlock, 1);
                 }
             }
         }
-
     }
 
     /**
      * 复制数组数列
+     *
      * @param from
      * @param to
      */
@@ -524,6 +525,7 @@ public class Building implements Serializable {
 
     /**
      * 获取建筑蓝图
+     *
      * @param theType
      * @param searchWords
      * @return
