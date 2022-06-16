@@ -47,7 +47,9 @@ public class FolkData implements Serializable {
      * @return
      **/
     public V3 employedAt = null;
+    //职业
     public Vocation vocation = null;
+    //当前工作
     public transient Job theirJob = null;
     //姓名
     public String name = "";
