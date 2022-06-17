@@ -351,6 +351,9 @@ public class FolkData implements Serializable {
 
     }
 
+    /**
+     * 更新实体位置
+     */
     public void updateLocationFromEntity() {
         if (this.isSpawned()) {
             this.location = new V3(this.theEntity.posX, this.theEntity.posY, this.theEntity.posZ, this.location.theDimension);
@@ -918,6 +921,10 @@ public class FolkData implements Serializable {
 
     }
 
+    /**
+     * 已生成
+     * @return
+     */
     public boolean isSpawned() {
         if (this.theEntity == null) {
             try {

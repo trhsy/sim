@@ -325,89 +325,60 @@ public class Building implements Serializable {
                         try {
                             String ch = strLine.substring(bcount, bcount + 1);
                             char cha = ch.charAt(0);
-                            switch (ch) {
-                                case "!":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLiving) + ":0";
-                                    break;
-                                case "$":
-                                    //控制箱
-                                    if (this.displayName.contentEquals(I18n.format("container.sim.ATMs"))) {
-                                        this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":1";
-                                    } else if ("other".equals(this.type) || "special".equals(this.type)) {
-                                        this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":2";
-                                    } else {
-                                        this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
-                                    }
-                                    break;
-                                case "*":
-                                    //灯箱
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
-                                    break;
-                                case "+":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
-                                    break;
-                                case "-":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
-                                    break;
-                                case "0":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":0";
-                                    break;
-                                case "1":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":1";
-                                    break;
-                                case "2":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":2";
-                                    break;
-                                case "3":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":3";
-                                    break;
-                                case "4":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":4";
-                                    break;
-                                case "5":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":5";
-                                    break;
-                                case "6":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":6";
-                                    break;
-                                case "7":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":7";
-                                    break;
-                                case "8":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":8";
-                                    break;
-                                case "9":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":9";
-                                    break;
-                                case "Ã€":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
-                                    break;
-                                case "Ã†":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":1";
-                                    break;
-                                case "Ã‡":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":2";
-                                    break;
-                                case "Ãˆ":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
-                                    break;
-                                case "ÃŒ":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":4";
-                                    break;
-                                case "Ã�":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
-                                    break;
-                                case "Ã‘":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
-                                    break;
-                                case "Ã’":
-                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
-                                    break;
-                                default:
-                                    break;
-                            }
-                            //生活区地毯
-                            if (cha >= '0' && cha <= '9') {
+                            if ("!".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLiving) + ":0";
+                            } else if ("$".equals(ch)) {//控制箱
+                                if (this.displayName.contentEquals(I18n.format("container.sim.ATMs"))) {
+                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":1";
+                                } else if ("other".equals(this.type) || "special".equals(this.type)) {
+                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":2";
+                                } else {
+                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
+                                }
+                            } else if ("*".equals(ch)) {//灯箱
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                            } else if ("+".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                            } else if ("-".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                            } else if ("0".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":0";
+                            } else if ("1".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":1";
+                            } else if ("2".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":2";
+                            } else if ("3".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":3";
+                            } else if ("4".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":4";
+                            } else if ("5".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":5";
+                            } else if ("6".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":6";
+                            } else if ("7".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":7";
+                            } else if ("8".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":8";
+                            } else if ("9".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":9";
+                            } else if ("Ã€".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";
+                            } else if ("Ã†".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":1";
+                            } else if ("Ã‡".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":2";
+                            } else if ("Ãˆ".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":3";
+                            } else if ("ÃŒ".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":4";
+                            } else if ("Ã�".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":5";
+                            } else if ("Ã‘".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
+                            } else if ("Ã’".equals(ch)) {
+                                this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
+                            }else if (cha >= '0' && cha <= '9') {
+                                //生活区地毯
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
                             } else if ((int) cha >= 48 && (int) cha <= 57) {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;

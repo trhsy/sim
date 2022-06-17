@@ -243,7 +243,7 @@ public class ModSimReloaded {
         return ret;
     }
     /**
-     * 判断是否半天
+     * 判断是否白天
      * @return
      */
     public static boolean isDayTime() {

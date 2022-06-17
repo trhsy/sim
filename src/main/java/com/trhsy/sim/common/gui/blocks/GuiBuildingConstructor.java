@@ -580,6 +580,10 @@ public class GuiBuildingConstructor extends GuiScreen {
 
     }
 
+    /**
+     * 激活时由按钮列表中的控件调用。（鼠标按下按钮）
+     * @param guibutton
+     */
     @Override
     @SubscribeEvent(
             priority = EventPriority.NORMAL

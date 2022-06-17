@@ -316,7 +316,7 @@ container.sim.job.Baker_today=今天没有面包卖,你有一个活跃的小麦�
 container.sim.job.has_sold=今天卖了
 container.sim.job.folks_today=个面包给人们。
 container.sim.job.Baker_Arrived=到达面包店
-container.sim.job.builder_Arrived=到了上班
+container.sim.job.builder_Arrived=去上班
 container.sim.job.builder_building=请选择我应该建造的建筑物
 container.sim.job.builder_blueprints=翻阅蓝图...
 
