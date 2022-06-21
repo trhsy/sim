@@ -82,6 +82,10 @@ public class FarmingBox implements Serializable {
         }
     }
 
+    /**
+     * 获得大小 宽度
+     * @return
+     */
     public int getSizeWidth() {
         boolean var1 = false;
 
@@ -102,6 +106,10 @@ public class FarmingBox implements Serializable {
         return Math.abs(ltr);
     }
 
+    /**
+     * 获得大小长度
+     * @return
+     */
     public int getSizeLength() {
         boolean var1 = false;
 

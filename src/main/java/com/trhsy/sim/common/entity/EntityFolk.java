@@ -694,10 +694,10 @@ public class EntityFolk extends EntityCreature implements INpc {
         return true;
     }
 
-    @Override
-    public AxisAlignedBB getCollisionBox(Entity par1Entity) {
-        return par1Entity.getCollisionBox(par1Entity);
-    }
+    //@Override
+    //public AxisAlignedBB getCollisionBox(Entity par1Entity) {
+    //    return par1Entity.getCollisionBox(par1Entity);
+    //}
 
     //@Override
     //public AxisAlignedBB getBoundingBox() {

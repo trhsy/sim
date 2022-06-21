@@ -308,6 +308,7 @@ public abstract class Job {
 
         for(int c = 0; c < chests.size(); ++c) {
             IInventory chest = (IInventory)chests.get(c);
+            //库存获取
             retStack = inventoryGet(chest, whatItem, getRandomItem, compareMeta);
             if (retStack != null) {
                 return retStack;
@@ -393,16 +394,25 @@ public abstract class Job {
         }
     }
 
+    /**
+     *
+     * @param chest
+     * @param whatItem
+     * @param getRandomItem
+     * @param compareMeta
+     * @return
+     */
     private static ItemStack inventoryGet(IInventory chest, ItemStack whatItem, boolean getRandomItem, boolean compareMeta) {
-        ItemStack returnStack;
-        int g;
+        //返回的物品
+        ItemStack returnStack = null;
+        //箱子中的库存
         ItemStack chestStack;
         if (whatItem == null) {
             if (getRandomItem) {
-                returnStack = null;
                 ArrayList<Integer> slots = new ArrayList();
-
-                for(int i = 0; i < chest.getSizeInventory(); ++i) {
+                //返回资源清册中的插槽数。
+                for(int i = 0; i < chest.getSizeInventory(); i++) {
+                    //返回给定插槽中的堆栈。
                     chestStack = chest.getStackInSlot(i);
                     if (chestStack != null) {
                         slots.add(i);
@@ -418,11 +428,11 @@ public abstract class Job {
             } else {
                 returnStack = null;
 
-                for(g = 0; g < chest.getSizeInventory(); ++g) {
-                    ItemStack chestStackStack = chest.getStackInSlot(g);
+                for(int j = 0; j < chest.getSizeInventory(); j++) {
+                    ItemStack chestStackStack = chest.getStackInSlot(j);
                     if (chestStackStack != null) {
                         returnStack = chestStackStack.copy();
-                        chest.setInventorySlotContents(g, (ItemStack)null);
+                        chest.setInventorySlotContents(j, (ItemStack)null);
                         return returnStack;
                     }
                 }
@@ -433,13 +443,13 @@ public abstract class Job {
             returnStack = whatItem.copy();
             returnStack.stackSize = 0;
 
-            for(g = 0; g < chest.getSizeInventory(); ++g) {
+            for(int g = 0; g < chest.getSizeInventory(); g++) {
                 boolean ignore = false;
                 chestStack = chest.getStackInSlot(g);
                 if (chestStack != null && !ignore) {
-                    if (!compareMeta) {
-                        chestStack=whatItem;
-                    }
+                    //if (!compareMeta) {
+                    //    chestStack=whatItem;
+                    //}
 
                     if (chestStack.isItemEqual(whatItem)) {
                         while(chestStack.stackSize >= 1) {
@@ -498,7 +508,7 @@ public abstract class Job {
     }
 
     /**
-     * 存货从民间转移
+     * 将物品从NPC转移到箱子
      * @param folkInventory
      * @param toChests
      * @param specificItems

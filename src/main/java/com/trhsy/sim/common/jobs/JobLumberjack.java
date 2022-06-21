@@ -40,6 +40,7 @@ import java.util.List;
  **/
 public class JobLumberjack extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207904887741L;
+    //职业
     public Vocation vocation = null;
     public FolkData theFolk = null;
     public Stage theStage;
@@ -70,6 +71,9 @@ public class JobLumberjack extends Job implements Serializable {
         }
     }
 
+    /**
+     * 重置工作
+     */
     @Override
     public void resetJob() {
         this.theStage = Stage.IDLE;
@@ -86,18 +90,24 @@ public class JobLumberjack extends Job implements Serializable {
         super.onUpdateGoingToWork(this.theFolk);
         if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
             this.timeSinceLastRun = System.currentTimeMillis();
+            //闲置寻找树
             if (this.theStage == Stage.IDLE && ModSimReloaded.isDayTime()) {
                 this.theStage = Stage.SCANFORTREE;
+            //抵达伐木场
             } else if (this.theStage == Stage.ARRIVEDATMILL) {
                 this.theStage = Stage.SCANFORTREE;
+                //寻找树
             } else if (this.theStage == Stage.SCANFORTREE) {
                 this.stageScanForTree();
+            //去到树旁边
             } else if (this.theStage == Stage.GOTOTREE) {
                 this.pickUpSaplings();
                 this.stageGotoTree();
+                //砍树
             } else if (this.theStage == Stage.CHOPPINGTREE) {
                 this.stageChoppingTree();
                 this.pickUpSaplings();
+                //返回树
             } else if (this.theStage == Stage.RETURNWOOD) {
                 this.stageReturnWood();
                 this.pickUpSaplings();
@@ -106,6 +116,9 @@ public class JobLumberjack extends Job implements Serializable {
         }
     }
 
+    /**
+     * 寻找树
+     */
     private void stageScanForTree() {
         this.theFolk.action = FolkAction.ATWORK;
         this.theFolk.isWorking = false;
@@ -149,6 +162,9 @@ public class JobLumberjack extends Job implements Serializable {
         }
     }
 
+    /**
+     * 去书旁边
+     */
     private void stageGotoTree() {
         this.theFolk.isWorking = false;
         if (!this.onRoute) {
@@ -178,9 +194,11 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             }
         }
-
     }
 
+    /**
+     * 砍树阶段
+     */
     private void stageChoppingTree() {
         int i;
         int l;
@@ -295,32 +313,40 @@ public class JobLumberjack extends Job implements Serializable {
 
     }
 
+    /**
+     * 返回木材
+     */
     private void stageReturnWood() {
         this.theFolk.isWorking = false;
         if (this.step == 1) {
+            //将木材送回伐木场箱子
             this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Delivering");
             this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
             this.step = 2;
         } else {
-            int dist;
             if (this.step == 2) {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
                     this.theFolk.updateLocationFromEntity();
                 }
-
-                dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                //获取距离
+                int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist <= 1) {
                     this.step = 3;
                 } else if (this.theFolk.destination == null && this.theFolk.theEntity != null) {
+
                 }
             } else if (this.step == 3) {
                 this.theFolk.stayPut = true;
-                dist = this.getInventoryCount(this.theFolk, Blocks.log);
+                //获得箱子库存
+                int dist = this.getInventoryCount(this.theFolk, Blocks.log);
+                //获得最近箱子
                 this.millChests = inventoriesFindClosest(this.theFolk.employedAt, 6);
+                //将物品从NPC转移到箱子
                 this.inventoriesTransferFromFolk(this.theFolk.inventory, this.millChests, new ItemStack(Blocks.log));
                 this.pay = (float)dist * 0.03F;
                 GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= this.pay;
+                //已交付
                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.delivered") + dist + I18n.format("container.sim.job.lumberjack.farmer.lumbermill"));
                 this.theStage = Stage.SCANFORTREE;
                 this.step = 1;
@@ -329,6 +355,9 @@ public class JobLumberjack extends Job implements Serializable {
 
     }
 
+    /**
+     * 到达工作地点
+     */
     @Override
     public void onArrivedAtWork() {
         //int dist = false;
@@ -344,6 +373,9 @@ public class JobLumberjack extends Job implements Serializable {
 
     }
 
+    /**
+     * 捡起树苗
+     */
     private void pickUpSaplings() {
         if (this.theFolk.isSpawned()) {
             List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, this.theFolk.theEntity.posX + 1, this.theFolk.theEntity.posY + 1, this.theFolk.theEntity.posZ + 1).expand(3, 4, 3));

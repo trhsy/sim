@@ -572,6 +572,7 @@ public class JobBuilder extends Job implements Serializable {
 
                                     int aft = (int) Math.floor((double) this.theFolk.levelBuilder);
                                     if (b4 != aft) {
+                                        //刚刚升级到建造者等级
                                         ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_levelled") + aft);
                                     }
                                     //每2秒播放一次音效
@@ -617,6 +618,7 @@ public class JobBuilder extends Job implements Serializable {
                             this.ftb = 0;
                             this.l++;
                             if (this.l == this.theBuilding.layerCount) {
+                                //完成
                                 this.theStage = Stage.COMPLETE;
                                 this.stageComplete();
                                 return;
@@ -643,6 +645,9 @@ public class JobBuilder extends Job implements Serializable {
         }
     }
 
+    /**
+     * 阶段完成
+     */
     private void stageComplete() {
         this.theFolk.isWorking = false;
         if (this.theBuilding != null) {
@@ -651,11 +656,13 @@ public class JobBuilder extends Job implements Serializable {
 
             if (this.theBuilding != null) {
                 this.theBuilding.buildingComplete = true;
+                //已完成建设
                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
                 ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                 this.theBuilding.saveThisBuilding();
                 this.theFolk.theBuilding = null;
             } else {
+                //错误：无法设置该建筑物 正在建设“完成”,尝试立即重建（免费）再试一次
                 ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_Error") + this.theFolk.name + I18n.format("container.sim.job.builder_constructor_was_building"));
             }
         }

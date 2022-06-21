@@ -62,6 +62,7 @@ public class GuiFarming extends GuiScreen {
         }
 
         try {
+            //农场
             this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm")));
         } catch (Exception var2) {
             var2.printStackTrace();
@@ -74,6 +75,7 @@ public class GuiFarming extends GuiScreen {
                     if (this.theFarmingBox.farmType != FarmType.SUGAR && this.theFarmingBox.farmType != FarmType.CACTUS) {
                         this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, I18n.format("container.sim.gui_Farming_Upgrade") + (this.theFarmingBox.level + 1)));
                     } else {
+                        //全面升级
                         this.buttonList.add(b = new GuiButton(3, this.width / 2 - 100, 140, I18n.format("container.sim.gui_Farming_Fully_upgraded")));
                         b.enabled = false;
                     }
@@ -92,6 +94,12 @@ public class GuiFarming extends GuiScreen {
         super.initGui();
     }
 
+    /**
+     * 绘制屏幕
+     * @param i
+     * @param j
+     * @param f
+     */
     @Override
     public void drawScreen(int i, int j, float f) {
         if (this.mouseCount < 10) {
@@ -102,6 +110,7 @@ public class GuiFarming extends GuiScreen {
         try {
             this.drawDefaultBackground();
             if (this.theFarmingBox == null) {
+                //养殖箱出错,放置3个标记,然后放置养殖箱
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_ERROR_WITH"), this.width / 2, 17, 16777215);
                 return;
             }
@@ -135,6 +144,10 @@ public class GuiFarming extends GuiScreen {
 
     }
 
+    /**
+     * 执行的操作
+     * @param guibutton
+     */
     @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
@@ -142,9 +155,11 @@ public class GuiFarming extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
             } else {
+                //雇佣农民
                 if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire25"))) {
                     GuiEmployFolk ui = new GuiEmployFolk(this.theFarmingBox, Vocation.CROPFARMER);
                     this.mc.displayGuiScreen(ui);
+                    //解雇
                 } else if (guibutton.displayString.contains(I18n.format("container.sim.Fire"))) {
                     this.theFolk.selfFire();
                     guibutton.enabled = false;
@@ -171,28 +186,36 @@ public class GuiFarming extends GuiScreen {
 
                     guibutton.displayString = this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm");
                 } else if (guibutton.id == 3) {
+                    //获取金币
                     float cash = ModSimReloaded.states.credits;
+                    //如果游戏模式为创造 资金为1000
                     if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                         cash = 1000.0F;
                     }
 
                     if (this.getUpgradeCost() > cash) {
+                        //资金不足
                         guibutton.displayString = I18n.format("container.sim.gui_Farming_text_NOT_ENOUGH");
                         guibutton.enabled = false;
                     } else {
+                        //如果长 宽 都大于4
                         if (this.theFarmingBox.getSizeLength() >= 4 && this.theFarmingBox.getSizeWidth() >= 4) {
+                            //如果游戏模式为创造
                             if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
                                 GameStates var10000 = ModSimReloaded.states;
                                 var10000.credits -= this.getUpgradeCost();
                             }
-
+                            //农场升级计数
                             ModSimReloaded.farmToUpgradeCounter = 0;
+                            //要升级的农场
                             ModSimReloaded.farmToUpgrade = this.theFarmingBox;
+                            //当前
                             this.mc.currentScreen = null;
+                            //失去焦点
                             this.mc.setIngameFocus();
                             return;
                         }
-
+                        //农场太小了
                         guibutton.displayString = I18n.format("container.sim.gui_Farming_text_TOO_SMALL");
                         guibutton.enabled = false;
                     }

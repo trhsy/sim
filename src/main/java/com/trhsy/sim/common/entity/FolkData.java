@@ -691,19 +691,21 @@ public class FolkData implements Serializable {
 
                     try {
                         Building home=this.getHome();
+
                         if(home!=null){
                             if(home.livingXYZ==null){
                                 liveAt = this.getHome().primaryXYZ.clone();
                             }else{
                                 liveAt = this.getHome().livingXYZ.clone();
                             }
+                            //liveAt = this.getHome().livingXYZ.clone();
+                            //if (liveAt == null) {
+                            //    liveAt = this.getHome().primaryXYZ.clone();
+                            //}
                         }
-                        liveAt = this.getHome().livingXYZ.clone();
-                        if (liveAt == null) {
-                            liveAt = this.getHome().primaryXYZ.clone();
-                        }
+
                     } catch (Exception var13) {
-                        ModSimReloaded.log.warn(this.name + " 没有住在" + var13.getMessage());
+                        ModSimReloaded.log.error(this.name + " 没有住在" + var13.getMessage());
                     }
 
                     if (liveAt != null) {
