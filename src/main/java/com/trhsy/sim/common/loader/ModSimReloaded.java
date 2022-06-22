@@ -345,6 +345,10 @@ public class ModSimReloaded {
         }
 
     }
+
+    /**
+     * npc 进化
+     */
     private static void evolveFolks() {
         if (theFolks.size() > 0) {
             Random rand = new Random();
@@ -357,91 +361,117 @@ public class ModSimReloaded {
                         Thread.sleep(3000L);
                     } catch (Exception var5) {
                     }
-
+                    //总租金
                     float totalRent = 0.0F;
+                    //总税务
                     float totalCorpTax = 0.0F;
+                    //如果游戏模式不是创造模式
                     if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        //循环所有的建筑
                         for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
+                            //获得建筑
                             Building building = (Building) ModSimReloaded.theBuildings.get(b);
+                            //如果建筑是住宅并且 住宅租户大于0/有租户
                             if (building.type.contentEquals("residential") && building.tenants.size() > 0) {
+                                //建筑的租金是空或者0
                                 if (building.rent == null || building.rent == 0.0F) {
+                                    //租金赋值为1
                                     building.rent = 1.0F;
                                 }
 
                                 ModSimReloaded.log.info("房屋租金 " + building.displayNameWithoutPK + ": " + building.rent + "(" + building.blocksInBuilding + ")");
+                                //租金叠加
                                 totalRent += building.rent;
                             }
                         }
                     }
-
+                    //如果租金大于0
                     if (totalRent > 0.0F) {
+                        //今天收了 金的房租。
                         sendChat(I18n.format("container.sim.main_Collected") + ModSimReloaded.displayMoney(totalRent) + I18n.format("container.sim.main_rent_today"));
+                        //今天收了 金的税收。
                         sendChat(I18n.format("container.sim.main_Collected") + ModSimReloaded.displayMoney(totalCorpTax) + I18n.format("container.sim.main_tax_today"));
+                        //游戏状态
                         GameStates var10000 = ModSimReloaded.states;
+                        //金币
                         var10000.credits += totalRent;
                         var10000 = ModSimReloaded.states;
+                        //税收
                         var10000.credits += totalCorpTax;
                         EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                         if (p != null) {
                             ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                         }
                     } else if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        //今天没有收到房租,你应该雇一个人来盖一栋住宅。
                         sendChat(I18n.format("container.sim.main_No_rent"));
                     }
 
                 }
             });
+            //启动线程
             t.start();
 
             FolkData folk;
-            int fl;
-            int f;
-            for (fl = 0; fl < theFolks.size(); ++fl) {
-                folk = (FolkData) theFolks.get(fl);
+            for (int i = 0; i < theFolks.size(); i++) {
+                //获取npc
+                folk = (FolkData) theFolks.get(i);
+                //重置今天打招呼为否
                 folk.greetedToday = false;
+                //交配为负
                 folk.shaggingStage = -1.0F;
+                //如果怀孕则加一
                 if (folk.pregnancyStage > 0.0F) {
                     folk.pregnancyStage += 0.1F;
                 }
-
-                f = folk.age;
-                if (f >= 18) {
+                //年龄
+                int age = folk.age;
+                //年龄大于18则
+                if (age >= 18) {
+                    //如果星期六 大一岁
                     if (states.dayOfWeek == 6) {
                         ++folk.age;
                     }
+                    //小于18 则周三或者周六 年龄加一
                 } else if (states.dayOfWeek == 3 || states.dayOfWeek == 6) {
+                    //
                     ++folk.age;
-                    if (f == 17 && folk.age == 18) {
+                    if (age == 17 && folk.age == 18) {
+                        //被赶出家
                         folk.evictThem();
+                        //现在18岁了,他们会开始找房子,你现在也可以雇佣他们了。
                         sendChat(folk.name + I18n.format("container.sim.main_is_now"));
                     }
                 }
-
+                //年龄大于110
                 if (folk.age > 110 && rand.nextInt(10) == 5) {
+                    //年纪大了,感觉不太好。。。哦不！
                     sendChat(folk.name + I18n.format("container.sim.main_is_old"));
+                    //npc老死
                     folk.eventDied(DamageSource.generic);
                 }
             }
-
+            //不是创造模式
             if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                fl = rand.nextInt(theFolks.size());
-
-                for (f = 0; f < theFolks.size(); ++f) {
+                //随机数
+                int fl = rand.nextInt(theFolks.size());
+                //循环所有
+                for (int f = 0; f < theFolks.size(); ++f) {
                     folk = (FolkData) theFolks.get(f);
                     if (f == fl) {
+                        //饥饿等级
                         --folk.levelFood;
                         if (folk.levelFood == 0) {
+                            //非常饿,你应该建一个农场、杂货店、面包店或向他们扔一些食物。
                             sendChat(folk.name + I18n.format("container.sim.main_is_VERY"));
                         }
                     }
-                }
-
-                for (f = 0; f < theFolks.size(); ++f) {
-                    folk = (FolkData) theFolks.get(f);
                     if (folk.theirJob != null && folk.vocation == Vocation.SOLDIER) {
                         JobSoldier job = (JobSoldier) folk.theirJob;
+                        //酬金
                         float pay = (float) job.kills * 0.2F;
                         if (job.kills > 0) {
+                            //支付了 npc 酬金,昨天杀了 0 敌对暴徒。
                             sendChat(I18n.format("container.sim.main_Paid1") + folk.name + " " + displayMoney(pay) + I18n.format("container.sim.main_Paid2") + job.kills + I18n.format("container.sim.main_Paid3"));
                             GameStates var10000 = states;
                             var10000.credits -= pay;
@@ -451,27 +481,37 @@ public class ModSimReloaded {
                 }
 
                 boolean updown = rand.nextBoolean();
+                //木板的价格
                 PricesForBlocks.adjustPrice(Blocks.planks, updown);
                 updown = rand.nextBoolean();
+                //圆石的价格
                 PricesForBlocks.adjustPrice(Blocks.cobblestone, updown);
                 updown = rand.nextBoolean();
+                //石头的价格
                 PricesForBlocks.adjustPrice(Blocks.stone, updown);
                 updown = rand.nextBoolean();
+                //玻璃的价格
                 PricesForBlocks.adjustPrice(Blocks.glass, updown);
                 updown = rand.nextBoolean();
+                //羊毛的价格
                 PricesForBlocks.adjustPrice(Blocks.wool, updown);
                 updown = rand.nextBoolean();
+                //砖块的价格
                 PricesForBlocks.adjustPrice(Blocks.brick_block, updown);
                 updown = rand.nextBoolean();
+                //石砖的价格
                 PricesForBlocks.adjustPrice(Blocks.stonebrick, updown);
                 updown = rand.nextBoolean();
+                //栅栏的价格
                 PricesForBlocks.adjustPrice(Blocks.oak_fence, updown);
             }
-
+            //游戏状态保存
             states.saveStates();
+            //刷新可用商品
             Commodity.refreshAvailableCommoditities();
         }
     }
+    //拆除
     public static void demolishBlocks() {
         if (demolishBlocks.size() >= 1) {
             int count = demolishBlocks.size();
@@ -494,7 +534,13 @@ public class ModSimReloaded {
         }
     }
 
+    /**
+     * 升级农场
+     */
     public static void upgradeFarm() {
+        try {
+
+        //如果农场等级为0 则1
         if (farmToUpgrade.level == 0) {
             farmToUpgrade.level = 1;
         }
@@ -502,17 +548,20 @@ public class ModSimReloaded {
         V3 point;
         WorldServer theWorld;
         if (farmToUpgrade.level == 1) {
+            //如果农场为空则重新获取
             if (farmToUpgradePoints == null) {
                 farmToUpgradePoints = farmToUpgrade.getPerimeterPoints();
             }
-
+            //获取元素
             point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
             theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
-
-            Block id = theWorld.getBlockState(new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue())).getBlock();
+            BlockPos blockPos=new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue());
+            Block id = theWorld.getBlockState(blockPos).getBlock();
+            //摧毁
             boolean destroy = false;
+            //方块不为空
             if (id != null) {
-                BlockPos blockPos=new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                //获取实体
                 TileEntity te = theWorld.getTileEntity(blockPos);
                 if (te == null) {
                     destroy = true;
@@ -524,19 +573,25 @@ public class ModSimReloaded {
             }
 
             if (destroy) {
-
-                theWorld.destroyBlock(new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue()), true);
-                BlockPos blockPos2=new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                BlockPos blockPos2=new BlockPos(point.x.intValue()-1, point.y.intValue(), point.z.intValue()-1);
+                //摧毁放快
+                theWorld.destroyBlock(blockPos2, true);
+                //把原来方块替换成 栅栏
                 theWorld.setBlockState(blockPos2,Blocks.oak_fence.getDefaultState(),3);
+                //更新方块标记
                 theWorld.markBlockForUpdate(blockPos2);
             }
-
+            //升级点除以六等于0
             if (farmToUpgradeCounter % 6 == 0) {
-                BlockPos blockPos2=new BlockPos(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
-                theWorld.setBlockState(blockPos2,BlockLoader.blockLightBox.getDefaultState(),3);
-                theWorld.markBlockForUpdate(blockPos2);
+                BlockPos blockPos1=new BlockPos(point.x.intValue()-1, point.y.intValue()-1, point.z.intValue()-1);
+                theWorld.destroyBlock(blockPos1, true);
+                //把原来方块替换成 灯箱
+                theWorld.setBlockState(blockPos1,BlockLoader.blockLightBox.getDefaultState(),3);
+                theWorld.markBlockForUpdate(blockPos1);
             }
+            //升级等级是2
         } else if (farmToUpgrade.level == 2) {
+            //如果农场为空则重新获取
             if (farmToUpgradePoints == null) {
                 farmToUpgradePoints = farmToUpgrade.getSoilBlockPoints();
             }
@@ -544,8 +599,10 @@ public class ModSimReloaded {
             point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
             theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
             if (point.x.intValue() % 5 == 0 && point.z.intValue() % 5 == 0) {
+
                 BlockPos blockPos1=new BlockPos(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
                 theWorld.setBlockState(blockPos1,Blocks.water.getDefaultState(),3);
+
                 BlockPos blockPos2=new BlockPos(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
                 theWorld.setBlockState(blockPos2,BlockLoader.blockLightBox.getDefaultState(),3);
                 theWorld.markBlockForUpdate(blockPos1);
@@ -553,13 +610,17 @@ public class ModSimReloaded {
             }
         }
 
-        ++farmToUpgradeCounter;
+        farmToUpgradeCounter++;
+
         if (farmToUpgradeCounter > farmToUpgradePoints.size() - 1) {
-            ++farmToUpgrade.level;
+            farmToUpgrade.level++;
             farmToUpgradePoints = null;
             farmToUpgrade = null;
             farmToUpgradeCounter = 0;
             ModSimReloaded.log.info("完成农场升级");
+        }
+        }catch (Exception e){
+            log.error("升级农场出错了："+e.getMessage());
         }
     }
 

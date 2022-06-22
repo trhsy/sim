@@ -16,7 +16,7 @@ import java.util.Random;
  * ========================================
  *
  * @ClassName PricesForBlocks
- * @Description todo
+ * @Description todo 方块的价格
  * @Author Administrator
  * @Date 2022/1/26 0026下午 6:08
  * ========================================

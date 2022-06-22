@@ -16,6 +16,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
+/**
+ * 通用勾号处理程序
+ */
 public class CommonTickHandler {
     private World serverWorld = null;
     /*最后勾选*/
@@ -63,10 +66,11 @@ public class CommonTickHandler {
             if (this.serverWorld != null) {
                 FolkData.triggerAllUpdates();
                 ModSimReloaded.dayTransitionHandler();
+                //如果要升级的农场不为空则升级农场
                 if (ModSimReloaded.farmToUpgrade != null) {
                     ModSimReloaded.upgradeFarm();
                 }
-
+                //需要拆除的方块不为空则
                 if (ModSimReloaded.demolishBlocks.size() > 0) {
                     ModSimReloaded.demolishBlocks();
                 }

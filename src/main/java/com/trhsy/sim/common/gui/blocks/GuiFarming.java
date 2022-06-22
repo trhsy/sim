@@ -166,24 +166,32 @@ public class GuiFarming extends GuiScreen {
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
                 } else if (guibutton.id == 2) {
+                    //马铃薯
                     if (this.theFarmingBox.farmType == FarmType.POTATO) {
                         this.theFarmingBox.farmType = FarmType.PUMPKIN;
+                        //南瓜
                     } else if (this.theFarmingBox.farmType == FarmType.PUMPKIN) {
                         this.theFarmingBox.farmType = FarmType.MELON;
+                        //西瓜
                     } else if (this.theFarmingBox.farmType == FarmType.MELON) {
                         this.theFarmingBox.farmType = FarmType.WHEAT;
+                        //小麦
                     } else if (this.theFarmingBox.farmType == FarmType.WHEAT) {
                         this.theFarmingBox.farmType = FarmType.CARROT;
+                        //胡萝卜
                     } else if (this.theFarmingBox.farmType == FarmType.CARROT) {
                         this.theFarmingBox.farmType = FarmType.CUSTOM;
+                        //自定义
                     } else if (this.theFarmingBox.farmType == FarmType.CUSTOM) {
                         this.theFarmingBox.farmType = FarmType.SUGAR;
+                        //甘蔗
                     } else if (this.theFarmingBox.farmType == FarmType.SUGAR) {
                         this.theFarmingBox.farmType = FarmType.CACTUS;
+                        //仙人掌
                     } else if (this.theFarmingBox.farmType == FarmType.CACTUS) {
                         this.theFarmingBox.farmType = FarmType.POTATO;
                     }
-
+                    //农场
                     guibutton.displayString = this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm");
                 } else if (guibutton.id == 3) {
                     //获取金币
@@ -225,6 +233,10 @@ public class GuiFarming extends GuiScreen {
         }
     }
 
+    /**
+     * 获取升级成本
+     * @return
+     */
     private Float getUpgradeCost() {
         Float ret = (float)(this.theFarmingBox.getSizeLength() * this.theFarmingBox.getSizeWidth());
         ret = ret / 15.0F;

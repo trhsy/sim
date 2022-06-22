@@ -1155,12 +1155,12 @@ public class FolkData implements Serializable {
                     this.gotoMethod = methodOfTravel;
                 }
 
-                try {
-                    ModSimReloaded.log.info("FolkData: GOTOXYZ() for " + this.name + " to " + whereTo.toString() + " - Method:" + this.gotoMethod.toString() + " DIM:" + whereTo.theDimension);
-                } catch (Exception var9) {
-                    ModSimReloaded.log.warn("FolkData: GOTOXYZ() for " + this.name + " - NULL whereTo");
-                    return;
-                }
+                //try {
+                //    ModSimReloaded.log.info("FolkData: GOTOXYZ() for " + this.name + " to " + whereTo.toString() + " - Method:" + this.gotoMethod.toString() + " DIM:" + whereTo.theDimension);
+                //} catch (Exception var9) {
+                //    ModSimReloaded.log.warn("FolkData: GOTOXYZ() for " + this.name + " - NULL whereTo");
+                //    return;
+                //}
 
                 if (this.destination != null) {
                     if (this.gotoMethod == GotoMethod.SHIFT) {
