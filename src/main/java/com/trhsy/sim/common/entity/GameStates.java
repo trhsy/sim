@@ -54,42 +54,28 @@ public class GameStates implements Serializable {
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1);
                 String value = line.substring(m1 + 1);
-                switch (name){
-                    case "credits":
-                        this.credits = Float.parseFloat(value);
-                        break;
-                    case "gamemode":
-                        this.gameModeNumber = Integer.parseInt(value);
-                        break;
-                    case "dayofweek":
-                        this.dayOfWeek = Integer.parseInt(value);
-                        break;
-                    case "lastupdatecheck":
-                        this.lastUpdateCheck = Long.parseLong(value);
-                        break;
-                    case "uid":
-                        this.userId = Long.parseLong(value);
-                        break;
-                    case "folkNoise":
-                        this.folkNoise = Boolean.parseBoolean(value);
-                        break;
-                    case "disableBeamEffect":
-                        this.disableBeamEffect = Boolean.parseBoolean(value);
-                        break;
-                    case "lumberArea":
-                        this.lumberArea = Integer.parseInt(value);
-                        break;
-                    case "populationLimit":
-                        this.populationLimit = Integer.parseInt(value);
-                        break;
-                    case "cheatMode":
-                        this.cheatMode = Boolean.parseBoolean(value);
-                        break;
-                    case "population":
-                        this.population = Integer.parseInt(value);
-                        break;
-                    default:
-                        break;
+                if ("credits".equals(name)) {
+                    this.credits = Float.parseFloat(value);
+                } else if ("gamemode".equals(name)) {
+                    this.gameModeNumber = Integer.parseInt(value);
+                } else if ("dayofweek".equals(name)) {
+                    this.dayOfWeek = Integer.parseInt(value);
+                } else if ("lastupdatecheck".equals(name)) {
+                    this.lastUpdateCheck = Long.parseLong(value);
+                } else if ("uid".equals(name)) {
+                    this.userId = Long.parseLong(value);
+                } else if ("folkNoise".equals(name)) {
+                    this.folkNoise = Boolean.parseBoolean(value);
+                } else if ("disableBeamEffect".equals(name)) {
+                    this.disableBeamEffect = Boolean.parseBoolean(value);
+                } else if ("lumberArea".equals(name)) {
+                    this.lumberArea = Integer.parseInt(value);
+                } else if ("populationLimit".equals(name)) {
+                    this.populationLimit = Integer.parseInt(value);
+                } else if ("cheatMode".equals(name)) {
+                    this.cheatMode = Boolean.parseBoolean(value);
+                } else if ("population".equals(name)) {
+                    this.population = Integer.parseInt(value);
                 }
 
             }
