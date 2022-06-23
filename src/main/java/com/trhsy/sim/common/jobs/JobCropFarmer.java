@@ -309,7 +309,8 @@ public class JobCropFarmer extends Job implements Serializable {
      */
     public void stageHarvest() {
         if (this.farmingBlock == null || this.farmingBlock.farmType == null) {
-            ModSimReloaded.sendChat(I18n.format("container.sim.job.crop.farmer.problem"));//农业区出现问题，请重新设置
+            //农业区出现问题，请重新设置
+            ModSimReloaded.sendChat(I18n.format("container.sim.job.crop.farmer.problem"));
             if (this.theFolk != null) {
                 this.theFolk.selfFire();
             }
@@ -353,16 +354,17 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
                     } catch (Exception var8) {
                     }
-
+                    //可以收获
                     boolean canHarvest = false;
                     //收获的块
                     V3 harvestBlock = new V3((double)this.xxx, (double)this.yyy, (double)this.zzz, this.jobWorld.provider.getDimensionId());
                     //
                     ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
-                    //
+                    //种的不是甘蔗或者仙人掌
                     if (this.farmingBlock.farmType != FarmType.SUGAR && this.farmingBlock.farmType != FarmType.CACTUS) {
-                        //
+                        //西瓜，南瓜，自定义
                         if (this.id == Blocks.melon_block || this.id == Blocks.pumpkin || this.farmingBlock.farmType == FarmType.CUSTOM || this.meta >= 7) {
+                            //南瓜经/西瓜经
                             if (this.id != Blocks.pumpkin_stem && this.id != Blocks.melon_stem) {
                                 canHarvest = true;
                             }
@@ -375,17 +377,20 @@ public class JobCropFarmer extends Job implements Serializable {
 
                         Block sid1 = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy + 1, this.zzz)).getBlock();
                         Block sid2 = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy + 2, this.zzz)).getBlock();
-                        if (sid1 == Blocks.reeds && sid2 == Blocks.reeds) {
+
+                        if (sid1 == Blocks.wheat && sid2 == Blocks.wheat) {
                             canHarvest = true;
                         }
-
+                        //仙人掌
                         if (sid1 == Blocks.cactus && sid2 == Blocks.cactus) {
                             canHarvest = true;
                         }
                     }
 
                     if (canHarvest) {
+                        //不是甘蔗/不是仙人掌
                         if (this.farmingBlock.farmType != FarmType.SUGAR && this.farmingBlock.farmType != FarmType.CACTUS) {
+                            //仙人掌
                             if (this.farmingBlock.farmType == FarmType.CUSTOM) {
                                 if (System.currentTimeMillis() - this.lastCustomHarvest < 3600000L) {
                                     this.theStage = Stage.HOELAND;
@@ -400,10 +405,10 @@ public class JobCropFarmer extends Job implements Serializable {
                                 if (minedStacks != null) {
                                     this.farmingChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
 
-                                    for(int s = 0; s < minedStacks.size(); ++s) {
+                                    for(int s = 0; s < minedStacks.size(); s++) {
                                         ItemStack stack = (ItemStack)minedStacks.get(s);
                                         if (stack != null) {
-                                            this.inventoriesPut(this.farmingChests, stack, false);
+                                            this.inventoriesPut(this.farmingChests, new ItemStack(Blocks.wheat), false);
                                         }
                                     }
                                 }
@@ -411,13 +416,19 @@ public class JobCropFarmer extends Job implements Serializable {
                                 this.jobWorld.setBlockState(blockPos,this.id.getDefaultState(),3);
                             }
                         } else {
+
                             this.farmingChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+
                             BlockPos blockPos1=new BlockPos(this.xxx, this.yyy + 1, this.zzz);
+
                             this.jobWorld.setBlockState(blockPos1,this.id.getDefaultState(),3);
+
                             BlockPos blockPos2=new BlockPos(this.xxx, this.yyy + 2, this.zzz);
                             this.jobWorld.setBlockState(blockPos2,this.id.getDefaultState(),3);
+                            //甘蔗
                             if (this.farmingBlock.farmType == FarmType.SUGAR) {
-                                this.inventoriesPut(this.farmingChests, new ItemStack(Items.reeds, 2), false);
+                                this.inventoriesPut(this.farmingChests, new ItemStack(Items.wheat, 2), false);
+                                //仙人掌
                             } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
                                 this.inventoriesPut(this.farmingChests, new ItemStack(Blocks.cactus, 2), false);
                             }
@@ -456,32 +467,13 @@ public class JobCropFarmer extends Job implements Serializable {
         if (this.theFolk.theEntity != null) {
             //获取AABB中的实体，排除实体
             List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity,new AxisAlignedBB(v3center.x, v3center.y, v3center.z, v3center.x + 1.0, v3center.y + 1.0, v3center.z + 1.0).expand(3.0, 2.0, 3.0));
-            //Iterator iterator1 = list1.iterator();
+            Iterator iterator1 = list1.iterator();
             if (!list1.isEmpty()) {
-                for (int i = 0; i < list1.size(); i++) {
-                    Entity entity1 =(Entity)list1.get(i);
-                    if (entity1 instanceof EntityItem) {
-                        EntityItem entityitem = (EntityItem)entity1;
-                        ItemStack is = entityitem.getEntityItem();
-
-                        try {
-                            ItemFood food = (ItemFood)is.getItem();
-                            if (food != null) {
-                                boolean ok = this.inventoriesPut(this.farmingChests, is, false);
-                                if (ok) {
-                                    entityitem.setDead();
-                                }
-                            }
-                        } catch (Exception var9) {
-                        }
-                    }
-                }
-                /*while(iterator1.hasNext()) {
+                while(iterator1.hasNext()) {
                     Entity entity1 = (Entity)iterator1.next();
                     if (entity1 instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem)entity1;
                         ItemStack is = entityitem.getEntityItem();
-
                         try {
                             ItemFood food = (ItemFood)is.getItem();
                             if (food != null) {
@@ -491,9 +483,10 @@ public class JobCropFarmer extends Job implements Serializable {
                                 }
                             }
                         } catch (Exception var9) {
+                            ModSimReloaded.log.error("拾取庄家时出错："+var9.getMessage());
                         }
                     }
-                }*/
+                }
             }
 
         }
@@ -718,7 +711,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     Block cid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy-1, this.zzz)).getBlock();
                     if (cid == Blocks.dirt || cid == Blocks.grass || cid == Blocks.sand) {
                         if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.reeds, 1), false, false);
+                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat, 1), false, false);
                             if (seed == null) {
                                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.sugar");
                                 this.theStage = Stage.HANGOUT;
@@ -727,7 +720,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
                         }
                         BlockPos blockPos1=new BlockPos(this.xxx, this.yyy, this.zzz);
-                        this.jobWorld.setBlockState(blockPos1,Blocks.reeds.getDefaultState(),3);
+                        this.jobWorld.setBlockState(blockPos1,Blocks.wheat.getDefaultState(),3);
                         hasSown = true;
                     }
                 } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
