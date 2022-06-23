@@ -142,7 +142,7 @@ public class FarmingBox implements Serializable {
         }
 
         for(int o = 0; o <= length; ++o) {
-            for(int i = 0; i <= this.getSizeWidth(); ++i) {
+            for(int i = 0; i <= this.getSizeWidth(); i++) {
                 ret.add(c.clone());
                 if (m2.x > m1.x) {
                     c.x = m1.x + (double)i;
@@ -169,6 +169,10 @@ public class FarmingBox implements Serializable {
         return ret;
     }
 
+    /**
+     * 获取周边节点
+     * @return
+     */
     public ArrayList<V3> getPerimeterPoints() {
         ArrayList ret = new ArrayList();
 
@@ -179,82 +183,66 @@ public class FarmingBox implements Serializable {
             V3 b = this.getLocation();
             V3 c = b.clone();
 
-            int i;
-            Double var9;
-            Double var10;
-            for(i = 0; i <= this.getSizeWidth() + 1; ++i) {
+            for(int i = 0; i <= this.getSizeWidth() + 2; i++) {
                 if (m2.x - b.x > 1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x + 1.0;
-                } else if (m2.x - b.x < -1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x - 1.0;
+                    c.x = c.x + 1.0;
+                } else if (m2.x- b.x < -1.0) {
+                    c.x = c.x - 1.0;
                 } else if (m2.z - b.z > 1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z + 1.0;
+                    c.z = c.z + 1.0;
                 } else if (m2.z - b.z < -1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z - 1.0;
+                    c.z = c.z - 1.0;
                 }
 
                 ret.add(c.clone());
             }
-
-            for(i = 0; i <= this.getSizeLength() + 2; ++i) {
+            for(int i = 0; i <= this.getSizeLength() + 2; i++) {
                 if (m3.x - b.x > 1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x + 1.0;
+                    c.x = c.x + 1.0;
                 } else if (m3.x - b.x < -1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x - 1.0;
+                    c.x = c.x - 1.0;
                 } else if (m3.z - b.z > 1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z + 1.0;
+                    c.z = c.z + 1.0;
                 } else if (m3.z - b.z < -1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z - 1.0;
+                    c.z = c.z - 1.0;
                 }
 
                 ret.add(c.clone());
             }
 
-            for(i = 0; i <= this.getSizeWidth() + 2; ++i) {
-                if (m2.x - b.x > 1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x - 1.0;
-                } else if (m2.x - b.x < -1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x + 1.0;
+            for(int i = 0; i <= this.getSizeWidth() + 2; i++) {
+                if (m2.x - b.x+1 > 1.0) {
+                    c.x = c.x - 1.0;
+                } else if (m2.x - b.x+1 < -1.0) {
+                    c.x = c.x + 1.0;
                 } else if (m2.z - b.z > 1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z - 1.0;
+                    c.z = c.z - 1.0;
                 } else if (m2.z - b.z < -1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z + 1.0;
+                    c.z = c.z + 1.0;
                 }
 
                 ret.add(c.clone());
             }
 
-            for(i = 0; i <= this.getSizeLength() + 2; ++i) {
+
+
+            for(int i = 0; i <= this.getSizeLength() + 2; i++) {
                 if (m3.x - b.x > 1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x - 1.0;
+                    c.x = c.x - 1.0;
                 } else if (m3.x - b.x < -1.0) {
-                    var9 = c.x;
-                    var10 = c.x = c.x + 1.0;
+                    c.x = c.x + 1.0;
                 } else if (m3.z - b.z > 1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z - 1.0;
+                    c.z = c.z - 1.0;
                 } else if (m3.z - b.z < -1.0) {
-                    var9 = c.z;
-                    var10 = c.z = c.z + 1.0;
+                    c.z = c.z + 1.0;
                 }
 
                 ret.add(c.clone());
             }
+
         } catch (Exception var11) {
-            var11.printStackTrace();
+            ModSimReloaded.log.error("获取周边节点发生错误："+var11.getMessage());
+            //var11.printStackTrace();
         }
 
         return ret;
@@ -289,10 +277,9 @@ public class FarmingBox implements Serializable {
         File[] arr$ = farmFiles.listFiles();
         int len$ = arr$.length;
 
-        int i$;
         File f;
-        for(i$ = 0; i$ < len$; ++i$) {
-            f = arr$[i$];
+        for(int i = 0; i < len$; i++) {
+            f = arr$[i];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
                 break;
@@ -306,8 +293,8 @@ public class FarmingBox implements Serializable {
             arr$ = farmFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
-                f = arr$[i$];
+            for(int i = 0; i < len$; i++) {
+                f = arr$[i];
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     FarmingBox box = new FarmingBox();
@@ -356,8 +343,8 @@ public class FarmingBox implements Serializable {
             arr$ = farmFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
-                f = arr$[i$];
+            for(int i = 0; i < len$; i++) {
+                f = arr$[i];
                 if (f.getName().endsWith(".suk")) {
                     FarmingBox farming = (FarmingBox) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
                     if (farming != null) {
