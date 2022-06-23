@@ -573,7 +573,7 @@ public class ModSimReloaded {
             }
 
             if (destroy) {
-                BlockPos blockPos2=new BlockPos(point.x.intValue()-1.5, point.y.intValue(), point.z.intValue()+1);
+                BlockPos blockPos2=new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue());
                 //摧毁放快
                 theWorld.destroyBlock(blockPos2, true);
                 //把原来方块替换成 栅栏
@@ -583,7 +583,7 @@ public class ModSimReloaded {
             }
             //升级点除以六等于0
             if (farmToUpgradeCounter % 6 == 0) {
-                BlockPos blockPos1=new BlockPos(point.x.intValue()-1.5, point.y.intValue()-1, point.z.intValue()+1);
+                BlockPos blockPos1=new BlockPos(point.x.intValue(), point.y.intValue()-1, point.z.intValue());
                 theWorld.destroyBlock(blockPos1, true);
                 //把原来方块替换成 灯箱
                 theWorld.setBlockState(blockPos1,BlockLoader.blockLightBox.getDefaultState(),3);
