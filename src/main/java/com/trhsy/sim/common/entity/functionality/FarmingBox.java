@@ -95,9 +95,9 @@ public class FarmingBox implements Serializable {
             V3 m2 = this.getMarkerVector(2);
             V3 m3 = this.getMarkerVector(3);
             if (m1.x.intValue() == m2.x.intValue()) {
-                ltr = (int)(Math.abs(m2.z - m1.z) - 1.0);
+                ltr = (int)(Math.abs(m2.z - m1.z) + 1.0);
             } else {
-                ltr = (int)(Math.abs(m2.x - m1.x) - 1.0);
+                ltr = (int)(Math.abs(m2.x - m1.x) + 1.0);
             }
         } catch (Exception var5) {
             return 5;
@@ -119,9 +119,9 @@ public class FarmingBox implements Serializable {
             V3 m2 = this.getMarkerVector(2);
             V3 m3 = this.getMarkerVector(3);
             if (m1.x.intValue() == m3.x.intValue()) {
-                ftb = (int)(Math.abs(m3.z - m1.z) - 1.0);
+                ftb = (int)(Math.abs(m3.z - m1.z) + 1.0);
             } else {
-                ftb = (int)(Math.abs(m3.x - m1.x) - 1.0);
+                ftb = (int)(Math.abs(m3.x - m1.x) + 1.0);
             }
         } catch (Exception var5) {
             return 5;
