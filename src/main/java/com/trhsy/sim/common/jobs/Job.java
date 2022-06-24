@@ -223,12 +223,13 @@ public abstract class Job {
     }
 
     /**
-     * 存货卖出价
+     * 库存输出
      * @param chest
      * @param inStack
      * @return
      */
     private static boolean inventoryPut(IInventory chest, ItemStack inStack) {
+        //放好了
         Boolean placedOK = false;
         //如果物品为空
         if (inStack == null) {
@@ -475,12 +476,21 @@ public abstract class Job {
         }
     }
 
+    /**
+     *
+     * @param chests 库存
+     * @param inStack 堆叠
+     * @param doOpenClose 是否打开关闭
+     * @return
+     */
     public boolean inventoriesPut(ArrayList<IInventory> chests, ItemStack inStack, boolean doOpenClose) {
+        //是否放好
         boolean placedOK = false;
 
         for(int i = 0; i < chests.size(); ++i) {
             IInventory chest = (IInventory)chests.get(i);
             if (doOpenClose) {
+                //打开或者关闭箱子
                 this.openCloseChest(chest, 2000);
             }
 
