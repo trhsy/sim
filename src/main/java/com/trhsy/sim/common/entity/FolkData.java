@@ -144,6 +144,7 @@ public class FolkData implements Serializable {
         this.stayPut = false;
         this.destination = null;
         this.location = null;
+        //游走
         this.statusText = I18n.format("container.sim.folk_data.Wandering");
         this.status1 = "";
         this.status2 = "";
@@ -169,7 +170,13 @@ public class FolkData implements Serializable {
         this.talkCounter = 0;
         this.matingStage = -1.0F;
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 已加载
+     * @Date 21:22 2022/6/27
+     * @Param []
+     * @return void
+     **/
     public void hasLoaded() {
         String voc = "none";
         String vocat = "";
@@ -185,15 +192,15 @@ public class FolkData implements Serializable {
         if (this.vocation == null) {
             this.employedAt = null;
         }
-
+        //采矿等级
         if (this.levelMiner < 1.0F) {
             this.levelMiner = 1.0F;
         }
-
+        /**建筑等级**/
         if (this.levelBuilder < 1.0F) {
             this.levelBuilder = 1.0F;
         }
-
+        //士兵
         if (this.levelSoldier < 1.0F) {
             this.levelSoldier = 1.0F;
         }
@@ -201,7 +208,7 @@ public class FolkData implements Serializable {
         try {
             ModSimReloaded.log.info("FolkData: hasLoaded() " + this.name + " (" + voc + ") at " + vocat + " location= " + this.location.toString() + "  " + ModSimReloaded.theFolks.size() + " 所有人");
         } catch (Exception var4) {
-            //ModSimReloaded.log.error("错误"+var4.getMessage());
+            ModSimReloaded.log.error("加载npc错误"+var4.getMessage());
         }
 
         this.inventory = new ArrayList();
@@ -360,7 +367,13 @@ public class FolkData implements Serializable {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 重生实体人
+     * @Date 21:24 2022/6/27
+     * @Param [world]
+     * @return void
+     **/
     public void respawnEntity(World world) {
         if (world != null) {
             if (this.beamingTo == null) {
@@ -941,7 +954,13 @@ public class FolkData implements Serializable {
             return !this.theEntity.isDead;
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 与玩家的距离
+     * @Date 21:24 2022/6/27
+     * @Param []
+     * @return int
+     **/
     public int getDistanceToPlayer() {
         EntityPlayer p = getClosestPlayer(this.location);
         if (p == null) {

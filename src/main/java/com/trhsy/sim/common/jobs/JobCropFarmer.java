@@ -118,6 +118,7 @@ public class JobCropFarmer extends Job implements Serializable {
     public void resetJob() {
         //设置闲置
         this.theStage = Stage.IDLE;
+        //设置工作中为否
         this.theFolk.isWorking = false;
     }
 
@@ -301,6 +302,7 @@ public class JobCropFarmer extends Job implements Serializable {
             return ret;
         } catch (Exception var3) {
             ModSimReloaded.sendChat(I18n.format("container.sim.job.crop.farmer.There") + this.theFolk.name + I18n.format("container.sim.job.crop.farmer.farming"));
+            //辞职
             this.theFolk.selfFire();
             return false;
         }
@@ -322,6 +324,7 @@ public class JobCropFarmer extends Job implements Serializable {
             this.setupFarming();
             //收获
             this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Harvesting");
+            //计算位置
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist > 3) {
                 this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
@@ -337,6 +340,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.theStage = Stage.HOELAND;
                 this.step = 1;
                 this.theFolk.isWorking = false;
+                //上次自定义收获
                 this.lastCustomHarvest = System.currentTimeMillis();
                 return;
             } else {
@@ -344,6 +348,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     //有收获
                     this.id = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)).getBlock();
                     this.meta = this.id.getMetaFromState(this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)));
+                    System.out.println("收获id:"+id.getUnlocalizedName()+",状态meta:"+meta);
                     //未加载区块时人工种植非定制/甘蔗
                     try {
                         //实体人没有死亡          不是定制 不是甘蔗不是仙人掌
@@ -395,6 +400,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     if (canHarvest) {
                         //不是甘蔗/不是仙人掌
                         if (this.farmingBlock.farmType == FarmType.SUGAR && this.farmingBlock.farmType == FarmType.CACTUS) {
+                            //箱子
                             this.farmingChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
 
                             BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy + 1, this.zzz);
@@ -414,6 +420,16 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
 
 
+                        } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
+                            if (System.currentTimeMillis() - this.lastCustomHarvest < 3600000L) {
+                                this.theStage = Stage.HOELAND;
+                                this.step = 1;
+                                this.theFolk.isWorking = false;
+                                return;
+                            }
+
+                            this.jobWorld.destroyBlock(new BlockPos(this.xxx, this.yyy, this.zzz), true);
+                            this.pickUpDroppedCrops(harvestBlock);
                         } else if (this.farmingBlock.farmType != FarmType.CUSTOM) {
                             //要收获不为空
                             if (minedStacks != null) {
@@ -429,16 +445,6 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
                             BlockPos blockPos = new BlockPos(this.xxx, this.yyy, this.zzz);
                             this.jobWorld.setBlockState(blockPos, this.id.getDefaultState(), 3);
-                        } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
-                            if (System.currentTimeMillis() - this.lastCustomHarvest < 3600000L) {
-                                this.theStage = Stage.HOELAND;
-                                this.step = 1;
-                                this.theFolk.isWorking = false;
-                                return;
-                            }
-
-                            this.jobWorld.destroyBlock(new BlockPos(this.xxx, this.yyy, this.zzz), true);
-                            this.pickUpDroppedCrops(harvestBlock);
                         } else {
                             if (System.currentTimeMillis() - lastCustomHarvest < (60 * 60 * 1000)) {
                                 theStage = Stage.HOELAND;
