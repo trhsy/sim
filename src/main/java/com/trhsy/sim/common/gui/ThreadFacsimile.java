@@ -173,16 +173,16 @@ public class ThreadFacsimile extends Thread {
                     return;
                 }
 
-                File check = new File(UpdateChecker.getSimukraftFolder() + "/buildings/");
+                File check = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/");
                 if (!check.exists()) {
-                    ModSimReloaded.sendChat(UpdateChecker.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Facsimile4"));
+                    ModSimReloaded.sendChat(ModSimReloaded.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Facsimile4"));
                     return;
                 }
 
                 String f = String.valueOf(System.currentTimeMillis());
                 ltr = f.length();
                 f = f.substring(ltr - 6);
-                FileWriter fstream = new FileWriter(UpdateChecker.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
+                FileWriter fstream = new FileWriter(ModSimReloaded.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
                 BufferedWriter out = new BufferedWriter(fstream);
                 out.write(ltrCountx + "x" + ftbCountx + "x" + layerLines.size() + "\r\n");
                 out.write(keyString + "\r\n");

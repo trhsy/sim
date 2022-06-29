@@ -145,6 +145,9 @@ public class JobSoldier extends Job implements Serializable {
 
     }
 
+    /**
+     * 阶段性进攻
+     */
     private void stageAttacking() {
         try {
             this.runDelay = 200;

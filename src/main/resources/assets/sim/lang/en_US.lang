@@ -970,3 +970,14 @@ container.sim.building.door=door
 container.sim.building.stairs=stairs
 container.sim.building.grass=grass
 container.sim.building.bed=bed
+
+container.sim.FolkData.Clinic=Clinic
+container.sim.FolkData.Great_Banter=Great Banter
+container.sim.FolkData.Socially_Fulfilled=Socially Fulfilled
+container.sim.FolkData.Lonely=Lonely
+container.sim.FolkData.Very_Lonely=Very Lonely
+container.sim.FolkData.Going_Insane=Going Insane
+container.sim.FolkData.Beautiful_Surroundings=Beautiful Surroundings
+container.sim.FolkData.Nice_Surroundings=Nice Surroundings
+container.sim.FolkData.Poor_Surroundings=Poor Surroundings
+container.sim.FolkData.Horrific_Surroundings=Horrific Surroundings

@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import java.io.Serializable;
 
 /**
- *
+ * 在整个mod中用作三维向量，因为Minecraft的Vec3有点奇怪，或者我不太擅长Java：-）
  */
 public class V3 implements Serializable, Cloneable {
     private static final long serialVersionUID = 3681796724829797704L;
@@ -42,6 +42,13 @@ public class V3 implements Serializable, Cloneable {
         return retV;
     }
 
+    /**
+     * 重载以包含维度0=超世界，-1=虚空1=结束2以上可能是Mystcraft年龄
+     * @param x
+     * @param y
+     * @param z
+     * @param dimension
+     */
     public V3(Double x, Double y, Double z, int dimension) {
         this.x = x;
         this.y = y;
@@ -55,6 +62,10 @@ public class V3 implements Serializable, Cloneable {
         this.theDimension = dimension;
     }
 
+    /**
+     * 重载，用于将基于文本的保存文件作为V3加载到中
+     * @param v3
+     */
     public V3(String v3) {
         String[] v = v3.split(",");
         this.x = Double.parseDouble(v[0]);
@@ -84,7 +95,7 @@ public class V3 implements Serializable, Cloneable {
     }
 
     /**
-     * 坐标相同
+     * 坐标相同 比较x、y和z，以查看它们是否相同，并且只有INT值，而不是double还比较维度
      * @param comp
      * @param compareDimension
      * @param exactly
@@ -108,7 +119,7 @@ public class V3 implements Serializable, Cloneable {
     }
 
     /**
-     * 获取距离
+     * 获取距离 计算并返回此V3和传入V3之间的距离-假定尺寸相同
      * @param other
      * @return
      */

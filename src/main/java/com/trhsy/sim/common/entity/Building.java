@@ -262,7 +262,7 @@ public class Building implements Serializable {
             //已经建筑的方块为0
             this.blocksInBuilding = 0;
             //加载所有建筑物
-            File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
                 ModSimReloaded.log.info("建筑物不存在，加载失败");
                 return;
@@ -1020,7 +1020,7 @@ public class Building implements Serializable {
     }
 
     public static Building getBuildingForFolk(String partialFilename, String type) {
-        File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + type + "/" + partialFilename);
+        File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + type + "/" + partialFilename);
         if (f.exists()) {
             String name = f.getName().substring(0, f.getName().length() - 4);
             Building build = new Building(name, type);
@@ -1032,7 +1032,7 @@ public class Building implements Serializable {
     }
 
     private static void initBuildingsOfType(String type) {
-        File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + type);
+        File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + type);
 
         for (int i = 0; i < f.list().length; ++i) {
             String name = f.list()[i];

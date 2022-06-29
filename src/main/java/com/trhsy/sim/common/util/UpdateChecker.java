@@ -19,7 +19,7 @@ public class UpdateChecker {
     int m1 = 0;
 
     public UpdateChecker(FMLPreInitializationEvent event) {
-        File checks = new File(getSimukraftFolder()+ File.separator+"/buildings");
+        File checks = new File(ModSimReloaded.getSimukraftFolder()+ File.separator+"/buildings");
         if(!checks.exists()){
             onUpdate();
         }
@@ -33,7 +33,7 @@ public class UpdateChecker {
             if("en_US".equals(lang)) {
                 baseURL = "https://trhsy.github.io/sim/Simukraft_en_US.zip";
             }
-            String unzipFilePath= getSimukraftFolder();
+            String unzipFilePath= ModSimReloaded.getSimukraftFolder();
             File checks = new File(unzipFilePath+ File.separator);
             File[] checkss = checks.listFiles();
 
@@ -99,25 +99,7 @@ public class UpdateChecker {
 
 
     }
-    /**
-     * 获取模拟城市建筑文文件夹
-     *
-     * @return
-     */
-    public static String getSimukraftFolder() {
-        try {
-            String strmc = (new File(".")).getAbsolutePath();
-            strmc = strmc.substring(0, strmc.length() - 1);
-            File checks = new File(strmc + File.separator + "mods" + File.separator + "sim");
-            if(!checks.exists()&& !checks.isDirectory()){
-                ModSimReloaded.log.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/ 文件夹丢失了 - 重新创建此文件夹");
-                checks.mkdir();
-            }
-            return (checks).getAbsolutePath();
-        } catch (Exception var1) {
-            return "";
-        }
-    }
+
     public static void deleteFile(File file){
         ModSimReloaded.log.info("开始删除文件/文件夹");
         if(file.exists()){
