@@ -147,7 +147,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
         int adultCount = 0;
         EntityAnimal animal = null;
         if (list != null) {
-            for(int i = 0; i < list.size(); ++i) {
+            for(int i = 0; i < list.size(); i++) {
                 animal = (EntityAnimal)list.get(i);
                 if (!animal.isChild()) {
                     ++adultCount;
@@ -161,7 +161,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 EntityAnimal a1 = null;
                 EntityAnimal a2 = null;
 
-                for(int i = 0; i < list.size(); ++i) {
+                for(int i = 0; i < list.size(); i++) {
                     animal = (EntityAnimal)list.get(i);
                     if (!animal.isChild()) {
                         if (a1 == null) {

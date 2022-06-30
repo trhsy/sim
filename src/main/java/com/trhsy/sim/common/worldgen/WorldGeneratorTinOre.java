@@ -34,7 +34,7 @@ public class WorldGeneratorTinOre extends WorldGenerator {
         // TODO
         if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.GOLD)) {
             //System.out.println("开始生成铜矿");
-            for (int i = 0; i < 4; ++i) {
+            for (int i = 0; i < 4; i++) {
                 int posX = pos.getX() + rand.nextInt(16);
                 int posY = 16 + rand.nextInt(16);
                 int posZ = pos.getZ() + rand.nextInt(16);

@@ -1856,7 +1856,7 @@ public class FolkData implements Serializable {
      * @return
      */
     public static FolkData getFolkDataByEntityId(int id) {
-        for (int i = 0; i < ModSimReloaded.theFolks.size(); ++i) {
+        for (int i = 0; i < ModSimReloaded.theFolks.size(); i++) {
             FolkData fd = (FolkData) ModSimReloaded.theFolks.get(i);
             if (fd.theEntity != null && fd.theEntity.getEntityId() == id) {
                 return fd;
@@ -2073,32 +2073,32 @@ public class FolkData implements Serializable {
 
     public void generateTraits() {
         Random rand = new Random();
-        Traits traits=new Traits();
+        Trait[] traits1= Traits.traitList;
         //Trait 1
-        this.trait1 = traits.traitList[rand.nextInt(traits.traitList.length - 1)].traitName;
+        this.trait1 =traits1[rand.nextInt(traits1.length - 1)].traitName;
 
 
         //Trait 2
-        this.trait2 = traits.traitList[rand.nextInt(traits.traitList.length - 1)].traitName;
+        this.trait2 = traits1[rand.nextInt(traits1.length - 1)].traitName;
 
         while (this.trait2 == this.trait1 || this.traitHasOpposite(trait2)) {
-            this.trait2 = traits.traitList[rand.nextInt(traits.traitList.length - 1)].traitName;
+            this.trait2 = traits1[rand.nextInt(traits1.length - 1)].traitName;
         }
 
 
         //Trait 3
-        this.trait3 = traits.traitList[rand.nextInt(traits.traitList.length - 1)].traitName;
+        this.trait3 = traits1[rand.nextInt(traits1.length - 1)].traitName;
 
         while (this.trait3 == this.trait2 || this.trait3 == this.trait1 || this.traitHasOpposite(trait3)) {
-            this.trait3 = traits.traitList[rand.nextInt(traits.traitList.length - 1)].traitName;
+            this.trait3 = traits1[rand.nextInt(traits1.length - 1)].traitName;
         }
 
 
         //Trait 4
-        this.trait4 = traits.traitList[rand.nextInt(traits.traitList.length - 1)].traitName;
+        this.trait4 = traits1[rand.nextInt(traits1.length - 1)].traitName;
 
         while (this.trait4 == this.trait1 || this.trait4 == this.trait2 || this.trait4 == this.trait3 || this.traitHasOpposite(trait4)) {
-            this.trait4 = traits.traitList[rand.nextInt(traits.traitList.length - 1)].traitName;
+            this.trait4 = traits1[rand.nextInt(traits1.length - 1)].traitName;
         }
     }
 

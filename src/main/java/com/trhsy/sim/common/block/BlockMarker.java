@@ -173,7 +173,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     public static Marker getMarker(V3 position) {
         Marker ret = null;
 
-        for (int i = 0; i < markers.size(); ++i) {
+        for (int i = 0; i < markers.size(); i++) {
             Marker m = (Marker) markers.get(i);
             if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
                 ret = m;

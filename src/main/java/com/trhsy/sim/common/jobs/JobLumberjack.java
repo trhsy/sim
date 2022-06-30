@@ -206,7 +206,7 @@ public class JobLumberjack extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Choppy");
             this.theFolk.isWorking = true;
 
-            for(i = 0; i < 20; ++i) {
+            for(i = 0; i < 20; i++) {
                 l = this.foundWoodAt.x.intValue();
                 int y = this.foundWoodAt.y.intValue() - 1;
                 int z = this.foundWoodAt.z.intValue();
@@ -288,7 +288,7 @@ public class JobLumberjack extends Job implements Serializable {
                 if (this.theFolk.isSpawned()) {
                     count = this.getInventoryCount(this.theFolk, Blocks.sapling);
                     if (count > 0) {
-                        for(i = 0; i < this.theFolk.inventory.size(); ++i) {
+                        for(i = 0; i < this.theFolk.inventory.size(); i++) {
                             ItemStack fis = (ItemStack)this.theFolk.inventory.get(i);
                             if (fis != null && Block.getBlockFromItem(fis.getItem()) == Blocks.sapling) {
                                 this.theFolk.inventory.remove(i);

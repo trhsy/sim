@@ -551,7 +551,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                         y += 71;
                                     }
 
-                                    ++idx;
+                                    idx++;
                                     ++this.buildingsOnPage;
                                     if (this.buildingOffset > 0) {
                                         this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
@@ -658,7 +658,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 this.selectedBuilding.saveThisBuilding();
                                 ModSimReloaded.network.sendToAll(new LoadBuildingMessage("GuiBuildingCon"));
 
-                                for (int i = 0; i < this.theWorkers.size(); ++i) {
+                                for (int i = 0; i < this.theWorkers.size(); i++) {
                                     FolkData theWorker = (FolkData) this.theWorkers.get(i);
                                     theWorker.theBuilding = this.selectedBuilding;
                                     theWorker.saveThisFolk();
@@ -738,7 +738,7 @@ public class GuiBuildingConstructor extends GuiScreen {
     }
 
     public void fireAllFolksForThisBuilding() {
-        for (int i = 0; i < this.theWorkers.size(); ++i) {
+        for (int i = 0; i < this.theWorkers.size(); i++) {
             //员工
             FolkData worker = (FolkData) this.theWorkers.get(i);
             if (worker.vocation == Vocation.BUILDER) {

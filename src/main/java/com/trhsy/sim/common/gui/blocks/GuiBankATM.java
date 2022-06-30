@@ -102,7 +102,7 @@ public class GuiBankATM extends GuiScreen {
                 if (this.theScreen == ATMscreen.DEPOSIT) {
                     offset = 30;
 
-                    for(inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); ++inv) {
+                    for(inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); inv++) {
                         ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
                         if (is != null) {
                             String sim_gui_ATMs_Sell_1 = I18n.format("container.sim.sim_gui_ATMs_Sell_1");
@@ -136,7 +136,7 @@ public class GuiBankATM extends GuiScreen {
                 } else if (this.theScreen == ATMscreen.COMMODITIES) {
                     offset = 30;
 
-                    for (inv = 0; inv < ModSimReloaded.theCommodities.size(); ++inv) {
+                    for (inv = 0; inv < ModSimReloaded.theCommodities.size(); inv++) {
                         this.buttonList.add(new GuiButton(inv + 200, this.width / 2, offset, 20, 20, "-"));
                         this.buttonList.add(new GuiButton(inv + 300, this.width / 2 + 20, offset, 20, 20, "+"));
                         offset += 20;
@@ -174,7 +174,7 @@ public class GuiBankATM extends GuiScreen {
                 String sim_gui_ATMs_Items = I18n.format("container.sim.sim_gui_ATMs_Items");
                 this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Items, this.width / 2, 15, 65280);
 
-                for (int inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); ++inv) {
+                for (int inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); inv++) {
                     ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
                     if (is != null && (is.getItem() == Items.diamond || is.getItem() == Items.emerald || is.getItem() == Items.redstone || is.getItem() == Items.glowstone_dust || is.getItem() == Items.gold_ingot)) {
                         this.drawString(this.fontRendererObj, is.stackSize + " x " + is.getDisplayName(), 40, offset, 65280);
@@ -196,7 +196,7 @@ public class GuiBankATM extends GuiScreen {
                     this.drawString(this.fontRendererObj, sim_gui_ATMs_later, 20, offset, 65280);
                 }
 
-                for (int it = 0; it < ModSimReloaded.theCommodities.size(); ++it) {
+                for (int it = 0; it < ModSimReloaded.theCommodities.size(); it++) {
                     Commodity item = (Commodity) ModSimReloaded.theCommodities.get(it);
                     this.drawString(this.fontRendererObj, item.quantity + " x " + item.theItemStack.getDisplayName() + " @ " + ModSimReloaded.displayMoney(item.priceEach) + " each", 20, offset, 65280);
                     int qty = 0;

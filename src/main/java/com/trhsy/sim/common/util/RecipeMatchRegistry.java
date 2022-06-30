@@ -51,7 +51,7 @@ public class RecipeMatchRegistry {
     public static ItemStack[] copyItemStackArray(ItemStack[] in) {
         ItemStack[] stacksCopy = new ItemStack[in.length];
 
-        for(int i = 0; i < in.length; ++i) {
+        for(int i = 0; i < in.length; i++) {
             if (in[i] != null) {
                 stacksCopy[i] = in[i].copy();
             }

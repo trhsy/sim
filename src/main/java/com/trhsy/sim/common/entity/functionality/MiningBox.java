@@ -89,7 +89,7 @@ public class MiningBox implements Serializable {
 
         int i$;
         File f;
-        for(i$ = 0; i$ < len$; ++i$) {
+        for(i$ = 0; i$ < len$; i$++) {
             f = arr$[i$];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
@@ -104,7 +104,7 @@ public class MiningBox implements Serializable {
             arr$ = mineFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
+            for(i$ = 0; i$ < len$; i$++) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
@@ -156,7 +156,7 @@ public class MiningBox implements Serializable {
             arr$ = mineFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
+            for(i$ = 0; i$ < len$; i$++) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".suk")) {
                     MiningBox mining = (MiningBox) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());

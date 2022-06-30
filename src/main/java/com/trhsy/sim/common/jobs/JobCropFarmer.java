@@ -98,17 +98,18 @@ public class JobCropFarmer extends Job implements Serializable {
             //状态闲置
             this.theStage = Stage.IDLE;
         }
-
-        if (this.theFolk != null) {
-            //目的地为空重新设置 为雇佣地
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
-            }
-            //设置养殖箱位置
-            this.farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(folk.employedAt);
-            //延迟
-            this.runDelay = 1000;
+        if (theFolk == null) {
+            return;
         }
+        if (this.theFolk.destination == null) {
+            //目的地为空重新设置 为雇佣地
+            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+
+        }
+        //设置养殖箱位置
+        this.farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(folk.employedAt);
+        //延迟
+        this.runDelay = 1000;
     }
 
     /**
@@ -157,34 +158,35 @@ public class JobCropFarmer extends Job implements Serializable {
                     //延迟
                 }
             }
-            //当前时间毫秒- 上次跑步后的时间 》=当前运行延迟
-            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
-                //上次跑步后的时间=当前时间毫秒
-                this.timeSinceLastRun = System.currentTimeMillis();
-                //闲置 或者 晚上
-                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
-                    //如果到达农场
-                    if (this.theStage == Stage.ARRIVEDATFARM) {
-                        //检查箱子
-                        this.theStage = Stage.CHECKINGFORCHESTS;
-                    } else if (this.theStage == Stage.CHECKINGFORCHESTS) {
-                        this.stageCheckingForChests();
-                    } else if (this.theStage == Stage.HARVEST) {
-                        //收获季节
-                        this.stageHarvest();
-                    } else if (this.theStage == Stage.HOELAND) {
-                        //锄地
-                        this.stageHoeland();
-                    } else if (this.theStage == Stage.PLANTSEEDS) {
-                        //种种子
-                        this.stagePlantSeeds();
-                    } else if (this.theStage == Stage.HANGOUT) {
-                        //闲逛
-                        this.stageHangout();
-                    }
-                }
-
+            //当前时间毫秒- 上次跑步后的时间 <当前运行延迟
+            if (System.currentTimeMillis() - this.timeSinceLastRun < (long) this.runDelay) {
+                return;
             }
+
+            //上次跑步后的时间=当前时间毫秒
+            this.timeSinceLastRun = System.currentTimeMillis();
+            //闲置 或者 晚上
+            if (this.theStage == Stage.IDLE || ModSimReloaded.isDayTime()) {
+                //如果到达农场
+            } else if (this.theStage == Stage.ARRIVEDATFARM) {
+                //检查箱子
+                this.theStage = Stage.CHECKINGFORCHESTS;
+            } else if (this.theStage == Stage.CHECKINGFORCHESTS) {
+                this.stageCheckingForChests();
+            } else if (this.theStage == Stage.HARVEST) {
+                //收获季节
+                this.stageHarvest();
+            } else if (this.theStage == Stage.HOELAND) {
+                //锄地
+                this.stageHoeland();
+            } else if (this.theStage == Stage.PLANTSEEDS) {
+                //种种子
+                this.stagePlantSeeds();
+            } else if (this.theStage == Stage.HANGOUT) {
+                //闲逛
+                this.stageHangout();
+            }
+
         }
     }
 
@@ -221,61 +223,64 @@ public class JobCropFarmer extends Job implements Serializable {
 
     /**
      * 设置农业
+     * 设置 farmDir 变量以及 ftb 和 ltr 值
      */
     private void setupFarming() {
         this.ftb = 0;
         this.ltr = -1;
         if (this.farmingBlock == null) {
             ModSimReloaded.log.warn("JobCropFarmer: FarmingBlock 为空 - 不存在或未找到？！");
-        } else {
-            V3 m1 = this.farmingBlock.marker1XYZ;
-            V3 m2 = this.farmingBlock.marker2XYZ;
-            V3 m3 = this.farmingBlock.marker3XYZ;
-            if (this.farmingBlock.marker1XYZ == null) {
-                ModSimReloaded.log.warn("JobCropFarmer: FarmingBlock 的标记为空");
-            } else {
-                try {
-                    this.mx = m1.x.intValue();
-                    this.my = m1.y.intValue() - 1;
-                    this.mz = m1.z.intValue();
-                    int m2x = m2.x.intValue();
-                    int m1x = m1.x.intValue();
-                    int m2z = m2.z.intValue();
-                    int m1z = m1.z.intValue();
-                    if (m2x == m1x) {
-                        if (m2z > this.mz) {
-                            this.farmDir = "z+";
-                        } else {
-                            this.farmDir = "z-";
-                        }
-                    } else if (m2z == m1z) {
-                        if (m2x > this.mx) {
-                            this.farmDir = "x+";
-                        } else {
-                            this.farmDir = "x-";
-                        }
-                    }
-
-                    this.ltrCount = this.farmingBlock.getSizeWidth();
-                    this.ftbCount = this.farmingBlock.getSizeLength();
-                } catch (Exception var8) {
-                }
-
-            }
+            return;
         }
+        V3 m1 = this.farmingBlock.marker1XYZ;
+        V3 m2 = this.farmingBlock.marker2XYZ;
+        V3 m3 = this.farmingBlock.marker3XYZ;
+        if (this.farmingBlock.marker1XYZ == null) {
+            ModSimReloaded.log.warn("JobCropFarmer: FarmingBlock 的标记为空");
+            return;
+        }
+        try {
+            //第一个标记下方的地面
+            this.mx = m1.x.intValue();
+            this.my = m1.y.intValue() - 1;
+            this.mz = m1.z.intValue();
+            int m2x = m2.x.intValue();
+            int m1x = m1.x.intValue();
+            int m2z = m2.z.intValue();
+            int m1z = m1.z.intValue();
+            if (m2x == m1x) {
+                if (m2z > this.mz) {
+                    this.farmDir = "z+";
+                } else {
+                    this.farmDir = "z-";
+                }
+            } else if (m2z == m1z) {
+                if (m2x > this.mx) {
+                    this.farmDir = "x+";
+                } else {
+                    this.farmDir = "x-";
+                }
+            }
+
+            this.ltrCount = this.farmingBlock.getSizeWidth();
+            this.ftbCount = this.farmingBlock.getSizeLength();
+        } catch (Exception var8) {
+        }
+
     }
 
     /**
      * 设置地址
+     * 为下一个农业区块设置 xxx,yyy 和 zzz @return true if we're done
      *
      * @return
      */
     private boolean setXYZ() {
         boolean ret = false;
-        ++this.ltr;
+        this.ltr++;
         if (this.ltr > this.ltrCount + 1) {
             this.ltr = 0;
-            ++this.ftb;
+            this.ftb++;
             if (this.ftb > this.ftbCount + 1) {
                 ret = true;
             }
@@ -297,15 +302,18 @@ public class JobCropFarmer extends Job implements Serializable {
 
         try {
             this.xxx = this.mx + this.xo;
+            //下面的地面 Y
             this.yyy = this.farmingBlock.location.y.intValue();
+            //农业箱
             this.zzz = this.mz + this.zo;
-            return ret;
+
         } catch (Exception var3) {
             ModSimReloaded.sendChat(I18n.format("container.sim.job.crop.farmer.There") + this.theFolk.name + I18n.format("container.sim.job.crop.farmer.farming"));
             //辞职
             this.theFolk.selfFire();
             return false;
         }
+        return ret;
     }
 
     /**
@@ -348,7 +356,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     //有收获
                     this.id = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)).getBlock();
                     this.meta = this.id.getMetaFromState(this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)));
-                    System.out.println("收获id:"+id.getUnlocalizedName()+",状态meta:"+meta);
+                    System.out.println("收获id:" + id.getUnlocalizedName() + ",状态meta:" + meta);
                     //未加载区块时人工种植非定制/甘蔗
                     try {
                         //实体人没有死亡          不是定制 不是甘蔗不是仙人掌
@@ -381,20 +389,17 @@ public class JobCropFarmer extends Job implements Serializable {
                             canHarvest = true;
                         }
                         //所有其他类型的农场
-                    } else {
                         //西瓜，南瓜，自定义
-                        if (this.id == Blocks.melon_block || this.id == Blocks.pumpkin || this.farmingBlock.farmType == FarmType.CUSTOM || this.meta >= 7) {
-                            //不是南瓜茎/不是西瓜茎
-                            if (this.id != Blocks.pumpkin_stem && this.id != Blocks.melon_stem) {
-                                canHarvest = true;
-                            }
-
-                            if (this.id == null) {
-                                //当自定义农场没有种植任何作物或部分农场时，重写上述代码
-                                canHarvest = false;
-                            }
+                    } else if (this.id == Blocks.melon_block || this.id == Blocks.pumpkin || this.farmingBlock.farmType == FarmType.CUSTOM || this.meta >= 7) {
+                        //不是南瓜茎/不是西瓜茎
+                        if (this.id != Blocks.pumpkin_stem && this.id != Blocks.melon_stem) {
+                            canHarvest = true;
                         }
 
+                        if (this.id == null) {
+                            //当自定义农场没有种植任何作物或部分农场时，重写上述代码
+                            canHarvest = false;
+                        }
                     }
 
                     if (canHarvest) {
@@ -420,16 +425,6 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
 
 
-                        } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
-                            if (System.currentTimeMillis() - this.lastCustomHarvest < 3600000L) {
-                                this.theStage = Stage.HOELAND;
-                                this.step = 1;
-                                this.theFolk.isWorking = false;
-                                return;
-                            }
-
-                            this.jobWorld.destroyBlock(new BlockPos(this.xxx, this.yyy, this.zzz), true);
-                            this.pickUpDroppedCrops(harvestBlock);
                         } else if (this.farmingBlock.farmType != FarmType.CUSTOM) {
                             //要收获不为空
                             if (minedStacks != null) {
@@ -443,8 +438,19 @@ public class JobCropFarmer extends Job implements Serializable {
                                     }
                                 }
                             }
+                            /* */
+                        } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
                             BlockPos blockPos = new BlockPos(this.xxx, this.yyy, this.zzz);
                             this.jobWorld.setBlockState(blockPos, this.id.getDefaultState(), 3);
+                            if (System.currentTimeMillis() - this.lastCustomHarvest < 3600000L) {
+                                this.theStage = Stage.HOELAND;
+                                this.step = 1;
+                                this.theFolk.isWorking = false;
+                                return;
+                            }
+
+                            this.jobWorld.destroyBlock(new BlockPos(this.xxx, this.yyy, this.zzz), true);
+                            this.pickUpDroppedCrops(harvestBlock);
                         } else {
                             if (System.currentTimeMillis() - lastCustomHarvest < (60 * 60 * 1000)) {
                                 theStage = Stage.HOELAND;
@@ -492,24 +498,30 @@ public class JobCropFarmer extends Job implements Serializable {
             List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.x, v3center.y, v3center.z, v3center.x + 1.0, v3center.y + 1.0, v3center.z + 1.0).expand(3.0, 2.0, 3.0));
             Iterator iterator1 = list1.iterator();
             if (!list1.isEmpty()) {
-                while (iterator1.hasNext()) {
-                    Entity entity1 = (Entity) iterator1.next();
-                    if (entity1 instanceof EntityItem) {
-                        EntityItem entityitem = (EntityItem) entity1;
-                        ItemStack is = entityitem.getEntityItem();
-                        try {
-                            ItemFood food = (ItemFood) is.getItem();
-                            if (food != null) {
-                                boolean ok = this.inventoriesPut(this.farmingChests, is, false);
-                                if (ok) {
-                                    entityitem.setDead();
-                                }
-                            }
-                        } catch (Exception var9) {
-                            ModSimReloaded.log.error("拾取庄家时出错：" + var9.getMessage());
-                        }
+                do {
+                    if (!iterator1.hasNext()) {
+                        break;
                     }
-                }
+
+                    Entity entity1 = (Entity) iterator1.next();
+                    if (!(entity1 instanceof EntityItem)) {
+                        continue;
+                    }
+                    EntityItem entityitem = (EntityItem) entity1;
+                    ItemStack is = entityitem.getEntityItem();
+                    try {
+                        ItemFood food = (ItemFood) is.getItem();
+                        if (food != null) {
+                            boolean ok = this.inventoriesPut(this.farmingChests, is, false);
+                            if (ok) {
+                                entityitem.setDead();
+                            }
+                        }
+                    } catch (Exception var9) {
+                        //不吃东西时抛出异常
+                        ModSimReloaded.log.error("拾取庄家时出错：" + var9.getMessage());
+                    }
+                } while (true);
             }
 
         }
@@ -625,65 +637,33 @@ public class JobCropFarmer extends Job implements Serializable {
             boolean done = false;//完成
             boolean hasSown = false;//播下
 
-            while (true) {
-                Block gid;
-                Block aid;
-                do {
-                    do {
-                        if (hasSown || done) {
-                            if (done) {
-                                this.theStage = Stage.HANGOUT;
-                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing_farm");
-                                this.step = 1;
-                                this.theFolk.isWorking = false;
-                                this.inventoriesTransferFromFolk(this.theFolk.inventory, this.farmingChests, (ItemStack) null);
-                                return;
-                            }
-
-                            return;
-                        }
-
-                        done = this.setXYZ();
-                        if (done) {
-                            this.theStage = Stage.HANGOUT;//闲置
-                            this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing");
-                            this.step = 1;
-                            return;
-                        }
-                        gid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy - 1, this.zzz)).getBlock();
-                        aid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)).getBlock();
-                    } while (gid != Blocks.sand && gid != Blocks.grass && gid != Blocks.dirt && gid != Blocks.farmland);//gid不是沙子 不是草 不是泥土 不是耕地
-                } while (aid != Blocks.air);// aid 不是空 栅栏
-
-                try {
-                    if (this.farmingBlock.farmType != FarmType.CUSTOM) {
-                        this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Planting") + this.farmingBlock.farmType.toString() + I18n.format("container.sim.job.crop.farmer.seeds");
-                    }
-                } catch (Exception var10) {
+            while (!hasSown && !done) {
+                done = setXYZ();
+                if (done) {
+                    this.theStage = Stage.HANGOUT;
+                    this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing_farm");
+                    this.step = 1;
+                    this.theFolk.isWorking = false;
+                    this.inventoriesTransferFromFolk(this.theFolk.inventory, this.farmingChests, (ItemStack) null);
+                    return;
                 }
-
-                ItemStack seed;
-                if (this.farmingBlock.farmType == FarmType.WHEAT) {
-                    if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat_seeds, 1), false, false);
-                        if (seed == null) {
-                            this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.No_more");
-                            this.theStage = Stage.HANGOUT;
-                            this.step = 1;
-                            return;
+                Block gid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy - 1, this.zzz)).getBlock();
+                Block aid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)).getBlock();
+                //gid不是沙子 不是草 不是泥土 不是耕地
+                if (gid != Blocks.sand && gid != Blocks.grass && gid != Blocks.dirt && gid != Blocks.farmland && aid != Blocks.air) {
+                    try {
+                        if (this.farmingBlock.farmType != FarmType.CUSTOM) {
+                            this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Planting") + this.farmingBlock.farmType.toString() + I18n.format("container.sim.job.crop.farmer.seeds");
                         }
+                    } catch (Exception var10) {
                     }
-                    BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
-                    this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
-                    BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
-                    this.jobWorld.setBlockState(blockPos2, Blocks.wheat.getDefaultState(), 3);
-                    hasSown = true;
-                } else if (this.farmingBlock.farmType == FarmType.PUMPKIN) {
-                    if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
+
+
+                    if (this.farmingBlock.farmType == FarmType.WHEAT) {
                         if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.pumpkin_seeds, 1), false, false);
+                            ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat_seeds, 1), false, false);
                             if (seed == null) {
-                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.pumpkin");
+                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.No_more");
                                 this.theStage = Stage.HANGOUT;
                                 this.step = 1;
                                 return;
@@ -692,16 +672,51 @@ public class JobCropFarmer extends Job implements Serializable {
                         BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
                         this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
                         BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
-                        this.jobWorld.setBlockState(blockPos2, Blocks.pumpkin_stem.getDefaultState(), 3);
-
+                        this.jobWorld.setBlockState(blockPos2, Blocks.wheat.getDefaultState(), 3);
                         hasSown = true;
-                    }
-                } else if (this.farmingBlock.farmType == FarmType.MELON) {
-                    if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
+                    } else if (this.farmingBlock.farmType == FarmType.PUMPKIN) {
+                        if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
+                            //留出空间
+                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.pumpkin_seeds, 1), false, false);
+                                if (seed == null) {
+                                    this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.pumpkin");
+                                    this.theStage = Stage.HANGOUT;
+                                    this.step = 1;
+                                    return;
+                                }
+                            }
+                            BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
+                            this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
+                            BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
+                            this.jobWorld.setBlockState(blockPos2, Blocks.pumpkin_stem.getDefaultState(), 3);
+
+                            hasSown = true;
+                        }
+                    } else if (this.farmingBlock.farmType == FarmType.MELON) {
+                        if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
+                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.melon_seeds, 1), false, false);
+                                if (seed == null) {
+                                    //我需要更多西瓜籽！
+                                    this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.melon");
+                                    this.theStage = Stage.HANGOUT;
+                                    this.step = 1;
+                                    return;
+                                }
+                            }
+                            BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
+                            this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
+                            BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
+                            this.jobWorld.setBlockState(blockPos2, Blocks.melon_stem.getDefaultState(), 3);
+                            hasSown = true;
+                        }
+                    } else if (this.farmingBlock.farmType == FarmType.CARROT) {
                         if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.melon_seeds, 1), false, false);
+                            ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.carrot, 1), false, false);
                             if (seed == null) {
-                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.melon");
+                                //我需要更多的胡萝卜来种植！
+                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.carrots");
                                 this.theStage = Stage.HANGOUT;
                                 this.step = 1;
                                 return;
@@ -710,101 +725,96 @@ public class JobCropFarmer extends Job implements Serializable {
                         BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
                         this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
                         BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
-                        this.jobWorld.setBlockState(blockPos2, Blocks.melon_stem.getDefaultState(), 3);
+                        this.jobWorld.setBlockState(blockPos2, Blocks.carrots.getDefaultState(), 3);
                         hasSown = true;
-                    }
-                } else if (this.farmingBlock.farmType == FarmType.CARROT) {
-                    if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.carrot, 1), false, false);
-                        if (seed == null) {
-                            this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.carrots");
-                            this.theStage = Stage.HANGOUT;
-                            this.step = 1;
-                            return;
-                        }
-                    }
-                    BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
-                    this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
-                    BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
-                    this.jobWorld.setBlockState(blockPos2, Blocks.carrots.getDefaultState(), 3);
-                    hasSown = true;
-                } else if (this.farmingBlock.farmType == FarmType.POTATO) {
-                    if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                        seed = inventoriesGet(this.farmingChests, new ItemStack(Items.potato, 1), false, false);
-                        if (seed == null) {
-                            this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.potatoes");
-                            this.theStage = Stage.HANGOUT;
-                            this.step = 1;
-                            return;
-                        }
-                    }
-                    BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
-                    this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
-                    BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
-                    this.jobWorld.setBlockState(blockPos2, Blocks.potatoes.getDefaultState(), 3);
-                    hasSown = true;
-                } else if (this.farmingBlock.farmType == FarmType.SUGAR) {
-
-                    Block cid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy - 1, this.zzz)).getBlock();
-                    if (cid == Blocks.dirt || cid == Blocks.grass || cid == Blocks.sand) {
+                    } else if (this.farmingBlock.farmType == FarmType.POTATO) {
                         if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat, 1), false, false);
+                            ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.potato, 1), false, false);
                             if (seed == null) {
-                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.sugar");
+                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.potatoes");
                                 this.theStage = Stage.HANGOUT;
                                 this.step = 1;
                                 return;
                             }
                         }
-                        BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy, this.zzz);
-                        this.jobWorld.setBlockState(blockPos1, Blocks.wheat.getDefaultState(), 3);
+                        BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
+                        this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
+                        BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy, this.zzz);
+                        this.jobWorld.setBlockState(blockPos2, Blocks.potatoes.getDefaultState(), 3);
                         hasSown = true;
-                    }
-                } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
-                    if ((this.xxx + this.zzz) % 2 == 0) {
-                        if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                            seed = inventoriesGet(this.farmingChests, new ItemStack(Blocks.cactus, 1), false, false);
-                            if (seed == null) {
-                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.cactus");
-                                this.theStage = Stage.HANGOUT;
-                                this.step = 1;
-                                return;
-                            }
-                        }
-                        BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy, this.zzz);
-                        this.jobWorld.setBlockState(blockPos1, Blocks.cactus.getDefaultState(), 3);
-                        hasSown = true;
-                    }
-                } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
-                    label171:
-                    for (int ch = 0; ch < this.farmingChests.size(); ++ch) {
-                        IInventory chest = (IInventory) this.farmingChests.get(ch);
+                    } else if (this.farmingBlock.farmType == FarmType.SUGAR) {
 
-                        for (int g = 0; g < chest.getSizeInventory(); ++g) {
-                            ItemStack chestStack = chest.getStackInSlot(g);
-                            if (chestStack != null) {
-                                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Planting") + chestStack.getDisplayName();
-                                seed = inventoriesGet(this.farmingChests, new ItemStack(chestStack.getItem(), 1), false, false);
-                                if (seed != null) {
-                                    BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
-                                    this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
-                                    hasSown = seed.getItem().onItemUse(seed, this.mc.thePlayer, this.jobWorld, blockPos1, EnumFacing.UP, 0.0F, 0.0F, 0.0F);
-                                    if (!hasSown) {
-                                        this.theFolk.inventory.add(seed);
+                        Block cid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy - 1, this.zzz)).getBlock();
+                        if (cid == Blocks.dirt || cid == Blocks.grass || cid == Blocks.sand) {
+                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat, 1), false, false);
+                                if (seed == null) {
+                                    this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.sugar");
+                                    this.theStage = Stage.HANGOUT;
+                                    this.step = 1;
+                                    return;
+                                }
+                            }
+                            BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy, this.zzz);
+                            this.jobWorld.setBlockState(blockPos1, Blocks.wheat.getDefaultState(), 3);
+                            hasSown = true;
+                        }
+                    } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
+                        if ((this.xxx + this.zzz) % 2 == 0) {
+                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Blocks.cactus, 1), false, false);
+                                if (seed == null) {
+                                    this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.cactus");
+                                    this.theStage = Stage.HANGOUT;
+                                    this.step = 1;
+                                    return;
+                                }
+                            }
+                            BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy, this.zzz);
+                            this.jobWorld.setBlockState(blockPos1, Blocks.cactus.getDefaultState(), 3);
+                            hasSown = true;
+                        }
+                    } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
+                        fuckOff:
+                        for (int ch = 0; ch < this.farmingChests.size(); ch++) {
+                            IInventory chest = (IInventory) this.farmingChests.get(ch);
+
+                            for (int g = 0; g < chest.getSizeInventory(); g++) {
+                                ItemStack chestStack = chest.getStackInSlot(g);
+                                if (chestStack != null) {
+                                    this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Planting") + chestStack.getDisplayName();
+                                    ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(chestStack.getItem(), 1), false, false);
+                                    if (seed != null) {
+                                        BlockPos blockPos1 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
+                                        this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
+                                        hasSown = seed.getItem().onItemUse(seed, this.mc.thePlayer, this.jobWorld, blockPos1, EnumFacing.UP, 0.0F, 0.0F, 0.0F);
+                                        if (!hasSown) {
+                                            this.theFolk.inventory.add(seed);
+                                        }
+                                        break fuckOff;
                                     }
-                                    break label171;
                                 }
                             }
                         }
                     }
-                }
 
-                if (hasSown) {
-                    this.jobWorld.playSound((double) this.xxx, (double) this.yyy, (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
-                    GameStates var10000 = ModSimReloaded.states;
-                    var10000.credits -= 0.01F;
-                    this.doneSomeWork = true;
+                    if (hasSown) {
+                        this.jobWorld.playSound((double) this.xxx, (double) this.yyy, (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
+                        GameStates var10000 = ModSimReloaded.states;
+                        var10000.credits -= 0.01F;
+                        this.doneSomeWork = true;
+                    }
                 }
+            }
+            if (done)
+            {
+                theStage = Stage.HANGOUT;
+                theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing");
+                step = 1;
+                theFolk.isWorking = false;
+
+                this.inventoriesTransferFromFolk(theFolk.inventory, this.farmingChests, null);
+                return;
             }
         }
 
@@ -852,7 +862,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Minecraft");
             }
 
-            if (System.currentTimeMillis() - this.lastFarmCycle > 180000L) {
+            if (System.currentTimeMillis() - this.lastFarmCycle > (3 * 60 * 1000)) {
                 this.theStage = Stage.HARVEST;
                 this.step = 1;
                 return;

@@ -658,7 +658,6 @@ container.sim.gui_Folk_Relationships='s Relationships
 container.sim.gui_Folk_Needs='s Needs
 container.sim.gui_Folk_Hunger=Hunger
 container.sim.gui_Folk_Fun=Fun
-container.sim.gui_Folk_Goodbye=Goodbye
 container.sim.gui_Folk_Relationshipss=Relationships
 container.sim.gui_Folk_Needss=Needs
 
@@ -726,7 +725,6 @@ container.sim.Merchant2=Block pack
 container.sim.Merchant3=Price per pack
 container.sim.Merchant4=Quantity (packs of 64)
 container.sim.Merchant5=Sub-total
-container.sim.Merchant6=Goodbye!
 container.sim.Merchant7=I want to buy building materials
 container.sim.Merchant8=I want to sell building materials
 container.sim.Merchant9=* Buy *
@@ -971,6 +969,7 @@ container.sim.building.stairs=stairs
 container.sim.building.grass=grass
 container.sim.building.bed=bed
 
+
 container.sim.FolkData.Clinic=Clinic
 container.sim.FolkData.Great_Banter=Great Banter
 container.sim.FolkData.Socially_Fulfilled=Socially Fulfilled
@@ -981,3 +980,8 @@ container.sim.FolkData.Beautiful_Surroundings=Beautiful Surroundings
 container.sim.FolkData.Nice_Surroundings=Nice Surroundings
 container.sim.FolkData.Poor_Surroundings=Poor Surroundings
 container.sim.FolkData.Horrific_Surroundings=Horrific Surroundings
+
+container.sim.guiFolk.Social=Social
+container.sim.guiFolk.Environment=Environment
+container.sim.guiFolk.Traits=Traits
+container.sim.guiFolk.Inventory=Inventory

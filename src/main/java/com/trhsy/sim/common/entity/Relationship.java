@@ -467,7 +467,7 @@ public class Relationship implements Serializable {
 
         int i$;
         File f;
-        for(i$ = 0; i$ < len$; ++i$) {
+        for(i$ = 0; i$ < len$; i$++) {
             f = arr$[i$];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
@@ -480,7 +480,7 @@ public class Relationship implements Serializable {
             arr$ = relFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
+            for(i$ = 0; i$ < len$; i$++) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
@@ -527,7 +527,7 @@ public class Relationship implements Serializable {
             arr$ = relFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; ++i$) {
+            for(i$ = 0; i$ < len$; i$++) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".suk")) {
                     Relationship rel = (Relationship) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
@@ -609,7 +609,7 @@ public class Relationship implements Serializable {
     public static ArrayList<Relationship> getRelationshipsFor(FolkData theFolk) {
         ArrayList<Relationship> rels = new ArrayList();
 
-        for (int i = 0; i < ModSimReloaded.theRelationships.size(); ++i) {
+        for (int i = 0; i < ModSimReloaded.theRelationships.size(); i++) {
             try {
                 Relationship rel = (Relationship) ModSimReloaded.theRelationships.get(i);
                 if (rel.folk1.name.contentEquals(theFolk.name) || rel.folk2.name.contentEquals(theFolk.name)) {
@@ -626,7 +626,7 @@ public class Relationship implements Serializable {
         ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
         boolean ret = false;
 
-        for(int i = 0; i < rels.size(); ++i) {
+        for(int i = 0; i < rels.size(); i++) {
             Relationship rel = (Relationship)rels.get(i);
             if (rel.theLevel == Level.MARRIED || rel.theLevel == Level.PARTNER) {
                 ret = true;
@@ -640,7 +640,7 @@ public class Relationship implements Serializable {
     public static FolkData isFolkLivingWithSomeone(FolkData theFolk, boolean returnFolk) {
         ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
 
-        for(int i = 0; i < rels.size(); ++i) {
+        for(int i = 0; i < rels.size(); i++) {
             Relationship rel = (Relationship)rels.get(i);
             if (rel.theLevel == Level.MARRIED || rel.theLevel == Level.PARTNER) {
                 return rel.folk1.name.contentEquals(theFolk.name) ? FolkData.getFolkByName(rel.folk2.name) : FolkData.getFolkByName(rel.folk1.name);

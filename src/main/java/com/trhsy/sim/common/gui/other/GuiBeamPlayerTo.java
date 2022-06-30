@@ -54,7 +54,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
         for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
             V3 cpoint = (V3) ModSimReloaded.theCourierPoints.get(f);
             this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
-            ++idx;
+            idx++;
             x += 110;
             if (x + 110 > this.width) {
                 x = 10;

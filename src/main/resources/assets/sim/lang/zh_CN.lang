@@ -657,8 +657,7 @@ container.sim.gui_Folk_days_pregnant=怀孕天数
 container.sim.gui_Folk_Relationships=的关系
 container.sim.gui_Folk_Needs=的需求
 container.sim.gui_Folk_Hunger=饥饿
-container.sim.gui_Folk_Fun=娱乐活动
-container.sim.gui_Folk_Goodbye=再见
+container.sim.gui_Folk_Fun=乐趣
 container.sim.gui_Folk_Relationshipss=关系
 container.sim.gui_Folk_Needss=需要
 
@@ -727,7 +726,6 @@ container.sim.Merchant2=方块包
 container.sim.Merchant3=每包价格
 container.sim.Merchant4=数量（64包）
 container.sim.Merchant5=小计
-container.sim.Merchant6=再见
 container.sim.Merchant7=我想买建筑材料
 container.sim.Merchant8=我想卖建筑材料
 container.sim.Merchant9=* 购买 *
@@ -976,6 +974,7 @@ container.sim.building.bed=床
 container.sim.FolkData.Clinic=诊所
 
 container.sim.FolkData.Great_Banter=伟人
+
 container.sim.FolkData.Socially_Fulfilled=名人
 container.sim.FolkData.Lonely=孤独
 container.sim.FolkData.Very_Lonely=非常孤独
@@ -984,3 +983,8 @@ container.sim.FolkData.Beautiful_Surroundings=环境优美
 container.sim.FolkData.Nice_Surroundings=环境不错
 container.sim.FolkData.Poor_Surroundings=环境恶劣
 container.sim.FolkData.Horrific_Surroundings=可怕的环境
+
+container.sim.guiFolk.Social=社交
+container.sim.guiFolk.Environment=环境
+container.sim.guiFolk.Traits=特征
+container.sim.guiFolk.Inventory=库存

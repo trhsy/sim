@@ -110,7 +110,7 @@ public class GuiPathBox extends GuiScreen {
                     GuiEmployFolk ui = new GuiEmployFolk(this.thePathBox, Vocation.PATHBUILDER);
                     this.mc.displayGuiScreen(ui);
                 } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
-                    for (int i = 0; i < this.theWorkers.size(); ++i) {
+                    for (int i = 0; i < this.theWorkers.size(); i++) {
                         FolkData folk = (FolkData) this.theWorkers.get(i);
                         folk.selfFire();
                     }

@@ -7,7 +7,7 @@ import com.trhsy.sim.common.entity.enums.GotoMethod;
 import net.minecraft.block.Block;
 
 public class Trait {
-    public static String traitName;
+    public String traitName;
     public String traitDesc;
     public Trait traitOpposite;
     public FolkData theFolk;
@@ -32,36 +32,35 @@ public class Trait {
     }
 
     /**
-     * Sets the name of the trait
+     * 设置特征的名称
      */
     public void setTraitName(String name) {
         this.traitName = name;
     }
 
     /**
-     * Sets the description of the trait
+     * 设置特征的描述
      */
     public void setTraitDescription(String description) {
         this.traitDesc = description;
     }
 
     /**
-     * Sets the opposite trait to this one.<br>
-     * If a folk has one trait, he cannot have the opposite one too.
+     * 设置与此相反的特征。如果一个人有一个特点，他就不能有相反的特点。
      */
     public void setTraitOpposite(Trait opposite) {
         this.traitOpposite = opposite;
     }
 
     /**
-     * Gets the name of the trait
+     * 获取特征的名称
      */
     public String getTraitName() {
         return traitName;
     }
 
     /**
-     * Gets the description of the trait
+     * 获取特征的描述
      */
     public String getTraitDescription() {
         return traitDesc;
@@ -69,7 +68,7 @@ public class Trait {
 
 
     /**
-     * Sets the icon of the trait
+     * 设置特征的图标
      */
     @Unused
     public void setTraitIcon() {
@@ -77,8 +76,7 @@ public class Trait {
     }
 
     /**
-     * Tells the folk with this trait where their 'special' building is<br>
-     * (if they have one)
+     * 告诉有这种特质的人他们的“特殊”建筑在哪里（如果他们有）
      */
     public void hasSpecialBuilding(String buildingName, String visitingText) {
         Building specialBuilding = Building.getBuildingBySearch(buildingName);
@@ -91,8 +89,7 @@ public class Trait {
     }
 
     /**
-     * Tells the folk with this trait where their 'special' building is<br>
-     * (if they have one)
+     * 告诉有这种特质的人他们的“特殊”建筑在哪里（如果他们有）
      */
     public void hasSpecialBuilding(String buildingName) {
         Building specialBuilding = Building.getBuildingBySearch(buildingName);

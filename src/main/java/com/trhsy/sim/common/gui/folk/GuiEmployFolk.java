@@ -118,7 +118,7 @@ public class GuiEmployFolk extends GuiScreen {
                 }
 
                 this.buttonList.add(new GuiButton(idx, x, y, 110, 20, folk.name + xp));
-                ++idx;
+                idx++;
                 x += 110;
                 if (x + 110 > this.width) {
                     x = 10;
@@ -201,7 +201,7 @@ public class GuiEmployFolk extends GuiScreen {
     }
 
     public void hireFolks(ArrayList<FolkData> efolks) {
-        for(int i = 0; i < efolks.size(); ++i) {
+        for(int i = 0; i < efolks.size(); i++) {
             FolkData efolk = (FolkData)efolks.get(i);
             efolk.employedAt = this.controlBoxLocation;
             efolk.setTheirJob(this.vocation);

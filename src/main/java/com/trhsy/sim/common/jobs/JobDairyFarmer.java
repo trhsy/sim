@@ -54,7 +54,7 @@ public class JobDairyFarmer extends Job {
     }
 
     private void createCowNames() {
-        for(int i = 0; i < 6; ++i) {
+        for(int i = 0; i < 6; i++) {
             this.cowNames[i] = FolkData.generateName(1, true, "");
         }
 

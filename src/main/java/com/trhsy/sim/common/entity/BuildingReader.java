@@ -241,7 +241,7 @@ public class BuildingReader implements Serializable {
             akeyNumber = 0;
             //int bblockNumber = false;
 
-            for(int i = 0; i < this.layerCount; ++i) {
+            for(int i = 0; i < this.layerCount; i++) {
                 strLine = br.readLine().trim();
                 int bblockNumber = 0;
 

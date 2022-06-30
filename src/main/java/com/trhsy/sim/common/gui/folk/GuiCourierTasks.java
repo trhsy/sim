@@ -77,7 +77,7 @@ public class GuiCourierTasks extends GuiScreen {
 
                     this.buttonList.add(new GuiButton(idx, this.width - 50, y, 50, 20, I18n.format("container.sim.gui_btn_name_Delete")));
                     this.tasks.put(idx, t);
-                    ++idx;
+                    idx++;
                 }
             }
         } else if (this.onPage.contentEquals("add")) {
@@ -136,7 +136,7 @@ public class GuiCourierTasks extends GuiScreen {
                             this.fontRendererObj.drawString(ct.dropoff.name, this.width / 2, y - 5, 15794063);
                         }
 
-                        ++idx;
+                        idx++;
                     } catch (Exception var9) {
                         var9.printStackTrace();
                     }

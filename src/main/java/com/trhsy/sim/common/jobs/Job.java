@@ -46,7 +46,7 @@ public abstract class Job {
     public Vocation vocation = null;
     //职场
     public World jobWorld = null;
-    //库存 箱子关闭
+    //库存 箱子关闭 箱子已经打开了，这是为了以后再关上箱子
     private transient IInventory chestToClose = null;
     //箱子什么时候关闭
     private transient Long chestToCloseWhen = 0L;
@@ -57,7 +57,7 @@ public abstract class Job {
     /**
      * @return
      * @Author fan
-     * @Description //TODO  他刚上班
+     * @Description //TODO  他刚上班 被子类覆盖，在上班途中发生火灾，但尚未到达
      * @Date 10:59 2022/3/26
      * @Param
      **/
@@ -66,7 +66,7 @@ public abstract class Job {
     /**
      * @return void
      * @Author fan
-     * @Description //TODO 重新安排工作
+     * @Description //TODO 重新安排工作 重置他们的阶段，因为它与NPC保存
      * @Date 11:00 2022/3/26
      * @Param []
      **/
@@ -75,7 +75,7 @@ public abstract class Job {
     /**
      * @return void
      * @Author fan
-     * @Description //TODO 更新
+     * @Description //TODO 更新 在整个工作期间重复调用，在工作的子类中被覆盖
      * @Date 11:00 2022/3/26
      * @Param []
      **/
@@ -93,7 +93,7 @@ public abstract class Job {
     /**
      * @return void
      * @Author fan
-     * @Description //TODO     //去上班
+     * @Description //TODO     //去上班 子类调用的逻辑让人们工作，处理步行正常工作
      * @Date 11:02 2022/3/26
      * @Param [theFolk] 实体人数据
      **/
@@ -103,7 +103,7 @@ public abstract class Job {
             try {
                 this.jobWorld = MinecraftServer.getServer().worldServerForDimension(theFolk.employedAt.theDimension);
             } catch (Exception var7) {
-                System.out.println(var7.getMessage());
+                ModSimReloaded.log.error("设置职场出错：" + var7.getMessage());
                 return;
             }
         }
@@ -111,7 +111,6 @@ public abstract class Job {
         if (!(theFolk.pregnancyStage > 0.0F)) {
             //在上班的路上
             if (theFolk.action == FolkAction.ONWAYTOWORK) {
-                //int dist = false;
                 //被解雇
                 if (theFolk.gotoMethod == GotoMethod.WALK) {
                     //不再留在原地
@@ -131,8 +130,7 @@ public abstract class Job {
                 } else if (dist > 1 && dist < 3) {
                     //复制当前数据
                     V3 work = theFolk.employedAt.clone();
-                    //work.y = work.y + 1;
-                    work = new V3(work.x, work.y + 1, work.z, work.theDimension);
+                    work.y++;
                     //去位置
                     theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                     theFolk.location = work;
@@ -150,14 +148,13 @@ public abstract class Job {
                     theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
                 }
             }
-
         }
     }
 
     /**
      * @return int
      * @Author fan
-     * @Description //TODO 获得物品库存清单
+     * @Description //TODO 获得物品库存清单 返回人们库存中有多少特定项目/块的计数
      * @Date 11:23 2022/3/26
      * @Param [theFolk, item]
      **/
@@ -165,7 +162,7 @@ public abstract class Job {
         //声明库存为0
         int ret = 0;
         //循环库存
-        for (int i = 0; i < theFolk.inventory.size(); ++i) {
+        for (int i = 0; i < theFolk.inventory.size(); i++) {
             //当前方块的数量
             ItemStack is = (ItemStack) theFolk.inventory.get(i);
             //如果物品 对上
@@ -189,7 +186,7 @@ public abstract class Job {
         //声明库存为0
         int ret = 0;
         //循环库存
-        for (int i = 0; i < theFolk.inventory.size(); ++i) {
+        for (int i = 0; i < theFolk.inventory.size(); i++) {
             //当前方块的数量
             ItemStack is = (ItemStack) theFolk.inventory.get(i);
             //如果物品 对上
@@ -204,6 +201,7 @@ public abstract class Job {
 
     /**
      * 找到熔炉
+     * 找到离某个位置最近的熔炉并返回它，如果没有熔炉则返回 NULL
      *
      * @param v
      * @return
@@ -215,7 +213,7 @@ public abstract class Job {
         V3 vRet = findClosestBlockType(v, Blocks.furnace, 5, false);
         //如果等于空重新赋值
         if (vRet == null) {
-            vRet = findClosestBlockType(v, Blocks.furnace, 5, false);
+            vRet = findClosestBlockType(v, Blocks.lit_furnace, 5, false);
         }
         //如果不为空
         if (vRet != null) {
@@ -231,6 +229,7 @@ public abstract class Job {
 
     /**
      * 库存输出 由公共函数调用
+     * 由公共函数调用
      *
      * @param chest
      * @param inStack
@@ -255,8 +254,8 @@ public abstract class Job {
                     ItemStack isTest = chest.getStackInSlot(i);
                     if (isTest != null) {
                         placedOK = true;
-                        break;
-                    }else{
+                        break;//重新进入数量循环
+                    } else {
                         ModSimReloaded.log.warn("Job: placeIntoInventory() 无法将 " + is.getDisplayName() + " 放入空槽 " + i);
                         placedOK = false;
                     }
@@ -269,7 +268,7 @@ public abstract class Job {
                     if (isAfter > isBefore) {
                         placedOK = true;
                         break;
-                    }else{
+                    } else {
                         ModSimReloaded.log.warn("Job: placeIntoInventory() 无法更改大小 " + is.getDisplayName() + " in slot " + i);
                         placedOK = false;
                     }
@@ -283,18 +282,19 @@ public abstract class Job {
 
     /**
      * 得到库存
+     * 从箱子/库存中取出一些东西并归还
      *
-     * @param chests
-     * @param whatItem
-     * @param getRandomItem
+     * @param chests        箱子或库存
+     * @param whatItem      获取任何项目所需的项目类型/数量等或 NULL
+     * @param getRandomItem 如果 whatItem 为 NULL，则使用 - 如果为 false，则获取第一个可用项目，如果为 true，则获取随机项目
      * @param compareMeta
      * @param ignoreId
-     * @return
+     * @return 取出物品的 Itemstack，如果无法获取物品，则为 NULL
      */
     public static ItemStack inventoriesGet(ArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta, ItemStack ignoreId) {
         ItemStack retStack = null;
 
-        for (int c = 0; c < chests.size(); ++c) {
+        for (int c = 0; c < chests.size(); c++) {
             IInventory chest = (IInventory) chests.get(c);
             retStack = inventoryGet(chest, whatItem, getRandomItem, compareMeta);
             if (retStack != null) {
@@ -327,64 +327,39 @@ public abstract class Job {
         return null;
     }
 
+    /**
+     * 由公共函数调用
+     *
+     * @param chest
+     * @param whatItem
+     * @param getRandomItem
+     * @param compareMeta
+     * @param ignoreId
+     * @return
+     */
     private static ItemStack inventoryGet(IInventory chest, ItemStack whatItem, boolean getRandomItem, boolean compareMeta, ItemStack ignoreId) {
-        ItemStack returnStack;
-        int g;
-        ItemStack chestStack;
         if (whatItem == null) {
-            if (getRandomItem) {
-                returnStack = null;
-                ArrayList<Integer> slots = new ArrayList();
-
-                for (int i = 0; i < chest.getSizeInventory(); ++i) {
-                    chestStack = chest.getStackInSlot(i);
-                    if (chestStack != null) {
-                        slots.add(i);
-                    }
-                }
-
-                if (slots.size() == 0) {
-                    return null;
-                } else {
-                    returnStack = chest.getStackInSlot((new Random()).nextInt(slots.size()));
-                    return returnStack;
-                }
-            } else {
-                returnStack = null;
-
-                for (g = 0; g < chest.getSizeInventory(); ++g) {
-                    ItemStack chestStackStack = chest.getStackInSlot(g);
-                    if (chestStackStack != null) {
-                        returnStack = chestStackStack.copy();
-                        chest.setInventorySlotContents(g, (ItemStack) null);
-                        return returnStack;
-                    }
-                }
-
-                return returnStack;
-            }
-        } else {
-            returnStack = whatItem.copy();
+            ItemStack returnStack = whatItem.copy();
             returnStack.stackSize = 0;
-
-            for (g = 0; g < chest.getSizeInventory(); ++g) {
+            for (int i = 0; i < chest.getSizeInventory(); i++) {
                 boolean ignore = false;
-                chestStack = chest.getStackInSlot(g);
-                if (ignoreId != null && chestStack == ignoreId) {
-                    ignore = true;
-                }
-
-                if (chestStack != null && !ignore) {
-                    if (!compareMeta) {
-                        chestStack = whatItem;
+                ItemStack chestStack = chest.getStackInSlot(i);
+                if (ignoreId != null) {
+                    if (chestStack == ignoreId) {
+                        ignore = true;
                     }
-
+                }
+                if (chestStack != null && ignore == false) {
+                    if (!compareMeta) {
+                        chestStack.setItemDamage(whatItem.getItemDamage());
+                    }
                     if (chestStack.isItemEqual(whatItem)) {
                         while (chestStack.stackSize >= 1) {
-                            ++returnStack.stackSize;
-                            --chestStack.stackSize;
+                            returnStack.stackSize++;
+                            chestStack.stackSize--;
+
                             if (chestStack.stackSize <= 0) {
-                                chest.setInventorySlotContents(g, (ItemStack) null);
+                                chest.setInventorySlotContents(i, null);
                             }
 
                             if (returnStack.stackSize == whatItem.stackSize) {
@@ -394,11 +369,44 @@ public abstract class Job {
                     }
                 }
             }
-
             if (returnStack.stackSize > 0) {
                 return returnStack;
             } else {
                 return null;
+            }
+        } else {
+            if (getRandomItem) {
+                ItemStack returnStack = null;
+                ArrayList<Integer> slots = new ArrayList<Integer>();
+
+                for (int g = 0; g < chest.getSizeInventory(); g++) {
+                    ItemStack chestStack = chest.getStackInSlot(g);
+
+                    if (chestStack != null) {
+                        slots.add(g);
+                    }
+                }
+
+                if (slots.size() == 0) {
+                    return null;
+                }
+
+                returnStack = chest.getStackInSlot(new Random().nextInt(slots.size()));
+                return returnStack;
+            } else {
+                ItemStack returnStack = null;
+
+                for (int g = 0; g < chest.getSizeInventory(); g++) {
+                    ItemStack chestStack = chest.getStackInSlot(g);
+
+                    if (chestStack != null) {
+                        returnStack = chestStack.copy();
+                        chest.setInventorySlotContents(g, null);
+                        return returnStack;
+                    }
+                }
+
+                return returnStack;
             }
         }
     }
@@ -411,60 +419,25 @@ public abstract class Job {
      * @return
      */
     private static ItemStack inventoryGet(IInventory chest, ItemStack whatItem, boolean getRandomItem, boolean compareMeta) {
-        //返回的物品
-        ItemStack returnStack = null;
-        //箱子中的库存
-        ItemStack chestStack;
-        if (whatItem == null) {
-            if (getRandomItem) {
-                ArrayList<Integer> slots = new ArrayList();
-                //返回资源清册中的插槽数。
-                for (int i = 0; i < chest.getSizeInventory(); i++) {
-                    //返回给定插槽中的堆栈。
-                    chestStack = chest.getStackInSlot(i);
-                    if (chestStack != null) {
-                        slots.add(i);
-                    }
-                }
-
-                if (slots.size() == 0) {
-                    return null;
-                } else {
-                    returnStack = chest.getStackInSlot((new Random()).nextInt(slots.size()));
-                    return returnStack;
-                }
-            } else {
-                returnStack = null;
-
-                for (int j = 0; j < chest.getSizeInventory(); j++) {
-                    ItemStack chestStackStack = chest.getStackInSlot(j);
-                    if (chestStackStack != null) {
-                        returnStack = chestStackStack.copy();
-                        chest.setInventorySlotContents(j, (ItemStack) null);
-                        return returnStack;
-                    }
-                }
-
-                return returnStack;
-            }
-        } else {
-            returnStack = whatItem.copy();
+        if (whatItem != null) {
+            ItemStack returnStack = whatItem.copy();
             returnStack.stackSize = 0;
 
             for (int g = 0; g < chest.getSizeInventory(); g++) {
                 boolean ignore = false;
-                chestStack = chest.getStackInSlot(g);
-                if (chestStack != null && !ignore) {
-                    //if (!compareMeta) {
-                    //    chestStack=whatItem;
-                    //}
+                ItemStack chestStack = chest.getStackInSlot(g);
 
+                if (chestStack != null && ignore == false) {
+                    if (!compareMeta) {
+                        chestStack.setItemDamage(whatItem.getItemDamage());
+                    }
                     if (chestStack.isItemEqual(whatItem)) {
                         while (chestStack.stackSize >= 1) {
-                            ++returnStack.stackSize;
-                            --chestStack.stackSize;
+                            returnStack.stackSize++;
+                            chestStack.stackSize--;
+
                             if (chestStack.stackSize <= 0) {
-                                chest.setInventorySlotContents(g, (ItemStack) null);
+                                chest.setInventorySlotContents(g, null);
                             }
 
                             if (returnStack.stackSize == whatItem.stackSize) {
@@ -480,11 +453,46 @@ public abstract class Job {
             } else {
                 return null;
             }
+        } else {
+            if (getRandomItem) {
+                ItemStack returnStack = null;
+                ArrayList<Integer> slots = new ArrayList<Integer>();
+
+                for (int g = 0; g < chest.getSizeInventory(); g++) {
+                    ItemStack chestStack = chest.getStackInSlot(g);
+
+                    if (chestStack != null) {
+                        slots.add(g);
+                    }
+                }
+
+                if (slots.size() == 0) {
+                    return null;
+                }
+
+                returnStack = chest.getStackInSlot(new Random().nextInt(slots.size()));
+                return returnStack;
+            } else {
+                ItemStack returnStack = null;
+
+                for (int g = 0; g < chest.getSizeInventory(); g++) {
+                    ItemStack chestStack = chest.getStackInSlot(g);
+
+                    if (chestStack != null) {
+                        returnStack = chestStack.copy();
+                        chest.setInventorySlotContents(g, null);
+                        return returnStack;
+                    }
+                }
+
+                return returnStack;
+            }
         }
     }
 
     /**
      * 用于将itemStack放入一组箱子或其他库存中，如果需要，将全部使用，如果由于已满而无法放入指定的任何箱子中，则返回false
+     * 用于将 itemStack 放入一组箱子或其他库存中，如果需要，将使用全部，如果由于已满而无法放入指定的任何箱子中，则返回 false
      *
      * @param chests      库存
      * @param inStack     堆叠
@@ -537,7 +545,7 @@ public abstract class Job {
         boolean placed = false;
         boolean okToPlace = false;
 
-        for (int i = 0; i < folkInventory.size(); ++i) {
+        for (int i = 0; i < folkInventory.size(); i++) {
             try {
                 ItemStack folkStack = (ItemStack) folkInventory.get(i);
                 if (specificItems != null && specificItems.getItem() == folkStack.getItem()) {
@@ -566,12 +574,13 @@ public abstract class Job {
 
     /**
      * 转移到民间
+     * 将一些物品/任何物品从一组箱子中转移到人们的库存中
      *
-     * @param folkInventory
-     * @param fromChests
-     * @param whatItems
-     * @param ignoreId
-     * @return
+     * @param folkInventory 要转移到的人们库存
+     * @param fromChests    箱子在哪里得到它们
+     * @param whatItems     他们想要的任何项目或项目堆栈（包括数量）为 NULL
+     * @param ignoreId      传入 -1 以不忽略任何块或要留在箱子的东西的块 ID
+     * @return 成功获得至少一个堆栈为真，如果没有得到则为假
      */
     public boolean inventoriesTransferToFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
         boolean ret = false;
@@ -598,6 +607,7 @@ public abstract class Job {
 
     /**
      * 将有限数量的特定物品从一组箱子（库存）转移到民间的库存中
+     * 将有限数量的特定物品从一组箱子 (IInventory) 转移到人们的库存中
      *
      * @param folkInventory
      * @param fromChests
@@ -608,12 +618,8 @@ public abstract class Job {
      */
     public int inventoriesTransferLimitedToFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
         int gotSoFar = 0;
-        Iterator i$ = fromChests.iterator();
-
-        while (i$.hasNext()) {
-            IInventory chest = (IInventory) i$.next();
-
-            for (int g = 0; g < chest.getSizeInventory(); ++g) {
+        for (IInventory chest : fromChests) {
+            for (int g = 0; g < chest.getSizeInventory(); g++) {
                 boolean gotMatch = false;
                 ItemStack chestStack = chest.getStackInSlot(g);
                 if (chestStack != null && chestStack == whatItems) {
@@ -628,8 +634,8 @@ public abstract class Job {
 
                 if (gotMatch) {
                     while (gotSoFar < getQty && chestStack.stackSize > 0) {
-                        ++gotSoFar;
-                        --chestStack.stackSize;
+                        gotSoFar++;
+                        chestStack.stackSize--;
                         folkInventory.add(new ItemStack(Block.getBlockFromItem(chestStack.getItem()), 1, chestStack.getMetadata()));
                     }
 
@@ -651,6 +657,7 @@ public abstract class Job {
 
     /**
      * 把物品放在箱子里
+     * 返回一个 int Count，表示箱子中有多少传入的物品（仅计数，不取出）
      *
      * @param chests
      * @param is
@@ -659,12 +666,9 @@ public abstract class Job {
      */
     public int getItemCountInChests(ArrayList<IInventory> chests, ItemStack is, boolean doCompareMeta) {
         int ret = 0;
-        Iterator i$ = chests.iterator();
+        for (IInventory chest : chests) {
 
-        while (i$.hasNext()) {
-            IInventory chest = (IInventory) i$.next();
-
-            for (int g = 0; g < chest.getSizeInventory(); ++g) {
+            for (int g = 0; g < chest.getSizeInventory(); g++) {
                 ItemStack chestStack = chest.getStackInSlot(g);
                 if (chestStack != null && chestStack == is) {
                     if (!doCompareMeta) {
@@ -681,6 +685,7 @@ public abstract class Job {
 
     /**
      * 开采时平移块体
+     * 将开采的块翻译成物品，例如将煤炭矿石块翻译成煤炭物品
      *
      * @param world
      * @param location
@@ -701,6 +706,7 @@ public abstract class Job {
 
     /**
      * 开关箱子
+     * 打开和关闭一个箱子以Npc们将东西放入或取出
      *
      * @param chest
      * @param msDelay
@@ -713,6 +719,7 @@ public abstract class Job {
 
     /**
      * 设置最接近的类型块
+     * 在世界中找到传入的块类型的 V3 位置设置最接近的块数组列表
      *
      * @param startXYZ
      * @param blockIDs
@@ -734,10 +741,10 @@ public abstract class Job {
                     YdistanceLimit = 0;
                 }
 
-                for (int yo = 0; yo <= YdistanceLimit; ++yo) {
-                    for (int d = 1; d < distanceLimit; ++d) {
-                        for (int xo = -d; xo <= d; ++xo) {
-                            for (int zo = -d; zo <= d; ++zo) {
+                for (int yo = 0; yo <= YdistanceLimit; yo++) {
+                    for (int d = 1; d < distanceLimit; d++) {
+                        for (int xo = -d; xo <= d; xo++) {
+                            for (int zo = -d; zo <= d; zo++) {
                                 int sx = startXYZ.x.intValue() + xo;
                                 int sy;
                                 if (scanDownwards) {
@@ -749,7 +756,7 @@ public abstract class Job {
                                 int sz = startXYZ.z.intValue() + zo;
                                 skip = false;
 
-                                for (int b = 0; b < blockIDs.size(); ++b) {
+                                for (int b = 0; b < blockIDs.size(); b++) {
                                     Block blockID = (Block) blockIDs.get(b);
                                     if (theWorld == null) {
                                         return;
@@ -759,7 +766,7 @@ public abstract class Job {
                                     if (blockInWorld == blockID) {
                                         if (needsToSeeSky) {
                                             boolean canSeeSky;
-                                            if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == null) {
+                                            if (theWorld.getBlockState(new BlockPos(sx, sy + 1, sz)).getBlock() == null) {
                                                 canSeeSky = true;
                                             } else {
                                                 canSeeSky = false;
@@ -794,43 +801,47 @@ public abstract class Job {
 
     /**
      * 库存最接近
+     * 在搜索区域内找到所有最近的库存/箱子并返回一个箱子类型的东西的数组列表
      *
      * @param startXYZ
      * @param searchDistance
      * @return
      */
     public static ArrayList<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
-        ArrayList ret = new ArrayList();
+        ArrayList<IInventory> ret = new ArrayList<IInventory>();
 
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
             BlockPos blockPos = new BlockPos(startXYZ.x.intValue(), startXYZ.y.intValue(), startXYZ.z.intValue());
             TileEntity te = theWorld.getTileEntity(blockPos);
-            if (te != null && te instanceof IInventory && !(te instanceof TileEntityFurnace) && !(te instanceof TileEntityWindmill)) {
-                ret.add((IInventory) te);
+            if (te != null) {
+                if (te instanceof IInventory && !(te instanceof TileEntityFurnace) && !(te instanceof TileEntityWindmill)) {
+                    ret.add((IInventory) te);
+                }
             }
 
-            for (int d = 1; d < searchDistance; ++d) {
-                for (int yo = -d; yo <= d; ++yo) {
-                    for (int xo = -d; xo <= d; ++xo) {
-                        for (int zo = -d; zo <= d; ++zo) {
+            for (int d = 1; d < searchDistance; d++) {
+                for (int yo = -d; yo <= d; yo++) {
+                    for (int xo = -d; xo <= d; xo++) {
+                        for (int zo = -d; zo <= d; zo++) {
                             int sx = startXYZ.x.intValue() + xo;
                             int sy = startXYZ.y.intValue() + yo;
                             int sz = startXYZ.z.intValue() + zo;
                             blockPos = new BlockPos(sx, sy, sz);
                             te = theWorld.getTileEntity(blockPos);
-                            if (te != null && te instanceof IInventory && !(te instanceof TileEntityWindmill) && !alreadyGotChest(ret, (IInventory) te)) {
-                                ret.add((IInventory) te);
+                            if (te != null) {
+                                if (te instanceof IInventory && !(te instanceof TileEntityWindmill) && !alreadyGotChest(ret, (IInventory) te)) {
+                                    ret.add((IInventory) te);
+                                }
                             }
                         }
                     }
                 }
             }
-
-            return ret;
         } catch (Exception var12) {
             return ret;
         }
+        return ret;
     }
 
     /**
@@ -842,10 +853,7 @@ public abstract class Job {
      */
     private static boolean alreadyGotChest(ArrayList<IInventory> chests, IInventory chest) {
         boolean ret = false;
-        Iterator i$ = chests.iterator();
-
-        while (i$.hasNext()) {
-            IInventory ch = (IInventory) i$.next();
+        for (IInventory ch : chests) {
             if (ch.toString().contentEquals(chest.toString())) {
                 ret = true;
                 break;
@@ -857,6 +865,7 @@ public abstract class Job {
 
     /**
      * 寻找相邻空间
+     * 搜索 4 个相邻的方块，看它们是否是空气
      *
      * @param startXYZ
      * @param world
@@ -869,36 +878,35 @@ public abstract class Job {
         }
 
         V3 test = startXYZ.clone();
-        //Double var5 = test.x;
-        //Double var6 = test.x = test.x + 1;
-        test = new V3(test.x + 1, test.y, test.z, test.theDimension);
+        test.x++;
         BlockPos blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
         if (((World) theWorld).isAirBlock(blockPos)) {
             return test;
-        } else {
-            test = startXYZ.clone();
-
-            test = new V3(test.x - 1, test.y, test.z, test.theDimension);
-            if (((World) theWorld).isAirBlock(blockPos)) {
-                return test;
-            } else {
-                test = startXYZ.clone();
-                test = new V3(test.x + 1, test.y, test.z, test.theDimension);
-                if (((World) theWorld).isAirBlock(blockPos)) {
-                    return test;
-                } else {
-                    test = startXYZ.clone();
-
-                    test = new V3(test.x, test.y, test.z - 1, test.theDimension);
-                    return ((World) theWorld).isAirBlock(blockPos) ? test : startXYZ;
-                }
-            }
         }
+        test = startXYZ.clone();
+        test.x--;
+        blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
+        if (((World) theWorld).isAirBlock(blockPos)) {
+            return test;
+        }
+        test = startXYZ.clone();
+        test.z++;
+        blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
+        if (((World) theWorld).isAirBlock(blockPos)) {
+            return test;
+        }
+        test = startXYZ.clone();
+        test.z--;
+        blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
+        if(((World) theWorld).isAirBlock(blockPos)){
+            return test; 
+        }
+        return startXYZ;
     }
 
     /**
      * 查找最近的块类型
-     *
+     * 如果在该区域中没有找到，则在该位置下方最多搜索 10 并且对于某种类型的块最多搜索 80 的距离将返回 null
      * @param startXYZ
      * @param block
      * @param searchDistance
@@ -910,10 +918,10 @@ public abstract class Job {
         if (theWorld.getBlockState(new BlockPos(startXYZ.x.intValue(), startXYZ.y.intValue(), startXYZ.z.intValue())).getBlock() == block) {
             return startXYZ;
         } else {
-            for (int d = 1; d < searchDistance; ++d) {
-                for (int yo = -searchDistance; yo <= searchDistance; ++yo) {
-                    for (int xo = -d; xo <= d; ++xo) {
-                        for (int zo = -d; zo <= d; ++zo) {
+            for (int d = 1; d < searchDistance; d++) {
+                for (int yo = -searchDistance; yo <= searchDistance; yo++) {
+                    for (int xo = -d; xo <= d; xo++) {
+                        for (int zo = -d; zo <= d; zo++) {
                             int sx = startXYZ.x.intValue() + xo;
                             int sy = startXYZ.y.intValue() + yo;
                             int sz = startXYZ.z.intValue() + zo;
@@ -925,14 +933,13 @@ public abstract class Job {
                     }
                 }
             }
-
             return null;
         }
     }
 
     /**
      * 查找最近的块类型
-     *
+     * 仅在 searchDistance 内搜索相同 Y 级别的块类型并返回 V3 或 null
      * @param startXYZ
      * @param block
      * @param searchDistance
@@ -944,9 +951,9 @@ public abstract class Job {
         if (theWorld.getBlockState(blockpos).getBlock() == block) {
             return startXYZ;
         } else {
-            for (int d = 1; d < searchDistance; ++d) {
-                for (int xo = -d; xo <= d; ++xo) {
-                    for (int zo = -d; zo <= d; ++zo) {
+            for (int d = 1; d < searchDistance; d++) {
+                for (int xo = -d; xo <= d; xo++) {
+                    for (int zo = -d; zo <= d; zo++) {
                         int sx = startXYZ.x.intValue() + xo;
                         int sy = startXYZ.y.intValue();
                         int sz = startXYZ.z.intValue() + zo;
@@ -957,14 +964,13 @@ public abstract class Job {
                     }
                 }
             }
-
             return null;
         }
     }
 
     /**
      * 找到最近的街区
-     *
+     * 查找找到指定块的位置的数组列表，排序为最接近的第一
      * @param startXYZ
      * @param block
      * @param distanceLimit
@@ -975,19 +981,16 @@ public abstract class Job {
         int count = 0;
         World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
 
-        int ci;
-        int sx;
-        int i;
-        for (ci = -distanceLimit; ci <= distanceLimit; ++ci) {
-            for (int xo = -distanceLimit; xo <= distanceLimit; ++xo) {
-                for (int zo = -distanceLimit; zo <= distanceLimit; ++zo) {
+        for (int yo = -distanceLimit; yo <= distanceLimit; yo++) {
+            for (int xo = -distanceLimit; xo <= distanceLimit; xo++) {
+                for (int zo = -distanceLimit; zo <= distanceLimit; zo++) {
                     try {
-                        sx = startXYZ.x.intValue() + xo;
-                        i = startXYZ.y.intValue() + ci;
+                        int sx = startXYZ.x.intValue() + xo;
+                        int sy = startXYZ.y.intValue() + yo;
                         int sz = startXYZ.z.intValue() + zo;
-                        ++count;
-                        if (theWorld.getBlockState(new BlockPos(sx, i, sz)).getBlock() == block) {
-                            V3 v = new V3((double) sx, (double) i, (double) sz, startXYZ.theDimension);
+                        count++;
+                        if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
+                            V3 v = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
                             if (!blocksFound.contains(v)) {
                                 blocksFound.add(v);
                             }
@@ -999,15 +1002,15 @@ public abstract class Job {
             }
         }
 
-        ci = 0;
+        int ci = 0;
         double cd = 999;
 
-        for (sx = 0; sx < blocksFound.size(); ++sx) {
-            V3 v = (V3) blocksFound.get(sx);
+        for (int i = 0; i < blocksFound.size(); i++) {
+            V3 v = (V3) blocksFound.get(i);
             double distance = Math.sqrt((v.x - startXYZ.x) * (v.x - startXYZ.x) + (v.z - startXYZ.z) * (v.z - startXYZ.z));
             if (distance < cd) {
                 cd = distance;
-                ci = sx;
+                ci = i;
             }
         }
 
@@ -1015,7 +1018,7 @@ public abstract class Job {
         if (blocksFound.size() > 0) {
             retblocksFound.add(blocksFound.get(ci));
 
-            for (i = 0; i < blocksFound.size(); ++i) {
+            for (int i = 0; i < blocksFound.size(); i++) {
                 if (i != ci) {
                     retblocksFound.add(blocksFound.get(i));
                 }
@@ -1027,7 +1030,7 @@ public abstract class Job {
 
     /**
      * 把矿块放进箱子里
-     *
+     * 尝试在 xyz 开采一个块并将开采的东西放入箱子中，进行翻译（煤炭 > 煤炭项目）如果有东西被开采则返回 true
      * @param chests
      * @param blockXYZ
      * @return
@@ -1036,7 +1039,7 @@ public abstract class Job {
         boolean ret = false;
         ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, blockXYZ);
         if (minedStacks != null) {
-            for (int s = 0; s < minedStacks.size(); ++s) {
+            for (int s = 0; s < minedStacks.size(); s++) {
                 ItemStack stack = (ItemStack) minedStacks.get(s);
                 if (stack != null) {
                     this.inventoriesPut(chests, stack, false);
@@ -1051,7 +1054,7 @@ public abstract class Job {
 
     /**
      * 把动物数记在笔里
-     *
+     * 扫描笔的 3x3 区域以计算其中有多少动物（传入动物类别）
      * @param controlBox
      * @param animal
      * @return
@@ -1059,7 +1062,12 @@ public abstract class Job {
     public int getAnimalCountInPen(V3 controlBox, Class animal) {
 
         List list = this.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1, controlBox.y + 1, controlBox.z + 1).expand(3.0, 2.0, 3.0));
-        return list == null ? 0 : list.size();
+        if(list == null){
+            return 0;
+        }
+        else{
+            return list.size();
+        }
     }
 
     /**
@@ -1070,10 +1078,10 @@ public abstract class Job {
      * @return
      */
     public static V3 getNearestBuildingForFolk(String searchWord, FolkData folk) {
-        new ArrayList();
+        ArrayList<Building> ret=new ArrayList<Building>();
         Building shortestDist = null;
 
-        for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
+        for (int x = 0; x < ModSimReloaded.theBuildings.size(); x++) {
             Building b = (Building) ModSimReloaded.theBuildings.get(x);
             if (b.displayName.toLowerCase().contains(searchWord.toLowerCase())) {
                 if (shortestDist.primaryXYZ == null) {

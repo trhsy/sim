@@ -1,8 +1,5 @@
 package com.trhsy.sim.common.entity.folk.traits;
 
-import net.minecraft.init.Blocks;
-
-
 public class Traits {
     public static Trait traitReligious = new TraitReligious();
     public static Trait traitWorkaholic = new TraitWorkaholic();
@@ -18,7 +15,7 @@ public class Traits {
     public static Trait traitShy;
     public static Trait traitLazy;
 
-    public static Trait[] traitList;
+    public static  Trait[] traitList;
     public static Trait[] specialTraitList;
 
     public static void loadTraits() {

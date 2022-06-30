@@ -290,7 +290,7 @@ public class Building implements Serializable {
             HashMap thekey = new HashMap();
             d = strLine.split(";");
 
-            for (int i = 0; i < d.length; ++i) {
+            for (int i = 0; i < d.length; i++) {
                 //A=0:0;C=101:0;D=26:0;E=26:8;F=47:0;G=50:5;AU=Razor9119;
                 String[] k = d[i].split("=");
                 //         A     0:0
@@ -314,7 +314,7 @@ public class Building implements Serializable {
             }
             int acount = 0, bcount = 0;
             //循环遍历高
-            for (int i = 0; i < this.layerCount; ++i) {
+            for (int i = 0; i < this.layerCount; i++) {
                 //读一层
                 strLine = br.readLine().trim();
                 bcount = 0;
@@ -520,7 +520,7 @@ public class Building implements Serializable {
      * @param to
      */
     private static void copyArrayList(ArrayList<Building> from, ArrayList<Building> to) {
-        for (int i = 0; i < from.size(); ++i) {
+        for (int i = 0; i < from.size(); i++) {
             to.add(from.get(i));
         }
 
@@ -824,7 +824,7 @@ public class Building implements Serializable {
         boolean useNewFormat = false;
         File[] files = buildingsFolder.listFiles();
         File f;
-        for (int i = 0; i < files.length; ++i) {
+        for (int i = 0; i < files.length; i++) {
             f = files[i];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
@@ -837,7 +837,7 @@ public class Building implements Serializable {
             ModSimReloaded.theBuildings.clear();
             File[] arr = buildingsFolder.listFiles();
             label166:
-            for (int i = 0; i < arr.length; ++i) {
+            for (int i = 0; i < arr.length; i++) {
                 f = arr[i];
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
@@ -895,7 +895,7 @@ public class Building implements Serializable {
                                         array = blocks;
                                         lengths = blocks.length;
 
-                                        for (int i_j = 0; i_j < lengths; ++i_j) {
+                                        for (int i_j = 0; i_j < lengths; i_j++) {
                                             block = array[i_j];
                                             if (!block.trim().contentEquals("")) {
                                                 build.tenants.add(block);
@@ -908,7 +908,7 @@ public class Building implements Serializable {
                                         array = blocks;
                                         lengths = blocks.length;
 
-                                        for (int i1 = 0; i1 < lengths; ++i1) {
+                                        for (int i1 = 0; i1 < lengths; i1++) {
                                             block = array[i1];
                                             if (block.contains(",")) {
                                                 build.blockLocations.add(new V3(block));
@@ -919,7 +919,7 @@ public class Building implements Serializable {
                                     blocks = value.split("B");
                                     array = blocks;
 
-                                    for (int i_j = 0; i_j < blocks.length; ++i_j) {
+                                    for (int i_j = 0; i_j < blocks.length; i_j++) {
                                         block = array[i_j];
                                         if (block.contains(",")) {
                                             int p1 = block.lastIndexOf(",");
@@ -940,7 +940,7 @@ public class Building implements Serializable {
             Minecraft mc = Minecraft.getMinecraft();
             ModSimReloaded.theBuildings.clear();
             File[] array = buildingsFolder.listFiles();
-            for (int i = 0; i < array.length; ++i) {
+            for (int i = 0; i < array.length; i++) {
                 File fs = array[i];
                 if (fs.getName().endsWith(".suk")) {
                     build = (Building) ModSimReloaded.loadObject(fs.getAbsoluteFile().toString());
@@ -1034,7 +1034,7 @@ public class Building implements Serializable {
     private static void initBuildingsOfType(String type) {
         File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + type);
 
-        for (int i = 0; i < f.list().length; ++i) {
+        for (int i = 0; i < f.list().length; i++) {
             String name = f.list()[i];
             name = name.substring(0, name.length() - 4);
             Building build = new Building(name, type);

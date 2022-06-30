@@ -157,7 +157,7 @@ public class GuiControlBox extends GuiScreen {
 
                         down += 20;
                         ++this.employeeCount;
-                        ++idx;
+                        idx++;
                     }
                 }
             }
@@ -357,7 +357,7 @@ public class GuiControlBox extends GuiScreen {
                 down = 70;
                 int idx = 2;
 
-                for (int i = 0; i < ModSimReloaded.theFolks.size(); ++i) {
+                for (int i = 0; i < ModSimReloaded.theFolks.size(); i++) {
                     folk = (FolkData) ModSimReloaded.theFolks.get(i);
                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
@@ -606,7 +606,7 @@ public class GuiControlBox extends GuiScreen {
                             World theWorld = this.playerWhoClickedIt.worldObj;
                             bindex = 0;
 
-                            for (int i = 0; i < ModSimReloaded.theBuildings.size(); ++i) {
+                            for (int i = 0; i < ModSimReloaded.theBuildings.size(); i++) {
                                 Building build = (Building) ModSimReloaded.theBuildings.get(i);
 
                                 try {

@@ -35,7 +35,7 @@ public class WorldGeneratorCopperOre extends WorldGenerator {
         // TODO
         if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.IRON)) {
             //System.out.println("开始生成铜矿");
-            for (int i = 0; i < 4; ++i) {
+            for (int i = 0; i < 4; i++) {
                 //通过循环四次的方式在当前区块进行四次矿物生成
                 int posX = pos.getX() + rand.nextInt(16);
                 int posY = 16 + rand.nextInt(16);

@@ -2,6 +2,7 @@ package com.trhsy.sim.common;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.config.SimConfigSync;
+import com.trhsy.sim.common.entity.folk.traits.Traits;
 import com.trhsy.sim.common.loader.*;
 import com.trhsy.sim.common.util.UpdateChecker;
 import com.trhsy.sim.packets.client.Handler;
@@ -59,7 +60,8 @@ public class CommonProxy {
         new EntityLoader();
         /**加载GUI**/
         new GuiElementLoader();
-
+        //Traits
+        Traits.loadTraits();
 
         //新的网络包装器
         ModSimReloaded.network = NetworkRegistry.INSTANCE.newSimpleChannel(ModSim.MODID);

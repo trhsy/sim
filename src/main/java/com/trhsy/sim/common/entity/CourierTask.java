@@ -41,7 +41,7 @@ public class CourierTask implements Serializable {
     private static boolean alreadyGotTask(CourierTask theTask) {
         boolean got = false;
 
-        for (int i = 0; i < ModSimReloaded.theCourierTasks.size(); ++i) {
+        for (int i = 0; i < ModSimReloaded.theCourierTasks.size(); i++) {
             CourierTask checkTask = (CourierTask) ModSimReloaded.theCourierTasks.get(i);
 
             try {
@@ -60,7 +60,7 @@ public class CourierTask implements Serializable {
     private static boolean alreadyGotPoint(V3 thePoint) {
         boolean got = false;
 
-        for (int i = 0; i < ModSimReloaded.theCourierPoints.size(); ++i) {
+        for (int i = 0; i < ModSimReloaded.theCourierPoints.size(); i++) {
             V3 checkPoint = (V3) ModSimReloaded.theCourierPoints.get(i);
             if (checkPoint.isSameCoordsAs(thePoint, true, true)) {
                 got = true;
@@ -85,7 +85,7 @@ public class CourierTask implements Serializable {
 
         int i;
         File f;
-        for(i = 0; i < lengths; ++i) {
+        for(i = 0; i < lengths; i++) {
             f = listFiles[i];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
@@ -175,7 +175,7 @@ public class CourierTask implements Serializable {
             listFiles = courierPoints.listFiles();
             lengths = listFiles.length;
 
-            for(i = 0; i < lengths; ++i) {
+            for(i = 0; i < lengths; i++) {
                 f = listFiles[i];
                 if (f.getName().endsWith(".suk")) {
                     V3 point = (V3) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
@@ -190,7 +190,7 @@ public class CourierTask implements Serializable {
             listFiles = courierTasks.listFiles();
             lengths = listFiles.length;
 
-            for(i = 0; i < lengths; ++i) {
+            for(i = 0; i < lengths; i++) {
                 f = listFiles[i];
                 if (f.getName().endsWith(".suk")) {
                     CourierTask task = (CourierTask) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());

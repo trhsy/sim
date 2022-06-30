@@ -28,7 +28,7 @@ public class Commodity {
         ModSimReloaded.theCommodities.clear();
         int count = rand.nextInt(3) + 2;
 
-        for(int it = 0; it < count; ++it) {
+        for(int it = 0; it < count; it++) {
             int index = rand.nextInt(availableItems.size() - 1);
             int qty = rand.nextInt(10) + 1;
             float price = 300.0F + (float) rand.nextInt(300) + rand.nextFloat() * 100.0F;
