@@ -3,9 +3,11 @@ package com.trhsy.sim.common.loader;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.entity.EntityRenderFactory;
 import com.trhsy.sim.client.entity.RenderEntityFolk;
+import com.trhsy.sim.client.entity.model.ModelFolkFemale;
 import com.trhsy.sim.common.entity.EntityFolk;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -39,7 +41,9 @@ public class EntityLoader {
      * @Date 17:19 2022/5/22
      * @Param [entityClass, render]
      * @return void
-     **/
+     *
+     * @param entityClass
+     * @param render*/
     @SideOnly(Side.CLIENT)
     private static <T extends Entity> void registerEntityRender(Class<T> entityClass, Class<? extends Render<T>> render) {
         RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<T>(render));

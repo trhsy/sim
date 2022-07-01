@@ -1,6 +1,7 @@
 package com.trhsy.sim.client.entity;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.client.entity.model.ModelFolkFemale;
 import com.trhsy.sim.common.entity.EntityFolk;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -33,9 +34,10 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
          * @Param [renderManager]
          * @return 
          **/
-        super(renderManager, new ModelBiped(), 0.5F);
+        super(renderManager, new ModelFolkFemale(), 0.5F);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityFolk entity) {
         if (entity instanceof EntityFolk) {
             EntityFolk theFolk = (EntityFolk) entity;

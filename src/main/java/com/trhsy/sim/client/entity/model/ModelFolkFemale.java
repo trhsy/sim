@@ -8,20 +8,23 @@ import net.minecraft.entity.Entity;
 
 /**
  * @ClassName ModelFolkFemale
+ * 此类也用于男性模型，但不会渲染乳房！：-）
  * @Description todo 女性npc
  * @Author Tian
  * @Date 2022/6/515:43
  **/
 public class ModelFolkFemale extends ModelBiped {
     //女性右侧乳房
-    public ModelRenderer rightTit = new ModelRenderer(this, 19, 19);
+    public ModelRenderer rightTit;
     //女性左侧乳房
     public ModelRenderer leftTit;
     //怀孕
     public ModelRenderer pregnant;
 
     public ModelFolkFemale() {
-
+        super();
+        //变量名：-）
+        this.rightTit = new ModelRenderer(this, 19, 19);
         this.rightTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 5);
         //设置旋转点
         this.rightTit.setRotationPoint(0.5F, 1.7F, -4.0F);

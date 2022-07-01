@@ -10,10 +10,9 @@ import com.trhsy.sim.common.entity.folk.traits.Traits;
 import com.trhsy.sim.common.jobs.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.packets.client.UpdateFolkPositionMessage;
+import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +27,6 @@ import net.minecraft.world.World;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.world.WorldServer;
@@ -814,7 +812,7 @@ public class FolkData implements Serializable {
             if (System.currentTimeMillis() - this.timeSinceLastSave > (long) about10) {
                 Side side = FMLCommonHandler.instance().getEffectiveSide();
                 if (side == Side.SERVER) {
-                    ModSimReloaded.network.sendToServer(new UpdateFolkPositionMessage(this.location.toString() + ";" + this.name));
+                    ModSimReloaded.network.sendToServer(new UpdateFolkPositionPacket(this.location.toString() + ";" + this.name));
                     this.saveThisFolk();
                 }
 

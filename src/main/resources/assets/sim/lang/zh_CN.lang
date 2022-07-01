@@ -988,3 +988,7 @@ container.sim.guiFolk.Social=社交
 container.sim.guiFolk.Environment=环境
 container.sim.guiFolk.Traits=特征
 container.sim.guiFolk.Inventory=库存
+
+container.sim.commands1=无效的参数，应该是：/credits <amount>
+container.sim.commands2=金额必须是数字！
+container.sim.commands3=无效参数，应为：/generate NPC <name> 或 /generate SIM

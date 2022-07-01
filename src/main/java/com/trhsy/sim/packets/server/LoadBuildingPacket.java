@@ -4,9 +4,12 @@ package com.trhsy.sim.packets.server;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.entity.Building;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * ========================================
@@ -17,12 +20,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
  * @Date 2022/1/26 0026下午 4:46
  * ========================================
  **/
-public class LoadBuildingMessage implements IMessage {
+public class LoadBuildingPacket implements IMessage {
     private String GuiBuildingCon;
 
-    public LoadBuildingMessage() {
+    public LoadBuildingPacket() {
     }
-    public LoadBuildingMessage(String GuiBuildingCon) {
+    public LoadBuildingPacket(String GuiBuildingCon) {
         this.GuiBuildingCon = GuiBuildingCon;
     }
 
@@ -34,5 +37,15 @@ public class LoadBuildingMessage implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.GuiBuildingCon);
+    }
+    public static class Handler implements IMessageHandler<LoadBuildingPacket, IMessage> {
+        @Override
+        public IMessage onMessage(LoadBuildingPacket message, MessageContext ctx) {
+
+            Building.loadAllBuildings();
+
+            //player.openGui(ModSimukraft.instance, message.id, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+            return null;
+        }
     }
 }

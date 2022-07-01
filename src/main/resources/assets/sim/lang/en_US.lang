@@ -985,3 +985,7 @@ container.sim.guiFolk.Social=Social
 container.sim.guiFolk.Environment=Environment
 container.sim.guiFolk.Traits=Traits
 container.sim.guiFolk.Inventory=Inventory
+
+container.sim.commands1=Invalid arguments, should be: /credits <amount>
+container.sim.commands2=The amount must be a number!
+container.sim.commands3=Invalid arguments, should be: /generate NPC <name> or /generate SIM
