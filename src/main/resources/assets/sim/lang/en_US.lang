@@ -177,6 +177,7 @@ container.sim.sim_gui_BC_Commercial=Commercial
 container.sim.sim_gui_BC_Industrial=Industrial
 container.sim.sim_gui_BC_Other=Other
 container.sim.sim_gui_BC_Go_Back=Go Back
+container.sim.sim_gui_BC_bye=bye
 container.sim.sim_gui_BC_Build_it=Build it!
 container.sim.sim_gui_BC_Page=page
 container.sim.sim_gui_BC_Nothing_found=Nothing found, go back and choose another

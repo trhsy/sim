@@ -250,7 +250,7 @@ public class GuiEntityFolk extends GuiScreen {
     private void showPage() {
         this.buttonList.clear();
         //再见
-        this.buttonList.add(new GuiButton(0, 2, this.height - 22, 50, 20, I18n.format("container.sim.sim_gui_BC_Go_Back")));
+        this.buttonList.add(new GuiButton(0, 2, this.height - 22, 50, 20, I18n.format("container.sim.sim_gui_BC_bye")));
         if (this.currentPage == 0) {
             //关系
             this.buttonList.add(new GuiButton(1, this.width / 2 - 50, 130, 100, 20, I18n.format("container.sim.gui_Folk_Relationshipss")));
@@ -300,10 +300,12 @@ public class GuiEntityFolk extends GuiScreen {
                     this.currentPage = 2;
                     this.showPage();
                 }
+                //特征
                 if (guibutton.displayString.contentEquals(I18n.format("container.sim.guiFolk.Traits"))) {
                     this.currentPage = 3;
                     this.showPage();
                 }
+                //库存
                 if (guibutton.displayString.contentEquals(I18n.format("container.sim.guiFolk.Inventory"))) {
                     EntityPlayer player = Minecraft.getMinecraft().thePlayer;
                     player.openGui(ModSim.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);

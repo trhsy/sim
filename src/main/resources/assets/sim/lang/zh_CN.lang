@@ -623,6 +623,7 @@ container.sim.gui_sendChat_you_need=你需要一些金币来雇佣员工。
 container.sim.gui_sendChat_Builder_merchant=建筑商的商人不能在创造性模式下雇佣
 container.sim.gui_Folk_hello=你好
 container.sim.gui_Folk_Back=返回
+container.sim.sim_gui_BC_bye=再见
 container.sim.gui_Folk_Here_my=这是我的信息
 container.sim.gui_Folk_Name=名称
 container.sim.gui_Folk_Age=年龄
