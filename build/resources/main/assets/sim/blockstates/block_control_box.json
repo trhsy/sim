@@ -1,0 +1,29 @@
+{
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "sim:block_control_box"
+  },
+  "variants": {
+    "type=top": {
+      "model": "sim:block_control_box",
+      "textures": {
+        "particle": "sim:blocks/control/block_control_box",
+        "texture": "sim:blocks/control/block_control_box"
+      }
+    },
+    "type=atm": {
+      "model": "sim:block_control_box",
+      "textures": {
+        "particle": "sim:blocks/control/block_control_box_atm",
+        "texture": "sim:blocks/control/block_control_box_atm"
+      }
+    },
+    "type=other": {
+      "model": "sim:block_control_box",
+      "textures": {
+        "particle": "sim:blocks/control/block_control_box_other",
+        "texture": "sim:blocks/control/block_control_box_other"
+      }
+    }
+  }
+}

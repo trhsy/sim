@@ -1,0 +1,18 @@
+Symbol range map extraction starting
+Processing 16 files
+processing com\trhsy\sim\ModSim.java
+processing com\trhsy\sim\client\ClientProxy.java
+processing com\trhsy\sim\client\loader\ItemRenderLoader.java
+processing com\trhsy\sim\common\CommonProxy.java
+processing com\trhsy\sim\common\block\BlockConstructorBox.java
+processing com\trhsy\sim\common\block\BlockControlBox.java
+processing com\trhsy\sim\common\block\EnumControlBoxMaterial.java
+processing com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java
+processing com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java
+processing com\trhsy\sim\common\item\ItemBlockMeta.java
+processing com\trhsy\sim\common\item\ItemGranulesCopper.java
+processing com\trhsy\sim\common\loader\BlockLoader.java
+processing com\trhsy\sim\common\loader\CreativeTabsLoader.java
+processing com\trhsy\sim\common\loader\ItemLoader.java
+processing com\trhsy\sim\common\tileentity\TileEntityMetalControlBox.java
+processing com\trhsy\sim\common\util\LocUtils.java

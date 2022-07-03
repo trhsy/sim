@@ -1,0 +1,621 @@
+Symbol range map extraction starting
+Processing 16 files
+processing com\trhsy\sim\ModSim.java
+@|com\trhsy\sim\ModSim.java|8|21|com.trhsy.sim|package|com.trhsy.sim|(file)
+Class Start: com.trhsy.sim.ModSim
+   @|com\trhsy\sim\ModSim.java|763|769|String|class|java.lang.String
+   @|com\trhsy\sim\ModSim.java|770|775|MODID|field|com.trhsy.sim.ModSim|MODID|
+   @|com\trhsy\sim\ModSim.java|824|830|String|class|java.lang.String
+   @|com\trhsy\sim\ModSim.java|831|835|NAME|field|com.trhsy.sim.ModSim|NAME|
+   @|com\trhsy\sim\ModSim.java|914|920|String|class|java.lang.String
+   @|com\trhsy\sim\ModSim.java|921|928|VERSION|field|com.trhsy.sim.ModSim|VERSION|
+   @|com\trhsy\sim\ModSim.java|1073|1079|ModSim|class|com.trhsy.sim.ModSim
+   @|com\trhsy\sim\ModSim.java|1080|1088|instance|field|com.trhsy.sim.ModSim|instance|
+   @|com\trhsy\sim\ModSim.java|1095|1101|ModSim|class|com.trhsy.sim.ModSim
+   @|com\trhsy\sim\ModSim.java|1283|1294|CommonProxy|class|com.trhsy.sim.common.CommonProxy
+   @|com\trhsy\sim\ModSim.java|1295|1300|proxy|field|com.trhsy.sim.ModSim|proxy|
+   @|com\trhsy\sim\ModSim.java|1336|1347|ClientProxy|class|com.trhsy.sim.client.ClientProxy
+   @|com\trhsy\sim\ModSim.java|1348|1359|clientProxy|field|com.trhsy.sim.ModSim|clientProxy|
+   @|com\trhsy\sim\ModSim.java|1392|1398|Logger|class|org.apache.logging.log4j.Logger
+   @|com\trhsy\sim\ModSim.java|1399|1402|log|field|com.trhsy.sim.ModSim|log|
+   Method Start: ModSim()V
+      @|com\trhsy\sim\ModSim.java|1439|1445|ModSim|method|com.trhsy.sim.ModSim|ModSim|()V
+   Method End: ModSim()V
+   Method Start: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|1580|1587|preInit|method|com.trhsy.sim.ModSim|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|1588|1613|FMLPreInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+      @|com\trhsy\sim\ModSim.java|1614|1619|event|param|com.trhsy.sim.ModSim|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\ModSim.java|1631|1636|proxy|field|com.trhsy.sim.ModSim|proxy
+      @|com\trhsy\sim\ModSim.java|1637|1644|preInit|method|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|1645|1650|event|param|com.trhsy.sim.ModSim|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+   Method End: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+   Method Start: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|1794|1798|init|method|com.trhsy.sim.ModSim|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|1799|1821|FMLInitializationEvent|class|net.minecraftforge.fml.common.event.FMLInitializationEvent
+      @|com\trhsy\sim\ModSim.java|1822|1827|event|param|com.trhsy.sim.ModSim|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V|event|0
+      @|com\trhsy\sim\ModSim.java|1839|1844|proxy|field|com.trhsy.sim.ModSim|proxy
+      @|com\trhsy\sim\ModSim.java|1845|1849|init|method|com.trhsy.sim.common.CommonProxy|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|1850|1855|event|param|com.trhsy.sim.ModSim|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V|event|0
+   Method End: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+   Method Start: postInit(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|1991|1999|postInit|method|com.trhsy.sim.ModSim|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|2000|2026|FMLPostInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+      @|com\trhsy\sim\ModSim.java|2027|2032|event|param|com.trhsy.sim.ModSim|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V|event|0
+      @|com\trhsy\sim\ModSim.java|2044|2049|proxy|field|com.trhsy.sim.ModSim|proxy
+      @|com\trhsy\sim\ModSim.java|2050|2058|postInit|method|com.trhsy.sim.common.CommonProxy|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\ModSim.java|2059|2064|event|param|com.trhsy.sim.ModSim|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V|event|0
+   Method End: postInit(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+Class End  : com.trhsy.sim.ModSim
+endProcessing com\trhsy\sim\ModSim.java
+
+processing com\trhsy\sim\client\ClientProxy.java
+@|com\trhsy\sim\client\ClientProxy.java|8|28|com.trhsy.sim.client|package|com.trhsy.sim.client|(file)
+Class Start: com.trhsy.sim.client.ClientProxy
+   Method Start: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|504|511|preInit|method|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|512|537|FMLPreInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+      @|com\trhsy\sim\client\ClientProxy.java|538|543|event|param|com.trhsy.sim.client.ClientProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\client\ClientProxy.java|561|568|preInit|method|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|569|574|event|param|com.trhsy.sim.client.ClientProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\client\ClientProxy.java|589|605|ItemRenderLoader|class|com.trhsy.sim.client.loader.ItemRenderLoader
+   Method End: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+   Method Start: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|734|738|init|method|com.trhsy.sim.common.CommonProxy|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|739|761|FMLInitializationEvent|class|net.minecraftforge.fml.common.event.FMLInitializationEvent
+      @|com\trhsy\sim\client\ClientProxy.java|762|767|event|param|com.trhsy.sim.client.ClientProxy|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V|event|0
+      @|com\trhsy\sim\client\ClientProxy.java|785|789|init|method|com.trhsy.sim.common.CommonProxy|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|790|795|event|param|com.trhsy.sim.client.ClientProxy|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V|event|0
+   Method End: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+   Method Start: postInit(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|916|924|postInit|method|com.trhsy.sim.common.CommonProxy|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|925|951|FMLPostInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+      @|com\trhsy\sim\client\ClientProxy.java|952|957|event|param|com.trhsy.sim.client.ClientProxy|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V|event|0
+      @|com\trhsy\sim\client\ClientProxy.java|975|983|postInit|method|com.trhsy.sim.common.CommonProxy|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\client\ClientProxy.java|984|989|event|param|com.trhsy.sim.client.ClientProxy|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V|event|0
+   Method End: postInit(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+Class End  : com.trhsy.sim.client.ClientProxy
+endProcessing com\trhsy\sim\client\ClientProxy.java
+
+processing com\trhsy\sim\client\loader\ItemRenderLoader.java
+@|com\trhsy\sim\client\loader\ItemRenderLoader.java|8|35|com.trhsy.sim.client.loader|package|com.trhsy.sim.client.loader|(file)
+Class Start: com.trhsy.sim.client.loader.ItemRenderLoader
+   Method Start: ItemRenderLoader()V
+      @|com\trhsy\sim\client\loader\ItemRenderLoader.java|292|308|ItemRenderLoader|method|com.trhsy.sim.client.loader.ItemRenderLoader|ItemRenderLoader|()V
+      @|com\trhsy\sim\client\loader\ItemRenderLoader.java|337|347|ItemLoader|class|com.trhsy.sim.common.loader.ItemLoader
+      @|com\trhsy\sim\client\loader\ItemRenderLoader.java|348|363|registerRenders|method|com.trhsy.sim.common.loader.ItemLoader|registerRenders|()V
+      @|com\trhsy\sim\client\loader\ItemRenderLoader.java|392|403|BlockLoader|class|com.trhsy.sim.common.loader.BlockLoader
+      @|com\trhsy\sim\client\loader\ItemRenderLoader.java|404|419|registerRenders|method|com.trhsy.sim.common.loader.BlockLoader|registerRenders|()V
+   Method End: ItemRenderLoader()V
+Class End  : com.trhsy.sim.client.loader.ItemRenderLoader
+endProcessing com\trhsy\sim\client\loader\ItemRenderLoader.java
+
+processing com\trhsy\sim\common\CommonProxy.java
+@|com\trhsy\sim\common\CommonProxy.java|8|28|com.trhsy.sim.common|package|com.trhsy.sim.common|(file)
+Class Start: com.trhsy.sim.common.CommonProxy
+   Method Start: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\CommonProxy.java|534|541|preInit|method|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\CommonProxy.java|542|567|FMLPreInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+      @|com\trhsy\sim\common\CommonProxy.java|568|573|event|param|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\common\CommonProxy.java|611|629|CreativeTabsLoader|class|com.trhsy.sim.common.loader.CreativeTabsLoader
+      @|com\trhsy\sim\common\CommonProxy.java|630|635|event|param|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\common\CommonProxy.java|671|681|ItemLoader|class|com.trhsy.sim.common.loader.ItemLoader
+      @|com\trhsy\sim\common\CommonProxy.java|682|687|event|param|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\common\CommonProxy.java|723|734|BlockLoader|class|com.trhsy.sim.common.loader.BlockLoader
+      @|com\trhsy\sim\common\CommonProxy.java|735|740|event|param|com.trhsy.sim.common.CommonProxy|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+   Method End: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+   Method Start: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\common\CommonProxy.java|862|866|init|method|com.trhsy.sim.common.CommonProxy|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\trhsy\sim\common\CommonProxy.java|867|889|FMLInitializationEvent|class|net.minecraftforge.fml.common.event.FMLInitializationEvent
+      @|com\trhsy\sim\common\CommonProxy.java|890|895|event|param|com.trhsy.sim.common.CommonProxy|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V|event|0
+   Method End: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+   Method Start: postInit(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\common\CommonProxy.java|1011|1019|postInit|method|com.trhsy.sim.common.CommonProxy|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+      @|com\trhsy\sim\common\CommonProxy.java|1020|1046|FMLPostInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+      @|com\trhsy\sim\common\CommonProxy.java|1047|1052|event|param|com.trhsy.sim.common.CommonProxy|postInit|(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V|event|0
+   Method End: postInit(Lnet/minecraftforge/fml/common/event/FMLPostInitializationEvent;)V
+Class End  : com.trhsy.sim.common.CommonProxy
+endProcessing com\trhsy\sim\common\CommonProxy.java
+
+processing com\trhsy\sim\common\block\BlockConstructorBox.java
+@|com\trhsy\sim\common\block\BlockConstructorBox.java|8|34|com.trhsy.sim.common.block|package|com.trhsy.sim.common.block|(file)
+Class Start: com.trhsy.sim.common.block.BlockConstructorBox
+   Method Start: BlockConstructorBox()V
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|278|297|BlockConstructorBox|method|com.trhsy.sim.common.block.BlockConstructorBox|BlockConstructorBox|()V
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|316|324|Material|class|net.minecraft.block.material.Material
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|325|329|wood|field|net.minecraft.block.material.Material|wood
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|358|376|setUnlocalizedName|method|net.minecraft.block.Block|setUnlocalizedName|(Ljava/lang/String;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|424|435|setHardness|method|net.minecraft.block.Block|setHardness|(F)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|456|470|setCreativeTab|method|net.minecraft.block.Block|setCreativeTab|(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|471|489|CreativeTabsLoader|class|com.trhsy.sim.common.loader.CreativeTabsLoader
+      @|com\trhsy\sim\common\block\BlockConstructorBox.java|490|497|tabSimU|field|com.trhsy.sim.common.loader.CreativeTabsLoader|tabSimU
+   Method End: BlockConstructorBox()V
+Class End  : com.trhsy.sim.common.block.BlockConstructorBox
+endProcessing com\trhsy\sim\common\block\BlockConstructorBox.java
+
+processing com\trhsy\sim\common\block\BlockControlBox.java
+@|com\trhsy\sim\common\block\BlockControlBox.java|8|34|com.trhsy.sim.common.block|package|com.trhsy.sim.common.block|(file)
+Class Start: com.trhsy.sim.common.block.BlockControlBox
+   @|com\trhsy\sim\common\block\BlockControlBox.java|1585|1607|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+   @|com\trhsy\sim\common\block\BlockControlBox.java|1572|1584|PropertyEnum|class|net.minecraft.block.properties.PropertyEnum
+   @|com\trhsy\sim\common\block\BlockControlBox.java|1609|1613|TYPE|field|com.trhsy.sim.common.block.BlockControlBox|TYPE|
+   @|com\trhsy\sim\common\block\BlockControlBox.java|1616|1628|PropertyEnum|class|net.minecraft.block.properties.PropertyEnum
+   @|com\trhsy\sim\common\block\BlockControlBox.java|1629|1635|create|method|net.minecraft.block.properties.PropertyEnum|create|(Ljava/lang/String;Ljava/lang/Class;)Lnet/minecraft/block/properties/PropertyEnum;
+   @|com\trhsy\sim\common\block\BlockControlBox.java|1644|1666|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+   Method Start: BlockControlBox()V
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1713|1728|BlockControlBox|method|com.trhsy.sim.common.block.BlockControlBox|BlockControlBox|()V
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1747|1755|Material|class|net.minecraft.block.material.Material
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1756|1760|wood|field|net.minecraft.block.material.Material|wood
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1776|1788|setStepSound|method|net.minecraft.block.Block|setStepSound|(Lnet/minecraft/block/Block$SoundType;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1789|1794|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1795|1808|soundTypeWood|field|net.minecraft.block.Block|soundTypeWood
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1824|1835|setHardness|method|net.minecraft.block.Block|setHardness|(F)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1857|1870|setResistance|method|net.minecraft.block.Block|setResistance|(F)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|1891|1909|setUnlocalizedName|method|net.minecraft.block.Block|setUnlocalizedName|(Ljava/lang/String;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2005|2019|setCreativeTab|method|net.minecraft.block.Block|setCreativeTab|(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2020|2038|CreativeTabsLoader|class|com.trhsy.sim.common.loader.CreativeTabsLoader
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2039|2046|tabSimU|field|com.trhsy.sim.common.loader.CreativeTabsLoader|tabSimU
+   Method End: BlockControlBox()V
+   Method Start: createBlockState()Lnet/minecraft/block/state/BlockState;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2419|2435|createBlockState|method|net.minecraft.block.Block|createBlockState|()Lnet/minecraft/block/state/BlockState;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2408|2418|BlockState|class|net.minecraft.block.state.BlockState
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2459|2469|BlockState|class|net.minecraft.block.state.BlockState
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2479|2488|IProperty|class|net.minecraft.block.properties.IProperty
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2491|2495|TYPE|field|com.trhsy.sim.common.block.BlockControlBox|TYPE
+   Method End: createBlockState()Lnet/minecraft/block/state/BlockState;
+   Method Start: getSubBlocks(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2562|2574|getSubBlocks|method|net.minecraft.block.Block|getSubBlocks|(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2575|2579|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2580|2586|itemIn|param|com.trhsy.sim.common.block.BlockControlBox|getSubBlocks|(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V|itemIn|0
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2588|2600|CreativeTabs|class|net.minecraft.creativetab.CreativeTabs
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2601|2604|tab|param|com.trhsy.sim.common.block.BlockControlBox|getSubBlocks|(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V|tab|1
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2611|2620|ItemStack|class|net.minecraft.item.ItemStack
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2606|2610|List|class|java.util.List
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2622|2626|list|param|com.trhsy.sim.common.block.BlockControlBox|getSubBlocks|(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V|list|2
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2638|2660|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2676|2698|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2699|2705|values|method|com.trhsy.sim.common.block.EnumControlBoxMaterial|values|()[Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;
+      Field: Array Length, skipping
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2777|2799|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2836|2840|list|param|com.trhsy.sim.common.block.BlockControlBox|getSubBlocks|(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V|list|2
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2841|2844|add|method|java.util.Collection|add|(Ljava/lang/Object;)Z
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2849|2858|ItemStack|class|net.minecraft.item.ItemStack
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2873|2877|meta|field|com.trhsy.sim.common.block.EnumControlBoxMaterial|meta
+   Method End: getSubBlocks(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V
+   Method Start: getMetaFromState(Lnet/minecraft/block/state/IBlockState;)I
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2926|2942|getMetaFromState|method|net.minecraft.block.Block|getMetaFromState|(Lnet/minecraft/block/state/IBlockState;)I
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2943|2954|IBlockState|class|net.minecraft.block.state.IBlockState
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2955|2960|state|param|com.trhsy.sim.common.block.BlockControlBox|getMetaFromState|(Lnet/minecraft/block/state/IBlockState;)I|state|0
+      @|com\trhsy\sim\common\block\BlockControlBox.java|2981|3003|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3004|3009|state|param|com.trhsy.sim.common.block.BlockControlBox|getMetaFromState|(Lnet/minecraft/block/state/IBlockState;)I|state|0
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3010|3018|getValue|method|net.minecraft.block.state.IBlockState|getValue|(Lnet/minecraft/block/properties/IProperty;)Ljava/lang/Comparable;
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3019|3023|TYPE|field|com.trhsy.sim.common.block.BlockControlBox|TYPE
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3026|3030|meta|field|com.trhsy.sim.common.block.EnumControlBoxMaterial|meta
+   Method End: getMetaFromState(Lnet/minecraft/block/state/IBlockState;)I
+   Method Start: damageDropped(Lnet/minecraft/block/state/IBlockState;)I
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3068|3081|damageDropped|method|net.minecraft.block.Block|damageDropped|(Lnet/minecraft/block/state/IBlockState;)I
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3082|3093|IBlockState|class|net.minecraft.block.state.IBlockState
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3094|3099|state|param|com.trhsy.sim.common.block.BlockControlBox|damageDropped|(Lnet/minecraft/block/state/IBlockState;)I|state|0
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3123|3139|getMetaFromState|method|net.minecraft.block.Block|getMetaFromState|(Lnet/minecraft/block/state/IBlockState;)I
+      @|com\trhsy\sim\common\block\BlockControlBox.java|3140|3145|state|param|com.trhsy.sim.common.block.BlockControlBox|damageDropped|(Lnet/minecraft/block/state/IBlockState;)I|state|0
+   Method End: damageDropped(Lnet/minecraft/block/state/IBlockState;)I
+Class End  : com.trhsy.sim.common.block.BlockControlBox
+endProcessing com\trhsy\sim\common\block\BlockControlBox.java
+
+processing com\trhsy\sim\common\block\EnumControlBoxMaterial.java
+@|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|8|34|com.trhsy.sim.common.block|package|com.trhsy.sim.common.block|(file)
+Enum Start: com.trhsy.sim.common.block.EnumControlBoxMaterial
+   @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|203|225|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+   @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|237|256|IStringSerializable|class|net.minecraft.util.IStringSerializable
+   @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|263|266|TOP|field|com.trhsy.sim.common.block.EnumControlBoxMaterial|TOP
+   @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|272|275|ATM|field|com.trhsy.sim.common.block.EnumControlBoxMaterial|ATM
+   @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|281|286|OTHER|field|com.trhsy.sim.common.block.EnumControlBoxMaterial|OTHER
+   Method Start: EnumControlBoxMaterial()V
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|300|322|EnumControlBoxMaterial|method|com.trhsy.sim.common.block.EnumControlBoxMaterial|EnumControlBoxMaterial|()V
+   Method End: EnumControlBoxMaterial()V
+   @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|354|358|meta|field|com.trhsy.sim.common.block.EnumControlBoxMaterial|meta|
+   @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|366|373|ordinal|method|java.lang.Enum|ordinal|()I
+   Method Start: fromMeta(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|419|427|fromMeta|method|com.trhsy.sim.common.block.EnumControlBoxMaterial|fromMeta|(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|396|418|EnumControlBoxMaterial|class|com.trhsy.sim.common.block.EnumControlBoxMaterial
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|432|436|meta|param|com.trhsy.sim.common.block.EnumControlBoxMaterial|fromMeta|(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;|meta|0
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|452|456|meta|param|com.trhsy.sim.common.block.EnumControlBoxMaterial|fromMeta|(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;|meta|0
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|464|468|meta|param|com.trhsy.sim.common.block.EnumControlBoxMaterial|fromMeta|(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;|meta|0
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|472|478|values|method|com.trhsy.sim.common.block.EnumControlBoxMaterial|values|()[Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;
+      Field: Array Length, skipping
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|503|507|meta|param|com.trhsy.sim.common.block.EnumControlBoxMaterial|fromMeta|(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;|meta|0
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|539|545|values|method|com.trhsy.sim.common.block.EnumControlBoxMaterial|values|()[Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|548|552|meta|param|com.trhsy.sim.common.block.EnumControlBoxMaterial|fromMeta|(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;|meta|0
+   Method End: fromMeta(I)Lcom/trhsy/sim/common/block/EnumControlBoxMaterial;
+   Method Start: getName()Ljava/lang/String;
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|594|601|getName|method|net.minecraft.util.IStringSerializable|getName|()Ljava/lang/String;
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|587|593|String|class|java.lang.String
+      @|com\trhsy\sim\common\block\EnumControlBoxMaterial.java|626|634|toString|method|java.lang.Object|toString|()Ljava/lang/String;
+   Method End: getName()Ljava/lang/String;
+Enum End  : com.trhsy.sim.common.block.EnumControlBoxMaterial
+endProcessing com\trhsy\sim\common\block\EnumControlBoxMaterial.java
+
+processing com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java
+@|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|8|40|com.trhsy.sim.common.creativetab|package|com.trhsy.sim.common.creativetab|(file)
+Class Start: com.trhsy.sim.common.creativetab.CreativeTabsFMLTutor
+   Method Start: CreativeTabsFMLTutor()V
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|287|307|CreativeTabsFMLTutor|method|com.trhsy.sim.common.creativetab.CreativeTabsFMLTutor|CreativeTabsFMLTutor|()V
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|344|350|ModSim|class|com.trhsy.sim.ModSim
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|351|356|MODID|field|com.trhsy.sim.ModSim|MODID
+   Method End: CreativeTabsFMLTutor()V
+   Method Start: getTabIconItem()Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|528|542|getTabIconItem|method|net.minecraft.creativetab.CreativeTabs|getTabIconItem|()Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|523|527|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|563|567|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|568|584|getItemFromBlock|method|net.minecraft.item.Item|getItemFromBlock|(Lnet/minecraft/block/Block;)Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|585|596|BlockLoader|class|com.trhsy.sim.common.loader.BlockLoader
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|597|616|blockConstructorBox|field|com.trhsy.sim.common.loader.BlockLoader|blockConstructorBox
+   Method End: getTabIconItem()Lnet/minecraft/item/Item;
+   Method Start: hasSearchBar()Z
+      @|com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java|714|726|hasSearchBar|method|net.minecraft.creativetab.CreativeTabs|hasSearchBar|()Z
+   Method End: hasSearchBar()Z
+Class End  : com.trhsy.sim.common.creativetab.CreativeTabsFMLTutor
+endProcessing com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java
+
+processing com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java
+@|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|8|33|com.trhsy.sim.common.item|package|com.trhsy.sim.common.item|(file)
+Class Start: com.trhsy.sim.common.item.ItemBlockFolkLivingBlock
+   Method Start: ItemBlockFolkLivingBlock(Lnet/minecraft/block/Block;)V
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|443|467|ItemBlockFolkLivingBlock|method|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|ItemBlockFolkLivingBlock|(Lnet/minecraft/block/Block;)V
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|468|473|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|474|479|block|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|ItemBlockFolkLivingBlock|(Lnet/minecraft/block/Block;)V|block|0
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|497|502|block|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|ItemBlockFolkLivingBlock|(Lnet/minecraft/block/Block;)V|block|0
+   Method End: ItemBlockFolkLivingBlock(Lnet/minecraft/block/Block;)V
+   Method Start: addInformation(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|569|583|addInformation|method|net.minecraft.item.Item|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|584|593|ItemStack|class|net.minecraft.item.ItemStack
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|594|607|par1ItemStack|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par1ItemStack|0
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|640|652|EntityPlayer|class|net.minecraft.entity.player.EntityPlayer
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|653|669|par2EntityPlayer|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par2EntityPlayer|1
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|671|675|List|class|java.util.List
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|676|684|par3List|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par3List|2
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|694|698|par4|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par4|3
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|744|752|par3List|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par3List|2
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|753|756|add|method|java.util.Collection|add|(Ljava/lang/Object;)Z
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|757|761|I18n|class|net.minecraft.client.resources.I18n
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|762|768|format|method|net.minecraft.client.resources.I18n|format|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|810|824|addInformation|method|net.minecraft.item.Item|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|825|838|par1ItemStack|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par1ItemStack|0
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|840|856|par2EntityPlayer|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par2EntityPlayer|1
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|858|866|par3List|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par3List|2
+      @|com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java|868|872|par4|param|com.trhsy.sim.common.item.ItemBlockFolkLivingBlock|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|par4|3
+   Method End: addInformation(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+Class End  : com.trhsy.sim.common.item.ItemBlockFolkLivingBlock
+endProcessing com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java
+
+processing com\trhsy\sim\common\item\ItemBlockMeta.java
+@|com\trhsy\sim\common\item\ItemBlockMeta.java|8|33|com.trhsy.sim.common.item|package|com.trhsy.sim.common.item|(file)
+Class Start: com.trhsy.sim.common.item.ItemBlockMeta
+   @|com\trhsy\sim\common\item\ItemBlockMeta.java|1007|1016|IProperty|class|net.minecraft.block.properties.IProperty
+   @|com\trhsy\sim\common\item\ItemBlockMeta.java|1017|1032|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty|
+   Method Start: ItemBlockMeta(Lnet/minecraft/block/Block;)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1045|1058|ItemBlockMeta|method|com.trhsy.sim.common.item.ItemBlockMeta|ItemBlockMeta|(Lnet/minecraft/block/Block;)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1059|1064|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1065|1070|block|param|com.trhsy.sim.common.item.ItemBlockMeta|ItemBlockMeta|(Lnet/minecraft/block/Block;)V|block|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1088|1093|block|param|com.trhsy.sim.common.item.ItemBlockMeta|ItemBlockMeta|(Lnet/minecraft/block/Block;)V|block|0
+   Method End: ItemBlockMeta(Lnet/minecraft/block/Block;)V
+   Method Start: getUnlocalizedName(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1140|1158|getUnlocalizedName|method|net.minecraft.item.Item|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1133|1139|String|class|java.lang.String
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1159|1168|ItemStack|class|net.minecraft.item.ItemStack
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1169|1174|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1195|1210|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1247|1265|getUnlocalizedName|method|net.minecraft.item.Item|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1266|1271|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1303|1314|IBlockState|class|net.minecraft.block.state.IBlockState
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1328|1333|block|field|net.minecraft.item.ItemBlock|block
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1334|1350|getStateFromMeta|method|net.minecraft.block.Block|getStateFromMeta|(I)Lnet/minecraft/block/state/IBlockState;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1351|1356|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1357|1368|getMetadata|method|net.minecraft.item.ItemStack|getMetadata|()I
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1385|1391|String|class|java.lang.String
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1405|1413|getValue|method|net.minecraft.block.state.IBlockState|getValue|(Lnet/minecraft/block/properties/IProperty;)Ljava/lang/Comparable;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1419|1434|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1436|1444|toString|method|java.lang.Object|toString|()Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1447|1458|toLowerCase|method|java.lang.String|toLowerCase|(Ljava/util/Locale;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1459|1465|Locale|class|java.util.Locale
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1466|1468|US|field|java.util.Locale|US
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1496|1514|getUnlocalizedName|method|net.minecraft.item.Item|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1515|1520|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;|stack|0
+   Method End: getUnlocalizedName(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+   Method Start: setMappingProperty(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1576|1594|setMappingProperty|method|com.trhsy.sim.common.item.ItemBlockMeta|setMappingProperty|(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1595|1600|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1601|1606|block|param|com.trhsy.sim.common.item.ItemBlockMeta|setMappingProperty|(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V|block|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1608|1617|IProperty|class|net.minecraft.block.properties.IProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1621|1629|property|param|com.trhsy.sim.common.item.ItemBlockMeta|setMappingProperty|(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V|property|1
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1643|1656|ItemBlockMeta|class|com.trhsy.sim.common.item.ItemBlockMeta
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1658|1662|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1663|1679|getItemFromBlock|method|net.minecraft.item.Item|getItemFromBlock|(Lnet/minecraft/block/Block;)Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1680|1685|block|param|com.trhsy.sim.common.item.ItemBlockMeta|setMappingProperty|(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V|block|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1688|1703|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1706|1714|property|param|com.trhsy.sim.common.item.ItemBlockMeta|setMappingProperty|(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V|property|1
+   Method End: setMappingProperty(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V
+   Method Start: addInformation(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1753|1767|addInformation|method|net.minecraft.item.Item|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1768|1777|ItemStack|class|net.minecraft.item.ItemStack
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1778|1783|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1785|1797|EntityPlayer|class|net.minecraft.entity.player.EntityPlayer
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1798|1806|playerIn|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|playerIn|1
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1813|1819|String|class|java.lang.String
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1808|1812|List|class|java.util.List
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1821|1828|tooltip|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|tooltip|2
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1838|1846|advanced|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|advanced|3
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1862|1875|StatCollector|class|net.minecraft.util.StatCollector
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1876|1888|canTranslate|method|net.minecraft.util.StatCollector|canTranslate|(Ljava/lang/String;)Z
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1894|1912|getUnlocalizedName|method|net.minecraft.item.Item|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1913|1918|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1949|1956|tooltip|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|tooltip|2
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1957|1960|add|method|java.util.Collection|add|(Ljava/lang/Object;)Z
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1961|1979|EnumChatFormatting|class|net.minecraft.util.EnumChatFormatting
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1980|1984|GRAY|field|net.minecraft.util.EnumChatFormatting|GRAY
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1985|1993|toString|method|java.lang.Object|toString|()Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|1998|2006|LocUtils|class|com.trhsy.sim.common.util.LocUtils
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2007|2025|translateRecursive|method|com.trhsy.sim.common.util.LocUtils|translateRecursive|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2031|2049|getUnlocalizedName|method|net.minecraft.item.Item|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2050|2055|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2075|2081|Object|class|java.lang.Object
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2107|2120|StatCollector|class|net.minecraft.util.StatCollector
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2121|2133|canTranslate|method|net.minecraft.util.StatCollector|canTranslate|(Ljava/lang/String;)Z
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2140|2158|getUnlocalizedName|method|net.minecraft.item.Item|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2159|2164|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2195|2202|tooltip|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|tooltip|2
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2203|2206|add|method|java.util.Collection|add|(Ljava/lang/Object;)Z
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2207|2225|EnumChatFormatting|class|net.minecraft.util.EnumChatFormatting
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2226|2230|GRAY|field|net.minecraft.util.EnumChatFormatting|GRAY
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2231|2239|toString|method|java.lang.Object|toString|()Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2244|2252|LocUtils|class|com.trhsy.sim.common.util.LocUtils
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2253|2271|translateRecursive|method|com.trhsy.sim.common.util.LocUtils|translateRecursive|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2278|2296|getUnlocalizedName|method|net.minecraft.item.Item|getUnlocalizedName|(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2297|2302|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2322|2328|Object|class|java.lang.Object
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2360|2374|addInformation|method|net.minecraft.item.Item|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2375|2380|stack|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|stack|0
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2382|2390|playerIn|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|playerIn|1
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2392|2399|tooltip|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|tooltip|2
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2401|2409|advanced|param|com.trhsy.sim.common.item.ItemBlockMeta|addInformation|(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V|advanced|3
+   Method End: addInformation(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+   Method Start: registerItemModels()V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2462|2480|registerItemModels|method|com.trhsy.sim.common.item.ItemBlockMeta|registerItemModels|()V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2493|2497|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2519|2535|ResourceLocation|class|net.minecraft.util.ResourceLocation
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2542|2550|GameData|class|net.minecraftforge.fml.common.registry.GameData
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2551|2567|getBlockRegistry|method|net.minecraftforge.fml.common.registry.GameData|getBlockRegistry|()Lnet/minecraftforge/fml/common/registry/FMLControlledNamespacedRegistry;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2570|2586|getNameForObject|method|net.minecraft.util.RegistryNamespaced|getNameForObject|(Ljava/lang/Object;)Ljava/lang/Object;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2592|2597|block|field|net.minecraft.item.ItemBlock|block
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2608|2616|Iterator|class|java.util.Iterator
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2629|2644|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2645|2661|getAllowedValues|method|net.minecraft.block.properties.IProperty|getAllowedValues|()Ljava/util/Collection;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2664|2672|iterator|method|java.lang.Iterable|iterator|()Ljava/util/Iterator;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2696|2703|hasNext|method|java.util.Iterator|hasNext|()Z
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2721|2731|Comparable|class|java.lang.Comparable
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2737|2747|Comparable|class|java.lang.Comparable
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2753|2757|next|method|java.util.Iterator|next|()Ljava/lang/Object;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2789|2794|block|field|net.minecraft.item.ItemBlock|block
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2795|2811|getMetaFromState|method|net.minecraft.block.Block|getMetaFromState|(Lnet/minecraft/block/state/IBlockState;)I
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2817|2822|block|field|net.minecraft.item.ItemBlock|block
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2823|2838|getDefaultState|method|net.minecraft.block.Block|getDefaultState|()Lnet/minecraft/block/state/IBlockState;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2841|2853|withProperty|method|net.minecraft.block.state.IBlockState|withProperty|(Lnet/minecraft/block/properties/IProperty;Ljava/lang/Comparable;)Lnet/minecraft/block/state/IBlockState;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2859|2874|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2893|2899|String|class|java.lang.String
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2912|2927|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2928|2935|getName|method|net.minecraft.block.properties.IProperty|getName|(Ljava/lang/Comparable;)Ljava/lang/String;
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2952|2963|ModelLoader|class|net.minecraftforge.client.model.ModelLoader
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|2964|2994|setCustomModelResourceLocation|method|net.minecraftforge.client.model.ModelLoader|setCustomModelResourceLocation|(Lnet/minecraft/item/Item;ILnet/minecraft/client/resources/model/ModelResourceLocation;)V
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|3011|3032|ModelResourceLocation|class|net.minecraft.client.resources.model.ModelResourceLocation
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|3043|3058|mappingProperty|field|com.trhsy.sim.common.item.ItemBlockMeta|mappingProperty
+      @|com\trhsy\sim\common\item\ItemBlockMeta.java|3059|3066|getName|method|net.minecraft.block.properties.IProperty|getName|()Ljava/lang/String;
+   Method End: registerItemModels()V
+Class End  : com.trhsy.sim.common.item.ItemBlockMeta
+endProcessing com\trhsy\sim\common\item\ItemBlockMeta.java
+
+processing com\trhsy\sim\common\item\ItemGranulesCopper.java
+@|com\trhsy\sim\common\item\ItemGranulesCopper.java|8|33|com.trhsy.sim.common.item|package|com.trhsy.sim.common.item|(file)
+Class Start: com.trhsy.sim.common.item.ItemGranulesCopper
+   Method Start: ItemGranulesCopper()V
+      @|com\trhsy\sim\common\item\ItemGranulesCopper.java|289|307|ItemGranulesCopper|method|com.trhsy.sim.common.item.ItemGranulesCopper|ItemGranulesCopper|()V
+      @|com\trhsy\sim\common\item\ItemGranulesCopper.java|341|353|maxStackSize|field|net.minecraft.item.Item|maxStackSize
+      @|com\trhsy\sim\common\item\ItemGranulesCopper.java|373|391|setUnlocalizedName|method|net.minecraft.item.Item|setUnlocalizedName|(Ljava/lang/String;)Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\item\ItemGranulesCopper.java|424|438|setCreativeTab|method|net.minecraft.item.Item|setCreativeTab|(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\item\ItemGranulesCopper.java|439|457|CreativeTabsLoader|class|com.trhsy.sim.common.loader.CreativeTabsLoader
+      @|com\trhsy\sim\common\item\ItemGranulesCopper.java|458|465|tabSimU|field|com.trhsy.sim.common.loader.CreativeTabsLoader|tabSimU
+   Method End: ItemGranulesCopper()V
+Class End  : com.trhsy.sim.common.item.ItemGranulesCopper
+endProcessing com\trhsy\sim\common\item\ItemGranulesCopper.java
+
+processing com\trhsy\sim\common\loader\BlockLoader.java
+@|com\trhsy\sim\common\loader\BlockLoader.java|8|35|com.trhsy.sim.common.loader|package|com.trhsy.sim.common.loader|(file)
+Class Start: com.trhsy.sim.common.loader.BlockLoader
+   @|com\trhsy\sim\common\loader\BlockLoader.java|1125|1130|Block|class|net.minecraft.block.Block
+   @|com\trhsy\sim\common\loader\BlockLoader.java|1131|1150|blockConstructorBox|field|com.trhsy.sim.common.loader.BlockLoader|blockConstructorBox|
+   @|com\trhsy\sim\common\loader\BlockLoader.java|1157|1176|BlockConstructorBox|class|com.trhsy.sim.common.block.BlockConstructorBox
+   @|com\trhsy\sim\common\loader\BlockLoader.java|1226|1231|Block|class|net.minecraft.block.Block
+   @|com\trhsy\sim\common\loader\BlockLoader.java|1232|1247|blockControlBox|field|com.trhsy.sim.common.loader.BlockLoader|blockControlBox|
+   @|com\trhsy\sim\common\loader\BlockLoader.java|1254|1269|BlockControlBox|class|com.trhsy.sim.common.block.BlockControlBox
+   Method Start: BlockLoader(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1340|1351|BlockLoader|method|com.trhsy.sim.common.loader.BlockLoader|BlockLoader|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1352|1377|FMLPreInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1378|1383|event|param|com.trhsy.sim.common.loader.BlockLoader|BlockLoader|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1413|1421|register|method|com.trhsy.sim.common.loader.BlockLoader|register|(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1422|1441|blockConstructorBox|field|com.trhsy.sim.common.loader.BlockLoader|blockConstructorBox
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1495|1504|registers|method|com.trhsy.sim.common.loader.BlockLoader|registers|(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1505|1520|blockControlBox|field|com.trhsy.sim.common.loader.BlockLoader|blockControlBox
+   Method End: BlockLoader(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+   Method Start: register(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1649|1657|register|method|com.trhsy.sim.common.loader.BlockLoader|register|(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1658|1663|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1664|1669|block|param|com.trhsy.sim.common.loader.BlockLoader|register|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1671|1677|String|class|java.lang.String
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1678|1682|name|param|com.trhsy.sim.common.loader.BlockLoader|register|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|name|1
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1694|1706|GameRegistry|class|net.minecraftforge.fml.common.registry.GameRegistry
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1707|1720|registerBlock|method|net.minecraftforge.fml.common.registry.GameRegistry|registerBlock|(Lnet/minecraft/block/Block;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1721|1726|block|param|com.trhsy.sim.common.loader.BlockLoader|register|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1727|1742|setRegistryName|method|net.minecraft.block.Block|setRegistryName|(Ljava/lang/String;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1743|1747|name|param|com.trhsy.sim.common.loader.BlockLoader|register|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|name|1
+   Method End: register(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+   Method Start: registerRenders()V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1836|1851|registerRenders|method|com.trhsy.sim.common.loader.BlockLoader|registerRenders|()V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1864|1878|registerRender|method|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|1879|1898|blockConstructorBox|field|com.trhsy.sim.common.loader.BlockLoader|blockConstructorBox
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2083|2096|ItemBlockMeta|class|com.trhsy.sim.common.item.ItemBlockMeta
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2097|2115|setMappingProperty|method|com.trhsy.sim.common.item.ItemBlockMeta|setMappingProperty|(Lnet/minecraft/block/Block;Lnet/minecraft/block/properties/IProperty;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2116|2131|blockControlBox|field|com.trhsy.sim.common.loader.BlockLoader|blockControlBox
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2132|2147|BlockControlBox|class|com.trhsy.sim.common.block.BlockControlBox
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2148|2152|TYPE|field|com.trhsy.sim.common.block.BlockControlBox|TYPE
+   Method End: registerRenders()V
+   Method Start: registerStateMapper(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2424|2443|registerStateMapper|method|com.trhsy.sim.common.loader.BlockLoader|registerStateMapper|(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2444|2449|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2450|2455|block|param|com.trhsy.sim.common.loader.BlockLoader|registerStateMapper|(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2457|2469|IStateMapper|class|net.minecraft.client.renderer.block.statemap.IStateMapper
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2470|2476|mapper|param|com.trhsy.sim.common.loader.BlockLoader|registerStateMapper|(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V|mapper|1
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2488|2499|ModelLoader|class|net.minecraftforge.client.model.ModelLoader
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2500|2520|setCustomStateMapper|method|net.minecraftforge.client.model.ModelLoader|setCustomStateMapper|(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2521|2526|block|param|com.trhsy.sim.common.loader.BlockLoader|registerStateMapper|(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2528|2534|mapper|param|com.trhsy.sim.common.loader.BlockLoader|registerStateMapper|(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V|mapper|1
+   Method End: registerStateMapper(Lnet/minecraft/block/Block;Lnet/minecraft/client/renderer/block/statemap/IStateMapper;)V
+   Method Start: registerRender(Lnet/minecraft/block/Block;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2650|2664|registerRender|method|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2665|2670|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2671|2676|block|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2887|2901|registerRender|method|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2902|2907|block|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2912|2917|block|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|2918|2933|getRegistryName|method|net.minecraft.block.Block|getRegistryName|()Ljava/lang/String;
+   Method End: registerRender(Lnet/minecraft/block/Block;)V
+   Method Start: registerRender(Lnet/minecraft/block/Block;ILjava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3150|3164|registerRender|method|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3165|3170|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3171|3176|block|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3182|3186|meta|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V|meta|1
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3188|3194|String|class|java.lang.String
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3195|3199|name|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V|name|2
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3211|3232|ModelResourceLocation|class|net.minecraft.client.resources.model.ModelResourceLocation
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3245|3266|ModelResourceLocation|class|net.minecraft.client.resources.model.ModelResourceLocation
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3267|3271|name|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V|name|2
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3295|3306|ModelLoader|class|net.minecraftforge.client.model.ModelLoader
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3307|3337|setCustomModelResourceLocation|method|net.minecraftforge.client.model.ModelLoader|setCustomModelResourceLocation|(Lnet/minecraft/item/Item;ILnet/minecraft/client/resources/model/ModelResourceLocation;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3338|3342|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3343|3359|getItemFromBlock|method|net.minecraft.item.Item|getItemFromBlock|(Lnet/minecraft/block/Block;)Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3360|3365|block|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3368|3372|meta|param|com.trhsy.sim.common.loader.BlockLoader|registerRender|(Lnet/minecraft/block/Block;ILjava/lang/String;)V|meta|1
+   Method End: registerRender(Lnet/minecraft/block/Block;ILjava/lang/String;)V
+   Method Start: registers(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3580|3589|registers|method|com.trhsy.sim.common.loader.BlockLoader|registers|(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3590|3595|Block|class|net.minecraft.block.Block
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3596|3601|block|param|com.trhsy.sim.common.loader.BlockLoader|registers|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3603|3609|String|class|java.lang.String
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3610|3614|name|param|com.trhsy.sim.common.loader.BlockLoader|registers|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|name|1
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3626|3638|GameRegistry|class|net.minecraftforge.fml.common.registry.GameRegistry
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3639|3652|registerBlock|method|net.minecraftforge.fml.common.registry.GameRegistry|registerBlock|(Lnet/minecraft/block/Block;Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/block/Block;
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3653|3658|block|param|com.trhsy.sim.common.loader.BlockLoader|registers|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|block|0
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3660|3673|ItemBlockMeta|class|com.trhsy.sim.common.item.ItemBlockMeta
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3680|3684|name|param|com.trhsy.sim.common.loader.BlockLoader|registers|(Lnet/minecraft/block/Block;Ljava/lang/String;)V|name|1
+      @|com\trhsy\sim\common\loader\BlockLoader.java|3689|3695|Object|class|java.lang.Object
+   Method End: registers(Lnet/minecraft/block/Block;Ljava/lang/String;)V
+Class End  : com.trhsy.sim.common.loader.BlockLoader
+endProcessing com\trhsy\sim\common\loader\BlockLoader.java
+
+processing com\trhsy\sim\common\loader\CreativeTabsLoader.java
+@|com\trhsy\sim\common\loader\CreativeTabsLoader.java|8|35|com.trhsy.sim.common.loader|package|com.trhsy.sim.common.loader|(file)
+Class Start: com.trhsy.sim.common.loader.CreativeTabsLoader
+   @|com\trhsy\sim\common\loader\CreativeTabsLoader.java|288|300|CreativeTabs|class|net.minecraft.creativetab.CreativeTabs
+   @|com\trhsy\sim\common\loader\CreativeTabsLoader.java|301|308|tabSimU|field|com.trhsy.sim.common.loader.CreativeTabsLoader|tabSimU|
+   Method Start: CreativeTabsLoader(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\loader\CreativeTabsLoader.java|322|340|CreativeTabsLoader|method|com.trhsy.sim.common.loader.CreativeTabsLoader|CreativeTabsLoader|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\loader\CreativeTabsLoader.java|341|366|FMLPreInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+      @|com\trhsy\sim\common\loader\CreativeTabsLoader.java|367|372|event|param|com.trhsy.sim.common.loader.CreativeTabsLoader|CreativeTabsLoader|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\common\loader\CreativeTabsLoader.java|384|391|tabSimU|field|com.trhsy.sim.common.loader.CreativeTabsLoader|tabSimU
+      @|com\trhsy\sim\common\loader\CreativeTabsLoader.java|398|418|CreativeTabsFMLTutor|class|com.trhsy.sim.common.creativetab.CreativeTabsFMLTutor
+   Method End: CreativeTabsLoader(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+Class End  : com.trhsy.sim.common.loader.CreativeTabsLoader
+endProcessing com\trhsy\sim\common\loader\CreativeTabsLoader.java
+
+processing com\trhsy\sim\common\loader\ItemLoader.java
+@|com\trhsy\sim\common\loader\ItemLoader.java|8|35|com.trhsy.sim.common.loader|package|com.trhsy.sim.common.loader|(file)
+Class Start: com.trhsy.sim.common.loader.ItemLoader
+   @|com\trhsy\sim\common\loader\ItemLoader.java|532|536|Item|class|net.minecraft.item.Item
+   @|com\trhsy\sim\common\loader\ItemLoader.java|537|555|itemGranulesCopper|field|com.trhsy.sim.common.loader.ItemLoader|itemGranulesCopper|
+   @|com\trhsy\sim\common\loader\ItemLoader.java|560|578|ItemGranulesCopper|class|com.trhsy.sim.common.item.ItemGranulesCopper
+   Method Start: ItemLoader(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|648|658|ItemLoader|method|com.trhsy.sim.common.loader.ItemLoader|ItemLoader|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|659|684|FMLPreInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+      @|com\trhsy\sim\common\loader\ItemLoader.java|685|690|event|param|com.trhsy.sim.common.loader.ItemLoader|ItemLoader|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\trhsy\sim\common\loader\ItemLoader.java|702|710|register|method|com.trhsy.sim.common.loader.ItemLoader|register|(Lnet/minecraft/item/Item;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|711|729|itemGranulesCopper|field|com.trhsy.sim.common.loader.ItemLoader|itemGranulesCopper
+   Method End: ItemLoader(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+   Method Start: register(Lnet/minecraft/item/Item;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|861|869|register|method|com.trhsy.sim.common.loader.ItemLoader|register|(Lnet/minecraft/item/Item;Ljava/lang/String;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|870|874|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\loader\ItemLoader.java|875|879|item|param|com.trhsy.sim.common.loader.ItemLoader|register|(Lnet/minecraft/item/Item;Ljava/lang/String;)V|item|0
+      @|com\trhsy\sim\common\loader\ItemLoader.java|881|887|String|class|java.lang.String
+      @|com\trhsy\sim\common\loader\ItemLoader.java|888|892|name|param|com.trhsy.sim.common.loader.ItemLoader|register|(Lnet/minecraft/item/Item;Ljava/lang/String;)V|name|1
+      @|com\trhsy\sim\common\loader\ItemLoader.java|904|916|GameRegistry|class|net.minecraftforge.fml.common.registry.GameRegistry
+      @|com\trhsy\sim\common\loader\ItemLoader.java|917|929|registerItem|method|net.minecraftforge.fml.common.registry.GameRegistry|registerItem|(Lnet/minecraft/item/Item;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|930|934|item|param|com.trhsy.sim.common.loader.ItemLoader|register|(Lnet/minecraft/item/Item;Ljava/lang/String;)V|item|0
+      @|com\trhsy\sim\common\loader\ItemLoader.java|935|950|setRegistryName|method|net.minecraft.item.Item|setRegistryName|(Ljava/lang/String;)Lnet/minecraft/item/Item;
+      @|com\trhsy\sim\common\loader\ItemLoader.java|951|955|name|param|com.trhsy.sim.common.loader.ItemLoader|register|(Lnet/minecraft/item/Item;Ljava/lang/String;)V|name|1
+   Method End: register(Lnet/minecraft/item/Item;Ljava/lang/String;)V
+   Method Start: registerRenders()V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1150|1165|registerRenders|method|com.trhsy.sim.common.loader.ItemLoader|registerRenders|()V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1178|1192|registerRender|method|com.trhsy.sim.common.loader.ItemLoader|registerRender|(Lnet/minecraft/item/Item;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1193|1211|itemGranulesCopper|field|com.trhsy.sim.common.loader.ItemLoader|itemGranulesCopper
+   Method End: registerRenders()V
+   Method Start: registerRender(Lnet/minecraft/item/Item;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1272|1286|registerRender|method|com.trhsy.sim.common.loader.ItemLoader|registerRender|(Lnet/minecraft/item/Item;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1287|1291|Item|class|net.minecraft.item.Item
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1292|1296|item|param|com.trhsy.sim.common.loader.ItemLoader|registerRender|(Lnet/minecraft/item/Item;)V|item|0
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1308|1329|ModelResourceLocation|class|net.minecraft.client.resources.model.ModelResourceLocation
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1342|1363|ModelResourceLocation|class|net.minecraft.client.resources.model.ModelResourceLocation
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1364|1368|item|param|com.trhsy.sim.common.loader.ItemLoader|registerRender|(Lnet/minecraft/item/Item;)V|item|0
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1369|1384|getRegistryName|method|net.minecraft.item.Item|getRegistryName|()Ljava/lang/String;
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1410|1421|ModelLoader|class|net.minecraftforge.client.model.ModelLoader
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1422|1452|setCustomModelResourceLocation|method|net.minecraftforge.client.model.ModelLoader|setCustomModelResourceLocation|(Lnet/minecraft/item/Item;ILnet/minecraft/client/resources/model/ModelResourceLocation;)V
+      @|com\trhsy\sim\common\loader\ItemLoader.java|1453|1457|item|param|com.trhsy.sim.common.loader.ItemLoader|registerRender|(Lnet/minecraft/item/Item;)V|item|0
+   Method End: registerRender(Lnet/minecraft/item/Item;)V
+Class End  : com.trhsy.sim.common.loader.ItemLoader
+endProcessing com\trhsy\sim\common\loader\ItemLoader.java
+
+processing com\trhsy\sim\common\tileentity\TileEntityMetalControlBox.java
+@|com\trhsy\sim\common\tileentity\TileEntityMetalControlBox.java|8|39|com.trhsy.sim.common.tileentity|package|com.trhsy.sim.common.tileentity|(file)
+Class Start: com.trhsy.sim.common.tileentity.TileEntityMetalControlBox
+Class End  : com.trhsy.sim.common.tileentity.TileEntityMetalControlBox
+endProcessing com\trhsy\sim\common\tileentity\TileEntityMetalControlBox.java
+
+processing com\trhsy\sim\common\util\LocUtils.java
+@|com\trhsy\sim\common\util\LocUtils.java|8|33|com.trhsy.sim.common.util|package|com.trhsy.sim.common.util|(file)
+Class Start: com.trhsy.sim.common.util.LocUtils
+   Method Start: LocUtils()V
+      @|com\trhsy\sim\common\util\LocUtils.java|233|241|LocUtils|method|com.trhsy.sim.common.util.LocUtils|LocUtils|()V
+   Method End: LocUtils()V
+   Method Start: makeLocString(Ljava/lang/String;)Ljava/lang/String;
+      @|com\trhsy\sim\common\util\LocUtils.java|278|291|makeLocString|method|com.trhsy.sim.common.util.LocUtils|makeLocString|(Ljava/lang/String;)Ljava/lang/String;
+      @|com\trhsy\sim\common\util\LocUtils.java|271|277|String|class|java.lang.String
+      @|com\trhsy\sim\common\util\LocUtils.java|292|298|String|class|java.lang.String
+      @|com\trhsy\sim\common\util\LocUtils.java|299|306|unclean|param|com.trhsy.sim.common.util.LocUtils|makeLocString|(Ljava/lang/String;)Ljava/lang/String;|unclean|0
+      @|com\trhsy\sim\common\util\LocUtils.java|325|332|unclean|param|com.trhsy.sim.common.util.LocUtils|makeLocString|(Ljava/lang/String;)Ljava/lang/String;|unclean|0
+      @|com\trhsy\sim\common\util\LocUtils.java|333|344|toLowerCase|method|java.lang.String|toLowerCase|(Ljava/util/Locale;)Ljava/lang/String;
+      @|com\trhsy\sim\common\util\LocUtils.java|345|351|Locale|class|java.util.Locale
+      @|com\trhsy\sim\common\util\LocUtils.java|352|354|US|field|java.util.Locale|US
+      @|com\trhsy\sim\common\util\LocUtils.java|356|366|replaceAll|method|java.lang.String|replaceAll|(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+   Method End: makeLocString(Ljava/lang/String;)Ljava/lang/String;
+   Method Start: translateRecursive(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      @|com\trhsy\sim\common\util\LocUtils.java|409|427|translateRecursive|method|com.trhsy.sim.common.util.LocUtils|translateRecursive|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      @|com\trhsy\sim\common\util\LocUtils.java|402|408|String|class|java.lang.String
+      @|com\trhsy\sim\common\util\LocUtils.java|428|434|String|class|java.lang.String
+      @|com\trhsy\sim\common\util\LocUtils.java|435|438|key|param|com.trhsy.sim.common.util.LocUtils|translateRecursive|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;|key|0
+      @|com\trhsy\sim\common\util\LocUtils.java|440|446|Object|class|java.lang.Object
+      @|com\trhsy\sim\common\util\LocUtils.java|450|456|params|param|com.trhsy.sim.common.util.LocUtils|translateRecursive|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;|params|1
+      @|com\trhsy\sim\common\util\LocUtils.java|475|488|StatCollector|class|net.minecraft.util.StatCollector
+      @|com\trhsy\sim\common\util\LocUtils.java|489|505|translateToLocal|method|net.minecraft.util.StatCollector|translateToLocal|(Ljava/lang/String;)Ljava/lang/String;
+      @|com\trhsy\sim\common\util\LocUtils.java|506|519|StatCollector|class|net.minecraft.util.StatCollector
+      @|com\trhsy\sim\common\util\LocUtils.java|520|545|translateToLocalFormatted|method|net.minecraft.util.StatCollector|translateToLocalFormatted|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      @|com\trhsy\sim\common\util\LocUtils.java|546|549|key|param|com.trhsy.sim.common.util.LocUtils|translateRecursive|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;|key|0
+      @|com\trhsy\sim\common\util\LocUtils.java|551|557|params|param|com.trhsy.sim.common.util.LocUtils|translateRecursive|(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;|params|1
+   Method End: translateRecursive(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+Class End  : com.trhsy.sim.common.util.LocUtils
+endProcessing com\trhsy\sim\common\util\LocUtils.java
+

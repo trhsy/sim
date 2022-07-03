@@ -1,0 +1,24 @@
+package com.trhsy.sim.common.util;
+
+import net.minecraft.util.StatCollector;
+
+import java.util.Locale;
+
+/**
+ * @ClassName LocUtils
+ * @Description todo
+ * @Author Tian
+ * @Date 2022/4/3016:55
+ **/
+public class LocUtils {
+    private LocUtils() {
+    }
+
+    public static String makeLocString(String unclean) {
+        return unclean.toLowerCase(Locale.US).replaceAll(" ", "");
+    }
+
+    public static String translateRecursive(String key, Object... params) {
+        return StatCollector.func_74838_a(StatCollector.func_74837_a(key, params));
+    }
+}

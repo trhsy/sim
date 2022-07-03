@@ -1,0 +1,42 @@
+package com.trhsy.sim.common;
+
+import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ItemLoader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+/**
+ * 服务端代理
+ */
+public class CommonProxy {
+    /**
+     * 所有Mod初始化之前调用,这时候应该加载配置文件，实例化物品和方块，并注册它们。
+     * @param event
+     */
+    public void preInit(FMLPreInitializationEvent event) {
+        /**创造模式物品栏**/
+        new CreativeTabsLoader(event);
+        /**物品加载注册**/
+        new ItemLoader(event);
+        /**方块加载注册**/
+        new BlockLoader(event);
+    }
+
+    /**
+     * 用于该Mod的初始化,这时候应该为Mod进行设置，如注册合成表和烧炼系统，并且向其他Mod发送交互信息。
+     * @param event
+     */
+    public void init(FMLInitializationEvent event) {
+
+    }
+
+    /**
+     *在所有Mod都初始化之后调用,这时候应该接收其他Mod发送的交互信息，并完成对Mod的设置
+     * @param event
+     */
+    public void postInit(FMLPostInitializationEvent event) {
+
+    }
+}
