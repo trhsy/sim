@@ -68,12 +68,12 @@ public class EntityFolk extends EntityCreature implements INpc {
         //实体人任务
         //避免实体
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
-        //闲置任务
-        this.tasks.addTask(1, new EntityAILookIdle(this));
         //住进屋子
         this.tasks.addTask(2, new EntityAIMoveIndoors(this));
         //室内移动
         this.tasks.addTask(3, new EntityAIMoveIndoors(this));
+        //闲置任务
+        this.tasks.addTask(1, new EntityAILookIdle(this));
         //限制开门
         this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
         //游泳
@@ -363,8 +363,8 @@ public class EntityFolk extends EntityCreature implements INpc {
         List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).expand(2.0, 4.0, 2.0));
         Iterator iterator1 = list1.iterator();
         if (!list1.isEmpty()) {
-            while (iterator1.hasNext()) {
-                Entity entity1 = (Entity) iterator1.next();
+            for (Object entity:list1){
+                Entity entity1 =(Entity)entity;
                 if (entity1 instanceof EntityItem) {
                     EntityItem entityitem = (EntityItem) entity1;
                     ItemStack is = entityitem.getEntityItem();
@@ -495,19 +495,19 @@ public class EntityFolk extends EntityCreature implements INpc {
             return null;
         } else if (this.theData.vocation == Vocation.CROPFARMER) {
             //农民
-            return new ItemStack(Items.stone_hoe, 1);
+            return new ItemStack(ItemLoader.tinHoe, 1);
         } else if (this.theData.vocation == Vocation.LUMBERJACK) {
             //伐木工人
-            return new ItemStack(Items.stone_axe, 1);
+            return new ItemStack(ItemLoader.tinAxe, 1);
         } else if (this.theData.vocation == Vocation.MINER) {
             //矿工
-            return new ItemStack(Items.stone_pickaxe, 1);
+            return new ItemStack(ItemLoader.tinPickaxe, 1);
         } else if (this.theData.vocation == Vocation.BAKER) {
             //面包师
             return new ItemStack(Items.wooden_shovel, 1);
         } else if (this.theData.vocation == Vocation.SOLDIER) {
             //战士
-            return new ItemStack(Items.stone_sword, 1);
+            return new ItemStack(ItemLoader.tinSword, 1);
         } else if (this.theData.vocation == Vocation.BUILDER) {
             //建筑者
             return new ItemStack(Blocks.cobblestone, 1);
@@ -528,13 +528,13 @@ public class EntityFolk extends EntityCreature implements INpc {
             return new ItemStack(Items.porkchop, 1);
         } else if (this.theData.vocation == Vocation.CATTLEFARMER) {
             //养牛户
-            return new ItemStack(Items.golden_axe, 1);
+            return new ItemStack(ItemLoader.tinAxe, 1);
         } else if (this.theData.vocation == Vocation.PIGFARMER) {
             //养猪户
-            return new ItemStack(Items.iron_axe, 1);
+            return new ItemStack(ItemLoader.tinAxe, 1);
         } else if (this.theData.vocation == Vocation.CHICKENFARMER) {
             //养鸡户
-            return new ItemStack(Items.stone_axe, 1);
+            return new ItemStack(ItemLoader.tinAxe, 1);
         } else if (this.theData.vocation == Vocation.TERRAFORMER) {
             //地形成型机
             return new ItemStack(Items.diamond_shovel, 1);

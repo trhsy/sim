@@ -13,6 +13,7 @@ import com.trhsy.sim.common.jobs.JobBuilder;
 import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.packets.PacketHandler;
 import com.trhsy.sim.packets.server.LoadBuildingPacket;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -656,7 +657,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
                                 ModSimReloaded.theBuildings.add(this.selectedBuilding);
                                 this.selectedBuilding.saveThisBuilding();
-                                ModSimReloaded.network.sendToAll(new LoadBuildingPacket("GuiBuildingCon"));
+                                PacketHandler.net.sendToAll(new LoadBuildingPacket("GuiBuildingCon"));
 
                                 for (int i = 0; i < this.theWorkers.size(); i++) {
                                     FolkData theWorker = (FolkData) this.theWorkers.get(i);

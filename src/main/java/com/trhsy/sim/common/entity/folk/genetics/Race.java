@@ -36,14 +36,14 @@ public class Race implements Serializable {
     }
 
     public static void loadRaces() {
-        humanAdultMaleSkinCount = new File(humanFolder + "Adult/Male/").list().length;
-        humanAdultFemaleSkinCount = new File(humanFolder + "Adult/Female/").list().length;
+        humanAdultMaleSkinCount = 64;
+        humanAdultFemaleSkinCount = 64;
 
-        elvenAdultMaleSkinCount = new File(elfFolder + "Adult/Male/").list().length;
-        elvenAdultFemaleSkinCount = new File(elfFolder + "Adult/Female/").list().length;
+        elvenAdultMaleSkinCount = 64;
+        elvenAdultFemaleSkinCount = 64;
 
-        darkElvenAdultMaleSkinCount = new File(darkElfFolder + "Adult/Male/").list().length;
-        darkElvenAdultFemaleSkinCount = new File(darkElfFolder + "Adult/Female/").list().length;
+        darkElvenAdultMaleSkinCount =64;
+        darkElvenAdultFemaleSkinCount = 64;
 
         Races.loadRaces();
     }

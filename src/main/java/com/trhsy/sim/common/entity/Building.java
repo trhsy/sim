@@ -377,7 +377,7 @@ public class Building implements Serializable {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":6";
                             } else if ("Ã’".equals(ch)) {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":7";
-                            }else if (cha >= '0' && cha <= '9') {
+                            } else if (cha >= '0' && cha <= '9') {
                                 //生活区地毯
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockSpecial) + ":" + cha;
                             } else if ((int) cha >= 48 && (int) cha <= 57) {
@@ -388,7 +388,11 @@ public class Building implements Serializable {
                                     this.structure[acount] = newCh;
                                     String[] sbid = this.structure[acount].split(":");
                                     int bid = Integer.parseInt(sbid[0]);
-                                    this.addToRequirements(Block.getBlockById(bid), 1);
+                                    Block block=Block.getBlockById(bid);
+//                                    if(bid==3215){
+//                                        System.out.println(block.getUnlocalizedName());
+//                                    }
+                                    this.addToRequirements(block, 1);
                                 }
 
                             }
@@ -409,7 +413,7 @@ public class Building implements Serializable {
             //租金
             this.rent = (float) this.blocksInBuilding * 0.01F;
         } catch (Exception var20) {
-            ModSimReloaded.log.warn("建筑加载异常:" + var20.getMessage());
+            ModSimReloaded.log.error("建筑加载异常:" + var20.getMessage());
         }
 
     }
@@ -460,7 +464,6 @@ public class Building implements Serializable {
                     || (name.contains(wood) && !name.contains(slab) && !name.contains(door)
                     && !name.contains(stairs) && !name.contains(grass))) {
                 boolean got = false;
-
                 Iterator it = requirements.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry pairs = (Map.Entry) it.next();

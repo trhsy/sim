@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.folk.traits.Traits;
 import com.trhsy.sim.common.jobs.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.packets.PacketHandler;
 import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -261,7 +262,8 @@ public class FolkData implements Serializable {
 
             this.skinnumber = rand.nextInt(64);
         }
-        this.folkRace = Races.raceList.get(rand.nextInt(Races.raceList.size()));
+        int fs=Races.raceList.size();
+        this.folkRace = Races.raceList.get(rand.nextInt(fs));
         this.folkRaceName = folkRace.getRaceName();
         //this.folkRaceName = Races.raceList.get(rand.nextInt(Races.raceList.size())).getRaceName();
         this.location = this.getLocationCloseToPlayer();
@@ -776,7 +778,7 @@ public class FolkData implements Serializable {
                         }
 
                     } catch (Exception var13) {
-                        ModSimReloaded.log.error(this.name + " 没有住在" + var13.getMessage());
+                        ModSimReloaded.log.error(this.name + "寻找住房出错了" + var13.getMessage());
                     }
 
                     if (liveAt != null) {
@@ -812,7 +814,7 @@ public class FolkData implements Serializable {
             if (System.currentTimeMillis() - this.timeSinceLastSave > (long) about10) {
                 Side side = FMLCommonHandler.instance().getEffectiveSide();
                 if (side == Side.SERVER) {
-                    ModSimReloaded.network.sendToServer(new UpdateFolkPositionPacket(this.location.toString() + ";" + this.name));
+                    PacketHandler.net.sendToServer(new UpdateFolkPositionPacket(this.location.toString() + ";" + this.name));
                     this.saveThisFolk();
                 }
 
@@ -1228,7 +1230,7 @@ public class FolkData implements Serializable {
     }
 
     /**
-     * 解雇这个人，重置很多价值观
+     * 解雇
      */
     public void selfFire() {
         ModSimReloaded.log.info("FolkData: selfFire() " + this.name);
@@ -2011,54 +2013,78 @@ public class FolkData implements Serializable {
     public void setTheirJob(Vocation vocation) {
         if (vocation != null) {
             this.vocation = vocation;
+            //建筑师
             if (this.vocation == Vocation.BUILDER) {
                 this.theirJob = new JobBuilder(this);
+                //面包师
             } else if (this.vocation == Vocation.BAKER) {
                 this.theirJob = new JobBaker(this);
+                //屠夫
             } else if (this.vocation == Vocation.BUTCHER) {
                 this.theirJob = new JobButcher(this);
+                //牧牛人
             } else if (this.vocation == Vocation.CATTLEFARMER) {
                 this.theirJob = new JobLivestockFarmer(this);
+                //鸡农
             } else if (this.vocation == Vocation.CHICKENFARMER) {
                 this.theirJob = new JobLivestockFarmer(this);
+                //快递员
             } else if (this.vocation == Vocation.COURIER) {
                 this.theirJob = new JobCourier(this);
+                //农作物种植者
             } else if (this.vocation == Vocation.CROPFARMER) {
                 this.theirJob = new JobCropFarmer(this);
+                //玻璃制造商
             } else if (this.vocation == Vocation.GLASSMAKER) {
                 this.theirJob = new JobGlassMaker(this);
+                //砖匠
             } else if (this.vocation == Vocation.BRICKMAKER) {
                 this.theirJob = new JobBrickMaker(this);
+                //食物杂货商
             } else if (this.vocation == Vocation.GROCER) {
                 this.theirJob = new JobGrocer(this);
+                //伐木工人
             } else if (this.vocation == Vocation.LUMBERJACK) {
                 this.theirJob = new JobLumberjack(this);
+                //商人
             } else if (this.vocation == Vocation.MERCHANT) {
                 this.theirJob = new JobBuildersMerchant(this);
+                //矿工
             } else if (this.vocation == Vocation.MINER) {
                 this.theirJob = new JobMiner(this);
+                //养猪户
             } else if (this.vocation == Vocation.PIGFARMER) {
                 this.theirJob = new JobLivestockFarmer(this);
+                //牧羊人
             } else if (this.vocation == Vocation.SHEPHERD) {
                 this.theirJob = new JobShepherd(this);
+                //士兵
             } else if (this.vocation == Vocation.SOLDIER) {
                 this.theirJob = new JobSoldier(this);
+                //地形师
             } else if (this.vocation == Vocation.TERRAFORMER) {
                 this.theirJob = new JobTerraformer(this);
+                //渔夫
             } else if (this.vocation == Vocation.FISHERMAN) {
                 this.theirJob = new JobFisherman(this);
+                //路径生成器
             } else if (this.vocation != Vocation.PATHBUILDER) {
-
+                //奶农
             } else if (this.vocation == Vocation.DAIRYFARMER) {
                 this.theirJob = new JobDairyFarmer(this);
+                //奶酪制造商
             } else if (this.vocation == Vocation.CHEESEMAKER) {
                 this.theirJob = new JobCheesemaker(this);
+                //汉堡经理
             } else if (this.vocation == Vocation.BURGERSMANAGER) {
                 this.theirJob = new JobBurgersManager(this);
+                //汉堡厨师
             } else if (this.vocation == Vocation.BURGERSFRYCOOK) {
                 this.theirJob = new JobBurgersFryCook(this);
+                //汉堡服务员
             } else if (this.vocation == Vocation.BURGERSWAITER) {
                 this.theirJob = new JobBurgersWaiter(this);
+                //蛋农
             } else if (this.vocation == Vocation.EGGFARMER) {
                 this.theirJob = new JobEggFarmer(this);
             }
@@ -2068,7 +2094,13 @@ public class FolkData implements Serializable {
             this.theirJob.step = 1;
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 生成特征
+     * @Date 19:17 2022/7/3
+     * @Param []
+     * @return void
+     **/
     public void generateTraits() {
         Random rand = new Random();
         Trait[] traits1= Traits.traitList;

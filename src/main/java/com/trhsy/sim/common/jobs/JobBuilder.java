@@ -99,7 +99,12 @@ public class JobBuilder extends Job implements Serializable {
      */
     @Override
     public void resetJob() {
-        this.theStage = Stage.IDLE;
+        try {
+            this.theStage = Stage.IDLE;
+        }catch (Exception e){
+            this.theStage = Stage.IDLE;
+            ModSimReloaded.log.error("重新安排工作出错了:"+e.getMessage());
+        }
     }
 
     @Override
@@ -465,7 +470,7 @@ public class JobBuilder extends Job implements Serializable {
                             }
                         } catch (Exception var15) {
                             want = "?";
-                            ModSimReloaded.log.error("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
+                            //ModSimReloaded.log.error("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
                         }
                     } else {
                         want = "???";

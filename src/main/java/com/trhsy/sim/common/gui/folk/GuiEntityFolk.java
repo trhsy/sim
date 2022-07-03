@@ -307,7 +307,7 @@ public class GuiEntityFolk extends GuiScreen {
                 if (guibutton.displayString.contentEquals(I18n.format("container.sim.guiFolk.Inventory"))) {
                     EntityPlayer player = Minecraft.getMinecraft().thePlayer;
                     player.openGui(ModSim.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
-                    ModSim.packetPipeline.sendToServer(new OpenFolkInventoryPacket(References.GUI_FOLKINVENTORY));
+                    //ModSim.packetPipeline.sendToServer(new OpenFolkInventoryPacket(References.GUI_FOLKINVENTORY));
                 }
             } else if (this.currentPage == 1) {
                 //情感分页  返回

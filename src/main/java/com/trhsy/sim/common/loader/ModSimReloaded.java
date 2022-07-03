@@ -108,10 +108,6 @@ public class ModSimReloaded {
     public static World demolishWorld = null;
     //Gui的运行模式
     private static GuiRunMod runModui = null;
-    /*
-       工作关系
-        */
-    public static SimpleNetworkWrapper network;
 
     public ModSimReloaded() {
 

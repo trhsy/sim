@@ -2,6 +2,7 @@ package com.trhsy.sim.common;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.config.SimConfigSync;
+import com.trhsy.sim.common.entity.folk.genetics.Race;
 import com.trhsy.sim.common.entity.folk.traits.Traits;
 import com.trhsy.sim.common.gui.GuiHandler;
 import com.trhsy.sim.common.loader.*;
@@ -40,9 +41,7 @@ public class CommonProxy {
         ModSimReloaded.log = event.getModLog();
 
         PacketHandler.initPackets();
-
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-
+        NetworkRegistry.INSTANCE.registerGuiHandler(ModSim.instance, new GuiHandler());
         new UpdateChecker(event);
         /**配置**/
         ConfigLoader.load(event);
@@ -69,6 +68,8 @@ public class CommonProxy {
         new GuiElementLoader();
         //Traits
         Traits.loadTraits();
+
+        Race.loadRaces();
 
     }
 
