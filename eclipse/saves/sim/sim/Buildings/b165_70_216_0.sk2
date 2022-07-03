@@ -1,0 +1,11 @@
+displayname|修建房子
+type|residential
+primaryxyz|165,70,216,0
+livingxyz|165,70,216,0
+buildingcomplete|true
+capacity|-1
+builddir|
+lmarker|null
+blocksinbuilding|0
+tenants|瞿婉慧,
+blocklocs|
