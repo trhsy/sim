@@ -132,8 +132,11 @@ public class JobCropFarmer extends Job implements Serializable {
         if (ModSimReloaded.theFarmingBoxes.size() != 0) {
             super.onUpdate();
             if (!ModSimReloaded.isDayTime()) {
-                //闲置
-                this.theStage = Stage.IDLE;
+                if(!theFolk.isNightOwl()){
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
+                }
             }
             //去上班
             super.onUpdateGoingToWork(this.theFolk);
@@ -165,8 +168,9 @@ public class JobCropFarmer extends Job implements Serializable {
 
             //上次跑步后的时间=当前时间毫秒
             this.timeSinceLastRun = System.currentTimeMillis();
-            //闲置 或者 晚上
-            if (this.theStage == Stage.IDLE || ModSimReloaded.isDayTime()) {
+            //闲置 或者 白天
+            if (this.theStage == Stage.IDLE) {
+                this.theStage = Stage.ARRIVEDATFARM;
                 //如果到达农场
             } else if (this.theStage == Stage.ARRIVEDATFARM) {
                 //检查箱子
@@ -374,7 +378,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     boolean canHarvest = false;
                     //收获的块
                     V3 harvestBlock = new V3((double) this.xxx, (double) this.yyy, (double) this.zzz, this.jobWorld.provider.getDimensionId());
-                    //
+                    //开采时翻译块
                     ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
                     //甘蔗/仙人掌农场
                     if (this.farmingBlock.farmType == FarmType.SUGAR && this.farmingBlock.farmType == FarmType.CACTUS) {
@@ -821,13 +825,13 @@ public class JobCropFarmer extends Job implements Serializable {
     }
 
     /**
-     * 晾晒
+     * 休息时间
      */
     public void stageHangout() {
         if (this.step == 1) {
             this.lastFarmCycle = System.currentTimeMillis();
             this.step = 2;
-            this.theFolk.isWorking = false;
+            this.theFolk.isWorking = true;
         } else if (this.step == 2) {
             Random ra = new Random();
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
@@ -838,31 +842,42 @@ public class JobCropFarmer extends Job implements Serializable {
             int r = ra.nextInt(10);
             if (r == 0) {
                 if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
+                    //哇,极限模式真的很难！
                     this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Wow");
                 } else {
+                    //在公众号'dasha500'找作者玩
                     this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Facebook");
                 }
             } else if (r == 1) {
+                //查看天气预报
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Checking");
             } else if (r == 2) {
+                //但愿我有一辆拖拉机
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Wishing");
             } else if (r == 3) {
+                //休息一下
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Having");
             } else if (r == 4) {
+                //清理锄头上的污垢
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Cleaning");
             } else if (r == 5) {
+                //磨锄头
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Sharpening");
             } else if (r == 6) {
+                //吃我的午餐
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Eating");
             } else if (r == 7) {
+                //网格化我的样条曲线
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Reticulating");
             } else if (r == 8) {
+                //放松一下
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing");
             } else if (r == 9) {
+                //希望我在公众号'dasha500'和作者玩
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Minecraft");
             }
-
-            if (System.currentTimeMillis() - this.lastFarmCycle > (3 * 60 * 1000)) {
+            //休息三分钟
+            if (System.currentTimeMillis() - this.lastFarmCycle > (2 * 60 * 1000)) {
                 this.theStage = Stage.HARVEST;
                 this.step = 1;
                 return;

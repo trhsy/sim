@@ -1,10 +1,15 @@
 package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.client.entity.EntityRenderFactory;
-import com.trhsy.sim.client.entity.RenderEntityFolk;
+import com.trhsy.sim.client.entity.*;
+import com.trhsy.sim.client.entity.model.ModelAlignBeam;
+import com.trhsy.sim.client.entity.model.ModelConBox;
 import com.trhsy.sim.client.entity.model.ModelFolkFemale;
+import com.trhsy.sim.client.entity.model.ModelWindmill;
+import com.trhsy.sim.common.entity.EntityAlignBeam;
+import com.trhsy.sim.common.entity.EntityConBox;
 import com.trhsy.sim.common.entity.EntityFolk;
+import com.trhsy.sim.common.entity.EntityWindmill;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
@@ -34,6 +39,9 @@ public class EntityLoader {
     public static void registerRenders() {
         // TODO
         registerEntityRender(EntityFolk.class, RenderEntityFolk.class);
+        registerEntityRender(EntityAlignBeam.class,RenderAlignBeam.class);
+        registerEntityRender(EntityConBox.class,RenderConBox.class);
+        registerEntityRender(EntityWindmill.class,RenderWindmill.class);
     }
     /**
      * @Author fan

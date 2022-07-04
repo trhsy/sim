@@ -14,6 +14,7 @@ import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -136,16 +137,31 @@ public abstract class Job {
                     theFolk.location = work;
                 }
             }
+
             //  是否白天               活动的              去工作路上                             活动中                工作中
-            if (ModSimReloaded.isDayTime() && theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
-                //活动设置为去工作路上
-                theFolk.action = FolkAction.ONWAYTOWORK;
-                //设置原地不动为否
-                theFolk.stayPut = false;
-                //如果目的地为空
-                if (theFolk.destination == null) {
-                    //设置目的地
-                    theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
+            if (ModSimReloaded.isDayTime()) {
+                if (theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
+                    //活动设置为去工作路上
+                    theFolk.action = FolkAction.ONWAYTOWORK;
+                    //设置原地不动为否
+                    theFolk.stayPut = false;
+                    //如果目的地为空
+                    if (theFolk.destination == null) {
+                        //设置目的地
+                        theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
+                    }
+                }
+            } else {
+                if (theFolk.isNightOwl()) {
+                    //活动设置为去工作路上
+                    theFolk.action = FolkAction.ONWAYTOWORK;
+                    //设置原地不动为否
+                    theFolk.stayPut = false;
+                    //如果目的地为空
+                    if (theFolk.destination == null) {
+                        //设置目的地
+                        theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
+                    }
                 }
             }
         }
@@ -692,16 +708,20 @@ public abstract class Job {
      * @return
      */
     public ArrayList<ItemStack> translateBlockWhenMined(World world, V3 location) {
+        ArrayList<ItemStack> itemStacks=new ArrayList<ItemStack>();
         int i = location.x.intValue();
         int j = location.y.intValue();
         int k = location.z.intValue();
-        Block block = world.getBlockState(new BlockPos(i, j, k)).getBlock();
+        BlockPos blockPos = new BlockPos(i, j, k);
+        Block block = world.getBlockState(blockPos).getBlock();
         if (block == null) {
             return null;
-        } else {
-            BlockPos blockPos = new BlockPos(i, j, k);
-            return (ArrayList<ItemStack>) block.getDrops(world, blockPos, block.getDefaultState(), 0);
         }
+
+        int ma = block.getMetaFromState(world.getBlockState(blockPos));
+        itemStacks=(ArrayList<ItemStack>)block.getDrops(world, blockPos, block.getStateFromMeta(ma), 0);
+        return  itemStacks;
+
     }
 
     /**
@@ -898,8 +918,8 @@ public abstract class Job {
         test = startXYZ.clone();
         test.z--;
         blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
-        if(((World) theWorld).isAirBlock(blockPos)){
-            return test; 
+        if (((World) theWorld).isAirBlock(blockPos)) {
+            return test;
         }
         return startXYZ;
     }
@@ -907,6 +927,7 @@ public abstract class Job {
     /**
      * 查找最近的块类型
      * 如果在该区域中没有找到，则在该位置下方最多搜索 10 并且对于某种类型的块最多搜索 80 的距离将返回 null
+     *
      * @param startXYZ
      * @param block
      * @param searchDistance
@@ -940,6 +961,7 @@ public abstract class Job {
     /**
      * 查找最近的块类型
      * 仅在 searchDistance 内搜索相同 Y 级别的块类型并返回 V3 或 null
+     *
      * @param startXYZ
      * @param block
      * @param searchDistance
@@ -971,6 +993,7 @@ public abstract class Job {
     /**
      * 找到最近的街区
      * 查找找到指定块的位置的数组列表，排序为最接近的第一
+     *
      * @param startXYZ
      * @param block
      * @param distanceLimit
@@ -1031,6 +1054,7 @@ public abstract class Job {
     /**
      * 把矿块放进箱子里
      * 尝试在 xyz 开采一个块并将开采的东西放入箱子中，进行翻译（煤炭 > 煤炭项目）如果有东西被开采则返回 true
+     *
      * @param chests
      * @param blockXYZ
      * @return
@@ -1055,6 +1079,7 @@ public abstract class Job {
     /**
      * 把动物数记在笔里
      * 扫描笔的 3x3 区域以计算其中有多少动物（传入动物类别）
+     *
      * @param controlBox
      * @param animal
      * @return
@@ -1062,10 +1087,9 @@ public abstract class Job {
     public int getAnimalCountInPen(V3 controlBox, Class animal) {
 
         List list = this.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1, controlBox.y + 1, controlBox.z + 1).expand(3.0, 2.0, 3.0));
-        if(list == null){
+        if (list == null) {
             return 0;
-        }
-        else{
+        } else {
             return list.size();
         }
     }
@@ -1078,7 +1102,7 @@ public abstract class Job {
      * @return
      */
     public static V3 getNearestBuildingForFolk(String searchWord, FolkData folk) {
-        ArrayList<Building> ret=new ArrayList<Building>();
+        ArrayList<Building> ret = new ArrayList<Building>();
         Building shortestDist = null;
 
         for (int x = 0; x < ModSimReloaded.theBuildings.size(); x++) {

@@ -1093,6 +1093,16 @@ public class FolkData implements Serializable {
     }
 
     /**
+     * 是否是夜猫子
+     * @return
+     */
+    public boolean isNightOwl() {
+        if(trait1.equals(I18n.format("container.sim.traits13"))||trait2.equals(I18n.format("container.sim.traits13"))||trait3.equals(I18n.format("container.sim.traits13"))||trait4.equals(I18n.format("container.sim.traits13"))){
+            return true;
+        }
+        return false;
+    }
+    /**
      * 获取到玩家的距离
      * 计算此玩家与玩家之间的当前距离
      *

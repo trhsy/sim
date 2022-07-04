@@ -83,7 +83,7 @@ public class CraftingLoader {
         *圆石 建筑箱 圆石
         *圆石 圆石 圆石
          */
-        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCityBox, 1), new Object[]{
+        GameRegistry.addRecipe(new ItemStack(BlockLoader.blockControlBox, 1), new Object[]{
         "PPP", "CWC", "CCC",
         'C', Blocks.cobblestone,
         'P', Blocks.planks,

@@ -1,40 +1,40 @@
-[22:10:18] [main/INFO]: Extra: []
-[22:10:19] [main/INFO]: Running with arguments: [--userProperties, {}, --assetsDir, D:/maven/gradle/.gradle/caches/minecraft/assets, --assetIndex, 1.8, --accessToken{REDACTED}, --version, 1.8.9, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
-[22:10:19] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[22:10:19] [main/INFO]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[22:10:19] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
-[22:10:19] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
-[22:10:19] [main/INFO]: Forge Mod Loader version 11.15.1.2318 for Minecraft 1.8.9 loading
-[22:10:19] [main/INFO]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_181, running on Windows 10:amd64:10.0, installed at D:\Program Files\Java\jdk1.8.0_181\jre
-[22:10:19] [main/INFO]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
-[22:10:19] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
-[22:10:19] [main/INFO]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
-[22:10:19] [main/INFO]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
-[22:10:19] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[22:10:19] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[22:10:19] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[22:10:19] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[22:10:19] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[22:10:19] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[22:10:19] [main/ERROR]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
-[22:10:21] [main/ERROR]: FML appears to be missing any signature data. This is not a good thing
-[22:10:21] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[22:10:21] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[22:10:22] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[22:10:22] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
-[22:10:22] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
-[22:10:22] [main/INFO]: Launching wrapped minecraft {net.minecraft.client.main.Main}
-[22:10:24] [Client thread/INFO]: Setting user: Player12
-[22:10:29] [Client thread/INFO]: LWJGL Version: 2.9.4
-[22:10:31] [Client thread/WARN]: =============================================================
-[22:10:31] [Client thread/WARN]: MOD HAS DIRECT REFERENCE System.exit() THIS IS NOT ALLOWED REROUTING TO FML!
-[22:10:31] [Client thread/WARN]: Offendor: com/sun/jna/Native.main([Ljava/lang/String;)V
-[22:10:31] [Client thread/WARN]: Use FMLCommonHandler.exitJava instead
-[22:10:31] [Client thread/WARN]: =============================================================
-[22:10:31] [Client thread/INFO]: [net.minecraftforge.fml.client.SplashProgress:start:246]: ---- Minecraft Crash Report ----
-// I let you down. Sorry :(
+[18:17:04] [main/INFO]: Extra: []
+[18:17:04] [main/INFO]: Running with arguments: [--userProperties, {}, --assetsDir, D:/maven/.grable/caches/minecraft/assets, --assetIndex, 1.8, --accessToken{REDACTED}, --version, 1.8.9, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
+[18:17:04] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[18:17:04] [main/INFO]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[18:17:04] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
+[18:17:04] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+[18:17:04] [main/INFO]: Forge Mod Loader version 11.15.1.2318 for Minecraft 1.8.9 loading
+[18:17:04] [main/INFO]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_271, running on Windows 10:amd64:10.0, installed at D:\Java\jdk1.8.0_271\jre
+[18:17:04] [main/INFO]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[18:17:04] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
+[18:17:04] [main/INFO]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
+[18:17:04] [main/INFO]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
+[18:17:04] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[18:17:04] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[18:17:04] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[18:17:04] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[18:17:04] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[18:17:04] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[18:17:04] [main/ERROR]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
+[18:17:06] [main/ERROR]: FML appears to be missing any signature data. This is not a good thing
+[18:17:06] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[18:17:06] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[18:17:07] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[18:17:07] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+[18:17:07] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+[18:17:07] [main/INFO]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[18:17:09] [Client thread/INFO]: Setting user: Player197
+[18:17:15] [Client thread/INFO]: LWJGL Version: 2.9.4
+[18:17:16] [Client thread/WARN]: =============================================================
+[18:17:16] [Client thread/WARN]: MOD HAS DIRECT REFERENCE System.exit() THIS IS NOT ALLOWED REROUTING TO FML!
+[18:17:16] [Client thread/WARN]: Offendor: com/sun/jna/Native.main([Ljava/lang/String;)V
+[18:17:16] [Client thread/WARN]: Use FMLCommonHandler.exitJava instead
+[18:17:16] [Client thread/WARN]: =============================================================
+[18:17:17] [Client thread/INFO]: [net.minecraftforge.fml.client.SplashProgress:start:246]: ---- Minecraft Crash Report ----
+// Hey, that tickles! Hehehe!
 
-Time: 22-7-3 下午10:10
+Time: 22-7-4 下午6:17
 Description: Loading screen debug info
 
 This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
@@ -47,296 +47,403 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Details:
 	Minecraft Version: 1.8.9
 	Operating System: Windows 10 (amd64) version 10.0
-	Java Version: 1.8.0_181, Oracle Corporation
+	Java Version: 1.8.0_271, Oracle Corporation
 	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
-	Memory: 162853776 bytes (155 MB) / 467664896 bytes (446 MB) up to 1883242496 bytes (1796 MB)
+	Memory: 96685024 bytes (92 MB) / 512229376 bytes (488 MB) up to 3791650816 bytes (3616 MB)
 	JVM Flags: 0 total; 
 	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
 	FML: 
 	Loaded coremods (and transformers): 
-	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8682' Renderer: 'Intel(R) UHD Graphics 620'
-[22:10:32] [Client thread/INFO]: MinecraftForge v11.15.1.2318 Initialized
-[22:10:32] [Client thread/INFO]: Replaced 229 ore recipies
-[22:10:33] [Client thread/INFO]: Found 0 mods from the command line. Injecting into mod discoverer
-[22:10:33] [Client thread/INFO]: Searching D:\work\works\sim-u\sim-u-1.8.9\eclipse\mods for mods
-[22:10:40] [Client thread/INFO]: Forge Mod Loader has identified 4 mods to load
-[22:10:40] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at CLIENT
-[22:10:40] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at SERVER
-[22:10:41] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[22:10:41] [Client thread/INFO]: Processing ObjectHolder annotations
-[22:10:41] [Client thread/INFO]: Found 384 ObjectHolder annotations
-[22:10:41] [Client thread/INFO]: Identifying ItemStackHolder annotations
-[22:10:41] [Client thread/INFO]: Found 0 ItemStackHolder annotations
-[22:10:41] [Client thread/INFO]: Configured a dormant chunk cache size of 0
-[22:10:41] [Forge Version Check/INFO]: [Forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
-[22:10:42] [Client thread/INFO]: [com.trhsy.sim.common.loader.EntityLoader:<init>:28]: 开始加载实体
-[22:10:43] [Client thread/INFO]: Applying holder lookups
-[22:10:43] [Client thread/INFO]: Holder lookups applied
-[22:10:43] [Client thread/INFO]: Injecting itemstacks
-[22:10:43] [Client thread/INFO]: Itemstack injection complete
-[22:10:43] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[22:10:43] [Thread-9/INFO]: Initializing LWJGL OpenAL
-[22:10:43] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[22:10:44] [Thread-9/INFO]: OpenAL initialized.
-[22:10:44] [Sound Library Loader/INFO]: Sound engine started
-[22:10:58] [Client thread/INFO]: Max texture size: 16384
-[22:10:58] [Client thread/INFO]: Created: 16x16 textures-atlas
-[22:10:58] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
-[22:10:59] [Client thread/INFO]: Injecting itemstacks
-[22:10:59] [Client thread/INFO]: Itemstack injection complete
-[22:10:59] [Client thread/INFO]: Forge Mod Loader has successfully loaded 4 mods
-[22:10:59] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[22:10:59] [Client thread/INFO]: SoundSystem shutting down...
-[22:10:59] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
-[22:11:00] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[22:11:00] [Thread-11/INFO]: Initializing LWJGL OpenAL
-[22:11:00] [Thread-11/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[22:11:00] [Thread-11/INFO]: OpenAL initialized.
-[22:11:00] [Sound Library Loader/INFO]: Sound engine started
-[22:11:12] [Client thread/INFO]: Max texture size: 16384
-[22:11:15] [Client thread/INFO]: Created: 512x512 textures-atlas
-[22:11:16] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
-[22:11:49] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
-[22:11:49] [Server thread/INFO]: Generating keypair
-[22:11:49] [Server thread/INFO]: Injecting existing block and item data into this server instance
-[22:11:49] [Server thread/INFO]: Found a missing id from the world sim:block_cheese_box
-[22:11:49] [Server thread/INFO]: Found a missing id from the world sim:block_fluid_milk
-[22:11:50] [Server thread/INFO]: Applying holder lookups
-[22:11:50] [Server thread/INFO]: Holder lookups applied
-[22:11:50] [Server thread/INFO]: Loading dimension 0 (sim) (net.minecraft.server.integrated.IntegratedServer@9da8fc3)
-[22:11:50] [Server thread/INFO]: Loading dimension 1 (sim) (net.minecraft.server.integrated.IntegratedServer@9da8fc3)
-[22:11:50] [Server thread/INFO]: Loading dimension -1 (sim) (net.minecraft.server.integrated.IntegratedServer@9da8fc3)
-[22:11:50] [Server thread/INFO]: Preparing start region for level 0
-[22:11:51] [Server thread/INFO]: Preparing spawn area: 54%
-[22:11:51] [Server thread/INFO]: 实体人：重置npc
-[22:11:51] [Server thread/INFO]: 实体人：重置npc
-[22:11:51] [Server thread/INFO]: 实体人：重置npc
-[22:11:51] [Server thread/INFO]: 实体人：重置npc
-[22:11:51] [Server thread/INFO]: Changing view distance to 12, from 10
-[22:11:53] [Netty Local Client IO #0/INFO]: Server protocol version 2
-[22:11:53] [Netty Server IO #1/INFO]: Client protocol version 2
-[22:11:53] [Netty Server IO #1/INFO]: Client attempting to join with 4 mods : FML@8.0.99.99,sim@1.0.0 Beta,Forge@11.15.1.2318,mcp@9.19
-[22:11:53] [Netty Local Client IO #0/INFO]: [Netty Local Client IO #0] Client side modded connection established
-[22:11:53] [Server thread/INFO]: [Server thread] Server side modded connection established
-[22:11:53] [Server thread/INFO]: Player12[local:E:fc438704] logged in with entity id 181 at (147.19226757388435, 70.0, 247.69981858264762)
-[22:11:53] [Server thread/INFO]: Player12 加入了游戏
-[22:11:54] [Server thread/INFO]: 还没有启动——现在就这么做
-[22:11:54] [Server thread/INFO]: CommTH: 启动 - 设置 serverWorld/currentWorld
-[22:11:54] [Server thread/INFO]: 运行重置世界功能
-[22:11:54] [Server thread/INFO]: 重置并加载世界 SERVER SIDE
-[22:11:54] [Server thread/INFO]: 模拟城市程序已经运行
-[22:11:54] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:11:54] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:11:54] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.0 Beta由TRHSY重制,更多资讯请关注公众号: dasha5000
-[22:11:54] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:11:54] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:11:55] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 敖一雯 使用新的文件系统
-[22:11:55] [Server thread/INFO]: FolkData: hasLoaded() 敖一雯 (杂货商) at 160,70,249,0 location= 70,68,275,0  0 所有人
-[22:11:55] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 李杰文 使用新的文件系统
-[22:11:55] [Server thread/INFO]: FolkData: hasLoaded() 李杰文 (养牛户) at 207,68,253,0 location= 207,69,253,0  1 所有人
-[22:11:55] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 瞿婉慧 使用新的文件系统
-[22:11:55] [Server thread/INFO]: FolkData: hasLoaded() 瞿婉慧 (none) at  location= 165,70,217,0  2 所有人
-[22:11:55] [Server thread/INFO]: FolkData:repawnEntity() 瞿婉慧 在 165,70,217,0 昏暗中 0 ENTITY:1581
-[22:11:55] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒙蔓梦 使用新的文件系统
-[22:11:55] [Server thread/INFO]: FolkData: hasLoaded() 蒙蔓梦 (none) at  location= 129,64,288,0  3 所有人
-[22:11:55] [Server thread/INFO]: FolkData:repawnEntity() 蒙蔓梦 在 129,64,288,0 昏暗中 0 ENTITY:1582
-[22:11:55] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 那如瑞 使用新的文件系统
-[22:11:55] [Server thread/INFO]: FolkData: hasLoaded() 那如瑞 (none) at  location= 146,70,246,0  4 所有人
-[22:11:55] [Server thread/INFO]: FolkData:repawnEntity() 那如瑞 在 146,70,246,0 昏暗中 0 ENTITY:1583
-[22:11:55] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阙佳俊 使用新的文件系统
-[22:11:55] [Server thread/INFO]: FolkData: hasLoaded() 阙佳俊 (none) at  location= 61,69,277,0  5 所有人
-[22:11:55] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阮嘉浩 使用新的文件系统
-[22:11:55] [Server thread/INFO]: FolkData: hasLoaded() 阮嘉浩 (农民) at 168,70,222,0 location= 163,70,223,0  6 所有人
-[22:11:55] [Server thread/INFO]: FolkData:onUpdate() 瞿婉慧 徘徊在 杂货店 32.0 个街区之外。
-[22:11:55] [Server thread/INFO]: FolkData:onUpdate() 漫游命令 蒙蔓梦 to 111,255,278,0
-[22:11:55] [Server thread/INFO]: FolkData:onUpdate() 漫游命令 那如瑞 to 136,255,233,0
-[22:11:55] [Server thread/WARN]: Unable to play unknown soundEvent: sim:
-[22:11:59] [Server thread/INFO]: FolkData:repawnEntity() 敖一雯 在 160,71,249,0 昏暗中 0 ENTITY:14210
-[22:11:59] [Server thread/INFO]: FolkData:repawnEntity() 阮嘉浩 在 168,71,222,0 昏暗中 0 ENTITY:14211
-[22:12:03] [Server thread/INFO]: FolkData: onSecTasks - 手动解除抵押 敖一雯 的权限，因为它们距离 9999 个街区远
-[22:12:26] [Thread-15/ERROR]: 建筑加载异常:null
-[22:12:36] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:12:36] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:12:36] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:12:36] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:12:36] [Thread-15/INFO]: Building: 线程已完成从磁盘初始化所有建筑物
-[22:12:39] [Server thread/INFO]: 实体人: 阮嘉浩 散步太久，所以喜气洋洋...
-[22:12:42] [Server thread/INFO]: FolkData:repawnEntity() 蒙蔓梦 在 129,64,288,0 昏暗中 0 ENTITY:119684
-[22:12:54] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 100009.266
-[22:12:54] [Server thread/INFO]: 建筑物.saveAllBuildings 11 建筑
-[22:12:54] [Server thread/INFO]: CTH: 将游戏数据保存在 40 ms
-[22:13:19] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:19] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:20] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:20] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:29] [Server thread/INFO]: FolkData:repawnEntity() 李杰文 在 207,69,253,0 昏暗中 0 ENTITY:233371
-[22:13:35] [Server thread/INFO]: FolkData: onSecTasks - 手动解除抵押 蒙蔓梦 的权限，因为它们距离 52 个街区远
-[22:13:37] [Client thread/INFO]: 建筑物不存在，加载失败
-[22:13:37] [Client thread/INFO]: 建筑物不存在，加载失败
-[22:13:38] [Client thread/INFO]: 建筑物不存在，加载失败
-[22:13:38] [Client thread/INFO]: 建筑物不存在，加载失败
-[22:13:38] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:38] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:38] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:38] [Server thread/INFO]: 建筑物不存在，加载失败
-[22:13:38] [Thread-11/ERROR]: Error in class 'LibraryLWJGLOpenAL'
-[22:13:38] [Thread-11/ERROR]: Source '80ac9c8b-62a4-4a79-bdc1-fdd5de4e6a51' not found in method 'play'
-[22:13:38] [Thread-11/ERROR]: Error in class 'LibraryLWJGLOpenAL'
-[22:13:38] [Thread-11/ERROR]: Source '44ebbb8a-f3fb-4a97-8710-f911931d48d0' not found in method 'play'
-[22:13:44] [Server thread/INFO]: Stopping server
-[22:13:44] [Server thread/INFO]: Saving players
-[22:13:44] [Server thread/INFO]: Saving worlds
-[22:13:44] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[22:13:44] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[22:13:44] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[22:13:45] [Server thread/INFO]: Unloading dimension 0
-[22:13:45] [Server thread/INFO]: Unloading dimension -1
-[22:13:45] [Server thread/INFO]: Unloading dimension 1
-[22:13:45] [Server thread/INFO]: Applying holder lookups
-[22:13:45] [Server thread/INFO]: Holder lookups applied
-[22:13:45] [Client thread/FATAL]: Reported exception thrown!
-net.minecraft.util.ReportedException: Updating screen events
-	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1774) ~[Minecraft.class:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1080) ~[Minecraft.class:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:380) [Minecraft.class:?]
-	at net.minecraft.client.main.Main.main(Main.java:116) [Main.class:?]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_181]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_181]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_181]
-	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
-	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_181]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_181]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_181]
-	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
-	at GradleStart.main(GradleStart.java:26) [start/:?]
-Caused by: java.lang.NullPointerException
-	at com.trhsy.sim.common.entity.FolkData.setTheirJob(FolkData.java:2093) ~[FolkData.class:?]
-	at com.trhsy.sim.common.gui.folk.GuiEmployFolk.hireFolks(GuiEmployFolk.java:207) ~[GuiEmployFolk.class:?]
-	at com.trhsy.sim.common.gui.folk.GuiEmployFolk.actionPerformed(GuiEmployFolk.java:195) ~[GuiEmployFolk.class:?]
-	at net.minecraft.client.gui.GuiScreen.mouseClicked(GuiScreen.java:509) ~[GuiScreen.class:?]
-	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:621) ~[GuiScreen.class:?]
-	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:587) ~[GuiScreen.class:?]
-	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1761) ~[Minecraft.class:?]
-	... 15 more
-[22:13:45] [Client thread/INFO]: [net.minecraft.init.Bootstrap:printToSYSOUT:612]: ---- Minecraft Crash Report ----
-// There are four lights!
-
-Time: 22-7-3 下午10:13
-Description: Updating screen events
-
-java.lang.NullPointerException: Updating screen events
-	at com.trhsy.sim.common.entity.FolkData.setTheirJob(FolkData.java:2093)
-	at com.trhsy.sim.common.gui.folk.GuiEmployFolk.hireFolks(GuiEmployFolk.java:207)
-	at com.trhsy.sim.common.gui.folk.GuiEmployFolk.actionPerformed(GuiEmployFolk.java:195)
-	at net.minecraft.client.gui.GuiScreen.mouseClicked(GuiScreen.java:509)
-	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:621)
-	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:587)
-	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1761)
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1080)
-	at net.minecraft.client.Minecraft.run(Minecraft.java:380)
-	at net.minecraft.client.main.Main.main(Main.java:116)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
-	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
-	at GradleStart.main(GradleStart.java:26)
-
-
-A detailed walkthrough of the error, its code path and all known details is as follows:
----------------------------------------------------------------------------------------
-
--- Head --
-Stacktrace:
-	at com.trhsy.sim.common.entity.FolkData.setTheirJob(FolkData.java:2093)
-	at com.trhsy.sim.common.gui.folk.GuiEmployFolk.hireFolks(GuiEmployFolk.java:207)
-	at com.trhsy.sim.common.gui.folk.GuiEmployFolk.actionPerformed(GuiEmployFolk.java:195)
-	at net.minecraft.client.gui.GuiScreen.mouseClicked(GuiScreen.java:509)
-	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:621)
-	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:587)
-
--- Affected screen --
-Details:
-	Screen name: com.trhsy.sim.common.gui.folk.GuiEmployFolk
-
--- Affected level --
-Details:
-	Level name: MpServer
-	All players: 1 total; [EntityPlayerSP['Player12'/181, l='MpServer', x=179.10, y=70.00, z=251.60]]
-	Chunk stats: MultiplayerChunkCache: 622, 622
-	Level seed: 0
-	Level generator: ID 00 - default, ver 1. Features enabled: false
-	Level generator options: 
-	Level spawn location: 96.00,64.00,252.00 - World: (96,64,252), Chunk: (at 0,4,12 in 6,15; contains blocks 96,0,240 to 111,255,255), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
-	Level time: 1532881 game time, 47198 day time
-	Level dimension: 0
-	Level storage version: 0x00000 - Unknown?
-	Level weather: Rain time: 0 (now: true), thunder time: 0 (now: false)
-	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
-	Forced entities: 47 total; [EntityFolk['小镇居民'/14211, l='MpServer', x=165.50, y=71.78, z=222.50], EntitySheep['羊'/133, l='MpServer', x=226.22, y=66.00, z=208.09], EntityRabbit['兔子'/134, l='MpServer', x=230.38, y=67.00, z=255.34], EntitySheep['羊'/135, l='MpServer', x=223.31, y=66.00, z=279.53], EntitySheep['羊'/136, l='MpServer', x=235.66, y=63.00, z=306.22], EntitySheep['羊'/137, l='MpServer', x=237.84, y=63.00, z=308.13], EntitySheep['羊'/139, l='MpServer', x=253.44, y=61.63, z=209.91], EntityItem['item.item.egg'/73495, l='MpServer', x=152.91, y=68.00, z=251.13], EntityFolk['小镇居民'/233371, l='MpServer', x=199.66, y=68.88, z=251.47], EntityBat['蝙蝠'/19231, l='MpServer', x=220.66, y=23.95, z=202.59], EntityFolk['小镇居民'/1581, l='MpServer', x=165.00, y=70.06, z=217.00], EntityFolk['小镇居民'/1583, l='MpServer', x=145.56, y=70.50, z=244.91], EntityItem['item.item.egg'/153154, l='MpServer', x=151.28, y=69.00, z=256.91], EntityRabbit['兔子'/75, l='MpServer', x=107.94, y=69.00, z=241.91], EntityRabbit['兔子'/76, l='MpServer', x=99.47, y=70.00, z=243.00], EntitySheep['羊'/78, l='MpServer', x=96.34, y=63.00, z=305.84], EntitySheep['羊'/79, l='MpServer', x=100.75, y=63.00, z=304.78], EntitySheep['羊'/80, l='MpServer', x=98.81, y=63.00, z=309.88], EntitySheep['羊'/81, l='MpServer', x=103.81, y=63.00, z=322.09], EntityRabbit['兔子'/83, l='MpServer', x=120.28, y=73.00, z=193.38], EntityRabbit['兔子'/84, l='MpServer', x=113.47, y=75.00, z=197.09], EntityPlayerSP['Player12'/181, l='MpServer', x=179.10, y=70.00, z=251.60], EntityRabbit['兔子'/85, l='MpServer', x=119.84, y=68.00, z=266.09], EntityRabbit['兔子'/86, l='MpServer', x=125.09, y=64.00, z=284.38], EntityBat['蝙蝠'/87, l='MpServer', x=135.50, y=34.10, z=236.75], EntityItem['item.item.dyePowder.black'/88, l='MpServer', x=143.75, y=35.00, z=295.13], EntityBat['蝙蝠'/254298, l='MpServer', x=214.01, y=37.16, z=309.55], EntityBat['蝙蝠'/91, l='MpServer', x=126.22, y=27.00, z=322.38], EntityBat['蝙蝠'/265306, l='MpServer', x=177.59, y=22.56, z=242.50], EntityChicken['鸡'/96, l='MpServer', x=150.81, y=69.00, z=250.81], EntityChicken['鸡'/98, l='MpServer', x=150.81, y=69.00, z=255.50], EntityChicken['鸡'/99, l='MpServer', x=150.81, y=69.00, z=253.81], EntityChicken['鸡'/100, l='MpServer', x=153.28, y=68.00, z=251.47], EntityChicken['鸡'/101, l='MpServer', x=150.81, y=69.00, z=256.16], EntityItem['item.item.egg'/102, l='MpServer', x=150.88, y=69.00, z=256.13], EntityChicken['鸡'/103, l='MpServer', x=151.53, y=69.00, z=254.34], EntityBat['蝙蝠'/106, l='MpServer', x=156.50, y=45.10, z=322.25], EntityRabbit['兔子'/109, l='MpServer', x=173.84, y=65.00, z=188.19], EntityRabbit['兔子'/110, l='MpServer', x=163.34, y=71.00, z=210.75], EntityBat['蝙蝠'/217072, l='MpServer', x=131.44, y=44.91, z=288.28], EntityRabbit['兔子'/120, l='MpServer', x=182.16, y=66.00, z=210.53], EntityRabbit['兔子'/121, l='MpServer', x=185.50, y=70.31, z=259.59], EntityRabbit['兔子'/122, l='MpServer', x=187.06, y=68.00, z=294.94], EntityChicken['鸡'/123, l='MpServer', x=182.88, y=62.69, z=306.44], EntityBat['蝙蝠'/156927, l='MpServer', x=188.69, y=31.10, z=233.25], EntityChicken['鸡'/126, l='MpServer', x=198.50, y=64.00, z=309.34], EntityItem['item.item.egg'/127, l='MpServer', x=197.66, y=64.00, z=308.50]]
-	Retry entities: 0 total; []
-	Server brand: fml,forge
-	Server type: Integrated singleplayer server
-Stacktrace:
-	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:383)
-	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2645)
-	at net.minecraft.client.Minecraft.run(Minecraft.java:401)
-	at net.minecraft.client.main.Main.main(Main.java:116)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
-	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
-	at GradleStart.main(GradleStart.java:26)
-
--- System Details --
-Details:
-	Minecraft Version: 1.8.9
-	Operating System: Windows 10 (amd64) version 10.0
-	Java Version: 1.8.0_181, Oracle Corporation
-	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
-	Memory: 494645192 bytes (471 MB) / 1052770304 bytes (1004 MB) up to 1883242496 bytes (1796 MB)
-	JVM Flags: 0 total; 
-	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
-	FML: MCP 9.19 Powered by Forge 11.15.1.2318 4 mods loaded, 4 mods active
-	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
-	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
-	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.8.9-11.15.1.2318-1.8.9.jar) 
-	UCHIJAAAA	Forge{11.15.1.2318} [Minecraft Forge] (forgeSrc-1.8.9-11.15.1.2318-1.8.9.jar) 
-	UCHIJAAAA	sim{1.0.0 Beta} [Simulated town] (sim-u-1.8.9) 
-	Loaded coremods (and transformers): 
-	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8682' Renderer: 'Intel(R) UHD Graphics 620'
-	Pulsar/sim loaded Pulses: 
-
-	Launched Version: 1.8.9
-	LWJGL: 2.9.4
-	OpenGL: Intel(R) UHD Graphics 620 GL version 4.6.0 - Build 27.20.100.8682, Intel
-	GL Caps: Using GL 1.3 multitexturing.
-Using GL 1.3 texture combiners.
-Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
-Shaders are available because OpenGL 2.1 is supported.
-VBOs are available because OpenGL 1.5 is supported.
-
-	Using VBOs: No
-	Is Modded: Definitely; Client brand changed to 'fml,forge'
-	Type: Client (map_client.txt)
-	Resource Packs: 
-	Current Language: 简体中文 (中国)
-	Profiler Position: N/A (disabled)
-	CPU: 8x Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz
-[22:13:45] [Client thread/INFO]: [net.minecraft.init.Bootstrap:printToSYSOUT:612]: #@!@# Game crashed! Crash report saved to: #@!@# D:\work\works\sim-u\sim-u-1.8.9\eclipse\.\crash-reports\crash-2022-07-03_22.13.45-client.txt
+	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8280' Renderer: 'Intel(R) HD Graphics 630'
+[18:17:17] [Client thread/INFO]: MinecraftForge v11.15.1.2318 Initialized
+[18:17:18] [Client thread/INFO]: Replaced 229 ore recipies
+[18:17:19] [Client thread/INFO]: Found 0 mods from the command line. Injecting into mod discoverer
+[18:17:19] [Client thread/INFO]: Searching H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\eclipse\mods for mods
+[18:17:25] [Client thread/INFO]: Forge Mod Loader has identified 4 mods to load
+[18:17:25] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at CLIENT
+[18:17:25] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at SERVER
+[18:17:26] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[18:17:26] [Client thread/INFO]: Processing ObjectHolder annotations
+[18:17:26] [Client thread/INFO]: Found 384 ObjectHolder annotations
+[18:17:26] [Client thread/INFO]: Identifying ItemStackHolder annotations
+[18:17:26] [Client thread/INFO]: Found 0 ItemStackHolder annotations
+[18:17:26] [Client thread/INFO]: Configured a dormant chunk cache size of 0
+[18:17:26] [Forge Version Check/INFO]: [Forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+[18:17:27] [Client thread/INFO]: [com.trhsy.sim.common.loader.EntityLoader:<init>:33]: 开始加载实体
+[18:17:27] [Client thread/INFO]: Applying holder lookups
+[18:17:27] [Client thread/INFO]: Holder lookups applied
+[18:17:27] [Client thread/INFO]: Injecting itemstacks
+[18:17:27] [Client thread/INFO]: Itemstack injection complete
+[18:17:28] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[18:17:28] [Thread-9/INFO]: Initializing LWJGL OpenAL
+[18:17:28] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[18:17:29] [Thread-9/INFO]: OpenAL initialized.
+[18:17:29] [Sound Library Loader/INFO]: Sound engine started
+[18:17:37] [Client thread/INFO]: Max texture size: 16384
+[18:17:37] [Client thread/INFO]: Created: 16x16 textures-atlas
+[18:17:38] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
+[18:17:39] [Client thread/INFO]: Injecting itemstacks
+[18:17:39] [Client thread/INFO]: Itemstack injection complete
+[18:17:39] [Client thread/INFO]: Forge Mod Loader has successfully loaded 4 mods
+[18:17:39] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[18:17:39] [Client thread/INFO]: SoundSystem shutting down...
+[18:17:39] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[18:17:39] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[18:17:39] [Thread-11/INFO]: Initializing LWJGL OpenAL
+[18:17:39] [Thread-11/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[18:17:39] [Thread-11/INFO]: OpenAL initialized.
+[18:17:40] [Sound Library Loader/INFO]: Sound engine started
+[18:17:47] [Client thread/INFO]: Max texture size: 16384
+[18:17:48] [Client thread/INFO]: Created: 512x512 textures-atlas
+[18:17:49] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
+[18:19:32] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[18:19:32] [Server thread/INFO]: Generating keypair
+[18:19:33] [Server thread/INFO]: Injecting existing block and item data into this server instance
+[18:19:33] [Server thread/INFO]: Found a missing id from the world sim:block_cheese_box
+[18:19:33] [Server thread/INFO]: Found a missing id from the world sim:block_fluid_milk
+[18:19:33] [Server thread/INFO]: Applying holder lookups
+[18:19:33] [Server thread/INFO]: Holder lookups applied
+[18:19:33] [Server thread/INFO]: Loading dimension 0 (sim) (net.minecraft.server.integrated.IntegratedServer@1425dea8)
+[18:19:33] [Server thread/INFO]: Loading dimension 1 (sim) (net.minecraft.server.integrated.IntegratedServer@1425dea8)
+[18:19:33] [Server thread/INFO]: Loading dimension -1 (sim) (net.minecraft.server.integrated.IntegratedServer@1425dea8)
+[18:19:33] [Server thread/INFO]: Preparing start region for level 0
+[18:19:34] [Server thread/INFO]: Preparing spawn area: 42%
+[18:19:34] [Server thread/INFO]: 实体人：重置npc
+[18:19:34] [Server thread/INFO]: 实体人：重置npc
+[18:19:34] [Server thread/INFO]: 实体人：重置npc
+[18:19:34] [Server thread/INFO]: 实体人：重置npc
+[18:19:34] [Server thread/INFO]: Changing view distance to 12, from 10
+[18:19:36] [Netty Local Client IO #0/INFO]: Server protocol version 2
+[18:19:36] [Netty Server IO #1/INFO]: Client protocol version 2
+[18:19:36] [Netty Server IO #1/INFO]: Client attempting to join with 4 mods : FML@8.0.99.99,sim@1.0.0 Beta,Forge@11.15.1.2318,mcp@9.19
+[18:19:36] [Netty Local Client IO #0/INFO]: [Netty Local Client IO #0] Client side modded connection established
+[18:19:36] [Server thread/INFO]: [Server thread] Server side modded connection established
+[18:19:36] [Server thread/INFO]: Player197[local:E:29826ffd] logged in with entity id 175 at (166.0735774292047, 71.0, 211.47361262664631)
+[18:19:36] [Server thread/INFO]: Player197 加入了游戏
+[18:19:38] [Server thread/INFO]: 还没有启动——现在就这么做
+[18:19:38] [Server thread/INFO]: CommTH: 启动 - 设置 serverWorld/currentWorld
+[18:19:38] [Server thread/INFO]: 运行重置世界功能
+[18:19:38] [Server thread/INFO]: 重置并加载世界 SERVER SIDE
+[18:19:38] [Server thread/INFO]: 模拟城市程序已经运行
+[18:19:38] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.0 Beta由TRHSY重制,更多资讯请关注公众号: dasha5000
+[18:19:38] [Server thread/INFO]: 建筑物不存在，加载失败
+[18:19:38] [Server thread/INFO]: 建筑物不存在，加载失败
+[18:19:38] [Server thread/INFO]: 建筑物不存在，加载失败
+[18:19:38] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 敖一雯 使用新的文件系统
+[18:19:38] [Server thread/INFO]: FolkData: hasLoaded() 敖一雯 (杂货商) at 160,70,249,0 location= 158,70,247,0  0 所有人
+[18:19:38] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 李杰文 使用新的文件系统
+[18:19:38] [Server thread/INFO]: FolkData: hasLoaded() 李杰文 (养牛户) at 207,68,253,0 location= 207,68,253,0  1 所有人
+[18:19:38] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 瞿婉慧 使用新的文件系统
+[18:19:38] [Server thread/INFO]: FolkData: hasLoaded() 瞿婉慧 (面包师) at 148,71,223,0 location= 148,72,223,0  2 所有人
+[18:19:38] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒙蔓梦 使用新的文件系统
+[18:19:38] [Server thread/INFO]: FolkData: hasLoaded() 蒙蔓梦 (none) at  location= 126,64,286,0  3 所有人
+[18:19:38] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 那如瑞 使用新的文件系统
+[18:19:38] [Server thread/INFO]: FolkData: hasLoaded() 那如瑞 (none) at  location= 148,70,256,0  4 所有人
+[18:19:38] [Server thread/INFO]: FolkData:repawnEntity() 那如瑞 在 148,70,256,0 昏暗中 0 ENTITY:1467
+[18:19:38] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阙佳俊 使用新的文件系统
+[18:19:38] [Server thread/INFO]: FolkData: hasLoaded() 阙佳俊 (none) at  location= 61,69,277,0  5 所有人
+[18:19:38] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阮嘉浩 使用新的文件系统
+[18:19:38] [Server thread/INFO]: FolkData: hasLoaded() 阮嘉浩 (农民) at 168,70,222,0 location= 168,70,223,0  6 所有人
+[18:19:39] [Server thread/INFO]: FolkData: 敖一雯 要工作了
+[18:19:39] [Server thread/INFO]: FolkData: 李杰文 要工作了
+[18:19:39] [Server thread/INFO]: FolkData: 瞿婉慧 要工作了
+[18:19:39] [Server thread/INFO]: FolkData:onUpdate() 那如瑞 徘徊在 杂货店 13.0 个街区之外。
+[18:19:39] [Server thread/INFO]: FolkData: 阮嘉浩 要工作了
+[18:19:39] [Server thread/WARN]: FolkData:onUpdate() 李杰文 还在工作
+[18:19:40] [Server thread/INFO]: JobCropFarmer: 在农场发现 2 箱子
+[18:19:41] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:41] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:41] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:41] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:41] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:41] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:42] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:42] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:43] [Server thread/INFO]: FolkData:repawnEntity() 敖一雯 在 160,71,249,0 昏暗中 0 ENTITY:16691
+[18:19:43] [Server thread/INFO]: FolkData:repawnEntity() 瞿婉慧 在 148,72,223,0 昏暗中 0 ENTITY:16692
+[18:19:43] [Server thread/INFO]: FolkData:repawnEntity() 阮嘉浩 在 168,71,222,0 昏暗中 0 ENTITY:16693
+[18:19:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:19:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:44] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:44] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:45] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:45] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:19:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:48] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:48] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:19:48] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:48] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:48] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:49] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:49] [Server thread/INFO]: Player197 刚刚获得了 [打开物品栏] 成就！
+[18:19:49] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:49] [Client thread/INFO]: [CHAT] Player197 刚刚获得了 [打开物品栏] 成就！
+[18:19:50] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:50] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:51] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:51] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:19:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:53] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:53] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:53] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:54] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:19:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:56] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:56] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:57] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:57] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:58] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:58] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:59] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:19:59] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:19:59] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:19:59] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:00] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:00] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:1
+[18:20:00] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:01] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:01] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:02] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:02] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:02] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:03] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:03] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:03] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:04] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:04] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:04] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:04] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:05] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:05] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:05] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:06] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:06] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:07] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:07] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:08] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:08] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:09] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:09] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:10] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:10] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:10] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:10] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:11] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:11] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:11] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:12] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:12] [Thread-15/ERROR]: 建筑加载异常:null
+[18:20:12] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:13] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:13] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:13] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:14] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:14] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:14] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:15] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:15] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:16] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:16] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:17] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:17] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:17] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:17] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:17] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:17] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:18] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:19] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:19] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:20] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:20] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:21] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:21] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:21] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:21] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:22] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:22] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:23] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:23] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:23] [Thread-15/INFO]: Building: 线程已完成从磁盘初始化所有建筑物
+[18:20:24] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:24] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:25] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:25] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:20:25] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:25] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:26] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:26] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:27] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:27] [Server thread/INFO]: FolkData:onUpdate() 那如瑞 徘徊在 2 客房 39.0 个街区之外。
+[18:20:27] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:28] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:28] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:20:29] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:20:38] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99992.875
+[18:20:38] [Server thread/INFO]: 建筑物.saveAllBuildings 11 建筑
+[18:20:38] [Server thread/INFO]: CTH: 将游戏数据保存在 87 ms
+[18:20:57] [Server thread/INFO]: FolkData:repawnEntity() 敖一雯 在 160,71,250,0 昏暗中 0 ENTITY:197233
+[18:21:07] [Server thread/INFO]: 实体人: 瞿婉慧 散步太久，所以喜气洋洋...
+[18:21:14] [Server thread/INFO]: FolkData:onUpdate() 漫游命令 那如瑞 to 158,255,261,0
+[18:21:30] [Server thread/INFO]: FolkData:repawnEntity() 敖一雯 在 160,71,250,0 昏暗中 0 ENTITY:280765
+[18:21:38] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99992.875
+[18:21:38] [Server thread/INFO]: 建筑物.saveAllBuildings 11 建筑
+[18:21:38] [Server thread/INFO]: CTH: 将游戏数据保存在 50 ms
+[18:21:51] [Client thread/INFO]: [CHAT] 瞿婉慧做了一些面包并得到报酬12.00资金
+[18:21:58] [Server thread/INFO]: FolkData:onUpdate() 那如瑞 徘徊在 杂货店 12.0 个街区之外。
+[18:22:06] [Server thread/INFO]: FolkData:repawnEntity() 敖一雯 在 160,71,250,0 昏暗中 0 ENTITY:368203
+[18:22:14] [Client thread/INFO]: 建筑物不存在，加载失败
+[18:22:14] [Client thread/INFO]: 建筑物不存在，加载失败
+[18:22:14] [Client thread/INFO]: 建筑物不存在，加载失败
+[18:22:14] [Server thread/INFO]: 建筑物不存在，加载失败
+[18:22:14] [Server thread/INFO]: 建筑物不存在，加载失败
+[18:22:14] [Server thread/INFO]: 建筑物不存在，加载失败
+[18:22:15] [Client thread/INFO]: 建筑物.saveAllBuildings 12 建筑
+[18:22:22] [Server thread/INFO]: FolkData:repawnEntity() 李杰文 在 207,68,253,0 昏暗中 0 ENTITY:407941
+[18:22:24] [Server thread/INFO]: FolkData: onSecTasks - 手动解除抵押 李杰文 的权限，因为它们距离 51 个街区远
+[18:22:29] [Server thread/INFO]: FolkData:repawnEntity() 李杰文 在 207,68,253,0 昏暗中 0 ENTITY:425256
+[18:22:33] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:33] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:33] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:33] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:33] [Server thread/INFO]: FolkData: onSecTasks - 手动解除抵押 李杰文 的权限，因为它们距离 52 个街区远
+[18:22:33] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:33] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:34] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:34] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:35] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:35] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:35] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:35] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:35] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:35] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:35] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:36] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:36] [Server thread/INFO]: FolkData:repawnEntity() 李杰文 在 197,68,257,0 昏暗中 0 ENTITY:442348
+[18:22:36] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:37] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:37] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:38] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99980.64
+[18:22:38] [Server thread/INFO]: 建筑物.saveAllBuildings 12 建筑
+[18:22:38] [Server thread/INFO]: CTH: 将游戏数据保存在 62 ms
+[18:22:38] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:38] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:38] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:38] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:38] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:38] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:39] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:39] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:39] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:40] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:40] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:40] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:40] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:40] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:41] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:42] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:42] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:43] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:43] [Server thread/INFO]: FolkData:onUpdate() 漫游命令 那如瑞 to 147,255,241,0
+[18:22:44] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:44] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:44] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:44] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:44] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:45] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:45] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:45] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 100 packets have leaked. Top offenders
+[18:22:46] [Netty Server IO #1/ERROR]: 	 sim : 100
+[18:22:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:46] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:47] [Server thread/INFO]: FolkData: onSecTasks - 手动解除抵押 李杰文 的权限，因为它们距离 50 个街区远
+[18:22:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:47] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:48] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:48] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:49] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:49] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:50] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:50] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:51] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:51] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:51] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:51] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:3
+[18:22:52] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:53] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:53] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:54] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:54] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:54] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:55] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:56] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:56] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:56] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:22:56] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:57] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:57] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:22:57] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:58] [Server thread/INFO]: FolkData:repawnEntity() 李杰文 在 207,69,253,0 昏暗中 0 ENTITY:494746
+[18:22:58] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:58] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:59] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:22:59] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:00] [Server thread/INFO]: FolkData: onSecTasks - 手动解除抵押 李杰文 的权限，因为它们距离 51 个街区远
+[18:23:00] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:00] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:01] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:01] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:02] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.fence,状态meta:0
+[18:23:02] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:03] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:23:03] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:03] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.air,状态meta:0
+[18:23:03] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:04] [Server thread/INFO]: [com.trhsy.sim.common.jobs.JobCropFarmer:stageHarvest:363]: 收获id:tile.crops,状态meta:7
+[18:23:04] [Server thread/INFO]: Saving and pausing game...
+[18:23:04] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:23:04] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:23:04] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:23:05] [Server thread/INFO]: Stopping server
+[18:23:05] [Server thread/INFO]: Saving players
+[18:23:05] [Server thread/INFO]: Saving worlds
+[18:23:05] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[18:23:05] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[18:23:05] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[18:23:05] [Server thread/INFO]: Unloading dimension 0
+[18:23:05] [Server thread/INFO]: Unloading dimension -1
+[18:23:05] [Server thread/INFO]: Unloading dimension 1
+[18:23:06] [Server thread/INFO]: Applying holder lookups
+[18:23:06] [Server thread/INFO]: Holder lookups applied
+[18:23:07] [Client thread/INFO]: Stopping!
+[18:23:07] [Client thread/INFO]: SoundSystem shutting down...
+[18:23:07] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

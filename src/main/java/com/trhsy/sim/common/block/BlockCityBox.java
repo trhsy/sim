@@ -30,7 +30,7 @@ public class BlockCityBox extends Block {
         this.setHardness(10.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("city_box");
-        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override
