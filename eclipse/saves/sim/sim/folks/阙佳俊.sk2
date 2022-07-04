@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|阙佳俊
-age|21
+age|22
 gender|0
 skin|3
 race|
@@ -10,11 +10,11 @@ trait2|喜欢户外活动
 trait3|讨厌户外活动
 trait4|友善的
 levelfood|10
-levelbuilder|9.480221
+levelbuilder|9.747678
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|61,69,277,0
+location|144,72,218,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|蒙蔓梦
-age|20
+age|21
 gender|1
 skin|0
 race|
@@ -9,12 +9,12 @@ trait1|喜欢户外活动
 trait2|勇敢的
 trait3|强壮的人可以更快地做体力劳动。无论是采矿、伐木、建筑还是挖沙。
 trait4|矮人血脉
-levelfood|9
+levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|126,64,286,0
+location|129,65,288,0
 pregnancy|0.0
 building|null
 terraformtype|null

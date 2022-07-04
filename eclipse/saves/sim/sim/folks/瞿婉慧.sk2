@@ -1,7 +1,7 @@
 employedat|148,71,223,0
 vocation|BAKER
 name|瞿婉慧
-age|20
+age|21
 gender|1
 skin|36
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|154,71,223,0
+location|155,71,226,0
 pregnancy|0.0
 building|null
 terraformtype|null
