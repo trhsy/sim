@@ -172,11 +172,11 @@ public class JobBrickMaker extends Job implements Serializable {
                 BlockPos blockPos=new BlockPos(this.blockOfClay.x.intValue(), this.blockOfClay.y.intValue(), this.blockOfClay.z.intValue());
                 this.jobWorld.setBlockState(blockPos,Blocks.air.getDefaultState(),3);
                 this.mc.theWorld.playSound(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z, "step.sand", 1.0F, 1.0F, false);
-                this.theFolk.inventory.add(new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
-                this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.inventory.size();
+                this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
+                this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.getVillagerInventory().getSizeInventory();
                 GameStates var10000 = ModSimReloaded.states;
                 var10000.credits = (float)((double)var10000.credits - 0.012D);
-                if (this.theFolk.inventory.size() < 64) {
+                if (this.theFolk.getVillagerInventory().getSizeInventory() < 64) {
                     this.theStage = Stage.SCANFORCLAY;
                 } else {
                     this.theStage = Stage.RETURNCLAY;
@@ -214,7 +214,7 @@ public class JobBrickMaker extends Job implements Serializable {
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
                 this.openCloseChest((IInventory)this.factoryChests.get(0), 1000);
-                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.factoryChests, (ItemStack)null);
+                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.factoryChests, (ItemStack)null);
                 this.theStage = Stage.USEFURNACE;
                 this.step = 1;
             }

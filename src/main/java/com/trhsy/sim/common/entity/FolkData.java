@@ -18,6 +18,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
@@ -146,8 +147,12 @@ public class FolkData implements Serializable {
     public TerraformerType terraformerType = null;
     //地形形成器半径
     public int terraformerRadius = 1;
-    // npc 自己的物品清单，用于在世界各地运送物品和寄送物品
-    public transient ArrayList<ItemStack> inventory = new ArrayList<ItemStack>();
+
+    // npc 自己的物品清单，用于在世界各地运送物品和寄送物品 1.8.9 2022年7月5日16:51:45 弃用
+    //public transient ArrayList<ItemStack> inventory = new ArrayList<ItemStack>();
+
+    //设置库存
+    private InventoryBasic villagerInventory;
     //实体人 对实体的引用，以便我们可以检查它的isDead（）并处理它等
     public transient EntityFolk theEntity = null;
     //开始去的时间 当他们去和走路/微笑时设置，如果他们不能在40秒内到达那里，则用于向他们微笑
@@ -189,7 +194,8 @@ public class FolkData implements Serializable {
         this.theBuilding = null;
         this.terraformerType = null;
         this.terraformerRadius = 1;
-        this.inventory = new ArrayList();
+        //this.inventory = new ArrayList();
+        this.villagerInventory = new InventoryBasic("Items", false, 8);
         this.theEntity = null;
         this.timeStartedGotoing = 0L;
         this.gotoMethod = null;
@@ -239,7 +245,7 @@ public class FolkData implements Serializable {
             //ModSimReloaded.log.error("错误"+var4.getMessage());
         }
 
-        this.inventory = new ArrayList<ItemStack>();
+        //this.inventory = new ArrayList<ItemStack>();
         this.setTheirJob(this.vocation);
         this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
         ModSimReloaded.theFolks.add(this);
@@ -1245,11 +1251,11 @@ public class FolkData implements Serializable {
     public void selfFire() {
         ModSimReloaded.log.info("FolkData: selfFire() " + this.name);
         this.isWorking = false;
-        if (this.inventory.size() > 0) {
+        if (this.villagerInventory.getSizeInventory() > 0) {
             int count = 0;
 
-            for (int inv = 0; inv < this.inventory.size(); inv++) {
-                ItemStack is = (ItemStack) this.inventory.get(inv);
+            for (int inv = 0; inv < this.villagerInventory.getSizeInventory(); inv++) {
+                ItemStack is = (ItemStack) this.villagerInventory.getStackInSlot(inv);
                 if (is != null) {
                     if (this.theEntity != null) {
                         try {
@@ -1277,7 +1283,7 @@ public class FolkData implements Serializable {
             }
         }
 
-        this.inventory.clear();
+        this.villagerInventory.clear();
         if (this.theEntity != null) {
             this.theEntity.swingProgress = 0.0F;
             this.theEntity.getNavigator().clearPathEntity();
@@ -2157,5 +2163,9 @@ public class FolkData implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public InventoryBasic getVillagerInventory() {
+        return this.villagerInventory;
     }
 }

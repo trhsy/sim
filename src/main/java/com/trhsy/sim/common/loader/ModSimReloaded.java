@@ -271,11 +271,13 @@ public class ModSimReloaded {
      * @return
      */
     public static boolean isDayTime() {
-        if (MinecraftServer.getServer().worldServers[0].getWorldInfo().getWorldTime() % 24000 <= 11999) {
-            return true;
-        } else {
-            return false;
-        }
+        //if (MinecraftServer.getServer().worldServers[0].getWorldInfo().getWorldTime() % 24000 <= 11999) {
+        //    return true;
+        //} else {
+        //    return false;
+        //}
+        return MinecraftServer.getServer().worldServers[0].isDaytime();
+
     }
 
     /**

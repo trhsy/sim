@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.entity.ai.EntityAIWanderSUK;
 import com.trhsy.sim.common.gui.folk.GuiEntityFolk;
 import com.trhsy.sim.common.gui.folk.GuiMerchant;
 import com.trhsy.sim.common.jobs.JobFisherman;
@@ -17,9 +18,11 @@ import net.minecraft.entity.INpc;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
@@ -52,42 +55,47 @@ public class EntityFolk extends EntityCreature implements INpc {
     //找到路了吗
     public boolean gotPath;
 
+
     public EntityFolk(World world) {
         super(world);
-        //破门而入
-        ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
+
         //避开水
         ((PathNavigateGround) this.getNavigator()).setAvoidsWater(true);
         //会进门
         ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
+        //破门而入
+        ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
         //会游泳
         ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
+
         //会捡起地上的东西
         this.setCanPickUpLoot(true);
         //this.setEquipmentDropChance(1, 1);
         //实体人任务
-        //避免实体
-        this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
-        //住进屋子
-        this.tasks.addTask(2, new EntityAIMoveIndoors(this));
-        //室内移动
-        this.tasks.addTask(3, new EntityAIMoveIndoors(this));
+        this.tasks.addTask(0, new EntityAIWanderSUK(this, 0.3f));
         //闲置任务
         this.tasks.addTask(1, new EntityAILookIdle(this));
+        //住进屋子
+        this.tasks.addTask(2, new EntityAIMoveIndoors(this));
         //限制开门
         this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
-        //游泳
-        this.tasks.addTask(4, new EntityAISwimming(this));
-        //走向限制
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.6D));
         //实体AI监视最近2
         this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1.0F));
         //实体AI监视最近
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
         //开门
         this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
+        //走向限制
+        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3));
+        //避免实体
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+        //游泳
+        this.tasks.addTask(4, new EntityAISwimming(this));
+
+
         //闲逛
-        this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
+        //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
         //拾取战利品
         this.setCanPickUpLoot(true);
         //启动
@@ -107,12 +115,13 @@ public class EntityFolk extends EntityCreature implements INpc {
     public void onLivingUpdate() {
         super.onLivingUpdate();
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 获得纹理
      * @Date 17:16 2022/5/22
      * @Param []
-     * @return java.lang.String
      **/
     @SideOnly(Side.CLIENT)
     public String getTexture() {
@@ -127,12 +136,13 @@ public class EntityFolk extends EntityCreature implements INpc {
             return "male0.png";
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 实体属性
      * @Date 15:48 2022/6/5
      * @Param []
-     * @return void
      **/
     @Override
     protected void applyEntityAttributes() {
@@ -142,11 +152,11 @@ public class EntityFolk extends EntityCreature implements INpc {
     }
 
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 实体数据更新
      * @Date 15:50 2022/6/5
      * @Param []
-     * @return void
      **/
     @Override
     public void onUpdate() {
@@ -363,8 +373,8 @@ public class EntityFolk extends EntityCreature implements INpc {
         List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).expand(2.0, 4.0, 2.0));
         Iterator iterator1 = list1.iterator();
         if (!list1.isEmpty()) {
-            for (Object entity:list1){
-                Entity entity1 =(Entity)entity;
+            for (Object entity : list1) {
+                Entity entity1 = (Entity) entity;
                 if (entity1 instanceof EntityItem) {
                     EntityItem entityitem = (EntityItem) entity1;
                     ItemStack is = entityitem.getEntityItem();
@@ -398,12 +408,13 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
 
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 移动实体开始传送
      * @Date 15:59 2022/6/5
      * @Param [d, d1, d2]
-     * @return void
      **/
     @Override
     public void moveEntity(double d, double d1, double d2) {
@@ -438,7 +449,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 } else {
                     try {
                         if (!this.gotPath) {
-                            PathEntity path =this.getNavigator().getPathToXYZ(this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue());
+                            PathEntity path = this.getNavigator().getPathToXYZ(this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue());
                             //PathEntity path = this.worldObj.getEntityPathToXYZ(this, this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue(), 40.0F, true, true, true, true);
                             if (path != null) {
                                 this.getNavigator().setPath(path, 0.30000001192092896D);
@@ -480,12 +491,13 @@ public class EntityFolk extends EntityCreature implements INpc {
 
         }
     }
+
     /**
+     * @return net.minecraft.item.ItemStack
      * @Author fan
      * @Description //TODO 持有物品
      * @Date 16:00 2022/6/5
      * @Param []
-     * @return net.minecraft.item.ItemStack
      **/
     @Override
     public ItemStack getHeldItem() {
@@ -564,12 +576,13 @@ public class EntityFolk extends EntityCreature implements INpc {
             return null;
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 互动
      * @Date 16:02 2022/6/5
      * @Param [entityplayer]
-     * @return boolean
      **/
     @Override
     @SideOnly(Side.CLIENT)
@@ -603,34 +616,37 @@ public class EntityFolk extends EntityCreature implements INpc {
             return true;
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 死亡
      * @Date 16:03 2022/6/5
      * @Param [d]
-     * @return void
      **/
     @Override
     public void onDeath(DamageSource d) {
         this.theData.eventDied(d);
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 可以推
      * @Date 16:03 2022/6/5
      * @Param []
-     * @return boolean
      **/
     @Override
     public boolean canBePushed() {
         return true;
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 受到 伤害声音
      * @Date 16:04 2022/6/5
      * @Param []
-     * @return java.lang.String
      **/
     @Override
     protected String getHurtSound() {
@@ -639,10 +655,10 @@ public class EntityFolk extends EntityCreature implements INpc {
             if (this.theData != null && this.theData.stayPut) {
                 this.theData.stayPut = false;
             }
-            BlockPos blockPos1=new BlockPos( this.posX + 1, this.posY, this.posZ);
-            BlockPos blockPos2=new BlockPos( this.posX - 1,  this.posY, this.posZ);
-            BlockPos blockPos3=new BlockPos( this.posX,  this.posY,  this.posZ + 1);
-            BlockPos blockPos4=new BlockPos(this.posX + 1, this.posY, this.posZ - 1);
+            BlockPos blockPos1 = new BlockPos(this.posX + 1, this.posY, this.posZ);
+            BlockPos blockPos2 = new BlockPos(this.posX - 1, this.posY, this.posZ);
+            BlockPos blockPos3 = new BlockPos(this.posX, this.posY, this.posZ + 1);
+            BlockPos blockPos4 = new BlockPos(this.posX + 1, this.posY, this.posZ - 1);
             Block idX1 = this.worldObj.getBlockState(blockPos1).getBlock();
             Block idX2 = this.worldObj.getBlockState(blockPos2).getBlock();
             Block idZ1 = this.worldObj.getBlockState(blockPos3).getBlock();
@@ -717,4 +733,6 @@ public class EntityFolk extends EntityCreature implements INpc {
 
     public void onPlayerRespawn(EntityPlayer player) {
     }
+
+
 }

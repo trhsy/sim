@@ -174,10 +174,10 @@ public class JobGrocer extends Job implements Serializable {
                 this.step = 2;
             }
         } else if (this.step == 2) {
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.melon, 640), Blocks.dirt);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Blocks.pumpkin, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.carrot, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.potato, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.farmChests, new ItemStack(Items.melon, 640), Blocks.dirt);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.farmChests, new ItemStack(Blocks.pumpkin, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.farmChests, new ItemStack(Items.carrot, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.farmChests, new ItemStack(Items.potato, 640), (Block)null);
             this.step = 3;
         } else if (this.step == 3) {
             ((IInventory)this.farmChests.get(0)).closeInventory(mc.thePlayer);
@@ -217,12 +217,16 @@ public class JobGrocer extends Job implements Serializable {
 
     }
 
+    /**
+     * 销售食品
+     */
     private void stageSellingFood() {
         this.grocerChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
         int sell;
         int f;
         int c;
         if (this.step == 1) {
+            //卸载新鲜食物
             this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Unloading");
             sell = this.getInventoryCount(this.theFolk, Blocks.pumpkin);
             int melons = this.getInventoryCount(this.theFolk, Items.melon);
@@ -232,7 +236,7 @@ public class JobGrocer extends Job implements Serializable {
             this.pay += (float)((double)melons * 0.05D);
             this.pay += (float)((double)f * 0.05D);
             this.pay += (float)((double)c * 0.05D);
-            this.inventoriesTransferFromFolk(this.theFolk.inventory, this.grocerChests, (ItemStack)null);
+            this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.grocerChests, (ItemStack)null);
             GameStates var10000 = ModSimReloaded.states;
             var10000.credits -= this.pay;
             this.step = 2;

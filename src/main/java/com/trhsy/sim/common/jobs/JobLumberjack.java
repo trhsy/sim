@@ -275,7 +275,7 @@ public class JobLumberjack extends Job implements Serializable {
                 if (log != null) {
                     for(l = 0; l < log.size(); ++l) {
                         ItemStack isl = (ItemStack)log.get(l);
-                        this.theFolk.inventory.add(isl);
+                        this.theFolk.getVillagerInventory().setInventorySlotContents(l,isl);
                     }
                 }
 
@@ -288,10 +288,10 @@ public class JobLumberjack extends Job implements Serializable {
                 if (this.theFolk.isSpawned()) {
                     count = this.getInventoryCount(this.theFolk, Blocks.sapling);
                     if (count > 0) {
-                        for(i = 0; i < this.theFolk.inventory.size(); i++) {
-                            ItemStack fis = (ItemStack)this.theFolk.inventory.get(i);
+                        for(i = 0; i < this.theFolk.getVillagerInventory().getSizeInventory(); i++) {
+                            ItemStack fis = (ItemStack)this.theFolk.getVillagerInventory().getStackInSlot(i);
                             if (fis != null && Block.getBlockFromItem(fis.getItem()) == Blocks.sapling) {
-                                this.theFolk.inventory.remove(i);
+                                this.theFolk.getVillagerInventory().removeStackFromSlot(i);
                                 this.plantSapling(Block.getBlockFromItem(fis.getItem()));
                                 break;
                             }
@@ -342,7 +342,7 @@ public class JobLumberjack extends Job implements Serializable {
                 //获得最近箱子
                 this.millChests = inventoriesFindClosest(this.theFolk.employedAt, 6);
                 //将物品从NPC转移到箱子
-                this.inventoriesTransferFromFolk(this.theFolk.inventory, this.millChests, new ItemStack(Blocks.log));
+                this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.millChests, new ItemStack(Blocks.log));
                 this.pay = (float)dist * 0.03F;
                 GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= this.pay;
@@ -390,7 +390,7 @@ public class JobLumberjack extends Job implements Serializable {
                         try {
                             Item ID = is.getItem();
                             if (ID == Item.getItemFromBlock(Blocks.sapling)) {
-                                this.theFolk.inventory.add(new ItemStack(Blocks.sapling, is.getMetadata(), 1));
+                                this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(Blocks.sapling, is.getMetadata(), 1));
                                 entityitem.setDead();
                             }
                         } catch (Exception var7) {

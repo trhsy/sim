@@ -133,7 +133,7 @@ public class JobBurgersManager extends Job {
                 int buy = count / 4;
                 if (buy > 0) {
                     ModSimReloaded.log.info("JobBurgersManager: 购买 " + count + " 件商品中购买 " + buy + " 件");
-                    this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1, pickUpItem.damageDropped(pickUpItem.getDefaultState())), buy, doCompareMeta);
+                    this.inventoriesTransferLimitedToFolk(this.theFolk.getVillagerInventory(), chests, new ItemStack(pickUpItem, 1, pickUpItem.damageDropped(pickUpItem.getDefaultState())), buy, doCompareMeta);
                 }
             }
 
@@ -174,7 +174,7 @@ public class JobBurgersManager extends Job {
                 int buy = count / 4;
                 if (buy > 0) {
                     ModSimReloaded.log.info("JobBurgersManager: 购买 " + buy + " out of " + count + " 物品");
-                    this.inventoriesTransferLimitedToFolk(this.theFolk.inventory, chests, new ItemStack(pickUpItem, 1), buy, doCompareMeta);
+                    this.inventoriesTransferLimitedToFolk(this.theFolk.getVillagerInventory(), chests, new ItemStack(pickUpItem, 1), buy, doCompareMeta);
                 }
             }
 
@@ -247,7 +247,7 @@ public class JobBurgersManager extends Job {
             this.theFolk.statusText = I18n.format("container.sim.job.dropoff.Unloading");
             back = this.theStore.getSpecialBlocks(0);
             ArrayList<IInventory> backstoreChests = inventoriesFindClosest((V3) back.get(0), 3);
-            boolean ok = this.inventoriesTransferFromFolk(this.theFolk.inventory, backstoreChests, (ItemStack) null);
+            boolean ok = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), backstoreChests, (ItemStack) null);
             if (!ok) {
                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.dropoff.chest"));
             }

@@ -229,7 +229,7 @@ public class JobBaker extends Job implements Serializable {
             }
         } else if (this.step == 2) {
             this.farmChests = inventoriesFindClosest(this.farm.getLocation(), 5);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.farmChests, new ItemStack(Items.wheat, 640), Blocks.air);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.farmChests, new ItemStack(Items.wheat, 640), Blocks.air);
             this.step = 3;
         } else if (this.step == 3) {
             ((IInventory)this.farmChests.get(0)).closeInventory(mc.thePlayer);
@@ -294,7 +294,7 @@ public class JobBaker extends Job implements Serializable {
                 }
 
                 this.inventoriesPut(this.bakeryChests, new ItemStack(Items.bread, bread), true);
-                this.theFolk.inventory.clear();
+                this.theFolk.getVillagerInventory().clear();
                 this.step = 3;
             } else if (this.step == 3) {
                 ((IInventory) this.bakeryChests.get(0)).closeInventory(mc.thePlayer);

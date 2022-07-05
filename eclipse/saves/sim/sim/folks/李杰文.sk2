@@ -1,5 +1,5 @@
-employedat|207,68,253,0
-vocation|BUTCHER
+employedat|168,70,222,0
+vocation|CROPFARMER
 name|李杰文
 age|20
 gender|0
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|207,69,253,0
+location|168,71,222,0
 pregnancy|0.0
 building|null
 terraformtype|null

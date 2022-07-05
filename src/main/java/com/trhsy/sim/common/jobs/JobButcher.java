@@ -170,9 +170,9 @@ public class JobButcher extends Job implements Serializable {
                 this.step = 2;
             }
         } else if (this.step == 2) {
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.chicken, 1, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.porkchop, 1, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.beef, 1, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.chicken, 1, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.porkchop, 1, 640), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.beef, 1, 640), (Block)null);
             this.step = 3;
         } else if (this.step == 3) {
             this.theStage = Stage.GOINGTOMEATFARM;
@@ -202,7 +202,7 @@ public class JobButcher extends Job implements Serializable {
                 int meat3 = this.getInventoryCount(this.theFolk, Items.beef);
                 this.pay = (float)((double)(meat1 + meat2 + meat3) * 0.03D);
                 this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
-                this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chestsAtShop, (ItemStack)null);
+                this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.chestsAtShop, (ItemStack)null);
                 this.theStage = Stage.SELLINGMEAT;
                 this.step = 1;
                 return;

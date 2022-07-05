@@ -150,7 +150,7 @@ public class JobCheesemaker extends Job {
             //特殊方块 5
             ArrayList<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
             ArrayList<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, chests, new ItemStack(Items.milk_bucket, 64), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), chests, new ItemStack(Items.milk_bucket, 64), (Block)null);
         } catch (Exception var3) {
         }
 
@@ -212,9 +212,9 @@ public class JobCheesemaker extends Job {
                 return;
             }
             //库存转移到民间 牛奶场的箱子                                                       牛奶桶
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtDairy, new ItemStack(Items.milk_bucket, 1), (Block)null);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtDairy, new ItemStack(Items.milk_bucket, 1), (Block)null);
             //如果npc 库存为空
-            if (this.theFolk.inventory == null || this.theFolk.inventory.isEmpty()) {
+            if (this.theFolk.getVillagerInventory() == null) {
                 //今天在牛奶场没找到牛奶。
                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.dairy"));
                 //设置为切奶酪
@@ -275,11 +275,11 @@ public class JobCheesemaker extends Job {
     private void stageEmptyingMilk() {
         if (this.step == 1) {
             //如果NPC库存不等于空
-            if (this.theFolk.inventory != null && !this.theFolk.inventory.isEmpty()) {
+            if (this.theFolk.getVillagerInventory() != null) {
                 //库存大于1
-                if (this.theFolk.inventory.size() > 1) {
+                if (this.theFolk.getVillagerInventory().getSizeInventory() > 1) {
                     //倒了 N 桶牛奶
-                    this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptying") + this.theFolk.inventory.size() + I18n.format("container.sim.job.cheese_maker.buckets");
+                    this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptying") + this.theFolk.getVillagerInventory().getSizeInventory() + I18n.format("container.sim.job.cheese_maker.buckets");
                 } else {
                     //倒了所有的牛奶
                     this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptied");
@@ -316,7 +316,7 @@ public class JobCheesemaker extends Job {
                 this.jobWorld.setBlockState(blockPos,BlockLoader.blockFluidMilk.getDefaultState(),3);
 
                 try {
-                    this.theFolk.inventory.remove(0);
+                    this.theFolk.getVillagerInventory().removeStackFromSlot(0);
                 } catch (Exception var8) {
                 }
 
@@ -333,7 +333,7 @@ public class JobCheesemaker extends Job {
                 this.theFolk.isWorking = false;
                 ArrayList<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
                 ArrayList<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
-                this.inventoriesTransferFromFolk(this.theFolk.inventory, chests, (ItemStack)null);
+                this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), chests, (ItemStack)null);
             }
         } else if (this.step == 3) {
             this.theStage = Stage.STIRING;
@@ -523,7 +523,7 @@ public class JobCheesemaker extends Job {
                     id = this.jobWorld.getBlockState(new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue())).getBlock();
                     if (((V3) stirPositions.get(0)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheese) {
                         gotBlock = true;
-                        this.theFolk.inventory.add(new ItemStack(BlockLoader.blockCheese));
+                        this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(BlockLoader.blockCheese));
                         BlockPos blockPos=new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue());
                         this.jobWorld.setBlockState(blockPos,id.getDefaultState(),3);
                         this.theFolk.isWorking = true;
@@ -554,7 +554,7 @@ public class JobCheesemaker extends Job {
                     id = this.jobWorld.getBlockState(new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue())).getBlock();
                     if (((V3) stirPositions.get(1)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheese) {
                         gotBlock = true;
-                        this.theFolk.inventory.add(new ItemStack(BlockLoader.blockCheese));
+                        this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(BlockLoader.blockCheese));
                         BlockPos blockPos=new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue());
                         this.jobWorld.setBlockState(blockPos,id.getDefaultState(),3);
                         break;
@@ -600,7 +600,7 @@ public class JobCheesemaker extends Job {
                         this.theFolk.selfFire();
                     }
 
-                    this.inventoriesTransferFromFolk(this.theFolk.inventory, chests, (ItemStack)null);
+                    this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), chests, (ItemStack)null);
                     this.step = 4;
                 } else if (this.step == 4) {
                     chests = Job.inventoriesFindClosest((V3) slicewaypoint.get(0), 4);

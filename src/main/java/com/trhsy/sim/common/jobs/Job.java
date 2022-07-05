@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -177,16 +178,20 @@ public abstract class Job {
     public int getInventoryCount(FolkData theFolk, Item item) {
         //声明库存为0
         int ret = 0;
-        //循环库存
-        for (int i = 0; i < theFolk.inventory.size(); i++) {
-            //当前方块的数量
-            ItemStack is = (ItemStack) theFolk.inventory.get(i);
-            //如果物品 对上
-            if (is.getItem() == item) {
-                //赋值物品数量
-                ret += is.stackSize;
+        InventoryBasic inventoryBasic=theFolk.getVillagerInventory();
+        if(inventoryBasic!=null){
+            //循环库存
+            for (int i = 0; i < inventoryBasic.getSizeInventory(); i++) {
+                //当前方块的数量
+                ItemStack is = inventoryBasic.getStackInSlot(i);
+                //如果物品 对上
+                if (is.getItem() == item) {
+                    //赋值物品数量
+                    ret += is.stackSize;
+                }
             }
         }
+
 
         return ret;
     }
@@ -202,9 +207,9 @@ public abstract class Job {
         //声明库存为0
         int ret = 0;
         //循环库存
-        for (int i = 0; i < theFolk.inventory.size(); i++) {
+        for (int i = 0; i < theFolk.getVillagerInventory().getSizeInventory(); i++) {
             //当前方块的数量
-            ItemStack is = (ItemStack) theFolk.inventory.get(i);
+            ItemStack is = (ItemStack) theFolk.getVillagerInventory().getStackInSlot(i);
             //如果物品 对上
             if (Block.getBlockFromName(is.getDisplayName()) == item) {
                 //赋值物品数量
@@ -557,13 +562,13 @@ public abstract class Job {
      * @param specificItems 如果有任何/所有项，则为NULL；如果只应放置，则指定itemStack
      * @return 如果成功，如果箱子都满了，则为false
      */
-    public boolean inventoriesTransferFromFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> toChests, ItemStack specificItems) {
+    public boolean inventoriesTransferFromFolk(InventoryBasic folkInventory, ArrayList<IInventory> toChests, ItemStack specificItems) {
         boolean placed = false;
         boolean okToPlace = false;
 
-        for (int i = 0; i < folkInventory.size(); i++) {
+        for (int i = 0; i < folkInventory.getSizeInventory(); i++) {
             try {
-                ItemStack folkStack = (ItemStack) folkInventory.get(i);
+                ItemStack folkStack = (ItemStack) folkInventory.getStackInSlot(i);
                 if (specificItems != null && specificItems.getItem() == folkStack.getItem()) {
                     okToPlace = true;
                 } else if (specificItems == null) {
@@ -598,7 +603,7 @@ public abstract class Job {
      * @param ignoreId      传入 -1 以不忽略任何块或要留在箱子的东西的块 ID
      * @return 成功获得至少一个堆栈为真，如果没有得到则为假
      */
-    public boolean inventoriesTransferToFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
+    public boolean inventoriesTransferToFolk(InventoryBasic folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
         boolean ret = false;
         int limit = 0;
         ItemStack got = null;
@@ -611,7 +616,7 @@ public abstract class Job {
         do {
             got = inventoriesGet(fromChests, whatItems, false, false);
             if (got != null) {
-                folkInventory.add(got);
+                folkInventory.setInventorySlotContents(limit,got);
                 ret = true;
             }
 
@@ -632,7 +637,7 @@ public abstract class Job {
      * @param doCompareMeta
      * @return
      */
-    public int inventoriesTransferLimitedToFolk(ArrayList<ItemStack> folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
+    public int inventoriesTransferLimitedToFolk(InventoryBasic folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
         int gotSoFar = 0;
         for (IInventory chest : fromChests) {
             for (int g = 0; g < chest.getSizeInventory(); g++) {
@@ -652,7 +657,7 @@ public abstract class Job {
                     while (gotSoFar < getQty && chestStack.stackSize > 0) {
                         gotSoFar++;
                         chestStack.stackSize--;
-                        folkInventory.add(new ItemStack(Block.getBlockFromItem(chestStack.getItem()), 1, chestStack.getMetadata()));
+                        folkInventory.setInventorySlotContents(0,new ItemStack(Block.getBlockFromItem(chestStack.getItem()), 1, chestStack.getMetadata()));
                     }
 
                     if (chestStack.stackSize > 0) {

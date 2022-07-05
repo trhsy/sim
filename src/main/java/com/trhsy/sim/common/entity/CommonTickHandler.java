@@ -64,6 +64,7 @@ public class CommonTickHandler {
         } else {
             Long now = System.currentTimeMillis();
             if (this.serverWorld != null) {
+                //触发所有更新
                 FolkData.triggerAllUpdates();
                 ModSimReloaded.dayTransitionHandler();
                 //如果要升级的农场不为空则升级农场

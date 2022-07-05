@@ -21,6 +21,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -136,6 +137,11 @@ public class JobCropFarmer extends Job implements Serializable {
                     //闲置
                     this.theStage = Stage.IDLE;
                     return;
+                }else{
+                    if(this.theStage==null){
+                        this.theStage = Stage.IDLE;
+                    }
+
                 }
             }
             //去上班
@@ -360,7 +366,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     //有收获
                     this.id = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)).getBlock();
                     this.meta = this.id.getMetaFromState(this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy, this.zzz)));
-                    System.out.println("收获id:" + id.getUnlocalizedName() + ",状态meta:" + meta);
+                    //System.out.println("收获id:" + id.getUnlocalizedName() + ",状态meta:" + meta);
                     //未加载区块时人工种植非定制/甘蔗
                     try {
                         //实体人没有死亡          不是定制 不是甘蔗不是仙人掌
@@ -378,8 +384,9 @@ public class JobCropFarmer extends Job implements Serializable {
                     boolean canHarvest = false;
                     //收获的块
                     V3 harvestBlock = new V3((double) this.xxx, (double) this.yyy, (double) this.zzz, this.jobWorld.provider.getDimensionId());
+
                     //开采时翻译块
-                    ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
+                    //ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
                     //甘蔗/仙人掌农场
                     if (this.farmingBlock.farmType == FarmType.SUGAR && this.farmingBlock.farmType == FarmType.CACTUS) {
                         Block sid1 = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy + 1, this.zzz)).getBlock();
@@ -430,8 +437,10 @@ public class JobCropFarmer extends Job implements Serializable {
 
 
                         } else if (this.farmingBlock.farmType != FarmType.CUSTOM) {
+                            /*InventoryBasic inventorybasic = this.theFolk.getVillagerInventory();
+
                             //要收获不为空
-                            if (minedStacks != null) {
+                            if (harvestBlock.blockID != null) {
                                 //找到最近的箱子 搜索半径五格
                                 this.farmingChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
 
@@ -442,7 +451,8 @@ public class JobCropFarmer extends Job implements Serializable {
                                     }
                                 }
                             }
-                            /* */
+                             */
+                            jobWorld.destroyBlock(new BlockPos(this.xxx, this.yyy, this.zzz), true);
                         } else if (this.farmingBlock.farmType == FarmType.CUSTOM) {
                             BlockPos blockPos = new BlockPos(this.xxx, this.yyy, this.zzz);
                             this.jobWorld.setBlockState(blockPos, this.id.getDefaultState(), 3);
@@ -454,7 +464,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
 
                             this.jobWorld.destroyBlock(new BlockPos(this.xxx, this.yyy, this.zzz), true);
-                            this.pickUpDroppedCrops(harvestBlock);
+                            //this.pickUpDroppedCrops(harvestBlock);
                         } else {
                             if (System.currentTimeMillis() - lastCustomHarvest < (60 * 60 * 1000)) {
                                 theStage = Stage.HOELAND;
@@ -463,7 +473,7 @@ public class JobCropFarmer extends Job implements Serializable {
                                 return;
                             } else {
                                 jobWorld.destroyBlock(new BlockPos(this.xxx, this.yyy, this.zzz), true);
-                                this.pickUpDroppedCrops(harvestBlock);
+                                //this.pickUpDroppedCrops(harvestBlock);
                             }
                         }
 
@@ -648,7 +658,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing_farm");
                     this.step = 1;
                     this.theFolk.isWorking = false;
-                    this.inventoriesTransferFromFolk(this.theFolk.inventory, this.farmingChests, (ItemStack) null);
+                    this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.farmingChests, (ItemStack) null);
                     return;
                 }
                 Block gid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy - 1, this.zzz)).getBlock();
@@ -793,7 +803,7 @@ public class JobCropFarmer extends Job implements Serializable {
                                         this.jobWorld.setBlockState(blockPos1, Blocks.farmland.getDefaultState(), 3);
                                         hasSown = seed.getItem().onItemUse(seed, this.mc.thePlayer, this.jobWorld, blockPos1, EnumFacing.UP, 0.0F, 0.0F, 0.0F);
                                         if (!hasSown) {
-                                            this.theFolk.inventory.add(seed);
+                                            this.theFolk.getVillagerInventory().setInventorySlotContents(0,seed);
                                         }
                                         break fuckOff;
                                     }
@@ -817,7 +827,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 step = 1;
                 theFolk.isWorking = false;
 
-                this.inventoriesTransferFromFolk(theFolk.inventory, this.farmingChests, null);
+                this.inventoriesTransferFromFolk(theFolk.getVillagerInventory(), this.farmingChests, null);
                 return;
             }
         }

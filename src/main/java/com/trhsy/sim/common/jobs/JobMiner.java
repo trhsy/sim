@@ -204,7 +204,7 @@ public class JobMiner extends Job implements Serializable {
             Boolean placedOk = this.inventoriesPut(this.miningChests, is, true);
             if (placedOk) {
                 inventoriesGet(this.miningChests, is, false, false);
-                this.theFolk.inventory.clear();
+                this.theFolk.getVillagerInventory().clear();
                 this.isChestsFull = false;
                 this.theStage = Stage.BEAMINGDOWN;
                 this.setNextMineableBlock();
@@ -680,8 +680,8 @@ public class JobMiner extends Job implements Serializable {
                 if (!placedOk) {
                     this.isChestsFull = true;
                     this.theStage = Stage.WAITINGFORCHEST;
-                    this.theFolk.inventory.clear();
-                    this.theFolk.inventory.add(new ItemStack(Block.getBlockById(id), idmeta, 1));
+                    this.theFolk.getVillagerInventory().clear();
+                    this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(Block.getBlockById(id), idmeta, 1));
                 }
 
                 this.setNextMineableBlock();

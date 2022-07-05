@@ -28,7 +28,7 @@ public class CraftingLoader {
      * @return void
      **/
     private static void registerRecipe() {
-        /*控制箱
+        /*建筑箱
          *木板 木板 木板
          *圆石 工作台 圆石
          *圆石 圆石 圆石
@@ -78,7 +78,7 @@ public class CraftingLoader {
          * 复合砖 复合砖 复合砖
          */
         GameRegistry.addRecipe(new ItemStack(ItemLoader.itemWindmillBase), new Object[]{" C ", "CCC", "CCC", 'C', BlockLoader.blockCompositeBrick});
-        /*城市箱
+        /*控制箱
         *木板 木板 木板
         *圆石 建筑箱 圆石
         *圆石 圆石 圆石

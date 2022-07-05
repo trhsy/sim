@@ -182,12 +182,12 @@ public class JobGlassMaker extends Job implements Serializable {
                 BlockPos blockPos1=new BlockPos(this.blockOfSand.x.intValue(), this.blockOfSand.y.intValue(), this.blockOfSand.z.intValue());
                 this.jobWorld.setBlockState(blockPos1,this.blockOfSand.blockID.getDefaultState(),3);
                 this.mc.theWorld.playSound(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z, "step.sand", 1.0F, 1.0F, false);
-                this.theFolk.inventory.add(new ItemStack(Blocks.sand, 1));
+                this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(Blocks.sand, 1));
                 //我得到沙子惹！
-                this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.inventory.size();
+                this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.getVillagerInventory().getSizeInventory();
                 GameStates var10000 = ModSimReloaded.states;
                 var10000.credits = (float)((double)var10000.credits - 0.012D);
-                if (this.theFolk.inventory.size() < 64) {
+                if (this.theFolk.getVillagerInventory().getSizeInventory() < 64) {
                     this.theStage = Stage.SCANFORSAND;
                 } else {
                     this.theStage = Stage.RETURNSAND;
@@ -225,7 +225,7 @@ public class JobGlassMaker extends Job implements Serializable {
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
                 this.openCloseChest((IInventory)this.factoryChests.get(0), 1000);
-                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.factoryChests, (ItemStack)null);
+                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.factoryChests, (ItemStack)null);
                 this.theStage = Stage.USEFURNACE;
                 this.step = 1;
             }

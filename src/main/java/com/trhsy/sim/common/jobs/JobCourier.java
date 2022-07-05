@@ -176,10 +176,10 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
             ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.blockLightBox);
+            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chests, (ItemStack) null, BlockLoader.blockLightBox);
         }
 
-        if (this.theFolk.inventory.size() == 0) {
+        if (this.theFolk.getVillagerInventory().getSizeInventory() == 0) {
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
                 this.currentTask = 0;
@@ -268,18 +268,18 @@ public class JobCourier extends Job implements Serializable {
             this.theFolk.action = FolkAction.ATWORK;
             ModSimReloaded.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
 
-            while(this.theFolk.inventory.size() > 0) {
-                int oldSize = this.theFolk.inventory.size();
+            while(this.theFolk.getVillagerInventory().getSizeInventory() > 0) {
+                int oldSize = this.theFolk.getVillagerInventory().getSizeInventory();
                 GameStates var10000 = ModSimReloaded.states;
                 var10000.credits -= 0.11F;
-                ItemStack invItem = (ItemStack)this.theFolk.inventory.get(0);
-                if (this.theFolk.inventory.size() > 1) {
-                    this.theFolk.statusText = this.theFolk.inventory.size() + I18n.format("container.sim.job.courier.unload");
+                ItemStack invItem = (ItemStack)this.theFolk.getVillagerInventory().getStackInSlot(0);
+                if (this.theFolk.getVillagerInventory().getSizeInventory() > 1) {
+                    this.theFolk.statusText = this.theFolk.getVillagerInventory().getSizeInventory() + I18n.format("container.sim.job.courier.unload");
                 } else {
                     this.theFolk.statusText = I18n.format("container.sim.job.courier.Last");
                 }
 
-                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chests, (ItemStack)null);
+                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.chests, (ItemStack)null);
                 if (!placed) {
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
                     break;
