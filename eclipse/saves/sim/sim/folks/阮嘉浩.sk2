@@ -1,11 +1,11 @@
 employedat|null
 vocation|null
 name|阮嘉浩
-age|22
+age|24
 gender|0
 skin|15
 race|
-trait1|强壮的人可以更快地做体力劳动。无论是采矿、伐木、建筑还是挖沙。
+trait1|夜猫子
 trait2|矮人血脉
 trait3|强壮的
 trait4|喜欢户外活动
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|130,71,237,0
+location|139,72,208,0
 pregnancy|0.0
 building|null
 terraformtype|null

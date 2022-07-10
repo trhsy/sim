@@ -2027,6 +2027,7 @@ public class FolkData implements Serializable {
      * @param vocation
      */
     public void setTheirJob(Vocation vocation) {
+        try {
         if (vocation != null) {
             this.vocation = vocation;
             //建筑师
@@ -2108,6 +2109,9 @@ public class FolkData implements Serializable {
 
             this.theirJob.resetJob();
             this.theirJob.step = 1;
+        }
+        }catch (Exception e){
+           ModSimReloaded.log.error("安排NPC们的工作出错了："+e.getMessage());
         }
     }
     /**

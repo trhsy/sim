@@ -2,6 +2,7 @@ package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.entity.CommonTickHandler;
+import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -77,9 +78,10 @@ public class EventLoader {
     public void onPlayerClickGrassBlock(PlayerRightClickGrassBlockEvent event) {
         System.out.println("来了");
         if (!event.world.isRemote) {
-            BlockPos pos = event.pos;
-            Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
-            event.world.spawnEntityInWorld(tnt);
+//            BlockPos pos = event.pos;
+//            Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
+//            event.world.spawnEntityInWorld(tnt);
+            FolkData.generateNewFolk(event.world);
         }
     }
 

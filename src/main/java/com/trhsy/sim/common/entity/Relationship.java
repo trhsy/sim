@@ -151,8 +151,8 @@ public class Relationship implements Serializable {
                 return null;
             }
 
-            rel = (Relationship)i$.next();
-        } while(rel.theLevel != Level.MOTHERDAUGHTER && rel.theLevel != Level.MOTHERSON);
+            rel = (Relationship) i$.next();
+        } while (rel.theLevel != Level.MOTHERDAUGHTER && rel.theLevel != Level.MOTHERSON);
 
         return rel.folk1.age > rel.folk2.age ? FolkData.getFolkByName(rel.folk1.name) : FolkData.getFolkByName(rel.folk2.name);
     }
@@ -161,8 +161,8 @@ public class Relationship implements Serializable {
         boolean got = false;
         Iterator i$ = ModSimReloaded.theRelationships.iterator();
 
-        while(i$.hasNext()) {
-            Relationship relation = (Relationship)i$.next();
+        while (i$.hasNext()) {
+            Relationship relation = (Relationship) i$.next();
 
             try {
                 if (relation.folk1.name.contentEquals(rel.folk1.name) && relation.folk2.name.contentEquals(rel.folk2.name)) {
@@ -186,8 +186,8 @@ public class Relationship implements Serializable {
         ArrayList<Relationship> mothers = getRelationshipsFor(mother);
         Iterator i$ = mothers.iterator();
 
-        while(i$.hasNext()) {
-            Relationship rel = (Relationship)i$.next();
+        while (i$.hasNext()) {
+            Relationship rel = (Relationship) i$.next();
             FolkData other;
             if (rel.folk1.name.contentEquals(mother.name)) {
                 other = rel.folk2;
@@ -241,8 +241,8 @@ public class Relationship implements Serializable {
         ArrayList<Relationship> fathers = getRelationshipsFor(father);
         Iterator iterator = fathers.iterator();
 
-        while(iterator.hasNext()) {
-            Relationship rel = (Relationship)iterator.next();
+        while (iterator.hasNext()) {
+            Relationship rel = (Relationship) iterator.next();
             FolkData other;
             if (rel.folk1.name.contentEquals(father.name)) {
                 other = rel.folk2;
@@ -303,7 +303,13 @@ public class Relationship implements Serializable {
 
         return this.folk1.name + " " + this.toString() + " " + folk2name;
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 等级提升
+     * @Date 21:56 2022/7/9
+     * @Param [byAmount]
+     * @return void
+     **/
     public void levelIncrease(int byAmount) {
         String oldLevel = this.toFullString();
         ModSimReloaded.log.info("Relationship: + 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
@@ -339,14 +345,14 @@ public class Relationship implements Serializable {
                         try {
                             this.folk1.action = FolkAction.GOINGHOME;
                             this.folk1.actionArrival = FolkAction.ATHOME;
-                            V3 v3=this.folk1.getHome().primaryXYZ;
-                            v3=new V3(v3.x+1.0,v3.y+1.0,v3.z,v3.theDimension);
-                            this.folk1.gotoXYZ(v3, (GotoMethod)null);
+                            V3 v3 = this.folk1.getHome().primaryXYZ;
+                            v3 = new V3(v3.x + 1.0, v3.y + 1.0, v3.z, v3.theDimension);
+                            this.folk1.gotoXYZ(v3, (GotoMethod) null);
                             this.folk2.action = FolkAction.GOINGHOME;
                             this.folk2.actionArrival = FolkAction.ATHOME;
-                            V3 v32=this.folk2.getHome().primaryXYZ;
-                            v32=new V3(v32.x+1.0,v32.y+1.0,v32.z,v32.theDimension);
-                            this.folk2.gotoXYZ(v32, (GotoMethod)null);
+                            V3 v32 = this.folk2.getHome().primaryXYZ;
+                            v32 = new V3(v32.x + 1.0, v32.y + 1.0, v32.z, v32.theDimension);
+                            this.folk2.gotoXYZ(v32, (GotoMethod) null);
                         } catch (Exception var6) {
                         }
                     }
@@ -382,29 +388,40 @@ public class Relationship implements Serializable {
 
     }
 
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 更改女性姓氏
+     * @Date 21:43 2022/7/9
+     * @Param []
+     **/
     private void changeFemaleSurname() {
-        FolkData femaleFolk;
-        FolkData maleFolk;
-        if (this.folk1.gender == 1) {
-            femaleFolk = this.folk1;
-            maleFolk = this.folk2;
-        } else {
-            femaleFolk = this.folk2;
-            maleFolk = this.folk1;
-        }
-
-        for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
-            Building building = (Building) ModSimReloaded.theBuildings.get(b);
-            if (building != null && femaleFolk.getHome() != null && building.primaryXYZ.isSameCoordsAs(femaleFolk.getHome().primaryXYZ, true, false)) {
-                building.removeTennant(femaleFolk.name);
+        try {
+            FolkData femaleFolk;
+            FolkData maleFolk;
+            if (this.folk1.gender == 1) {
+                femaleFolk = this.folk1;
+                maleFolk = this.folk2;
+            } else {
+                femaleFolk = this.folk2;
+                maleFolk = this.folk1;
             }
-        }
 
-        File f = new File(ModSimReloaded.getSavesDataFolder() + "Folks" + File.separator + femaleFolk.name + ".sk2");
-        f.delete();
-        String surname = maleFolk.name.substring(maleFolk.name.indexOf(" ") + 1).trim();
-        int m = femaleFolk.name.indexOf(" ");
-        femaleFolk.name = femaleFolk.name.substring(0, m).trim() + " " + surname;
+            for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
+                Building building = (Building) ModSimReloaded.theBuildings.get(b);
+                if (building != null && femaleFolk.getHome() != null && building.primaryXYZ.isSameCoordsAs(femaleFolk.getHome().primaryXYZ, true, false)) {
+                    building.removeTennant(femaleFolk.name);
+                }
+            }
+
+            File f = new File(ModSimReloaded.getSavesDataFolder() + "Folks" + File.separator + femaleFolk.name + ".sk2");
+            f.delete();
+            String surname = maleFolk.name.substring(maleFolk.name.indexOf(" ") + 1).trim();
+            int m = femaleFolk.name.indexOf(" ");
+            femaleFolk.name = femaleFolk.name.substring(0, m).trim() + " " + surname;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("更改女性姓氏出问题了：" + e.getMessage());
+        }
     }
 
     public void levelDecrease(int byAmount) {
@@ -467,7 +484,7 @@ public class Relationship implements Serializable {
 
         int i$;
         File f;
-        for(i$ = 0; i$ < len$; i$++) {
+        for (i$ = 0; i$ < len$; i$++) {
             f = arr$[i$];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
@@ -480,15 +497,15 @@ public class Relationship implements Serializable {
             arr$ = relFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; i$++) {
+            for (i$ = 0; i$ < len$; i$++) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     Relationship rel = new Relationship();
                     Iterator iterator = strings.iterator();
 
-                    while(iterator.hasNext()) {
-                        String line = (String)iterator.next();
+                    while (iterator.hasNext()) {
+                        String line = (String) iterator.next();
                         if (line.contains("|")) {
                             int m1 = line.indexOf("|");
                             String name = line.substring(0, m1);
@@ -527,7 +544,7 @@ public class Relationship implements Serializable {
             arr$ = relFiles.listFiles();
             len$ = arr$.length;
 
-            for(i$ = 0; i$ < len$; i$++) {
+            for (i$ = 0; i$ < len$; i$++) {
                 f = arr$[i$];
                 if (f.getName().endsWith(".suk")) {
                     Relationship rel = (Relationship) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
@@ -626,8 +643,8 @@ public class Relationship implements Serializable {
         ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
         boolean ret = false;
 
-        for(int i = 0; i < rels.size(); i++) {
-            Relationship rel = (Relationship)rels.get(i);
+        for (int i = 0; i < rels.size(); i++) {
+            Relationship rel = (Relationship) rels.get(i);
             if (rel.theLevel == Level.MARRIED || rel.theLevel == Level.PARTNER) {
                 ret = true;
                 break;
@@ -640,8 +657,8 @@ public class Relationship implements Serializable {
     public static FolkData isFolkLivingWithSomeone(FolkData theFolk, boolean returnFolk) {
         ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
 
-        for(int i = 0; i < rels.size(); i++) {
-            Relationship rel = (Relationship)rels.get(i);
+        for (int i = 0; i < rels.size(); i++) {
+            Relationship rel = (Relationship) rels.get(i);
             if (rel.theLevel == Level.MARRIED || rel.theLevel == Level.PARTNER) {
                 return rel.folk1.name.contentEquals(theFolk.name) ? FolkData.getFolkByName(rel.folk2.name) : FolkData.getFolkByName(rel.folk1.name);
             }
@@ -649,5 +666,5 @@ public class Relationship implements Serializable {
 
         return null;
     }
-    
+
 }
