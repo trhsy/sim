@@ -1018,6 +1018,7 @@ container.sim.traits20=强壮的人可以更快地做体力劳动。无论是采
 container.sim.traits21=工作狂
 container.sim.traits22=工作狂喜欢工作，技能的发展速度是普通人的两倍。失业使这些人不快乐。保持高就业率！
 container.sim.ATTACKING=攻击
+container.sim.ARRIVEDATFARM=到达农场
 container.sim.ONPATROL=正在巡逻
 container.sim.SHEARING=剪羊毛
 container.sim.WAITINGFORWOOL=等待羊毛

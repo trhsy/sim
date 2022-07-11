@@ -1,7 +1,7 @@
-employedat|125,63,296,0
+employedat|125,63,380,0
 vocation|TERRAFORMER
 name|蒙蔓梦
-age|23
+age|24
 gender|1
 skin|0
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|122,63,294,0
+location|125,64,380,0
 pregnancy|0.0
 building|null
 terraformtype|FLATTENIZER

@@ -143,10 +143,9 @@ public class JobCropFarmer extends Job implements Serializable {
                         this.theStage = Stage.IDLE;
                         return;
                     } else {
-                        if (this.theStage == null) {
+                        if(this.theStage ==null){
                             this.theStage = Stage.IDLE;
                         }
-
                     }
                 }
                 //去上班
@@ -182,10 +181,12 @@ public class JobCropFarmer extends Job implements Serializable {
                 //闲置
                 if (this.theStage == Stage.IDLE) {
                     this.theStage = Stage.ARRIVEDATFARM;
+                    return;
                     //如果到达农场
                 } else if (this.theStage == Stage.ARRIVEDATFARM) {
                     //检查箱子
                     this.theStage = Stage.CHECKINGFORCHESTS;
+                    return;
                 } else if (this.theStage == Stage.CHECKINGFORCHESTS) {
                     this.stageCheckingForChests();
                 } else if (this.theStage == Stage.HARVEST) {
@@ -228,6 +229,7 @@ public class JobCropFarmer extends Job implements Serializable {
             if (this.farmingChests.isEmpty()) {
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Please");
             } else {
+                //收获
                 this.theStage = Stage.HARVEST;
                 this.step = 1;
                 this.theFolk.stayPut = true;
@@ -573,7 +575,7 @@ public class JobCropFarmer extends Job implements Serializable {
             if (this.step == 1) {
 
                 this.setupFarming();
-                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Tilling");
+                this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Tilling");//锄地
                 this.theFolk.stayPut = true;
                 this.theFolk.action = FolkAction.ATWORK;
                 this.step = 2;
@@ -649,7 +651,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     }
 
                     if (done) {
-                        this.theStage = Stage.PLANTSEEDS;
+                        this.theStage = Stage.PLANTSEEDS;//种植种子
                         this.step = 1;
                         this.theFolk.isWorking = false;
                         return;
@@ -679,7 +681,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 while (!hasSown && !done) {
                     done = setXYZ();
                     if (done) {
-                        this.theStage = Stage.HANGOUT;
+                        this.theStage = Stage.HANGOUT;//闲逛
                         this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Relaxing_farm");
                         this.step = 1;
                         this.theFolk.isWorking = false;
@@ -703,7 +705,7 @@ public class JobCropFarmer extends Job implements Serializable {
                                 ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat_seeds, 1), false, false);
                                 if (seed == null) {
                                     this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.No_more");
-                                    this.theStage = Stage.HANGOUT;
+                                    this.theStage = Stage.HANGOUT;//闲逛
                                     this.step = 1;
                                     return;
                                 }
@@ -721,7 +723,7 @@ public class JobCropFarmer extends Job implements Serializable {
                                     ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.pumpkin_seeds, 1), false, false);
                                     if (seed == null) {
                                         this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.pumpkin");
-                                        this.theStage = Stage.HANGOUT;
+                                        this.theStage = Stage.HANGOUT;//闲逛
                                         this.step = 1;
                                         return;
                                     }

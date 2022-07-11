@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|阮嘉浩
-age|24
+age|25
 gender|0
 skin|15
 race|
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
-location|139,72,208,0
+stayput|true
+location|140,72,209,0
 pregnancy|0.0
 building|null
 terraformtype|null

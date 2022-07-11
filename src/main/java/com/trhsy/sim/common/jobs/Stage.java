@@ -171,7 +171,7 @@ public enum Stage {
         } else if (this == DROPPINGOFF) {
             ret = I18n.format("container.sim.DROPPINGOFF");
         } else if (this == ARRIVEDATFARM) {
-            ret = I18n.format("container.sim.ATTACKING");
+            ret = I18n.format("container.sim.ARRIVEDATFARM");
         } else if (this == CHECKINGFORCHESTS) {
             ret = I18n.format("container.sim.CHECKINGFORCHESTS");
         } else if (this == HOELAND) {
