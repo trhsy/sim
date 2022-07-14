@@ -61,7 +61,7 @@ public class PacketHandler implements IMessageHandler<SimukraftPacket, IMessage>
             ModSimReloaded.log.info("PacketHandler: " + sside + "-收到了侧包: " + cmd);
             return null;
         } catch (Exception var11) {
-            var11.printStackTrace();
+            //var11.printStackTrace();
             return message;
         }
     }

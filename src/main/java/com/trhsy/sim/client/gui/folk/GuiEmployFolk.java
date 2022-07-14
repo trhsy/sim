@@ -61,7 +61,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.miningBox = b;
             this.maxEmployees = 1;
         } catch (Exception var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
         }
 
     }
@@ -72,7 +72,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.vocation = v;
             this.farmingBox = b;
         } catch (Exception var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
         }
 
     }
@@ -84,7 +84,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.pathBox = thePathBox;
             this.maxEmployees = 1;
         } catch (Exception var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
         }
 
     }
@@ -130,7 +130,7 @@ public class GuiEmployFolk extends GuiScreen {
                 }
             }
         } catch (Exception var9) {
-            var9.printStackTrace();
+            //var9.printStackTrace();
         }
 
     }
@@ -147,7 +147,7 @@ public class GuiEmployFolk extends GuiScreen {
 
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_who_you") + this.vocation.toString(), this.width / 2, 17, 16777215);
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
         }
 
         super.drawScreen(i, j, f);

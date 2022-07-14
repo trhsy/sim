@@ -48,141 +48,166 @@ public class JobShepherd extends Job implements Serializable {
     }
 
     public JobShepherd(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+                }
+
+            }
+        }catch (Exception e){
+
         }
+
     }
 
     @Override
     public void resetJob() {
-        this.theStage = Stage.IDLE;
-        this.theFolk.isWorking = false;
+        try {
+            this.theStage = Stage.IDLE;
+            this.theFolk.isWorking = false;
+        }catch (Exception e){
+
+        }
+
     }
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
-        }
-
-        super.onUpdateGoingToWork(this.theFolk);
-        if (this.theStage == Stage.WAITINGFORWOOL) {
-            this.runDelay = 15000;
-        } else {
-            this.runDelay = 2000;
-        }
-
-        if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-            this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
-                if (this.theStage == Stage.ARRIVEDATFARM) {
-                    this.theStage = Stage.WAITINGFORWOOL;
-                } else if (this.theStage == Stage.WAITINGFORWOOL) {
-                    this.stageWaiting();
-                } else if (this.theStage == Stage.SHEARING) {
-                    this.stageShearing();
-                } else if (this.theStage == Stage.CANTWORK) {
-                    this.stageCantWork();
-                }
+        try {
+            super.onUpdate();
+            if (!ModSimReloaded.isDayTime()) {
+                this.theStage = Stage.IDLE;
             }
 
+            super.onUpdateGoingToWork(this.theFolk);
+            if (this.theStage == Stage.WAITINGFORWOOL) {
+                this.runDelay = 15000;
+            } else {
+                this.runDelay = 2000;
+            }
+
+            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                this.timeSinceLastRun = System.currentTimeMillis();
+                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                    if (this.theStage == Stage.ARRIVEDATFARM) {
+                        this.theStage = Stage.WAITINGFORWOOL;
+                    } else if (this.theStage == Stage.WAITINGFORWOOL) {
+                        this.stageWaiting();
+                    } else if (this.theStage == Stage.SHEARING) {
+                        this.stageShearing();
+                    } else if (this.theStage == Stage.CANTWORK) {
+                        this.stageCantWork();
+                    }
+                }
+
+            }
+        }catch (Exception e){
+
         }
+
     }
 
     private void stageWaiting() {
-        Random rand = new Random();
-        this.theFolk.isWorking = false;
-        this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Sharpening");
-        this.theFolk.stayPut = false;
-        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).expand(3, 2, 3));
-        Double playerdist = this.mc.thePlayer.getDistance(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z);
-        int s;
-        if (playerdist > 60) {
-            try {
-                this.sheepToShear = (EntitySheep)list.get(0);
-                this.sheepToShear.setSheared(false);
-            } catch (Exception var6) {
-                this.placeWoolIntoAChest(1, 1);
+        try {Random rand = new Random();
+            this.theFolk.isWorking = false;
+            this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Sharpening");
+            this.theFolk.stayPut = false;
+            List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).expand(3, 2, 3));
+            Double playerdist = this.mc.thePlayer.getDistance(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z);
+            int s;
+            if (playerdist > 60) {
+                try {
+                    this.sheepToShear = (EntitySheep)list.get(0);
+                    this.sheepToShear.setSheared(false);
+                } catch (Exception var6) {
+                    this.placeWoolIntoAChest(1, 1);
+                }
+            } else if (list.size() > 0) {
+                try {
+                    s = rand.nextInt(list.size() - 1);
+                    this.sheepToShear = (EntitySheep)list.get(s);
+                    this.sheepToShear.setSheared(false);
+                } catch (Exception var5) {
+                }
             }
-        } else if (list.size() > 0) {
-            try {
-                s = rand.nextInt(list.size() - 1);
+
+            for(s = 0; s < list.size(); ++s) {
                 this.sheepToShear = (EntitySheep)list.get(s);
-                this.sheepToShear.setSheared(false);
-            } catch (Exception var5) {
+                if (!this.sheepToShear.getSheared()) {
+                    this.theStage = Stage.SHEARING;
+                    this.step = 1;
+                    break;
+                }
             }
+
+        }catch (Exception e){
+
         }
 
-        for(s = 0; s < list.size(); ++s) {
-            this.sheepToShear = (EntitySheep)list.get(s);
-            if (!this.sheepToShear.getSheared()) {
-                this.theStage = Stage.SHEARING;
-                this.step = 1;
-                break;
-            }
-        }
 
     }
 
     private void stageShearing() {
-        this.theFolk.stayPut = false;
-        if (this.step == 1) {
-            if (this.theFolk.getDistanceToPlayer() < 50) {
-                this.theFolk.gotoXYZ(new V3(this.sheepToShear.posX, this.sheepToShear.posY, this.sheepToShear.posZ, this.theFolk.employedAt.theDimension), GotoMethod.WALK);
-            }
+        try {
+            this.theFolk.stayPut = false;
+            if (this.step == 1) {
+                if (this.theFolk.getDistanceToPlayer() < 50) {
+                    this.theFolk.gotoXYZ(new V3(this.sheepToShear.posX, this.sheepToShear.posY, this.sheepToShear.posZ, this.theFolk.employedAt.theDimension), GotoMethod.WALK);
+                }
 
-            this.step = 2;
-        } else if (this.step == 2) {
-            this.step = 3;
-            if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
-            }
-        } else if (this.step == 3) {
-            this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Shearing") + FolkData.generateName(0, true, "") + I18n.format("container.sim.job.shepherd.farmer.sheep");
-            this.sheepToShear.setSheared(true);
-            if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
-                this.theFolk.isWorking = true;
-                this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1.0F, 1.0F, false);
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        isShearing = true;
+                this.step = 2;
+            } else if (this.step == 2) {
+                this.step = 3;
+                if (this.theFolk.theEntity != null) {
+                    this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
+                }
+            } else if (this.step == 3) {
+                this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Shearing") + FolkData.generateName(0, true, "") + I18n.format("container.sim.job.shepherd.farmer.sheep");
+                this.sheepToShear.setSheared(true);
+                if (this.theFolk.theEntity != null) {
+                    this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
+                    this.theFolk.isWorking = true;
+                    this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1.0F, 1.0F, false);
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            isShearing = true;
 
-                        for(int d = 0; d < 12; ++d) {
-                            spawnExplosionParticle(sheepToShear);
+                            for(int d = 0; d < 12; ++d) {
+                                spawnExplosionParticle(sheepToShear);
 
-                            try {
-                                Thread.sleep(150L);
-                            } catch (Exception var3) {
+                                try {
+                                    Thread.sleep(150L);
+                                } catch (Exception var3) {
+                                }
                             }
-                        }
 
-                        isShearing = false;
-                        theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Watching");
-                    }
-                });
-                t.start();
-                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
-                this.step = 4;
+                            isShearing = false;
+                            theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Watching");
+                        }
+                    });
+                    t.start();
+                    this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
+                    this.step = 4;
+                }
+            } else if (this.step == 4) {
+                Random ra = new Random();
+                int count = ra.nextInt(3) + 1;
+                this.placeWoolIntoAChest(this.sheepToShear.getFleeceColor(), count);
+                this.theStage = Stage.WAITINGFORWOOL;
+                this.theFolk.isWorking = false;
+                this.step = 1;
             }
-        } else if (this.step == 4) {
-            Random ra = new Random();
-            int count = ra.nextInt(3) + 1;
-            this.placeWoolIntoAChest(this.sheepToShear.getFleeceColor(), count);
-            this.theStage = Stage.WAITINGFORWOOL;
-            this.theFolk.isWorking = false;
-            this.step = 1;
+        }catch (Exception e){
+
         }
+
 
     }
 
@@ -204,53 +229,67 @@ public class JobShepherd extends Job implements Serializable {
     }
 
     private void stageCantWork() {
-        this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.chests");
-        this.theFolk.isWorking = false;
+        try {
+            this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.chests");
+            this.theFolk.isWorking = false;
+        }catch (Exception e){
+
+        }
+
     }
 
     private boolean placeWoolIntoAChest(int metaColor, int amount) {
-        GameStates var10000 = ModSimReloaded.states;
-        var10000.credits -= 0.02F * (float)amount;
-        this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
-        this.inventoriesPut(this.farmChests, new ItemStack(Blocks.wool, amount, metaColor), true);
-        return true;
+        try {
+            GameStates var10000 = ModSimReloaded.states;
+            var10000.credits -= 0.02F * (float)amount;
+            this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
+            this.inventoriesPut(this.farmChests, new ItemStack(Blocks.wool, amount, metaColor), true);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     public void spawnSheepIfNeeded(V3 controlBox) {
-        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z + 1.0).expand(3.0, 2.0, 3.0));
-        Random ra = new Random();
-        EntitySheep sheep;
-        if (list.size() > 0 && list.size() < 6) {
-            for(int fuck = 0; fuck < 6 - list.size(); ++fuck) {
+        try {
+
+            List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z + 1.0).expand(3.0, 2.0, 3.0));
+            Random ra = new Random();
+            EntitySheep sheep;
+            if (list.size() > 0 && list.size() < 6) {
+                for(int fuck = 0; fuck < 6 - list.size(); ++fuck) {
+                    sheep = new EntitySheep(this.jobWorld);
+                    sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
+                    sheep.setFleeceColor(ra.nextInt(12) + 1);
+                    this.jobWorld.spawnEntityInWorld(sheep);
+                }
+            } else if (list.size() == 0) {
                 sheep = new EntitySheep(this.jobWorld);
-                sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
+                sheep.setLocationAndAngles(controlBox.x - 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
                 sheep.setFleeceColor(ra.nextInt(12) + 1);
                 this.jobWorld.spawnEntityInWorld(sheep);
+                sheep = new EntitySheep(this.jobWorld);
+                sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
+                sheep.setFleeceColor(ra.nextInt(12) + 1);
+                this.jobWorld.spawnEntityInWorld(sheep);
+                sheep = new EntitySheep(this.jobWorld);
+                sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
+                sheep.setFleeceColor(ra.nextInt(12) + 1);
+                this.jobWorld.spawnEntityInWorld(sheep);
+                sheep = new EntitySheep(this.jobWorld);
+                sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
+                sheep.setFleeceColor(ra.nextInt(12) + 1);
+                this.jobWorld.spawnEntityInWorld(sheep);
+                sheep = new EntitySheep(this.jobWorld);
+                sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z + 1.0, 0.0F, 0.0F);
+                sheep.setFleeceColor(ra.nextInt(12) + 1);
+                this.jobWorld.spawnEntityInWorld(sheep);
+                sheep = new EntitySheep(this.jobWorld);
+                sheep.setLocationAndAngles(controlBox.x + 2.0, controlBox.y + 1.0, controlBox.z + 2.0, 0.0F, 0.0F);
+                this.jobWorld.spawnEntityInWorld(sheep);
             }
-        } else if (list.size() == 0) {
-            sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x - 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
-            this.jobWorld.spawnEntityInWorld(sheep);
-            sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
-            this.jobWorld.spawnEntityInWorld(sheep);
-            sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
-            this.jobWorld.spawnEntityInWorld(sheep);
-            sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
-            this.jobWorld.spawnEntityInWorld(sheep);
-            sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z + 1.0, 0.0F, 0.0F);
-            sheep.setFleeceColor(ra.nextInt(12) + 1);
-            this.jobWorld.spawnEntityInWorld(sheep);
-            sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 2.0, controlBox.y + 1.0, controlBox.z + 2.0, 0.0F, 0.0F);
-            this.jobWorld.spawnEntityInWorld(sheep);
+        }catch (Exception e){
+
         }
 
     }
@@ -258,16 +297,21 @@ public class JobShepherd extends Job implements Serializable {
     @Override
     public void onArrivedAtWork() {
         //int dist = false;
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Arrived");
-            this.theStage = Stage.ARRIVEDATFARM;
-            this.spawnSheepIfNeeded(this.theFolk.employedAt);
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Arrived");
+                this.theStage = Stage.ARRIVEDATFARM;
+                this.spawnSheepIfNeeded(this.theFolk.employedAt);
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+            }
+        }catch (Exception e){
+
         }
+
 
     }
 

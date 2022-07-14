@@ -185,9 +185,9 @@ public final class StatementManager {
         try {
             return (IStatementParameter)param.newInstance();
         } catch (InstantiationException var2) {
-            var2.printStackTrace();
+            //var2.printStackTrace();
         } catch (IllegalAccessException var3) {
-            var3.printStackTrace();
+            //var3.printStackTrace();
         } catch (Error var4) {
             BCLog.logErrorAPI(var4, IStatementParameter.class);
             throw var4;

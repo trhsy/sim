@@ -49,254 +49,294 @@ public class JobCourier extends Job implements Serializable {
     }
 
     public JobCourier(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                }
+
+            }
+        }catch (Exception e){
+
         }
+
     }
 
     @Override
     public void resetJob() {
-        this.theStage = Stage.IDLE;
+        try {
+            this.theStage = Stage.IDLE;
+        }catch (Exception e){
+
+        }
+
     }
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
-        }
-
-        super.onUpdateGoingToWork(this.theFolk);
-        if (this.theStage == Stage.ATDEPOT) {
-            this.runDelay = 15000;
-        } else {
-            this.runDelay = 3000;
-        }
-
-        if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-            this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage == Stage.IDLE && ModSimReloaded.isDayTime()) {
-                this.onUpdateGoingToWork(this.theFolk);
-            } else if (this.theStage == Stage.ATDEPOT) {
-                this.stageAtDepot();
-            } else if (this.theStage == Stage.GOINGTOPICKUP) {
-                this.stageGoingToPickup();
-            } else if (this.theStage == Stage.PICKINGUP) {
-                this.stagePickingUp();
-            } else if (this.theStage == Stage.GOINGTODROPOFF) {
-                this.stageGoingToDropoff();
-            } else if (this.theStage == Stage.DROPPINGOFF) {
-                this.stageDroppingOff();
+        try {
+            super.onUpdate();
+            if (!ModSimReloaded.isDayTime()) {
+                this.theStage = Stage.IDLE;
             }
 
+            super.onUpdateGoingToWork(this.theFolk);
+            if (this.theStage == Stage.ATDEPOT) {
+                this.runDelay = 15000;
+            } else {
+                this.runDelay = 3000;
+            }
+
+            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                this.timeSinceLastRun = System.currentTimeMillis();
+                if (this.theStage == Stage.IDLE && ModSimReloaded.isDayTime()) {
+                    this.onUpdateGoingToWork(this.theFolk);
+                } else if (this.theStage == Stage.ATDEPOT) {
+                    this.stageAtDepot();
+                } else if (this.theStage == Stage.GOINGTOPICKUP) {
+                    this.stageGoingToPickup();
+                } else if (this.theStage == Stage.PICKINGUP) {
+                    this.stagePickingUp();
+                } else if (this.theStage == Stage.GOINGTODROPOFF) {
+                    this.stageGoingToDropoff();
+                } else if (this.theStage == Stage.DROPPINGOFF) {
+                    this.stageDroppingOff();
+                }
+
+            }
+        }catch (Exception e){
+
         }
+
     }
 
     private void stageAtDepot() {
-        if (System.currentTimeMillis() - this.timeSinceLastCycle >= 180000L) {
-            this.currentTask = 0;
-            this.courierTasks.clear();
+        try {
+            if (System.currentTimeMillis() - this.timeSinceLastCycle >= 180000L) {
+                this.currentTask = 0;
+                this.courierTasks.clear();
 
-            for (int t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
-                CourierTask task = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
-                if (task != null && task.pickup != null && task.folkname.contentEquals(this.theFolk.name)) {
-                    try {
-                        this.courierTasks.add(task);
-                    } catch (Exception var4) {
-                        var4.printStackTrace();
+                for (int t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
+                    CourierTask task = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
+                    if (task != null && task.pickup != null && task.folkname.contentEquals(this.theFolk.name)) {
+                        try {
+                            this.courierTasks.add(task);
+                        } catch (Exception var4) {
+                            //var4.printStackTrace();
+                        }
                     }
                 }
-            }
 
-            if (this.courierTasks.size() == 0) {
-                this.theFolk.statusText = I18n.format("container.sim.job.courier.deliveries");
-            } else {
-                this.theStage = Stage.GOINGTOPICKUP;
-                this.onRoute = false;
+                if (this.courierTasks.size() == 0) {
+                    this.theFolk.statusText = I18n.format("container.sim.job.courier.deliveries");
+                } else {
+                    this.theStage = Stage.GOINGTOPICKUP;
+                    this.onRoute = false;
+                }
             }
+        }catch (Exception e){
+
         }
+
     }
 
     private void stageGoingToPickup() {
-        if (!this.onRoute) {
-            CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
-            this.pickup = task.pickup;
-            if (this.pickup != null) {
-                this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.pickup.name + I18n.format("container.sim.job.courier.pick_up");
-                V3 d = this.pickup.clone();
-                //Double var4 = d.y;
-                //Double var5 = d.y = d.y + 1;
-                d=new V3(d.x,d.y+1,d.z,d.theDimension);
-                this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
-                this.onRoute = true;
+        try {
+            if (!this.onRoute) {
+                CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
+                this.pickup = task.pickup;
+                if (this.pickup != null) {
+                    this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.pickup.name + I18n.format("container.sim.job.courier.pick_up");
+                    V3 d = this.pickup.clone();
+                    //Double var4 = d.y;
+                    //Double var5 = d.y = d.y + 1;
+                    d=new V3(d.x,d.y+1,d.z,d.theDimension);
+                    this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
+                    this.onRoute = true;
+                } else {
+                    this.theStage = Stage.IDLE;
+                }
             } else {
-                this.theStage = Stage.IDLE;
-            }
-        } else {
-            if (this.theFolk.gotoMethod == GotoMethod.WALK) {
-                this.theFolk.updateLocationFromEntity();
+                if (this.theFolk.gotoMethod == GotoMethod.WALK) {
+                    this.theFolk.updateLocationFromEntity();
+                }
+
+                double dist = (double)this.theFolk.location.getDistanceTo(this.pickup);
+                if (dist < 3) {
+                    this.theStage = Stage.PICKINGUP;
+                    this.onRoute = false;
+                } else if (this.theFolk.destination == null) {
+                    this.onRoute = false;
+                }
             }
 
-            double dist = (double)this.theFolk.location.getDistanceTo(this.pickup);
-            if (dist < 3) {
-                this.theStage = Stage.PICKINGUP;
-                this.onRoute = false;
-            } else if (this.theFolk.destination == null) {
-                this.onRoute = false;
-            }
+        }catch (Exception e){
+
         }
 
     }
 
     private void stagePickingUp() {
-        CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
-        V3 pickup = task.pickup;
-        this.chests.clear();
-        this.chests = inventoriesFindClosest(pickup, 4);
-        if (this.chests.size() == 0) {
-            ModSimReloaded.log.warning("JobCourier: StagePickingup() 拾取时没有宝箱：" + pickup.name + "，移除任务。");
-            ++this.currentTask;
-            if (this.currentTask >= this.courierTasks.size()) {
-                this.currentTask = 0;
-                this.theStage = Stage.IDLE;
+        try {
+            CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
+            V3 pickup = task.pickup;
+            this.chests.clear();
+            this.chests = inventoriesFindClosest(pickup, 4);
+            if (this.chests.size() == 0) {
+                ModSimReloaded.log.warning("JobCourier: StagePickingup() 拾取时没有宝箱：" + pickup.name + "，移除任务。");
+                ++this.currentTask;
+                if (this.currentTask >= this.courierTasks.size()) {
+                    this.currentTask = 0;
+                    this.theStage = Stage.IDLE;
+                } else {
+                    this.onRoute = false;
+                    this.theStage = Stage.GOINGTOPICKUP;
+                }
             } else {
-                this.onRoute = false;
-                this.theStage = Stage.GOINGTOPICKUP;
+                this.theFolk.stayPut = true;
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
+                ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
+                this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.lightBox);
             }
-        } else {
-            this.theFolk.stayPut = true;
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
-            ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chests, (ItemStack) null, BlockLoader.lightBox);
+
+            if (this.theFolk.inventory.size() == 0) {
+                ++this.currentTask;
+                if (this.currentTask >= this.courierTasks.size()) {
+                    this.currentTask = 0;
+                    this.theStage = Stage.IDLE;
+                    this.timeSinceLastCycle = System.currentTimeMillis();
+                } else {
+                    this.theStage = Stage.GOINGTOPICKUP;
+                }
+            } else {
+                this.theStage = Stage.GOINGTODROPOFF;
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.Going");
+                this.onRoute = false;
+            }
+        }catch (Exception e){
+
         }
 
-        if (this.theFolk.inventory.size() == 0) {
-            ++this.currentTask;
-            if (this.currentTask >= this.courierTasks.size()) {
-                this.currentTask = 0;
-                this.theStage = Stage.IDLE;
-                this.timeSinceLastCycle = System.currentTimeMillis();
-            } else {
-                this.theStage = Stage.GOINGTOPICKUP;
-            }
-        } else {
-            this.theStage = Stage.GOINGTODROPOFF;
-            this.theFolk.statusText = I18n.format("container.sim.job.courier.Going");
-            this.onRoute = false;
-        }
 
     }
 
     private void stageGoingToDropoff() {
-        CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
-        if (task != null && task.dropoff != null) {
-            this.dropoff = task.dropoff.clone();
-        } else {
-            this.theStage = Stage.ATDEPOT;
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
-            if (task != null) {
-                this.courierTasks.remove(task);
+        try {
+            CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
+            if (task != null && task.dropoff != null) {
+                this.dropoff = task.dropoff.clone();
+            } else {
+                this.theStage = Stage.ATDEPOT;
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                if (task != null) {
+                    this.courierTasks.remove(task);
+                }
             }
+
+            if (this.dropoff == null) {
+                this.dropoff = this.theFolk.employedAt;
+                this.dropoff.name = I18n.format("container.sim.job.courier.The_depot");
+            }
+
+            if (!this.onRoute) {
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.dropoff.name + I18n.format("container.sim.job.courier.drop_off");
+                V3 d = this.dropoff.clone();
+                d=new V3(d.x,d.y+1,d.z,d.theDimension);
+                if (d == null) {
+                    d = this.theFolk.employedAt.clone();
+                }
+
+                Double var4 = d.y;
+                Double var5 = d.y = d.y + 1;
+                this.theFolk.beamMeTo(d);
+                this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
+                this.onRoute = true;
+            } else {
+                if (this.theFolk.gotoMethod == GotoMethod.WALK) {
+                    this.theFolk.updateLocationFromEntity();
+                }
+
+                double dist = (double)this.theFolk.location.getDistanceTo(this.dropoff);
+                if (dist < 4) {
+                    this.theStage = Stage.DROPPINGOFF;
+                    this.onRoute = false;
+                } else if (this.theFolk.destination == null) {
+                    this.onRoute = false;
+                }
+            }
+        }catch (Exception e){
+
         }
 
-        if (this.dropoff == null) {
-            this.dropoff = this.theFolk.employedAt;
-            this.dropoff.name = I18n.format("container.sim.job.courier.The_depot");
-        }
-
-        if (!this.onRoute) {
-            this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.dropoff.name + I18n.format("container.sim.job.courier.drop_off");
-            V3 d = this.dropoff.clone();
-            d=new V3(d.x,d.y+1,d.z,d.theDimension);
-            if (d == null) {
-                d = this.theFolk.employedAt.clone();
-            }
-
-            Double var4 = d.y;
-            Double var5 = d.y = d.y + 1;
-            this.theFolk.beamMeTo(d);
-            this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
-            this.onRoute = true;
-        } else {
-            if (this.theFolk.gotoMethod == GotoMethod.WALK) {
-                this.theFolk.updateLocationFromEntity();
-            }
-
-            double dist = (double)this.theFolk.location.getDistanceTo(this.dropoff);
-            if (dist < 4) {
-                this.theStage = Stage.DROPPINGOFF;
-                this.onRoute = false;
-            } else if (this.theFolk.destination == null) {
-                this.onRoute = false;
-            }
-        }
 
     }
 
     private void stageDroppingOff() {
-        CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
-        V3 dropoff = task.dropoff;
-        dropoff=new V3(dropoff.x,dropoff.y+1,dropoff.z,dropoff.theDimension);
-        if (dropoff == null) {
-            dropoff = this.theFolk.employedAt;
-            dropoff.name = I18n.format("container.sim.job.courier.The_depot");
-        }
+        try {
+            CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
+            V3 dropoff = task.dropoff;
+            dropoff=new V3(dropoff.x,dropoff.y+1,dropoff.z,dropoff.theDimension);
+            if (dropoff == null) {
+                dropoff = this.theFolk.employedAt;
+                dropoff.name = I18n.format("container.sim.job.courier.The_depot");
+            }
 
-        this.chests.clear();
-        this.chests = inventoriesFindClosest(dropoff, 5);
-        if (this.chests.size() == 0) {
-            ModSimReloaded.log.warning("JobCourierL dropoff() 下车时没有找到箱子");
+            this.chests.clear();
+            this.chests = inventoriesFindClosest(dropoff, 5);
+            if (this.chests.size() == 0) {
+                ModSimReloaded.log.warning("JobCourierL dropoff() 下车时没有找到箱子");
+                ++this.currentTask;
+                if (this.currentTask >= this.courierTasks.size()) {
+                    this.currentTask = 0;
+                    this.theStage = Stage.IDLE;
+                } else {
+                    this.theStage = Stage.GOINGTOPICKUP;
+                }
+            } else {
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.Dropping");
+                this.theFolk.action = FolkAction.ATWORK;
+                ModSimReloaded.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
+
+                while(this.theFolk.inventory.size() > 0) {
+                    int oldSize = this.theFolk.inventory.size();
+                    GameStates var10000 = ModSimReloaded.states;
+                    var10000.credits -= 0.11F;
+                    ItemStack invItem = (ItemStack)this.theFolk.inventory.get(0);
+                    if (this.theFolk.inventory.size() > 1) {
+                        this.theFolk.statusText = this.theFolk.inventory.size() + I18n.format("container.sim.job.courier.unload");
+                    } else {
+                        this.theFolk.statusText = I18n.format("container.sim.job.courier.Last");
+                    }
+
+                    boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chests, (ItemStack)null);
+                    if (!placed) {
+                        ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
+                        break;
+                    }
+                }
+            }
+
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.task_list");
                 this.currentTask = 0;
+                this.timeSinceLastCycle = System.currentTimeMillis();
+                this.theFolk.stayPut = false;
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
                 this.theStage = Stage.IDLE;
             } else {
                 this.theStage = Stage.GOINGTOPICKUP;
             }
-        } else {
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.format("container.sim.job.courier.Dropping");
-            this.theFolk.action = FolkAction.ATWORK;
-            ModSimReloaded.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
 
-            while(this.theFolk.inventory.size() > 0) {
-                int oldSize = this.theFolk.inventory.size();
-                GameStates var10000 = ModSimReloaded.states;
-                var10000.credits -= 0.11F;
-                ItemStack invItem = (ItemStack)this.theFolk.inventory.get(0);
-                if (this.theFolk.inventory.size() > 1) {
-                    this.theFolk.statusText = this.theFolk.inventory.size() + I18n.format("container.sim.job.courier.unload");
-                } else {
-                    this.theFolk.statusText = I18n.format("container.sim.job.courier.Last");
-                }
+        }catch (Exception e){
 
-                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chests, (ItemStack)null);
-                if (!placed) {
-                    ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
-                    break;
-                }
-            }
-        }
-
-        ++this.currentTask;
-        if (this.currentTask >= this.courierTasks.size()) {
-            this.theFolk.statusText = I18n.format("container.sim.job.courier.task_list");
-            this.currentTask = 0;
-            this.timeSinceLastCycle = System.currentTimeMillis();
-            this.theFolk.stayPut = false;
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
-            this.theStage = Stage.IDLE;
-        } else {
-            this.theStage = Stage.GOINGTOPICKUP;
         }
 
     }
@@ -304,15 +344,20 @@ public class JobCourier extends Job implements Serializable {
     @Override
     public void onArrivedAtWork() {
         //int dist = false;
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.format("container.sim.job.courier.Arrived");
-            this.theStage = Stage.ATDEPOT;
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.format("container.sim.job.courier.Arrived");
+                this.theStage = Stage.ATDEPOT;
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            }
+        }catch (Exception e){
+
         }
+
 
     }
 

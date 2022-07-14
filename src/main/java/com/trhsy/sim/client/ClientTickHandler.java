@@ -127,7 +127,7 @@ public class ClientTickHandler {
                     this.hud.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy5"), this.hud.width / 2, 2, 16777215);
                 }
             } catch (Exception var3) {
-                var3.printStackTrace();
+                //var3.printStackTrace();
             }
         }
 

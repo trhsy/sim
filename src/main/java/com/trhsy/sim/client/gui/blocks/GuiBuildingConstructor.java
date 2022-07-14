@@ -346,7 +346,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                             }
                         }
                     } catch (Exception var18) {
-                        var18.printStackTrace();
+                        //var18.printStackTrace();
                     }
                 } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
                     if (this.currentPage == 8) {

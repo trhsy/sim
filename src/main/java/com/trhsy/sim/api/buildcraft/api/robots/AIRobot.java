@@ -92,7 +92,7 @@ public class AIRobot {
                 this.parentAI.delegateAIAborted(this);
             }
         } catch (Throwable var2) {
-            var2.printStackTrace();
+            //var2.printStackTrace();
             this.delegateAI = null;
             if (this.parentAI != null) {
                 this.parentAI.delegateAI = null;
@@ -111,7 +111,7 @@ public class AIRobot {
                 this.update();
             }
         } catch (Throwable var2) {
-            var2.printStackTrace();
+            //var2.printStackTrace();
             this.abort();
         }
 
@@ -173,7 +173,7 @@ public class AIRobot {
                     }
                 }
             } catch (Throwable var4) {
-                var4.printStackTrace();
+                //var4.printStackTrace();
             }
         }
 
@@ -195,7 +195,7 @@ public class AIRobot {
                 ai.loadFromNBT(nbt);
             }
         } catch (Throwable var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
         }
 
         return ai;

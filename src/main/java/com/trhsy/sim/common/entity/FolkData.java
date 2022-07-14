@@ -950,7 +950,7 @@ public class FolkData implements Serializable {
                 }
             }
         } catch (Exception var10) {
-            var10.printStackTrace();
+            //var10.printStackTrace();
         }
 
         return !found ? new V3(0.0, 5.0, 0.0, 0) : ret;
@@ -1238,7 +1238,7 @@ public class FolkData implements Serializable {
                 return;
             }
         } catch (Exception var8) {
-            var8.printStackTrace();
+            //var8.printStackTrace();
             this.destination = null;
             this.beamingTo = null;
             return;
@@ -1357,7 +1357,7 @@ public class FolkData implements Serializable {
                                     folkd.terraformerRadius = Integer.parseInt(value);
                                 }
                             } catch (Exception var18) {
-                                var18.printStackTrace();
+                                //var18.printStackTrace();
                             }
                         }
                     }
@@ -1659,7 +1659,7 @@ public class FolkData implements Serializable {
                             ModSimReloaded.theRelationships.remove(q);
                         }
                     } catch (Exception var11) {
-                        var11.printStackTrace();
+                        //var11.printStackTrace();
                     }
                 }
 

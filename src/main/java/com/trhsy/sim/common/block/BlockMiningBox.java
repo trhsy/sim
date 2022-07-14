@@ -112,7 +112,7 @@ public class BlockMiningBox extends Block {
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);
         } catch (Exception var14) {
-            var14.printStackTrace();
+            //var14.printStackTrace();
             if (world.isRemote) {
                 String Mining_box_Sorry = I18n.format("container.sim.Mining_box_Sorry");
                 ModSimReloaded.sendChat(Mining_box_Sorry);

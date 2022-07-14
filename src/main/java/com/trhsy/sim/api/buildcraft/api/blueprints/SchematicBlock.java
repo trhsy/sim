@@ -140,7 +140,7 @@ public class SchematicBlock extends SchematicBlockBase {
                 } catch (MappingNotFoundException var7) {
                     this.defaultPermission = BuildingPermission.CREATIVE_ONLY;
                 } catch (Throwable var8) {
-                    var8.printStackTrace();
+                    //var8.printStackTrace();
                     this.defaultPermission = BuildingPermission.CREATIVE_ONLY;
                 }
             }

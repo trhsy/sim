@@ -94,7 +94,7 @@ public class GuiPathBox extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception var6) {
-            var6.printStackTrace();
+            //var6.printStackTrace();
         }
 
     }

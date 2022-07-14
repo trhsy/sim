@@ -310,7 +310,7 @@ public class MappingRegistry {
                     return mapping.getTarget();
                 }
             } catch (Exception var10) {
-                var10.printStackTrace();
+                //var10.printStackTrace();
             }
         }
 
@@ -388,7 +388,7 @@ public class MappingRegistry {
             try {
                 e = Class.forName(name);
             } catch (ClassNotFoundException var10) {
-                var10.printStackTrace();
+                //var10.printStackTrace();
             }
 
             if (e != null) {

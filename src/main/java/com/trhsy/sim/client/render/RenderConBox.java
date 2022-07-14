@@ -108,7 +108,7 @@ public class RenderConBox extends Render{
                                 }
                             }
                         } catch (Exception var20) {
-                            var20.printStackTrace();
+                            //var20.printStackTrace();
                             this.displayBox = false;
                         }
                     }

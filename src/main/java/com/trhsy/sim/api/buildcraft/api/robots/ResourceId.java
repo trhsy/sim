@@ -41,7 +41,7 @@ public abstract class ResourceId {
             id.readFromNBT(nbt);
             return id;
         } catch (Throwable var3) {
-            var3.printStackTrace();
+            //var3.printStackTrace();
             return null;
         }
     }

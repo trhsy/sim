@@ -139,7 +139,7 @@ public class GuiCourierTasks extends GuiScreen {
 
                         ++idx;
                     } catch (Exception var9) {
-                        var9.printStackTrace();
+                        //var9.printStackTrace();
                     }
                 }
             }

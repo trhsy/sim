@@ -562,7 +562,7 @@ public class ModSimReloaded {
 
                 br.close();
             } catch (Exception var4) {
-                var4.printStackTrace();
+                //var4.printStackTrace();
             }
 
             return ret;
@@ -580,7 +580,7 @@ public class ModSimReloaded {
 
                 bw.close();
             } catch (Exception var5) {
-                var5.printStackTrace();
+                //var5.printStackTrace();
             }
 
         }

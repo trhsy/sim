@@ -1,6 +1,7 @@
 package com.trhsy.sim.util;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +24,10 @@ public class UpdateChecker {
 
     public UpdateChecker(FMLPreInitializationEvent event) {
         logger = event.getModLog();
-        onUpdate();
+        File checks = new File(getSimukraftFolder()+ File.separator+"/buildings");
+        if(!checks.exists()){
+            onUpdate();
+        }
     }
 
     public void onUpdate() {
@@ -95,7 +99,7 @@ public class UpdateChecker {
             new File(simFile).deleteOnExit();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
 
@@ -195,7 +199,7 @@ public class UpdateChecker {
             in.close();
         } catch (Exception var9) {
             //ret = "";
-            var9.printStackTrace();
+            //var9.printStackTrace();
         }
 
         return localFile;

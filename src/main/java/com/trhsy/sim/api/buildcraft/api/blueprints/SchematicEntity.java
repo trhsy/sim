@@ -132,7 +132,7 @@ public class SchematicEntity extends Schematic {
                     this.defaultPermission = BuildingPermission.CREATIVE_ONLY;
                 }
             } catch (Throwable var7) {
-                var7.printStackTrace();
+                //var7.printStackTrace();
                 this.defaultPermission = BuildingPermission.CREATIVE_ONLY;
             }
         }

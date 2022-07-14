@@ -82,7 +82,7 @@ public class GuiShowEmployees extends GuiScreen {
                 this.buttonList.add(new GuiButton(1001, this.width - 50, 0, 50, 20, ">"));
             }
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
         }
 
     }

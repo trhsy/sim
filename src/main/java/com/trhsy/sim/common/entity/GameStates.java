@@ -66,7 +66,7 @@ public class GameStates implements Serializable {
                         this.userId = Long.parseLong(value);
                     }
                 } catch (Exception var8) {
-                    var8.printStackTrace();
+                    //var8.printStackTrace();
                 }
             }
         }

@@ -661,6 +661,9 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="1.8" project-jdk-type="JavaSDK" assert-keyword="true" assert-jdk-15="true">
     <output url="file://$PROJECT_DIR$/out"/>
   </component>
+  <component name="ProjectType">
+    <option name="id" value="jpab"/>
+  </component>
   <component name="SuppressionsComponent">
     <option name="suppComments" value="[]"/>
   </component>

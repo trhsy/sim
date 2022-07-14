@@ -89,7 +89,7 @@ public class BlockFarmingBox extends Block {
                 m.marker2XYZ = ((Marker)BlockMarker.markers.get(first + 1)).toV3();
                 m.marker3XYZ = ((Marker)BlockMarker.markers.get(first + 2)).toV3();
             } catch (Exception var7) {
-                var7.printStackTrace();
+                //var7.printStackTrace();
             }
 
             super.onBlockAdded(par1World, par2, par3, par4);

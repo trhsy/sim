@@ -76,7 +76,7 @@ public class FarmingBox implements Serializable {
 
             return ret;
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
             return new V3(0, 0, 0, 0);
         }
     }
@@ -245,7 +245,7 @@ public class FarmingBox implements Serializable {
                 ret.add(c.clone());
             }
         } catch (Exception var11) {
-            var11.printStackTrace();
+            //var11.printStackTrace();
         }
 
         return ret;
@@ -365,7 +365,7 @@ public class FarmingBox implements Serializable {
                                     f.delete();
                                 }
                             } catch (Exception var14) {
-                                var14.printStackTrace();
+                                //var14.printStackTrace();
                             }
                         }
                     } else {

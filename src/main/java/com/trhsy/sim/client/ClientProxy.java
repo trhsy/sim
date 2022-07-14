@@ -19,8 +19,10 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.Display;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -65,7 +67,7 @@ public class ClientProxy  extends CommonProxy {
                 oos.flush();
                 oos.close();
             } catch (Exception var5) {
-                var5.printStackTrace();
+                //var5.printStackTrace();
             }
 
         }
@@ -91,6 +93,8 @@ public class ClientProxy  extends CommonProxy {
 
     @Override
     public void init(FMLInitializationEvent event) {
+        String title= I18n.format("container.sim.title");
+        Display.setTitle(Display.getTitle() +title);
         super.init(event);
     }
 

@@ -28,32 +28,37 @@ public class Commodity {
     }
 
     public static void refreshAvailableCommoditities() {
-        if (availableItems.size() == 0) {
-            setupAvailableItems();
-        }
+        try {
+            if (availableItems.size() == 0) {
+                setupAvailableItems();
+            }
 
-        Random rand = new Random();
-        ModSimReloaded.theCommodities.clear();
-        int count = rand.nextInt(3) + 2;
+            Random rand = new Random();
+            ModSimReloaded.theCommodities.clear();
+            int count = rand.nextInt(3) + 2;
 
-        for(int it = 0; it < count; ++it) {
-            int index = rand.nextInt(availableItems.size() - 1);
-            int qty = rand.nextInt(10) + 1;
-            float price = 300.0F + (float) rand.nextInt(300) + rand.nextFloat() * 100.0F;
-            boolean gotIt = false;
+            for(int it = 0; it < count; ++it) {
+                int index = rand.nextInt(availableItems.size() - 1);
+                int qty = rand.nextInt(10) + 1;
+                float price = 300.0F + (float) rand.nextInt(300) + rand.nextFloat() * 100.0F;
+                boolean gotIt = false;
 
-            for (int shit = 0; shit < ModSimReloaded.theCommodities.size(); ++shit) {
-                Commodity cshit = (Commodity) ModSimReloaded.theCommodities.get(shit);
-                if (cshit.theItemStack.getDisplayName().contentEquals(((ItemStack) availableItems.get(index)).getDisplayName())) {
-                    gotIt = true;
-                    break;
+                for (int shit = 0; shit < ModSimReloaded.theCommodities.size(); ++shit) {
+                    Commodity cshit = (Commodity) ModSimReloaded.theCommodities.get(shit);
+                    if (cshit.theItemStack.getDisplayName().contentEquals(((ItemStack) availableItems.get(index)).getDisplayName())) {
+                        gotIt = true;
+                        break;
+                    }
+                }
+
+                if (!gotIt) {
+                    ModSimReloaded.theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
                 }
             }
+        }catch (Exception e){
 
-            if (!gotIt) {
-                ModSimReloaded.theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
-            }
         }
+
 
     }
 
