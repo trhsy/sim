@@ -48,7 +48,7 @@ public class GuiFarming extends GuiScreen {
                 this.theFarmingBox.level = 1;
             }
         } catch (Exception var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
             return;
         }
 
@@ -65,7 +65,7 @@ public class GuiFarming extends GuiScreen {
             //农场
             this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, this.theFarmingBox.farmType.toString() + I18n.format("container.sim.gui_Farm")));
         } catch (Exception var2) {
-            var2.printStackTrace();
+            //var2.printStackTrace();
         }
 
         try {
@@ -88,7 +88,7 @@ public class GuiFarming extends GuiScreen {
                     b.enabled = false;
             }
         } catch (Exception var3) {
-            var3.printStackTrace();
+            //var3.printStackTrace();
         }
 
         super.initGui();
@@ -139,7 +139,7 @@ public class GuiFarming extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception var6) {
-            var6.printStackTrace();
+            //var6.printStackTrace();
         }
 
     }

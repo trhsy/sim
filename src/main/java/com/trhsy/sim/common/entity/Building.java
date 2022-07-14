@@ -991,7 +991,7 @@ public class Building implements Serializable {
                         building.tenants.remove(tennant);
                     }
                 } catch (Exception var7) {
-                    var7.printStackTrace();
+                    //var7.printStackTrace();
                 }
             }
         }

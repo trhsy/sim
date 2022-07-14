@@ -50,12 +50,11 @@ public class ConfigLoader {
     public static String[] configFemaleNames;
     /**配置姓氏**/
     public static String[] configSurnames;
-    public static ConfigCategory Modules;
+    //public static ConfigCategory Modules;
     public static Configuration configFile;
     public static ConfigCategory Gameplay;
     public static ConfigCategory Nameplay;
     public static Logger logger;
-    public static SimConfig pulseConfig = new SimConfig("sim", "Modules");
     private ConfigLoader() {
     }
     public static void load(FMLPreInitializationEvent event) {
@@ -80,8 +79,7 @@ public class ConfigLoader {
      **/
     public static boolean syncConfig() {
 
-        Modules = pulseConfig.getCategory();
-        String simConfig="simGamePlay";
+        String simConfig="sim_game_play";
         Gameplay =configFile.getCategory(simConfig);
         List<String> propOrder = Lists.newArrayList();
 
@@ -151,7 +149,7 @@ public class ConfigLoader {
 
         Gameplay.setPropertyOrder(propOrder);
 
-        String npcNames="npcNames";
+        String npcNames="npc_names";
         propOrder = Lists.newArrayList();
         Nameplay =configFile.getCategory(npcNames);
 
@@ -186,10 +184,7 @@ public class ConfigLoader {
             configFile.save();
             changed = true;
         }
-//        if (pulseConfig.getConfig().hasChanged()) {
-//            pulseConfig.flush();
-//            changed = true;
-//        }
+
         return changed;
     }
 }

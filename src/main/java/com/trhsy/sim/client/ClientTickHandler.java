@@ -112,7 +112,7 @@ public class ClientTickHandler extends GuiScreen  {
                     this.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy5"), this.width / 2, 2, 16777215);
                 }
             } catch (Exception var3) {
-                var3.printStackTrace();
+                //var3.printStackTrace();
             }
         }
 

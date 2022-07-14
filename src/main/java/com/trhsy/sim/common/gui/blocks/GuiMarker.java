@@ -156,7 +156,7 @@ public class GuiMarker extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -350,7 +350,7 @@ public class GuiMarker extends GuiScreen {
                     GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, ModSim.MODID + ":computer", 1.0F, 1.0F);
                     Building.initialiseAllBuildings();
                 } catch (Exception var33) {
-                    var33.printStackTrace();
+                    //var33.printStackTrace();
                 }
 
             } else {

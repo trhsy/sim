@@ -68,7 +68,11 @@ public class JobDairyFarmer extends Job {
 
         super.onUpdate();
         if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
+            if (!theFolk.isNightOwl()) {
+                //闲置
+                this.theStage = Stage.IDLE;
+                return;
+            }
         }
 
         super.onUpdateGoingToWork(this.theFolk);

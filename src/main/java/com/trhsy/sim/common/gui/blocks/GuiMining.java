@@ -153,7 +153,7 @@ public class GuiMining extends GuiScreen {
                         others = I18n.format("container.sim.Mining13") + (this.theWorkers.size() - 1) + I18n.format("container.sim.Mining14");
                     }
                 } catch (Exception var6) {
-                    var6.printStackTrace();
+                    //var6.printStackTrace();
                 }
             }
 
@@ -164,13 +164,13 @@ public class GuiMining extends GuiScreen {
                         this.tfSize.drawTextBox();
                     }
                 } catch (Exception var5) {
-                    var5.printStackTrace();
+                    //var5.printStackTrace();
                 }
             }
 
             super.drawScreen(i, j, f);
         } catch (Exception var8) {
-            var8.printStackTrace();
+            //var8.printStackTrace();
         }
 
     }
@@ -263,7 +263,7 @@ public class GuiMining extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 }

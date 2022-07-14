@@ -464,16 +464,20 @@ public class FolkData implements Serializable {
      * 更新循环，从CommonTickHandler的inGameTick间接频繁调用
      */
     public void onUpdate() {
+        //和朋友一起
         String hanging = I18n.format("container.sim.folk_data_Hanging");
+        //参观
         String visiting = I18n.format("container.sim.folk_data_Visiting");
+        //待在家里
         String staying = I18n.format("container.sim.folk_data_Staying_home");
+        //在家放松
         String relaxing = I18n.format("container.sim.folk_data_Relaxing_home");
+        //在商店购物
         String shopping = I18n.format("container.sim.folk_data_Shopping");
         Random rand = new Random();
         Long now = System.currentTimeMillis();
         //FolkData male;
         if (now - this.timeSinceLastMinute > 60000L) {
-
             if (!this.statusText.contains(hanging) && !this.statusText.startsWith(shopping) && !this.statusText.contains(visiting) && !this.statusText.contains(staying) && !this.statusText.contains(relaxing) && this.levelFun > 1 && this.isWorking == false) {
                 levelFun -= 1;
             }
@@ -485,7 +489,7 @@ public class FolkData implements Serializable {
                 this.getHomeForHomeless();
             }
 
-            if (!statusText.contains("Hanging") && this.levelSocial > 1) {
+            if (!statusText.contains(hanging) && this.levelSocial > 1) {
                 levelSocial -= 1;
             }
             //如果怀孕并在第9天分娩！
@@ -523,9 +527,9 @@ public class FolkData implements Serializable {
                         liveAt = this.getHome().livingXYZ.clone();
                     }
 
-                    if (liveAt == null) {
-                        liveAt = this.getHome().primaryXYZ.clone();
-                    }
+                    //if (liveAt == null) {
+                    //    liveAt = this.getHome().primaryXYZ.clone();
+                    //}
 
                     if (this.location.getDistanceTo(liveAt) > 5 && this.destination == null || this.location.theDimension != this.getHome().primaryXYZ.theDimension) {
                         this.actionArrival = this.action;
@@ -559,7 +563,7 @@ public class FolkData implements Serializable {
                             ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 徘徊在 " + b.displayName + " " + dist + " 个街区之外。");
                             this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
                             this.destination.doNotTimeout = true;
-                            this.statusText = I18n.format("container.sim.folk_data_Shopping") + b.displayName;
+                            this.statusText = shopping + b.displayName;
                             gotWanderPoint = true;
                             if (this.hangingWith != null) {
                                 this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
@@ -683,12 +687,15 @@ public class FolkData implements Serializable {
                 }
             }
             //如果白天他们有工作就去工作
-            if (ModSimReloaded.isDayTime() && this.employedAt != null && (this.action != FolkAction.ONWAYTOWORK && this.action != FolkAction.ATWORK && this.pregnancyStage == 0.0F)) {
-                ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了");
-                this.statusText = I18n.format("container.sim.folk_data_Going_work");
-                this.action = FolkAction.ONWAYTOWORK;
-                this.gotoXYZ(this.employedAt, (GotoMethod) null);
-                return;
+            if (ModSimReloaded.isDayTime()) {
+                if(this.employedAt != null && (this.action != FolkAction.ONWAYTOWORK && this.action != FolkAction.ATWORK && this.pregnancyStage == 0.0F)){
+                    ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了");
+                    this.statusText = I18n.format("container.sim.folk_data_Going_work");
+                    this.action = FolkAction.ONWAYTOWORK;
+                    this.gotoXYZ(this.employedAt, (GotoMethod) null);
+                    return;
+                }
+
             }
 
             if (this.pregnancyStage > 0.0F && this.employedAt != null && ModSimReloaded.isDayTime()) {
@@ -696,16 +703,18 @@ public class FolkData implements Serializable {
                 this.statusText = I18n.format("container.sim.folk_data_Maternity_leave");
             }
 
-            if (ModSimReloaded.isDayTime() && this.employedAt != null && this.action != FolkAction.ATWORK && this.destination == null && this.pregnancyStage == 0.0F) {
-                this.statusText = I18n.format("container.sim.folk_data_Going_work");
-                this.action = FolkAction.ONWAYTOWORK;
-                ModSimReloaded.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
-                this.updateLocationFromEntity();
-                V3 temp = this.employedAt.clone();
-                temp.x += 5.0;
-                this.gotoXYZ(temp, GotoMethod.SHIFT);
-                this.gotoXYZ(this.employedAt, (GotoMethod) null);
-                return;
+            if (ModSimReloaded.isDayTime()) {
+                if(this.employedAt != null && this.action != FolkAction.ATWORK && this.destination == null && this.pregnancyStage == 0.0F){
+                    this.statusText = I18n.format("container.sim.folk_data_Going_work");
+                    this.action = FolkAction.ONWAYTOWORK;
+                    ModSimReloaded.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
+                    this.updateLocationFromEntity();
+                    V3 temp = this.employedAt.clone();
+                    temp.x += 5.0;
+                    this.gotoXYZ(temp, GotoMethod.SHIFT);
+                    this.gotoXYZ(this.employedAt, (GotoMethod) null);
+                    return;
+                }
             }
 
             if (this.action == FolkAction.ONWAYTOWORK) {
@@ -763,51 +772,54 @@ public class FolkData implements Serializable {
             }
 
             if (!ModSimReloaded.isDayTime() && !isSoldier) {
-                this.action = FolkAction.WANDER;
-                this.isWorking = false;
-                if (this.getHome() == null) {
-                    //【徘徊
-                    this.statusText = I18n.format("container.sim.folk_data.Wandering");
-                    this.stayPut = false;
-                } else {
-                    if (this.gotoMethod == GotoMethod.WALK) {
-                        this.updateLocationFromEntity();
-                    }
-
-                    V3 liveAt = null;
-
-                    try {
-
-                        liveAt = this.getHome().livingXYZ.clone();
-                        if (liveAt == null) {
-                            liveAt = this.getHome().primaryXYZ.clone();
+                if(!isNightOwl()){
+                    this.action = FolkAction.WANDER;
+                    this.isWorking = false;
+                    if (this.getHome() == null) {
+                        //【徘徊
+                        this.statusText = I18n.format("container.sim.folk_data.Wandering");
+                        this.stayPut = false;
+                    } else {
+                        if (this.gotoMethod == GotoMethod.WALK) {
+                            this.updateLocationFromEntity();
                         }
 
-                    } catch (Exception var13) {
-                        ModSimReloaded.log.error(this.name + "寻找住房出错了" + var13.getMessage());
-                    }
+                        V3 liveAt = null;
 
-                    if (liveAt != null) {
-                        int chance = this.location.getDistanceTo(liveAt);
-                        if (chance > 1 && this.destination == null) {
-                            this.stayPut = false;
-                            //liveAt = new V3(liveAt.x + 1.0, liveAt.y + 1.0, liveAt.z, liveAt.theDimension);
-                            this.gotoXYZ(liveAt, (GotoMethod) null);
-                            this.action = FolkAction.GOINGHOME;
-                            //回家
-                            this.statusText = I18n.format("container.sim.folk_data_Going_home");
-                            this.isWorking = false;
+                        try {
+
+                            liveAt = this.getHome().livingXYZ.clone();
+                            if (liveAt == null) {
+                                liveAt = this.getHome().primaryXYZ.clone();
+                            }
+
+                        } catch (Exception var13) {
+                            ModSimReloaded.log.error(this.name + "寻找住房出错了" + var13.getMessage());
                         }
 
-                        if (chance <= 1 && !this.statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
-                            this.stayPut = true;
-                            this.action = FolkAction.ATHOME;
-                            //在家放松
-                            this.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
-                            this.isWorking = false;
+                        if (liveAt != null) {
+                            int chance = this.location.getDistanceTo(liveAt);
+                            if (chance > 1 && this.destination == null) {
+                                this.stayPut = false;
+                                //liveAt = new V3(liveAt.x + 1.0, liveAt.y + 1.0, liveAt.z, liveAt.theDimension);
+                                this.gotoXYZ(liveAt, (GotoMethod) null);
+                                this.action = FolkAction.GOINGHOME;
+                                //回家
+                                this.statusText = I18n.format("container.sim.folk_data_Going_home");
+                                this.isWorking = false;
+                            }
+
+                            if (chance <= 1 && !this.statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
+                                this.stayPut = true;
+                                this.action = FolkAction.ATHOME;
+                                //在家放松
+                                this.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
+                                this.isWorking = false;
+                            }
                         }
                     }
                 }
+
             } else {
                 this.stayPut = false;
             }
@@ -1496,7 +1508,7 @@ public class FolkData implements Serializable {
                 return;
             }
         } catch (Exception var8) {
-            var8.printStackTrace();
+            //var8.printStackTrace();
             this.destination = null;
             this.beamingTo = null;
             return;
@@ -1807,7 +1819,7 @@ public class FolkData implements Serializable {
 
     /**
      * getFolkByEmployedAt的复数形式（返回找到的第一个）
-     *
+     * 受雇佣的地方
      * @param v
      * @return
      */
@@ -2152,6 +2164,11 @@ public class FolkData implements Serializable {
         }
     }
 
+    /**
+     * 特质具有相反的性质
+     * @param trait
+     * @return
+     */
     public boolean traitHasOpposite(String trait) {
         if (Trait.getTraitFromName(trait).traitOpposite != null) {
             if (trait.contains(Trait.getTraitFromName(trait).traitOpposite.traitName)) {
@@ -2161,6 +2178,11 @@ public class FolkData implements Serializable {
         return false;
     }
 
+    /**
+     * 有特点
+     * @param trait
+     * @return
+     */
     public boolean hasTrait(Trait trait) {
         if (this.trait1.contentEquals(trait.traitName) || this.trait2.contentEquals(trait.traitName) || this.trait3.contentEquals(trait.traitName) || this.trait4.contentEquals(trait.traitName)) {
             return true;
@@ -2169,6 +2191,10 @@ public class FolkData implements Serializable {
         }
     }
 
+    /**
+     * 获取村民清单
+     * @return
+     */
     public InventoryBasic getVillagerInventory() {
         return this.villagerInventory;
     }

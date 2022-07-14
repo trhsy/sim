@@ -2,10 +2,6 @@ package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.entity.*;
-import com.trhsy.sim.client.entity.model.ModelAlignBeam;
-import com.trhsy.sim.client.entity.model.ModelConBox;
-import com.trhsy.sim.client.entity.model.ModelFolkFemale;
-import com.trhsy.sim.client.entity.model.ModelWindmill;
 import com.trhsy.sim.common.entity.EntityAlignBeam;
 import com.trhsy.sim.common.entity.EntityConBox;
 import com.trhsy.sim.common.entity.EntityFolk;
@@ -30,7 +26,7 @@ public class EntityLoader {
     private static int nextID = 0;
 
     public EntityLoader() {
-        System.out.println("开始加载实体");
+        //System.out.println("开始加载实体");
         registerEntity(EntityFolk.class, "EntityFolk", 80, 3, true);
         registerEntityEgg(EntityFolk.class, 0xffff66, 0x660000);
     }

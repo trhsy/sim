@@ -293,6 +293,10 @@ public class Relationship implements Serializable {
 
     }
 
+    /**
+     * 到完整字符串
+     * @return
+     */
     public String toFullString() {
         String folk2name = "";
         if (this.folk2 == null) {
@@ -315,21 +319,27 @@ public class Relationship implements Serializable {
         ModSimReloaded.log.info("Relationship: + 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
         this.theSubLevel += byAmount;
         if (this.theSubLevel > 100) {
+            //熟人
             if (this.theLevel == Level.AQUAINTANCE) {
+                //朋友
                 this.theLevel = Level.FRIEND;
                 this.theSubLevel = 0;
+                //最好的朋友
             } else if (this.theLevel == Level.BESTFRIENDS) {
                 if (this.folk2 == null) {
                     this.theSubLevel = 100;
+                    //性别不同并且 两个人住所不为空 没有和人住一起 没有血缘关系
                 } else if (this.folk1.gender != this.folk2.gender && this.folk1.getHome() != null && this.folk2.getHome() != null && !isFolkLivingWithSomeone(this.folk1) && !isFolkLivingWithSomeone(this.folk2) && this.folk1.age >= 18 && this.folk2.age >= 18 && !this.isBloodRelation) {
                     this.theSubLevel = 50;
                     if (this.rand.nextBoolean()) {
+                        //已婚
                         this.theLevel = Level.MARRIED;
                         this.changeFemaleSurname();
                     } else {
+                        //伙伴
                         this.theLevel = Level.PARTNER;
                     }
-
+                    //两个人住一起
                     Building oldhome = this.folk1.getHome();
                     Building newhome = this.folk2.getHome();
                     if (oldhome != null) {
@@ -339,7 +349,7 @@ public class Relationship implements Serializable {
                     if (newhome != null) {
                         newhome.tenants.add(this.folk1.name);
                     }
-
+                    //保存
                     Building.saveAllBuildings();
                     if (this.folk1.employedAt == null && this.folk2.employedAt == null) {
                         try {
@@ -479,13 +489,10 @@ public class Relationship implements Serializable {
         File relFiles = new File(ModSimReloaded.getSavesDataFolder() + "Relationships" + File.separator);
         relFiles.mkdirs();
         boolean useNewFormat = false;
-        File[] arr$ = relFiles.listFiles();
-        int len$ = arr$.length;
-
-        int i$;
-        File f;
-        for (i$ = 0; i$ < len$; i$++) {
-            f = arr$[i$];
+        File[] files = relFiles.listFiles();
+        File f=null;
+        for (int i = 0; i < files.length; i++) {
+            f = files[i];
             if (f.getName().endsWith(".sk2")) {
                 useNewFormat = true;
                 break;
@@ -494,18 +501,13 @@ public class Relationship implements Serializable {
 
         if (useNewFormat) {
             ModSimReloaded.theRelationships.clear();
-            arr$ = relFiles.listFiles();
-            len$ = arr$.length;
-
-            for (i$ = 0; i$ < len$; i$++) {
-                f = arr$[i$];
+            for (int i = 0; i < files.length; i++) {
+                f = files[i];
                 if (f.getName().endsWith(".sk2")) {
                     ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     Relationship rel = new Relationship();
                     Iterator iterator = strings.iterator();
-
-                    while (iterator.hasNext()) {
-                        String line = (String) iterator.next();
+                    for (String line:strings){
                         if (line.contains("|")) {
                             int m1 = line.indexOf("|");
                             String name = line.substring(0, m1);
@@ -541,11 +543,8 @@ public class Relationship implements Serializable {
                 }
             }
         } else {
-            arr$ = relFiles.listFiles();
-            len$ = arr$.length;
-
-            for (i$ = 0; i$ < len$; i$++) {
-                f = arr$[i$];
+            for (int i = 0; i < files.length; i++) {
+                f = files[i];
                 if (f.getName().endsWith(".suk")) {
                     Relationship rel = (Relationship) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
                     if (rel != null) {
@@ -557,6 +556,9 @@ public class Relationship implements Serializable {
 
     }
 
+    /**
+     * 保存关系
+     */
     public static void saveRelationships() {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side == Side.SERVER) {
@@ -571,6 +573,7 @@ public class Relationship implements Serializable {
                     strings.add("folk2|" + rel.folk2.name);
                     strings.add("level|" + rel.theLevel.name());
                     strings.add("sublevel|" + rel.theSubLevel);
+                    //血缘关系
                     strings.add("bloodrelation|" + rel.isBloodRelation);
                     ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2", strings);
                 } catch (Exception var5) {
@@ -580,6 +583,12 @@ public class Relationship implements Serializable {
 
     }
 
+    /**
+     *
+     * 干涉关系
+     * @param folk1
+     * @param folk2
+     */
     public static void meddleWithRelationship(FolkData folk1, FolkData folk2) {
         if (folk1.name.contentEquals(folk2.name)) {
             ModSimReloaded.log.warn("关系: 干涉关系() 两个人都是同一个人");
@@ -600,6 +609,12 @@ public class Relationship implements Serializable {
         }
     }
 
+    /**
+     * 获取之间的关系
+     * @param folk1
+     * @param folk2
+     * @return
+     */
     public static Relationship getRelationshipBetween(FolkData folk1, FolkData folk2) {
         for (int b = 0; b < ModSimReloaded.theRelationships.size(); ++b) {
             Relationship rel = (Relationship) ModSimReloaded.theRelationships.get(b);
@@ -623,6 +638,11 @@ public class Relationship implements Serializable {
         return null;
     }
 
+    /**
+     * 获取关系
+     * @param theFolk
+     * @return
+     */
     public static ArrayList<Relationship> getRelationshipsFor(FolkData theFolk) {
         ArrayList<Relationship> rels = new ArrayList();
 
@@ -639,6 +659,11 @@ public class Relationship implements Serializable {
         return rels;
     }
 
+    /**
+     * 是和某人一起生活吗
+     * @param theFolk
+     * @return
+     */
     public static boolean isFolkLivingWithSomeone(FolkData theFolk) {
         ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
         boolean ret = false;
@@ -654,6 +679,12 @@ public class Relationship implements Serializable {
         return ret;
     }
 
+    /**
+     * 和某人在一起
+     * @param theFolk
+     * @param returnFolk
+     * @return
+     */
     public static FolkData isFolkLivingWithSomeone(FolkData theFolk, boolean returnFolk) {
         ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
 

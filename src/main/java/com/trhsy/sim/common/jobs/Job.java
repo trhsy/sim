@@ -158,14 +158,16 @@ public abstract class Job {
                     }
                 } else {
                     if (theFolk.isNightOwl()) {
-                        //活动设置为去工作路上
-                        theFolk.action = FolkAction.ONWAYTOWORK;
-                        //设置原地不动为否
-                        theFolk.stayPut = false;
-                        //如果目的地为空
-                        if (theFolk.destination == null) {
-                            //设置目的地
-                            theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
+                        if (theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
+                            //活动设置为去工作路上
+                            theFolk.action = FolkAction.ONWAYTOWORK;
+                            //设置原地不动为否
+                            theFolk.stayPut = false;
+                            //如果目的地为空
+                            if (theFolk.destination == null) {
+                                //设置目的地
+                                theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
+                            }
                         }
                     }
                 }
@@ -625,7 +627,7 @@ public abstract class Job {
                         }
                     }
                 } catch (Exception var8) {
-                    var8.printStackTrace();
+                    //var8.printStackTrace();
                 }
             }
 
@@ -1108,7 +1110,7 @@ public abstract class Job {
                                 }
                             }
                         } catch (Exception var13) {
-                            var13.printStackTrace();
+                            //var13.printStackTrace();
                         }
                     }
                 }

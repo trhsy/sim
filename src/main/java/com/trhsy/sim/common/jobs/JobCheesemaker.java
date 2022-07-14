@@ -86,7 +86,11 @@ public class JobCheesemaker extends Job {
         } else {
             //是晚上，状态设置为闲置
             if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
+                }
             }
             //去工作
             super.onUpdateGoingToWork(this.theFolk);
@@ -134,7 +138,11 @@ public class JobCheesemaker extends Job {
                 //是夜晚
                 if (!ModSimReloaded.isDayTime()) {
                     //状态 闲置
-                    this.theStage = Stage.IDLE;
+                    if (!theFolk.isNightOwl()) {
+                        //闲置
+                        this.theStage = Stage.IDLE;
+                        return;
+                    }
                 }
                 // 时间间隔邓毅当前系统时间
                 this.timeSinceLastRun = System.currentTimeMillis();

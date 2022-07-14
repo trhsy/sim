@@ -88,7 +88,7 @@ public class Race implements Serializable {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
     	}
 	}*/
 

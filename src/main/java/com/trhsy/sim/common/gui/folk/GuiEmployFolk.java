@@ -34,16 +34,31 @@ import java.util.ArrayList;
  **/
 public class GuiEmployFolk extends GuiScreen {
     FolkData theFolk;
+    //**控制箱的位置**/
     V3 controlBoxLocation;
+    /**建筑方向**/
     String buildDirection = "";
+    /**采矿箱**/
     MiningBox miningBox;
+    /**农田箱**/
     FarmingBox farmingBox;
+    /**路径箱**/
     PathBox pathBox;
+    /**职业**/
     Vocation vocation;
+    /**鼠标计数**/
     private int mouseCount = 0;
+    /**选定的NPC*/
     private ArrayList<GuiButton> selectedFolks = new ArrayList();
+    /**最大员工数*/
     private int maxEmployees = 1;
 
+    /**
+     * 初始化
+     * @param controlBoxLocation
+     * @param dir
+     * @param vocation
+     */
     public GuiEmployFolk(V3 controlBoxLocation, String dir, Vocation vocation) {
         this.controlBoxLocation = controlBoxLocation;
         this.buildDirection = dir;
@@ -61,7 +76,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.miningBox = b;
             this.maxEmployees = 1;
         } catch (Exception var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
         }
 
     }
@@ -72,7 +87,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.vocation = v;
             this.farmingBox = b;
         } catch (Exception var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
         }
 
     }
@@ -84,7 +99,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.pathBox = thePathBox;
             this.maxEmployees = 1;
         } catch (Exception var4) {
-            var4.printStackTrace();
+            //var4.printStackTrace();
         }
 
     }
@@ -92,7 +107,9 @@ public class GuiEmployFolk extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.clear();
+        //取消
         this.buttonList.add(new GuiButton(0, this.width / 2 - 200, this.height - 30, I18n.format("container.sim.sim_gui_player_to_Cancel")));
+        //好
         this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 30, I18n.format("container.sim.gui_btn_name_OK")));
         ArrayList folks = FolkData.getFolkUnemployed(false);
 
@@ -130,7 +147,7 @@ public class GuiEmployFolk extends GuiScreen {
                 }
             }
         } catch (Exception var9) {
-            var9.printStackTrace();
+            //var9.printStackTrace();
         }
 
     }
@@ -147,7 +164,7 @@ public class GuiEmployFolk extends GuiScreen {
 
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_who_you") + this.vocation.toString(), this.width / 2, 17, 16777215);
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
         }
 
         super.drawScreen(i, j, f);
@@ -212,18 +229,23 @@ public class GuiEmployFolk extends GuiScreen {
 
         this.mc.currentScreen = null;
         GuiBuildingConstructor ui;
+        //建筑者
         if (this.vocation == Vocation.BUILDER) {
             ui = new GuiBuildingConstructor(this.controlBoxLocation, this.buildDirection, efolks);
             this.mc.displayGuiScreen(ui);
+            //地形师
         } else if (this.vocation == Vocation.TERRAFORMER) {
             ui = new GuiBuildingConstructor(this.controlBoxLocation, this.buildDirection, efolks);
             this.mc.displayGuiScreen(ui);
+            //矿工
         } else if (this.vocation == Vocation.MINER) {
             GuiMining uiGuiMining = new GuiMining(this.miningBox, efolks);
             this.mc.displayGuiScreen(uiGuiMining);
+            //农作物种植者
         } else if (this.vocation == Vocation.CROPFARMER) {
             GuiFarming uiFarming = new GuiFarming(this.farmingBox, (FolkData)efolks.get(0));
             this.mc.displayGuiScreen(uiFarming);
+            //路径生成器
         } else if (this.vocation == Vocation.PATHBUILDER) {
             GuiPathBox uiGuiPathBox = new GuiPathBox(this.pathBox, efolks);
             this.mc.displayGuiScreen(uiGuiPathBox);

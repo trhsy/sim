@@ -94,7 +94,7 @@ public class GuiPathBox extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception var6) {
-            var6.printStackTrace();
+            //var6.printStackTrace();
         }
 
     }
@@ -145,7 +145,7 @@ public class GuiPathBox extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 }

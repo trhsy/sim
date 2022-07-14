@@ -74,7 +74,7 @@ public class Configuration implements IConfiguration {
                 }
             } catch (Exception var5) {
                 this.logger.warn("Invalid config file. Discarding.");
-                var5.printStackTrace();
+                //var5.printStackTrace();
                 this.modules = new HashMap();
             }
 

@@ -65,7 +65,11 @@ public class JobBurgersManager extends Job {
 
         if (this.theStore != null) {
             if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
+                }
             }
 
             super.onUpdateGoingToWork(this.theFolk);
@@ -100,7 +104,11 @@ public class JobBurgersManager extends Job {
                 }
 
                 if (!ModSimReloaded.isDayTime()) {
-                    this.theStage = Stage.IDLE;
+                    if (!theFolk.isNightOwl()) {
+                        //闲置
+                        this.theStage = Stage.IDLE;
+                        return;
+                    }
                 }
 
                 this.timeSinceLastRun = System.currentTimeMillis();

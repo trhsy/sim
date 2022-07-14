@@ -14,7 +14,9 @@ public class EntityAlignBeam extends Entity {
     public EntityAlignBeam(World par1World) {
         super(par1World);
         this.ignoreFrustumCheck = true;
+        //标记棒是否已放置
         if (!BlockMarker.hasPlaced) {
+            //放置后摧毁
             this.setDead();
         }
 
@@ -68,9 +70,9 @@ public class EntityAlignBeam extends Entity {
         this.noClip = true;
     }
 
-    //@Override
-    //public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
-    //}
+    @Override
+    public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
+    }
     @Override
     protected void readEntityFromNBT(NBTTagCompound var1) {
     }

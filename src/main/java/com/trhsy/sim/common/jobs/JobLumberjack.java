@@ -84,7 +84,11 @@ public class JobLumberjack extends Job implements Serializable {
     public void onUpdate() {
         super.onUpdate();
         if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
+            if (!theFolk.isNightOwl()) {
+                //闲置
+                this.theStage = Stage.IDLE;
+                return;
+            }
         }
 
         super.onUpdateGoingToWork(this.theFolk);
@@ -137,7 +141,7 @@ public class JobLumberjack extends Job implements Serializable {
 
             ts = searchXYZ.clone();
         } catch (Exception var6) {
-            var6.printStackTrace();
+            //var6.printStackTrace();
         }
 
         V3 searchpos;
@@ -151,7 +155,7 @@ public class JobLumberjack extends Job implements Serializable {
             this.foundWoodAt = findClosestBlockType(searchpos, Blocks.log, ConfigLoader.configLumberArea, false);
             this.foundWoodAt.theDimension = this.jobWorld.provider.getDimensionId();
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
         }
 
         this.theStage = Stage.GOTOTREE;

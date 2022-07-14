@@ -51,7 +51,7 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void onFillBucket(FillBucketEvent event) {
-        System.out.println("桶被盛装的事件");
+        //System.out.println("桶被盛装的事件");
         //获取区块位置
         BlockPos blockpos = event.target.getBlockPos();
         //获取区块状态
@@ -76,7 +76,6 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void onPlayerClickGrassBlock(PlayerRightClickGrassBlockEvent event) {
-        System.out.println("来了");
         if (!event.world.isRemote) {
 //            BlockPos pos = event.pos;
 //            Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);

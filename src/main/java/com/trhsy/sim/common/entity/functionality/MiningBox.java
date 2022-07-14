@@ -174,7 +174,7 @@ public class MiningBox implements Serializable {
                                     f.delete();
                                 }
                             } catch (Exception var14) {
-                                var14.printStackTrace();
+                                //var14.printStackTrace();
                             }
                         }
                     }

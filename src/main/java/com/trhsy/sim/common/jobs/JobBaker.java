@@ -117,7 +117,11 @@ public class JobBaker extends Job implements Serializable {
         super.onUpdate();
         //闲置
         if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
+            if (!theFolk.isNightOwl()) {
+                //闲置
+                this.theStage = Stage.IDLE;
+                return;
+            }
         }
         //继续工作
         super.onUpdateGoingToWork(this.theFolk);

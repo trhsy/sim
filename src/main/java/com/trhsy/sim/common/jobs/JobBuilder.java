@@ -113,7 +113,11 @@ public class JobBuilder extends Job implements Serializable {
             super.onUpdate();
             //如果是晚上 设置闲置
             if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
+                }
             }
             //去上班
             super.onUpdateGoingToWork(this.theFolk);

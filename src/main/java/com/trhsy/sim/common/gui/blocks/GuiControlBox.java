@@ -444,7 +444,7 @@ public class GuiControlBox extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception var10) {
-            var10.printStackTrace();
+            //var10.printStackTrace();
         }
 
     }

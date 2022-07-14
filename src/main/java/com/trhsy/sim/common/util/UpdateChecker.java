@@ -19,10 +19,15 @@ public class UpdateChecker {
     int m1 = 0;
 
     public UpdateChecker(FMLPreInitializationEvent event) {
-        File checks = new File(ModSimReloaded.getSimukraftFolder()+ File.separator+"/buildings");
-        if(!checks.exists()){
-            onUpdate();
+        try {
+            File checks = new File(ModSimReloaded.getSimukraftFolder()+ File.separator+"/buildings");
+            if(!checks.exists()){
+                onUpdate();
+            }
+        }catch (Exception e){
+            ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage());
         }
+
     }
 
     public void onUpdate() {
@@ -94,7 +99,8 @@ public class UpdateChecker {
             new File(simFile).deleteOnExit();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage());
+            //e.printStackTrace();
         }
 
 
@@ -141,7 +147,7 @@ public class UpdateChecker {
             in.close();
         } catch (Exception var9) {
             //ret = "";
-            var9.printStackTrace();
+            //var9.printStackTrace();
         }
 
         return localFile;

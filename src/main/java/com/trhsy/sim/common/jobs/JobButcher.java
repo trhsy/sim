@@ -69,7 +69,11 @@ public class JobButcher extends Job implements Serializable {
     public void onUpdate() {
         super.onUpdate();
         if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
+            if (!theFolk.isNightOwl()) {
+                //闲置
+                this.theStage = Stage.IDLE;
+                return;
+            }
         }
 
         super.onUpdateGoingToWork(this.theFolk);
@@ -101,7 +105,11 @@ public class JobButcher extends Job implements Serializable {
             }
 
             if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
+                }
             }
 
             if (this.theStage == Stage.ARRIVEDATSHOP) {
@@ -135,7 +143,7 @@ public class JobButcher extends Job implements Serializable {
                     this.theStage = Stage.GOBACKTOSTORE;
                 }
             } catch (Exception var2) {
-                var2.printStackTrace();
+                //var2.printStackTrace();
                 this.theStage = Stage.GOBACKTOSTORE;
             }
         } else {

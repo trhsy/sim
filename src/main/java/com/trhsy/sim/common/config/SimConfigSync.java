@@ -37,7 +37,6 @@ public class SimConfigSync {
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player != null && event.player instanceof EntityPlayerMP && !FMLCommonHandler.instance().getSide().isClient()) {
             ConfigSyncPacket packet = new ConfigSyncPacket();
-            packet.categories.add(ConfigLoader.Modules);
             packet.categories.add(ConfigLoader.Gameplay);
             packet.categories.add(ConfigLoader.Nameplay);
             TinkerNetwork.sendTo(packet, (EntityPlayerMP)event.player);
@@ -66,13 +65,8 @@ public class SimConfigSync {
 
         while(var2.hasNext()) {
             ConfigCategory serverCategory = (ConfigCategory)var2.next();
-            ConfigCategory category = ConfigLoader.pulseConfig.getCategory();
-            if (!serverCategory.getName().equals(category.getName())) {
-                category = ConfigLoader.configFile.getCategory(serverCategory.getName());
-            }
-
+            ConfigCategory category = ConfigLoader.configFile.getCategory(serverCategory.getName());
             Iterator var5 = serverCategory.entrySet().iterator();
-
             while(var5.hasNext()) {
                 Map.Entry<String, Property> entry = (Map.Entry)var5.next();
                 String name = (String)entry.getKey();
@@ -93,7 +87,7 @@ public class SimConfigSync {
             ConfigLoader.configFile.save();
         }
 
-        ConfigLoader.pulseConfig.flush();
+        //ConfigLoader.pulseConfig.flush();
         if (changed) {
             MinecraftForge.EVENT_BUS.register(new SimConfigSync());
         }

@@ -57,7 +57,7 @@ public class GuiCityBox extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, "城市控制面板", this.width / 2, 17, 16777215);
             super.drawScreen(i, j, f);
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
         }
 
     }

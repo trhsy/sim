@@ -195,7 +195,7 @@ public class JobSoldier extends Job implements Serializable {
                 }
             }
         } catch (Exception var2) {
-            var2.printStackTrace();
+            //var2.printStackTrace();
         }
     }
 

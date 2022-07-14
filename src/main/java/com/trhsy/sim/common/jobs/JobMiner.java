@@ -116,7 +116,11 @@ public class JobMiner extends Job implements Serializable {
 
         try {
             if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
+                }
                 this.theFolk.action = FolkAction.WANDER;//游荡
                 //今天的工作做完了
                 this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Finished");
@@ -462,7 +466,7 @@ public class JobMiner extends Job implements Serializable {
                                     }
                                 }
                             } catch (Exception var27) {
-                                var27.printStackTrace();
+                                //var27.printStackTrace();
                             }
 
                             if (id == Blocks.bedrock) {

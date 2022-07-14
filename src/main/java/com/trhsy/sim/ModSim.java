@@ -58,7 +58,7 @@ public class ModSim {
     public static PulseManager pulseManager;
 
     static {
-        pulseManager = new PulseManager(String.valueOf(ConfigLoader.pulseConfig));
+        pulseManager = new PulseManager("sim");
         FluidRegistry.enableUniversalBucket();
     }
 

@@ -117,7 +117,7 @@ public class RenderConBox extends Render<EntityConBox> {
                                         }
                                     }
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    //e.printStackTrace();
                                     displayBox = false;
                                 }
                             }

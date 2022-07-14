@@ -50,7 +50,7 @@ public class CourierTask implements Serializable {
                     break;
                 }
             } catch (Exception var5) {
-                var5.printStackTrace();
+                //var5.printStackTrace();
             }
         }
 
@@ -230,7 +230,7 @@ public class CourierTask implements Serializable {
                             File fi = new File(ModSimReloaded.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2");
                             fi.delete();
                         } catch (Exception var9) {
-                            var9.printStackTrace();
+                            //var9.printStackTrace();
                         }
                     }
                 }

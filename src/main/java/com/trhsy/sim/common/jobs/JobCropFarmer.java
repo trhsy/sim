@@ -142,10 +142,6 @@ public class JobCropFarmer extends Job implements Serializable {
                         //闲置
                         this.theStage = Stage.IDLE;
                         return;
-                    } else {
-                        if(this.theStage ==null){
-                            this.theStage = Stage.IDLE;
-                        }
                     }
                 }
                 //去上班

@@ -74,7 +74,11 @@ public class JobLivestockFarmer extends Job implements Serializable {
     public void onUpdate() {
         super.onUpdate();
         if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
+            if (!theFolk.isNightOwl()) {
+                //闲置
+                this.theStage = Stage.IDLE;
+                return;
+            }
         }
 
         super.onUpdateGoingToWork(this.theFolk);
