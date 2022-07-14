@@ -5,6 +5,7 @@ import com.trhsy.sim.client.loader.ItemRenderLoader;
 import com.trhsy.sim.common.CommonProxy;
 import com.trhsy.sim.common.loader.KeyLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import org.lwjgl.opengl.Display;
 
 
 /**
@@ -33,6 +35,9 @@ public class ClientProxy extends CommonProxy {
      */
     @Override
     public void init(FMLInitializationEvent event) {
+        //Display.setTitle(Display.getTitle() + " 丨 模拟城市 丨 官方Q群: 749090174  丨 由TRHSY重制 丨 微信公众号：dasha500");
+        String title=I18n.format("container.sim.title");
+        Display.setTitle(Display.getTitle() +title);
         super.init(event);
         /**热键**/
         new KeyLoader();

@@ -102,8 +102,15 @@ public class JobTerraformer extends Job {
 
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 等待资源阶段
+     * @Date 22:23 2022/7/9
+     * @Param []
+     * @return void
+     **/
     private void stageWaitingForResources() {
+        try{
         this.theFolk.isWorking = false;
         this.theFolk.statusText = I18n.format("container.sim.job.terra.former.Checking");
         this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -136,7 +143,9 @@ public class JobTerraformer extends Job {
             this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.choose");
             this.step = 1;
         }
-
+        }catch (Exception e){
+            ModSimReloaded.log.error("地形规划师等待资源出错了:"+e.getMessage());
+        }
     }
 
     private void stageInProgress() {

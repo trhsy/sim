@@ -1,7 +1,7 @@
 employedat|148,71,223,0
 vocation|BAKER
 name|敖一雯
-age|21
+age|24
 gender|1
 skin|25
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|170,70,222,0
+location|148,72,223,0
 pregnancy|0.0
 building|null
 terraformtype|null
