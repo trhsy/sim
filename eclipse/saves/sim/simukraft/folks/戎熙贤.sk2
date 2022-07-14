@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|-329,237,-301,0
+vocation|MINER
 name|戎熙贤
-age|25
+age|26
 gender|0
 skin|13
 levelfood|10
@@ -10,7 +10,7 @@ levelbuilder|99.037
 levelminer|10.0
 levelsoldier|10.0
 stayput|false
-location|-267,238,-276,0
+location|-328,238,-300,0
 pregnancy|0.0
 building|null
 terraformtype|null

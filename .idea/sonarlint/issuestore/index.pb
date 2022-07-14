@@ -83,8 +83,6 @@ q
 Asrc/main/java/com/trhsy/sim/common/block/BlockSideControlBox.java,2\6\261339785cdda254285cf60e638b428ebf8e3712
 n
 >src/main/java/com/trhsy/sim/client/gui/folk/GuiEntityFolk.java,3\b\3b575a24f3766abcccf47009e6b1785c069e0b93
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 a
 1src/main/java/com/trhsy/sim/common/entity/V3.java,7\3\7312cabcbd31c909779f5baa29a6b23e7611e56f
 m

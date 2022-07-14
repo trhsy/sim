@@ -880,7 +880,7 @@ container.sim.Hire23=Hire Bricklayer
 container.sim.Hire24=Hire Path Builder
 container.sim.Hire25=Hire Farmer
 
-
+container.sim.title=Simulated town
 container.sim.Fire=Fire
 container.sim.Dismiss=Dismiss
 
