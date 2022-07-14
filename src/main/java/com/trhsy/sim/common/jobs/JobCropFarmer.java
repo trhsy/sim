@@ -549,6 +549,7 @@ public class JobCropFarmer extends Job implements Serializable {
         if (this.step == 1) {
 
             this.setupFarming();
+            //锄地
             this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Tilling");
             this.theFolk.stayPut = true;
             this.theFolk.action = FolkAction.ATWORK;
@@ -597,6 +598,7 @@ public class JobCropFarmer extends Job implements Serializable {
                     if (this.rowCounter > this.farmingBlock.getSizeWidth() + 1) {
                         this.rowCounter = 0;
                     }
+                    //仙人掌
                 } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
                     //准备土地
                     this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.the_land");
@@ -610,7 +612,9 @@ public class JobCropFarmer extends Job implements Serializable {
                     }
                     //所有其他农场
                 } else {
+                    //草或者泥土
                     if (this.id == Blocks.grass || this.id == Blocks.dirt) {
+                        //西瓜/南瓜
                         Boolean boolean1 = (this.farmingBlock.farmType == FarmType.MELON || this.farmingBlock.farmType == FarmType.PUMPKIN);
                         if (boolean1) {
                             Boolean boolean2 = (this.ftb % 4 == 0 || this.ftb % 4 == 1);

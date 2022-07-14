@@ -9,6 +9,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.References;
 import com.trhsy.sim.common.entity.Relationship;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.packets.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -310,7 +311,7 @@ public class GuiEntityFolk extends GuiScreen {
                     EntityPlayer player = Minecraft.getMinecraft().thePlayer;
                     player.openGui(ModSim.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
                     player.inventory.openInventory(player);
-                    //ModSim.packetPipeline.sendToServer(new OpenFolkInventoryPacket(References.GUI_FOLKINVENTORY));
+                    //PacketHandler.net.sendToServer(new OpenFolkInventoryPacket(References.GUI_FOLKINVENTORY));
                 }
             } else if (this.currentPage == 1) {
                 //情感分页  返回

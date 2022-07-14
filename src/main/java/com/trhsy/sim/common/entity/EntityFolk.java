@@ -71,7 +71,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         //会捡起地上的东西
         this.setCanPickUpLoot(true);
         //this.setEquipmentDropChance(1, 1);
-        //实体人任务
+        //闲逛
         this.tasks.addTask(0, new EntityAIWanderSUK(this, 0.3f));
         //闲置任务
         this.tasks.addTask(1, new EntityAILookIdle(this));
