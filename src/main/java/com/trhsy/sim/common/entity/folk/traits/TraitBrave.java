@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.entity.folk.traits;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 
 public class TraitBrave extends Trait {

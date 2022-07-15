@@ -66,11 +66,16 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        EnumControlBoxMaterial[] boxMaterials = EnumControlBoxMaterial.values();
-        for (int i = 0; i < boxMaterials.length; i++) {
-            EnumControlBoxMaterial type = boxMaterials[i];
-            list.add(new ItemStack(this, 1, type.meta));
+        try {
+            EnumControlBoxMaterial[] boxMaterials = EnumControlBoxMaterial.values();
+            for (int i = 0; i < boxMaterials.length; i++) {
+                EnumControlBoxMaterial type = boxMaterials[i];
+                list.add(new ItemStack(this, 1, type.meta));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
+
     }
 
     @Override
@@ -108,26 +113,32 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        GuiControlBox ui = null;
-        GuiBankATM ui2 = null;
-        Minecraft mc = Minecraft.getMinecraft();
-        mc.setIngameNotInFocus();
-        IBlockState iBlockState1=world.getBlockState(blockPos);
-        int ma=iBlockState1.getBlock().getMetaFromState(iBlockState1);
-        if (ma != 0 && ma != 2) {
-            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                mc.displayGuiScreen((GuiScreen) null);
-                //银行在创造模式下不活动（因为没有钱！）
-                String control_box_Creative = I18n.format("container.sim.control_box_Creative");
-                ModSimReloaded.sendChat(control_box_Creative);
+        try {
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            GuiControlBox ui = null;
+            GuiBankATM ui2 = null;
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.setIngameNotInFocus();
+            IBlockState iBlockState1=world.getBlockState(blockPos);
+            int ma=iBlockState1.getBlock().getMetaFromState(iBlockState1);
+            if (ma != 0 && ma != 2) {
+                if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                    mc.displayGuiScreen((GuiScreen) null);
+                    //银行在创造模式下不活动（因为没有钱！）
+                    String control_box_Creative = I18n.format("container.sim.control_box_Creative");
+                    ModSimReloaded.sendChat(control_box_Creative);
+                } else {
+                    ui2 = new GuiBankATM(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
+                    mc.displayGuiScreen(ui2);
+                }
             } else {
-                ui2 = new GuiBankATM(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
-                mc.displayGuiScreen(ui2);
+                ui = new GuiControlBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
+                mc.displayGuiScreen(ui);
             }
-        } else {
-            ui = new GuiControlBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
-            mc.displayGuiScreen(ui);
+
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            return false;
         }
 
         return true;

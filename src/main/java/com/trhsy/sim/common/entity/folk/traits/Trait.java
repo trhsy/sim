@@ -4,7 +4,9 @@ import com.trhsy.sim.common.core.Unused;
 import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 
 public class Trait {
     public String traitName;
@@ -17,14 +19,18 @@ public class Trait {
     }
 
     public static Trait getTraitFromName(String searchTerm) {
-        Trait trait;
-        for (int i = 0; i < Traits.traitList.length - 1; i++) {
-            if (Traits.traitList[i].traitName.contains(searchTerm)) {
-                trait = Traits.traitList[i];
-                return trait;
+        Trait trait = null;
+        try {
+            for (int i = 0; i < Traits.traitList.length - 1; i++) {
+                if (Traits.traitList[i].traitName.contains(searchTerm)) {
+                    trait = Traits.traitList[i];
+                    return trait;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
-        return null;
+        return trait;
     }
 
     public static String getTraitName(Trait trait) {
@@ -79,24 +85,33 @@ public class Trait {
      * 告诉有这种特质的人他们的“特殊”建筑在哪里（如果他们有）
      */
     public void hasSpecialBuilding(String buildingName, String visitingText) {
-        Building specialBuilding = Building.getBuildingBySearch(buildingName);
+        try {
+            Building specialBuilding = Building.getBuildingBySearch(buildingName);
 
-        if (specialBuilding != null) {
-            theFolk.gotoXYZ(specialBuilding.primaryXYZ, GotoMethod.WALK);
-            theFolk.destination.doNotTimeout = true;
-            theFolk.statusText = visitingText;
+            if (specialBuilding != null) {
+                theFolk.gotoXYZ(specialBuilding.primaryXYZ, GotoMethod.WALK);
+                theFolk.destination.doNotTimeout = true;
+                theFolk.statusText = visitingText;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
+
     }
 
     /**
      * 告诉有这种特质的人他们的“特殊”建筑在哪里（如果他们有）
      */
     public void hasSpecialBuilding(String buildingName) {
-        Building specialBuilding = Building.getBuildingBySearch(buildingName);
+        try {
+            Building specialBuilding = Building.getBuildingBySearch(buildingName);
+            theFolk.gotoXYZ(specialBuilding.primaryXYZ, GotoMethod.WALK);
+            theFolk.destination.doNotTimeout = true;
+            theFolk.statusText = I18n.format("container.sim.folk_data_Visiting") + specialBuilding.displayName;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+        }
 
-        theFolk.gotoXYZ(specialBuilding.primaryXYZ, GotoMethod.WALK);
-        theFolk.destination.doNotTimeout = true;
-        theFolk.statusText = "Visiting the " + specialBuilding.displayName;
     }
 
 }

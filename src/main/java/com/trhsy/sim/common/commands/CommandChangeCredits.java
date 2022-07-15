@@ -11,6 +11,9 @@ import net.minecraft.util.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 命令更改金钱
+ */
 public class CommandChangeCredits implements ICommand {
 
     private final List aliases;
@@ -40,13 +43,12 @@ public class CommandChangeCredits implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] argString) {
+        try {
         if (argString.length == 0) {
             //无效的参数，应该是：/credits <amount>
             ModSimReloaded.sendChat(I18n.format("container.sim.commands1"));
             return;
         }
-
-        try {
             if (argString.length < 2) {
                 ModSimReloaded.states.credits = Float.parseFloat(argString[0]);
                 ModSimReloaded.states.saveStates();
@@ -58,6 +60,7 @@ public class CommandChangeCredits implements ICommand {
         } catch (Exception e) {
             //金额必须是数字！
             ModSimReloaded.sendChat(I18n.format("container.sim.commands2"));
+            //ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
             return;
         }
     }

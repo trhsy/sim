@@ -1,6 +1,7 @@
 package com.trhsy.sim.client.loader;
 
 import com.trhsy.sim.common.loader.EntityLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 
 /**
  * @ClassName EntityRenderLoader
@@ -10,6 +11,10 @@ import com.trhsy.sim.common.loader.EntityLoader;
  **/
 public class EntityRenderLoader {
     public EntityRenderLoader() {
-        EntityLoader.registerRenders();
+        try {
+            EntityLoader.registerRenders();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("实体渲染加载出差了：" + e.getMessage());
+        }
     }
 }

@@ -14,8 +14,13 @@ public class KeyLoader {
     public static KeyBinding showTime;
 
     public KeyLoader() {
-        KeyLoader.showTime = new KeyBinding("key.sim.showTime", Keyboard.KEY_H, "key.categories.sim");
+        try {
+            KeyLoader.showTime = new KeyBinding("key.sim.showTime", Keyboard.KEY_H, "key.categories.sim");
 
-        ClientRegistry.registerKeyBinding(KeyLoader.showTime);
+            ClientRegistry.registerKeyBinding(KeyLoader.showTime);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+        }
+
     }
 }

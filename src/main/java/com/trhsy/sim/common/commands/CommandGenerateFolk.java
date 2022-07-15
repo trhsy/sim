@@ -46,16 +46,21 @@ public class CommandGenerateFolk implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] argString) {
-        if (argString.length == 0) {
-            //FolkData.forceGenerateNewFolk(sender.getEntityWorld());
-            PacketHandler.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld(), true));
-        } else if (argString.length == 1) {
-            FolkData.forceGenerateNewFolk(sender.getEntityWorld(), argString[0]);
-        } else if (argString.length == 2) {
-            FolkData.forceGenerateNewFolk(sender.getEntityWorld(), argString[0] + " " + argString[1]);
-        } else {
-            ModSimReloaded.sendChat(I18n.format("container.sim.commands2"));
+        try {
+            if (argString.length == 0) {
+                //FolkData.forceGenerateNewFolk(sender.getEntityWorld());
+                PacketHandler.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld(), true));
+            } else if (argString.length == 1) {
+                FolkData.forceGenerateNewFolk(sender.getEntityWorld(), argString[0]);
+            } else if (argString.length == 2) {
+                FolkData.forceGenerateNewFolk(sender.getEntityWorld(), argString[0] + " " + argString[1]);
+            } else {
+                ModSimReloaded.sendChat(I18n.format("container.sim.commands2"));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
+
     }
 
     @Override

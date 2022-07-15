@@ -5,6 +5,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.gui.blocks.GuiBuildingConstructor;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -40,11 +41,14 @@ public class BlockConstructorBox extends Block {
      */
     @Override
     public void onBlockAdded(World world, BlockPos blockPos, IBlockState iBlockState) {
-        if (!world.isRemote) {
-            world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
+        try {
+            if (!world.isRemote) {
+                world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
+            }
+            super.onBlockAdded(world, blockPos, iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
-
-        super.onBlockAdded(world, blockPos, iBlockState);
     }
 
     /**
@@ -55,43 +59,51 @@ public class BlockConstructorBox extends Block {
      */
     @Override
     public void onBlockDestroyedByPlayer(World world, BlockPos blockPos, IBlockState iBlockState) {
-        if (!world.isRemote) {
-            world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+        try {
+            if (!world.isRemote) {
+                world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            }
+            FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId()));
+            if (theFolk != null) {
+                theFolk.selfFire();
+            }
+            super.onBlockDestroyedByPlayer(world, blockPos, iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
 
-        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId()));
-        if (theFolk != null) {
-            theFolk.selfFire();
-        }
-
-        super.onBlockDestroyedByPlayer(world, blockPos, iBlockState);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        int px = (int)Math.floor(thePlayer.posX);
-        int py = (int)Math.floor(thePlayer.posY);
-        int pz = (int)Math.floor(thePlayer.posZ);
-        if (blockPos.getZ() == pz) {
-            if (px < blockPos.getX()) {
-                this.buildDirection = "-x";
-            } else {
-                this.buildDirection = "+x";
+        try {
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            int px = (int)Math.floor(thePlayer.posX);
+            int py = (int)Math.floor(thePlayer.posY);
+            int pz = (int)Math.floor(thePlayer.posZ);
+            if (blockPos.getZ() == pz) {
+                if (px < blockPos.getX()) {
+                    this.buildDirection = "-x";
+                } else {
+                    this.buildDirection = "+x";
+                }
+            } else if (blockPos.getX() == px) {
+                if (pz < blockPos.getZ()) {
+                    this.buildDirection = "-z";
+                } else {
+                    this.buildDirection = "+z";
+                }
             }
-        } else if (blockPos.getX() == px) {
-            if (pz < blockPos.getZ()) {
-                this.buildDirection = "-z";
-            } else {
-                this.buildDirection = "+z";
-            }
-        }
 
-        V3 loc = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
-        Minecraft mc = Minecraft.getMinecraft();
-        GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
-        mc.displayGuiScreen(ui);
+            V3 loc = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
+            Minecraft mc = Minecraft.getMinecraft();
+            GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
+            mc.displayGuiScreen(ui);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            return false;
+        }
         return true;
     }
 }

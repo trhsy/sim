@@ -40,7 +40,7 @@ tile.blockSulphurDioxide.name=二氧化硫
 tile.blockGasDispenser.carbonDioxide.name=二氧化碳充气机
 tile.blockGasDispenser.sulphurDioxide.name=二氧化硫充气机
 tile.blockGasDispenser.radiationGas.name=辐射气体充气机
-tile.blockSpecial.name=特制
+tile.blockSpecial.name=空气
 
 
 tile.markerBar.name=标记棒

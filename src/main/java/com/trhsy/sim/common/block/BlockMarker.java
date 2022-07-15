@@ -56,7 +56,11 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
      */
     @Override
     public void setBlockBoundsForItemRender() {
-        this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+        try {
+            this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
+        }
     }
 
     /**
@@ -89,96 +93,103 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                     }
                 }
             }
-        } catch (Exception var11) {
+            markers.clear();
+            super.onBlockDestroyedByPlayer(world,blockPos,iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
-
-        markers.clear();
-        super.onBlockDestroyedByPlayer(world,blockPos,iBlockState);
     }
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos blockPos,IBlockState iBlockState, EntityLivingBase player, ItemStack is) {
-        hasPlaced = true;
-        if (world.isRemote) {
-            Marker ma;
-            markers.add(ma = new Marker(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId()));
-            String markerCaption = "";
-            String helpText = "";
-            if (markers.size() == 1) {
-                markerCaption = "Front-Left";
-                helpText = I18n.format("container.sim.box_Marker_left");
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-            } else if (markers.size() == 2) {
-                markerCaption = "Front-Right";
-                helpText = I18n.format("container.sim.box_Marker_right");
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-            } else if (markers.size() == 3) {
-                markerCaption = "Rear-Left";
-                helpText = I18n.format("container.sim.box_Marker_Rear_Left");
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-            } else {
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-                markerCaption = I18n.format("container.sim.box_Marker_Markers");
-            }
-
-            if (markers.size() < 4) {
-                V3 pos = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId());
-                pos.y = pos.y + 0.01;
-                if (ConfigLoader.configEnableMarkerAlignmentBeams) {
-                    EntityAlignBeam beam = new EntityAlignBeam(world);
-                    ma.caption = markerCaption;
-                    beam.setLocationAndAngles(pos.x, pos.y, pos.z, 0.0F, 0.0F);
-                    beam.yaw = 0.0F;
-                    if (!world.isRemote) {
-                        world.spawnEntityInWorld(beam);
-                    }
-
-                    ma.beams.add(beam);
-                    EntityAlignBeam beam2 = new EntityAlignBeam(world);
-                    beam2.setLocationAndAngles(pos.x, pos.y, pos.z, 90.0F, 0.0F);
-                    beam2.yaw = 90.0F;
-                    if (!world.isRemote) {
-                        world.spawnEntityInWorld(beam2);
-                    }
-
-                    ma.beams.add(beam2);
-                    EntityAlignBeam beam3 = new EntityAlignBeam(world);
-                    beam3.setLocationAndAngles(pos.x, pos.y, pos.z, 180.0F, 0.0F);
-                    beam3.yaw = 180.0F;
-                    if (!world.isRemote) {
-                        world.spawnEntityInWorld(beam3);
-                    }
-
-                    ma.beams.add(beam3);
-                    EntityAlignBeam beam4 = new EntityAlignBeam(world);
-                    beam4.setLocationAndAngles(pos.x, pos.y, pos.z, 270.0F, 0.0F);
-                    beam4.yaw = 270.0F;
-                    if (!world.isRemote) {
-                        world.spawnEntityInWorld(beam4);
-                    }
-
-                    ma.beams.add(beam4);
+        try {
+            hasPlaced = true;
+            if (world.isRemote) {
+                Marker ma;
+                markers.add(ma = new Marker(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId()));
+                String markerCaption = "";
+                String helpText = "";
+                if (markers.size() == 1) {
+                    markerCaption = "Front-Left";
+                    helpText = I18n.format("container.sim.box_Marker_left");
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                } else if (markers.size() == 2) {
+                    markerCaption = "Front-Right";
+                    helpText = I18n.format("container.sim.box_Marker_right");
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                } else if (markers.size() == 3) {
+                    markerCaption = "Rear-Left";
+                    helpText = I18n.format("container.sim.box_Marker_Rear_Left");
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                } else {
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                    markerCaption = I18n.format("container.sim.box_Marker_Markers");
                 }
-            }
 
-            if (!helpText.contentEquals("")) {
-                ModSimReloaded.sendChat(helpText);
-            }
+                if (markers.size() < 4) {
+                    V3 pos = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId());
+                    pos.y = pos.y + 0.01;
+                    if (ConfigLoader.configEnableMarkerAlignmentBeams) {
+                        EntityAlignBeam beam = new EntityAlignBeam(world);
+                        ma.caption = markerCaption;
+                        beam.setLocationAndAngles(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+                        beam.yaw = 0.0F;
+                        if (!world.isRemote) {
+                            world.spawnEntityInWorld(beam);
+                        }
 
-            super.onBlockPlacedBy(world, blockPos,iBlockState, player, is);
+                        ma.beams.add(beam);
+                        EntityAlignBeam beam2 = new EntityAlignBeam(world);
+                        beam2.setLocationAndAngles(pos.x, pos.y, pos.z, 90.0F, 0.0F);
+                        beam2.yaw = 90.0F;
+                        if (!world.isRemote) {
+                            world.spawnEntityInWorld(beam2);
+                        }
+
+                        ma.beams.add(beam2);
+                        EntityAlignBeam beam3 = new EntityAlignBeam(world);
+                        beam3.setLocationAndAngles(pos.x, pos.y, pos.z, 180.0F, 0.0F);
+                        beam3.yaw = 180.0F;
+                        if (!world.isRemote) {
+                            world.spawnEntityInWorld(beam3);
+                        }
+
+                        ma.beams.add(beam3);
+                        EntityAlignBeam beam4 = new EntityAlignBeam(world);
+                        beam4.setLocationAndAngles(pos.x, pos.y, pos.z, 270.0F, 0.0F);
+                        beam4.yaw = 270.0F;
+                        if (!world.isRemote) {
+                            world.spawnEntityInWorld(beam4);
+                        }
+
+                        ma.beams.add(beam4);
+                    }
+                }
+
+                if (!helpText.contentEquals("")) {
+                    ModSimReloaded.sendChat(helpText);
+                }
+
+                super.onBlockPlacedBy(world, blockPos,iBlockState, player, is);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
-
     }
 
     public static Marker getMarker(V3 position) {
         Marker ret = null;
-
-        for (int i = 0; i < markers.size(); i++) {
-            Marker m = (Marker) markers.get(i);
-            if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
-                ret = m;
-                break;
+        try {
+            for (int i = 0; i < markers.size(); i++) {
+                Marker m = (Marker) markers.get(i);
+                if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
+                    ret = m;
+                    break;
+                }
             }
+
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
 
         return ret;
@@ -187,11 +198,16 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
-        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        GuiMarker ui = new GuiMarker(this.location, thePlayer);
-        Minecraft mc = Minecraft.getMinecraft();
-        mc.displayGuiScreen(ui);
+        try {
+            this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            GuiMarker ui = new GuiMarker(this.location, thePlayer);
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.displayGuiScreen(ui);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            return false;
+        }
         return true;
     }
     @Override

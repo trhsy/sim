@@ -1,5 +1,5 @@
-employedat|null
-vocation|null
+employedat|207,68,253,0
+vocation|BUTCHER
 name|蒙蔓梦
 age|24
 gender|1
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
-location|129,64,288,0
+stayput|true
+location|207,69,253,0
 pregnancy|0.0
 building|null
 terraformtype|WATERTODIRT

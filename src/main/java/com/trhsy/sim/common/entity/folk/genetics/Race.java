@@ -6,7 +6,7 @@ import java.io.Serializable;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 
 public class Race implements Serializable {
-    protected static String raceName = "";
+    public String raceName = "";
 
     static File simfolder = new File(ModSimReloaded.getSimukraftFolder() + "races/");
     static String humanFolder = ModSimReloaded.getSimukraftFolder() + "races/" + "Human/";
@@ -28,43 +28,52 @@ public class Race implements Serializable {
     }
 
     public void setRaceName(String name) {
-        name = this.raceName;
+        name = raceName;
     }
 
     public String getRaceName() {
-        return this.raceName;
+        return raceName;
     }
 
     public static void loadRaces() {
-        humanAdultMaleSkinCount = 64;
-        humanAdultFemaleSkinCount = 64;
+        try {
+            humanAdultMaleSkinCount = 64;
+            humanAdultFemaleSkinCount = 64;
 
-        elvenAdultMaleSkinCount = 64;
-        elvenAdultFemaleSkinCount = 64;
+            elvenAdultMaleSkinCount = 64;
+            elvenAdultFemaleSkinCount = 64;
 
-        darkElvenAdultMaleSkinCount =64;
-        darkElvenAdultFemaleSkinCount = 64;
+            darkElvenAdultMaleSkinCount =64;
+            darkElvenAdultFemaleSkinCount = 64;
 
-        Races.loadRaces();
+            Races.loadRaces();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
+        }
+
     }
 
     public int getRandomSkinForRace(Race race, int gender) {
-        if (gender == 0) {
-            if (race == Races.raceHuman) {
-                return humanAdultMaleSkinCount;
-            } else if (race == Races.raceElf) {
-                return elvenAdultMaleSkinCount;
-            } else if (race == Races.raceDarkElf) {
-                return darkElvenAdultMaleSkinCount;
+        try {
+            if (gender == 0) {
+                if (race == Races.raceHuman) {
+                    return humanAdultMaleSkinCount;
+                } else if (race == Races.raceElf) {
+                    return elvenAdultMaleSkinCount;
+                } else if (race == Races.raceDarkElf) {
+                    return darkElvenAdultMaleSkinCount;
+                }
+            } else {
+                if (race == Races.raceHuman) {
+                    return humanAdultFemaleSkinCount;
+                } else if (race == Races.raceElf) {
+                    return elvenAdultFemaleSkinCount;
+                } else if (race == Races.raceDarkElf) {
+                    return darkElvenAdultFemaleSkinCount;
+                }
             }
-        } else {
-            if (race == Races.raceHuman) {
-                return humanAdultFemaleSkinCount;
-            } else if (race == Races.raceElf) {
-                return elvenAdultFemaleSkinCount;
-            } else if (race == Races.raceDarkElf) {
-                return darkElvenAdultFemaleSkinCount;
-            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
         }
         return 0;
     }
@@ -95,12 +104,13 @@ public class Race implements Serializable {
     public static Race getRaceFromName(String searchTerm) {
         Race race;
         for (int i = 0; i < Races.raceList.size(); i++) {
-            if (Races.raceList.get(i).raceName.contentEquals(searchTerm)) {
-                race = Races.raceList.get(i);
+            race=Races.raceList.get(i);
+            if (race.raceName.contentEquals(searchTerm)) {
                 return race;
             }
         }
 
         return null;
     }
+
 }

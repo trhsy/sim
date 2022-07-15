@@ -1,5 +1,7 @@
 package com.trhsy.sim.common.entity.folk.traits;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
+
 public class Traits {
     /**宗教特征*/
     public static Trait traitReligious = new TraitReligious();
@@ -30,18 +32,23 @@ public class Traits {
     public static Trait[] specialTraitList;
 
     public static void loadTraits() {
-        traitList = new Trait[10];
-        traitList[0] = traitWorkaholic;
-        traitList[1] = traitBrave;
-        traitList[2] = traitDwarvenHeritage;
-        traitList[3] = traitFriendly;
-        traitList[4] = traitGreenThumb;
-        traitList[5] = traitHatesOutdoors;
-        traitList[6] = traitNightOwl;
-        traitList[7] = traitStrong;
-        traitList[8] = traitLovesOutdoors;
-        traitList[9] = traitReligious;
-        specialTraitList = new Trait[1];
+        try {
+            traitList = new Trait[10];
+            traitList[0] = traitWorkaholic;
+            traitList[1] = traitBrave;
+            traitList[2] = traitDwarvenHeritage;
+            traitList[3] = traitFriendly;
+            traitList[4] = traitGreenThumb;
+            traitList[5] = traitHatesOutdoors;
+            traitList[6] = traitNightOwl;
+            traitList[7] = traitStrong;
+            traitList[8] = traitLovesOutdoors;
+            traitList[9] = traitReligious;
+            specialTraitList = new Trait[1];
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
+        }
+
     }
 
 }

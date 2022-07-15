@@ -3,6 +3,7 @@ package com.trhsy.sim.common.block;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
@@ -37,9 +38,14 @@ public class BlockTinOre extends BlockOre {
      */
     @Override
     public int getExpDrop(IBlockAccess iBlockAccess, BlockPos blockPos, int p_getExpDrop_3_) {
-        IBlockState state = iBlockAccess.getBlockState(blockPos);
-        Random rand = iBlockAccess instanceof World ? ((World)iBlockAccess).rand : new Random();
-        int i = MathHelper.getRandomIntegerInRange(rand, 0, 7);
+        int i=0;
+        try {
+            IBlockState state = iBlockAccess.getBlockState(blockPos);
+            Random rand = iBlockAccess instanceof World ? ((World)iBlockAccess).rand : new Random();
+            i = MathHelper.getRandomIntegerInRange(rand, 0, 7);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出差了：" + e.getMessage());
+        }
         return i;
     }
 
