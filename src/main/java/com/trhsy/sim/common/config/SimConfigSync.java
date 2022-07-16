@@ -44,7 +44,7 @@ public class SimConfigSync {
                 TinkerNetwork.sendTo(packet, (EntityPlayerMP)event.player);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }
@@ -62,7 +62,7 @@ public class SimConfigSync {
             }
             MinecraftForge.EVENT_BUS.unregister(this);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 
@@ -100,7 +100,7 @@ public class SimConfigSync {
                 MinecraftForge.EVENT_BUS.register(new SimConfigSync());
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
 

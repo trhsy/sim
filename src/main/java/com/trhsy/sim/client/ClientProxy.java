@@ -31,7 +31,7 @@ public class ClientProxy extends CommonProxy {
             new ItemRenderLoader();
             new EntityRenderLoader();
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端代理初始化出差了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端代理初始化出错了：" + e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class ClientProxy extends CommonProxy {
             /**热键**/
             new KeyLoader();
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端代理初始化出差了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端代理初始化出错了：" + e.getMessage());
         }
 
     }
@@ -61,7 +61,7 @@ public class ClientProxy extends CommonProxy {
         try {
             super.postInit(event);
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端代理初始化出差了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端代理初始化出错了：" + e.getMessage());
         }
 
     }
@@ -72,7 +72,7 @@ public class ClientProxy extends CommonProxy {
         try {
             entityPlayer=(EntityPlayer)(ctx.side.isClient() ? Minecraft.getMinecraft().thePlayer : super.getPlayerEntity(ctx));
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端代理初始化出差了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端代理初始化出错了：" + e.getMessage());
         }
         return entityPlayer;
     }

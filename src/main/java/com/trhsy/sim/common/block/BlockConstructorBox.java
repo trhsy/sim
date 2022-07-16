@@ -47,7 +47,7 @@ public class BlockConstructorBox extends Block {
             }
             super.onBlockAdded(world, blockPos, iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class BlockConstructorBox extends Block {
             }
             super.onBlockDestroyedByPlayer(world, blockPos, iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }
@@ -101,7 +101,7 @@ public class BlockConstructorBox extends Block {
             GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
             mc.displayGuiScreen(ui);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
             return false;
         }
         return true;

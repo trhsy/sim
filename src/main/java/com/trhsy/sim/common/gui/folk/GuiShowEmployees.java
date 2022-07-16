@@ -80,7 +80,7 @@ public class GuiShowEmployees extends GuiScreen {
             }
         } catch (Exception var5) {
             //var5.printStackTrace();
-            ModSimReloaded.log.error("显示员工出差："+var5.getMessage());
+            ModSimReloaded.log.error("显示员工出错："+var5.getMessage());
         }
 
     }

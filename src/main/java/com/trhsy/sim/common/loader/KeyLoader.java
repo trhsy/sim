@@ -19,7 +19,7 @@ public class KeyLoader {
 
             ClientRegistry.registerKeyBinding(KeyLoader.showTime);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
         }
 
     }

@@ -66,7 +66,7 @@ public class RenderAlignBeam extends Render<EntityAlignBeam> {
                 displayText(entity.caption, 0.03F, 0xFFFFFFFF, (float) x, (float) y + 0.5f, (float) z, entity);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("渲染对齐梁出错了：" + e.getMessage());
         }
     }
 
@@ -122,7 +122,7 @@ public class RenderAlignBeam extends Render<EntityAlignBeam> {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glPopMatrix();
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("渲染对齐梁出错了：" + e.getMessage());
         }
 
     }

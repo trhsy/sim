@@ -49,7 +49,7 @@ public class EnumBlock <E extends Enum<E> & EnumBlock.IEnumMeta & IStringSeriali
                 list.add(new ItemStack(this, 1, ((EnumBlock.IEnumMeta)type).getMeta()));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
         }
 
 

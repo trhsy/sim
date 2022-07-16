@@ -48,7 +48,7 @@ public class BlockLightBox extends EnumBlock<EnumBlockLightBox> {
                 list.add(new ItemStack(this, 1, type.meta));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }

@@ -381,7 +381,7 @@ public class GuiMerchant extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            ModSimReloaded.log.error("鼠标点击出差：" + e.getMessage());
+            ModSimReloaded.log.error("鼠标点击出错：" + e.getMessage());
         }
     }
 

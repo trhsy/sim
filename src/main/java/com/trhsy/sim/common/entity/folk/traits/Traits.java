@@ -46,7 +46,7 @@ public class Traits {
             traitList[9] = traitReligious;
             specialTraitList = new Trait[1];
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }

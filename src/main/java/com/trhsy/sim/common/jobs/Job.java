@@ -224,14 +224,16 @@ public abstract class Job {
             for (int i = 0; i < theFolk.getVillagerInventory().getSizeInventory(); i++) {
                 //当前方块的数量
                 ItemStack is = (ItemStack) theFolk.getVillagerInventory().getStackInSlot(i);
-                //如果物品 对上
-                if (Block.getBlockFromName(is.getDisplayName()) == item) {
-                    //赋值物品数量
-                    ret += is.stackSize;
+                if (is != null) {//如果物品 对上
+                    if (Block.getBlockFromName(is.getDisplayName()) == item) {
+                        //赋值物品数量
+                        ret += is.stackSize;
+                    }
                 }
             }
         } catch (Exception e) {
             ModSimReloaded.log.error("获得方块的库存出错了：" + e.getMessage());
+            return ret;
         }
         return ret;
     }

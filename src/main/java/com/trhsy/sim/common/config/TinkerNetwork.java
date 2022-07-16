@@ -41,7 +41,7 @@ public class TinkerNetwork extends NetworkWrapper{
             //this.registerPacketClient(FluidUpdatePacket.class);
             //this.registerPacketClient(FaucetActivationPacket.class);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }
@@ -81,7 +81,7 @@ public class TinkerNetwork extends NetworkWrapper{
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
 

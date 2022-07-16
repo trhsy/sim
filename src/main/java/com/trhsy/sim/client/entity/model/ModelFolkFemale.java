@@ -38,7 +38,7 @@ public class ModelFolkFemale extends ModelBiped {
             this.pregnant.addBox(0.0F, 0.0F, -1.0F, 5, 6, 5);
             this.pregnant.setRotationPoint(-2.5F, 5.0F, -4.0F);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化NPC出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化NPC出错了：" + e.getMessage());
         }
 
     }
@@ -68,7 +68,7 @@ public class ModelFolkFemale extends ModelBiped {
             //旋转角度
             this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染NPC出差了：" + e.getMessage());
+            ModSimReloaded.log.error("渲染NPC出错了：" + e.getMessage());
         }
 
     }

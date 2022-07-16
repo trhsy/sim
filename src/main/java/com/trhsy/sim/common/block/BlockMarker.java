@@ -59,7 +59,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         try {
             this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 
@@ -96,7 +96,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             markers.clear();
             super.onBlockDestroyedByPlayer(world,blockPos,iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 
@@ -173,7 +173,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 super.onBlockPlacedBy(world, blockPos,iBlockState, player, is);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 
@@ -189,7 +189,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
         return ret;
@@ -205,7 +205,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
             return false;
         }
         return true;

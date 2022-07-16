@@ -99,7 +99,7 @@ public class ModelWindmill extends ModelBase {
             WindmillBase.mirror = true;
             setRotation(WindmillBase, 0F, 0F, 0F);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化风车出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化风车出错了：" + e.getMessage());
         }
 
     }
@@ -122,7 +122,7 @@ public class ModelWindmill extends ModelBase {
             WindmillBase.render(1.0f);
             super.render(par1Entity, par2, par3, par4, par5, par6, par7);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化风车出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化风车出错了：" + e.getMessage());
         }
     }
 
@@ -132,7 +132,7 @@ public class ModelWindmill extends ModelBase {
             model.rotateAngleY = y;
             model.rotateAngleZ = z;
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化风车出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化风车出错了：" + e.getMessage());
         }
 
     }

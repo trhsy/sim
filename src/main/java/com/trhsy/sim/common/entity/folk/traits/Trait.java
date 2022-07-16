@@ -28,7 +28,7 @@ public class Trait {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
         return trait;
     }
@@ -94,7 +94,7 @@ public class Trait {
                 theFolk.statusText = visitingText;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }
@@ -109,7 +109,7 @@ public class Trait {
             theFolk.destination.doNotTimeout = true;
             theFolk.statusText = I18n.format("container.sim.folk_data_Visiting") + specialBuilding.displayName;
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
         }
 
     }

@@ -22,7 +22,7 @@ public class UpdateChecker {
         try {
             File checks = new File(ModSimReloaded.getSimukraftFolder()+ File.separator+"/buildings");
             if(!checks.exists()){
-                onUpdate();
+                //onUpdate();
             }
         }catch (Exception e){
             ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage());

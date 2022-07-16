@@ -143,7 +143,7 @@ public class RenderConBox extends Render<EntityConBox> {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染漂浮的建筑箱出差了：" + e.getMessage());
+            ModSimReloaded.log.error("渲染漂浮的建筑箱出错了：" + e.getMessage());
         }
 
     }
@@ -173,7 +173,7 @@ public class RenderConBox extends Render<EntityConBox> {
             fontrenderer.drawString(theString, 0, 0, col);
             GL11.glPopMatrix();
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
         }
     }
 

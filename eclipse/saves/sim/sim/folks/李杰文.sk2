@@ -1,7 +1,7 @@
 employedat|168,70,222,0
 vocation|CROPFARMER
 name|李杰文
-age|23
+age|24
 gender|0
 skin|30
 race|
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
-location|169,70,222,0
+stayput|false
+location|168,71,222,0
 pregnancy|0.0
 building|null
 terraformtype|null

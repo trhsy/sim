@@ -1,7 +1,7 @@
 package com.trhsy.sim.common.entity;
 
 import net.minecraft.block.Block;
-
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import java.io.Serializable;
 
 /**
@@ -38,7 +38,12 @@ public class V3 implements Serializable, Cloneable {
 
     @Override
     public V3 clone() {
-        V3 retV = new V3(this.x, this.y, this.z, this.theDimension);
+        V3 retV=null;
+        try{
+            retV = new V3(this.x, this.y, this.z, this.theDimension);
+        }catch (Exception e){
+            ModSimReloaded.log.error(this.name + "出错了" + e.getMessage());
+        }
         return retV;
     }
 

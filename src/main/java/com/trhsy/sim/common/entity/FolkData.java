@@ -527,9 +527,9 @@ public class FolkData implements Serializable {
                         liveAt = this.getHome().livingXYZ.clone();
                     }
 
-                    //if (liveAt == null) {
-                    //    liveAt = this.getHome().primaryXYZ.clone();
-                    //}
+                    if (liveAt == null) {
+                        liveAt = this.getHome().primaryXYZ.clone();
+                    }
 
                     if (this.location.getDistanceTo(liveAt) > 5 && this.destination == null || this.location.theDimension != this.getHome().primaryXYZ.theDimension) {
                         this.actionArrival = this.action;
@@ -795,6 +795,7 @@ public class FolkData implements Serializable {
 
                         } catch (Exception var13) {
                             ModSimReloaded.log.error(this.name + "寻找住房出错了" + var13.getMessage());
+                            this.getHome().removeTennant(this.name);
                         }
 
                         if (liveAt != null) {
@@ -1629,7 +1630,7 @@ public class FolkData implements Serializable {
                                     folkd.terraformerRadius = Integer.parseInt(value);
                                 }
                             } catch (Exception var18) {
-                                ModSimReloaded.log.error("加载NPC数据出差：" + var18.getMessage());
+                                ModSimReloaded.log.error("加载NPC数据出错：" + var18.getMessage());
                             }
                         }
                     }
@@ -1724,18 +1725,21 @@ public class FolkData implements Serializable {
      * @return
      */
     public Building getHome() {
-        for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
-            Building home = (Building) ModSimReloaded.theBuildings.get(b);
-
-            for (int t = 0; t < home.tenants.size(); ++t) {
-                String tennant = (String) home.tenants.get(t);
-                if (tennant.contentEquals(this.name)) {
-                    return home;
+        Building home =null;
+        try {
+            for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
+                home = (Building) ModSimReloaded.theBuildings.get(b);
+                for (int t = 0; t < home.tenants.size(); ++t) {
+                    String tennant = (String) home.tenants.get(t);
+                    if (tennant.contentEquals(this.name)) {
+                        return home;
+                    }
                 }
             }
+        }catch (Exception e){
+            ModSimReloaded.log.error("获取该居民居住的建筑/房屋出错了:");
         }
-
-        return null;
+        return home;
     }
 
     /**

@@ -403,7 +403,7 @@ public class JobBuilder extends Job implements Serializable {
                         //获取结构体
                         bl = this.theBuilding.structure[this.acount].split(":");
                     } catch (Exception var17) {
-                        ModSimReloaded.log.warn("JobBuilder: 建筑中的空块,改用空气");
+                        ModSimReloaded.log.error("JobBuilder: 建筑中的空块,改用空气");
                         bl = "0:0".split(":");
                     }
                     //获取块id

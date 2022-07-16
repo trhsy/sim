@@ -58,7 +58,7 @@ public class CommandGenerateFolk implements ICommand {
                 ModSimReloaded.sendChat(I18n.format("container.sim.commands2"));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }

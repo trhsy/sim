@@ -60,7 +60,7 @@ public class CommandChangeCredits implements ICommand {
         } catch (Exception e) {
             //金额必须是数字！
             ModSimReloaded.sendChat(I18n.format("container.sim.commands2"));
-            //ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            //ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
             return;
         }
     }

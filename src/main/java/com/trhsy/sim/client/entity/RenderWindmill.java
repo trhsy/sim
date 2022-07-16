@@ -71,7 +71,7 @@ public class RenderWindmill extends Render<EntityWindmill> {
             modelWindmill.render(entity, 0f, 0f, 0f, 0f, 0f, 0f);
             GL11.glPopMatrix();
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染风车出差了：" + e.getMessage());
+            ModSimReloaded.log.error("渲染风车出错了：" + e.getMessage());
         }
 
     }

@@ -56,7 +56,7 @@ public class BlockFarmingBox extends Block {
             world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
             super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }
@@ -92,7 +92,7 @@ public class BlockFarmingBox extends Block {
             }
             super.onBlockAdded(world, blockPos, iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
         }
 
     }
@@ -127,7 +127,7 @@ public class BlockFarmingBox extends Block {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出差了：" + e.getMessage());
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
             return false;
         }
         return true;

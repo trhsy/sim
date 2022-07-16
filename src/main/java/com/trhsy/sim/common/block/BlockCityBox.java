@@ -45,7 +45,7 @@ public class BlockCityBox extends Block {
             ui = new GuiCityBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
             mc.displayGuiScreen(ui);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出差了：" + e.getMessage());
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
             return false;
         }
         return true;

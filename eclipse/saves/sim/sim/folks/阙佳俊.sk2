@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|阙佳俊
-age|25
+age|26
 gender|0
 skin|3
 race|
@@ -14,7 +14,7 @@ levelbuilder|10.000072
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|174,70,246,0
+location|126,63,306,0
 pregnancy|0.0
 building|null
 terraformtype|null
