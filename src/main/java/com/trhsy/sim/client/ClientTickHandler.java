@@ -37,7 +37,7 @@ public class ClientTickHandler extends GuiScreen {
         try {
             FMLCommonHandler.instance().bus().register(this);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端init出错了：" + e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class ClientTickHandler extends GuiScreen {
         try {
             this.onTickInGame();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage());
         }
 
     }
@@ -60,7 +60,7 @@ public class ClientTickHandler extends GuiScreen {
         try {
             this.onGui();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage());
         }
     }
 
@@ -94,7 +94,7 @@ public class ClientTickHandler extends GuiScreen {
                 this.timeSinceLastSave = System.currentTimeMillis();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端onTickInGame出错了：" + e.getMessage());
         }
 
 
@@ -138,7 +138,7 @@ public class ClientTickHandler extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端onGui出错了：" + e.getMessage());
         }
     }
 
@@ -176,7 +176,7 @@ public class ClientTickHandler extends GuiScreen {
                 return;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("客户端beamingPlayer出错了：" + e.getMessage());
         }
     }
 

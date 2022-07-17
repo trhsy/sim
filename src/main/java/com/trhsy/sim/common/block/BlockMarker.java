@@ -59,7 +59,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         try {
             this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("标记棒setBlockBoundsForItemRender出错了：" + e.getMessage());
         }
     }
 
@@ -96,7 +96,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             markers.clear();
             super.onBlockDestroyedByPlayer(world,blockPos,iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("标记棒onBlockDestroyedByPlayer出错了：" + e.getMessage());
         }
     }
 
@@ -173,7 +173,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 super.onBlockPlacedBy(world, blockPos,iBlockState, player, is);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("标记棒onBlockPlacedBy出错了：" + e.getMessage());
         }
     }
 
@@ -189,7 +189,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("标记棒getMarker出错了：" + e.getMessage());
         }
 
         return ret;

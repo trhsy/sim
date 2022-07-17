@@ -46,7 +46,7 @@ public class BlockCopperOre extends BlockOre {
             Random rand = iBlockAccess instanceof World ? ((World)iBlockAccess).rand : new Random();
             i = MathHelper.getRandomIntegerInRange(rand, 0, 7);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("铜矿getExpDrop出错了：" + e.getMessage());
         }
         return i;
     }

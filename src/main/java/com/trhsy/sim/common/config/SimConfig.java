@@ -45,7 +45,7 @@ public class SimConfig implements IConfiguration{
                 this.config.save();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("sim配置flush出错了：" + e.getMessage());
         }
 
     }

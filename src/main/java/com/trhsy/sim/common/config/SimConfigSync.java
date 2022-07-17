@@ -44,7 +44,7 @@ public class SimConfigSync {
                 TinkerNetwork.sendTo(packet, (EntityPlayerMP)event.player);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("sim配置异步出错了：" + e.getMessage());
         }
 
     }

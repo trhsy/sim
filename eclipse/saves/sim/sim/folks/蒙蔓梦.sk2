@@ -1,7 +1,7 @@
-employedat|207,68,253,0
-vocation|BUTCHER
+employedat|null
+vocation|null
 name|蒙蔓梦
-age|25
+age|26
 gender|1
 skin|0
 race|
@@ -10,11 +10,11 @@ trait2|勇敢的
 trait3|夜猫子
 trait4|矮人血脉
 levelfood|10
-levelbuilder|1.0
+levelbuilder|10.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|207,69,253,0
+location|207,68,253,0
 pregnancy|0.0
 building|null
 terraformtype|WATERTODIRT

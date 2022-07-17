@@ -1,7 +1,7 @@
-employedat|148,71,223,0
-vocation|BAKER
+employedat|null
+vocation|null
 name|敖一雯
-age|25
+age|26
 gender|1
 skin|25
 race|
@@ -9,12 +9,12 @@ trait1|喜欢户外活动
 trait2|友善的
 trait3|擅长园艺
 trait4|夜猫子
-levelfood|9
-levelbuilder|1.0
+levelfood|10
+levelbuilder|10.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|148,72,223,0
+location|71,63,275,0
 pregnancy|0.0
 building|null
 terraformtype|null

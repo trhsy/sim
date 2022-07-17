@@ -40,7 +40,7 @@ public class FarmingBox implements Serializable {
             this.farmType = FarmType.WHEAT;
             this.level = 1;
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage());
         }
     }
 
@@ -53,7 +53,7 @@ public class FarmingBox implements Serializable {
                 this.level = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class FarmingBox implements Serializable {
                 this.level = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage());
         }
     }
 
@@ -178,7 +178,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("养殖箱getSoilBlockPoints出错了：" + e.getMessage());
         }
 
 
@@ -279,7 +279,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("养殖箱getFarmingBlockByBoxXYZ出错了：" + e.getMessage());
         }
         return ret;
     }
@@ -390,7 +390,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("养殖箱loadFarmingBoxes出错了：" + e.getMessage());
         }
     }
 
@@ -419,7 +419,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("养殖箱saveFarmingBoxes出错了：" + e.getMessage());
         }
     }
 }

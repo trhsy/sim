@@ -62,7 +62,6 @@ public class CommonTickHandler {
         if (ModSimReloaded.states.gameModeNumber == 10) {
             ModSim.proxy.ranStartup = true;
         } else {
-            Long now = System.currentTimeMillis();
             if (this.serverWorld != null) {
                 //触发所有更新
                 FolkData.triggerAllUpdates();
@@ -77,7 +76,7 @@ public class CommonTickHandler {
                 }
             }
 
-            if (now - this.lastSecondTickAt > 1000L) {
+            if (System.currentTimeMillis() - this.lastSecondTickAt > 1000L) {
                 if (!ModSim.proxy.ranStartup) {
                     //还没有启动——现在就这么做
                     //ModSimReloaded.log.info("Haven't run startup - doing that now");
@@ -90,7 +89,7 @@ public class CommonTickHandler {
                     //ModSimReloaded.log.info("Running Reset World Function");
                     ModSimReloaded.resetAndLoadNewWorld();
                 } else {
-                    if (!this.currentWorld.contentEquals(ModSimReloaded.getSavesDataFolder()) && now - this.lastReset > 30000L) {
+                    if (!this.currentWorld.contentEquals(ModSimReloaded.getSavesDataFolder()) && System.currentTimeMillis() - this.lastReset > 30000L) {
                         ModSimReloaded.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSimReloaded.getSavesDataFolder());
                         this.currentWorld = ModSimReloaded.getSavesDataFolder();
                         ModSim.proxy.ranStartup = false;
@@ -102,7 +101,7 @@ public class CommonTickHandler {
                     }
                 }
 
-                this.lastSecondTickAt = now;
+                this.lastSecondTickAt = System.currentTimeMillis();
             }
 
             if (this.serverWorld != null && System.currentTimeMillis() - this.lastMinuteTickAt > 60000L) {
@@ -120,7 +119,7 @@ public class CommonTickHandler {
                     //Saved game data in
                 }
 
-                this.lastMinuteTickAt = now;
+                this.lastMinuteTickAt = System.currentTimeMillis();
             }
 
         }

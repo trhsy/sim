@@ -41,7 +41,7 @@ public class ConfigLoader {
     /**配置偏移量**/
     public static int configHUDoffset = 0;
     /**停止降雨**/
-    public static boolean configStopRain = false;
+    public static boolean configStopRain = true;
     /**配置NPC说英文**/
     public static boolean configFolkTalkingEnglish = true;
     /**配置男性姓名**/

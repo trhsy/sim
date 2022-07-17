@@ -421,7 +421,7 @@ public class FolkData implements Serializable {
                         }
 
                         this.entityId = this.theEntity.getEntityId();
-                        ModSimReloaded.log.info("FolkData:repawnEntity() " + this.name + " 在 " + this.location.toString() + " 昏暗中 " + this.location.theDimension + " ENTITY:" + this.theEntity.getEntityId());
+                        //ModSimReloaded.log.info("FolkData:repawnEntity() " + this.name + " 在 " + this.location.toString() + " 昏暗中 " + this.location.theDimension + " ENTITY:" + this.theEntity.getEntityId());
                     }
 
                 }
@@ -631,7 +631,7 @@ public class FolkData implements Serializable {
                         wanderTo.y++;
                     }
 
-                    ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
+                    //ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
                     this.gotoXYZ(wanderTo, GotoMethod.WALK);
                     if (this.destination != null) {
                         this.destination.doNotTimeout = true;
@@ -682,8 +682,8 @@ public class FolkData implements Serializable {
                 this.updateLocationFromEntity();
                 int range = this.getDistanceToPlayer();
                 if (range >= 50 && this.theEntity != null) {
-                    ModSimReloaded.log.info("FolkData: onSecTasks - 手动解除抵押 " + this.name + " 的权限，因为它们距离 " + range + " 个街区远");
-                    this.theEntity.setDead();
+                    //ModSimReloaded.log.info("FolkData: onSecTasks - 手动解除抵押 " + this.name + " 的权限，因为它们距离 " + range + " 个街区远");
+                    //this.theEntity.setDead();
                 }
             }
             //如果白天他们有工作就去工作
@@ -707,7 +707,7 @@ public class FolkData implements Serializable {
                 if(this.employedAt != null && this.action != FolkAction.ATWORK && this.destination == null && this.pregnancyStage == 0.0F){
                     this.statusText = I18n.format("container.sim.folk_data_Going_work");
                     this.action = FolkAction.ONWAYTOWORK;
-                    ModSimReloaded.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
+                    //ModSimReloaded.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
                     this.updateLocationFromEntity();
                     V3 temp = this.employedAt.clone();
                     temp.x += 5.0;
@@ -794,7 +794,7 @@ public class FolkData implements Serializable {
                             }
 
                         } catch (Exception var13) {
-                            ModSimReloaded.log.error(this.name + "寻找住房出错了" + var13.getMessage());
+                            //ModSimReloaded.log.error(this.name + "寻找住房出错了" + var13.getMessage());
                             this.getHome().removeTennant(this.name);
                         }
 
@@ -1017,7 +1017,8 @@ public class FolkData implements Serializable {
             }
         }
         Random rand = new Random();
-        if (this.getHome() != null) {
+        Building building=this.getHome();
+        if (building!= null) {
             //拥有自己的房子
             this.status2 = I18n.format("container.sim.folkData2");
         } else {
@@ -1739,7 +1740,7 @@ public class FolkData implements Serializable {
         }catch (Exception e){
             ModSimReloaded.log.error("获取该居民居住的建筑/房屋出错了:");
         }
-        return home;
+        return null;
     }
 
     /**

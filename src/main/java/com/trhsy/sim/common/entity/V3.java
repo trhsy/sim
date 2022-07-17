@@ -42,7 +42,7 @@ public class V3 implements Serializable, Cloneable {
         try{
             retV = new V3(this.x, this.y, this.z, this.theDimension);
         }catch (Exception e){
-            ModSimReloaded.log.error(this.name + "出错了" + e.getMessage());
+            ModSimReloaded.log.error(this.name + "v3 clone出错了" + e.getMessage());
         }
         return retV;
     }

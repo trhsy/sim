@@ -48,7 +48,7 @@ public class Race implements Serializable {
 
             Races.loadRaces();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("Race-loadRaces出错了：" + e.getMessage());
         }
 
     }
@@ -73,7 +73,7 @@ public class Race implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            ModSimReloaded.log.error("getRandomSkinForRace出错了：" + e.getMessage());
         }
         return 0;
     }
