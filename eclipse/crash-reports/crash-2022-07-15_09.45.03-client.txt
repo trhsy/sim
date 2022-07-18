@@ -1,0 +1,110 @@
+---- Minecraft Crash Report ----
+// I let you down. Sorry :(
+
+Time: 22-7-15 上午9:45
+Description: Unexpected error
+
+java.util.ConcurrentModificationException
+	at com.google.common.collect.HashBiMap$Itr.checkForConcurrentModification(HashBiMap.java:339)
+	at com.google.common.collect.HashBiMap$Itr.hasNext(HashBiMap.java:345)
+	at net.minecraft.client.audio.SoundManager.updateAllSounds(SoundManager.java:243)
+	at net.minecraft.client.audio.SoundHandler.update(SoundHandler.java:235)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2187)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1080)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:380)
+	at net.minecraft.client.main.Main.main(Main.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:26)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at com.google.common.collect.HashBiMap$Itr.checkForConcurrentModification(HashBiMap.java:339)
+	at com.google.common.collect.HashBiMap$Itr.hasNext(HashBiMap.java:345)
+	at net.minecraft.client.audio.SoundManager.updateAllSounds(SoundManager.java:243)
+	at net.minecraft.client.audio.SoundHandler.update(SoundHandler.java:235)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player447'/173, l='MpServer', x=206.06, y=70.00, z=254.58]]
+	Chunk stats: MultiplayerChunkCache: 610, 610
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: 96.00,64.00,252.00 - World: (96,64,252), Chunk: (at 0,4,12 in 6,15; contains blocks 96,0,240 to 111,255,255), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 2166639 game time, 13733 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: true), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 42 total; [EntityRabbit['兔子'/128, l='MpServer', x=219.38, y=63.00, z=300.47], EntityItem['item.item.egg'/420870, l='MpServer', x=182.28, y=69.00, z=220.06], EntityBat['蝙蝠'/1012751, l='MpServer', x=161.47, y=27.19, z=315.91], EntityRabbit['兔子'/131, l='MpServer', x=225.78, y=65.00, z=196.94], EntitySheep['羊'/132, l='MpServer', x=236.63, y=66.00, z=218.44], EntitySheep['羊'/133, l='MpServer', x=235.66, y=63.00, z=306.22], EntitySheep['羊'/135, l='MpServer', x=254.41, y=62.25, z=211.97], EntitySheep['羊'/139, l='MpServer', x=240.13, y=63.00, z=309.16], EntitySheep['羊'/144, l='MpServer', x=262.13, y=63.00, z=212.38], EntitySheep['羊'/145, l='MpServer', x=271.34, y=67.00, z=212.00], EntitySheep['羊'/146, l='MpServer', x=259.19, y=63.00, z=203.44], EntitySquid['鱿鱼'/948892, l='MpServer', x=160.75, y=62.38, z=309.38], EntitySheep['羊'/147, l='MpServer', x=268.97, y=66.00, z=302.00], EntityBat['蝙蝠'/1048348, l='MpServer', x=194.25, y=41.10, z=183.34], EntityPlayerSP['Player447'/173, l='MpServer', x=206.06, y=70.00, z=254.58], EntityBat['蝙蝠'/894524, l='MpServer', x=156.03, y=24.00, z=317.53], EntityItem['item.item.egg'/1010237, l='MpServer', x=152.84, y=70.00, z=251.31], EntityBat['蝙蝠'/759089, l='MpServer', x=217.19, y=17.00, z=185.69], EntityFolk['小镇居民'/950960, l='MpServer', x=168.50, y=71.00, z=222.50], EntitySquid['鱿鱼'/1075664, l='MpServer', x=245.03, y=62.19, z=268.63], EntityBat['蝙蝠'/1091024, l='MpServer', x=217.99, y=11.05, z=221.31], EntityBat['蝙蝠'/1091030, l='MpServer', x=204.56, y=42.76, z=187.47], EntityBat['蝙蝠'/970438, l='MpServer', x=196.16, y=48.10, z=192.28], EntitySquid['鱿鱼'/1021144, l='MpServer', x=256.91, y=61.13, z=267.53], EntityChicken['鸡'/90, l='MpServer', x=153.34, y=70.00, z=251.38], EntityChicken['鸡'/91, l='MpServer', x=136.47, y=63.00, z=272.25], EntityChicken['鸡'/92, l='MpServer', x=142.50, y=69.00, z=255.63], EntityChicken['鸡'/96, l='MpServer', x=191.16, y=70.00, z=263.50], EntityChicken['鸡'/97, l='MpServer', x=176.19, y=69.00, z=232.50], EntityRabbit['兔子'/98, l='MpServer', x=183.91, y=69.50, z=278.50], EntityRabbit['兔子'/106, l='MpServer', x=161.94, y=67.00, z=178.06], EntityChicken['鸡'/115, l='MpServer', x=182.56, y=62.72, z=305.94], EntityBat['蝙蝠'/838648, l='MpServer', x=262.59, y=23.16, z=194.25], EntityItem['item.item.egg'/905973, l='MpServer', x=190.28, y=70.00, z=263.22], EntityBat['蝙蝠'/1064809, l='MpServer', x=273.44, y=42.63, z=184.75], EntityChicken['鸡'/122, l='MpServer', x=200.44, y=62.69, z=316.69], EntityRabbit['兔子'/125, l='MpServer', x=200.66, y=67.00, z=195.25], EntityFolk['小镇居民'/709751, l='MpServer', x=207.50, y=69.00, z=253.50], EntityRabbit['兔子'/126, l='MpServer', x=205.63, y=64.00, z=215.69], EntityBat['蝙蝠'/1064814, l='MpServer', x=276.16, y=52.06, z=212.97], EntitySheep['羊'/127, l='MpServer', x=191.88, y=67.00, z=267.13], EntityFolk['小镇居民'/936305, l='MpServer', x=160.50, y=71.00, z=249.50]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:383)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2645)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:409)
+	at net.minecraft.client.main.Main.main(Main.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:26)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_271, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 503579768 bytes (480 MB) / 1262485504 bytes (1204 MB) up to 3791650816 bytes (3616 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.19 Powered by Forge 11.15.1.2318 4 mods loaded, 4 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.8.9-11.15.1.2318-1.8.9.jar) 
+	UCHIJAAAA	Forge{11.15.1.2318} [Minecraft Forge] (forgeSrc-1.8.9-11.15.1.2318-1.8.9.jar) 
+	UCHIJAAAA	sim{1.0.0 Beta} [Simulated town] (sim-u-1.8.9) 
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8280' Renderer: 'Intel(R) HD Graphics 630'
+	Pulsar/sim loaded Pulses: 
+
+	Launched Version: 1.8.9
+	LWJGL: 2.9.4
+	OpenGL: Intel(R) HD Graphics 630 GL version 4.6.0 - Build 27.20.100.8280, Intel
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: 简体中文 (中国)
+	Profiler Position: N/A (disabled)
+	CPU: 8x Intel(R) Core(TM) i7-7700 CPU @ 3.60GHz

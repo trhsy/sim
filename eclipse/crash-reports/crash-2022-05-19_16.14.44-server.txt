@@ -1,0 +1,140 @@
+---- Minecraft Crash Report ----
+// My bad.
+
+Time: 22-5-19 下午4:14
+Description: Exception initializing level
+
+java.lang.RuntimeException: Already decorating
+	at net.minecraft.world.biome.BiomeDecorator.decorate(BiomeDecorator.java:71)
+	at net.minecraft.world.biome.BiomeGenBase.decorate(BiomeGenBase.java:343)
+	at net.minecraft.world.biome.BiomeGenHills.decorate(BiomeGenHills.java:42)
+	at net.minecraft.world.gen.ChunkProviderFlat.populate(SourceFile:185)
+	at net.minecraft.world.gen.ChunkProviderServer.populate(ChunkProviderServer.java:261)
+	at net.minecraft.world.chunk.Chunk.populateChunk(Chunk.java:1082)
+	at net.minecraft.world.gen.ChunkProviderServer.originalLoadChunk(ChunkProviderServer.java:172)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:114)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:84)
+	at net.minecraft.world.gen.ChunkProviderServer.provideChunk(ChunkProviderServer.java:181)
+	at net.minecraft.world.World.getChunkFromChunkCoords(World.java:287)
+	at net.minecraft.world.World.getChunkFromBlockCoords(World.java:282)
+	at net.minecraft.world.World.getBlockState(World.java:822)
+	at net.minecraft.world.gen.feature.WorldGenMinable.generate(WorldGenMinable.java:76)
+	at com.trhsy.sim.common.worldgen.WorldGeneratorTinOre.generate(WorldGeneratorTinOre.java:45)
+	at com.trhsy.sim.common.loader.WorldGeneratorLoader.onOreGenPost(WorldGeneratorLoader.java:46)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_12_WorldGeneratorLoader_onOreGenPost_Post.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140)
+	at net.minecraft.world.biome.BiomeDecorator.generateOres(BiomeDecorator.java:442)
+	at net.minecraft.world.biome.BiomeDecorator.genDecorations(BiomeDecorator.java:109)
+	at net.minecraft.world.biome.BiomeDecorator.decorate(BiomeDecorator.java:100)
+	at net.minecraft.world.biome.BiomeGenBase.decorate(BiomeGenBase.java:343)
+	at net.minecraft.world.biome.BiomeGenHills.decorate(BiomeGenHills.java:42)
+	at net.minecraft.world.gen.ChunkProviderFlat.populate(SourceFile:185)
+	at net.minecraft.world.gen.ChunkProviderServer.populate(ChunkProviderServer.java:261)
+	at net.minecraft.world.chunk.Chunk.populateChunk(Chunk.java:1068)
+	at net.minecraft.world.gen.ChunkProviderServer.originalLoadChunk(ChunkProviderServer.java:172)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:114)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:84)
+	at net.minecraft.world.gen.ChunkProviderServer.provideChunk(ChunkProviderServer.java:181)
+	at net.minecraft.world.World.getChunkFromChunkCoords(World.java:287)
+	at net.minecraft.world.World.getChunkFromBlockCoords(World.java:282)
+	at net.minecraft.world.World.getBlockState(World.java:822)
+	at net.minecraft.world.World.isAirBlock(World.java:204)
+	at net.minecraft.world.World.getGroundAboveSeaLevel(World.java:189)
+	at net.minecraft.world.WorldProvider.canCoordinateBeSpawn(WorldProvider.java:64)
+	at net.minecraft.world.WorldServer.createSpawnPosition(WorldServer.java:845)
+	at net.minecraft.world.WorldServer.initialize(WorldServer.java:767)
+	at net.minecraft.server.integrated.IntegratedServer.loadAllWorlds(IntegratedServer.java:89)
+	at net.minecraft.server.integrated.IntegratedServer.startServer(IntegratedServer.java:123)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:441)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.world.biome.BiomeDecorator.decorate(BiomeDecorator.java:71)
+	at net.minecraft.world.biome.BiomeGenBase.decorate(BiomeGenBase.java:343)
+	at net.minecraft.world.biome.BiomeGenHills.decorate(BiomeGenHills.java:42)
+	at net.minecraft.world.gen.ChunkProviderFlat.populate(SourceFile:185)
+	at net.minecraft.world.gen.ChunkProviderServer.populate(ChunkProviderServer.java:261)
+	at net.minecraft.world.chunk.Chunk.populateChunk(Chunk.java:1082)
+	at net.minecraft.world.gen.ChunkProviderServer.originalLoadChunk(ChunkProviderServer.java:172)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:114)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:84)
+	at net.minecraft.world.gen.ChunkProviderServer.provideChunk(ChunkProviderServer.java:181)
+	at net.minecraft.world.World.getChunkFromChunkCoords(World.java:287)
+	at net.minecraft.world.World.getChunkFromBlockCoords(World.java:282)
+	at net.minecraft.world.World.getBlockState(World.java:822)
+	at net.minecraft.world.gen.feature.WorldGenMinable.generate(WorldGenMinable.java:76)
+	at com.trhsy.sim.common.worldgen.WorldGeneratorTinOre.generate(WorldGeneratorTinOre.java:45)
+	at com.trhsy.sim.common.loader.WorldGeneratorLoader.onOreGenPost(WorldGeneratorLoader.java:46)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_12_WorldGeneratorLoader_onOreGenPost_Post.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140)
+	at net.minecraft.world.biome.BiomeDecorator.generateOres(BiomeDecorator.java:442)
+	at net.minecraft.world.biome.BiomeDecorator.genDecorations(BiomeDecorator.java:109)
+	at net.minecraft.world.biome.BiomeDecorator.decorate(BiomeDecorator.java:100)
+	at net.minecraft.world.biome.BiomeGenBase.decorate(BiomeGenBase.java:343)
+	at net.minecraft.world.biome.BiomeGenHills.decorate(BiomeGenHills.java:42)
+	at net.minecraft.world.gen.ChunkProviderFlat.populate(SourceFile:185)
+	at net.minecraft.world.gen.ChunkProviderServer.populate(ChunkProviderServer.java:261)
+	at net.minecraft.world.chunk.Chunk.populateChunk(Chunk.java:1068)
+	at net.minecraft.world.gen.ChunkProviderServer.originalLoadChunk(ChunkProviderServer.java:172)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:114)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:84)
+	at net.minecraft.world.gen.ChunkProviderServer.provideChunk(ChunkProviderServer.java:181)
+	at net.minecraft.world.World.getChunkFromChunkCoords(World.java:287)
+	at net.minecraft.world.World.getChunkFromBlockCoords(World.java:282)
+	at net.minecraft.world.World.getBlockState(World.java:822)
+	at net.minecraft.world.World.isAirBlock(World.java:204)
+	at net.minecraft.world.World.getGroundAboveSeaLevel(World.java:189)
+	at net.minecraft.world.WorldProvider.canCoordinateBeSpawn(WorldProvider.java:64)
+	at net.minecraft.world.WorldServer.createSpawnPosition(WorldServer.java:845)
+
+-- Affected level --
+Details:
+	Level name: 新的世界
+	All players: 0 total; []
+	Chunk stats: ServerChunkCache: 38 Drop: 0
+	Level seed: -8607127736330746603
+	Level generator: ID 01 - flat, ver 0. Features enabled: true
+	Level generator options: 3;minecraft:bedrock,230*minecraft:stone,5*minecraft:dirt,minecraft:grass;3;biome_1,decoration,stronghold,mineshaft3
+	Level spawn location: 0.00,0.00,0.00 - World: (0,0,0), Chunk: (at 0,0,0 in 0,0; contains blocks 0,0,0 to 15,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 0 game time, 0 day time
+	Level dimension: 0
+	Level storage version: 0x04ABD - Anvil
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: true
+Stacktrace:
+	at net.minecraft.world.WorldServer.initialize(WorldServer.java:767)
+	at net.minecraft.server.integrated.IntegratedServer.loadAllWorlds(IntegratedServer.java:89)
+	at net.minecraft.server.integrated.IntegratedServer.startServer(IntegratedServer.java:123)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:441)
+	at java.lang.Thread.run(Thread.java:748)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_271, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 1283967584 bytes (1224 MB) / 1593835520 bytes (1520 MB) up to 3791650816 bytes (3616 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP 9.19 Powered by Forge 11.15.1.2318 4 mods loaded, 4 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAA	FML{8.0.99.99} [Forge Mod Loader] (forgeBin-1.8.9-11.15.1.2318-1.8.9.jar) 
+	UCHIJAA	Forge{11.15.1.2318} [Minecraft Forge] (forgeBin-1.8.9-11.15.1.2318-1.8.9.jar) 
+	UCHIJAA	sim{1.0.0 Beta} [Simulated town] (sim-u-1.8.9) 
+	Loaded coremods (and transformers): 
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Pulsar/sim loaded Pulses: 
+
+	Profiler Position: N/A (disabled)
+	Player Count: 0 / 8; []
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
