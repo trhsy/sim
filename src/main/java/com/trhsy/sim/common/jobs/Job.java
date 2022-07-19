@@ -26,6 +26,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.util.*;
 
@@ -188,6 +189,7 @@ public abstract class Job {
         //声明库存为0
         int ret = 0;
         try {
+            String lang= FMLCommonHandler.instance().getCurrentLanguage();
             InventoryBasic inventoryBasic = theFolk.getVillagerInventory();
             if (inventoryBasic != null) {
                 //循环库存
@@ -195,8 +197,15 @@ public abstract class Job {
                     //当前方块的数量
                     ItemStack is = inventoryBasic.getStackInSlot(i);
                     if (is != null) {
+                        String name=is.getDisplayName();
+                        String names=new ItemStack(item).getDisplayName();
+                        if("en_US".equals(lang)){
+                            names=names.substring(names.indexOf(" "),names.length());
+                        }else{
+                            names=names.substring(names.length()-1,names.length());
+                        }
                         //如果物品 对上
-                        if (is.getItem() == item) {
+                        if (name.contains(names)) {
                             //赋值物品数量
                             ret += is.stackSize;
                         }

@@ -683,7 +683,7 @@ public class FolkData implements Serializable {
                 int range = this.getDistanceToPlayer();
                 if (range >= 50 && this.theEntity != null) {
                     //ModSimReloaded.log.info("FolkData: onSecTasks - 手动解除抵押 " + this.name + " 的权限，因为它们距离 " + range + " 个街区远");
-                    //this.theEntity.setDead();
+                    this.theEntity.setDead();
                 }
             }
             //如果白天他们有工作就去工作
@@ -1346,17 +1346,17 @@ public class FolkData implements Serializable {
                     } catch (Exception var11) {
                         dist = 999;
                     }
-
-                    if (dist < 40) {
+                    //小于40则走过去
+                    if (dist < 100) {
                         this.gotoMethod = GotoMethod.WALK;
                     }
 
-                    if (!this.isSpawned() || dist >= 40) {
+                    if (!this.isSpawned() || dist >= 100) {
                         this.gotoMethod = GotoMethod.BEAM;
                     }
                     //如果玩家处于不同维度或超出范围，则为空
                     if (playpos != null) {
-                        if (this.location.getDistanceTo(playpos) >= 40 && whereTo.getDistanceTo(playpos) >= 40) {
+                        if (this.location.getDistanceTo(playpos) >= 100 && whereTo.getDistanceTo(playpos) >= 100) {
                             this.gotoMethod = GotoMethod.SHIFT;
                         }
 

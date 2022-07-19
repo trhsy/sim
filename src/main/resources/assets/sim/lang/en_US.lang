@@ -594,6 +594,7 @@ container.sim.gui_contains_Sheep_Farm=Sheep Farm
 container.sim.gui_contains_Egg_Farm=Egg Farm
 container.sim.gui_contains_Cattle_Farm=Cattle Farm
 container.sim.gui_contains_Chicken_Farm=Chicken Farm
+container.sim.job.Butcher_today=There is no meat for sale today. Do you have an active meat farm?
 container.sim.gui_contains_Depot=Depot
 container.sim.gui_contains_Glass_Factory=Glass Factory
 container.sim.gui_contains_Fishing_Dock=Fishing Dock

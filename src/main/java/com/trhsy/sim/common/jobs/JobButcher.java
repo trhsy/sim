@@ -130,6 +130,7 @@ public class JobButcher extends Job implements Serializable {
     }
 
     private void stageGoingToFarm() {
+        //从农场获取新鲜食物
         this.theFolk.statusText = I18n.format("container.sim.job.butcher.Fetching");
         this.theFolk.action = FolkAction.ATWORK;
         if (!this.onRoute) {
@@ -281,13 +282,22 @@ public class JobButcher extends Job implements Serializable {
 
     }
 
+    /**
+     * 获取当前肉场
+     * @return
+     */
     private Building getCurrentFarm() {
         boolean found = false;
 
         while(!found) {
             try {
                 Building farm = (Building) ModSimReloaded.theBuildings.get(this.currentFarmNum);
-                if (farm.displayNameWithoutPK.contains("Cattle Farm") || farm.displayNameWithoutPK.contains("Pig Farm") || farm.displayNameWithoutPK.contains("Chicken Farm")) {
+                //养牛场
+                String cattleFarm=I18n.format("container.sim.gui_contains_Cattle_Farm");
+                String pigFarm=I18n.format("container.sim.gui_contains_Pig_Farm");
+                String chickenFarm=I18n.format("container.sim.gui_contains_Chicken_Farm");
+
+                if (farm.displayNameWithoutPK.contains(cattleFarm) || farm.displayNameWithoutPK.contains(pigFarm) || farm.displayNameWithoutPK.contains(chickenFarm)) {
                     found = true;
                     ++this.currentFarmNum;
                     return farm;
@@ -295,13 +305,13 @@ public class JobButcher extends Job implements Serializable {
 
                 ++this.currentFarmNum;
                 if (this.currentFarmNum > ModSimReloaded.theBuildings.size() - 1) {
+                    ModSimReloaded.sendChat(I18n.format("container.sim.job.Butcher_today"));
                     return null;
                 }
             } catch (Exception var3) {
                 return null;
             }
         }
-
         return null;
     }
 
