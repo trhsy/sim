@@ -12,8 +12,10 @@ import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -203,15 +205,26 @@ public abstract class Job {
         //声明库存为0
         int ret = 0;
         try {
+            String lang= FMLCommonHandler.instance().getCurrentLanguage();
             //循环库存
             for (int i = 0; i < theFolk.inventory.size(); ++i) {
                 //当前方块的数量
                 ItemStack is = (ItemStack) theFolk.inventory.get(i);
-                //如果物品 对上
-                if (Block.getBlockFromName(is.getDisplayName()) == item) {
-                    //赋值物品数量
-                    ret += is.stackSize;
+                if(is!=null){
+                    String name=is.getDisplayName();
+                    String names=new ItemStack(item).getDisplayName();
+                    if("en_US".equals(lang)){
+                        names=names.substring(names.indexOf(" "),names.length());
+                    }else{
+                        names=names.substring(names.length()-1,names.length());
+                    }
+                    //如果物品 对上
+                    if (name.contains(names)) {
+                        //赋值物品数量
+                        ret += is.stackSize;
+                    }
                 }
+
             }
         } catch (Exception e) {
 

@@ -883,7 +883,7 @@ container.sim.Hire25=Hire Farmer
 container.sim.title=Simulated town
 container.sim.Fire=Fire
 container.sim.Dismiss=Dismiss
-
+container.sim.job_lumber_wood=Wood
 container.sim.Arrived=Arrived
 container.sim.brick=brick
 container.sim.glass=glass

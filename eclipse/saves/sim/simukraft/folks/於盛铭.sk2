@@ -6,11 +6,11 @@ gender|0
 skin|34
 levelfood|10
 levelfun|5
-levelbuilder|1.0
+levelbuilder|10.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-303,238,-287,0
+location|-333,239,-221,0
 pregnancy|0.0
 building|null
 terraformtype|null

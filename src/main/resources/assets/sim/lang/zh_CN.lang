@@ -690,7 +690,7 @@ container.sim.Markers3=一个标记可以用来指定一个新的伐木区域和
 container.sim.Markers4=提示：使用后，在标记新区域之前，移除旧标记。
 container.sim.Markers5=请输入此快递点/发送点的名称
 container.sim.Markers6=错误：将至少一个箱子靠近标记。
-
+container.sim.job_lumber_wood=木
 container.sim.Markers7=错误：名称必须是唯一的，'
 container.sim.Markers8=' 已被使用。
 container.sim.Markers9=添加了快递点/传送点'
