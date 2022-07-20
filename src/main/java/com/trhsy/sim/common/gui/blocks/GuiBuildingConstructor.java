@@ -76,36 +76,39 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param theFolks 建筑工
      */
     public GuiBuildingConstructor(V3 location, String buildDirection, ArrayList<FolkData> theFolks) {
-        this.constructorLoc = location;
-        this.buildDirection = buildDirection;
-        //如果不为空则赋值
-        if (theFolks != null) {
-            this.theWorkers = theFolks;
-        } else {
-            //为空则清除
-            this.theWorkers.clear();
+        try {
+            this.constructorLoc = location;
+            this.buildDirection = buildDirection;
+            //如果不为空则赋值
+            if (theFolks != null) {
+                this.theWorkers = theFolks;
+            } else {
+                //为空则清除
+                this.theWorkers.clear();
 
-            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                //得到npc 数据
-                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
-                //NPC 被雇佣 并且 坐标是当前要建筑的地方
-                if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
-                    //如果 NPC职业是建筑师
-                    if (folk.vocation == Vocation.BUILDER) {
-                        //NPC当前的工作内容
-                        JobBuilder theirJob = (JobBuilder) folk.theirJob;
-                        //工作阶段是闲置
-                        if (theirJob.theStage == Stage.IDLE) {
-                            //设置阶段为已分配工作
-                            theirJob.theStage = Stage.WORKERASSIGNED;
+                for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                    //得到npc 数据
+                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                    //NPC 被雇佣 并且 坐标是当前要建筑的地方
+                    if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
+                        //如果 NPC职业是建筑师
+                        if (folk.vocation == Vocation.BUILDER) {
+                            //NPC当前的工作内容
+                            JobBuilder theirJob = (JobBuilder) folk.theirJob;
+                            //工作阶段是闲置
+                            if (theirJob.theStage == Stage.IDLE) {
+                                //设置阶段为已分配工作
+                                theirJob.theStage = Stage.WORKERASSIGNED;
+                            }
                         }
+                        //把当前建筑工人添加进去
+                        this.theWorkers.add(folk);
                     }
-                    //把当前建筑工人添加进去
-                    this.theWorkers.add(folk);
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiBuildingConstructor出错了：" + e.getMessage());
         }
-
     }
 
     /**
@@ -123,15 +126,20 @@ public class GuiBuildingConstructor extends GuiScreen {
      */
     @Override
     public void updateScreen() {
-        //设置游戏内不聚焦
-        this.mc.setIngameNotInFocus();
-        //如果搜索不为空
-        if (this.tfSearch != null) {
-            //更新光标计数器
-            this.tfSearch.updateCursorCounter();
+        try {
+            //设置游戏内不聚焦
+            this.mc.setIngameNotInFocus();
+            //如果搜索不为空
+            if (this.tfSearch != null) {
+                //更新光标计数器
+                this.tfSearch.updateCursorCounter();
+            }
+            //更新画面
+            super.updateScreen();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
         }
-        //更新画面
-        super.updateScreen();
+
     }
 
     /**
@@ -139,12 +147,16 @@ public class GuiBuildingConstructor extends GuiScreen {
      */
     @Override
     public void initGui() {
-        //原始键盘启用重复事件
-        Keyboard.enableRepeatEvents(true);
-        //显示页面
-        this.showPage();
-        //初始化
-        super.initGui();
+        try {
+            //原始键盘启用重复事件
+            Keyboard.enableRepeatEvents(true);
+            //显示页面
+            this.showPage();
+            //初始化
+            super.initGui();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -296,7 +308,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
         } catch (Exception var12) {
             //var12.printStackTrace();
-            ModSimReloaded.log.warn(var12.getMessage());
+            ModSimReloaded.log.warn("drawScreen出错了:"+var12.getMessage());
         }
         super.drawScreen(i, j, f);
     }
@@ -308,277 +320,285 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param y
      */
     private void displayReq(String block, int qty, int y) {
-        double stacks = Math.floor((double) (qty / 64));
-        this.drawString(this.fontRendererObj, qty + "", 90, y, 16777215);
-        this.drawString(this.fontRendererObj, "x", 125, y, 16777215);
-        this.drawString(this.fontRendererObj, block, 150, y, 16777215);
-        //(不到一组)
-        String sim_gui_BC_less = I18n.format("container.sim.sim_gui_BC_less");
-        //(正好是一组)
-        String sim_gui_BC_exactly = I18n.format("container.sim.sim_gui_BC_exactly");
-        //(大约两组)
-        String sim_gui_BC_about_2 = I18n.format("container.sim.sim_gui_BC_about_2");
-        //(大约
-        String sim_gui_BC_about = I18n.format("container.sim.sim_gui_BC_about");
-        //组)
-        String sim_gui_BC_stacks = I18n.format("container.sim.sim_gui_BC_stacks");
-        String st = "";
-        if (qty < 64) {
-            st = sim_gui_BC_less;
-        } else if (qty == 64) {
-            st = sim_gui_BC_exactly;
-        } else if (qty >= 64 && qty < 128) {
-            st = sim_gui_BC_about_2;
-        } else {
-            st = sim_gui_BC_about + (int) (stacks + 1.0) + sim_gui_BC_stacks;
-        }
+        try {
+            double stacks = Math.floor((double) (qty / 64));
+            this.drawString(this.fontRendererObj, qty + "", 90, y, 16777215);
+            this.drawString(this.fontRendererObj, "x", 125, y, 16777215);
+            this.drawString(this.fontRendererObj, block, 150, y, 16777215);
+            //(不到一组)
+            String sim_gui_BC_less = I18n.format("container.sim.sim_gui_BC_less");
+            //(正好是一组)
+            String sim_gui_BC_exactly = I18n.format("container.sim.sim_gui_BC_exactly");
+            //(大约两组)
+            String sim_gui_BC_about_2 = I18n.format("container.sim.sim_gui_BC_about_2");
+            //(大约
+            String sim_gui_BC_about = I18n.format("container.sim.sim_gui_BC_about");
+            //组)
+            String sim_gui_BC_stacks = I18n.format("container.sim.sim_gui_BC_stacks");
+            String st = "";
+            if (qty < 64) {
+                st = sim_gui_BC_less;
+            } else if (qty == 64) {
+                st = sim_gui_BC_exactly;
+            } else if (qty >= 64 && qty < 128) {
+                st = sim_gui_BC_about_2;
+            } else {
+                st = sim_gui_BC_about + (int) (stacks + 1.0) + sim_gui_BC_stacks;
+            }
 
-        this.drawString(this.fontRendererObj, st, 250, y, 16777215);
+            this.drawString(this.fontRendererObj, st, 250, y, 16777215);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("displayReq出错了：" + e.getMessage());
+        }
     }
 
     /**
      *显示分页
      */
     private void showPage() {
-        this.mc.setIngameNotInFocus();
-        //清除所有按钮
-        this.buttonList.clear();
-        //完成
-        String sim_gui_BC_Done = I18n.format("container.sim.sim_gui_BC_Done");
-        this.buttonList.add(new GuiButton(0, 2, 12, 50, 20, sim_gui_BC_Done));
-        //如果选定建筑物为空
-        if (this.selectedBuilding == null) {
-            //获得要构建的建筑
-            this.selectedBuilding = Building.getBuildingByConBox(this.constructorLoc);
-        }
-
-        if (this.currentPage == 0) {
-            //选择建筑
-            String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
-            //雇佣建筑工
-            String sim_gui_BC_Hire_builder = I18n.format("container.sim.Hire1");
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
-            //员工
-            String sim_gui_BC_worker = I18n.format("container.sim.sim_gui_BC_worker");
-            String w = sim_gui_BC_worker;
-            //如果工人为1
-            if (this.theWorkers.size() == 1) {
-                //获取员工名称
-                w = ((FolkData) this.theWorkers.get(0)).name;
-            } else if (this.theWorkers.size() > 1) {
-                //工作人员
-                String sim_gui_BC_Staff = I18n.format("container.sim.sim_gui_BC_Staff");
-                w = sim_gui_BC_Staff + "(" + this.theWorkers.size() + ")";
+        try {
+            this.mc.setIngameNotInFocus();
+            //清除所有按钮
+            this.buttonList.clear();
+            //完成
+            String sim_gui_BC_Done = I18n.format("container.sim.sim_gui_BC_Done");
+            this.buttonList.add(new GuiButton(0, 2, 12, 50, 20, sim_gui_BC_Done));
+            //如果选定建筑物为空
+            if (this.selectedBuilding == null) {
+                //获得要构建的建筑
+                this.selectedBuilding = Building.getBuildingByConBox(this.constructorLoc);
             }
-            //解雇
-            String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
-            this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
-            //显示员工
-            String sim_gui_BC_Show_Employees = I18n.format("container.sim.sim_gui_BC_Show_Employees");
-            this.buttonList.add(new GuiButton(4, this.width / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
-            //规划区域
-            String sim_gui_BC_Terraform_area = I18n.format("container.sim.sim_gui_BC_Terraform_area");
-            this.buttonList.add(new GuiButton(5, -600, 170, 120, 20, "-"));
-            this.buttonList.add(new GuiButton(6, this.width / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
-            //雇佣规划师
-            this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, I18n.format("container.sim.Hire22")));
-            if (this.theWorkers.size() == 0) {
-                ((GuiButton) this.buttonList.get(1)).enabled = false;
-                ((GuiButton) this.buttonList.get(2)).enabled = true;
-                ((GuiButton) this.buttonList.get(3)).enabled = false;
-                ((GuiButton) this.buttonList.get(6)).enabled = false;
-                ((GuiButton) this.buttonList.get(7)).enabled = true;
-            } else {
-                ((GuiButton) this.buttonList.get(1)).enabled = true;
-                ((GuiButton) this.buttonList.get(2)).enabled = false;
-                ((GuiButton) this.buttonList.get(3)).enabled = true;
-                ((GuiButton) this.buttonList.get(6)).enabled = true;
-                ((GuiButton) this.buttonList.get(7)).enabled = false;
-            }
-        } else if (this.currentPage == 1) {
-            //现在选择要建造的住宅楼
-            String sim_gui_BC_Residential = I18n.format("container.sim.sim_gui_BC_Residential");
-            //现在选择要建造的商业建筑
-            String sim_gui_BC_Commercial = I18n.format("container.sim.sim_gui_BC_Commercial");
-            //现在选择要建造的工业建筑
-            String sim_gui_BC_Industrial = I18n.format("container.sim.sim_gui_BC_Industrial");
-            //其他
-            String sim_gui_BC_Other = I18n.format("container.sim.sim_gui_BC_Other");
-            //特别
-            String sim_gui_BC_special = I18n.format("container.sim.sim_gui_BC_special");
-            this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 150, 100, 20, sim_gui_BC_Residential));
-            this.buttonList.add(new GuiButton(6, this.width / 2 - 100, 150, 100, 20, sim_gui_BC_Commercial));
-            this.buttonList.add(new GuiButton(7, this.width / 2, 150, 100, 20, sim_gui_BC_Industrial));
-            this.buttonList.add(new GuiButton(8, this.width / 2 + 100, 150, 100, 20, sim_gui_BC_Other));
-            this.buttonList.add(new GuiButton(9, this.width / 2 - 50, 180, 100, 20, sim_gui_BC_special));
-        } else if (this.currentPage != 3) {
-            if (this.currentPage == 10) {
-                //返回
-                this.buttonList.add(new GuiButton(1001, this.width / 2 - 100, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_Back")));
-                //需求
-                this.buttonList.add(new GuiButton(969, this.width / 2, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_demand")));
-            } else {
-                int x;
-                int y;
-                int idx;
-                if (this.currentPage == 4) {
-                    try {
-                        x = 10;
-                        y = 65;
-                        idx = 1;
 
-                        for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
-                            FolkData folk = (FolkData) ModSimReloaded.theFolks.get(y);
-                            //解雇
-                            String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
-                            this.buttonList.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
-                            ++x;
-                            x += 100;
-                            if (x + 100 > this.width) {
-                                x = 10;
-                                y += 20;
-                            }
-
-                            if (y + 20 > this.height - 50) {
-                                break;
-                            }
-                        }
-                    } catch (Exception var18) {
-                        //var18.printStackTrace();
-                    }
-                } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
-                    if (this.currentPage == 8) {
-                        //返回
-                        String sim_gui_BC_Go_Back = I18n.format("container.sim.sim_gui_BC_Go_Back");
-                        this.buttonList.add(new GuiButton(1001, this.width / 2 - 100, this.height - 25, 100, 20, sim_gui_BC_Go_Back));
-                        ///建造它
-                        String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
-                        this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 25, 100, 20, sim_gui_BC_Build_it));
-                    }
+            if (this.currentPage == 0) {
+                //选择建筑
+                String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
+                //雇佣建筑工
+                String sim_gui_BC_Hire_builder = I18n.format("container.sim.Hire1");
+                this.buttonList.add(new GuiButton(2, this.width / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
+                //员工
+                String sim_gui_BC_worker = I18n.format("container.sim.sim_gui_BC_worker");
+                String w = sim_gui_BC_worker;
+                //如果工人为1
+                if (this.theWorkers.size() == 1) {
+                    //获取员工名称
+                    w = ((FolkData) this.theWorkers.get(0)).name;
+                } else if (this.theWorkers.size() > 1) {
+                    //工作人员
+                    String sim_gui_BC_Staff = I18n.format("container.sim.sim_gui_BC_Staff");
+                    w = sim_gui_BC_Staff + "(" + this.theWorkers.size() + ")";
+                }
+                //解雇
+                String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
+                this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
+                //显示员工
+                String sim_gui_BC_Show_Employees = I18n.format("container.sim.sim_gui_BC_Show_Employees");
+                this.buttonList.add(new GuiButton(4, this.width / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
+                //规划区域
+                String sim_gui_BC_Terraform_area = I18n.format("container.sim.sim_gui_BC_Terraform_area");
+                this.buttonList.add(new GuiButton(5, -600, 170, 120, 20, "-"));
+                this.buttonList.add(new GuiButton(6, this.width / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
+                //雇佣规划师
+                this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, I18n.format("container.sim.Hire22")));
+                if (this.theWorkers.size() == 0) {
+                    ((GuiButton) this.buttonList.get(1)).enabled = false;
+                    ((GuiButton) this.buttonList.get(2)).enabled = true;
+                    ((GuiButton) this.buttonList.get(3)).enabled = false;
+                    ((GuiButton) this.buttonList.get(6)).enabled = false;
+                    ((GuiButton) this.buttonList.get(7)).enabled = true;
                 } else {
-                    //房屋集合
-                    ArrayList<Building> houses = new ArrayList();
-                    String theType = "";
-                    this.buildingsOnPage = 0;
-                    this.tfSearch = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);
-                    this.tfSearch.setText(this.search);
-                    this.tfSearch.setFocused(true);
-                    this.tfSearch.setMaxStringLength(10);
-                    if (this.currentPage == 2) {
-                        //获取住宅蓝图
-                        houses = Building.getBuildingBlueprints("residential", this.tfSearch.getText().trim());
-                        theType = "residential";
-                    } else if (this.currentPage == 5) {
-                        //获取商业蓝图
-                        houses = Building.getBuildingBlueprints("commercial", this.tfSearch.getText().trim());
-                        theType = "commercial";
-                    } else if (this.currentPage == 6) {
-                        //获取工业蓝图
-                        houses = Building.getBuildingBlueprints("industrial", this.tfSearch.getText().trim());
-                        theType = "industrial";
-                    } else if (this.currentPage == 7) {
-                        //获取其他蓝图
-                        houses = Building.getBuildingBlueprints("other", this.tfSearch.getText().trim());
-                        theType = "other";
-                    }else if (this.currentPage == 9) {
-                        //获取特除蓝图
-                        houses = Building.getBuildingBlueprints("special", this.tfSearch.getText().trim());
-                        theType = "special";
-                    }
+                    ((GuiButton) this.buttonList.get(1)).enabled = true;
+                    ((GuiButton) this.buttonList.get(2)).enabled = false;
+                    ((GuiButton) this.buttonList.get(3)).enabled = true;
+                    ((GuiButton) this.buttonList.get(6)).enabled = true;
+                    ((GuiButton) this.buttonList.get(7)).enabled = false;
+                }
+            } else if (this.currentPage == 1) {
+                //现在选择要建造的住宅楼
+                String sim_gui_BC_Residential = I18n.format("container.sim.sim_gui_BC_Residential");
+                //现在选择要建造的商业建筑
+                String sim_gui_BC_Commercial = I18n.format("container.sim.sim_gui_BC_Commercial");
+                //现在选择要建造的工业建筑
+                String sim_gui_BC_Industrial = I18n.format("container.sim.sim_gui_BC_Industrial");
+                //其他
+                String sim_gui_BC_Other = I18n.format("container.sim.sim_gui_BC_Other");
+                //特别
+                String sim_gui_BC_special = I18n.format("container.sim.sim_gui_BC_special");
+                this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 150, 100, 20, sim_gui_BC_Residential));
+                this.buttonList.add(new GuiButton(6, this.width / 2 - 100, 150, 100, 20, sim_gui_BC_Commercial));
+                this.buttonList.add(new GuiButton(7, this.width / 2, 150, 100, 20, sim_gui_BC_Industrial));
+                this.buttonList.add(new GuiButton(8, this.width / 2 + 100, 150, 100, 20, sim_gui_BC_Other));
+                this.buttonList.add(new GuiButton(9, this.width / 2 - 50, 180, 100, 20, sim_gui_BC_special));
+            } else if (this.currentPage != 3) {
+                if (this.currentPage == 10) {
+                    //返回
+                    this.buttonList.add(new GuiButton(1001, this.width / 2 - 100, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_Back")));
+                    //需求
+                    this.buttonList.add(new GuiButton(969, this.width / 2, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_demand")));
+                } else {
+                    int x;
+                    int y;
+                    int idx;
+                    if (this.currentPage == 4) {
+                        try {
+                            x = 10;
+                            y = 65;
+                            idx = 1;
 
-                    x = 10;
-                    y = 60;
-                    idx = 1;
-                    //如果蓝图不为空
-                    if (houses != null) {
-                        //遍历蓝图
-                        for (int b = 0; b <= houses.size(); ++b) {
-                            //定义偏移量
-                            int boff = b + this.buildingOffset;
-                            if (boff < 0) {
-                                //重置偏移量
-                                boff = 0;
-                                this.buildingOffset = 0;
-                            }
-                            //页
-                            String sim_gui_BC_Page = I18n.format("container.sim.sim_gui_BC_Page");
-                            //偏移量小于大小
-                            if (boff < houses.size()) {
-                                //如果当前不为空
-                                if (houses.get(boff) != null) {
-                                    //金额
-                                    String line3 = "";
-                                    //获得建筑
-                                    Building building = (Building) houses.get(boff);
-                                    //实际成本
-                                    String realCost = "";
-                                    //工作人员大于1
-                                    if (this.theWorkers.size() > 1) {
-                                        //计算成本
-                                        realCost = " (" + ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
-                                    }
-                                    //建筑整体范围
-                                    String line2 = building.ltrCount + " x " + building.ftbCount + " x " + building.layerCount;
-                                    //金额
-                                    line3 = ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
-                                    //作者
-                                    String line4 = building.author;
-                                    GuiButton b3;
-                                    //作者
-                                    this.buttonList.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
-                                    GuiButton b2;
-                                    //金额
-                                    this.buttonList.add(b2 = new GuiButton(idx + 200, x, y + 32, 120, 20, line3));
-                                    GuiButton b1;
-                                    //范围
-                                    this.buttonList.add(b1 = new GuiButton(idx + 100, x, y + 16, 120, 20, line2));
-                                    //设置按钮不可用
-                                    b1.enabled = false;
-                                    b2.enabled = false;
-                                    b3.enabled = false;
-                                    String pk = "";
-                                    //去除建筑名字中的pkid
-                                    if (building.displayName.startsWith("PKID")) {
-                                        int hyphen = building.displayName.indexOf("-");
-                                        pk = building.displayName.substring(0, hyphen + 1);
-                                    }
-
-                                    this.pkIndex.put(idx, pk);
-                                    this.buttonList.add(new GuiButton(idx, x, y, 120, 20, building.displayNameWithoutPK));
-                                    x += 120;
-                                    if (x + 120 > this.width) {
-                                        x = 10;
-                                        y += 71;
-                                    }
-
-                                    idx++;
-                                    ++this.buildingsOnPage;
-                                    if (this.buildingOffset > 0) {
-                                        this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
-                                    }
-
-                                    if (y + 20 + 20 + 20 + 20 > this.height) {
-                                        this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, sim_gui_BC_Page + ">"));
-                                        break;
-                                    }
+                            for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
+                                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(y);
+                                //解雇
+                                String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
+                                this.buttonList.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
+                                ++x;
+                                x += 100;
+                                if (x + 100 > this.width) {
+                                    x = 10;
+                                    y += 20;
                                 }
-                            } else {
-                                this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
-                            }
-                        }
 
-                        if (this.fixedBuildingCount == -1) {
-                            this.fixedBuildingCount = this.buildingsOnPage;
+                                if (y + 20 > this.height - 50) {
+                                    break;
+                                }
+                            }
+                        } catch (Exception var18) {
+                            //var18.printStackTrace();
+                        }
+                    } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
+                        if (this.currentPage == 8) {
+                            //返回
+                            String sim_gui_BC_Go_Back = I18n.format("container.sim.sim_gui_BC_Go_Back");
+                            this.buttonList.add(new GuiButton(1001, this.width / 2 - 100, this.height - 25, 100, 20, sim_gui_BC_Go_Back));
+                            ///建造它
+                            String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
+                            this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 25, 100, 20, sim_gui_BC_Build_it));
                         }
                     } else {
-                        String sim_gui_BC_Nothing_found = I18n.format("container.sim.sim_gui_BC_Nothing_found");
-                        this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
+                        //房屋集合
+                        ArrayList<Building> houses = new ArrayList();
+                        String theType = "";
+                        this.buildingsOnPage = 0;
+                        this.tfSearch = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);
+                        this.tfSearch.setText(this.search);
+                        this.tfSearch.setFocused(true);
+                        this.tfSearch.setMaxStringLength(10);
+                        if (this.currentPage == 2) {
+                            //获取住宅蓝图
+                            houses = Building.getBuildingBlueprints("residential", this.tfSearch.getText().trim());
+                            theType = "residential";
+                        } else if (this.currentPage == 5) {
+                            //获取商业蓝图
+                            houses = Building.getBuildingBlueprints("commercial", this.tfSearch.getText().trim());
+                            theType = "commercial";
+                        } else if (this.currentPage == 6) {
+                            //获取工业蓝图
+                            houses = Building.getBuildingBlueprints("industrial", this.tfSearch.getText().trim());
+                            theType = "industrial";
+                        } else if (this.currentPage == 7) {
+                            //获取其他蓝图
+                            houses = Building.getBuildingBlueprints("other", this.tfSearch.getText().trim());
+                            theType = "other";
+                        }else if (this.currentPage == 9) {
+                            //获取特除蓝图
+                            houses = Building.getBuildingBlueprints("special", this.tfSearch.getText().trim());
+                            theType = "special";
+                        }
+
+                        x = 10;
+                        y = 60;
+                        idx = 1;
+                        //如果蓝图不为空
+                        if (houses != null) {
+                            //遍历蓝图
+                            for (int b = 0; b <= houses.size(); ++b) {
+                                //定义偏移量
+                                int boff = b + this.buildingOffset;
+                                if (boff < 0) {
+                                    //重置偏移量
+                                    boff = 0;
+                                    this.buildingOffset = 0;
+                                }
+                                //页
+                                String sim_gui_BC_Page = I18n.format("container.sim.sim_gui_BC_Page");
+                                //偏移量小于大小
+                                if (boff < houses.size()) {
+                                    //如果当前不为空
+                                    if (houses.get(boff) != null) {
+                                        //金额
+                                        String line3 = "";
+                                        //获得建筑
+                                        Building building = (Building) houses.get(boff);
+                                        //实际成本
+                                        String realCost = "";
+                                        //工作人员大于1
+                                        if (this.theWorkers.size() > 1) {
+                                            //计算成本
+                                            realCost = " (" + ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
+                                        }
+                                        //建筑整体范围
+                                        String line2 = building.ltrCount + " x " + building.ftbCount + " x " + building.layerCount;
+                                        //金额
+                                        line3 = ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
+                                        //作者
+                                        String line4 = building.author;
+                                        GuiButton b3;
+                                        //作者
+                                        this.buttonList.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
+                                        GuiButton b2;
+                                        //金额
+                                        this.buttonList.add(b2 = new GuiButton(idx + 200, x, y + 32, 120, 20, line3));
+                                        GuiButton b1;
+                                        //范围
+                                        this.buttonList.add(b1 = new GuiButton(idx + 100, x, y + 16, 120, 20, line2));
+                                        //设置按钮不可用
+                                        b1.enabled = false;
+                                        b2.enabled = false;
+                                        b3.enabled = false;
+                                        String pk = "";
+                                        //去除建筑名字中的pkid
+                                        if (building.displayName.startsWith("PKID")) {
+                                            int hyphen = building.displayName.indexOf("-");
+                                            pk = building.displayName.substring(0, hyphen + 1);
+                                        }
+
+                                        this.pkIndex.put(idx, pk);
+                                        this.buttonList.add(new GuiButton(idx, x, y, 120, 20, building.displayNameWithoutPK));
+                                        x += 120;
+                                        if (x + 120 > this.width) {
+                                            x = 10;
+                                            y += 71;
+                                        }
+
+                                        idx++;
+                                        ++this.buildingsOnPage;
+                                        if (this.buildingOffset > 0) {
+                                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
+                                        }
+
+                                        if (y + 20 + 20 + 20 + 20 > this.height) {
+                                            this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, sim_gui_BC_Page + ">"));
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
+                                }
+                            }
+
+                            if (this.fixedBuildingCount == -1) {
+                                this.fixedBuildingCount = this.buildingsOnPage;
+                            }
+                        } else {
+                            String sim_gui_BC_Nothing_found = I18n.format("container.sim.sim_gui_BC_Nothing_found");
+                            this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
+                        }
                     }
                 }
             }
-        }
 
+        } catch (Exception e) {
+            ModSimReloaded.log.error("showPage出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -590,197 +610,209 @@ public class GuiBuildingConstructor extends GuiScreen {
             priority = EventPriority.NORMAL
     )
     public void actionPerformed(GuiButton guibutton) {
-        if (System.currentTimeMillis() - this.fuckingBodge >= 100L) {
-            this.fuckingBodge = System.currentTimeMillis();
-            if (guibutton.enabled) {
-                if (guibutton.id == 0) {
-                    this.mc.currentScreen = null;
-                    this.mc.setIngameFocus();
-                } else {
-                    if (this.currentPage == 0) {
-                        String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
-                        if (guibutton.displayString.contentEquals(sim_gui_BC_Choose_building)) {
-                            this.currentPage = 1;
-                            this.showPage();
-                        } else {
-                            GuiEmployFolk gui;
-                            if (guibutton.id == 2) {
-                                gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
-                                this.mc.displayGuiScreen((GuiScreen) null);
-                                this.mc.displayGuiScreen(gui);
-                            } else if (guibutton.id == 3) {
+        try {
+            if (System.currentTimeMillis() - this.fuckingBodge >= 100L) {
+                this.fuckingBodge = System.currentTimeMillis();
+                if (guibutton.enabled) {
+                    if (guibutton.id == 0) {
+                        this.mc.currentScreen = null;
+                        this.mc.setIngameFocus();
+                    } else {
+                        if (this.currentPage == 0) {
+                            String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
+                            if (guibutton.displayString.contentEquals(sim_gui_BC_Choose_building)) {
+                                this.currentPage = 1;
+                                this.showPage();
+                            } else {
+                                GuiEmployFolk gui;
+                                if (guibutton.id == 2) {
+                                    gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
+                                    this.mc.displayGuiScreen((GuiScreen) null);
+                                    this.mc.displayGuiScreen(gui);
+                                } else if (guibutton.id == 3) {
+                                    this.fireAllFolksForThisBuilding();
+                                    this.currentPage = 0;
+                                    this.showPage();
+                                } else if (guibutton.id == 4) {
+                                    GuiScreen guiScreen = new GuiShowEmployees();
+                                    this.mc.displayGuiScreen((GuiScreen) null);
+                                    this.mc.displayGuiScreen(guiScreen);
+                                } else if (guibutton.id != 5) {
+                                    if (guibutton.id == 6) {
+                                        GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
+                                        this.mc.displayGuiScreen((GuiScreen) null);
+                                        this.mc.displayGuiScreen(guiScreen);
+                                    } else if (guibutton.id == 7) {
+                                        gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
+                                        this.mc.displayGuiScreen((GuiScreen) null);
+                                        this.mc.displayGuiScreen(gui);
+                                    }
+                                }
+                            }
+                        } else if (this.currentPage == 1) {
+                            if (guibutton.id == 5) {
+                                this.currentPage = 2;
+                                this.showPage();
+                            } else if (guibutton.id == 6) {
+                                this.currentPage = 5;
+                                this.showPage();
+                            } else if (guibutton.id == 7) {
+                                this.currentPage = 6;
+                                this.showPage();
+                            } else if (guibutton.id == 8) {
+                                this.currentPage = 7;
+                                this.showPage();
+                            }else if (guibutton.id == 9) {
+                                this.currentPage = 9;
+                                this.showPage();
+                            }
+                        } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7 && this.currentPage != 9) {
+                            if (this.currentPage == 8) {
+                                //建造它
+                                String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
+                                if (guibutton.displayString.contentEquals(sim_gui_BC_Build_it)) {
+                                    if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
+                                        ModSimReloaded.theBuildings.remove(this.selectedBuilding);
+                                    }
+
+                                    this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
+                                    ModSimReloaded.theBuildings.add(this.selectedBuilding);
+                                    this.selectedBuilding.saveThisBuilding();
+                                    PacketHandler.net.sendToAll(new LoadBuildingPacket("GuiBuildingCon"));
+
+                                    for (int i = 0; i < this.theWorkers.size(); i++) {
+                                        FolkData theWorker = (FolkData) this.theWorkers.get(i);
+                                        theWorker.theBuilding = this.selectedBuilding;
+                                        theWorker.saveThisFolk();
+                                    }
+
+                                    this.mc.displayGuiScreen((GuiScreen) null);
+                                    this.mc.setIngameFocus();
+                                    return;
+                                }
+
+                                if (guibutton.id == 1001) {
+                                    this.currentPage = this.previousPage;
+                                    this.showPage();
+                                }
+                            } else if (this.currentPage == 10) {
+                                if (guibutton.id == 969) {
+                                    this.currentPage = 8;
+                                    this.showPage();
+                                } else if (guibutton.id == 1001) {
+                                    this.currentPage = this.previousPage;
+                                    this.showPage();
+                                }
+                            }else if (this.currentPage != 3 && this.currentPage == 4) {
                                 this.fireAllFolksForThisBuilding();
                                 this.currentPage = 0;
                                 this.showPage();
-                            } else if (guibutton.id == 4) {
-                                GuiScreen guiScreen = new GuiShowEmployees();
-                                this.mc.displayGuiScreen((GuiScreen) null);
-                                this.mc.displayGuiScreen(guiScreen);
-                            } else if (guibutton.id != 5) {
-                                if (guibutton.id == 6) {
-                                    GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
-                                    this.mc.displayGuiScreen((GuiScreen) null);
-                                    this.mc.displayGuiScreen(guiScreen);
-                                } else if (guibutton.id == 7) {
-                                    gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
-                                    this.mc.displayGuiScreen((GuiScreen) null);
-                                    this.mc.displayGuiScreen(gui);
-                                }
                             }
-                        }
-                    } else if (this.currentPage == 1) {
-                        if (guibutton.id == 5) {
-                            this.currentPage = 2;
-                            this.showPage();
-                        } else if (guibutton.id == 6) {
-                            this.currentPage = 5;
-                            this.showPage();
-                        } else if (guibutton.id == 7) {
-                            this.currentPage = 6;
-                            this.showPage();
-                        } else if (guibutton.id == 8) {
-                            this.currentPage = 7;
-                            this.showPage();
-                        }else if (guibutton.id == 9) {
-                            this.currentPage = 9;
-                            this.showPage();
-                        }
-                    } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7 && this.currentPage != 9) {
-                        if (this.currentPage == 8) {
-                            //建造它
-                            String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
-                            if (guibutton.displayString.contentEquals(sim_gui_BC_Build_it)) {
-                                if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
-                                    ModSimReloaded.theBuildings.remove(this.selectedBuilding);
-                                }
-
-                                this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
-                                ModSimReloaded.theBuildings.add(this.selectedBuilding);
-                                this.selectedBuilding.saveThisBuilding();
-                                PacketHandler.net.sendToAll(new LoadBuildingPacket("GuiBuildingCon"));
-
-                                for (int i = 0; i < this.theWorkers.size(); i++) {
-                                    FolkData theWorker = (FolkData) this.theWorkers.get(i);
-                                    theWorker.theBuilding = this.selectedBuilding;
-                                    theWorker.saveThisFolk();
-                                }
-
-                                this.mc.displayGuiScreen((GuiScreen) null);
-                                this.mc.setIngameFocus();
+                        } else {
+                            this.previousPage = this.currentPage;
+                            if (guibutton.id == 500) {
+                                this.buildingOffset += this.fixedBuildingCount;
+                                this.showPage();
                                 return;
                             }
 
-                            if (guibutton.id == 1001) {
-                                this.currentPage = this.previousPage;
+                            if (guibutton.id == 501) {
+                                this.buildingOffset -= this.fixedBuildingCount;
                                 this.showPage();
+                                return;
                             }
-                        } else if (this.currentPage == 10) {
-                            if (guibutton.id == 969) {
-                                this.currentPage = 8;
-                                this.showPage();
-                            } else if (guibutton.id == 1001) {
-                                this.currentPage = this.previousPage;
-                                this.showPage();
+
+                            String type = "";
+                            if (this.currentPage == 2) {
+                                type = "residential";
                             }
-                        }else if (this.currentPage != 3 && this.currentPage == 4) {
-                            this.fireAllFolksForThisBuilding();
-                            this.currentPage = 0;
+
+                            if (this.currentPage == 5) {
+                                type = "commercial";
+                            }
+
+                            if (this.currentPage == 6) {
+                                type = "industrial";
+                            }
+
+                            if (this.currentPage == 7) {
+                                type = "other";
+                            }
+                            if (this.currentPage == 9) {
+                                type = "special";
+                            }
+                            String pkPrefix = "";
+                            pkPrefix = (String) this.pkIndex.get(guibutton.id);
+                            this.selectedBuilding = Building.getFromAllBuildings(pkPrefix + guibutton.displayString, type);
+
+                            try {
+                                this.selectedBuilding.buildDirection = this.buildDirection;
+                            } catch (Exception var5) {
+                            }
+
+                            this.currentPage = 8;
                             this.showPage();
                         }
-                    } else {
-                        this.previousPage = this.currentPage;
-                        if (guibutton.id == 500) {
-                            this.buildingOffset += this.fixedBuildingCount;
-                            this.showPage();
-                            return;
-                        }
 
-                        if (guibutton.id == 501) {
-                            this.buildingOffset -= this.fixedBuildingCount;
-                            this.showPage();
-                            return;
-                        }
-
-                        String type = "";
-                        if (this.currentPage == 2) {
-                            type = "residential";
-                        }
-
-                        if (this.currentPage == 5) {
-                            type = "commercial";
-                        }
-
-                        if (this.currentPage == 6) {
-                            type = "industrial";
-                        }
-
-                        if (this.currentPage == 7) {
-                            type = "other";
-                        }
-                        if (this.currentPage == 9) {
-                            type = "special";
-                        }
-                        String pkPrefix = "";
-                        pkPrefix = (String) this.pkIndex.get(guibutton.id);
-                        this.selectedBuilding = Building.getFromAllBuildings(pkPrefix + guibutton.displayString, type);
-
-                        try {
-                            this.selectedBuilding.buildDirection = this.buildDirection;
-                        } catch (Exception var5) {
-                        }
-
-                        this.currentPage = 8;
-                        this.showPage();
                     }
-
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
+
     }
 
     public void fireAllFolksForThisBuilding() {
-        for (int i = 0; i < this.theWorkers.size(); i++) {
-            //员工
-            FolkData worker = (FolkData) this.theWorkers.get(i);
-            if (worker.vocation == Vocation.BUILDER) {
-                JobBuilder theirJob = (JobBuilder) worker.theirJob;
-                theirJob.theStage = Stage.IDLE;
-                worker.theBuilding = null;
+        try {
+            for (int i = 0; i < this.theWorkers.size(); i++) {
+                //员工
+                FolkData worker = (FolkData) this.theWorkers.get(i);
+                if (worker.vocation == Vocation.BUILDER) {
+                    JobBuilder theirJob = (JobBuilder) worker.theirJob;
+                    theirJob.theStage = Stage.IDLE;
+                    worker.theBuilding = null;
+                }
+                worker.selfFire();
             }
-
-            worker.selfFire();
+            this.theWorkers.clear();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("fireAllFolksForThisBuilding出错了：" + e.getMessage());
         }
 
-        this.theWorkers.clear();
     }
 
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen) null);
-            this.mc.setIngameFocus();
-        } else {
-            if (this.tfSearch != null) {
-                this.tfSearch.textboxKeyTyped(c, i);
-                this.search = this.tfSearch.getText();
-                if (!this.search.endsWith(":")) {
-                    this.buildingOffset = 0;
-                    this.showPage();
+        try {
+            if (i == 1) {
+                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.setIngameFocus();
+            } else {
+                if (this.tfSearch != null) {
+                    this.tfSearch.textboxKeyTyped(c, i);
+                    this.search = this.tfSearch.getText();
+                    if (!this.search.endsWith(":")) {
+                        this.buildingOffset = 0;
+                        this.showPage();
+                    }
                 }
             }
-
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void mouseClicked(int i, int j, int k) {
+        try {
         if (this.tfSearch != null) {
             this.tfSearch.mouseClicked(i, j, k);
         }
-
-        try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
+            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
             //e.printStackTrace();
         }
     }

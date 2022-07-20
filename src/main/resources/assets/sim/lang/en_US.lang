@@ -290,7 +290,7 @@ container.sim.relation_ship_Best_friends=Best friends
 container.sim.relation_ship_Despise=Despise
 container.sim.relation_ship_Dislike=Dislike
 container.sim.relation_ship_Enemy=Enemy
-container.sim.relation_ship_Friends=Friends
+container.sim.relation_ship_Friends_=Friends
 container.sim.relation_ship_Good_friends=Good friends
 container.sim.relation_ship_Hate=Hate
 container.sim.relation_ship_Married=Married
@@ -309,6 +309,7 @@ container.sim.relation_ship_Nephew=Nephew
 container.sim.relation_ship_Neice=Niece
 container.sim.relation_ship_Aunt=Aunt
 container.sim.relation_ship_Uncle=Uncle
+container.sim.building.torch=torch
 container.sim.relation_ship_relationship=has an unknown relationship
 
 container.sim.job.Baker_Fetching=Fetching wheat from farms

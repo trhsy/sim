@@ -40,118 +40,147 @@ public class JobDairyFarmer extends Job {
     private String[] cowNames = new String[6];
 
     public JobDairyFarmer(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+                }
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("JobDairyFarmer出错了：" + e.getMessage());
         }
     }
 
     private void createCowNames() {
-        for(int i = 0; i < 6; i++) {
-            this.cowNames[i] = FolkData.generateName(1, true, "");
-        }
+        try {
+            for(int i = 0; i < 6; i++) {
+                this.cowNames[i] = FolkData.generateName(1, true, "");
+            }
 
+        } catch (Exception e) {
+            ModSimReloaded.log.error("createCowNames出错了：" + e.getMessage());
+        }
     }
 
     @Override
     public void onUpdate() {
-        if (this.cowNames[0] == null || this.cowNames[0].contentEquals("")) {
-            this.createCowNames();
-        }
-
-        super.onUpdate();
-        if (!ModSimReloaded.isDayTime()) {
-            if (!theFolk.isNightOwl()) {
-                //闲置
-                this.theStage = Stage.IDLE;
-                return;
+        try {
+            if (this.cowNames[0] == null || this.cowNames[0].contentEquals("")) {
+                this.createCowNames();
             }
-        }
 
-        super.onUpdateGoingToWork(this.theFolk);
-        if (this.theStage == Stage.WAITINGFORMILKING) {
-            this.runDelay = 40000;
-        } else {
-            this.runDelay = 10000;
-        }
-
-        if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-            this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
-                if (this.theStage == Stage.ARRIVEDATFARM) {
-                    this.stageArrived();
-                } else if (this.theStage == Stage.WAITINGFORMILKING) {
-                    this.stageWaiting();
-                } else if (this.theStage == Stage.MILKING) {
-                    this.stageMilking();
-                } else if (this.theStage == Stage.STORINGMILK) {
-                    this.stageStoringMilk();
-                } else if (this.theStage == Stage.CANTWORK) {
-                    this.stageCantWork();
+            super.onUpdate();
+            if (!ModSimReloaded.isDayTime()) {
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
                 }
             }
 
+            super.onUpdateGoingToWork(this.theFolk);
+            if (this.theStage == Stage.WAITINGFORMILKING) {
+                this.runDelay = 40000;
+            } else {
+                this.runDelay = 10000;
+            }
+
+            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                this.timeSinceLastRun = System.currentTimeMillis();
+                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                    if (this.theStage == Stage.ARRIVEDATFARM) {
+                        this.stageArrived();
+                    } else if (this.theStage == Stage.WAITINGFORMILKING) {
+                        this.stageWaiting();
+                    } else if (this.theStage == Stage.MILKING) {
+                        this.stageMilking();
+                    } else if (this.theStage == Stage.STORINGMILK) {
+                        this.stageStoringMilk();
+                    } else if (this.theStage == Stage.CANTWORK) {
+                        this.stageCantWork();
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 
     private void stageArrived() {
-        this.vocation = this.theFolk.vocation;
-        this.theStage = Stage.WAITINGFORMILKING;
-        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Warming");
-        //int count = false;
-        int count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityCow.class);
-        if (count < 6) {
-            this.spawnCows(this.theFolk.employedAt, 6 - count);
+        try {
+            this.vocation = this.theFolk.vocation;
+            this.theStage = Stage.WAITINGFORMILKING;
+            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Warming");
+            //int count = false;
+            int count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityCow.class);
+            if (count < 6) {
+                this.spawnCows(this.theFolk.employedAt, 6 - count);
+            }
+
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage());
         }
 
     }
 
     private void stageWaiting() {
-        this.theFolk.updateLocationFromEntity();
-        double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist > 10) {
-            this.theFolk.beamMeTo(this.theFolk.employedAt);
+        try {
+            this.theFolk.updateLocationFromEntity();
+            double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist > 10) {
+                this.theFolk.beamMeTo(this.theFolk.employedAt);
+            }
+
+            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Sterilizing");
+            this.theStage = Stage.MILKING;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageWaiting出错了：" + e.getMessage());
         }
 
-        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Sterilizing");
-        this.theStage = Stage.MILKING;
     }
 
     private void stageMilking() {
-        Random rand = new Random();
-        int c = rand.nextInt(6);
-        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Milking") + this.cowNames[c] + I18n.format("container.sim.job.dairy.farmer.the_cow");
-        this.theStage = Stage.STORINGMILK;
-        this.theFolk.isWorking = true;
+        try {
+            Random rand = new Random();
+            int c = rand.nextInt(6);
+            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Milking") + this.cowNames[c] + I18n.format("container.sim.job.dairy.farmer.the_cow");
+            this.theStage = Stage.STORINGMILK;
+            this.theFolk.isWorking = true;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageMilking出错了：" + e.getMessage());
+        }
     }
 
     private void stageStoringMilk() {
-        this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Storing");
-        this.theFolk.isWorking = false;
-        this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-        if (this.farmChests.size() > 0) {
-            boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.milk_bucket, 1), true);
-            if (!ok) {
-                ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.dairy.farmer.dairy"));
-                this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.chests");
-                this.theStage = Stage.CANTWORK;
+        try {
+            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Storing");
+            this.theFolk.isWorking = false;
+            this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+            if (this.farmChests.size() > 0) {
+                boolean ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.milk_bucket, 1), true);
+                if (!ok) {
+                    ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.dairy.farmer.dairy"));
+                    this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.chests");
+                    this.theStage = Stage.CANTWORK;
+                } else {
+                    GameStates var10000 = ModSimReloaded.states;
+                    var10000.credits -= 0.05F;
+                    this.theStage = Stage.WAITINGFORMILKING;
+                }
             } else {
-                GameStates var10000 = ModSimReloaded.states;
-                var10000.credits -= 0.05F;
-                this.theStage = Stage.WAITINGFORMILKING;
+                this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Who");
+                this.theStage = Stage.CANTWORK;
             }
-        } else {
-            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Who");
-            this.theStage = Stage.CANTWORK;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-
     }
 
     private void stageCantWork() {
@@ -159,17 +188,19 @@ public class JobDairyFarmer extends Job {
 
     @Override
     public void onArrivedAtWork() {
-        //int dist = false;
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Arrived");
-            this.theStage = Stage.ARRIVEDATFARM;
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Arrived");
+                this.theStage = Stage.ARRIVEDATFARM;
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-
     }
 
     @Override
@@ -179,15 +210,17 @@ public class JobDairyFarmer extends Job {
 
     private void spawnCows(V3 controlBox, int count) {
         EntityAnimal newAnimal = null;
-
-        for(int c = 1; c <= count; ++c) {
-            newAnimal = new EntityCow(this.jobWorld);
-            newAnimal.setLocationAndAngles(controlBox.x + 1, controlBox.y + 1, controlBox.z, 0.0F, 0.0F);
-            if (!this.jobWorld.isRemote) {
-                this.jobWorld.spawnEntityInWorld(newAnimal);
+        try {
+            for(int c = 1; c <= count; ++c) {
+                newAnimal = new EntityCow(this.jobWorld);
+                newAnimal.setLocationAndAngles(controlBox.x + 1, controlBox.y + 1, controlBox.z, 0.0F, 0.0F);
+                if (!this.jobWorld.isRemote) {
+                    this.jobWorld.spawnEntityInWorld(newAnimal);
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("spawnCows出错了：" + e.getMessage());
         }
-
     }
 }
 

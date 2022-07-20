@@ -41,10 +41,14 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     public void initGui() {
-        ModSimReloaded.log.info("初始化GUI");
-        this.folks = FolkData.getFolkUnemployed(true);
-        this.showPage();
-        super.initGui();
+        try {
+            ModSimReloaded.log.info("初始化GUI");
+            this.folks = FolkData.getFolkUnemployed(true);
+            this.showPage();
+            super.initGui();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
     }
     private void showPage() {
         try {
@@ -145,8 +149,7 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-
-        if (guibutton.id == 1000) {
+        try {if (guibutton.id == 1000) {
             this.folkOffset -= this.folksOnAPage;
             this.showPage();
         } else if (guibutton.id == 1001) {
@@ -157,6 +160,10 @@ public class GuiShowEmployees extends GuiScreen {
             folk.selfFire();
             guibutton.enabled = false;
         }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -165,13 +172,22 @@ public class GuiShowEmployees extends GuiScreen {
     }
     @Override
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
+        try {
+            Keyboard.enableRepeatEvents(false);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+        }
+
     }
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
-            this.mc.setIngameFocus();
+        try {
+            if (i == 1) {
+                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.setIngameFocus();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
     }
     @Override

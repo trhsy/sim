@@ -38,9 +38,13 @@ public class GuiCourierTasks extends GuiScreen {
     private EntityPlayer thePlayer = null;
 
     public GuiCourierTasks(V3 xyz, String folkname, EntityPlayer pl) {
-        this.controlBoxLocation = xyz;
-        this.theFolk = FolkData.getFolkByName(folkname);
-        this.thePlayer = pl;
+        try {
+            this.controlBoxLocation = xyz;
+            this.theFolk = FolkData.getFolkByName(folkname);
+            this.thePlayer = pl;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiCourierTasks出错了：" + e.getMessage());
+        }
     }
     @Override
     public boolean doesGuiPauseGame() {
@@ -155,84 +159,101 @@ public class GuiCourierTasks extends GuiScreen {
 
     @Override
     public void actionPerformed(GuiButton guibutton) {
-        if (guibutton.enabled) {
-            if (guibutton.id == 0) {
-                this.mc.displayGuiScreen((GuiScreen)null);
-                GuiControlBox ui = new GuiControlBox(this.controlBoxLocation, this.thePlayer);
-                this.mc.displayGuiScreen(ui);
-            } else {
-                if (this.onPage.contentEquals("main")) {
-                    if (guibutton.id == 1) {
-                        this.onPage = "add";
-                        this.initscreen();
-                    } else if (guibutton.id >= 2) {
-                        int tidx = (Integer)this.tasks.get(guibutton.id);
-                        String fn = "ct" + tidx + this.theFolk.name.replace(" ", "");
-                        File file = new File(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator + fn + ".sk2");
-                        file.delete();
-                        ModSimReloaded.theCourierTasks.remove(tidx);
-                        this.buttonList.remove(guibutton.id);
-                        this.initscreen();
-                    }
-                } else if (this.onPage.contentEquals("add")) {
-                    String name;
-                    V3 v;
-                    if (this.newtask.pickup.name.contentEquals("")) {
-                        name = guibutton.displayString.trim();
-                        v = CourierTask.getCourierPoint(name);
-                        this.newtask.pickup.name = name;
-                        this.newtask.pickup.setVals(v);
-                        guibutton.enabled = false;
-                        GuiButton but = this.getButtonWithId(1);
-                        but.enabled = true;
-                    } else if (this.newtask.dropoff != null && this.newtask.dropoff.name.contentEquals("")) {
+        try {
+            if (guibutton.enabled) {
+                if (guibutton.id == 0) {
+                    this.mc.displayGuiScreen((GuiScreen)null);
+                    GuiControlBox ui = new GuiControlBox(this.controlBoxLocation, this.thePlayer);
+                    this.mc.displayGuiScreen(ui);
+                } else {
+                    if (this.onPage.contentEquals("main")) {
                         if (guibutton.id == 1) {
-                            this.newtask.dropoff.name = "Depot";
-                            this.newtask.dropoff.setVals(this.controlBoxLocation);
-                        } else {
+                            this.onPage = "add";
+                            this.initscreen();
+                        } else if (guibutton.id >= 2) {
+                            int tidx = (Integer)this.tasks.get(guibutton.id);
+                            String fn = "ct" + tidx + this.theFolk.name.replace(" ", "");
+                            File file = new File(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator + fn + ".sk2");
+                            file.delete();
+                            ModSimReloaded.theCourierTasks.remove(tidx);
+                            this.buttonList.remove(guibutton.id);
+                            this.initscreen();
+                        }
+                    } else if (this.onPage.contentEquals("add")) {
+                        String name;
+                        V3 v;
+                        if (this.newtask.pickup.name.contentEquals("")) {
                             name = guibutton.displayString.trim();
                             v = CourierTask.getCourierPoint(name);
-                            this.newtask.dropoff.name = name;
-                            this.newtask.dropoff.setVals(v);
+                            this.newtask.pickup.name = name;
+                            this.newtask.pickup.setVals(v);
+                            guibutton.enabled = false;
+                            GuiButton but = this.getButtonWithId(1);
+                            but.enabled = true;
+                        } else if (this.newtask.dropoff != null && this.newtask.dropoff.name.contentEquals("")) {
+                            if (guibutton.id == 1) {
+                                this.newtask.dropoff.name = "Depot";
+                                this.newtask.dropoff.setVals(this.controlBoxLocation);
+                            } else {
+                                name = guibutton.displayString.trim();
+                                v = CourierTask.getCourierPoint(name);
+                                this.newtask.dropoff.name = name;
+                                this.newtask.dropoff.setVals(v);
+                            }
+
+                            guibutton.enabled = false;
+                            this.newtask.folkname = this.theFolk.name;
+                            this.newtask.name = "Task " + (ModSimReloaded.theCourierTasks.size() + 1) + "";
+                            ModSimReloaded.theCourierTasks.add(this.newtask);
+                            this.onPage = "main";
+                            this.initscreen();
                         }
-
-                        guibutton.enabled = false;
-                        this.newtask.folkname = this.theFolk.name;
-                        this.newtask.name = "Task " + (ModSimReloaded.theCourierTasks.size() + 1) + "";
-                        ModSimReloaded.theCourierTasks.add(this.newtask);
-                        this.onPage = "main";
-                        this.initscreen();
                     }
-                }
 
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
     }
 
     public GuiButton getButtonWithId(int id) {
-        for(int x = 0; x < this.buttonList.size(); ++x) {
-            GuiButton retbut = (GuiButton)this.buttonList.get(x);
-            if (retbut.id == id) {
-                return retbut;
+        try {
+            for(int x = 0; x < this.buttonList.size(); ++x) {
+                GuiButton retbut = (GuiButton)this.buttonList.get(x);
+                if (retbut.id == id) {
+                    return retbut;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getButtonWithId出错了：" + e.getMessage());
         }
-
         return null;
     }
 
     @Override
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
-        this.mc.setIngameFocus();
+        try {
+            Keyboard.enableRepeatEvents(false);
+            this.mc.setIngameFocus();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
-            GuiControlBox ui = new GuiControlBox(this.controlBoxLocation, this.thePlayer);
-            this.mc.displayGuiScreen(ui);
+        try {
+            if (i == 1) {
+                this.mc.displayGuiScreen((GuiScreen)null);
+                GuiControlBox ui = new GuiControlBox(this.controlBoxLocation, this.thePlayer);
+                this.mc.displayGuiScreen(ui);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
+
     }
 }
 

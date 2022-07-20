@@ -2,6 +2,7 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.functionality.Marker;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -47,22 +48,30 @@ public class EntityAlignBeam extends Entity {
 
     @Override
     public void setVelocity(double par1, double par3, double par5) {
-        super.setVelocity(0, 0, 0);
+        try {
+            super.setVelocity(0, 0, 0);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setVelocity出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
     public void onUpdate() {
-        if (this.caption.contentEquals("x")) {
-            this.theMarker = BlockMarker.getMarker(new V3(this.posX, this.posY, this.posZ, this.dimension));
-            if (this.theMarker != null) {
-                this.caption = this.theMarker.caption;
+        try {
+            if (this.caption.contentEquals("x")) {
+                this.theMarker = BlockMarker.getMarker(new V3(this.posX, this.posY, this.posZ, this.dimension));
+                if (this.theMarker != null) {
+                    this.caption = this.theMarker.caption;
+                }
             }
-        }
 
-        if (this.theMarker != null) {
-            this.posY = (double)this.theMarker.y;
+            if (this.theMarker != null) {
+                this.posY = (double)this.theMarker.y;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
-
     }
 
     @Override

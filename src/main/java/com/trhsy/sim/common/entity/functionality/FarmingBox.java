@@ -290,12 +290,10 @@ public class FarmingBox implements Serializable {
             File farmFiles = new File(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator);
             farmFiles.mkdirs();
             boolean useNewFormat = false;
-            File[] arr$ = farmFiles.listFiles();
-            int len$ = arr$.length;
-
+            File[] arrFiles = farmFiles.listFiles();
             File f;
-            for (int i = 0; i < len$; i++) {
-                f = arr$[i];
+            for (int i = 0; i < arrFiles.length; i++) {
+                f = arrFiles[i];
                 if (f.getName().endsWith(".sk2")) {
                     useNewFormat = true;
                     break;
@@ -306,11 +304,8 @@ public class FarmingBox implements Serializable {
             Block id;
             if (useNewFormat) {
                 ModSimReloaded.theFarmingBoxes.clear();
-                arr$ = farmFiles.listFiles();
-                len$ = arr$.length;
-
-                for (int i = 0; i < len$; i++) {
-                    f = arr$[i];
+                for (int i = 0; i < arrFiles.length; i++) {
+                    f = arrFiles[i];
                     if (f.getName().endsWith(".sk2")) {
                         ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                         FarmingBox box = new FarmingBox();
@@ -356,11 +351,8 @@ public class FarmingBox implements Serializable {
                     }
                 }
             } else {
-                arr$ = farmFiles.listFiles();
-                len$ = arr$.length;
-
-                for (int i = 0; i < len$; i++) {
-                    f = arr$[i];
+                for (int i = 0; i < arrFiles.length; i++) {
+                    f = arrFiles[i];
                     if (f.getName().endsWith(".suk")) {
                         FarmingBox farming = (FarmingBox) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
                         if (farming != null) {

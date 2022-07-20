@@ -4,6 +4,7 @@ import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.gui.other.GuiBeamPlayerTo;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +26,14 @@ public class GuiCityBox extends GuiScreen {
     GuiCityBoxTaxes taxesGui = null;
 
     public GuiCityBox(V3 location, EntityPlayer thePlayer) {
-        this.location = location.clone();
-        Building.loadAllBuildings();
-        this.theBuilding = Building.getBuilding(location);
-        this.playerWhoClickedIt = thePlayer;
+        try {
+            this.location = location.clone();
+            Building.loadAllBuildings();
+            this.theBuilding = Building.getBuilding(location);
+            this.playerWhoClickedIt = thePlayer;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiCityBox出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -37,12 +42,17 @@ public class GuiCityBox extends GuiScreen {
     }
     @Override
     public void initGui() {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, "完成"));
-        this.buttonList.add(new GuiButton(30, this.width - 110, this.height - 30, 100, 20, "把我传送到..."));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 50, this.height / 2 - 70, 100, 20, "税和租金"));
-        this.buttonList.add(new GuiButton(3, this.width / 2 - 50, this.height / 2 - 30, 100, 20, "工作时间"));
-        this.buttonList.add(new GuiButton(4, this.width / 2 - 50, this.height / 2 + 10, 100, 20, "信息"));
+        try {
+            this.buttonList.clear();
+            this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, "完成"));
+            this.buttonList.add(new GuiButton(30, this.width - 110, this.height - 30, 100, 20, "把我传送到..."));
+            this.buttonList.add(new GuiButton(1, this.width / 2 - 50, this.height / 2 - 70, 100, 20, "税和租金"));
+            this.buttonList.add(new GuiButton(3, this.width / 2 - 50, this.height / 2 - 30, 100, 20, "工作时间"));
+            this.buttonList.add(new GuiButton(4, this.width / 2 - 50, this.height / 2 + 10, 100, 20, "信息"));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
+
     }
 
     @Override

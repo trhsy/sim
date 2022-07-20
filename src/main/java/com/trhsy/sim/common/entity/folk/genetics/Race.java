@@ -103,13 +103,16 @@ public class Race implements Serializable {
 
     public static Race getRaceFromName(String searchTerm) {
         Race race;
-        for (int i = 0; i < Races.raceList.size(); i++) {
-            race=Races.raceList.get(i);
-            if (race.raceName.contentEquals(searchTerm)) {
-                return race;
+        try {
+            for (int i = 0; i < Races.raceList.size(); i++) {
+                race=Races.raceList.get(i);
+                if (race.raceName.contentEquals(searchTerm)) {
+                    return race;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getRaceFromName出错了：" + e.getMessage());
         }
-
         return null;
     }
 

@@ -72,11 +72,15 @@ public class V3 implements Serializable, Cloneable {
      * @param v3
      */
     public V3(String v3) {
-        String[] v = v3.split(",");
-        this.x = Double.parseDouble(v[0]);
-        this.y = Double.parseDouble(v[1]);
-        this.z = Double.parseDouble(v[2]);
-        this.theDimension = Integer.parseInt(v[3]);
+        try {
+            String[] v = v3.split(",");
+            this.x = Double.parseDouble(v[0]);
+            this.y = Double.parseDouble(v[1]);
+            this.z = Double.parseDouble(v[2]);
+            this.theDimension = Integer.parseInt(v[3]);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("V3出错了：" + e.getMessage());
+        }
     }
 
     public V3(Double x, Double y, Double z, Block id, int meta) {
@@ -108,19 +112,24 @@ public class V3 implements Serializable, Cloneable {
      */
     public boolean isSameCoordsAs(V3 comp, boolean compareDimension, boolean exactly) {
         boolean ret = false;
-        if (comp == null) {
-            return false;
-        } else {
-            if (exactly) {
-                if (this.getDistanceTo(comp) == 0 && (this.theDimension == comp.theDimension || !compareDimension)) {
+        try {
+            if (comp == null) {
+                return false;
+            } else {
+                if (exactly) {
+                    if (this.getDistanceTo(comp) == 0 && (this.theDimension == comp.theDimension || !compareDimension)) {
+                        ret = true;
+                    }
+                } else if (this.getDistanceTo(comp) <= 2 && (this.theDimension == comp.theDimension || !compareDimension)) {
                     ret = true;
                 }
-            } else if (this.getDistanceTo(comp) <= 2 && (this.theDimension == comp.theDimension || !compareDimension)) {
-                ret = true;
-            }
 
-            return ret;
+                return ret;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("isSameCoordsAs出错了：" + e.getMessage());
         }
+        return ret;
     }
 
     /**
@@ -129,16 +138,29 @@ public class V3 implements Serializable, Cloneable {
      * @return
      */
     public int getDistanceTo(V3 other) {
-        if (other == null) {
-            return 0;
-        } else {
-            double dist = Math.sqrt((other.x - this.x) * (other.x - this.x) + (other.y - this.y) * (other.y - this.y) + (other.z - this.z) * (other.z - this.z));
-            return (int)dist;
+        int i=0;
+        try {
+            if (other == null) {
+                i= 0;
+            } else {
+                double dist = Math.sqrt((other.x - this.x) * (other.x - this.x) + (other.y - this.y) * (other.y - this.y) + (other.z - this.z) * (other.z - this.z));
+                i= (int)dist;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getDistanceTo出错了：" + e.getMessage());
         }
+
+        return i;
     }
 
     @Override
     public String toString() {
-        return this.x.intValue() + "," + this.y.intValue() + "," + this.z.intValue() + "," + this.theDimension;
+        String s="";
+        try {
+            s=this.x.intValue() + "," + this.y.intValue() + "," + this.z.intValue() + "," + this.theDimension;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
+        return s;
     }
 }

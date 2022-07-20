@@ -2,16 +2,20 @@ package com.trhsy.sim.packets.server;
 
 import com.trhsy.sim.common.entity.FolkData;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * 生成npc包
  */
 public class GenerateFolkPacket implements IMessage {
+    public NBTTagCompound nbt;
+
     static World world;
     static boolean isForced;
 
@@ -38,7 +42,7 @@ public class GenerateFolkPacket implements IMessage {
     @Override
     public void fromBytes(ByteBuf buf) {
         isForced = buf.readBoolean();
-        ByteBufUtils.readUTF8String(buf);
+        nbt = ByteBufUtils.readTag(buf);
     }
 
     /**
@@ -48,7 +52,7 @@ public class GenerateFolkPacket implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeBoolean(isForced);
-        ByteBufUtils.writeUTF8String(buf,"");
+        ByteBufUtils.writeTag(buf,nbt);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.trhsy.sim.common.gui;
 
 import com.google.common.collect.Lists;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.common.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -26,9 +27,14 @@ public class ConfigGui extends GuiConfig {
     }
     private static List<IConfigElement> getConfigElements() {
         List<IConfigElement> list = Lists.newArrayList();
-//        list.add(new ConfigElement(ConfigLoader.Modules));
-        list.add(new ConfigElement(ConfigLoader.Gameplay));
-        list.add(new ConfigElement(ConfigLoader.Nameplay));
+        try {
+            //        list.add(new ConfigElement(ConfigLoader.Modules));
+            list.add(new ConfigElement(ConfigLoader.Gameplay));
+            list.add(new ConfigElement(ConfigLoader.Nameplay));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getConfigElements出错了：" + e.getMessage());
+        }
+
         return list;
     }
 

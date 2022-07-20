@@ -36,37 +36,57 @@ public class GuiEmployFolk extends GuiScreen {
     FolkData theFolk;
     //**控制箱的位置**/
     V3 controlBoxLocation;
-    /**建筑方向**/
+    /**
+     * 建筑方向
+     **/
     String buildDirection = "";
-    /**采矿箱**/
+    /**
+     * 采矿箱
+     **/
     MiningBox miningBox;
-    /**农田箱**/
+    /**
+     * 农田箱
+     **/
     FarmingBox farmingBox;
-    /**路径箱**/
+    /**
+     * 路径箱
+     **/
     PathBox pathBox;
-    /**职业**/
+    /**
+     * 职业
+     **/
     Vocation vocation;
-    /**鼠标计数**/
+    /**
+     * 鼠标计数
+     **/
     private int mouseCount = 0;
-    /**选定的NPC*/
+    /**
+     * 选定的NPC
+     */
     private ArrayList<GuiButton> selectedFolks = new ArrayList();
-    /**最大员工数*/
+    /**
+     * 最大员工数
+     */
     private int maxEmployees = 1;
 
     /**
      * 初始化
+     *
      * @param controlBoxLocation
      * @param dir
      * @param vocation
      */
     public GuiEmployFolk(V3 controlBoxLocation, String dir, Vocation vocation) {
-        this.controlBoxLocation = controlBoxLocation;
-        this.buildDirection = dir;
-        this.vocation = vocation;
-        if (this.vocation == Vocation.BUILDER) {
-            this.maxEmployees = 1;
+        try {
+            this.controlBoxLocation = controlBoxLocation;
+            this.buildDirection = dir;
+            this.vocation = vocation;
+            if (this.vocation == Vocation.BUILDER) {
+                this.maxEmployees = 1;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
         }
-
     }
 
     public GuiEmployFolk(MiningBox b, Vocation v) {
@@ -75,7 +95,8 @@ public class GuiEmployFolk extends GuiScreen {
             this.vocation = v;
             this.miningBox = b;
             this.maxEmployees = 1;
-        } catch (Exception var4) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
             //var4.printStackTrace();
         }
 
@@ -86,7 +107,8 @@ public class GuiEmployFolk extends GuiScreen {
             this.controlBoxLocation = b.location;
             this.vocation = v;
             this.farmingBox = b;
-        } catch (Exception var4) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
             //var4.printStackTrace();
         }
 
@@ -98,7 +120,8 @@ public class GuiEmployFolk extends GuiScreen {
             this.vocation = v;
             this.pathBox = thePathBox;
             this.maxEmployees = 1;
-        } catch (Exception var4) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
             //var4.printStackTrace();
         }
 
@@ -106,31 +129,30 @@ public class GuiEmployFolk extends GuiScreen {
 
     @Override
     public void initGui() {
-        this.buttonList.clear();
-        //取消
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 200, this.height - 30, I18n.format("container.sim.sim_gui_player_to_Cancel")));
-        //好
-        this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 30, I18n.format("container.sim.gui_btn_name_OK")));
-        ArrayList folks = FolkData.getFolkUnemployed(false);
-
         try {
+            this.buttonList.clear();
+            //取消
+            this.buttonList.add(new GuiButton(0, this.width / 2 - 200, this.height - 30, I18n.format("container.sim.sim_gui_player_to_Cancel")));
+            //好
+            this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 30, I18n.format("container.sim.gui_btn_name_OK")));
+            ArrayList folks = FolkData.getFolkUnemployed(false);
             int x = 10;
             int y = 40;
             int idx = 1;
 
-            for(int f = 0; f < folks.size(); ++f) {
-                FolkData folk = (FolkData)folks.get(f);
+            for (int f = 0; f < folks.size(); ++f) {
+                FolkData folk = (FolkData) folks.get(f);
                 String xp = "";
                 //int ixp = false;
                 int ixp;
                 if (this.vocation == Vocation.BUILDER) {
-                    ixp = (int)Math.floor((double)folk.levelBuilder);
+                    ixp = (int) Math.floor((double) folk.levelBuilder);
                     xp = " (" + ixp + ")";
                 } else if (this.vocation == Vocation.MINER) {
-                    ixp = (int)Math.floor((double)folk.levelMiner);
+                    ixp = (int) Math.floor((double) folk.levelMiner);
                     xp = " (" + ixp + ")";
                 } else if (this.vocation == Vocation.SOLDIER) {
-                    ixp = (int)Math.floor((double)folk.levelSoldier);
+                    ixp = (int) Math.floor((double) folk.levelSoldier);
                     xp = " (" + ixp + ")";
                 }
 
@@ -146,7 +168,8 @@ public class GuiEmployFolk extends GuiScreen {
                     break;
                 }
             }
-        } catch (Exception var9) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
             //var9.printStackTrace();
         }
 
@@ -154,119 +177,136 @@ public class GuiEmployFolk extends GuiScreen {
 
     @Override
     public void drawScreen(int i, int j, float f) {
-        this.drawDefaultBackground();
-
         try {
+            this.drawDefaultBackground();
             if (this.mouseCount < 10) {
                 ++this.mouseCount;
                 Mouse.setGrabbed(false);
             }
-
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_who_you") + this.vocation.toString(), this.width / 2, 17, 16777215);
-        } catch (Exception var5) {
+            super.drawScreen(i, j, f);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
             //var5.printStackTrace();
         }
-
-        super.drawScreen(i, j, f);
     }
 
     @Override
     public void actionPerformed(GuiButton guibutton) {
-        if (guibutton.enabled) {
-            if (guibutton.id == 0) {
-                this.mc.currentScreen = null;
-                this.mc.setIngameFocus();
-            } else {
-                if (guibutton.id > 0 && guibutton.id < 1000 && this.selectedFolks.size() < this.maxEmployees) {
-                    this.selectedFolks.add(guibutton);
-                    guibutton.enabled = false;
-                }
-
-                if (guibutton.id == 1000) {
-                    if (ModSimReloaded.states.credits <= 0.0F && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                        ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_you_need"));
-                        this.mc.currentScreen = null;
-                        this.mc.setIngameFocus();
-                        return;
+        try {
+            if (guibutton.enabled) {
+                if (guibutton.id == 0) {
+                    this.mc.currentScreen = null;
+                    this.mc.setIngameFocus();
+                } else {
+                    if (guibutton.id > 0 && guibutton.id < 1000 && this.selectedFolks.size() < this.maxEmployees) {
+                        this.selectedFolks.add(guibutton);
+                        guibutton.enabled = false;
                     }
 
-                    if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE && this.vocation == Vocation.MERCHANT) {
-                        ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_Builder_merchant"));
-                        this.mc.currentScreen = null;
-                        this.mc.setIngameFocus();
-                        return;
-                    }
-
-                    ArrayList<FolkData> efolks = new ArrayList();
-
-                    for (int w = 0; w < this.selectedFolks.size(); ++w) {
-                        GuiButton button = (GuiButton) this.selectedFolks.get(w);
-                        String folkname = button.displayString;
-                        if (folkname.contains("(")) {
-                            folkname = button.displayString.substring(0, button.displayString.indexOf(" (")).trim();
+                    if (guibutton.id == 1000) {
+                        if (ModSimReloaded.states.credits <= 0.0F && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                            ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_you_need"));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
                         }
 
-                        FolkData f = FolkData.getFolkByName(folkname);
-                        f.statusText = I18n.format("container.sim.gui.button_Going");
-                        efolks.add(f);
-                        this.hireFolks(efolks);
-                    }
-                }
+                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE && this.vocation == Vocation.MERCHANT) {
+                            ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_Builder_merchant"));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        }
 
+                        ArrayList<FolkData> efolks = new ArrayList();
+
+                        for (int w = 0; w < this.selectedFolks.size(); ++w) {
+                            GuiButton button = (GuiButton) this.selectedFolks.get(w);
+                            String folkname = button.displayString;
+                            if (folkname.contains("(")) {
+                                folkname = button.displayString.substring(0, button.displayString.indexOf(" (")).trim();
+                            }
+
+                            FolkData f = FolkData.getFolkByName(folkname);
+                            f.statusText = I18n.format("container.sim.gui.button_Going");
+                            efolks.add(f);
+                            this.hireFolks(efolks);
+                        }
+                    }
+
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
+
     }
 
     public void hireFolks(ArrayList<FolkData> efolks) {
-        for(int i = 0; i < efolks.size(); i++) {
-            FolkData efolk = (FolkData)efolks.get(i);
-            efolk.employedAt = this.controlBoxLocation;
-            efolk.setTheirJob(this.vocation);
-            if (ModSimReloaded.isDayTime()) {
-                efolk.gotoXYZ(efolk.employedAt, (GotoMethod) null);
+        try {
+            for (int i = 0; i < efolks.size(); i++) {
+                FolkData efolk = (FolkData) efolks.get(i);
+                efolk.employedAt = this.controlBoxLocation;
+                efolk.setTheirJob(this.vocation);
+                if (ModSimReloaded.isDayTime()) {
+                    efolk.gotoXYZ(efolk.employedAt, (GotoMethod) null);
+                }
             }
+            this.mc.currentScreen = null;
+            GuiBuildingConstructor ui;
+            //建筑者
+            if (this.vocation == Vocation.BUILDER) {
+                ui = new GuiBuildingConstructor(this.controlBoxLocation, this.buildDirection, efolks);
+                this.mc.displayGuiScreen(ui);
+                //地形师
+            } else if (this.vocation == Vocation.TERRAFORMER) {
+                ui = new GuiBuildingConstructor(this.controlBoxLocation, this.buildDirection, efolks);
+                this.mc.displayGuiScreen(ui);
+                //矿工
+            } else if (this.vocation == Vocation.MINER) {
+                GuiMining uiGuiMining = new GuiMining(this.miningBox, efolks);
+                this.mc.displayGuiScreen(uiGuiMining);
+                //农作物种植者
+            } else if (this.vocation == Vocation.CROPFARMER) {
+                GuiFarming uiFarming = new GuiFarming(this.farmingBox, (FolkData) efolks.get(0));
+                this.mc.displayGuiScreen(uiFarming);
+                //路径生成器
+            } else if (this.vocation == Vocation.PATHBUILDER) {
+                GuiPathBox uiGuiPathBox = new GuiPathBox(this.pathBox, efolks);
+                this.mc.displayGuiScreen(uiGuiPathBox);
+            } else {
+                GuiControlBox uiGuiControlBox = new GuiControlBox(this.controlBoxLocation, (FolkData) efolks.get(0));
+                this.mc.displayGuiScreen(uiGuiControlBox);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("hireFolks出错了：" + e.getMessage());
         }
 
-        this.mc.currentScreen = null;
-        GuiBuildingConstructor ui;
-        //建筑者
-        if (this.vocation == Vocation.BUILDER) {
-            ui = new GuiBuildingConstructor(this.controlBoxLocation, this.buildDirection, efolks);
-            this.mc.displayGuiScreen(ui);
-            //地形师
-        } else if (this.vocation == Vocation.TERRAFORMER) {
-            ui = new GuiBuildingConstructor(this.controlBoxLocation, this.buildDirection, efolks);
-            this.mc.displayGuiScreen(ui);
-            //矿工
-        } else if (this.vocation == Vocation.MINER) {
-            GuiMining uiGuiMining = new GuiMining(this.miningBox, efolks);
-            this.mc.displayGuiScreen(uiGuiMining);
-            //农作物种植者
-        } else if (this.vocation == Vocation.CROPFARMER) {
-            GuiFarming uiFarming = new GuiFarming(this.farmingBox, (FolkData)efolks.get(0));
-            this.mc.displayGuiScreen(uiFarming);
-            //路径生成器
-        } else if (this.vocation == Vocation.PATHBUILDER) {
-            GuiPathBox uiGuiPathBox = new GuiPathBox(this.pathBox, efolks);
-            this.mc.displayGuiScreen(uiGuiPathBox);
-        } else {
-            GuiControlBox uiGuiControlBox = new GuiControlBox(this.controlBoxLocation, (FolkData)efolks.get(0));
-            this.mc.displayGuiScreen(uiGuiControlBox);
-        }
 
     }
 
     @Override
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
+        try {
+            Keyboard.enableRepeatEvents(false);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
-            this.mc.setIngameFocus();
+        try {
+            if (i == 1) {
+                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.setIngameFocus();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
+
     }
 
     @Override
