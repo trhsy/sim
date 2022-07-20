@@ -1,0 +1,6 @@
+{
+  "parent": "sim:block/template_marker",
+  "textures": {
+    "block_marker": "sim:blocks/block_marker"
+  }
+}
