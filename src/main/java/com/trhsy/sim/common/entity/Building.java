@@ -342,11 +342,11 @@ public class Building implements Serializable {
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLiving) + ":0";
                             } else if ("$".equals(ch)) {//控制箱
                                 if (this.displayName.contentEquals(I18n.format("container.sim.ATMs"))) {
-                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":1";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockControlBox) + ":1";
                                 } else if ("other".equals(this.type) || "special".equals(this.type)) {
-                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":2";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockControlBox) + ":2";
                                 } else {
-                                    this.structure[acount] = "" + Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
+                                    this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockControlBox) + ":0";
                                 }
                             } else if ("*".equals(ch)) {//灯箱
                                 this.structure[acount] = Block.getIdFromBlock(BlockLoader.blockLightBox) + ":0";

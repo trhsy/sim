@@ -96,45 +96,48 @@ public class BlockLoader {
      * @param event
      */
     public BlockLoader(FMLPreInitializationEvent event) {
-        /**建筑盒**/
-        register(blockConstructorBox, "block_constructor_box");
-        //register(blockControlBox, "block_control_box");
-        /**控制盒**/
-        blockControlBox= registerEnumBlock(new BlockControlBox(),"block_control_box");
-        ItemBlockMeta.setMappingProperty(blockControlBox,BlockControlBox.TYPE);
-        /**奶酪块**/
-        register(blockCheese, "block_cheese");
-        /**城市路径**/
-        register(blockCityBox, "block_city_box");
-        /**复合砖**/
-        register(blockCompositeBrick, "block_composite_brick");
-        /**养殖箱**/
-        register(blockFarmingBox, "block_farming_box");
-        /**标记棒**/
-        register(blockMarker,"block_marker");
-        /**采矿箱**/
-        register(blockMiningBox,"block_mining_box");
-        /**特制方块空气**/
-        register(blockSpecial,"block_special");
-        /**灯箱**/
-        blockLightBox= registerEnumBlock(new BlockLightBox(),"block_light_box");
-        ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.TYPE);
-        /**毛毯，生活区，夜晚移动**/
-        blockLiving= registerEnumBlock(new BlockLiving(),"block_living");
-        ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
-        /**风车**/
-        register(blockWindmill,"block_windmill");
-        /**流体牛奶方块**/
-        register(blockFluidMilk,"fluid_milk");
-        /**铜块**/
-        register(blockCopper,"block_copper");
-        /**锡块**/
-        register(blockTin,"block_tin");
-        /**铜矿**/
-        register(blockCopperOre,"block_copper_ore");
-        /**锡矿**/
-        register(blockTinOre,"block_tin_ore");
-
+        try {
+            /**建筑盒**/
+            register(blockConstructorBox, "block_constructor_box");
+            //register(blockControlBox, "block_control_box");
+            /**控制盒**/
+            blockControlBox= registerEnumBlock(new BlockControlBox(),"block_control_box");
+            ItemBlockMeta.setMappingProperty(blockControlBox,BlockControlBox.TYPE);
+            /**奶酪块**/
+            register(blockCheese, "block_cheese");
+            /**城市路径**/
+            register(blockCityBox, "block_city_box");
+            /**复合砖**/
+            register(blockCompositeBrick, "block_composite_brick");
+            /**养殖箱**/
+            register(blockFarmingBox, "block_farming_box");
+            /**标记棒**/
+            register(blockMarker,"block_marker");
+            /**采矿箱**/
+            register(blockMiningBox,"block_mining_box");
+            /**特制方块空气**/
+            register(blockSpecial,"block_special");
+            /**灯箱**/
+            blockLightBox= registerEnumBlock(new BlockLightBox(),"block_light_box");
+            ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.TYPE);
+            /**毛毯，生活区，夜晚移动**/
+            blockLiving= registerEnumBlock(new BlockLiving(),"block_living");
+            ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
+            /**风车**/
+            register(blockWindmill,"block_windmill");
+            /**流体牛奶方块**/
+            register(blockFluidMilk,"fluid_milk");
+            /**铜块**/
+            register(blockCopper,"block_copper");
+            /**锡块**/
+            register(blockTin,"block_tin");
+            /**铜矿**/
+            register(blockCopperOre,"block_copper_ore");
+            /**锡矿**/
+            register(blockTinOre,"block_tin_ore");
+        } catch (Exception e) {
+            ModSimReloaded.log.error("BlockLoader出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -144,7 +147,11 @@ public class BlockLoader {
      * @param name
      */
     private static void register(Block block, String name) {
-        GameRegistry.registerBlock(block.setRegistryName(name));
+        try {
+            GameRegistry.registerBlock(block.setRegistryName(name));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -152,55 +159,64 @@ public class BlockLoader {
      */
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
-        registerRender(blockConstructorBox);
-        registerRender(blockControlBox, 0, ModSim.MODID+":block_control_box_top");
-        registerRender(blockControlBox, 1, ModSim.MODID+":block_control_box_atm");
-        registerRender(blockControlBox, 2, ModSim.MODID+":block_control_box_other");
-        registerRender(blockCheese);
-        registerRender(blockCityBox);
-        registerRender(blockCompositeBrick);
-        registerRender(blockFarmingBox);
-        registerRender(blockLightBox, 0, ModSim.MODID+":block_light_box_white");
-        registerRender(blockLightBox, 1, ModSim.MODID+":block_light_box_red");
-        registerRender(blockLightBox, 2, ModSim.MODID+":block_light_box_orange");
-        registerRender(blockLightBox, 3, ModSim.MODID+":block_light_box_yellow");
-        registerRender(blockLightBox, 4, ModSim.MODID+":block_light_box_green");
-        registerRender(blockLightBox, 5, ModSim.MODID+":block_light_box_blue");
-        registerRender(blockLightBox, 6, ModSim.MODID+":block_light_box_purple");
-        registerRender(blockLightBox, 7, ModSim.MODID+":block_light_box_rainbow");
-        registerRender(blockLiving,0,ModSim.MODID+":block_living_white");
-        registerRender(blockLiving,1,ModSim.MODID+":block_living_orange");
-        registerRender(blockLiving,2,ModSim.MODID+":block_living_magenta");
-        registerRender(blockLiving,3,ModSim.MODID+":block_living_light_blue");
-        registerRender(blockLiving,4,ModSim.MODID+":block_living_yellow");
-        registerRender(blockLiving,5,ModSim.MODID+":block_living_lime");
-        registerRender(blockLiving,6,ModSim.MODID+":block_living_pink");
-        registerRender(blockLiving,7,ModSim.MODID+":block_living_gray");
-        registerRender(blockLiving,8,ModSim.MODID+":block_living_silver");
-        registerRender(blockLiving,9,ModSim.MODID+":block_living_cyan");
-        registerRender(blockLiving,10,ModSim.MODID+":block_living_purple");
-        registerRender(blockLiving,11,ModSim.MODID+":block_living_blue");
-        registerRender(blockLiving,12,ModSim.MODID+":block_living_brown");
-        registerRender(blockLiving,13,ModSim.MODID+":block_living_green");
-        registerRender(blockLiving,14,ModSim.MODID+":block_living_red");
-        registerRender(blockLiving,15,ModSim.MODID+":block_living_black");
-        registerRender(blockMarker);
-        registerRender(blockMiningBox);
-        registerRender(blockSpecial);
-        registerRender(blockWindmill);
-        /**铜块**/
-        registerRender(blockCopper);
-        /**锡块**/
-        registerRender(blockTin);
-        /**铜矿**/
-        registerRender(blockCopperOre);
-        /**锡矿**/
-        registerRender(blockTinOre);
+        try {
+            registerRender(blockConstructorBox);
+            registerRender(blockControlBox, 0, ModSim.MODID+":block_control_box_top");
+            registerRender(blockControlBox, 1, ModSim.MODID+":block_control_box_atm");
+            registerRender(blockControlBox, 2, ModSim.MODID+":block_control_box_other");
+            registerRender(blockCheese);
+            registerRender(blockCityBox);
+            registerRender(blockCompositeBrick);
+            registerRender(blockFarmingBox);
+            registerRender(blockLightBox, 0, ModSim.MODID+":block_light_box_white");
+            registerRender(blockLightBox, 1, ModSim.MODID+":block_light_box_red");
+            registerRender(blockLightBox, 2, ModSim.MODID+":block_light_box_orange");
+            registerRender(blockLightBox, 3, ModSim.MODID+":block_light_box_yellow");
+            registerRender(blockLightBox, 4, ModSim.MODID+":block_light_box_green");
+            registerRender(blockLightBox, 5, ModSim.MODID+":block_light_box_blue");
+            registerRender(blockLightBox, 6, ModSim.MODID+":block_light_box_purple");
+            registerRender(blockLightBox, 7, ModSim.MODID+":block_light_box_rainbow");
+            registerRender(blockLiving,0,ModSim.MODID+":block_living_white");
+            registerRender(blockLiving,1,ModSim.MODID+":block_living_orange");
+            registerRender(blockLiving,2,ModSim.MODID+":block_living_magenta");
+            registerRender(blockLiving,3,ModSim.MODID+":block_living_light_blue");
+            registerRender(blockLiving,4,ModSim.MODID+":block_living_yellow");
+            registerRender(blockLiving,5,ModSim.MODID+":block_living_lime");
+            registerRender(blockLiving,6,ModSim.MODID+":block_living_pink");
+            registerRender(blockLiving,7,ModSim.MODID+":block_living_gray");
+            registerRender(blockLiving,8,ModSim.MODID+":block_living_silver");
+            registerRender(blockLiving,9,ModSim.MODID+":block_living_cyan");
+            registerRender(blockLiving,10,ModSim.MODID+":block_living_purple");
+            registerRender(blockLiving,11,ModSim.MODID+":block_living_blue");
+            registerRender(blockLiving,12,ModSim.MODID+":block_living_brown");
+            registerRender(blockLiving,13,ModSim.MODID+":block_living_green");
+            registerRender(blockLiving,14,ModSim.MODID+":block_living_red");
+            registerRender(blockLiving,15,ModSim.MODID+":block_living_black");
+            registerRender(blockMarker);
+            registerRender(blockMiningBox);
+            registerRender(blockSpecial);
+            registerRender(blockWindmill);
+            /**铜块**/
+            registerRender(blockCopper);
+            /**锡块**/
+            registerRender(blockTin);
+            /**铜矿**/
+            registerRender(blockCopperOre);
+            /**锡矿**/
+            registerRender(blockTinOre);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+        }
     }
 
     @SideOnly(Side.CLIENT)
     private static void registerStateMapper(Block block, IStateMapper mapper) {
-        ModelLoader.setCustomStateMapper(block, mapper);
+        try {
+            ModelLoader.setCustomStateMapper(block, mapper);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerStateMapper出错了：" + e.getMessage());
+        }
+
     }
 
     /**
@@ -212,7 +228,12 @@ public class BlockLoader {
     private static void registerRender(Block block) {
         /*ModelResourceLocation model = new ModelResourceLocation(block.getRegistryName(), "inventory");
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, model);*/
-        registerRender(block, 0, block.getRegistryName());
+        try {
+            registerRender(block, 0, block.getRegistryName());
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+        }
+
     }
 
     /**
@@ -224,8 +245,12 @@ public class BlockLoader {
      **/
     @SideOnly(Side.CLIENT)
     private static void registerRender(Block block, int meta, String name) {
-        ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), meta, model);
+        try {
+            ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), meta, model);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -236,24 +261,38 @@ public class BlockLoader {
      * @Param [block, itemBlock, name]
      **/
     private static <T extends Block> T registers(T block, String name) {
-        block.setUnlocalizedName(Util.prefix(name));
-        block.setRegistryName(Util.getResource(name));
-        GameRegistry.registerBlock(block, Util.resource(name));
+        try {
+            block.setUnlocalizedName(Util.prefix(name));
+            block.setRegistryName(Util.getResource(name));
+            GameRegistry.registerBlock(block, Util.resource(name));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registers出错了：" + e.getMessage());
+        }
+
         return block;
     }
     protected static <T extends Block> T registers(T block, Class<? extends ItemBlock> itemBlockClazz, String name, Object... itemCtorArgs) {
-        if (!name.equals(name.toLowerCase(Locale.US))) {
-            throw new IllegalArgumentException(String.format("未本地化的名称必须全部小写！块: %s", name));
-        } else {
-            block.setUnlocalizedName(Util.prefix(name));
-            block.setRegistryName(Util.getResource(name));
-            GameRegistry.registerBlock(block, itemBlockClazz, name, itemCtorArgs);
-            return block;
+        try {
+            if (!name.equals(name.toLowerCase(Locale.US))) {
+                throw new IllegalArgumentException(String.format("未本地化的名称必须全部小写！块: %s", name));
+            } else {
+                block.setUnlocalizedName(Util.prefix(name));
+                block.setRegistryName(Util.getResource(name));
+                GameRegistry.registerBlock(block, itemBlockClazz, name, itemCtorArgs);
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registers出错了：" + e.getMessage());
         }
+        return block;
     }
     protected static <T extends EnumBlock<?>> T registerEnumBlock(T block, String name) {
-        registers(block, ItemBlockMeta.class, name);
-        ItemBlockMeta.setMappingProperty(block, block.prop);
+        try {
+            registers(block, ItemBlockMeta.class, name);
+            ItemBlockMeta.setMappingProperty(block, block.prop);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerEnumBlock出错了：" + e.getMessage());
+        }
         return block;
     }
 }

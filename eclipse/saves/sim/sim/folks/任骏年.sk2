@@ -1,5 +1,5 @@
-employedat|124,63,331,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|任骏年
 age|19
 gender|0
@@ -14,8 +14,8 @@ levelbuilder|10.486023
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|124,64,331,0
+location|131,64,385,0
 pregnancy|0.0
-building|4 单元.txt|residential||-z
+building|null
 terraformtype|null
 terraformradius|1

@@ -38,39 +38,42 @@ public class CommonProxy {
      * @param event
      */
     public void preInit(FMLPreInitializationEvent event) {
-        ModSimReloaded.log = event.getModLog();
+        try {
+            ModSimReloaded.log = event.getModLog();
 
-        PacketHandler.initPackets();
-        NetworkRegistry.INSTANCE.registerGuiHandler(ModSim.instance, new GuiHandler());
-        new UpdateChecker(event);
-        /**配置**/
-        ConfigLoader.load(event);
-        /**创造模式物品栏**/
-        new CreativeTabsLoader(event);
-        /**流体注册加载**/
-        new FluidLoader(event);
-        /**物品加载注册**/
-        new ItemLoader(event);
-        /**方块加载注册**/
-        new BlockLoader(event);
-        /**事件加载**/
-        new EventLoader();
-        /**合成表**/
-        new CraftingLoader();
+            PacketHandler.initPackets();
+            NetworkRegistry.INSTANCE.registerGuiHandler(ModSim.instance, new GuiHandler());
+            new UpdateChecker(event);
+            /**配置**/
+            ConfigLoader.load(event);
+            /**创造模式物品栏**/
+            new CreativeTabsLoader(event);
+            /**流体注册加载**/
+            new FluidLoader(event);
+            /**物品加载注册**/
+            new ItemLoader(event);
+            /**方块加载注册**/
+            new BlockLoader(event);
+            /**事件加载**/
+            new EventLoader();
+            /**合成表**/
+            new CraftingLoader();
 
-        /**矿物生成**/
-        new WorldGeneratorLoader();
-        /**矿物辞典**/
-        new OreDictionaryLoader(event);
-        /**实体加载**/
-        new EntityLoader();
-        /**加载GUI**/
-        new GuiElementLoader();
-        //Traits
-        Traits.loadTraits();
+            /**矿物生成**/
+            new WorldGeneratorLoader();
+            /**矿物辞典**/
+            new OreDictionaryLoader(event);
+            /**实体加载**/
+            new EntityLoader();
+            /**加载GUI**/
+            new GuiElementLoader();
+            //Traits
+            Traits.loadTraits();
 
-        Race.loadRaces();
-
+            Race.loadRaces();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("preInit出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -88,8 +91,11 @@ public class CommonProxy {
      * @param event
      */
     public void postInit(FMLPostInitializationEvent event) {
-
-        MinecraftForge.EVENT_BUS.register(new SimConfigSync());
+        try {
+            MinecraftForge.EVENT_BUS.register(new SimConfigSync());
+        } catch (Exception e) {
+            ModSimReloaded.log.error("postInit出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -97,15 +103,32 @@ public class CommonProxy {
      * @param event
      */
     public void serverStarting(FMLServerStartingEvent event) {
-        new CommandLoader(event);
+        try {
+            new CommandLoader(event);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage());
+        }
+
     }
 
     public World getClientWorld() {
-        return FMLClientHandler.instance().getServer().getEntityWorld();
+        World world=null;
+        try {
+            world=FMLClientHandler.instance().getServer().getEntityWorld();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
+        return world;
     }
 
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
-        return ctx.getServerHandler().playerEntity;
+        EntityPlayer entityPlayer=null;
+        try {
+            entityPlayer=ctx.getServerHandler().playerEntity;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
+        return entityPlayer;
     }
 
 }

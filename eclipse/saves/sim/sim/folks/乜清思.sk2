@@ -1,5 +1,5 @@
-employedat|96,63,325,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|乜清思
 age|19
 gender|1
@@ -14,8 +14,8 @@ levelbuilder|10.350017
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|96,64,325,0
+location|134,63,383,0
 pregnancy|0.0
-building|4 公寓.txt|residential||+x
+building|null
 terraformtype|null
 terraformradius|1

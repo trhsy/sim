@@ -24,7 +24,11 @@ public class WorldGeneratorLoader {
      * 监听矿物生成线程
      */
     public WorldGeneratorLoader() {
-        MinecraftForge.ORE_GEN_BUS.register(this);
+        try {
+            MinecraftForge.ORE_GEN_BUS.register(this);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("WorldGeneratorLoader出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -40,10 +44,14 @@ public class WorldGeneratorLoader {
 
     @SubscribeEvent
     public void onOreGenPost(OreGenEvent.Post event) {
-        if (!event.pos.equals(this.pos)) {
-            this.pos = event.pos;
-            worldGeneratorCopperOre.generate(event.world, event.rand, event.pos);
-            worldGeneratorTinOre.generate(event.world, event.rand, event.pos);
+        try {
+            if (!event.pos.equals(this.pos)) {
+                this.pos = event.pos;
+                worldGeneratorCopperOre.generate(event.world, event.rand, event.pos);
+                worldGeneratorTinOre.generate(event.world, event.rand, event.pos);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onOreGenPost出错了：" + e.getMessage());
         }
     }
 }

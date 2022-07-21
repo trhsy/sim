@@ -157,13 +157,14 @@ public class JobLumberjack extends Job implements Serializable {
             }
 
             this.foundWoodAt = findClosestBlockType(searchpos, Blocks.log, ConfigLoader.configLumberArea, false);
-            this.foundWoodAt.theDimension = this.jobWorld.provider.getDimensionId();
-            this.theStage = Stage.GOTOTREE;
-            this.onRoute = false;
             if (this.foundWoodAt == null) {
                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.wood"));
                 this.theFolk.selfFire();
             }
+            this.foundWoodAt.theDimension = this.jobWorld.provider.getDimensionId();
+            this.theStage = Stage.GOTOTREE;
+            this.onRoute = false;
+
         } catch (Exception e) {
             ModSimReloaded.log.error("stageScanForTree出错了：" + e.getMessage());
         }
@@ -400,22 +401,16 @@ public class JobLumberjack extends Job implements Serializable {
     private void pickUpSaplings() {
         try {
             if (this.theFolk.isSpawned()) {
-                List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, this.theFolk.theEntity.posX + 1, this.theFolk.theEntity.posY + 1, this.theFolk.theEntity.posZ + 1).expand(3, 4, 3));
-                Iterator iterator1 = list1.iterator();
+                List<Entity> list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, this.theFolk.theEntity.posX + 1, this.theFolk.theEntity.posY + 1, this.theFolk.theEntity.posZ + 1).expand(3, 4, 3));
                 if (!list1.isEmpty()) {
-                    while (iterator1.hasNext()) {
-                        Entity entity1 = (Entity) iterator1.next();
+                    for (Entity entity1 : list1) {
                         if (entity1 instanceof EntityItem) {
                             EntityItem entityitem = (EntityItem) entity1;
                             ItemStack is = entityitem.getEntityItem();
-
-                            try {
-                                Item ID = is.getItem();
-                                if (ID == Item.getItemFromBlock(Blocks.sapling)) {
-                                    this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Blocks.sapling, is.getMetadata(), 1));
-                                    entityitem.setDead();
-                                }
-                            } catch (Exception var7) {
+                            Item ID = is.getItem();
+                            if (ID == Item.getItemFromBlock(Blocks.sapling)) {
+                                this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Blocks.sapling, is.getMetadata(), 1));
+                                entityitem.setDead();
                             }
                         }
                     }

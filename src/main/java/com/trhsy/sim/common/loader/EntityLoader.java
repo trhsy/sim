@@ -27,30 +27,43 @@ public class EntityLoader {
 
     public EntityLoader() {
         //System.out.println("开始加载实体");
-        registerEntity(EntityFolk.class, "EntityFolk", 80, 3, true);
-        registerEntityEgg(EntityFolk.class, 0xffff66, 0x660000);
+        try {
+            registerEntity(EntityFolk.class, "EntityFolk", 80, 3, true);
+            registerEntityEgg(EntityFolk.class, 0xffff66, 0x660000);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("EntityLoader出错了：" + e.getMessage());
+        }
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
-        // TODO
-        registerEntityRender(EntityFolk.class, RenderEntityFolk.class);
-        registerEntityRender(EntityAlignBeam.class,RenderAlignBeam.class);
-        registerEntityRender(EntityConBox.class,RenderConBox.class);
-        registerEntityRender(EntityWindmill.class,RenderWindmill.class);
+        try {
+            // TODO
+            registerEntityRender(EntityFolk.class, RenderEntityFolk.class);
+            registerEntityRender(EntityAlignBeam.class, RenderAlignBeam.class);
+            registerEntityRender(EntityConBox.class, RenderConBox.class);
+            registerEntityRender(EntityWindmill.class, RenderWindmill.class);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+        }
     }
+
     /**
+     * @param entityClass
+     * @param render
+     * @return void
      * @Author fan
      * @Description //TODO 注册实体渲染模型
      * @Date 17:19 2022/5/22
      * @Param [entityClass, render]
-     * @return void
-     *
-     * @param entityClass
-     * @param render*/
+     */
     @SideOnly(Side.CLIENT)
     private static <T extends Entity> void registerEntityRender(Class<T> entityClass, Class<? extends Render<T>> render) {
-        RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<T>(render));
+        try {
+            RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<T>(render));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -62,8 +75,12 @@ public class EntityLoader {
      **/
     private static void registerEntity(Class<? extends Entity> entityClass, String name, int trackingRange,
                                        int updateFrequency, boolean sendsVelocityUpdates) {
-        EntityRegistry.registerModEntity(entityClass, name, nextID++, ModSim.instance, trackingRange, updateFrequency,
-                sendsVelocityUpdates);
+        try {
+            EntityRegistry.registerModEntity(entityClass, name, nextID++, ModSim.instance, trackingRange, updateFrequency,
+                    sendsVelocityUpdates);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerEntity出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -74,12 +91,18 @@ public class EntityLoader {
      * @Param [entityClass, eggPrimary, eggSecondary]
      **/
     private static void registerEntityEgg(Class<? extends Entity> entityClass, int eggPrimary, int eggSecondary) {
-        EntityRegistry.registerEgg(entityClass, eggPrimary, eggSecondary);
+        try {
+            EntityRegistry.registerEgg(entityClass, eggPrimary, eggSecondary);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerEntityEgg出错了：" + e.getMessage());
+        }
+
     }
 
     @SubscribeEvent
     public void onPlayerClickGrassBlock(PlayerRightClickGrassBlockEvent event) {
-        /*if (!event.world.isRemote)
+        try {
+            /*if (!event.world.isRemote)
         {
             ItemStack heldItem = event.entityPlayer.getHeldItem();
             if (ItemLoader.goldenEgg.equals(heldItem.getItem()))
@@ -96,5 +119,8 @@ public class EntityLoader {
             event.world.spawnEntityInWorld(tnt);
             event.entityPlayer.triggerAchievement(AchievementLoader.explosionFromGrassBlock);
         }*/
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage());
+        }
     }
 }

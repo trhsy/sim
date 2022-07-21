@@ -1,7 +1,9 @@
 package com.trhsy.sim.packets.server;
 
 import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -31,8 +33,12 @@ public class GenerateFolkPacket implements IMessage {
      * @param forced
      */
     public GenerateFolkPacket(World whirld, boolean forced) {
-        isForced = forced;
-        world = whirld;
+        try {
+            isForced = forced;
+            world = whirld;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GenerateFolkPacket出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -41,8 +47,13 @@ public class GenerateFolkPacket implements IMessage {
      */
     @Override
     public void fromBytes(ByteBuf buf) {
-        isForced = buf.readBoolean();
-        nbt = ByteBufUtils.readTag(buf);
+        try {
+            isForced = buf.readBoolean();
+            nbt = ByteBufUtils.readTag(buf);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage());
+        }
+
     }
 
     /**
@@ -51,8 +62,13 @@ public class GenerateFolkPacket implements IMessage {
      */
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeBoolean(isForced);
-        ByteBufUtils.writeTag(buf,nbt);
+        try {
+            buf.writeBoolean(isForced);
+            ByteBufUtils.writeTag(buf,nbt);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("toBytes出错了：" + e.getMessage());
+        }
+
     }
 
     /**
@@ -62,12 +78,23 @@ public class GenerateFolkPacket implements IMessage {
 
         @Override
         public IMessage onMessage(GenerateFolkPacket message, MessageContext ctx) {
-            if (!isForced) {
-                //生成新人
-                FolkData.generateNewFolk(world);
-            } else {
-                //强制生成新人
-                FolkData.forceGenerateNewFolk(world);
+            if (ctx.side == Side.CLIENT) {
+                Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (!isForced) {
+                                //生成新人
+                                FolkData.generateNewFolk(world);
+                            } else {
+                                //强制生成新人
+                                FolkData.forceGenerateNewFolk(world);
+                            }
+                        } catch (Exception e) {
+                            ModSimReloaded.log.error("onMessage出错了：" + e.getMessage());
+                        }
+                    }
+                });
             }
             return null;
         }

@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.util;
 
 import com.google.common.collect.Lists;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -50,11 +51,15 @@ public class RecipeMatchRegistry {
 
     public static ItemStack[] copyItemStackArray(ItemStack[] in) {
         ItemStack[] stacksCopy = new ItemStack[in.length];
-
-        for(int i = 0; i < in.length; i++) {
-            if (in[i] != null) {
-                stacksCopy[i] = in[i].copy();
+        try {
+            for(int i = 0; i < in.length; i++) {
+                if (in[i] != null) {
+                    stacksCopy[i] = in[i].copy();
+                }
             }
+
+        } catch (Exception e) {
+            ModSimReloaded.log.error("copyItemStackArray出错了：" + e.getMessage());
         }
 
         return stacksCopy;

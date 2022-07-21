@@ -13,7 +13,7 @@ levelfood|10
 levelbuilder|10.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
+stayput|true
 location|125,64,233,0
 pregnancy|0.0
 building|null

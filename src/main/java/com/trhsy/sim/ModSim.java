@@ -4,6 +4,7 @@ import com.trhsy.sim.client.ClientProxy;
 import com.trhsy.sim.common.CommonProxy;
 import com.trhsy.sim.common.config.PulseManager;
 import com.trhsy.sim.common.loader.ConfigLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -58,8 +59,13 @@ public class ModSim {
     public static PulseManager pulseManager;
 
     static {
-        pulseManager = new PulseManager("sim");
-        FluidRegistry.enableUniversalBucket();
+        try {
+            pulseManager = new PulseManager("sim");
+            FluidRegistry.enableUniversalBucket();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
+
     }
 
     /**
@@ -76,7 +82,12 @@ public class ModSim {
      */
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
+        try {
+            proxy.preInit(event);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("preInit出错了：" + e.getMessage());
+        }
+
     }
 
     /**
@@ -86,7 +97,12 @@ public class ModSim {
      */
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        proxy.init(event);
+        try {
+            proxy.init(event);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("init出错了：" + e.getMessage());
+        }
+
     }
 
     /**
@@ -96,15 +112,26 @@ public class ModSim {
      */
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
+        try {
+            proxy.postInit(event);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("postInit出错了：" + e.getMessage());
+        }
+
     }
 
     /**
      * 系统命令
+     *
      * @param event
      */
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
-        proxy.serverStarting(event);
+        try {
+            proxy.serverStarting(event);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage());
+        }
+
     }
 }

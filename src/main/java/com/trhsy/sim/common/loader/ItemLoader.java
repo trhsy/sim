@@ -105,89 +105,92 @@ public class ItemLoader {
      * @param event
      */
     public ItemLoader(FMLPreInitializationEvent event) {
-
-        /**铜粒儿**/
-        register(itemGranulesCopper, "item_granules_copper");
-        /**锡粒儿**/
-        register(itemGranulesTin, "item_granules_tin");
-        /**铁粒儿**/
-        register(itemGranulesIron, "item_granules_iron");
-        /**金粒儿**/
-        register(itemGranulesGold, "item_granules_gold");
-
-        /**铜锭**/
-        register(itemCopperIngot, "item_copper_ingot");
-        /**锡锭**/
-        register(itemTinIngot, "item_tin_ingot");
-
-        /**铜镐**/
-        register(copperPickaxe, "item_copper_pickaxe");
-        /**铜锄头**/
-        register(copperHoe, "item_copper_hoe");
-        /**铜斧**/
-        register(copperAxe, "item_copper_axe");
-        /**铜锹**/
-        register(copperSpade, "item_copper_spade");
-        /**铜剑**/
-        register(copperSword, "item_copper_sword");
-        /**铜头盔**/
-        register(copperHelmet, "item_copper_helmet");
-        /**铜胸甲**/
-        register(copperChestplate, "item_copper_chestplate");
-        /**铜护腿**/
-        register(copperLeggings, "item_copper_leggings");
-        /**铜鞋**/
-        register(copperBoots, "item_copper_boots");
-
-        /**锡镐**/
-        register(tinPickaxe, "item_tin_pickaxe");
-        /**锡锄头**/
-        register(tinHoe, "item_tin_hoe");
-        /**锡斧**/
-        register(tinAxe, "item_tin_axe");
-        /**锡锹**/
-        register(tinSpade, "item_tin_spade");
-        /**锡剑**/
-        register(tinSword, "item_tin_sword");
-        /**锡头盔**/
-        register(tinHelmet, "item_tin_helmet");
-        /**锡胸甲**/
-        register(tinChestplate, "item_tin_chestplate");
-        /**锡护腿**/
-        register(tinLeggings, "item_tin_leggings");
-        /**锡鞋**/
-        register(tinBoots, "item_tin_boots");
-        /**牛奶桶**/
-        register(itemBucketMilk, "item_bucket_milk");
-        /**汉堡**/
-        register(itemBurger, "food_burger");
-        /**薯条**/
-        register(itemFries, "food_fries");
-        /**奶酪**/
-        register(itemCheese, "food_cheese");
-        /**奶酪汉堡**/
-        register(itemCheeseburger, "food_cheese_burger");
-
-        /**风车底座**/
-        register(itemWindmillBase, "item_windmill_base");
-
-        /**风车帆**/
-        //register(itemWindmillSails, "item_windmill_sails");
-        itemWindmillSails=registerItem(new ItemWindmillSails(),"item_windmill_sails");
-        /**风车叶片**/
-        //register(itemWindmillVane, "item_windmill_vane");
-        itemWindmillVane=registerItem(new ItemWindmillVane(),"item_windmill_vane");
+        try {
+            /**铜粒儿**/
+            register(itemGranulesCopper, "item_granules_copper");
+            /**锡粒儿**/
+            register(itemGranulesTin, "item_granules_tin");
+            /**铁粒儿**/
+            register(itemGranulesIron, "item_granules_iron");
+            /**金粒儿**/
+            register(itemGranulesGold, "item_granules_gold");
+            /**铜锭**/
+            register(itemCopperIngot, "item_copper_ingot");
+            /**锡锭**/
+            register(itemTinIngot, "item_tin_ingot");
+            /**铜镐**/
+            register(copperPickaxe, "item_copper_pickaxe");
+            /**铜锄头**/
+            register(copperHoe, "item_copper_hoe");
+            /**铜斧**/
+            register(copperAxe, "item_copper_axe");
+            /**铜锹**/
+            register(copperSpade, "item_copper_spade");
+            /**铜剑**/
+            register(copperSword, "item_copper_sword");
+            /**铜头盔**/
+            register(copperHelmet, "item_copper_helmet");
+            /**铜胸甲**/
+            register(copperChestplate, "item_copper_chestplate");
+            /**铜护腿**/
+            register(copperLeggings, "item_copper_leggings");
+            /**铜鞋**/
+            register(copperBoots, "item_copper_boots");
+            /**锡镐**/
+            register(tinPickaxe, "item_tin_pickaxe");
+            /**锡锄头**/
+            register(tinHoe, "item_tin_hoe");
+            /**锡斧**/
+            register(tinAxe, "item_tin_axe");
+            /**锡锹**/
+            register(tinSpade, "item_tin_spade");
+            /**锡剑**/
+            register(tinSword, "item_tin_sword");
+            /**锡头盔**/
+            register(tinHelmet, "item_tin_helmet");
+            /**锡胸甲**/
+            register(tinChestplate, "item_tin_chestplate");
+            /**锡护腿**/
+            register(tinLeggings, "item_tin_leggings");
+            /**锡鞋**/
+            register(tinBoots, "item_tin_boots");
+            /**牛奶桶**/
+            register(itemBucketMilk, "item_bucket_milk");
+            /**汉堡**/
+            register(itemBurger, "food_burger");
+            /**薯条**/
+            register(itemFries, "food_fries");
+            /**奶酪**/
+            register(itemCheese, "food_cheese");
+            /**奶酪汉堡**/
+            register(itemCheeseburger, "food_cheese_burger");
+            /**风车底座**/
+            register(itemWindmillBase, "item_windmill_base");
+            /**风车帆**/
+            //register(itemWindmillSails, "item_windmill_sails");
+            itemWindmillSails=registerItem(new ItemWindmillSails(),"item_windmill_sails");
+            /**风车叶片**/
+            //register(itemWindmillVane, "item_windmill_vane");
+            itemWindmillVane=registerItem(new ItemWindmillVane(),"item_windmill_vane");
+        } catch (Exception e) {
+            ModSimReloaded.log.error("ItemLoader出错了：" + e.getMessage());
+        }
     }
 
     protected static <T extends Item> T registerItem(T item, String name) {
-        if (!name.equals(name.toLowerCase(Locale.US))) {
-            throw new IllegalArgumentException(String.format("未本地化的名称必须全部小写！项目: %s", name));
-        } else {
-            item.setUnlocalizedName(Util.prefix(name));
-            item.setRegistryName(Util.getResource(name));
-            GameRegistry.registerItem(item, name);
-            return item;
+        try {
+            if (!name.equals(name.toLowerCase(Locale.US))) {
+                throw new IllegalArgumentException(String.format("未本地化的名称必须全部小写！项目: %s", name));
+            } else {
+                item.setUnlocalizedName(Util.prefix(name));
+                item.setRegistryName(Util.getResource(name));
+                GameRegistry.registerItem(item, name);
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerItem出错了：" + e.getMessage());
         }
+        return item;
     }
 
     /**
@@ -197,7 +200,11 @@ public class ItemLoader {
      * @param name
      */
     private static void register(Item item, String name) {
-        GameRegistry.registerItem(item.setRegistryName(name));
+        try {
+            GameRegistry.registerItem(item.setRegistryName(name));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("register出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -209,118 +216,131 @@ public class ItemLoader {
      **/
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
-        /**铜粒儿**/
-        registerRender(itemGranulesCopper);
-        /**锡粒儿**/
-        registerRender(itemGranulesTin);
-        /**铁粒儿**/
-        registerRender(itemGranulesIron);
-        /**金粒儿**/
-        registerRender(itemGranulesGold);
-        /**铜锭**/
-        registerRender(itemCopperIngot);
-        /**锡锭**/
-        registerRender(itemTinIngot);
+        try {
+            /**铜粒儿**/
+            registerRender(itemGranulesCopper);
+            /**锡粒儿**/
+            registerRender(itemGranulesTin);
+            /**铁粒儿**/
+            registerRender(itemGranulesIron);
+            /**金粒儿**/
+            registerRender(itemGranulesGold);
+            /**铜锭**/
+            registerRender(itemCopperIngot);
+            /**锡锭**/
+            registerRender(itemTinIngot);
 
-        /**铜镐**/
-        registerRender(copperPickaxe);
-        /**铜锄头**/
-        registerRender(copperHoe);
-        /**铜斧子**/
-        registerRender(copperAxe);
-        /**铜锹**/
-        registerRender(copperSpade);
-        /**铜剑**/
-        registerRender(copperSword);
-        /**铜头盔**/
-        registerRender(copperHelmet);
-        /**铜胸甲**/
-        registerRender(copperChestplate);
-        /**铜护腿**/
-        registerRender(copperLeggings);
-        /**铜鞋**/
-        registerRender(copperBoots);
-
-
-        /**锡镐**/
-        registerRender(tinPickaxe);
-        /**锡锄头**/
-        registerRender(tinHoe);
-        /**锡斧子**/
-        registerRender(tinAxe);
-        /**锡锹**/
-        registerRender(tinSpade);
-        /**锡剑**/
-        registerRender(tinSword);
-        /**锡头盔**/
-        registerRender(tinHelmet);
-        /**锡胸甲**/
-        registerRender(tinChestplate);
-        /**锡护腿**/
-        registerRender(tinLeggings);
-        /**锡鞋**/
-        registerRender(tinBoots);
-        /**牛奶桶**/
-        registerRender(itemBucketMilk);
-
-        /**汉堡**/
-        registerRender(itemBurger);
-        /**薯条**/
-        registerRender(itemFries);
-        /**奶酪**/
-        registerRender(itemCheese);
-        /**奶酪汉堡**/
-        registerRender(itemCheeseburger);
-
-        /**风车底座**/
-        registerRender(itemWindmillBase);
-        /**风车帆**/
-        registerRender(itemWindmillSails,0,ModSim.MODID+":item_windmill_sails0");
-        registerRender(itemWindmillSails,1,ModSim.MODID+":item_windmill_sails1");
-        registerRender(itemWindmillSails,2,ModSim.MODID+":item_windmill_sails2");
-        registerRender(itemWindmillSails,3,ModSim.MODID+":item_windmill_sails3");
-        registerRender(itemWindmillSails,4,ModSim.MODID+":item_windmill_sails4");
-        registerRender(itemWindmillSails,5,ModSim.MODID+":item_windmill_sails5");
-        registerRender(itemWindmillSails,6,ModSim.MODID+":item_windmill_sails6");
-        registerRender(itemWindmillSails,7,ModSim.MODID+":item_windmill_sails7");
-        registerRender(itemWindmillSails,8,ModSim.MODID+":item_windmill_sails8");
-        registerRender(itemWindmillSails,9,ModSim.MODID+":item_windmill_sails9");
-        registerRender(itemWindmillSails,10,ModSim.MODID+":item_windmill_sails10");
-        registerRender(itemWindmillSails,11,ModSim.MODID+":item_windmill_sails11");
-        registerRender(itemWindmillSails,12,ModSim.MODID+":item_windmill_sails12");
-        registerRender(itemWindmillSails,13,ModSim.MODID+":item_windmill_sails13");
-        registerRender(itemWindmillSails,14,ModSim.MODID+":item_windmill_sails14");
-        registerRender(itemWindmillSails,15,ModSim.MODID+":item_windmill_sails15");
-        /**风车叶片**/
-        registerRender(itemWindmillVane,0,ModSim.MODID+":item_windmill_vane0");
-        registerRender(itemWindmillVane,1,ModSim.MODID+":item_windmill_vane1");
-        registerRender(itemWindmillVane,2,ModSim.MODID+":item_windmill_vane2");
-        registerRender(itemWindmillVane,3,ModSim.MODID+":item_windmill_vane3");
-        registerRender(itemWindmillVane,4,ModSim.MODID+":item_windmill_vane4");
-        registerRender(itemWindmillVane,5,ModSim.MODID+":item_windmill_vane5");
-        registerRender(itemWindmillVane,6,ModSim.MODID+":item_windmill_vane6");
-        registerRender(itemWindmillVane,7,ModSim.MODID+":item_windmill_vane7");
-        registerRender(itemWindmillVane,8,ModSim.MODID+":item_windmill_vane8");
-        registerRender(itemWindmillVane,9,ModSim.MODID+":item_windmill_vane9");
-        registerRender(itemWindmillVane,10,ModSim.MODID+":item_windmill_vane10");
-        registerRender(itemWindmillVane,11,ModSim.MODID+":item_windmill_vane11");
-        registerRender(itemWindmillVane,12,ModSim.MODID+":item_windmill_vane12");
-        registerRender(itemWindmillVane,13,ModSim.MODID+":item_windmill_vane13");
-        registerRender(itemWindmillVane,14,ModSim.MODID+":item_windmill_vane14");
-        registerRender(itemWindmillVane,15,ModSim.MODID+":item_windmill_vane15");
+            /**铜镐**/
+            registerRender(copperPickaxe);
+            /**铜锄头**/
+            registerRender(copperHoe);
+            /**铜斧子**/
+            registerRender(copperAxe);
+            /**铜锹**/
+            registerRender(copperSpade);
+            /**铜剑**/
+            registerRender(copperSword);
+            /**铜头盔**/
+            registerRender(copperHelmet);
+            /**铜胸甲**/
+            registerRender(copperChestplate);
+            /**铜护腿**/
+            registerRender(copperLeggings);
+            /**铜鞋**/
+            registerRender(copperBoots);
 
 
+            /**锡镐**/
+            registerRender(tinPickaxe);
+            /**锡锄头**/
+            registerRender(tinHoe);
+            /**锡斧子**/
+            registerRender(tinAxe);
+            /**锡锹**/
+            registerRender(tinSpade);
+            /**锡剑**/
+            registerRender(tinSword);
+            /**锡头盔**/
+            registerRender(tinHelmet);
+            /**锡胸甲**/
+            registerRender(tinChestplate);
+            /**锡护腿**/
+            registerRender(tinLeggings);
+            /**锡鞋**/
+            registerRender(tinBoots);
+            /**牛奶桶**/
+            registerRender(itemBucketMilk);
+
+            /**汉堡**/
+            registerRender(itemBurger);
+            /**薯条**/
+            registerRender(itemFries);
+            /**奶酪**/
+            registerRender(itemCheese);
+            /**奶酪汉堡**/
+            registerRender(itemCheeseburger);
+
+            /**风车底座**/
+            registerRender(itemWindmillBase);
+            /**风车帆**/
+            registerRender(itemWindmillSails,0,ModSim.MODID+":item_windmill_sails0");
+            registerRender(itemWindmillSails,1,ModSim.MODID+":item_windmill_sails1");
+            registerRender(itemWindmillSails,2,ModSim.MODID+":item_windmill_sails2");
+            registerRender(itemWindmillSails,3,ModSim.MODID+":item_windmill_sails3");
+            registerRender(itemWindmillSails,4,ModSim.MODID+":item_windmill_sails4");
+            registerRender(itemWindmillSails,5,ModSim.MODID+":item_windmill_sails5");
+            registerRender(itemWindmillSails,6,ModSim.MODID+":item_windmill_sails6");
+            registerRender(itemWindmillSails,7,ModSim.MODID+":item_windmill_sails7");
+            registerRender(itemWindmillSails,8,ModSim.MODID+":item_windmill_sails8");
+            registerRender(itemWindmillSails,9,ModSim.MODID+":item_windmill_sails9");
+            registerRender(itemWindmillSails,10,ModSim.MODID+":item_windmill_sails10");
+            registerRender(itemWindmillSails,11,ModSim.MODID+":item_windmill_sails11");
+            registerRender(itemWindmillSails,12,ModSim.MODID+":item_windmill_sails12");
+            registerRender(itemWindmillSails,13,ModSim.MODID+":item_windmill_sails13");
+            registerRender(itemWindmillSails,14,ModSim.MODID+":item_windmill_sails14");
+            registerRender(itemWindmillSails,15,ModSim.MODID+":item_windmill_sails15");
+            /**风车叶片**/
+            registerRender(itemWindmillVane,0,ModSim.MODID+":item_windmill_vane0");
+            registerRender(itemWindmillVane,1,ModSim.MODID+":item_windmill_vane1");
+            registerRender(itemWindmillVane,2,ModSim.MODID+":item_windmill_vane2");
+            registerRender(itemWindmillVane,3,ModSim.MODID+":item_windmill_vane3");
+            registerRender(itemWindmillVane,4,ModSim.MODID+":item_windmill_vane4");
+            registerRender(itemWindmillVane,5,ModSim.MODID+":item_windmill_vane5");
+            registerRender(itemWindmillVane,6,ModSim.MODID+":item_windmill_vane6");
+            registerRender(itemWindmillVane,7,ModSim.MODID+":item_windmill_vane7");
+            registerRender(itemWindmillVane,8,ModSim.MODID+":item_windmill_vane8");
+            registerRender(itemWindmillVane,9,ModSim.MODID+":item_windmill_vane9");
+            registerRender(itemWindmillVane,10,ModSim.MODID+":item_windmill_vane10");
+            registerRender(itemWindmillVane,11,ModSim.MODID+":item_windmill_vane11");
+            registerRender(itemWindmillVane,12,ModSim.MODID+":item_windmill_vane12");
+            registerRender(itemWindmillVane,13,ModSim.MODID+":item_windmill_vane13");
+            registerRender(itemWindmillVane,14,ModSim.MODID+":item_windmill_vane14");
+            registerRender(itemWindmillVane,15,ModSim.MODID+":item_windmill_vane15");
+
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+        }
     }
 
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item) {
         /**ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
         ModelLoader.setCustomModelResourceLocation(item, 0, model);**/
-        registerRender(item, 0, item.getRegistryName());
+        try {
+            registerRender(item, 0, item.getRegistryName());
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+        }
+
     }
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item,int meta,String name) {
-        ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
-        ModelLoader.setCustomModelResourceLocation(item, meta, model);
+        try {
+            ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
+            ModelLoader.setCustomModelResourceLocation(item, meta, model);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+        }
+
     }
 }

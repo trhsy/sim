@@ -1,40 +1,40 @@
-[18:11:24] [main/INFO]: Extra: []
-[18:11:24] [main/INFO]: Running with arguments: [--userProperties, {}, --assetsDir, D:/maven/.grable/caches/minecraft/assets, --assetIndex, 1.8, --accessToken{REDACTED}, --version, 1.8.9, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
-[18:11:24] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[18:11:24] [main/INFO]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[18:11:24] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
-[18:11:24] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
-[18:11:24] [main/INFO]: Forge Mod Loader version 11.15.1.2318 for Minecraft 1.8.9 loading
-[18:11:24] [main/INFO]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_271, running on Windows 10:amd64:10.0, installed at D:\Java\jdk1.8.0_271\jre
-[18:11:24] [main/INFO]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
-[18:11:24] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
-[18:11:24] [main/INFO]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
-[18:11:24] [main/INFO]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
-[18:11:24] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[18:11:24] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[18:11:24] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[18:11:24] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[18:11:24] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[18:11:24] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[18:11:24] [main/ERROR]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
-[18:11:26] [main/ERROR]: FML appears to be missing any signature data. This is not a good thing
-[18:11:26] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[18:11:26] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[18:11:26] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[18:11:26] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
-[18:11:26] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
-[18:11:26] [main/INFO]: Launching wrapped minecraft {net.minecraft.client.main.Main}
-[18:11:28] [Client thread/INFO]: Setting user: Player906
-[18:11:31] [Client thread/INFO]: LWJGL Version: 2.9.4
-[18:11:33] [Client thread/WARN]: =============================================================
-[18:11:33] [Client thread/WARN]: MOD HAS DIRECT REFERENCE System.exit() THIS IS NOT ALLOWED REROUTING TO FML!
-[18:11:33] [Client thread/WARN]: Offendor: com/sun/jna/Native.main([Ljava/lang/String;)V
-[18:11:33] [Client thread/WARN]: Use FMLCommonHandler.exitJava instead
-[18:11:33] [Client thread/WARN]: =============================================================
-[18:11:34] [Client thread/INFO]: [net.minecraftforge.fml.client.SplashProgress:start:246]: ---- Minecraft Crash Report ----
-// I let you down. Sorry :(
+[15:56:59] [main/INFO]: Extra: []
+[15:56:59] [main/INFO]: Running with arguments: [--userProperties, {}, --assetsDir, D:/maven/.grable/caches/minecraft/assets, --assetIndex, 1.8, --accessToken{REDACTED}, --version, 1.8.9, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
+[15:56:59] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[15:56:59] [main/INFO]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[15:56:59] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
+[15:56:59] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+[15:56:59] [main/INFO]: Forge Mod Loader version 11.15.1.2318 for Minecraft 1.8.9 loading
+[15:56:59] [main/INFO]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_271, running on Windows 10:amd64:10.0, installed at D:\Java\jdk1.8.0_271\jre
+[15:56:59] [main/INFO]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[15:56:59] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
+[15:56:59] [main/INFO]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
+[15:56:59] [main/INFO]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
+[15:56:59] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[15:56:59] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[15:56:59] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[15:56:59] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[15:56:59] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[15:56:59] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[15:56:59] [main/ERROR]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
+[15:57:01] [main/ERROR]: FML appears to be missing any signature data. This is not a good thing
+[15:57:01] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[15:57:01] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[15:57:01] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[15:57:01] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+[15:57:01] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+[15:57:01] [main/INFO]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[15:57:03] [Client thread/INFO]: Setting user: Player102
+[15:57:07] [Client thread/INFO]: LWJGL Version: 2.9.4
+[15:57:08] [Client thread/WARN]: =============================================================
+[15:57:08] [Client thread/WARN]: MOD HAS DIRECT REFERENCE System.exit() THIS IS NOT ALLOWED REROUTING TO FML!
+[15:57:08] [Client thread/WARN]: Offendor: com/sun/jna/Native.main([Ljava/lang/String;)V
+[15:57:08] [Client thread/WARN]: Use FMLCommonHandler.exitJava instead
+[15:57:08] [Client thread/WARN]: =============================================================
+[15:57:09] [Client thread/INFO]: [net.minecraftforge.fml.client.SplashProgress:start:246]: ---- Minecraft Crash Report ----
+// Surprise! Haha. Well, this is awkward.
 
-Time: 22-7-19 下午6:11
+Time: 22-7-21 下午3:57
 Description: Loading screen debug info
 
 This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
@@ -49,471 +49,316 @@ Details:
 	Operating System: Windows 10 (amd64) version 10.0
 	Java Version: 1.8.0_271, Oracle Corporation
 	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
-	Memory: 335372704 bytes (319 MB) / 697827328 bytes (665 MB) up to 3791650816 bytes (3616 MB)
+	Memory: 260792704 bytes (248 MB) / 650641408 bytes (620 MB) up to 3791650816 bytes (3616 MB)
 	JVM Flags: 0 total; 
 	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
 	FML: 
 	Loaded coremods (and transformers): 
 	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8280' Renderer: 'Intel(R) HD Graphics 630'
-[18:11:34] [Client thread/INFO]: MinecraftForge v11.15.1.2318 Initialized
-[18:11:34] [Client thread/INFO]: Replaced 229 ore recipies
-[18:11:34] [Client thread/INFO]: Found 0 mods from the command line. Injecting into mod discoverer
-[18:11:34] [Client thread/INFO]: Searching H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\eclipse\mods for mods
-[18:11:42] [Client thread/INFO]: Forge Mod Loader has identified 4 mods to load
-[18:11:43] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at CLIENT
-[18:11:43] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at SERVER
-[18:11:43] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[18:11:43] [Client thread/INFO]: Processing ObjectHolder annotations
-[18:11:43] [Client thread/INFO]: Found 384 ObjectHolder annotations
-[18:11:43] [Client thread/INFO]: Identifying ItemStackHolder annotations
-[18:11:43] [Client thread/INFO]: Found 0 ItemStackHolder annotations
-[18:11:43] [Client thread/INFO]: Configured a dormant chunk cache size of 0
-[18:11:43] [Forge Version Check/INFO]: [Forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
-[18:11:44] [Client thread/INFO]: Applying holder lookups
-[18:11:44] [Client thread/INFO]: Holder lookups applied
-[18:11:44] [Client thread/INFO]: Injecting itemstacks
-[18:11:44] [Client thread/INFO]: Itemstack injection complete
-[18:11:44] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[18:11:45] [Thread-9/INFO]: Initializing LWJGL OpenAL
-[18:11:45] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[18:11:45] [Thread-9/INFO]: OpenAL initialized.
-[18:11:45] [Sound Library Loader/INFO]: Sound engine started
-[18:11:51] [Client thread/INFO]: Max texture size: 16384
-[18:11:51] [Client thread/INFO]: Created: 16x16 textures-atlas
-[18:11:52] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
-[18:11:52] [Client thread/INFO]: Injecting itemstacks
-[18:11:52] [Client thread/INFO]: Itemstack injection complete
-[18:11:52] [Client thread/INFO]: Forge Mod Loader has successfully loaded 4 mods
-[18:11:52] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
-[18:11:52] [Client thread/INFO]: SoundSystem shutting down...
-[18:11:53] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
-[18:11:53] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[18:11:53] [Thread-11/INFO]: Initializing LWJGL OpenAL
-[18:11:53] [Thread-11/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[18:11:53] [Thread-11/INFO]: OpenAL initialized.
-[18:11:53] [Sound Library Loader/INFO]: Sound engine started
-[18:11:59] [Client thread/INFO]: Max texture size: 16384
-[18:12:00] [Client thread/INFO]: Created: 512x512 textures-atlas
-[18:12:01] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
-[18:12:07] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
-[18:12:07] [Server thread/INFO]: Generating keypair
-[18:12:07] [Server thread/INFO]: Injecting existing block and item data into this server instance
-[18:12:07] [Server thread/INFO]: Found a missing id from the world sim:block_cheese_box
-[18:12:07] [Server thread/INFO]: Found a missing id from the world sim:block_fluid_milk
-[18:12:07] [Server thread/INFO]: Applying holder lookups
-[18:12:07] [Server thread/INFO]: Holder lookups applied
-[18:12:07] [Server thread/INFO]: Loading dimension 0 (sim) (net.minecraft.server.integrated.IntegratedServer@643d18ac)
-[18:12:07] [Server thread/INFO]: Loading dimension 1 (sim) (net.minecraft.server.integrated.IntegratedServer@643d18ac)
-[18:12:07] [Server thread/INFO]: Loading dimension -1 (sim) (net.minecraft.server.integrated.IntegratedServer@643d18ac)
-[18:12:07] [Server thread/INFO]: Preparing start region for level 0
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: Preparing spawn area: 55%
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:08] [Server thread/INFO]: 实体人：重置npc
-[18:12:09] [Server thread/INFO]: Changing view distance to 12, from 10
-[18:12:10] [Netty Local Client IO #0/INFO]: Server protocol version 2
-[18:12:10] [Netty Server IO #1/INFO]: Client protocol version 2
-[18:12:10] [Netty Server IO #1/INFO]: Client attempting to join with 4 mods : FML@8.0.99.99,sim@1.0.0 Beta,Forge@11.15.1.2318,mcp@9.19
-[18:12:10] [Netty Local Client IO #0/INFO]: [Netty Local Client IO #0] Client side modded connection established
-[18:12:10] [Server thread/INFO]: [Server thread] Server side modded connection established
-[18:12:10] [Server thread/INFO]: Player906[local:E:8b198bd8] logged in with entity id 387 at (100.76210747828246, 63.5, 324.56637609912804)
-[18:12:10] [Server thread/INFO]: Player906 加入了游戏
-[18:12:11] [Server thread/INFO]: 还没有启动——现在就这么做
-[18:12:11] [Server thread/INFO]: CommTH: 启动 - 设置 serverWorld/currentWorld
-[18:12:11] [Server thread/INFO]: 运行重置世界功能
-[18:12:12] [Server thread/INFO]: 重置并加载世界 SERVER SIDE
-[18:12:12] [Server thread/INFO]: 模拟城市程序已经运行
-[18:12:12] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.0 Beta由TRHSY重制,更多资讯请关注公众号: dasha5000
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 上官玉泽 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 上官玉泽 (规划师) at 125,63,233,0 location= 125,64,233,0  0 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 乜清思 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 乜清思 (建筑工) at 96,63,325,0 location= 96,64,325,0  1 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 任骏年 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 任骏年 (建筑工) at 124,63,331,0 location= 124,64,331,0  2 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 佴悦雪 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 佴悦雪 (建筑工) at 126,63,272,0 location= 126,64,272,0  3 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 傅俊成 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 傅俊成 (none) at  location= 126,63,315,0  4 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 充慕文栋 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 充慕文栋 (none) at  location= 154,64,296,0  5 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 公冶辰哲 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 公冶辰哲 (none) at  location= 154,64,324,0  6 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 公孙宛艺 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 公孙宛艺 (none) at  location= 154,63,267,0  7 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 公羊颖一 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 公羊颖一 (none) at  location= 94,64,324,0  8 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 冉倩真 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 冉倩真 (none) at  location= 96,64,296,0  9 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 凌浩熙 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 凌浩熙 (none) at  location= 97,63,296,0  10 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 劳荣昕 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 劳荣昕 (none) at  location= 0,5,0,0  11 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 呼延歆希 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 呼延歆希 (none) at  location= 0,5,0,0  12 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 咸倩真 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 咸倩真 (none) at  location= 0,5,0,0  13 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 唐懿梦 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 唐懿梦 (none) at  location= 0,5,0,0  14 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 墨愫媛 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 墨愫媛 (none) at  location= 0,5,0,0  15 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 夔靖宇 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 夔靖宇 (none) at  location= 130,64,298,0  16 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 孔菱曦 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 孔菱曦 (none) at  location= 67,63,272,0  17 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 孙漫维 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 孙漫维 (none) at  location= 74,63,281,0  18 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 宁锐翰 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 宁锐翰 (none) at  location= 0,5,0,0  19 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 安宏义 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 安宏义 (none) at  location= 0,5,0,0  20 所有人
-[18:12:13] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 宗政博胜 使用新的文件系统
-[18:12:13] [Server thread/INFO]: FolkData: hasLoaded() 宗政博胜 (none) at  location= 0,5,0,0  21 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 寿筱萱 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 寿筱萱 (none) at  location= 0,5,0,0  22 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 封凝羽 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 封凝羽 (none) at  location= 70,63,276,0  23 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 居子鸣 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 居子鸣 (none) at  location= 73,63,278,0  24 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 屠筠枫 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 屠筠枫 (none) at  location= 128,63,317,0  25 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 师俊成 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 师俊成 (none) at  location= 75,63,275,0  26 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 年园涵 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 年园涵 (none) at  location= 66,63,278,0  27 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 康飘纯 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 康飘纯 (none) at  location= 0,5,0,0  28 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 徐浩然 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 徐浩然 (none) at  location= 0,5,0,0  29 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 成苇雁 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 成苇雁 (none) at  location= 59,69,278,0  30 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 戴依瑞 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 戴依瑞 (none) at  location= 0,5,0,0  31 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 戴媛瑜 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 戴媛瑜 (none) at  location= 75,63,280,0  32 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 扶倚家 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 扶倚家 (none) at  location= 69,63,271,0  33 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 支俊瀚 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 支俊瀚 (none) at  location= 0,5,0,0  34 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 敖一雯 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 敖一雯 (none) at  location= 71,63,275,0  35 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 方希杰 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 方希杰 (none) at  location= 73,63,276,0  36 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 方智宇 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 方智宇 (none) at  location= 0,5,0,0  37 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 李杰文 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 李杰文 (none) at  location= 165,69,215,0  38 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 李筠枫 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 李筠枫 (none) at  location= 0,5,0,0  39 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 杜贞文 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 杜贞文 (none) at  location= 0,5,0,0  40 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 欧阳丽愫 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 欧阳丽愫 (none) at  location= 0,5,0,0  41 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 欧阳梓航 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 欧阳梓航 (none) at  location= 67,63,276,0  42 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 武瑞谦 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 武瑞谦 (none) at  location= 67,63,277,0  43 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 汤学海 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 汤学海 (none) at  location= 0,5,0,0  44 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 法然希 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 法然希 (none) at  location= 0,5,0,0  45 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 海妙熙 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 海妙熙 (none) at  location= 0,5,0,0  46 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 滑博然 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 滑博然 (none) at  location= 0,5,0,0  47 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 焦雅小 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 焦雅小 (none) at  location= 69,63,274,0  48 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 爱薇曼 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 爱薇曼 (none) at  location= 68,63,274,0  49 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 甄骏喆 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 甄骏喆 (none) at  location= 126,64,314,0  50 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 百里柔雅 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 百里柔雅 (none) at  location= 72,63,276,0  51 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 皮展鹏 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 皮展鹏 (none) at  location= 68,63,277,0  52 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 皮飘纯 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 皮飘纯 (none) at  location= 68,63,283,0  53 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 瞿浩志 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 瞿浩志 (none) at  location= 0,5,0,0  54 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 祁菱莺 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 祁菱莺 (none) at  location= 126,63,295,0  55 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 祖芷尔 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 祖芷尔 (none) at  location= 0,5,0,0  56 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 空和巧 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 空和巧 (none) at  location= 69,63,266,0  57 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 空正志 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 空正志 (none) at  location= 68,63,267,0  58 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 窦柳林 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 窦柳林 (none) at  location= 73,63,275,0  59 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 端木浩栋 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 端木浩栋 (none) at  location= 0,5,0,0  60 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 简饶润文 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 简饶润文 (杂货商) at 160,70,249,0 location= 160,71,249,0  61 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 经澜烟 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 经澜烟 (none) at  location= 0,5,0,0  62 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 翟辰皓 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 翟辰皓 (none) at  location= 0,5,0,0  63 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 耿怡语 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 耿怡语 (none) at  location= 0,5,0,0  64 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 能仪梦 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 能仪梦 (none) at  location= 69,63,268,0  65 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 臧骏喆 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 臧骏喆 (none) at  location= 0,5,0,0  66 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 苍阳雪 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 苍阳雪 (none) at  location= 0,5,0,0  67 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒋喆依 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 蒋喆依 (none) at  location= 61,68,277,0  68 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒋芯融 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 蒋芯融 (none) at  location= 72,63,275,0  69 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒙蔓梦 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 蒙蔓梦 (none) at  location= 207,68,253,0  70 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒯相俊瀚 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 蒯相俊瀚 (none) at  location= 0,5,0,0  71 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蔚宏博 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 蔚宏博 (none) at  location= 71,63,276,0  72 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 裘颖子 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 裘颖子 (none) at  location= 0,5,0,0  73 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 詹恨萍 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 詹恨萍 (none) at  location= 0,5,0,0  74 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 诸熙贤 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 诸熙贤 (none) at  location= 0,5,0,0  75 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谈智宇 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 谈智宇 (none) at  location= 71,63,279,0  76 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谢杰凡 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 谢杰凡 (none) at  location= 149,70,246,0  77 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谢琳瑷 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 谢琳瑷 (none) at  location= 0,5,0,0  78 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谯嘉浩 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 谯嘉浩 (none) at  location= 0,5,0,0  79 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谯嘉熙 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 谯嘉熙 (none) at  location= 71,63,280,0  80 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谯莺昕 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 谯莺昕 (none) at  location= 72,63,278,0  81 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 贾蕴齐 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 贾蕴齐 (none) at  location= 70,63,281,0  82 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 赏星海 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 赏星海 (none) at  location= 60,69,277,0  83 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 邰馨娴 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 邰馨娴 (none) at  location= 0,5,0,0  84 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 邴康胜 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 邴康胜 (none) at  location= 0,5,0,0  85 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 邵锦骏 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 邵锦骏 (none) at  location= 0,5,0,0  86 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 鄢丽愫 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 鄢丽愫 (none) at  location= 68,63,276,0  87 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 钦云悦 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 钦云悦 (none) at  location= 69,63,280,0  88 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阙佳俊 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 阙佳俊 (none) at  location= 62,69,279,0  89 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阮嘉浩 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 阮嘉浩 (none) at  location= 146,72,209,0  90 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 陈智渊 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 陈智渊 (none) at  location= 164,70,221,0  91 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 隆柳林 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 隆柳林 (none) at  location= 0,5,0,0  92 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 霍天祺 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 霍天祺 (none) at  location= 0,5,0,0  93 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 韶云慧 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 韶云慧 (none) at  location= 69,63,270,0  94 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 韶正清 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 韶正清 (none) at  location= 68,63,282,0  95 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 须宏峻 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 须宏峻 (none) at  location= 0,5,0,0  96 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 顾杰凡 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 顾杰凡 (none) at  location= 158,63,248,0  97 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 马凝湘 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 马凝湘 (none) at  location= 0,5,0,0  98 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 马慧嘉 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 马慧嘉 (none) at  location= 73,63,282,0  99 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 鱼彤娜 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 鱼彤娜 (none) at  location= 72,63,279,0  100 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 鲍艺蔓 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 鲍艺蔓 (none) at  location= 0,5,0,0  101 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 麻千志 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 麻千志 (none) at  location= 69,63,277,0  102 所有人
-[18:12:14] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 齐夏雅 使用新的文件系统
-[18:12:14] [Server thread/INFO]: FolkData: hasLoaded() 齐夏雅 (none) at  location= 67,63,282,0  103 所有人
-[18:12:14] [Server thread/INFO]: FolkData: 上官玉泽 要工作了
-[18:12:14] [Server thread/INFO]: FolkData: 乜清思 要工作了
-[18:12:14] [Server thread/INFO]: FolkData: 任骏年 要工作了
-[18:12:14] [Server thread/INFO]: FolkData: 佴悦雪 要工作了
-[18:12:14] [Server thread/INFO]: FolkData:onUpdate() 傅俊成 徘徊在 1单元牢房 2.0 个街区之外。
-[18:12:14] [Server thread/INFO]: FolkData: 简饶润文 要工作了
-[18:12:14] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 100 packets have leaked. Top offenders
-[18:12:14] [Netty Server IO #1/ERROR]: 	 sim : 100
-[18:12:14] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2546ms behind, skipping 50 tick(s)
-[18:12:20] [Client thread/INFO]: [CHAT] 佴悦雪已经开始建筑一个16 单元
-[18:12:20] [Client thread/INFO]: [CHAT] 乜清思已经开始建筑一个4 公寓
-[18:12:20] [Client thread/INFO]: [CHAT] 任骏年已经开始建筑一个4 单元
-[18:12:21] [Client thread/INFO]: [CHAT] 乜清思 ( 谁在建造4 公寓)需要更多橡木栅栏
-[18:12:28] [Server thread/INFO]: Player906 刚刚获得了 [打开物品栏] 成就！
-[18:12:28] [Client thread/INFO]: [CHAT] Player906 刚刚获得了 [打开物品栏] 成就！
-[18:12:30] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 200 packets have leaked. Top offenders
-[18:12:30] [Netty Server IO #1/ERROR]: 	 sim : 200
-[18:12:38] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 0
-[18:12:40] [Server thread/INFO]: Stopping server
-[18:12:40] [Server thread/INFO]: Saving players
-[18:12:40] [Server thread/INFO]: Saving worlds
-[18:12:40] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
-[18:12:40] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
-[18:12:40] [Server thread/INFO]: Saving chunks for level 'sim'/The End
-[18:12:41] [Server thread/INFO]: Unloading dimension 0
-[18:12:41] [Server thread/INFO]: Unloading dimension -1
-[18:12:41] [Server thread/INFO]: Unloading dimension 1
-[18:12:41] [Server thread/INFO]: Applying holder lookups
-[18:12:41] [Server thread/INFO]: Holder lookups applied
-[18:12:42] [Client thread/FATAL]: Unreported exception thrown!
-java.util.ConcurrentModificationException
-	at com.google.common.collect.HashBiMap$Itr.checkForConcurrentModification(HashBiMap.java:339) ~[guava-17.0.jar:?]
-	at com.google.common.collect.HashBiMap$Itr.hasNext(HashBiMap.java:345) ~[guava-17.0.jar:?]
-	at net.minecraft.client.audio.SoundManager.updateAllSounds(SoundManager.java:243) ~[SoundManager.class:?]
-	at net.minecraft.client.audio.SoundHandler.update(SoundHandler.java:235) ~[SoundHandler.class:?]
-	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2187) ~[Minecraft.class:?]
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1080) ~[Minecraft.class:?]
-	at net.minecraft.client.Minecraft.run(Minecraft.java:380) [Minecraft.class:?]
-	at net.minecraft.client.main.Main.main(Main.java:116) [Main.class:?]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_271]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_271]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_271]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_271]
-	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
-	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_271]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_271]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_271]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_271]
-	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
-	at GradleStart.main(GradleStart.java:26) [start/:?]
-[18:12:42] [Client thread/INFO]: [net.minecraft.init.Bootstrap:printToSYSOUT:612]: ---- Minecraft Crash Report ----
-// You're mean.
-
-Time: 22-7-19 下午6:12
-Description: Unexpected error
-
-java.util.ConcurrentModificationException
-	at com.google.common.collect.HashBiMap$Itr.checkForConcurrentModification(HashBiMap.java:339)
-	at com.google.common.collect.HashBiMap$Itr.hasNext(HashBiMap.java:345)
-	at net.minecraft.client.audio.SoundManager.updateAllSounds(SoundManager.java:243)
-	at net.minecraft.client.audio.SoundHandler.update(SoundHandler.java:235)
-	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2187)
-	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1080)
-	at net.minecraft.client.Minecraft.run(Minecraft.java:380)
-	at net.minecraft.client.main.Main.main(Main.java:116)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
-	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
-	at GradleStart.main(GradleStart.java:26)
-
-
-A detailed walkthrough of the error, its code path and all known details is as follows:
----------------------------------------------------------------------------------------
-
--- Head --
-Stacktrace:
-	at com.google.common.collect.HashBiMap$Itr.checkForConcurrentModification(HashBiMap.java:339)
-	at com.google.common.collect.HashBiMap$Itr.hasNext(HashBiMap.java:345)
-	at net.minecraft.client.audio.SoundManager.updateAllSounds(SoundManager.java:243)
-	at net.minecraft.client.audio.SoundHandler.update(SoundHandler.java:235)
-
--- Affected level --
-Details:
-	Level name: MpServer
-	All players: 1 total; [EntityPlayerSP['Player906'/387, l='MpServer', x=100.76, y=63.50, z=324.57]]
-	Chunk stats: MultiplayerChunkCache: 624, 624
-	Level seed: 0
-	Level generator: ID 00 - default, ver 1. Features enabled: false
-	Level generator options: 
-	Level spawn location: 96.00,64.00,252.00 - World: (96,64,252), Chunk: (at 0,4,12 in 6,15; contains blocks 96,0,240 to 111,255,255), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
-	Level time: 2400549 game time, 1119 day time
-	Level dimension: 0
-	Level storage version: 0x00000 - Unknown?
-	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
-	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
-	Forced entities: 297 total; [EntityItem['item.tile.torch'/12834, l='MpServer', x=129.13, y=64.00, z=290.38], EntityRabbit['兔子'/39, l='MpServer', x=27.31, y=71.00, z=261.66], EntityItem['item.item.bed'/12839, l='MpServer', x=114.13, y=64.00, z=351.72], EntityItem['item.item.bed'/12840, l='MpServer', x=113.78, y=64.00, z=350.69], EntityBat['蝙蝠'/40, l='MpServer', x=23.69, y=32.85, z=288.23], EntityRabbit['兔子'/44, l='MpServer', x=35.31, y=67.00, z=314.41], EntityRabbit['兔子'/45, l='MpServer', x=42.06, y=67.00, z=314.13], EntityPig['猪'/46, l='MpServer', x=34.84, y=67.00, z=363.97], EntityRabbit['兔子'/53, l='MpServer', x=49.59, y=66.00, z=377.56], EntityPig['猪'/54, l='MpServer', x=61.28, y=62.15, z=397.56], EntityVillager['村民'/63, l='MpServer', x=67.28, y=63.00, z=269.44], EntityRabbit['兔子'/64, l='MpServer', x=70.38, y=63.00, z=260.63], EntityVillager['村民'/65, l='MpServer', x=68.28, y=63.00, z=279.75], EntityItem['item.item.bed'/12359, l='MpServer', x=153.28, y=64.00, z=292.88], EntityItem['item.item.bed'/11848, l='MpServer', x=153.81, y=64.00, z=276.69], EntityItem['item.item.bed'/12360, l='MpServer', x=152.31, y=64.00, z=293.22], EntityItem['item.item.bed'/11849, l='MpServer', x=153.41, y=64.00, z=276.88], EntitySheep['羊'/79, l='MpServer', x=77.25, y=63.00, z=299.88], EntityRabbit['兔子'/80, l='MpServer', x=76.78, y=63.00, z=288.53], EntityBat['蝙蝠'/81, l='MpServer', x=64.75, y=33.10, z=307.75], EntitySheep['羊'/82, l='MpServer', x=68.00, y=63.00, z=307.97], EntityCow['牛'/83, l='MpServer', x=82.11, y=63.00, z=333.83], EntityChicken['鸡'/84, l='MpServer', x=74.55, y=63.00, z=331.36], EntityItem['item.item.egg'/85, l='MpServer', x=74.53, y=63.00, z=330.03], EntityChicken['鸡'/86, l='MpServer', x=56.41, y=65.00, z=368.66], EntityItem['item.item.egg'/87, l='MpServer', x=68.00, y=62.00, z=370.06], EntityVillager['村民'/89, l='MpServer', x=86.31, y=63.00, z=269.72], EntityRabbit['兔子'/90, l='MpServer', x=93.09, y=63.00, z=273.56], EntityCow['牛'/91, l='MpServer', x=85.88, y=63.00, z=291.94], EntityBat['蝙蝠'/92, l='MpServer', x=95.59, y=48.10, z=305.75], EntityItem['item.tile.torch'/93, l='MpServer', x=88.69, y=64.00, z=315.50], EntityItem['item.tile.ladder'/94, l='MpServer', x=88.31, y=64.00, z=313.13], EntityItem['item.tile.ladder'/95, l='MpServer', x=86.94, y=64.00, z=313.13], EntityItem['item.item.bed'/12384, l='MpServer', x=153.44, y=64.00, z=294.13], EntityChicken['鸡'/97, l='MpServer', x=83.66, y=62.55, z=385.19], EntityItem['item.item.bed'/12385, l='MpServer', x=152.44, y=64.00, z=293.69], EntitySheep['羊'/105, l='MpServer', x=104.50, y=63.50, z=334.53], EntityItem['item.item.bed'/107, l='MpServer', x=105.50, y=63.00, z=351.34], EntityItem['item.item.bed'/108, l='MpServer', x=110.22, y=64.00, z=348.47], EntityItem['item.item.bed'/109, l='MpServer', x=110.88, y=64.00, z=351.16], EntityItem['item.item.bed'/110, l='MpServer', x=110.66, y=64.00, z=349.59], EntityItem['item.item.bed'/111, l='MpServer', x=108.13, y=64.00, z=348.59], EntityItem['item.item.bed'/112, l='MpServer', x=110.56, y=64.00, z=348.94], EntityItem['item.item.bed'/113, l='MpServer', x=110.84, y=64.00, z=348.50], EntityItem['item.item.bed'/114, l='MpServer', x=111.41, y=64.00, z=348.63], EntityItem['item.item.bed'/115, l='MpServer', x=108.13, y=64.00, z=348.41], EntityItem['item.item.bed'/116, l='MpServer', x=109.69, y=64.00, z=346.97], EntityItem['item.item.bed'/117, l='MpServer', x=110.88, y=64.00, z=351.50], EntityItem['item.item.bed'/118, l='MpServer', x=111.34, y=64.00, z=349.44], EntityItem['item.item.bed'/119, l='MpServer', x=108.59, y=64.00, z=351.38], EntityItem['item.item.bed'/120, l='MpServer', x=111.38, y=64.00, z=348.13], EntityItem['item.item.bed'/11896, l='MpServer', x=153.88, y=64.00, z=278.22], EntityItem['item.item.bed'/121, l='MpServer', x=110.25, y=64.00, z=347.34], EntityItem['item.item.bed'/11897, l='MpServer', x=151.94, y=64.00, z=277.34], EntityItem['item.tile.torch'/13433, l='MpServer', x=113.53, y=64.00, z=345.13], EntityItem['item.item.bed'/122, l='MpServer', x=109.47, y=64.00, z=347.34], EntityItem['item.item.bed'/123, l='MpServer', x=109.72, y=64.00, z=348.50], EntityItem['item.item.bed'/124, l='MpServer', x=109.56, y=64.00, z=347.13], EntityItem['item.item.bed'/125, l='MpServer', x=111.59, y=64.00, z=350.63], EntityItem['item.item.bed'/126, l='MpServer', x=109.59, y=64.00, z=350.41], EntityItem['item.item.bed'/127, l='MpServer', x=110.88, y=64.00, z=351.47], EntityFolk['小镇居民'/1151, l='MpServer', x=125.75, y=63.00, z=314.69], EntityItem['item.item.bed'/128, l='MpServer', x=108.13, y=64.00, z=351.47], EntityFolk['小镇居民'/1152, l='MpServer', x=94.00, y=64.00, z=324.00], EntityItem['item.item.bed'/129, l='MpServer', x=108.13, y=64.00, z=351.88], EntityFolk['小镇居民'/1153, l='MpServer', x=96.00, y=64.00, z=296.00], EntityItem['item.item.bed'/130, l='MpServer', x=108.41, y=64.00, z=349.66], EntityFolk['小镇居民'/1154, l='MpServer', x=97.00, y=63.00, z=296.00], EntityItem['item.item.bed'/131, l='MpServer', x=111.88, y=64.00, z=349.75], EntityFolk['小镇居民'/1155, l='MpServer', x=130.00, y=64.00, z=298.00], EntityItem['item.item.bed'/132, l='MpServer', x=107.56, y=63.00, z=353.53], EntityFolk['小镇居民'/1156, l='MpServer', x=128.00, y=63.00, z=317.00], EntityFolk['小镇居民'/1157, l='MpServer', x=126.19, y=64.00, z=313.72], EntityFolk['小镇居民'/1158, l='MpServer', x=126.00, y=63.00, z=295.00], EntityBat['蝙蝠'/137, l='MpServer', x=145.47, y=36.75, z=316.52], EntityBat['蝙蝠'/138, l='MpServer', x=110.10, y=32.28, z=319.54], EntityItem['item.item.bed'/11402, l='MpServer', x=111.81, y=64.00, z=348.13], EntityRabbit['兔子'/139, l='MpServer', x=125.88, y=63.00, z=323.47], EntityItem['item.item.bed'/11403, l='MpServer', x=110.88, y=64.00, z=348.06], EntityBat['蝙蝠'/142, l='MpServer', x=114.42, y=25.47, z=319.51], EntityItem['item.item.bed'/144, l='MpServer', x=116.47, y=64.56, z=347.13], EntityItem['item.item.bed'/145, l='MpServer', x=112.88, y=64.56, z=347.13], EntityItem['item.item.bed'/146, l='MpServer', x=119.53, y=64.00, z=348.59], EntityItem['item.item.bed'/147, l='MpServer', x=117.66, y=64.00, z=350.75], EntityItem['item.item.bed'/148, l='MpServer', x=117.47, y=64.00, z=350.38], EntityItem['item.item.bed'/11924, l='MpServer', x=152.84, y=64.00, z=280.13], EntityItem['item.item.bed'/149, l='MpServer', x=115.44, y=64.00, z=350.75], EntityItem['item.item.bed'/11925, l='MpServer', x=152.25, y=64.00, z=281.44], EntityItem['item.item.bed'/150, l='MpServer', x=116.88, y=64.00, z=351.25], EntityItem['item.item.bed'/151, l='MpServer', x=114.88, y=64.00, z=351.56], EntityItem['item.item.bed'/152, l='MpServer', x=112.13, y=64.00, z=351.25], EntityItem['item.item.bed'/153, l='MpServer', x=113.13, y=64.00, z=349.81], EntityItem['item.item.bed'/154, l='MpServer', x=119.56, y=64.00, z=347.06], EntityItem['item.item.bed'/155, l='MpServer', x=119.28, y=64.00, z=347.13], EntityItem['item.item.bed'/156, l='MpServer', x=119.78, y=64.00, z=349.00], EntityItem['item.item.bed'/157, l='MpServer', x=113.41, y=64.00, z=348.56], EntityItem['item.item.bed'/12445, l='MpServer', x=153.88, y=64.00, z=296.59], EntityItem['item.item.bed'/158, l='MpServer', x=120.88, y=64.00, z=351.25], EntityItem['item.item.bed'/12446, l='MpServer', x=153.56, y=64.00, z=296.19], EntityItem['item.item.bed'/159, l='MpServer', x=120.53, y=64.00, z=351.41], EntityItem['item.item.bed'/160, l='MpServer', x=120.13, y=64.00, z=351.50], EntityItem['item.item.bed'/161, l='MpServer', x=119.59, y=64.00, z=350.88], EntityItem['item.item.bed'/162, l='MpServer', x=118.47, y=64.00, z=351.88], EntityItem['item.item.bed'/163, l='MpServer', x=117.59, y=64.00, z=350.25], EntityItem['item.item.bed'/164, l='MpServer', x=114.41, y=64.00, z=349.41], EntityItem['item.item.bed'/165, l='MpServer', x=115.41, y=64.00, z=350.88], EntityItem['item.item.bed'/166, l='MpServer', x=112.41, y=64.00, z=351.16], EntityItem['item.item.bed'/167, l='MpServer', x=119.47, y=64.00, z=346.41], EntityItem['item.item.bed'/168, l='MpServer', x=120.28, y=64.00, z=347.56], EntityItem['item.item.bed'/169, l='MpServer', x=120.88, y=64.00, z=348.78], EntityItem['item.item.bed'/170, l='MpServer', x=115.53, y=64.00, z=350.44], EntityItem['item.item.bed'/171, l='MpServer', x=117.53, y=64.00, z=350.50], EntityItem['item.item.bed'/172, l='MpServer', x=120.38, y=64.00, z=351.25], EntityItem['item.item.bed'/173, l='MpServer', x=120.88, y=64.00, z=349.56], EntityItem['item.item.bed'/174, l='MpServer', x=118.38, y=64.00, z=351.88], EntityItem['item.item.bed'/175, l='MpServer', x=119.53, y=64.00, z=350.88], EntityItem['item.item.bed'/176, l='MpServer', x=116.88, y=64.00, z=351.88], EntityItem['item.item.bed'/177, l='MpServer', x=116.13, y=64.00, z=351.41], EntityItem['item.item.bed'/178, l='MpServer', x=113.53, y=64.00, z=350.59], EntityItem['item.item.bed'/179, l='MpServer', x=114.88, y=64.00, z=351.78], EntityItem['item.item.bed'/180, l='MpServer', x=116.59, y=64.00, z=350.59], EntityItem['item.item.bed'/181, l='MpServer', x=112.38, y=64.00, z=350.50], EntityItem['item.tile.torch'/182, l='MpServer', x=116.13, y=64.00, z=344.97], EntitySheep['羊'/185, l='MpServer', x=128.13, y=63.00, z=261.84], EntityItem['item.tile.torch'/187, l='MpServer', x=130.59, y=64.00, z=292.59], EntityItem['item.tile.torch'/188, l='MpServer', x=136.81, y=64.00, z=291.09], EntityItem['item.tile.torch'/190, l='MpServer', x=130.59, y=64.00, z=291.78], EntityItem['item.tile.torch'/191, l='MpServer', x=137.72, y=64.00, z=290.13], EntityItem['item.tile.torch'/192, l='MpServer', x=137.78, y=64.00, z=292.88], EntityItem['item.tile.torch'/193, l='MpServer', x=143.91, y=64.00, z=292.88], EntityItem['item.tile.torch'/194, l='MpServer', x=129.28, y=64.00, z=291.38], EntityItem['item.tile.torch'/195, l='MpServer', x=129.13, y=64.00, z=292.13], EntityItem['item.tile.torch'/12995, l='MpServer', x=139.59, y=64.00, z=290.13], EntityItem['item.tile.torch'/196, l='MpServer', x=139.34, y=64.00, z=291.34], EntityBat['蝙蝠'/198, l='MpServer', x=111.58, y=34.00, z=320.59], EntityItem['item.item.bed'/12488, l='MpServer', x=120.13, y=64.00, z=351.13], EntityItem['item.item.bed'/201, l='MpServer', x=153.78, y=64.00, z=276.13], EntityItem['item.item.bed'/12489, l='MpServer', x=119.41, y=64.00, z=350.06], EntityItem['item.item.bed'/202, l='MpServer', x=152.88, y=64.00, z=277.47], EntityItem['item.item.bed'/203, l='MpServer', x=153.44, y=64.00, z=278.13], EntityItem['item.item.bed'/11979, l='MpServer', x=154.03, y=65.00, z=283.19], EntityItem['item.item.bed'/204, l='MpServer', x=151.44, y=64.00, z=278.72], EntityItem['item.item.bed'/11980, l='MpServer', x=153.31, y=64.00, z=282.38], EntityItem['item.item.bed'/205, l='MpServer', x=151.75, y=64.00, z=280.06], EntityItem['item.tile.torch'/10957, l='MpServer', x=89.84, y=64.00, z=315.06], EntityItem['item.item.bed'/206, l='MpServer', x=151.63, y=64.00, z=283.25], EntityItem['item.item.bed'/207, l='MpServer', x=153.88, y=64.00, z=284.88], EntityItem['item.item.bed'/208, l='MpServer', x=151.59, y=64.00, z=284.22], EntityItem['item.item.bed'/209, l='MpServer', x=153.88, y=64.00, z=286.88], EntityItem['item.item.bed'/210, l='MpServer', x=152.47, y=64.00, z=285.84], EntityItem['item.tile.torch'/211, l='MpServer', x=147.50, y=64.00, z=277.69], EntityItem['item.tile.torch'/212, l='MpServer', x=148.88, y=64.00, z=278.59], EntityItem['item.item.bed'/213, l='MpServer', x=153.38, y=64.00, z=280.81], EntityItem['item.item.bed'/214, l='MpServer', x=152.22, y=64.00, z=283.56], EntityItem['item.item.bed'/215, l='MpServer', x=154.09, y=65.00, z=277.19], EntityItem['item.tile.torch'/13527, l='MpServer', x=113.84, y=63.50, z=332.88], EntityItem['item.item.bed'/216, l='MpServer', x=153.22, y=64.00, z=276.13], EntityItem['item.item.bed'/217, l='MpServer', x=153.50, y=64.00, z=278.72], EntityItem['item.item.bed'/218, l='MpServer', x=151.81, y=64.00, z=277.88], EntityItem['item.item.bed'/219, l='MpServer', x=152.91, y=65.00, z=281.19], EntityItem['item.tile.torch'/13531, l='MpServer', x=148.88, y=64.00, z=277.59], EntityItem['item.item.bed'/220, l='MpServer', x=151.84, y=64.00, z=279.88], EntityItem['item.item.bed'/221, l='MpServer', x=152.19, y=64.00, z=283.34], EntityItem['item.item.bed'/222, l='MpServer', x=153.53, y=64.00, z=282.75], EntityItem['item.item.bed'/223, l='MpServer', x=153.88, y=64.00, z=284.25], EntityItem['item.item.bed'/224, l='MpServer', x=152.06, y=64.00, z=283.44], EntityItem['item.item.bed'/225, l='MpServer', x=153.88, y=64.00, z=286.13], EntityItem['item.item.bed'/226, l='MpServer', x=152.03, y=64.00, z=287.50], EntityItem['item.tile.torch'/227, l='MpServer', x=147.38, y=64.00, z=276.44], EntityItem['item.item.bed'/228, l='MpServer', x=153.47, y=64.00, z=276.13], EntityItem['item.item.bed'/13028, l='MpServer', x=112.47, y=64.00, z=350.47], EntityItem['item.item.bed'/229, l='MpServer', x=153.41, y=64.00, z=276.84], EntityItem['item.item.bed'/13029, l='MpServer', x=111.56, y=64.00, z=350.88], EntityItem['item.item.bed'/230, l='MpServer', x=153.34, y=64.00, z=278.13], EntityItem['item.item.bed'/231, l='MpServer', x=152.16, y=64.00, z=279.59], EntityItem['item.item.bed'/232, l='MpServer', x=153.88, y=64.00, z=280.88], EntityItem['item.item.bed'/233, l='MpServer', x=151.88, y=64.00, z=281.28], EntityItem['item.item.bed'/234, l='MpServer', x=153.25, y=64.00, z=282.59], EntityItem['item.item.bed'/235, l='MpServer', x=151.41, y=64.00, z=282.47], EntityItem['item.item.bed'/236, l='MpServer', x=153.53, y=64.00, z=284.38], EntityItem['item.item.bed'/237, l='MpServer', x=152.84, y=64.00, z=283.75], EntityItem['item.item.bed'/12525, l='MpServer', x=153.22, y=65.00, z=297.91], EntityItem['item.item.bed'/238, l='MpServer', x=152.50, y=64.00, z=287.53], EntityItem['item.item.bed'/12526, l='MpServer', x=151.91, y=64.00, z=297.59], EntityItem['item.item.bed'/239, l='MpServer', x=153.47, y=65.00, z=287.19], EntityChicken['鸡'/242, l='MpServer', x=155.63, y=63.00, z=295.50], EntityItem['item.item.bed'/243, l='MpServer', x=153.41, y=64.00, z=302.38], EntityItem['item.item.bed'/244, l='MpServer', x=151.78, y=64.00, z=288.03], EntityItem['item.item.bed'/245, l='MpServer', x=153.81, y=64.00, z=290.81], EntityItem['item.item.bed'/246, l='MpServer', x=153.28, y=64.00, z=292.75], EntityItem['item.item.bed'/247, l='MpServer', x=153.31, y=65.00, z=293.78], EntityItem['item.item.bed'/248, l='MpServer', x=151.34, y=64.00, z=298.25], EntityItem['item.item.bed'/249, l='MpServer', x=153.28, y=64.00, z=302.88], EntityItem['item.tile.torch'/250, l='MpServer', x=144.44, y=64.00, z=290.13], EntityItem['item.tile.torch'/251, l='MpServer', x=146.06, y=64.00, z=292.88], EntityItem['item.tile.torch'/252, l='MpServer', x=146.78, y=64.00, z=290.50], EntityItem['item.tile.torch'/254, l='MpServer', x=148.59, y=64.00, z=289.28], EntityItem['item.tile.torch'/255, l='MpServer', x=148.88, y=64.00, z=291.94], EntityItem['item.item.bed'/257, l='MpServer', x=153.34, y=64.00, z=288.47], EntityItem['item.item.bed'/258, l='MpServer', x=151.41, y=64.00, z=294.22], EntityItem['item.item.bed'/259, l='MpServer', x=152.50, y=64.00, z=299.53], EntityItem['item.item.bed'/260, l='MpServer', x=153.44, y=64.00, z=300.53], EntityItem['item.item.bed'/261, l='MpServer', x=152.44, y=64.00, z=301.47], EntityItem['item.item.bed'/262, l='MpServer', x=152.38, y=64.00, z=291.59], EntityItem['item.item.bed'/263, l='MpServer', x=152.47, y=64.00, z=303.31], EntityItem['item.item.bed'/264, l='MpServer', x=153.88, y=64.00, z=288.88], EntityItem['item.item.bed'/265, l='MpServer', x=152.34, y=64.00, z=291.50], EntityItem['item.item.bed'/266, l='MpServer', x=153.66, y=64.00, z=290.16], EntityItem['item.item.bed'/267, l='MpServer', x=152.34, y=64.00, z=289.53], EntityItem['item.item.bed'/268, l='MpServer', x=153.88, y=64.00, z=294.13], EntityItem['item.item.bed'/11532, l='MpServer', x=108.13, y=64.00, z=349.16], EntityItem['item.item.bed'/269, l='MpServer', x=152.81, y=64.00, z=295.19], EntityItem['item.item.bed'/11533, l='MpServer', x=108.13, y=64.00, z=348.19], EntityItem['item.item.bed'/270, l='MpServer', x=153.84, y=64.00, z=296.13], EntityItem['item.item.bed'/271, l='MpServer', x=153.88, y=64.00, z=298.88], EntityItem['item.item.bed'/272, l='MpServer', x=151.66, y=64.00, z=297.59], EntityItem['item.item.bed'/273, l='MpServer', x=153.16, y=64.00, z=300.88], EntityItem['item.item.bed'/274, l='MpServer', x=152.88, y=64.00, z=299.38], EntityItem['item.item.bed'/275, l='MpServer', x=151.31, y=64.00, z=302.34], EntityItem['item.tile.torch'/278, l='MpServer', x=148.88, y=64.00, z=294.84], EntityItem['item.item.bed'/279, l='MpServer', x=151.50, y=64.00, z=288.66], EntityItem['item.item.bed'/280, l='MpServer', x=152.84, y=64.00, z=291.41], EntityItem['item.item.bed'/281, l='MpServer', x=153.69, y=64.00, z=288.31], EntityItem['item.item.bed'/282, l='MpServer', x=151.88, y=64.00, z=288.59], EntityItem['item.item.bed'/283, l='MpServer', x=153.63, y=65.00, z=291.13], EntityItem['item.item.bed'/284, l='MpServer', x=151.63, y=64.00, z=290.72], EntityItem['item.item.bed'/285, l='MpServer', x=153.88, y=64.00, z=292.50], EntityItem['item.item.bed'/286, l='MpServer', x=152.72, y=64.00, z=292.63], EntityItem['item.item.bed'/287, l='MpServer', x=153.19, y=64.00, z=294.88], EntityItem['item.item.bed'/288, l='MpServer', x=151.41, y=64.00, z=294.38], EntityItem['item.item.bed'/289, l='MpServer', x=154.16, y=65.00, z=296.00], EntityItem['item.item.bed'/290, l='MpServer', x=153.25, y=64.00, z=296.59], EntityItem['item.item.bed'/291, l='MpServer', x=153.31, y=64.00, z=298.16], EntityItem['item.item.bed'/292, l='MpServer', x=151.94, y=64.00, z=297.38], EntityItem['item.item.bed'/12580, l='MpServer', x=153.88, y=64.00, z=300.47], EntityItem['item.item.bed'/293, l='MpServer', x=153.56, y=64.00, z=292.56], EntityItem['item.item.bed'/12581, l='MpServer', x=152.88, y=64.00, z=301.44], EntityItem['item.item.bed'/294, l='MpServer', x=153.34, y=64.00, z=300.13], EntityItem['item.item.bed'/295, l='MpServer', x=152.78, y=64.00, z=301.66], EntityItem['item.item.bed'/12071, l='MpServer', x=153.88, y=64.00, z=284.88], EntityItem['item.item.bed'/296, l='MpServer', x=153.88, y=64.00, z=302.69], EntityItem['item.item.bed'/12072, l='MpServer', x=153.25, y=64.00, z=284.78], EntityItem['item.item.bed'/297, l='MpServer', x=153.75, y=64.00, z=302.88], EntityItem['item.item.bed'/298, l='MpServer', x=152.53, y=64.00, z=295.66], EntityItem['item.tile.torch'/299, l='MpServer', x=145.13, y=64.00, z=291.38], EntityItem['item.item.bed'/12587, l='MpServer', x=118.59, y=64.00, z=350.72], EntityItem['item.tile.torch'/300, l='MpServer', x=144.69, y=64.00, z=292.34], EntityItem['item.item.bed'/12588, l='MpServer', x=118.13, y=64.00, z=351.06], EntityItem['item.tile.torch'/301, l='MpServer', x=146.34, y=64.00, z=289.22], EntityItem['item.tile.torch'/302, l='MpServer', x=146.91, y=64.00, z=292.66], EntityItem['item.tile.torch'/303, l='MpServer', x=148.09, y=64.00, z=288.00], EntityBat['蝙蝠'/305, l='MpServer', x=154.86, y=25.21, z=315.60], EntityBat['蝙蝠'/306, l='MpServer', x=150.90, y=34.00, z=315.38], EntityItem['item.item.bed'/307, l='MpServer', x=152.41, y=64.00, z=305.66], EntityItem['item.item.bed'/308, l='MpServer', x=153.88, y=64.00, z=306.50], EntityItem['item.tile.torch'/309, l='MpServer', x=148.47, y=64.00, z=305.41], EntityItem['item.item.bed'/310, l='MpServer', x=153.50, y=64.00, z=304.56], EntityItem['item.item.bed'/311, l='MpServer', x=151.72, y=64.00, z=306.88], EntityItem['item.item.bed'/312, l='MpServer', x=153.41, y=64.00, z=306.47], EntityItem['item.tile.torch'/313, l='MpServer', x=146.50, y=64.00, z=306.88], EntityItem['item.item.bed'/314, l='MpServer', x=153.88, y=64.00, z=304.56], EntityItem['item.item.bed'/315, l='MpServer', x=153.59, y=64.00, z=304.88], EntityItem['item.item.bed'/316, l='MpServer', x=153.88, y=65.00, z=307.13], EntityItem['item.item.bed'/317, l='MpServer', x=151.88, y=64.00, z=305.38], EntityItem['item.item.bed'/318, l='MpServer', x=151.34, y=64.00, z=304.59], EntityItem['item.item.bed'/319, l='MpServer', x=152.47, y=64.00, z=305.47], EntityItem['item.item.bed'/321, l='MpServer', x=153.25, y=64.00, z=306.88], EntityItem['item.tile.torch'/322, l='MpServer', x=147.31, y=64.00, z=305.94], EntityBat['蝙蝠'/324, l='MpServer', x=143.28, y=48.10, z=380.38], EntityBat['蝙蝠'/338, l='MpServer', x=179.84, y=48.10, z=399.63], EntityItem['item.tile.torch'/13655, l='MpServer', x=113.13, y=63.00, z=331.88], EntityItem['item.item.bed'/12646, l='MpServer', x=153.88, y=64.00, z=302.88], EntityItem['item.item.bed'/12647, l='MpServer', x=152.66, y=64.00, z=302.50], EntityItem['item.item.bed'/12136, l='MpServer', x=152.81, y=64.00, z=286.59], EntityItem['item.item.bed'/12137, l='MpServer', x=153.16, y=64.00, z=286.41], EntityItem['item.item.bed'/13161, l='MpServer', x=109.78, y=64.00, z=350.19], EntityItem['item.item.bed'/13162, l='MpServer', x=110.47, y=64.00, z=349.50], EntityItem['item.tile.ladder'/11119, l='MpServer', x=87.81, y=64.00, z=314.28], EntityItem['item.tile.ladder'/11120, l='MpServer', x=85.97, y=64.00, z=314.84], EntityPlayerSP['Player906'/387, l='MpServer', x=100.76, y=63.50, z=324.57], EntityItem['item.item.bed'/12183, l='MpServer', x=152.78, y=64.00, z=288.13], EntityItem['item.item.bed'/12184, l='MpServer', x=152.66, y=64.00, z=288.78], EntityItem['item.item.bed'/12723, l='MpServer', x=152.56, y=64.00, z=305.03], EntityItem['item.item.bed'/12724, l='MpServer', x=152.41, y=64.00, z=304.34], EntityItem['item.item.bed'/12730, l='MpServer', x=116.13, y=64.00, z=351.75], EntityItem['item.item.bed'/12731, l='MpServer', x=115.66, y=64.00, z=350.78], EntityItem['item.item.bed'/11233, l='MpServer', x=120.88, y=64.00, z=349.66], EntityItem['item.item.bed'/11234, l='MpServer', x=120.38, y=64.00, z=347.78], EntityItem['item.item.bed'/12261, l='MpServer', x=153.22, y=64.00, z=290.75], EntityItem['item.item.bed'/12262, l='MpServer', x=152.81, y=64.00, z=291.19], EntityItem['item.item.bed'/13288, l='MpServer', x=108.41, y=64.00, z=351.06], EntityItem['item.item.bed'/13289, l='MpServer', x=109.16, y=64.00, z=350.72], EntityItem['item.item.bed'/12779, l='MpServer', x=152.88, y=64.00, z=306.88], EntityItem['item.item.bed'/12780, l='MpServer', x=152.88, y=64.00, z=305.63], EntityItem['item.tile.torch'/13295, l='MpServer', x=146.81, y=64.00, z=294.78], EntityFolk['小镇居民'/9202, l='MpServer', x=96.50, y=64.00, z=325.50], EntityFolk['小镇居民'/9203, l='MpServer', x=124.50, y=64.00, z=331.50]]
-	Retry entities: 0 total; []
-	Server brand: fml,forge
-	Server type: Integrated singleplayer server
-Stacktrace:
-	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:383)
-	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2645)
-	at net.minecraft.client.Minecraft.run(Minecraft.java:409)
-	at net.minecraft.client.main.Main.main(Main.java:116)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
-	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
-	at GradleStart.main(GradleStart.java:26)
-
--- System Details --
-Details:
-	Minecraft Version: 1.8.9
-	Operating System: Windows 10 (amd64) version 10.0
-	Java Version: 1.8.0_271, Oracle Corporation
-	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
-	Memory: 340253912 bytes (324 MB) / 1686634496 bytes (1608 MB) up to 3791650816 bytes (3616 MB)
-	JVM Flags: 0 total; 
-	IntCache: cache: 5, tcache: 0, allocated: 13, tallocated: 95
-	FML: MCP 9.19 Powered by Forge 11.15.1.2318 4 mods loaded, 4 mods active
-	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
-	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
-	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.8.9-11.15.1.2318-1.8.9.jar) 
-	UCHIJAAAA	Forge{11.15.1.2318} [Minecraft Forge] (forgeSrc-1.8.9-11.15.1.2318-1.8.9.jar) 
-	UCHIJAAAA	sim{1.0.0 Beta} [Simulated town] (sim-u-1.8.9) 
-	Loaded coremods (and transformers): 
-	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8280' Renderer: 'Intel(R) HD Graphics 630'
-	Pulsar/sim loaded Pulses: 
-
-	Launched Version: 1.8.9
-	LWJGL: 2.9.4
-	OpenGL: Intel(R) HD Graphics 630 GL version 4.6.0 - Build 27.20.100.8280, Intel
-	GL Caps: Using GL 1.3 multitexturing.
-Using GL 1.3 texture combiners.
-Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
-Shaders are available because OpenGL 2.1 is supported.
-VBOs are available because OpenGL 1.5 is supported.
-
-	Using VBOs: No
-	Is Modded: Definitely; Client brand changed to 'fml,forge'
-	Type: Client (map_client.txt)
-	Resource Packs: 
-	Current Language: 简体中文 (中国)
-	Profiler Position: N/A (disabled)
-	CPU: 8x Intel(R) Core(TM) i7-7700 CPU @ 3.60GHz
-[18:12:42] [Client thread/INFO]: [net.minecraft.init.Bootstrap:printToSYSOUT:612]: #@!@# Game crashed! Crash report saved to: #@!@# H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\eclipse\.\crash-reports\crash-2022-07-19_18.12.42-client.txt
+[15:57:09] [Client thread/INFO]: MinecraftForge v11.15.1.2318 Initialized
+[15:57:09] [Client thread/INFO]: Replaced 229 ore recipies
+[15:57:10] [Client thread/INFO]: Found 0 mods from the command line. Injecting into mod discoverer
+[15:57:10] [Client thread/INFO]: Searching H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\eclipse\mods for mods
+[15:57:14] [Client thread/INFO]: Forge Mod Loader has identified 4 mods to load
+[15:57:15] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at CLIENT
+[15:57:15] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim] at SERVER
+[15:57:15] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[15:57:15] [Client thread/INFO]: Processing ObjectHolder annotations
+[15:57:15] [Client thread/INFO]: Found 384 ObjectHolder annotations
+[15:57:15] [Client thread/INFO]: Identifying ItemStackHolder annotations
+[15:57:15] [Client thread/INFO]: Found 0 ItemStackHolder annotations
+[15:57:15] [Client thread/INFO]: Configured a dormant chunk cache size of 0
+[15:57:15] [Forge Version Check/INFO]: [Forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+[15:57:16] [Client thread/INFO]: Applying holder lookups
+[15:57:16] [Client thread/INFO]: Holder lookups applied
+[15:57:16] [Client thread/INFO]: Injecting itemstacks
+[15:57:16] [Client thread/INFO]: Itemstack injection complete
+[15:57:17] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[15:57:17] [Thread-9/INFO]: Initializing LWJGL OpenAL
+[15:57:17] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[15:57:17] [Thread-9/INFO]: OpenAL initialized.
+[15:57:17] [Sound Library Loader/INFO]: Sound engine started
+[15:57:26] [Client thread/INFO]: Max texture size: 16384
+[15:57:26] [Client thread/INFO]: Created: 16x16 textures-atlas
+[15:57:27] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
+[15:57:28] [Client thread/INFO]: Injecting itemstacks
+[15:57:28] [Client thread/INFO]: Itemstack injection complete
+[15:57:28] [Client thread/INFO]: Forge Mod Loader has successfully loaded 4 mods
+[15:57:28] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town
+[15:57:28] [Client thread/INFO]: SoundSystem shutting down...
+[15:57:28] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[15:57:28] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[15:57:28] [Thread-11/INFO]: Initializing LWJGL OpenAL
+[15:57:28] [Thread-11/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[15:57:28] [Thread-11/INFO]: OpenAL initialized.
+[15:57:29] [Sound Library Loader/INFO]: Sound engine started
+[15:57:36] [Client thread/INFO]: Max texture size: 16384
+[15:57:37] [Client thread/INFO]: Created: 512x512 textures-atlas
+[15:57:38] [Client thread/ERROR]: Model definition for location sim:fluid_milk#inventory not found
+[16:00:13] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[16:00:13] [Server thread/INFO]: Generating keypair
+[16:00:13] [Server thread/INFO]: Injecting existing block and item data into this server instance
+[16:00:13] [Server thread/INFO]: Found a missing id from the world sim:block_cheese_box
+[16:00:13] [Server thread/INFO]: Found a missing id from the world sim:block_fluid_milk
+[16:00:13] [Server thread/INFO]: Applying holder lookups
+[16:00:13] [Server thread/INFO]: Holder lookups applied
+[16:00:14] [Server thread/INFO]: Loading dimension 0 (sim) (net.minecraft.server.integrated.IntegratedServer@4134c23a)
+[16:00:14] [Server thread/INFO]: Loading dimension 1 (sim) (net.minecraft.server.integrated.IntegratedServer@4134c23a)
+[16:00:14] [Server thread/INFO]: Loading dimension -1 (sim) (net.minecraft.server.integrated.IntegratedServer@4134c23a)
+[16:00:14] [Server thread/INFO]: Preparing start region for level 0
+[16:00:15] [Server thread/INFO]: Preparing spawn area: 91%
+[16:00:15] [Server thread/INFO]: Changing view distance to 12, from 10
+[16:00:16] [Netty Local Client IO #0/INFO]: Server protocol version 2
+[16:00:16] [Netty Server IO #1/INFO]: Client protocol version 2
+[16:00:16] [Netty Server IO #1/INFO]: Client attempting to join with 4 mods : FML@8.0.99.99,sim@1.0.0 Beta,Forge@11.15.1.2318,mcp@9.19
+[16:00:16] [Netty Local Client IO #0/INFO]: [Netty Local Client IO #0] Client side modded connection established
+[16:00:16] [Server thread/INFO]: [Server thread] Server side modded connection established
+[16:00:16] [Server thread/INFO]: Player102[local:E:83a84c3d] logged in with entity id 191 at (147.36262146341565, 64.0, 305.7247473800089)
+[16:00:16] [Server thread/INFO]: Player102 加入了游戏
+[16:00:18] [Server thread/INFO]: 还没有启动——现在就这么做
+[16:00:18] [Server thread/INFO]: CommTH: 启动 - 设置 serverWorld/currentWorld
+[16:00:18] [Server thread/INFO]: 运行重置世界功能
+[16:00:18] [Server thread/INFO]: 重置并加载世界 SERVER SIDE
+[16:00:18] [Server thread/INFO]: 模拟城市程序已经运行
+[16:00:18] [Client thread/INFO]: [CHAT] 欢迎来到模拟城镇1.0.0 Beta由TRHSY重制,更多资讯请关注公众号: dasha5000
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 上官玉泽 使用新的文件系统
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: updateLocationFromEntity出错了：null
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: gotoXYZ出错了：null
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 乜清思 使用新的文件系统
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: updateLocationFromEntity出错了：null
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: gotoXYZ出错了：null
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 任骏年 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 佴悦雪 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 傅俊成 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 充慕文栋 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 公冶辰哲 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 公孙宛艺 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 公羊颖一 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 冉倩真 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 凌浩熙 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 劳荣昕 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 呼延歆希 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 咸倩真 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 唐懿梦 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 墨愫媛 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 夔靖宇 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 孔菱曦 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 孙漫维 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 宁锐翰 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 安宏义 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 宗政博胜 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 寿筱萱 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 封凝羽 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 居子鸣 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 屠筠枫 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 师俊成 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 年园涵 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 康飘纯 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 徐浩然 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 成苇雁 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 戴依瑞 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 戴媛瑜 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 扶倚家 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 支俊瀚 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 敖一雯 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 方希杰 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 方智宇 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 李杰文 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 李筠枫 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 杜贞文 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 欧阳丽愫 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 欧阳梓航 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 武瑞谦 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 汤学海 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 法然希 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 海妙熙 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 滑博然 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 焦雅小 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 爱薇曼 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 甄骏喆 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 百里柔雅 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 皮展鹏 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 皮飘纯 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 瞿浩志 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 祁菱莺 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 祖芷尔 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 空和巧 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 空正志 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 窦柳林 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 端木浩栋 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 简饶润文 使用新的文件系统
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/ERROR]: 出错了：null
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 经澜烟 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 翟辰皓 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 耿怡语 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 能仪梦 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 臧骏喆 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 苍阳雪 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒋喆依 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒋芯融 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒙蔓梦 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蒯相俊瀚 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 蔚宏博 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 裘颖子 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 詹恨萍 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 诸熙贤 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谈智宇 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谢杰凡 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谢琳瑷 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谯嘉浩 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谯嘉熙 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 谯莺昕 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 贾蕴齐 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 赏星海 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 邰馨娴 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 邴康胜 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 邵锦骏 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 鄢丽愫 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 钦云悦 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阙佳俊 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 阮嘉浩 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 陈智渊 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 隆柳林 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 霍天祺 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 韶云慧 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 韶正清 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 须宏峻 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 顾杰凡 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 马凝湘 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 马慧嘉 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 鱼彤娜 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 鲍艺蔓 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 麻千志 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData: loadAndSpawnFolks() 加载 齐夏雅 使用新的文件系统
+[16:00:20] [Server thread/INFO]: FolkData:onUpdate() 佴悦雪 徘徊在 16 单元 3.0 个街区之外。
+[16:00:20] [Server thread/INFO]: FolkData:onUpdate() 公冶辰哲 徘徊在 4 单元 31.0 个街区之外。
+[16:00:20] [Server thread/INFO]: FolkData:onUpdate() 夔靖宇 徘徊在 16 单元 23.0 个街区之外。
+[16:00:20] [Server thread/INFO]: FolkData:onUpdate() 屠筠枫 徘徊在 1单元牢房 3.0 个街区之外。
+[16:00:20] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 100 packets have leaked. Top offenders
+[16:00:20] [Netty Server IO #1/ERROR]: 	 sim : 100
+[16:00:20] [Server thread/ERROR]: moveEntity出错了：null
+[16:00:21] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2909ms behind, skipping 58 tick(s)
+[16:00:21] [Server thread/ERROR]: moveEntity出错了：null
+[16:00:29] [Server thread/INFO]: Player102 刚刚获得了 [打开物品栏] 成就！
+[16:00:30] [Client thread/INFO]: [CHAT] Player102 刚刚获得了 [打开物品栏] 成就！
+[16:00:32] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 37
+[16:00:36] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 200 packets have leaked. Top offenders
+[16:00:36] [Netty Server IO #1/ERROR]: 	 sim : 200
+[16:00:44] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 63
+[16:00:45] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 0
+[16:00:50] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 300 packets have leaked. Top offenders
+[16:00:50] [Netty Server IO #1/ERROR]: 	 sim : 300
+[16:00:57] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 88
+[16:00:57] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 23
+[16:01:02] [Thread-15/INFO]: Building: 线程已完成从磁盘初始化所有建筑物
+[16:01:04] [Server thread/ERROR]: moveEntity出错了：null
+[16:01:05] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 400 packets have leaked. Top offenders
+[16:01:05] [Netty Server IO #1/ERROR]: 	 sim : 400
+[16:01:11] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 93
+[16:01:12] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2551ms behind, skipping 51 tick(s)
+[16:01:17] [Server thread/INFO]: FolkData:onUpdate() 祁菱莺 徘徊在 4 单元 37.0 个街区之外。
+[16:01:17] [Server thread/ERROR]: moveEntity出错了：null
+[16:01:19] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 500 packets have leaked. Top offenders
+[16:01:19] [Netty Server IO #1/ERROR]: 	 sim : 500
+[16:01:20] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99639.27
+[16:01:20] [Server thread/INFO]: 建筑物.saveAllBuildings 6 建筑
+[16:01:20] [Server thread/INFO]: CTH: 将游戏数据保存在 219 ms
+[16:01:31] [Client thread/INFO]: [CHAT] 简饶润文 今天没有产品可以卖给人们。
+[16:01:32] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 600 packets have leaked. Top offenders
+[16:01:32] [Netty Server IO #1/ERROR]: 	 sim : 600
+[16:01:42] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 0
+[16:01:46] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 700 packets have leaked. Top offenders
+[16:01:46] [Netty Server IO #1/ERROR]: 	 sim : 700
+[16:01:57] [Server thread/INFO]: FolkData:onUpdate() 充慕文栋 徘徊在 1单元牢房 33.0 个街区之外。
+[16:01:58] [Server thread/INFO]: FolkData:onUpdate() 傅俊成 徘徊在 16 单元 38.0 个街区之外。
+[16:01:59] [Server thread/ERROR]: moveEntity出错了：null
+[16:01:59] [Server thread/ERROR]: moveEntity出错了：null
+[16:02:00] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 800 packets have leaked. Top offenders
+[16:02:00] [Netty Server IO #1/ERROR]: 	 sim : 800
+[16:02:12] [Server thread/INFO]: Relationship: + 当前级别和子级别:DISLIKE 78
+[16:02:13] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 900 packets have leaked. Top offenders
+[16:02:13] [Netty Server IO #1/ERROR]: 	 sim : 900
+[16:02:15] [Client thread/INFO]: [CHAT] /weather, /worldborder, /w
+[16:02:16] [Client thread/INFO]: [CHAT] /weather, /worldborder, /w
+[16:02:20] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99637.945
+[16:02:21] [Server thread/INFO]: 建筑物.saveAllBuildings 6 建筑
+[16:02:21] [Server thread/INFO]: CTH: 将游戏数据保存在 204 ms
+[16:02:24] [Server thread/INFO]: Relationship: + 当前级别和子级别:DISLIKE 99
+[16:02:24] [Server thread/INFO]: [Player102: 更换到无天气]
+[16:02:24] [Client thread/INFO]: [CHAT] 更换到无天气
+[16:02:26] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 1000 packets have leaked. Top offenders
+[16:02:26] [Netty Server IO #1/ERROR]: 	 sim : 1000
+[16:02:40] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 1100 packets have leaked. Top offenders
+[16:02:40] [Netty Server IO #1/ERROR]: 	 sim : 1100
+[16:02:49] [Server thread/INFO]: FolkData:onUpdate() 公孙宛艺 徘徊在 16 单元 27.0 个街区之外。
+[16:02:50] [Server thread/ERROR]: moveEntity出错了：null
+[16:02:53] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 1200 packets have leaked. Top offenders
+[16:02:53] [Netty Server IO #1/ERROR]: 	 sim : 1200
+[16:02:58] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 0
+[16:03:04] [Server thread/INFO]: FolkData:onUpdate() 祁菱莺 徘徊在 4 单元 37.0 个街区之外。
+[16:03:04] [Server thread/ERROR]: moveEntity出错了：null
+[16:03:07] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 1300 packets have leaked. Top offenders
+[16:03:07] [Netty Server IO #1/ERROR]: 	 sim : 1300
+[16:03:07] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 25
+[16:03:11] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 1
+[16:03:12] [Server thread/INFO]: FolkData:onUpdate() 夔靖宇 徘徊在 1单元牢房 17.0 个街区之外。
+[16:03:13] [Server thread/ERROR]: moveEntity出错了：null
+[16:03:20] [Netty Server IO #1/ERROR]: Detected ongoing potential memory leak. 1400 packets have leaked. Top offenders
+[16:03:20] [Netty Server IO #1/ERROR]: 	 sim : 1400
+[16:03:21] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99636.59
+[16:03:21] [Server thread/INFO]: 建筑物.saveAllBuildings 6 建筑
+[16:03:21] [Server thread/INFO]: CTH: 将游戏数据保存在 180 ms
+[16:03:23] [Server thread/INFO]: Relationship: + 当前级别和子级别:AQUAINTANCE 6
+[16:03:29] [Server thread/INFO]: 天亮了
+[16:03:29] [Server thread/INFO]: 进化的人
+[16:03:29] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99636.41
+[16:03:31] [Server thread/ERROR]: 出错了：null
+[16:06:01] [Server thread/ERROR]: 出错了：null
+[16:06:01] [Server thread/ERROR]: 出错了：null
+[16:06:01] [Thread-17/INFO]: 房屋租金 4 单元: 9.82(982)
+[16:06:01] [Server thread/ERROR]: 出错了：null
+[16:06:02] [Thread-17/INFO]: 房屋租金 1单元牢房: 0.42(42)
+[16:06:02] [Thread-17/INFO]: 房屋租金 16 单元: 25.75(2575)
+[16:06:02] [Server thread/ERROR]: 出错了：null
+[16:06:03] [Server thread/ERROR]: 出错了：null
+[16:06:03] [Server thread/ERROR]: 出错了：null
+[16:06:03] [Server thread/ERROR]: 出错了：null
+[16:06:04] [Server thread/ERROR]: 出错了：null
+[16:06:04] [Server thread/ERROR]: 出错了：null
+[16:06:04] [Server thread/ERROR]: 出错了：null
+[16:06:05] [Server thread/ERROR]: 出错了：null
+[16:06:05] [Server thread/ERROR]: 出错了：null
+[16:06:05] [Client thread/INFO]: [CHAT] 今天收了35.99金的房租。
+[16:06:05] [Client thread/INFO]: [CHAT] 今天收了0.00金的税收。
+[16:06:32] [Server thread/ERROR]: stageScanForTree出错了：null
+[16:06:45] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 99672.37
+[16:06:45] [Server thread/INFO]: 建筑物.saveAllBuildings 6 建筑
+[16:06:45] [Server thread/INFO]: CTH: 将游戏数据保存在 111 ms
+[16:06:46] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 195384ms behind, skipping 3907 tick(s)
+[16:06:46] [Server thread/INFO]: Saving and pausing game...
+[16:06:46] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[16:06:46] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[16:06:46] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[16:06:46] [Server thread/INFO]: Stopping server
+[16:06:46] [Server thread/INFO]: Saving players
+[16:06:46] [Server thread/INFO]: Saving worlds
+[16:06:46] [Server thread/INFO]: Saving chunks for level 'sim'/Overworld
+[16:06:46] [Server thread/INFO]: Saving chunks for level 'sim'/Nether
+[16:06:46] [Server thread/INFO]: Saving chunks for level 'sim'/The End
+[16:06:46] [Server thread/INFO]: Unloading dimension 0
+[16:06:46] [Server thread/INFO]: Unloading dimension -1
+[16:06:46] [Server thread/INFO]: Unloading dimension 1
+[16:06:46] [Server thread/INFO]: Applying holder lookups
+[16:06:46] [Server thread/INFO]: Holder lookups applied
+[16:07:06] [Client thread/INFO]: Stopping!
+[16:07:06] [Client thread/INFO]: SoundSystem shutting down...
+[16:07:06] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

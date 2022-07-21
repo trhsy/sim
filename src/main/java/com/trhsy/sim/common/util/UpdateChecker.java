@@ -33,10 +33,10 @@ public class UpdateChecker {
     public void onUpdate() {
         try {
 //"https://www.dropbox.com/s/i51v1lsq0u89elw/";
-            String baseURL = "https://trhsy.github.io/sim/Simukraft_zh_CN.zip";
+            String baseURL = "https://trhsy.github.io/sim/Simukraft_zh_CN_1_8_9.zip";
             String lang= FMLCommonHandler.instance().getCurrentLanguage();
             if("en_US".equals(lang)) {
-                baseURL = "https://trhsy.github.io/sim/Simukraft_en_US.zip";
+                baseURL = "https://trhsy.github.io/sim/Simukraft_en_US_1_8_9.zip";
             }
             String unzipFilePath= ModSimReloaded.getSimukraftFolder();
             File checks = new File(unzipFilePath+ File.separator);

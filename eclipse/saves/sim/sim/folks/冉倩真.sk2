@@ -14,7 +14,7 @@ levelbuilder|10.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|96,64,296,0
+location|128,64,275,0
 pregnancy|0.0
 building|null
 terraformtype|null

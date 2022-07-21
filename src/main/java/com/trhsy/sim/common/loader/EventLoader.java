@@ -36,10 +36,14 @@ public class EventLoader {
     public static final EventBus EVENT_BUS = new EventBus();
 
     public EventLoader() {
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
-        MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
-        EventLoader.EVENT_BUS.register(this);
+        try {
+            MinecraftForge.EVENT_BUS.register(this);
+            MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
+            MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
+            EventLoader.EVENT_BUS.register(this);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("EventLoader出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -52,18 +56,22 @@ public class EventLoader {
     @SubscribeEvent
     public void onFillBucket(FillBucketEvent event) {
         //System.out.println("桶被盛装的事件");
-        //获取区块位置
-        BlockPos blockpos = event.target.getBlockPos();
-        //获取区块状态
-        IBlockState blockState = event.world.getBlockState(blockpos);
-        //获取流体
-        Fluid fluid = FluidRegistry.lookupFluidForBlock(blockState.getBlock());
-        if (fluid != null && new Integer(0).equals(blockState.getValue(BlockFluidBase.LEVEL))) {
-            //桶容积
-            FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
-            event.world.setBlockToAir(blockpos);
-            event.result = FluidContainerRegistry.fillFluidContainer(fluidStack, event.current);
-            event.setResult(Event.Result.ALLOW);
+        try {
+            //获取区块位置
+            BlockPos blockpos = event.target.getBlockPos();
+            //获取区块状态
+            IBlockState blockState = event.world.getBlockState(blockpos);
+            //获取流体
+            Fluid fluid = FluidRegistry.lookupFluidForBlock(blockState.getBlock());
+            if (fluid != null && new Integer(0).equals(blockState.getValue(BlockFluidBase.LEVEL))) {
+                //桶容积
+                FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
+                event.world.setBlockToAir(blockpos);
+                event.result = FluidContainerRegistry.fillFluidContainer(fluidStack, event.current);
+                event.setResult(Event.Result.ALLOW);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onFillBucket出错了：" + e.getMessage());
         }
     }
 
@@ -76,12 +84,17 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void onPlayerClickGrassBlock(PlayerRightClickGrassBlockEvent event) {
-        if (!event.world.isRemote) {
+        try {
+            if (!event.world.isRemote) {
 //            BlockPos pos = event.pos;
 //            Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
 //            event.world.spawnEntityInWorld(tnt);
-            FolkData.generateNewFolk(event.world);
+                FolkData.generateNewFolk(event.world);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage());
         }
+
     }
 
     /**
@@ -94,11 +107,17 @@ public class EventLoader {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        if (KeyLoader.showTime.isPressed()) {
-            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-            World world = Minecraft.getMinecraft().theWorld;
-            player.addChatMessage(new ChatComponentTranslation("chat.sim.time", world.getTotalWorldTime()));
+        try {
+            if (KeyLoader.showTime.isPressed()) {
+                EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+                World world = Minecraft.getMinecraft().theWorld;
+                player.addChatMessage(new ChatComponentTranslation("chat.sim.time", world.getTotalWorldTime()));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onKeyInput出错了：" + e.getMessage());
         }
+
+
     }
 
 }
