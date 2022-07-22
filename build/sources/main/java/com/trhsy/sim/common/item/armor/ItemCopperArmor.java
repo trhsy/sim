@@ -46,7 +46,9 @@ public class ItemCopperArmor extends ItemArmor {
     }
 
     public static class Helmet extends ItemCopperArmor {
+
         public Helmet() {
+
             super(0);
             this.setUnlocalizedName("copperHelmet");
             this.setCreativeTab(CreativeTabsLoader.tabSimU);

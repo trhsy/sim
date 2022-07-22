@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.config;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetHandlerPlayServer;
@@ -21,9 +22,13 @@ public abstract class AbstractPacket implements IMessage {
     public abstract IMessage handleServer(NetHandlerPlayServer var1);
 
     protected void writePos(BlockPos pos, ByteBuf buf) {
-        buf.writeInt(pos.getX());
-        buf.writeInt(pos.getY());
-        buf.writeInt(pos.getZ());
+        try {
+            buf.writeInt(pos.getX());
+            buf.writeInt(pos.getY());
+            buf.writeInt(pos.getZ());
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
     }
 
     protected BlockPos readPos(ByteBuf buf) {

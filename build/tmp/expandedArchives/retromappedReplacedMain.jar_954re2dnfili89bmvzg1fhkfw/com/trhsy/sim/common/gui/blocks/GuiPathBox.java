@@ -35,8 +35,13 @@ public class GuiPathBox extends GuiScreen {
     private int page = 0;
 
     public GuiPathBox(PathBox pathBlock, ArrayList<FolkData> folks) {
-        this.thePathBox = pathBlock;
-        this.theWorkers = folks;
+        try {
+            this.thePathBox = pathBlock;
+            this.theWorkers = folks;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiPathBox出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -46,30 +51,37 @@ public class GuiPathBox extends GuiScreen {
 
     @Override
     public void func_73876_c() {
-        if (this.tfSize != null) {
-            this.tfSize.func_146178_a();
+        try {
+            if (this.tfSize != null) {
+                this.tfSize.func_146178_a();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
         }
-
     }
 
     @Override
     public void func_73866_w_() {
-        this.field_146292_n.clear();
-        this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 100, this.field_146295_m - 30, I18n.func_135052_a("container.sim.sim_gui_BC_Done")));
-        if (this.thePathBox != null) {
-            if (this.thePathBox.marker1XYZ != null) {
-                if (this.page == 0) {
-                    if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                        this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
-                        this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 100, 60, I18n.func_135052_a("container.sim.PathBox1")));
-                    } else {
-                        this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Hire24")));
+        try {
+            this.field_146292_n.clear();
+            this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 100, this.field_146295_m - 30, I18n.func_135052_a("container.sim.sim_gui_BC_Done")));
+            if (this.thePathBox != null) {
+                if (this.thePathBox.marker1XYZ != null) {
+                    if (this.page == 0) {
+                        if (this.theWorkers != null && this.theWorkers.size() != 0) {
+                            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
+                            this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 100, 60, I18n.func_135052_a("container.sim.PathBox1")));
+                        } else {
+                            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Hire24")));
+                        }
+                    } else if (this.page == 1) {
+                        this.field_146292_n.add(new GuiButton(1, 10, 20, I18n.func_135052_a("container.sim.PathBox3")));
                     }
-                } else if (this.page == 1) {
-                    this.field_146292_n.add(new GuiButton(1, 10, 20, I18n.func_135052_a("container.sim.PathBox3")));
-                }
 
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
         }
     }
 
@@ -93,51 +105,61 @@ public class GuiPathBox extends GuiScreen {
             }
 
             super.func_73863_a(i, j, f);
-        } catch (Exception var6) {
-            var6.printStackTrace();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            //var6.printStackTrace();
         }
 
     }
 
     @Override
     public void func_146284_a(GuiButton guibutton) {
-        if (guibutton.field_146124_l) {
-            if (guibutton.field_146127_k == 0) {
-                this.field_146297_k.field_71462_r = null;
-                this.field_146297_k.func_71381_h();
-            } else {
-                if (guibutton.field_146126_j.contentEquals(I18n.func_135052_a("container.sim.Hire24"))) {
-                    GuiEmployFolk ui = new GuiEmployFolk(this.thePathBox, Vocation.PATHBUILDER);
-                    this.field_146297_k.func_147108_a(ui);
-                } else if (guibutton.field_146126_j.startsWith(I18n.func_135052_a("container.sim.Fire"))) {
-                    for (int i = 0; i < this.theWorkers.size(); ++i) {
-                        FolkData folk = (FolkData) this.theWorkers.get(i);
-                        folk.selfFire();
+        try {
+            if (guibutton.field_146124_l) {
+                if (guibutton.field_146127_k == 0) {
+                    this.field_146297_k.field_71462_r = null;
+                    this.field_146297_k.func_71381_h();
+                } else {
+                    if (guibutton.field_146126_j.contentEquals(I18n.func_135052_a("container.sim.Hire24"))) {
+                        GuiEmployFolk ui = new GuiEmployFolk(this.thePathBox, Vocation.PATHBUILDER);
+                        this.field_146297_k.func_147108_a(ui);
+                    } else if (guibutton.field_146126_j.startsWith(I18n.func_135052_a("container.sim.Fire"))) {
+                        for (int i = 0; i < this.theWorkers.size(); i++) {
+                            FolkData folk = (FolkData) this.theWorkers.get(i);
+                            folk.selfFire();
+                        }
+
+                        guibutton.field_146124_l = false;
+                        this.field_146297_k.field_71462_r = null;
+                        this.field_146297_k.func_71381_h();
+                    } else if (guibutton.field_146126_j.contentEquals(I18n.func_135052_a("container.sim.PathBox8"))) {
+                        this.page = 1;
+                        this.func_73866_w_();
+                    } else if (this.page == 1) {
+                        this.thePathBox.pathType = guibutton.field_146126_j;
+                        ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.PathBox9") + guibutton.field_146126_j);
+                        this.field_146297_k.field_71462_r = null;
+                        this.field_146297_k.func_71381_h();
                     }
 
-                    guibutton.field_146124_l = false;
-                    this.field_146297_k.field_71462_r = null;
-                    this.field_146297_k.func_71381_h();
-                } else if (guibutton.field_146126_j.contentEquals(I18n.func_135052_a("container.sim.PathBox8"))) {
-                    this.page = 1;
-                    this.func_73866_w_();
-                } else if (this.page == 1) {
-                    this.thePathBox.pathType = guibutton.field_146126_j;
-                    ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.PathBox9") + guibutton.field_146126_j);
-                    this.field_146297_k.field_71462_r = null;
-                    this.field_146297_k.func_71381_h();
                 }
-
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void func_73869_a(char c, int i) {
-        if (i == 1) {
+        try {if (i == 1) {
             this.field_146297_k.func_147108_a((GuiScreen)null);
             this.field_146297_k.func_71381_h();
         }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -145,7 +167,8 @@ public class GuiPathBox extends GuiScreen {
         try {
             super.func_73864_a(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            //e.printStackTrace();
         }
     }
 }

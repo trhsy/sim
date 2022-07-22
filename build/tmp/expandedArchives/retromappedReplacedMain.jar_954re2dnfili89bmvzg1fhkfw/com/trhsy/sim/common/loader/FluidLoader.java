@@ -30,34 +30,47 @@ public class FluidLoader {
 
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
-        registerFluidRender((BlockFluidBase) BlockLoader.blockFluidMilk, "fluid_milk");
+        try {
+            registerFluidRender((BlockFluidBase) BlockLoader.blockFluidMilk, "fluid_milk");
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+        }
     }
 
     public FluidLoader(FMLPreInitializationEvent event) {
-        if (FluidRegistry.isFluidRegistered(fluidMilk)) {
-            event.getModLog().info("发现流体{}，注册被取消。 ", fluidMilk.getName());
-            fluidMilk = FluidRegistry.getFluid(fluidMilk.getName());
-        } else {
-            FluidRegistry.registerFluid(fluidMilk);
-            FluidRegistry.addBucketForFluid(fluidMilk);
+        try {
+            if (FluidRegistry.isFluidRegistered(fluidMilk)) {
+                event.getModLog().info("发现流体{}，注册被取消。 ", fluidMilk.getName());
+                fluidMilk = FluidRegistry.getFluid(fluidMilk.getName());
+            } else {
+                FluidRegistry.registerFluid(fluidMilk);
+                FluidRegistry.addBucketForFluid(fluidMilk);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("FluidLoader出错了：" + e.getMessage());
         }
+
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerFluidRender(BlockFluidBase blockFluid, String blockStateName) {
-        final String location = ModSim.MODID + ":" + blockStateName;
-        final Item itemFluid = Item.func_150898_a(blockFluid);
-        ModelLoader.setCustomMeshDefinition(itemFluid, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation func_178113_a(ItemStack stack) {
-                return new ModelResourceLocation(location, "fluid");
-            }
-        });
-        ModelLoader.setCustomStateMapper(blockFluid, new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation func_178132_a(IBlockState state) {
-                return new ModelResourceLocation(location, "fluid");
-            }
-        });
+        try {
+            final String location = ModSim.MODID + ":" + blockStateName;
+            final Item itemFluid = Item.func_150898_a(blockFluid);
+            ModelLoader.setCustomMeshDefinition(itemFluid, new ItemMeshDefinition() {
+                @Override
+                public ModelResourceLocation func_178113_a(ItemStack stack) {
+                    return new ModelResourceLocation(location, "fluid");
+                }
+            });
+            ModelLoader.setCustomStateMapper(blockFluid, new StateMapperBase() {
+                @Override
+                protected ModelResourceLocation func_178132_a(IBlockState state) {
+                    return new ModelResourceLocation(location, "fluid");
+                }
+            });
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerFluidRender出错了：" + e.getMessage());
+        }
     }
 }

@@ -27,7 +27,7 @@ import java.util.Random;
  * @Date 2022/1/26 0026下午 5:52
  * ========================================
  **/
-public class EntityConBox extends Entity{
+public class EntityConBox extends Entity {
 
     public float boxYaw = 0.0F;
     public int textColor = 11534255;
@@ -49,55 +49,63 @@ public class EntityConBox extends Entity{
 
     @Override
     public void func_70071_h_() {
-        if (System.currentTimeMillis() - this.lastCheck > 10000L) {
-            if (this.theFolk != null && this.theFolk.theBuilding == null) {
-                ModSimReloaded.log.info("EntityConBox: 建筑完成后移除conBox");
-                this.spawnExplosionParticle(this);
-                this.func_70106_y();
+        try {
+            if (System.currentTimeMillis() - this.lastCheck > 10000L) {
+                if (this.theFolk != null && this.theFolk.theBuilding == null) {
+                    ModSimReloaded.log.info("EntityConBox: 建筑完成后移除conBox");
+                    this.spawnExplosionParticle(this);
+                    this.func_70106_y();
+                }
+
+                ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK), BlockLoader.blockConstructorBox, 5);
+                if (conblocks.size() < 1) {
+                    this.func_70106_y();
+                }
+
+                this.lastCheck = System.currentTimeMillis();
             }
 
-            ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK), BlockLoader.blockConstructorBox, 5);
-            if (conblocks.size() < 1) {
-                this.func_70106_y();
-            }
-
-            this.lastCheck = System.currentTimeMillis();
+            ++this.boxYaw;
+            super.func_70071_h_();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
 
-        ++this.boxYaw;
-        super.func_70071_h_();
     }
 
     public static FolkData getFolk(V3 where) {
-        V3 con = Job.findClosestBlockType(where, BlockLoader.blockConstructorBox, 6, false);
+        //V3 con = Job.findClosestBlockType(where, BlockLoader.blockConstructorBox, 6, false);
         FolkData ret = null;
-
-        for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-            FolkData fd = (FolkData) ModSimReloaded.theFolks.get(f);
-            if (fd.employedAt != null && fd.employedAt.isSameCoordsAs(where, true, false)) {
-                ModSimReloaded.log.info("EntityConBox: 找到人 " + fd.name);
-                ret = fd;
-                break;
+        try {
+            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                FolkData fd = (FolkData) ModSimReloaded.theFolks.get(f);
+                if (fd.employedAt != null && fd.employedAt.isSameCoordsAs(where, true, false)) {
+                    ModSimReloaded.log.info("EntityConBox: 找到人 " + fd.name);
+                    ret = fd;
+                    break;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getFolk出错了：" + e.getMessage());
         }
 
         return ret;
     }
 
     private void spawnExplosionParticle(Entity ent) {
-        Random rand = new Random();
-
-        for(int var1 = 0; var1 < 20; ++var1) {
-            double var2 = rand.nextGaussian() * 0.02D;
-            double var4 = rand.nextGaussian() * 0.02D;
-            double var6 = rand.nextGaussian() * 0.02D;
-            double var8 = 10;
-
-            try {
+        try {
+            Random rand = new Random();
+            for (int var1 = 0; var1 < 20; ++var1) {
+                double var2 = rand.nextGaussian() * 0.02D;
+                double var4 = rand.nextGaussian() * 0.02D;
+                double var6 = rand.nextGaussian() * 0.02D;
+                double var8 = 10;
                 ModSim.proxy.getClientWorld().func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, ent.field_70165_t + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0 - var2 * var8, ent.field_70163_u + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.field_70161_v + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0 - var6 * var8, var2, var4, var6);
-            } catch (Exception var13) {
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("spawnExplosionParticle出错了：" + e.getMessage());
         }
+
 
     }
 
@@ -105,10 +113,12 @@ public class EntityConBox extends Entity{
     protected void func_70088_a() {
         // TODO document why this method is empty
     }
+
     @Override
     public AxisAlignedBB func_70114_g(Entity par1Entity) {
         return null;
     }
+
     //@Override
     //public AxisAlignedBB getBoundingBox() {
     //    return null;
@@ -117,13 +127,16 @@ public class EntityConBox extends Entity{
     public boolean func_70104_M() {
         return false;
     }
+
     @Override
     public boolean func_70067_L() {
         return false;
     }
+
     @Override
     protected void func_70037_a(NBTTagCompound var1) {
     }
+
     @Override
     protected void func_70014_b(NBTTagCompound var1) {
     }

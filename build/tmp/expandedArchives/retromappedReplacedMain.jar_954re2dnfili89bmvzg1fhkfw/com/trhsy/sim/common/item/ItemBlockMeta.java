@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.item;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.common.util.LocUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -34,42 +35,62 @@ public class ItemBlockMeta extends ItemColored {
     }
     @Override
     public String func_77667_c(ItemStack stack) {
-        if (this.mappingProperty == null) {
-            return super.func_77667_c(stack);
-        } else {
-            IBlockState state = this.field_150939_a.func_176203_a(stack.func_77960_j());
-            String name = state.func_177229_b(this.mappingProperty).toString().toLowerCase(Locale.US);
-            return super.func_77667_c(stack) + "." + name;
+        String unlocalizedName=null;
+        try {
+            if (this.mappingProperty == null) {
+                unlocalizedName= super.func_77667_c(stack);
+            } else {
+                IBlockState state = this.field_150939_a.func_176203_a(stack.func_77960_j());
+                String name = state.func_177229_b(this.mappingProperty).toString().toLowerCase(Locale.US);
+                unlocalizedName= super.func_77667_c(stack) + "." + name;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getUnlocalizedName出错了：" + e.getMessage());
         }
+        return unlocalizedName;
     }
 
     public static void setMappingProperty(Block block, IProperty<?> property) {
-        ((ItemBlockMeta) Item.func_150898_a(block)).mappingProperty = property;
+        try {
+            ((ItemBlockMeta) Item.func_150898_a(block)).mappingProperty = property;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setMappingProperty出错了：" + e.getMessage());
+        }
     }
 
     @Override
     public void func_77624_a(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        if (StatCollector.func_94522_b(this.func_77667_c(stack) + ".tooltip")) {
-            tooltip.add(EnumChatFormatting.GRAY.toString() + LocUtils.translateRecursive(this.func_77667_c(stack) + ".tooltip", new Object[0]));
-        } else if (StatCollector.func_94522_b(super.func_77667_c(stack) + ".tooltip")) {
-            tooltip.add(EnumChatFormatting.GRAY.toString() + LocUtils.translateRecursive(super.func_77667_c(stack) + ".tooltip", new Object[0]));
+        try {
+            if (StatCollector.func_94522_b(this.func_77667_c(stack) + ".tooltip")) {
+                tooltip.add(EnumChatFormatting.GRAY.toString() + LocUtils.translateRecursive(this.func_77667_c(stack) + ".tooltip", new Object[0]));
+            } else if (StatCollector.func_94522_b(super.func_77667_c(stack) + ".tooltip")) {
+                tooltip.add(EnumChatFormatting.GRAY.toString() + LocUtils.translateRecursive(super.func_77667_c(stack) + ".tooltip", new Object[0]));
+            }
+
+            super.func_77624_a(stack, playerIn, tooltip, advanced);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("addInformation出错了：" + e.getMessage());
         }
 
-        super.func_77624_a(stack, playerIn, tooltip, advanced);
     }
 
     @SideOnly(Side.CLIENT)
     public void registerItemModels() {
-        Item item = this;
-        ResourceLocation loc = GameData.getBlockRegistry().func_177774_c(this.field_150939_a);
-        Iterator var3 = this.mappingProperty.func_177700_c().iterator();
+        try {
+            Item item = this;
+            ResourceLocation loc = GameData.getBlockRegistry().func_177774_c(this.field_150939_a);
+            Iterator var3 = this.mappingProperty.func_177700_c().iterator();
 
-        while(var3.hasNext()) {
-            Comparable o = (Comparable)var3.next();
-            int meta = this.field_150939_a.func_176201_c(this.field_150939_a.func_176223_P().func_177226_a(this.mappingProperty, o));
-            String name = this.mappingProperty.func_177702_a(o);
-            ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(loc, this.mappingProperty.func_177701_a() + "=" + name));
+            while(var3.hasNext()) {
+                Comparable o = (Comparable)var3.next();
+                int meta = this.field_150939_a.func_176201_c(this.field_150939_a.func_176223_P().func_177226_a(this.mappingProperty, o));
+                String name = this.mappingProperty.func_177702_a(o);
+                ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(loc, this.mappingProperty.func_177701_a() + "=" + name));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("registerItemModels出错了：" + e.getMessage());
         }
+
 
     }
 }

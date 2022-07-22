@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.gui.blocks;
 
 import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +10,7 @@ import org.lwjgl.input.Mouse;
 
 /**
  * @ClassName GuiCityBoxTaxes
- * @Description todo
+ * @Description todo 城市箱税
  * @Author Tian
  * @Date 2022/4/414:14
  **/
@@ -21,8 +22,12 @@ public class GuiCityBoxTaxes extends GuiScreen {
     int taxPercentage;
 
     public GuiCityBoxTaxes(V3 location, EntityPlayer thePlayer, GuiCityBox gui) {
-        this.playerWhoClickedIt = thePlayer;
-        this.cityBoxGui = gui;
+        try {
+            this.playerWhoClickedIt = thePlayer;
+            this.cityBoxGui = gui;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiCityBoxTaxes出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -49,17 +54,21 @@ public class GuiCityBoxTaxes extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, "税", this.width / 2, 17, 16777215);
             super.drawScreen(i, j, f);
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
         }
 
     }
 
     @Override
     public void actionPerformed(GuiButton guibutton) {
-        if (guibutton.enabled) {
-            if (guibutton.id == 0) {
-                this.mc.currentScreen = this.cityBoxGui;
+        try {
+            if (guibutton.enabled) {
+                if (guibutton.id == 0) {
+                    this.mc.currentScreen = this.cityBoxGui;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 

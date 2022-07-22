@@ -39,116 +39,140 @@ public class JobBurgersWaiter extends Job {
     private Building theStore = null;
 
     public JobBurgersWaiter(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                }
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("JobBurgersWaiter出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (this.theStore == null) {
-            this.theStore = Building.getBuilding(this.theFolk.employedAt);
-        }
-
-        if (this.theStore != null) {
-            if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
+        try {
+            super.onUpdate();
+            if (this.theStore == null) {
+                this.theStore = Building.getBuilding(this.theFolk.employedAt);
             }
 
-            super.onUpdateGoingToWork(this.theFolk);
-            if (this.theStage == Stage.ARRIVEDATSTORE) {
-                this.theFolk.action = FolkAction.ATWORK;
-                this.runDelay = 11000;
-            } else if (this.theStage == Stage.SERVING) {
-                this.runDelay = 45000;
-            } else {
-                this.runDelay = 5000;
-            }
-
-            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
-                    if (this.theStage == Stage.ARRIVEDATSTORE) {
-                        this.theStage = Stage.SERVING;
-                        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.serving_customers");
-                    } else if (this.theStage == Stage.SERVING) {
-                        this.stageServing();
+            if (this.theStore != null) {
+                if (!ModSimReloaded.isDayTime()) {
+                    if (!theFolk.isNightOwl()) {
+                        //闲置
+                        this.theStage = Stage.IDLE;
+                        return;
                     }
                 }
 
-                if (!ModSimReloaded.isDayTime()) {
-                    this.theStage = Stage.IDLE;
+                super.onUpdateGoingToWork(this.theFolk);
+                if (this.theStage == Stage.ARRIVEDATSTORE) {
+                    this.theFolk.action = FolkAction.ATWORK;
+                    this.runDelay = 11000;
+                } else if (this.theStage == Stage.SERVING) {
+                    this.runDelay = 45000;
+                } else {
+                    this.runDelay = 5000;
                 }
 
-                this.timeSinceLastRun = System.currentTimeMillis();
+                if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                    if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                        if (this.theStage == Stage.ARRIVEDATSTORE) {
+                            this.theStage = Stage.SERVING;
+                            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.serving_customers");
+                        } else if (this.theStage == Stage.SERVING) {
+                            this.stageServing();
+                        }
+                    }
+
+                    if (!ModSimReloaded.isDayTime()) {
+                        if (!theFolk.isNightOwl()) {
+                            //闲置
+                            this.theStage = Stage.IDLE;
+                            return;
+                        }
+                    }
+
+                    this.timeSinceLastRun = System.currentTimeMillis();
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
+
     }
 
     private void stageServing() {
-        ArrayList<V3> serve = this.theStore.getSpecialBlocks(2);
-        if (!serve.isEmpty()) {
-            ArrayList<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
-            if (!theChests.isEmpty()) {
-                this.theFolk.gotoXYZ((V3)serve.get(0), (GotoMethod)null);
+        try {
+            ArrayList<V3> serve = this.theStore.getSpecialBlocks(2);
+            if (!serve.isEmpty()) {
+                ArrayList<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
+                if (!theChests.isEmpty()) {
+                    this.theFolk.gotoXYZ((V3)serve.get(0), (GotoMethod)null);
 
-                try {
-                    this.theFolk.destination.destinationAcc = 0.3D;
-                } catch (Exception var6) {
-                }
-
-                ItemStack is = inventoriesGet(theChests, (ItemStack)null, true, false);
-                if (is == null) {
-                    this.theFolk.statusText = I18n.func_135052_a("container.sim.job.serving.Wishing");
-                } else {
-                    if (is.func_77973_b() == ItemLoader.itemCheese||is.func_77973_b() == ItemLoader.itemCheeseburger||is.func_77973_b() == ItemLoader.itemFries||is.func_77973_b() == ItemLoader.itemBurger) {
-                        is = new ItemStack(is.func_77973_b(), 1, is.func_77960_j());
-                        inventoriesGet(theChests, is, false, true);
-                        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.merchant.Just_sold") + is.func_82833_r();
-                        int r = (new Random()).nextInt(ModSimReloaded.theFolks.size() - 1);
-                        FolkData folk = (FolkData) ModSimReloaded.theFolks.get(r);
-                        if (folk.levelFood < 10) {
-                            ++folk.levelFood;
-                        }
-
-                        folk.saveThisFolk();
-                        ModSimReloaded.log.info("JobBurgersWaiter: 刚吃过 " + folk.name);
-                        GameStates var10000 = ModSimReloaded.states;
-                        var10000.credits = (float) ((double) var10000.credits - 0.45D);
-                    } else {
-                        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.merchant.Who_put") + is.func_82833_r() + I18n.func_135052_a("container.sim.job.merchant.my_chest");
+                    try {
+                        this.theFolk.destination.destinationAcc = 0.3D;
+                    } catch (Exception var6) {
                     }
 
+                    ItemStack is = inventoriesGet(theChests, (ItemStack)null, true, false);
+                    if (is == null) {
+                        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.serving.Wishing");
+                    } else {
+                        if (is.func_77973_b() == ItemLoader.itemCheese||is.func_77973_b() == ItemLoader.itemCheeseburger||is.func_77973_b() == ItemLoader.itemFries||is.func_77973_b() == ItemLoader.itemBurger) {
+                            is = new ItemStack(is.func_77973_b(), 1, is.func_77960_j());
+                            inventoriesGet(theChests, is, false, true);
+                            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.merchant.Just_sold") + is.func_82833_r();
+                            int r = (new Random()).nextInt(ModSimReloaded.theFolks.size() - 1);
+                            FolkData folk = (FolkData) ModSimReloaded.theFolks.get(r);
+                            if (folk.levelFood < 10) {
+                                ++folk.levelFood;
+                            }
+
+                            folk.saveThisFolk();
+                            ModSimReloaded.log.info("JobBurgersWaiter: 刚吃过 " + folk.name);
+                            GameStates var10000 = ModSimReloaded.states;
+                            var10000.credits = (float) ((double) var10000.credits - 0.45D);
+                        } else {
+                            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.merchant.Who_put") + is.func_82833_r() + I18n.func_135052_a("container.sim.job.merchant.my_chest");
+                        }
+
+                    }
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageServing出错了：" + e.getMessage());
         }
     }
 
     @Override
     public void onArrivedAtWork() {
-        //int dist = false;
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.Arrived_at_the_store");
-            this.theStage = Stage.ARRIVEDATSTORE;
-            ArrayList<V3> back = this.theStore.getSpecialBlocks(2);
-            if (!back.isEmpty()) {
-                this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.Arrived_at_the_store");
+                this.theStage = Stage.ARRIVEDATSTORE;
+                ArrayList<V3> back = this.theStore.getSpecialBlocks(2);
+                if (!back.isEmpty()) {
+                    this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
+                }
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
             }
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
         }
-
     }
 
     @Override

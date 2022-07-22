@@ -47,16 +47,20 @@ public class JobButcher extends Job implements Serializable {
     }
 
     public JobButcher(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                }
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("JobButcher出错了：" + e.getMessage());
         }
     }
 
@@ -67,43 +71,17 @@ public class JobButcher extends Job implements Serializable {
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
-        }
-
-        super.onUpdateGoingToWork(this.theFolk);
-        if (this.theStage == Stage.ARRIVEDATSHOP) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.runDelay = 11000;
-        } else {
-            this.runDelay = 3000;
-        }
-
-        if (this.theStage == Stage.SELLINGMEAT) {
-            this.runDelay = 10000;
-        }
-
-        if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-            this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
-                if (this.theStage == Stage.ARRIVEDATSHOP) {
-                    this.theStage = Stage.GOINGTOMEATFARM;
-                } else if (this.theStage == Stage.GOINGTOMEATFARM) {
-                    this.stageGoingToFarm();
-                } else if (this.theStage == Stage.COLLECTINGMEAT) {
-                    this.stageCollectingMeat();
-                } else if (this.theStage == Stage.GOBACKTOSTORE) {
-                    this.stageGoBackToStore();
-                } else if (this.theStage == Stage.SELLINGMEAT) {
-                    this.stageSellingMeat();
+        try {
+            super.onUpdate();
+            if (!ModSimReloaded.isDayTime()) {
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
                 }
             }
 
-            if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
-            }
-
+            super.onUpdateGoingToWork(this.theFolk);
             if (this.theStage == Stage.ARRIVEDATSHOP) {
                 this.theFolk.action = FolkAction.ATWORK;
                 this.runDelay = 11000;
@@ -117,200 +95,269 @@ public class JobButcher extends Job implements Serializable {
 
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
                 this.timeSinceLastRun = System.currentTimeMillis();
+                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                    if (this.theStage == Stage.ARRIVEDATSHOP) {
+                        this.theStage = Stage.GOINGTOMEATFARM;
+                    } else if (this.theStage == Stage.GOINGTOMEATFARM) {
+                        this.stageGoingToFarm();
+                    } else if (this.theStage == Stage.COLLECTINGMEAT) {
+                        this.stageCollectingMeat();
+                    } else if (this.theStage == Stage.GOBACKTOSTORE) {
+                        this.stageGoBackToStore();
+                    } else if (this.theStage == Stage.SELLINGMEAT) {
+                        this.stageSellingMeat();
+                    }
+                }
+
+                if (!ModSimReloaded.isDayTime()) {
+                    if (!theFolk.isNightOwl()) {
+                        //闲置
+                        this.theStage = Stage.IDLE;
+                        return;
+                    }
+                }
+
+                if (this.theStage == Stage.ARRIVEDATSHOP) {
+                    this.theFolk.action = FolkAction.ATWORK;
+                    this.runDelay = 11000;
+                } else {
+                    this.runDelay = 3000;
+                }
+
+                if (this.theStage == Stage.SELLINGMEAT) {
+                    this.runDelay = 10000;
+                }
+
+                if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                    this.timeSinceLastRun = System.currentTimeMillis();
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
+
     }
 
     private void stageGoingToFarm() {
-        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Fetching");
-        this.theFolk.action = FolkAction.ATWORK;
-        if (!this.onRoute) {
-            this.farm = this.getCurrentFarm();
+        try {
+            //从农场获取新鲜食物
+            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Fetching");
+            this.theFolk.action = FolkAction.ATWORK;
+            if (!this.onRoute) {
+                this.farm = this.getCurrentFarm();
 
-            try {
-                if (this.farm != null && this.farm.primaryXYZ != null) {
-                    this.onRoute = true;
-                    this.theFolk.gotoXYZ(this.farm.primaryXYZ, GotoMethod.BEAM);
-                } else {
+                try {
+                    if (this.farm != null && this.farm.primaryXYZ != null) {
+                        this.onRoute = true;
+                        this.theFolk.gotoXYZ(this.farm.primaryXYZ, GotoMethod.BEAM);
+                    } else {
+                        this.theStage = Stage.GOBACKTOSTORE;
+                    }
+                } catch (Exception var2) {
+                    //var2.printStackTrace();
                     this.theStage = Stage.GOBACKTOSTORE;
                 }
-            } catch (Exception var2) {
-                var2.printStackTrace();
-                this.theStage = Stage.GOBACKTOSTORE;
-            }
-        } else {
-            int dist = this.theFolk.location.getDistanceTo(this.farm.primaryXYZ);
-            if (dist < 3) {
-                if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.field_70159_w = 0;
-                    this.theFolk.theEntity.field_70179_y = 0;
+            } else {
+                int dist = this.theFolk.location.getDistanceTo(this.farm.primaryXYZ);
+                if (dist < 3) {
+                    if (this.theFolk.theEntity != null) {
+                        this.theFolk.theEntity.field_70159_w = 0;
+                        this.theFolk.theEntity.field_70179_y = 0;
+                    }
+
+                    this.onRoute = false;
+                    this.theStage = Stage.COLLECTINGMEAT;
+                    this.step = 1;
+                    this.theFolk.stayPut = true;
+                    return;
                 }
 
-                this.onRoute = false;
-                this.theStage = Stage.COLLECTINGMEAT;
-                this.step = 1;
-                this.theFolk.stayPut = true;
-                return;
+                if (this.theFolk.destination == null) {
+                    this.onRoute = false;
+                }
             }
-
-            if (this.theFolk.destination == null) {
-                this.onRoute = false;
-            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageGoingToFarm出错了：" + e.getMessage());
         }
 
     }
 
     private void stageCollectingMeat() {
-        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Collecting");
-        this.theFolk.action = FolkAction.ATWORK;
-        if (this.step == 1) {
-            this.chestsAtFarm.clear();
-            this.chestsAtFarm = inventoriesFindClosest(this.farm.primaryXYZ, 5);
-            if (this.chestsAtFarm.size() > 0) {
-                this.step = 2;
+        try {
+            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Collecting");
+            this.theFolk.action = FolkAction.ATWORK;
+            if (this.step == 1) {
+                this.chestsAtFarm.clear();
+                this.chestsAtFarm = inventoriesFindClosest(this.farm.primaryXYZ, 5);
+                if (this.chestsAtFarm.size() > 0) {
+                    this.step = 2;
+                }
+            } else if (this.step == 2) {
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.field_151076_bf, 1, 640), (Block)null);
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.field_151147_al, 1, 640), (Block)null);
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.field_151082_bd, 1, 640), (Block)null);
+                this.step = 3;
+            } else if (this.step == 3) {
+                this.theStage = Stage.GOINGTOMEATFARM;
             }
-        } else if (this.step == 2) {
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.field_151076_bf, 1, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.field_151147_al, 1, 640), (Block)null);
-            this.inventoriesTransferToFolk(this.theFolk.inventory, this.chestsAtFarm, new ItemStack(Items.field_151082_bd, 1, 640), (Block)null);
-            this.step = 3;
-        } else if (this.step == 3) {
-            this.theStage = Stage.GOINGTOMEATFARM;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageCollectingMeat出错了：" + e.getMessage());
         }
+
 
     }
 
     private void stageGoBackToStore() {
-        this.theFolk.action = FolkAction.ATWORK;
-        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Taking");
-        if (!this.onRoute) {
-            this.onRoute = true;
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
-        } else {
-            double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            if (dist < 2) {
-                this.onRoute = false;
-                if (this.theFolk.theEntity != null) {
-                    this.theFolk.theEntity.field_70159_w = 0;
-                    this.theFolk.theEntity.field_70179_y = 0;
+        try {
+            this.theFolk.action = FolkAction.ATWORK;
+            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Taking");
+            if (!this.onRoute) {
+                this.onRoute = true;
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+            } else {
+                double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                if (dist < 2) {
+                    this.onRoute = false;
+                    if (this.theFolk.theEntity != null) {
+                        this.theFolk.theEntity.field_70159_w = 0;
+                        this.theFolk.theEntity.field_70179_y = 0;
+                    }
+
+                    this.theFolk.stayPut = true;
+                    this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Unloading");
+                    int meat1 = this.getInventoryCount(this.theFolk, Items.field_151147_al);
+                    int meat2 = this.getInventoryCount(this.theFolk, Items.field_151076_bf);
+                    int meat3 = this.getInventoryCount(this.theFolk, Items.field_151082_bd);
+                    this.pay = (float)((double)(meat1 + meat2 + meat3) * 0.03D);
+                    this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
+                    this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.chestsAtShop, (ItemStack)null);
+                    this.theStage = Stage.SELLINGMEAT;
+                    this.step = 1;
+                    return;
                 }
 
-                this.theFolk.stayPut = true;
-                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Unloading");
-                int meat1 = this.getInventoryCount(this.theFolk, Items.field_151147_al);
-                int meat2 = this.getInventoryCount(this.theFolk, Items.field_151076_bf);
-                int meat3 = this.getInventoryCount(this.theFolk, Items.field_151082_bd);
-                this.pay = (float)((double)(meat1 + meat2 + meat3) * 0.03D);
-                this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
-                this.inventoriesTransferFromFolk(this.theFolk.inventory, this.chestsAtShop, (ItemStack)null);
-                this.theStage = Stage.SELLINGMEAT;
-                this.step = 1;
-                return;
+                if (this.theFolk.destination == null) {
+                    this.onRoute = false;
+                }
             }
-
-            if (this.theFolk.destination == null) {
-                this.onRoute = false;
-            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageGoBackToStore出错了：" + e.getMessage());
         }
-
     }
 
     private void stageSellingMeat() {
-        this.theFolk.action = FolkAction.ATWORK;
-        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Selling");
-        if (this.step == 1) {
-            this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
-            this.openCloseChest((IInventory)this.chestsAtShop.get(0), 2000);
-            if (this.pay > 0.0F) {
-                GameStates var10000 = ModSimReloaded.states;
-                var10000.credits -= this.pay;
-                ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.butcher.collected") + ModSimReloaded.displayMoney(this.pay) + I18n.func_135052_a("container.sim.job.credits"));
-                this.mc.field_71441_e.func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
-            }
-
-            this.step = 2;
-        } else if (this.step == 2) {
-            if (this.mc.func_71401_C().field_71305_c[0].func_72820_D() % 24000L > 11600L) {
-                this.step = 3;
-            }
-
-            this.theFolk.updateLocationFromEntity();
-            double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            if (dist > 8) {
-                this.theFolk.beamMeTo(this.theFolk.employedAt);
-            }
-        } else if (this.step == 3) {
-            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Closing");
-            int sell = 0;
-            boolean notEnough = false;
-            ItemStack piece = null;
-            this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
-
-            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151147_al, 1), false, false);
-                if (piece == null) {
-                    piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151076_bf, 1), false, false);
+        try {
+            this.theFolk.action = FolkAction.ATWORK;
+            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Selling");
+            if (this.step == 1) {
+                this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
+                this.openCloseChest((IInventory)this.chestsAtShop.get(0), 2000);
+                if (this.pay > 0.0F) {
+                    GameStates var10000 = ModSimReloaded.states;
+                    var10000.credits -= this.pay;
+                    ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.butcher.collected") + ModSimReloaded.displayMoney(this.pay) + I18n.func_135052_a("container.sim.job.credits"));
+                    this.mc.field_71441_e.func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
                 }
 
-                if (piece == null) {
-                    piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151082_bd, 1), false, false);
+                this.step = 2;
+            } else if (this.step == 2) {
+                if (this.mc.func_71401_C().field_71305_c[0].func_72820_D() % 24000L > 11600L) {
+                    this.step = 3;
                 }
 
-                if (piece != null) {
-                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
-                    folk.levelFood = 10;
-                    ++sell;
+                this.theFolk.updateLocationFromEntity();
+                double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                if (dist > 8) {
+                    this.theFolk.beamMeTo(this.theFolk.employedAt);
                 }
-            }
+            } else if (this.step == 3) {
+                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Closing");
+                int sell = 0;
+                boolean notEnough = false;
+                ItemStack piece = null;
+                this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
 
-            if (sell > 0) {
-                ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.butcher.has_sold") + sell + I18n.func_135052_a("container.sim.job.butcher.folks"));
-            }
+                for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                    piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151147_al, 1), false, false);
+                    if (piece == null) {
+                        piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151076_bf, 1), false, false);
+                    }
 
-            this.step = 4;
-        } else if (this.step == 4) {
+                    if (piece == null) {
+                        piece = inventoriesGet(this.chestsAtShop, new ItemStack(Items.field_151082_bd, 1), false, false);
+                    }
+
+                    if (piece != null) {
+                        FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                        folk.levelFood = 10;
+                        ++sell;
+                    }
+                }
+
+                if (sell > 0) {
+                    ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.butcher.has_sold") + sell + I18n.func_135052_a("container.sim.job.butcher.folks"));
+                }
+
+                this.step = 4;
+            } else if (this.step == 4) {
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-
     }
 
+    /**
+     * 获取当前肉场
+     * @return
+     */
     private Building getCurrentFarm() {
         boolean found = false;
+        try {
+            while(!found) {
+                try {
+                    Building farm = (Building) ModSimReloaded.theBuildings.get(this.currentFarmNum);
+                    //养牛场
+                    String cattleFarm=I18n.func_135052_a("container.sim.gui_contains_Cattle_Farm");
+                    String pigFarm=I18n.func_135052_a("container.sim.gui_contains_Pig_Farm");
+                    String chickenFarm=I18n.func_135052_a("container.sim.gui_contains_Chicken_Farm");
 
-        while(!found) {
-            try {
-                Building farm = (Building) ModSimReloaded.theBuildings.get(this.currentFarmNum);
-                if (farm.displayNameWithoutPK.contains("Cattle Farm") || farm.displayNameWithoutPK.contains("Pig Farm") || farm.displayNameWithoutPK.contains("Chicken Farm")) {
-                    found = true;
+                    if (farm.displayNameWithoutPK.contains(cattleFarm) || farm.displayNameWithoutPK.contains(pigFarm) || farm.displayNameWithoutPK.contains(chickenFarm)) {
+                        found = true;
+                        ++this.currentFarmNum;
+                        return farm;
+                    }
+
                     ++this.currentFarmNum;
-                    return farm;
-                }
-
-                ++this.currentFarmNum;
-                if (this.currentFarmNum > ModSimReloaded.theBuildings.size() - 1) {
+                    if (this.currentFarmNum > ModSimReloaded.theBuildings.size() - 1) {
+                        ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.Butcher_today"));
+                        return null;
+                    }
+                } catch (Exception var3) {
                     return null;
                 }
-            } catch (Exception var3) {
-                return null;
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-
         return null;
     }
 
     @Override
     public void onArrivedAtWork() {
-        //int dist = false;
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Arrived");
-            this.theStage = Stage.ARRIVEDATSHOP;
-            this.currentFarmNum = 0;
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.butcher.Arrived");
+                this.theStage = Stage.ARRIVEDATSHOP;
+                this.currentFarmNum = 0;
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-
     }
 
 }

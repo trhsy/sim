@@ -3,6 +3,7 @@ package com.trhsy.sim.common.block;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.Material;
@@ -39,9 +40,14 @@ public class BlockCopperOre extends BlockOre {
      */
     @Override
     public int getExpDrop(IBlockAccess iBlockAccess, BlockPos blockPos, int p_getExpDrop_3_) {
-        IBlockState state = iBlockAccess.func_180495_p(blockPos);
-        Random rand = iBlockAccess instanceof World ? ((World)iBlockAccess).field_73012_v : new Random();
-        int i = MathHelper.func_76136_a(rand, 0, 7);
+        int i=0;
+        try {
+            IBlockState state = iBlockAccess.func_180495_p(blockPos);
+            Random rand = iBlockAccess instanceof World ? ((World)iBlockAccess).field_73012_v : new Random();
+            i = MathHelper.func_76136_a(rand, 0, 7);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("铜矿getExpDrop出错了：" + e.getMessage());
+        }
         return i;
     }
 

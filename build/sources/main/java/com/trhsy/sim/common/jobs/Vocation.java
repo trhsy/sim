@@ -120,13 +120,13 @@ public enum Vocation {
         } else if (this == MERCHANT) {
             return I18n.format("container.sim.Vocation11");
         } else if (this == BUTCHER) {
-            return I18n.format("container.sim.Vocation12");
+            return I18n.format("container.sim.Vocation15");
         } else if (this == PIGFARMER) {
             return I18n.format("container.sim.Vocation13");
         } else if (this == CATTLEFARMER) {
-            return I18n.format("container.sim.Vocation14");
+            return I18n.format("container.sim.Vocation12");
         } else if (this == CHICKENFARMER) {
-            return I18n.format("container.sim.Vocation15");
+            return I18n.format("container.sim.Vocation14");
         } else if (this == TERRAFORMER) {
             return I18n.format("container.sim.Vocation16");
         } else if (this == GLASSMAKER) {

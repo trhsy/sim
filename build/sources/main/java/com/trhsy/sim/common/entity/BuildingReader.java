@@ -108,36 +108,45 @@ public class BuildingReader implements Serializable {
     int block26Count = 0;
 
     public BuildingReader(String fname, String theType) {
-        this.type = theType;
-        this.displayName = fname;
-        this.buildingComplete = false;
-        if (this.requirements == null) {
-            this.requirements = new HashMap();
+        try {
+            this.type = theType;
+            this.displayName = fname;
+            this.buildingComplete = false;
+            if (this.requirements == null) {
+                this.requirements = new HashMap();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("BuildingReader出错了：" + e.getMessage());
         }
-
     }
 
     public BuildingReader(String fname, String theType, V3 pxyz, V3 lxyz, boolean isComplete) {
-        this.type = theType;
-        this.displayName = fname;
-        this.primaryXYZ = pxyz;
-        this.livingXYZ = lxyz;
-        this.buildingComplete = isComplete;
-        if (this.requirements == null) {
-            this.requirements = new HashMap();
+        try {
+            this.type = theType;
+            this.displayName = fname;
+            this.primaryXYZ = pxyz;
+            this.livingXYZ = lxyz;
+            this.buildingComplete = isComplete;
+            if (this.requirements == null) {
+                this.requirements = new HashMap();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("BuildingReader出错了：" + e.getMessage());
         }
-
     }
 
     public void removeTennant(String tennant) {
-        for(int t = 0; t < this.tenants.size(); ++t) {
-            String ten = (String)this.tenants.get(t);
-            if (ten.contentEquals(tennant)) {
-                this.tenants.remove(t);
-                break;
+        try {
+            for (int t = 0; t < this.tenants.size(); ++t) {
+                String ten = (String) this.tenants.get(t);
+                if (ten.contentEquals(tennant)) {
+                    this.tenants.remove(t);
+                    break;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("removeTennant出错了：" + e.getMessage());
         }
-
     }
 
     private void loadStructure() {
@@ -209,13 +218,13 @@ public class BuildingReader implements Serializable {
             }
 
             this.blocksInBuilding = 0;
-            File f = new File(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
                 ModSimReloaded.log.warn("找不到文件");
                 return;
             }
 
-            FileInputStream fstream = new FileInputStream(UpdateChecker.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
+            FileInputStream fstream = new FileInputStream(ModSimReloaded.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine = br.readLine().toString().toLowerCase().trim();
@@ -230,7 +239,7 @@ public class BuildingReader implements Serializable {
             lineSplit = strLine.split(";");
 
             int akeyNumber;
-            for(akeyNumber = 0; akeyNumber < lineSplit.length; ++akeyNumber) {
+            for (akeyNumber = 0; akeyNumber < lineSplit.length; ++akeyNumber) {
                 String[] k = lineSplit[akeyNumber].split(",");
                 blockKey.put(k[0], k[1]);
                 if (k[0].toUpperCase().contentEquals("AU")) {
@@ -241,12 +250,12 @@ public class BuildingReader implements Serializable {
             akeyNumber = 0;
             //int bblockNumber = false;
 
-            for(int i = 0; i < this.layerCount; ++i) {
+            for (int i = 0; i < this.layerCount; i++) {
                 strLine = br.readLine().trim();
                 int bblockNumber = 0;
 
-                for(int wid = 0; wid < this.width; ++wid) {
-                    for(int len = 0; len < this.length; ++len) {
+                for (int wid = 0; wid < this.width; ++wid) {
+                    for (int len = 0; len < this.length; ++len) {
                         try {
                             String letter = strLine.substring(bblockNumber, bblockNumber + 1);
                             char cha = letter.charAt(0);
@@ -259,7 +268,7 @@ public class BuildingReader implements Serializable {
                             } else if (cha >= '0' && cha <= '9') {
                                 this.structure[akeyNumber] = "air," + cha;
                             } else {
-                                this.structure[akeyNumber] = (String)blockKey.get(letter);
+                                this.structure[akeyNumber] = (String) blockKey.get(letter);
                                 String[] sbid = this.structure[akeyNumber].split(",");
                                 Block bid = Block.getBlockFromName(sbid[0]);
                                 if (this.block1 == sbid[0]) {
@@ -401,7 +410,7 @@ public class BuildingReader implements Serializable {
                                 ++this.blocksInBuilding;
                             }
 
-                            this.rent = (float)this.blocksInBuilding * 0.01F;
+                            this.rent = (float) this.blocksInBuilding * 0.01F;
                             this.corpTax = 3.0F;
                         } catch (Exception var18) {
                             ModSimReloaded.log.error("Caught exception: " + var18.getMessage());
@@ -544,11 +553,11 @@ public class BuildingReader implements Serializable {
                 it = this.requirements.entrySet().iterator();
                 got = false;
 
-                while(it.hasNext()) {
-                    pairs = (Map.Entry)it.next();
-                    is = (ItemStack)pairs.getKey();
+                while (it.hasNext()) {
+                    pairs = (Map.Entry) it.next();
+                    is = (ItemStack) pairs.getKey();
                     if (is == theBlock) {
-                        val = (Integer)pairs.getValue();
+                        val = (Integer) pairs.getValue();
                         ++val;
                         pairs.setValue(val);
                         got = true;
@@ -578,11 +587,11 @@ public class BuildingReader implements Serializable {
                     it = this.requirements.entrySet().iterator();
                     got = false;
 
-                    while(it.hasNext()) {
-                        pairs = (Map.Entry)it.next();
-                        is = (ItemStack)pairs.getKey();
+                    while (it.hasNext()) {
+                        pairs = (Map.Entry) it.next();
+                        is = (ItemStack) pairs.getKey();
                         if (is == theBlock) {
-                            val = (Integer)pairs.getValue();
+                            val = (Integer) pairs.getValue();
                             ++val;
                             pairs.setValue(val);
                             got = true;

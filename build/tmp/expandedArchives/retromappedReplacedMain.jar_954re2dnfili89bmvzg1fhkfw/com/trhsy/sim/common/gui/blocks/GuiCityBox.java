@@ -4,6 +4,7 @@ import com.trhsy.sim.common.entity.Building;
 import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.gui.other.GuiBeamPlayerTo;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +26,14 @@ public class GuiCityBox extends GuiScreen {
     GuiCityBoxTaxes taxesGui = null;
 
     public GuiCityBox(V3 location, EntityPlayer thePlayer) {
-        this.location = location.clone();
-        Building.loadAllBuildings();
-        this.theBuilding = Building.getBuilding(location);
-        this.playerWhoClickedIt = thePlayer;
+        try {
+            this.location = location.clone();
+            Building.loadAllBuildings();
+            this.theBuilding = Building.getBuilding(location);
+            this.playerWhoClickedIt = thePlayer;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiCityBox出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -37,12 +42,17 @@ public class GuiCityBox extends GuiScreen {
     }
     @Override
     public void func_73866_w_() {
-        this.field_146292_n.clear();
-        this.field_146292_n.add(new GuiButton(0, 5, 5, 50, 20, "完成"));
-        this.field_146292_n.add(new GuiButton(30, this.field_146294_l - 110, this.field_146295_m - 30, 100, 20, "把我传送到..."));
-        this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 50, this.field_146295_m / 2 - 70, 100, 20, "税和租金"));
-        this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 50, this.field_146295_m / 2 - 30, 100, 20, "工作时间"));
-        this.field_146292_n.add(new GuiButton(4, this.field_146294_l / 2 - 50, this.field_146295_m / 2 + 10, 100, 20, "信息"));
+        try {
+            this.field_146292_n.clear();
+            this.field_146292_n.add(new GuiButton(0, 5, 5, 50, 20, "完成"));
+            this.field_146292_n.add(new GuiButton(30, this.field_146294_l - 110, this.field_146295_m - 30, 100, 20, "把我传送到..."));
+            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 50, this.field_146295_m / 2 - 70, 100, 20, "税和租金"));
+            this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 50, this.field_146295_m / 2 - 30, 100, 20, "工作时间"));
+            this.field_146292_n.add(new GuiButton(4, this.field_146294_l / 2 - 50, this.field_146295_m / 2 + 10, 100, 20, "信息"));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -57,7 +67,7 @@ public class GuiCityBox extends GuiScreen {
             this.func_73732_a(this.field_146289_q, "城市控制面板", this.field_146294_l / 2, 17, 16777215);
             super.func_73863_a(i, j, f);
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
         }
 
     }

@@ -5,6 +5,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.gui.blocks.GuiBuildingConstructor;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -40,11 +41,14 @@ public class BlockConstructorBox extends Block {
      */
     @Override
     public void func_176213_c(World world, BlockPos blockPos, IBlockState iBlockState) {
-        if (!world.field_72995_K) {
-            world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
+        try {
+            if (!world.field_72995_K) {
+                world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
+            }
+            super.func_176213_c(world, blockPos, iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("建筑箱onBlockAdded出错了：" + e.getMessage());
         }
-
-        super.func_176213_c(world, blockPos, iBlockState);
     }
 
     /**
@@ -55,43 +59,51 @@ public class BlockConstructorBox extends Block {
      */
     @Override
     public void func_176206_d(World world, BlockPos blockPos, IBlockState iBlockState) {
-        if (!world.field_72995_K) {
-            world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+        try {
+            if (!world.field_72995_K) {
+                world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            }
+            FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
+            if (theFolk != null) {
+                theFolk.selfFire();
+            }
+            super.func_176206_d(world, blockPos, iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("建筑箱onBlockDestroyedByPlayer出错了：" + e.getMessage());
         }
 
-        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
-        if (theFolk != null) {
-            theFolk.selfFire();
-        }
-
-        super.func_176206_d(world, blockPos, iBlockState);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        int px = (int)Math.floor(thePlayer.field_70165_t);
-        int py = (int)Math.floor(thePlayer.field_70163_u);
-        int pz = (int)Math.floor(thePlayer.field_70161_v);
-        if (blockPos.func_177952_p() == pz) {
-            if (px < blockPos.func_177958_n()) {
-                this.buildDirection = "-x";
-            } else {
-                this.buildDirection = "+x";
+        try {
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            int px = (int)Math.floor(thePlayer.field_70165_t);
+            int py = (int)Math.floor(thePlayer.field_70163_u);
+            int pz = (int)Math.floor(thePlayer.field_70161_v);
+            if (blockPos.func_177952_p() == pz) {
+                if (px < blockPos.func_177958_n()) {
+                    this.buildDirection = "-x";
+                } else {
+                    this.buildDirection = "+x";
+                }
+            } else if (blockPos.func_177958_n() == px) {
+                if (pz < blockPos.func_177952_p()) {
+                    this.buildDirection = "-z";
+                } else {
+                    this.buildDirection = "+z";
+                }
             }
-        } else if (blockPos.func_177958_n() == px) {
-            if (pz < blockPos.func_177952_p()) {
-                this.buildDirection = "-z";
-            } else {
-                this.buildDirection = "+z";
-            }
-        }
 
-        V3 loc = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK);
-        Minecraft mc = Minecraft.func_71410_x();
-        GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
-        mc.func_147108_a(ui);
+            V3 loc = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK);
+            Minecraft mc = Minecraft.func_71410_x();
+            GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
+            mc.func_147108_a(ui);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("建筑箱onBlockActivated出错了：" + e.getMessage());
+            return false;
+        }
         return true;
     }
 }

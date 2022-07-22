@@ -4,6 +4,7 @@ package com.trhsy.sim.common.entity;/**
  * @apiNote
  */
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
@@ -43,90 +44,111 @@ public class PricesForBlocks implements Serializable {
 
     public static Float getPrice(Block block, boolean isBuying) {
         float base = 0.0F;
-        if (block == Blocks.field_150344_f) {
-            base = basePricePlanks;
-        } else if (block == Blocks.field_150364_r) {
-            base = basePriceLogs;
-        } else if (block == Blocks.field_150347_e) {
-            base = basePriceCobblestone;
-        } else if (block == Blocks.field_150348_b) {
-            base = basePriceStone;
-        } else if (block == Blocks.field_150359_w) {
-            base = basePriceGlass;
-        } else if (block == Blocks.field_150325_L) {
-            base = basePriceWool;
-        } else if (block == Blocks.field_150336_V) {
-            base = basePriceBrick;
-        } else if (block == Blocks.field_150417_aV) {
-            base = basePriceStonebrick;
-        } else if (block == Blocks.field_180407_aO||block == Blocks.field_180408_aP||block == Blocks.field_180404_aQ||block == Blocks.field_180403_aR||block == Blocks.field_180406_aS||block == Blocks.field_180405_aT) {
-            base = basePriceFence;
+        try {
+            if (block == Blocks.field_150344_f) {
+                base = basePricePlanks;
+            } else if (block == Blocks.field_150364_r) {
+                base = basePriceLogs;
+            } else if (block == Blocks.field_150347_e) {
+                base = basePriceCobblestone;
+            } else if (block == Blocks.field_150348_b) {
+                base = basePriceStone;
+            } else if (block == Blocks.field_150359_w) {
+                base = basePriceGlass;
+            } else if (block == Blocks.field_150325_L) {
+                base = basePriceWool;
+            } else if (block == Blocks.field_150336_V) {
+                base = basePriceBrick;
+            } else if (block == Blocks.field_150417_aV) {
+                base = basePriceStonebrick;
+            } else if (block == Blocks.field_180407_aO||block == Blocks.field_180408_aP||block == Blocks.field_180404_aQ||block == Blocks.field_180403_aR||block == Blocks.field_180406_aS||block == Blocks.field_180405_aT) {
+                base = basePriceFence;
+            }
+
+            base *= 64.0F;
+            if (isBuying) {
+                base = (float)((double)base + (double)base * 1.12D);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getPrice出错了：" + e.getMessage());
         }
 
-        base *= 64.0F;
-        if (isBuying) {
-            base = (float)((double)base + (double)base * 1.12D);
-        }
 
         return base;
     }
 
     public static void setPrice(Block block, float newPrice) {
-        if (block == Blocks.field_150344_f) {
-            basePricePlanks = newPrice;
-        } else if (block == Blocks.field_150364_r) {
-            basePriceLogs = newPrice;
-        } else if (block == Blocks.field_150347_e) {
-            basePriceCobblestone = newPrice;
-        } else if (block == Blocks.field_150348_b) {
-            basePriceStone = newPrice;
-        } else if (block == Blocks.field_150359_w) {
-            basePriceGlass = newPrice;
-        } else if (block == Blocks.field_150325_L) {
-            basePriceWool = newPrice;
-        } else if (block == Blocks.field_150336_V) {
-            basePriceBrick = newPrice;
-        } else if (block == Blocks.field_150417_aV) {
-            basePriceStonebrick = newPrice;
-        } else if (block == Blocks.field_180407_aO||block == Blocks.field_180408_aP||block == Blocks.field_180404_aQ||block == Blocks.field_180403_aR||block == Blocks.field_180406_aS||block == Blocks.field_180405_aT) {
-            basePriceFence = newPrice;
+        try {
+            if (block == Blocks.field_150344_f) {
+                basePricePlanks = newPrice;
+            } else if (block == Blocks.field_150364_r) {
+                basePriceLogs = newPrice;
+            } else if (block == Blocks.field_150347_e) {
+                basePriceCobblestone = newPrice;
+            } else if (block == Blocks.field_150348_b) {
+                basePriceStone = newPrice;
+            } else if (block == Blocks.field_150359_w) {
+                basePriceGlass = newPrice;
+            } else if (block == Blocks.field_150325_L) {
+                basePriceWool = newPrice;
+            } else if (block == Blocks.field_150336_V) {
+                basePriceBrick = newPrice;
+            } else if (block == Blocks.field_150417_aV) {
+                basePriceStonebrick = newPrice;
+            } else if (block == Blocks.field_180407_aO||block == Blocks.field_180408_aP||block == Blocks.field_180404_aQ||block == Blocks.field_180403_aR||block == Blocks.field_180406_aS||block == Blocks.field_180405_aT) {
+                basePriceFence = newPrice;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setPrice出错了：" + e.getMessage());
         }
+
 
     }
 
     public static void adjustPrice(Block block, boolean afterBuying) {
-        Random r = new Random();
-        float cprice;
-        if (afterBuying) {
-            cprice = getPrice(block, false) / 64.0F;
-            cprice += r.nextFloat() / 100.0F;
-            if ((double)cprice > 0.99D) {
-                cprice = 0.99F;
+        try {
+            Random r = new Random();
+            float cprice;
+            if (afterBuying) {
+                cprice = getPrice(block, false) / 64.0F;
+                cprice += r.nextFloat() / 100.0F;
+                if ((double)cprice > 0.99D) {
+                    cprice = 0.99F;
+                }
+
+                setPrice(block, cprice);
+            } else {
+                cprice = getPrice(block, false) / 64.0F;
+                cprice -= r.nextFloat() / 100.0F;
+                if ((double)cprice < 0.012D) {
+                    cprice = 0.012F;
+                }
+
+                setPrice(block, cprice);
             }
 
-            setPrice(block, cprice);
-        } else {
-            cprice = getPrice(block, false) / 64.0F;
-            cprice -= r.nextFloat() / 100.0F;
-            if ((double)cprice < 0.012D) {
-                cprice = 0.012F;
+            if (block == Blocks.field_150344_f) {
+                setPrice(Blocks.field_150364_r, cprice * 4.0F);
             }
 
-            setPrice(block, cprice);
+            if (block == Blocks.field_150364_r) {
+                setPrice(Blocks.field_150344_f, cprice / 4.0F);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("adjustPrice出错了：" + e.getMessage());
         }
 
-        if (block == Blocks.field_150344_f) {
-            setPrice(Blocks.field_150364_r, cprice * 4.0F);
-        }
-
-        if (block == Blocks.field_150364_r) {
-            setPrice(Blocks.field_150344_f, cprice / 4.0F);
-        }
 
     }
 
     public static String formatPrice(float price) {
-        NumberFormat formatter = new DecimalFormat("#0.00");
-        return formatter.format((double)price);
+        String formatPrice="";
+        try {
+            NumberFormat formatter = new DecimalFormat("#0.00");
+            formatPrice=formatter.format((double)price);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("formatPrice出错了：" + e.getMessage());
+        }
+        return formatPrice;
     }
 }

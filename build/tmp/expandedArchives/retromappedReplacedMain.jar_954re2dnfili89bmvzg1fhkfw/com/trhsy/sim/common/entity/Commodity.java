@@ -7,63 +7,82 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * 商品
+ */
 public class Commodity {
+    /**商品**/
     public ItemStack theItemStack = null;
+    /**数量**/
     public int quantity = 0;
+    /**单价**/
     public float priceEach = 0.0F;
+    /**可用商品**/
     private static ArrayList<ItemStack> availableItems = new ArrayList();
 
     public Commodity(ItemStack is, int qty, float price) {
-        this.theItemStack = is;
-        this.quantity = qty;
-        this.priceEach = price;
+        try {
+            this.theItemStack = is;
+            this.quantity = qty;
+            this.priceEach = price;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("Commodity出错了：" + e.getMessage());
+        }
     }
 
     public static void refreshAvailableCommoditities() {
-        if (availableItems.size() == 0) {
-            setupAvailableItems();
-        }
+        try {
+            if (availableItems.size() == 0) {
+                setupAvailableItems();
+            }
 
-        Random rand = new Random();
-        ModSimReloaded.theCommodities.clear();
-        int count = rand.nextInt(3) + 2;
+            Random rand = new Random();
+            ModSimReloaded.theCommodities.clear();
+            int count = rand.nextInt(3) + 2;
 
-        for(int it = 0; it < count; ++it) {
-            int index = rand.nextInt(availableItems.size() - 1);
-            int qty = rand.nextInt(10) + 1;
-            float price = 300.0F + (float) rand.nextInt(300) + rand.nextFloat() * 100.0F;
-            boolean gotIt = false;
+            for(int it = 0; it < count; it++) {
+                int index = rand.nextInt(availableItems.size() - 1);
+                int qty = rand.nextInt(10) + 1;
+                float price = 300.0F + (float) rand.nextInt(300) + rand.nextFloat() * 100.0F;
+                boolean gotIt = false;
 
-            for (int shit = 0; shit < ModSimReloaded.theCommodities.size(); ++shit) {
-                Commodity cshit = (Commodity) ModSimReloaded.theCommodities.get(shit);
-                if (cshit.theItemStack.func_82833_r().contentEquals(((ItemStack) availableItems.get(index)).func_82833_r())) {
-                    gotIt = true;
-                    break;
+                for (int shit = 0; shit < ModSimReloaded.theCommodities.size(); ++shit) {
+                    Commodity cshit = (Commodity) ModSimReloaded.theCommodities.get(shit);
+                    if (cshit.theItemStack.func_82833_r().contentEquals(((ItemStack) availableItems.get(index)).func_82833_r())) {
+                        gotIt = true;
+                        break;
+                    }
+                }
+
+                if (!gotIt) {
+                    ModSimReloaded.theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
                 }
             }
-
-            if (!gotIt) {
-                ModSimReloaded.theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
-            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("refreshAvailableCommoditities出错了：" + e.getMessage());
         }
-
     }
 
     private static void setupAvailableItems() {
-        availableItems.clear();
-        //末影珍珠
-        availableItems.add(new ItemStack(Items.field_151079_bi));
-        //火焰棒
-        availableItems.add(new ItemStack(Items.field_151072_bj));
-        //骨
-        availableItems.add(new ItemStack(Items.field_151103_aS));
-        //火药
-        availableItems.add(new ItemStack(Items.field_151016_H));
-        //粘液球
-        availableItems.add(new ItemStack(Items.field_151123_aH));
-        //细绳
-        availableItems.add(new ItemStack(Items.field_151007_F));
-        //蜘蛛眼
-        availableItems.add(new ItemStack(Items.field_151070_bp));
+        try {
+            availableItems.clear();
+            //末影珍珠
+            availableItems.add(new ItemStack(Items.field_151079_bi));
+            //火焰棒
+            availableItems.add(new ItemStack(Items.field_151072_bj));
+            //骨
+            availableItems.add(new ItemStack(Items.field_151103_aS));
+            //火药
+            availableItems.add(new ItemStack(Items.field_151016_H));
+            //粘液球
+            availableItems.add(new ItemStack(Items.field_151123_aH));
+            //细绳
+            availableItems.add(new ItemStack(Items.field_151007_F));
+            //蜘蛛眼
+            availableItems.add(new ItemStack(Items.field_151070_bp));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setupAvailableItems出错了：" + e.getMessage());
+        }
+
     }
 }

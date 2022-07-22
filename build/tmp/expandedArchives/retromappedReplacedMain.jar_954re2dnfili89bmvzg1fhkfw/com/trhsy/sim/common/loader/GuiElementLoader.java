@@ -16,8 +16,12 @@ public class GuiElementLoader implements IGuiHandler {
      * 注册GUI
      */
     public GuiElementLoader() {
-        // 模组实例，IGuiHandler本身
-        NetworkRegistry.INSTANCE.registerGuiHandler(ModSim.instance, this);
+        try {
+            // 模组实例，IGuiHandler本身
+            NetworkRegistry.INSTANCE.registerGuiHandler(ModSim.instance, this);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiElementLoader出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -33,12 +37,17 @@ public class GuiElementLoader implements IGuiHandler {
      */
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer entityPlayer, World world, int i1, int i2, int i3) {
-        switch (ID) {
-            case GUI_DEMO:
-                //return new ContainerDemo();
-            default:
-                return null;
+        try {
+            switch (ID) {
+                case GUI_DEMO:
+                    //return new ContainerDemo();
+                default:
+                    return null;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getServerGuiElement出错了：" + e.getMessage());
         }
+        return null;
     }
 
     /**
@@ -54,11 +63,16 @@ public class GuiElementLoader implements IGuiHandler {
      */
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer entityPlayer, World world, int i1, int i2, int i3) {
-        switch (ID) {
-            case GUI_DEMO:
-                //return new ContainerDemo();
-            default:
-                return null;
+        try {
+            switch (ID) {
+                case GUI_DEMO:
+                    //return new ContainerDemo();
+                default:
+                    return null;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getClientGuiElement出错了：" + e.getMessage());
         }
+        return null;
     }
 }

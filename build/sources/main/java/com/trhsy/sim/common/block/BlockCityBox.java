@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.gui.blocks.GuiCityBox;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,18 +31,23 @@ public class BlockCityBox extends Block {
         this.setHardness(10.0F);
         this.setResistance(1.0F);
         this.setUnlocalizedName("city_box");
-        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1.0F, 1.0F);
-        GuiCityBox ui = null;
-        Minecraft mc = Minecraft.getMinecraft();
-        mc.setIngameNotInFocus();
-        ui = new GuiCityBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
-        mc.displayGuiScreen(ui);
+        try {
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1.0F, 1.0F);
+            GuiCityBox ui = null;
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.setIngameNotInFocus();
+            ui = new GuiCityBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
+            mc.displayGuiScreen(ui);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("城市方块onBlockActivated出错了：" + e.getMessage());
+            return false;
+        }
         return true;
     }
 

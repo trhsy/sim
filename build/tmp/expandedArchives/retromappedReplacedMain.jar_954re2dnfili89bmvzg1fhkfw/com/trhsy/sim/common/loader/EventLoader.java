@@ -2,6 +2,7 @@ package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.entity.CommonTickHandler;
+import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -35,10 +36,14 @@ public class EventLoader {
     public static final EventBus EVENT_BUS = new EventBus();
 
     public EventLoader() {
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
-        MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
-        EventLoader.EVENT_BUS.register(this);
+        try {
+            MinecraftForge.EVENT_BUS.register(this);
+            MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
+            MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
+            EventLoader.EVENT_BUS.register(this);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("EventLoader出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -50,19 +55,23 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void onFillBucket(FillBucketEvent event) {
-        System.out.println("桶被盛装的事件");
-        //获取区块位置
-        BlockPos blockpos = event.target.func_178782_a();
-        //获取区块状态
-        IBlockState blockState = event.world.func_180495_p(blockpos);
-        //获取流体
-        Fluid fluid = FluidRegistry.lookupFluidForBlock(blockState.func_177230_c());
-        if (fluid != null && new Integer(0).equals(blockState.func_177229_b(BlockFluidBase.LEVEL))) {
-            //桶容积
-            FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
-            event.world.func_175698_g(blockpos);
-            event.result = FluidContainerRegistry.fillFluidContainer(fluidStack, event.current);
-            event.setResult(Event.Result.ALLOW);
+        //System.out.println("桶被盛装的事件");
+        try {
+            //获取区块位置
+            BlockPos blockpos = event.target.func_178782_a();
+            //获取区块状态
+            IBlockState blockState = event.world.func_180495_p(blockpos);
+            //获取流体
+            Fluid fluid = FluidRegistry.lookupFluidForBlock(blockState.func_177230_c());
+            if (fluid != null && new Integer(0).equals(blockState.func_177229_b(BlockFluidBase.LEVEL))) {
+                //桶容积
+                FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
+                event.world.func_175698_g(blockpos);
+                event.result = FluidContainerRegistry.fillFluidContainer(fluidStack, event.current);
+                event.setResult(Event.Result.ALLOW);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onFillBucket出错了：" + e.getMessage());
         }
     }
 
@@ -75,12 +84,17 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void onPlayerClickGrassBlock(PlayerRightClickGrassBlockEvent event) {
-        System.out.println("来了");
-        if (!event.world.field_72995_K) {
-            BlockPos pos = event.pos;
-            Entity tnt = new EntityTNTPrimed(event.world, pos.func_177958_n() + 0.5, pos.func_177956_o() + 0.5, pos.func_177952_p() + 0.5, null);
-            event.world.func_72838_d(tnt);
+        try {
+            if (!event.world.field_72995_K) {
+//            BlockPos pos = event.pos;
+//            Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
+//            event.world.spawnEntityInWorld(tnt);
+                FolkData.generateNewFolk(event.world);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage());
         }
+
     }
 
     /**
@@ -93,11 +107,17 @@ public class EventLoader {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        if (KeyLoader.showTime.func_151468_f()) {
-            EntityPlayer player = Minecraft.func_71410_x().field_71439_g;
-            World world = Minecraft.func_71410_x().field_71441_e;
-            player.func_145747_a(new ChatComponentTranslation("chat.sim.time", world.func_82737_E()));
+        try {
+            if (KeyLoader.showTime.func_151468_f()) {
+                EntityPlayer player = Minecraft.func_71410_x().field_71439_g;
+                World world = Minecraft.func_71410_x().field_71441_e;
+                player.func_145747_a(new ChatComponentTranslation("chat.sim.time", world.func_82737_E()));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onKeyInput出错了：" + e.getMessage());
         }
+
+
     }
 
 }

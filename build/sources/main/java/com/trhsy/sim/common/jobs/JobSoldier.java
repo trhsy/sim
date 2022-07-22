@@ -8,6 +8,7 @@ import com.trhsy.sim.common.entity.FolkData;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.entity.enums.FolkAction;
 import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
@@ -52,44 +53,57 @@ public class JobSoldier extends Job implements Serializable {
     }
 
     public JobSoldier(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                }
 
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("JobSoldier出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void resetJob() {
-        this.theStage = Stage.IDLE;
+        try {
+            this.theStage = Stage.IDLE;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
     }
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-            this.timeSinceLastRun = System.currentTimeMillis();
-            if (this.theStage == Stage.IDLE) {
-                this.theStage = Stage.ONPATROL;
-                if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            super.onUpdate();
+            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                this.timeSinceLastRun = System.currentTimeMillis();
+                if (this.theStage == Stage.IDLE) {
+                    this.theStage = Stage.ONPATROL;
+                    if (this.theFolk.destination == null) {
+                        this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    }
+                } else if (this.theStage == Stage.ONPATROL) {
+                    this.stageOnPatrol();
+                } else if (this.theStage == Stage.ATTACKING) {
+                    this.stageAttacking();
                 }
-            } else if (this.theStage == Stage.ONPATROL) {
-                this.stageOnPatrol();
-            } else if (this.theStage == Stage.ATTACKING) {
-                this.stageAttacking();
-            }
 
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
     }
 
     private void stageOnPatrol() {
+        try {
         this.theFolk.isWorking = false;
         this.theFolk.stayPut = false;
         this.theFolk.action = FolkAction.ATWORK;
@@ -125,7 +139,7 @@ public class JobSoldier extends Job implements Serializable {
 
         List list = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0, this.theFolk.employedAt.y + 1.0, this.theFolk.employedAt.z + 1.0).expand(100, 5.0, 100));
 
-        try {
+
             this.badGuy = this.findClosestHostileMob(list);
             if (this.badGuy != null) {
                 this.runDelay = 1000;
@@ -140,11 +154,14 @@ public class JobSoldier extends Job implements Serializable {
 
                 return;
             }
-        } catch (Exception var7) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageOnPatrol出错了：" + e.getMessage());
         }
-
     }
 
+    /**
+     * 阶段性进攻
+     */
     private void stageAttacking() {
         try {
             this.runDelay = 200;
@@ -191,47 +208,53 @@ public class JobSoldier extends Job implements Serializable {
 
                 }
             }
-        } catch (Exception var2) {
-            var2.printStackTrace();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageAttacking出错了：" + e.getMessage());
         }
     }
 
     private Entity findClosestHostileMob(List<Entity> mobs) {
         Entity closestBadGuy = null;
-        //int dist = true;
-        if (!this.theFolk.isSpawned()) {
-            return null;
-        } else {
-            for(int j = 0; j < mobs.size(); ++j) {
-                Entity entity1 = (Entity)mobs.get(j);
-                if (entity1 instanceof EntityMob || entity1 instanceof IMob) {
+        try {
+            if (!this.theFolk.isSpawned()) {
+                return null;
+            } else {
+                for(int j = 0; j < mobs.size(); ++j) {
+                    Entity entity1 = (Entity)mobs.get(j);
+                    if (entity1 instanceof EntityMob || entity1 instanceof IMob) {
 
-                    PathEntity path =this.theFolk.theEntity.getNavigator().getPathToXYZ(entity1.posX, entity1.posY, entity1.posZ);
-                    //PathEntity path = this.jobWorld.getEntityPathToXYZ(this.theFolk.theEntity, (int)entity1.posX, (int)entity1.posY, (int)entity1.posZ, 40.0F, true, true, true, true);
-                    if (path != null) {
-                        closestBadGuy = entity1;
-                        break;
+                        PathEntity path =this.theFolk.theEntity.getNavigator().getPathToXYZ(entity1.posX, entity1.posY, entity1.posZ);
+                        //PathEntity path = this.jobWorld.getEntityPathToXYZ(this.theFolk.theEntity, (int)entity1.posX, (int)entity1.posY, (int)entity1.posZ, 40.0F, true, true, true, true);
+                        if (path != null) {
+                            closestBadGuy = entity1;
+                            break;
+                        }
                     }
                 }
-            }
 
-            return closestBadGuy;
+                return closestBadGuy;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("findClosestHostileMob出错了：" + e.getMessage());
         }
+        return closestBadGuy;
     }
 
     @Override
     public void onArrivedAtWork() {
-        //int dist = false;
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.format("container.sim.job.soldier.farmer.Reporting");
-            this.theStage = Stage.ONPATROL;
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.format("container.sim.job.soldier.farmer.Reporting");
+                this.theStage = Stage.ONPATROL;
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
         }
-
     }
 
 

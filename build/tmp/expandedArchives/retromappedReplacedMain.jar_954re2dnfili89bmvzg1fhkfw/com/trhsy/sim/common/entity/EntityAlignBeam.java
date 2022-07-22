@@ -2,6 +2,7 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.functionality.Marker;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -14,7 +15,9 @@ public class EntityAlignBeam extends Entity {
     public EntityAlignBeam(World par1World) {
         super(par1World);
         this.field_70158_ak = true;
+        //标记棒是否已放置
         if (!BlockMarker.hasPlaced) {
+            //放置后摧毁
             this.func_70106_y();
         }
 
@@ -45,22 +48,30 @@ public class EntityAlignBeam extends Entity {
 
     @Override
     public void func_70016_h(double par1, double par3, double par5) {
-        super.func_70016_h(0, 0, 0);
+        try {
+            super.func_70016_h(0, 0, 0);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setVelocity出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
     public void func_70071_h_() {
-        if (this.caption.contentEquals("x")) {
-            this.theMarker = BlockMarker.getMarker(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK));
-            if (this.theMarker != null) {
-                this.caption = this.theMarker.caption;
+        try {
+            if (this.caption.contentEquals("x")) {
+                this.theMarker = BlockMarker.getMarker(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK));
+                if (this.theMarker != null) {
+                    this.caption = this.theMarker.caption;
+                }
             }
-        }
 
-        if (this.theMarker != null) {
-            this.field_70163_u = (double)this.theMarker.y;
+            if (this.theMarker != null) {
+                this.field_70163_u = (double)this.theMarker.y;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
-
     }
 
     @Override
@@ -68,9 +79,9 @@ public class EntityAlignBeam extends Entity {
         this.field_70145_X = true;
     }
 
-    //@Override
-    //public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
-    //}
+    @Override
+    public void func_180426_a(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
+    }
     @Override
     protected void func_70037_a(NBTTagCompound var1) {
     }

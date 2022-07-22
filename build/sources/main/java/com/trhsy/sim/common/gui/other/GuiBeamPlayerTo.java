@@ -45,85 +45,111 @@ public class GuiBeamPlayerTo extends GuiScreen {
     }
 
     private void initscreen() {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, I18n.format("container.sim.sim_gui_player_to_Cancel")));
-        int x = 10;
-        int y = 40;
-        int idx = 2;
+        try {
+            this.buttonList.clear();
+            this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, I18n.format("container.sim.sim_gui_player_to_Cancel")));
+            int x = 10;
+            int y = 40;
+            int idx = 2;
 
-        for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
-            V3 cpoint = (V3) ModSimReloaded.theCourierPoints.get(f);
-            this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
-            ++idx;
-            x += 110;
-            if (x + 110 > this.width) {
-                x = 10;
-                y += 20;
-            }
+            for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
+                V3 cpoint = (V3) ModSimReloaded.theCourierPoints.get(f);
+                this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
+                idx++;
+                x += 110;
+                if (x + 110 > this.width) {
+                    x = 10;
+                    y += 20;
+                }
 
-            if (y + 20 > this.height - 50) {
-                break;
+                if (y + 20 > this.height - 50) {
+                    break;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initscreen出错了：" + e.getMessage());
         }
-
     }
 
     @Override
     public void drawScreen(int i, int j, float f) {
-        this.drawDefaultBackground();
-        String sim_gui_BPT_Choose = I18n.format("container.sim.sim_gui_BPT_Choose");
-        this.drawCenteredString(this.fontRendererObj, sim_gui_BPT_Choose, this.width / 2, 17, 16777215);
-        if (ModSimReloaded.theCourierPoints.size() == 0) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_You"), this.width / 2, 37, 16752800);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_Place"), this.width / 2, 57, 16752800);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_to"), this.width / 2, 77, 16752800);
-        }
+        try {
+            this.drawDefaultBackground();
+            //选择要投射到的点...
+            String sim_gui_BPT_Choose = I18n.format("container.sim.sim_gui_BPT_Choose");
+            this.drawCenteredString(this.fontRendererObj, sim_gui_BPT_Choose, this.width / 2, 17, 16777215);
+            if (ModSimReloaded.theCourierPoints.size() == 0) {
+                //你没有任何信使/光束点！
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_You"), this.width / 2, 37, 16752800);
+                //向下放置一个标记棒并右键单击它
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_Place"), this.width / 2, 57, 16752800);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_player_to_to"), this.width / 2, 77, 16752800);
+            }
 
-        super.drawScreen(i, j, f);
+            super.drawScreen(i, j, f);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+        }
     }
 
     @Override
     public void actionPerformed(GuiButton guibutton) {
-        if (guibutton.enabled) {
-            if (guibutton.id == 0) {
-                this.mc.displayGuiScreen((GuiScreen)null);
-            } else {
-                String name = guibutton.displayString.trim();
-                V3 v = CourierTask.getCourierPoint(name);
-                V3 safePoint = v.clone();
-                Double var6 = safePoint.y;
-                Double var7 = safePoint.y = safePoint.y + 1;
-                ModSimReloaded.sendChat(I18n.format("container.sim.sim_gui_Beaming") + name);
-                this.mc.displayGuiScreen((GuiScreen) null);
-                ClientTickHandler.beamingPlayer = this.thePlayer;
-                ClientTickHandler.beamingStage = 1;
-                ClientTickHandler.beamingStartedAt = System.currentTimeMillis();
-                ClientTickHandler.beamingTo = safePoint.clone();
+        try {
+            if (guibutton.enabled) {
+                if (guibutton.id == 0) {
+                    this.mc.displayGuiScreen((GuiScreen)null);
+                } else {
+                    String name = guibutton.displayString.trim();
+                    V3 v = CourierTask.getCourierPoint(name);
+                    V3 safePoint = v.clone();
+                    Double var6 = safePoint.y;
+                    Double var7 = safePoint.y = safePoint.y + 1;
+                    ModSimReloaded.sendChat(I18n.format("container.sim.sim_gui_Beaming") + name);
+                    this.mc.displayGuiScreen((GuiScreen) null);
+                    ClientTickHandler.beamingPlayer = this.thePlayer;
+                    ClientTickHandler.beamingStage = 1;
+                    ClientTickHandler.beamingStartedAt = System.currentTimeMillis();
+                    ClientTickHandler.beamingTo = safePoint.clone();
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
     }
 
     public GuiButton getButtonWithId(int id) {
-        for(int x = 0; x < this.buttonList.size(); ++x) {
-            GuiButton retbut = (GuiButton)this.buttonList.get(x);
-            if (retbut.id == id) {
-                return retbut;
+        try {
+            for(int x = 0; x < this.buttonList.size(); ++x) {
+                GuiButton retbut = (GuiButton)this.buttonList.get(x);
+                if (retbut.id == id) {
+                    return retbut;
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-
         return null;
     }
 
     @Override
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
-        this.mc.setIngameFocus();
+        try {
+            Keyboard.enableRepeatEvents(false);
+            this.mc.setIngameFocus();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+        }
     }
 
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
+        try {
+            if (i == 1) {
+                this.mc.displayGuiScreen((GuiScreen)null);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
+
     }
 }

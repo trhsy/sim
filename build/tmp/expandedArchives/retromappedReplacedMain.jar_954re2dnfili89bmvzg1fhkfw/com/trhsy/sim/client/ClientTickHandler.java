@@ -21,7 +21,10 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.*;
 
 import java.util.Random;
 
-public class ClientTickHandler extends GuiScreen  {
+/**
+ * 客户端的
+ */
+public class ClientTickHandler extends GuiScreen {
     Minecraft mc = Minecraft.func_71410_x();
     Long timeSinceLastSave = 0L;
     public static int beamingStage = 1;
@@ -31,12 +34,21 @@ public class ClientTickHandler extends GuiScreen  {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        FMLCommonHandler.instance().bus().register(this);
+        try {
+            FMLCommonHandler.instance().bus().register(this);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("客户端init出错了：" + e.getMessage());
+        }
     }
 
     @SubscribeEvent
     public void tick(WorldTickEvent event) {
-        this.onTickInGame();
+        try {
+            this.onTickInGame();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage());
+        }
+
     }
 
     @SubscribeEvent
@@ -45,112 +57,127 @@ public class ClientTickHandler extends GuiScreen  {
 
     @SubscribeEvent
     public void tick(RenderTickEvent event) {
-        this.onGui();
+        try {
+            this.onGui();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage());
+        }
     }
 
     public void onTickInGame() {
-        if (beamingTo != null) {
-            this.beamingPlayer();
-        }
-
         try {
-            if (ModSimReloaded.states.gameModeNumber <= 0) {
-                return;
-            }
-        } catch (Exception var3) {
-        }
-
-        if (this.mc.field_71462_r != null && this.mc.field_71462_r.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
-            ConfigLoader.configFile.save();
-            ModSimReloaded.states.saveStates();
-            Building.saveAllBuildings();
-            CourierTask.saveCourierTasksAndPoints();
-            MiningBox.saveMiningBoxes();
-            FarmingBox.saveFarmingBoxes();
-
-            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
-                folk.updateLocationFromEntity();
-                folk.saveThisFolk();
+            if (beamingTo != null) {
+                this.beamingPlayer();
             }
 
-            this.timeSinceLastSave = System.currentTimeMillis();
+            try {
+                if (ModSimReloaded.states.gameModeNumber <= 0) {
+                    return;
+                }
+            } catch (Exception var3) {
+            }
+
+            if (this.mc.field_71462_r != null && this.mc.field_71462_r.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
+                ConfigLoader.configFile.save();
+                ModSimReloaded.states.saveStates();
+                Building.saveAllBuildings();
+                CourierTask.saveCourierTasksAndPoints();
+                MiningBox.saveMiningBoxes();
+                FarmingBox.saveFarmingBoxes();
+
+                for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                    folk.updateLocationFromEntity();
+                    folk.saveThisFolk();
+                }
+
+                this.timeSinceLastSave = System.currentTimeMillis();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("客户端onTickInGame出错了：" + e.getMessage());
         }
+
 
     }
 
     public void onGui() {
-        if (this.mc.field_71462_r == null) {
-            String worldname = "unknown";
+        try {
+            if (this.mc.field_71462_r == null) {
+                String worldname = "unknown";
 
-            try {
-                if (ModSimReloaded.states.gameModeNumber == 10) {
+                try {
+                    if (ModSimReloaded.states.gameModeNumber == 10) {
+                        return;
+                    }
+
+                    worldname = this.mc.func_71401_C().func_71270_I();
+                    worldname = MinecraftServer.func_71276_C().func_71270_I();
+                } catch (Exception var4) {
+                    this.func_73731_b(this.mc.field_71466_p, I18n.func_135052_a("container.sim.trhsy2"), this.field_146294_l / 2, 2, 16777215);
                     return;
                 }
 
-                worldname = this.mc.func_71401_C().func_71270_I();
-                worldname = MinecraftServer.func_71276_C().func_71270_I();
-            } catch (Exception var4) {
-                this.func_73731_b(this.mc.field_71466_p, I18n.func_135052_a("container.sim.trhsy2"), this.field_146294_l / 2, 2, 16777215);
-                return;
-            }
+                try {
+                    if (ModSim.proxy.ranStartup) {
+                        int HUDoffset = 0;
+                        if (this.mc.field_71439_g.field_71093_bK == 1) {
+                            HUDoffset = 20;
+                        }
 
-            try {
-                if (ModSim.proxy.ranStartup) {
-                    int HUDoffset = 0;
-                    if (this.mc.field_71439_g.field_71093_bK == 1) {
-                        HUDoffset = 20;
-                    }
-
-                    HUDoffset = HUDoffset + ConfigLoader.configHUDoffset;
-                    if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                        this.func_73731_b(this.mc.field_71466_p, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.func_135052_a("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size(), this.field_146294_l / 2, 2 + HUDoffset, 16777215);
+                        HUDoffset = HUDoffset + ConfigLoader.configHUDoffset;
+                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                            this.func_73731_b(this.mc.field_71466_p, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.func_135052_a("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size(), this.field_146294_l / 2, 2 + HUDoffset, 16777215);
+                        } else {
+                            this.func_73731_b(this.mc.field_71466_p, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.func_135052_a("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size() + "   " + I18n.func_135052_a("container.sim.trhsy4") + ": " + ModSimReloaded.displayMoney(ModSimReloaded.states.credits), this.field_146294_l / 2, 2 + HUDoffset, 16777215);
+                        }
                     } else {
-                        this.func_73731_b(this.mc.field_71466_p, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.func_135052_a("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size() + "   " + I18n.func_135052_a("container.sim.trhsy4") + ": " + ModSimReloaded.displayMoney(ModSimReloaded.states.credits), this.field_146294_l / 2, 2 + HUDoffset, 16777215);
+                        this.func_73731_b(this.mc.field_71466_p, I18n.func_135052_a("container.sim.trhsy5"), this.field_146294_l / 2, 2, 16777215);
                     }
-                } else {
-                    this.func_73731_b(this.mc.field_71466_p, I18n.func_135052_a("container.sim.trhsy5"), this.field_146294_l / 2, 2, 16777215);
+                } catch (Exception var3) {
+                    //var3.printStackTrace();
                 }
-            } catch (Exception var3) {
-                var3.printStackTrace();
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("客户端onGui出错了：" + e.getMessage());
         }
-
     }
 
     private void beamingPlayer() {
-        Minecraft mc = Minecraft.func_71410_x();
-        Random random = new Random();
-        beamingPlayer.field_70159_w = 0;
-        beamingPlayer.field_70181_x = 0;
-        beamingPlayer.field_70179_y = 0;
-        Double d4 = ((double)random.nextFloat() - 2) * 2;
+        try {
+            Minecraft mc = Minecraft.func_71410_x();
+            Random random = new Random();
+            beamingPlayer.field_70159_w = 0;
+            beamingPlayer.field_70181_x = 0;
+            beamingPlayer.field_70179_y = 0;
+            Double d4 = ((double) random.nextFloat() - 2) * 2;
 
-        for(int p = 0; p < 20; ++p) {
-            try {
-                mc.field_71441_e.func_175688_a(EnumParticleTypes.PORTAL, beamingPlayer.field_70165_t + random.nextDouble() - 0.5D, beamingPlayer.field_70163_u - 1, beamingPlayer.field_70161_v + random.nextDouble() - 0.5D, 0, -d4, 0);
-            } catch (Exception var7) {
+            for (int p = 0; p < 20; ++p) {
+                try {
+                    mc.field_71441_e.func_175688_a(EnumParticleTypes.PORTAL, beamingPlayer.field_70165_t + random.nextDouble() - 0.5D, beamingPlayer.field_70163_u - 1, beamingPlayer.field_70161_v + random.nextDouble() - 0.5D, 0, -d4, 0);
+                } catch (Exception var7) {
+                }
+
+                try {
+                    mc.field_71441_e.func_175688_a(EnumParticleTypes.PORTAL, beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1, beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
+                } catch (Exception var6) {
+                }
             }
 
-            try {
-                mc.field_71441_e.func_175688_a(EnumParticleTypes.PORTAL, beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1, beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
-            } catch (Exception var6) {
+            if (beamingStage == 1) {
+                if (System.currentTimeMillis() - beamingStartedAt > 6000L) {
+                    beamingStage = 2;
+                    beamingPlayer.func_70634_a(beamingTo.x, beamingTo.y, beamingTo.z);
+                }
+            } else if (beamingStage == 2) {
+                beamingStage = 3;
+            } else if (beamingStage == 3 && (System.currentTimeMillis() - beamingStartedAt > 10000L || beamingTo == null)) {
+                beamingTo = null;
+                beamingPlayer = null;
+                return;
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("客户端beamingPlayer出错了：" + e.getMessage());
         }
-
-        if (beamingStage == 1) {
-            if (System.currentTimeMillis() - beamingStartedAt > 6000L) {
-                beamingStage = 2;
-                beamingPlayer.func_70634_a(beamingTo.x, beamingTo.y, beamingTo.z);
-            }
-        } else if (beamingStage == 2) {
-            beamingStage = 3;
-        } else if (beamingStage == 3 && (System.currentTimeMillis() - beamingStartedAt > 10000L || beamingTo == null)) {
-            beamingTo = null;
-            beamingPlayer = null;
-            return;
-        }
-
     }
 
     public String getLabel() {

@@ -11,6 +11,10 @@ public class CreativeTabsLoader {
     public static CreativeTabs tabSimU;
 
     public CreativeTabsLoader(FMLPreInitializationEvent event) {
-        tabSimU = new CreativeTabsFMLTutor();
+        try {
+            tabSimU = new CreativeTabsFMLTutor();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("CreativeTabsLoader出错了：" + e.getMessage());
+        }
     }
 }

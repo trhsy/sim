@@ -8,7 +8,7 @@ import net.minecraft.util.IStringSerializable;
  * @Param 
  * @return 
  **/
-public enum EnumControlBoxMaterial implements IStringSerializable {
+public enum EnumControlBoxMaterial implements IStringSerializable, EnumBlock.IEnumMeta {
     TOP,
     ATM,
     OTHER;
@@ -23,6 +23,10 @@ public enum EnumControlBoxMaterial implements IStringSerializable {
         }
 
         return values()[meta];
+    }
+    @Override
+    public int getMeta() {
+        return this.meta;
     }
 
     @Override

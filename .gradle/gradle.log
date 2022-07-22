@@ -12,451 +12,174 @@ See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more i
          by: Searge, ProfMobius, Fesh0r,         
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\api\resources', not found
 Version string '1.8.9-1.0.0 Beta' does not match SemVer specification 
 You should try SemVer : http://semver.org/
 All projects evaluated.
-Selected primary task 'setupDecompWorkspace' from project :
-Tasks to be executed: [task ':deobfCompileDummyTask', task ':deobfProvidedDummyTask', task ':getVersionJson', task ':extractUserdev', task ':extractDependencyATs', task ':extractMcpData', task ':extractMcpMappings', task ':genSrgs', task ':downloadClient', task ':downloadServer', task ':splitServerJar', task ':mergeJars', task ':deobfMcSRG', task ':decompileMc', task ':fixMcSources', task ':applySourcePatches', task ':remapMcSources', task ':recompileMc', task ':extractNatives', task ':getAssetIndex', task ':getAssets', task ':makeStart', task ':setupDecompWorkspace']
-:deobfCompileDummyTask (Thread[main,5,main]) started.
+Selected primary task 'build' from project :
+Tasks to be executed: [task ':deobfCompileDummyTask', task ':deobfProvidedDummyTask', task ':sourceApiJava', task ':compileApiJava', task ':processApiResources', task ':apiClasses', task ':sourceMainJava', task ':compileJava', task ':processResources', task ':classes', task ':jar', task ':sourceTestJava', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':extractMcpData', task ':extractMcpMappings', task ':getVersionJson', task ':extractUserdev', task ':genSrgs', task ':reobfJar', task ':extractRangemapReplacedMain', task ':retromapReplacedMain', task ':sourceJar', task ':assemble', task ':check', task ':build']
+:deobfCompileDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfCompileDummyTask
 Executing task ':deobfCompileDummyTask' (up-to-date check took 0.001 secs) due to:
   Task has not declared any outputs.
-:deobfCompileDummyTask (Thread[main,5,main]) completed. Took 0.025 secs.
-:deobfProvidedDummyTask (Thread[main,5,main]) started.
+:deobfCompileDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.008 secs.
+:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfProvidedDummyTask
 Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfProvidedDummyTask (Thread[main,5,main]) completed. Took 0.007 secs.
-:getVersionJson (Thread[main,5,main]) started.
-:getVersionJson
-Executing task ':getVersionJson' (up-to-date check took 0.009 secs) due to:
-  Task.upToDateWhen is false.
-:getVersionJson (Thread[main,5,main]) completed. Took 0.181 secs.
-:extractUserdev (Thread[main,5,main]) started.
-:extractUserdev
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/forge-1.8.9-11.15.1.2318-1.8.9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.minecraftforge\forge\1.8.9-11.15.1.2318-1.8.9\bbfce02ef6cbb0ccbe2c4b6a1bad262f1a784090\forge-1.8.9-11.15.1.2318-1.8.9.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/forge-1.8.9-11.15.1.2318-1.8.9-userdev.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.minecraftforge\forge\1.8.9-11.15.1.2318-1.8.9\3ee42818acd64acd4015b58cd4ab4d4091025c98\forge-1.8.9-11.15.1.2318-1.8.9-userdev.jar]
-Skipping task ':extractUserdev' as it is up-to-date (took 2.484 secs).
-:extractUserdev UP-TO-DATE
-:extractUserdev (Thread[main,5,main]) completed. Took 2.495 secs.
-:extractDependencyATs (Thread[main,5,main]) started.
-:extractDependencyATs
-Skipping task ':extractDependencyATs' as task onlyIf is false.
-:extractDependencyATs SKIPPED
-:extractDependencyATs (Thread[main,5,main]) completed. Took 0.007 secs.
-:extractMcpData (Thread[main,5,main]) started.
+:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.003 secs.
+:sourceApiJava (Thread[Daemon worker,5,main]) started.
+:sourceApiJava
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\fileHashes.bin
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\outputFileStates.bin
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\taskArtifacts.bin
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\fileSnapshots.bin
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\api\java', not found
+Skipping task ':sourceApiJava' as it is up-to-date (took 0.023 secs).
+:sourceApiJava UP-TO-DATE
+:sourceApiJava (Thread[Daemon worker,5,main]) completed. Took 0.024 secs.
+:compileApiJava (Thread[Daemon worker,5,main]) started.
+:compileApiJava
+Skipping task ':compileApiJava' as it has no source files.
+:compileApiJava UP-TO-DATE
+:compileApiJava (Thread[Daemon worker,5,main]) completed. Took 0.005 secs.
+:processApiResources (Thread[Daemon worker,5,main]) started.
+:processApiResources
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\api\resources', not found
+Skipping task ':processApiResources' as it has no source files.
+:processApiResources UP-TO-DATE
+:processApiResources (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:apiClasses (Thread[Daemon worker,5,main]) started.
+:apiClasses
+Skipping task ':apiClasses' as it has no actions.
+:apiClasses UP-TO-DATE
+:apiClasses (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:sourceMainJava (Thread[Daemon worker,5,main]) started.
+:sourceMainJava
+Skipping task ':sourceMainJava' as it is up-to-date (took 0.121 secs).
+:sourceMainJava UP-TO-DATE
+:sourceMainJava (Thread[Daemon worker,5,main]) completed. Took 0.121 secs.
+:compileJava (Thread[Daemon worker,5,main]) started.
+:compileJava
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+Executing task ':compileJava' (up-to-date check took 0.275 secs) due to:
+  Input file D:\maven\.grable\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
+  Input file D:\maven\.grable\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+Compiling with JDK Java compiler API.
+警告: [options] 未与 -source 1.6 一起设置引导类路径
+注: H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\client\ClientTickHandler.java使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+注: 某些输入文件使用了未经检查或不安全的操作。
+注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+1 个警告
+:compileJava (Thread[Daemon worker,5,main]) completed. Took 4.9 secs.
+:processResources (Thread[Daemon worker,5,main]) started.
+:processResources
+Skipping task ':processResources' as it is up-to-date (took 0.21 secs).
+:processResources UP-TO-DATE
+:processResources (Thread[Daemon worker,5,main]) completed. Took 0.214 secs.
+:classes (Thread[Daemon worker,5,main]) started.
+:classes
+Skipping task ':classes' as it has no actions.
+:classes (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:jar (Thread[Daemon worker,5,main]) started.
+:jar
+Executing task ':jar' (up-to-date check took 0.103 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\libs\simulated-1.8.9-1.0.0 Beta.jar has changed.
+:jar (Thread[Daemon worker,5,main]) completed. Took 1.364 secs.
+:sourceTestJava (Thread[Daemon worker,5,main]) started.
+:sourceTestJava
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\test\java', not found
+Skipping task ':sourceTestJava' as it is up-to-date (took 0.002 secs).
+:sourceTestJava UP-TO-DATE
+:sourceTestJava (Thread[Daemon worker,5,main]) completed. Took 0.003 secs.
+:compileTestJava (Thread[Daemon worker,5,main]) started.
+:compileTestJava
+Skipping task ':compileTestJava' as it has no source files.
+:compileTestJava UP-TO-DATE
+:compileTestJava (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:processTestResources (Thread[Daemon worker,5,main]) started.
+:processTestResources
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\test\resources', not found
+Skipping task ':processTestResources' as it has no source files.
+:processTestResources UP-TO-DATE
+:processTestResources (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:testClasses (Thread[Daemon worker,5,main]) started.
+:testClasses
+Skipping task ':testClasses' as it has no actions.
+:testClasses UP-TO-DATE
+:testClasses (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:test (Thread[Daemon worker,5,main]) started.
+:test
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\classes\test', not found
+Skipping task ':test' as it has no source files.
+:test UP-TO-DATE
+:test (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:extractMcpData (Thread[Daemon worker,5,main]) started.
 :extractMcpData
-Resource missing. [HTTP GET: https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp/1.8.9/mcp-1.8.9.pom]
-Resource missing. [HTTP GET: https://repo1.maven.org/maven2/de/oceanlabs/mcp/mcp/1.8.9/mcp-1.8.9.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/de/oceanlabs/mcp/mcp/1.8.9/mcp-1.8.9-srg.zip]
-Resource missing. [HTTP GET: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp/1.8.9/mcp-1.8.9.pom]
-Resource missing. [HTTP HEAD: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp/1.8.9/mcp-1.8.9-srg.zip]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp/1.8.9/mcp-1.8.9-srg.zip, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\de.oceanlabs.mcp\mcp\1.8.9\7612cfa7e48787ce5aa989c6c513807d18b31a36\mcp-1.8.9-srg.zip]
 Skipping task ':extractMcpData' as task onlyIf is false.
 :extractMcpData SKIPPED
-:extractMcpData (Thread[main,5,main]) completed. Took 9.223 secs.
-:extractMcpMappings (Thread[main,5,main]) started.
+:extractMcpData (Thread[Daemon worker,5,main]) completed. Took 0.09 secs.
+:extractMcpMappings (Thread[Daemon worker,5,main]) started.
 :extractMcpMappings
-Resource missing. [HTTP GET: https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_stable/20-1.8.8/mcp_stable-20-1.8.8.pom]
-Resource missing. [HTTP GET: https://repo1.maven.org/maven2/de/oceanlabs/mcp/mcp_stable/20-1.8.8/mcp_stable-20-1.8.8.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/de/oceanlabs/mcp/mcp_stable/20-1.8.8/mcp_stable-20-1.8.8.zip]
-Resource missing. [HTTP GET: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp_stable/20-1.8.8/mcp_stable-20-1.8.8.pom]
-Resource missing. [HTTP HEAD: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp_stable/20-1.8.8/mcp_stable-20-1.8.8.zip]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_stable/20-1.8.8/mcp_stable-20-1.8.8.zip, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\de.oceanlabs.mcp\mcp_stable\20-1.8.8\ceb1bd803b9d9056c5fa3c543463f68bf26f2b0\mcp_stable-20-1.8.8.zip]
- Corrupted Cache!
-Checksums found: 6e69d2a69aa34ae3e26ca767f8b472c7
-6eba3cf6f56c5cc64468e1c3a7b76200
-b2fa994ae669c30aa7536adb825fe006
-05f5ad109deba63f5d4bb6861a4abef2
-35ebdba408d64f5cbc345b589547f183
-b326b5062b2f0e69046810717534cb09
-68934a3e9455fa72420237eb05902327
-c124a4e865e293a24aef5de9b2cf8062
-Checksums calculated: 6e69d2a69aa34ae3e26ca767f8b472c7
-6eba3cf6f56c5cc64468e1c3a7b76200
-b2fa994ae669c30aa7536adb825fe006
-a73c95d4a89759d5c673532e609b30d0
-ff50513e3c966672909f1fcf7959f124
-421b1e49d8b6d4cb420666f413fe94c0
-dd79cb90158a73369624d656d262deeb
-d673c80e4df999e27c6839d4158c1c69
-3d632ad4662054a4ee7c76f831fff8af
-c8fcd4c40accbaadda000b057a2b7a78
-390a6601a7b9fbdda63b3116e9c2f5c7
-323dc3fe133ea2b24f6358f64112f572
-e4f16f188cce2f370d4df62f4056d5f3
-09a666aa8536c0d1169ea6b1f7b3637b
-f93000c2fa2b54c246f3bcb0fb878c5c
-856b1a6b541f10ea22fb815075609de0
-fc9892b4edc7485aaee866fa90aa5eb6
-05f5ad109deba63f5d4bb6861a4abef2
-35ebdba408d64f5cbc345b589547f183
-b326b5062b2f0e69046810717534cb09
-68934a3e9455fa72420237eb05902327
-c124a4e865e293a24aef5de9b2cf8062
-Executing task ':extractMcpMappings' (up-to-date check took 0.024 secs) due to:
-  Output file D:\maven\gradle\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_stable\20\.cache has been removed.
-:extractMcpMappings (Thread[main,5,main]) completed. Took 11.574 secs.
-:genSrgs (Thread[main,5,main]) started.
+Skipping task ':extractMcpMappings' as task onlyIf is false.
+:extractMcpMappings SKIPPED
+:extractMcpMappings (Thread[Daemon worker,5,main]) completed. Took 0.111 secs.
+:getVersionJson (Thread[Daemon worker,5,main]) started.
+:getVersionJson
+Executing task ':getVersionJson' (up-to-date check took 0.005 secs) due to:
+  Task.upToDateWhen is false.
+:getVersionJson (Thread[Daemon worker,5,main]) completed. Took 1.792 secs.
+:extractUserdev (Thread[Daemon worker,5,main]) started.
+:extractUserdev
+Skipping task ':extractUserdev' as it is up-to-date (took 0.029 secs).
+:extractUserdev UP-TO-DATE
+:extractUserdev (Thread[Daemon worker,5,main]) completed. Took 0.031 secs.
+:genSrgs (Thread[Daemon worker,5,main]) started.
 :genSrgs
 Skipping task ':genSrgs' as task onlyIf is false.
 :genSrgs SKIPPED
-:genSrgs (Thread[main,5,main]) completed. Took 0.316 secs.
-:downloadClient (Thread[main,5,main]) started.
-:downloadClient
-Skipping task ':downloadClient' as task onlyIf is false.
-:downloadClient SKIPPED
-:downloadClient (Thread[main,5,main]) completed. Took 1.132 secs.
-:downloadServer (Thread[main,5,main]) started.
-:downloadServer
-Skipping task ':downloadServer' as task onlyIf is false.
-:downloadServer SKIPPED
-:downloadServer (Thread[main,5,main]) completed. Took 0.971 secs.
-:splitServerJar (Thread[main,5,main]) started.
-:splitServerJar
-Skipping task ':splitServerJar' as task onlyIf is false.
-:splitServerJar SKIPPED
-:splitServerJar (Thread[main,5,main]) completed. Took 2.784 secs.
-:mergeJars (Thread[main,5,main]) started.
-:mergeJars
-Skipping task ':mergeJars' as task onlyIf is false.
-:mergeJars SKIPPED
-:mergeJars (Thread[main,5,main]) completed. Took 1.394 secs.
-:deobfMcSRG (Thread[main,5,main]) started.
-:deobfMcSRG
-Skipping task ':deobfMcSRG' as task onlyIf is false.
-:deobfMcSRG SKIPPED
-:deobfMcSRG (Thread[main,5,main]) completed. Took 1.479 secs.
-:decompileMc (Thread[main,5,main]) started.
-:decompileMc
-Skipping task ':decompileMc' as task onlyIf is false.
-:decompileMc SKIPPED
-:decompileMc (Thread[main,5,main]) completed. Took 0.537 secs.
-:fixMcSources (Thread[main,5,main]) started.
-:fixMcSources
-Skipping task ':fixMcSources' as task onlyIf is false.
-:fixMcSources SKIPPED
-:fixMcSources (Thread[main,5,main]) completed. Took 2.47 secs.
-:applySourcePatches (Thread[main,5,main]) started.
-:applySourcePatches
-Skipping task ':applySourcePatches' as task onlyIf is false.
-:applySourcePatches SKIPPED
-:applySourcePatches (Thread[main,5,main]) completed. Took 2.556 secs.
-:remapMcSources (Thread[main,5,main]) started.
-:remapMcSources
-Skipping task ':remapMcSources' as task onlyIf is false.
-:remapMcSources SKIPPED
-:remapMcSources (Thread[main,5,main]) completed. Took 2.142 secs.
-:recompileMc (Thread[main,5,main]) started.
-:recompileMc
-Skipping task ':recompileMc' as task onlyIf is false.
-:recompileMc SKIPPED
-:recompileMc (Thread[main,5,main]) completed. Took 2.197 secs.
-:extractNatives (Thread[main,5,main]) started.
-:extractNatives
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-windows.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-windows.jar]
-Cached resource Tue Feb 10 15:43:48 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/parent/2.9.4-nightly-20150209/parent-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/parent/2.9.4-nightly-20150209/parent-2.9.4-nightly-20150209.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/parent/2.9.4-nightly-20150209/parent-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/parent/2.9.4-nightly-20150209/parent-2.9.4-nightly-20150209.jar]
-Cached resource Tue Feb 10 15:43:45 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/parent/2.9.4-nightly-20150209/parent-2.9.4-nightly-20150209.pom).
-Cached resource Tue Feb 10 15:43:45 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/parent/2.9.4-nightly-20150209/parent-2.9.4-nightly-20150209.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\5ab983fe822ea3c4ac5477290996725771b31ff4\jinput-platform-2.0.5.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-windows-64.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/tv/twitch/twitch-platform/6.5/twitch-platform-6.5.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-windows-64.jar]
-Cached resource Mon Mar 03 16:55:13 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5-natives-windows-64.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5-natives-windows-64.jar]
-Cached resource Tue Nov 26 23:59:10 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5.pom).
-Cached resource Tue Feb 10 15:43:46 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-windows.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-windows.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\385ee093e01f587f30ee1c8a2ee7d408fd732e16\jinput-platform-2.0.5-natives-windows.jar]
-Cached resource Mon Mar 03 16:55:13 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-windows-64.jar).
-Cached resource Tue Nov 26 23:58:49 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5-natives-windows-64.jar).
-Skipping task ':extractNatives' as task onlyIf is false.
-:extractNatives SKIPPED
-:extractNatives (Thread[main,5,main]) completed. Took 19.792 secs.
-:getAssetIndex (Thread[main,5,main]) started.
-:getAssetIndex
-Executing task ':getAssetIndex' (up-to-date check took 0.0 secs) due to:
+:genSrgs (Thread[Daemon worker,5,main]) completed. Took 0.294 secs.
+:reobfJar (Thread[Daemon worker,5,main]) started.
+:reobfJar
+Executing task ':reobfJar' (up-to-date check took 0.008 secs) due to:
   Task.upToDateWhen is false.
-:getAssetIndex UP-TO-DATE
-:getAssetIndex (Thread[main,5,main]) completed. Took 0.397 secs.
-:getAssets (Thread[main,5,main]) started.
-:getAssets
-Executing task ':getAssets' (up-to-date check took 0.001 secs) due to:
-  Task has not declared any outputs.
-Current status: 22/734   2%
-Current status: 52/734   7%
-Current status: 83/734   11%
-Current status: 149/734   20%
-Current status: 210/734   28%
-Current status: 282/734   38%
-Current status: 342/734   46%
-Current status: 390/734   53%
-Current status: 441/734   60%
-Current status: 494/734   67%
-Current status: 528/734   71%
-Current status: 530/734   72%
-Current status: 530/734   72%
-Current status: 530/734   72%
-Current status: 530/734   72%
-Current status: 531/734   72%
-Current status: 532/734   72%
-Current status: 534/734   72%
-Current status: 535/734   72%
-Current status: 541/734   73%
-Current status: 549/734   74%
-Current status: 565/734   76%
-Current status: 597/734   81%
-Current status: 612/734   83%
-Current status: 651/734   88%
-Current status: 725/734   98%
-:getAssets (Thread[main,5,main]) completed. Took 26.534 secs.
-:makeStart (Thread[main,5,main]) started.
-:makeStart
- Corrupted Cache!
-Checksums found: ef3cd7947067b7b3278a8b524c4ef7af
-39468462d084d40486869a1225fe2398
-b75fa7ddad441b67cdb73385a196ad92
-e5996ed74152cbbb7312d749cf221c92
-b33c7d308eb5a7c11ca12af88e8b4832
-699493bd9910adf745a70dd3be3ac2ad
-4b2532790cab891a77d735c5e2def61c
-ead49e32a186898ddf9b907359d11cbe
-a1bf12c57754226cbaa687d57c328545
-9b88db4333afdcd5697183dd5b216ed2
-f0f787006da66d122e52ae7863da990c
-bd78265632588c6d4c3a4e4430bee06c
-cff0b4d54e15ffd3c03cac5c0def2e35
-6646d5a83b39d33c63414bdf7cd34be6
-9aa44a27188edbde9261b735f1843320
-4513835928e5ad3e43cb32959a46485c
-Checksums calculated: ef3cd7947067b7b3278a8b524c4ef7af
-39468462d084d40486869a1225fe2398
-b75fa7ddad441b67cdb73385a196ad92
-e5996ed74152cbbb7312d749cf221c92
-b33c7d308eb5a7c11ca12af88e8b4832
-699493bd9910adf745a70dd3be3ac2ad
-4b2532790cab891a77d735c5e2def61c
-ead49e32a186898ddf9b907359d11cbe
-a1bf12c57754226cbaa687d57c328545
-9b88db4333afdcd5697183dd5b216ed2
-f0f787006da66d122e52ae7863da990c
-bd78265632588c6d4c3a4e4430bee06c
-cff0b4d54e15ffd3c03cac5c0def2e35
-6646d5a83b39d33c63414bdf7cd34be6
-b025926eed0a44ff524576e56ef6ef85
-4513835928e5ad3e43cb32959a46485c
-Executing task ':makeStart' (up-to-date check took 0.003 secs) due to:
-  Output file D:\maven\gradle\.gradle\caches\minecraft\net\minecraftforge\forge\1.8.9-11.15.1.2318-1.8.9\start\.cache has been removed.
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/mojang/netty/1.8.8/netty-1.8.8.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/mojang/netty/1.8.8/netty-1.8.8.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/mojang/netty/1.8.8/netty-1.8.8.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/mojang/netty/1.8.8/netty-1.8.8.jar]
-Cached resource Wed Dec 15 22:41:37 CST 2021 is up-to-date (lastModified: https://libraries.minecraft.net/com/mojang/netty/1.8.8/netty-1.8.8.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/oshi-project/oshi-core/1.1/oshi-core-1.1.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/oshi-project/oshi-core/1.1/oshi-core-1.1.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/oshi-project/oshi-core/1.1/oshi-core-1.1.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/oshi-project/oshi-core/1.1/oshi-core-1.1.jar]
-Cached resource Fri Jan 09 22:58:58 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/oshi-project/oshi-core/1.1/oshi-core-1.1.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/dev/jna/jna/3.4.0/jna-3.4.0.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\3.4.0\410f1facad5148c4005bc873c8dbeafde9121ebe\jna-3.4.0.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/dev/jna/platform/3.4.0/platform-3.4.0.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\platform\3.4.0\e4019e7e54ec421080b7f1117ca58e3c8ff18279\platform-3.4.0.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.jar]
-Cached resource Tue Nov 26 23:59:34 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/sf/jopt-simple/jopt-simple/4.6/jopt-simple-4.6.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\4.6\c6b45d57089efa973a68f3bdf8fc6b125fa532ee\jopt-simple-4.6.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/sonatype/oss/oss-parent/7/oss-parent-7.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.sonatype.oss\oss-parent\7\46b8a785b60a2767095b8611613b58577e96d4c9\oss-parent-7.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\io.netty\netty-all\4.0.23.Final\3edbe8ef424c9faaf1d94f95c9f799ac576d3322\netty-all-4.0.23.Final.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/io/netty/netty-parent/4.0.23.Final/netty-parent-4.0.23.Final.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\io.netty\netty-parent\4.0.23.Final\c249cd270253862742e44358b07aaee7bf5b2b9d\netty-parent-4.0.23.Final.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/sonatype/oss/oss-parent/9/oss-parent-9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.sonatype.oss\oss-parent\9\e5cdc4d23b86d79c436f16fed20853284e868f65\oss-parent-9.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/guava/guava/17.0/guava-17.0.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\17.0\f534dabee0b40b25715869c5e1287e38c7e1e4a\guava-17.0.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/guava/guava-parent/17.0/guava-parent-17.0.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.guava\guava-parent\17.0\f8ba48b925d1c925d0fc0379ffa14a06e44eb464\guava-parent-17.0.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.3.2\932ed8226f371b204d04a8c4d3d5fe0f2b26339f\commons-lang3-3.3.2.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-parent/33/commons-parent-33.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-parent\33\a9bd6ae1e11cb313ec4a4c9bcd58c7a9ea60a5cd\commons-parent-33.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/apache/13/apache-13.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache\apache\13\15aff1faaec4963617f07dbe8e603f0adabc3a12\apache-13.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/commons-io/commons-io/2.4/commons-io-2.4.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.4\9ece23effe8bce3904f3797a76b1ba6ab681e1b9\commons-io-2.4.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-parent/25/commons-parent-25.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-parent\25\67b84199ca4acf0d8fbc5256d90b80f746737e94\commons-parent-25.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/apache/9/apache-9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache\apache\9\de55d73a30c7521f3d55e8141d360ffbdfd88caa\apache-9.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/commons-codec/commons-codec/1.9/commons-codec-1.9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.9\f5357ff0f308600af3660bf00a8be3415a335723\commons-codec-1.9.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-parent/32/commons-parent-32.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-parent\32\e51c4223003c2c7c63f38d7b8823e40eb06bd1f\commons-parent-32.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jutils/jutils/1.0.0/jutils-1.0.0.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jutils\jutils\1.0.0\268fd036de1bc63efe63a7f84410465a71ecd756\jutils-1.0.0.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/code/gson/gson/2.2.4/gson-2.2.4.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\6252c690921ee1dc719594a5d4da1829194f8b3\gson-2.2.4.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/mojang/authlib/1.5.21/authlib-1.5.21.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/mojang/authlib/1.5.21/authlib-1.5.21.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/mojang/authlib/1.5.21/authlib-1.5.21.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/mojang/authlib/1.5.21/authlib-1.5.21.jar]
-Cached resource Fri Apr 17 21:39:28 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/com/mojang/authlib/1.5.21/authlib-1.5.21.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/mojang/realms/1.7.59/realms-1.7.59.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/mojang/realms/1.7.59/realms-1.7.59.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/mojang/realms/1.7.59/realms-1.7.59.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/mojang/realms/1.7.59/realms-1.7.59.jar]
-Cached resource Tue Feb 09 16:21:43 CST 2016 is up-to-date (lastModified: https://libraries.minecraft.net/com/mojang/realms/1.7.59/realms-1.7.59.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.8.1\2fb3ea9182911315ee79aa2fb4853c7bdd347407\commons-compress-1.8.1.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/httpcomponents/httpclient/4.3.3/httpclient-4.3.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.3.3\3131ca0098dff459777810577b58e18fae2ea439\httpclient-4.3.3.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/httpcomponents/httpcomponents-client/4.3.3/httpcomponents-client-4.3.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcomponents-client\4.3.3\adda18bb154cf3add02034d918aa2d07b329512e\httpcomponents-client-4.3.3.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/httpcomponents/project/7/project-7.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\project\7\c486760d8e0eafe8d4932450e386c2805364f782\project-7.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.1.3\4aeb2c0ae4261632487bf8ea870bdb405696cee9\commons-logging-1.1.3.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-parent/28/commons-parent-28.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-parent\28\9ff25b2866ef063a8828ba67d1e35c78f73e830a\commons-parent-28.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.3.2\13ec787d4bace3aa44734f4196cb659041785339\httpcore-4.3.2.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/httpcomponents/httpcomponents-core/4.3.2/httpcomponents-core-4.3.2.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcomponents-core\4.3.2\35bff8146ac0477f3d3e4d85ef93341e5d3ecdb1\httpcomponents-core-4.3.2.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/logging/log4j/log4j-api/2.0-beta9/log4j-api-2.0-beta9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.0-beta9\55b57955a40c0f8f810353e95b984b037c5a00a1\log4j-api-2.0-beta9.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/logging/log4j/log4j/2.0-beta9/log4j-2.0-beta9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j\2.0-beta9\345430f1f8658b6c64007c399ae621cedf10349f\log4j-2.0-beta9.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/logging/log4j/log4j-core/2.0-beta9/log4j-core-2.0-beta9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.0-beta9\ecbc68219924a9327aa3a96037a2edf2fa1fe53\log4j-core-2.0-beta9.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar]
-Cached resource Sun Jun 21 01:11:42 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/jline/jline/2.13/jline-2.13.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\jline\jline\2.13\21663b93af1247eab73abb3a1c999e9b4b4c4430\jline-2.13.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\1.3.9\67ea333a3244bc20a17d6f0c29498071dfa409fc\jsr305-1.3.9.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/ow2/asm/asm-debug-all/5.0.3/asm-debug-all-5.0.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-debug-all\5.0.3\db1255f68b642cf4dc455d11e4bd29ad7d6548d9\asm-debug-all-5.0.3.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/ow2/asm/asm-parent/5.0.3/asm-parent-5.0.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-parent\5.0.3\f2b915adcf47fab0e17bccf47390aa206eba7937\asm-parent-5.0.3.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/ow2/ow2/1.3/ow2-1.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.ow2\ow2\1.3\f679d6639bfb209b0836a5e7cf09bfbcc1a41f06\ow2-1.3.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/typesafe/akka/akka-actor_2.11/2.3.3/akka-actor_2.11-2.3.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.typesafe.akka\akka-actor_2.11\2.3.3\477aec1f36d1fa42e07d6e370ea01e5e1ef3de1e\akka-actor_2.11-2.3.3.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/typesafe/config/1.2.1/config-1.2.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.2.1\bba22cafdcac684c0a4927410244d9fec0d693a0\config-1.2.1.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-actors-migration_2.11/1.1.0/scala-actors-migration_2.11-1.1.0.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors-migration_2.11\1.1.0\f1878b46191f92d2e7b7ae681c2c5536035d282\scala-actors-migration_2.11-1.1.0.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-compiler/2.11.1/scala-compiler-2.11.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-compiler\2.11.1\5adde88e415b1b19496c828995188df041c91e29\scala-compiler-2.11.1.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/plugins/scala-continuations-library_2.11/1.0.2/scala-continuations-library_2.11-1.0.2.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-library_2.11\1.0.2\299ed5e007840b23b6e2c638e260861261502796\scala-continuations-library_2.11-1.0.2.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/plugins/scala-continuations-plugin_2.11.1/1.0.2/scala-continuations-plugin_2.11.1-1.0.2.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-plugin_2.11.1\1.0.2\d1e294c9f4e6c04c7a67ab8de65e5c19ce93de82\scala-continuations-plugin_2.11.1-1.0.2.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-library/2.11.1/scala-library-2.11.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.11.1\1dcb6e725f3e9b7b459f30594c1a77a205b91de3\scala-library-2.11.1.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.1/scala-parser-combinators_2.11-1.0.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.1\408a5c0742fcb51c491e1d66fb873f4fa3e14fb0\scala-parser-combinators_2.11-1.0.1.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-reflect/2.11.1/scala-reflect-2.11.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.11.1\c9043ee71a588d45252e0e302ef69a3f1f23ac0\scala-reflect-2.11.1.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/modules/scala-swing_2.11/1.0.1/scala-swing_2.11-1.0.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-swing_2.11\1.0.1\dfe8af88b0b40df50a877e5dd6dbead1ccdb08a0\scala-swing_2.11-1.0.1.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/modules/scala-xml_2.11/1.0.2/scala-xml_2.11-1.0.2.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-xml_2.11\1.0.2\e5b9258e28705f9ae280c40837b5356a085aac09\scala-xml_2.11-1.0.2.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/lzma/lzma/0.0.1/lzma-0.0.1.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/lzma/lzma/0.0.1/lzma-0.0.1.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/lzma/lzma/0.0.1/lzma-0.0.1.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/lzma/lzma/0.0.1/lzma-0.0.1.jar]
-Cached resource Tue Nov 26 23:58:34 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/lzma/lzma/0.0.1/lzma-0.0.1.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.sf.trove4j\trove4j\3.0.3\8e16c01240ee5783fe008bbcc6fe9d3d4a9e15af\trove4j-3.0.3.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.jar]
-Cached resource Tue Nov 26 23:59:42 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/codecwav/20101023/codecwav-20101023.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/codecwav/20101023/codecwav-20101023.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/codecwav/20101023/codecwav-20101023.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/codecwav/20101023/codecwav-20101023.jar]
-Cached resource Tue Nov 26 23:59:43 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/codecwav/20101023/codecwav-20101023.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar]
-Cached resource Tue Nov 26 23:59:44 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar]
-Cached resource Tue Nov 26 23:59:46 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/soundsystem/20120107/soundsystem-20120107.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/com/paulscode/soundsystem/20120107/soundsystem-20120107.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/soundsystem/20120107/soundsystem-20120107.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/com/paulscode/soundsystem/20120107/soundsystem-20120107.jar]
-Cached resource Tue Nov 26 23:59:47 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/soundsystem/20120107/soundsystem-20120107.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jinput/jinput/2.0.5/jinput-2.0.5.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput\2.0.5\d9245416ac549f4476ae0bda53667c86243295dd\jinput-2.0.5.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.jar]
-Cached resource Tue Feb 10 15:43:48 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.jar]
-Cached resource Tue Feb 10 15:43:47 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/tv/twitch/twitch/6.5/twitch-6.5.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/tv/twitch/twitch/6.5/twitch-6.5.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/tv/twitch/twitch/6.5/twitch-6.5.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/tv/twitch/twitch/6.5/twitch-6.5.jar]
-Cached resource Mon Mar 03 16:55:13 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch/6.5/twitch-6.5.pom).
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/java3d/vecmath/1.5.2/vecmath-1.5.2.pom]
-Resource missing. [HTTP HEAD: https://maven.minecraftforge.net/java3d/vecmath/1.5.2/vecmath-1.5.2.jar]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/java3d/vecmath/1.5.2/vecmath-1.5.2.pom]
-Resource missing. [HTTP HEAD: https://repo1.maven.org/maven2/java3d/vecmath/1.5.2/vecmath-1.5.2.jar]
-Cached resource Mon Mar 10 00:44:53 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/java3d/vecmath/1.5.2/vecmath-1.5.2.pom).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/fusesource/jansi/jansi/1.11/jansi-1.11.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.fusesource.jansi\jansi\1.11\af75ce5357c0cab4dc273738073fcfb39a10fdfe\jansi-1.11.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/fusesource/jansi/jansi-project/1.11/jansi-project-1.11.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.fusesource.jansi\jansi-project\1.11\c1fb6dcfa9faf3eafaf00bd66cbea2dbbc8c11d0\jansi-project-1.11.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/fusesource/fusesource-pom/1.8/fusesource-pom-1.8.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.fusesource\fusesource-pom\1.8\d4f1b288004e1a8c8bc9f61f5f151d1ef0d4211a\fusesource-pom-1.8.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-actors/2.11.0/scala-actors-2.11.0.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors\2.11.0\8093e461262c2793e4f5d47824ac8288d826af3e\scala-actors-2.11.0.pom]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.pom, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\2.0.1\95efa8cea662452bb74b34abe09a93ff47625c8f\jsr305-2.0.1.pom]
-Cached resource Wed Dec 15 22:41:37 CST 2021 is up-to-date (lastModified: https://libraries.minecraft.net/com/mojang/netty/1.8.8/netty-1.8.8.jar).
-Cached resource Fri Jan 09 22:58:57 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/oshi-project/oshi-core/1.1/oshi-core-1.1.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/dev/jna/jna/3.4.0/jna-3.4.0.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\3.4.0\803ff252fedbd395baffd43b37341dc4a150a554\jna-3.4.0.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/dev/jna/platform/3.4.0/platform-3.4.0.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\platform\3.4.0\e3f70017be8100d3d6923f50b3d2ee17714e9c13\platform-3.4.0.jar]
-Cached resource Tue Nov 26 23:59:31 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/sf/jopt-simple/jopt-simple/4.6/jopt-simple-4.6.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\4.6\306816fb57cf94f108a43c95731b08934dcae15c\jopt-simple-4.6.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\io.netty\netty-all\4.0.23.Final\294104aaf1781d6a56a07d561e792c5d0c95f45\netty-all-4.0.23.Final.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/guava/guava/17.0/guava-17.0.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\17.0\9c6ef172e8de35fd8d4d8783e4821e57cdef7445\guava-17.0.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.3.2\90a3822c38ec8c996e84c16a3477ef632cbc87a3\commons-lang3-3.3.2.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/commons-io/commons-io/2.4/commons-io-2.4.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.4\b1b6ea3b7e4aa4f492509a4952029cd8e48019ad\commons-io-2.4.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/commons-codec/commons-codec/1.9/commons-codec-1.9.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.9\9ce04e34240f674bc72680f8b843b1457383161a\commons-codec-1.9.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jutils/jutils/1.0.0/jutils-1.0.0.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jutils\jutils\1.0.0\e12fe1fda814bd348c1579329c86943d2cd3c6a6\jutils-1.0.0.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar]
-Cached resource Fri Apr 17 21:39:28 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/com/mojang/authlib/1.5.21/authlib-1.5.21.jar).
-Cached resource Tue Feb 09 16:21:42 CST 2016 is up-to-date (lastModified: https://libraries.minecraft.net/com/mojang/realms/1.7.59/realms-1.7.59.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.8.1\a698750c16740fd5b3871425f4cb3bbaa87f529d\commons-compress-1.8.1.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/httpcomponents/httpclient/4.3.3/httpclient-4.3.3.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.3.3\18f4247ff4572a074444572cee34647c43e7c9c7\httpclient-4.3.3.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.1.3\f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f\commons-logging-1.1.3.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.3.2\31fbbff1ddbf98f3aa7377c94d33b0447c646b6e\httpcore-4.3.2.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/logging/log4j/log4j-api/2.0-beta9/log4j-api-2.0-beta9.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.0-beta9\1dd66e68cccd907880229f9e2de1314bd13ff785\log4j-api-2.0-beta9.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/apache/logging/log4j/log4j-core/2.0-beta9/log4j-core-2.0-beta9.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.0-beta9\678861ba1b2e1fccb594bb0ca03114bb05da9695\log4j-core-2.0-beta9.jar]
-Cached resource Sun Jun 21 01:11:42 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/jline/jline/2.13/jline-2.13.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\jline\jline\2.13\2d9530d0a25daffaffda7c35037b046b627bb171\jline-2.13.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/ow2/asm/asm-debug-all/5.0.3/asm-debug-all-5.0.3.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-debug-all\5.0.3\f9e364ae2a66ce2a543012a4668856e84e5dab74\asm-debug-all-5.0.3.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/typesafe/akka/akka-actor_2.11/2.3.3/akka-actor_2.11-2.3.3.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.typesafe.akka\akka-actor_2.11\2.3.3\ed62e9fc709ca0f2ff1a3220daa8b70a2870078e\akka-actor_2.11-2.3.3.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/typesafe/config/1.2.1/config-1.2.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.2.1\f771f71fdae3df231bcd54d5ca2d57f0bf93f467\config-1.2.1.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-actors-migration_2.11/1.1.0/scala-actors-migration_2.11-1.1.0.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors-migration_2.11\1.1.0\dfa8bc42b181d5b9f1a5dd147f8ae308b893eb6f\scala-actors-migration_2.11-1.1.0.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-compiler/2.11.1/scala-compiler-2.11.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-compiler\2.11.1\56ea2e6c025e0821f28d73ca271218b8dd04926a\scala-compiler-2.11.1.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/plugins/scala-continuations-library_2.11/1.0.2/scala-continuations-library_2.11-1.0.2.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-library_2.11\1.0.2\e517c53a7e9acd6b1668c5a35eccbaa3bab9aac\scala-continuations-library_2.11-1.0.2.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/plugins/scala-continuations-plugin_2.11.1/1.0.2/scala-continuations-plugin_2.11.1-1.0.2.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-plugin_2.11.1\1.0.2\f361a3283452c57fa30c1ee69448995de23c60f7\scala-continuations-plugin_2.11.1-1.0.2.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-library/2.11.1/scala-library-2.11.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.11.1\e11da23da3eabab9f4777b9220e60d44c1aab6a\scala-library-2.11.1.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.1/scala-parser-combinators_2.11-1.0.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.1\f05d7345bf5a58924f2837c6c1f4d73a938e1ff0\scala-parser-combinators_2.11-1.0.1.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-reflect/2.11.1/scala-reflect-2.11.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.11.1\6580347e61cc7f8e802941e7fde40fa83b8badeb\scala-reflect-2.11.1.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/modules/scala-swing_2.11/1.0.1/scala-swing_2.11-1.0.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-swing_2.11\1.0.1\b1cdd92bd47b1e1837139c1c53020e86bb9112ae\scala-swing_2.11-1.0.1.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/modules/scala-xml_2.11/1.0.2/scala-xml_2.11-1.0.2.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-xml_2.11\1.0.2\820fbca7e524b530fdadc594c39d49a21ea0337e\scala-xml_2.11-1.0.2.jar]
-Cached resource Tue Nov 26 23:58:34 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/lzma/lzma/0.0.1/lzma-0.0.1.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.sf.trove4j\trove4j\3.0.3\42ccaf4761f0dfdfa805c9e340d99a755907e2dd\trove4j-3.0.3.jar]
-Cached resource Tue Nov 26 23:59:42 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.jar).
-Cached resource Tue Nov 26 23:59:43 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/codecwav/20101023/codecwav-20101023.jar).
-Cached resource Tue Nov 26 23:59:44 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar).
-Cached resource Tue Nov 26 23:59:46 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar).
-Cached resource Tue Nov 26 23:59:47 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/com/paulscode/soundsystem/20120107/soundsystem-20120107.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jinput/jinput/2.0.5/jinput-2.0.5.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput\2.0.5\39c7796b469a600f72380316f6b1f11db6c2c7c4\jinput-2.0.5.jar]
-Cached resource Tue Feb 10 15:43:47 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl/2.9.4-nightly-20150209/lwjgl-2.9.4-nightly-20150209.jar).
-Cached resource Tue Feb 10 15:43:46 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl_util/2.9.4-nightly-20150209/lwjgl_util-2.9.4-nightly-20150209.jar).
-Cached resource Mon Mar 03 16:55:12 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch/6.5/twitch-6.5.jar).
-Cached resource Mon Mar 10 00:44:53 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/java3d/vecmath/1.5.2/vecmath-1.5.2.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/fusesource/jansi/jansi/1.11/jansi-1.11.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.fusesource.jansi\jansi\1.11\655c643309c2f45a56a747fda70e3fadf57e9f11\jansi-1.11.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/org/scala-lang/scala-actors/2.11.0/scala-actors-2.11.0.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors\2.11.0\8ccfb6541de179bb1c4d45cf414acee069b7f78b\scala-actors-2.11.0.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-linux.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\7ff832a6eb9ab6a767f1ade2b548092d0fa64795\jinput-platform-2.0.5-natives-linux.jar]
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-osx.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\53f9c919f34d2ca9de8c51fc4e1e8282029a9232\jinput-platform-2.0.5-natives-osx.jar]
-Cached resource Mon Mar 03 16:55:12 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-windows-32.jar).
-Cached resource Mon Mar 03 16:55:12 CST 2014 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-osx.jar).
-Cached resource Tue Nov 26 23:58:40 CST 2013 is up-to-date (lastModified: https://libraries.minecraft.net/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5-natives-windows-32.jar).
-Found locally available resource with matching checksum: [https://maven.minecraftforge.net/com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.jar, D:\maven\gradle\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\2.0.1\516c03b21d50a644d538de0f0369c620989cd8f0\jsr305-2.0.1.jar]
-Cached resource Tue Feb 10 15:43:44 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-linux.jar).
-Cached resource Tue Feb 10 15:43:45 CST 2015 is up-to-date (lastModified: https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-osx.jar).
-[ant:javac] Compiling 6 source files to D:\maven\gradle\.gradle\caches\minecraft\net\minecraftforge\forge\1.8.9-11.15.1.2318-1.8.9\start
-[ant:javac] 警告: [options] 未与 -source 1.6 一起设置引导类路径
-[ant:javac] 1 个警告
-:makeStart (Thread[main,5,main]) completed. Took 1 mins 33.418 secs.
-:setupDecompWorkspace (Thread[main,5,main]) started.
-:setupDecompWorkspace
-Skipping task ':setupDecompWorkspace' as it has no actions.
-:setupDecompWorkspace (Thread[main,5,main]) completed. Took 0.003 secs.
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+:reobfJar (Thread[Daemon worker,5,main]) completed. Took 3.178 secs.
+:extractRangemapReplacedMain (Thread[Daemon worker,5,main]) started.
+:extractRangemapReplacedMain
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+Executing task ':extractRangemapReplacedMain' (up-to-date check took 0.027 secs) due to:
+  Input file D:\maven\.grable\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
+  Input file D:\maven\.grable\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
+H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+:extractRangemapReplacedMain (Thread[Daemon worker,5,main]) completed. Took 14.525 secs.
+:retromapReplacedMain (Thread[Daemon worker,5,main]) started.
+:retromapReplacedMain
+Skipping task ':retromapReplacedMain' as it is up-to-date (took 0.015 secs).
+:retromapReplacedMain UP-TO-DATE
+:retromapReplacedMain (Thread[Daemon worker,5,main]) completed. Took 0.016 secs.
+:sourceJar (Thread[Daemon worker,5,main]) started.
+:sourceJar
+Skipping task ':sourceJar' as it is up-to-date (took 0.494 secs).
+:sourceJar UP-TO-DATE
+:sourceJar (Thread[Daemon worker,5,main]) completed. Took 0.498 secs.
+:assemble (Thread[Daemon worker,5,main]) started.
+:assemble
+Skipping task ':assemble' as it has no actions.
+:assemble (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:check (Thread[Daemon worker,5,main]) started.
+:check
+Skipping task ':check' as it has no actions.
+:check UP-TO-DATE
+:check (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:build (Thread[Daemon worker,5,main]) started.
+:build
+Skipping task ':build' as it has no actions.
+:build (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
 
 BUILD SUCCESSFUL
 
-Total time: 4 mins 35.025 secs
+Total time: 34.171 secs

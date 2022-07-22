@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.config;
 
 import com.trhsy.sim.common.core.PulseMeta;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -39,9 +40,14 @@ public class SimConfig implements IConfiguration{
 
     @Override
     public void flush() {
-        if (this.config.hasChanged()) {
-            this.config.save();
+        try {
+            if (this.config.hasChanged()) {
+                this.config.save();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("sim配置flush出错了：" + e.getMessage());
         }
+
     }
     public Configuration getConfig() {
         return this.config;
