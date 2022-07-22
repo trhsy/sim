@@ -41,62 +41,71 @@ public class BlockMiningBox extends Block {
 
     @Override
     public void onBlockAdded(World world, BlockPos blockPos, IBlockState iBlockState) {
-        if (BlockMarker.markers.isEmpty()) {
-            String Mining_box_area = I18n.format("container.sim.Mining_box_area");
-            ModSimReloaded.sendChat(Mining_box_area);
-        } else {
-            MiningBox m;
-            ModSimReloaded.theMiningBoxes.add(m = new MiningBox(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId())));
-            if (BlockMarker.markers.size() == 1) {
-                m.marker1XYZ = ((Marker) BlockMarker.markers.get(0)).toV3();
-                m.marker2XYZ = null;
-                m.marker3XYZ = null;
+        try {
+            if (BlockMarker.markers.isEmpty()) {
+                String Mining_box_area = I18n.format("container.sim.Mining_box_area");
+                ModSimReloaded.sendChat(Mining_box_area);
             } else {
-                try {
-                    int first = BlockMarker.markers.size() - 3;
-                    m.marker1XYZ = ((Marker) BlockMarker.markers.get(first)).toV3();
-                    m.marker2XYZ = ((Marker) BlockMarker.markers.get(first + 1)).toV3();
-                    m.marker3XYZ = ((Marker) BlockMarker.markers.get(first + 2)).toV3();
-                } catch (Exception var7) {
+                MiningBox m;
+                ModSimReloaded.theMiningBoxes.add(m = new MiningBox(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId())));
+                if (BlockMarker.markers.size() == 1) {
+                    m.marker1XYZ = ((Marker) BlockMarker.markers.get(0)).toV3();
+                    m.marker2XYZ = null;
+                    m.marker3XYZ = null;
+                } else {
+                    try {
+                        int first = BlockMarker.markers.size() - 3;
+                        m.marker1XYZ = ((Marker) BlockMarker.markers.get(first)).toV3();
+                        m.marker2XYZ = ((Marker) BlockMarker.markers.get(first + 1)).toV3();
+                        m.marker3XYZ = ((Marker) BlockMarker.markers.get(first + 2)).toV3();
+                    } catch (Exception var7) {
+                    }
                 }
             }
+            super.onBlockAdded(world, blockPos, iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("挖矿箱onBlockAdded出错了：" + e.getMessage());
         }
-        super.onBlockAdded(world, blockPos, iBlockState);
+
     }
 
     @Override
     public void onBlockDestroyedByPlayer(World world, BlockPos blockPos, IBlockState iBlockState) {
-        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId()));
-        if (theFolk != null) {
-            theFolk.selfFire();
+        try {
+            FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId()));
+            if (theFolk != null) {
+                theFolk.selfFire();
+            }
+
+            MiningBox m = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            ModSimReloaded.theMiningBoxes.remove(m);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("挖矿箱onBlockDestroyedByPlayer出错了：" + e.getMessage());
         }
 
-        MiningBox m = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
-        ModSimReloaded.theMiningBoxes.remove(m);
-        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
-        super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
+        try {
         world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
         MiningBox miningBlock = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
 
-        try {
             miningBlock.location.theDimension = thePlayer.dimension;
             ArrayList<FolkData> folks = FolkData.getFolksByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
             GuiMining ui = new GuiMining(miningBlock, folks);
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);
-        } catch (Exception var14) {
-            ModSimReloaded.log.error(var14.getMessage());
+        } catch (Exception e) {
+            ModSimReloaded.log.error(e.getMessage());
             if (world.isRemote) {
                 String Mining_box_Sorry = I18n.format("container.sim.Mining_box_Sorry");
                 ModSimReloaded.sendChat(Mining_box_Sorry);
             }
         }
-
         return true;
     }
 }

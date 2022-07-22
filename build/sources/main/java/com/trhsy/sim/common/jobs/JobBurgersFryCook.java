@@ -40,65 +40,83 @@ public class JobBurgersFryCook extends Job {
     private int tryMeta = 3;
 
     public JobBurgersFryCook(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                }
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("JobBurgersFryCook出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (this.theStore == null) {
-            this.theStore = Building.getBuilding(this.theFolk.employedAt);
-        }
-
-        if (this.theStore != null) {
-            if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
+        try {
+            super.onUpdate();
+            if (this.theStore == null) {
+                this.theStore = Building.getBuilding(this.theFolk.employedAt);
             }
 
-            super.onUpdateGoingToWork(this.theFolk);
-            //到货商店
-            if (this.theStage == Stage.ARRIVEDATSTORE) {
-                //工作中
-                this.theFolk.action = FolkAction.ATWORK;
-                this.runDelay = 11000;
-            } else if (this.theStage == Stage.NOINGREDIANTS) {
-                this.runDelay = 30000;
-                //做食物
-            } else if (this.theStage == Stage.MAKEFOOD) {
-                this.runDelay = 15000;
-            } else {
-                this.runDelay = 5000;
-            }
-
-            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
-                    if (this.theStage == Stage.ARRIVEDATSTORE) {
-                        this.theStage = Stage.MAKEFOOD;
-                        //做食物
-                    } else if (this.theStage == Stage.MAKEFOOD) {
-                        this.stageMakeFood();
-                    } else if (this.theStage == Stage.NOINGREDIANTS) {
-                        this.stageNoIngrediants();
+            if (this.theStore != null) {
+                if (!ModSimReloaded.isDayTime()) {
+                    if (!theFolk.isNightOwl()) {
+                        //闲置
+                        this.theStage = Stage.IDLE;
+                        return;
                     }
                 }
 
-                if (!ModSimReloaded.isDayTime()) {
-                    this.theStage = Stage.IDLE;
+                super.onUpdateGoingToWork(this.theFolk);
+                //到货商店
+                if (this.theStage == Stage.ARRIVEDATSTORE) {
+                    //工作中
+                    this.theFolk.action = FolkAction.ATWORK;
+                    this.runDelay = 11000;
+                } else if (this.theStage == Stage.NOINGREDIANTS) {
+                    this.runDelay = 30000;
+                    //做食物
+                } else if (this.theStage == Stage.MAKEFOOD) {
+                    this.runDelay = 15000;
+                } else {
+                    this.runDelay = 5000;
                 }
 
-                this.timeSinceLastRun = System.currentTimeMillis();
+                if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
+                    if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                        if (this.theStage == Stage.ARRIVEDATSTORE) {
+                            this.theStage = Stage.MAKEFOOD;
+                            //做食物
+                        } else if (this.theStage == Stage.MAKEFOOD) {
+                            this.stageMakeFood();
+                        } else if (this.theStage == Stage.NOINGREDIANTS) {
+                            this.stageNoIngrediants();
+                        }
+                    }
+
+                    if (!ModSimReloaded.isDayTime()) {
+                        if (!theFolk.isNightOwl()) {
+                            //闲置
+                            this.theStage = Stage.IDLE;
+                            return;
+                        }
+                    }
+
+                    this.timeSinceLastRun = System.currentTimeMillis();
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
+
     }
     /**
      * @Author fan
@@ -108,142 +126,156 @@ public class JobBurgersFryCook extends Job {
      * @return void
      **/
     private void stageNoIngrediants() {
-        this.theFolk.statusText = I18n.format("container.sim.job.Arrived_ingrediants");
-        this.theStage = Stage.MAKEFOOD;
-        this.step = 1;
+        try {
+            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_ingrediants");
+            this.theStage = Stage.MAKEFOOD;
+            this.step = 1;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageNoIngrediants出错了：" + e.getMessage());
+        }
     }
 
     private void stageMakeFood() {
-        ArrayList<V3> ch = this.theStore.getSpecialBlocks(0);
-        if (ch.isEmpty()) {
-            this.theStage = Stage.NOINGREDIANTS;
-        } else {
-            ArrayList<IInventory> chestsIn = inventoriesFindClosest((V3)ch.get(0), 3);
-            if (chestsIn.isEmpty()) {
+        try {
+
+            ArrayList<V3> ch = this.theStore.getSpecialBlocks(0);
+            if (ch.isEmpty()) {
                 this.theStage = Stage.NOINGREDIANTS;
             } else {
-                ArrayList<V3> ch2 = this.theStore.getSpecialBlocks(2);
-                if (ch.isEmpty()) {
+                ArrayList<IInventory> chestsIn = inventoriesFindClosest((V3)ch.get(0), 3);
+                if (chestsIn.isEmpty()) {
                     this.theStage = Stage.NOINGREDIANTS;
                 } else {
-                    ArrayList<IInventory> chestsOut = inventoriesFindClosest((V3)ch2.get(0), 3);
-                    if (chestsIn.isEmpty()) {
+                    ArrayList<V3> ch2 = this.theStore.getSpecialBlocks(2);
+                    if (ch.isEmpty()) {
                         this.theStage = Stage.NOINGREDIANTS;
                     } else {
-                        ArrayList<V3> back = this.theStore.getSpecialBlocks(1);
-                        if (!back.isEmpty()) {
-                            this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
+                        ArrayList<IInventory> chestsOut = inventoriesFindClosest((V3)ch2.get(0), 3);
+                        if (chestsIn.isEmpty()) {
+                            this.theStage = Stage.NOINGREDIANTS;
+                        } else {
+                            ArrayList<V3> back = this.theStore.getSpecialBlocks(1);
+                            if (!back.isEmpty()) {
+                                this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
 
-                            try {
-                                this.theFolk.destination.destinationAcc = 0.3D;
-                            } catch (Exception var7) {
-                            }
-                        }
-
-                        if (this.step == 1) {
-                            int c;
-                            if (this.tryMeta == 3) {
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(ItemLoader.itemCheese, 1, 0), true);
-                                if (c == 0) {
-                                    this.tryMeta = 1;
-                                    return;
+                                try {
+                                    this.theFolk.destination.destinationAcc = 0.3D;
+                                } catch (Exception var7) {
                                 }
-
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.beef, 1), false);
-                                if (c == 0) {
-                                    this.tryMeta = 2;
-                                    return;
-                                }
-
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.bread, 1), false);
-                                if (c == 0) {
-                                    this.tryMeta = 2;
-                                    return;
-                                }
-
-                                this.isMakeFood = new ItemStack(ItemLoader.itemCheeseburger, 1, 3);
-                                this.step = 2;
-                                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Cooking");
-                            } else if (this.tryMeta == 1) {
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.beef, 1), false);
-                                if (c == 0) {
-                                    this.tryMeta = 2;
-                                    return;
-                                }
-
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.bread, 1), false);
-                                if (c == 0) {
-                                    this.tryMeta = 2;
-                                    return;
-                                }
-
-                                this.isMakeFood = new ItemStack(ItemLoader.itemBurger, 1, 1);
-                                this.step = 2;
-                                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Hamburger");
-                            } else if (this.tryMeta == 2) {
-                                c = this.getItemCountInChests(chestsIn, new ItemStack(Items.potato), false);
-                                if (c == 0) {
-                                    this.tryMeta = 3;
-                                    return;
-                                }
-
-                                this.isMakeFood = new ItemStack(ItemLoader.itemFries, 1, 2);
-                                this.step = 2;
-                                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Fries");
                             }
 
                             if (this.step == 1) {
-                                this.theStage = Stage.NOINGREDIANTS;
-                            } else {
-                                this.theFolk.isWorking = true;
-                            }
-                        } else if (this.step == 2) {
-                            if (this.isMakeFood.getMetadata() == 3) {
-                                inventoriesGet(chestsIn, new ItemStack(ItemLoader.itemCheese, 1, 0), false, true);
-                                inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
-                                inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
-                                this.tryMeta = 1;
-                            } else if (this.isMakeFood.getMetadata() == 1) {
-                                inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
-                                inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
-                                this.tryMeta = 2;
-                            } else if (this.isMakeFood.getMetadata() == 2) {
-                                inventoriesGet(chestsIn, new ItemStack(Items.potato, 1), false, false);
-                                this.tryMeta = 3;
+                                int c;
+                                if (this.tryMeta == 3) {
+                                    c = this.getItemCountInChests(chestsIn, new ItemStack(ItemLoader.itemCheese, 1, 0), true);
+                                    if (c == 0) {
+                                        this.tryMeta = 1;
+                                        return;
+                                    }
+
+                                    c = this.getItemCountInChests(chestsIn, new ItemStack(Items.beef, 1), false);
+                                    if (c == 0) {
+                                        this.tryMeta = 2;
+                                        return;
+                                    }
+
+                                    c = this.getItemCountInChests(chestsIn, new ItemStack(Items.bread, 1), false);
+                                    if (c == 0) {
+                                        this.tryMeta = 2;
+                                        return;
+                                    }
+
+                                    this.isMakeFood = new ItemStack(ItemLoader.itemCheeseburger, 1, 3);
+                                    this.step = 2;
+                                    this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Cooking");
+                                } else if (this.tryMeta == 1) {
+                                    c = this.getItemCountInChests(chestsIn, new ItemStack(Items.beef, 1), false);
+                                    if (c == 0) {
+                                        this.tryMeta = 2;
+                                        return;
+                                    }
+
+                                    c = this.getItemCountInChests(chestsIn, new ItemStack(Items.bread, 1), false);
+                                    if (c == 0) {
+                                        this.tryMeta = 2;
+                                        return;
+                                    }
+
+                                    this.isMakeFood = new ItemStack(ItemLoader.itemBurger, 1, 1);
+                                    this.step = 2;
+                                    this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Hamburger");
+                                } else if (this.tryMeta == 2) {
+                                    c = this.getItemCountInChests(chestsIn, new ItemStack(Items.potato), false);
+                                    if (c == 0) {
+                                        this.tryMeta = 3;
+                                        return;
+                                    }
+
+                                    this.isMakeFood = new ItemStack(ItemLoader.itemFries, 1, 2);
+                                    this.step = 2;
+                                    this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Fries");
+                                }
+
+                                if (this.step == 1) {
+                                    this.theStage = Stage.NOINGREDIANTS;
+                                } else {
+                                    this.theFolk.isWorking = true;
+                                }
+                            } else if (this.step == 2) {
+                                if (this.isMakeFood.getMetadata() == 3) {
+                                    inventoriesGet(chestsIn, new ItemStack(ItemLoader.itemCheese, 1, 0), false, true);
+                                    inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
+                                    inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
+                                    this.tryMeta = 1;
+                                } else if (this.isMakeFood.getMetadata() == 1) {
+                                    inventoriesGet(chestsIn, new ItemStack(Items.bread, 1), false, false);
+                                    inventoriesGet(chestsIn, new ItemStack(Items.beef, 1), false, false);
+                                    this.tryMeta = 2;
+                                } else if (this.isMakeFood.getMetadata() == 2) {
+                                    inventoriesGet(chestsIn, new ItemStack(Items.potato, 1), false, false);
+                                    this.tryMeta = 3;
+                                }
+
+                                this.inventoriesPut(chestsOut, this.isMakeFood, true);
+                                this.theFolk.isWorking = false;
+                                this.step = 1;
+                                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Checking_Ingrediants");
+                                GameStates var10000 = ModSimReloaded.states;
+                                var10000.credits = (float)((double)var10000.credits - 0.45D);
                             }
 
-                            this.inventoriesPut(chestsOut, this.isMakeFood, true);
-                            this.theFolk.isWorking = false;
-                            this.step = 1;
-                            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Checking_Ingrediants");
-                            GameStates var10000 = ModSimReloaded.states;
-                            var10000.credits = (float)((double)var10000.credits - 0.45D);
                         }
-
                     }
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageMakeFood出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void onArrivedAtWork() {
-        //int dist = false;
-        //在工作
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
-            this.theStage = Stage.ARRIVEDATSTORE;
-            ArrayList<V3> back = this.theStore.getSpecialBlocks(1);
-            if (!back.isEmpty()) {
-                this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
-                this.step = 1;
+        try {
+            //在工作
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
+                this.theStage = Stage.ARRIVEDATSTORE;
+                ArrayList<V3> back = this.theStore.getSpecialBlocks(1);
+                if (!back.isEmpty()) {
+                    this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
+                    this.step = 1;
+                }
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
             }
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
         }
+
 
     }
 

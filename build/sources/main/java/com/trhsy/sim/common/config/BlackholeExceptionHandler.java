@@ -13,9 +13,13 @@ public class BlackholeExceptionHandler implements IExceptionHandler {
     public BlackholeExceptionHandler() {
     }
 
+    @Override
     public void handle(Exception ex) {
+        // TODO document why this method is empty
     }
 
+    @Override
     public void flush() {
+        // TODO document why this method is empty
     }
 }

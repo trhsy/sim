@@ -56,7 +56,11 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
      */
     @Override
     public void func_149683_g() {
-        this.func_149676_a(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+        try {
+            this.func_149676_a(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("标记棒setBlockBoundsForItemRender出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -89,96 +93,103 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                     }
                 }
             }
-        } catch (Exception var11) {
+            markers.clear();
+            super.func_176206_d(world,blockPos,iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("标记棒onBlockDestroyedByPlayer出错了：" + e.getMessage());
         }
-
-        markers.clear();
-        super.func_176206_d(world,blockPos,iBlockState);
     }
 
     @Override
     public void func_180633_a(World world, BlockPos blockPos,IBlockState iBlockState, EntityLivingBase player, ItemStack is) {
-        hasPlaced = true;
-        if (world.field_72995_K) {
-            Marker ma;
-            markers.add(ma = new Marker(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
-            String markerCaption = "";
-            String helpText = "";
-            if (markers.size() == 1) {
-                markerCaption = "Front-Left";
-                helpText = I18n.func_135052_a("container.sim.box_Marker_left");
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-            } else if (markers.size() == 2) {
-                markerCaption = "Front-Right";
-                helpText = I18n.func_135052_a("container.sim.box_Marker_right");
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-            } else if (markers.size() == 3) {
-                markerCaption = "Rear-Left";
-                helpText = I18n.func_135052_a("container.sim.box_Marker_Rear_Left");
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-            } else {
-                ModSimReloaded.log.info(String.valueOf(markers.size()));
-                markerCaption = I18n.func_135052_a("container.sim.box_Marker_Markers");
-            }
-
-            if (markers.size() < 4) {
-                V3 pos = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q());
-                pos.y = pos.y + 0.01;
-                if (ConfigLoader.configEnableMarkerAlignmentBeams) {
-                    EntityAlignBeam beam = new EntityAlignBeam(world);
-                    ma.caption = markerCaption;
-                    beam.func_70012_b(pos.x, pos.y, pos.z, 0.0F, 0.0F);
-                    beam.yaw = 0.0F;
-                    if (!world.field_72995_K) {
-                        world.func_72838_d(beam);
-                    }
-
-                    ma.beams.add(beam);
-                    EntityAlignBeam beam2 = new EntityAlignBeam(world);
-                    beam2.func_70012_b(pos.x, pos.y, pos.z, 90.0F, 0.0F);
-                    beam2.yaw = 90.0F;
-                    if (!world.field_72995_K) {
-                        world.func_72838_d(beam2);
-                    }
-
-                    ma.beams.add(beam2);
-                    EntityAlignBeam beam3 = new EntityAlignBeam(world);
-                    beam3.func_70012_b(pos.x, pos.y, pos.z, 180.0F, 0.0F);
-                    beam3.yaw = 180.0F;
-                    if (!world.field_72995_K) {
-                        world.func_72838_d(beam3);
-                    }
-
-                    ma.beams.add(beam3);
-                    EntityAlignBeam beam4 = new EntityAlignBeam(world);
-                    beam4.func_70012_b(pos.x, pos.y, pos.z, 270.0F, 0.0F);
-                    beam4.yaw = 270.0F;
-                    if (!world.field_72995_K) {
-                        world.func_72838_d(beam4);
-                    }
-
-                    ma.beams.add(beam4);
+        try {
+            hasPlaced = true;
+            if (world.field_72995_K) {
+                Marker ma;
+                markers.add(ma = new Marker(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
+                String markerCaption = "";
+                String helpText = "";
+                if (markers.size() == 1) {
+                    markerCaption = "Front-Left";
+                    helpText = I18n.func_135052_a("container.sim.box_Marker_left");
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                } else if (markers.size() == 2) {
+                    markerCaption = "Front-Right";
+                    helpText = I18n.func_135052_a("container.sim.box_Marker_right");
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                } else if (markers.size() == 3) {
+                    markerCaption = "Rear-Left";
+                    helpText = I18n.func_135052_a("container.sim.box_Marker_Rear_Left");
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                } else {
+                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                    markerCaption = I18n.func_135052_a("container.sim.box_Marker_Markers");
                 }
-            }
 
-            if (!helpText.contentEquals("")) {
-                ModSimReloaded.sendChat(helpText);
-            }
+                if (markers.size() < 4) {
+                    V3 pos = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q());
+                    pos.y = pos.y + 0.01;
+                    if (ConfigLoader.configEnableMarkerAlignmentBeams) {
+                        EntityAlignBeam beam = new EntityAlignBeam(world);
+                        ma.caption = markerCaption;
+                        beam.func_70012_b(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+                        beam.yaw = 0.0F;
+                        if (!world.field_72995_K) {
+                            world.func_72838_d(beam);
+                        }
 
-            super.func_180633_a(world, blockPos,iBlockState, player, is);
+                        ma.beams.add(beam);
+                        EntityAlignBeam beam2 = new EntityAlignBeam(world);
+                        beam2.func_70012_b(pos.x, pos.y, pos.z, 90.0F, 0.0F);
+                        beam2.yaw = 90.0F;
+                        if (!world.field_72995_K) {
+                            world.func_72838_d(beam2);
+                        }
+
+                        ma.beams.add(beam2);
+                        EntityAlignBeam beam3 = new EntityAlignBeam(world);
+                        beam3.func_70012_b(pos.x, pos.y, pos.z, 180.0F, 0.0F);
+                        beam3.yaw = 180.0F;
+                        if (!world.field_72995_K) {
+                            world.func_72838_d(beam3);
+                        }
+
+                        ma.beams.add(beam3);
+                        EntityAlignBeam beam4 = new EntityAlignBeam(world);
+                        beam4.func_70012_b(pos.x, pos.y, pos.z, 270.0F, 0.0F);
+                        beam4.yaw = 270.0F;
+                        if (!world.field_72995_K) {
+                            world.func_72838_d(beam4);
+                        }
+
+                        ma.beams.add(beam4);
+                    }
+                }
+
+                if (!helpText.contentEquals("")) {
+                    ModSimReloaded.sendChat(helpText);
+                }
+
+                super.func_180633_a(world, blockPos,iBlockState, player, is);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("标记棒onBlockPlacedBy出错了：" + e.getMessage());
         }
-
     }
 
     public static Marker getMarker(V3 position) {
         Marker ret = null;
-
-        for (int i = 0; i < markers.size(); ++i) {
-            Marker m = (Marker) markers.get(i);
-            if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
-                ret = m;
-                break;
+        try {
+            for (int i = 0; i < markers.size(); i++) {
+                Marker m = (Marker) markers.get(i);
+                if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
+                    ret = m;
+                    break;
+                }
             }
+
+        } catch (Exception e) {
+            ModSimReloaded.log.error("标记棒getMarker出错了：" + e.getMessage());
         }
 
         return ret;
@@ -187,11 +198,16 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        this.location = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK);
-        world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-        GuiMarker ui = new GuiMarker(this.location, thePlayer);
-        Minecraft mc = Minecraft.func_71410_x();
-        mc.func_147108_a(ui);
+        try {
+            this.location = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            GuiMarker ui = new GuiMarker(this.location, thePlayer);
+            Minecraft mc = Minecraft.func_71410_x();
+            mc.func_147108_a(ui);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            return false;
+        }
         return true;
     }
     @Override

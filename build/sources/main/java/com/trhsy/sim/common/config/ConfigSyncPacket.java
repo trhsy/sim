@@ -39,7 +39,7 @@ public class ConfigSyncPacket extends AbstractPacket{
     public void fromBytes(ByteBuf buf) {
         short categoryCount = buf.readShort();
 
-        for(short i = 0; i < categoryCount; ++i) {
+        for(short i = 0; i < categoryCount; i++) {
             int propCount = buf.readInt();
             String categoryName = ByteBufUtils.readUTF8String(buf);
             ConfigCategory category = new ConfigCategory(categoryName);

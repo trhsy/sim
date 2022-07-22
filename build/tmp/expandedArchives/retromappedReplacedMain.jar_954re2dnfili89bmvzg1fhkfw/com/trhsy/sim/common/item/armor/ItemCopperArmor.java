@@ -46,7 +46,9 @@ public class ItemCopperArmor extends ItemArmor {
     }
 
     public static class Helmet extends ItemCopperArmor {
+
         public Helmet() {
+
             super(0);
             this.func_77655_b("copperHelmet");
             this.func_77637_a(CreativeTabsLoader.tabSimU);

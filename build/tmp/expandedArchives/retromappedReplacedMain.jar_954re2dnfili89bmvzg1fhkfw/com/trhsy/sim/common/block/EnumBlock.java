@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.block;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -39,13 +40,18 @@ public class EnumBlock <E extends Enum<E> & EnumBlock.IEnumMeta & IStringSeriali
     @Override
     @SideOnly(Side.CLIENT)
     public void func_149666_a(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        Enum[] var4 = this.values;
-        int var5 = var4.length;
+        try {
+            Enum[] var4 = this.values;
+            int var5 = var4.length;
 
-        for(int var6 = 0; var6 < var5; ++var6) {
-            E type = (E) var4[var6];
-            list.add(new ItemStack(this, 1, ((EnumBlock.IEnumMeta)type).getMeta()));
+            for(int var6 = 0; var6 < var5; ++var6) {
+                E type = (E) var4[var6];
+                list.add(new ItemStack(this, 1, ((EnumBlock.IEnumMeta)type).getMeta()));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
         }
+
 
     }
 

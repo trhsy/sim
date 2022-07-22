@@ -80,18 +80,23 @@ public class JobBuilder extends Job implements Serializable {
      * @param folk
      */
     public JobBuilder(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
-            this.theBuilding = this.theFolk.theBuilding;
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                }
+
+                this.theBuilding = this.theFolk.theBuilding;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("JobBuilder出错了：" + e.getMessage());
         }
+
     }
 
     /**
@@ -99,86 +104,99 @@ public class JobBuilder extends Job implements Serializable {
      */
     @Override
     public void resetJob() {
-        this.theStage = Stage.IDLE;
+        try {
+            this.theStage = Stage.IDLE;
+        }catch (Exception e){
+            this.theStage = Stage.IDLE;
+            ModSimReloaded.log.error("重新安排工作出错了:"+e.getMessage());
+        }
     }
 
     @Override
     public void onUpdate() {
-        if (this.theFolk != null) {
-            super.onUpdate();
-            //如果是晚上 设置闲置
-            if (!ModSimReloaded.isDayTime()) {
-                this.theStage = Stage.IDLE;
-            }
-            //去上班
-            super.onUpdateGoingToWork(this.theFolk);
-            //建筑工正在检查建筑物的资源
-            if (this.theStage == Stage.WAITINGFORRESOURCES) {
-                //延迟3秒
-                this.runDelay = 3000;
-                //if (this.theBuilding != null) {
-                //}
-            }
-            //建筑工正忙着建筑 并且 步=1
-            if (this.theStage == Stage.INPROGRESS && this.step == 1) {
-                //建筑速度
-                this.runDelay = (int) (2000.0F / this.theFolk.levelBuilder);
-            }
-            //当前毫秒-上次运行>=延迟
-            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
-                //当前时间
-                this.timeSinceLastRun = System.currentTimeMillis();
-                //当前建筑工不为空并且 职业不是建筑工
-                if (this.theFolk.theirJob != null && this.theFolk.vocation != Vocation.BUILDER) {
-                    //解雇
-                    this.theFolk.selfFire();
-                } else {
-                    //更新实体位置
-                    this.theFolk.updateLocationFromEntity();
-                    //获得NPC与雇佣点的距离
-                    int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-                    //如果距离小于等于3 并且阶段为分配工人
-                    if (dist <= 3 && this.theStage == Stage.WORKERASSIGNED) {
-                        //NPC设置为去上班
-                        this.theFolk.action = FolkAction.ATWORK;
-                        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_Arrived");
-                        //阶段为获取蓝图
-                        this.theStage = Stage.BLUEPRINT;
+        try {
+            if (this.theFolk != null) {
+                super.onUpdate();
+                //如果是晚上 设置闲置
+                if (!ModSimReloaded.isDayTime()) {
+                    if (!theFolk.isNightOwl()) {
+                        //闲置
+                        this.theStage = Stage.IDLE;
+                        return;
                     }
-                    //如果距离小于10 并且阶段为分配工人 并且npc目的地为空
-                    if (dist < 10 && this.theStage == Stage.WORKERASSIGNED && this.theFolk.destination == null) {
-                        //NPC设置为去上班
-                        this.theFolk.action = FolkAction.ATWORK;
-                        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_Arrived");
-                        //阶段为获取蓝图
-                        this.theStage = Stage.BLUEPRINT;
-                    }
-                    //（如果阶段为闲置  或者 为分配工人）为白天
-                    if ((this.theStage == Stage.IDLE || this.theStage == Stage.WORKERASSIGNED) && ModSimReloaded.isDayTime()) {
-                        //如果npc 不是工作途中
-                        if (this.theFolk.action != FolkAction.ONWAYTOWORK) {
-                            //阶段为分配员工
-                            this.theStage = Stage.WORKERASSIGNED;
+                }
+                //去上班
+                super.onUpdateGoingToWork(this.theFolk);
+                //建筑工正在检查建筑物的资源
+                if (this.theStage == Stage.WAITINGFORRESOURCES) {
+                    //延迟3秒
+                    this.runDelay = 3000;
+                    //if (this.theBuilding != null) {
+                    //}
+                }
+                //建筑工正忙着建筑 并且 步=1
+                if (this.theStage == Stage.INPROGRESS && this.step == 1) {
+                    //建筑速度
+                    this.runDelay = (int) (2000.0F / this.theFolk.levelBuilder);
+                }
+                //当前毫秒-上次运行>=延迟
+                if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
+                    //当前时间
+                    this.timeSinceLastRun = System.currentTimeMillis();
+                    //当前建筑工不为空并且 职业不是建筑工
+                    if (this.theFolk.theirJob != null && this.theFolk.vocation != Vocation.BUILDER) {
+                        //解雇
+                        this.theFolk.selfFire();
+                    } else {
+                        //更新实体位置
+                        this.theFolk.updateLocationFromEntity();
+                        //获得NPC与雇佣点的距离
+                        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                        //如果距离小于等于3 并且阶段为分配工人
+                        if (dist <= 3 && this.theStage == Stage.WORKERASSIGNED) {
+                            //NPC设置为去上班
+                            this.theFolk.action = FolkAction.ATWORK;
+                            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_Arrived");
+                            //阶段为获取蓝图
+                            this.theStage = Stage.BLUEPRINT;
                         }
-                        //如果不为分配员工
-                    } else if (this.theStage != Stage.WORKERASSIGNED) {
-                        //阶段为蓝图
-                        if (this.theStage == Stage.BLUEPRINT) {
-                            this.stageBlueprint();
-                            //阶段等待资源
-                        } else if (this.theStage == Stage.WAITINGFORRESOURCES) {
-                            this.stageWaitingForResources();
-                            //正在进行
-                        } else if (this.theStage == Stage.INPROGRESS) {
-                            this.stageInProgress();
-                            //完成
-                        } else if (this.theStage == Stage.COMPLETE) {
-                            this.stageComplete();
+                        //如果距离小于10 并且阶段为分配工人 并且npc目的地为空
+                        if (dist < 10 && this.theStage == Stage.WORKERASSIGNED && this.theFolk.destination == null) {
+                            //NPC设置为去上班
+                            this.theFolk.action = FolkAction.ATWORK;
+                            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_Arrived");
+                            //阶段为获取蓝图
+                            this.theStage = Stage.BLUEPRINT;
                         }
-                    }
+                        //（如果阶段为闲置  或者 为分配工人）为白天
+                        if ((this.theStage == Stage.IDLE || this.theStage == Stage.WORKERASSIGNED) && ModSimReloaded.isDayTime()) {
+                            //如果npc 不是工作途中
+                            if (this.theFolk.action != FolkAction.ONWAYTOWORK) {
+                                //阶段为分配员工
+                                this.theStage = Stage.WORKERASSIGNED;
+                            }
+                            //如果不为分配员工
+                        } else if (this.theStage != Stage.WORKERASSIGNED) {
+                            //阶段为蓝图
+                            if (this.theStage == Stage.BLUEPRINT) {
+                                this.stageBlueprint();
+                                //阶段等待资源
+                            } else if (this.theStage == Stage.WAITINGFORRESOURCES) {
+                                this.stageWaitingForResources();
+                                //正在进行
+                            } else if (this.theStage == Stage.INPROGRESS) {
+                                this.stageInProgress();
+                                //完成
+                            } else if (this.theStage == Stage.COMPLETE) {
+                                this.stageComplete();
+                            }
+                        }
 
+                    }
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
     }
 
@@ -186,44 +204,49 @@ public class JobBuilder extends Job implements Serializable {
      * 阶段为蓝图
      */
     private void stageBlueprint() {
-        this.theBuilding = this.theFolk.theBuilding;
-        if (this.theBuilding == null) {
-            //请您选择要我建造的建筑
-            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_building");
-        } else {
-            //翻翻蓝图......
-            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_blueprints");
-            //更新实体位置
-            this.theFolk.updateLocationFromEntity();
-            //获取实体到雇佣点的距离
-            double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            //距离小于4，留在原地
-            if (dist < 4) {
-                this.theFolk.stayPut = true;
-            }
-            //如果允许 NPC 说话
-            if (ConfigLoader.configFolkTalking) {
-                //判断性别，发出不一样的声音
-                if (this.theFolk.gender == 0) {
-                    this.jobWorld.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1.0F, 1.0F, false);
-                } else {
-                    this.jobWorld.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
+        try {
+            this.theBuilding = this.theFolk.theBuilding;
+            if (this.theBuilding == null) {
+                //请您选择要我建造的建筑
+                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_building");
+            } else {
+                //翻翻蓝图......
+                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_blueprints");
+                //更新实体位置
+                this.theFolk.updateLocationFromEntity();
+                //获取实体到雇佣点的距离
+                double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                //距离小于4，留在原地
+                if (dist < 4) {
+                    this.theFolk.stayPut = true;
+                }
+                //如果允许 NPC 说话
+                if (ConfigLoader.configFolkTalking) {
+                    //判断性别，发出不一样的声音
+                    if (this.theFolk.gender == 0) {
+                        this.jobWorld.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1.0F, 1.0F, false);
+                    } else {
+                        this.jobWorld.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
+                    }
+                }
+                //等待资源
+                this.theStage = Stage.WAITINGFORRESOURCES;
+                this.step = 1;
+                //实体的建筑箱
+                if (this.theConBox == null) {
+                    World world = MinecraftServer.func_71276_C().func_71218_a(this.theFolk.location.theDimension);
+                    this.theConBox = new EntityConBox(world);
+                    this.theConBox.theFolk = this.theFolk;
+                    this.theConBox.func_70012_b(this.theFolk.employedAt.x + 2, this.theFolk.employedAt.y, this.theFolk.employedAt.z, 0.0F, 0.0F);
+                    if (!world.field_72995_K) {
+                        world.func_72838_d(this.theConBox);
+                    }
                 }
             }
-            //等待资源
-            this.theStage = Stage.WAITINGFORRESOURCES;
-            this.step = 1;
-            //实体的建筑箱
-            if (this.theConBox == null) {
-                World world = MinecraftServer.func_71276_C().func_71218_a(this.theFolk.location.theDimension);
-                this.theConBox = new EntityConBox(world);
-                this.theConBox.theFolk = this.theFolk;
-                this.theConBox.func_70012_b(this.theFolk.employedAt.x + 2, this.theFolk.employedAt.y, this.theFolk.employedAt.z, 0.0F, 0.0F);
-                if (!world.field_72995_K) {
-                    world.func_72838_d(this.theConBox);
-                }
-            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageBlueprint出错了：" + e.getMessage());
         }
+
 
     }
 
@@ -231,68 +254,73 @@ public class JobBuilder extends Job implements Serializable {
      * 等待资源的阶段
      */
     private void stageWaitingForResources() {
-        //停止工作
-        this.theFolk.isWorking = false;
-        int dist;
-        //步1
-        if (this.step == 1) {
-            //检查建设资源...
-            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_Checking");
-            this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-            if (this.constructorChests.size() == 0) {
-                //至少附近有一个箱子/存储方块。
-                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_block");
-            } else {
-                try {
-                    //打开箱子
-                    ((IInventory) this.constructorChests.get(0)).func_174889_b(mc.field_71439_g);
-                } catch (Exception var2) {
-                    ModSimReloaded.log.warn("JobBuilder:JobBuilder's 的箱子是空的");
-                }
+        try {
+            //停止工作
+            this.theFolk.isWorking = false;
+            int dist;
+            //步1
+            if (this.step == 1) {
+                //检查建设资源...
+                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_Checking");
+                this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+                if (this.constructorChests.size() == 0) {
+                    //至少附近有一个箱子/存储方块。
+                    this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_block");
+                } else {
+                    try {
+                        //打开箱子
+                        ((IInventory) this.constructorChests.get(0)).func_174889_b(mc.field_71439_g);
+                    } catch (Exception var2) {
+                        ModSimReloaded.log.warn("JobBuilder:JobBuilder's 的箱子是空的");
+                    }
 
+                    this.step = 2;
+                }
+                //获得NPC到目的地的距离
+                dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                //小于5原地
+                if (dist < 5) {
+                    this.theFolk.stayPut = true;
+                }
+                //步2
+            } else if (this.step == 2) {
+                //关闭
+                ((IInventory) this.constructorChests.get(0)).func_174886_c(mc.field_71439_g);
+                //正在进行中
+                this.theStage = Stage.INPROGRESS;
+                //重置为步1
+                this.step = 1;
+                //如果步3
+            } else if (this.step == 3) {
+                //NPC职业不是建筑师
+                if (this.theFolk.vocation != Vocation.BUILDER) {
+                    //咨询解雇
+                    this.theFolk.selfFire();
+                    return;
+                }
+                //设置步2
                 this.step = 2;
+                //正在进行中
+                this.theStage = Stage.INPROGRESS;
+                //如果NPC已经生产
+                if (this.theFolk.isSpawned()) {
+                    //更新实体人数据
+                    this.theFolk.updateLocationFromEntity();
+                }
+                //获得NPC到目的地的距离
+                dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                //小于5原地
+                if (dist < 5) {
+                    this.theFolk.stayPut = true;
+                } else {
+                    //否则传输到目的地
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                }
             }
-            //获得NPC到目的地的距离
-            dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            //小于5原地
-            if (dist < 5) {
-                this.theFolk.stayPut = true;
-            }
-            //步2
-        } else if (this.step == 2) {
-            //关闭
-            ((IInventory) this.constructorChests.get(0)).func_174886_c(mc.field_71439_g);
-            //正在进行中
-            this.theStage = Stage.INPROGRESS;
-            //重置为步1
-            this.step = 1;
-            //如果步3
-        } else if (this.step == 3) {
-            //NPC职业不是建筑师
-            if (this.theFolk.vocation != Vocation.BUILDER) {
-                //咨询解雇
-                this.theFolk.selfFire();
-                return;
-            }
-            //设置步2
-            this.step = 2;
-            //正在进行中
-            this.theStage = Stage.INPROGRESS;
-            //如果NPC已经生产
-            if (this.theFolk.isSpawned()) {
-                //更新实体人数据
-                this.theFolk.updateLocationFromEntity();
-            }
-            //获得NPC到目的地的距离
-            dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-            //小于5原地
-            if (dist < 5) {
-                this.theFolk.stayPut = true;
-            } else {
-                //否则传输到目的地
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
-            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageWaitingForResources出错了：" + e.getMessage());
         }
+
 
     }
 
@@ -300,212 +328,198 @@ public class JobBuilder extends Job implements Serializable {
      * 接到为正在进行
      */
     private void stageInProgress() {
-        //块id
-        Block blockId = null;
-        //以放置就绪
-        boolean alreadyPlaced = false;
-        //更新实体位置
-        this.theFolk.updateLocationFromEntity();
-        //获取实体与雇佣点的距离
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        //距离大于5并且NPC目的地为空
-        if (dist > 5 && this.theFolk.destination == null) {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
-            return;
-        } else {
-            //如果步骤1
-            if (this.step == 1) {
-                this.cx = this.theFolk.employedAt.x.intValue();
-                this.cy = this.theFolk.employedAt.y.intValue();
-                this.cz = this.theFolk.employedAt.z.intValue();
-                this.ex = this.theFolk.employedAt.x.intValue();
-                this.ey = this.theFolk.employedAt.y.intValue();
-                this.ez = this.theFolk.employedAt.z.intValue();
-                this.bx = this.ex;
-                this.by = this.ey;
-                this.bz = this.ez;
-                if (this.theBuilding.buildDirection.contentEquals("-x")) {
-                    this.bx = this.cx + 1;
-                } else if (this.theBuilding.buildDirection.contentEquals("+x")) {
-                    this.bx = this.cx - 1;
-                } else if (this.theBuilding.buildDirection.contentEquals("-z")) {
-                    this.bz = this.cz + 1;
-                } else if (this.theBuilding.buildDirection.contentEquals("+z")) {
-                    this.bz = cz - 1;
-                } else {
-                    if (!this.theBuilding.buildDirection.contentEquals("+z")) {
-                        //不能确定建造的方向，当你右键点击它时请站在构造的四边之一
-                        ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.builder_constructor_direction"));
-                        this.theFolk.selfFire();
+        try {
+            //块id
+            Block blockId = null;
+            //以放置就绪
+            boolean alreadyPlaced = false;
+            //更新实体位置
+            this.theFolk.updateLocationFromEntity();
+            //获取实体与雇佣点的距离
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            //距离大于5并且NPC目的地为空
+            if (dist > 5 && this.theFolk.destination == null) {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                return;
+            } else {
+                //如果步骤1
+                if (this.step == 1) {
+                    this.cx = this.theFolk.employedAt.x.intValue();
+                    this.cy = this.theFolk.employedAt.y.intValue();
+                    this.cz = this.theFolk.employedAt.z.intValue();
+                    this.ex = this.theFolk.employedAt.x.intValue();
+                    this.ey = this.theFolk.employedAt.y.intValue();
+                    this.ez = this.theFolk.employedAt.z.intValue();
+                    this.bx = this.ex;
+                    this.by = this.ey;
+                    this.bz = this.ez;
+                    if (this.theBuilding.buildDirection.contentEquals("-x")) {
+                        this.bx = this.cx + 1;
+                    } else if (this.theBuilding.buildDirection.contentEquals("+x")) {
+                        this.bx = this.cx - 1;
+                    } else if (this.theBuilding.buildDirection.contentEquals("-z")) {
+                        this.bz = this.cz + 1;
+                    } else if (this.theBuilding.buildDirection.contentEquals("+z")) {
+                        this.bz = cz - 1;
+                    } else {
+                        if (!this.theBuilding.buildDirection.contentEquals("+z")) {
+                            //不能确定建造的方向，当你右键点击它时请站在构造的四边之一
+                            ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.builder_constructor_direction"));
+                            this.theFolk.selfFire();
+                            return;
+                        }
+
+                        this.bz = this.cz - 1;
+                    }
+                    //开始建造
+                    ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_started_building") + this.theBuilding.displayNameWithoutPK);
+                    //建造中
+                    this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
+                    if (this.theBuilding == null || this.theBuilding.layerCount == 0) {
+                        //建筑图纸错误，删除中，请尝试其他建筑
+                        ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_started_misplaced"));
                         return;
                     }
-
-                    this.bz = this.cz - 1;
-                }
-                //开始建造
-                ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_started_building") + this.theBuilding.displayNameWithoutPK);
-                //建造中
-                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
-                if (this.theBuilding == null || this.theBuilding.layerCount == 0) {
-                    //建筑图纸错误，删除中，请尝试其他建筑
-                    ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_started_misplaced"));
-                    return;
-                }
-                //原地不动
-                this.theFolk.stayPut = true;
-                //建筑物为空 辞职
-                if (this.theBuilding == null) {
-                    this.theFolk.selfFire();
-                    return;
-                }
-
-                this.l = 0;
-                this.ftb = 0;
-                this.ltr = 0;
-                this.acount = 0;
-                this.step = 2;
-                this.theBuilding.blockLocations.clear();
-            } else if (this.step == 2) {
-                do {
-                    //已经开始建筑一个
-                    this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
-                    if (this.theBuilding.buildDirection.contentEquals("+z")) {
-                        this.xo = this.ltr;
-                        this.zo = -this.ftb;
-                    } else if (this.theBuilding.buildDirection.contentEquals("-z")) {
-                        this.xo = -this.ltr;
-                        this.zo = this.ftb;
-                    } else if (this.theBuilding.buildDirection.contentEquals("+x")) {
-                        this.xo = -this.ftb;
-                        this.zo = -this.ltr;
-                    } else if (this.theBuilding.buildDirection.contentEquals("-x")) {
-                        this.xo = this.ftb;
-                        this.zo = this.ltr;
-                    }
+                    //原地不动
+                    this.theFolk.stayPut = true;
                     //建筑物为空 辞职
                     if (this.theBuilding == null) {
                         this.theFolk.selfFire();
                         return;
                     }
 
-                    String[] bl = null;
-                    int st = 0;
-                    try {
-                        //获取结构体
-                        bl = this.theBuilding.structure[this.acount].split(":");
-                    } catch (Exception var17) {
-                        ModSimReloaded.log.warn("JobBuilder: 建筑中的空块,改用空气");
-                        bl = "0:0".split(":");
-                    }
-                    //获取块id
-                    blockId = Block.func_149684_b(bl[0]);
-                    //ModSimReloaded.log.info("***************blockId:" + blockId);
-                    //转为int
-                    int subtype = Integer.parseInt(bl[1]);
-                    //草方块改为泥土
-                    if (blockId == Blocks.field_150349_c) {
-                        blockId = Blocks.field_150346_d;
-                    }
-                    //类型为其他
-                    if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
-                        blockId = BlockLoader.blockControlBox;
-                        subtype = 2;//控制箱其他
-                    }
-                    //获得控制箱id
-                    if (blockId == BlockLoader.blockControlBox) {
-                        try {
-                            //主体的坐标
-                            this.theBuilding.primaryXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
-                            //保存建筑
-                            this.theBuilding.saveThisBuilding();
-                        } catch (Exception var16) {
-                            ModSimReloaded.log.warn("JobBuilder:构建为空" + var16.getMessage());
+                    this.l = 0;
+                    this.ftb = 0;
+                    this.ltr = 0;
+                    this.acount = 0;
+                    this.step = 2;
+                    this.theBuilding.blockLocations.clear();
+                } else if (this.step == 2) {
+                    do {
+                        //已经开始建筑一个
+                        this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
+                        if (this.theBuilding.buildDirection.contentEquals("+z")) {
+                            this.xo = this.ltr;
+                            this.zo = -this.ftb;
+                        } else if (this.theBuilding.buildDirection.contentEquals("-z")) {
+                            this.xo = -this.ltr;
+                            this.zo = this.ftb;
+                        } else if (this.theBuilding.buildDirection.contentEquals("+x")) {
+                            this.xo = -this.ftb;
+                            this.zo = -this.ltr;
+                        } else if (this.theBuilding.buildDirection.contentEquals("-x")) {
+                            this.xo = this.ftb;
+                            this.zo = this.ltr;
                         }
-                    }
-
-                    V3 v3;
-                    //地毯 并且建筑为住宅
-                    if (blockId == BlockLoader.blockLiving && this.theBuilding.type == "residential") {
-                        //生活区
-                        this.theBuilding.livingXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
-                        blockId = null;
-                        subtype = 0;
-                        //如果方块为特除 并且 为住宅
-                    } else if (blockId == BlockLoader.blockSpecial && this.theBuilding.type != "residential") {
-                        v3 = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
-                        v3.meta = subtype;
-                        this.theBuilding.blockSpecial.add(v3);
-                        blockId = null;
-                        subtype = 0;
-                    }
-                    Block currBlockId;
-                    try {
-                        currBlockId = this.jobWorld.func_180495_p(new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo)).func_177230_c();
-                        //
-                        if (blockId != currBlockId && (blockId != Blocks.field_150346_d || currBlockId != Blocks.field_150349_c)) {
-                            alreadyPlaced = false;
-                        } else {
-                            alreadyPlaced = true;
+                        //建筑物为空 辞职
+                        if (this.theBuilding == null) {
+                            this.theFolk.selfFire();
+                            return;
                         }
-                    } catch (Exception var20) {
-                        this.theFolk.selfFire();
-                        ModSimReloaded.log.error("******************建筑错误，NPC辞职:" + var20.getMessage());
-                        return;
-                    }
 
-                    String want = "???";
-                    //获取
-                    ItemStack wantIS = new ItemStack(blockId, 1, 0);
-                    if (wantIS != null) {
+                        String[] bl = null;
+                        int st = 0;
                         try {
-                            //获取物品名称
-                            want = wantIS.func_82833_r();
-                            if (blockId != null) {
-                                this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
+                            //获取结构体
+                            bl = this.theBuilding.structure[this.acount].split(":");
+                        } catch (Exception var17) {
+                            ModSimReloaded.log.error("JobBuilder: 建筑中的空块,改用空气");
+                            bl = "0:0".split(":");
+                        }
+                        //获取块id
+                        blockId = Block.func_149684_b(bl[0]);
+                        //ModSimReloaded.log.info("***************blockId:" + blockId);
+                        //转为int
+                        int subtype = Integer.parseInt(bl[1]);
+                        //草方块改为泥土
+                        if (blockId == Blocks.field_150349_c) {
+                            blockId = Blocks.field_150346_d;
+                        }
+                        //类型为其他
+                        if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
+                            blockId = BlockLoader.blockControlBox;
+                            subtype = 2;//控制箱其他
+                        }
+                        //获得控制箱id
+                        if (blockId == BlockLoader.blockControlBox) {
+                            try {
+                                //主体的坐标
+                                this.theBuilding.primaryXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
+                                //保存建筑
+                                this.theBuilding.saveThisBuilding();
+                            } catch (Exception var16) {
+                                ModSimReloaded.log.warn("JobBuilder:构建为空" + var16.getMessage());
                             }
-                        } catch (Exception var15) {
-                            want = "?";
-                            ModSimReloaded.log.error("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
                         }
-                    } else {
-                        want = "???";
-                    }
-                    //放置未完成
-                    if (!alreadyPlaced && currBlockId != null) {
 
-                        V3 blockToRemove = new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                        //找到最近的箱子
-                        this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                        //将矿块开采到箱子中
-                        this.mineBlockIntoChests(this.constructorChests, blockToRemove);
-
-                        BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                        this.jobWorld.func_180501_a(blockPos, Blocks.field_150350_a.func_176223_P(), 3);
-                        //设置正在工作
-                        this.theFolk.isWorking = true;
-                    }
-
-                    if (!alreadyPlaced) {
-                        boolean gotBlock = false;
-                        boolean requiredBlocks = blockId == Blocks.field_150344_f || blockId == Blocks.field_150347_e || blockId == Blocks.field_150359_w || blockId == Blocks.field_150325_L || blockId == Blocks.field_150336_V || blockId == Blocks.field_150346_d || blockId == Blocks.field_150417_aV || blockId == Blocks.field_180407_aO || blockId == Blocks.field_150348_b || blockId == Blocks.field_150364_r;
-                        ItemStack got;
-                        if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
-                            if (requiredBlocks) {
-                                this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                                got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
-                                if (got != null) {
-                                    gotBlock = true;
-                                } else {
-                                    gotBlock = false;
-                                }
+                        V3 v3;
+                        //地毯 并且建筑为住宅
+                        if (blockId == BlockLoader.blockLiving && this.theBuilding.type == "residential") {
+                            //生活区
+                            this.theBuilding.livingXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
+                            blockId = null;
+                            subtype = 0;
+                            //如果方块为特除 并且 为住宅
+                        } else if (blockId == BlockLoader.blockSpecial && this.theBuilding.type != "residential") {
+                            v3 = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
+                            v3.meta = subtype;
+                            this.theBuilding.blockSpecial.add(v3);
+                            blockId = null;
+                            subtype = 0;
+                        }
+                        Block currBlockId;
+                        try {
+                            currBlockId = this.jobWorld.func_180495_p(new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo)).func_177230_c();
+                            //
+                            if (blockId != currBlockId && (blockId != Blocks.field_150346_d || currBlockId != Blocks.field_150349_c)) {
+                                alreadyPlaced = false;
                             } else {
-                                gotBlock = true;
+                                alreadyPlaced = true;
                             }
-                        } else if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                            gotBlock = true;
-                        } else if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
-                            if (blockId != null) {
-                                if (blockId != Blocks.field_150349_c && blockId != Blocks.field_150355_j && blockId != Blocks.field_150355_j && blockId != Blocks.field_150353_l && blockId != Blocks.field_150353_l && blockId != Blocks.field_150444_as && blockId != Blocks.field_150414_aQ && blockId != Blocks.field_150333_U && blockId != Blocks.field_150376_bx && blockId != Blocks.field_150373_bw && blockId != Blocks.field_150334_T && blockId != Blocks.field_150458_ak && blockId != Blocks.field_180413_ao && blockId != Blocks.field_150454_av && blockId != Blocks.field_150324_C) {
+                        } catch (Exception var20) {
+                            this.theFolk.selfFire();
+                            ModSimReloaded.log.error("******************建筑错误，NPC辞职:" + var20.getMessage());
+                            return;
+                        }
+
+                        String want = "???";
+                        //获取
+                        ItemStack wantIS = new ItemStack(blockId, 1, 0);
+                        if (wantIS != null) {
+                            try {
+                                //获取物品名称
+                                want = wantIS.func_82833_r();
+                                if (blockId != null) {
+                                    this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
+                                }
+                            } catch (Exception var15) {
+                                want = "?";
+                                //ModSimReloaded.log.error("JobBuilder:wantItemStack 为空, wantIS 为空, blockID=" + blockId);
+                            }
+                        } else {
+                            want = "???";
+                        }
+                        //放置未完成
+                        if (!alreadyPlaced && currBlockId != null) {
+
+                            V3 blockToRemove = new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                            //找到最近的箱子
+                            this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+                            //将矿块开采到箱子中
+                            this.mineBlockIntoChests(this.constructorChests, blockToRemove);
+
+                            BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                            this.jobWorld.func_180501_a(blockPos, Blocks.field_150350_a.func_176223_P(), 3);
+                            //设置正在工作
+                            this.theFolk.isWorking = true;
+                        }
+
+                        if (!alreadyPlaced) {
+                            boolean gotBlock = false;
+                            boolean requiredBlocks = blockId == Blocks.field_150344_f || blockId == Blocks.field_150347_e || blockId == Blocks.field_150359_w || blockId == Blocks.field_150325_L || blockId == Blocks.field_150336_V || blockId == Blocks.field_150346_d || blockId == Blocks.field_150417_aV || blockId == Blocks.field_180407_aO || blockId == Blocks.field_150348_b || blockId == Blocks.field_150364_r;
+                            ItemStack got;
+                            if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
+                                if (requiredBlocks) {
                                     this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
                                     got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
                                     if (got != null) {
@@ -513,183 +527,207 @@ public class JobBuilder extends Job implements Serializable {
                                     } else {
                                         gotBlock = false;
                                     }
+                                } else {
+                                    gotBlock = true;
+                                }
+                            } else if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                                gotBlock = true;
+                            } else if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
+                                if (blockId != null) {
+                                    if (blockId != Blocks.field_150349_c && blockId != Blocks.field_150355_j && blockId != Blocks.field_150355_j && blockId != Blocks.field_150353_l && blockId != Blocks.field_150353_l && blockId != Blocks.field_150444_as && blockId != Blocks.field_150414_aQ && blockId != Blocks.field_150333_U && blockId != Blocks.field_150376_bx && blockId != Blocks.field_150373_bw && blockId != Blocks.field_150334_T && blockId != Blocks.field_150458_ak && blockId != Blocks.field_180413_ao && blockId != Blocks.field_150454_av && blockId != Blocks.field_150324_C) {
+                                        this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+                                        got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
+                                        if (got != null) {
+                                            gotBlock = true;
+                                        } else {
+                                            gotBlock = false;
+                                        }
 
-                                    if (blockId == BlockLoader.blockControlBox) {
+                                        if (blockId == BlockLoader.blockControlBox) {
+                                            gotBlock = true;
+                                        }
+                                    } else {
                                         gotBlock = true;
                                     }
                                 } else {
                                     gotBlock = true;
                                 }
-                            } else {
-                                gotBlock = true;
-                            }
-                        }
-
-                        if (!gotBlock) {
-                            this.theStage = Stage.WAITINGFORRESOURCES;
-                            //木板
-                            if (want.toLowerCase().contentEquals(I18n.func_135052_a("container.sim.sim_gui_BC11"))) {
-                                want = I18n.func_135052_a("container.sim.sim_gui_BC12");
-                            }
-//原木                        //橡木
-                            if (want.toLowerCase().contentEquals(I18n.func_135052_a("container.sim.sim_gui_BC9"))) {
-                                want = I18n.func_135052_a("container.sim.sim_gui_BC10");
-                            }
-                            //等待
-                            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_started_Waiting") + want;
-                            if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ConfigLoader.configMaterialReminderInterval * 60 * 1000)) {
-                                this.lastNotifiedOfMaterials = System.currentTimeMillis();
-                                ModSimReloaded.sendChat(this.theFolk.name + " ( " + I18n.func_135052_a("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.func_135052_a("container.sim.job.builder_constructor_started_more") + want);
                             }
 
-                            this.step = 3;
-                            return;
-                        }
-
-                        try {
-                            if (!alreadyPlaced) {
-                                try {
-                                    if (blockId == BlockLoader.blockLiving) {
-                                        alreadyPlaced = true;
-                                    }
-
-                                    if (blockId == BlockLoader.blockControlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals(I18n.func_135052_a("container.sim.ATMs"))) {
-                                        subtype = 1;
-                                    }
-                                    //把积木放好
-                                    if (!alreadyPlaced) {
-                                        this.theFolk.stayPut = true;
-                                        BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                                        this.jobWorld.func_180501_a(blockPos, blockId.func_176223_P(), 3);
-                                        this.jobWorld.func_175689_h(blockPos);
-                                    }
-
-                                    int b4 = (int) Math.floor((double) this.theFolk.levelBuilder);
-                                    if (this.theFolk.levelBuilder < 10.0F) {
-                                        FolkData var10000 = this.theFolk;
-                                        var10000.levelBuilder = (float) ((double) var10000.levelBuilder + 0.001 / (double) b4);
-                                    }
-
-                                    int aft = (int) Math.floor((double) this.theFolk.levelBuilder);
-                                    if (b4 != aft) {
-                                        //刚刚升级到建造者等级
-                                        ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_levelled") + aft);
-                                    }
-                                    //每2秒播放一次音效
-                                    if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
-                                        this.mc.field_71441_e.func_72980_b((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), ModSim.MODID + ":construction", 1.0F, 1.0F, false);
-                                        this.soundLastPlayed = System.currentTimeMillis();
-                                    }
-
-                                    if (this.mc.field_71441_e.field_72995_K) {
-                                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.3f, 0);
-                                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.2f, 0);
-                                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.1f, 0);
-                                    }
-
-                                    if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE && blockId != BlockLoader.blockLiving) {
-                                        GameStates var25 = ModSimReloaded.states;
-                                        var25.credits -= 0.02F;
-                                    }
-                                } catch (Exception var18) {
-                                    ModSimReloaded.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
-
-                                    try {
-                                        BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                                        this.jobWorld.func_180501_a(blockPos, blockId.func_176223_P(), 3);
-                                    } catch (Exception var14) {
-                                        //var14.printStackTrace();
-                                        ModSimReloaded.log.warn("错误：" + var14.getMessage());
-                                    }
+                            if (!gotBlock) {
+                                this.theStage = Stage.WAITINGFORRESOURCES;
+                                //木板
+                                if (want.toLowerCase().contentEquals(I18n.func_135052_a("container.sim.sim_gui_BC11"))) {
+                                    want = I18n.func_135052_a("container.sim.sim_gui_BC12");
                                 }
-                            }
-                        } catch (Exception var19) {
-                            //var19.printStackTrace();
-                            ModSimReloaded.log.warn("错误：" + var19.getMessage());
-                        }
-                    }
+//原木                        //橡木
+                                if (want.toLowerCase().contentEquals(I18n.func_135052_a("container.sim.sim_gui_BC9"))) {
+                                    want = I18n.func_135052_a("container.sim.sim_gui_BC10");
+                                }
+                                //等待
+                                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_started_Waiting") + want;
+                                if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ConfigLoader.configMaterialReminderInterval * 60 * 1000)) {
+                                    this.lastNotifiedOfMaterials = System.currentTimeMillis();
+                                    ModSimReloaded.sendChat(this.theFolk.name + " ( " + I18n.func_135052_a("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.func_135052_a("container.sim.job.builder_constructor_started_more") + want);
+                                }
 
-                    this.acount++;
-                    this.ltr++;
-                    if (this.ltr == this.theBuilding.ltrCount) {
-                        this.ltr = 0;
-                        this.ftb++;
-                        if (this.ftb == this.theBuilding.ftbCount) {
-                            this.ftb = 0;
-                            this.l++;
-                            if (this.l == this.theBuilding.layerCount) {
-                                //完成
-                                this.theStage = Stage.COMPLETE;
-                                this.stageComplete();
+                                this.step = 3;
                                 return;
                             }
-                        }
-                    }
 
-                    if (blockId != null && !alreadyPlaced) {
-                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                            this.runDelay = 0;
+                            try {
+                                if (!alreadyPlaced) {
+                                    try {
+                                        if (blockId == BlockLoader.blockLiving) {
+                                            alreadyPlaced = true;
+                                        }
+
+                                        if (blockId == BlockLoader.blockControlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals(I18n.func_135052_a("container.sim.ATMs"))) {
+                                            subtype = 1;
+                                        }
+                                        //把积木放好
+                                        if (!alreadyPlaced) {
+                                            this.theFolk.stayPut = true;
+                                            BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                                            this.jobWorld.func_180501_a(blockPos, blockId.func_176223_P(), 3);
+                                            this.jobWorld.func_175689_h(blockPos);
+                                        }
+
+                                        int b4 = (int) Math.floor((double) this.theFolk.levelBuilder);
+                                        if (this.theFolk.levelBuilder < 10.0F) {
+                                            FolkData var10000 = this.theFolk;
+                                            var10000.levelBuilder = (float) ((double) var10000.levelBuilder + 0.001 / (double) b4);
+                                        }
+
+                                        int aft = (int) Math.floor((double) this.theFolk.levelBuilder);
+                                        if (b4 != aft) {
+                                            //刚刚升级到建造者等级
+                                            ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_levelled") + aft);
+                                        }
+                                        //每2秒播放一次音效
+                                        if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
+                                            this.mc.field_71441_e.func_72980_b((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), ModSim.MODID + ":construction", 1.0F, 1.0F, false);
+                                            this.soundLastPlayed = System.currentTimeMillis();
+                                        }
+
+                                        if (this.mc.field_71441_e.field_72995_K) {
+                                            this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.3f, 0);
+                                            this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.2f, 0);
+                                            this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.1f, 0);
+                                        }
+
+                                        if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE && blockId != BlockLoader.blockLiving) {
+                                            GameStates var25 = ModSimReloaded.states;
+                                            var25.credits -= 0.02F;
+                                        }
+                                    } catch (Exception var18) {
+                                        ModSimReloaded.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
+
+                                        try {
+                                            BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                                            this.jobWorld.func_180501_a(blockPos, blockId.func_176223_P(), 3);
+                                        } catch (Exception var14) {
+                                            //var14.printStackTrace();
+                                            ModSimReloaded.log.warn("错误：" + var14.getMessage());
+                                        }
+                                    }
+                                }
+                            } catch (Exception var19) {
+                                //var19.printStackTrace();
+                                ModSimReloaded.log.warn("错误：" + var19.getMessage());
+                            }
+                        }
+
+                        this.acount++;
+                        this.ltr++;
+                        if (this.ltr == this.theBuilding.ltrCount) {
+                            this.ltr = 0;
+                            this.ftb++;
+                            if (this.ftb == this.theBuilding.ftbCount) {
+                                this.ftb = 0;
+                                this.l++;
+                                if (this.l == this.theBuilding.layerCount) {
+                                    //完成
+                                    this.theStage = Stage.COMPLETE;
+                                    this.stageComplete();
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (blockId != null && !alreadyPlaced) {
+                            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                                this.runDelay = 0;
+                            } else {
+                                this.runDelay = (int) (2000.0F / this.theFolk.levelBuilder);
+                            }
                         } else {
-                            this.runDelay = (int) (2000.0F / this.theFolk.levelBuilder);
+                            this.runDelay = 0;
                         }
-                    } else {
-                        this.runDelay = 0;
-                    }
 
-                    if (this.theFolk.theEntity != null) {
-                        this.theFolk.theEntity.func_71038_i();
-                    }
-                } while (blockId == null || alreadyPlaced);
+                        if (this.theFolk.theEntity != null) {
+                            this.theFolk.theEntity.func_71038_i();
+                        }
+                    } while (blockId == null || alreadyPlaced);
+                }
+
             }
-
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageInProgress出错了：" + e.getMessage());
         }
+
     }
 
     /**
      * 阶段完成
      */
     private void stageComplete() {
-        this.theFolk.isWorking = false;
-        if (this.theBuilding != null) {
-            if (this.theBuilding.buildingComplete) {
-            }
-
+        try {
+            this.theFolk.isWorking = false;
             if (this.theBuilding != null) {
-                this.theBuilding.buildingComplete = true;
-                //已完成建设
-                ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
-                ModSim.proxy.getClientWorld().func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
-                this.theBuilding.saveThisBuilding();
-                this.theFolk.theBuilding = null;
-            } else {
-                //错误：无法设置该建筑物 正在建设“完成”,尝试立即重建（免费）再试一次
-                ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.builder_constructor_Error") + this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_was_building"));
+                if (this.theBuilding.buildingComplete) {
+                }
+
+                if (this.theBuilding != null) {
+                    this.theBuilding.buildingComplete = true;
+                    //已完成建设
+                    ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
+                    ModSim.proxy.getClientWorld().func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                    this.theBuilding.saveThisBuilding();
+                    this.theFolk.theBuilding = null;
+                } else {
+                    //错误：无法设置该建筑物 正在建设“完成”,尝试立即重建（免费）再试一次
+                    ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.builder_constructor_Error") + this.theFolk.name + I18n.func_135052_a("container.sim.job.builder_constructor_was_building"));
+                }
             }
-        }
 
-        if (this.theFolk.theEntity != null) {
-            this.theFolk.theEntity.func_70095_a(false);
-        }
-
-        this.theFolk.stayPut = false;
-        this.theFolk.selfFire();
-        this.theStage = Stage.IDLE;
-        boolean activeBuilders = false;
-
-        int b;
-        for (b = 0; b < ModSimReloaded.theFolks.size(); ++b) {
-            FolkData fd = (FolkData) ModSimReloaded.theFolks.get(b);
-            if (fd.vocation == Vocation.BUILDER) {
-                activeBuilders = true;
+            if (this.theFolk.theEntity != null) {
+                this.theFolk.theEntity.func_70095_a(false);
             }
+
+            this.theFolk.stayPut = false;
+            this.theFolk.selfFire();
+            this.theStage = Stage.IDLE;
+            boolean activeBuilders = false;
+
+            int b;
+            for (b = 0; b < ModSimReloaded.theFolks.size(); ++b) {
+                FolkData fd = (FolkData) ModSimReloaded.theFolks.get(b);
+                if (fd.vocation == Vocation.BUILDER) {
+                    activeBuilders = true;
+                }
+            }
+
+            if (!activeBuilders) {
+                for (b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
+                    Building building = (Building) ModSimReloaded.theBuildings.get(b);
+                    building.buildingComplete = true;
+                }
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageComplete出错了：" + e.getMessage());
         }
 
-        if (!activeBuilders) {
-            for (b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
-                Building building = (Building) ModSimReloaded.theBuildings.get(b);
-                building.buildingComplete = true;
-            }
-        }
 
     }
 
@@ -698,18 +736,20 @@ public class JobBuilder extends Job implements Serializable {
      */
     @Override
     public void onArrivedAtWork() {
-        //int dist = false;
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            //到达建筑工地
-            this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_site");
-            this.theStage = Stage.BLUEPRINT;
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                //到达建筑工地
+                this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_site");
+                this.theStage = Stage.BLUEPRINT;
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-
     }
 
 }

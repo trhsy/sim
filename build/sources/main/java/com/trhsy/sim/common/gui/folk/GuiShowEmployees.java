@@ -41,10 +41,14 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     public void initGui() {
-        ModSimReloaded.log.info("初始化GUI");
-        this.folks = FolkData.getFolkUnemployed(true);
-        this.showPage();
-        super.initGui();
+        try {
+            ModSimReloaded.log.info("初始化GUI");
+            this.folks = FolkData.getFolkUnemployed(true);
+            this.showPage();
+            super.initGui();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
     }
     private void showPage() {
         try {
@@ -56,7 +60,7 @@ public class GuiShowEmployees extends GuiScreen {
                 this.folkOffset = 0;
             }
 
-            for(int f = this.folkOffset; f < this.folks.size(); ++f) {
+            for(int f = this.folkOffset; f < this.folks.size(); f++) {
                 this.buttonList.add(new GuiButton(f, this.width - 55, y, 50, 20, I18n.format("container.sim.Fire")));
                 y += 20;
                 if (y + 20 > this.height - 50) {
@@ -64,7 +68,7 @@ public class GuiShowEmployees extends GuiScreen {
                     break;
                 }
 
-                ++count;
+                count++;
             }
 
             if (this.folksOnAPage == 0) {
@@ -79,7 +83,8 @@ public class GuiShowEmployees extends GuiScreen {
                 this.buttonList.add(new GuiButton(1001, this.width - 50, 0, 50, 20, ">"));
             }
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
+            ModSimReloaded.log.error("显示员工出错："+var5.getMessage());
         }
 
     }
@@ -87,7 +92,7 @@ public class GuiShowEmployees extends GuiScreen {
     public void drawScreen(int i, int j, float f) {
         try {
             if (this.mouseCount < 10) {
-                ++this.mouseCount;
+                this.mouseCount++;
                 Mouse.setGrabbed(false);
             }
             this.drawDefaultBackground();
@@ -97,29 +102,28 @@ public class GuiShowEmployees extends GuiScreen {
                 this.folkOffset = 0;
             }
 
-            for(int ff = this.folkOffset; ff < this.folks.size(); ++ff) {
+            for(int ff = this.folkOffset; ff < this.folks.size(); ff++) {
                 FolkData folk = (FolkData)this.folks.get(ff);
                 this.drawString(this.fontRendererObj, folk.name, 2, y, 10551295);
-                String status;
                 if (folk.employedAt == null) {
                     this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_unemployed"), 110, y, 16715792);
                 } else {
-                    status = "";
+                    String dime = "";
                     if (folk.employedAt.theDimension == 0) {
-                        status = I18n.format("container.sim.Overworld");
+                        dime = I18n.format("container.sim.Overworld");
                     } else if (folk.employedAt.theDimension == 1) {
-                        status = I18n.format("container.sim.end");
+                        dime = I18n.format("container.sim.end");
                     } else if (folk.employedAt.theDimension == -1) {
-                        status = I18n.format("container.sim.hell");
+                        dime = I18n.format("container.sim.hell");
                     } else {
-                        status = I18n.format("container.sim.dim") + folk.employedAt.theDimension;
+                        dime = I18n.format("container.sim.dim") + folk.employedAt.theDimension;
                     }
 
-                    String voc = folk.vocation.toString() + " (" + status + ")";
+                    String voc = folk.vocation.toString() + " (" + dime + ")";
                     this.drawString(this.fontRendererObj, voc, 110, y, 10551295);
                 }
 
-                status = "";
+                String status = "";
 
                 try {
                     status = folk.action.toString() + ", " + folk.statusText;
@@ -145,8 +149,7 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-
-        if (guibutton.id == 1000) {
+        try {if (guibutton.id == 1000) {
             this.folkOffset -= this.folksOnAPage;
             this.showPage();
         } else if (guibutton.id == 1001) {
@@ -157,6 +160,10 @@ public class GuiShowEmployees extends GuiScreen {
             folk.selfFire();
             guibutton.enabled = false;
         }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -165,13 +172,22 @@ public class GuiShowEmployees extends GuiScreen {
     }
     @Override
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
+        try {
+            Keyboard.enableRepeatEvents(false);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+        }
+
     }
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
-            this.mc.setIngameFocus();
+        try {
+            if (i == 1) {
+                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.setIngameFocus();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
     }
     @Override
@@ -179,7 +195,8 @@ public class GuiShowEmployees extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            ModSimReloaded.log.error("鼠标点击出问题了："+e.getMessage());
+            //e.printStackTrace();
         }
     }
 }

@@ -45,15 +45,20 @@ public class BlockFarmingBox extends Block {
      */
     @Override
     public void func_176206_d(World world, BlockPos blockPos, IBlockState iBlockState) {
-        FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
-        if (theFolk != null) {
-            theFolk.selfFire();
+        try {
+            FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
+            if (theFolk != null) {
+                theFolk.selfFire();
+            }
+
+            FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
+            ModSimReloaded.theFarmingBoxes.remove(m);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            super.func_176206_d(world, blockPos,iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
-        FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
-        ModSimReloaded.theFarmingBoxes.remove(m);
-        world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
-        super.func_176206_d(world, blockPos,iBlockState);
     }
 
     /**
@@ -64,27 +69,32 @@ public class BlockFarmingBox extends Block {
      */
     @Override
     public void func_176213_c(World world, BlockPos blockPos, IBlockState iBlockState) {
-        if (BlockMarker.markers.isEmpty()) {
-            String farming_box_isEmpty = I18n.func_135052_a("container.sim.farming_box_isEmpty");
-            ModSimReloaded.sendChat(farming_box_isEmpty);
-        } else if (BlockMarker.markers.size() != 3) {
-            String farming_box_size = I18n.func_135052_a("container.sim.farming_box_size");
-            ModSimReloaded.sendChat(farming_box_size + BlockMarker.markers.size());
-        } else {
-            FarmingBox m;
-            ModSimReloaded.theFarmingBoxes.add(m = new FarmingBox(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), world.field_73011_w.func_177502_q())));
+        try {
+            if (BlockMarker.markers.isEmpty()) {
+                String farming_box_isEmpty = I18n.func_135052_a("container.sim.farming_box_isEmpty");
+                ModSimReloaded.sendChat(farming_box_isEmpty);
+            } else if (BlockMarker.markers.size() != 3) {
+                String farming_box_size = I18n.func_135052_a("container.sim.farming_box_size");
+                ModSimReloaded.sendChat(farming_box_size + BlockMarker.markers.size());
+            } else {
+                FarmingBox m;
+                ModSimReloaded.theFarmingBoxes.add(m = new FarmingBox(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), world.field_73011_w.func_177502_q())));
 
-            try {
-                int first = BlockMarker.markers.size() - 3;
-                m.marker1XYZ = ((Marker) BlockMarker.markers.get(first)).toV3();
-                m.marker2XYZ = ((Marker) BlockMarker.markers.get(first + 1)).toV3();
-                m.marker3XYZ = ((Marker) BlockMarker.markers.get(first + 2)).toV3();
-            } catch (Exception var7) {
-                var7.printStackTrace();
+                try {
+                    int first = BlockMarker.markers.size() - 3;
+                    m.marker1XYZ = ((Marker) BlockMarker.markers.get(first)).toV3();
+                    m.marker2XYZ = ((Marker) BlockMarker.markers.get(first + 1)).toV3();
+                    m.marker3XYZ = ((Marker) BlockMarker.markers.get(first + 2)).toV3();
+                } catch (Exception var7) {
+                    //var7.printStackTrace();
+                }
+
             }
-
+            super.func_176213_c(world, blockPos, iBlockState);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
         }
-        super.func_176213_c(world, blockPos, iBlockState);
+
     }
 
     /**
@@ -102,19 +112,24 @@ public class BlockFarmingBox extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer entityplayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
-
         try {
-            FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), entityplayer.field_71093_bK));
-            farmingBlock.location.theDimension = entityplayer.field_71093_bK;
-            FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), entityplayer.field_71093_bK));
-            Minecraft mc = Minecraft.func_71410_x();
-            mc.func_147108_a(new GuiFarming(farmingBlock, folk));
-        } catch (Exception var13) {
-            String farming_box_Sorry = I18n.func_135052_a("container.sim.farming_box_Sorry");
-            ModSimReloaded.sendChat(farming_box_Sorry);
-        }
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
 
+            try {
+                FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), entityplayer.field_71093_bK));
+                farmingBlock.location.theDimension = entityplayer.field_71093_bK;
+                FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), entityplayer.field_71093_bK));
+                Minecraft mc = Minecraft.func_71410_x();
+                mc.func_147108_a(new GuiFarming(farmingBlock, folk));
+            } catch (Exception var13) {
+                String farming_box_Sorry = I18n.func_135052_a("container.sim.farming_box_Sorry");
+                ModSimReloaded.sendChat(farming_box_Sorry);
+            }
+
+        } catch (Exception e) {
+            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            return false;
+        }
         return true;
     }
 }

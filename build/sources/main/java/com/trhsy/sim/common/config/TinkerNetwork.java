@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.config;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.BlockPos;
@@ -22,22 +23,27 @@ public class TinkerNetwork extends NetworkWrapper{
         super("sim");
     }
     public void setup() {
-        this.registerPacketClient(ConfigSyncPacket.class);
-        //this.registerPacket(StencilTableSelectionPacket.class);
-        //this.registerPacket(PartCrafterSelectionPacket.class);
-        //this.registerPacket(ToolStationSelectionPacket.class);
-        //this.registerPacket(ToolStationTextPacket.class);
-        //this.registerPacketServer(TinkerStationTabPacket.class);
-        //this.registerPacketServer(InventoryCraftingSyncPacket.class);
-        //this.registerPacketClient(InventorySlotSyncPacket.class);
-        //this.registerPacketClient(EntityMovementChangePacket.class);
-        //this.registerPacketClient(ToolBreakAnimationPacket.class);
-        //this.registerPacketClient(SmelteryFluidUpdatePacket.class);
-        //this.registerPacketClient(SmelteryFuelUpdatePacket.class);
-        //this.registerPacketClient(SmelteryInventoryUpdatePacket.class);
-        //this.registerPacketServer(SmelteryFluidClicked.class);
-        //this.registerPacketClient(FluidUpdatePacket.class);
-        //this.registerPacketClient(FaucetActivationPacket.class);
+        try {
+            this.registerPacketClient(ConfigSyncPacket.class);
+            //this.registerPacket(StencilTableSelectionPacket.class);
+            //this.registerPacket(PartCrafterSelectionPacket.class);
+            //this.registerPacket(ToolStationSelectionPacket.class);
+            //this.registerPacket(ToolStationTextPacket.class);
+            //this.registerPacketServer(TinkerStationTabPacket.class);
+            //this.registerPacketServer(InventoryCraftingSyncPacket.class);
+            //this.registerPacketClient(InventorySlotSyncPacket.class);
+            //this.registerPacketClient(EntityMovementChangePacket.class);
+            //this.registerPacketClient(ToolBreakAnimationPacket.class);
+            //this.registerPacketClient(SmelteryFluidUpdatePacket.class);
+            //this.registerPacketClient(SmelteryFuelUpdatePacket.class);
+            //this.registerPacketClient(SmelteryInventoryUpdatePacket.class);
+            //this.registerPacketServer(SmelteryFluidClicked.class);
+            //this.registerPacketClient(FluidUpdatePacket.class);
+            //this.registerPacketClient(FaucetActivationPacket.class);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("TinkerNetwork-setup出错了：" + e.getMessage());
+        }
+
     }
 
     public static void sendToAll(AbstractPacket packet) {
@@ -61,18 +67,23 @@ public class TinkerNetwork extends NetworkWrapper{
     }
 
     public static void sendToClients(WorldServer world, BlockPos pos, AbstractPacket packet) {
-        Chunk chunk = world.getChunkFromBlockCoords(pos);
-        Iterator var4 = world.playerEntities.iterator();
+        try {
+            Chunk chunk = world.getChunkFromBlockCoords(pos);
+            Iterator var4 = world.playerEntities.iterator();
 
-        while(var4.hasNext()) {
-            EntityPlayer player = (EntityPlayer)var4.next();
-            if (player instanceof EntityPlayerMP) {
-                EntityPlayerMP playerMP = (EntityPlayerMP)player;
-                if (world.getPlayerManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
-                    sendTo(packet, playerMP);
+            while(var4.hasNext()) {
+                EntityPlayer player = (EntityPlayer)var4.next();
+                if (player instanceof EntityPlayerMP) {
+                    EntityPlayerMP playerMP = (EntityPlayerMP)player;
+                    if (world.getPlayerManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
+                        sendTo(packet, playerMP);
+                    }
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("sendToClients出错了：" + e.getMessage());
         }
+
 
     }
 }

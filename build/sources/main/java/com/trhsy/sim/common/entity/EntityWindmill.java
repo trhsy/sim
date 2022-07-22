@@ -37,8 +37,11 @@ public class EntityWindmill extends Entity {
 
     @Override
     public void setDead() {
-        ModSimReloaded.log.info("EntityWindmill: setDead() 调用");
-        super.setDead();
+        try {
+            super.setDead();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setDead出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -47,20 +50,24 @@ public class EntityWindmill extends Entity {
 
     @Override
     public void onUpdate() {
-        if (this.worldObj.isRaining()) {
-            if (this.sailSpeed < 0.1F) {
-                this.sailSpeed += 0.001F;
-            } else if (this.sailSpeed > 0.1F) {
+        try {
+            if (this.worldObj.isRaining()) {
+                if (this.sailSpeed < 0.1F) {
+                    this.sailSpeed += 0.001F;
+                } else if (this.sailSpeed > 0.1F) {
+                    this.sailSpeed -= 0.001F;
+                }
+            } else if (this.sailSpeed < 0.02F) {
+                this.sailSpeed += 1.0E-4F;
+            } else if (this.sailSpeed > 0.02F) {
                 this.sailSpeed -= 0.001F;
             }
-        } else if (this.sailSpeed < 0.02F) {
-            this.sailSpeed += 1.0E-4F;
-        } else if (this.sailSpeed > 0.02F) {
-            this.sailSpeed -= 0.001F;
-        }
 
-        this.sailRotation += this.sailSpeed + this.sailSpeedModifer;
-        super.onUpdate();
+            this.sailRotation += this.sailSpeed + this.sailSpeedModifer;
+            super.onUpdate();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -72,19 +79,14 @@ public class EntityWindmill extends Entity {
         return false;
     }
 
-    //@Override
-    //public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
-    //}
+    @Override
+    public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements,boolean p_180426_10_) {
+    }
 
     @Override
     public AxisAlignedBB getCollisionBox(Entity par1Entity) {
         return par1Entity.getEntityBoundingBox();
     }
-
-    //@Override
-    //public AxisAlignedBB getBoundingBox() {
-    //    return this.boundingBox;
-    //}
 
     @Override
     public boolean canBeCollidedWith() {

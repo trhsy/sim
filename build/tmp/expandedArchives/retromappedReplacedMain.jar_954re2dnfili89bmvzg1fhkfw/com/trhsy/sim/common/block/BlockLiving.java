@@ -129,7 +129,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     @Override
     @SideOnly(Side.CLIENT)
     public void func_149666_a(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (int i = 0; i < 16; ++i) {
+        for (int i = 0; i < 16; i++) {
             list.add(new ItemStack(itemIn, 1, i));
         }
     }

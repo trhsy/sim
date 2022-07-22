@@ -15,7 +15,7 @@ public class ItemCopperPickaxe extends ItemPickaxe {
     /**
      * @Author fan
      * @Description //TODO 枚举 WOOD，STONE，IRON，EMERALD，GOLD
-     *                          木头、石头、铁、钻石、金
+     * 木头、石头、铁、钻石、金
      * WOOD(0, 59, 2.0F, 0.0F, 15),
      * STONE(1, 131, 4.0F, 1.0F, 5),
      * IRON(2, 250, 6.0F, 2.0F, 14),
@@ -31,8 +31,8 @@ public class ItemCopperPickaxe extends ItemPickaxe {
      * @return
      **/
     public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 500, 16.0F, 2.0F, 22);
-    public ItemCopperPickaxe()
-    {
+
+    public ItemCopperPickaxe() {
         super(REDSTONE);
         this.func_77655_b("copperPickaxe");
         this.func_77637_a(CreativeTabsLoader.tabSimU);

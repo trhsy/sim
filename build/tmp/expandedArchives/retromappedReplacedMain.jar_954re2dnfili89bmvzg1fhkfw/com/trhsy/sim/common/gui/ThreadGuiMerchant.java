@@ -27,9 +27,10 @@ public class ThreadGuiMerchant implements Runnable {
     public void run() {
         try {
             Thread.sleep(3000L);
+            this.guiMerchant.field_146297_k.field_71441_e.func_72980_b(this.guiMerchant.field_146297_k.field_71439_g.field_70165_t, this.guiMerchant.field_146297_k.field_71439_g.field_70163_u, this.guiMerchant.field_146297_k.field_71439_g.field_70161_v, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
         } catch (Exception var2) {
         }
 
-        this.guiMerchant.field_146297_k.field_71441_e.func_72980_b(this.guiMerchant.field_146297_k.field_71439_g.field_70165_t, this.guiMerchant.field_146297_k.field_71439_g.field_70163_u, this.guiMerchant.field_146297_k.field_71439_g.field_70161_v, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
+
     }
 }

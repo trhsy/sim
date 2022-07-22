@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.item;
 
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,8 +24,12 @@ public class ItemWindmillVane extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void func_150895_a(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for (int x = 0; x < 16; ++x) {
-            subItems.add(new ItemStack(this, 1, x));
+        try {
+            for (int x = 0; x < 16; ++x) {
+                subItems.add(new ItemStack(this, 1, x));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
     public String getTexture(String name) {
@@ -42,9 +47,13 @@ public class ItemWindmillVane extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void func_77624_a(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        String windmill_sail = I18n.func_135052_a("container.sim.windmill_sail");
-        par3List.add(windmill_sail);
-        super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
+        try {
+            String windmill_sail = I18n.func_135052_a("container.sim.windmill_sail");
+            par3List.add(windmill_sail);
+            super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
     }
     @Override
     public int func_77647_b(int par1) {

@@ -13,7 +13,8 @@ import com.trhsy.sim.common.jobs.JobBuilder;
 import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.packets.server.LoadBuildingMessage;
+import com.trhsy.sim.packets.PacketHandler;
+import com.trhsy.sim.packets.server.LoadBuildingPacket;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -75,36 +76,39 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param theFolks 建筑工
      */
     public GuiBuildingConstructor(V3 location, String buildDirection, ArrayList<FolkData> theFolks) {
-        this.constructorLoc = location;
-        this.buildDirection = buildDirection;
-        //如果不为空则赋值
-        if (theFolks != null) {
-            this.theWorkers = theFolks;
-        } else {
-            //为空则清除
-            this.theWorkers.clear();
+        try {
+            this.constructorLoc = location;
+            this.buildDirection = buildDirection;
+            //如果不为空则赋值
+            if (theFolks != null) {
+                this.theWorkers = theFolks;
+            } else {
+                //为空则清除
+                this.theWorkers.clear();
 
-            for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                //得到npc 数据
-                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
-                //NPC 被雇佣 并且 坐标是当前要建筑的地方
-                if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
-                    //如果 NPC职业是建筑师
-                    if (folk.vocation == Vocation.BUILDER) {
-                        //NPC当前的工作内容
-                        JobBuilder theirJob = (JobBuilder) folk.theirJob;
-                        //工作阶段是闲置
-                        if (theirJob.theStage == Stage.IDLE) {
-                            //设置阶段为已分配工作
-                            theirJob.theStage = Stage.WORKERASSIGNED;
+                for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                    //得到npc 数据
+                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                    //NPC 被雇佣 并且 坐标是当前要建筑的地方
+                    if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
+                        //如果 NPC职业是建筑师
+                        if (folk.vocation == Vocation.BUILDER) {
+                            //NPC当前的工作内容
+                            JobBuilder theirJob = (JobBuilder) folk.theirJob;
+                            //工作阶段是闲置
+                            if (theirJob.theStage == Stage.IDLE) {
+                                //设置阶段为已分配工作
+                                theirJob.theStage = Stage.WORKERASSIGNED;
+                            }
                         }
+                        //把当前建筑工人添加进去
+                        this.theWorkers.add(folk);
                     }
-                    //把当前建筑工人添加进去
-                    this.theWorkers.add(folk);
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiBuildingConstructor出错了：" + e.getMessage());
         }
-
     }
 
     /**
@@ -122,15 +126,20 @@ public class GuiBuildingConstructor extends GuiScreen {
      */
     @Override
     public void func_73876_c() {
-        //设置游戏内不聚焦
-        this.field_146297_k.func_71364_i();
-        //如果搜索不为空
-        if (this.tfSearch != null) {
-            //更新光标计数器
-            this.tfSearch.func_146178_a();
+        try {
+            //设置游戏内不聚焦
+            this.field_146297_k.func_71364_i();
+            //如果搜索不为空
+            if (this.tfSearch != null) {
+                //更新光标计数器
+                this.tfSearch.func_146178_a();
+            }
+            //更新画面
+            super.func_73876_c();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
         }
-        //更新画面
-        super.func_73876_c();
+
     }
 
     /**
@@ -138,12 +147,16 @@ public class GuiBuildingConstructor extends GuiScreen {
      */
     @Override
     public void func_73866_w_() {
-        //原始键盘启用重复事件
-        Keyboard.enableRepeatEvents(true);
-        //显示页面
-        this.showPage();
-        //初始化
-        super.func_73866_w_();
+        try {
+            //原始键盘启用重复事件
+            Keyboard.enableRepeatEvents(true);
+            //显示页面
+            this.showPage();
+            //初始化
+            super.func_73866_w_();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -295,7 +308,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
         } catch (Exception var12) {
             //var12.printStackTrace();
-            ModSimReloaded.log.warn(var12.getMessage());
+            ModSimReloaded.log.warn("drawScreen出错了:"+var12.getMessage());
         }
         super.func_73863_a(i, j, f);
     }
@@ -307,277 +320,285 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param y
      */
     private void displayReq(String block, int qty, int y) {
-        double stacks = Math.floor((double) (qty / 64));
-        this.func_73731_b(this.field_146289_q, qty + "", 90, y, 16777215);
-        this.func_73731_b(this.field_146289_q, "x", 125, y, 16777215);
-        this.func_73731_b(this.field_146289_q, block, 150, y, 16777215);
-        //(不到一组)
-        String sim_gui_BC_less = I18n.func_135052_a("container.sim.sim_gui_BC_less");
-        //(正好是一组)
-        String sim_gui_BC_exactly = I18n.func_135052_a("container.sim.sim_gui_BC_exactly");
-        //(大约两组)
-        String sim_gui_BC_about_2 = I18n.func_135052_a("container.sim.sim_gui_BC_about_2");
-        //(大约
-        String sim_gui_BC_about = I18n.func_135052_a("container.sim.sim_gui_BC_about");
-        //组)
-        String sim_gui_BC_stacks = I18n.func_135052_a("container.sim.sim_gui_BC_stacks");
-        String st = "";
-        if (qty < 64) {
-            st = sim_gui_BC_less;
-        } else if (qty == 64) {
-            st = sim_gui_BC_exactly;
-        } else if (qty >= 64 && qty < 128) {
-            st = sim_gui_BC_about_2;
-        } else {
-            st = sim_gui_BC_about + (int) (stacks + 1.0) + sim_gui_BC_stacks;
-        }
+        try {
+            double stacks = Math.floor((double) (qty / 64));
+            this.func_73731_b(this.field_146289_q, qty + "", 90, y, 16777215);
+            this.func_73731_b(this.field_146289_q, "x", 125, y, 16777215);
+            this.func_73731_b(this.field_146289_q, block, 150, y, 16777215);
+            //(不到一组)
+            String sim_gui_BC_less = I18n.func_135052_a("container.sim.sim_gui_BC_less");
+            //(正好是一组)
+            String sim_gui_BC_exactly = I18n.func_135052_a("container.sim.sim_gui_BC_exactly");
+            //(大约两组)
+            String sim_gui_BC_about_2 = I18n.func_135052_a("container.sim.sim_gui_BC_about_2");
+            //(大约
+            String sim_gui_BC_about = I18n.func_135052_a("container.sim.sim_gui_BC_about");
+            //组)
+            String sim_gui_BC_stacks = I18n.func_135052_a("container.sim.sim_gui_BC_stacks");
+            String st = "";
+            if (qty < 64) {
+                st = sim_gui_BC_less;
+            } else if (qty == 64) {
+                st = sim_gui_BC_exactly;
+            } else if (qty >= 64 && qty < 128) {
+                st = sim_gui_BC_about_2;
+            } else {
+                st = sim_gui_BC_about + (int) (stacks + 1.0) + sim_gui_BC_stacks;
+            }
 
-        this.func_73731_b(this.field_146289_q, st, 250, y, 16777215);
+            this.func_73731_b(this.field_146289_q, st, 250, y, 16777215);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("displayReq出错了：" + e.getMessage());
+        }
     }
 
     /**
      *显示分页
      */
     private void showPage() {
-        this.field_146297_k.func_71364_i();
-        //清除所有按钮
-        this.field_146292_n.clear();
-        //完成
-        String sim_gui_BC_Done = I18n.func_135052_a("container.sim.sim_gui_BC_Done");
-        this.field_146292_n.add(new GuiButton(0, 2, 12, 50, 20, sim_gui_BC_Done));
-        //如果选定建筑物为空
-        if (this.selectedBuilding == null) {
-            //获得要构建的建筑
-            this.selectedBuilding = Building.getBuildingByConBox(this.constructorLoc);
-        }
-
-        if (this.currentPage == 0) {
-            //选择建筑
-            String sim_gui_BC_Choose_building = I18n.func_135052_a("container.sim.sim_gui_BC_Choose_building");
-            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
-            //雇佣建筑工
-            String sim_gui_BC_Hire_builder = I18n.func_135052_a("container.sim.Hire1");
-            this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
-            //员工
-            String sim_gui_BC_worker = I18n.func_135052_a("container.sim.sim_gui_BC_worker");
-            String w = sim_gui_BC_worker;
-            //如果工人为1
-            if (this.theWorkers.size() == 1) {
-                //获取员工名称
-                w = ((FolkData) this.theWorkers.get(0)).name;
-            } else if (this.theWorkers.size() > 1) {
-                //工作人员
-                String sim_gui_BC_Staff = I18n.func_135052_a("container.sim.sim_gui_BC_Staff");
-                w = sim_gui_BC_Staff + "(" + this.theWorkers.size() + ")";
+        try {
+            this.field_146297_k.func_71364_i();
+            //清除所有按钮
+            this.field_146292_n.clear();
+            //完成
+            String sim_gui_BC_Done = I18n.func_135052_a("container.sim.sim_gui_BC_Done");
+            this.field_146292_n.add(new GuiButton(0, 2, 12, 50, 20, sim_gui_BC_Done));
+            //如果选定建筑物为空
+            if (this.selectedBuilding == null) {
+                //获得要构建的建筑
+                this.selectedBuilding = Building.getBuildingByConBox(this.constructorLoc);
             }
-            //解雇
-            String sim_gui_BC_Fire = I18n.func_135052_a("container.sim.Fire");
-            this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
-            //显示员工
-            String sim_gui_BC_Show_Employees = I18n.func_135052_a("container.sim.sim_gui_BC_Show_Employees");
-            this.field_146292_n.add(new GuiButton(4, this.field_146294_l / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
-            //规划区域
-            String sim_gui_BC_Terraform_area = I18n.func_135052_a("container.sim.sim_gui_BC_Terraform_area");
-            this.field_146292_n.add(new GuiButton(5, -600, 170, 120, 20, "-"));
-            this.field_146292_n.add(new GuiButton(6, this.field_146294_l / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
-            //雇佣规划师
-            this.field_146292_n.add(new GuiButton(7, this.field_146294_l / 2 - 180, 170, 120, 20, I18n.func_135052_a("container.sim.Hire22")));
-            if (this.theWorkers.size() == 0) {
-                ((GuiButton) this.field_146292_n.get(1)).field_146124_l = false;
-                ((GuiButton) this.field_146292_n.get(2)).field_146124_l = true;
-                ((GuiButton) this.field_146292_n.get(3)).field_146124_l = false;
-                ((GuiButton) this.field_146292_n.get(6)).field_146124_l = false;
-                ((GuiButton) this.field_146292_n.get(7)).field_146124_l = true;
-            } else {
-                ((GuiButton) this.field_146292_n.get(1)).field_146124_l = true;
-                ((GuiButton) this.field_146292_n.get(2)).field_146124_l = false;
-                ((GuiButton) this.field_146292_n.get(3)).field_146124_l = true;
-                ((GuiButton) this.field_146292_n.get(6)).field_146124_l = true;
-                ((GuiButton) this.field_146292_n.get(7)).field_146124_l = false;
-            }
-        } else if (this.currentPage == 1) {
-            //现在选择要建造的住宅楼
-            String sim_gui_BC_Residential = I18n.func_135052_a("container.sim.sim_gui_BC_Residential");
-            //现在选择要建造的商业建筑
-            String sim_gui_BC_Commercial = I18n.func_135052_a("container.sim.sim_gui_BC_Commercial");
-            //现在选择要建造的工业建筑
-            String sim_gui_BC_Industrial = I18n.func_135052_a("container.sim.sim_gui_BC_Industrial");
-            //其他
-            String sim_gui_BC_Other = I18n.func_135052_a("container.sim.sim_gui_BC_Other");
-            //特别
-            String sim_gui_BC_special = I18n.func_135052_a("container.sim.sim_gui_BC_special");
-            this.field_146292_n.add(new GuiButton(5, this.field_146294_l / 2 - 200, 150, 100, 20, sim_gui_BC_Residential));
-            this.field_146292_n.add(new GuiButton(6, this.field_146294_l / 2 - 100, 150, 100, 20, sim_gui_BC_Commercial));
-            this.field_146292_n.add(new GuiButton(7, this.field_146294_l / 2, 150, 100, 20, sim_gui_BC_Industrial));
-            this.field_146292_n.add(new GuiButton(8, this.field_146294_l / 2 + 100, 150, 100, 20, sim_gui_BC_Other));
-            this.field_146292_n.add(new GuiButton(9, this.field_146294_l / 2 - 50, 180, 100, 20, sim_gui_BC_special));
-        } else if (this.currentPage != 3) {
-            if (this.currentPage == 10) {
-                //返回
-                this.field_146292_n.add(new GuiButton(1001, this.field_146294_l / 2 - 100, this.field_146295_m - 25, 100, 20, I18n.func_135052_a("container.sim.sim_gui_BC_Go_Back")));
-                //需求
-                this.field_146292_n.add(new GuiButton(969, this.field_146294_l / 2, this.field_146295_m - 25, 100, 20, I18n.func_135052_a("container.sim.sim_gui_BC_Go_demand")));
-            } else {
-                int x;
-                int y;
-                int idx;
-                if (this.currentPage == 4) {
-                    try {
-                        x = 10;
-                        y = 65;
-                        idx = 1;
 
-                        for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
-                            FolkData folk = (FolkData) ModSimReloaded.theFolks.get(y);
-                            //解雇
-                            String sim_gui_BC_Fire = I18n.func_135052_a("container.sim.Fire");
-                            this.field_146292_n.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
-                            ++x;
-                            x += 100;
-                            if (x + 100 > this.field_146294_l) {
-                                x = 10;
-                                y += 20;
-                            }
-
-                            if (y + 20 > this.field_146295_m - 50) {
-                                break;
-                            }
-                        }
-                    } catch (Exception var18) {
-                        var18.printStackTrace();
-                    }
-                } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
-                    if (this.currentPage == 8) {
-                        //返回
-                        String sim_gui_BC_Go_Back = I18n.func_135052_a("container.sim.sim_gui_BC_Go_Back");
-                        this.field_146292_n.add(new GuiButton(1001, this.field_146294_l / 2 - 100, this.field_146295_m - 25, 100, 20, sim_gui_BC_Go_Back));
-                        ///建造它
-                        String sim_gui_BC_Build_it = I18n.func_135052_a("container.sim.sim_gui_BC_Build_it");
-                        this.field_146292_n.add(new GuiButton(1000, this.field_146294_l / 2, this.field_146295_m - 25, 100, 20, sim_gui_BC_Build_it));
-                    }
+            if (this.currentPage == 0) {
+                //选择建筑
+                String sim_gui_BC_Choose_building = I18n.func_135052_a("container.sim.sim_gui_BC_Choose_building");
+                this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
+                //雇佣建筑工
+                String sim_gui_BC_Hire_builder = I18n.func_135052_a("container.sim.Hire1");
+                this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
+                //员工
+                String sim_gui_BC_worker = I18n.func_135052_a("container.sim.sim_gui_BC_worker");
+                String w = sim_gui_BC_worker;
+                //如果工人为1
+                if (this.theWorkers.size() == 1) {
+                    //获取员工名称
+                    w = ((FolkData) this.theWorkers.get(0)).name;
+                } else if (this.theWorkers.size() > 1) {
+                    //工作人员
+                    String sim_gui_BC_Staff = I18n.func_135052_a("container.sim.sim_gui_BC_Staff");
+                    w = sim_gui_BC_Staff + "(" + this.theWorkers.size() + ")";
+                }
+                //解雇
+                String sim_gui_BC_Fire = I18n.func_135052_a("container.sim.Fire");
+                this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
+                //显示员工
+                String sim_gui_BC_Show_Employees = I18n.func_135052_a("container.sim.sim_gui_BC_Show_Employees");
+                this.field_146292_n.add(new GuiButton(4, this.field_146294_l / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
+                //规划区域
+                String sim_gui_BC_Terraform_area = I18n.func_135052_a("container.sim.sim_gui_BC_Terraform_area");
+                this.field_146292_n.add(new GuiButton(5, -600, 170, 120, 20, "-"));
+                this.field_146292_n.add(new GuiButton(6, this.field_146294_l / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
+                //雇佣规划师
+                this.field_146292_n.add(new GuiButton(7, this.field_146294_l / 2 - 180, 170, 120, 20, I18n.func_135052_a("container.sim.Hire22")));
+                if (this.theWorkers.size() == 0) {
+                    ((GuiButton) this.field_146292_n.get(1)).field_146124_l = false;
+                    ((GuiButton) this.field_146292_n.get(2)).field_146124_l = true;
+                    ((GuiButton) this.field_146292_n.get(3)).field_146124_l = false;
+                    ((GuiButton) this.field_146292_n.get(6)).field_146124_l = false;
+                    ((GuiButton) this.field_146292_n.get(7)).field_146124_l = true;
                 } else {
-                    //房屋集合
-                    ArrayList<Building> houses = new ArrayList();
-                    String theType = "";
-                    this.buildingsOnPage = 0;
-                    this.tfSearch = new GuiTextField(0,this.field_146289_q, this.field_146294_l / 2 - 50, this.field_146295_m - 30, 100, 20);
-                    this.tfSearch.func_146180_a(this.search);
-                    this.tfSearch.func_146195_b(true);
-                    this.tfSearch.func_146203_f(10);
-                    if (this.currentPage == 2) {
-                        //获取住宅蓝图
-                        houses = Building.getBuildingBlueprints("residential", this.tfSearch.func_146179_b().trim());
-                        theType = "residential";
-                    } else if (this.currentPage == 5) {
-                        //获取商业蓝图
-                        houses = Building.getBuildingBlueprints("commercial", this.tfSearch.func_146179_b().trim());
-                        theType = "commercial";
-                    } else if (this.currentPage == 6) {
-                        //获取工业蓝图
-                        houses = Building.getBuildingBlueprints("industrial", this.tfSearch.func_146179_b().trim());
-                        theType = "industrial";
-                    } else if (this.currentPage == 7) {
-                        //获取其他蓝图
-                        houses = Building.getBuildingBlueprints("other", this.tfSearch.func_146179_b().trim());
-                        theType = "other";
-                    }else if (this.currentPage == 9) {
-                        //获取特除蓝图
-                        houses = Building.getBuildingBlueprints("special", this.tfSearch.func_146179_b().trim());
-                        theType = "special";
-                    }
+                    ((GuiButton) this.field_146292_n.get(1)).field_146124_l = true;
+                    ((GuiButton) this.field_146292_n.get(2)).field_146124_l = false;
+                    ((GuiButton) this.field_146292_n.get(3)).field_146124_l = true;
+                    ((GuiButton) this.field_146292_n.get(6)).field_146124_l = true;
+                    ((GuiButton) this.field_146292_n.get(7)).field_146124_l = false;
+                }
+            } else if (this.currentPage == 1) {
+                //现在选择要建造的住宅楼
+                String sim_gui_BC_Residential = I18n.func_135052_a("container.sim.sim_gui_BC_Residential");
+                //现在选择要建造的商业建筑
+                String sim_gui_BC_Commercial = I18n.func_135052_a("container.sim.sim_gui_BC_Commercial");
+                //现在选择要建造的工业建筑
+                String sim_gui_BC_Industrial = I18n.func_135052_a("container.sim.sim_gui_BC_Industrial");
+                //其他
+                String sim_gui_BC_Other = I18n.func_135052_a("container.sim.sim_gui_BC_Other");
+                //特别
+                String sim_gui_BC_special = I18n.func_135052_a("container.sim.sim_gui_BC_special");
+                this.field_146292_n.add(new GuiButton(5, this.field_146294_l / 2 - 200, 150, 100, 20, sim_gui_BC_Residential));
+                this.field_146292_n.add(new GuiButton(6, this.field_146294_l / 2 - 100, 150, 100, 20, sim_gui_BC_Commercial));
+                this.field_146292_n.add(new GuiButton(7, this.field_146294_l / 2, 150, 100, 20, sim_gui_BC_Industrial));
+                this.field_146292_n.add(new GuiButton(8, this.field_146294_l / 2 + 100, 150, 100, 20, sim_gui_BC_Other));
+                this.field_146292_n.add(new GuiButton(9, this.field_146294_l / 2 - 50, 180, 100, 20, sim_gui_BC_special));
+            } else if (this.currentPage != 3) {
+                if (this.currentPage == 10) {
+                    //返回
+                    this.field_146292_n.add(new GuiButton(1001, this.field_146294_l / 2 - 100, this.field_146295_m - 25, 100, 20, I18n.func_135052_a("container.sim.sim_gui_BC_Go_Back")));
+                    //需求
+                    this.field_146292_n.add(new GuiButton(969, this.field_146294_l / 2, this.field_146295_m - 25, 100, 20, I18n.func_135052_a("container.sim.sim_gui_BC_Go_demand")));
+                } else {
+                    int x;
+                    int y;
+                    int idx;
+                    if (this.currentPage == 4) {
+                        try {
+                            x = 10;
+                            y = 65;
+                            idx = 1;
 
-                    x = 10;
-                    y = 60;
-                    idx = 1;
-                    //如果蓝图不为空
-                    if (houses != null) {
-                        //遍历蓝图
-                        for (int b = 0; b <= houses.size(); ++b) {
-                            //定义偏移量
-                            int boff = b + this.buildingOffset;
-                            if (boff < 0) {
-                                //重置偏移量
-                                boff = 0;
-                                this.buildingOffset = 0;
-                            }
-                            //页
-                            String sim_gui_BC_Page = I18n.func_135052_a("container.sim.sim_gui_BC_Page");
-                            //偏移量小于大小
-                            if (boff < houses.size()) {
-                                //如果当前不为空
-                                if (houses.get(boff) != null) {
-                                    //金额
-                                    String line3 = "";
-                                    //获得建筑
-                                    Building building = (Building) houses.get(boff);
-                                    //实际成本
-                                    String realCost = "";
-                                    //工作人员大于1
-                                    if (this.theWorkers.size() > 1) {
-                                        //计算成本
-                                        realCost = " (" + ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
-                                    }
-                                    //建筑整体范围
-                                    String line2 = building.ltrCount + " x " + building.ftbCount + " x " + building.layerCount;
-                                    //金额
-                                    line3 = ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
-                                    //作者
-                                    String line4 = building.author;
-                                    GuiButton b3;
-                                    //作者
-                                    this.field_146292_n.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
-                                    GuiButton b2;
-                                    //金额
-                                    this.field_146292_n.add(b2 = new GuiButton(idx + 200, x, y + 32, 120, 20, line3));
-                                    GuiButton b1;
-                                    //范围
-                                    this.field_146292_n.add(b1 = new GuiButton(idx + 100, x, y + 16, 120, 20, line2));
-                                    //设置按钮不可用
-                                    b1.field_146124_l = false;
-                                    b2.field_146124_l = false;
-                                    b3.field_146124_l = false;
-                                    String pk = "";
-                                    //去除建筑名字中的pkid
-                                    if (building.displayName.startsWith("PKID")) {
-                                        int hyphen = building.displayName.indexOf("-");
-                                        pk = building.displayName.substring(0, hyphen + 1);
-                                    }
-
-                                    this.pkIndex.put(idx, pk);
-                                    this.field_146292_n.add(new GuiButton(idx, x, y, 120, 20, building.displayNameWithoutPK));
-                                    x += 120;
-                                    if (x + 120 > this.field_146294_l) {
-                                        x = 10;
-                                        y += 71;
-                                    }
-
-                                    ++idx;
-                                    ++this.buildingsOnPage;
-                                    if (this.buildingOffset > 0) {
-                                        this.field_146292_n.add(new GuiButton(501, 5, this.field_146295_m - 20, 75, 20, "<" + sim_gui_BC_Page));
-                                    }
-
-                                    if (y + 20 + 20 + 20 + 20 > this.field_146295_m) {
-                                        this.field_146292_n.add(new GuiButton(500, this.field_146294_l - 80, this.field_146295_m - 20, 75, 20, sim_gui_BC_Page + ">"));
-                                        break;
-                                    }
+                            for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
+                                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(y);
+                                //解雇
+                                String sim_gui_BC_Fire = I18n.func_135052_a("container.sim.Fire");
+                                this.field_146292_n.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
+                                ++x;
+                                x += 100;
+                                if (x + 100 > this.field_146294_l) {
+                                    x = 10;
+                                    y += 20;
                                 }
-                            } else {
-                                this.field_146292_n.add(new GuiButton(501, 5, this.field_146295_m - 20, 75, 20, "<" + sim_gui_BC_Page));
-                            }
-                        }
 
-                        if (this.fixedBuildingCount == -1) {
-                            this.fixedBuildingCount = this.buildingsOnPage;
+                                if (y + 20 > this.field_146295_m - 50) {
+                                    break;
+                                }
+                            }
+                        } catch (Exception var18) {
+                            //var18.printStackTrace();
+                        }
+                    } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
+                        if (this.currentPage == 8) {
+                            //返回
+                            String sim_gui_BC_Go_Back = I18n.func_135052_a("container.sim.sim_gui_BC_Go_Back");
+                            this.field_146292_n.add(new GuiButton(1001, this.field_146294_l / 2 - 100, this.field_146295_m - 25, 100, 20, sim_gui_BC_Go_Back));
+                            ///建造它
+                            String sim_gui_BC_Build_it = I18n.func_135052_a("container.sim.sim_gui_BC_Build_it");
+                            this.field_146292_n.add(new GuiButton(1000, this.field_146294_l / 2, this.field_146295_m - 25, 100, 20, sim_gui_BC_Build_it));
                         }
                     } else {
-                        String sim_gui_BC_Nothing_found = I18n.func_135052_a("container.sim.sim_gui_BC_Nothing_found");
-                        this.field_146292_n.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
+                        //房屋集合
+                        ArrayList<Building> houses = new ArrayList();
+                        String theType = "";
+                        this.buildingsOnPage = 0;
+                        this.tfSearch = new GuiTextField(0,this.field_146289_q, this.field_146294_l / 2 - 50, this.field_146295_m - 30, 100, 20);
+                        this.tfSearch.func_146180_a(this.search);
+                        this.tfSearch.func_146195_b(true);
+                        this.tfSearch.func_146203_f(10);
+                        if (this.currentPage == 2) {
+                            //获取住宅蓝图
+                            houses = Building.getBuildingBlueprints("residential", this.tfSearch.func_146179_b().trim());
+                            theType = "residential";
+                        } else if (this.currentPage == 5) {
+                            //获取商业蓝图
+                            houses = Building.getBuildingBlueprints("commercial", this.tfSearch.func_146179_b().trim());
+                            theType = "commercial";
+                        } else if (this.currentPage == 6) {
+                            //获取工业蓝图
+                            houses = Building.getBuildingBlueprints("industrial", this.tfSearch.func_146179_b().trim());
+                            theType = "industrial";
+                        } else if (this.currentPage == 7) {
+                            //获取其他蓝图
+                            houses = Building.getBuildingBlueprints("other", this.tfSearch.func_146179_b().trim());
+                            theType = "other";
+                        }else if (this.currentPage == 9) {
+                            //获取特除蓝图
+                            houses = Building.getBuildingBlueprints("special", this.tfSearch.func_146179_b().trim());
+                            theType = "special";
+                        }
+
+                        x = 10;
+                        y = 60;
+                        idx = 1;
+                        //如果蓝图不为空
+                        if (houses != null) {
+                            //遍历蓝图
+                            for (int b = 0; b <= houses.size(); ++b) {
+                                //定义偏移量
+                                int boff = b + this.buildingOffset;
+                                if (boff < 0) {
+                                    //重置偏移量
+                                    boff = 0;
+                                    this.buildingOffset = 0;
+                                }
+                                //页
+                                String sim_gui_BC_Page = I18n.func_135052_a("container.sim.sim_gui_BC_Page");
+                                //偏移量小于大小
+                                if (boff < houses.size()) {
+                                    //如果当前不为空
+                                    if (houses.get(boff) != null) {
+                                        //金额
+                                        String line3 = "";
+                                        //获得建筑
+                                        Building building = (Building) houses.get(boff);
+                                        //实际成本
+                                        String realCost = "";
+                                        //工作人员大于1
+                                        if (this.theWorkers.size() > 1) {
+                                            //计算成本
+                                            realCost = " (" + ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F * (float) this.theWorkers.size()) + ")";
+                                        }
+                                        //建筑整体范围
+                                        String line2 = building.ltrCount + " x " + building.ftbCount + " x " + building.layerCount;
+                                        //金额
+                                        line3 = ModSimReloaded.displayMoney((float) building.blocksInBuilding * 0.02F) + realCost;
+                                        //作者
+                                        String line4 = building.author;
+                                        GuiButton b3;
+                                        //作者
+                                        this.field_146292_n.add(b3 = new GuiButton(idx + 300, x, y + 48, 120, 20, line4));
+                                        GuiButton b2;
+                                        //金额
+                                        this.field_146292_n.add(b2 = new GuiButton(idx + 200, x, y + 32, 120, 20, line3));
+                                        GuiButton b1;
+                                        //范围
+                                        this.field_146292_n.add(b1 = new GuiButton(idx + 100, x, y + 16, 120, 20, line2));
+                                        //设置按钮不可用
+                                        b1.field_146124_l = false;
+                                        b2.field_146124_l = false;
+                                        b3.field_146124_l = false;
+                                        String pk = "";
+                                        //去除建筑名字中的pkid
+                                        if (building.displayName.startsWith("PKID")) {
+                                            int hyphen = building.displayName.indexOf("-");
+                                            pk = building.displayName.substring(0, hyphen + 1);
+                                        }
+
+                                        this.pkIndex.put(idx, pk);
+                                        this.field_146292_n.add(new GuiButton(idx, x, y, 120, 20, building.displayNameWithoutPK));
+                                        x += 120;
+                                        if (x + 120 > this.field_146294_l) {
+                                            x = 10;
+                                            y += 71;
+                                        }
+
+                                        idx++;
+                                        ++this.buildingsOnPage;
+                                        if (this.buildingOffset > 0) {
+                                            this.field_146292_n.add(new GuiButton(501, 5, this.field_146295_m - 20, 75, 20, "<" + sim_gui_BC_Page));
+                                        }
+
+                                        if (y + 20 + 20 + 20 + 20 > this.field_146295_m) {
+                                            this.field_146292_n.add(new GuiButton(500, this.field_146294_l - 80, this.field_146295_m - 20, 75, 20, sim_gui_BC_Page + ">"));
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    this.field_146292_n.add(new GuiButton(501, 5, this.field_146295_m - 20, 75, 20, "<" + sim_gui_BC_Page));
+                                }
+                            }
+
+                            if (this.fixedBuildingCount == -1) {
+                                this.fixedBuildingCount = this.buildingsOnPage;
+                            }
+                        } else {
+                            String sim_gui_BC_Nothing_found = I18n.func_135052_a("container.sim.sim_gui_BC_Nothing_found");
+                            this.field_146292_n.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
+                        }
                     }
                 }
             }
-        }
 
+        } catch (Exception e) {
+            ModSimReloaded.log.error("showPage出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -589,198 +610,210 @@ public class GuiBuildingConstructor extends GuiScreen {
             priority = EventPriority.NORMAL
     )
     public void func_146284_a(GuiButton guibutton) {
-        if (System.currentTimeMillis() - this.fuckingBodge >= 100L) {
-            this.fuckingBodge = System.currentTimeMillis();
-            if (guibutton.field_146124_l) {
-                if (guibutton.field_146127_k == 0) {
-                    this.field_146297_k.field_71462_r = null;
-                    this.field_146297_k.func_71381_h();
-                } else {
-                    if (this.currentPage == 0) {
-                        String sim_gui_BC_Choose_building = I18n.func_135052_a("container.sim.sim_gui_BC_Choose_building");
-                        if (guibutton.field_146126_j.contentEquals(sim_gui_BC_Choose_building)) {
-                            this.currentPage = 1;
-                            this.showPage();
-                        } else {
-                            GuiEmployFolk gui;
-                            if (guibutton.field_146127_k == 2) {
-                                gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
-                                this.field_146297_k.func_147108_a((GuiScreen) null);
-                                this.field_146297_k.func_147108_a(gui);
-                            } else if (guibutton.field_146127_k == 3) {
+        try {
+            if (System.currentTimeMillis() - this.fuckingBodge >= 100L) {
+                this.fuckingBodge = System.currentTimeMillis();
+                if (guibutton.field_146124_l) {
+                    if (guibutton.field_146127_k == 0) {
+                        this.field_146297_k.field_71462_r = null;
+                        this.field_146297_k.func_71381_h();
+                    } else {
+                        if (this.currentPage == 0) {
+                            String sim_gui_BC_Choose_building = I18n.func_135052_a("container.sim.sim_gui_BC_Choose_building");
+                            if (guibutton.field_146126_j.contentEquals(sim_gui_BC_Choose_building)) {
+                                this.currentPage = 1;
+                                this.showPage();
+                            } else {
+                                GuiEmployFolk gui;
+                                if (guibutton.field_146127_k == 2) {
+                                    gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
+                                    this.field_146297_k.func_147108_a((GuiScreen) null);
+                                    this.field_146297_k.func_147108_a(gui);
+                                } else if (guibutton.field_146127_k == 3) {
+                                    this.fireAllFolksForThisBuilding();
+                                    this.currentPage = 0;
+                                    this.showPage();
+                                } else if (guibutton.field_146127_k == 4) {
+                                    GuiScreen guiScreen = new GuiShowEmployees();
+                                    this.field_146297_k.func_147108_a((GuiScreen) null);
+                                    this.field_146297_k.func_147108_a(guiScreen);
+                                } else if (guibutton.field_146127_k != 5) {
+                                    if (guibutton.field_146127_k == 6) {
+                                        GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
+                                        this.field_146297_k.func_147108_a((GuiScreen) null);
+                                        this.field_146297_k.func_147108_a(guiScreen);
+                                    } else if (guibutton.field_146127_k == 7) {
+                                        gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
+                                        this.field_146297_k.func_147108_a((GuiScreen) null);
+                                        this.field_146297_k.func_147108_a(gui);
+                                    }
+                                }
+                            }
+                        } else if (this.currentPage == 1) {
+                            if (guibutton.field_146127_k == 5) {
+                                this.currentPage = 2;
+                                this.showPage();
+                            } else if (guibutton.field_146127_k == 6) {
+                                this.currentPage = 5;
+                                this.showPage();
+                            } else if (guibutton.field_146127_k == 7) {
+                                this.currentPage = 6;
+                                this.showPage();
+                            } else if (guibutton.field_146127_k == 8) {
+                                this.currentPage = 7;
+                                this.showPage();
+                            }else if (guibutton.field_146127_k == 9) {
+                                this.currentPage = 9;
+                                this.showPage();
+                            }
+                        } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7 && this.currentPage != 9) {
+                            if (this.currentPage == 8) {
+                                //建造它
+                                String sim_gui_BC_Build_it = I18n.func_135052_a("container.sim.sim_gui_BC_Build_it");
+                                if (guibutton.field_146126_j.contentEquals(sim_gui_BC_Build_it)) {
+                                    if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
+                                        ModSimReloaded.theBuildings.remove(this.selectedBuilding);
+                                    }
+
+                                    this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
+                                    ModSimReloaded.theBuildings.add(this.selectedBuilding);
+                                    this.selectedBuilding.saveThisBuilding();
+                                    PacketHandler.net.sendToAll(new LoadBuildingPacket("GuiBuildingCon"));
+
+                                    for (int i = 0; i < this.theWorkers.size(); i++) {
+                                        FolkData theWorker = (FolkData) this.theWorkers.get(i);
+                                        theWorker.theBuilding = this.selectedBuilding;
+                                        theWorker.saveThisFolk();
+                                    }
+
+                                    this.field_146297_k.func_147108_a((GuiScreen) null);
+                                    this.field_146297_k.func_71381_h();
+                                    return;
+                                }
+
+                                if (guibutton.field_146127_k == 1001) {
+                                    this.currentPage = this.previousPage;
+                                    this.showPage();
+                                }
+                            } else if (this.currentPage == 10) {
+                                if (guibutton.field_146127_k == 969) {
+                                    this.currentPage = 8;
+                                    this.showPage();
+                                } else if (guibutton.field_146127_k == 1001) {
+                                    this.currentPage = this.previousPage;
+                                    this.showPage();
+                                }
+                            }else if (this.currentPage != 3 && this.currentPage == 4) {
                                 this.fireAllFolksForThisBuilding();
                                 this.currentPage = 0;
                                 this.showPage();
-                            } else if (guibutton.field_146127_k == 4) {
-                                GuiScreen guiScreen = new GuiShowEmployees();
-                                this.field_146297_k.func_147108_a((GuiScreen) null);
-                                this.field_146297_k.func_147108_a(guiScreen);
-                            } else if (guibutton.field_146127_k != 5) {
-                                if (guibutton.field_146127_k == 6) {
-                                    GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
-                                    this.field_146297_k.func_147108_a((GuiScreen) null);
-                                    this.field_146297_k.func_147108_a(guiScreen);
-                                } else if (guibutton.field_146127_k == 7) {
-                                    gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
-                                    this.field_146297_k.func_147108_a((GuiScreen) null);
-                                    this.field_146297_k.func_147108_a(gui);
-                                }
                             }
-                        }
-                    } else if (this.currentPage == 1) {
-                        if (guibutton.field_146127_k == 5) {
-                            this.currentPage = 2;
-                            this.showPage();
-                        } else if (guibutton.field_146127_k == 6) {
-                            this.currentPage = 5;
-                            this.showPage();
-                        } else if (guibutton.field_146127_k == 7) {
-                            this.currentPage = 6;
-                            this.showPage();
-                        } else if (guibutton.field_146127_k == 8) {
-                            this.currentPage = 7;
-                            this.showPage();
-                        }else if (guibutton.field_146127_k == 9) {
-                            this.currentPage = 9;
-                            this.showPage();
-                        }
-                    } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7 && this.currentPage != 9) {
-                        if (this.currentPage == 8) {
-                            //建造它
-                            String sim_gui_BC_Build_it = I18n.func_135052_a("container.sim.sim_gui_BC_Build_it");
-                            if (guibutton.field_146126_j.contentEquals(sim_gui_BC_Build_it)) {
-                                if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
-                                    ModSimReloaded.theBuildings.remove(this.selectedBuilding);
-                                }
-
-                                this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
-                                ModSimReloaded.theBuildings.add(this.selectedBuilding);
-                                this.selectedBuilding.saveThisBuilding();
-                                ModSimReloaded.network.sendToAll(new LoadBuildingMessage("GuiBuildingCon"));
-
-                                for (int i = 0; i < this.theWorkers.size(); ++i) {
-                                    FolkData theWorker = (FolkData) this.theWorkers.get(i);
-                                    theWorker.theBuilding = this.selectedBuilding;
-                                    theWorker.saveThisFolk();
-                                }
-
-                                this.field_146297_k.func_147108_a((GuiScreen) null);
-                                this.field_146297_k.func_71381_h();
+                        } else {
+                            this.previousPage = this.currentPage;
+                            if (guibutton.field_146127_k == 500) {
+                                this.buildingOffset += this.fixedBuildingCount;
+                                this.showPage();
                                 return;
                             }
 
-                            if (guibutton.field_146127_k == 1001) {
-                                this.currentPage = this.previousPage;
+                            if (guibutton.field_146127_k == 501) {
+                                this.buildingOffset -= this.fixedBuildingCount;
                                 this.showPage();
+                                return;
                             }
-                        } else if (this.currentPage == 10) {
-                            if (guibutton.field_146127_k == 969) {
-                                this.currentPage = 8;
-                                this.showPage();
-                            } else if (guibutton.field_146127_k == 1001) {
-                                this.currentPage = this.previousPage;
-                                this.showPage();
+
+                            String type = "";
+                            if (this.currentPage == 2) {
+                                type = "residential";
                             }
-                        }else if (this.currentPage != 3 && this.currentPage == 4) {
-                            this.fireAllFolksForThisBuilding();
-                            this.currentPage = 0;
+
+                            if (this.currentPage == 5) {
+                                type = "commercial";
+                            }
+
+                            if (this.currentPage == 6) {
+                                type = "industrial";
+                            }
+
+                            if (this.currentPage == 7) {
+                                type = "other";
+                            }
+                            if (this.currentPage == 9) {
+                                type = "special";
+                            }
+                            String pkPrefix = "";
+                            pkPrefix = (String) this.pkIndex.get(guibutton.field_146127_k);
+                            this.selectedBuilding = Building.getFromAllBuildings(pkPrefix + guibutton.field_146126_j, type);
+
+                            try {
+                                this.selectedBuilding.buildDirection = this.buildDirection;
+                            } catch (Exception var5) {
+                            }
+
+                            this.currentPage = 8;
                             this.showPage();
                         }
-                    } else {
-                        this.previousPage = this.currentPage;
-                        if (guibutton.field_146127_k == 500) {
-                            this.buildingOffset += this.fixedBuildingCount;
-                            this.showPage();
-                            return;
-                        }
 
-                        if (guibutton.field_146127_k == 501) {
-                            this.buildingOffset -= this.fixedBuildingCount;
-                            this.showPage();
-                            return;
-                        }
-
-                        String type = "";
-                        if (this.currentPage == 2) {
-                            type = "residential";
-                        }
-
-                        if (this.currentPage == 5) {
-                            type = "commercial";
-                        }
-
-                        if (this.currentPage == 6) {
-                            type = "industrial";
-                        }
-
-                        if (this.currentPage == 7) {
-                            type = "other";
-                        }
-                        if (this.currentPage == 9) {
-                            type = "special";
-                        }
-                        String pkPrefix = "";
-                        pkPrefix = (String) this.pkIndex.get(guibutton.field_146127_k);
-                        this.selectedBuilding = Building.getFromAllBuildings(pkPrefix + guibutton.field_146126_j, type);
-
-                        try {
-                            this.selectedBuilding.buildDirection = this.buildDirection;
-                        } catch (Exception var5) {
-                        }
-
-                        this.currentPage = 8;
-                        this.showPage();
                     }
-
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
+
     }
 
     public void fireAllFolksForThisBuilding() {
-        for (int i = 0; i < this.theWorkers.size(); ++i) {
-            //员工
-            FolkData worker = (FolkData) this.theWorkers.get(i);
-            if (worker.vocation == Vocation.BUILDER) {
-                JobBuilder theirJob = (JobBuilder) worker.theirJob;
-                theirJob.theStage = Stage.IDLE;
-                worker.theBuilding = null;
+        try {
+            for (int i = 0; i < this.theWorkers.size(); i++) {
+                //员工
+                FolkData worker = (FolkData) this.theWorkers.get(i);
+                if (worker.vocation == Vocation.BUILDER) {
+                    JobBuilder theirJob = (JobBuilder) worker.theirJob;
+                    theirJob.theStage = Stage.IDLE;
+                    worker.theBuilding = null;
+                }
+                worker.selfFire();
             }
-
-            worker.selfFire();
+            this.theWorkers.clear();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("fireAllFolksForThisBuilding出错了：" + e.getMessage());
         }
 
-        this.theWorkers.clear();
     }
 
     @Override
     public void func_73869_a(char c, int i) {
-        if (i == 1) {
-            this.field_146297_k.func_147108_a((GuiScreen) null);
-            this.field_146297_k.func_71381_h();
-        } else {
-            if (this.tfSearch != null) {
-                this.tfSearch.func_146201_a(c, i);
-                this.search = this.tfSearch.func_146179_b();
-                if (!this.search.endsWith(":")) {
-                    this.buildingOffset = 0;
-                    this.showPage();
+        try {
+            if (i == 1) {
+                this.field_146297_k.func_147108_a((GuiScreen) null);
+                this.field_146297_k.func_71381_h();
+            } else {
+                if (this.tfSearch != null) {
+                    this.tfSearch.func_146201_a(c, i);
+                    this.search = this.tfSearch.func_146179_b();
+                    if (!this.search.endsWith(":")) {
+                        this.buildingOffset = 0;
+                        this.showPage();
+                    }
                 }
             }
-
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void func_73864_a(int i, int j, int k) {
+        try {
         if (this.tfSearch != null) {
             this.tfSearch.func_146192_a(i, j, k);
         }
-
-        try {
             super.func_73864_a(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            //e.printStackTrace();
         }
     }
 }

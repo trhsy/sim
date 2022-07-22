@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -40,11 +41,16 @@ public class BlockLightBox extends EnumBlock<EnumBlockLightBox> {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        EnumBlockLightBox[] enumBlockLightBoxes=EnumBlockLightBox.values();
-        for (int i = 0; i < enumBlockLightBoxes.length; i++) {
-            EnumBlockLightBox type = enumBlockLightBoxes[i];
-            list.add(new ItemStack(this, 1, type.meta));
+        try {
+            EnumBlockLightBox[] enumBlockLightBoxes=EnumBlockLightBox.values();
+            for (int i = 0; i < enumBlockLightBoxes.length; i++) {
+                EnumBlockLightBox type = enumBlockLightBoxes[i];
+                list.add(new ItemStack(this, 1, type.meta));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("灯箱getSubBlocks出错了：" + e.getMessage());
         }
+
     }
     @Override
     public int getMetaFromState(IBlockState state) {

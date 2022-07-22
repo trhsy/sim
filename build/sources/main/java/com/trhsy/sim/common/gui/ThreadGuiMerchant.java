@@ -27,9 +27,10 @@ public class ThreadGuiMerchant implements Runnable {
     public void run() {
         try {
             Thread.sleep(3000L);
+            this.guiMerchant.mc.theWorld.playSound(this.guiMerchant.mc.thePlayer.posX, this.guiMerchant.mc.thePlayer.posY, this.guiMerchant.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
         } catch (Exception var2) {
         }
 
-        this.guiMerchant.mc.theWorld.playSound(this.guiMerchant.mc.thePlayer.posX, this.guiMerchant.mc.thePlayer.posY, this.guiMerchant.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
+
     }
 }

@@ -1,28 +1,41 @@
 {
+  "forge_marker": 1,
   "defaults": {
-    "transform": "forge:default-block",
-    "model": "sim:block_control_box"
+    "transform":"forge:default-block",
+    "model": "sim:block_control_box",
+    "textures": {
+      "top": "sim:blocks/control/block_control_box",
+      "front": "sim:blocks/control/block_control_box",
+      "side": "sim:blocks/control/block_control_box",
+      "bottom": "sim:blocks/control/block_control_box_side"
+    }
   },
   "variants": {
-    "type=top": {
-      "model": "sim:block_control_box",
-      "textures": {
-        "particle": "sim:blocks/control/block_control_box",
-        "texture": "sim:blocks/control/block_control_box"
-      }
-    },
-    "type=atm": {
-      "model": "sim:block_control_box",
-      "textures": {
-        "particle": "sim:blocks/control/block_control_box_atm",
-        "texture": "sim:blocks/control/block_control_box_atm"
-      }
-    },
-    "type=other": {
-      "model": "sim:block_control_box",
-      "textures": {
-        "particle": "sim:blocks/control/block_control_box_other",
-        "texture": "sim:blocks/control/block_control_box_other"
+    "type": {
+      "top": {
+        "model": "sim:block_control_box",
+        "textures": {
+          "top": "sim:blocks/control/block_control_box",
+          "front": "sim:blocks/control/block_control_box",
+          "side": "sim:blocks/control/block_control_box",
+          "bottom": "sim:blocks/control/block_control_box_side"
+        }
+      },
+      "atm": {
+        "textures": {
+          "top": "sim:blocks/control/block_control_box_atm",
+          "front": "sim:blocks/control/block_control_box_atm",
+          "side": "sim:blocks/control/block_control_box_atm",
+          "bottom": "sim:blocks/control/block_control_box_side"
+        }
+      },
+      "other": {
+        "textures": {
+          "top": "sim:blocks/control/block_control_box_other",
+          "front": "sim:blocks/control/block_control_box_other",
+          "side": "sim:blocks/control/block_control_box_other",
+          "bottom": "sim:blocks/control/block_control_box_side"
+        }
       }
     }
   }

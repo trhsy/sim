@@ -28,19 +28,23 @@ public class GuiRunMod extends GuiScreen {
      */
     @Override
     public void func_73866_w_() {
-        ModSimReloaded.log.info("初始化GUI");
-        //不运行模拟城镇
-        String not_run = I18n.func_135052_a("container.sim.not_run");
-        //正常模式
-        String normal = I18n.func_135052_a("container.sim.normal");
-        //创造模式
-        String creative = I18n.func_135052_a("container.sim.creative");
-        //专家模式
-        String hardcore = I18n.func_135052_a("container.sim.hardcore");
-        this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 75, 40, not_run));
-        this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 75, 90, normal));
-        this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 75, 140, creative));
-        this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 75, 190, hardcore));
+        try {
+            ModSimReloaded.log.info("初始化GUI");
+            //不运行模拟城镇
+            String not_run = I18n.func_135052_a("container.sim.not_run");
+            //正常模式
+            String normal = I18n.func_135052_a("container.sim.normal");
+            //创造模式
+            String creative = I18n.func_135052_a("container.sim.creative");
+            //专家模式
+            String hardcore = I18n.func_135052_a("container.sim.hardcore");
+            this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 75, 40, not_run));
+            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 75, 90, normal));
+            this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 75, 140, creative));
+            this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 75, 190, hardcore));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
     }
 
     /**
@@ -75,11 +79,10 @@ public class GuiRunMod extends GuiScreen {
             this.func_73732_a(this.field_146289_q, sim_gui_beginners, this.field_146294_l / 2, 110, 16776960);
             this.func_73732_a(this.field_146289_q, sim_gui_everything, this.field_146294_l / 2, 160, 16776960);
             this.func_73732_a(this.field_146289_q, sim_gui_Builders, this.field_146294_l / 2, 210, 16776960);
+            super.func_73863_a(i, j, f);
         } catch (Exception var5) {
             ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常" + var5.getMessage());
         }
-
-        super.func_73863_a(i, j, f);
     }
 
     /**
@@ -89,34 +92,38 @@ public class GuiRunMod extends GuiScreen {
      */
     @Override
     protected void func_146284_a(GuiButton guibutton) {
-        switch (guibutton.field_146127_k) {
-            case 0:
-                //不运行模拟城镇 按超过10次
-                ModSimReloaded.states.gameModeNumber = 10;
-                ModSimReloaded.log.info("关闭重新加载的模拟城市");
-                break;
-            case 1:
-                ModSimReloaded.states.gameModeNumber = 0;
-                ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
-                FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().func_130014_f_());
-                break;
-            case 2:
-                ModSimReloaded.states.gameModeNumber = 1;
-                break;
-            case 3:
-                ModSimReloaded.states.gameModeNumber = 2;
-                break;
-            default:
-                ModSimReloaded.states.gameModeNumber = 0;
-                ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
-                //生成一个新的NPC
-                FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().func_130014_f_());
-                break;
+        try {
+            switch (guibutton.field_146127_k) {
+                case 0:
+                    //不运行模拟城镇 按超过10次
+                    ModSimReloaded.states.gameModeNumber = 10;
+                    ModSimReloaded.log.info("关闭重新加载的模拟城市");
+                    break;
+                case 1:
+                    ModSimReloaded.states.gameModeNumber = 0;
+                    ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
+                    FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().func_130014_f_());
+                    break;
+                case 2:
+                    ModSimReloaded.states.gameModeNumber = 1;
+                    break;
+                case 3:
+                    ModSimReloaded.states.gameModeNumber = 2;
+                    break;
+                default:
+                    ModSimReloaded.states.gameModeNumber = 0;
+                    ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
+                    //生成一个新的NPC
+                    FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().func_130014_f_());
+                    break;
+            }
+            ModSimReloaded.states.saveStates();
+            this.running = false;
+            //当前屏幕为空
+            this.field_146297_k.field_71462_r = null;
+            this.field_146297_k.func_71381_h();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
-        ModSimReloaded.states.saveStates();
-        this.running = false;
-        //当前屏幕为空
-        this.field_146297_k.field_71462_r = null;
-        this.field_146297_k.func_71381_h();
     }
 }

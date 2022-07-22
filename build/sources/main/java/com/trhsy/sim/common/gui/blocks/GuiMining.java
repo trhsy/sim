@@ -10,6 +10,7 @@ import com.trhsy.sim.common.entity.GameMode;
 import com.trhsy.sim.common.entity.functionality.MiningBox;
 import com.trhsy.sim.common.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -35,8 +36,13 @@ public class GuiMining extends GuiScreen {
     private int mouseCount = 0;
 
     public GuiMining(MiningBox miningBlock, ArrayList<FolkData> folks) {
-        this.theMiningBox = miningBlock;
-        this.theWorkers = folks;
+        try {
+            this.theMiningBox = miningBlock;
+            this.theWorkers = folks;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiMining出错了：" + e.getMessage());
+        }
+
     }
     @Override
     public boolean doesGuiPauseGame() {
@@ -45,86 +51,102 @@ public class GuiMining extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if (this.tfSize != null) {
-            this.tfSize.updateCursorCounter();
+        try {
+            if (this.tfSize != null) {
+                this.tfSize.updateCursorCounter();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
         }
+
 
     }
 
     @Override
     public void initGui() {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
-        if (this.theMiningBox != null) {
-            if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
-            } else {
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire21")));
-            }
-
-            String i = "";
-            String j = "";
-            if (this.theMiningBox.discards == 0) {
-                i = I18n.format("container.sim.Mining3");
-            } else if (this.theMiningBox.discards == 1) {
-                i = I18n.format("container.sim.Mining4");
-            } else if (this.theMiningBox.discards == 2) {
-                i = I18n.format("container.sim.Mining5");
-            } else if (this.theMiningBox.discards == 3) {
-                i = I18n.format("container.sim.Mining6");
-            } else if (this.theMiningBox.discards == 4) {
-                i = I18n.format("container.sim.Mining7");
-            }
-
-            if (this.theMiningBox.addGlassCover) {
-                j = I18n.format("container.sim.Mining8");
-            } else {
-                j = I18n.format("container.sim.Mining9");
-            }
-
-            GuiButton gb = null;
-            if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
-                this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
-                this.buttonList.add(gb = new GuiButton(3, this.width / 2 - 100, 160, j));
-            }
-
-            if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
-                this.tfSize = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 25, this.height - 50, 50, 15);
-                this.tfSize.setText(this.theMiningBox.size + "");
-                this.tfSize.setFocused(true);
-                this.tfSize.setMaxStringLength(3);
-                if (gb != null) {
-                    gb.enabled = false;
+        try {
+            this.buttonList.clear();
+            this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
+            if (this.theMiningBox != null) {
+                if (this.theWorkers != null && this.theWorkers.size() != 0) {
+                    this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
+                } else {
+                    this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire21")));
                 }
-            }
 
+                String i = "";
+                String j = "";
+                if (this.theMiningBox.discards == 0) {
+                    i = I18n.format("container.sim.Mining3");
+                } else if (this.theMiningBox.discards == 1) {
+                    i = I18n.format("container.sim.Mining4");
+                } else if (this.theMiningBox.discards == 2) {
+                    i = I18n.format("container.sim.Mining5");
+                } else if (this.theMiningBox.discards == 3) {
+                    i = I18n.format("container.sim.Mining6");
+                } else if (this.theMiningBox.discards == 4) {
+                    i = I18n.format("container.sim.Mining7");
+                }
+
+                if (this.theMiningBox.addGlassCover) {
+                    j = I18n.format("container.sim.Mining8");
+                } else {
+                    j = I18n.format("container.sim.Mining9");
+                }
+
+                GuiButton gb = null;
+                if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
+                    this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
+                    this.buttonList.add(gb = new GuiButton(3, this.width / 2 - 100, 160, j));
+                }
+
+                if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
+                    this.tfSize = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 25, this.height - 50, 50, 15);
+                    this.tfSize.setText(this.theMiningBox.size + "");
+                    this.tfSize.setFocused(true);
+                    this.tfSize.setMaxStringLength(3);
+                    if (gb != null) {
+                        gb.enabled = false;
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
         }
+
     }
     private void extraButtons() {
-        if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
-            String i = "";
-            String j = "";
-            if (this.theMiningBox.discards == 0) {
-                i = I18n.format("container.sim.Mining3");
-            } else if (this.theMiningBox.discards == 1) {
-                i = I18n.format("container.sim.Mining4");
-            } else if (this.theMiningBox.discards == 2) {
-                i = I18n.format("container.sim.Mining5");
-            } else if (this.theMiningBox.discards == 3) {
-                i = I18n.format("container.sim.Mining6");
-            } else if (this.theMiningBox.discards == 4) {
-                i = I18n.format("container.sim.Mining7");
-            }
+        try {
+            if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
+                String i = "";
+                String j = "";
+                if (this.theMiningBox.discards == 0) {
+                    i = I18n.format("container.sim.Mining3");
+                } else if (this.theMiningBox.discards == 1) {
+                    i = I18n.format("container.sim.Mining4");
+                } else if (this.theMiningBox.discards == 2) {
+                    i = I18n.format("container.sim.Mining5");
+                } else if (this.theMiningBox.discards == 3) {
+                    i = I18n.format("container.sim.Mining6");
+                } else if (this.theMiningBox.discards == 4) {
+                    i = I18n.format("container.sim.Mining7");
+                }
 
-            if (this.theMiningBox.addGlassCover) {
-                j = I18n.format("container.sim.Mining8");
-            } else {
-                j = I18n.format("container.sim.Mining9");
-            }
+                if (this.theMiningBox.addGlassCover) {
+                    j = I18n.format("container.sim.Mining8");
+                } else {
+                    j = I18n.format("container.sim.Mining9");
+                }
 
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
-            this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, j));
+                this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
+                this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, j));
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("extraButtons出错了：" + e.getMessage());
         }
+
+
     }
 
     @Override
@@ -147,123 +169,127 @@ public class GuiMining extends GuiScreen {
             }
 
             if (this.theWorkers != null && this.theWorkers.size() > 0) {
-                try {
                     String others = "";
                     if (this.theWorkers.size() > 1) {
                         others = I18n.format("container.sim.Mining13") + (this.theWorkers.size() - 1) + I18n.format("container.sim.Mining14");
                     }
-                } catch (Exception var6) {
-                    var6.printStackTrace();
-                }
             }
 
             if (this.theMiningBox != null) {
-                try {
                     if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
                         this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Mining14"), this.width / 2, this.height - 60, 16777130);
                         this.tfSize.drawTextBox();
                     }
-                } catch (Exception var5) {
-                    var5.printStackTrace();
-                }
             }
 
             super.drawScreen(i, j, f);
-        } catch (Exception var8) {
-            var8.printStackTrace();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            //var8.printStackTrace();
         }
 
     }
 
     @Override
     public void actionPerformed(GuiButton guibutton) {
-        if (guibutton.enabled) {
-            if (guibutton.id == 0) {
-                this.mc.currentScreen = null;
-                this.mc.setIngameFocus();
-            } else {
-                if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire21"))) {
-                    GuiEmployFolk ui = new GuiEmployFolk(this.theMiningBox, Vocation.MINER);
-                    this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
-                    for (int i = 0; i < this.theWorkers.size(); ++i) {
-                        FolkData folk = (FolkData) this.theWorkers.get(i);
-                        folk.selfFire();
-                    }
-
-                    guibutton.enabled = false;
+        try {
+            if (guibutton.enabled) {
+                if (guibutton.id == 0) {
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
                 } else {
-                    String i;
-                    if (guibutton.id == 2) {
-                        ++this.theMiningBox.discards;
-                        if (this.theMiningBox.discards > 4) {
-                            this.theMiningBox.discards = 0;
+                    if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire21"))) {
+                        GuiEmployFolk ui = new GuiEmployFolk(this.theMiningBox, Vocation.MINER);
+                        this.mc.displayGuiScreen(ui);
+                    } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
+                        for (int i = 0; i < this.theWorkers.size(); i++) {
+                            FolkData folk = (FolkData) this.theWorkers.get(i);
+                            folk.selfFire();
                         }
 
-                        i = "";
-                        if (this.theMiningBox.discards == 0) {
-                            i = I18n.format("container.sim.Mining3");
-                        } else if (this.theMiningBox.discards == 1) {
-                            i = I18n.format("container.sim.Mining4");
-                        } else if (this.theMiningBox.discards == 2) {
-                            i = I18n.format("container.sim.Mining5");
-                        } else if (this.theMiningBox.discards == 3) {
-                            i = I18n.format("container.sim.Mining6");
-                        } else if (this.theMiningBox.discards == 4) {
-                            i = I18n.format("container.sim.Mining7");
-                        }
+                        guibutton.enabled = false;
+                        this.mc.currentScreen = null;
+                        this.mc.setIngameFocus();
+                    } else {
+                        String i;
+                        if (guibutton.id == 2) {
+                            ++this.theMiningBox.discards;
+                            if (this.theMiningBox.discards > 4) {
+                                this.theMiningBox.discards = 0;
+                            }
 
-                        guibutton.displayString = i;
-                    } else if (guibutton.id == 3) {
-                        this.theMiningBox.addGlassCover = !this.theMiningBox.addGlassCover;
-                        i = "";
-                        if (this.theMiningBox.addGlassCover) {
-                            i = I18n.format("container.sim.Mining8");
-                        } else {
-                            i = I18n.format("container.sim.Mining9");
-                        }
+                            i = "";
+                            if (this.theMiningBox.discards == 0) {
+                                i = I18n.format("container.sim.Mining3");
+                            } else if (this.theMiningBox.discards == 1) {
+                                i = I18n.format("container.sim.Mining4");
+                            } else if (this.theMiningBox.discards == 2) {
+                                i = I18n.format("container.sim.Mining5");
+                            } else if (this.theMiningBox.discards == 3) {
+                                i = I18n.format("container.sim.Mining6");
+                            } else if (this.theMiningBox.discards == 4) {
+                                i = I18n.format("container.sim.Mining7");
+                            }
 
-                        guibutton.displayString = i;
+                            guibutton.displayString = i;
+                        } else if (guibutton.id == 3) {
+                            this.theMiningBox.addGlassCover = !this.theMiningBox.addGlassCover;
+                            i = "";
+                            if (this.theMiningBox.addGlassCover) {
+                                i = I18n.format("container.sim.Mining8");
+                            } else {
+                                i = I18n.format("container.sim.Mining9");
+                            }
+
+                            guibutton.displayString = i;
+                        }
                     }
-                }
 
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
-            this.mc.setIngameFocus();
-        } else {
-            if (this.tfSize != null) {
-                this.tfSize.textboxKeyTyped(c, i);
-                int s = 3;
+        try {
+            if (i == 1) {
+                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.setIngameFocus();
+            } else {
+                if (this.tfSize != null) {
+                    this.tfSize.textboxKeyTyped(c, i);
+                    int s = 3;
 
-                try {
-                    s = Integer.parseInt(this.tfSize.getText());
-                } catch (Exception var5) {
+                    try {
+                        s = Integer.parseInt(this.tfSize.getText());
+                    } catch (Exception var5) {
+                    }
+
+                    this.theMiningBox.size = s;
                 }
 
-                this.theMiningBox.size = s;
             }
-
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void mouseClicked(int i, int j, int k) {
-        if (this.tfSize != null) {
+        try {if (this.tfSize != null) {
             this.tfSize.mouseClicked(i, j, k);
         }
 
-        try {
+
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            //e.printStackTrace();
         }
     }
 }

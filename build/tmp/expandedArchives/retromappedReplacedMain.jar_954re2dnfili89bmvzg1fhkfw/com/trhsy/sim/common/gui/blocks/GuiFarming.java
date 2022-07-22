@@ -36,6 +36,7 @@ public class GuiFarming extends GuiScreen {
         this.theFarmingBox = farmingBox;
         this.theFolk = folk;
     }
+
     @Override
     public boolean func_73868_f() {
         return false;
@@ -47,30 +48,20 @@ public class GuiFarming extends GuiScreen {
             if (this.theFarmingBox.level == 0) {
                 this.theFarmingBox.level = 1;
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
-            return;
-        }
 
-        this.field_146292_n.clear();
+            this.field_146292_n.clear();
 
-        this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 100, this.field_146295_m - 30, I18n.func_135052_a("container.sim.sim_gui_BC_Done")));
-        if (this.theFolk == null) {
-            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Hire25")));
-        } else {
-            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Fire") +" "+ this.theFolk.name));
-        }
+            this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 100, this.field_146295_m - 30, I18n.func_135052_a("container.sim.sim_gui_BC_Done")));
+            if (this.theFolk == null) {
+                this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Hire25")));
+            } else {
+                this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 100, 40, I18n.func_135052_a("container.sim.Fire") + " " + this.theFolk.name));
+            }
 
-        try {
             //农场
             this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 100, 100, this.theFarmingBox.farmType.toString() + I18n.func_135052_a("container.sim.gui_Farm")));
-        } catch (Exception var2) {
-            var2.printStackTrace();
-        }
-
-        try {
             GuiButton b;
-            switch(this.theFarmingBox.level) {
+            switch (this.theFarmingBox.level) {
                 case 1:
                     if (this.theFarmingBox.farmType != FarmType.SUGAR && this.theFarmingBox.farmType != FarmType.CACTUS) {
                         this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 100, 140, I18n.func_135052_a("container.sim.gui_Farming_Upgrade") + (this.theFarmingBox.level + 1)));
@@ -87,27 +78,26 @@ public class GuiFarming extends GuiScreen {
                     this.field_146292_n.add(b = new GuiButton(3, this.field_146294_l / 2 - 100, 140, I18n.func_135052_a("container.sim.gui_Farming_Fully_upgraded")));
                     b.field_146124_l = false;
             }
-        } catch (Exception var3) {
-            var3.printStackTrace();
+            super.func_73866_w_();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
         }
-
-        super.func_73866_w_();
     }
 
     /**
      * 绘制屏幕
+     *
      * @param i
      * @param j
      * @param f
      */
     @Override
     public void func_73863_a(int i, int j, float f) {
-        if (this.mouseCount < 10) {
-            ++this.mouseCount;
-            Mouse.setGrabbed(false);
-        }
-
         try {
+            if (this.mouseCount < 10) {
+                ++this.mouseCount;
+                Mouse.setGrabbed(false);
+            }
             this.func_146276_q_();
             if (this.theFarmingBox == null) {
                 //养殖箱出错,放置3个标记,然后放置养殖箱
@@ -138,108 +128,120 @@ public class GuiFarming extends GuiScreen {
             }
 
             super.func_73863_a(i, j, f);
-        } catch (Exception var6) {
-            var6.printStackTrace();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
         }
 
     }
 
     /**
      * 执行的操作
+     *
      * @param guibutton
      */
     @Override
     public void func_146284_a(GuiButton guibutton) {
-        if (guibutton.field_146124_l) {
-            if (guibutton.field_146127_k == 0) {
-                this.field_146297_k.field_71462_r = null;
-                this.field_146297_k.func_71381_h();
-            } else {
-                //雇佣农民
-                if (guibutton.field_146126_j.contentEquals(I18n.func_135052_a("container.sim.Hire25"))) {
-                    GuiEmployFolk ui = new GuiEmployFolk(this.theFarmingBox, Vocation.CROPFARMER);
-                    this.field_146297_k.func_147108_a(ui);
-                    //解雇
-                } else if (guibutton.field_146126_j.contains(I18n.func_135052_a("container.sim.Fire"))) {
-                    this.theFolk.selfFire();
-                    guibutton.field_146124_l = false;
+        try {
+
+            if (guibutton.field_146124_l) {
+                if (guibutton.field_146127_k == 0) {
                     this.field_146297_k.field_71462_r = null;
                     this.field_146297_k.func_71381_h();
-                } else if (guibutton.field_146127_k == 2) {
-                    //马铃薯
-                    if (this.theFarmingBox.farmType == FarmType.POTATO) {
-                        this.theFarmingBox.farmType = FarmType.PUMPKIN;
-                        //南瓜
-                    } else if (this.theFarmingBox.farmType == FarmType.PUMPKIN) {
-                        this.theFarmingBox.farmType = FarmType.MELON;
-                        //西瓜
-                    } else if (this.theFarmingBox.farmType == FarmType.MELON) {
-                        this.theFarmingBox.farmType = FarmType.WHEAT;
-                        //小麦
-                    } else if (this.theFarmingBox.farmType == FarmType.WHEAT) {
-                        this.theFarmingBox.farmType = FarmType.CARROT;
-                        //胡萝卜
-                    } else if (this.theFarmingBox.farmType == FarmType.CARROT) {
-                        this.theFarmingBox.farmType = FarmType.CUSTOM;
-                        //自定义
-                    } else if (this.theFarmingBox.farmType == FarmType.CUSTOM) {
-                        this.theFarmingBox.farmType = FarmType.SUGAR;
-                        //甘蔗
-                    } else if (this.theFarmingBox.farmType == FarmType.SUGAR) {
-                        this.theFarmingBox.farmType = FarmType.CACTUS;
-                        //仙人掌
-                    } else if (this.theFarmingBox.farmType == FarmType.CACTUS) {
-                        this.theFarmingBox.farmType = FarmType.POTATO;
-                    }
-                    //农场
-                    guibutton.field_146126_j = this.theFarmingBox.farmType.toString() + I18n.func_135052_a("container.sim.gui_Farm");
-                } else if (guibutton.field_146127_k == 3) {
-                    //获取金币
-                    float cash = ModSimReloaded.states.credits;
-                    //如果游戏模式为创造 资金为1000
-                    if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                        cash = 1000.0F;
-                    }
-
-                    if (this.getUpgradeCost() > cash) {
-                        //资金不足
-                        guibutton.field_146126_j = I18n.func_135052_a("container.sim.gui_Farming_text_NOT_ENOUGH");
+                } else {
+                    //雇佣农民
+                    if (guibutton.field_146126_j.contentEquals(I18n.func_135052_a("container.sim.Hire25"))) {
+                        GuiEmployFolk ui = new GuiEmployFolk(this.theFarmingBox, Vocation.CROPFARMER);
+                        this.field_146297_k.func_147108_a(ui);
+                        //解雇
+                    } else if (guibutton.field_146126_j.contains(I18n.func_135052_a("container.sim.Fire"))) {
+                        this.theFolk.selfFire();
                         guibutton.field_146124_l = false;
-                    } else {
-                        //如果长 宽 都大于4
-                        if (this.theFarmingBox.getSizeLength() >= 4 && this.theFarmingBox.getSizeWidth() >= 4) {
-                            //如果游戏模式为创造
-                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
-                                GameStates var10000 = ModSimReloaded.states;
-                                var10000.credits -= this.getUpgradeCost();
-                            }
-                            //农场升级计数
-                            ModSimReloaded.farmToUpgradeCounter = 0;
-                            //要升级的农场
-                            ModSimReloaded.farmToUpgrade = this.theFarmingBox;
-                            //当前
-                            this.field_146297_k.field_71462_r = null;
-                            //失去焦点
-                            this.field_146297_k.func_71381_h();
-                            return;
+                        this.field_146297_k.field_71462_r = null;
+                        this.field_146297_k.func_71381_h();
+                    } else if (guibutton.field_146127_k == 2) {
+                        //马铃薯
+                        if (this.theFarmingBox.farmType == FarmType.POTATO) {
+                            this.theFarmingBox.farmType = FarmType.PUMPKIN;
+                            //南瓜
+                        } else if (this.theFarmingBox.farmType == FarmType.PUMPKIN) {
+                            this.theFarmingBox.farmType = FarmType.MELON;
+                            //西瓜
+                        } else if (this.theFarmingBox.farmType == FarmType.MELON) {
+                            this.theFarmingBox.farmType = FarmType.WHEAT;
+                            //小麦
+                        } else if (this.theFarmingBox.farmType == FarmType.WHEAT) {
+                            this.theFarmingBox.farmType = FarmType.CARROT;
+                            //胡萝卜
+                        } else if (this.theFarmingBox.farmType == FarmType.CARROT) {
+                            this.theFarmingBox.farmType = FarmType.CUSTOM;
+                            //自定义
+                        } else if (this.theFarmingBox.farmType == FarmType.CUSTOM) {
+                            this.theFarmingBox.farmType = FarmType.SUGAR;
+                            //甘蔗
+                        } else if (this.theFarmingBox.farmType == FarmType.SUGAR) {
+                            this.theFarmingBox.farmType = FarmType.CACTUS;
+                            //仙人掌
+                        } else if (this.theFarmingBox.farmType == FarmType.CACTUS) {
+                            this.theFarmingBox.farmType = FarmType.POTATO;
                         }
-                        //农场太小了
-                        guibutton.field_146126_j = I18n.func_135052_a("container.sim.gui_Farming_text_TOO_SMALL");
-                        guibutton.field_146124_l = false;
-                    }
-                }
+                        //农场
+                        guibutton.field_146126_j = this.theFarmingBox.farmType.toString() + I18n.func_135052_a("container.sim.gui_Farm");
+                    } else if (guibutton.field_146127_k == 3) {
+                        //获取金币
+                        float cash = ModSimReloaded.states.credits;
+                        //如果游戏模式为创造 资金为1000
+                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                            cash = 1000.0F;
+                        }
 
+                        if (this.getUpgradeCost() > cash) {
+                            //资金不足
+                            guibutton.field_146126_j = I18n.func_135052_a("container.sim.gui_Farming_text_NOT_ENOUGH");
+                            guibutton.field_146124_l = false;
+                        } else {
+                            //如果长 宽 都大于4
+                            if (this.theFarmingBox.getSizeLength() >= 4 && this.theFarmingBox.getSizeWidth() >= 4) {
+                                //如果游戏模式为创造
+                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                    GameStates var10000 = ModSimReloaded.states;
+                                    var10000.credits -= this.getUpgradeCost();
+                                }
+                                //农场升级计数
+                                ModSimReloaded.farmToUpgradeCounter = 0;
+                                //要升级的农场
+                                ModSimReloaded.farmToUpgrade = this.theFarmingBox;
+                                //当前
+                                this.field_146297_k.field_71462_r = null;
+                                //失去焦点
+                                this.field_146297_k.func_71381_h();
+                                return;
+                            }
+                            //农场太小了
+                            guibutton.field_146126_j = I18n.func_135052_a("container.sim.gui_Farming_text_TOO_SMALL");
+                            guibutton.field_146124_l = false;
+                        }
+                    }
+
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
     }
 
     /**
      * 获取升级成本
+     *
      * @return
      */
     private Float getUpgradeCost() {
-        Float ret = (float)(this.theFarmingBox.getSizeLength() * this.theFarmingBox.getSizeWidth());
-        ret = ret / 15.0F;
+        Float ret =null;
+        try {
+            ret=(float) (this.theFarmingBox.getSizeLength() * this.theFarmingBox.getSizeWidth());
+            ret = ret / 15.0F;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getUpgradeCost出错了：" + e.getMessage());
+        }
         return ret;
     }
 }

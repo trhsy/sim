@@ -4,6 +4,6 @@
     "top": "sim:blocks/control/block_control_box",
     "front": "sim:blocks/control/block_control_box",
     "side": "sim:blocks/control/block_control_box",
-    "bottom":"sim:blocks/control/block_control_box_side"
+    "bottom": "sim:blocks/control/block_control_box_side"
   }
 }

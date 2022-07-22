@@ -1,5 +1,6 @@
 package com.trhsy.sim.common.util;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.util.StatCollector;
 
 import java.util.Locale;
@@ -15,10 +16,22 @@ public class LocUtils {
     }
 
     public static String makeLocString(String unclean) {
-        return unclean.toLowerCase(Locale.US).replaceAll(" ", "");
+        String makeLocString=null;
+        try {
+            makeLocString=unclean.toLowerCase(Locale.US).replaceAll(" ", "");
+        } catch (Exception e) {
+            ModSimReloaded.log.error("makeLocString出错了：" + e.getMessage());
+        }
+        return makeLocString;
     }
 
     public static String translateRecursive(String key, Object... params) {
-        return StatCollector.func_74838_a(StatCollector.func_74837_a(key, params));
+        String makeLocString=null;
+        try {
+            makeLocString=StatCollector.func_74838_a(StatCollector.func_74837_a(key, params));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("translateRecursive出错了：" + e.getMessage());
+        }
+        return makeLocString;
     }
 }

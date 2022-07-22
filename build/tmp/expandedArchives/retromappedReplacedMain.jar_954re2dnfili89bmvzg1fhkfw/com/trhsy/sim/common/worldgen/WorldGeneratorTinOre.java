@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.worldgen;
 
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -31,20 +32,24 @@ public class WorldGeneratorTinOre extends WorldGenerator {
      */
     @Override
     public boolean func_180709_b(World world, Random rand, BlockPos pos) {
-        // TODO
-        if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.GOLD)) {
-            //System.out.println("开始生成铜矿");
-            for (int i = 0; i < 4; ++i) {
-                int posX = pos.func_177958_n() + rand.nextInt(16);
-                int posY = 16 + rand.nextInt(16);
-                int posZ = pos.func_177952_p() + rand.nextInt(16);
-                BlockPos blockpos = new BlockPos(posX, posY, posZ);
-                BiomeGenBase biomeGenBase = world.func_180494_b(blockpos);
-                //System.out.println("锡矿降雨量："+biomeGenBase.getIntRainfall());
-                if (biomeGenBase.func_76744_g() < rand.nextInt(65536)) {
-                    glowstoneGenerator.func_180709_b(world, rand, blockpos);
+        try {
+            // TODO
+            if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.GOLD)) {
+                //System.out.println("开始生成铜矿");
+                for (int i = 0; i < 4; i++) {
+                    int posX = pos.func_177958_n() + rand.nextInt(16);
+                    int posY = 16 + rand.nextInt(16);
+                    int posZ = pos.func_177952_p() + rand.nextInt(16);
+                    BlockPos blockpos = new BlockPos(posX, posY, posZ);
+                    BiomeGenBase biomeGenBase = world.func_180494_b(blockpos);
+                    //System.out.println("锡矿降雨量："+biomeGenBase.getIntRainfall());
+                    if (biomeGenBase.func_76744_g() < rand.nextInt(65536)) {
+                        glowstoneGenerator.func_180709_b(world, rand, blockpos);
+                    }
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("generate出错了：" + e.getMessage());
         }
         return true;
     }

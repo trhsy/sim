@@ -37,8 +37,11 @@ public class EntityWindmill extends Entity {
 
     @Override
     public void func_70106_y() {
-        ModSimReloaded.log.info("EntityWindmill: setDead() 调用");
-        super.func_70106_y();
+        try {
+            super.func_70106_y();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setDead出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -47,20 +50,24 @@ public class EntityWindmill extends Entity {
 
     @Override
     public void func_70071_h_() {
-        if (this.field_70170_p.func_72896_J()) {
-            if (this.sailSpeed < 0.1F) {
-                this.sailSpeed += 0.001F;
-            } else if (this.sailSpeed > 0.1F) {
+        try {
+            if (this.field_70170_p.func_72896_J()) {
+                if (this.sailSpeed < 0.1F) {
+                    this.sailSpeed += 0.001F;
+                } else if (this.sailSpeed > 0.1F) {
+                    this.sailSpeed -= 0.001F;
+                }
+            } else if (this.sailSpeed < 0.02F) {
+                this.sailSpeed += 1.0E-4F;
+            } else if (this.sailSpeed > 0.02F) {
                 this.sailSpeed -= 0.001F;
             }
-        } else if (this.sailSpeed < 0.02F) {
-            this.sailSpeed += 1.0E-4F;
-        } else if (this.sailSpeed > 0.02F) {
-            this.sailSpeed -= 0.001F;
-        }
 
-        this.sailRotation += this.sailSpeed + this.sailSpeedModifer;
-        super.func_70071_h_();
+            this.sailRotation += this.sailSpeed + this.sailSpeedModifer;
+            super.func_70071_h_();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -72,19 +79,14 @@ public class EntityWindmill extends Entity {
         return false;
     }
 
-    //@Override
-    //public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
-    //}
+    @Override
+    public void func_180426_a(double x, double y, double z, float yaw, float pitch, int posRotationIncrements,boolean p_180426_10_) {
+    }
 
     @Override
     public AxisAlignedBB func_70114_g(Entity par1Entity) {
         return par1Entity.func_174813_aQ();
     }
-
-    //@Override
-    //public AxisAlignedBB getBoundingBox() {
-    //    return this.boundingBox;
-    //}
 
     @Override
     public boolean func_70067_L() {

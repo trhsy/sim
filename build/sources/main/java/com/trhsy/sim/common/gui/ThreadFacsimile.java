@@ -42,72 +42,63 @@ public class ThreadFacsimile extends Thread {
 
     @Override
     public void run() {
-
-        V3 cxyz = guiMarker.location;
-        V3 Lxyz = ((Marker) BlockMarker.markers.get(1)).toV3();
-        V3 Bxyz = ((Marker)BlockMarker.markers.get(2)).toV3();
-        V3 exyz = new V3(Math.floor(guiMarker.mc.thePlayer.posX), Math.floor(guiMarker.mc.thePlayer.posY), Math.floor(guiMarker.mc.thePlayer.posZ), Bxyz.theDimension);
-        //int ftbCount = false;
-        //int ltrCount = false;
-        int ltrCountx;
-        if (cxyz.x.intValue() == Lxyz.x.intValue()) {
-            ltrCountx = Math.abs(Lxyz.z.intValue() - cxyz.z.intValue()) - 1;
-        } else {
-            ltrCountx = Math.abs(Lxyz.x.intValue() - cxyz.x.intValue()) - 1;
-        }
-
-        int ftbCountx;
-        if (cxyz.x.intValue() == Bxyz.x.intValue()) {
-            ftbCountx = Math.abs(Bxyz.z.intValue() - cxyz.z.intValue()) - 1;
-        } else {
-            ftbCountx = Math.abs(Bxyz.x.intValue() - cxyz.x.intValue()) - 1;
-        }
-
-        if (ftbCountx != 0 && ltrCountx != 0) {
-            //int bx = false;
-            //int by = false;
-            //int bz = false;
-            int cx = cxyz.x.intValue();
-            int cy = cxyz.y.intValue();
-            int cz = cxyz.z.intValue();
-            int ex = exyz.x.intValue();
-            int ey = exyz.y.intValue();
-            int ez = exyz.z.intValue();
-            int bxx = ex;
-            int byx = ey;
-            int bzx = ez;
-            if (cz == ez) {
-                if (cx > ex) {
-                    bxx = cx + 1;
-                } else {
-                    bxx = cx - 1;
-                }
+        try {
+            V3 cxyz = guiMarker.location;
+            V3 Lxyz = ((Marker) BlockMarker.markers.get(1)).toV3();
+            V3 Bxyz = ((Marker)BlockMarker.markers.get(2)).toV3();
+            V3 exyz = new V3(Math.floor(guiMarker.mc.thePlayer.posX), Math.floor(guiMarker.mc.thePlayer.posY), Math.floor(guiMarker.mc.thePlayer.posZ), Bxyz.theDimension);
+            int ltrCountx;
+            if (cxyz.x.intValue() == Lxyz.x.intValue()) {
+                ltrCountx = Math.abs(Lxyz.z.intValue() - cxyz.z.intValue()) - 1;
             } else {
-                if (cx != ex) {
-                    guiMarker.errorText = I18n.format("container.sim.Facsimile1");
-                    ModSimReloaded.sendChat(I18n.format("container.sim.Facsimile2") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
-                    return;
-                }
-
-                if (cz > ez) {
-                    bzx = cz + 1;
-                } else {
-                    bzx = cz - 1;
-                }
+                ltrCountx = Math.abs(Lxyz.x.intValue() - cxyz.x.intValue()) - 1;
+            }
+            int ftbCountx;
+            if (cxyz.x.intValue() == Bxyz.x.intValue()) {
+                ftbCountx = Math.abs(Bxyz.z.intValue() - cxyz.z.intValue()) - 1;
+            } else {
+                ftbCountx = Math.abs(Bxyz.x.intValue() - cxyz.x.intValue()) - 1;
             }
 
-            int xo = 0;
-            int zo = 0;
-            //int iDx = false;
-            //int metax = false;
-            HashMap key = new HashMap();
-            key.put("0:0", "A");
-            ArrayList layerLines = new ArrayList();
-            int ch = 66;
-            boolean allAirBlocks = true;
-            String keyString = "A=0:0;";
+            if (ftbCountx != 0 && ltrCountx != 0) {
+                int cx = cxyz.x.intValue();
+                int cy = cxyz.y.intValue();
+                int cz = cxyz.z.intValue();
+                int ex = exyz.x.intValue();
+                int ey = exyz.y.intValue();
+                int ez = exyz.z.intValue();
+                int bxx = ex;
+                int byx = ey;
+                int bzx = ez;
+                if (cz == ez) {
+                    if (cx > ex) {
+                        bxx = cx + 1;
+                    } else {
+                        bxx = cx - 1;
+                    }
+                } else {
+                    if (cx != ex) {
+                        guiMarker.errorText = I18n.format("container.sim.Facsimile1");
+                        ModSimReloaded.sendChat(I18n.format("container.sim.Facsimile2") + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
+                        return;
+                    }
 
-            try {
+                    if (cz > ez) {
+                        bzx = cz + 1;
+                    } else {
+                        bzx = cz - 1;
+                    }
+                }
+
+                int xo = 0;
+                int zo = 0;
+                HashMap key = new HashMap();
+                key.put("0:0", "A");
+                ArrayList layerLines = new ArrayList();
+                int ch = 66;
+                boolean allAirBlocks = true;
+                String keyString = "A=0:0;";
+
                 int ltr;
                 int zzz;
                 for(int l = 0; l < 200; ++l) {
@@ -173,16 +164,16 @@ public class ThreadFacsimile extends Thread {
                     return;
                 }
 
-                File check = new File(UpdateChecker.getSimukraftFolder() + "/buildings/");
+                File check = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/");
                 if (!check.exists()) {
-                    ModSimReloaded.sendChat(UpdateChecker.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Facsimile4"));
+                    ModSimReloaded.sendChat(ModSimReloaded.getSimukraftFolder() + "/buildings/ " + I18n.format("container.sim.Facsimile4"));
                     return;
                 }
 
                 String f = String.valueOf(System.currentTimeMillis());
                 ltr = f.length();
                 f = f.substring(ltr - 6);
-                FileWriter fstream = new FileWriter(UpdateChecker.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
+                FileWriter fstream = new FileWriter(ModSimReloaded.getSimukraftFolder() + "/buildings/other/My Build" + f + ".txt");
                 BufferedWriter out = new BufferedWriter(fstream);
                 out.write(ltrCountx + "x" + ftbCountx + "x" + layerLines.size() + "\r\n");
                 out.write(keyString + "\r\n");
@@ -196,12 +187,13 @@ public class ThreadFacsimile extends Thread {
                 guiMarker.errorText = I18n.format("container.sim.Facsimile5") + f + I18n.format("container.sim.Facsimile1");
                 guiMarker.mc.theWorld.playSoundEffect(guiMarker.location.x, guiMarker.location.y, guiMarker.location.z, ModSim.MODID + ":computer", 1.0F, 1.0F);
                 Building.initialiseAllBuildings();
-            } catch (Exception var33) {
-                var33.printStackTrace();
-            }
 
-        } else {
-            guiMarker.errorText = I18n.format("container.sim.Facsimile1");
+            } else {
+                guiMarker.errorText = I18n.format("container.sim.Facsimile1");
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
+
     }
 }

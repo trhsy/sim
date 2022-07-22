@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.worldgen;
 
 import com.trhsy.sim.common.loader.BlockLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -32,24 +33,29 @@ public class WorldGeneratorCopperOre extends WorldGenerator {
      */
     @Override
     public boolean func_180709_b(World world, Random rand, BlockPos pos) {
-        // TODO
-        if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.IRON)) {
-            //System.out.println("开始生成铜矿");
-            for (int i = 0; i < 4; ++i) {
-                //通过循环四次的方式在当前区块进行四次矿物生成
-                int posX = pos.func_177958_n() + rand.nextInt(16);
-                int posY = 16 + rand.nextInt(16);
-                int posZ = pos.func_177952_p() + rand.nextInt(16);
-                BlockPos blockpos = new BlockPos(posX, posY, posZ);
-                //随机在当前区块内生成XYZ三个坐标值，当然这里我们需要使用Forge提供的随机数生成器，不难看出，这里我们设定萤石的生成范围是Y坐标（也就是纵坐标）从16到32，X坐标和Z坐标也没有超出一个区块的范围。
-                BiomeGenBase biomeGenBase = world.func_180494_b(blockpos);
-                //在世界上生成的矿物，还需要依赖于生物群系，比如绿宝石的生成就和生物群系密切相关
-                //System.out.println("铜矿降雨量："+biomeGenBase.getIntRainfall());
-                if (biomeGenBase.func_76744_g() < rand.nextInt(65536)) {
-                    glowstoneGenerator.func_180709_b(world, rand, blockpos);
+        try {
+            // TODO
+            if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.IRON)) {
+                //System.out.println("开始生成铜矿");
+                for (int i = 0; i < 4; i++) {
+                    //通过循环四次的方式在当前区块进行四次矿物生成
+                    int posX = pos.func_177958_n() + rand.nextInt(16);
+                    int posY = 16 + rand.nextInt(16);
+                    int posZ = pos.func_177952_p() + rand.nextInt(16);
+                    BlockPos blockpos = new BlockPos(posX, posY, posZ);
+                    //随机在当前区块内生成XYZ三个坐标值，当然这里我们需要使用Forge提供的随机数生成器，不难看出，这里我们设定萤石的生成范围是Y坐标（也就是纵坐标）从16到32，X坐标和Z坐标也没有超出一个区块的范围。
+                    BiomeGenBase biomeGenBase = world.func_180494_b(blockpos);
+                    //在世界上生成的矿物，还需要依赖于生物群系，比如绿宝石的生成就和生物群系密切相关
+                    //System.out.println("铜矿降雨量："+biomeGenBase.getIntRainfall());
+                    if (biomeGenBase.func_76744_g() < rand.nextInt(65536)) {
+                        glowstoneGenerator.func_180709_b(world, rand, blockpos);
+                    }
                 }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("generate出错了：" + e.getMessage());
         }
+
         return true;
     }
 }

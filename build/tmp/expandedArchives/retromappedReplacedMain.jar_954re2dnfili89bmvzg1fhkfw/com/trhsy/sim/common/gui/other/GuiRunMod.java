@@ -36,16 +36,19 @@ public class GuiRunMod extends GuiScreen {
 
     @Override
     public void func_73866_w_() {
-        //ModSimReloaded.log.info("初始化GUI");
-        ModSimReloaded.log.info("初始化GUI");
-        String not_run = I18n.func_135052_a("container.sim.not_run");
-        String normal = I18n.func_135052_a("container.sim.normal");
-        String creative = I18n.func_135052_a("container.sim.creative");
-        String hardcore = I18n.func_135052_a("container.sim.hardcore");
-        this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 75, 40, not_run));
-        this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 75, 90, normal));
-        this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 75, 140, creative));
-        this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 75, 190, hardcore));
+        try {
+            ModSimReloaded.log.info("初始化GUI");
+            String not_run = I18n.func_135052_a("container.sim.not_run");
+            String normal = I18n.func_135052_a("container.sim.normal");
+            String creative = I18n.func_135052_a("container.sim.creative");
+            String hardcore = I18n.func_135052_a("container.sim.hardcore");
+            this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 75, 40, not_run));
+            this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 75, 90, normal));
+            this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 75, 140, creative));
+            this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 75, 190, hardcore));
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
     }
 
     @Override
@@ -67,34 +70,38 @@ public class GuiRunMod extends GuiScreen {
             this.func_73732_a(this.field_146289_q, sim_gui_beginners, this.field_146294_l / 2, 110, 16776960);
             this.func_73732_a(this.field_146289_q, sim_gui_everything, this.field_146294_l / 2, 160, 16776960);
             this.func_73732_a(this.field_146289_q, sim_gui_Builders, this.field_146294_l / 2, 210, 16776960);
+            super.func_73863_a(i, j, f);
         } catch (Exception var5) {
             //ModSimReloaded.log.info("Caught Exception while drawing strings/screen");
             ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常"+var5.getMessage());
         }
-
-        super.func_73863_a(i, j, f);
     }
 
     @Override
     protected void func_146284_a(GuiButton guibutton) {
-        if (guibutton.field_146127_k == 0) {
-            ModSimReloaded.states.gameModeNumber = 10;
-            //ModSimReloaded.log.info("Turning off SimCity Reloaded");
-            ModSimReloaded.log.info("关闭重新加载的模拟城市");
-        } else if (guibutton.field_146127_k == 1) {
-            ModSimReloaded.states.gameModeNumber = 0;
-            //ModSimReloaded.log.info("Playing SimCity Reloaded in normal mode");
-            ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
-            FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().func_130014_f_());
-        } else if (guibutton.field_146127_k == 2) {
-            ModSimReloaded.states.gameModeNumber = 1;
-        } else if (guibutton.field_146127_k == 3) {
-            ModSimReloaded.states.gameModeNumber = 2;
+        try {
+            if (guibutton.field_146127_k == 0) {
+                ModSimReloaded.states.gameModeNumber = 10;
+                //ModSimReloaded.log.info("Turning off SimCity Reloaded");
+                ModSimReloaded.log.info("关闭重新加载的模拟城市");
+            } else if (guibutton.field_146127_k == 1) {
+                ModSimReloaded.states.gameModeNumber = 0;
+                //ModSimReloaded.log.info("Playing SimCity Reloaded in normal mode");
+                ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
+                FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().func_130014_f_());
+            } else if (guibutton.field_146127_k == 2) {
+                ModSimReloaded.states.gameModeNumber = 1;
+            } else if (guibutton.field_146127_k == 3) {
+                ModSimReloaded.states.gameModeNumber = 2;
+            }
+
+            ModSimReloaded.states.saveStates();
+            this.running = false;
+            this.field_146297_k.field_71462_r = null;
+            this.field_146297_k.func_71381_h();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
 
-        ModSimReloaded.states.saveStates();
-        this.running = false;
-        this.field_146297_k.field_71462_r = null;
-        this.field_146297_k.func_71381_h();
     }
 }

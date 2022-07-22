@@ -35,8 +35,13 @@ public class GuiPathBox extends GuiScreen {
     private int page = 0;
 
     public GuiPathBox(PathBox pathBlock, ArrayList<FolkData> folks) {
-        this.thePathBox = pathBlock;
-        this.theWorkers = folks;
+        try {
+            this.thePathBox = pathBlock;
+            this.theWorkers = folks;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("GuiPathBox出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -46,30 +51,37 @@ public class GuiPathBox extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if (this.tfSize != null) {
-            this.tfSize.updateCursorCounter();
+        try {
+            if (this.tfSize != null) {
+                this.tfSize.updateCursorCounter();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
         }
-
     }
 
     @Override
     public void initGui() {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
-        if (this.thePathBox != null) {
-            if (this.thePathBox.marker1XYZ != null) {
-                if (this.page == 0) {
-                    if (this.theWorkers != null && this.theWorkers.size() != 0) {
-                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
-                        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 60, I18n.format("container.sim.PathBox1")));
-                    } else {
-                        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire24")));
+        try {
+            this.buttonList.clear();
+            this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
+            if (this.thePathBox != null) {
+                if (this.thePathBox.marker1XYZ != null) {
+                    if (this.page == 0) {
+                        if (this.theWorkers != null && this.theWorkers.size() != 0) {
+                            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
+                            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 60, I18n.format("container.sim.PathBox1")));
+                        } else {
+                            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire24")));
+                        }
+                    } else if (this.page == 1) {
+                        this.buttonList.add(new GuiButton(1, 10, 20, I18n.format("container.sim.PathBox3")));
                     }
-                } else if (this.page == 1) {
-                    this.buttonList.add(new GuiButton(1, 10, 20, I18n.format("container.sim.PathBox3")));
-                }
 
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
         }
     }
 
@@ -93,51 +105,61 @@ public class GuiPathBox extends GuiScreen {
             }
 
             super.drawScreen(i, j, f);
-        } catch (Exception var6) {
-            var6.printStackTrace();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            //var6.printStackTrace();
         }
 
     }
 
     @Override
     public void actionPerformed(GuiButton guibutton) {
-        if (guibutton.enabled) {
-            if (guibutton.id == 0) {
-                this.mc.currentScreen = null;
-                this.mc.setIngameFocus();
-            } else {
-                if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire24"))) {
-                    GuiEmployFolk ui = new GuiEmployFolk(this.thePathBox, Vocation.PATHBUILDER);
-                    this.mc.displayGuiScreen(ui);
-                } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
-                    for (int i = 0; i < this.theWorkers.size(); ++i) {
-                        FolkData folk = (FolkData) this.theWorkers.get(i);
-                        folk.selfFire();
+        try {
+            if (guibutton.enabled) {
+                if (guibutton.id == 0) {
+                    this.mc.currentScreen = null;
+                    this.mc.setIngameFocus();
+                } else {
+                    if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire24"))) {
+                        GuiEmployFolk ui = new GuiEmployFolk(this.thePathBox, Vocation.PATHBUILDER);
+                        this.mc.displayGuiScreen(ui);
+                    } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
+                        for (int i = 0; i < this.theWorkers.size(); i++) {
+                            FolkData folk = (FolkData) this.theWorkers.get(i);
+                            folk.selfFire();
+                        }
+
+                        guibutton.enabled = false;
+                        this.mc.currentScreen = null;
+                        this.mc.setIngameFocus();
+                    } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.PathBox8"))) {
+                        this.page = 1;
+                        this.initGui();
+                    } else if (this.page == 1) {
+                        this.thePathBox.pathType = guibutton.displayString;
+                        ModSimReloaded.sendChat(I18n.format("container.sim.PathBox9") + guibutton.displayString);
+                        this.mc.currentScreen = null;
+                        this.mc.setIngameFocus();
                     }
 
-                    guibutton.enabled = false;
-                    this.mc.currentScreen = null;
-                    this.mc.setIngameFocus();
-                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.PathBox8"))) {
-                    this.page = 1;
-                    this.initGui();
-                } else if (this.page == 1) {
-                    this.thePathBox.pathType = guibutton.displayString;
-                    ModSimReloaded.sendChat(I18n.format("container.sim.PathBox9") + guibutton.displayString);
-                    this.mc.currentScreen = null;
-                    this.mc.setIngameFocus();
                 }
-
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void keyTyped(char c, int i) {
-        if (i == 1) {
+        try {if (i == 1) {
             this.mc.displayGuiScreen((GuiScreen)null);
             this.mc.setIngameFocus();
         }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -145,7 +167,8 @@ public class GuiPathBox extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            //e.printStackTrace();
         }
     }
 }

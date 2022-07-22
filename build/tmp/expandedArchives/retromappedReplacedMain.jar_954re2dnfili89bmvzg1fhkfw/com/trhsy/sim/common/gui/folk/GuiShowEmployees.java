@@ -41,10 +41,14 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     public void func_73866_w_() {
-        ModSimReloaded.log.info("初始化GUI");
-        this.folks = FolkData.getFolkUnemployed(true);
-        this.showPage();
-        super.func_73866_w_();
+        try {
+            ModSimReloaded.log.info("初始化GUI");
+            this.folks = FolkData.getFolkUnemployed(true);
+            this.showPage();
+            super.func_73866_w_();
+        } catch (Exception e) {
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+        }
     }
     private void showPage() {
         try {
@@ -56,7 +60,7 @@ public class GuiShowEmployees extends GuiScreen {
                 this.folkOffset = 0;
             }
 
-            for(int f = this.folkOffset; f < this.folks.size(); ++f) {
+            for(int f = this.folkOffset; f < this.folks.size(); f++) {
                 this.field_146292_n.add(new GuiButton(f, this.field_146294_l - 55, y, 50, 20, I18n.func_135052_a("container.sim.Fire")));
                 y += 20;
                 if (y + 20 > this.field_146295_m - 50) {
@@ -64,7 +68,7 @@ public class GuiShowEmployees extends GuiScreen {
                     break;
                 }
 
-                ++count;
+                count++;
             }
 
             if (this.folksOnAPage == 0) {
@@ -79,7 +83,8 @@ public class GuiShowEmployees extends GuiScreen {
                 this.field_146292_n.add(new GuiButton(1001, this.field_146294_l - 50, 0, 50, 20, ">"));
             }
         } catch (Exception var5) {
-            var5.printStackTrace();
+            //var5.printStackTrace();
+            ModSimReloaded.log.error("显示员工出错："+var5.getMessage());
         }
 
     }
@@ -87,7 +92,7 @@ public class GuiShowEmployees extends GuiScreen {
     public void func_73863_a(int i, int j, float f) {
         try {
             if (this.mouseCount < 10) {
-                ++this.mouseCount;
+                this.mouseCount++;
                 Mouse.setGrabbed(false);
             }
             this.func_146276_q_();
@@ -97,29 +102,28 @@ public class GuiShowEmployees extends GuiScreen {
                 this.folkOffset = 0;
             }
 
-            for(int ff = this.folkOffset; ff < this.folks.size(); ++ff) {
+            for(int ff = this.folkOffset; ff < this.folks.size(); ff++) {
                 FolkData folk = (FolkData)this.folks.get(ff);
                 this.func_73731_b(this.field_146289_q, folk.name, 2, y, 10551295);
-                String status;
                 if (folk.employedAt == null) {
                     this.func_73731_b(this.field_146289_q, I18n.func_135052_a("container.sim.gui_Folk_unemployed"), 110, y, 16715792);
                 } else {
-                    status = "";
+                    String dime = "";
                     if (folk.employedAt.theDimension == 0) {
-                        status = I18n.func_135052_a("container.sim.Overworld");
+                        dime = I18n.func_135052_a("container.sim.Overworld");
                     } else if (folk.employedAt.theDimension == 1) {
-                        status = I18n.func_135052_a("container.sim.end");
+                        dime = I18n.func_135052_a("container.sim.end");
                     } else if (folk.employedAt.theDimension == -1) {
-                        status = I18n.func_135052_a("container.sim.hell");
+                        dime = I18n.func_135052_a("container.sim.hell");
                     } else {
-                        status = I18n.func_135052_a("container.sim.dim") + folk.employedAt.theDimension;
+                        dime = I18n.func_135052_a("container.sim.dim") + folk.employedAt.theDimension;
                     }
 
-                    String voc = folk.vocation.toString() + " (" + status + ")";
+                    String voc = folk.vocation.toString() + " (" + dime + ")";
                     this.func_73731_b(this.field_146289_q, voc, 110, y, 10551295);
                 }
 
-                status = "";
+                String status = "";
 
                 try {
                     status = folk.action.toString() + ", " + folk.statusText;
@@ -145,8 +149,7 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     protected void func_146284_a(GuiButton guibutton) {
-
-        if (guibutton.field_146127_k == 1000) {
+        try {if (guibutton.field_146127_k == 1000) {
             this.folkOffset -= this.folksOnAPage;
             this.showPage();
         } else if (guibutton.field_146127_k == 1001) {
@@ -157,6 +160,10 @@ public class GuiShowEmployees extends GuiScreen {
             folk.selfFire();
             guibutton.field_146124_l = false;
         }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
@@ -165,13 +172,22 @@ public class GuiShowEmployees extends GuiScreen {
     }
     @Override
     public void func_146281_b() {
-        Keyboard.enableRepeatEvents(false);
+        try {
+            Keyboard.enableRepeatEvents(false);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+        }
+
     }
     @Override
     public void func_73869_a(char c, int i) {
-        if (i == 1) {
-            this.field_146297_k.func_147108_a((GuiScreen)null);
-            this.field_146297_k.func_71381_h();
+        try {
+            if (i == 1) {
+                this.field_146297_k.func_147108_a((GuiScreen)null);
+                this.field_146297_k.func_71381_h();
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
         }
     }
     @Override
@@ -179,7 +195,8 @@ public class GuiShowEmployees extends GuiScreen {
         try {
             super.func_73864_a(i, j, k);
         } catch (IOException e) {
-            e.printStackTrace();
+            ModSimReloaded.log.error("鼠标点击出问题了："+e.getMessage());
+            //e.printStackTrace();
         }
     }
 }

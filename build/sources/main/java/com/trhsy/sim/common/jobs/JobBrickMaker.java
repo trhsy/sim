@@ -39,17 +39,22 @@ public class JobBrickMaker extends Job implements Serializable {
     }
 
     public JobBrickMaker(FolkData folk) {
-        this.theFolk = folk;
-        if (this.theStage == null) {
-            this.theStage = Stage.IDLE;
-        }
-
-        if (this.theFolk != null) {
-            if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            this.theFolk = folk;
+            if (this.theStage == null) {
+                this.theStage = Stage.IDLE;
             }
 
+            if (this.theFolk != null) {
+                if (this.theFolk.destination == null) {
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                }
+
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("JobBrickMaker出错了：" + e.getMessage());
         }
+
     }
 
     @Override
@@ -59,45 +64,53 @@ public class JobBrickMaker extends Job implements Serializable {
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (!ModSimReloaded.isDayTime()) {
-            this.theStage = Stage.IDLE;
-        }
+        try {
+            super.onUpdate();
+            if (!ModSimReloaded.isDayTime()) {
+                if (!theFolk.isNightOwl()) {
+                    //闲置
+                    this.theStage = Stage.IDLE;
+                    return;
+                }
+            }
 
-        super.onUpdateGoingToWork(this.theFolk);
-        if (this.theStage == Stage.IDLE) {
-            this.runDelay = 2000;
-            this.theStage = Stage.SCANFORCLAY;
-        } else {
-            if (this.theStage != Stage.COLLECTCLAY && this.theStage != Stage.GOTOCLAYBLOCK && this.theStage != Stage.SCANFORCLAY) {
+            super.onUpdateGoingToWork(this.theFolk);
+            if (this.theStage == Stage.IDLE) {
                 this.runDelay = 2000;
+                this.theStage = Stage.SCANFORCLAY;
             } else {
-                this.runDelay = 250;
-            }
-
-            if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
-                this.timeSinceLastRun = System.currentTimeMillis();
-                if (this.factoryFurnace == null) {
-                    this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
+                if (this.theStage != Stage.COLLECTCLAY && this.theStage != Stage.GOTOCLAYBLOCK && this.theStage != Stage.SCANFORCLAY) {
+                    this.runDelay = 2000;
+                } else {
+                    this.runDelay = 250;
                 }
 
-                if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
-                    if (this.theStage == Stage.SCANFORCLAY) {
-                        this.stageScanForClay();
-                    } else if (this.theStage == Stage.GOTOCLAYBLOCK) {
-                        this.stageGotoClayBlock();
-                    } else if (this.theStage == Stage.COLLECTCLAY) {
-                        this.stageCollectClay();
-                    } else if (this.theStage == Stage.RETURNCLAY) {
-                        this.stageReturnClay();
-                    } else if (this.theStage == Stage.USEFURNACE) {
-                        this.stageUseFurnace();
-                    } else if (this.theStage == Stage.CANTWORK) {
-                        this.stageCantWork();
+                if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
+                    this.timeSinceLastRun = System.currentTimeMillis();
+                    if (this.factoryFurnace == null) {
+                        this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
                     }
-                }
 
+                    if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                        if (this.theStage == Stage.SCANFORCLAY) {
+                            this.stageScanForClay();
+                        } else if (this.theStage == Stage.GOTOCLAYBLOCK) {
+                            this.stageGotoClayBlock();
+                        } else if (this.theStage == Stage.COLLECTCLAY) {
+                            this.stageCollectClay();
+                        } else if (this.theStage == Stage.RETURNCLAY) {
+                            this.stageReturnClay();
+                        } else if (this.theStage == Stage.USEFURNACE) {
+                            this.stageUseFurnace();
+                        } else if (this.theStage == Stage.CANTWORK) {
+                            this.stageCantWork();
+                        }
+                    }
+
+                }
             }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
     }
 
@@ -106,11 +119,10 @@ public class JobBrickMaker extends Job implements Serializable {
     }
 
     private void stageScanForClay() {
-        if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.brick"))) {
-            this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker2");
-        }
-
         try {
+            if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.brick"))) {
+                this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker2");
+            }
             this.blockOfClay = findClosestBlockType(this.theFolk.employedAt, Blocks.clay, 80, true);
             if (this.blockOfClay == null) {
                 this.theStage = Stage.USEFURNACE;
@@ -118,7 +130,8 @@ public class JobBrickMaker extends Job implements Serializable {
             }
 
             this.theStage = Stage.GOTOCLAYBLOCK;
-        } catch (Exception var2) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageScanForClay出错了：" + e.getMessage());
         }
 
     }
@@ -130,27 +143,29 @@ public class JobBrickMaker extends Job implements Serializable {
             }
 
             this.theFolk.updateLocationFromEntity();
-            double dist = (double)this.theFolk.location.getDistanceTo(this.blockOfClay);
+            double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
             if (dist > 4.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod) null);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
             }
 
             this.theStage = Stage.COLLECTCLAY;
-        } catch (Exception var3) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageGotoClayBlock出错了：" + e.getMessage());
         }
 
     }
 
     private void stageCollectClay() {
+        try {
         this.runDelay = 1000;
         this.theFolk.isWorking = true;
         this.theFolk.updateLocationFromEntity();
-        double dist = (double)this.theFolk.location.getDistanceTo(this.blockOfClay);
+        double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
         if (dist > 6.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
-            this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod)null);
+            this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod) null);
             this.theFolk.stayPut = false;
             this.lastGotocmd = System.currentTimeMillis();
             ++this.gotoCount;
@@ -159,32 +174,34 @@ public class JobBrickMaker extends Job implements Serializable {
                 V3 bs = this.blockOfClay.clone();
                 /*Double var5 = bs.y;
                 Double var6 = bs.y = bs.y + 1.0;*/
-                bs=new V3(bs.x-1.0,bs.y+ 1.0,bs.z,bs.theDimension);
+                bs = new V3(bs.x - 1.0, bs.y + 1.0, bs.z, bs.theDimension);
                 this.theFolk.beamMeTo(bs);
             }
 
         } else if (!(dist > 6.0)) {
-            try {
+
                 if (dist < 6.0) {
                 }
 
                 this.gotoCount = 0;
-                BlockPos blockPos=new BlockPos(this.blockOfClay.x.intValue(), this.blockOfClay.y.intValue(), this.blockOfClay.z.intValue());
-                this.jobWorld.setBlockState(blockPos,Blocks.air.getDefaultState(),3);
+                BlockPos blockPos = new BlockPos(this.blockOfClay.x.intValue(), this.blockOfClay.y.intValue(), this.blockOfClay.z.intValue());
+                this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
                 this.mc.theWorld.playSound(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z, "step.sand", 1.0F, 1.0F, false);
-                this.theFolk.inventory.add(new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
-                this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.inventory.size();
+                this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
+                this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.getVillagerInventory().getSizeInventory();
                 GameStates var10000 = ModSimReloaded.states;
-                var10000.credits = (float)((double)var10000.credits - 0.012D);
-                if (this.theFolk.inventory.size() < 64) {
+                var10000.credits = (float) ((double) var10000.credits - 0.012D);
+                if (this.theFolk.getVillagerInventory().getSizeInventory() < 64) {
                     this.theStage = Stage.SCANFORCLAY;
                 } else {
                     this.theStage = Stage.RETURNCLAY;
                     this.step = 1;
                 }
-            } catch (Exception var7) {
-            }
 
+
+        }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageCollectClay出错了：" + e.getMessage());
         }
     }
 
@@ -196,128 +213,134 @@ public class JobBrickMaker extends Job implements Serializable {
                 V3 adj = this.theFolk.employedAt.clone();
                 /*Double var3 = adj.y;
                 Double var4 = adj.y = adj.y + 1.0;*/
-                adj=new V3(adj.x-1.0,adj.y+1.0,adj.z,adj.theDimension);
-                this.theFolk.gotoXYZ(adj, (GotoMethod)null);
+                adj = new V3(adj.x - 1.0, adj.y + 1.0, adj.z, adj.theDimension);
+                this.theFolk.gotoXYZ(adj, (GotoMethod) null);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
                     this.theFolk.updateLocationFromEntity();
                 }
 
-                double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist < 4.0) {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                this.openCloseChest((IInventory)this.factoryChests.get(0), 1000);
-                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.inventory, this.factoryChests, (ItemStack)null);
+                this.openCloseChest((IInventory) this.factoryChests.get(0), 1000);
+                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.factoryChests, (ItemStack) null);
                 this.theStage = Stage.USEFURNACE;
                 this.step = 1;
             }
-        } catch (Exception var5) {
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
         }
 
     }
 
     private void stageUseFurnace() {
-        this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
-        this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-        if (this.factoryFurnace == null) {
-            ModSimReloaded.sendChat(this.theFolk.name + "："+I18n.format("container.sim.JobBrickMaker4"));
-        } else {
-            ItemStack currentClay;
-            ItemStack gotFuel;
-            if (this.step == 1) {
-                this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker5");
-                currentClay = this.factoryFurnace.getStackInSlot(1);
-                gotFuel = null;
-                if (currentClay == null) {
-                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.coal, 64), false, false, new ItemStack(Items.coal, 64));
-                    if (gotFuel == null) {
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.lava_bucket, 1), false, false, new ItemStack(Items.lava_bucket, 1));
-                    }
+        try {
+            this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
+            this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+            if (this.factoryFurnace == null) {
+                ModSimReloaded.sendChat(this.theFolk.name + "：" + I18n.format("container.sim.JobBrickMaker4"));
+            } else {
+                ItemStack currentClay;
+                ItemStack gotFuel;
+                if (this.step == 1) {
+                    this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker5");
+                    currentClay = this.factoryFurnace.getStackInSlot(1);
+                    if (currentClay == null) {
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.coal, 64), false, false, new ItemStack(Items.coal, 64));
+                        if (gotFuel == null) {
+                            gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.lava_bucket, 1), false, false, new ItemStack(Items.lava_bucket, 1));
+                        }
 
-                    if (gotFuel == null) {
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.log), 64), false, false, new ItemStack(Item.getItemFromBlock(Blocks.log), 64));
-                    }
+                        if (gotFuel == null) {
+                            gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.log), 64), false, false, new ItemStack(Item.getItemFromBlock(Blocks.log), 64));
+                        }
 
-                    if (gotFuel == null) {
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.planks), 64), false, false, new ItemStack(Item.getItemFromBlock(Blocks.planks), 1));
-                    }
+                        if (gotFuel == null) {
+                            gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.planks), 64), false, false, new ItemStack(Item.getItemFromBlock(Blocks.planks), 1));
+                        }
 
-                    if (gotFuel == null) {
-                        ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.JobBrickMaker6"));
-                        this.theStage = Stage.SCANFORCLAY;
-                        this.step = 1;
+                        if (gotFuel == null) {
+                            ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.JobBrickMaker6"));
+                            this.theStage = Stage.SCANFORCLAY;
+                            this.step = 1;
+                            return;
+                        }
+
+                        this.factoryFurnace.setInventorySlotContents(1, gotFuel);
+                        this.step = 2;
                         return;
                     }
 
-                    this.factoryFurnace.setInventorySlotContents(1, gotFuel);
                     this.step = 2;
-                    return;
-                }
+                } else if (this.step == 2) {
+                    this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker7");
+                    if (this.factoryFurnace != null) {
+                        currentClay = this.factoryFurnace.getStackInSlot(0);
+                        if (currentClay == null) {
+                            gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.clay), 64), false, false, new ItemStack(Blocks.clay, 64));
+                            if (gotFuel != null) {
+                                this.factoryFurnace.setInventorySlotContents(0, gotFuel);
+                            }
 
-                this.step = 2;
-            } else if (this.step == 2) {
-                this.theFolk.statusText =I18n.format("container.sim.JobBrickMaker7");
-                if (this.factoryFurnace != null) {
-                    currentClay = this.factoryFurnace.getStackInSlot(0);
-                    gotFuel = null;
-                    if (currentClay == null) {
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.clay), 64), false, false, new ItemStack(Blocks.clay, 64));
+                            this.step = 3;
+                            return;
+                        }
+
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.clay), 64 - currentClay.stackSize), false, false, new ItemStack(Blocks.clay, 64 - currentClay.stackSize));
                         if (gotFuel != null) {
-                            this.factoryFurnace.setInventorySlotContents(0, gotFuel);
+                            currentClay.stackSize += gotFuel.stackSize;
+                            this.factoryFurnace.setInventorySlotContents(0, currentClay);
                         }
 
                         this.step = 3;
                         return;
                     }
-
-                    gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.clay), 64 - currentClay.stackSize), false, false, new ItemStack(Blocks.clay, 64 - currentClay.stackSize));
-                    if (gotFuel != null) {
-                        currentClay.stackSize += gotFuel.stackSize;
-                        this.factoryFurnace.setInventorySlotContents(0, currentClay);
+                } else if (this.step == 3) {
+                    currentClay = this.factoryFurnace.getStackInSlot(2);
+                    if (currentClay != null) {
+                        this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker8");
+                        this.inventoriesPut(this.factoryChests, currentClay, true);
+                        GameStates var10000 = ModSimReloaded.states;
+                        var10000.credits = (float) ((double) var10000.credits - 0.005D * (double) currentClay.stackSize);
+                        this.factoryFurnace.setInventorySlotContents(2, (ItemStack) null);
+                    } else {
+                        this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker9");
                     }
 
-                    this.step = 3;
-                    return;
-                }
-            } else if (this.step == 3) {
-                currentClay = this.factoryFurnace.getStackInSlot(2);
-                if (currentClay != null) {
-                    this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker8");
-                    this.inventoriesPut(this.factoryChests, currentClay, true);
-                    GameStates var10000 = ModSimReloaded.states;
-                    var10000.credits = (float)((double)var10000.credits - 0.005D * (double)currentClay.stackSize);
-                    this.factoryFurnace.setInventorySlotContents(2, (ItemStack)null);
-                } else {
-                    this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker9");
+                    this.theStage = Stage.SCANFORCLAY;
                 }
 
-                this.theStage = Stage.SCANFORCLAY;
             }
-
+        } catch (Exception e) {
+            ModSimReloaded.log.error("stageUseFurnace出错了：" + e.getMessage());
         }
+
     }
 
     @Override
     public void onArrivedAtWork() {
-        int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
-        if (dist <= 1) {
-            this.theFolk.action = FolkAction.ATWORK;
-            this.theFolk.stayPut = true;
-            this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.the_factory");
-            this.theStage = Stage.USEFURNACE;
-        } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+        try {
+            int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+            if (dist <= 1) {
+                this.theFolk.action = FolkAction.ATWORK;
+                this.theFolk.stayPut = true;
+                this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.the_factory");
+                this.theStage = Stage.USEFURNACE;
+            } else {
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
         }
-
     }
-
 
 
 }

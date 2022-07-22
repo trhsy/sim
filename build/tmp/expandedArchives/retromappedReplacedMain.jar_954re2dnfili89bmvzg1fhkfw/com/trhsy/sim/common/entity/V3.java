@@ -1,11 +1,11 @@
 package com.trhsy.sim.common.entity;
 
 import net.minecraft.block.Block;
-
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import java.io.Serializable;
 
 /**
- *
+ * 在整个mod中用作三维向量，因为Minecraft的Vec3有点奇怪，或者我不太擅长Java：-）
  */
 public class V3 implements Serializable, Cloneable {
     private static final long serialVersionUID = 3681796724829797704L;
@@ -38,10 +38,22 @@ public class V3 implements Serializable, Cloneable {
 
     @Override
     public V3 clone() {
-        V3 retV = new V3(this.x, this.y, this.z, this.theDimension);
+        V3 retV=null;
+        try{
+            retV = new V3(this.x, this.y, this.z, this.theDimension);
+        }catch (Exception e){
+            ModSimReloaded.log.error(this.name + "v3 clone出错了" + e.getMessage());
+        }
         return retV;
     }
 
+    /**
+     * 重载以包含维度0=超世界，-1=虚空1=结束2以上可能是Mystcraft年龄
+     * @param x
+     * @param y
+     * @param z
+     * @param dimension
+     */
     public V3(Double x, Double y, Double z, int dimension) {
         this.x = x;
         this.y = y;
@@ -55,12 +67,20 @@ public class V3 implements Serializable, Cloneable {
         this.theDimension = dimension;
     }
 
+    /**
+     * 重载，用于将基于文本的保存文件作为V3加载到中
+     * @param v3
+     */
     public V3(String v3) {
-        String[] v = v3.split(",");
-        this.x = Double.parseDouble(v[0]);
-        this.y = Double.parseDouble(v[1]);
-        this.z = Double.parseDouble(v[2]);
-        this.theDimension = Integer.parseInt(v[3]);
+        try {
+            String[] v = v3.split(",");
+            this.x = Double.parseDouble(v[0]);
+            this.y = Double.parseDouble(v[1]);
+            this.z = Double.parseDouble(v[2]);
+            this.theDimension = Integer.parseInt(v[3]);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("V3出错了：" + e.getMessage());
+        }
     }
 
     public V3(Double x, Double y, Double z, Block id, int meta) {
@@ -84,7 +104,7 @@ public class V3 implements Serializable, Cloneable {
     }
 
     /**
-     * 坐标相同
+     * 坐标相同 比较x、y和z，以查看它们是否相同，并且只有INT值，而不是double还比较维度
      * @param comp
      * @param compareDimension
      * @param exactly
@@ -92,37 +112,55 @@ public class V3 implements Serializable, Cloneable {
      */
     public boolean isSameCoordsAs(V3 comp, boolean compareDimension, boolean exactly) {
         boolean ret = false;
-        if (comp == null) {
-            return false;
-        } else {
-            if (exactly) {
-                if (this.getDistanceTo(comp) == 0 && (this.theDimension == comp.theDimension || !compareDimension)) {
+        try {
+            if (comp == null) {
+                return false;
+            } else {
+                if (exactly) {
+                    if (this.getDistanceTo(comp) == 0 && (this.theDimension == comp.theDimension || !compareDimension)) {
+                        ret = true;
+                    }
+                } else if (this.getDistanceTo(comp) <= 2 && (this.theDimension == comp.theDimension || !compareDimension)) {
                     ret = true;
                 }
-            } else if (this.getDistanceTo(comp) <= 2 && (this.theDimension == comp.theDimension || !compareDimension)) {
-                ret = true;
-            }
 
-            return ret;
+                return ret;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("isSameCoordsAs出错了：" + e.getMessage());
         }
+        return ret;
     }
 
     /**
-     * 获取距离
+     * 获取距离 计算并返回此V3和传入V3之间的距离-假定尺寸相同
      * @param other
      * @return
      */
     public int getDistanceTo(V3 other) {
-        if (other == null) {
-            return 0;
-        } else {
-            double dist = Math.sqrt((other.x - this.x) * (other.x - this.x) + (other.y - this.y) * (other.y - this.y) + (other.z - this.z) * (other.z - this.z));
-            return (int)dist;
+        int i=0;
+        try {
+            if (other == null) {
+                i= 0;
+            } else {
+                double dist = Math.sqrt((other.x - this.x) * (other.x - this.x) + (other.y - this.y) * (other.y - this.y) + (other.z - this.z) * (other.z - this.z));
+                i= (int)dist;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("getDistanceTo出错了：" + e.getMessage());
         }
+
+        return i;
     }
 
     @Override
     public String toString() {
-        return this.x.intValue() + "," + this.y.intValue() + "," + this.z.intValue() + "," + this.theDimension;
+        String s="";
+        try {
+            s=this.x.intValue() + "," + this.y.intValue() + "," + this.z.intValue() + "," + this.theDimension;
+        } catch (Exception e) {
+            ModSimReloaded.log.error("出错了：" + e.getMessage());
+        }
+        return s;
     }
 }

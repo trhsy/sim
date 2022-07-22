@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.V3;
 import com.trhsy.sim.common.gui.blocks.GuiCityBox;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,18 +31,23 @@ public class BlockCityBox extends Block {
         this.func_149711_c(10.0F);
         this.func_149752_b(1.0F);
         this.func_149663_c("city_box");
-        this.func_149647_a(CreativeTabsLoader.tabSimU);
+        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
-        world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID+":computer", 1.0F, 1.0F);
-        GuiCityBox ui = null;
-        Minecraft mc = Minecraft.func_71410_x();
-        mc.func_71364_i();
-        ui = new GuiCityBox(new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK), thePlayer);
-        mc.func_147108_a(ui);
+        try {
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID+":computer", 1.0F, 1.0F);
+            GuiCityBox ui = null;
+            Minecraft mc = Minecraft.func_71410_x();
+            mc.func_71364_i();
+            ui = new GuiCityBox(new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK), thePlayer);
+            mc.func_147108_a(ui);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("城市方块onBlockActivated出错了：" + e.getMessage());
+            return false;
+        }
         return true;
     }
 

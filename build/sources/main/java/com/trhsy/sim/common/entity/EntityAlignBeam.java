@@ -2,6 +2,7 @@ package com.trhsy.sim.common.entity;
 
 import com.trhsy.sim.common.block.BlockMarker;
 import com.trhsy.sim.common.entity.functionality.Marker;
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -14,7 +15,9 @@ public class EntityAlignBeam extends Entity {
     public EntityAlignBeam(World par1World) {
         super(par1World);
         this.ignoreFrustumCheck = true;
+        //标记棒是否已放置
         if (!BlockMarker.hasPlaced) {
+            //放置后摧毁
             this.setDead();
         }
 
@@ -45,22 +48,30 @@ public class EntityAlignBeam extends Entity {
 
     @Override
     public void setVelocity(double par1, double par3, double par5) {
-        super.setVelocity(0, 0, 0);
+        try {
+            super.setVelocity(0, 0, 0);
+        } catch (Exception e) {
+            ModSimReloaded.log.error("setVelocity出错了：" + e.getMessage());
+        }
+
     }
 
     @Override
     public void onUpdate() {
-        if (this.caption.contentEquals("x")) {
-            this.theMarker = BlockMarker.getMarker(new V3(this.posX, this.posY, this.posZ, this.dimension));
-            if (this.theMarker != null) {
-                this.caption = this.theMarker.caption;
+        try {
+            if (this.caption.contentEquals("x")) {
+                this.theMarker = BlockMarker.getMarker(new V3(this.posX, this.posY, this.posZ, this.dimension));
+                if (this.theMarker != null) {
+                    this.caption = this.theMarker.caption;
+                }
             }
-        }
 
-        if (this.theMarker != null) {
-            this.posY = (double)this.theMarker.y;
+            if (this.theMarker != null) {
+                this.posY = (double)this.theMarker.y;
+            }
+        } catch (Exception e) {
+            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
         }
-
     }
 
     @Override
@@ -68,9 +79,9 @@ public class EntityAlignBeam extends Entity {
         this.noClip = true;
     }
 
-    //@Override
-    //public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9) {
-    //}
+    @Override
+    public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
+    }
     @Override
     protected void readEntityFromNBT(NBTTagCompound var1) {
     }

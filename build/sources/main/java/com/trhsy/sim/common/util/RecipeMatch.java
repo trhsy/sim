@@ -95,7 +95,7 @@ public abstract class RecipeMatch {
             while(var2.hasNext()) {
                 ItemStack stack = (ItemStack)var2.next();
 
-                for(int i = 0; i < stacks.length; ++i) {
+                for(int i = 0; i < stacks.length; i++) {
                     if (ItemStack.areItemsEqual(stack, stacks[i]) && ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
                         if (stacks[i].stackSize < stack.stackSize) {
                             ModSimReloaded.log.error("RecipeMatch has incorrect stacksize! {}", new Object[]{stacks[i].toString()});
@@ -198,7 +198,7 @@ public abstract class RecipeMatch {
             List<ItemStack> found = Lists.newLinkedList();
             Set<Integer> needed = Sets.newHashSet();
 
-            for(int i = 0; i < this.itemStacks.length; ++i) {
+            for(int i = 0; i < this.itemStacks.length; i++) {
                 if (this.itemStacks[i] != null) {
                     needed.add(i);
                 }

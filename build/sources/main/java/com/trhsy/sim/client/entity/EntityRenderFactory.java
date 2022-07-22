@@ -1,5 +1,6 @@
 package com.trhsy.sim.client.entity;
 
+import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -15,15 +16,18 @@ public class EntityRenderFactory<E extends Entity> implements IRenderFactory<E> 
     private final Class<? extends Render<E>> renderClass;
 
     public EntityRenderFactory(Class<? extends Render<E>> renderClass) {
-        this.renderClass = renderClass;
+            this.renderClass = renderClass;
     }
 
     @Override
     public Render<E> createRenderFor(RenderManager manager) {
+        Render<E> eRender=null;
         try {
-            return renderClass.getConstructor(RenderManager.class).newInstance(manager);
+             eRender=renderClass.getConstructor(RenderManager.class).newInstance(manager);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            ModSimReloaded.log.error("渲染实体人出错了：" + e.getMessage());
         }
+        return eRender;
     }
 }
