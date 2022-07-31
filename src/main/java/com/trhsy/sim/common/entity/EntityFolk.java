@@ -471,10 +471,14 @@ public class EntityFolk extends EntityCreature implements INpc {
                         if(System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null){
                             this.getNavigator().clearPathEntity();
                             if (dist > 2.0) {
-                                ModSimReloaded.log.info("实体人: " + this.theData.name + " 散步太久，所以喜气洋洋...");
-                                this.theData.stayPut = true;
-                                this.theData.timeStartedGotoing = System.currentTimeMillis();
-                                this.theData.beamMeTo(this.theData.destination);
+                                V3 v=this.theData.destination;
+                                if(v!=null){
+                                    ModSimReloaded.log.info("实体人: " + this.theData.name + " 散步太久，所以热了...");
+                                    this.theData.stayPut = true;
+                                    this.theData.timeStartedGotoing = System.currentTimeMillis();
+                                    this.theData.beamMeTo(v);
+                                }
+
                             }
                         }
                     }

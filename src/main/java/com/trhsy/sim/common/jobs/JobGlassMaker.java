@@ -186,7 +186,7 @@ public class JobGlassMaker extends Job implements Serializable {
                     V3 bs = this.blockOfSand.clone();
                /* Double var5 = bs.y;
                 Double var6 = bs.y = bs.y + 1;*/
-                    bs = new V3(bs.x - 1, bs.y + 1, bs.z, bs.theDimension);
+                    bs = new V3(bs.x , bs.y + 1, bs.z, bs.theDimension);
                     this.theFolk.beamMeTo(bs);
                 }
 
@@ -224,7 +224,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 V3 adj = this.theFolk.employedAt.clone();
                 /*Double var3 = adj.y;
                 Double var4 = adj.y = adj.y + 1;*/
-                adj = new V3(adj.x - 1, adj.y + 1, adj.z, adj.theDimension);
+                adj = new V3(adj.x , adj.y + 1, adj.z, adj.theDimension);
                 this.theFolk.gotoXYZ(adj, GotoMethod.WALK);
                 this.step = 2;
             } else if (this.step == 2) {

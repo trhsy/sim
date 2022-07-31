@@ -355,7 +355,7 @@ public class Relationship implements Serializable {
     public void levelIncrease(int byAmount) {
         try {
             String oldLevel = this.toFullString();
-            ModSimReloaded.log.info("Relationship: + 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
+            ModSimReloaded.log.info("Relationship: 【"+this.folk1.name+"】和【"+this.folk2.name+"】 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
             this.theSubLevel += byAmount;
             if (this.theSubLevel > 100) {
                 //熟人
@@ -368,61 +368,81 @@ public class Relationship implements Serializable {
                     if (this.folk2 == null) {
                         this.theSubLevel = 100;
                         //性别不同并且 两个人住所不为空 没有和人住一起 没有血缘关系
-                    } else if (this.folk1.gender != this.folk2.gender && this.folk1.getHome() != null && this.folk2.getHome() != null && !isFolkLivingWithSomeone(this.folk1) && !isFolkLivingWithSomeone(this.folk2) && this.folk1.age >= 18 && this.folk2.age >= 18 && !this.isBloodRelation) {
-                        this.theSubLevel = 50;
-                        if (this.rand.nextBoolean()) {
-                            //已婚
-                            this.theLevel = Level.MARRIED;
-                            this.changeFemaleSurname();
-                        } else {
-                            //伙伴
-                            this.theLevel = Level.PARTNER;
-                        }
-                        //两个人住一起
-                        Building oldhome = this.folk1.getHome();
-                        Building newhome = this.folk2.getHome();
-                        if (oldhome != null) {
-                            oldhome.removeTennant(this.folk1.name);
-                        }
+                    } else if (this.folk1.gender != this.folk2.gender){
+                        if(this.folk1.getHome() != null && this.folk2.getHome() != null ){
+                            if(!isFolkLivingWithSomeone(this.folk1) && !isFolkLivingWithSomeone(this.folk2)){
+                                if(this.folk1.age >= 18 && this.folk2.age >= 18 ){
+                                    if(!this.isBloodRelation){
+                                        this.theSubLevel = 50;
+                                        if (this.rand.nextBoolean()) {
+                                            //已婚
+                                            this.theLevel = Level.MARRIED;
+                                            this.changeFemaleSurname();
+                                        } else {
+                                            //伙伴
+                                            this.theLevel = Level.PARTNER;
+                                        }
+                                        //两个人住一起
+                                        Building oldhome = this.folk1.getHome();
+                                        Building newhome = this.folk2.getHome();
+                                        if (oldhome != null) {
+                                            oldhome.removeTennant(this.folk1.name);
+                                        }
+                                        if (newhome != null) {
+                                            newhome.tenants.add(this.folk1.name);
+                                        }
+                                        //保存
+                                        Building.saveAllBuildings();
+                                        if (this.folk1.employedAt == null && this.folk2.employedAt == null) {
+                                            this.folk1.action = FolkAction.GOINGHOME;
+                                            this.folk1.actionArrival = FolkAction.ATHOME;
+                                            V3 v3 = this.folk1.getHome().primaryXYZ;
+                                            this.folk1.gotoXYZ(v3, GotoMethod.WALK);
 
-                        if (newhome != null) {
-                            newhome.tenants.add(this.folk1.name);
-                        }
-                        //保存
-                        Building.saveAllBuildings();
-                        if (this.folk1.employedAt == null && this.folk2.employedAt == null) {
-                            this.folk1.action = FolkAction.GOINGHOME;
-                            this.folk1.actionArrival = FolkAction.ATHOME;
-                            V3 v3 = this.folk1.getHome().primaryXYZ;
-                            v3 = new V3(v3.x + 1.0, v3.y + 1.0, v3.z, v3.theDimension);
-                            this.folk1.gotoXYZ(v3, GotoMethod.WALK);
-                            this.folk2.action = FolkAction.GOINGHOME;
-                            this.folk2.actionArrival = FolkAction.ATHOME;
-                            V3 v32 = this.folk2.getHome().primaryXYZ;
-                            v32 = new V3(v32.x + 1.0, v32.y + 1.0, v32.z, v32.theDimension);
-                            this.folk2.gotoXYZ(v32, GotoMethod.WALK);
+                                            this.folk2.action = FolkAction.GOINGHOME;
+                                            this.folk2.actionArrival = FolkAction.ATHOME;
+                                            V3 v32 = this.folk2.getHome().primaryXYZ;
+                                            this.folk2.gotoXYZ(v32, GotoMethod.WALK);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+                    //轻视
                 } else if (this.theLevel == Level.DESPISE) {
+                    //仇恨
                     this.theLevel = Level.HATE;
                     this.theSubLevel = 50;
+                    //不喜欢
                 } else if (this.theLevel == Level.DISLIKE) {
+                    //朋友
                     this.theLevel = Level.FRIEND;
                     this.theSubLevel = 50;
+                    //敌人
                 } else if (this.theLevel == Level.ENEMY) {
+                    //轻视
                     this.theLevel = Level.DESPISE;
                     this.theSubLevel = 50;
+                    //朋友
                 } else if (this.theLevel == Level.FRIEND) {
+                    //好朋友
                     this.theLevel = Level.GOODFRIEND;
                     this.theSubLevel = 50;
+                    //好朋友
                 } else if (this.theLevel == Level.GOODFRIEND) {
+                    //最好的朋友
                     this.theLevel = Level.BESTFRIENDS;
                     this.theSubLevel = 50;
+                    //仇恨
                 } else if (this.theLevel == Level.HATE) {
+                    //不喜欢
                     this.theLevel = Level.DISLIKE;
                     this.theSubLevel = 50;
+                    //已婚
                 } else if (this.theLevel == Level.MARRIED) {
                     this.theSubLevel = 100;
+                    //配偶
                 } else if (this.theLevel == Level.PARTNER) {
                     this.theSubLevel = 100;
                 }

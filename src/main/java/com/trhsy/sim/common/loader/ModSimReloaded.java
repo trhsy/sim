@@ -439,8 +439,8 @@ public class ModSimReloaded {
                                         building.rent = 1f;
                                     }
 
-                                    log.info("建筑公司税 " + building.displayNameWithoutPK + ": " + building.rent + "(" + building.blocksInBuilding + ")");
-                                    totalRent += building.rent;
+                                    ModSimReloaded.log.info("建筑公司税 " + building.displayNameWithoutPK + ": " + building.rent + "(" + building.blocksInBuilding + ")");
+                                    totalCorpTax += building.rent;
                                 }
                             }
                         }

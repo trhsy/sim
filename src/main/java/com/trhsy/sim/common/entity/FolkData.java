@@ -1126,7 +1126,10 @@ public class FolkData implements Serializable {
         boolean falg = true;
         try {
             if (this.theEntity == null) {
-                this.theEntity = getFolkByName(this.name).theEntity;
+                FolkData folkData=getFolkByName(this.name);
+                if(folkData!=null){
+                    this.theEntity = folkData.theEntity;
+                }
             }
             if (this.theEntity == null) {
                 falg = false;
@@ -1376,10 +1379,10 @@ public class FolkData implements Serializable {
                     this.destination.doNotTimeout = false;
                     int dist = this.location.getDistanceTo(whereTo);
                     if (!this.isSpawned()) {
-                        methodOfTravel = null;
+                        methodOfTravel = GotoMethod.WALK;
                     }
 
-                    if (methodOfTravel != null) {
+                    if (methodOfTravel == null) {
                         V3 playpos = null;
 
                         try {
@@ -1456,7 +1459,7 @@ public class FolkData implements Serializable {
                         } else if (this.gotoMethod == GotoMethod.WALK) {
                             this.stayPut = false;
                             this.timeStartedGotoing = System.currentTimeMillis();
-                            if (this.theEntity == null) {
+                            if (this.theEntity != null) {
                                 this.theEntity.gotPath = false;
                             }
                         }

@@ -254,7 +254,7 @@ public class GuiMerchant extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIMERCHANT-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

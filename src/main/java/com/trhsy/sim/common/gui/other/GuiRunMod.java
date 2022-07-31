@@ -100,7 +100,7 @@ public class GuiRunMod extends GuiScreen {
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIRUNMOD-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

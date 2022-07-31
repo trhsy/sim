@@ -42,13 +42,12 @@ public class EntityAIWanderSUK extends EntityAIBase {
     public boolean shouldExecute() {
         EntityFolk actualFolk = (EntityFolk) this.entity;
         if (!this.mustUpdate) {
-            if (this.entity.getAge() >= 100) {
+            if (actualFolk.theData.age >= 100) {
                 return false;
             }
-            if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
+            if(actualFolk.theData.stayPut){
                 return false;
             }
-
         }
         V3 v = actualFolk.theData.destination;
         if (v == null) {
