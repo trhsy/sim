@@ -13,13 +13,14 @@ import net.minecraft.util.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CommandGenerateFolk implements ICommand {
 
     private final List aliases;
 
     public CommandGenerateFolk() {
-        aliases = new ArrayList();
+        aliases = new CopyOnWriteArrayList();
         aliases.add("generate NPC");
         aliases.add("generate SIM");
     }
@@ -58,7 +59,7 @@ public class CommandGenerateFolk implements ICommand {
                 ModSimReloaded.sendChat(I18n.format("container.sim.commands2"));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("processCommand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

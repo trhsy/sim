@@ -30,6 +30,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -52,7 +53,7 @@ public class GuiMarker extends GuiScreen {
             this.location = location;
             this.thePlayer = p;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiMarker出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMarker出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -68,7 +69,7 @@ public class GuiMarker extends GuiScreen {
                 this.theGuiTextField1.updateCursorCounter();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
     @Override
@@ -91,7 +92,7 @@ public class GuiMarker extends GuiScreen {
                 this.theGuiTextField1.setMaxStringLength(23);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -114,7 +115,7 @@ public class GuiMarker extends GuiScreen {
             }
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -138,7 +139,7 @@ public class GuiMarker extends GuiScreen {
                     }
 
                     V3 point = new V3(Double.parseDouble(ss[0]), Double.parseDouble(ss[1]), Double.parseDouble(ss[2]), this.thePlayer.dimension);
-                    ArrayList<IInventory> chestInvs = Job.inventoriesFindClosest(point, 5);
+                    CopyOnWriteArrayList<IInventory> chestInvs = Job.inventoriesFindClosest(point, 5);
                     if (chestInvs.size() == 0) {
                         this.errorText = I18n.format("container.sim.Markers6");
                         return;
@@ -160,7 +161,7 @@ public class GuiMarker extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -175,7 +176,7 @@ public class GuiMarker extends GuiScreen {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
             //e.printStackTrace();
-            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -191,7 +192,7 @@ public class GuiMarker extends GuiScreen {
                 this.theGuiTextField1.textboxKeyTyped(c, i);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -257,7 +258,7 @@ public class GuiMarker extends GuiScreen {
                     int zo = 0;
                     HashMap key = new HashMap();
                     key.put("0:0", "A");
-                    ArrayList layerLines = new ArrayList();
+                    CopyOnWriteArrayList layerLines = new CopyOnWriteArrayList();
                     int ch = 66;
                     boolean allAirBlocks = true;
                     String keyString = "A=0:0;";
@@ -369,7 +370,7 @@ public class GuiMarker extends GuiScreen {
                     GuiMarker.this.errorText = I18n.format("container.sim.Markers17");
                 }
             } catch (Exception e) {
-                ModSimReloaded.log.error("出错了：" + e.getMessage());
+                StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("ThreadFacsimile出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             }
         }
     }

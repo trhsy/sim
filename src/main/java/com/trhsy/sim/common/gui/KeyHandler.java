@@ -24,7 +24,7 @@ public class KeyHandler {
                 ClientRegistry.registerKeyBinding(this.keys[i]);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("KeyHandler出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -38,7 +38,7 @@ public class KeyHandler {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onKeyInput出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onKeyInput出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

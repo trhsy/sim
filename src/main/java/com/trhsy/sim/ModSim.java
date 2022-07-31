@@ -63,7 +63,7 @@ public class ModSim {
             pulseManager = new PulseManager("sim");
             FluidRegistry.enableUniversalBucket();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("Modsim出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -85,7 +85,7 @@ public class ModSim {
         try {
             proxy.preInit(event);
         } catch (Exception e) {
-            ModSimReloaded.log.error("preInit出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("preInit出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -100,7 +100,7 @@ public class ModSim {
         try {
             proxy.init(event);
         } catch (Exception e) {
-            ModSimReloaded.log.error("init出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("init出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -115,7 +115,7 @@ public class ModSim {
         try {
             proxy.postInit(event);
         } catch (Exception e) {
-            ModSimReloaded.log.error("postInit出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("postInit出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -130,7 +130,7 @@ public class ModSim {
         try {
             proxy.serverStarting(event);
         } catch (Exception e) {
-            ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

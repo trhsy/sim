@@ -45,7 +45,7 @@ public class AnnotationLocator implements ISubscriberLocator {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("findSubscribers出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("findSubscribers出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return methods;
     }

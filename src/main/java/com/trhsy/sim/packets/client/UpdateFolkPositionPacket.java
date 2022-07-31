@@ -40,7 +40,7 @@ public class UpdateFolkPositionPacket implements IMessage {
             pos = this.data[0];
             folkName = this.data[1];
         } catch (Exception e) {
-            ModSimReloaded.log.error("UpdateFolkPositionPacket出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("UpdateFolkPositionPacket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -49,7 +49,7 @@ public class UpdateFolkPositionPacket implements IMessage {
         try {
             this.posString = ByteBufUtils.readUTF8String(buf);
         } catch (Exception e) {
-            ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -58,7 +58,7 @@ public class UpdateFolkPositionPacket implements IMessage {
         try {
             ByteBufUtils.writeUTF8String(buf, this.posString);
         } catch (Exception e) {
-            ModSimReloaded.log.error("toBytes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -76,7 +76,7 @@ public class UpdateFolkPositionPacket implements IMessage {
                                 folk.serverToClientLocationUpdate(newpos);
                             }
                         } catch (Exception e) {
-                            ModSimReloaded.log.error("onMessage出错了：" + e.getMessage());
+                            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onMessage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
                         }
                     }
                 });

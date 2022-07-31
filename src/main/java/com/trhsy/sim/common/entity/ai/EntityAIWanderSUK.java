@@ -1,19 +1,69 @@
 package com.trhsy.sim.common.entity.ai;
 
 import com.trhsy.sim.common.entity.EntityFolk;
+import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.pathfinding.PathEntity;
 
 /**
  * npc 的智能AI 闲逛
  */
-public class EntityAIWanderSUK extends EntityAIWander {
-    private EntityCreature theFolk;
+public class EntityAIWanderSUK extends EntityAIBase {
+    private EntityCreature entity;
+    private double xPosition;
+    private double yPosition;
+    private double zPosition;
+    private double speed;
+    private int executionChance;
+    private boolean mustUpdate;
 
-    public EntityAIWanderSUK(EntityCreature folk, double par2) {
-        super(folk, par2);
-        this.theFolk = folk;
+    public EntityAIWanderSUK(EntityCreature folk, double speedIn) {
+        this(folk, speedIn, 120);
+    }
+
+    public EntityAIWanderSUK(EntityCreature folk, double speedIn, int chance) {
+        this.entity = folk;
+        this.speed = speedIn;
+        this.executionChance = chance;
+        this.setMutexBits(1);
+    }
+
+    /**
+     * @return boolean
+     * @Author fan
+     * @Description //TODO 返回EntityAIBase是否应开始执行。
+     * @Date 16:36 2022/7/31
+     * @Param []
+     **/
+    public boolean shouldExecute() {
+        EntityFolk actualFolk = (EntityFolk) this.entity;
+        if (!this.mustUpdate) {
+            if (this.entity.getAge() >= 100) {
+                return false;
+            }
+            if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
+                return false;
+            }
+
+        }
+        V3 v = actualFolk.theData.destination;
+        if (v == null) {
+            return false;
+        } else {
+            this.xPosition = v.x;
+            this.yPosition = v.y;
+            this.zPosition = v.z;
+            this.mustUpdate = false;
+            return true;
+        }
+    }
+
+    public boolean continueExecuting() {
+        return !this.entity.getNavigator().noPath();
     }
 
     /**
@@ -22,59 +72,49 @@ public class EntityAIWanderSUK extends EntityAIWander {
     @Override
     public void startExecuting() {
         try {
-            EntityFolk actualFolk = (EntityFolk) this.theFolk;
-            //如果人们站在原地不动
+            this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
+            /*//如果人们站在原地不动
             if (actualFolk != null && actualFolk.theData != null && !actualFolk.theData.stayPut) {
+
+
+                V3 v1 = actualFolk.theData.location;
+                double x = 0.0, y = 0.0, z = 0.0;
+                if (v != null && v1 != null) {
+                    if (v != v1) {
+                        System.out.println("npc" + actualFolk.theData.name + "开始移动");
+                        actualFolk.theData.stayPut = false;
+                        actualFolk.theData.gotoXYZ(v, GotoMethod.WALK);
+                    }
+
+//                    x=actualFolk.theData.destination.x;
+//                    y=actualFolk.theData.destination.y;
+//                    z=actualFolk.theData.destination.z;
+//                    PathEntity path = actualFolk.getNavigator().getPathToXYZ(x, y, z);
+//                    boolean s=actualFolk.getNavigator().setPath(path, 0.5);
+                }
+
                 //开始移动
-                super.startExecuting();
-            }
-        } catch (Exception var3) {
-            ModSimReloaded.log.error("NPC智能AI移动发生错误：" + var3.getMessage());
+                //startExecuting();
+            }*/
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("NPC智能AI移动发生错误：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
     /**
-     * 应该执行
-     *
-     * @return
+     * Makes task to bypass chance
      */
-    @Override
-    public boolean shouldExecute() {
-        Boolean flay=false;
-        try {
-            EntityFolk actualFolk = (EntityFolk) this.theFolk;
-            if (actualFolk != null && actualFolk.theData != null) {
-                if (actualFolk.theData.stayPut) {
-                    flay=false;
-                }
-                flay=true;
-            }
-        }catch (Exception e){
-            ModSimReloaded.log.error("NPC智能AI移动发生错误：" + e.getMessage());
-        }
-        return flay;
+    public void makeUpdate()
+    {
+        this.mustUpdate = true;
     }
 
     /**
-     * 继续执行
-     *
-     * @return
+     * Changes task random possibility for execution
      */
-    @Override
-    public boolean continueExecuting() {
-        Boolean flay=false;
-        try {
-            EntityFolk actualFolk = (EntityFolk) this.theFolk;
-            if (actualFolk != null && actualFolk.theData != null) {
-                if (actualFolk.theData.stayPut) {
-                    flay=false;
-                }
-                flay=true;
-            }
-        }catch (Exception e){
-            ModSimReloaded.log.error("NPC智能AI移动发生错误：" + e.getMessage());
-        }
-        return flay;
-
+    public void setExecutionChance(int newchance)
+    {
+        this.executionChance = newchance;
     }
 }

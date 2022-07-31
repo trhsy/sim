@@ -43,7 +43,7 @@ public class GuiCourierTasks extends GuiScreen {
             this.theFolk = FolkData.getFolkByName(folkname);
             this.thePlayer = pl;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiCourierTasks出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiCourierTasks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
     @Override
@@ -141,7 +141,7 @@ public class GuiCourierTasks extends GuiScreen {
                         }
 
                         idx++;
-                    } catch (Exception var9) {
+                    } catch (Exception e) {
                         //var9.printStackTrace();
                     }
                 }
@@ -213,7 +213,7 @@ public class GuiCourierTasks extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -226,7 +226,7 @@ public class GuiCourierTasks extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getButtonWithId出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getButtonWithId出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -237,7 +237,7 @@ public class GuiCourierTasks extends GuiScreen {
             Keyboard.enableRepeatEvents(false);
             this.mc.setIngameFocus();
         } catch (Exception e) {
-            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -251,7 +251,7 @@ public class GuiCourierTasks extends GuiScreen {
                 this.mc.displayGuiScreen(ui);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

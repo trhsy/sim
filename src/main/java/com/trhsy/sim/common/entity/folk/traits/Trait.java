@@ -28,7 +28,7 @@ public class Trait {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getTraitFromName出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getTraitFromName出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return trait;
     }
@@ -94,7 +94,7 @@ public class Trait {
                 theFolk.statusText = visitingText;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("hasSpecialBuilding出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("hasSpecialBuilding出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -109,7 +109,7 @@ public class Trait {
             theFolk.destination.doNotTimeout = true;
             theFolk.statusText = I18n.format("container.sim.folk_data_Visiting") + specialBuilding.displayName;
         } catch (Exception e) {
-            ModSimReloaded.log.error("hasSpecialBuilding出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("hasSpecialBuilding出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

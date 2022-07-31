@@ -112,7 +112,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 //            this.isXmas = true;
 //        }
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化NPC实体出问题了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化NPC实体出问题了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -144,7 +144,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 texture = "male0.png";
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getTexture出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return texture;
     }
@@ -163,7 +163,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             //共享怪物属性 移动速度
             this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("applyEntityAttributes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -368,8 +368,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                             if (r.nextBoolean()) {
                                 try {
                                     ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1.0F, 1.0F, false);
-                                } catch (Exception var12) {
-                                    //log.error("错误"+var12.getMessage());
+                                } catch (Exception e) {
                                 }
                             }
                         }
@@ -379,8 +378,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         if (this.theData.levelFood < 0) {
                             this.onDeath(DamageSource.starve);
                         }
-                    } catch (Exception var11) {
-                        //log.error("错误"+var11.getMessage());
+                    } catch (Exception e) {
                     }
 
                     this.greetTimer = System.currentTimeMillis();
@@ -403,23 +401,21 @@ public class EntityFolk extends EntityCreature implements INpc {
                                 entityitem.setDead();
                                 ++this.theData.levelFood;
                             }
-                        } catch (Exception var10) {
-                            //log.error("错误"+var10.getMessage());
+                        } catch (Exception e) {
                         }
                     } else if (entity1 instanceof EntityFolk && (int) this.posX == (int) entity1.posX && (int) this.posZ == (int) entity1.posZ) {
                         this.motionX += 0.10000000149011612D;
 
                         try {
                             this.theData.stayPut = false;
-                        } catch (Exception var9) {
-                            //log.error("错误"+var9.getMessage());
+                        } catch (Exception e) {
                         }
                     }
                 }
             }
             super.onUpdate();
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -439,7 +435,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (this.theData.destination != null && this.theData.beamingTo == null) {
                     try {
                         dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
-                    } catch (Exception var14) {
+                    } catch (Exception e) {
                         ModSimReloaded.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                         return;
                     }
@@ -461,16 +457,16 @@ public class EntityFolk extends EntityCreature implements INpc {
                             PathEntity path = this.getNavigator().getPathToXYZ(this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue());
                             //PathEntity path = this.worldObj.getEntityPathToXYZ(this, this.theData.destination.x.intValue(), this.theData.destination.y.intValue(), this.theData.destination.z.intValue(), 40.0F, true, true, true, true);
                             if (path != null) {
-                                this.getNavigator().setPath(path, 0.30000001192092896D);
+                                this.getNavigator().setPath(path, 0.3D);
                                 this.gotPath = true;
                             }
                         }
                     }
 
                     boolean donttimeout = false;
-
-                    donttimeout = this.theData.destination.doNotTimeout;
-
+                    if(this.theData.destination!=null){
+                        donttimeout = this.theData.destination.doNotTimeout;
+                    }
                     if (this.theData.timeStartedGotoing != null && !donttimeout) {
                         if(System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null){
                             this.getNavigator().clearPathEntity();
@@ -490,12 +486,15 @@ public class EntityFolk extends EntityCreature implements INpc {
                     this.motionZ = 0;
                     this.getNavigator().clearPathEntity();
                 } else {
+                    if(d<0){d=0;}
+                    if(d1<0){d2=0;}
+                    if(d2<0){d2=0;}
                     super.moveEntity(d, d1, d2);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("moveEntity出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("moveEntity出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -585,7 +584,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 return null;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getHeldItem出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getHeldItem出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return itemStack;
     }
@@ -631,7 +630,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 falg= true;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("interact出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("interact出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
        return falg;
     }
@@ -648,7 +647,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         try {
             this.theData.eventDied(d);
         } catch (Exception e) {
-            ModSimReloaded.log.error("onDeath出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onDeath出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -713,7 +712,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 hurtSound=null;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getHurtSound出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getHurtSound出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return hurtSound;
     }

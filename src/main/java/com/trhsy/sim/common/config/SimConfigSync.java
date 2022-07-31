@@ -44,7 +44,7 @@ public class SimConfigSync {
                 TinkerNetwork.sendTo(packet, (EntityPlayerMP)event.player);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("sim配置异步出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("sim配置异步出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -62,7 +62,7 @@ public class SimConfigSync {
             }
             MinecraftForge.EVENT_BUS.unregister(this);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("playerJoinedWorld出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -71,14 +71,9 @@ public class SimConfigSync {
             needsRestart = false;
             boolean changed = false;
             ConfigLoader.logger.info("正在将配置与服务器同步");
-            Iterator var2 = categories.iterator();
-
-            while(var2.hasNext()) {
-                ConfigCategory serverCategory = (ConfigCategory)var2.next();
+            for (ConfigCategory serverCategory:categories){
                 ConfigCategory category = ConfigLoader.configFile.getCategory(serverCategory.getName());
-                Iterator var5 = serverCategory.entrySet().iterator();
-                while(var5.hasNext()) {
-                    Map.Entry<String, Property> entry = (Map.Entry)var5.next();
+                for (Map.Entry<String, Property> entry:serverCategory.entrySet())  {
                     String name = (String)entry.getKey();
                     Property serverProp = (Property)entry.getValue();
                     Property prop = category.get(name);
@@ -100,7 +95,7 @@ public class SimConfigSync {
                 MinecraftForge.EVENT_BUS.register(new SimConfigSync());
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("syncConfig出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

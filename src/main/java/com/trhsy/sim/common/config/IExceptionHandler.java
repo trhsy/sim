@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  **/
 @ParametersAreNonnullByDefault
 public interface IExceptionHandler {
-    void handle(Exception var1);
+    void handle(Exception e);
 
     void flush();
 }

@@ -8,7 +8,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-import java.util.Iterator;
 
 /**
  * @ClassName TinkerNetwork
@@ -25,23 +24,8 @@ public class TinkerNetwork extends NetworkWrapper{
     public void setup() {
         try {
             this.registerPacketClient(ConfigSyncPacket.class);
-            //this.registerPacket(StencilTableSelectionPacket.class);
-            //this.registerPacket(PartCrafterSelectionPacket.class);
-            //this.registerPacket(ToolStationSelectionPacket.class);
-            //this.registerPacket(ToolStationTextPacket.class);
-            //this.registerPacketServer(TinkerStationTabPacket.class);
-            //this.registerPacketServer(InventoryCraftingSyncPacket.class);
-            //this.registerPacketClient(InventorySlotSyncPacket.class);
-            //this.registerPacketClient(EntityMovementChangePacket.class);
-            //this.registerPacketClient(ToolBreakAnimationPacket.class);
-            //this.registerPacketClient(SmelteryFluidUpdatePacket.class);
-            //this.registerPacketClient(SmelteryFuelUpdatePacket.class);
-            //this.registerPacketClient(SmelteryInventoryUpdatePacket.class);
-            //this.registerPacketServer(SmelteryFluidClicked.class);
-            //this.registerPacketClient(FluidUpdatePacket.class);
-            //this.registerPacketClient(FaucetActivationPacket.class);
         } catch (Exception e) {
-            ModSimReloaded.log.error("TinkerNetwork-setup出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("TinkerNetwork-setup出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -69,10 +53,7 @@ public class TinkerNetwork extends NetworkWrapper{
     public static void sendToClients(WorldServer world, BlockPos pos, AbstractPacket packet) {
         try {
             Chunk chunk = world.getChunkFromBlockCoords(pos);
-            Iterator var4 = world.playerEntities.iterator();
-
-            while(var4.hasNext()) {
-                EntityPlayer player = (EntityPlayer)var4.next();
+            for(EntityPlayer player:world.playerEntities){
                 if (player instanceof EntityPlayerMP) {
                     EntityPlayerMP playerMP = (EntityPlayerMP)player;
                     if (world.getPlayerManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
@@ -81,7 +62,7 @@ public class TinkerNetwork extends NetworkWrapper{
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("sendToClients出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("sendToClients出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

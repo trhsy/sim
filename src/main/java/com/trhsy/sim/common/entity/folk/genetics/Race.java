@@ -48,7 +48,7 @@ public class Race implements Serializable {
 
             Races.loadRaces();
         } catch (Exception e) {
-            ModSimReloaded.log.error("Race-loadRaces出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("Race-loadRaces出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -73,7 +73,7 @@ public class Race implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getRandomSkinForRace出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getRandomSkinForRace出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return 0;
     }
@@ -111,7 +111,7 @@ public class Race implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getRaceFromName出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getRaceFromName出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }

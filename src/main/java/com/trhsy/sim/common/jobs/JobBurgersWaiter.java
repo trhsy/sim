@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -47,12 +48,12 @@ public class JobBurgersWaiter extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobBurgersWaiter出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBurgersWaiter出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -106,22 +107,22 @@ public class JobBurgersWaiter extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
 
     private void stageServing() {
         try {
-            ArrayList<V3> serve = this.theStore.getSpecialBlocks(2);
+            CopyOnWriteArrayList<V3> serve = this.theStore.getSpecialBlocks(2);
             if (!serve.isEmpty()) {
-                ArrayList<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
+                CopyOnWriteArrayList<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
                 if (!theChests.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)serve.get(0), (GotoMethod)null);
+                    this.theFolk.gotoXYZ((V3)serve.get(0), GotoMethod.WALK);
 
                     try {
                         this.theFolk.destination.destinationAcc = 0.3D;
-                    } catch (Exception var6) {
+                    } catch (Exception e) {
                     }
 
                     ItemStack is = inventoriesGet(theChests, (ItemStack)null, true, false);
@@ -150,7 +151,7 @@ public class JobBurgersWaiter extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageServing出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageServing出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -163,15 +164,15 @@ public class JobBurgersWaiter extends Job {
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSTORE;
-                ArrayList<V3> back = this.theStore.getSpecialBlocks(2);
+                CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(2);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
+                    this.theFolk.gotoXYZ((V3)back.get(0), GotoMethod.WALK);
                 }
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

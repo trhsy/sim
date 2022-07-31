@@ -27,7 +27,7 @@ public class CreativeTabsFMLTutor extends CreativeTabs {
         try {
             item=Item.getItemFromBlock(BlockLoader.blockConstructorBox);
         } catch (Exception e) {
-            ModSimReloaded.log.error("创造模式物品栏上显示的物品出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("创造模式物品栏上显示的物品出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return item;
     }

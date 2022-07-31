@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName Relationship
@@ -38,7 +39,7 @@ public class Relationship implements Serializable {
             this.isBloodRelation = false;
             this.rand = new Random();
         } catch (Exception e) {
-            ModSimReloaded.log.error("Relationship出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("Relationship出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -54,7 +55,7 @@ public class Relationship implements Serializable {
             this.theLevel = startingLevel;
             this.isBloodRelation = isBlood;
         } catch (Exception e) {
-            ModSimReloaded.log.error("Relationship出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("Relationship出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -94,7 +95,7 @@ public class Relationship implements Serializable {
                 s = this.theLevel == Level.PARTNER ? I18n.format("container.sim.relation_ship_living") : I18n.format("container.sim.relation_ship_relationship");
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("toString出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toString出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return s;
     }
@@ -165,7 +166,7 @@ public class Relationship implements Serializable {
                 other = other + ": " + I18n.format("container.sim.relation_ship_relationship");
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toStringPersepctive出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return other;
     }
@@ -173,7 +174,7 @@ public class Relationship implements Serializable {
     public static FolkData getMotherOf(FolkData sonDaughter) {
         FolkData folkData = null;
         try {
-            ArrayList<Relationship> rels = getRelationshipsFor(sonDaughter);
+            CopyOnWriteArrayList<Relationship> rels = getRelationshipsFor(sonDaughter);
             Iterator i$ = rels.iterator();
 
             Relationship rel;
@@ -186,7 +187,7 @@ public class Relationship implements Serializable {
             } while (rel.theLevel != Level.MOTHERDAUGHTER && rel.theLevel != Level.MOTHERSON);
             folkData = rel.folk1.age > rel.folk2.age ? FolkData.getFolkByName(rel.folk1.name) : FolkData.getFolkByName(rel.folk2.name);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getMotherOf出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return folkData;
     }
@@ -208,13 +209,13 @@ public class Relationship implements Serializable {
                 ModSimReloaded.theRelationships.add(rel);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("addRelationship出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("addRelationship出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
     public static void setupBloodRelationships(FolkData newChild, FolkData father, FolkData mother) {
         try {
-            ArrayList<Relationship> mothers = getRelationshipsFor(mother);
+            CopyOnWriteArrayList<Relationship> mothers = getRelationshipsFor(mother);
             for (Relationship rel : mothers) {
                 FolkData other;
                 if (rel.folk1.name.contentEquals(mother.name)) {
@@ -266,7 +267,7 @@ public class Relationship implements Serializable {
                 }
             }
 
-            ArrayList<Relationship> fathers = getRelationshipsFor(father);
+            CopyOnWriteArrayList<Relationship> fathers = getRelationshipsFor(father);
             for (Relationship rel : fathers) {
                 FolkData other;
                 if (rel.folk1.name.contentEquals(father.name)) {
@@ -316,7 +317,7 @@ public class Relationship implements Serializable {
                 addRelationship(new Relationship(newChild, father, Level.FATHERDAUGHTER, true));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("setupBloodRelationships出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setupBloodRelationships出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -338,7 +339,7 @@ public class Relationship implements Serializable {
             folk2name = this.folk1.name + " " + this.toString() + " " + folk2name;
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("toFullString出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toFullString出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return folk2name;
@@ -394,12 +395,12 @@ public class Relationship implements Serializable {
                             this.folk1.actionArrival = FolkAction.ATHOME;
                             V3 v3 = this.folk1.getHome().primaryXYZ;
                             v3 = new V3(v3.x + 1.0, v3.y + 1.0, v3.z, v3.theDimension);
-                            this.folk1.gotoXYZ(v3, (GotoMethod) null);
+                            this.folk1.gotoXYZ(v3, GotoMethod.WALK);
                             this.folk2.action = FolkAction.GOINGHOME;
                             this.folk2.actionArrival = FolkAction.ATHOME;
                             V3 v32 = this.folk2.getHome().primaryXYZ;
                             v32 = new V3(v32.x + 1.0, v32.y + 1.0, v32.z, v32.theDimension);
-                            this.folk2.gotoXYZ(v32, (GotoMethod) null);
+                            this.folk2.gotoXYZ(v32, GotoMethod.WALK);
                         }
                     }
                 } else if (this.theLevel == Level.DESPISE) {
@@ -431,7 +432,7 @@ public class Relationship implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("levelIncrease出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -467,7 +468,7 @@ public class Relationship implements Serializable {
             int m = femaleFolk.name.indexOf(" ");
             femaleFolk.name = femaleFolk.name.substring(0, m).trim() + " " + surname;
         } catch (Exception e) {
-            ModSimReloaded.log.error("更改女性姓氏出问题了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("更改女性姓氏出问题了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -514,7 +515,7 @@ public class Relationship implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("levelDecrease出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("levelDecrease出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -526,7 +527,7 @@ public class Relationship implements Serializable {
                 ModSimReloaded.sendChat(this.toFullString().replaceAll(" is ", " is now "));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("notifyRelationshipChange出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -550,7 +551,7 @@ public class Relationship implements Serializable {
                 for (int i = 0; i < files.length; i++) {
                     f = files[i];
                     if (f.getName().endsWith(".sk2")) {
-                        ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                        CopyOnWriteArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                         Relationship rel = new Relationship();
                         Iterator iterator = strings.iterator();
                         for (String line : strings) {
@@ -600,7 +601,7 @@ public class Relationship implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("loadRelationships出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadRelationships出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -611,7 +612,7 @@ public class Relationship implements Serializable {
         try {
             Side side = FMLCommonHandler.instance().getEffectiveSide();
             if (side == Side.SERVER) {
-                ArrayList<String> strings = new ArrayList();
+                CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList();
 
                 for (int b = 0; b < ModSimReloaded.theRelationships.size(); ++b) {
                     try {
@@ -625,12 +626,12 @@ public class Relationship implements Serializable {
                         //血缘关系
                         strings.add("bloodrelation|" + rel.isBloodRelation);
                         ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2", strings);
-                    } catch (Exception var5) {
+                    } catch (Exception e) {
                     }
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("saveRelationships出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveRelationships出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -660,7 +661,7 @@ public class Relationship implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("meddleWithRelationship出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("meddleWithRelationship出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -688,11 +689,11 @@ public class Relationship implements Serializable {
                     if (rel.folk1.name.contentEquals(folk2.name) && rel.folk2.name.contentEquals(folk1.name)) {
                         return rel;
                     }
-                } catch (Exception var5) {
+                } catch (Exception e) {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getRelationshipBetween出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getRelationshipBetween出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -703,8 +704,8 @@ public class Relationship implements Serializable {
      * @param theFolk
      * @return
      */
-    public static ArrayList<Relationship> getRelationshipsFor(FolkData theFolk) {
-        ArrayList<Relationship> rels = new ArrayList();
+    public static CopyOnWriteArrayList<Relationship> getRelationshipsFor(FolkData theFolk) {
+        CopyOnWriteArrayList<Relationship> rels = new CopyOnWriteArrayList();
         try {
             for (int i = 0; i < ModSimReloaded.theRelationships.size(); i++) {
                 Relationship rel = (Relationship) ModSimReloaded.theRelationships.get(i);
@@ -713,7 +714,7 @@ public class Relationship implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getRelationshipsFor出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getRelationshipsFor出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return rels;
     }
@@ -725,7 +726,7 @@ public class Relationship implements Serializable {
      * @return
      */
     public static boolean isFolkLivingWithSomeone(FolkData theFolk) {
-        ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
+        CopyOnWriteArrayList<Relationship> rels = getRelationshipsFor(theFolk);
         boolean ret = false;
         try {
             for (int i = 0; i < rels.size(); i++) {
@@ -736,7 +737,7 @@ public class Relationship implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("isFolkLivingWithSomeone出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -749,7 +750,7 @@ public class Relationship implements Serializable {
      * @return
      */
     public static FolkData isFolkLivingWithSomeone(FolkData theFolk, boolean returnFolk) {
-        ArrayList<Relationship> rels = getRelationshipsFor(theFolk);
+        CopyOnWriteArrayList<Relationship> rels = getRelationshipsFor(theFolk);
         try {
             for (int i = 0; i < rels.size(); i++) {
                 Relationship rel = (Relationship) rels.get(i);
@@ -758,7 +759,7 @@ public class Relationship implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("isFolkLivingWithSomeone出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }

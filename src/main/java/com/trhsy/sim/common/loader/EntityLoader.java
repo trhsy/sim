@@ -31,7 +31,7 @@ public class EntityLoader {
             registerEntity(EntityFolk.class, "EntityFolk", 80, 3, true);
             registerEntityEgg(EntityFolk.class, 0xffff66, 0x660000);
         } catch (Exception e) {
-            ModSimReloaded.log.error("EntityLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("EntityLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -44,7 +44,7 @@ public class EntityLoader {
             registerEntityRender(EntityConBox.class, RenderConBox.class);
             registerEntityRender(EntityWindmill.class, RenderWindmill.class);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -62,7 +62,7 @@ public class EntityLoader {
         try {
             RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<T>(render));
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerEntityRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -79,7 +79,7 @@ public class EntityLoader {
             EntityRegistry.registerModEntity(entityClass, name, nextID++, ModSim.instance, trackingRange, updateFrequency,
                     sendsVelocityUpdates);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerEntity出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerEntity出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -94,7 +94,7 @@ public class EntityLoader {
         try {
             EntityRegistry.registerEgg(entityClass, eggPrimary, eggSecondary);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerEntityEgg出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerEntityEgg出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -120,7 +120,7 @@ public class EntityLoader {
             event.entityPlayer.triggerAchievement(AchievementLoader.explosionFromGrassBlock);
         }*/
         } catch (Exception e) {
-            ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

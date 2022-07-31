@@ -20,7 +20,7 @@ public class ModelAlignBeam extends ModelBase {
             theBeam.addBox(-0.4f, 0.0f, -0.4f, 2550, 1, 1);  // len, height, width   , len, height, width
             theBeam.setRotationPoint(-0.0f, 0f, -0.0f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -32,7 +32,7 @@ public class ModelAlignBeam extends ModelBase {
             theBeam.render(0.1f); //scale
             super.render(par1Entity, par2, par3, par4, par5, par6, par7);
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("渲染对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

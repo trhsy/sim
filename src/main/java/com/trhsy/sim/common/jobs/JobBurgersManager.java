@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -40,7 +41,7 @@ public class JobBurgersManager extends Job {
     private long timeSinceLastRun = 0L;
     private Building theStore = null;
     private int currentPickup = 0;
-    private ArrayList<Building> pickupBuildings = new ArrayList();
+    private CopyOnWriteArrayList<Building> pickupBuildings = new CopyOnWriteArrayList();
 
     public JobBurgersManager(FolkData folk) {
         try {
@@ -51,11 +52,11 @@ public class JobBurgersManager extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobBurgersManager出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBurgersManager出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -120,7 +121,7 @@ public class JobBurgersManager extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -135,7 +136,7 @@ public class JobBurgersManager extends Job {
                     return;
                 }
 
-                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
+                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
                 this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                 this.step = 2;
             } else if (this.step == 2) {
@@ -144,7 +145,7 @@ public class JobBurgersManager extends Job {
                 }
             } else if (this.step == 3) {
                 this.theFolk.statusText = I18n.format("container.sim.job.manager.Buying") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
-                ArrayList<IInventory> chests = inventoriesFindClosest(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, 5);
+                CopyOnWriteArrayList<IInventory> chests = inventoriesFindClosest(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, 5);
                 if (!chests.isEmpty()) {
                     int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                     int buy = count / 4;
@@ -156,7 +157,7 @@ public class JobBurgersManager extends Job {
 
                 ++this.currentPickup;
                 if (this.currentPickup <= this.pickupBuildings.size() - 1) {
-                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
                     this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                     this.step = 2;
                 } else {
@@ -164,7 +165,7 @@ public class JobBurgersManager extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("doPickup出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("doPickup出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -181,7 +182,7 @@ public class JobBurgersManager extends Job {
                     return;
                 }
 
-                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
+                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
                 this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                 this.step = 2;
             } else if (this.step == 2) {
@@ -190,7 +191,7 @@ public class JobBurgersManager extends Job {
                 }
             } else if (this.step == 3) {
                 this.theFolk.statusText = I18n.format("container.sim.job.manager.Buying_items") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
-                ArrayList<IInventory> chests = inventoriesFindClosest(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, 5);
+                CopyOnWriteArrayList<IInventory> chests = inventoriesFindClosest(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, 5);
                 if (!chests.isEmpty()) {
                     int count = this.getItemCountInChests(chests, new ItemStack(pickUpItem, 1), doCompareMeta);
                     int buy = count / 4;
@@ -202,7 +203,7 @@ public class JobBurgersManager extends Job {
 
                 ++this.currentPickup;
                 if (this.currentPickup <= this.pickupBuildings.size() - 1) {
-                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
                     this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                     this.step = 2;
                 } else {
@@ -210,7 +211,7 @@ public class JobBurgersManager extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("doPickup出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("doPickup出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -223,7 +224,7 @@ public class JobBurgersManager extends Job {
                 this.step = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stagePickupBakery出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stagePickupBakery出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -238,7 +239,7 @@ public class JobBurgersManager extends Job {
                 this.step = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stagePickupGrocery出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stagePickupGrocery出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -251,7 +252,7 @@ public class JobBurgersManager extends Job {
                 this.step = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stagePickupCheese出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stagePickupCheese出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -264,7 +265,7 @@ public class JobBurgersManager extends Job {
                 this.step = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stagePickupButchers出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stagePickupButchers出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -272,12 +273,12 @@ public class JobBurgersManager extends Job {
 
     private void stageDropoff() {
         try {
-            ArrayList back;
+            CopyOnWriteArrayList back;
             if (this.step == 1) {
                 this.theFolk.statusText = I18n.format("container.sim.job.dropoff.On_my");
                 back = this.theStore.getSpecialBlocks(0);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3) back.get(0), (GotoMethod) null);
+                    this.theFolk.gotoXYZ((V3) back.get(0), GotoMethod.WALK);
                     this.step = 2;
                 }
             } else if (this.step == 2) {
@@ -287,7 +288,7 @@ public class JobBurgersManager extends Job {
             } else if (this.step == 3) {
                 this.theFolk.statusText = I18n.format("container.sim.job.dropoff.Unloading");
                 back = this.theStore.getSpecialBlocks(0);
-                ArrayList<IInventory> backstoreChests = inventoriesFindClosest((V3) back.get(0), 3);
+                CopyOnWriteArrayList<IInventory> backstoreChests = inventoriesFindClosest((V3) back.get(0), 3);
                 boolean ok = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), backstoreChests, (ItemStack) null);
                 if (!ok) {
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.dropoff.chest"));
@@ -299,7 +300,7 @@ public class JobBurgersManager extends Job {
                 var10000.credits = (float) ((double) var10000.credits - 2.45D);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageDropoff出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageDropoff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -343,7 +344,7 @@ public class JobBurgersManager extends Job {
 
             this.theFolk.statusText = say;
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageHangingOut出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageHangingOut出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -358,15 +359,15 @@ public class JobBurgersManager extends Job {
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSTORE;
-                ArrayList<V3> back = this.theStore.getSpecialBlocks(0);
+                CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(0);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3) back.get(0), (GotoMethod) null);
+                    this.theFolk.gotoXYZ((V3) back.get(0), GotoMethod.WALK);
                 }
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

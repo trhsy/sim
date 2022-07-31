@@ -72,7 +72,7 @@ public class CommonProxy {
 
             Race.loadRaces();
         } catch (Exception e) {
-            ModSimReloaded.log.error("preInit出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("preInit出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -94,7 +94,7 @@ public class CommonProxy {
         try {
             MinecraftForge.EVENT_BUS.register(new SimConfigSync());
         } catch (Exception e) {
-            ModSimReloaded.log.error("postInit出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("postInit出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -106,7 +106,7 @@ public class CommonProxy {
         try {
             new CommandLoader(event);
         } catch (Exception e) {
-            ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -116,7 +116,7 @@ public class CommonProxy {
         try {
             world=FMLClientHandler.instance().getServer().getEntityWorld();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getClientWorld出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return world;
     }
@@ -126,7 +126,7 @@ public class CommonProxy {
         try {
             entityPlayer=ctx.getServerHandler().playerEntity;
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getPlayerEntity出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return entityPlayer;
     }

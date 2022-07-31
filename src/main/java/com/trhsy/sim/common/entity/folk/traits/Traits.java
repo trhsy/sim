@@ -46,7 +46,7 @@ public class Traits {
             traitList[9] = traitReligious;
             specialTraitList = new Trait[1];
         } catch (Exception e) {
-            ModSimReloaded.log.error("loadTraits出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadTraits出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

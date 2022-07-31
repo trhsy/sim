@@ -19,6 +19,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -48,12 +49,12 @@ public class JobBurgersFryCook extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobBurgersFryCook出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBurgersFryCook出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -114,7 +115,7 @@ public class JobBurgersFryCook extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -131,36 +132,36 @@ public class JobBurgersFryCook extends Job {
             this.theStage = Stage.MAKEFOOD;
             this.step = 1;
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageNoIngrediants出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageNoIngrediants出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
     private void stageMakeFood() {
         try {
 
-            ArrayList<V3> ch = this.theStore.getSpecialBlocks(0);
+            CopyOnWriteArrayList<V3> ch = this.theStore.getSpecialBlocks(0);
             if (ch.isEmpty()) {
                 this.theStage = Stage.NOINGREDIANTS;
             } else {
-                ArrayList<IInventory> chestsIn = inventoriesFindClosest((V3)ch.get(0), 3);
+                CopyOnWriteArrayList<IInventory> chestsIn = inventoriesFindClosest((V3)ch.get(0), 3);
                 if (chestsIn.isEmpty()) {
                     this.theStage = Stage.NOINGREDIANTS;
                 } else {
-                    ArrayList<V3> ch2 = this.theStore.getSpecialBlocks(2);
+                    CopyOnWriteArrayList<V3> ch2 = this.theStore.getSpecialBlocks(2);
                     if (ch.isEmpty()) {
                         this.theStage = Stage.NOINGREDIANTS;
                     } else {
-                        ArrayList<IInventory> chestsOut = inventoriesFindClosest((V3)ch2.get(0), 3);
+                        CopyOnWriteArrayList<IInventory> chestsOut = inventoriesFindClosest((V3)ch2.get(0), 3);
                         if (chestsIn.isEmpty()) {
                             this.theStage = Stage.NOINGREDIANTS;
                         } else {
-                            ArrayList<V3> back = this.theStore.getSpecialBlocks(1);
+                            CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(1);
                             if (!back.isEmpty()) {
-                                this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
+                                this.theFolk.gotoXYZ((V3)back.get(0), GotoMethod.WALK);
 
                                 try {
                                     this.theFolk.destination.destinationAcc = 0.3D;
-                                } catch (Exception var7) {
+                                } catch (Exception e) {
                                 }
                             }
 
@@ -249,7 +250,7 @@ public class JobBurgersFryCook extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageMakeFood出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageMakeFood出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -264,16 +265,16 @@ public class JobBurgersFryCook extends Job {
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSTORE;
-                ArrayList<V3> back = this.theStore.getSpecialBlocks(1);
+                CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(1);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)back.get(0), (GotoMethod)null);
+                    this.theFolk.gotoXYZ((V3)back.get(0), GotoMethod.WALK);
                     this.step = 1;
                 }
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

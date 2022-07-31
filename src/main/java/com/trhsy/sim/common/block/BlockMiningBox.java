@@ -21,6 +21,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName BlockMiningBox
@@ -58,13 +59,13 @@ public class BlockMiningBox extends Block {
                         m.marker1XYZ = ((Marker) BlockMarker.markers.get(first)).toV3();
                         m.marker2XYZ = ((Marker) BlockMarker.markers.get(first + 1)).toV3();
                         m.marker3XYZ = ((Marker) BlockMarker.markers.get(first + 2)).toV3();
-                    } catch (Exception var7) {
+                    } catch (Exception e) {
                     }
                 }
             }
             super.onBlockAdded(world, blockPos, iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("挖矿箱onBlockAdded出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("挖矿箱onBlockAdded出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -82,7 +83,7 @@ public class BlockMiningBox extends Block {
             world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
             super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("挖矿箱onBlockDestroyedByPlayer出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("挖矿箱onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -95,12 +96,12 @@ public class BlockMiningBox extends Block {
         MiningBox miningBlock = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
 
             miningBlock.location.theDimension = thePlayer.dimension;
-            ArrayList<FolkData> folks = FolkData.getFolksByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
+            CopyOnWriteArrayList<FolkData> folks = FolkData.getFolksByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
             GuiMining ui = new GuiMining(miningBlock, folks);
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);
         } catch (Exception e) {
-            ModSimReloaded.log.error(e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error(e.getMessage()+"行数："+element.getLineNumber());
             if (world.isRemote) {
                 String Mining_box_Sorry = I18n.format("container.sim.Mining_box_Sorry");
                 ModSimReloaded.sendChat(Mining_box_Sorry);

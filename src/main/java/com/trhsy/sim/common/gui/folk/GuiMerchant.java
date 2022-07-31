@@ -23,6 +23,7 @@ import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -36,9 +37,9 @@ import java.util.ArrayList;
 public class GuiMerchant extends GuiScreen {
     private int currentPage = 0;
     //持有购买数量
-    private static ArrayList<Integer> quantities = new ArrayList<Integer>();
+    private static CopyOnWriteArrayList<Integer> quantities = new CopyOnWriteArrayList<Integer>();
     //基于玩家库存的销售限制
-    private static ArrayList<Integer> sellLimits = new ArrayList<Integer>();
+    private static CopyOnWriteArrayList<Integer> sellLimits = new CopyOnWriteArrayList<Integer>();
     private Float totalCost = 0.0F;
     private int mouseCount = 0;
 
@@ -66,7 +67,7 @@ public class GuiMerchant extends GuiScreen {
             }
             this.showPage();
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -157,7 +158,7 @@ public class GuiMerchant extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -187,7 +188,7 @@ public class GuiMerchant extends GuiScreen {
                 this.buttonList.add(new GuiButton(2, this.width - 100, this.height - 20, 100, 20, I18n.format("container.sim.Merchant10")));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("showPage出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("showPage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -253,7 +254,7 @@ public class GuiMerchant extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -272,7 +273,7 @@ public class GuiMerchant extends GuiScreen {
             Block block = null;
             boolean ok = false;
             Float stackPrice = 0.0F;
-            ArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
+            CopyOnWriteArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
             if (chests != null && chests.size() != 0) {
                 for (int i = 0; i < 9; i++) {
                     quant = (Integer) quantities.get(i);
@@ -319,7 +320,7 @@ public class GuiMerchant extends GuiScreen {
                     public void run() {
                         try {
                             Thread.sleep(3000L);
-                        } catch (Exception var2) {
+                        } catch (Exception e) {
                         }
 
                         GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
@@ -333,7 +334,7 @@ public class GuiMerchant extends GuiScreen {
                 return;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("buyStuff出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("buyStuff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -349,7 +350,7 @@ public class GuiMerchant extends GuiScreen {
             boolean ok = false;
             Float stackPrice = 0.0F;
             int stackCount = 0;
-            ArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
+            CopyOnWriteArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
             if (chests == null | chests.size() == 0) {
                 ModSimReloaded.sendChat(I18n.format("container.sim.Merchant13"));
                 this.mc.currentScreen = null;
@@ -384,7 +385,7 @@ public class GuiMerchant extends GuiScreen {
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("sellStuff出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("sellStuff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -394,7 +395,7 @@ public class GuiMerchant extends GuiScreen {
         try {
             Keyboard.enableRepeatEvents(false);
         } catch (Exception e) {
-            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -407,7 +408,7 @@ public class GuiMerchant extends GuiScreen {
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -416,7 +417,7 @@ public class GuiMerchant extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            ModSimReloaded.log.error("mouseClicked鼠标点击出错：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked鼠标点击出错：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -460,7 +461,7 @@ public class GuiMerchant extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("placeIntoChest出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return placedOK;
     }

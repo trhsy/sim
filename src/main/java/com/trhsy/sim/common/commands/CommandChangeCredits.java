@@ -10,6 +10,7 @@ import net.minecraft.util.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 命令更改金钱
@@ -22,7 +23,7 @@ public class CommandChangeCredits implements ICommand {
      * 命令更改金币
      */
     public CommandChangeCredits() {
-        aliases = new ArrayList();
+        aliases = new CopyOnWriteArrayList();
         aliases.add("credits");
     }
 
@@ -60,7 +61,7 @@ public class CommandChangeCredits implements ICommand {
         } catch (Exception e) {
             //金额必须是数字！
             ModSimReloaded.sendChat(I18n.format("container.sim.commands2"));
-            //ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            //StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return;
         }
     }

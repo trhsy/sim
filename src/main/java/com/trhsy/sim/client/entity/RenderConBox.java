@@ -63,11 +63,8 @@ public class RenderConBox extends Render<EntityConBox> {
                     if (entity.theFolk.theBuilding != null) {
                         if (entity.theFolk.theBuilding.requirements != null && entity.theFolk.theBuilding.requirements.size() > 0) {
                             if (actualCount == -1) {
-                                Iterator it = entity.theFolk.theBuilding.requirements.entrySet().iterator();
                                 actualCount = 0;
-
-                                while (it.hasNext()) {
-                                    Map.Entry pairs = (Map.Entry) it.next();
+                                for (Map.Entry pairs : entity.theFolk.theBuilding.requirements.entrySet()) {
 
                                     if (pairs.getKey() != null) {
                                         actualCount++;
@@ -81,13 +78,8 @@ public class RenderConBox extends Render<EntityConBox> {
                             //offset-=0.2f;
 
                             try {
-                                Iterator it = entity.theFolk.theBuilding.requirements.entrySet()
-                                        .iterator();
-
-                                while (it.hasNext()) {
+                                for (Map.Entry pairs : entity.theFolk.theBuilding.requirements.entrySet()) {
                                     try {
-                                        Map.Entry pairs = (Map.Entry) it.next();
-
                                         if (pairs.getValue() != null) {
                                             String st = pairs.getValue().toString();
                                             double stacks = Math.ceil((Double.parseDouble(st)) / 64);
@@ -143,7 +135,7 @@ public class RenderConBox extends Render<EntityConBox> {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染漂浮的建筑箱出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("渲染漂浮的建筑箱出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -173,7 +165,7 @@ public class RenderConBox extends Render<EntityConBox> {
             fontrenderer.drawString(theString, 0, 0, col);
             GL11.glPopMatrix();
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

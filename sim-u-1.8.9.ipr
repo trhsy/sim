@@ -496,6 +496,27 @@
   <component name="GradleUISettings2">
     <setting name="root"/>
   </component>
+  <component name="GrepConsole">
+    <option name="pinnedGrepConsolesState">
+      <PinnedGrepConsolesState>
+        <option name="map">
+          <map>
+            <entry>
+              <key>
+                <RunConfigurationRef>
+                  <option name="icon" value="application.svg')"/>
+                  <option name="name" value="Minecraft Client"/>
+                </RunConfigurationRef>
+              </key>
+              <value>
+                <Pins/>
+              </value>
+            </entry>
+          </map>
+        </option>
+      </PinnedGrepConsolesState>
+    </option>
+  </component>
   <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C"/>
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">

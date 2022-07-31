@@ -95,7 +95,7 @@ public class job implements Serializable {
                 br.close();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("加载工作失败："+e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("加载工作失败："+e.getMessage()+"行数："+element.getLineNumber());
             //e.printStackTrace();
         }
 

@@ -16,12 +16,13 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DemolishBuildingPacket implements IMessage {
     Block theBlock;
     static String[] v3;
     static V3 buildingV3;
-    static ArrayList<V3> v3s;
+    static CopyOnWriteArrayList<V3> v3s;
     static Building theBuilding = null;
     static World theWorld = null;
 
@@ -34,7 +35,7 @@ public class DemolishBuildingPacket implements IMessage {
             theBuilding = Building.getBuilding(buildingV3);
             theWorld = MinecraftServer.getServer().worldServers[0];
         } catch (Exception e) {
-            ModSimReloaded.log.error("DemolishBuildingPacket出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("DemolishBuildingPacket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -44,19 +45,19 @@ public class DemolishBuildingPacket implements IMessage {
             theBuilding = Building.getBuilding(buildingV3);
             theWorld = MinecraftServer.getServer().worldServers[0];
         } catch (Exception e) {
-            ModSimReloaded.log.error("DemolishBuildingPacket出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("DemolishBuildingPacket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
 
-    public DemolishBuildingPacket(Building building, ArrayList<V3> v3array) {
+    public DemolishBuildingPacket(Building building, CopyOnWriteArrayList<V3> v3array) {
         try {
             buildingV3 = building.primaryXYZ;
             theBuilding = building;
             v3s = v3array;
             theWorld = MinecraftServer.getServer().worldServers[0];
         } catch (Exception e) {
-            ModSimReloaded.log.error("DemolishBuildingPacket出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("DemolishBuildingPacket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -68,7 +69,7 @@ public class DemolishBuildingPacket implements IMessage {
             buildingV3 = new V3(Integer.parseInt(v3[0]), Integer.parseInt(v3[1]), Integer.parseInt(v3[2]), Integer.parseInt(v3[3]));
             theBuilding = Building.getBuilding(buildingV3);
         } catch (Exception e) {
-            ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -78,7 +79,7 @@ public class DemolishBuildingPacket implements IMessage {
         try {
             ByteBufUtils.writeUTF8String(buf, theBuilding.primaryXYZ.toString());
         } catch (Exception e) {
-            ModSimReloaded.log.error("toBytes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -103,7 +104,7 @@ public class DemolishBuildingPacket implements IMessage {
 
                             }
                         } catch (Exception e) {
-                            ModSimReloaded.log.error("onMessage出错了：" + e.getMessage());
+                            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onMessage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
                         }
 
 

@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName FarmingBox
@@ -40,7 +41,7 @@ public class FarmingBox implements Serializable {
             this.farmType = FarmType.WHEAT;
             this.level = 1;
         } catch (Exception e) {
-            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -53,7 +54,7 @@ public class FarmingBox implements Serializable {
                 this.level = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -69,7 +70,7 @@ public class FarmingBox implements Serializable {
                 this.level = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -86,7 +87,7 @@ public class FarmingBox implements Serializable {
             }
 
             return ret;
-        } catch (Exception var5) {
+        } catch (Exception e) {
             return new V3(0, 0, 0, 0);
         }
     }
@@ -109,7 +110,7 @@ public class FarmingBox implements Serializable {
             } else {
                 ltr = (int) (Math.abs(m2.x - m1.x) + 1.0);
             }
-        } catch (Exception var5) {
+        } catch (Exception e) {
             return 5;
         }
 
@@ -134,15 +135,15 @@ public class FarmingBox implements Serializable {
             } else {
                 ftb = (int) (Math.abs(m3.x - m1.x) + 1.0);
             }
-        } catch (Exception var5) {
+        } catch (Exception e) {
             return 5;
         }
 
         return Math.abs(ftb);
     }
 
-    public ArrayList<V3> getSoilBlockPoints() {
-        ArrayList<V3> ret = new ArrayList();
+    public CopyOnWriteArrayList<V3> getSoilBlockPoints() {
+        CopyOnWriteArrayList<V3> ret = new CopyOnWriteArrayList();
         try {
             V3 m1 = this.getMarkerVector(1);
             V3 m2 = this.getMarkerVector(2);
@@ -178,7 +179,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("养殖箱getSoilBlockPoints出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱getSoilBlockPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -190,8 +191,8 @@ public class FarmingBox implements Serializable {
      *
      * @return
      */
-    public ArrayList<V3> getPerimeterPoints() {
-        ArrayList ret = new ArrayList();
+    public CopyOnWriteArrayList<V3> getPerimeterPoints() {
+        CopyOnWriteArrayList ret = new CopyOnWriteArrayList();
 
         try {
             V3 m1 = this.getMarkerVector(1);
@@ -253,8 +254,8 @@ public class FarmingBox implements Serializable {
                 ret.add(c.clone());
             }
 
-        } catch (Exception var11) {
-            ModSimReloaded.log.error("获取周边节点发生错误：" + var11.getMessage());
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("获取周边节点发生错误：" + e.getMessage()+"行数："+element.getLineNumber());
             //var11.printStackTrace();
         }
         return ret;
@@ -279,7 +280,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("养殖箱getFarmingBlockByBoxXYZ出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱getFarmingBlockByBoxXYZ出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -307,7 +308,7 @@ public class FarmingBox implements Serializable {
                 for (int i = 0; i < arrFiles.length; i++) {
                     f = arrFiles[i];
                     if (f.getName().endsWith(".sk2")) {
-                        ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                        CopyOnWriteArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                         FarmingBox box = new FarmingBox();
                         Iterator iterator = strings.iterator();
 
@@ -369,7 +370,7 @@ public class FarmingBox implements Serializable {
                                     } else {
                                         f.delete();
                                     }
-                                } catch (Exception var14) {
+                                } catch (Exception e) {
                                     //var14.printStackTrace();
                                 }
                             }
@@ -382,7 +383,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("养殖箱loadFarmingBoxes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱loadFarmingBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -390,7 +391,7 @@ public class FarmingBox implements Serializable {
         try {
             Side side = FMLCommonHandler.instance().getEffectiveSide();
             if (side == Side.SERVER) {
-                ArrayList<String> strings = new ArrayList();
+                CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList();
 
                 for (int b = 0; b < ModSimReloaded.theFarmingBoxes.size(); ++b) {
                     FarmingBox farming = (FarmingBox) ModSimReloaded.theFarmingBoxes.get(b);
@@ -405,13 +406,13 @@ public class FarmingBox implements Serializable {
                             strings.add("level|" + farming.level);
                             String xyz = "f" + farming.location.toString().replaceAll(",", "_");
                             ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator + xyz + ".sk2", strings);
-                        } catch (Exception var5) {
+                        } catch (Exception e) {
                         }
                     }
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("养殖箱saveFarmingBoxes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱saveFarmingBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

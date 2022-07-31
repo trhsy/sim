@@ -12,7 +12,7 @@ public class CommandLoader {
             //命令修改金额
             event.registerServerCommand(new CommandChangeCredits());
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("CommandLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

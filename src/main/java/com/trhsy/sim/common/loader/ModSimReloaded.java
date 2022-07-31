@@ -32,6 +32,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 加载任务
@@ -49,31 +50,31 @@ public class ModSimReloaded {
     /*
     所有民众的数据（用于构建和维护 EntityFolk）
      */
-    public static ArrayList<FolkData> theFolks = new ArrayList();
+    public static CopyOnWriteArrayList<FolkData> theFolks = new CopyOnWriteArrayList();
     /*
    所有的建筑对象
     */
-    public static ArrayList<Building> theBuildings = new ArrayList();
+    public static CopyOnWriteArrayList<Building> theBuildings = new CopyOnWriteArrayList();
     /*
     所有快递任务
      */
-    public static ArrayList<CourierTask> theCourierTasks = new ArrayList();
+    public static CopyOnWriteArrayList<CourierTask> theCourierTasks = new CopyOnWriteArrayList();
     /*
     所有快递点
      */
-    public static ArrayList<V3> theCourierPoints = new ArrayList();
+    public static CopyOnWriteArrayList<V3> theCourierPoints = new CopyOnWriteArrayList();
     /*
     所有的采矿箱
      */
-    public static ArrayList<MiningBox> theMiningBoxes = new ArrayList();
+    public static CopyOnWriteArrayList<MiningBox> theMiningBoxes = new CopyOnWriteArrayList();
     /*
     所有养殖箱
      */
-    public static ArrayList<FarmingBox> theFarmingBoxes = new ArrayList();
+    public static CopyOnWriteArrayList<FarmingBox> theFarmingBoxes = new CopyOnWriteArrayList();
     /*
    所有情感关系
     */
-    public static ArrayList<Relationship> theRelationships = new ArrayList();
+    public static CopyOnWriteArrayList<Relationship> theRelationships = new CopyOnWriteArrayList();
     /*
     包含他们正在玩的这个关卡的所有游戏状态和设置
      */
@@ -81,7 +82,7 @@ public class ModSimReloaded {
     /*
     银行目前正在销售的商品列表，每天早上都会更新新商品
      */
-    public static ArrayList<Commodity> theCommodities = new ArrayList();
+    public static CopyOnWriteArrayList<Commodity> theCommodities = new CopyOnWriteArrayList();
     /*
     用于在update（）调用中升级作物农场
      */
@@ -93,7 +94,7 @@ public class ModSimReloaded {
     /*
     所有的农场升级点
      */
-    private static ArrayList<V3> farmToUpgradePoints = null;
+    private static CopyOnWriteArrayList<V3> farmToUpgradePoints = null;
     /*
     白天
      */
@@ -101,7 +102,7 @@ public class ModSimReloaded {
     /*
     所有的拆除
      */
-    public static ArrayList<V3> demolishBlocks = new ArrayList();
+    public static CopyOnWriteArrayList<V3> demolishBlocks = new CopyOnWriteArrayList();
     /*
     拆除
      */
@@ -147,7 +148,7 @@ public class ModSimReloaded {
                 try {
                     //设置游戏模式为读取到的模式
                     GameMode.setGameModeFromNumber(states.gameModeNumber);
-                } catch (Exception var3) {
+                } catch (Exception e) {
                     //设置错误
                     GameMode.setGameModeFromNumber(0);
                 }
@@ -198,7 +199,7 @@ public class ModSimReloaded {
                 ModSim.proxy.ranStartup = true;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("resetAndLoadNewWorld出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("resetAndLoadNewWorld出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -220,7 +221,7 @@ public class ModSimReloaded {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("sendChat出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("sendChat出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -250,7 +251,7 @@ public class ModSimReloaded {
                 f.mkdirs();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getSavesDataFolder出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getSavesDataFolder出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -270,7 +271,7 @@ public class ModSimReloaded {
                 checks.mkdir();
             }
             return (checks).getAbsolutePath();
-        } catch (Exception var1) {
+        } catch (Exception e) {
             return "";
         }
     }
@@ -290,7 +291,7 @@ public class ModSimReloaded {
         try {
             falg=MinecraftServer.getServer().worldServers[0].isDaytime();
         } catch (Exception e) {
-            ModSimReloaded.log.error("isDayTime出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("isDayTime出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return falg;
 
@@ -309,7 +310,7 @@ public class ModSimReloaded {
             DecimalFormat myFormatter = new DecimalFormat("#,##0.00");
             output =myFormatter.format((double) moneyin);
         } catch (Exception e) {
-            ModSimReloaded.log.error("displayMoney出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("displayMoney出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return output;
     }
@@ -389,7 +390,7 @@ public class ModSimReloaded {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("dayTransitionHandler出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("dayTransitionHandler出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -409,7 +410,7 @@ public class ModSimReloaded {
                     public void run() {
                         try {
                             Thread.sleep(3000L);
-                        } catch (Exception var5) {
+                        } catch (Exception e) {
                         }
                         //总租金
                         float totalRent = 0.0F;
@@ -576,7 +577,7 @@ public class ModSimReloaded {
                 Commodity.refreshAvailableCommoditities();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("evolveFolks出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("evolveFolks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -598,13 +599,13 @@ public class ModSimReloaded {
                         BlockPos blockPos = new BlockPos(blockLoc.x.intValue(), blockLoc.y.intValue() + 10 + (new Random()).nextInt(20), blockLoc.z.intValue());
                         block.dropBlockAsItem(demolishWorld, blockPos, block.getDefaultState(), 0);
                         demolishBlocks.remove(0);
-                    } catch (Exception var5) {
+                    } catch (Exception e) {
                     }
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("demolishBlocks出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("demolishBlocks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -698,7 +699,8 @@ public class ModSimReloaded {
                 ModSimReloaded.log.info("完成农场升级");
             }
         } catch (Exception e) {
-            log.error("升级农场出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];
+            ModSimReloaded.log.error("升级农场出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -714,13 +716,13 @@ public class ModSimReloaded {
             String simSat = I18n.format("container.sim.simSat");
             dow =new String[]{simSun, simMon, simTue, simWed, simThu, simFri, simSat};
         } catch (Exception e) {
-            ModSimReloaded.log.error("getDayOfWeek出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getDayOfWeek出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return dow[states.dayOfWeek];
     }
 
-    public static ArrayList<String> loadSK2(String fullFilename) {
-        ArrayList ret = new ArrayList();
+    public static CopyOnWriteArrayList<String> loadSK2(String fullFilename) {
+        CopyOnWriteArrayList ret = new CopyOnWriteArrayList();
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(fullFilename));
@@ -731,13 +733,13 @@ public class ModSimReloaded {
 
             br.close();
         } catch (Exception e) {
-            ModSimReloaded.log.error("loadSK2出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadSK2出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return ret;
     }
 
-    public static void saveSK2(String fullFilename, ArrayList<String> strings) {
+    public static void saveSK2(String fullFilename, CopyOnWriteArrayList<String> strings) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fullFilename));
             Iterator iterator = strings.iterator();
@@ -749,7 +751,7 @@ public class ModSimReloaded {
 
             bw.close();
         } catch (Exception e) {
-            ModSimReloaded.log.error("saveSK2出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveSK2出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var5.printStackTrace();
         }
 
@@ -778,8 +780,9 @@ public class ModSimReloaded {
             ObjectInputStream in2 = new ObjectInputStream(fis2);
             o = in2.readObject();
             in2.close();
-        } catch (Exception var5) {
-            ModSimReloaded.log.info("旧加载程序-无法加载对象 " + var5.getMessage());
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];
+            ModSimReloaded.log.info("旧加载程序-无法加载对象 " + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return o;

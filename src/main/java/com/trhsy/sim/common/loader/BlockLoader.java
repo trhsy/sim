@@ -136,7 +136,7 @@ public class BlockLoader {
             /**锡矿**/
             register(blockTinOre,"block_tin_ore");
         } catch (Exception e) {
-            ModSimReloaded.log.error("BlockLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("BlockLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -150,7 +150,7 @@ public class BlockLoader {
         try {
             GameRegistry.registerBlock(block.setRegistryName(name));
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("register出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -205,7 +205,7 @@ public class BlockLoader {
             /**锡矿**/
             registerRender(blockTinOre);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -214,7 +214,7 @@ public class BlockLoader {
         try {
             ModelLoader.setCustomStateMapper(block, mapper);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerStateMapper出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerStateMapper出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -231,7 +231,7 @@ public class BlockLoader {
         try {
             registerRender(block, 0, block.getRegistryName());
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -249,7 +249,7 @@ public class BlockLoader {
             ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), meta, model);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -266,7 +266,7 @@ public class BlockLoader {
             block.setRegistryName(Util.getResource(name));
             GameRegistry.registerBlock(block, Util.resource(name));
         } catch (Exception e) {
-            ModSimReloaded.log.error("registers出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registers出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return block;
@@ -282,7 +282,7 @@ public class BlockLoader {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("registers出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registers出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return block;
     }
@@ -291,7 +291,7 @@ public class BlockLoader {
             registers(block, ItemBlockMeta.class, name);
             ItemBlockMeta.setMappingProperty(block, block.prop);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerEnumBlock出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerEnumBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return block;
     }

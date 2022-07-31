@@ -42,7 +42,7 @@ public class V3 implements Serializable, Cloneable {
         try{
             retV = new V3(this.x, this.y, this.z, this.theDimension);
         }catch (Exception e){
-            ModSimReloaded.log.error(this.name + "v3 clone出错了" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error(this.name + "v3 clone出错了" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return retV;
     }
@@ -79,7 +79,7 @@ public class V3 implements Serializable, Cloneable {
             this.z = Double.parseDouble(v[2]);
             this.theDimension = Integer.parseInt(v[3]);
         } catch (Exception e) {
-            ModSimReloaded.log.error("V3出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("V3出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -127,7 +127,7 @@ public class V3 implements Serializable, Cloneable {
                 return ret;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("isSameCoordsAs出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("isSameCoordsAs出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -147,7 +147,7 @@ public class V3 implements Serializable, Cloneable {
                 i= (int)dist;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getDistanceTo出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getDistanceTo出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return i;
@@ -159,7 +159,7 @@ public class V3 implements Serializable, Cloneable {
         try {
             s=this.x.intValue() + "," + this.y.intValue() + "," + this.z.intValue() + "," + this.theDimension;
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toString出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return s;
     }

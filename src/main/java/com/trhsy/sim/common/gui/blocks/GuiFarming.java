@@ -80,7 +80,7 @@ public class GuiFarming extends GuiScreen {
             }
             super.initGui();
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -111,7 +111,7 @@ public class GuiFarming extends GuiScreen {
                 if (this.theFarmingBox.marker1XYZ == null) {
                     this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_No"), this.width / 2, 27, 16711680);
                 }
-            } catch (Exception var5) {
+            } catch (Exception e) {
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Place"), this.width / 2, 27, 16711680);
             }
 
@@ -129,7 +129,7 @@ public class GuiFarming extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -225,7 +225,7 @@ public class GuiFarming extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -240,7 +240,7 @@ public class GuiFarming extends GuiScreen {
             ret=(float) (this.theFarmingBox.getSizeLength() * this.theFarmingBox.getSizeWidth());
             ret = ret / 15.0F;
         } catch (Exception e) {
-            ModSimReloaded.log.error("getUpgradeCost出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getUpgradeCost出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }

@@ -29,7 +29,7 @@ public class PacketHandler {
             //生成NPC数据包
             registerMessage(GenerateFolkPacket.Handler.class, GenerateFolkPacket.class, Side.CLIENT);
         } catch (Exception e) {
-            ModSimReloaded.log.error("initPackets出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initPackets出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -54,7 +54,7 @@ public class PacketHandler {
             net.registerMessage(packet, message, nextPacketId, Side.SERVER);
             nextPacketId++;
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerMessage出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerMessage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

@@ -32,7 +32,7 @@ public class LoadBuildingPacket implements IMessage {
         try {
             this.GuiBuildingCon = GuiBuildingCon;
         } catch (Exception e) {
-            ModSimReloaded.log.error("LoadBuildingPacket出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("LoadBuildingPacket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -41,7 +41,7 @@ public class LoadBuildingPacket implements IMessage {
         try {
             this.GuiBuildingCon = ByteBufUtils.readUTF8String(buf);
         } catch (Exception e) {
-            ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -60,7 +60,7 @@ public class LoadBuildingPacket implements IMessage {
                         try {
                             Building.loadAllBuildings();
                         } catch (Exception e) {
-                            ModSimReloaded.log.error("onMessage出错了：" + e.getMessage());
+                            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onMessage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
                         }
                         //player.openGui(ModSimukraft.instance, message.id, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
                     }

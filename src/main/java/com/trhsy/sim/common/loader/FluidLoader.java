@@ -33,7 +33,7 @@ public class FluidLoader {
         try {
             registerFluidRender((BlockFluidBase) BlockLoader.blockFluidMilk, "fluid_milk");
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -47,7 +47,7 @@ public class FluidLoader {
                 FluidRegistry.addBucketForFluid(fluidMilk);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("FluidLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("FluidLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -70,7 +70,7 @@ public class FluidLoader {
                 }
             });
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerFluidRender出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerFluidRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }
