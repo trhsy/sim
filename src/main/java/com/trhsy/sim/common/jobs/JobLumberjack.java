@@ -67,7 +67,7 @@ public class JobLumberjack extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -126,7 +126,7 @@ public class JobLumberjack extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLumberjack-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -179,7 +179,7 @@ public class JobLumberjack extends Job implements Serializable {
             this.theFolk.isWorking = false;
             if (!this.onRoute) {
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Going");
-                this.theFolk.gotoXYZ(this.foundWoodAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.foundWoodAt, null);
                 this.startedGoing = System.currentTimeMillis();
                 this.onRoute = true;
             } else {
@@ -338,7 +338,7 @@ public class JobLumberjack extends Job implements Serializable {
             if (this.step == 1) {
                 //将木材送回伐木场箱子
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Delivering");
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.step = 2;
             } else {
                 if (this.step == 2) {
@@ -389,7 +389,7 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.a_lumberjack");
                 this.theStage = Stage.ARRIVEDATMILL;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

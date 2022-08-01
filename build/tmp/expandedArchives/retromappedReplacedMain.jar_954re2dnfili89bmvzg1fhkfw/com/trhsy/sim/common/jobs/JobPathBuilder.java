@@ -9,6 +9,7 @@ import com.trhsy.sim.common.entity.functionality.PathBox;
 import net.minecraft.inventory.IInventory;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -28,7 +29,7 @@ public class JobPathBuilder {
     public transient long timeSinceLastRun = 0L;
     private transient int step = 1;
     transient Long timeSinceLastGoto = 0L;
-    transient ArrayList<IInventory> pathChests = null;
+    transient CopyOnWriteArrayList<IInventory> pathChests = null;
     transient boolean swingToggle = true;
     private PathBox thePathBox;
     public String pathDirection = "";

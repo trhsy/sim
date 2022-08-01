@@ -86,7 +86,7 @@ public class JobMiner extends Job implements Serializable {
 
             this.theMiningBox = MiningBox.getMiningBlockByBoxXYZ(folk.employedAt);
             if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
             /**
              * 看看我们是不是在水平挖掘
@@ -177,7 +177,7 @@ public class JobMiner extends Job implements Serializable {
             }
 
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobMiner-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -198,7 +198,7 @@ public class JobMiner extends Job implements Serializable {
                 this.step = 1;
                 this.theStage = Stage.WAITINGFORCHEST;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -559,7 +559,7 @@ public class JobMiner extends Job implements Serializable {
                 if (this.theFolk.location.y - this.vNextMineableBlock.y > 4) {
                     this.vNextMineableBlock.doNotTimeout = false;
                     if (this.vNextMineableBlock.y > 20) {
-                        this.theFolk.gotoXYZ(this.vNextMineableBlock, GotoMethod.BEAM);
+                        this.theFolk.gotoXYZ(this.vNextMineableBlock, null);
                     } else {
                         this.theFolk.stayPut = true;
                     }
@@ -567,7 +567,7 @@ public class JobMiner extends Job implements Serializable {
                     this.vNextMineableBlock.doNotTimeout = true;
                     if (this.vNextMineableBlock.y > 20) {
                         this.theFolk.stayPut = false;
-                        this.theFolk.gotoXYZ(this.vNextMineableBlock, GotoMethod.WALK);//行走
+                        this.theFolk.gotoXYZ(this.vNextMineableBlock, null);//行走
                     } else {
                         this.theFolk.stayPut = true;
                     }

@@ -18,7 +18,7 @@ import java.util.List;
  * @Author Tian
  * @Date 2022/5/1123:54
  **/
-public class ConfigSyncPacket extends AbstractPacket{
+public class ConfigSyncPacket extends AbstractPacket {
     public List<ConfigCategory> categories = Lists.newLinkedList();
 
     public ConfigSyncPacket() {
@@ -39,13 +39,13 @@ public class ConfigSyncPacket extends AbstractPacket{
     public void fromBytes(ByteBuf buf) {
         short categoryCount = buf.readShort();
 
-        for(short i = 0; i < categoryCount; i++) {
+        for (short i = 0; i < categoryCount; i++) {
             int propCount = buf.readInt();
             String categoryName = ByteBufUtils.readUTF8String(buf);
             ConfigCategory category = new ConfigCategory(categoryName);
             this.categories.add(category);
 
-            for(int j = 0; j < propCount; ++j) {
+            for (int j = 0; j < propCount; ++j) {
                 String name = ByteBufUtils.readUTF8String(buf);
                 char type = buf.readChar();
                 String value = ByteBufUtils.readUTF8String(buf);
@@ -58,16 +58,10 @@ public class ConfigSyncPacket extends AbstractPacket{
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeShort(this.categories.size());
-        Iterator var2 = this.categories.iterator();
-
-        while(var2.hasNext()) {
-            ConfigCategory category = (ConfigCategory)var2.next();
+        for (ConfigCategory category : this.categories) {
             buf.writeInt(category.values().size());
             ByteBufUtils.writeUTF8String(buf, category.getName());
-            Iterator var4 = category.values().iterator();
-
-            while(var4.hasNext()) {
-                Property prop = (Property)var4.next();
+            for (Property prop : category.values()) {
                 ByteBufUtils.writeUTF8String(buf, prop.getName());
                 buf.writeChar(prop.getType().getID());
                 ByteBufUtils.writeUTF8String(buf, prop.getString());

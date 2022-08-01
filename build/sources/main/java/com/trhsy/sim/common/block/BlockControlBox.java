@@ -73,7 +73,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
                 list.add(new ItemStack(this, 1, type.meta));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("控制箱getSubBlocks出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("控制箱getSubBlocks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -137,7 +137,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("控制箱onBlockActivated出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("控制箱onBlockActivated出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return false;
         }
 

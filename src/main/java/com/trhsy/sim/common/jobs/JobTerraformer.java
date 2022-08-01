@@ -59,7 +59,7 @@ public class JobTerraformer extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -122,7 +122,7 @@ public class JobTerraformer extends Job {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobTerraformer-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -535,7 +535,7 @@ public class JobTerraformer extends Job {
                 this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.Arrived");
                 this.theStage = Stage.WAITINGFORRESOURCES;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

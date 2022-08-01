@@ -61,7 +61,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -109,7 +109,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLivestockFarmer-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -218,7 +218,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
             }
 
             this.redShirt.setHealth(0.0F);
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+            this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             int quant = 0;
             this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             boolean ok = true;
@@ -311,7 +311,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

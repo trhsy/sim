@@ -20,7 +20,7 @@ public class GuiElementLoader implements IGuiHandler {
             // 模组实例，IGuiHandler本身
             NetworkRegistry.INSTANCE.registerGuiHandler(ModSim.instance, this);
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiElementLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiElementLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -45,7 +45,7 @@ public class GuiElementLoader implements IGuiHandler {
                     return null;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getServerGuiElement出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getServerGuiElement出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -71,7 +71,7 @@ public class GuiElementLoader implements IGuiHandler {
                     return null;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getClientGuiElement出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getClientGuiElement出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }

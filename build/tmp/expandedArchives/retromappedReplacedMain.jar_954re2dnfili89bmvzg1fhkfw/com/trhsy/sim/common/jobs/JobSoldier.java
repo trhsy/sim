@@ -60,12 +60,12 @@ public class JobSoldier extends Job implements Serializable {
             }
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobSoldier出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobSoldier出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -75,7 +75,7 @@ public class JobSoldier extends Job implements Serializable {
         try {
             this.theStage = Stage.IDLE;
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("resetJob出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -88,7 +88,7 @@ public class JobSoldier extends Job implements Serializable {
                 if (this.theStage == Stage.IDLE) {
                     this.theStage = Stage.ONPATROL;
                     if (this.theFolk.destination == null) {
-                        this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                        this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                     }
                 } else if (this.theStage == Stage.ONPATROL) {
                     this.stageOnPatrol();
@@ -98,7 +98,7 @@ public class JobSoldier extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -155,7 +155,7 @@ public class JobSoldier extends Job implements Serializable {
                 return;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageOnPatrol出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageOnPatrol出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -209,7 +209,7 @@ public class JobSoldier extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageAttacking出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageAttacking出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -235,7 +235,7 @@ public class JobSoldier extends Job implements Serializable {
                 return closestBadGuy;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("findClosestHostileMob出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("findClosestHostileMob出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return closestBadGuy;
     }
@@ -250,10 +250,10 @@ public class JobSoldier extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.soldier.farmer.Reporting");
                 this.theStage = Stage.ONPATROL;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

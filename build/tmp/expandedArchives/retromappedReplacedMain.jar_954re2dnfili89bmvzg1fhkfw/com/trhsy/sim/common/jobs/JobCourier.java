@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -37,8 +38,8 @@ public class JobCourier extends Job implements Serializable {
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private transient ArrayList<CourierTask> courierTasks = new ArrayList();
-    private transient ArrayList<IInventory> chests = new ArrayList();
+    private transient CopyOnWriteArrayList<CourierTask> courierTasks = new CopyOnWriteArrayList();
+    private transient CopyOnWriteArrayList<IInventory> chests = new CopyOnWriteArrayList();
     private transient int currentTask = 0;
     private transient long timeSinceLastCycle = 0L;
     private transient V3 pickup;
@@ -57,12 +58,12 @@ public class JobCourier extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobCourier出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobCourier出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -109,7 +110,7 @@ public class JobCourier extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -124,7 +125,7 @@ public class JobCourier extends Job implements Serializable {
                     if (task != null && task.pickup != null && task.folkname.contentEquals(this.theFolk.name)) {
                         try {
                             this.courierTasks.add(task);
-                        } catch (Exception var4) {
+                        } catch (Exception e) {
                             //var4.printStackTrace();
                         }
                     }
@@ -138,7 +139,7 @@ public class JobCourier extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageAtDepot出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageAtDepot出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -172,7 +173,7 @@ public class JobCourier extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGoingToPickup出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoingToPickup出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -216,7 +217,7 @@ public class JobCourier extends Job implements Serializable {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("stagePickingUp出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stagePickingUp出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -227,7 +228,7 @@ public class JobCourier extends Job implements Serializable {
                 this.dropoff = task.dropoff.clone();
             } else {
                 this.theStage = Stage.ATDEPOT;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 if (task != null) {
                     this.courierTasks.remove(task);
                 }
@@ -265,7 +266,7 @@ public class JobCourier extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGoingToDropoff出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoingToDropoff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -321,13 +322,13 @@ public class JobCourier extends Job implements Serializable {
                 this.currentTask = 0;
                 this.timeSinceLastCycle = System.currentTimeMillis();
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 this.theStage = Stage.IDLE;
             } else {
                 this.theStage = Stage.GOINGTOPICKUP;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageDroppingOff出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageDroppingOff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -343,11 +344,11 @@ public class JobCourier extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.courier.Arrived");
                 this.theStage = Stage.ATDEPOT;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

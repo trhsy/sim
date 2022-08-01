@@ -199,7 +199,8 @@ public class ModSimReloaded {
                 ModSim.proxy.ranStartup = true;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("resetAndLoadNewWorld出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("resetAndLoadNewWorld出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -221,7 +222,8 @@ public class ModSimReloaded {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("sendChat出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("sendChat出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -251,7 +253,8 @@ public class ModSimReloaded {
                 f.mkdirs();
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getSavesDataFolder出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("getSavesDataFolder出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return ret;
     }
@@ -287,11 +290,12 @@ public class ModSimReloaded {
         //} else {
         //    return false;
         //}
-        boolean falg=false;
+        boolean falg = false;
         try {
-            falg=MinecraftServer.getServer().worldServers[0].isDaytime();
+            falg = MinecraftServer.getServer().worldServers[0].isDaytime();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("isDayTime出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("isDayTime出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return falg;
 
@@ -305,12 +309,13 @@ public class ModSimReloaded {
      * @return
      */
     public static String displayMoney(float moneyin) {
-        String output =null;
+        String output = null;
         try {
             DecimalFormat myFormatter = new DecimalFormat("#,##0.00");
-            output =myFormatter.format((double) moneyin);
+            output = myFormatter.format((double) moneyin);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("displayMoney出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("displayMoney出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return output;
     }
@@ -390,7 +395,8 @@ public class ModSimReloaded {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("dayTransitionHandler出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("dayTransitionHandler出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -492,7 +498,7 @@ public class ModSimReloaded {
                             folk.age++;
                         }
                         //小于18 则周三或者周六 年龄加一
-                    } else{
+                    } else {
                         if (states.dayOfWeek == 3 || states.dayOfWeek == 6) {
                             //让孩子一周两次上年纪
                             folk.age++;
@@ -526,7 +532,7 @@ public class ModSimReloaded {
                             if (folk.levelFood == 0) {
                                 //非常饿,你应该建一个农场、杂货店、面包店或向他们扔一些食物。
                                 sendChat(folk.name + I18n.format("container.sim.main_is_VERY"));
-                            }else if(folk.levelFood<0){
+                            } else if (folk.levelFood < 0) {
                                 //饥饿等级小于-开始掉血
                             }
                         }
@@ -577,7 +583,8 @@ public class ModSimReloaded {
                 Commodity.refreshAvailableCommoditities();
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("evolveFolks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("evolveFolks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -605,7 +612,8 @@ public class ModSimReloaded {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("demolishBlocks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("demolishBlocks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -652,7 +660,7 @@ public class ModSimReloaded {
 
                 if (destroy) {
                     //System.out.println("farmToUpgradeCounter:" + farmToUpgradeCounter);
-                    BlockPos blockPos2 = new BlockPos(point.x.intValue() - 1, point.y.intValue(), point.z.intValue() + 1);
+                    BlockPos blockPos2 = new BlockPos(point.x.intValue() - 1, point.y.intValue(), point.z.intValue() - 1);
                     //摧毁放快
                     theWorld.destroyBlock(blockPos2, true);
                     //把原来方块替换成 栅栏
@@ -662,7 +670,7 @@ public class ModSimReloaded {
                 }
                 //升级点除以六等于0 每隔6个街区放置一盏灯
                 if (farmToUpgradeCounter % 6 == 0) {
-                    BlockPos blockPos1 = new BlockPos(point.x.intValue() - 1, point.y.intValue() - 1, point.z.intValue() + 1);
+                    BlockPos blockPos1 = new BlockPos(point.x.intValue() - 1, point.y.intValue() - 1, point.z.intValue() - 1);
                     theWorld.destroyBlock(blockPos1, true);
                     //把原来方块替换成 灯箱
                     theWorld.setBlockState(blockPos1, BlockLoader.blockLightBox.getDefaultState(), 3);
@@ -699,13 +707,13 @@ public class ModSimReloaded {
                 ModSimReloaded.log.info("完成农场升级");
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];
-            ModSimReloaded.log.error("升级农场出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("升级农场出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     public static String getDayOfWeek() {
-        String[] dow =null;
+        String[] dow = null;
         try {
             String simSun = I18n.format("container.sim.simSun");
             String simMon = I18n.format("container.sim.simMon");
@@ -714,9 +722,10 @@ public class ModSimReloaded {
             String simThu = I18n.format("container.sim.simThu");
             String simFri = I18n.format("container.sim.simFri");
             String simSat = I18n.format("container.sim.simSat");
-            dow =new String[]{simSun, simMon, simTue, simWed, simThu, simFri, simSat};
+            dow = new String[]{simSun, simMon, simTue, simWed, simThu, simFri, simSat};
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getDayOfWeek出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("getDayOfWeek出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return dow[states.dayOfWeek];
     }
@@ -733,7 +742,8 @@ public class ModSimReloaded {
 
             br.close();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadSK2出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("loadSK2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
         return ret;
@@ -751,7 +761,8 @@ public class ModSimReloaded {
 
             bw.close();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveSK2出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("saveSK2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             //var5.printStackTrace();
         }
 
@@ -781,8 +792,8 @@ public class ModSimReloaded {
             o = in2.readObject();
             in2.close();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];
-            ModSimReloaded.log.info("旧加载程序-无法加载对象 " + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.info("旧加载程序-无法加载对象 " + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
         return o;

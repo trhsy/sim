@@ -59,7 +59,7 @@ public class RecipeMatchRegistry {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("copyItemStackArray出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("copyItemStackArray出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return stacksCopy;

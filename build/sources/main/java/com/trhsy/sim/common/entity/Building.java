@@ -1,12 +1,10 @@
 package com.trhsy.sim.common.entity;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.entity.infrastructure.Infrastructure;
 import com.trhsy.sim.common.entity.infrastructure.InfrastructureElectricity;
 import com.trhsy.sim.common.entity.infrastructure.InfrastructureWater;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.common.util.UpdateChecker;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -20,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 建筑物
@@ -69,25 +68,25 @@ public class Building implements Serializable {
     //租金
     public Float rent = 0.0F;
     //租户
-    public ArrayList<String> tenants = new ArrayList();
+    public CopyOnWriteArrayList<String> tenants = new CopyOnWriteArrayList();
     //块位置
-    public ArrayList<V3> blockLocations = new ArrayList();
+    public CopyOnWriteArrayList<V3> blockLocations = new CopyOnWriteArrayList();
     //需求
     public transient HashMap<ItemStack, Integer> requirements = new HashMap();
     //控制箱位置
     public transient V3 conBoxLocation = null;
     //住宅建筑物
-    private static transient ArrayList<Building> buildingsRes = new ArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsRes = new CopyOnWriteArrayList();
     //商业建筑物
-    private static transient ArrayList<Building> buildingsCom = new ArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsCom = new CopyOnWriteArrayList();
     //工业建筑物
-    private static transient ArrayList<Building> buildingsInd = new ArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsInd = new CopyOnWriteArrayList();
     //其他建筑物
-    private static transient ArrayList<Building> buildingsOth = new ArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsOth = new CopyOnWriteArrayList();
     //特制建筑物
-    private static transient ArrayList<Building> buildingsSpec = new ArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsSpec = new CopyOnWriteArrayList();
     //特除的空气方块
-    public ArrayList<V3> blockSpecial = new ArrayList();
+    public CopyOnWriteArrayList<V3> blockSpecial = new CopyOnWriteArrayList();
     //运行初始化线程
     private static boolean runningInitThread = false;
 
@@ -113,7 +112,7 @@ public class Building implements Serializable {
                 this.requirements = new HashMap();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑Building出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑Building出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -137,7 +136,7 @@ public class Building implements Serializable {
                 this.requirements = new HashMap();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑Building出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑Building出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -193,15 +192,15 @@ public class Building implements Serializable {
             //租金
             ret.rent = this.rent;
             //租户
-            ret.tenants = new ArrayList();
+            ret.tenants = new CopyOnWriteArrayList();
             //区块位置
-            ret.blockLocations = new ArrayList();
+            ret.blockLocations = new CopyOnWriteArrayList();
             //空
-            ret.blockSpecial = new ArrayList();
+            ret.blockSpecial = new CopyOnWriteArrayList();
             //加载结构
             ret.loadStructure();
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑clone出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑clone出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             ret.primaryXYZ = null;
             ret.livingXYZ = null;
         }
@@ -215,19 +214,16 @@ public class Building implements Serializable {
      * @param meta
      * @return
      */
-    public ArrayList<V3> getSpecialBlocks(int meta) {
-        ArrayList<V3> ret = new ArrayList();
+    public CopyOnWriteArrayList<V3> getSpecialBlocks(int meta) {
+        CopyOnWriteArrayList<V3> ret = new CopyOnWriteArrayList();
         try {
-            Iterator iterator = this.blockSpecial.iterator();
-
-            while (iterator.hasNext()) {
-                V3 v3 = (V3) iterator.next();
+            for (V3 v3 : this.blockSpecial) {
                 if (v3.meta == meta) {
                     ret.add(v3);
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑getSpecialBlocks出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑getSpecialBlocks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -247,7 +243,7 @@ public class Building implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑removeTennant出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑removeTennant出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -415,8 +411,8 @@ public class Building implements Serializable {
                             if (!ch.contentEquals("A")) {
                                 this.blocksInBuilding++;
                             }
-                        } catch (Exception var19) {
-                            ModSimReloaded.log.error(displayName + "：--》建筑加载异常:" + var19.getMessage());
+                        } catch (Exception e) {
+                            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error(displayName + "：--》建筑加载异常:" + e.getMessage()+"行数："+element.getLineNumber());
                         }
                     }
                 }
@@ -426,8 +422,8 @@ public class Building implements Serializable {
             in.close();
             //租金
             this.rent = (float) this.blocksInBuilding * 0.01F;
-        } catch (Exception var20) {
-            ModSimReloaded.log.error(displayName + "：建筑异常:" + var20.getMessage());
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error(displayName + "：建筑异常:" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -464,7 +460,7 @@ public class Building implements Serializable {
                 try {
                     //获取方块名称
                     name = theBlock.getDisplayName().toLowerCase();
-                } catch (Exception var11) {
+                } catch (Exception e) {
                     name = "????";
                 }
                 //System.out.println(name);
@@ -480,8 +476,7 @@ public class Building implements Serializable {
                         && !name.contains(stairs) && !name.contains(grass))) {
                     boolean got = false;
                     Iterator it = requirements.entrySet().iterator();
-                    while (it.hasNext()) {
-                        Map.Entry pairs = (Map.Entry) it.next();
+                    for (Map.Entry pairs : requirements.entrySet()) {
                         ItemStack is = (ItemStack) pairs.getKey();
 
                         if (is.getItem() == theBlock.getItem()) {
@@ -505,16 +500,13 @@ public class Building implements Serializable {
 
                 try {
                     name = theBlock.getDisplayName().toLowerCase();
-                } catch (Exception var10) {
+                } catch (Exception e) {
                     name = "????";
                 }
 
                 if (!name.contains(grass) && !name.contains(bed)) {
-                    Iterator it = requirements.entrySet().iterator();
                     boolean got = false;
-
-                    while (it.hasNext()) {
-                        Map.Entry pairs = (Map.Entry) it.next();
+                    for (Map.Entry pairs : requirements.entrySet()) {
                         ItemStack is = (ItemStack) pairs.getKey();
                         if (is.getItem() == theBlock.getItem()) {
                             val = (Integer) pairs.getValue();
@@ -530,7 +522,7 @@ public class Building implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑addToRequirements出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑addToRequirements出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -540,13 +532,13 @@ public class Building implements Serializable {
      * @param from
      * @param to
      */
-    private static void copyArrayList(ArrayList<Building> from, ArrayList<Building> to) {
+    private static void copyArrayList(CopyOnWriteArrayList<Building> from, CopyOnWriteArrayList<Building> to) {
         try {
             for (int i = 0; i < from.size(); i++) {
                 to.add(from.get(i));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑copyArrayList出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑copyArrayList出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -557,8 +549,8 @@ public class Building implements Serializable {
      * @param searchWords
      * @return
      */
-    public static ArrayList<Building> getBuildingBlueprints(String theType, String searchWords) {
-        ArrayList retBuildings = new ArrayList();
+    public static CopyOnWriteArrayList<Building> getBuildingBlueprints(String theType, String searchWords) {
+        CopyOnWriteArrayList retBuildings = new CopyOnWriteArrayList();
 
         try {
             int sizesearch = 0;
@@ -577,7 +569,7 @@ public class Building implements Serializable {
             if (!searchWords.contentEquals("")) {
                 try {
                     sizesearch = Integer.parseInt(searchWords.substring(2));
-                } catch (Exception var6) {
+                } catch (Exception e) {
                 }
 
                 int i;
@@ -613,7 +605,7 @@ public class Building implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑getBuildingBlueprints出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑getBuildingBlueprints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return retBuildings;
     }
@@ -637,11 +629,11 @@ public class Building implements Serializable {
                     if (b.primaryXYZ.isSameCoordsAs(primaryXYZ, false, true)) {
                         return b;
                     }
-                } catch (Exception var4) {
+                } catch (Exception e) {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑getBuilding出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑getBuilding出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return b;
     }
@@ -656,13 +648,13 @@ public class Building implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑getBuildingBySearch出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑getBuildingBySearch出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return b;
     }
 
-    public static ArrayList<Building> getBuildingBySearch(String searchWord, boolean findAll) {
-        ArrayList<Building> ret = new ArrayList();
+    public static CopyOnWriteArrayList<Building> getBuildingBySearch(String searchWord, boolean findAll) {
+        CopyOnWriteArrayList<Building> ret = new CopyOnWriteArrayList();
         try {
             for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
                 Building b = (Building) ModSimReloaded.theBuildings.get(x);
@@ -671,7 +663,7 @@ public class Building implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑getBuildingBySearch出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑getBuildingBySearch出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -686,18 +678,18 @@ public class Building implements Serializable {
                     if (b.conBoxLocation.isSameCoordsAs(conBoxLoc, true, true)) {
                         return b;
                     }
-                } catch (Exception var4) {
+                } catch (Exception e) {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑getBuildingByConBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑getBuildingByConBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return b;
     }
 
     public void saveThisBuilding() {
         try {
-            ArrayList<String> strings = new ArrayList();
+            CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList();
             strings.clear();
             if (this.primaryXYZ != null) {
                 String xyz = "b" + this.primaryXYZ.toString().replaceAll(",", "_");
@@ -721,10 +713,7 @@ public class Building implements Serializable {
 
                 strings.add("blocksinbuilding|" + this.blocksInBuilding);
                 String temp = "tenants|";
-                Iterator i$ = this.tenants.iterator();
-
-                while (i$.hasNext()) {
-                    String tennant = (String) i$.next();
+                for (String tennant : this.tenants) {
                     if (!tennant.trim().contentEquals("")) {
                         temp = temp + tennant.trim() + ",";
                     }
@@ -732,11 +721,7 @@ public class Building implements Serializable {
 
                 strings.add(temp);
                 temp = "blocklocs|";
-                i$ = this.blockLocations.iterator();
-
-                V3 block;
-                while (i$.hasNext()) {
-                    block = (V3) i$.next();
+                for (V3 block : this.blockLocations) {
                     if (block != null & block.toString().contains(",")) {
                         temp = temp + block.toString() + "B";
                     }
@@ -745,10 +730,7 @@ public class Building implements Serializable {
                 strings.add(temp);
                 if (this.blockSpecial.size() > 0) {
                     temp = "blockspecial|";
-                    i$ = this.blockSpecial.iterator();
-
-                    while (i$.hasNext()) {
-                        block = (V3) i$.next();
+                    for (V3 block : this.blockSpecial) {
                         if (block != null & block.toString().contains(",")) {
                             temp = temp + block.toString() + "," + block.meta + "B";
                         }
@@ -760,14 +742,14 @@ public class Building implements Serializable {
                 ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2", strings);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑saveThisBuilding出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑saveThisBuilding出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
     public static void saveAllBuildings() {
         try {
             Minecraft mc = Minecraft.getMinecraft();
-            ArrayList<String> strings = new ArrayList();
+            CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList();
 
             for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
                 strings.clear();
@@ -803,10 +785,7 @@ public class Building implements Serializable {
 
                         strings.add("blocksinbuilding|" + building.blocksInBuilding);
                         String temp = "tenants|";
-                        Iterator i$ = building.tenants.iterator();
-
-                        while (i$.hasNext()) {
-                            String tennant = (String) i$.next();
+                        for (String tennant : building.tenants) {
                             if (!tennant.trim().contentEquals("")) {
                                 temp = temp + tennant.trim() + ",";
                             }
@@ -814,29 +793,21 @@ public class Building implements Serializable {
 
                         strings.add(temp);
 
-                        V3 block;
                         try {
                             temp = "blocklocs|";
-                            i$ = building.blockLocations.iterator();
-
-                            while (i$.hasNext()) {
-                                block = (V3) i$.next();
+                            for (V3 block : building.blockLocations) {
                                 if (block != null & block.toString().contains(",")) {
                                     temp = temp + block.toString() + "B";
                                 }
                             }
-
                             strings.add(temp);
-                        } catch (Exception var12) {
+                        } catch (Exception e) {
                         }
 
                         try {
                             if (building.blockSpecial.size() > 0) {
                                 temp = "blockspecial|";
-                                i$ = building.blockSpecial.iterator();
-
-                                while (i$.hasNext()) {
-                                    block = (V3) i$.next();
+                                for (V3 block : building.blockSpecial) {
                                     if (block != null & block.toString().contains(",")) {
                                         temp = temp + block.toString() + "," + block.meta + "B";
                                     }
@@ -844,7 +815,7 @@ public class Building implements Serializable {
 
                                 strings.add(temp);
                             }
-                        } catch (Exception var11) {
+                        } catch (Exception e) {
                         }
 
                         ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2", strings);
@@ -852,7 +823,7 @@ public class Building implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveAllBuildings出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         ModSimReloaded.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 建筑");
     }
@@ -871,7 +842,7 @@ public class Building implements Serializable {
                 f = files[i];
                 if (f.getName().endsWith(".sk2")) {
 
-                    ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                    CopyOnWriteArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     build = new Building();
                     for (String line : strings) {
                         int m1 = line.indexOf("|");
@@ -979,7 +950,7 @@ public class Building implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -1006,13 +977,13 @@ public class Building implements Serializable {
                         if (!exists) {
                             building.tenants.remove(tennant);
                         }
-                    } catch (Exception var7) {
+                    } catch (Exception e) {
                         //var7.printStackTrace();
                     }
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("checkTenants出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -1040,7 +1011,7 @@ public class Building implements Serializable {
                 t.start();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -1056,7 +1027,7 @@ public class Building implements Serializable {
                 return build;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getBuildingForFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return build;
     }
@@ -1084,69 +1055,52 @@ public class Building implements Serializable {
 
                 try {
                     Thread.sleep(30L);
-                } catch (Exception var6) {
+                } catch (Exception e) {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initBuildingsOfType出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
     }
 
     public static Building getFromAllBuildings(String fullname, String type) {
-        Iterator i$;
-        Building build = null;
         try {
             if (type.contentEquals("residential")) {
-                i$ = buildingsRes.iterator();
-
-                while (i$.hasNext()) {
-                    build = (Building) i$.next();
+                for (Building build:buildingsRes){
                     if (build.displayName.contentEquals(fullname)) {
                         return build.clone();
                     }
                 }
             } else if (type.contentEquals("commercial")) {
-                i$ = buildingsCom.iterator();
-
-                while (i$.hasNext()) {
-                    build = (Building) i$.next();
+                for (Building build:buildingsCom){
                     if (build.displayName.contentEquals(fullname)) {
                         return build.clone();
                     }
                 }
             } else if (type.contentEquals("industrial")) {
-                i$ = buildingsInd.iterator();
-
-                while (i$.hasNext()) {
-                    build = (Building) i$.next();
+                for (Building build:buildingsInd){
                     if (build.displayName.contentEquals(fullname)) {
                         return build.clone();
                     }
                 }
             } else if (type.contentEquals("other")) {
-                i$ = buildingsOth.iterator();
-
-                while (i$.hasNext()) {
-                    build = (Building) i$.next();
+                for (Building build:buildingsOth){
                     if (build.displayName.contentEquals(fullname)) {
                         return build.clone();
                     }
                 }
             } else if (type.contentEquals("special")) {
-                i$ = buildingsSpec.iterator();
-
-                while (i$.hasNext()) {
-                    build = (Building) i$.next();
+                for (Building build:buildingsSpec){
                     if (build.displayName.contentEquals(fullname)) {
                         return build.clone();
                     }
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getFromAllBuildings出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
-        return build;
+        return null;
     }
 }

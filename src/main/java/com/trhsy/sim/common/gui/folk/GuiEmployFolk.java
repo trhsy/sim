@@ -251,7 +251,7 @@ public class GuiEmployFolk extends GuiScreen {
                 efolk.employedAt = this.controlBoxLocation;
                 efolk.setTheirJob(this.vocation);
                 if (ModSimReloaded.isDayTime()) {
-                    efolk.gotoXYZ(efolk.employedAt, GotoMethod.WALK);
+                    efolk.gotoXYZ(efolk.employedAt, null);
                 }
             }
             this.mc.currentScreen = null;

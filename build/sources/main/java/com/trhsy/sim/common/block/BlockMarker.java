@@ -26,6 +26,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName BlockMarker
@@ -35,7 +36,7 @@ import java.util.ArrayList;
  **/
 public class BlockMarker extends Block implements IExtendedEntityProperties {
     public static boolean hasPlaced = false;
-    public static ArrayList<Marker> markers = new ArrayList();
+    public static CopyOnWriteArrayList<Marker> markers = new CopyOnWriteArrayList();
     public V3 location;
 
     public BlockMarker() {
@@ -59,7 +60,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         try {
             this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         } catch (Exception e) {
-            ModSimReloaded.log.error("标记棒setBlockBoundsForItemRender出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("标记棒setBlockBoundsForItemRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -89,14 +90,14 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 for (int mm = 0; mm < 4; ++mm) {
                     try {
                         ((EntityAlignBeam) marker.beams.get(mm)).setDead();
-                    } catch (Exception var10) {
+                    } catch (Exception e) {
                     }
                 }
             }
             markers.clear();
             super.onBlockDestroyedByPlayer(world,blockPos,iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("标记棒onBlockDestroyedByPlayer出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("标记棒onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -173,7 +174,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 super.onBlockPlacedBy(world, blockPos,iBlockState, player, is);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("标记棒onBlockPlacedBy出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("标记棒onBlockPlacedBy出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -189,7 +190,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("标记棒getMarker出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("标记棒getMarker出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return ret;
@@ -205,7 +206,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return false;
         }
         return true;

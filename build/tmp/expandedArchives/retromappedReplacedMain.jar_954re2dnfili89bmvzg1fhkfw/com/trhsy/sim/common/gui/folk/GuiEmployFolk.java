@@ -22,6 +22,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -63,7 +64,7 @@ public class GuiEmployFolk extends GuiScreen {
     /**
      * 选定的NPC
      */
-    private ArrayList<GuiButton> selectedFolks = new ArrayList();
+    private CopyOnWriteArrayList<GuiButton> selectedFolks = new CopyOnWriteArrayList();
     /**
      * 最大员工数
      */
@@ -85,7 +86,7 @@ public class GuiEmployFolk extends GuiScreen {
                 this.maxEmployees = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -96,7 +97,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.miningBox = b;
             this.maxEmployees = 1;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var4.printStackTrace();
         }
 
@@ -108,7 +109,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.vocation = v;
             this.farmingBox = b;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var4.printStackTrace();
         }
 
@@ -121,7 +122,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.pathBox = thePathBox;
             this.maxEmployees = 1;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var4.printStackTrace();
         }
 
@@ -135,7 +136,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 200, this.field_146295_m - 30, I18n.func_135052_a("container.sim.sim_gui_player_to_Cancel")));
             //好
             this.field_146292_n.add(new GuiButton(1000, this.field_146294_l / 2, this.field_146295_m - 30, I18n.func_135052_a("container.sim.gui_btn_name_OK")));
-            ArrayList folks = FolkData.getFolkUnemployed(false);
+            CopyOnWriteArrayList folks = FolkData.getFolkUnemployed(false);
             int x = 10;
             int y = 40;
             int idx = 1;
@@ -169,7 +170,7 @@ public class GuiEmployFolk extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiEmployFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var9.printStackTrace();
         }
 
@@ -186,7 +187,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.func_73732_a(this.field_146289_q, I18n.func_135052_a("container.sim.gui_btn_name_Choose_who_you") + this.vocation.toString(), this.field_146294_l / 2, 17, 16777215);
             super.func_73863_a(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var5.printStackTrace();
         }
     }
@@ -219,7 +220,7 @@ public class GuiEmployFolk extends GuiScreen {
                             return;
                         }
 
-                        ArrayList<FolkData> efolks = new ArrayList();
+                        CopyOnWriteArrayList<FolkData> efolks = new CopyOnWriteArrayList();
 
                         for (int w = 0; w < this.selectedFolks.size(); ++w) {
                             GuiButton button = (GuiButton) this.selectedFolks.get(w);
@@ -238,19 +239,19 @@ public class GuiEmployFolk extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIEMPLOYFOLK-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
 
-    public void hireFolks(ArrayList<FolkData> efolks) {
+    public void hireFolks(CopyOnWriteArrayList<FolkData> efolks) {
         try {
             for (int i = 0; i < efolks.size(); i++) {
                 FolkData efolk = (FolkData) efolks.get(i);
                 efolk.employedAt = this.controlBoxLocation;
                 efolk.setTheirJob(this.vocation);
                 if (ModSimReloaded.isDayTime()) {
-                    efolk.gotoXYZ(efolk.employedAt, (GotoMethod) null);
+                    efolk.gotoXYZ(efolk.employedAt, GotoMethod.WALK);
                 }
             }
             this.field_146297_k.field_71462_r = null;
@@ -280,7 +281,7 @@ public class GuiEmployFolk extends GuiScreen {
                 this.field_146297_k.func_147108_a(uiGuiControlBox);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("hireFolks出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("hireFolks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -291,7 +292,7 @@ public class GuiEmployFolk extends GuiScreen {
         try {
             Keyboard.enableRepeatEvents(false);
         } catch (Exception e) {
-            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -304,7 +305,7 @@ public class GuiEmployFolk extends GuiScreen {
                 this.field_146297_k.func_71381_h();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

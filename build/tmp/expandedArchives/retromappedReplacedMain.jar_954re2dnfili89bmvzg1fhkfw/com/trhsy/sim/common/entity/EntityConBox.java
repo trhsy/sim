@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -57,7 +58,7 @@ public class EntityConBox extends Entity {
                     this.func_70106_y();
                 }
 
-                ArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK), BlockLoader.blockConstructorBox, 5);
+                CopyOnWriteArrayList<V3> conblocks = Job.findClosestBlocks(new V3(this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_71093_bK), BlockLoader.blockConstructorBox, 5);
                 if (conblocks.size() < 1) {
                     this.func_70106_y();
                 }
@@ -68,7 +69,7 @@ public class EntityConBox extends Entity {
             ++this.boxYaw;
             super.func_70071_h_();
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -86,7 +87,7 @@ public class EntityConBox extends Entity {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getFolk出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return ret;
@@ -103,7 +104,7 @@ public class EntityConBox extends Entity {
                 ModSim.proxy.getClientWorld().func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, ent.field_70165_t + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0 - var2 * var8, ent.field_70163_u + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.field_70161_v + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1.0 - var6 * var8, var2, var4, var6);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("spawnExplosionParticle出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("spawnExplosionParticle出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

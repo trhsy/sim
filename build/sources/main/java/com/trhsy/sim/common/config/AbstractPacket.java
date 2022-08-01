@@ -27,7 +27,7 @@ public abstract class AbstractPacket implements IMessage {
             buf.writeInt(pos.getY());
             buf.writeInt(pos.getZ());
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("writePos出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

@@ -9,6 +9,7 @@ import com.trhsy.sim.common.entity.EntityAlignBeam;
 import com.trhsy.sim.common.entity.V3;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -25,7 +26,7 @@ public class Marker {
     public int z;
     int dimension;
     public String caption = "";
-    public ArrayList<EntityAlignBeam> beams = new ArrayList();
+    public CopyOnWriteArrayList<EntityAlignBeam> beams = new CopyOnWriteArrayList();
 
     public Marker(int i, int j, int k, int dime) {
         this.x = i;

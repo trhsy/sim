@@ -51,7 +51,7 @@ public class JobFisherman extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -98,7 +98,7 @@ public class JobFisherman extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobFisherman-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -141,7 +141,7 @@ public class JobFisherman extends Job implements Serializable {
                 }
 
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageFishing出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -173,7 +173,7 @@ public class JobFisherman extends Job implements Serializable {
             if (dist <= 3) {
                 this.theFolk.stayPut = true;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCaughtFish出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -231,7 +231,7 @@ public class JobFisherman extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATDOCK;
                 this.timeSinceLastCaughtFish = System.currentTimeMillis();
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

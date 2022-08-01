@@ -173,7 +173,7 @@ public class ItemLoader {
             //register(itemWindmillVane, "item_windmill_vane");
             itemWindmillVane=registerItem(new ItemWindmillVane(),"item_windmill_vane");
         } catch (Exception e) {
-            ModSimReloaded.log.error("ItemLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("ItemLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -188,7 +188,7 @@ public class ItemLoader {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerItem出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerItem出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return item;
     }
@@ -203,7 +203,7 @@ public class ItemLoader {
         try {
             GameRegistry.registerItem(item.setRegistryName(name));
         } catch (Exception e) {
-            ModSimReloaded.log.error("register出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("register出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -318,7 +318,7 @@ public class ItemLoader {
             registerRender(itemWindmillVane,15,ModSim.MODID+":item_windmill_vane15");
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -329,7 +329,7 @@ public class ItemLoader {
         try {
             registerRender(item, 0, item.getRegistryName());
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -339,7 +339,7 @@ public class ItemLoader {
             ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
             ModelLoader.setCustomModelResourceLocation(item, meta, model);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRender出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

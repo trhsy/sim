@@ -29,13 +29,13 @@ public class Flightpath {
     }
 
     public void setExceptionHandler(IExceptionHandler handler) {
-        synchronized(this.lock) {
+        synchronized (this.lock) {
             this.exceptionHandler = handler;
         }
     }
 
     public void register(Object obj) {
-        synchronized(this.lock) {
+        synchronized (this.lock) {
             if (!this.subscribers.containsKey(obj)) {
                 this.subscribers.put(obj, this.locator.findSubscribers(obj));
             }
@@ -43,37 +43,31 @@ public class Flightpath {
     }
 
     public void post(Object evt) {
-        synchronized(this.lock) {
-            Iterator var3 = this.subscribers.entrySet().iterator();
+        synchronized (this.lock) {
 
             label46:
-            while(var3.hasNext()) {
-                Map.Entry<Object, Map<Class, Set<Method>>> ent = (Map.Entry)var3.next();
-                Iterator var5 = ((Map)ent.getValue()).entrySet().iterator();
+            for (Map.Entry<Object, Map<Class, Set<Method>>> ent : this.subscribers.entrySet()) {
+                Iterator var5 = ((Map) ent.getValue()).entrySet().iterator();
 
-                while(true) {
+                while (true) {
                     Map.Entry objEnt;
                     do {
                         if (!var5.hasNext()) {
                             continue label46;
                         }
 
-                        objEnt = (Map.Entry)var5.next();
-                    } while(!((Class)objEnt.getKey()).isAssignableFrom(evt.getClass()));
+                        objEnt = (Map.Entry) var5.next();
+                    } while (!((Class) objEnt.getKey()).isAssignableFrom(evt.getClass()));
 
-                    Set<Method> ms = (Set)objEnt.getValue();
-                    Iterator var8 = ms.iterator();
-
-                    while(var8.hasNext()) {
-                        Method m = (Method)var8.next();
-
+                    Set<Method> ms = (Set) objEnt.getValue();
+                    for (Method m : ms) {
                         try {
                             boolean access = m.isAccessible();
                             m.setAccessible(true);
                             m.invoke(ent.getKey(), evt);
                             m.setAccessible(access);
-                        } catch (Exception var12) {
-                            this.exceptionHandler.handle(var12);
+                        } catch (Exception e) {
+                            this.exceptionHandler.handle(e);
                         }
                     }
                 }

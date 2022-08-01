@@ -415,7 +415,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
             super.onUpdate();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("EntityFolk-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -428,7 +428,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param [d, d1, d2]
      **/
     @Override
-    public void moveEntity(double d, double d1, double d2) {
+    public void moveEntity(double x, double y, double z) {
         try {
             if (!this.isDead && this.theData != null) {
                 double dist = 0;
@@ -473,7 +473,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                             if (dist > 2.0) {
                                 V3 v=this.theData.destination;
                                 if(v!=null){
-                                    ModSimReloaded.log.info("实体人: " + this.theData.name + " 散步太久，所以热了...");
+                                    ModSimReloaded.log.info("实体人: " + this.theData.name + " 即将传输至☞x:"+v.x+",y:"+v.y+",z:"+v.z);
                                     this.theData.stayPut = true;
                                     this.theData.timeStartedGotoing = System.currentTimeMillis();
                                     this.theData.beamMeTo(v);
@@ -490,10 +490,10 @@ public class EntityFolk extends EntityCreature implements INpc {
                     this.motionZ = 0;
                     this.getNavigator().clearPathEntity();
                 } else {
-                    if(d<0){d=0;}
-                    if(d1<0){d2=0;}
-                    if(d2<0){d2=0;}
-                    super.moveEntity(d, d1, d2);
+                    if(x<0){x=0;}
+                    if(y<0){y=0;}
+                    if(z<0){z=0;}
+                    super.moveEntity(x, y, z);
                 }
 
             }

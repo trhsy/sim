@@ -25,6 +25,7 @@ import org.lwjgl.input.Mouse;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -44,7 +45,7 @@ public class GuiBankATM extends GuiScreen {
     private int mouseCount = 0;
     //银屏
     private ATMscreen theScreen;
-    private ArrayList<Commodity> cart;
+    private CopyOnWriteArrayList<Commodity> cart;
     //错误文本
     private String errorText;
 
@@ -53,13 +54,13 @@ public class GuiBankATM extends GuiScreen {
     public GuiBankATM(V3 location, EntityPlayer player) {
         try {
             this.theScreen = ATMscreen.START;
-            this.cart = new ArrayList();
+            this.cart = new CopyOnWriteArrayList();
             this.errorText = "";
             this.fuckingBodge = 0L;
             this.bankLocation = location;
             this.thePlayer = player;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiBankATM出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBankATM出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -67,7 +68,7 @@ public class GuiBankATM extends GuiScreen {
     public void initGui() {
         try {
             boolean robbed = false;
-            ArrayList<V3> blocks = Job.findClosestBlocks(this.bankLocation, Blocks.diamond_block, 10);
+            CopyOnWriteArrayList<V3> blocks = Job.findClosestBlocks(this.bankLocation, Blocks.diamond_block, 10);
             if (blocks.size() == 0) {
                 robbed = true;
             }
@@ -153,7 +154,7 @@ public class GuiBankATM extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -227,7 +228,7 @@ public class GuiBankATM extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 15, 16711680);
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -261,7 +262,7 @@ public class GuiBankATM extends GuiScreen {
 
                         try {
                             number = format.parse(money);
-                        } catch (Exception var9) {
+                        } catch (Exception e) {
                         }
 
                         float soldFor = ((Number)number).floatValue();
@@ -281,7 +282,7 @@ public class GuiBankATM extends GuiScreen {
 
                         try {
                             number = format.parse(guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy1")) + 4));
-                        } catch (Exception var8) {
+                        } catch (Exception e) {
                         }
 
                         float soldFor = ((Number)number).floatValue();
@@ -380,7 +381,7 @@ public class GuiBankATM extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIBANJATMactionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -392,7 +393,7 @@ public class GuiBankATM extends GuiScreen {
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

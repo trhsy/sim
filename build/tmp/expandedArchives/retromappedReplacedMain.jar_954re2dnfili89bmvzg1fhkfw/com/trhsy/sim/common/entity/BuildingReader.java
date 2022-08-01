@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -46,14 +47,14 @@ public class BuildingReader implements Serializable {
     public String displayNameWithoutPK = "";
     public Float rent = 0.0F;
     public Float corpTax = 0.0F;
-    public ArrayList<String> tenants = new ArrayList();
-    public ArrayList<V3> blockLocations = new ArrayList();
+    public CopyOnWriteArrayList<String> tenants = new CopyOnWriteArrayList();
+    public CopyOnWriteArrayList<V3> blockLocations = new CopyOnWriteArrayList();
     public transient HashMap<ItemStack, Integer> requirements = new HashMap();
     public transient V3 conBoxLocation = null;
-    private static transient ArrayList<Building> buildingsRes = new ArrayList();
-    private static transient ArrayList<Building> buildingsCom = new ArrayList();
-    private static transient ArrayList<Building> buildingsInd = new ArrayList();
-    private static transient ArrayList<Building> buildingsOth = new ArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsRes = new CopyOnWriteArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsCom = new CopyOnWriteArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsInd = new CopyOnWriteArrayList();
+    private static transient CopyOnWriteArrayList<Building> buildingsOth = new CopyOnWriteArrayList();
     String block1 = "";
     int block1Count = 0;
     String block2 = "";
@@ -116,7 +117,7 @@ public class BuildingReader implements Serializable {
                 this.requirements = new HashMap();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("BuildingReader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("BuildingReader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -131,7 +132,7 @@ public class BuildingReader implements Serializable {
                 this.requirements = new HashMap();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("BuildingReader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("BuildingReader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -145,7 +146,7 @@ public class BuildingReader implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("removeTennant出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("removeTennant出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -412,8 +413,8 @@ public class BuildingReader implements Serializable {
 
                             this.rent = (float) this.blocksInBuilding * 0.01F;
                             this.corpTax = 3.0F;
-                        } catch (Exception var18) {
-                            ModSimReloaded.log.error("Caught exception: " + var18.getMessage());
+                        } catch (Exception e) {
+                            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("Caught exception: " + e.getMessage()+"行数："+element.getLineNumber());
                         }
                     }
                 }
@@ -525,8 +526,8 @@ public class BuildingReader implements Serializable {
                 in.close();
                 br.close();
             }
-        } catch (Exception var19) {
-            ModSimReloaded.log.error("被抓住的例外: " + var19.getMessage());
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("被抓住的例外: " + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -537,7 +538,6 @@ public class BuildingReader implements Serializable {
         String name;
         Iterator it;
         boolean got;
-        Map.Entry pairs;
         ItemStack is;
         int val;
         if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
@@ -545,16 +545,13 @@ public class BuildingReader implements Serializable {
 
             try {
                 name = theBlock.func_82833_r().toLowerCase();
-            } catch (Exception var12) {
+            } catch (Exception e) {
                 name = "????";
             }
 
             if (name.contains("planks") || name.contentEquals("cobblestone") || name.contentEquals("glass") || name.contains("wool") || name.contentEquals("bricks") || name.contentEquals("dirt") || name.contentEquals("stone bricks") || name.contentEquals("fence") || name.contentEquals("stone") || name.contains("wood") && !name.contains("slab") && !name.contains("door") && !name.contains("stairs") && !name.contains("grass")) {
-                it = this.requirements.entrySet().iterator();
                 got = false;
-
-                while (it.hasNext()) {
-                    pairs = (Map.Entry) it.next();
+                for (Map.Entry pairs : this.requirements.entrySet()) {
                     is = (ItemStack) pairs.getKey();
                     if (is == theBlock) {
                         val = (Integer) pairs.getValue();
@@ -579,32 +576,29 @@ public class BuildingReader implements Serializable {
 
                 try {
                     name = theBlock.func_82833_r().toLowerCase();
-                } catch (Exception var11) {
+                } catch (Exception e) {
                     name = "????";
                 }
 
                 if (!name.contains("grass") && !name.contains("bed")) {
-                    it = this.requirements.entrySet().iterator();
                     got = false;
-
-                    while (it.hasNext()) {
-                        pairs = (Map.Entry) it.next();
+                    for (Map.Entry pairs : this.requirements.entrySet()){
                         is = (ItemStack) pairs.getKey();
-                        if (is == theBlock) {
-                            val = (Integer) pairs.getValue();
-                            ++val;
-                            pairs.setValue(val);
-                            got = true;
-                            break;
-                        }
+                    if (is == theBlock) {
+                        val = (Integer) pairs.getValue();
+                        ++val;
+                        pairs.setValue(val);
+                        got = true;
+                        break;
                     }
+                }
 
-                    if (!got) {
-                        this.requirements.put(theBlock, 1);
-                    }
+                if (!got) {
+                    this.requirements.put(theBlock, 1);
                 }
             }
         }
-
     }
+
+}
 }

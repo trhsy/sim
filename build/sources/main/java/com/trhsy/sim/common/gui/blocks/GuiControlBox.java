@@ -35,6 +35,7 @@ import org.lwjgl.input.Mouse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -78,7 +79,7 @@ public class GuiControlBox extends GuiScreen {
             //玩家
             this.playerWhoClickedIt = thePlayer;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -96,10 +97,10 @@ public class GuiControlBox extends GuiScreen {
             this.theFolk = folk;
             //是否白天
             if (ModSimReloaded.isDayTime()) {
-                this.theFolk.gotoXYZ(location, (GotoMethod) null);
+                this.theFolk.gotoXYZ(location, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -199,7 +200,7 @@ public class GuiControlBox extends GuiScreen {
                     }
                     //汉堡店
                     if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
-                        ArrayList<FolkData> employees = FolkData.getFolksByEmployedAt(this.theBuilding.primaryXYZ);
+                        CopyOnWriteArrayList<FolkData> employees = FolkData.getFolksByEmployedAt(this.theBuilding.primaryXYZ);
                         Boolean flag = false;
                         GuiButton b1;
                         this.buttonList.add(b1 = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire4")));
@@ -376,7 +377,7 @@ public class GuiControlBox extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -448,8 +449,8 @@ public class GuiControlBox extends GuiScreen {
             }
 
             super.drawScreen(i, j, f);
-        } catch (Exception var10) {
-            ModSimReloaded.log.error("drawScreen出错了：" + var10.getMessage());
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var10.printStackTrace();
         }
 
@@ -625,7 +626,7 @@ public class GuiControlBox extends GuiScreen {
                                                 theFolk.selfFire();
                                             }
                                         }
-                                    } catch (Exception var7) {
+                                    } catch (Exception e) {
                                     }
                                 }
 
@@ -675,7 +676,7 @@ public class GuiControlBox extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUICONTROLBOX-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -690,7 +691,7 @@ public class GuiControlBox extends GuiScreen {
             Keyboard.enableRepeatEvents(false);
             this.mc.setIngameFocus();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -708,7 +709,7 @@ public class GuiControlBox extends GuiScreen {
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -836,7 +837,7 @@ public class GuiControlBox extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("rotateStairs出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

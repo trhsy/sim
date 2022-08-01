@@ -26,7 +26,7 @@ public class EntityRenderFactory<E extends Entity> implements IRenderFactory<E> 
              eRender=renderClass.getConstructor(RenderManager.class).newInstance(manager);
         } catch (Exception e) {
             //throw new RuntimeException(e);
-            ModSimReloaded.log.error("渲染实体人出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("渲染实体人出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return eRender;
     }

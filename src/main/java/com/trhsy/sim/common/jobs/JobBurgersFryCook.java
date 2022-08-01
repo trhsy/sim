@@ -49,7 +49,7 @@ public class JobBurgersFryCook extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -115,7 +115,7 @@ public class JobBurgersFryCook extends Job {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBurgersFryCook-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -157,7 +157,7 @@ public class JobBurgersFryCook extends Job {
                         } else {
                             CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(1);
                             if (!back.isEmpty()) {
-                                this.theFolk.gotoXYZ((V3)back.get(0), GotoMethod.WALK);
+                                this.theFolk.gotoXYZ((V3)back.get(0), null);
 
                                 try {
                                     this.theFolk.destination.destinationAcc = 0.3D;
@@ -267,11 +267,11 @@ public class JobBurgersFryCook extends Job {
                 this.theStage = Stage.ARRIVEDATSTORE;
                 CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(1);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)back.get(0), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ((V3)back.get(0), null);
                     this.step = 1;
                 }
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

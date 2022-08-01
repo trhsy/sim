@@ -27,7 +27,7 @@ public class WorldGeneratorLoader {
         try {
             MinecraftForge.ORE_GEN_BUS.register(this);
         } catch (Exception e) {
-            ModSimReloaded.log.error("WorldGeneratorLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("WorldGeneratorLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -51,7 +51,7 @@ public class WorldGeneratorLoader {
                 worldGeneratorTinOre.generate(event.world, event.rand, event.pos);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onOreGenPost出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onOreGenPost出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

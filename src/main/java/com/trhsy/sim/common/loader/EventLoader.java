@@ -114,7 +114,7 @@ public class EventLoader {
                 player.addChatMessage(new ChatComponentTranslation("chat.sim.time", world.getTotalWorldTime()));
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onKeyInput出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("EventLoader-onKeyInput出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

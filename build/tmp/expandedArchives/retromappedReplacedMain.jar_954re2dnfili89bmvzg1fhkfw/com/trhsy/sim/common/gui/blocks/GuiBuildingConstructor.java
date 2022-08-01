@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -46,7 +47,7 @@ public class GuiBuildingConstructor extends GuiScreen {
     //当前页
     private int currentPage = 0;
     //工人集合
-    private ArrayList<FolkData> theWorkers = new ArrayList();
+    private CopyOnWriteArrayList<FolkData> theWorkers = new CopyOnWriteArrayList();
     //要建筑的
     V3 constructorLoc;
     //建筑方向
@@ -75,7 +76,7 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param buildDirection 建筑方向
      * @param theFolks 建筑工
      */
-    public GuiBuildingConstructor(V3 location, String buildDirection, ArrayList<FolkData> theFolks) {
+    public GuiBuildingConstructor(V3 location, String buildDirection, CopyOnWriteArrayList<FolkData> theFolks) {
         try {
             this.constructorLoc = location;
             this.buildDirection = buildDirection;
@@ -107,7 +108,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiBuildingConstructor出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBuildingConstructor出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -137,7 +138,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             //更新画面
             super.func_73876_c();
         } catch (Exception e) {
-            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -155,7 +156,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             //初始化
             super.func_73866_w_();
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -199,7 +200,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                         t = ((FolkData) this.theWorkers.get(0)).theBuilding.displayName;
                     }
                 }
-            } catch (Exception var11) {
+            } catch (Exception e) {
                 //在路上
                 String sim_gui_BC_their = I18n.func_135052_a("container.sim.sim_gui_BC_their");
                 s = sim_gui_BC_their;
@@ -306,9 +307,9 @@ public class GuiBuildingConstructor extends GuiScreen {
                 default:
                     break;
             }
-        } catch (Exception var12) {
-            //var12.printStackTrace();
-            ModSimReloaded.log.warn("drawScreen出错了:"+var12.getMessage());
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];
+            ModSimReloaded.log.warn("drawScreen出错了:"+e.getMessage()+"行数："+element.getLineNumber());
         }
         super.func_73863_a(i, j, f);
     }
@@ -348,7 +349,7 @@ public class GuiBuildingConstructor extends GuiScreen {
 
             this.func_73731_b(this.field_146289_q, st, 250, y, 16777215);
         } catch (Exception e) {
-            ModSimReloaded.log.error("displayReq出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("displayReq出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -461,7 +462,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                     break;
                                 }
                             }
-                        } catch (Exception var18) {
+                        } catch (Exception e) {
                             //var18.printStackTrace();
                         }
                     } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
@@ -475,7 +476,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                         }
                     } else {
                         //房屋集合
-                        ArrayList<Building> houses = new ArrayList();
+                        CopyOnWriteArrayList<Building> houses = new CopyOnWriteArrayList();
                         String theType = "";
                         this.buildingsOnPage = 0;
                         this.tfSearch = new GuiTextField(0,this.field_146289_q, this.field_146294_l / 2 - 50, this.field_146295_m - 30, 100, 20);
@@ -597,7 +598,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("showPage出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("showPage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -747,7 +748,7 @@ public class GuiBuildingConstructor extends GuiScreen {
 
                             try {
                                 this.selectedBuilding.buildDirection = this.buildDirection;
-                            } catch (Exception var5) {
+                            } catch (Exception e) {
                             }
 
                             this.currentPage = 8;
@@ -758,7 +759,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIBUILDINGCONSTORUCTOR-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -777,7 +778,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
             this.theWorkers.clear();
         } catch (Exception e) {
-            ModSimReloaded.log.error("fireAllFolksForThisBuilding出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fireAllFolksForThisBuilding出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -799,7 +800,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -812,7 +813,7 @@ public class GuiBuildingConstructor extends GuiScreen {
         }
             super.func_73864_a(i, j, k);
         } catch (IOException e) {
-            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //e.printStackTrace();
         }
     }

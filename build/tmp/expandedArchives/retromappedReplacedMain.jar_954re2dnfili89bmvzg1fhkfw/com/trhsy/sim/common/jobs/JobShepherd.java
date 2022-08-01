@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -42,7 +43,7 @@ public class JobShepherd extends Job implements Serializable {
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private transient ArrayList<IInventory> farmChests = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
     private transient EntitySheep sheepToShear = null;
     private transient boolean isShearing = false;
 
@@ -116,7 +117,7 @@ public class JobShepherd extends Job implements Serializable {
             try {
                 this.sheepToShear = (EntitySheep)list.get(0);
                 this.sheepToShear.func_70893_e(false);
-            } catch (Exception var6) {
+            } catch (Exception e) {
                 this.placeWoolIntoAChest(1, 1);
             }
         } else if (list.size() > 0) {
@@ -124,7 +125,7 @@ public class JobShepherd extends Job implements Serializable {
                 s = rand.nextInt(list.size() - 1);
                 this.sheepToShear = (EntitySheep)list.get(s);
                 this.sheepToShear.func_70893_e(false);
-            } catch (Exception var5) {
+            } catch (Exception e) {
             }
         }
 
@@ -169,7 +170,7 @@ public class JobShepherd extends Job implements Serializable {
 
                             try {
                                 Thread.sleep(150L);
-                            } catch (Exception var3) {
+                            } catch (Exception e) {
                             }
                         }
 
@@ -203,7 +204,7 @@ public class JobShepherd extends Job implements Serializable {
 
             try {
                 ModSim.proxy.getClientWorld().func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, ent.field_70165_t + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1 - var2 * var8, ent.field_70163_u + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.field_70161_v + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1 - var6 * var8, var2, var4, var6);
-            } catch (Exception var13) {
+            } catch (Exception e) {
             }
         }
 

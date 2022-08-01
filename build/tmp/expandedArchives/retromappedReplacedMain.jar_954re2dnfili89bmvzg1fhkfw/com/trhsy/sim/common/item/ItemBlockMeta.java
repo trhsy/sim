@@ -45,7 +45,7 @@ public class ItemBlockMeta extends ItemColored {
                 unlocalizedName= super.func_77667_c(stack) + "." + name;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getUnlocalizedName出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getUnlocalizedName出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return unlocalizedName;
     }
@@ -54,7 +54,7 @@ public class ItemBlockMeta extends ItemColored {
         try {
             ((ItemBlockMeta) Item.func_150898_a(block)).mappingProperty = property;
         } catch (Exception e) {
-            ModSimReloaded.log.error("setMappingProperty出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setMappingProperty出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -69,7 +69,7 @@ public class ItemBlockMeta extends ItemColored {
 
             super.func_77624_a(stack, playerIn, tooltip, advanced);
         } catch (Exception e) {
-            ModSimReloaded.log.error("addInformation出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("addInformation出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -88,7 +88,7 @@ public class ItemBlockMeta extends ItemColored {
                 ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(loc, this.mappingProperty.func_177701_a() + "=" + name));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerItemModels出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerItemModels出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

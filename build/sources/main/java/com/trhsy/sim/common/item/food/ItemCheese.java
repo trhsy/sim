@@ -32,7 +32,7 @@ public class ItemCheese extends ItemFood {
             par3List.add(sim_folks);
             super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
         } catch (Exception e) {
-            ModSimReloaded.log.error("addInformation出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("addInformation出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

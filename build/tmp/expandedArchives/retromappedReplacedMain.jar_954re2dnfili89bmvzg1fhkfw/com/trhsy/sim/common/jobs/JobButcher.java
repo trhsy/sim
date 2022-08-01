@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -37,8 +38,8 @@ public class JobButcher extends Job implements Serializable {
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient float pay = 0.0F;
-    private transient ArrayList<IInventory> chestsAtFarm = new ArrayList();
-    private transient ArrayList<IInventory> chestsAtShop = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> chestsAtFarm = new CopyOnWriteArrayList();
+    private transient CopyOnWriteArrayList<IInventory> chestsAtShop = new CopyOnWriteArrayList();
     private transient int currentFarmNum = 0;
     private transient Building farm = null;
     private transient boolean onRoute = false;
@@ -55,12 +56,12 @@ public class JobButcher extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobButcher出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobButcher出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -133,7 +134,7 @@ public class JobButcher extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -153,7 +154,7 @@ public class JobButcher extends Job implements Serializable {
                     } else {
                         this.theStage = Stage.GOBACKTOSTORE;
                     }
-                } catch (Exception var2) {
+                } catch (Exception e) {
                     //var2.printStackTrace();
                     this.theStage = Stage.GOBACKTOSTORE;
                 }
@@ -177,7 +178,7 @@ public class JobButcher extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGoingToFarm出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoingToFarm出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -201,7 +202,7 @@ public class JobButcher extends Job implements Serializable {
                 this.theStage = Stage.GOINGTOMEATFARM;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageCollectingMeat出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCollectingMeat出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -241,7 +242,7 @@ public class JobButcher extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGoBackToStore出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoBackToStore出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -302,7 +303,7 @@ public class JobButcher extends Job implements Serializable {
             } else if (this.step == 4) {
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageSellingMeat出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -332,12 +333,12 @@ public class JobButcher extends Job implements Serializable {
                         ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.Butcher_today"));
                         return null;
                     }
-                } catch (Exception var3) {
+                } catch (Exception e) {
                     return null;
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getCurrentFarm出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -353,10 +354,10 @@ public class JobButcher extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATSHOP;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

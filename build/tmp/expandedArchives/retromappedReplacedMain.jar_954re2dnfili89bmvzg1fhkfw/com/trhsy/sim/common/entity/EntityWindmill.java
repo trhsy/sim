@@ -40,7 +40,7 @@ public class EntityWindmill extends Entity {
         try {
             super.func_70106_y();
         } catch (Exception e) {
-            ModSimReloaded.log.error("setDead出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setDead出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -66,7 +66,7 @@ public class EntityWindmill extends Entity {
             this.sailRotation += this.sailSpeed + this.sailSpeedModifer;
             super.func_70071_h_();
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

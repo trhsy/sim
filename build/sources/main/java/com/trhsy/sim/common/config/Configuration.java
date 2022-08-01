@@ -64,7 +64,7 @@ public class Configuration implements IConfiguration {
             try {
                 try {
                     this.modules = this.parseV1Config(f);
-                } catch (Exception var4) {
+                } catch (Exception e) {
                     this.logger.warn("Failed to parse " + f.getName() + " using the v1 parser; trying the v0 parser.");
                     Map<String, Configuration.ConfigEntry> conf = this.parseV0Config(f);
                     this.logger.info("Found valid v0 configuration. Upgrading it.");
@@ -72,7 +72,7 @@ public class Configuration implements IConfiguration {
                     this.writeModulesToJson();
                     this.logger.info("Upgrade complete! Config is now in v1 format.");
                 }
-            } catch (Exception var5) {
+            } catch (Exception e) {
                 this.logger.warn("Invalid config file. Discarding.");
                 //var5.printStackTrace();
                 this.modules = new HashMap();
@@ -92,17 +92,14 @@ public class Configuration implements IConfiguration {
                 throw new NullPointerException("Gson returned null.");
             } else {
                 Map<String, Configuration.ConfigEntry> out = new HashMap();
-                Iterator var5 = m.entrySet().iterator();
-
-                while(var5.hasNext()) {
-                    Map.Entry<String, Boolean> e = (Map.Entry)var5.next();
+            for (Map.Entry<String, Boolean> e: m.entrySet()){
                     out.put(e.getKey(), new Configuration.ConfigEntry((Boolean)e.getValue()));
                 }
 
                 return out;
             }
-        } catch (FileNotFoundException var7) {
-            throw new RuntimeException("This shouldn't be possible... " + var7);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("This shouldn't be possible... " + e);
         }
     }
 
@@ -117,8 +114,8 @@ public class Configuration implements IConfiguration {
             } else {
                 return c.getModules();
             }
-        } catch (FileNotFoundException var4) {
-            throw new RuntimeException("This shouldn't be possible... " + var4);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("This shouldn't be possible... " + e);
         }
     }
 
@@ -129,7 +126,7 @@ public class Configuration implements IConfiguration {
             Configuration.GsonConfig out = new Configuration.GsonConfig(1, this.modules);
             gson.toJson(out, Configuration.GsonConfig.class, writer);
             writer.close();
-        } catch (Exception var3) {
+        } catch (Exception e) {
             this.logger.warn("Could not write config? " + this.confPath);
         }
 

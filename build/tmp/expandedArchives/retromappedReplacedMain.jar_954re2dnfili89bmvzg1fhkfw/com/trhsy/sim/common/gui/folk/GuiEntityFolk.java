@@ -22,6 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -38,7 +39,7 @@ public class GuiEntityFolk extends GuiScreen {
     private int mouseCount = 0;
     private FolkData theFolk;
     private EntityPlayer entityplayer;
-    private ArrayList<Relationship> folksRelationships;
+    private CopyOnWriteArrayList<Relationship> folksRelationships;
     private int relOffset = 0;
 
     public GuiEntityFolk(FolkData f, EntityPlayer entityplayer) {
@@ -47,7 +48,7 @@ public class GuiEntityFolk extends GuiScreen {
             this.entityplayer = entityplayer;
             this.folksRelationships = Relationship.getRelationshipsFor(this.theFolk);
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiEntityFolk出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiEntityFolk出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -68,7 +69,7 @@ public class GuiEntityFolk extends GuiScreen {
             Keyboard.enableRepeatEvents(true);
             this.showPage();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -168,7 +169,7 @@ public class GuiEntityFolk extends GuiScreen {
 
                 try {
                     words = this.theFolk.action.toString();
-                } catch (Exception var12) {
+                } catch (Exception e) {
                 }
                 //状态
                 this.field_146289_q.func_78276_b(I18n.func_135052_a("container.sim.gui_Folk_Status"), left, 87, 0);
@@ -224,7 +225,7 @@ public class GuiEntityFolk extends GuiScreen {
                         if (sec > 200) {
                             break;
                         }
-                    } catch (Exception var13) {
+                    } catch (Exception e) {
                     }
                 }
             } else if (this.currentPage == 2) {
@@ -258,7 +259,7 @@ public class GuiEntityFolk extends GuiScreen {
             // theGuiTextField1.drawTextBox();
             super.func_73863_a(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -295,7 +296,7 @@ public class GuiEntityFolk extends GuiScreen {
                 this.field_146292_n.add(new GuiButton(1, 2, this.field_146295_m - 42, 50, 20, I18n.func_135052_a("container.sim.gui_Folk_Back")));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("showPage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -370,7 +371,7 @@ public class GuiEntityFolk extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIENTITYFOLK-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -379,7 +380,7 @@ public class GuiEntityFolk extends GuiScreen {
         try {
             Keyboard.enableRepeatEvents(false);
         } catch (Exception e) {
-            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -393,7 +394,7 @@ public class GuiEntityFolk extends GuiScreen {
                 this.field_146297_k.func_71381_h();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -403,7 +404,7 @@ public class GuiEntityFolk extends GuiScreen {
         try {
             super.func_73864_a(i, j, k);
         } catch (Exception e) {
-            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

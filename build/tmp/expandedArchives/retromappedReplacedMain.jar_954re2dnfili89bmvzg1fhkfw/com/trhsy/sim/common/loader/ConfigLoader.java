@@ -63,7 +63,7 @@ public class ConfigLoader {
             MinecraftForge.EVENT_BUS.register(instance);
             syncConfig();
         } catch (Exception e) {
-            ModSimReloaded.log.error("load出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("load出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -74,7 +74,7 @@ public class ConfigLoader {
                 syncConfig();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("update出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("update出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
     /**
@@ -194,7 +194,7 @@ public class ConfigLoader {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("syncConfig出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("syncConfig出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return changed;
     }

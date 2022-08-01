@@ -25,7 +25,7 @@ public class UpdateChecker {
                 //onUpdate();
             }
         }catch (Exception e){
-            ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -99,7 +99,7 @@ public class UpdateChecker {
             new File(simFile).deleteOnExit();
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage()+"行数："+element.getLineNumber());
             //e.printStackTrace();
         }
 
@@ -145,7 +145,7 @@ public class UpdateChecker {
             //ret = new String(data);
             bout.close();
             in.close();
-        } catch (Exception var9) {
+        } catch (Exception e) {
             //ret = "";
             //var9.printStackTrace();
         }

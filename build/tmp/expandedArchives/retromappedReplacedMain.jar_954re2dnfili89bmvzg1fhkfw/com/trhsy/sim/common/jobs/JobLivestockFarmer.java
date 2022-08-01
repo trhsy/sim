@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -45,7 +46,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private ArrayList<IInventory> farmChests = new ArrayList();
+    private CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
     EntityAnimal redShirt = null;
 
     public JobLivestockFarmer() {
@@ -65,7 +66,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobLivestockFarmer出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLivestockFarmer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -108,7 +109,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -137,7 +138,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -202,7 +203,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageWaiting出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageWaiting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -217,7 +218,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
             }
 
             this.redShirt.func_70606_j(0.0F);
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+            this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             int quant = 0;
             this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             boolean ok = true;
@@ -243,7 +244,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 this.theStage = Stage.WAITINGFORMATUREANIMAL;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageSlaughtering出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageSlaughtering出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -271,7 +272,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 parentAnimal.field_70170_p.func_72838_d(babyAnimal);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("procreate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("procreate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -294,7 +295,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("spawnAnimals出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("spawnAnimals出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -310,10 +311,10 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.livestock.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -46,7 +47,7 @@ public class JobLumberjack extends Job implements Serializable {
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private transient ArrayList<IInventory> millChests = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> millChests = new CopyOnWriteArrayList();
     private transient V3 foundWoodAt = new V3();
     private transient Building lumbermill = null;
     private transient long startedGoing = 0L;
@@ -66,12 +67,12 @@ public class JobLumberjack extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobLumberjack出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLumberjack出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -125,7 +126,7 @@ public class JobLumberjack extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -166,7 +167,7 @@ public class JobLumberjack extends Job implements Serializable {
             this.onRoute = false;
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageScanForTree出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageScanForTree出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -178,7 +179,7 @@ public class JobLumberjack extends Job implements Serializable {
             this.theFolk.isWorking = false;
             if (!this.onRoute) {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.Going");
-                this.theFolk.gotoXYZ(this.foundWoodAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.foundWoodAt, GotoMethod.WALK);
                 this.startedGoing = System.currentTimeMillis();
                 this.onRoute = true;
             } else {
@@ -204,7 +205,7 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGotoTree出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGotoTree出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -247,7 +248,7 @@ public class JobLumberjack extends Job implements Serializable {
                             for (int d = 0; d < 12; ++d) {
                                 try {
                                     mc.field_71441_e.func_72980_b(theFolk.location.x, theFolk.location.y, theFolk.location.z, "step.wood", 1.0F, 1.0F, false);
-                                } catch (Exception var5) {
+                                } catch (Exception e) {
                                 }
 
                                 if (theFolk.theEntity != null) {
@@ -255,14 +256,14 @@ public class JobLumberjack extends Job implements Serializable {
 
                                     try {
                                         Thread.sleep(100L);
-                                    } catch (Exception var4) {
+                                    } catch (Exception e) {
                                     }
 
                                     theFolk.theEntity.field_70733_aJ = 0.7F;
 
                                     try {
                                         Thread.sleep(100L);
-                                    } catch (Exception var3) {
+                                    } catch (Exception e) {
                                     }
                                 }
                             }
@@ -282,7 +283,7 @@ public class JobLumberjack extends Job implements Serializable {
                         return;
                     }
 
-                    ArrayList<ItemStack> log = this.translateBlockWhenMined(this.jobWorld, this.foundWoodAt);
+                    List<ItemStack> log = this.translateBlockWhenMined(this.jobWorld, this.foundWoodAt);
                     BlockPos blockPos1 = new BlockPos(this.foundWoodAt.x.intValue(), this.foundWoodAt.y.intValue(), this.foundWoodAt.z.intValue());
                     this.jobWorld.func_180501_a(blockPos1, Blocks.field_150350_a.func_176223_P(), 3);
                     if (log != null) {
@@ -324,7 +325,7 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageChoppingTree出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageChoppingTree出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -337,7 +338,7 @@ public class JobLumberjack extends Job implements Serializable {
             if (this.step == 1) {
                 //将木材送回伐木场箱子
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.Delivering");
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 this.step = 2;
             } else {
                 if (this.step == 2) {
@@ -369,7 +370,7 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageReturnWood出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageReturnWood出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -388,10 +389,10 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.a_lumberjack");
                 this.theStage = Stage.ARRIVEDATMILL;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -418,7 +419,7 @@ public class JobLumberjack extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("pickUpSaplings出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("pickUpSaplings出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -436,7 +437,7 @@ public class JobLumberjack extends Job implements Serializable {
                 this.jobWorld.func_180501_a(blockPos1, Blocks.field_150345_g.func_176223_P(), 3);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("plantSapling出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("plantSapling出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

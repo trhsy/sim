@@ -48,7 +48,7 @@ public class BlockLightBox extends EnumBlock<EnumBlockLightBox> {
                 list.add(new ItemStack(this, 1, type.meta));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("灯箱getSubBlocks出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("灯箱getSubBlocks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

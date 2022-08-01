@@ -17,6 +17,7 @@ import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -28,18 +29,18 @@ import java.util.ArrayList;
  * ========================================
  **/
 public class GuiPathBox extends GuiScreen {
-    ArrayList<FolkData> theWorkers = new ArrayList();
+    CopyOnWriteArrayList<FolkData> theWorkers = new CopyOnWriteArrayList();
     PathBox thePathBox = null;
     private GuiTextField tfSize;
     private int mouseCount = 0;
     private int page = 0;
 
-    public GuiPathBox(PathBox pathBlock, ArrayList<FolkData> folks) {
+    public GuiPathBox(PathBox pathBlock, CopyOnWriteArrayList<FolkData> folks) {
         try {
             this.thePathBox = pathBlock;
             this.theWorkers = folks;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiPathBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiPathBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -56,7 +57,7 @@ public class GuiPathBox extends GuiScreen {
                 this.tfSize.updateCursorCounter();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -81,7 +82,7 @@ public class GuiPathBox extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -100,13 +101,13 @@ public class GuiPathBox extends GuiScreen {
                 if (this.thePathBox.marker1XYZ == null) {
                     this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.PathBox5"), this.width / 2, 27, 16711680);
                 }
-            } catch (Exception var5) {
+            } catch (Exception e) {
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.PathBox6"), this.width / 2, 27, 16711680);
             }
 
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var6.printStackTrace();
         }
 
@@ -145,7 +146,7 @@ public class GuiPathBox extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIPATHBOX-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -157,7 +158,7 @@ public class GuiPathBox extends GuiScreen {
             this.mc.setIngameFocus();
         }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -167,7 +168,7 @@ public class GuiPathBox extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //e.printStackTrace();
         }
     }

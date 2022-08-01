@@ -15,10 +15,10 @@ public class KeyLoader {
 
     public KeyLoader() {
         try {
-            KeyLoader.showTime = new KeyBinding("key.sim.showTime", Keyboard.KEY_H, "key.categories.sim");
+            KeyLoader.showTime = new KeyBinding("key.sim.showTime", Keyboard.KEY_NONE, "key.categories.sim");
             ClientRegistry.registerKeyBinding(KeyLoader.showTime);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("CraftGuide-出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

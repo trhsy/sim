@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 商品
@@ -18,7 +19,7 @@ public class Commodity {
     /**单价**/
     public float priceEach = 0.0F;
     /**可用商品**/
-    private static ArrayList<ItemStack> availableItems = new ArrayList();
+    private static CopyOnWriteArrayList<ItemStack> availableItems = new CopyOnWriteArrayList();
 
     public Commodity(ItemStack is, int qty, float price) {
         try {
@@ -26,7 +27,7 @@ public class Commodity {
             this.quantity = qty;
             this.priceEach = price;
         } catch (Exception e) {
-            ModSimReloaded.log.error("Commodity出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("Commodity出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -59,7 +60,7 @@ public class Commodity {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("refreshAvailableCommoditities出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("refreshAvailableCommoditities出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -81,7 +82,7 @@ public class Commodity {
             //蜘蛛眼
             availableItems.add(new ItemStack(Items.spider_eye));
         } catch (Exception e) {
-            ModSimReloaded.log.error("setupAvailableItems出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setupAvailableItems出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

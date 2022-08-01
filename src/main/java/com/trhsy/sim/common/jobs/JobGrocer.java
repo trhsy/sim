@@ -65,7 +65,7 @@ public class JobGrocer extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             }
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public class JobGrocer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobGrocer-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -142,7 +142,7 @@ public class JobGrocer extends Job implements Serializable {
                     this.theStage = Stage.GOBACKTOSTORE;
                 } else {
                     this.onRoute = true;
-                    this.theFolk.gotoXYZ(this.farm.getLocation(), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.farm.getLocation(), null);
                 }
             } else {
                 double dist = 0;
@@ -214,7 +214,7 @@ public class JobGrocer extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Taking");
             if (!this.onRoute) {
                 this.onRoute = true;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             } else {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
                     this.theFolk.updateLocationFromEntity();
@@ -271,7 +271,7 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.updateLocationFromEntity();
                 sell = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (sell > 2 && this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
                 this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Selling");
@@ -370,7 +370,7 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSHOP;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

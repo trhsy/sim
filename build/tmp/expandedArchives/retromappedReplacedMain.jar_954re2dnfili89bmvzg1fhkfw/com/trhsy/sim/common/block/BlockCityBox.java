@@ -45,7 +45,7 @@ public class BlockCityBox extends Block {
             ui = new GuiCityBox(new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK), thePlayer);
             mc.func_147108_a(ui);
         } catch (Exception e) {
-            ModSimReloaded.log.error("城市方块onBlockActivated出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("城市方块onBlockActivated出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return false;
         }
         return true;

@@ -97,7 +97,7 @@ public class GuiControlBox extends GuiScreen {
             this.theFolk = folk;
             //是否白天
             if (ModSimReloaded.isDayTime()) {
-                this.theFolk.gotoXYZ(location, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(location, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -578,6 +578,7 @@ public class GuiControlBox extends GuiScreen {
                             //修理房子
                             if (guibutton.displayString.contentEquals(I18n.format("container.sim.Fix_House"))) {
                                 Building b;
+                                //修建房子
                                 ModSimReloaded.theBuildings.add(b = new Building(I18n.format("container.sim.Repaired_House"), "residential", this.location, this.location, true));
                                 b.buildingComplete = true;
                                 b.capacity = -1;

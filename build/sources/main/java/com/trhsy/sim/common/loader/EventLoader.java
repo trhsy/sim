@@ -42,7 +42,7 @@ public class EventLoader {
             MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
             EventLoader.EVENT_BUS.register(this);
         } catch (Exception e) {
-            ModSimReloaded.log.error("EventLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("EventLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -71,7 +71,7 @@ public class EventLoader {
                 event.setResult(Event.Result.ALLOW);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onFillBucket出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onFillBucket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -92,7 +92,7 @@ public class EventLoader {
                 FolkData.generateNewFolk(event.world);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -114,7 +114,7 @@ public class EventLoader {
                 player.addChatMessage(new ChatComponentTranslation("chat.sim.time", world.getTotalWorldTime()));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onKeyInput出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("EventLoader-onKeyInput出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

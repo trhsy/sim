@@ -28,7 +28,7 @@ public class ItemBlockFolkLivingBlock extends ItemBlock {
             par3List.add(I18n.func_135052_a("container.sim.Living1"));
             super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
         } catch (Exception e) {
-            ModSimReloaded.log.error("addInformation出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("addInformation出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

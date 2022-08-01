@@ -98,7 +98,7 @@ public abstract class RecipeMatch {
                 for(int i = 0; i < stacks.length; i++) {
                     if (ItemStack.areItemsEqual(stack, stacks[i]) && ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
                         if (stacks[i].stackSize < stack.stackSize) {
-                            ModSimReloaded.log.error("RecipeMatch has incorrect stacksize! {}", new Object[]{stacks[i].toString()});
+                            ModSimReloaded.log.warn("RecipeMatch has incorrect stacksize! {}", new Object[]{stacks[i].toString()});
                         } else {
                             stacks[i].stackSize -= stack.stackSize;
                             if (stacks[i].stackSize == 0) {

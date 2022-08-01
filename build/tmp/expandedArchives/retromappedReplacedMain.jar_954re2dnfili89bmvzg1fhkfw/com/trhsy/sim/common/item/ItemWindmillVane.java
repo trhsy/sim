@@ -29,7 +29,7 @@ public class ItemWindmillVane extends Item {
                 subItems.add(new ItemStack(this, 1, x));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getSubItems出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
     public String getTexture(String name) {
@@ -52,7 +52,7 @@ public class ItemWindmillVane extends Item {
             par3List.add(windmill_sail);
             super.func_77624_a(par1ItemStack, par2EntityPlayer, par3List, par4);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("addInformation出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
     @Override

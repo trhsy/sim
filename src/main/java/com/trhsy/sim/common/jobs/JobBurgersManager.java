@@ -52,7 +52,7 @@ public class JobBurgersManager extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             }
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class JobBurgersManager extends Job {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBurgersManager-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -136,7 +136,7 @@ public class JobBurgersManager extends Job {
                     return;
                 }
 
-                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, null);
                 this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                 this.step = 2;
             } else if (this.step == 2) {
@@ -157,7 +157,7 @@ public class JobBurgersManager extends Job {
 
                 ++this.currentPickup;
                 if (this.currentPickup <= this.pickupBuildings.size() - 1) {
-                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, null);
                     this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                     this.step = 2;
                 } else {
@@ -182,7 +182,7 @@ public class JobBurgersManager extends Job {
                     return;
                 }
 
-                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, null);
                 this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                 this.step = 2;
             } else if (this.step == 2) {
@@ -203,7 +203,7 @@ public class JobBurgersManager extends Job {
 
                 ++this.currentPickup;
                 if (this.currentPickup <= this.pickupBuildings.size() - 1) {
-                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(((Building) this.pickupBuildings.get(this.currentPickup)).primaryXYZ, null);
                     this.theFolk.statusText = I18n.format("container.sim.job.manager.On_my") + ((Building) this.pickupBuildings.get(this.currentPickup)).displayName;
                     this.step = 2;
                 } else {
@@ -278,7 +278,7 @@ public class JobBurgersManager extends Job {
                 this.theFolk.statusText = I18n.format("container.sim.job.dropoff.On_my");
                 back = this.theStore.getSpecialBlocks(0);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3) back.get(0), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ((V3) back.get(0), null);
                     this.step = 2;
                 }
             } else if (this.step == 2) {
@@ -308,9 +308,9 @@ public class JobBurgersManager extends Job {
     private void stageHangingOut() {
         try {
             if (this.step % 2 == 0) {
-                this.theFolk.gotoXYZ(this.theStore.primaryXYZ, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theStore.primaryXYZ, null);
             } else {
-                this.theFolk.gotoXYZ((V3) this.theStore.getSpecialBlocks(0).get(0), GotoMethod.WALK);
+                this.theFolk.gotoXYZ((V3) this.theStore.getSpecialBlocks(0).get(0), null);
             }
 
             String say = "";
@@ -361,10 +361,10 @@ public class JobBurgersManager extends Job {
                 this.theStage = Stage.ARRIVEDATSTORE;
                 CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(0);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3) back.get(0), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ((V3) back.get(0), null);
                 }
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -138,7 +138,7 @@ public abstract class Job {
                     } else if (dist > 1 && dist < 3) {
                         //复制当前数据
                         V3 work = theFolk.employedAt.clone();
-                        work.y++;
+                        work.y=work.y+1;
                         //去位置
                         theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                         theFolk.location = work;
@@ -155,7 +155,7 @@ public abstract class Job {
                         //如果目的地为空
                         if (theFolk.destination == null) {
                             //设置目的地
-                            theFolk.gotoXYZ(theFolk.employedAt, GotoMethod.WALK);
+                            theFolk.gotoXYZ(theFolk.employedAt, null);
                         }
                     }
                 } else {
@@ -168,7 +168,7 @@ public abstract class Job {
                             //如果目的地为空
                             if (theFolk.destination == null) {
                                 //设置目的地
-                                theFolk.gotoXYZ(theFolk.employedAt, GotoMethod.WALK);
+                                theFolk.gotoXYZ(theFolk.employedAt, null);
                             }
                         }
                     }

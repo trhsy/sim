@@ -32,7 +32,7 @@ public class GuiCityBox extends GuiScreen {
             this.theBuilding = Building.getBuilding(location);
             this.playerWhoClickedIt = thePlayer;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiCityBox出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiCityBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -50,7 +50,7 @@ public class GuiCityBox extends GuiScreen {
             this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 50, this.field_146295_m / 2 - 30, 100, 20, "工作时间"));
             this.field_146292_n.add(new GuiButton(4, this.field_146294_l / 2 - 50, this.field_146295_m / 2 + 10, 100, 20, "信息"));
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -66,7 +66,7 @@ public class GuiCityBox extends GuiScreen {
             this.func_146276_q_();
             this.func_73732_a(this.field_146289_q, "城市控制面板", this.field_146294_l / 2, 17, 16777215);
             super.func_73863_a(i, j, f);
-        } catch (Exception var5) {
+        } catch (Exception e) {
             //var5.printStackTrace();
         }
 

@@ -61,7 +61,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
         try {
             GlStateManager.func_179152_a(1F, 1F, 1F);
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染npc出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("渲染npc出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -72,7 +72,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             super.func_76986_a(par1Entity, par2, par4, par6, par8, par9);
             this.doRenderFolk((EntityFolk) par1Entity, par2, par4, par6, par8, par9);
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染npc出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("渲染npc出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -83,7 +83,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             this.doRenderLiving(entityliving, d, d3, d2, f, f1);
             this.doRenderFolk((EntityFolk) entityliving, d, d3, d2, f, f1);
         } catch (Exception e) {
-            ModSimReloaded.log.error("渲染npc出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("渲染npc出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -123,7 +123,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -171,7 +171,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             GL11.glDisable(3042);
             GL11.glPopMatrix();
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

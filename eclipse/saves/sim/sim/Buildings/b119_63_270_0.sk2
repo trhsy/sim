@@ -1,7 +1,7 @@
 displayname|PKID67-TT 大门
 type|other
 primaryxyz|119,63,270,0
-livingxyz|null
+livingxyz|117,63,270,0
 buildingcomplete|true
 capacity|-1
 builddir|-z

@@ -37,7 +37,7 @@ public class ClientTickHandler extends GuiScreen {
         try {
             FMLCommonHandler.instance().bus().register(this);
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端init出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端init出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -46,7 +46,7 @@ public class ClientTickHandler extends GuiScreen {
         try {
             this.onTickInGame();
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -60,7 +60,7 @@ public class ClientTickHandler extends GuiScreen {
         try {
             this.onGui();
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -74,7 +74,7 @@ public class ClientTickHandler extends GuiScreen {
                 if (ModSimReloaded.states.gameModeNumber <= 0) {
                     return;
                 }
-            } catch (Exception var3) {
+            } catch (Exception e) {
             }
 
             if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
@@ -94,7 +94,7 @@ public class ClientTickHandler extends GuiScreen {
                 this.timeSinceLastSave = System.currentTimeMillis();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端onTickInGame出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端onTickInGame出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -112,7 +112,7 @@ public class ClientTickHandler extends GuiScreen {
 
                     worldname = this.mc.getIntegratedServer().getFolderName();
                     worldname = MinecraftServer.getServer().getFolderName();
-                } catch (Exception var4) {
+                } catch (Exception e) {
                     this.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy2"), this.width / 2, 2, 16777215);
                     return;
                 }
@@ -133,12 +133,12 @@ public class ClientTickHandler extends GuiScreen {
                     } else {
                         this.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy5"), this.width / 2, 2, 16777215);
                     }
-                } catch (Exception var3) {
+                } catch (Exception e) {
                     //var3.printStackTrace();
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端onGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端onGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -154,12 +154,12 @@ public class ClientTickHandler extends GuiScreen {
             for (int p = 0; p < 20; ++p) {
                 try {
                     mc.theWorld.spawnParticle(EnumParticleTypes.PORTAL, beamingPlayer.posX + random.nextDouble() - 0.5D, beamingPlayer.posY - 1, beamingPlayer.posZ + random.nextDouble() - 0.5D, 0, -d4, 0);
-                } catch (Exception var7) {
+                } catch (Exception e) {
                 }
 
                 try {
                     mc.theWorld.spawnParticle(EnumParticleTypes.PORTAL, beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1, beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
-                } catch (Exception var6) {
+                } catch (Exception e) {
                 }
             }
 
@@ -176,7 +176,7 @@ public class ClientTickHandler extends GuiScreen {
                 return;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("客户端beamingPlayer出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端beamingPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

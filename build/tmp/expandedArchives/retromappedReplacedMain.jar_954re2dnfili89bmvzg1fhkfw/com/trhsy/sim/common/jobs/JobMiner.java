@@ -24,6 +24,8 @@ import net.minecraft.util.EnumParticleTypes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -44,7 +46,7 @@ public class JobMiner extends Job implements Serializable {
     private transient int step = 1;
     private long timeSinceLastChestFullMessage = 0L;
     transient Long timeSinceLastGoto = 0L;
-    transient ArrayList<IInventory> miningChests = null;
+    transient CopyOnWriteArrayList<IInventory> miningChests = null;
     String mineDir = "";
     //如果它是空的，则作为一个标志，表示我们正在垂直挖掘，或者水平方向+x-x+z-z
     String mineHorizontalDir = "";
@@ -66,7 +68,7 @@ public class JobMiner extends Job implements Serializable {
             this.theStage = Stage.IDLE;
             this.theFolk.isWorking = false;
         } catch (Exception e) {
-            ModSimReloaded.log.error("resetJob出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("resetJob出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -84,7 +86,7 @@ public class JobMiner extends Job implements Serializable {
 
             this.theMiningBox = MiningBox.getMiningBlockByBoxXYZ(folk.employedAt);
             if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
             /**
              * 看看我们是不是在水平挖掘
@@ -113,7 +115,7 @@ public class JobMiner extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobMiner出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobMiner出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -175,7 +177,7 @@ public class JobMiner extends Job implements Serializable {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -196,10 +198,10 @@ public class JobMiner extends Job implements Serializable {
                 this.step = 1;
                 this.theStage = Stage.WAITINGFORCHEST;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -244,7 +246,7 @@ public class JobMiner extends Job implements Serializable {
                             } else {
                                 this.mc.field_71441_e.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
                             }
-                        } catch (Exception var3) {
+                        } catch (Exception e) {
                             //切换维度时，playSound可以进行NPE
                         }
                     }
@@ -252,7 +254,7 @@ public class JobMiner extends Job implements Serializable {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageWaitingForChest出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageWaitingForChest出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -295,7 +297,7 @@ public class JobMiner extends Job implements Serializable {
                 return;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageBeamingDown出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageBeamingDown出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -311,7 +313,7 @@ public class JobMiner extends Job implements Serializable {
             ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.miner.farmer.finished"));
             this.mc.field_71441_e.func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageBeamingUp出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageBeamingUp出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -400,7 +402,7 @@ public class JobMiner extends Job implements Serializable {
                                     if (id != Blocks.field_150350_a && id != Blocks.field_150355_j && id != Blocks.field_150355_j && id != Blocks.field_150353_l && id != Blocks.field_150353_l && !block.toString().toLowerCase().contains("oil")) {
                                         break gotABlock;
                                     }
-                                } catch (Exception var26) {
+                                } catch (Exception e) {
                                     break gotABlock;
                                 }
                             }
@@ -409,7 +411,7 @@ public class JobMiner extends Job implements Serializable {
 
                     try {
                         this.vNextMineableBlock = new V3((double) xxx, (double) yyy, (double) zzz, this.theFolk.employedAt.theDimension);
-                    } catch (Exception var25) {
+                    } catch (Exception e) {
                     }
                 } else {
                     V3 vMine = new V3(m1.x, m1.y, m1.z, this.theFolk.employedAt.theDimension);
@@ -494,7 +496,7 @@ public class JobMiner extends Job implements Serializable {
                                             }
                                         }
                                     }
-                                } catch (Exception var27) {
+                                } catch (Exception e) {
                                     //var27.printStackTrace();
                                 }
 
@@ -511,7 +513,7 @@ public class JobMiner extends Job implements Serializable {
                                         flagFound = true;
                                         break gotABlock2;
                                     }
-                                } catch (Exception var28) {
+                                } catch (Exception e) {
                                     flagFound = true;
                                     break gotABlock2;
                                 }
@@ -533,7 +535,7 @@ public class JobMiner extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("setNextMineableBlock出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setNextMineableBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -581,12 +583,12 @@ public class JobMiner extends Job implements Serializable {
                     for (int d = 0; d < 5; ++d) {
                         try {
                             JobMiner.this.jobWorld.func_72980_b(vNextMineableBlock.x, vNextMineableBlock.y, vNextMineableBlock.z, "dig.stone", 1.0F, 1.0F, false);
-                        } catch (Exception var4) {
+                        } catch (Exception e) {
                         }
 
                         try {
                             Thread.sleep(100L);
-                        } catch (Exception var3) {
+                        } catch (Exception e) {
                         }
                     }
 
@@ -603,7 +605,7 @@ public class JobMiner extends Job implements Serializable {
 
             int idmeta = blockid.func_176201_c(this.jobWorld.func_180495_p(new BlockPos(blockPos)));
             if (this.jobWorld != null) {
-                ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, this.vNextMineableBlock);//开采时平移块体
+                List<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, this.vNextMineableBlock);//开采时平移块体
                 BlockPos blockPos1 = new BlockPos(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
                 this.jobWorld.func_180501_a(blockPos1, Blocks.field_150350_a.func_176223_P(), 3);
                 if (this.theFolk.theEntity != null) {
@@ -611,7 +613,7 @@ public class JobMiner extends Job implements Serializable {
                         this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0.1f, 0.3f, 0);
                         this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0, 0.2f, 0);
                         this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0, 0.1f, 0.1f);
-                    } catch (Exception var9) {
+                    } catch (Exception e) {
                     }
                 }
 
@@ -693,7 +695,7 @@ public class JobMiner extends Job implements Serializable {
                         if (id == Block.func_149682_b(Blocks.field_150355_j) || id == Block.func_149682_b(Blocks.field_150355_j) || id == Block.func_149682_b(Blocks.field_150353_l) || id == Block.func_149682_b(Blocks.field_150353_l) || id == Block.func_149682_b(Blocks.field_150329_H) || block.toString().toLowerCase().contains("oil")) {
                             keep = false;
                         }
-                    } catch (Exception var10) {
+                    } catch (Exception e) {
                         keep = false;
                     }
 
@@ -727,7 +729,7 @@ public class JobMiner extends Job implements Serializable {
                 return;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageMining出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageMining出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

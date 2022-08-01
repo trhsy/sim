@@ -98,7 +98,7 @@ public abstract class RecipeMatch {
                 for(int i = 0; i < stacks.length; i++) {
                     if (ItemStack.func_179545_c(stack, stacks[i]) && ItemStack.func_77970_a(stack, stacks[i])) {
                         if (stacks[i].field_77994_a < stack.field_77994_a) {
-                            ModSimReloaded.log.error("RecipeMatch has incorrect stacksize! {}", new Object[]{stacks[i].toString()});
+                            ModSimReloaded.log.warn("RecipeMatch has incorrect stacksize! {}", new Object[]{stacks[i].toString()});
                         } else {
                             stacks[i].field_77994_a -= stack.field_77994_a;
                             if (stacks[i].field_77994_a == 0) {

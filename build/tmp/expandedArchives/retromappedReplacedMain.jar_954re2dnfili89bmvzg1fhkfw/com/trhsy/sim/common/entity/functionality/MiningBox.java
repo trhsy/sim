@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName MiningBox
@@ -47,7 +48,7 @@ public class MiningBox implements Serializable {
             this.marker3XYZ = m3xyz;
             this.discards = filterblocks;
             this.size = size;
-        } catch (Exception var8) {
+        } catch (Exception e) {
         }
 
 
@@ -75,7 +76,7 @@ public class MiningBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getMiningBlockByBoxXYZ出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -109,7 +110,7 @@ public class MiningBox implements Serializable {
                 for (i$ = 0; i$ < len$; i$++) {
                     f = arr$[i$];
                     if (f.getName().endsWith(".sk2")) {
-                        ArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                        CopyOnWriteArrayList<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                         MiningBox box = new MiningBox();
                         Iterator iterator = strings.iterator();
 
@@ -175,7 +176,7 @@ public class MiningBox implements Serializable {
                                     } else {
                                         f.delete();
                                     }
-                                } catch (Exception var14) {
+                                } catch (Exception e) {
                                     //var14.printStackTrace();
                                 }
                             }
@@ -184,7 +185,7 @@ public class MiningBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadMiningBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -194,7 +195,7 @@ public class MiningBox implements Serializable {
         try {
             Side side = FMLCommonHandler.instance().getEffectiveSide();
             if (side == Side.SERVER) {
-                ArrayList<String> strings = new ArrayList();
+                CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList();
 
                 for (int b = 0; b < ModSimReloaded.theMiningBoxes.size(); ++b) {
                     try {
@@ -217,12 +218,12 @@ public class MiningBox implements Serializable {
                             String xyz = "m" + mining.location.toString().replaceAll(",", "_");
                             ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Mining" + File.separator + xyz + ".sk2", strings);
                         }
-                    } catch (Exception var5) {
+                    } catch (Exception e) {
                     }
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveMiningBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

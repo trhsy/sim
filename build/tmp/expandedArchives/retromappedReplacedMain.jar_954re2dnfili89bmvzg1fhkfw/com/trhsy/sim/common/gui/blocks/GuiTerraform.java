@@ -59,7 +59,7 @@ public class GuiTerraform extends GuiScreen {
             this.tfRadius.func_146203_f(5);
             this.tfRadius.func_146180_a("30");
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -77,7 +77,7 @@ public class GuiTerraform extends GuiScreen {
             this.tfRadius.func_146194_f();
             super.func_73863_a(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -87,7 +87,7 @@ public class GuiTerraform extends GuiScreen {
         try {
             this.tfRadius.func_146178_a();
         } catch (Exception e) {
-            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -96,7 +96,7 @@ public class GuiTerraform extends GuiScreen {
         try {
             try {
                 JobTerraformer var2 = (JobTerraformer)this.theFolk.theirJob;
-            } catch (Exception var4) {
+            } catch (Exception e) {
                 ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.Terraform13"));
                 return;
             }
@@ -153,7 +153,7 @@ public class GuiTerraform extends GuiScreen {
                 this.field_146297_k.func_71381_h();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUITERRAFORMactionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -162,7 +162,7 @@ public class GuiTerraform extends GuiScreen {
         try {this.tfRadius.func_146192_a(i, j, k);
             super.func_73864_a(i, j, k);
         } catch (IOException e) {
-            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //e.printStackTrace();
         }
     }
@@ -179,14 +179,14 @@ public class GuiTerraform extends GuiScreen {
                         if (this.tfRadius.func_146206_l()) {
                             this.tfRadius.func_146201_a(c, i);
                         }
-                    } catch (Exception var4) {
+                    } catch (Exception e) {
                         this.tfRadius.func_146201_a(c, i);
                     }
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

@@ -88,7 +88,7 @@ public class PulseManager {
                 forced = p.forced();
                 enabled = p.defaultEnable();
                 defaultEnabled = p.defaultEnable();
-            } catch (NullPointerException var15) {
+            } catch (NullPointerException e) {
                 throw new RuntimeException("Could not parse @Pulse annotation for Pulse: " + pulse);
             }
 
@@ -135,12 +135,12 @@ public class PulseManager {
             EventBus eb = (EventBus) ebf.get(mc);
             ebf.setAccessible(access);
             eb.register(obj);
-        } catch (NoSuchFieldException var7) {
+        } catch (NoSuchFieldException e) {
             throw new RuntimeException("Pulsar >> Incompatible FML mod container (missing eventBus field) - wrong Forge version?");
-        } catch (IllegalAccessException var8) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Pulsar >> Security Manager blocked access to eventBus on mod container. Cannot continue.");
-        } catch (ClassCastException var9) {
-            throw new RuntimeException("Pulsar >> Something in the mod container had the wrong type? " + var9.getMessage());
+        } catch (ClassCastException e) {
+            throw new RuntimeException("Pulsar >> Something in the mod container had the wrong type? " + e.getMessage());
         }
     }
 

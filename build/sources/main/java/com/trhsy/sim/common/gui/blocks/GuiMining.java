@@ -19,6 +19,7 @@ import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -30,17 +31,17 @@ import java.util.ArrayList;
  * ========================================
  **/
 public class GuiMining extends GuiScreen {
-    ArrayList<FolkData> theWorkers = new ArrayList();
+    CopyOnWriteArrayList<FolkData> theWorkers = new CopyOnWriteArrayList();
     MiningBox theMiningBox = null;
     private GuiTextField tfSize;
     private int mouseCount = 0;
 
-    public GuiMining(MiningBox miningBlock, ArrayList<FolkData> folks) {
+    public GuiMining(MiningBox miningBlock, CopyOnWriteArrayList<FolkData> folks) {
         try {
             this.theMiningBox = miningBlock;
             this.theWorkers = folks;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiMining出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMining出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -56,7 +57,7 @@ public class GuiMining extends GuiScreen {
                 this.tfSize.updateCursorCounter();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -112,7 +113,7 @@ public class GuiMining extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -143,7 +144,7 @@ public class GuiMining extends GuiScreen {
                 this.buttonList.add(new GuiButton(3, this.width / 2 - 100, 140, j));
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("extraButtons出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("extraButtons出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -164,7 +165,7 @@ public class GuiMining extends GuiScreen {
                 if (this.theMiningBox.marker1XYZ == null) {
                     this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Mining11"), this.width / 2, 27, 16711680);
                 }
-            } catch (Exception var7) {
+            } catch (Exception e) {
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Mining12"), this.width / 2, 27, 16711680);
             }
 
@@ -184,7 +185,7 @@ public class GuiMining extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //var8.printStackTrace();
         }
 
@@ -248,7 +249,7 @@ public class GuiMining extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIMININGactionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -266,7 +267,7 @@ public class GuiMining extends GuiScreen {
 
                     try {
                         s = Integer.parseInt(this.tfSize.getText());
-                    } catch (Exception var5) {
+                    } catch (Exception e) {
                     }
 
                     this.theMiningBox.size = s;
@@ -274,7 +275,7 @@ public class GuiMining extends GuiScreen {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -288,7 +289,7 @@ public class GuiMining extends GuiScreen {
 
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             //e.printStackTrace();
         }
     }

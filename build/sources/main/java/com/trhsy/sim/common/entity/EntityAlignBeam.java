@@ -51,7 +51,7 @@ public class EntityAlignBeam extends Entity {
         try {
             super.setVelocity(0, 0, 0);
         } catch (Exception e) {
-            ModSimReloaded.log.error("setVelocity出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setVelocity出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -70,7 +70,7 @@ public class EntityAlignBeam extends Entity {
                 this.posY = (double)this.theMarker.y;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

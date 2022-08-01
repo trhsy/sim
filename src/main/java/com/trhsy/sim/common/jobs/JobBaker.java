@@ -97,7 +97,7 @@ public class JobBaker extends Job implements Serializable {
                 //目的地为空
                 if (this.theFolk.destination == null) {
                     //设置目的地为雇佣地点
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -179,7 +179,7 @@ public class JobBaker extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBaker-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -195,7 +195,7 @@ public class JobBaker extends Job implements Serializable {
                     this.theStage = Stage.GOBACKTOBAKERY;
                     this.step = 1;
                 } else {
-                    this.theFolk.gotoXYZ(this.farm.getLocation(), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.farm.getLocation(), null);
                     this.runDelay = 1000;
                     this.step = 2;
                 }
@@ -267,7 +267,7 @@ public class JobBaker extends Job implements Serializable {
         try {
             this.theFolk.statusText = I18n.format("container.sim.job.Baker_Taking");
             if (this.theFolk.destination == null && this.step == 1) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.runDelay = 100;
                 this.step = 2;
             }
@@ -442,7 +442,7 @@ public class JobBaker extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATSHOP;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

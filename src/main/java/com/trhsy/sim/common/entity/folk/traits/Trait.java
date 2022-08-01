@@ -89,7 +89,7 @@ public class Trait {
             Building specialBuilding = Building.getBuildingBySearch(buildingName);
 
             if (specialBuilding != null) {
-                theFolk.gotoXYZ(specialBuilding.primaryXYZ, GotoMethod.WALK);
+                theFolk.gotoXYZ(specialBuilding.primaryXYZ, null);
                 theFolk.destination.doNotTimeout = true;
                 theFolk.statusText = visitingText;
             }
@@ -105,7 +105,7 @@ public class Trait {
     public void hasSpecialBuilding(String buildingName) {
         try {
             Building specialBuilding = Building.getBuildingBySearch(buildingName);
-            theFolk.gotoXYZ(specialBuilding.primaryXYZ, GotoMethod.WALK);
+            theFolk.gotoXYZ(specialBuilding.primaryXYZ, null);
             theFolk.destination.doNotTimeout = true;
             theFolk.statusText = I18n.format("container.sim.folk_data_Visiting") + specialBuilding.displayName;
         } catch (Exception e) {

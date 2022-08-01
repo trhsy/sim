@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -94,7 +95,7 @@ public class ThreadFacsimile extends Thread {
                 int zo = 0;
                 HashMap key = new HashMap();
                 key.put("0:0", "A");
-                ArrayList layerLines = new ArrayList();
+                CopyOnWriteArrayList layerLines = new CopyOnWriteArrayList();
                 int ch = 66;
                 boolean allAirBlocks = true;
                 String keyString = "A=0:0;";
@@ -192,7 +193,7 @@ public class ThreadFacsimile extends Thread {
                 guiMarker.errorText = I18n.format("container.sim.Facsimile1");
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("ThreadFacsimile出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

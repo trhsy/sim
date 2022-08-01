@@ -47,7 +47,7 @@ public class BlockConstructorBox extends Block {
             }
             super.onBlockAdded(world, blockPos, iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑箱onBlockAdded出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑箱onBlockAdded出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -69,7 +69,7 @@ public class BlockConstructorBox extends Block {
             }
             super.onBlockDestroyedByPlayer(world, blockPos, iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑箱onBlockDestroyedByPlayer出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑箱onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -98,10 +98,10 @@ public class BlockConstructorBox extends Block {
 
             V3 loc = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
             Minecraft mc = Minecraft.getMinecraft();
-            GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, (ArrayList)null);
+            GuiBuildingConstructor ui = new GuiBuildingConstructor(loc, this.buildDirection, null);
             mc.displayGuiScreen(ui);
         } catch (Exception e) {
-            ModSimReloaded.log.error("建筑箱onBlockActivated出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("建筑箱onBlockActivated出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return false;
         }
         return true;

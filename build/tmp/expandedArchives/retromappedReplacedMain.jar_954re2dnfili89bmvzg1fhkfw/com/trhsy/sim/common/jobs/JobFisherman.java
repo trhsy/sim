@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -39,7 +40,7 @@ public class JobFisherman extends Job implements Serializable {
     public transient long timeSinceLastRun = 0L;
     private transient long timeSinceLastCaughtFish = 0L;
     private transient int fishCount = 0;
-    private transient ArrayList<IInventory> dockChests = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> dockChests = new CopyOnWriteArrayList();
 
     public JobFisherman(FolkData folk) {
         try {
@@ -50,12 +51,12 @@ public class JobFisherman extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobFisherman出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobFisherman出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -97,7 +98,7 @@ public class JobFisherman extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -115,7 +116,7 @@ public class JobFisherman extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -140,10 +141,10 @@ public class JobFisherman extends Job implements Serializable {
                 }
 
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageFishing出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageFishing出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -172,10 +173,10 @@ public class JobFisherman extends Job implements Serializable {
             if (dist <= 3) {
                 this.theFolk.stayPut = true;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageCaughtFish出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCaughtFish出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -215,7 +216,7 @@ public class JobFisherman extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageSellingFish出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageSellingFish出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -230,10 +231,10 @@ public class JobFisherman extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATDOCK;
                 this.timeSinceLastCaughtFish = System.currentTimeMillis();
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -243,7 +244,7 @@ public class JobFisherman extends Job implements Serializable {
             this.theStage = Stage.IDLE;
             this.fishCount = 0;
         } catch (Exception e) {
-            ModSimReloaded.log.error("resetJob出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("resetJob出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

@@ -14,7 +14,7 @@ public class EntityRenderLoader {
         try {
             EntityLoader.registerRenders();
         } catch (Exception e) {
-            ModSimReloaded.log.error("实体渲染加载出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("实体渲染加载出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

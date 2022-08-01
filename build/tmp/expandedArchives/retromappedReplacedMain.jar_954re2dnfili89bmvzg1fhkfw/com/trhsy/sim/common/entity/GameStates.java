@@ -6,6 +6,7 @@ import com.trhsy.sim.common.loader.ModSimReloaded;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 游戏状态
@@ -46,13 +47,13 @@ public class GameStates implements Serializable {
                 this.loadStates2();
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("loadStates出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadStates出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
     private void loadStates2() {
         try {
-            ArrayList<String> strings = ModSimReloaded.loadSK2(ModSimReloaded.getSavesDataFolder() + "settings.sk2");
+            CopyOnWriteArrayList<String> strings = ModSimReloaded.loadSK2(ModSimReloaded.getSavesDataFolder() + "settings.sk2");
             for (String line:strings){
                 if (line.contains("|")) {
                     int m1 = line.indexOf("|");
@@ -85,7 +86,7 @@ public class GameStates implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("loadStates2出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadStates2出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -94,7 +95,7 @@ public class GameStates implements Serializable {
     public void saveStates() {
         try {
             String folder = ModSimReloaded.getSavesDataFolder();
-            ArrayList<String> strings = new ArrayList();
+            CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList();
             //金额
             strings.add("credits|" + this.credits);
             //游戏状态
@@ -121,7 +122,7 @@ public class GameStates implements Serializable {
             ModSimReloaded.saveSK2(folder + "settings.sk2", strings);
             ModSimReloaded.log.info("游戏状态: saveStates() called BOTH sides, 金额存储为 " + this.credits);
         } catch (Exception e) {
-            ModSimReloaded.log.error("saveStates出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveStates出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

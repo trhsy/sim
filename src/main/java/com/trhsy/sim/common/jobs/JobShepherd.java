@@ -58,7 +58,7 @@ public class JobShepherd extends Job implements Serializable {
 
         if (this.theFolk != null) {
             if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
 
         }
@@ -144,7 +144,7 @@ public class JobShepherd extends Job implements Serializable {
         this.theFolk.stayPut = false;
         if (this.step == 1) {
             if (this.theFolk.getDistanceToPlayer() < 50) {
-                this.theFolk.gotoXYZ(new V3(this.sheepToShear.posX, this.sheepToShear.posY, this.sheepToShear.posZ, this.theFolk.employedAt.theDimension), GotoMethod.WALK);
+                this.theFolk.gotoXYZ(new V3(this.sheepToShear.posX, this.sheepToShear.posY, this.sheepToShear.posZ, this.theFolk.employedAt.theDimension), null);
             }
 
             this.step = 2;
@@ -273,7 +273,7 @@ public class JobShepherd extends Job implements Serializable {
             this.theStage = Stage.ARRIVEDATFARM;
             this.spawnSheepIfNeeded(this.theFolk.employedAt);
         } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+            this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
         }
 
     }

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 仓库快递员任务
@@ -36,7 +37,7 @@ public class CourierTask implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getCourierPoint出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getCourierPoint出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -52,7 +53,7 @@ public class CourierTask implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("alreadyGotTask出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("alreadyGotTask出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return got;
     }
@@ -69,7 +70,7 @@ public class CourierTask implements Serializable {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("alreadyGotPoint出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("alreadyGotPoint出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return got;
@@ -104,9 +105,8 @@ public class CourierTask implements Serializable {
                 listFiles = courierPoints.listFiles();
                 lengths = listFiles.length;
 
-                ArrayList strings;
+                CopyOnWriteArrayList<String> strings;
                 Iterator iterator;
-                String line;
                 int m1;
                 String name;
                 String value;
@@ -115,10 +115,7 @@ public class CourierTask implements Serializable {
                     if (f.getName().endsWith(".sk2")) {
                         strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                         V3 v = new V3();
-                        iterator = strings.iterator();
-
-                        while (iterator.hasNext()) {
-                            line = (String) iterator.next();
+                        for (String line : strings) {
                             if (line.contains("|")) {
                                 m1 = line.indexOf("|");
                                 name = line.substring(0, m1);
@@ -147,10 +144,7 @@ public class CourierTask implements Serializable {
                     if (f.getName().endsWith(".sk2")) {
                         strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                         CourierTask ct = new CourierTask();
-                        iterator = strings.iterator();
-
-                        while (iterator.hasNext()) {
-                            line = (String) iterator.next();
+                        for (String line : strings) {
                             if (line.contains("|")) {
                                 m1 = line.indexOf("|");
                                 name = line.substring(0, m1);
@@ -211,7 +205,7 @@ public class CourierTask implements Serializable {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("loadCourierTasksAndPoints出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadCourierTasksAndPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -222,12 +216,12 @@ public class CourierTask implements Serializable {
             Side side = FMLCommonHandler.instance().getEffectiveSide();
             if (side == Side.SERVER) {
                 int mofo;
-                ArrayList strings;
+                CopyOnWriteArrayList strings;
                 for (mofo = 0; mofo < ModSimReloaded.theCourierPoints.size(); ++mofo) {
-                    strings = new ArrayList();
+                    strings = new CopyOnWriteArrayList();
                     V3 point = (V3) ModSimReloaded.theCourierPoints.get(mofo);
                     if (point != null) {
-                        ArrayList<IInventory> chests = Job.inventoriesFindClosest(point, 5);
+                        CopyOnWriteArrayList<IInventory> chests = Job.inventoriesFindClosest(point, 5);
                         String fn = "cp" + point.x.intValue() + "_" + point.y.intValue() + "_" + point.z.intValue() + "_D" + point.theDimension;
                         if (chests.size() > 0) {
                             if (!names.contains(point.name)) {
@@ -241,7 +235,7 @@ public class CourierTask implements Serializable {
                             try {
                                 File fi = new File(ModSimReloaded.getSavesDataFolder() + "CourierPoints" + File.separator + fn + ".sk2");
                                 fi.delete();
-                            } catch (Exception var9) {
+                            } catch (Exception e) {
                                 //var9.printStackTrace();
                             }
                         }
@@ -249,7 +243,7 @@ public class CourierTask implements Serializable {
                 }
 
                 for (mofo = 0; mofo < ModSimReloaded.theCourierTasks.size(); ++mofo) {
-                    strings = new ArrayList();
+                    strings = new CopyOnWriteArrayList();
                     CourierTask task = (CourierTask) ModSimReloaded.theCourierTasks.get(mofo);
                     String fn = "ct" + mofo + task.folkname.replace(" ", "");
                     boolean okToSave = true;
@@ -260,7 +254,7 @@ public class CourierTask implements Serializable {
                     } else {
                         try {
                             strings.add("dropoff|" + task.dropoff.toString());
-                        } catch (Exception var8) {
+                        } catch (Exception e) {
                             okToSave = false;
                         }
                     }
@@ -273,7 +267,7 @@ public class CourierTask implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("saveCourierTasksAndPoints出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveCourierTasksAndPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

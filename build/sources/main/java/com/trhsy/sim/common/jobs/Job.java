@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -44,7 +45,7 @@ public abstract class Job {
     Minecraft mc = Minecraft.getMinecraft();
     //步
     public int step = 1;
-    ArrayList<V3> closestBlocks = new ArrayList();
+    CopyOnWriteArrayList<V3> closestBlocks = new CopyOnWriteArrayList();
     //职业
     public Vocation vocation = null;
     //职场
@@ -92,7 +93,7 @@ public abstract class Job {
                 this.chestToClose = null;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC安排工作出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC安排工作出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -109,8 +110,8 @@ public abstract class Job {
             if (this.jobWorld == null) {
                 try {
                     this.jobWorld = MinecraftServer.getServer().worldServerForDimension(theFolk.employedAt.theDimension);
-                } catch (Exception var7) {
-                    ModSimReloaded.log.error("设置职场出错：" + var7.getMessage());
+                } catch (Exception e) {
+                    StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("设置职场出错：" + e.getMessage()+"行数："+element.getLineNumber());
                     return;
                 }
             }
@@ -154,7 +155,7 @@ public abstract class Job {
                         //如果目的地为空
                         if (theFolk.destination == null) {
                             //设置目的地
-                            theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
+                            theFolk.gotoXYZ(theFolk.employedAt, GotoMethod.WALK);
                         }
                     }
                 } else {
@@ -167,14 +168,14 @@ public abstract class Job {
                             //如果目的地为空
                             if (theFolk.destination == null) {
                                 //设置目的地
-                                theFolk.gotoXYZ(theFolk.employedAt, (GotoMethod) null);
+                                theFolk.gotoXYZ(theFolk.employedAt, GotoMethod.WALK);
                             }
                         }
                     }
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC去上班出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC去上班出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -213,7 +214,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("获取物品清单个数出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("获取物品清单个数出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -249,7 +250,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("获得方块的库存出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("获得方块的库存出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return ret;
         }
         return ret;
@@ -281,7 +282,7 @@ public abstract class Job {
                 ret = (TileEntityFurnace) theWorld.getTileEntity(blockPos);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC找熔炉出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC找熔炉出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -336,7 +337,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC从箱子里拿东西出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC从箱子里拿东西出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return placedOK;
 
@@ -353,7 +354,7 @@ public abstract class Job {
      * @param ignoreId
      * @return 取出物品的 Itemstack，如果无法获取物品，则为 NULL
      */
-    public static ItemStack inventoriesGet(ArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta, ItemStack ignoreId) {
+    public static ItemStack inventoriesGet(CopyOnWriteArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta, ItemStack ignoreId) {
         ItemStack retStack = null;
         try {
             for (int c = 0; c < chests.size(); c++) {
@@ -364,7 +365,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -376,7 +377,7 @@ public abstract class Job {
      * @param compareMeta
      * @return
      */
-    public static ItemStack inventoriesGet(ArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta) {
+    public static ItemStack inventoriesGet(CopyOnWriteArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta) {
         ItemStack retStack = null;
         try {
             for (int c = 0; c < chests.size(); ++c) {
@@ -388,7 +389,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -445,7 +446,7 @@ public abstract class Job {
             } else {
                 if (getRandomItem) {
                     returnStack = null;
-                    ArrayList<Integer> slots = new ArrayList<Integer>();
+                    CopyOnWriteArrayList<Integer> slots = new CopyOnWriteArrayList<Integer>();
 
                     for (int g = 0; g < chest.getSizeInventory(); g++) {
                         ItemStack chestStack = chest.getStackInSlot(g);
@@ -478,7 +479,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return returnStack;
     }
@@ -530,7 +531,7 @@ public abstract class Job {
             } else {
                 if (getRandomItem) {
                     returnStack = null;
-                    ArrayList<Integer> slots = new ArrayList<Integer>();
+                    CopyOnWriteArrayList<Integer> slots = new CopyOnWriteArrayList<Integer>();
 
                     for (int g = 0; g < chest.getSizeInventory(); g++) {
                         ItemStack chestStack = chest.getStackInSlot(g);
@@ -563,7 +564,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC从箱子/库存中取出一些东西并归还出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return returnStack;
     }
@@ -577,7 +578,7 @@ public abstract class Job {
      * @param doOpenClose 是否打开关闭
      * @return
      */
-    public boolean inventoriesPut(ArrayList<IInventory> chests, ItemStack inStack, boolean doOpenClose) {
+    public boolean inventoriesPut(List<IInventory> chests, ItemStack inStack, boolean doOpenClose) {
         //是否放好
         boolean placedOK = false;
         try {
@@ -594,12 +595,12 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC将物品放入箱子出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC将物品放入箱子出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return placedOK;
     }
 
-    public static boolean inventoriesPut(ArrayList<IInventory> chests, ItemStack inStack) {
+    public static boolean inventoriesPut(CopyOnWriteArrayList<IInventory> chests, ItemStack inStack) {
         boolean placedOK = false;
         try {
             for (int i = 0; i < chests.size(); i++) {
@@ -610,7 +611,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("NPC将物品放入箱子出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NPC将物品放入箱子出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return placedOK;
     }
@@ -623,7 +624,7 @@ public abstract class Job {
      * @param specificItems 如果有任何/所有项，则为NULL；如果只应放置，则指定itemStack
      * @return 如果成功，如果箱子都满了，则为false
      */
-    public boolean inventoriesTransferFromFolk(InventoryBasic folkInventory, ArrayList<IInventory> toChests, ItemStack specificItems) {
+    public boolean inventoriesTransferFromFolk(InventoryBasic folkInventory, CopyOnWriteArrayList<IInventory> toChests, ItemStack specificItems) {
         boolean placed = false;
         boolean okToPlace = false;
         try {
@@ -645,14 +646,14 @@ public abstract class Job {
                             return false;
                         }
                     }
-                } catch (Exception var8) {
+                } catch (Exception e) {
                     //var8.printStackTrace();
                 }
             }
 
             folkInventory.clear();
         } catch (Exception e) {
-            ModSimReloaded.log.error("将物品从NPC转移到箱子 将员工库存转移到一组箱子/库存中出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("将物品从NPC转移到箱子 将员工库存转移到一组箱子/库存中出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return true;
     }
@@ -667,7 +668,7 @@ public abstract class Job {
      * @param ignoreId      传入 -1 以不忽略任何块或要留在箱子的东西的块 ID
      * @return 成功获得至少一个堆栈为真，如果没有得到则为假
      */
-    public boolean inventoriesTransferToFolk(InventoryBasic folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
+    public boolean inventoriesTransferToFolk(InventoryBasic folkInventory, CopyOnWriteArrayList<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
         boolean ret = false;
         int limit = 0;
         ItemStack got = null;
@@ -687,7 +688,7 @@ public abstract class Job {
                 limit++;
             } while (got != null && limit < 27);
         } catch (Exception e) {
-            ModSimReloaded.log.error("将一些物品/任何物品从一组箱子中转移到人们的库存中出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("将一些物品/任何物品从一组箱子中转移到人们的库存中出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -703,7 +704,7 @@ public abstract class Job {
      * @param doCompareMeta
      * @return
      */
-    public int inventoriesTransferLimitedToFolk(InventoryBasic folkInventory, ArrayList<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
+    public int inventoriesTransferLimitedToFolk(InventoryBasic folkInventory, CopyOnWriteArrayList<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
         int gotSoFar = 0;
         try {
             for (IInventory chest : fromChests) {
@@ -740,7 +741,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("将有限数量的特定物品从一组箱子（库存）转移到NPC的库存中出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("将有限数量的特定物品从一组箱子（库存）转移到NPC的库存中出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return gotSoFar;
     }
@@ -754,7 +755,7 @@ public abstract class Job {
      * @param doCompareMeta
      * @return
      */
-    public int getItemCountInChests(ArrayList<IInventory> chests, ItemStack is, boolean doCompareMeta) {
+    public int getItemCountInChests(CopyOnWriteArrayList<IInventory> chests, ItemStack is, boolean doCompareMeta) {
         int ret = 0;
         try {
             for (IInventory chest : chests) {
@@ -771,7 +772,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("把物品放在箱子里出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("把物品放在箱子里出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -784,8 +785,8 @@ public abstract class Job {
      * @param location
      * @return
      */
-    public ArrayList<ItemStack> translateBlockWhenMined(World world, V3 location) {
-        ArrayList<ItemStack> itemStacks = new ArrayList<ItemStack>();
+    public List<ItemStack> translateBlockWhenMined(World world, V3 location) {
+        List<ItemStack> itemStacks = new CopyOnWriteArrayList<ItemStack>();
         try {
             int i = location.x.intValue();
             int j = location.y.intValue();
@@ -797,9 +798,9 @@ public abstract class Job {
             }
 
             int ma = block.getMetaFromState(world.getBlockState(blockPos));
-            itemStacks = (ArrayList<ItemStack>) block.getDrops(world, blockPos, block.getStateFromMeta(ma), 0);
+            itemStacks = block.getDrops(world, blockPos, block.getStateFromMeta(ma), 0);
         } catch (Exception e) {
-            ModSimReloaded.log.error("开采时平移块体出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("开采时平移块体出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return itemStacks;
 
@@ -818,7 +819,7 @@ public abstract class Job {
             this.chestToClose = chest;
             this.chestToCloseWhen = System.currentTimeMillis() + (long) msDelay;
         } catch (Exception e) {
-            ModSimReloaded.log.error("开关箱子出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("开关箱子出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -833,7 +834,7 @@ public abstract class Job {
      * @param scanDownwards
      * @param oneLayerOnly
      */
-    public void setClosestBlocksOfType(final V3 startXYZ, final ArrayList<Block> blockIDs, final int distanceLimit, final boolean needsToSeeSky, final boolean scanDownwards, final boolean oneLayerOnly) {
+    public void setClosestBlocksOfType(final V3 startXYZ, final CopyOnWriteArrayList<Block> blockIDs, final int distanceLimit, final boolean needsToSeeSky, final boolean scanDownwards, final boolean oneLayerOnly) {
         try {
             Thread t = new Thread(new Runnable() {
 
@@ -898,13 +899,13 @@ public abstract class Job {
                         }
                     }
 
-                    Job.this.closestBlocks = new ArrayList(hm.values());
+                    Job.this.closestBlocks = new CopyOnWriteArrayList(hm.values());
                     Job.this.step = 3;
                 }
             });
             t.start();
         } catch (Exception e) {
-            ModSimReloaded.log.error("设置最接近的类型块出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("设置最接近的类型块出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -916,8 +917,8 @@ public abstract class Job {
      * @param searchDistance
      * @return
      */
-    public static ArrayList<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
-        ArrayList<IInventory> ret = new ArrayList<IInventory>();
+    public static CopyOnWriteArrayList<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
+        CopyOnWriteArrayList<IInventory> ret = new CopyOnWriteArrayList<IInventory>();
 
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
@@ -947,7 +948,7 @@ public abstract class Job {
                     }
                 }
             }
-        } catch (Exception var12) {
+        } catch (Exception e) {
             return ret;
         }
         return ret;
@@ -960,7 +961,7 @@ public abstract class Job {
      * @param chest
      * @return
      */
-    private static boolean alreadyGotChest(ArrayList<IInventory> chests, IInventory chest) {
+    private static boolean alreadyGotChest(CopyOnWriteArrayList<IInventory> chests, IInventory chest) {
         boolean ret = false;
         try {
             for (IInventory ch : chests) {
@@ -970,7 +971,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("已经有箱子了出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("已经有箱子了出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -1015,7 +1016,7 @@ public abstract class Job {
                 return test;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("寻找相邻空间出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("寻找相邻空间出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return startXYZ;
     }
@@ -1055,7 +1056,7 @@ public abstract class Job {
                 return ret;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("查找最近的块类型出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("查找最近的块类型出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -1093,7 +1094,7 @@ public abstract class Job {
                 return ret;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("查找最近的块类型出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("查找最近的块类型出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -1107,10 +1108,10 @@ public abstract class Job {
      * @param distanceLimit
      * @return
      */
-    public static ArrayList<V3> findClosestBlocks(V3 startXYZ, Block block, int distanceLimit) {
-        ArrayList<V3> blocksFound = new ArrayList();
+    public static CopyOnWriteArrayList<V3> findClosestBlocks(V3 startXYZ, Block block, int distanceLimit) {
+        CopyOnWriteArrayList<V3> blocksFound = new CopyOnWriteArrayList();
         int count = 0;
-        ArrayList<V3> retblocksFound = new ArrayList();
+        CopyOnWriteArrayList<V3> retblocksFound = new CopyOnWriteArrayList();
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
 
@@ -1128,7 +1129,7 @@ public abstract class Job {
                                     blocksFound.add(v);
                                 }
                             }
-                        } catch (Exception var13) {
+                        } catch (Exception e) {
                             //var13.printStackTrace();
                         }
                     }
@@ -1158,7 +1159,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("找到最近的街区出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("找到最近的街区出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return retblocksFound;
     }
@@ -1171,10 +1172,10 @@ public abstract class Job {
      * @param blockXYZ
      * @return
      */
-    public boolean mineBlockIntoChests(ArrayList<IInventory> chests, V3 blockXYZ) {
+    public boolean mineBlockIntoChests(List<IInventory> chests, V3 blockXYZ) {
         boolean ret = false;
         try {
-            ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, blockXYZ);
+            List<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, blockXYZ);
             if (minedStacks != null) {
                 for (int s = 0; s < minedStacks.size(); s++) {
                     ItemStack stack = (ItemStack) minedStacks.get(s);
@@ -1186,7 +1187,7 @@ public abstract class Job {
                 ret = true;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("把矿块放进箱子里出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("把矿块放进箱子里出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return ret;
     }
@@ -1210,7 +1211,7 @@ public abstract class Job {
                 return size;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("把动物数记在笔里出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("把动物数记在笔里出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return size;
     }
@@ -1223,7 +1224,7 @@ public abstract class Job {
      * @return
      */
     public static V3 getNearestBuildingForFolk(String searchWord, FolkData folk) {
-        ArrayList<Building> ret = new ArrayList<Building>();
+        CopyOnWriteArrayList<Building> ret = new CopyOnWriteArrayList<Building>();
         Building shortestDist = null;
         try {
             for (int x = 0; x < ModSimReloaded.theBuildings.size(); x++) {
@@ -1239,7 +1240,7 @@ public abstract class Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("把动物数记在笔里出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("把动物数记在笔里出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return shortestDist.primaryXYZ;
     }

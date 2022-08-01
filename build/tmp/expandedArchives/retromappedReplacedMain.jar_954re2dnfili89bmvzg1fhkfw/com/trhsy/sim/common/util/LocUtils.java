@@ -20,7 +20,7 @@ public class LocUtils {
         try {
             makeLocString=unclean.toLowerCase(Locale.US).replaceAll(" ", "");
         } catch (Exception e) {
-            ModSimReloaded.log.error("makeLocString出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("makeLocString出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return makeLocString;
     }
@@ -30,7 +30,7 @@ public class LocUtils {
         try {
             makeLocString=StatCollector.func_74838_a(StatCollector.func_74837_a(key, params));
         } catch (Exception e) {
-            ModSimReloaded.log.error("translateRecursive出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("translateRecursive出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return makeLocString;
     }

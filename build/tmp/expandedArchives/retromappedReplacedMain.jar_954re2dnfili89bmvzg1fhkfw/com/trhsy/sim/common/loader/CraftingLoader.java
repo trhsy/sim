@@ -20,7 +20,7 @@ public class CraftingLoader {
             registerSmelting();
             registerFuel();
         } catch (Exception e) {
-            ModSimReloaded.log.error("CraftingLoader出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("CraftingLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -236,7 +236,7 @@ public class CraftingLoader {
                             "# #", "# #", '#', ItemLoader.itemTinIngot
                     });
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerRecipe出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerRecipe出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -264,7 +264,7 @@ public class CraftingLoader {
             //烧铜矿得铜锭
             GameRegistry.addSmelting(BlockLoader.blockCopperOre, new ItemStack(ItemLoader.itemCopperIngot), 0.1F);
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerSmelting出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerSmelting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -278,7 +278,7 @@ public class CraftingLoader {
     private static void registerFuel() {
         try {
         } catch (Exception e) {
-            ModSimReloaded.log.error("registerFuel出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("registerFuel出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

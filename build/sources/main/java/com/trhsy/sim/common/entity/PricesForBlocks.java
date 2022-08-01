@@ -70,7 +70,7 @@ public class PricesForBlocks implements Serializable {
                 base = (float)((double)base + (double)base * 1.12D);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getPrice出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getPrice出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -99,7 +99,7 @@ public class PricesForBlocks implements Serializable {
                 basePriceFence = newPrice;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("setPrice出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setPrice出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -135,7 +135,7 @@ public class PricesForBlocks implements Serializable {
                 setPrice(Blocks.planks, cprice / 4.0F);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("adjustPrice出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("adjustPrice出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -147,7 +147,7 @@ public class PricesForBlocks implements Serializable {
             NumberFormat formatter = new DecimalFormat("#0.00");
             formatPrice=formatter.format((double)price);
         } catch (Exception e) {
-            ModSimReloaded.log.error("formatPrice出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("formatPrice出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return formatPrice;
     }

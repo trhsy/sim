@@ -18,6 +18,7 @@ import net.minecraft.util.BlockPos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 砖匠的工作
@@ -30,7 +31,7 @@ public class JobBrickMaker extends Job implements Serializable {
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient V3 blockOfClay = null;
-    private transient ArrayList<IInventory> factoryChests = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> factoryChests = new CopyOnWriteArrayList();
     private transient TileEntityFurnace factoryFurnace = null;
     private long lastGotocmd = 0L;
     private int gotoCount = 0;
@@ -47,12 +48,12 @@ public class JobBrickMaker extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobBrickMaker出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBrickMaker出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -110,7 +111,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -131,7 +132,7 @@ public class JobBrickMaker extends Job implements Serializable {
 
             this.theStage = Stage.GOTOCLAYBLOCK;
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageScanForClay出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageScanForClay出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -146,14 +147,14 @@ public class JobBrickMaker extends Job implements Serializable {
             double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
             if (dist > 4.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.blockOfClay, GotoMethod.WALK);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
             }
 
             this.theStage = Stage.COLLECTCLAY;
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGotoClayBlock出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGotoClayBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -165,7 +166,7 @@ public class JobBrickMaker extends Job implements Serializable {
         this.theFolk.updateLocationFromEntity();
         double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
         if (dist > 6.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
-            this.theFolk.gotoXYZ(this.blockOfClay, (GotoMethod) null);
+            this.theFolk.gotoXYZ(this.blockOfClay, GotoMethod.WALK);
             this.theFolk.stayPut = false;
             this.lastGotocmd = System.currentTimeMillis();
             ++this.gotoCount;
@@ -201,7 +202,7 @@ public class JobBrickMaker extends Job implements Serializable {
 
         }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageCollectClay出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCollectClay出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -214,7 +215,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 /*Double var3 = adj.y;
                 Double var4 = adj.y = adj.y + 1.0;*/
                 adj = new V3(adj.x - 1.0, adj.y + 1.0, adj.z, adj.theDimension);
-                this.theFolk.gotoXYZ(adj, (GotoMethod) null);
+                this.theFolk.gotoXYZ(adj, GotoMethod.WALK);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -226,7 +227,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -236,7 +237,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.step = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageReturnClay出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -320,7 +321,7 @@ public class JobBrickMaker extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageUseFurnace出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageUseFurnace出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -335,10 +336,10 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.the_factory");
                 this.theStage = Stage.USEFURNACE;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

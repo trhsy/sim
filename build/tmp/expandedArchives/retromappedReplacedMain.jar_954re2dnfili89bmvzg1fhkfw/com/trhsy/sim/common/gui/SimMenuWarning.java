@@ -13,7 +13,7 @@ public class SimMenuWarning extends GuiMainMenu {
         try {
             this.func_73731_b(this.field_146297_k.field_71466_p, I18n.func_135052_a("container.sim.SimMenuWarning"), this.field_146294_l / 2, this.field_146295_m / 2, 16711680);
         } catch (Exception e) {
-            ModSimReloaded.log.error("initGui出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

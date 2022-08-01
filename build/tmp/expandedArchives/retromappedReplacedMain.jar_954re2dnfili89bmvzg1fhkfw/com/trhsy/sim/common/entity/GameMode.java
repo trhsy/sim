@@ -30,7 +30,7 @@ public class GameMode {
                 i = gameMode == GameMode.GAMEMODES.HARDCORE ? 2 : 0;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("getGameModeNumber出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getGameModeNumber出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return i;
     }
@@ -52,7 +52,7 @@ public class GameMode {
                 gameMode = GameMode.GAMEMODES.HARDCORE;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("setGameModeFromNumber出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("setGameModeFromNumber出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

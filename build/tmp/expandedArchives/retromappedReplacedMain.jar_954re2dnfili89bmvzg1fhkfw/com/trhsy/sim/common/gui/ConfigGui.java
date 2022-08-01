@@ -32,7 +32,7 @@ public class ConfigGui extends GuiConfig {
             list.add(new ConfigElement(ConfigLoader.Gameplay));
             list.add(new ConfigElement(ConfigLoader.Nameplay));
         } catch (Exception e) {
-            ModSimReloaded.log.error("getConfigElements出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getConfigElements出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
         return list;

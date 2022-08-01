@@ -1,7 +1,7 @@
 displayname|伐木场
 type|industrial
 primaryxyz|131,63,384,0
-livingxyz|null
+livingxyz|129,63,384,0
 buildingcomplete|true
 capacity|-1
 builddir|-x

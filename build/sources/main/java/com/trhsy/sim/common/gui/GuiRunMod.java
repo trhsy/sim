@@ -43,7 +43,7 @@ public class GuiRunMod extends GuiScreen {
             this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, creative));
             this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, hardcore));
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -80,8 +80,9 @@ public class GuiRunMod extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, sim_gui_everything, this.width / 2, 160, 16776960);
             this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
             super.drawScreen(i, j, f);
-        } catch (Exception var5) {
-            ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常" + var5.getMessage());
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];
+            ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -123,7 +124,7 @@ public class GuiRunMod extends GuiScreen {
             this.mc.currentScreen = null;
             this.mc.setIngameFocus();
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiRunMod-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 }

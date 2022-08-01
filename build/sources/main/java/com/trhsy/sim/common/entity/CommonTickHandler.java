@@ -52,7 +52,7 @@ public class CommonTickHandler {
                 ++this.ticks;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("tick出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("tick出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -128,7 +128,7 @@ public class CommonTickHandler {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onTickInGame出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onTickInGame出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -142,7 +142,7 @@ public class CommonTickHandler {
                 ModSimReloaded.log.info(side.toString() + "-side CommTH: 重置SimUKraft()");
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("resetSimUKraft出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("resetSimUKraft出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -152,7 +152,7 @@ public class CommonTickHandler {
             if (!ModSim.proxy.ranStartup) {
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("startingWorld出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("startingWorld出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

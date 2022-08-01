@@ -67,7 +67,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("initscreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initscreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -88,7 +88,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
 
             super.func_73863_a(i, j, f);
         } catch (Exception e) {
-            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -113,7 +113,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("actionPerformed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIBEAMPLAYERTO-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -126,7 +126,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getButtonWithId出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -137,7 +137,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
             Keyboard.enableRepeatEvents(false);
             this.field_146297_k.func_71381_h();
         } catch (Exception e) {
-            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -148,7 +148,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 this.field_146297_k.func_147108_a((GuiScreen)null);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

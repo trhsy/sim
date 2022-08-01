@@ -61,7 +61,7 @@ public class JobCheesemaker extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -156,7 +156,7 @@ public class JobCheesemaker extends Job {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobCheesemaker-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -192,7 +192,7 @@ public class JobCheesemaker extends Job {
             if (!dairyFarms.isEmpty() && dairyFarms.size() - 1 <= this.currentFarmNum) {
                 this.farm = (Building)dairyFarms.get(this.currentFarmNum);
                 //去农场
-                this.theFolk.gotoXYZ(this.farm.primaryXYZ, GotoMethod.BEAM);
+                this.theFolk.gotoXYZ(this.farm.primaryXYZ, null);
                 //切换状态为 收集牛奶
                 this.theStage = Stage.COLLECTINGMILK;
                 this.step = 1;
@@ -253,7 +253,7 @@ public class JobCheesemaker extends Job {
                 CopyOnWriteArrayList<V3> tanktop = this.theCheeseFactory.getSpecialBlocks(3);
                 if (!tanktop.isEmpty()) {
                     //对齐光波
-                    this.theFolk.gotoXYZ((V3)tanktop.get(0), GotoMethod.BEAM);
+                    this.theFolk.gotoXYZ((V3)tanktop.get(0), null);
                     //去蓄水池
                     this.theStage = Stage.GOINGTOTANK;
                     this.step = 1;
@@ -391,9 +391,9 @@ public class JobCheesemaker extends Job {
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.viscosity");
                 if (!stirPositions.isEmpty()) {
                     if (this.tubToggle) {
-                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(0), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(0), null);
                     } else {
-                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(1), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(1), null);
                     }
 
                     this.tubToggle = !this.tubToggle;
@@ -546,7 +546,7 @@ public class JobCheesemaker extends Job {
             //提取奶酪块
             this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Extracting");
             if (this.step == 1) {
-                this.theFolk.gotoXYZ((V3)stirPositions.get(0), GotoMethod.WALK);
+                this.theFolk.gotoXYZ((V3)stirPositions.get(0), null);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.destination == null) {
@@ -582,7 +582,7 @@ public class JobCheesemaker extends Job {
                     if (!gotBlock) {
                         this.theFolk.isWorking = false;
                         this.step = 4;
-                        this.theFolk.gotoXYZ((V3)stirPositions.get(1), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ((V3)stirPositions.get(1), null);
                     }
                 } else if (this.step == 4) {
                     if (this.theFolk.destination == null) {
@@ -634,7 +634,7 @@ public class JobCheesemaker extends Job {
                 ModSimReloaded.sendChat(I18n.format("container.sim.job.cheese_maker.problem"));
             } else {
                 if (this.step == 1) {
-                    this.theFolk.gotoXYZ((V3)slicewaypoint.get(0), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ((V3)slicewaypoint.get(0), null);
                     this.step = 2;
                 } else if (this.step == 2) {
                     if (this.theFolk.destination == null) {
@@ -698,7 +698,7 @@ public class JobCheesemaker extends Job {
                 this.theStage = Stage.ARRIVEDATFACTORY;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

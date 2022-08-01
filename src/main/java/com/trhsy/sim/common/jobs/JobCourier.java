@@ -58,7 +58,7 @@ public class JobCourier extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -110,7 +110,7 @@ public class JobCourier extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobCourier-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -154,7 +154,7 @@ public class JobCourier extends Job implements Serializable {
                     //Double var4 = d.y;
                     //Double var5 = d.y = d.y + 1;
                     d=new V3(d.x,d.y+1,d.z,d.theDimension);
-                    this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
+                    this.theFolk.gotoXYZ(d, null);
                     this.onRoute = true;
                 } else {
                     this.theStage = Stage.IDLE;
@@ -228,7 +228,7 @@ public class JobCourier extends Job implements Serializable {
                 this.dropoff = task.dropoff.clone();
             } else {
                 this.theStage = Stage.ATDEPOT;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 if (task != null) {
                     this.courierTasks.remove(task);
                 }
@@ -250,7 +250,7 @@ public class JobCourier extends Job implements Serializable {
                 Double var4 = d.y;
                 Double var5 = d.y = d.y + 1;
                 this.theFolk.beamMeTo(d);
-                this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
+                this.theFolk.gotoXYZ(d, null);
                 this.onRoute = true;
             } else {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -322,7 +322,7 @@ public class JobCourier extends Job implements Serializable {
                 this.currentTask = 0;
                 this.timeSinceLastCycle = System.currentTimeMillis();
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.theStage = Stage.IDLE;
             } else {
                 this.theStage = Stage.GOINGTOPICKUP;
@@ -344,7 +344,7 @@ public class JobCourier extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.Arrived");
                 this.theStage = Stage.ATDEPOT;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
 
         } catch (Exception e) {

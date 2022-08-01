@@ -21,7 +21,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -40,7 +42,7 @@ public class JobTerraformer extends Job {
     public transient long timeSinceLastRun = 0L;
     private transient TerraformerType theType;
     private transient int radius;
-    private transient ArrayList<IInventory> constructorChests = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> constructorChests = new CopyOnWriteArrayList();
     private transient int totalBlockCount = 0;
     private transient int counter = 0;
     private transient int buckets = 0;
@@ -57,12 +59,12 @@ public class JobTerraformer extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobTerraformer出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobTerraformer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -72,7 +74,7 @@ public class JobTerraformer extends Job {
             this.theStage = Stage.IDLE;
             this.theFolk.isWorking = false;
         } catch (Exception e) {
-            ModSimReloaded.log.error("resetJob出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("resetJob出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -120,7 +122,7 @@ public class JobTerraformer extends Job {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -171,7 +173,7 @@ public class JobTerraformer extends Job {
                 this.step = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("地形规划师等待资源出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("地形规划师等待资源出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -184,24 +186,24 @@ public class JobTerraformer extends Job {
             this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             V3 v;
             if (this.step == 1) {
-                ArrayList blockIDs;
+                CopyOnWriteArrayList blockIDs;
                 //填海
                 if (this.theType == TerraformerType.WATERTODIRT) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.water);
                     blockIDs.add(Blocks.water);
                     this.closestBlocks = null;
                     this.setClosestBlocksOfType(this.theFolk.employedAt, blockIDs, this.radius, false, true, false);
                     //植树
                 } else if (this.theType == TerraformerType.NATURE) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.dirt);
                     blockIDs.add(Blocks.grass);
                     this.closestBlocks = null;
                     this.setClosestBlocksOfType(this.theFolk.employedAt, blockIDs, this.radius, true, true, false);
                     //割草
                 } else if (this.theType == TerraformerType.LAWNMOWER) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.tallgrass);
                     blockIDs.add(Blocks.red_flower);
                     blockIDs.add(Blocks.yellow_flower);
@@ -209,7 +211,7 @@ public class JobTerraformer extends Job {
                     this.setClosestBlocksOfType(this.theFolk.employedAt, blockIDs, this.radius, false, true, false);
                     //铺平
                 } else if (this.theType == TerraformerType.FLATTENIZER) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.grass);
                     blockIDs.add(Blocks.dirt);
                     blockIDs.add(Blocks.tallgrass);
@@ -221,7 +223,7 @@ public class JobTerraformer extends Job {
                     this.setClosestBlocksOfType(this.theFolk.employedAt, blockIDs, this.radius, false, false, false);
                     //单层泥土
                 } else if (this.theType == TerraformerType.VALUEPACK) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.air);
                     blockIDs.add(Blocks.tallgrass);
                     blockIDs.add(Blocks.red_flower);
@@ -231,7 +233,7 @@ public class JobTerraformer extends Job {
                     this.setClosestBlocksOfType(v, blockIDs, this.radius, false, true, true);
                     //放冰
                 } else if (this.theType == TerraformerType.GLACIAL) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.air);
                     blockIDs.add(Blocks.tallgrass);
                     blockIDs.add(Blocks.water);
@@ -241,7 +243,7 @@ public class JobTerraformer extends Job {
                     this.setClosestBlocksOfType(v, blockIDs, this.radius, true, true, false);
                     //放水
                 } else if (this.theType == TerraformerType.MOISTURIZER) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.lava);
                     blockIDs.add(Blocks.lava);
                     v = new V3(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.theDimension);
@@ -249,14 +251,14 @@ public class JobTerraformer extends Job {
                     this.setClosestBlocksOfType(v, blockIDs, this.radius, false, true, false);
                     //放岩浆
                 } else if (this.theType == TerraformerType.THERMALIZER) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.lava);
                     v = new V3(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.theDimension);
                     this.closestBlocks = null;
                     this.setClosestBlocksOfType(v, blockIDs, this.radius, false, true, false);
                     //除冰
                 } else if (this.theType == TerraformerType.DEICER) {
-                    blockIDs = new ArrayList();
+                    blockIDs = new CopyOnWriteArrayList();
                     blockIDs.add(Blocks.snow);
                     v = new V3(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.theDimension);
                     this.closestBlocks = null;
@@ -386,7 +388,7 @@ public class JobTerraformer extends Job {
                         this.runDelay = 50;
                     }
                 } else {
-                    ArrayList minedStacks;
+                    List minedStacks;
                     int s;
                     ItemStack stack;
                     if (this.theType == TerraformerType.LAWNMOWER) {
@@ -504,7 +506,7 @@ public class JobTerraformer extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageInProgress出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageInProgress出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -519,7 +521,7 @@ public class JobTerraformer extends Job {
             this.theFolk.selfFire();
             this.theStage = Stage.IDLE;
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageComplete出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageComplete出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -533,10 +535,10 @@ public class JobTerraformer extends Job {
                 this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.Arrived");
                 this.theStage = Stage.WAITINGFORRESOURCES;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 

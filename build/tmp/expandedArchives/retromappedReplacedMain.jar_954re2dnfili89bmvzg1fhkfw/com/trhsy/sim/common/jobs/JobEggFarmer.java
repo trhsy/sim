@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -36,7 +37,7 @@ public class JobEggFarmer extends Job {
     public FolkData theFolk;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private ArrayList<IInventory> farmChests = new ArrayList();
+    private CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
 
     public JobEggFarmer(FolkData folk) {
         try {
@@ -47,12 +48,12 @@ public class JobEggFarmer extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobEggFarmer出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobEggFarmer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -94,7 +95,7 @@ public class JobEggFarmer extends Job {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -110,7 +111,7 @@ public class JobEggFarmer extends Job {
                 this.spawnHens(this.theFolk.employedAt, 6 - count);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -125,7 +126,7 @@ public class JobEggFarmer extends Job {
             this.theFolk.statusText = I18n.func_135052_a("container.sim.job.egg.farmer.Raking");
             this.theStage = Stage.COLLECTINGEGGS;
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageWaiting出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageWaiting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -136,7 +137,7 @@ public class JobEggFarmer extends Job {
             this.theStage = Stage.STORINGEGGS;
             this.theFolk.isWorking = true;
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageCollectingEggs出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCollectingEggs出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -164,7 +165,7 @@ public class JobEggFarmer extends Job {
                 this.theStage = Stage.CANTWORK;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageStoringEggs出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageStoringEggs出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -183,10 +184,10 @@ public class JobEggFarmer extends Job {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.egg.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -206,7 +207,7 @@ public class JobEggFarmer extends Job {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("spawnHens出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("spawnHens出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

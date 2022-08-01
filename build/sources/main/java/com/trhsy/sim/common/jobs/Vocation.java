@@ -90,7 +90,7 @@ public enum Vocation {
             } else {
                 return s.contentEquals(I18n.format("container.sim.Vocation24")) ? BURGERSWAITER : null;
             }
-        } catch (Exception var2) {
+        } catch (Exception e) {
             return null;
         }
     }

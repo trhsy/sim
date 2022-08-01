@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -59,7 +60,7 @@ public class JobCropFarmer extends Job implements Serializable {
     //养殖箱
     private transient FarmingBox farmingBlock = null;
 
-    private transient ArrayList<IInventory> farmingChests = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> farmingChests = new CopyOnWriteArrayList();
     //去哪里
     private transient String farmDir = "";
     //未破坏统计
@@ -105,7 +106,7 @@ public class JobCropFarmer extends Job implements Serializable {
             }
             if (this.theFolk.destination == null) {
                 //目的地为空重新设置 为雇佣地
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
 
             }
             //设置养殖箱位置
@@ -113,7 +114,7 @@ public class JobCropFarmer extends Job implements Serializable {
             //延迟
             this.runDelay = 1000;
         } catch (Exception e) {
-            ModSimReloaded.log.error("设置工作为农民出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("设置工作为农民出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -201,7 +202,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("更新农民工作出问题了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("更新农民工作出问题了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -219,7 +220,7 @@ public class JobCropFarmer extends Job implements Serializable {
             this.theFolk.stayPut = true;
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist > 3) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
 
             if (this.farmingChests.isEmpty()) {
@@ -236,7 +237,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("检查箱子出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("检查箱子出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -285,11 +286,11 @@ public class JobCropFarmer extends Job implements Serializable {
 
                 this.ltrCount = this.farmingBlock.getSizeWidth();
                 this.ftbCount = this.farmingBlock.getSizeLength();
-            } catch (Exception var8) {
+            } catch (Exception e) {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("设置农场出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("设置农场出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -310,7 +311,6 @@ public class JobCropFarmer extends Job implements Serializable {
                     ret = true;
                 }
             }
-
             if (this.farmDir.contentEquals("x+")) {
                 this.xo = this.ltr;
                 this.zo = -this.ftb;
@@ -333,7 +333,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("为下一个农业区块设置路径出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("为下一个农业区块设置路径出错了:" + e.getMessage()+"行数："+element.getLineNumber());
             ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.crop.farmer.There") + this.theFolk.name + I18n.func_135052_a("container.sim.job.crop.farmer.farming"));
             //辞职
             this.theFolk.selfFire();
@@ -362,7 +362,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 //计算位置
                 int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 3) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
                 this.step = 2;
@@ -394,7 +394,7 @@ public class JobCropFarmer extends Job implements Serializable {
                                     this.jobWorld.func_180501_a(blockPos, this.id.func_176223_P(), 3);
                                 }
                             }
-                        } catch (Exception var8) {
+                        } catch (Exception e) {
                             //如果删除了块，但未激活farmer，则farmingBlock可以为null
                         }
                         //可以收获
@@ -403,7 +403,7 @@ public class JobCropFarmer extends Job implements Serializable {
                         V3 harvestBlock = new V3((double) this.xxx, (double) this.yyy, (double) this.zzz, this.jobWorld.field_73011_w.func_177502_q());
 
                         //开采时翻译块
-                        //ArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
+                        //CopyOnWriteArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
                         //甘蔗/仙人掌农场
                         if (this.farmingBlock.farmType == FarmType.SUGAR && this.farmingBlock.farmType == FarmType.CACTUS) {
                             Block sid1 = this.jobWorld.func_180495_p(new BlockPos(this.xxx, this.yyy + 1, this.zzz)).func_177230_c();
@@ -518,7 +518,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("收获农作物出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("收获农作物出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -559,7 +559,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("捡掉的庄稼出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("捡掉的庄稼出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -655,7 +655,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("锄地出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("锄地出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -692,7 +692,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             if (this.farmingBlock.farmType != FarmType.CUSTOM) {
                                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.crop.farmer.Planting") + this.farmingBlock.farmType.toString() + I18n.func_135052_a("container.sim.job.crop.farmer.seeds");
                             }
-                        } catch (Exception var10) {
+                        } catch (Exception e) {
                         }
 
                         //小麦
@@ -861,7 +861,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("种种子错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("种种子错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -878,7 +878,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 Random ra = new Random();
                 int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 3) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
                 int r = ra.nextInt(10);
@@ -926,7 +926,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("农民休息出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("农民休息出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -943,10 +943,10 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.crop.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod) null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("农民去上班出错了:" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("农民去上班出错了:" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

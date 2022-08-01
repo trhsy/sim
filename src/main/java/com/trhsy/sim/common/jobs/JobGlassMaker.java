@@ -57,7 +57,7 @@ public class JobGlassMaker extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             }
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobGlassMaker-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -158,7 +158,7 @@ public class JobGlassMaker extends Job implements Serializable {
             double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfSand);
             if (dist > 4 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.blockOfSand, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.blockOfSand, null);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
             }
@@ -177,7 +177,7 @@ public class JobGlassMaker extends Job implements Serializable {
             this.theFolk.updateLocationFromEntity();
             double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfSand);
             if (dist > 6 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
-                this.theFolk.gotoXYZ(this.blockOfSand, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.blockOfSand, null);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
                 ++this.gotoCount;
@@ -225,7 +225,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 /*Double var3 = adj.y;
                 Double var4 = adj.y = adj.y + 1;*/
                 adj = new V3(adj.x , adj.y + 1, adj.z, adj.theDimension);
-                this.theFolk.gotoXYZ(adj, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -237,7 +237,7 @@ public class JobGlassMaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -349,7 +349,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Arrived");
                 this.theStage = Stage.USEFURNACE;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

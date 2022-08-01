@@ -42,7 +42,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -81,7 +81,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
                     this.theFolk.updateLocationFromEntity();
                     double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                     if (dist > 5 && this.theFolk.destination == null) {
-                        this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                     }
 
                     if (dist <= 5) {
@@ -91,7 +91,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBuildersMerchant-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -110,7 +110,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.INSTORE;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

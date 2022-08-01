@@ -56,7 +56,7 @@ public class BlockFarmingBox extends Block {
             world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
             super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -85,14 +85,14 @@ public class BlockFarmingBox extends Block {
                     m.marker1XYZ = ((Marker) BlockMarker.markers.get(first)).toV3();
                     m.marker2XYZ = ((Marker) BlockMarker.markers.get(first + 1)).toV3();
                     m.marker3XYZ = ((Marker) BlockMarker.markers.get(first + 2)).toV3();
-                } catch (Exception var7) {
+                } catch (Exception e) {
                     //var7.printStackTrace();
                 }
 
             }
             super.onBlockAdded(world, blockPos, iBlockState);
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -121,13 +121,13 @@ public class BlockFarmingBox extends Block {
                 FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));
                 Minecraft mc = Minecraft.getMinecraft();
                 mc.displayGuiScreen(new GuiFarming(farmingBlock, folk));
-            } catch (Exception var13) {
+            } catch (Exception e) {
                 String farming_box_Sorry = I18n.format("container.sim.farming_box_Sorry");
                 ModSimReloaded.sendChat(farming_box_Sorry);
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return false;
         }
         return true;

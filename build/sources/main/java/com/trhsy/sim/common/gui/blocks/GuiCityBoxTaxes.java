@@ -26,7 +26,7 @@ public class GuiCityBoxTaxes extends GuiScreen {
             this.playerWhoClickedIt = thePlayer;
             this.cityBoxGui = gui;
         } catch (Exception e) {
-            ModSimReloaded.log.error("GuiCityBoxTaxes出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiCityBoxTaxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -53,7 +53,7 @@ public class GuiCityBoxTaxes extends GuiScreen {
             this.drawDefaultBackground();
             this.drawCenteredString(this.fontRendererObj, "税", this.width / 2, 17, 16777215);
             super.drawScreen(i, j, f);
-        } catch (Exception var5) {
+        } catch (Exception e) {
             //var5.printStackTrace();
         }
 
@@ -68,7 +68,7 @@ public class GuiCityBoxTaxes extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUICITYBOXTAXES-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

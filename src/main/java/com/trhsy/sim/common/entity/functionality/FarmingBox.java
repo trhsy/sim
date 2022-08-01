@@ -211,7 +211,6 @@ public class FarmingBox implements Serializable {
                 } else if (m2.z - b.z < -1.0) {
                     c.z = c.z - 1.0;
                 }
-
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
@@ -224,7 +223,6 @@ public class FarmingBox implements Serializable {
                 } else if (m3.z - b.z < -1.0) {
                     c.z = c.z - 1.0;
                 }
-
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeWidth() + 2; i++) {
@@ -237,7 +235,6 @@ public class FarmingBox implements Serializable {
                 } else if (m2.z - b.z < -1.0) {
                     c.z = c.z + 1.0;
                 }
-
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
@@ -250,7 +247,6 @@ public class FarmingBox implements Serializable {
                 } else if (m3.z - b.z < -1.0) {
                     c.z = c.z + 1.0;
                 }
-
                 ret.add(c.clone());
             }
 

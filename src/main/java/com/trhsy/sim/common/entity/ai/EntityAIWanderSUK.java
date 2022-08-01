@@ -39,6 +39,7 @@ public class EntityAIWanderSUK extends EntityAIBase {
      * @Date 16:36 2022/7/31
      * @Param []
      **/
+    @Override
     public boolean shouldExecute() {
         EntityFolk actualFolk = (EntityFolk) this.entity;
         if (!this.mustUpdate) {
@@ -61,6 +62,7 @@ public class EntityAIWanderSUK extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.entity.getNavigator().noPath();
     }
@@ -102,7 +104,7 @@ public class EntityAIWanderSUK extends EntityAIBase {
     }
 
     /**
-     * Makes task to bypass chance
+     * 使任务绕过机会
      */
     public void makeUpdate()
     {
@@ -110,7 +112,7 @@ public class EntityAIWanderSUK extends EntityAIBase {
     }
 
     /**
-     * Changes task random possibility for execution
+     * 更改任务执行的随机可能性
      */
     public void setExecutionChance(int newchance)
     {

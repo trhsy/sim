@@ -22,6 +22,7 @@ import net.minecraft.server.MinecraftServer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ========================================
@@ -62,11 +63,11 @@ public class JobBaker extends Job implements Serializable {
     /*
     面包店/烘焙箱
      */
-    private transient ArrayList<IInventory> bakeryChests = null;
+    private transient CopyOnWriteArrayList<IInventory> bakeryChests = null;
     /*
     农场箱子
      */
-    private transient ArrayList<IInventory> farmChests = new ArrayList();
+    private transient CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
     /*
     当前农场数量
      */
@@ -96,12 +97,12 @@ public class JobBaker extends Job implements Serializable {
                 //目的地为空
                 if (this.theFolk.destination == null) {
                     //设置目的地为雇佣地点
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 }
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("JobBaker出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBaker出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -178,7 +179,7 @@ public class JobBaker extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -194,7 +195,7 @@ public class JobBaker extends Job implements Serializable {
                     this.theStage = Stage.GOBACKTOBAKERY;
                     this.step = 1;
                 } else {
-                    this.theFolk.gotoXYZ(this.farm.getLocation(), (GotoMethod) null);
+                    this.theFolk.gotoXYZ(this.farm.getLocation(), GotoMethod.WALK);
                     this.runDelay = 1000;
                     this.step = 2;
                 }
@@ -226,7 +227,7 @@ public class JobBaker extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGoingToWheatFarm出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoingToWheatFarm出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
 
@@ -255,7 +256,7 @@ public class JobBaker extends Job implements Serializable {
                 this.step = 1;
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageCollectingWheat出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCollectingWheat出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -266,7 +267,7 @@ public class JobBaker extends Job implements Serializable {
         try {
             this.theFolk.statusText = I18n.format("container.sim.job.Baker_Taking");
             if (this.theFolk.destination == null && this.step == 1) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
                 this.runDelay = 100;
                 this.step = 2;
             }
@@ -285,7 +286,7 @@ public class JobBaker extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageGoBackToBakery出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoBackToBakery出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -314,7 +315,7 @@ public class JobBaker extends Job implements Serializable {
 
                     try {
                         ((IInventory)this.bakeryChests.get(0)).openInventory(mc.thePlayer);
-                    } catch (Exception var4) {
+                    } catch (Exception e) {
                     }
 
                     this.inventoriesPut(this.bakeryChests, new ItemStack(Items.bread, bread), true);
@@ -340,7 +341,7 @@ public class JobBaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.Baker_Who");
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageMakeBread出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageMakeBread出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -392,7 +393,7 @@ public class JobBaker extends Job implements Serializable {
             }
 
         } catch (Exception e) {
-            ModSimReloaded.log.error("stageSellingBread出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageSellingBread出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -416,12 +417,12 @@ public class JobBaker extends Job implements Serializable {
                     if (this.currentFarmNum > ModSimReloaded.theFarmingBoxes.size() - 1) {
                         return null;
                     }
-                } catch (Exception var4) {
+                } catch (Exception e) {
                     return null;
                 }
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getCurrentFarm出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -441,10 +442,10 @@ public class JobBaker extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATSHOP;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, (GotoMethod)null);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
             }
         } catch (Exception e) {
-            ModSimReloaded.log.error("出错了：" + e.getMessage());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
