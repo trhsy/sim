@@ -6,10 +6,10 @@ package com.trhsy.sim.common.gui.blocks;
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Commodity;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.PricesForBlocks;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.Commodity;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.PricesForBlocks;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.gui.enums.ATMscreen;
 import com.trhsy.sim.common.jobs.Job;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -24,7 +24,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -45,7 +45,7 @@ public class GuiBankATM extends GuiScreen {
     private int mouseCount = 0;
     //银屏
     private ATMscreen theScreen;
-    private CopyOnWriteArrayList<Commodity> cart;
+    private List<Commodity> cart;
     //错误文本
     private String errorText;
 
@@ -68,7 +68,7 @@ public class GuiBankATM extends GuiScreen {
     public void initGui() {
         try {
             boolean robbed = false;
-            CopyOnWriteArrayList<V3> blocks = Job.findClosestBlocks(this.bankLocation, Blocks.diamond_block, 10);
+            List<V3> blocks = Job.findClosestBlocks(this.bankLocation, Blocks.diamond_block, 10);
             if (blocks.size() == 0) {
                 robbed = true;
             }
@@ -255,8 +255,8 @@ public class GuiBankATM extends GuiScreen {
                     GameStates var10000;
                     if (guibutton.id >= 100 && guibutton.id < 200) {
                         ItemStack is = this.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
-                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1.0F, 1.0F, false);
-                        String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy1")) + 4);
+                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
+                        String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 4);
                         NumberFormat format = NumberFormat.getInstance();
                         Object number = 0;
 
@@ -276,12 +276,12 @@ public class GuiBankATM extends GuiScreen {
                         this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 100, is);
                         this.initGui();
                     } else if (guibutton.id >= 500 && guibutton.id < 600) {
-                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1.0F, 1.0F, false);
+                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
                         NumberFormat format = NumberFormat.getInstance();
                         Object number = 0;
 
                         try {
-                            number = format.parse(guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy1")) + 4));
+                            number = format.parse(guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 4));
                         } catch (Exception e) {
                         }
 
@@ -372,7 +372,7 @@ public class GuiBankATM extends GuiScreen {
                             var10000.credits -= cost;
                             String sim_gui_ATMs_worth = I18n.format("container.sim.sim_gui_ATMs_worth");
                             ModSimReloaded.sendChat(sim_gui_ATMs_worth + ModSimReloaded.displayMoney(cost));
-                            ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                            ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                         }

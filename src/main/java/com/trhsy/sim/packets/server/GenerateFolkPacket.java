@@ -1,6 +1,6 @@
 package com.trhsy.sim.packets.server;
 
-import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;

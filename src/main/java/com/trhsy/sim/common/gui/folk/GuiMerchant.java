@@ -5,13 +5,12 @@ package com.trhsy.sim.common.gui.folk;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.PricesForBlocks;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.PricesForBlocks;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.jobs.Job;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -22,7 +21,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -37,9 +36,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GuiMerchant extends GuiScreen {
     private int currentPage = 0;
     //持有购买数量
-    private static CopyOnWriteArrayList<Integer> quantities = new CopyOnWriteArrayList<Integer>();
+    private static List<Integer> quantities = null;
     //基于玩家库存的销售限制
-    private static CopyOnWriteArrayList<Integer> sellLimits = new CopyOnWriteArrayList<Integer>();
+    private static List<Integer> sellLimits = null;
     private Float totalCost = 0.0F;
     private int mouseCount = 0;
 
@@ -273,7 +272,7 @@ public class GuiMerchant extends GuiScreen {
             Block block = null;
             boolean ok = false;
             Float stackPrice = 0.0F;
-            CopyOnWriteArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
+            List<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
             if (chests != null && chests.size() != 0) {
                 for (int i = 0; i < 9; i++) {
                     quant = (Integer) quantities.get(i);
@@ -314,7 +313,7 @@ public class GuiMerchant extends GuiScreen {
 
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
-                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 Thread t = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -323,7 +322,7 @@ public class GuiMerchant extends GuiScreen {
                         } catch (Exception e) {
                         }
 
-                        GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1.0F, 1.0F, false);
+                        GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1, 1, false);
                     }
                 });
                 t.start();
@@ -350,7 +349,7 @@ public class GuiMerchant extends GuiScreen {
             boolean ok = false;
             Float stackPrice = 0.0F;
             int stackCount = 0;
-            CopyOnWriteArrayList<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
+            List<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
             if (chests == null | chests.size() == 0) {
                 ModSimReloaded.sendChat(I18n.format("container.sim.Merchant13"));
                 this.mc.currentScreen = null;
@@ -377,7 +376,7 @@ public class GuiMerchant extends GuiScreen {
                     //箱子里没有我想从你那里买的有效堆栈？
                     ModSimReloaded.sendChat(I18n.format("container.sim.Merchant14"));
                 } else {
-                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     ModSimReloaded.sendChat(I18n.format("container.sim.Merchant15") + ModSimReloaded.displayMoney(total));
                 }
 

@@ -5,11 +5,9 @@ package com.trhsy.sim.common.gui.folk;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.References;
-import com.trhsy.sim.common.entity.Relationship;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.Relationship;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.packets.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -20,8 +18,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -39,7 +36,7 @@ public class GuiEntityFolk extends GuiScreen {
     private int mouseCount = 0;
     private FolkData theFolk;
     private EntityPlayer entityplayer;
-    private CopyOnWriteArrayList<Relationship> folksRelationships;
+    private List<Relationship> folksRelationships;
     private int relOffset = 0;
 
     public GuiEntityFolk(FolkData f, EntityPlayer entityplayer) {
@@ -82,7 +79,7 @@ public class GuiEntityFolk extends GuiScreen {
                 Mouse.setGrabbed(false);
             }
 
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glColor4f(1, 1, 1, 1);
             //1.6.2 中的新功能
             this.mc.renderEngine.bindTexture(myBackgroundTexture);
             int posX = (this.width - 256) / 2;
@@ -177,20 +174,20 @@ public class GuiEntityFolk extends GuiScreen {
                 //建设技能水平
                 this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Building_skill"), left, 97, 0);
                 this.fontRendererObj.drawString((int) this.theFolk.levelBuilder + I18n.format("container.sim.gui_Folk_of_10"), sec, 97, 128);
-                double w = 128 * ((double) (this.theFolk.levelBuilder % 1.0F * 1000.0F) / 1000);
+                double w = 128 * ((double) (this.theFolk.levelBuilder % 1 * 1000.0F) / 1000);
                 this.drawGradientRect(sec, 97, (int) w + sec, 105, 1358888960, 1358954240);
                 //挖矿技能等级
                 this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Mining_skill"), left, 107, 0);
                 this.fontRendererObj.drawString((int) this.theFolk.levelMiner + I18n.format("container.sim.gui_Folk_of_10"), sec, 107, 128);
-                w = 128 * ((double) (this.theFolk.levelMiner % 1.0F * 1000.0F) / 1000);
+                w = 128 * ((double) (this.theFolk.levelMiner % 1 * 1000.0F) / 1000);
                 this.drawGradientRect(sec, 107, (int) w + sec, 115, 1358888960, 1358954240);
-                if (this.theFolk.levelSoldier < 1.0F) {
-                    this.theFolk.levelSoldier = 1.0F;
+                if (this.theFolk.levelSoldier < 1) {
+                    this.theFolk.levelSoldier = 1;
                 }
                 //士兵技能等级
                 this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Soldier_skill"), left, 117, 0);
                 this.fontRendererObj.drawString((int) this.theFolk.levelSoldier + I18n.format("container.sim.gui_Folk_of_10"), sec, 117, 128);
-                w = 128 * ((double) (this.theFolk.levelSoldier % 1.0F * 1000.0F) / 1000);
+                w = 128 * ((double) (this.theFolk.levelSoldier % 1 * 1000.0F) / 1000);
                 this.drawGradientRect(sec, 117, (int) w + sec, 125, 1358888960, 1358954240);
                 if (this.theFolk.pregnancyStage > 0.0F) {
                     //医疗状况

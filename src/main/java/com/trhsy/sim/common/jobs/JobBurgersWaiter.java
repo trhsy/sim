@@ -4,20 +4,18 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ItemLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -114,9 +112,9 @@ public class JobBurgersWaiter extends Job {
 
     private void stageServing() {
         try {
-            CopyOnWriteArrayList<V3> serve = this.theStore.getSpecialBlocks(2);
+            List<V3> serve = this.theStore.getSpecialBlocks(2);
             if (!serve.isEmpty()) {
-                CopyOnWriteArrayList<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
+                List<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
                 if (!theChests.isEmpty()) {
                     this.theFolk.gotoXYZ((V3)serve.get(0), null);
 
@@ -164,7 +162,7 @@ public class JobBurgersWaiter extends Job {
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSTORE;
-                CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(2);
+                List<V3> back = this.theStore.getSpecialBlocks(2);
                 if (!back.isEmpty()) {
                     this.theFolk.gotoXYZ((V3)back.get(0), null);
                 }

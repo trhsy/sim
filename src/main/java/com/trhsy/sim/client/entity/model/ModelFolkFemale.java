@@ -1,7 +1,7 @@
 package com.trhsy.sim.client.entity.model;
 
-import com.trhsy.sim.common.entity.EntityFolk;
-import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.core.entity.EntityFolk;
+import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
@@ -35,7 +35,7 @@ public class ModelFolkFemale extends ModelBiped {
             this.leftTit.addBox(0.0F, 0.0F, 0.0F, 3, 3, 5);
             this.leftTit.setRotationPoint(-3.5F, 1.7F, -4.0F);
             this.pregnant = new ModelRenderer(this, 18, 20);
-            this.pregnant.addBox(0.0F, 0.0F, -1.0F, 5, 6, 5);
+            this.pregnant.addBox(0.0F, 0.0F, -1, 5, 6, 5);
             this.pregnant.setRotationPoint(-2.5F, 5.0F, -4.0F);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化NPC出错了：" + e.getMessage()+"行数："+element.getLineNumber());

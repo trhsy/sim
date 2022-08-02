@@ -2,14 +2,12 @@ package com.trhsy.sim.common;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.config.SimConfigSync;
-import com.trhsy.sim.common.entity.folk.genetics.Race;
-import com.trhsy.sim.common.entity.folk.traits.Traits;
+import com.trhsy.sim.common.core.entity.folk.genetics.Race;
+import com.trhsy.sim.common.core.entity.folk.traits.Traits;
 import com.trhsy.sim.common.gui.GuiHandler;
 import com.trhsy.sim.common.loader.*;
 import com.trhsy.sim.common.util.UpdateChecker;
 import com.trhsy.sim.packets.PacketHandler;
-import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
-import com.trhsy.sim.packets.server.LoadBuildingPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,7 +18,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
 
 
 /**

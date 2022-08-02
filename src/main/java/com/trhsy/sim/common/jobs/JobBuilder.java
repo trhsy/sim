@@ -5,9 +5,8 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.*;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.*;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -22,7 +21,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -47,7 +46,7 @@ public class JobBuilder extends Job implements Serializable {
     //自上次运行以来的时间
     public long timeSinceLastRun = 0L;
     //建筑用的储物箱
-    private transient CopyOnWriteArrayList<IInventory> constructorChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> constructorChests = new CopyOnWriteArrayList();
     //建筑物
     private transient Building theBuilding = null;
     //实体的建筑箱
@@ -95,7 +94,8 @@ public class JobBuilder extends Job implements Serializable {
                 this.theBuilding = this.theFolk.theBuilding;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBuilder出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("JobBuilder出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -107,9 +107,10 @@ public class JobBuilder extends Job implements Serializable {
     public void resetJob() {
         try {
             this.theStage = Stage.IDLE;
-        }catch (Exception e){
+        } catch (Exception e) {
             this.theStage = Stage.IDLE;
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("重新安排工作出错了:"+e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("重新安排工作出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -197,7 +198,8 @@ public class JobBuilder extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBuilder-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("JobBuilder-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -225,9 +227,9 @@ public class JobBuilder extends Job implements Serializable {
                 if (ConfigLoader.configFolkTalking) {
                     //判断性别，发出不一样的声音
                     if (this.theFolk.gender == 0) {
-                        this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1.0F, 1.0F, false);
+                        this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1, 1, false);
                     } else {
-                        this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
+                        this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1, 1, false);
                     }
                 }
                 //等待资源
@@ -245,7 +247,8 @@ public class JobBuilder extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageBlueprint出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageBlueprint出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -319,7 +322,8 @@ public class JobBuilder extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageWaitingForResources出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageWaitingForResources出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -345,12 +349,12 @@ public class JobBuilder extends Job implements Serializable {
             } else {
                 //如果步骤1
                 if (this.step == 1) {
-                    this.cx = this.theFolk.employedAt.x.intValue();
-                    this.cy = this.theFolk.employedAt.y.intValue();
-                    this.cz = this.theFolk.employedAt.z.intValue();
-                    this.ex = this.theFolk.employedAt.x.intValue();
-                    this.ey = this.theFolk.employedAt.y.intValue();
-                    this.ez = this.theFolk.employedAt.z.intValue();
+                    this.cx = (int) this.theFolk.employedAt.x;
+                    this.cy = (int) this.theFolk.employedAt.y;
+                    this.cz = (int) this.theFolk.employedAt.z;
+                    this.ex = (int) this.theFolk.employedAt.x;
+                    this.ey = (int) this.theFolk.employedAt.y;
+                    this.ez = (int) this.theFolk.employedAt.z;
                     this.bx = this.ex;
                     this.by = this.ey;
                     this.bz = this.ez;
@@ -424,7 +428,8 @@ public class JobBuilder extends Job implements Serializable {
                             //获取结构体
                             bl = this.theBuilding.structure[this.acount].split(":");
                         } catch (Exception e) {
-                            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBuilder: 建筑中的空块,改用空气");
+                            StackTraceElement element = e.getStackTrace()[0];
+                            ModSimReloaded.log.error("JobBuilder: 建筑中的空块,改用空气");
                             bl = "0:0".split(":");
                         }
                         //获取块id
@@ -449,7 +454,8 @@ public class JobBuilder extends Job implements Serializable {
                                 //保存建筑
                                 this.theBuilding.saveThisBuilding();
                             } catch (Exception e) {
-                                StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.warn("JobBuilder:构建为空" + e.getMessage()+"行数："+element.getLineNumber());
+                                StackTraceElement element = e.getStackTrace()[0];
+                                ModSimReloaded.log.warn("JobBuilder:构建为空" + e.getMessage() + "行数：" + element.getLineNumber());
                             }
                         }
 
@@ -479,7 +485,8 @@ public class JobBuilder extends Job implements Serializable {
                             }
                         } catch (Exception e) {
                             this.theFolk.selfFire();
-                            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("******************建筑错误，NPC辞职:" + e.getMessage()+"行数："+element.getLineNumber());
+                            StackTraceElement element = e.getStackTrace()[0];
+                            ModSimReloaded.log.error("******************建筑错误，NPC辞职:" + e.getMessage() + "行数：" + element.getLineNumber());
                             return;
                         }
 
@@ -607,7 +614,7 @@ public class JobBuilder extends Job implements Serializable {
                                         }
                                         //每2秒播放一次音效
                                         if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
-                                            this.mc.theWorld.playSound((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), ModSim.MODID + ":construction", 1.0F, 1.0F, false);
+                                            this.mc.theWorld.playSound((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), ModSim.MODID + ":construction", 1, 1, false);
                                             this.soundLastPlayed = System.currentTimeMillis();
                                         }
 
@@ -623,13 +630,13 @@ public class JobBuilder extends Job implements Serializable {
                                         }
                                     } catch (Exception e) {
                                         ModSimReloaded.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
-                                            BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                                            this.jobWorld.setBlockState(blockPos, blockId.getDefaultState(), 3);
+                                        BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                                        this.jobWorld.setBlockState(blockPos, blockId.getDefaultState(), 3);
                                     }
                                 }
                             } catch (Exception e) {
-                                StackTraceElement element=e.getStackTrace()[0];
-                                ModSimReloaded.log.warn("错误：" + e.getMessage()+"行数："+element.getLineNumber());
+                                StackTraceElement element = e.getStackTrace()[0];
+                                ModSimReloaded.log.warn("错误：" + e.getMessage() + "行数：" + element.getLineNumber());
                             }
                         }
 
@@ -668,7 +675,8 @@ public class JobBuilder extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageInProgress出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageInProgress出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -687,7 +695,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.theBuilding.buildingComplete = true;
                     //已完成建设
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
-                    ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                    ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     this.theBuilding.saveThisBuilding();
                     this.theFolk.theBuilding = null;
                 } else {
@@ -720,7 +728,8 @@ public class JobBuilder extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageComplete出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageComplete出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -743,7 +752,8 @@ public class JobBuilder extends Job implements Serializable {
                 this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

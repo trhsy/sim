@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.commands;
 
-import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.packets.PacketHandler;
 import com.trhsy.sim.packets.server.GenerateFolkPacket;
@@ -11,7 +11,6 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 

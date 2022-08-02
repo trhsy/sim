@@ -4,10 +4,9 @@ package com.trhsy.sim.common.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameMode;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameMode;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -18,7 +17,7 @@ import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -31,12 +30,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * ========================================
  **/
 public class GuiMining extends GuiScreen {
-    CopyOnWriteArrayList<FolkData> theWorkers = new CopyOnWriteArrayList();
+    List<FolkData> theWorkers = new CopyOnWriteArrayList();
     MiningBox theMiningBox = null;
     private GuiTextField tfSize;
     private int mouseCount = 0;
 
-    public GuiMining(MiningBox miningBlock, CopyOnWriteArrayList<FolkData> folks) {
+    public GuiMining(MiningBox miningBlock, List<FolkData> folks) {
         try {
             this.theMiningBox = miningBlock;
             this.theWorkers = folks;

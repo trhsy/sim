@@ -4,10 +4,8 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 

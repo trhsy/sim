@@ -1,8 +1,8 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.gui.blocks.GuiBuildingConstructor;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -16,8 +16,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
 
 /**
  * 建筑箱
@@ -43,7 +41,7 @@ public class BlockConstructorBox extends Block {
     public void onBlockAdded(World world, BlockPos blockPos, IBlockState iBlockState) {
         try {
             if (!world.isRemote) {
-                world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
+                world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":constructoractivated", 1, 1);
             }
             super.onBlockAdded(world, blockPos, iBlockState);
         } catch (Exception e) {
@@ -61,7 +59,7 @@ public class BlockConstructorBox extends Block {
     public void onBlockDestroyedByPlayer(World world, BlockPos blockPos, IBlockState iBlockState) {
         try {
             if (!world.isRemote) {
-                world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+                world.playSoundEffect(blockPos.getX(), blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1, 1);
             }
             FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId()));
             if (theFolk != null) {
@@ -78,7 +76,7 @@ public class BlockConstructorBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
             int px = (int)Math.floor(thePlayer.posX);
             int py = (int)Math.floor(thePlayer.posY);
             int pz = (int)Math.floor(thePlayer.posZ);

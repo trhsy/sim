@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.gui;
 
-import com.trhsy.sim.common.entity.References;
+import com.trhsy.sim.common.core.entity.References;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;

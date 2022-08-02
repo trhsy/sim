@@ -2,20 +2,17 @@ package com.trhsy.sim.client.entity;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.entity.model.ModelConBox;
-import com.trhsy.sim.common.entity.EntityAlignBeam;
-import com.trhsy.sim.common.entity.EntityConBox;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.EntityConBox;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -150,9 +147,9 @@ public class RenderConBox extends Render<EntityConBox> {
             FontRenderer fontrenderer = getFontRendererFromRenderManager();
             GL11.glPushMatrix();
             GL11.glTranslatef(xpos, ypos, zpos);
-            GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            //GL11.glRotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+            GL11.glNormal3f(0.0F, 1, 0.0F);
+            GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1, 0.0F);
+            //GL11.glRotatef(renderManager.playerViewX, 1, 0.0F, 0.0F);
             GL11.glScalef(-scale, -scale, scale);
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glDepthMask(false);

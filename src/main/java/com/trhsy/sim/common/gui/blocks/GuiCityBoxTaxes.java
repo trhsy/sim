@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.gui.blocks;
 
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

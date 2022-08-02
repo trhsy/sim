@@ -5,12 +5,12 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.enums.FarmType;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.enums.FarmType;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -63,11 +63,11 @@ public class JobBaker extends Job implements Serializable {
     /*
     面包店/烘焙箱
      */
-    private transient CopyOnWriteArrayList<IInventory> bakeryChests = null;
+    private transient List<IInventory> bakeryChests = null;
     /*
     农场箱子
      */
-    private transient CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> farmChests = new CopyOnWriteArrayList();
     /*
     当前农场数量
      */
@@ -327,9 +327,9 @@ public class JobBaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     if (this.theFolk.theEntity != null) {
                         if (this.theFolk.gender == 0) {
-                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerm", 1.0F, 1.0F, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerm", 1, 1, false);
                         } else {
-                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerf", 1.0F, 1.0F, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerf", 1, 1, false);
                         }
                     }
 
@@ -356,7 +356,7 @@ public class JobBaker extends Job implements Serializable {
                     GameStates var10000 = ModSimReloaded.states;
                     var10000.credits -= this.pay;
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.Baker_paid") + ModSimReloaded.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
-                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 }
 
                 this.step = 2;

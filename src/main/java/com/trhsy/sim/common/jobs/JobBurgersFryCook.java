@@ -4,13 +4,11 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ItemLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
@@ -18,7 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -139,23 +137,23 @@ public class JobBurgersFryCook extends Job {
     private void stageMakeFood() {
         try {
 
-            CopyOnWriteArrayList<V3> ch = this.theStore.getSpecialBlocks(0);
+            List<V3> ch = this.theStore.getSpecialBlocks(0);
             if (ch.isEmpty()) {
                 this.theStage = Stage.NOINGREDIANTS;
             } else {
-                CopyOnWriteArrayList<IInventory> chestsIn = inventoriesFindClosest((V3)ch.get(0), 3);
+                List<IInventory> chestsIn = inventoriesFindClosest((V3)ch.get(0), 3);
                 if (chestsIn.isEmpty()) {
                     this.theStage = Stage.NOINGREDIANTS;
                 } else {
-                    CopyOnWriteArrayList<V3> ch2 = this.theStore.getSpecialBlocks(2);
+                    List<V3> ch2 = this.theStore.getSpecialBlocks(2);
                     if (ch.isEmpty()) {
                         this.theStage = Stage.NOINGREDIANTS;
                     } else {
-                        CopyOnWriteArrayList<IInventory> chestsOut = inventoriesFindClosest((V3)ch2.get(0), 3);
+                        List<IInventory> chestsOut = inventoriesFindClosest((V3)ch2.get(0), 3);
                         if (chestsIn.isEmpty()) {
                             this.theStage = Stage.NOINGREDIANTS;
                         } else {
-                            CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(1);
+                            List<V3> back = this.theStore.getSpecialBlocks(1);
                             if (!back.isEmpty()) {
                                 this.theFolk.gotoXYZ((V3)back.get(0), null);
 
@@ -265,7 +263,7 @@ public class JobBurgersFryCook extends Job {
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSTORE;
-                CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(1);
+                List<V3> back = this.theStore.getSpecialBlocks(1);
                 if (!back.isEmpty()) {
                     this.theFolk.gotoXYZ((V3)back.get(0), null);
                     this.step = 1;

@@ -4,7 +4,7 @@ package com.trhsy.sim.packets.server;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.Building;
+import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;

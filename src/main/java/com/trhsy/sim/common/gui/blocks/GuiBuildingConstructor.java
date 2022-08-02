@@ -4,9 +4,9 @@ package com.trhsy.sim.common.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.gui.folk.GuiShowEmployees;
 import com.trhsy.sim.common.jobs.JobBuilder;
@@ -26,9 +26,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -47,7 +47,7 @@ public class GuiBuildingConstructor extends GuiScreen {
     //当前页
     private int currentPage = 0;
     //工人集合
-    private CopyOnWriteArrayList<FolkData> theWorkers = new CopyOnWriteArrayList();
+    private List<FolkData> theWorkers = new CopyOnWriteArrayList();
     //要建筑的
     V3 constructorLoc;
     //建筑方向
@@ -76,7 +76,7 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param buildDirection 建筑方向
      * @param theFolks 建筑工
      */
-    public GuiBuildingConstructor(V3 location, String buildDirection, CopyOnWriteArrayList<FolkData> theFolks) {
+    public GuiBuildingConstructor(V3 location, String buildDirection, List<FolkData> theFolks) {
         try {
             this.constructorLoc = location;
             this.buildDirection = buildDirection;
@@ -476,7 +476,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                         }
                     } else {
                         //房屋集合
-                        CopyOnWriteArrayList<Building> houses = new CopyOnWriteArrayList();
+                        List<Building> houses = new CopyOnWriteArrayList();
                         String theType = "";
                         this.buildingsOnPage = 0;
                         this.tfSearch = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);

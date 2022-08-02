@@ -4,12 +4,12 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.enums.FarmType;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.enums.FarmType;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -42,8 +42,8 @@ public class JobGrocer extends Job implements Serializable {
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient float pay = 0.0F;
-    private transient CopyOnWriteArrayList<IInventory> grocerChests = new CopyOnWriteArrayList();
-    private transient CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> grocerChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> farmChests = new CopyOnWriteArrayList();
     private transient int currentFarmNum = 0;
     private transient FarmingBox farm = null;
     private transient boolean onRoute = false;

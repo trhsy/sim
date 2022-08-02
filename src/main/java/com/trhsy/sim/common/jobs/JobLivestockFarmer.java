@@ -4,12 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -25,7 +23,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -46,7 +43,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private List<IInventory> farmChests = new CopyOnWriteArrayList();
     EntityAnimal redShirt = null;
 
     public JobLivestockFarmer() {
@@ -214,7 +211,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
             Random rand = new Random();
             this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Off");
             if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.faceEntity(this.redShirt, 1.0F, 1.0F);
+                this.theFolk.theEntity.faceEntity(this.redShirt, 1, 1);
             }
 
             this.redShirt.setHealth(0.0F);
@@ -266,7 +263,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                     double d = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
-                    this.mc.theWorld.spawnParticle(EnumParticleTypes.HEART, pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, d, d1, d2);
+                    this.mc.theWorld.spawnParticle(EnumParticleTypes.HEART, pos.x + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, pos.y + 0.5D + (double)(rand.nextFloat() * 1), pos.z + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, d, d1, d2);
                 }
 
                 parentAnimal.worldObj.spawnEntityInWorld(babyAnimal);

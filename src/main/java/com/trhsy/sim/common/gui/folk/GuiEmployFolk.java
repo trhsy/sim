@@ -4,14 +4,12 @@ package com.trhsy.sim.common.gui.folk;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameMode;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
-import com.trhsy.sim.common.entity.functionality.PathBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameMode;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
+import com.trhsy.sim.common.core.entity.functionality.PathBox;
 import com.trhsy.sim.common.gui.blocks.*;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -21,7 +19,7 @@ import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -64,7 +62,7 @@ public class GuiEmployFolk extends GuiScreen {
     /**
      * 选定的NPC
      */
-    private CopyOnWriteArrayList<GuiButton> selectedFolks = new CopyOnWriteArrayList();
+    private List<GuiButton> selectedFolks = new CopyOnWriteArrayList();
     /**
      * 最大员工数
      */
@@ -220,7 +218,7 @@ public class GuiEmployFolk extends GuiScreen {
                             return;
                         }
 
-                        CopyOnWriteArrayList<FolkData> efolks = new CopyOnWriteArrayList();
+                        List<FolkData> efolks = new CopyOnWriteArrayList();
 
                         for (int w = 0; w < this.selectedFolks.size(); ++w) {
                             GuiButton button = (GuiButton) this.selectedFolks.get(w);
@@ -244,7 +242,7 @@ public class GuiEmployFolk extends GuiScreen {
 
     }
 
-    public void hireFolks(CopyOnWriteArrayList<FolkData> efolks) {
+    public void hireFolks(List<FolkData> efolks) {
         try {
             for (int i = 0; i < efolks.size(); i++) {
                 FolkData efolk = (FolkData) efolks.get(i);

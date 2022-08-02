@@ -4,10 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -15,7 +15,6 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathEntity;
-import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -130,7 +129,7 @@ public class JobSoldier extends Job implements Serializable {
             V3 wanderTo;
             Double var6;
 
-            for(wanderTo = new V3(this.theFolk.location.x + (double)xo, this.theFolk.location.y - 1, this.theFolk.location.z + (double)zo, this.theFolk.location.theDimension); this.jobWorld.getBlockState(new BlockPos(wanderTo.x.intValue(), wanderTo.y.intValue(), wanderTo.z.intValue())).getBlock() != null && wanderTo.y < 255; var6 = wanderTo.y = wanderTo.y + 1) {
+            for(wanderTo = new V3(this.theFolk.location.x + (double)xo, this.theFolk.location.y - 1, this.theFolk.location.z + (double)zo, this.theFolk.location.theDimension); this.jobWorld.getBlockState(new BlockPos(wanderTo.x, wanderTo.y, wanderTo.z)).getBlock() != null && wanderTo.y < 255; var6 = wanderTo.y = wanderTo.y + 1) {
                 Double var5 = wanderTo.y;
             }
 
@@ -192,7 +191,7 @@ public class JobSoldier extends Job implements Serializable {
 
                     if (this.badGuy.isDead) {
                         this.theStage = Stage.ONPATROL;
-                        this.runDelay = (int)((11.0F - this.theFolk.levelSoldier) * 500.0F * (11.0F - this.theFolk.levelSoldier));
+                        this.runDelay = (int)((11 - this.theFolk.levelSoldier) * 500.0F * (11 - this.theFolk.levelSoldier));
                         ++this.kills;
                         if (this.theFolk.levelSoldier < 10.0F) {
                             FolkData var10000 = this.theFolk;

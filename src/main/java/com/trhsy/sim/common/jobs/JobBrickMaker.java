@@ -1,11 +1,10 @@
 package com.trhsy.sim.common.jobs;
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -17,7 +16,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -31,7 +30,7 @@ public class JobBrickMaker extends Job implements Serializable {
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient V3 blockOfClay = null;
-    private transient CopyOnWriteArrayList<IInventory> factoryChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> factoryChests = new CopyOnWriteArrayList();
     private transient TileEntityFurnace factoryFurnace = null;
     private long lastGotocmd = 0L;
     private int gotoCount = 0;
@@ -185,9 +184,9 @@ public class JobBrickMaker extends Job implements Serializable {
                 }
 
                 this.gotoCount = 0;
-                BlockPos blockPos = new BlockPos(this.blockOfClay.x.intValue(), this.blockOfClay.y.intValue(), this.blockOfClay.z.intValue());
+                BlockPos blockPos = new BlockPos(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z);
                 this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
-                this.mc.theWorld.playSound(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z, "step.sand", 1.0F, 1.0F, false);
+                this.mc.theWorld.playSound(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z, "step.sand", 1, 1, false);
                 this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
                 this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.getVillagerInventory().getSizeInventory();
                 GameStates var10000 = ModSimReloaded.states;

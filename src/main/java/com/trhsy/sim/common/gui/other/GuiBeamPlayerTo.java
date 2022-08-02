@@ -5,8 +5,8 @@ package com.trhsy.sim.common.gui.other;/**
  */
 
 import com.trhsy.sim.client.ClientTickHandler;
-import com.trhsy.sim.common.entity.CourierTask;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.CourierTask;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

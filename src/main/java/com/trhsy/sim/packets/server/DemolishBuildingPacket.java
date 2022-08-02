@@ -1,7 +1,7 @@
 package com.trhsy.sim.packets.server;
 
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
@@ -15,14 +15,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DemolishBuildingPacket implements IMessage {
     Block theBlock;
     static String[] v3;
     static V3 buildingV3;
-    static CopyOnWriteArrayList<V3> v3s;
+    static List<V3> v3s;
     static Building theBuilding = null;
     static World theWorld = null;
 
@@ -50,7 +50,7 @@ public class DemolishBuildingPacket implements IMessage {
 
     }
 
-    public DemolishBuildingPacket(Building building, CopyOnWriteArrayList<V3> v3array) {
+    public DemolishBuildingPacket(Building building, List<V3> v3array) {
         try {
             buildingV3 = building.primaryXYZ;
             theBuilding = building;
@@ -93,14 +93,14 @@ public class DemolishBuildingPacket implements IMessage {
                     public void run() {
                         try {
                             for (V3 blockLoc : v3s) {
-                                Block l = theWorld.getBlockState(new BlockPos(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue())).getBlock();
+                                Block l = theWorld.getBlockState(new BlockPos(blockLoc.x, blockLoc.y, blockLoc.z)).getBlock();
 
                                 if (l != null && ModSimReloaded.demolishBlocks.size() < 500) {
                                     blockLoc.blockID = l;
                                     ModSimReloaded.demolishBlocks.add(blockLoc);
                                 }
 
-                                theWorld.setBlockToAir(new BlockPos(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue()));
+                                theWorld.setBlockToAir(new BlockPos(blockLoc.x, blockLoc.y, blockLoc.z));
 
                             }
                         } catch (Exception e) {

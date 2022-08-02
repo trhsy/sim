@@ -4,8 +4,8 @@ package com.trhsy.sim.common.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.functionality.PathBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.functionality.PathBox;
 import com.trhsy.sim.common.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -16,7 +16,7 @@ import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -29,13 +29,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * ========================================
  **/
 public class GuiPathBox extends GuiScreen {
-    CopyOnWriteArrayList<FolkData> theWorkers = new CopyOnWriteArrayList();
+    List<FolkData> theWorkers = new CopyOnWriteArrayList();
     PathBox thePathBox = null;
     private GuiTextField tfSize;
     private int mouseCount = 0;
     private int page = 0;
 
-    public GuiPathBox(PathBox pathBlock, CopyOnWriteArrayList<FolkData> folks) {
+    public GuiPathBox(PathBox pathBlock, List<FolkData> folks) {
         try {
             this.thePathBox = pathBlock;
             this.theWorkers = folks;
@@ -71,7 +71,7 @@ public class GuiPathBox extends GuiScreen {
                     if (this.page == 0) {
                         if (this.theWorkers != null && this.theWorkers.size() != 0) {
                             this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Fire") + ((FolkData) this.theWorkers.get(0)).name));
-                            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 60, I18n.format("container.sim.PathBox1")));
+                            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 60, I18n.format("container.sim.PathBox")));
                         } else {
                             this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 40, I18n.format("container.sim.Hire24")));
                         }

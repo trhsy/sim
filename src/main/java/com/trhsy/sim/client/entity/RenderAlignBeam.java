@@ -2,8 +2,7 @@ package com.trhsy.sim.client.entity;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.entity.model.ModelAlignBeam;
-import com.trhsy.sim.client.entity.model.ModelFolkFemale;
-import com.trhsy.sim.common.entity.EntityAlignBeam;
+import com.trhsy.sim.common.core.entity.EntityAlignBeam;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -86,9 +85,9 @@ public class RenderAlignBeam extends Render<EntityAlignBeam> {
             FontRenderer fontrenderer = getFontRendererFromRenderManager();
             GL11.glPushMatrix();
             GL11.glTranslatef(f1, f2, f3);
-            GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+            GL11.glNormal3f(0.0F, 1, 0.0F);
+            GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1, 0.0F);
+            GL11.glRotatef(renderManager.playerViewX, 1, 0.0F, 0.0F);
             GL11.glScalef(-f, -f, f);
             GL11.glDisable(2896);
             GL11.glDepthMask(false);
@@ -102,7 +101,7 @@ public class RenderAlignBeam extends Render<EntityAlignBeam> {
             worldRenderer.finishDrawing();
             int j = fontrenderer.getStringWidth(s) / 2;
             //红色和部分透明背景色
-            worldRenderer.putColorRGB_F(1.0F, 0.0F, 0.0F, (int) 0.25F);
+            worldRenderer.putColorRGB_F(1, 0.0F, 0.0F, (int) 0.25F);
             int[] v1 = {-j - 1, -1, 0};
             worldRenderer.addVertexData(v1);
             int[] v2 = {-j - 1, 8, 0};
@@ -119,7 +118,7 @@ public class RenderAlignBeam extends Render<EntityAlignBeam> {
             fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, -1);
             GL11.glEnable(2896);
             GL11.glDisable(3042);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glColor4f(1, 1, 1, 1);
             GL11.glPopMatrix();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("渲染对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());

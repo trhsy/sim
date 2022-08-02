@@ -4,18 +4,15 @@ package com.trhsy.sim.common.gui.folk;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.gui.GuiRunMod;
+import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**

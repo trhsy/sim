@@ -4,12 +4,11 @@ package com.trhsy.sim.common.gui.blocks;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameMode;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.enums.FarmType;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameMode;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.enums.FarmType;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.gui.folk.GuiEmployFolk;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;

@@ -1,10 +1,10 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
-import com.trhsy.sim.common.entity.functionality.Marker;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.functionality.Marker;
 import com.trhsy.sim.common.gui.blocks.GuiFarming;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -31,7 +31,7 @@ public class BlockFarmingBox extends Block {
         super(Material.wood);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(2.0F);
-        this.setResistance(1.0F);
+        this.setResistance(1);
         this.setUnlocalizedName("farmingBox");
         //this.setTextureName(ModSim.MODID + ":" + "farming_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
@@ -53,7 +53,7 @@ public class BlockFarmingBox extends Block {
 
             FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId()));
             ModSimReloaded.theFarmingBoxes.remove(m);
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1, 1);
             super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -113,7 +113,7 @@ public class BlockFarmingBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer entityplayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
 
             try {
                 FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));

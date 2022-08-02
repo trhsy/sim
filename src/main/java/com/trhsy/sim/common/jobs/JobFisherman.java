@@ -4,12 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -18,7 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -40,7 +38,7 @@ public class JobFisherman extends Job implements Serializable {
     public transient long timeSinceLastRun = 0L;
     private transient long timeSinceLastCaughtFish = 0L;
     private transient int fishCount = 0;
-    private transient CopyOnWriteArrayList<IInventory> dockChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> dockChests = new CopyOnWriteArrayList();
 
     public JobFisherman(FolkData folk) {
         try {

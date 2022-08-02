@@ -4,8 +4,8 @@ package com.trhsy.sim.packets.client;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -71,7 +71,12 @@ public class UpdateFolkPositionPacket implements IMessage {
                     public void run() {
                         try {
                             FolkData folk = FolkData.getFolkByName(UpdateFolkPositionPacket.folkName);
-                            V3 newpos = new V3(UpdateFolkPositionPacket.pos);
+                            String pos=UpdateFolkPositionPacket.pos;
+                            String[] v=pos.split(",");
+                            double x= Double.parseDouble(v[0]);
+                            double y= Double.parseDouble(v[0]);
+                            double z= Double.parseDouble(v[0]);
+                            V3 newpos = new V3(x,y,z);
                             if (folk != null && newpos != null) {
                                 folk.serverToClientLocationUpdate(newpos);
                             }

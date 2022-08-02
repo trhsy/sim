@@ -5,11 +5,10 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -22,7 +21,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -43,7 +41,7 @@ public class JobShepherd extends Job implements Serializable {
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private transient CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> farmChests = new CopyOnWriteArrayList();
     private transient EntitySheep sheepToShear = null;
     private transient boolean isShearing = false;
 
@@ -151,15 +149,15 @@ public class JobShepherd extends Job implements Serializable {
         } else if (this.step == 2) {
             this.step = 3;
             if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
+                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1, 1);
             }
         } else if (this.step == 3) {
             this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Shearing") + FolkData.generateName(0, true, "") + I18n.format("container.sim.job.shepherd.farmer.sheep");
             this.sheepToShear.setSheared(true);
             if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
+                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1, 1);
                 this.theFolk.isWorking = true;
-                this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1.0F, 1.0F, false);
+                this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1, 1, false);
                 Thread t = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -179,7 +177,7 @@ public class JobShepherd extends Job implements Serializable {
                     }
                 });
                 t.start();
-                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1.0F, 1.0F);
+                this.theFolk.theEntity.faceEntity(this.sheepToShear, 1, 1);
                 this.step = 4;
             }
         } else if (this.step == 4) {
@@ -203,7 +201,7 @@ public class JobShepherd extends Job implements Serializable {
             double var8 = 10;
 
             try {
-                ModSim.proxy.getClientWorld().spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, ent.posX + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1 - var2 * var8, ent.posY + (double) (rand.nextFloat() * 1.0F) - var4 * var8, ent.posZ + (double) (rand.nextFloat() * 1.0F * 2.0F) - 1 - var6 * var8, var2, var4, var6);
+                ModSim.proxy.getClientWorld().spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, ent.posX + (double) (rand.nextFloat() * 1 * 2.0F) - 1 - var2 * var8, ent.posY + (double) (rand.nextFloat() * 1) - var4 * var8, ent.posZ + (double) (rand.nextFloat() * 1 * 2.0F) - 1 - var6 * var8, var2, var4, var6);
             } catch (Exception e) {
             }
         }

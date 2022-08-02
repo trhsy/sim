@@ -108,18 +108,18 @@ public class ModelWindmill extends ModelBase {
     public void render(Entity par1Entity, float par2, float par3, float par4,
                        float par5, float par6, float par7) {
         try {
-            Vane1rod.render(1.0f);
-            Vane2rod.render(1.0f);
-            Vane3rod.render(1.0f);
-            Vane4rod.render(1.0f);
-            Vane1main.render(1.0f);
-            Vane2main.render(1.0f);
-            Vane3main.render(1.0f);
-            Vane4main.render(1.0f);
-            WindmillAxle.render(1.0f);
-            WindmillTop.render(1.0f);
-            WindmillMid.render(1.0f);
-            WindmillBase.render(1.0f);
+            Vane1rod.render(1);
+            Vane2rod.render(1);
+            Vane3rod.render(1);
+            Vane4rod.render(1);
+            Vane1main.render(1);
+            Vane2main.render(1);
+            Vane3main.render(1);
+            Vane4main.render(1);
+            WindmillAxle.render(1);
+            WindmillTop.render(1);
+            WindmillMid.render(1);
+            WindmillBase.render(1);
             super.render(par1Entity, par2, par3, par4, par5, par6, par7);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化风车出错了：" + e.getMessage()+"行数："+element.getLineNumber());

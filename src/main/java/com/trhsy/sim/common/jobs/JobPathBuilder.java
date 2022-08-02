@@ -4,11 +4,11 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.functionality.PathBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.functionality.PathBox;
 import net.minecraft.inventory.IInventory;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -29,7 +29,7 @@ public class JobPathBuilder {
     public transient long timeSinceLastRun = 0L;
     private transient int step = 1;
     transient Long timeSinceLastGoto = 0L;
-    transient CopyOnWriteArrayList<IInventory> pathChests = null;
+    transient List<IInventory> pathChests = null;
     transient boolean swingToggle = true;
     private PathBox thePathBox;
     public String pathDirection = "";

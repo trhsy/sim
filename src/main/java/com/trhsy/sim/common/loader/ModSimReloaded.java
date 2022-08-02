@@ -1,11 +1,9 @@
 package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.block.BlockFarmingBox;
-import com.trhsy.sim.common.block.BlockMiningBox;
-import com.trhsy.sim.common.entity.*;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
+import com.trhsy.sim.common.core.entity.*;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.gui.GuiRunMod;
 import com.trhsy.sim.common.jobs.JobSoldier;
 import com.trhsy.sim.common.jobs.Vocation;
@@ -23,14 +21,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -50,31 +47,31 @@ public class ModSimReloaded {
     /*
     所有民众的数据（用于构建和维护 EntityFolk）
      */
-    public static CopyOnWriteArrayList<FolkData> theFolks = new CopyOnWriteArrayList();
+    public static List<FolkData> theFolks = new CopyOnWriteArrayList();
     /*
    所有的建筑对象
     */
-    public static CopyOnWriteArrayList<Building> theBuildings = new CopyOnWriteArrayList();
+    public static List<Building> theBuildings = new CopyOnWriteArrayList();
     /*
     所有快递任务
      */
-    public static CopyOnWriteArrayList<CourierTask> theCourierTasks = new CopyOnWriteArrayList();
+    public static List<CourierTask> theCourierTasks = new CopyOnWriteArrayList();
     /*
     所有快递点
      */
-    public static CopyOnWriteArrayList<V3> theCourierPoints = new CopyOnWriteArrayList();
+    public static List<V3> theCourierPoints = new CopyOnWriteArrayList();
     /*
     所有的采矿箱
      */
-    public static CopyOnWriteArrayList<MiningBox> theMiningBoxes = new CopyOnWriteArrayList();
+    public static List<MiningBox> theMiningBoxes = new CopyOnWriteArrayList();
     /*
     所有养殖箱
      */
-    public static CopyOnWriteArrayList<FarmingBox> theFarmingBoxes = new CopyOnWriteArrayList();
+    public static List<FarmingBox> theFarmingBoxes = new CopyOnWriteArrayList();
     /*
    所有情感关系
     */
-    public static CopyOnWriteArrayList<Relationship> theRelationships = new CopyOnWriteArrayList();
+    public static List<Relationship> theRelationships = new CopyOnWriteArrayList();
     /*
     包含他们正在玩的这个关卡的所有游戏状态和设置
      */
@@ -82,7 +79,7 @@ public class ModSimReloaded {
     /*
     银行目前正在销售的商品列表，每天早上都会更新新商品
      */
-    public static CopyOnWriteArrayList<Commodity> theCommodities = new CopyOnWriteArrayList();
+    public static List<Commodity> theCommodities = new CopyOnWriteArrayList();
     /*
     用于在update（）调用中升级作物农场
      */
@@ -94,7 +91,7 @@ public class ModSimReloaded {
     /*
     所有的农场升级点
      */
-    private static CopyOnWriteArrayList<V3> farmToUpgradePoints = null;
+    private static List<V3> farmToUpgradePoints = null;
     /*
     白天
      */
@@ -102,7 +99,7 @@ public class ModSimReloaded {
     /*
     所有的拆除
      */
-    public static CopyOnWriteArrayList<V3> demolishBlocks = new CopyOnWriteArrayList();
+    public static List<V3> demolishBlocks = new CopyOnWriteArrayList();
     /*
     拆除
      */
@@ -335,7 +332,7 @@ public class ModSimReloaded {
                 if (world != null) {
                     EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                     if (p != null) {
-                        ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":rooster", 1.0F, 1.0F, false);
+                        ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":rooster", 1, 1, false);
                     }
                 }
 
@@ -433,7 +430,7 @@ public class ModSimReloaded {
                                     //建筑的租金是空或者0
                                     if (building.rent == null || building.rent == 0.0F) {
                                         //租金赋值为1
-                                        building.rent = 1.0F;
+                                        building.rent = 1f;
                                     }
 
                                     ModSimReloaded.log.info("房屋租金 " + building.displayNameWithoutPK + ": " + building.rent + "(" + building.blocksInBuilding + ")");
@@ -464,7 +461,7 @@ public class ModSimReloaded {
                             var10000.credits += totalCorpTax;
                             EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                             if (p != null) {
-                                ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                                ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1, 1, false);
                             }
                         } else if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
                             //今天没有收到房租,你应该雇一个人来盖一栋住宅。
@@ -482,7 +479,7 @@ public class ModSimReloaded {
                     //重置今天打招呼为否
                     folk.greetedToday = false;
                     //交配为负
-                    folk.shaggingStage = -1.0F;
+                    folk.shaggingStage = -1;
                     //如果怀孕则加一
                     if (folk.pregnancyStage > 0.0F) {
                         //增加怀孕-出生在FolkData中
@@ -603,7 +600,7 @@ public class ModSimReloaded {
 
                     try {
                         Block block = Block.getBlockFromName(blockLoc.name);
-                        BlockPos blockPos = new BlockPos(blockLoc.x.intValue(), blockLoc.y.intValue() + 10 + (new Random()).nextInt(20), blockLoc.z.intValue());
+                        BlockPos blockPos = new BlockPos(blockLoc.x, blockLoc.y + 10 + (new Random()).nextInt(20), blockLoc.z);
                         block.dropBlockAsItem(demolishWorld, blockPos, block.getDefaultState(), 0);
                         demolishBlocks.remove(0);
                     } catch (Exception e) {
@@ -640,7 +637,7 @@ public class ModSimReloaded {
                 //获取元素
                 point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
                 theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
-                BlockPos blockPos = new BlockPos(point.x.intValue(), point.y.intValue(), point.z.intValue());
+                BlockPos blockPos = new BlockPos(point.x, point.y, point.z);
                 //如果该区域没有障碍物，则设置围栏
                 Block id = theWorld.getBlockState(blockPos).getBlock();
                 //摧毁
@@ -660,7 +657,7 @@ public class ModSimReloaded {
 
                 if (destroy) {
                     //System.out.println("farmToUpgradeCounter:" + farmToUpgradeCounter);
-                    BlockPos blockPos2 = new BlockPos(point.x.intValue() - 1, point.y.intValue(), point.z.intValue() - 1);
+                    BlockPos blockPos2 = new BlockPos(point.x - 1, point.y, point.z - 1);
                     //摧毁放快
                     theWorld.destroyBlock(blockPos2, true);
                     //把原来方块替换成 栅栏
@@ -670,7 +667,7 @@ public class ModSimReloaded {
                 }
                 //升级点除以六等于0 每隔6个街区放置一盏灯
                 if (farmToUpgradeCounter % 6 == 0) {
-                    BlockPos blockPos1 = new BlockPos(point.x.intValue() - 1, point.y.intValue() - 1, point.z.intValue() - 1);
+                    BlockPos blockPos1 = new BlockPos(point.x - 1, point.y - 1, point.z - 1);
                     theWorld.destroyBlock(blockPos1, true);
                     //把原来方块替换成 灯箱
                     theWorld.setBlockState(blockPos1, BlockLoader.blockLightBox.getDefaultState(), 3);
@@ -685,12 +682,12 @@ public class ModSimReloaded {
 
                 point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
                 theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
-                if (point.x.intValue() % 5 == 0 && point.z.intValue() % 5 == 0) {
+                if (point.x % 5 == 0 && point.z % 5 == 0) {
 
-                    BlockPos blockPos1 = new BlockPos(point.x.intValue(), point.y.intValue() - 1, point.z.intValue());
+                    BlockPos blockPos1 = new BlockPos(point.x, point.y - 1, point.z);
                     theWorld.setBlockState(blockPos1, Blocks.water.getDefaultState(), 3);
 
-                    BlockPos blockPos2 = new BlockPos(point.x.intValue(), point.y.intValue() - 2, point.z.intValue());
+                    BlockPos blockPos2 = new BlockPos(point.x, point.y - 2, point.z);
                     theWorld.setBlockState(blockPos2, BlockLoader.blockLightBox.getDefaultState(), 3);
                     theWorld.markBlockForUpdate(blockPos1);
                     theWorld.markBlockForUpdate(blockPos2);
@@ -730,7 +727,7 @@ public class ModSimReloaded {
         return dow[states.dayOfWeek];
     }
 
-    public static CopyOnWriteArrayList<String> loadSK2(String fullFilename) {
+    public static List<String> loadSK2(String fullFilename) {
         CopyOnWriteArrayList ret = new CopyOnWriteArrayList();
 
         try {
@@ -749,7 +746,7 @@ public class ModSimReloaded {
         return ret;
     }
 
-    public static void saveSK2(String fullFilename, CopyOnWriteArrayList<String> strings) {
+    public static void saveSK2(String fullFilename, List<String> strings) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fullFilename));
             Iterator iterator = strings.iterator();

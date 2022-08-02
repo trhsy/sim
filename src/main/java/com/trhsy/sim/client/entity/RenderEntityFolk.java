@@ -2,11 +2,10 @@ package com.trhsy.sim.client.entity;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.entity.model.ModelFolkFemale;
-import com.trhsy.sim.common.entity.EntityFolk;
+import com.trhsy.sim.common.core.entity.EntityFolk;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderBiped;
@@ -108,7 +107,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                     if (entityFolk.theData.age < 18) {
                         this.displayText(entityFolk.theData.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6 - 0.4F, (float) d2, entityFolk);
                         this.displayText(entityFolk.theData.statusText, 0.02F, -256, (float) d, (float) d1 + f3 + f6 - 0.7F, (float) d2, entityFolk);
-                        this.displayText(entityFolk.theData.status4, 0.02F, -256, (float) d, (float) d1 + f3 + f6 - 1.0F, (float) d2, entityFolk);
+                        this.displayText(entityFolk.theData.status4, 0.02F, -256, (float) d, (float) d1 + f3 + f6 - 1, (float) d2, entityFolk);
                     } else if (dist >= 4) {
                         this.displayText(entityFolk.theData.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6, (float) d2, entityFolk);
                         this.displayText(entityFolk.theData.statusText, 0.02F, -256, (float) d, (float) d1 + f3 + f6 - 0.3F, (float) d2, entityFolk);
@@ -143,9 +142,9 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
             GL11.glPushMatrix();
             GL11.glTranslatef(f1, f2 + 2.3F, f3);
-            GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+            GL11.glNormal3f(0.0F, 1, 0.0F);
+            GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1, 0.0F);
+            GL11.glRotatef(this.renderManager.playerViewX, 1, 0.0F, 0.0F);
             GL11.glScalef(-f, -f, f);
             GL11.glDisable(2896);
             GL11.glDepthMask(false);

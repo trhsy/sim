@@ -1,9 +1,9 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.EntityAlignBeam;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.functionality.Marker;
+import com.trhsy.sim.common.core.entity.EntityAlignBeam;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.Marker;
 import com.trhsy.sim.common.gui.blocks.GuiMarker;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
@@ -25,7 +25,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -36,14 +36,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 public class BlockMarker extends Block implements IExtendedEntityProperties {
     public static boolean hasPlaced = false;
-    public static CopyOnWriteArrayList<Marker> markers = new CopyOnWriteArrayList();
+    public static List<Marker> markers = new CopyOnWriteArrayList();
     public V3 location;
 
     public BlockMarker() {
         super(Material.wood);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(2.0F);
-        this.setResistance(1.0F);
+        this.setResistance(1);
         this.setUnlocalizedName("markerBar");
         this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.setLightLevel(0.1F);
@@ -201,7 +201,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
             this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
             GuiMarker ui = new GuiMarker(this.location, thePlayer);
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);

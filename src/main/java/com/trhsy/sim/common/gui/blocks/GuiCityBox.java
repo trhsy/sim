@@ -1,8 +1,8 @@
 package com.trhsy.sim.common.gui.blocks;
 
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.gui.other.GuiBeamPlayerTo;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;

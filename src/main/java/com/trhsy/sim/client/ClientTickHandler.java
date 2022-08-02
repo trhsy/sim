@@ -1,9 +1,9 @@
 package com.trhsy.sim.client;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.*;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
+import com.trhsy.sim.common.core.entity.*;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.*;
 
 import java.util.Random;

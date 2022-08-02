@@ -5,13 +5,12 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameMode;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameMode;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -23,7 +22,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -46,7 +44,7 @@ public class JobMiner extends Job implements Serializable {
     private transient int step = 1;
     private long timeSinceLastChestFullMessage = 0L;
     transient Long timeSinceLastGoto = 0L;
-    transient CopyOnWriteArrayList<IInventory> miningChests = null;
+    transient List<IInventory> miningChests = null;
     String mineDir = "";
     //如果它是空的，则作为一个标志，表示我们正在垂直挖掘，或者水平方向+x-x+z-z
     String mineHorizontalDir = "";
@@ -98,11 +96,11 @@ public class JobMiner extends Job implements Serializable {
             } else {
                 if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
                     V3 xyz = this.theMiningBox.location;
-                    int mbX = xyz.x.intValue();
-                    int mbZ = xyz.z.intValue();
+                    int mbX = (int) xyz.x;
+                    int mbZ = (int) xyz.z;
                     xyz = this.theMiningBox.marker1XYZ;
-                    int mX = xyz.x.intValue();
-                    int mZ = xyz.z.intValue();
+                    int mX = (int) xyz.x;
+                    int mZ = (int) xyz.z;
                     if (mbX < mX) {
                         this.mineHorizontalDir = "+x";
                     } else if (mbX > mX) {
@@ -242,9 +240,9 @@ public class JobMiner extends Job implements Serializable {
                     if (this.theFolk.theEntity != null) {
                         try {
                             if (this.theFolk.gender == 0) {
-                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1.0F, 1.0F, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1, 1, false);
                             } else {
-                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1, 1, false);
                             }
                         } catch (Exception e) {
                             //切换维度时，playSound可以进行NPE
@@ -278,9 +276,9 @@ public class JobMiner extends Job implements Serializable {
                             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Beam");
                             if (this.theFolk.theEntity != null) {
                                 if (this.theFolk.gender == 0) {
-                                    this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamm", 1.0F, 1.0F, false);
+                                    this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamm", 1, 1, false);
                                 } else {
-                                    this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamf", 1.0F, 1.0F, false);
+                                    this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamf", 1, 1, false);
                                 }
                             }
 
@@ -311,7 +309,7 @@ public class JobMiner extends Job implements Serializable {
             this.theFolk.action = FolkAction.WANDER;
             //他们已经完成了挖掘矿井
             ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.miner.farmer.finished"));
-            this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+            this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageBeamingUp出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -334,17 +332,17 @@ public class JobMiner extends Job implements Serializable {
                 return;
             } else {
                 if (this.mineHorizontalDir.contentEquals("")) {
-                    mx = m1.x.intValue();
-                    my = m1.y.intValue() - 1;
-                    mz = m1.z.intValue();
-                    if (m2.x.intValue() == m1.x.intValue()) {
-                        if (m2.z.intValue() > mz) {
+                    mx = (int)m1.x;
+                    my = (int) (m1.y - 1);
+                    mz = (int)m1.z;
+                    if (m2.x == m1.x) {
+                        if (m2.z > mz) {
                             this.mineDir = "z+";
                         } else {
                             this.mineDir = "z-";
                         }
-                    } else if (m2.z.intValue() == m1.z.intValue()) {
-                        if (m2.x.intValue() > mx) {
+                    } else if (m2.z == m1.z) {
+                        if (m2.x > mx) {
                             this.mineDir = "x+";
                         } else {
                             this.mineDir = "x-";
@@ -354,16 +352,16 @@ public class JobMiner extends Job implements Serializable {
                     Block id = null;
                     int ftbCount = 0, ltrCount = 0;
                     int xo = 0, zo = 0;
-                    if (m1.x.intValue() == m2.x.intValue()) {
-                        ltrCount = Math.abs(m2.z.intValue() - m1.z.intValue()) - 1;
+                    if (m1.x == m2.x) {
+                        ltrCount = (int) (Math.abs(m2.z - m1.z) - 1);
                     } else {
-                        ltrCount = Math.abs(m2.x.intValue() - m1.x.intValue()) - 1;
+                        ltrCount = (int) (Math.abs(m2.x - m1.x) - 1);
                     }
 
-                    if (m1.x.intValue() == m3.x.intValue()) {
-                        ftbCount = Math.abs(m3.z.intValue() - m1.z.intValue()) - 1;
+                    if (m1.x == m3.x) {
+                        ftbCount = (int) (Math.abs(m3.z - m1.z) - 1);
                     } else {
-                        ftbCount = Math.abs(m3.x.intValue() - m1.x.intValue()) - 1;
+                        ftbCount = (int) (Math.abs(m3.x - m1.x) - 1);
                     }
 
                     gotABlock:
@@ -430,7 +428,7 @@ public class JobMiner extends Job implements Serializable {
                         //vMine = new V3(vMine.x, vMine.y, vMine.z - 1, vMine.theDimension);
                     }
 
-                    V3 vMineable = new V3();
+                    V3 vMineable = null;
                     Block id = null;
                     int meta = 0, xo = 0, yo = 0, zo = 0;
                     boolean flagFound = false;
@@ -463,7 +461,7 @@ public class JobMiner extends Job implements Serializable {
 
                                     vMineable = new V3(vMine.x + (double) xo, vMine.y + (double) yo, vMine.z + (double) zo, this.theFolk.employedAt.theDimension);
 
-                                    id = this.jobWorld.getBlockState(new BlockPos(vMineable.x.intValue(), vMineable.y.intValue(), vMineable.z.intValue())).getBlock();
+                                    id = this.jobWorld.getBlockState(new BlockPos(vMineable.x, vMineable.y, vMineable.z)).getBlock();
                                     if (ftb % 10 == 0 && (double) btt == Math.floor((double) (this.theMiningBox.size / 2)) && ltr == 0) {
                                         V3 lightbox = vMineable.clone();
 
@@ -481,7 +479,7 @@ public class JobMiner extends Job implements Serializable {
                                             //lightbox = new V3(lightbox.x - 1, lightbox.y, lightbox.z, lightbox.theDimension);
                                         }
 
-                                        Block lbid = this.jobWorld.getBlockState(new BlockPos(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue())).getBlock();
+                                        Block lbid = this.jobWorld.getBlockState(new BlockPos(lightbox.x, lightbox.y, lightbox.z)).getBlock();
                                         if (this.miningChests.size() > 0 && lbid != BlockLoader.blockLightBox) {
                                             ItemStack light = null;
 
@@ -491,7 +489,7 @@ public class JobMiner extends Job implements Serializable {
 
                                             if (light != null) {
                                                 ModSimReloaded.log.info("灯箱放置在 " + lightbox.toString());
-                                                BlockPos blockPos1 = new BlockPos(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue());
+                                                BlockPos blockPos1 = new BlockPos(lightbox.x, lightbox.y, lightbox.z);
                                                 this.jobWorld.setBlockState(blockPos1, BlockLoader.blockLightBox.getDefaultState(), 3);
                                             }
                                         }
@@ -582,7 +580,7 @@ public class JobMiner extends Job implements Serializable {
                 public void run() {
                     for (int d = 0; d < 5; ++d) {
                         try {
-                            JobMiner.this.jobWorld.playSound(vNextMineableBlock.x, vNextMineableBlock.y, vNextMineableBlock.z, "dig.stone", 1.0F, 1.0F, false);
+                            JobMiner.this.jobWorld.playSound(vNextMineableBlock.x, vNextMineableBlock.y, vNextMineableBlock.z, "dig.stone", 1, 1, false);
                         } catch (Exception e) {
                         }
 
@@ -599,20 +597,20 @@ public class JobMiner extends Job implements Serializable {
                 //挖掘挖掘
                 this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Diggy");
             }
-            BlockPos blockPos = new BlockPos(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
+            BlockPos blockPos = new BlockPos(this.vNextMineableBlock.x, this.vNextMineableBlock.y, this.vNextMineableBlock.z);
             Block blockid = this.jobWorld.getBlockState(blockPos).getBlock();
             int id = Block.getIdFromBlock(blockid);
 
             int idmeta = blockid.getMetaFromState(this.jobWorld.getBlockState(new BlockPos(blockPos)));
             if (this.jobWorld != null) {
                 List<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, this.vNextMineableBlock);//开采时平移块体
-                BlockPos blockPos1 = new BlockPos(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
+                BlockPos blockPos1 = new BlockPos(this.vNextMineableBlock.x, this.vNextMineableBlock.y, this.vNextMineableBlock.z);
                 this.jobWorld.setBlockState(blockPos1, Blocks.air.getDefaultState(), 3);
                 if (this.theFolk.theEntity != null) {
                     try {
-                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0.1f, 0.3f, 0);
-                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0, 0.2f, 0);
-                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0, 0.1f, 0.1f);
+                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x, (double) this.vNextMineableBlock.y, (double) this.vNextMineableBlock.z, 0.1f, 0.3f, 0);
+                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x, (double) this.vNextMineableBlock.y, (double) this.vNextMineableBlock.z, 0, 0.2f, 0);
+                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x, (double) this.vNextMineableBlock.y, (double) this.vNextMineableBlock.z, 0, 0.1f, 0.1f);
                     } catch (Exception e) {
                     }
                 }
@@ -639,16 +637,16 @@ public class JobMiner extends Job implements Serializable {
                     if (this.theFolk.employedAt.y - this.vNextMineableBlock.y > 3) {
                         if (this.theMiningBox.addGlassCover && this.mineHorizontalDir.contentEquals("")) {//加上玻璃
 
-                            Block gid = this.jobWorld.getBlockState(new BlockPos(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue())).getBlock();
+                            Block gid = this.jobWorld.getBlockState(new BlockPos(this.vNextMineableBlock.x, this.theFolk.employedAt.y, this.vNextMineableBlock.z)).getBlock();
                             if (gid == null && this.miningChests.size() > 0) {
                                 ItemStack glass = inventoriesGet(this.miningChests, new ItemStack(Blocks.glass, 1), false, false);
                                 if (glass != null) {
-                                    BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue());
+                                    BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.x, this.theFolk.employedAt.y, this.vNextMineableBlock.z);
                                     this.jobWorld.setBlockState(blockPos2, Blocks.glass.getDefaultState(), 3);
                                 }
                             }
                         } else {
-                            BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue());
+                            BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.x, this.theFolk.employedAt.y, this.vNextMineableBlock.z);
                             this.jobWorld.setBlockState(blockPos2, Blocks.air.getDefaultState(), 2);
                         }
                     }

@@ -4,9 +4,9 @@ package com.trhsy.sim.common.gui.folk;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.CourierTask;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
+import com.trhsy.sim.common.core.entity.CourierTask;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.gui.blocks.GuiControlBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;

@@ -4,17 +4,15 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.TileEntityWindmill;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.TileEntityWindmill;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
@@ -45,7 +43,7 @@ public abstract class Job {
     Minecraft mc = Minecraft.getMinecraft();
     //步
     public int step = 1;
-    CopyOnWriteArrayList<V3> closestBlocks = new CopyOnWriteArrayList();
+    List<V3> closestBlocks = new CopyOnWriteArrayList();
     //职业
     public Vocation vocation = null;
     //职场
@@ -277,7 +275,7 @@ public abstract class Job {
             if (vRet != null) {
                 //世界服务器的维度                                                       维度
                 World theWorld = MinecraftServer.getServer().worldServerForDimension(vRet.theDimension);
-                BlockPos blockPos = new BlockPos(vRet.x.intValue(), vRet.y.intValue(), vRet.z.intValue());
+                BlockPos blockPos = new BlockPos(vRet.x, vRet.y, vRet.z);
                 //设置熔炉位置 转换为int
                 ret = (TileEntityFurnace) theWorld.getTileEntity(blockPos);
             }
@@ -354,7 +352,7 @@ public abstract class Job {
      * @param ignoreId
      * @return 取出物品的 Itemstack，如果无法获取物品，则为 NULL
      */
-    public static ItemStack inventoriesGet(CopyOnWriteArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta, ItemStack ignoreId) {
+    public static ItemStack inventoriesGet(List<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta, ItemStack ignoreId) {
         ItemStack retStack = null;
         try {
             for (int c = 0; c < chests.size(); c++) {
@@ -377,7 +375,7 @@ public abstract class Job {
      * @param compareMeta
      * @return
      */
-    public static ItemStack inventoriesGet(CopyOnWriteArrayList<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta) {
+    public static ItemStack inventoriesGet(List<IInventory> chests, ItemStack whatItem, boolean getRandomItem, boolean compareMeta) {
         ItemStack retStack = null;
         try {
             for (int c = 0; c < chests.size(); ++c) {
@@ -446,7 +444,7 @@ public abstract class Job {
             } else {
                 if (getRandomItem) {
                     returnStack = null;
-                    CopyOnWriteArrayList<Integer> slots = new CopyOnWriteArrayList<Integer>();
+                    List<Integer> slots = new CopyOnWriteArrayList<Integer>();
 
                     for (int g = 0; g < chest.getSizeInventory(); g++) {
                         ItemStack chestStack = chest.getStackInSlot(g);
@@ -531,7 +529,7 @@ public abstract class Job {
             } else {
                 if (getRandomItem) {
                     returnStack = null;
-                    CopyOnWriteArrayList<Integer> slots = new CopyOnWriteArrayList<Integer>();
+                    List<Integer> slots = new CopyOnWriteArrayList<Integer>();
 
                     for (int g = 0; g < chest.getSizeInventory(); g++) {
                         ItemStack chestStack = chest.getStackInSlot(g);
@@ -600,7 +598,7 @@ public abstract class Job {
         return placedOK;
     }
 
-    public static boolean inventoriesPut(CopyOnWriteArrayList<IInventory> chests, ItemStack inStack) {
+    public static boolean inventoriesPut(List<IInventory> chests, ItemStack inStack) {
         boolean placedOK = false;
         try {
             for (int i = 0; i < chests.size(); i++) {
@@ -624,7 +622,7 @@ public abstract class Job {
      * @param specificItems 如果有任何/所有项，则为NULL；如果只应放置，则指定itemStack
      * @return 如果成功，如果箱子都满了，则为false
      */
-    public boolean inventoriesTransferFromFolk(InventoryBasic folkInventory, CopyOnWriteArrayList<IInventory> toChests, ItemStack specificItems) {
+    public boolean inventoriesTransferFromFolk(InventoryBasic folkInventory, List<IInventory> toChests, ItemStack specificItems) {
         boolean placed = false;
         boolean okToPlace = false;
         try {
@@ -668,7 +666,7 @@ public abstract class Job {
      * @param ignoreId      传入 -1 以不忽略任何块或要留在箱子的东西的块 ID
      * @return 成功获得至少一个堆栈为真，如果没有得到则为假
      */
-    public boolean inventoriesTransferToFolk(InventoryBasic folkInventory, CopyOnWriteArrayList<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
+    public boolean inventoriesTransferToFolk(InventoryBasic folkInventory, List<IInventory> fromChests, ItemStack whatItems, Block ignoreId) {
         boolean ret = false;
         int limit = 0;
         ItemStack got = null;
@@ -704,7 +702,7 @@ public abstract class Job {
      * @param doCompareMeta
      * @return
      */
-    public int inventoriesTransferLimitedToFolk(InventoryBasic folkInventory, CopyOnWriteArrayList<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
+    public int inventoriesTransferLimitedToFolk(InventoryBasic folkInventory, List<IInventory> fromChests, ItemStack whatItems, int getQty, boolean doCompareMeta) {
         int gotSoFar = 0;
         try {
             for (IInventory chest : fromChests) {
@@ -755,7 +753,7 @@ public abstract class Job {
      * @param doCompareMeta
      * @return
      */
-    public int getItemCountInChests(CopyOnWriteArrayList<IInventory> chests, ItemStack is, boolean doCompareMeta) {
+    public int getItemCountInChests(List<IInventory> chests, ItemStack is, boolean doCompareMeta) {
         int ret = 0;
         try {
             for (IInventory chest : chests) {
@@ -788,9 +786,9 @@ public abstract class Job {
     public List<ItemStack> translateBlockWhenMined(World world, V3 location) {
         List<ItemStack> itemStacks = new CopyOnWriteArrayList<ItemStack>();
         try {
-            int i = location.x.intValue();
-            int j = location.y.intValue();
-            int k = location.z.intValue();
+            int i = (int) location.x;
+            int j = (int) location.y;
+            int k = (int) location.z;
             BlockPos blockPos = new BlockPos(i, j, k);
             Block block = world.getBlockState(blockPos).getBlock();
             if (block == null) {
@@ -834,7 +832,7 @@ public abstract class Job {
      * @param scanDownwards
      * @param oneLayerOnly
      */
-    public void setClosestBlocksOfType(final V3 startXYZ, final CopyOnWriteArrayList<Block> blockIDs, final int distanceLimit, final boolean needsToSeeSky, final boolean scanDownwards, final boolean oneLayerOnly) {
+    public void setClosestBlocksOfType(final V3 startXYZ, final List<Block> blockIDs, final int distanceLimit, final boolean needsToSeeSky, final boolean scanDownwards, final boolean oneLayerOnly) {
         try {
             Thread t = new Thread(new Runnable() {
 
@@ -852,15 +850,15 @@ public abstract class Job {
                         for (int d = 1; d < distanceLimit; d++) {
                             for (int xo = -d; xo <= d; xo++) {
                                 for (int zo = -d; zo <= d; zo++) {
-                                    int sx = startXYZ.x.intValue() + xo;
+                                    int sx = (int) (startXYZ.x + xo);
                                     int sy;
                                     if (scanDownwards) {
-                                        sy = startXYZ.y.intValue() - yo;
+                                        sy = (int) (startXYZ.y - yo);
                                     } else {
-                                        sy = startXYZ.y.intValue() + yo;
+                                        sy = (int) (startXYZ.y + yo);
                                     }
 
-                                    int sz = startXYZ.z.intValue() + zo;
+                                    int sz = (int) (startXYZ.z + zo);
                                     skip = false;
 
                                     for (int b = 0; b < blockIDs.size(); b++) {
@@ -917,12 +915,12 @@ public abstract class Job {
      * @param searchDistance
      * @return
      */
-    public static CopyOnWriteArrayList<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
-        CopyOnWriteArrayList<IInventory> ret = new CopyOnWriteArrayList<IInventory>();
+    public static List<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
+        List<IInventory> ret = new CopyOnWriteArrayList<IInventory>();
 
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
-            BlockPos blockPos = new BlockPos(startXYZ.x.intValue(), startXYZ.y.intValue(), startXYZ.z.intValue());
+            BlockPos blockPos = new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z);
             TileEntity te = theWorld.getTileEntity(blockPos);
             if (te != null) {
                 if (te instanceof IInventory && !(te instanceof TileEntityFurnace) && !(te instanceof TileEntityWindmill)) {
@@ -934,9 +932,9 @@ public abstract class Job {
                 for (int yo = -d; yo <= d; yo++) {
                     for (int xo = -d; xo <= d; xo++) {
                         for (int zo = -d; zo <= d; zo++) {
-                            int sx = startXYZ.x.intValue() + xo;
-                            int sy = startXYZ.y.intValue() + yo;
-                            int sz = startXYZ.z.intValue() + zo;
+                            int sx = (int) (startXYZ.x + xo);
+                            int sy = (int) (startXYZ.y + yo);
+                            int sz = (int) (startXYZ.z + zo);
                             blockPos = new BlockPos(sx, sy, sz);
                             te = theWorld.getTileEntity(blockPos);
                             if (te != null) {
@@ -961,7 +959,7 @@ public abstract class Job {
      * @param chest
      * @return
      */
-    private static boolean alreadyGotChest(CopyOnWriteArrayList<IInventory> chests, IInventory chest) {
+    private static boolean alreadyGotChest(List<IInventory> chests, IInventory chest) {
         boolean ret = false;
         try {
             for (IInventory ch : chests) {
@@ -993,25 +991,25 @@ public abstract class Job {
 
             V3 test = startXYZ.clone();
             test.x++;
-            BlockPos blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
+            BlockPos blockPos = new BlockPos(test.x, test.y, test.z);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
             test = startXYZ.clone();
             test.x--;
-            blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
+            blockPos = new BlockPos(test.x, test.y, test.z);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
             test = startXYZ.clone();
             test.z++;
-            blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
+            blockPos = new BlockPos(test.x, test.y, test.z);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
             test = startXYZ.clone();
             test.z--;
-            blockPos = new BlockPos(test.x.intValue(), test.y.intValue(), test.z.intValue());
+            blockPos = new BlockPos(test.x, test.y, test.z);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
@@ -1035,16 +1033,16 @@ public abstract class Job {
         V3 ret = null;
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
-            if (theWorld.getBlockState(new BlockPos(startXYZ.x.intValue(), startXYZ.y.intValue(), startXYZ.z.intValue())).getBlock() == block) {
+            if (theWorld.getBlockState(new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z)).getBlock() == block) {
                 return startXYZ;
             } else {
                 for (int d = 1; d < searchDistance; d++) {
                     for (int yo = -searchDistance; yo <= searchDistance; yo++) {
                         for (int xo = -d; xo <= d; xo++) {
                             for (int zo = -d; zo <= d; zo++) {
-                                int sx = startXYZ.x.intValue() + xo;
-                                int sy = startXYZ.y.intValue() + yo;
-                                int sz = startXYZ.z.intValue() + zo;
+                                int sx = (int) (startXYZ.x + xo);
+                                int sy = (int) (startXYZ.y + yo);
+                                int sz = (int) (startXYZ.z + zo);
                                 if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
                                     ret = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
                                     return ret;
@@ -1074,16 +1072,16 @@ public abstract class Job {
         V3 ret = null;
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
-            BlockPos blockpos = new BlockPos(startXYZ.x.intValue(), startXYZ.y.intValue(), startXYZ.z.intValue());
+            BlockPos blockpos = new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z);
             if (theWorld.getBlockState(blockpos).getBlock() == block) {
                 return startXYZ;
             } else {
                 for (int d = 1; d < searchDistance; d++) {
                     for (int xo = -d; xo <= d; xo++) {
                         for (int zo = -d; zo <= d; zo++) {
-                            int sx = startXYZ.x.intValue() + xo;
-                            int sy = startXYZ.y.intValue();
-                            int sz = startXYZ.z.intValue() + zo;
+                            int sx = (int) (startXYZ.x + xo);
+                            int sy = (int) startXYZ.y;
+                            int sz = (int) (startXYZ.z + zo);
                             if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
                                 ret = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
                                 return ret;
@@ -1108,10 +1106,10 @@ public abstract class Job {
      * @param distanceLimit
      * @return
      */
-    public static CopyOnWriteArrayList<V3> findClosestBlocks(V3 startXYZ, Block block, int distanceLimit) {
-        CopyOnWriteArrayList<V3> blocksFound = new CopyOnWriteArrayList();
+    public static List<V3> findClosestBlocks(V3 startXYZ, Block block, int distanceLimit) {
+        List<V3> blocksFound = new CopyOnWriteArrayList();
         int count = 0;
-        CopyOnWriteArrayList<V3> retblocksFound = new CopyOnWriteArrayList();
+        List<V3> retblocksFound = new CopyOnWriteArrayList();
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
 
@@ -1119,9 +1117,9 @@ public abstract class Job {
                 for (int xo = -distanceLimit; xo <= distanceLimit; xo++) {
                     for (int zo = -distanceLimit; zo <= distanceLimit; zo++) {
                         try {
-                            int sx = startXYZ.x.intValue() + xo;
-                            int sy = startXYZ.y.intValue() + yo;
-                            int sz = startXYZ.z.intValue() + zo;
+                            int sx = (int) (startXYZ.x + xo);
+                            int sy = (int) (startXYZ.y + yo);
+                            int sz = (int) (startXYZ.z + zo);
                             count++;
                             if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
                                 V3 v = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
@@ -1224,7 +1222,7 @@ public abstract class Job {
      * @return
      */
     public static V3 getNearestBuildingForFolk(String searchWord, FolkData folk) {
-        CopyOnWriteArrayList<Building> ret = new CopyOnWriteArrayList<Building>();
+        List<Building> ret = new CopyOnWriteArrayList<Building>();
         Building shortestDist = null;
         try {
             for (int x = 0; x < ModSimReloaded.theBuildings.size(); x++) {
