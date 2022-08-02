@@ -38,7 +38,7 @@ public class JobBuilder extends Job implements Serializable {
     //建筑阶段
     public Stage theStage;
     //实体人数据
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     //职业
     public Vocation vocation = null;
     //运行延迟

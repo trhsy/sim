@@ -37,7 +37,7 @@ public class JobSoldier extends Job implements Serializable {
     //职业
     public Vocation vocation = null;
     //实体人
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     //阶段
     public Stage theStage;
     public transient int runDelay = 1000;

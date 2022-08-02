@@ -21,7 +21,7 @@ public class GuiCityBox extends GuiScreen {
     private int mouseCount = 0;
     public V3 location;
     public Building theBuilding = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk = new FolkData();;
     private EntityPlayer playerWhoClickedIt = null;
     GuiCityBoxTaxes taxesGui = null;
 

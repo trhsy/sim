@@ -85,7 +85,7 @@ public class ClientTickHandler extends GuiScreen {
                 FarmingBox.saveFarmingBoxes();
 
                 for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                    FolkData folk = ModSimReloaded.theFolks.get(f);
                     folk.updateLocationFromEntity();
                     folk.saveThisFolk();
                 }

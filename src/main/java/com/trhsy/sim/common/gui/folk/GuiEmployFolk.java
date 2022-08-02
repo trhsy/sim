@@ -32,7 +32,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * ========================================
  **/
 public class GuiEmployFolk extends GuiScreen {
-    FolkData theFolk;
+    FolkData theFolk=new FolkData();
     //**控制箱的位置**/
     V3 controlBoxLocation;
     /**
@@ -245,7 +245,7 @@ public class GuiEmployFolk extends GuiScreen {
     public void hireFolks(List<FolkData> efolks) {
         try {
             for (int i = 0; i < efolks.size(); i++) {
-                FolkData efolk = (FolkData) efolks.get(i);
+                FolkData efolk = efolks.get(i);
                 efolk.employedAt = this.controlBoxLocation;
                 efolk.setTheirJob(this.vocation);
                 if (ModSimReloaded.isDayTime()) {

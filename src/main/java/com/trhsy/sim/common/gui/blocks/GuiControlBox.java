@@ -53,7 +53,7 @@ public class GuiControlBox extends GuiScreen {
     //建筑物
     public Building theBuilding = null;
     //模拟NPC
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();;
     //员工人数
     public int employeeCount = 0;
     //雇员
@@ -147,7 +147,7 @@ public class GuiControlBox extends GuiScreen {
                 //将我传送到
                 this.buttonList.add(new GuiButton(30, this.width - 110, this.height - 50, 100, 20, I18n.format("container.sim.Beam_me_to")));
                 int down;
-                FolkData folk;
+                FolkData folk=new FolkData();;
                 //类型为商业或者工业
                 if (this.theBuilding.type.contentEquals("commercial") || this.theBuilding.type.contentEquals("industrial")) {
                     down = 70;
@@ -158,7 +158,7 @@ public class GuiControlBox extends GuiScreen {
                     this.employees.clear();
 
                     for (int fc = 0; fc < ModSimReloaded.theFolks.size(); ++fc) {
-                        folk = (FolkData) ModSimReloaded.theFolks.get(fc);
+                        folk = ModSimReloaded.theFolks.get(fc);
                         if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                             this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") + " " + folk.name));
                             this.employees.put(idx + 100, folk.name);

@@ -203,7 +203,7 @@ public class GuiMining extends GuiScreen {
                         this.mc.displayGuiScreen(ui);
                     } else if (guibutton.displayString.startsWith(I18n.format("container.sim.Fire"))) {
                         for (int i = 0; i < this.theWorkers.size(); i++) {
-                            FolkData folk = (FolkData) this.theWorkers.get(i);
+                            FolkData folk = this.theWorkers.get(i);
                             folk.selfFire();
                         }
 

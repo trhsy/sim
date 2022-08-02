@@ -47,7 +47,7 @@ public class JobBaker extends Job implements Serializable {
     /*
         模拟NPC
      */
-    public FolkData theFolk;
+    public FolkData theFolk=new FolkData();
     /*
     默认运行延迟 1m
      */
@@ -380,7 +380,7 @@ public class JobBaker extends Job implements Serializable {
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.has_sold") + breadStack.stackSize + I18n.format("container.sim.job.folks_today"));
 
                     for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                        FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                        FolkData folk = ModSimReloaded.theFolks.get(f);
                         if (breadStack.stackSize > 0) {
                             folk.levelFood = 10;
                             --breadStack.stackSize;

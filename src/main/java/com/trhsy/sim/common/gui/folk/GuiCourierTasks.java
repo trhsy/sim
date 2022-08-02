@@ -30,7 +30,7 @@ import java.util.HashMap;
  **/
 public class GuiCourierTasks extends GuiScreen {
     V3 controlBoxLocation;
-    FolkData theFolk = null;
+    FolkData theFolk=new FolkData();
     HashMap tasks = new HashMap();
     String onPage = "main";
     CourierTask newtask = new CourierTask();

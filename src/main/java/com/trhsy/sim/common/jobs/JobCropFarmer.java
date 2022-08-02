@@ -45,7 +45,7 @@ public class JobCropFarmer extends Job implements Serializable {
     //职业
     public Vocation vocation = null;
     //实体人
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     //状态
     public Stage theStage=null;
 

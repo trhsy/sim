@@ -33,7 +33,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobBurgersManager extends Job {
 
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public int runDelay = 1000;
     private long timeSinceLastRun = 0L;

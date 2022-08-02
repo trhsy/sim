@@ -39,7 +39,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobLivestockFarmer extends Job implements Serializable {
     private static final long serialVersionUID = -1177112209988279141L;
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;

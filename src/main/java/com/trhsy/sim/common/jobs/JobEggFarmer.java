@@ -32,7 +32,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobEggFarmer extends Job {
     public Vocation vocation = null;
     public Stage theStage;
-    public FolkData theFolk;
+    public FolkData theFolk=new FolkData();
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private List<IInventory> farmChests = new CopyOnWriteArrayList();

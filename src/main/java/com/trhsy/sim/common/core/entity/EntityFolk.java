@@ -22,6 +22,7 @@ import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
@@ -392,12 +393,20 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if (entity instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem) entity;
                         ItemStack is = entityitem.getEntityItem();
-                        ItemFood food = (ItemFood) is.getItem();
-                        if (this.theData.levelFood < 10 && food != null) {
-                            this.worldObj.playSoundAtEntity(this, "random.burp", 1, 1);
-                            entityitem.setDead();
-                            ++this.theData.levelFood;
+                        Item item=is.getItem();
+                        if(item!=null){
+                            String itemName=item.getRegistryName();
+                            if(itemName.contains("mutton")||itemName.contains("rabbit")||itemName.contains("pie")||itemName.contains("carrot")||itemName.contains("potato")||itemName.contains("carrot")||itemName.contains("eye")||itemName.contains("flesh")||itemName.contains("chicken")||itemName.contains("beef")||itemName.contains("melon")||itemName.contains("cookie")||itemName.contains("fish")||itemName.contains("bread")||itemName.contains("apple")||itemName.contains("burger")||itemName.contains("fries")||itemName.contains("cheese")){
+                                System.out.println(itemName);
+                                ItemFood food = (ItemFood) item;
+                                if (this.theData.levelFood < 10 && food != null) {
+                                    this.worldObj.playSoundAtEntity(this, "random.burp", 1, 1);
+                                    entityitem.setDead();
+                                    ++this.theData.levelFood;
+                                }
+                            }
                         }
+
                     } else if (entity instanceof EntityFolk && (int) this.posX == (int) entity.posX && (int) this.posZ == (int) entity.posZ) {
                         this.motionX += 0.10000000149011612D;
                         this.theData.stayPut = false;

@@ -37,7 +37,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobShepherd extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207904191941L;
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk=new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;

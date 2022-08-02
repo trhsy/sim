@@ -37,7 +37,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobMiner extends Job implements Serializable {
 
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;

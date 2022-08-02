@@ -27,7 +27,7 @@ import org.lwjgl.input.Mouse;
  * ========================================
  **/
 public class GuiFarming extends GuiScreen {
-    FolkData theFolk = null;
+    FolkData theFolk =new FolkData();;
     FarmingBox theFarmingBox = null;
     private int mouseCount = 0;
 

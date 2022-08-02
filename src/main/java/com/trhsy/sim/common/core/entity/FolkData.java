@@ -569,9 +569,14 @@ public class FolkData implements Serializable {
                     //更新实体位置
                     this.updateLocationFromEntity();
                     V3 liveAt = null;
-                    if (this.getHome().livingXYZ != null) {
-                        liveAt = this.getHome().livingXYZ.clone();
+                    if(this.getHome()!=null){
+                        if (this.getHome().livingXYZ != null) {
+                            liveAt = this.getHome().livingXYZ.clone();
+                        }
+                    }else{
+                        this.getHomeForHomeless();
                     }
+
                     /*if (liveAt == null) {
                         liveAt = this.getHome().primaryXYZ.clone();
                     }*/
@@ -1610,13 +1615,16 @@ public class FolkData implements Serializable {
                 World theWorld = Minecraft.getMinecraft().theWorld;
                 for (int p = 0; p < 10; ++p) {
                     //仅需要粒子的客户端世界
-                    if (!ConfigLoader.configDisableBeamEffect) {
-                        theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.location.x + random.nextDouble() - 0.5D, this.location.y - 1.0, this.location.z + random.nextDouble() - 0.5D, 0, -d4, 0);
+                    if(theWorld!=null){
+                        if (!ConfigLoader.configDisableBeamEffect) {
+                            theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.location.x + random.nextDouble() - 0.5D, this.location.y - 1.0, this.location.z + random.nextDouble() - 0.5D, 0, -d4, 0);
+                        }
+                        if (!ConfigLoader.configDisableBeamEffect) {
+                            theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.beamingTo.x + random.nextDouble() - 0.5D, this.beamingTo.y - 1.0, this.beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
+                        }
                     }
 
-                /*if (!ConfigLoader.configDisableBeamEffect) {
-                    theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.beamingTo.x + random.nextDouble() - 0.5D, this.beamingTo.y - 1.0, this.beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
-                }*/
+
                 }
             }
         } catch (Exception e) {

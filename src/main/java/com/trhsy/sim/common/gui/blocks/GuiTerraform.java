@@ -26,7 +26,7 @@ import java.io.IOException;
  * ========================================
  **/
 public class GuiTerraform extends GuiScreen {
-    FolkData theFolk;
+    FolkData theFolk=new FolkData();;
     GuiTextField tfRadius;
     private int mouseCount = 0;
     private String errorText = "";

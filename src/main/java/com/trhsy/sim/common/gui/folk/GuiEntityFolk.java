@@ -34,7 +34,7 @@ public class GuiEntityFolk extends GuiScreen {
     private static final ResourceLocation myBackgroundTexture = new ResourceLocation(ModSim.MODID + "", "textures/gui/guiFolk.png");
     private int currentPage = 0;
     private int mouseCount = 0;
-    private FolkData theFolk;
+    private FolkData theFolk=new FolkData();;
     private EntityPlayer entityplayer;
     private List<Relationship> folksRelationships;
     private int relOffset = 0;
