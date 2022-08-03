@@ -44,7 +44,7 @@ public class RenderWindmill extends Render<EntityWindmill> {
 
             V3 v3 = Job.findClosestBlockType(new V3((int) entity.posX, (int) entity.posY - 1, (int) entity.posZ), BlockLoader.blockWindmill, 5);
             if (v3 != null) {
-                BlockPos blockPos=new BlockPos(v3.x, v3.y, v3.z);
+                BlockPos blockPos=new BlockPos(v3.xCoord, v3.yCoord, v3.zCoord);
                 TileEntityWindmill teWindmill = (TileEntityWindmill) entity.worldObj.getTileEntity(blockPos);
                 if (teWindmill != null) {
                     //meta=teWindmill.meta;

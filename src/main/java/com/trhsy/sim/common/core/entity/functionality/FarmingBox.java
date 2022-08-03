@@ -104,10 +104,10 @@ public class FarmingBox implements Serializable {
             V3 m1 = this.getMarkerVector(1);
             V3 m2 = this.getMarkerVector(2);
             V3 m3 = this.getMarkerVector(3);
-            if (m1.x == m2.x) {
-                ltr = (int) (Math.abs(m2.z - m1.z) + 1.0);
+            if (m1.xCoord == m2.xCoord) {
+                ltr = (int) (Math.abs(m2.zCoord - m1.zCoord) + 1.0);
             } else {
-                ltr = (int) (Math.abs(m2.x - m1.x) + 1.0);
+                ltr = (int) (Math.abs(m2.xCoord - m1.xCoord) + 1.0);
             }
         } catch (Exception e) {
             return 5;
@@ -129,10 +129,10 @@ public class FarmingBox implements Serializable {
             V3 m1 = this.getMarkerVector(1);
             V3 m2 = this.getMarkerVector(2);
             V3 m3 = this.getMarkerVector(3);
-            if (m1.x == m3.x) {
-                ftb = (int) (Math.abs(m3.z - m1.z) + 1.0);
+            if (m1.xCoord == m3.xCoord) {
+                ftb = (int) (Math.abs(m3.zCoord - m1.zCoord) + 1.0);
             } else {
-                ftb = (int) (Math.abs(m3.x - m1.x) + 1.0);
+                ftb = (int) (Math.abs(m3.xCoord - m1.xCoord) + 1.0);
             }
         } catch (Exception e) {
             return 5;
@@ -156,25 +156,33 @@ public class FarmingBox implements Serializable {
             for (int o = 0; o <= length; ++o) {
                 for (int i = 0; i <= this.getSizeWidth(); i++) {
                     ret.add(c.clone());
-                    if (m2.x > m1.x) {
-                        c.x = m1.x + (double) i;
-                    } else if (m2.x < m1.x) {
-                        c.x = m1.x - (double) i;
-                    } else if (m2.z > m1.z) {
-                        c.z = m1.z + (double) i;
-                    } else if (m2.z < m1.z) {
-                        c.z = m1.z - (double) i;
+                    if (m2.xCoord > m1.xCoord) {
+                        c.addVector(m1.xCoord+i,c.yCoord,c.zCoord);
+                        //c.xCoord = m1.xCoord + (double) i;
+                    } else if (m2.xCoord < m1.xCoord) {
+                        //c.xCoord = m1.xCoord - (double) i;
+                        c.addVector(m1.xCoord-i,c.yCoord,c.zCoord);
+                    } else if (m2.zCoord > m1.zCoord) {
+                        //c.zCoord = m1.zCoord + (double) i;
+                        c.addVector(c.xCoord,c.yCoord,m1.zCoord+i);
+                    } else if (m2.zCoord < m1.zCoord) {
+                        //c.zCoord = m1.zCoord - (double) i;
+                        c.addVector(c.xCoord,c.yCoord,m1.zCoord-i);
                     }
                 }
 
-                if (m3.x > m1.x) {
-                    c.x = m1.x + (double) o;
-                } else if (m3.x < m1.x) {
-                    c.x = m1.x - (double) o;
-                } else if (m3.z > m1.z) {
-                    c.z = m1.z + (double) o;
-                } else if (m3.z < m1.z) {
-                    c.z = m1.z - (double) o;
+                if (m3.xCoord > m1.xCoord) {
+                    //c.xCoord = m1.xCoord + (double) o;
+                    c.addVector(m1.xCoord+o,c.yCoord,c.zCoord);
+                } else if (m3.xCoord < m1.xCoord) {
+                    //c.xCoord = m1.xCoord - (double) o;
+                    c.addVector(m1.xCoord-o,c.yCoord,c.zCoord);
+                } else if (m3.zCoord > m1.zCoord) {
+                    //c.zCoord = m1.zCoord + (double) o;
+                    c.addVector(c.xCoord,c.yCoord,m1.zCoord+o);
+                } else if (m3.zCoord < m1.zCoord) {
+                    //c.zCoord = m1.zCoord - (double) o;
+                    c.addVector(c.xCoord,c.yCoord,m1.zCoord-o);
                 }
             }
         } catch (Exception e) {
@@ -201,50 +209,66 @@ public class FarmingBox implements Serializable {
             V3 c = b.clone();
 
             for (int i = 0; i <= this.getSizeWidth() + 2; i++) {
-                if (m2.x - b.x > 1.0) {
-                    c.x = c.x + 1.0;
-                } else if (m2.x - b.x < -1.0) {
-                    c.x = c.x - 1.0;
-                } else if (m2.z - b.z > 1.0) {
-                    c.z = c.z + 1.0;
-                } else if (m2.z - b.z < -1.0) {
-                    c.z = c.z - 1.0;
+                if (m2.xCoord - b.xCoord > 1.0) {
+                    //c.xCoord = c.xCoord + 1.0;
+                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                } else if (m2.xCoord - b.xCoord < -1.0) {
+                    //c.xCoord = c.xCoord - 1.0;
+                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                } else if (m2.zCoord - b.zCoord > 1.0) {
+                    //c.zCoord = c.zCoord + 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
+                } else if (m2.zCoord - b.zCoord < -1.0) {
+                    //c.zCoord = c.zCoord - 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
-                if (m3.x - b.x > 1.0) {
-                    c.x = c.x + 1.0;
-                } else if (m3.x - b.x < -1.0) {
-                    c.x = c.x - 1.0;
-                } else if (m3.z - b.z > 1.0) {
-                    c.z = c.z + 1.0;
-                } else if (m3.z - b.z < -1.0) {
-                    c.z = c.z - 1.0;
+                if (m3.xCoord - b.xCoord > 1.0) {
+                    //c.xCoord = c.xCoord + 1.0;
+                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                } else if (m3.xCoord - b.xCoord < -1.0) {
+                    //c.xCoord = c.xCoord - 1.0;
+                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                } else if (m3.zCoord - b.zCoord > 1.0) {
+                    //c.zCoord = c.zCoord + 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
+                } else if (m3.zCoord - b.zCoord < -1.0) {
+                    //c.zCoord = c.zCoord - 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeWidth() + 2; i++) {
-                if (m2.x - b.x + 1 > 1.0) {
-                    c.x = c.x - 1.0;
-                } else if (m2.x - b.x + 1 < -1.0) {
-                    c.x = c.x + 1.0;
-                } else if (m2.z - b.z > 1.0) {
-                    c.z = c.z - 1.0;
-                } else if (m2.z - b.z < -1.0) {
-                    c.z = c.z + 1.0;
+                if (m2.xCoord - b.xCoord + 1 > 1.0) {
+                    //c.xCoord = c.xCoord - 1.0;
+                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                } else if (m2.xCoord - b.xCoord + 1 < -1.0) {
+                    //c.xCoord = c.xCoord + 1.0;
+                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                } else if (m2.zCoord - b.zCoord > 1.0) {
+                    //c.zCoord = c.zCoord - 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
+                } else if (m2.zCoord - b.zCoord < -1.0) {
+                    //c.zCoord = c.zCoord + 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
-                if (m3.x - b.x > 1.0) {
-                    c.x = c.x - 1.0;
-                } else if (m3.x - b.x < -1.0) {
-                    c.x = c.x + 1.0;
-                } else if (m3.z - b.z > 1.0) {
-                    c.z = c.z - 1.0;
-                } else if (m3.z - b.z < -1.0) {
-                    c.z = c.z + 1.0;
+                if (m3.xCoord - b.xCoord > 1.0) {
+                    //c.xCoord = c.xCoord - 1.0;
+                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                } else if (m3.xCoord - b.xCoord < -1.0) {
+                    //c.xCoord = c.xCoord + 1.0;
+                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                } else if (m3.zCoord - b.zCoord > 1.0) {
+                    //c.zCoord = c.zCoord - 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
+                } else if (m3.zCoord - b.zCoord < -1.0) {
+                    //c.zCoord = c.zCoord + 1.0;
+                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
                 }
                 ret.add(c.clone());
             }
@@ -353,7 +377,7 @@ public class FarmingBox implements Serializable {
 
                         theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
                         if (theWorld != null) {
-                            id = theWorld.getBlockState(new BlockPos(box.location.x, box.location.y, box.location.z)).getBlock();
+                            id = theWorld.getBlockState(new BlockPos(box.location.xCoord, box.location.yCoord, box.location.zCoord)).getBlock();
                             if (id == BlockLoader.blockFarmingBox) {
                                 ModSimReloaded.theFarmingBoxes.add(box);
                             } else {
@@ -374,8 +398,8 @@ public class FarmingBox implements Serializable {
                                 f.delete();
                             } else {
                                 try {
-                                    id = theWorld.getBlockState(new BlockPos(xyz.x, xyz.y, xyz.z)).getBlock();
-                                    //id = theWorld.getBlock(xyz.x, xyz.y, xyz.z);
+                                    id = theWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
+                                    //id = theWorld.getBlock(xyz.xCoord, xyz.yCoord, xyz.zCoord);
                                     if (id == BlockLoader.blockFarmingBox) {
                                         ModSimReloaded.theFarmingBoxes.add(farming);
                                     } else {

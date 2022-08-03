@@ -102,8 +102,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                     String name = guibutton.displayString.trim();
                     V3 v = CourierTask.getCourierPoint(name);
                     V3 safePoint = v.clone();
-                    Double var6 = safePoint.y;
-                    Double var7 = safePoint.y = safePoint.y + 1;
+                    safePoint.addVector(safePoint.xCoord,safePoint.yCoord+1,safePoint.zCoord);
                     ModSimReloaded.sendChat(I18n.format("container.sim.sim_gui_Beaming") + name);
                     this.mc.displayGuiScreen((GuiScreen) null);
                     ClientTickHandler.beamingPlayer = this.thePlayer;

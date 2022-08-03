@@ -157,7 +157,7 @@ public class ClientTickHandler extends GuiScreen {
                 }
 
                 try {
-                    mc.theWorld.spawnParticle(EnumParticleTypes.PORTAL, beamingTo.x + random.nextDouble() - 0.5D, beamingTo.y - 1, beamingTo.z + random.nextDouble() - 0.5D, 0, -d4, 0);
+                    mc.theWorld.spawnParticle(EnumParticleTypes.PORTAL, beamingTo.xCoord + random.nextDouble() - 0.5D, beamingTo.yCoord - 1, beamingTo.zCoord + random.nextDouble() - 0.5D, 0, -d4, 0);
                 } catch (Exception e) {
                 }
             }
@@ -165,7 +165,7 @@ public class ClientTickHandler extends GuiScreen {
             if (beamingStage == 1) {
                 if (System.currentTimeMillis() - beamingStartedAt > 6000L) {
                     beamingStage = 2;
-                    beamingPlayer.setPositionAndUpdate(beamingTo.x, beamingTo.y, beamingTo.z);
+                    beamingPlayer.setPositionAndUpdate(beamingTo.xCoord, beamingTo.yCoord, beamingTo.zCoord);
                 }
             } else if (beamingStage == 2) {
                 beamingStage = 3;

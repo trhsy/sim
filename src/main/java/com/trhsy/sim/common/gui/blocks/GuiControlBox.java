@@ -16,6 +16,7 @@ import com.trhsy.sim.common.gui.folk.GuiMerchant;
 import com.trhsy.sim.common.gui.folk.GuiShowEmployees;
 import com.trhsy.sim.common.gui.other.GuiBeamPlayerTo;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
@@ -53,7 +54,8 @@ public class GuiControlBox extends GuiScreen {
     //建筑物
     public Building theBuilding = null;
     //模拟NPC
-    public FolkData theFolk =new FolkData();;
+    public FolkData theFolk = new FolkData();
+    ;
     //员工人数
     public int employeeCount = 0;
     //雇员
@@ -78,7 +80,8 @@ public class GuiControlBox extends GuiScreen {
             //玩家
             this.playerWhoClickedIt = thePlayer;
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -99,7 +102,8 @@ public class GuiControlBox extends GuiScreen {
                 this.theFolk.gotoXYZ(location, null);
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiControlBox出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -147,7 +151,8 @@ public class GuiControlBox extends GuiScreen {
                 //将我传送到
                 this.buttonList.add(new GuiButton(30, this.width - 110, this.height - 50, 100, 20, I18n.format("container.sim.Beam_me_to")));
                 int down;
-                FolkData folk=new FolkData();;
+                FolkData folk = new FolkData();
+                ;
                 //类型为商业或者工业
                 if (this.theBuilding.type.contentEquals("commercial") || this.theBuilding.type.contentEquals("industrial")) {
                     down = 70;
@@ -376,7 +381,8 @@ public class GuiControlBox extends GuiScreen {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("initGui出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -449,7 +455,8 @@ public class GuiControlBox extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("drawScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             //var10.printStackTrace();
         }
 
@@ -635,7 +642,7 @@ public class GuiControlBox extends GuiScreen {
 
                                 while (iterator.hasNext()) {
                                     V3 blockLoc = (V3) iterator.next();
-                                    BlockPos blockPos = new BlockPos(blockLoc.x, blockLoc.y, blockLoc.z);
+                                    BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord);
                                     Block l = theWorld.getBlockState(blockPos).getBlock();
                                     if (l != null && ModSimReloaded.demolishBlocks.size() < 500) {
                                         blockLoc.blockID = l;
@@ -643,8 +650,8 @@ public class GuiControlBox extends GuiScreen {
                                     }
 
                                     theWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
-                                    this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) blockLoc.x, (double) blockLoc.y, (double) blockLoc.z, 0, 0.30000001192092896D, 0);
-                                    this.mc.theWorld.spawnParticle(EnumParticleTypes.FLAME, (double) blockLoc.x, (double) blockLoc.y, (double) blockLoc.z, 0, 0.4000000059604645D, 0);
+                                    this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord, 0, 0.30000001192092896D, 0);
+                                    this.mc.theWorld.spawnParticle(EnumParticleTypes.FLAME, blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord, 0, 0.4000000059604645D, 0);
                                 }
 
                                 theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1, 1);
@@ -676,7 +683,8 @@ public class GuiControlBox extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUICONTROLBOX-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GUICONTROLBOX-actionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -691,7 +699,8 @@ public class GuiControlBox extends GuiScreen {
             Keyboard.enableRepeatEvents(false);
             this.mc.setIngameFocus();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -709,7 +718,8 @@ public class GuiControlBox extends GuiScreen {
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -720,63 +730,87 @@ public class GuiControlBox extends GuiScreen {
     private void rotateStairs() {
         try {
             World theWorld = this.mc.getIntegratedServer().worldServerForDimension(this.theBuilding.primaryXYZ.theDimension);
-            theWorld.playSoundEffect(this.theBuilding.primaryXYZ.x, this.theBuilding.primaryXYZ.y, this.theBuilding.primaryXYZ.z, ModSim.MODID + ":computer", 1, 2.0F);
+            theWorld.playSoundEffect(this.theBuilding.primaryXYZ.xCoord, this.theBuilding.primaryXYZ.yCoord, this.theBuilding.primaryXYZ.zCoord, ModSim.MODID + ":computer", 1, 2.0F);
             for (V3 blockLoc : this.theBuilding.blockLocations) {
                 //得到方块
-                BlockPos blockPos = new BlockPos(blockLoc.x, blockLoc.y, blockLoc.z);
+                BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord);
                 Block id = theWorld.getBlockState(blockPos).getBlock();
                 Chunk chunk = theWorld.getChunkFromBlockCoords(blockPos);
                 ItemStack is = new ItemStack(theWorld.getBlockState(blockPos).getBlock(), 1, id.getMetaFromState(theWorld.getBlockState(blockPos)));
                 int newmeta;
-                //如果包含楼梯
-                if (!is.getDisplayName().contains(I18n.format("container.sim.building.stairs"))) {
-                    if (!is.getDisplayName().contains(I18n.format("container.sim.building.torch"))) {
-                        //床
-                        if (is.getDisplayName().contains(I18n.format("container.sim.building.bed"))) {
-                            newmeta = is.getMetadata();
-                            ++newmeta;
-                            if (newmeta == 4) {
-                                newmeta = 0;
-                            }
-                            theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 2);
-                            //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 2);
-                        } else if (Block.getBlockFromItem(is.getItem()) != Blocks.piston && Block.getBlockFromItem(is.getItem()) != Blocks.piston_extension && Block.getBlockFromItem(is.getItem()) != Blocks.piston_head) {
-                            if (Block.getBlockFromItem(is.getItem()) == Blocks.wall_sign) {
+                if (is != null&&is.getItem()!=null) {
+                    String displayName = is.getDisplayName();
+                    //如果包含楼梯
+                    if (!displayName.contains(I18n.format("container.sim.building.stairs"))) {
+                        //火把
+                        if (!displayName.contains(I18n.format("container.sim.building.torch"))) {
+                            //床
+                            if (displayName.contains(I18n.format("container.sim.building.bed"))) {
                                 newmeta = is.getMetadata();
-                                if (newmeta == 0) {
-                                    newmeta = 4;
-                                } else if (newmeta == 4) {
-                                    newmeta = 8;
-                                } else if (newmeta == 8) {
-                                    newmeta = 12;
-                                } else if (newmeta == 12) {
+                                ++newmeta;
+                                if (newmeta == 4) {
                                     newmeta = 0;
                                 }
-                                theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 2);
+                                theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 2);
+                                //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 2);
                                 //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 2);
-                            } else if (Block.getBlockFromItem(is.getItem()) != Blocks.wall_sign && Block.getBlockFromItem(is.getItem()) != Blocks.ladder) {
-                                if (Block.getBlockFromItem(is.getItem()) != Blocks.stone_button && Block.getBlockFromItem(is.getItem()) != Blocks.wooden_button) {
-                                    if (Block.getBlockFromItem(is.getItem()) == Blocks.oak_fence_gate) {
-                                        newmeta = is.getMetadata();
-                                        ++newmeta;
-                                        if (newmeta > 3) {
-                                            newmeta = 0;
+                                //Block.getBlockFromItem(is.getItem()) != Blocks.piston && Block.getBlockFromItem(is.getItem()) != Blocks.piston_extension && Block.getBlockFromItem(is.getItem()) != Blocks.piston_head
+                            } else if (displayName.contains(I18n.format("container.sim.building.piston"))) {
+                                if (Block.getBlockFromItem(is.getItem()) == Blocks.wall_sign) {
+                                    newmeta = is.getMetadata();
+                                    if (newmeta == 0) {
+                                        newmeta = 4;
+                                    } else if (newmeta == 4) {
+                                        newmeta = 8;
+                                    } else if (newmeta == 8) {
+                                        newmeta = 12;
+                                    } else if (newmeta == 12) {
+                                        newmeta = 0;
+                                    }
+                                    theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 2);
+                                    //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 2);
+                                    //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 2);
+                                } else if (Block.getBlockFromItem(is.getItem()) != Blocks.wall_sign && Block.getBlockFromItem(is.getItem()) != Blocks.ladder) {
+                                    //Block.getBlockFromItem(is.getItem()) != Blocks.stone_button && Block.getBlockFromItem(is.getItem()) != Blocks.wooden_button
+                                    if (displayName.contains(I18n.format("container.sim.building.button"))) {
+                                        if (Block.getBlockFromItem(is.getItem()) == Blocks.oak_fence_gate) {
+                                            newmeta = is.getMetadata();
+                                            ++newmeta;
+                                            if (newmeta > 3) {
+                                                newmeta = 0;
+                                            }
+                                            theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 3);
+                                            //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
+                                            //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
                                         }
-                                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
+                                    } else {
+                                        newmeta = is.getMetadata();
+                                        if (newmeta == 1) {
+                                            newmeta = 3;
+                                        } else if (newmeta == 3) {
+                                            newmeta = 2;
+                                        } else if (newmeta == 2) {
+                                            newmeta = 4;
+                                        } else if (newmeta == 4) {
+                                            newmeta = 1;
+                                        }
+                                        theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 3);
+                                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
                                         //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
                                     }
                                 } else {
                                     newmeta = is.getMetadata();
-                                    if (newmeta == 1) {
+                                    if (newmeta == 2) {
+                                        newmeta = 5;
+                                    } else if (newmeta == 5) {
                                         newmeta = 3;
                                     } else if (newmeta == 3) {
-                                        newmeta = 2;
-                                    } else if (newmeta == 2) {
                                         newmeta = 4;
                                     } else if (newmeta == 4) {
-                                        newmeta = 1;
+                                        newmeta = 2;
                                     }
-                                    theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
+                                    theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 3);
+                                    //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
                                     //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
                                 }
                             } else {
@@ -790,54 +824,46 @@ public class GuiControlBox extends GuiScreen {
                                 } else if (newmeta == 4) {
                                     newmeta = 2;
                                 }
-                                theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
+                                theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 3);
+                                //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
                                 //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
                             }
                         } else {
                             newmeta = is.getMetadata();
-                            if (newmeta == 2) {
-                                newmeta = 5;
-                            } else if (newmeta == 5) {
+                            if (newmeta == 1) {
                                 newmeta = 3;
                             } else if (newmeta == 3) {
+                                newmeta = 2;
+                            } else if (newmeta == 2) {
                                 newmeta = 4;
                             } else if (newmeta == 4) {
-                                newmeta = 2;
+                                newmeta = 1;
                             }
-                            theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
+                            theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 3);
+                            //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
                             //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
                         }
                     } else {
                         newmeta = is.getMetadata();
-                        if (newmeta == 1) {
-                            newmeta = 3;
-                        } else if (newmeta == 3) {
+                        if (newmeta == 0) {
                             newmeta = 2;
+                        } else if (newmeta == 1) {
+                            newmeta = 3;
                         } else if (newmeta == 2) {
-                            newmeta = 4;
-                        } else if (newmeta == 4) {
                             newmeta = 1;
+                        } else if (newmeta == 3) {
+                            newmeta = 0;
                         }
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
+                        theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 3);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
                         //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
                     }
-                } else {
-                    newmeta = is.getMetadata();
-                    if (newmeta == 0) {
-                        newmeta = 2;
-                    } else if (newmeta == 1) {
-                        newmeta = 3;
-                    } else if (newmeta == 2) {
-                        newmeta = 1;
-                    } else if (newmeta == 3) {
-                        newmeta = 0;
-                    }
-                    theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
-                    //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("rotateStairs出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("rotateStairs出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            e.getStackTrace();
         }
     }
 }

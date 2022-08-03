@@ -126,17 +126,14 @@ public class JobSoldier extends Job implements Serializable {
             int xo = this.rand.nextInt(60) - 30;
             int zo = this.rand.nextInt(60) - 30;
 
-            V3 wanderTo;
-            Double var6;
-
-            for(wanderTo = new V3(this.theFolk.location.x + (double)xo, this.theFolk.location.y - 1, this.theFolk.location.z + (double)zo, this.theFolk.location.theDimension); this.jobWorld.getBlockState(new BlockPos(wanderTo.x, wanderTo.y, wanderTo.z)).getBlock() != null && wanderTo.y < 255; var6 = wanderTo.y = wanderTo.y + 1) {
-                Double var5 = wanderTo.y;
+            V3 wanderTo = new V3(this.theFolk.location.xCoord + (double)xo, this.theFolk.location.yCoord - 1, this.theFolk.location.zCoord + (double)zo, this.theFolk.location.theDimension);
+            if( this.jobWorld.getBlockState(new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord)).getBlock() != null && wanderTo.yCoord < 255) {
+                wanderTo.addVector(wanderTo.xCoord,wanderTo.yCoord,wanderTo.zCoord);
             }
-
             this.theFolk.gotoXYZ(wanderTo, null);
         }
 
-        List list = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0, this.theFolk.employedAt.y + 1.0, this.theFolk.employedAt.z + 1.0).expand(100, 5.0, 100));
+        List list = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1.0, this.theFolk.employedAt.yCoord + 1.0, this.theFolk.employedAt.zCoord + 1.0).expand(100, 5.0, 100));
 
 
             this.badGuy = this.findClosestHostileMob(list);

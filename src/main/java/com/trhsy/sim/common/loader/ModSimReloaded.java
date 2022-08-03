@@ -7,6 +7,7 @@ import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.gui.GuiRunMod;
 import com.trhsy.sim.common.jobs.JobSoldier;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.packets.toServer.PacketPipeline;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -107,6 +108,7 @@ public class ModSimReloaded {
     //Gui的运行模式
     private static GuiRunMod runModui = null;
 
+    public static final PacketPipeline packetPipeline = new PacketPipeline();
     public ModSimReloaded() {
 
     }
@@ -600,7 +602,7 @@ public class ModSimReloaded {
 
                     try {
                         Block block = Block.getBlockFromName(blockLoc.name);
-                        BlockPos blockPos = new BlockPos(blockLoc.x, blockLoc.y + 10 + (new Random()).nextInt(20), blockLoc.z);
+                        BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord + 10 + (new Random()).nextInt(20), blockLoc.zCoord);
                         block.dropBlockAsItem(demolishWorld, blockPos, block.getDefaultState(), 0);
                         demolishBlocks.remove(0);
                     } catch (Exception e) {
@@ -637,7 +639,7 @@ public class ModSimReloaded {
                 //获取元素
                 point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
                 theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
-                BlockPos blockPos = new BlockPos(point.x, point.y, point.z);
+                BlockPos blockPos = new BlockPos(point.xCoord, point.yCoord, point.zCoord);
                 //如果该区域没有障碍物，则设置围栏
                 Block id = theWorld.getBlockState(blockPos).getBlock();
                 //摧毁
@@ -657,7 +659,7 @@ public class ModSimReloaded {
 
                 if (destroy) {
                     //System.out.println("farmToUpgradeCounter:" + farmToUpgradeCounter);
-                    BlockPos blockPos2 = new BlockPos(point.x - 1, point.y, point.z - 1);
+                    BlockPos blockPos2 = new BlockPos(point.xCoord - 1, point.yCoord, point.zCoord - 1);
                     //摧毁放快
                     theWorld.destroyBlock(blockPos2, true);
                     //把原来方块替换成 栅栏
@@ -667,7 +669,7 @@ public class ModSimReloaded {
                 }
                 //升级点除以六等于0 每隔6个街区放置一盏灯
                 if (farmToUpgradeCounter % 6 == 0) {
-                    BlockPos blockPos1 = new BlockPos(point.x - 1, point.y - 1, point.z - 1);
+                    BlockPos blockPos1 = new BlockPos(point.xCoord - 1, point.yCoord - 1, point.zCoord - 1);
                     theWorld.destroyBlock(blockPos1, true);
                     //把原来方块替换成 灯箱
                     theWorld.setBlockState(blockPos1, BlockLoader.blockLightBox.getDefaultState(), 3);
@@ -682,12 +684,12 @@ public class ModSimReloaded {
 
                 point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
                 theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
-                if (point.x % 5 == 0 && point.z % 5 == 0) {
+                if (point.xCoord % 5 == 0 && point.zCoord % 5 == 0) {
 
-                    BlockPos blockPos1 = new BlockPos(point.x, point.y - 1, point.z);
+                    BlockPos blockPos1 = new BlockPos(point.xCoord, point.yCoord - 1, point.zCoord);
                     theWorld.setBlockState(blockPos1, Blocks.water.getDefaultState(), 3);
 
-                    BlockPos blockPos2 = new BlockPos(point.x, point.y - 2, point.z);
+                    BlockPos blockPos2 = new BlockPos(point.xCoord, point.yCoord - 2, point.zCoord);
                     theWorld.setBlockState(blockPos2, BlockLoader.blockLightBox.getDefaultState(), 3);
                     theWorld.markBlockForUpdate(blockPos1);
                     theWorld.markBlockForUpdate(blockPos2);

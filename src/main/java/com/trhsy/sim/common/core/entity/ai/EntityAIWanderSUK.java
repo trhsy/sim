@@ -51,9 +51,9 @@ public class EntityAIWanderSUK extends EntityAIBase {
         if (v == null) {
             return false;
         } else {
-            this.xPosition = v.x;
-            this.yPosition = v.y;
-            this.zPosition = v.z;
+            this.xPosition = v.xCoord;
+            this.yPosition = v.yCoord;
+            this.zPosition = v.zCoord;
             this.mustUpdate = false;
             return true;
         }

@@ -327,9 +327,9 @@ public class JobBaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     if (this.theFolk.theEntity != null) {
                         if (this.theFolk.gender == 0) {
-                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerm", 1, 1, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":bakerm", 1, 1, false);
                         } else {
-                            this.mc.theWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerf", 1, 1, false);
+                            this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":bakerf", 1, 1, false);
                         }
                     }
 

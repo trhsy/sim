@@ -232,7 +232,7 @@ public class CourierTask implements Serializable {
                     V3 point = (V3) ModSimReloaded.theCourierPoints.get(mofo);
                     if (point != null) {
                         List<IInventory> chests = Job.inventoriesFindClosest(point, 5);
-                        String fn = "cp" + point.x + "_" + point.y + "_" + point.z + "_D" + point.theDimension;
+                        String fn = "cp" + point.xCoord + "_" + point.yCoord + "_" + point.zCoord + "_D" + point.theDimension;
                         if (chests.size() > 0) {
                             if (!names.contains(point.name)) {
                                 names = names + " " + point.name;

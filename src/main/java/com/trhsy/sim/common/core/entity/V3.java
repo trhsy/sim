@@ -11,12 +11,6 @@ import java.io.Serializable;
  */
 public class V3 extends Vec3 {
     private static final long serialVersionUID = 3681796724829797704L;
-    /**x 轴**/
-    public double x;
-    /**y 轴**/
-    public double y;
-    /**z 轴**/
-    public double z;
     /**名字**/
     public String name = "";
     /**方块**/
@@ -43,7 +37,7 @@ public class V3 extends Vec3 {
     public V3 clone() {
         V3 retV=null;
         try{
-            retV = new V3(this.x, this.y, this.z, this.theDimension);
+            retV = new V3(this.xCoord, this.yCoord, this.zCoord, this.theDimension);
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error(this.name + "v3 clone出错了" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -59,16 +53,10 @@ public class V3 extends Vec3 {
      */
     public V3(Double x, Double y, Double z, int dimension) {
         super(x,y,z);
-        this.x = x;
-        this.y = y;
-        this.z = z;
         this.theDimension = dimension;
     }
     public V3(int x, int y, int z, int dimension) {
         super(x,y,z);
-        this.x = (double)x;
-        this.y = (double)y;
-        this.z = (double)z;
         this.theDimension = dimension;
     }
 
@@ -76,25 +64,16 @@ public class V3 extends Vec3 {
 
     public V3(Double x, Double y, Double z, Block id, int meta) {
         super(x,y,z);
-        this.x = x;
-        this.y = y;
-        this.z = z;
         this.blockID = id;
         this.meta = meta;
     }
 
     public V3(int x, int y, int z) {
         super(x,y,z);
-        this.x = (double)x;
-        this.y = (double)y;
-        this.z = (double)z;
     }
 
     public void setVals(V3 v) {
         subtractReverse(v);
-        this.x = v.x;
-        this.y = v.y;
-        this.z = v.z;
     }
     /**
      * 坐标相同 比较x、y和z，以查看它们是否相同，并且只有INT值，而不是double还比较维度
@@ -132,7 +111,7 @@ public class V3 extends Vec3 {
             if (other == null) {
                 i= 0;
             } else {
-                double dist = Math.sqrt((other.x - this.x) * (other.x - this.x) + (other.y - this.y) * (other.y - this.y) + (other.z - this.z) * (other.z - this.z));
+                double dist = Math.sqrt((other.xCoord - this.xCoord) * (other.xCoord - this.xCoord) + (other.yCoord - this.yCoord) * (other.yCoord - this.yCoord) + (other.zCoord - this.zCoord) * (other.zCoord - this.zCoord));
                 i= (int)dist;
             }
         } catch (Exception e) {
@@ -145,36 +124,13 @@ public class V3 extends Vec3 {
     public String toString() {
         String s="";
         try {
-            s=this.x + "," + this.y + "," + this.z + "," + this.theDimension;
+            s=this.xCoord + "," + this.yCoord + "," + this.zCoord + "," + this.theDimension;
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toString出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return s;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getZ() {
-        return z;
-    }
-
-    public void setZ(double z) {
-        this.z = z;
-    }
 
     public String getName() {
         return name;

@@ -435,7 +435,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 double dist = 0;
                 if (this.theData.destination != null && this.theData.beamingTo == null) {
                     try {
-                        dist = this.getDistance(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
+                        dist = this.getDistance(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord);
                     } catch (Exception e) {
                         ModSimReloaded.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                         return;
@@ -455,7 +455,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
                     } else {
                         if (!this.gotPath) {
-                            PathEntity path = this.getNavigator().getPathToXYZ(this.theData.destination.x, this.theData.destination.y, this.theData.destination.z);
+                            PathEntity path = this.getNavigator().getPathToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord);
                             //PathEntity path = this.worldObj.getEntityPathToXYZ(this, this.theData.destination.x, this.theData.destination.y, this.theData.destination.z, 40.0F, true, true, true, true);
                             if (path != null) {
                                 this.getNavigator().setPath(path, 0.3D);
@@ -474,7 +474,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                             if (dist > 2.0) {
                                 V3 v = this.theData.destination;
                                 if (v != null) {
-                                    ModSimReloaded.log.info("实体人: " + this.theData.name + " 即将传输至☞x:" + v.x + ",y:" + v.y + ",z:" + v.z);
+                                    ModSimReloaded.log.info("实体人: " + this.theData.name + " 即将传输至☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
                                     this.theData.stayPut = true;
                                     this.theData.timeStartedGotoing = System.currentTimeMillis();
                                     this.theData.beamMeTo(v);

@@ -185,7 +185,7 @@ public class JobGlassMaker extends Job implements Serializable {
                     V3 bs = this.blockOfSand.clone();
                /* Double var5 = bs.y;
                 Double var6 = bs.y = bs.y + 1;*/
-                    bs = new V3(bs.x , bs.y + 1, bs.z, bs.theDimension);
+                    bs = new V3(bs.xCoord , bs.yCoord + 1, bs.zCoord, bs.theDimension);
                     this.theFolk.beamMeTo(bs);
                 }
 
@@ -194,9 +194,9 @@ public class JobGlassMaker extends Job implements Serializable {
                 }
 
                 this.gotoCount = 0;
-                BlockPos blockPos1 = new BlockPos(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z);
+                BlockPos blockPos1 = new BlockPos(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord);
                 this.jobWorld.setBlockState(blockPos1, this.blockOfSand.blockID.getDefaultState(), 3);
-                this.mc.theWorld.playSound(this.blockOfSand.x, this.blockOfSand.y, this.blockOfSand.z, "step.sand", 1, 1, false);
+                this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
                 this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Blocks.sand, 1));
                 //我得到沙子惹！
                 this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.getVillagerInventory().getSizeInventory();
@@ -223,7 +223,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 V3 adj = this.theFolk.employedAt.clone();
                 /*Double var3 = adj.y;
                 Double var4 = adj.y = adj.y + 1;*/
-                adj = new V3(adj.x , adj.y + 1, adj.z, adj.theDimension);
+                adj = new V3(adj.xCoord , adj.yCoord + 1, adj.zCoord, adj.theDimension);
                 this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
             } else if (this.step == 2) {

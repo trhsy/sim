@@ -227,9 +227,9 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.step = 1;
                 this.theFolk.stayPut = true;
                 if (this.theFolk.gender == 0) {
-                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1, 1, false);
+                    this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
                 } else {
-                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1, 1, false);
+                    this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
                 }
             }
         } catch (Exception e) {
@@ -259,13 +259,13 @@ public class JobCropFarmer extends Job implements Serializable {
             }
             try {
                 //第一个标记下方的地面
-                this.mx = (int) m1.x;
-                this.my = (int) (m1.y - 1);
-                this.mz = (int)m1.z;
-                int m2x = (int)m2.x;
-                int m1x = (int)m1.x;
-                int m2z = (int)m2.z;
-                int m1z = (int)m1.z;
+                this.mx = (int) m1.xCoord;
+                this.my = (int) (m1.yCoord - 1);
+                this.mz = (int)m1.zCoord;
+                int m2x = (int)m2.xCoord;
+                int m1x = (int)m1.xCoord;
+                int m2z = (int)m2.zCoord;
+                int m1z = (int)m1.zCoord;
                 if (m2x == m1x) {
                     if (m2z > this.mz) {
                         this.farmDir = "z+";
@@ -323,7 +323,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
             this.xxx = this.mx + this.xo;
             //下面的地面 Y
-            this.yyy = (int) this.farmingBlock.location.y;
+            this.yyy = (int) this.farmingBlock.location.yCoord;
             //农业箱
             this.zzz = this.mz + this.zo;
 
@@ -529,7 +529,7 @@ public class JobCropFarmer extends Job implements Serializable {
             if (this.theFolk.theEntity != null) {
                 this.theFolk.gotoXYZ(v3center, null);
                 //获取AABB中的实体，排除实体
-                List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.x, v3center.y, v3center.z, v3center.x + 1.0, v3center.y + 1.0, v3center.z + 1.0).expand(3.0, 2.0, 3.0));
+                List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.xCoord, v3center.yCoord, v3center.zCoord, v3center.xCoord + 1.0, v3center.yCoord + 1.0, v3center.zCoord + 1.0).expand(3.0, 2.0, 3.0));
                 Iterator iterator1 = list1.iterator();
                 if (!list1.isEmpty()) {
                     do {

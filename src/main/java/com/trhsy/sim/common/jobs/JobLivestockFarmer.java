@@ -151,13 +151,13 @@ public class JobLivestockFarmer extends Job implements Serializable {
             List list = null;
             if (this.vocation == Vocation.CATTLEFARMER) {
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Feeding");
-                list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class,new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).expand(4, 2, 4));
+                list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class,new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord + 1).expand(4, 2, 4));
             } else if (this.vocation == Vocation.CHICKENFARMER) {
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.chickens");
-                list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).expand(4.0, 2.0, 4.0));
+                list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord + 1).expand(4.0, 2.0, 4.0));
             } else if (this.vocation == Vocation.PIGFARMER) {
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.pigs");
-                list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0, this.theFolk.employedAt.y + 1.0, this.theFolk.employedAt.z + 1.0).expand(4.0, 2.0, 4.0));
+                list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1.0, this.theFolk.employedAt.yCoord + 1.0, this.theFolk.employedAt.zCoord + 1.0).expand(4.0, 2.0, 4.0));
             }
 
             int adultCount = 0;
@@ -263,7 +263,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                     double d = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
-                    this.mc.theWorld.spawnParticle(EnumParticleTypes.HEART, pos.x + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, pos.y + 0.5D + (double)(rand.nextFloat() * 1), pos.z + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, d, d1, d2);
+                    this.mc.theWorld.spawnParticle(EnumParticleTypes.HEART, pos.xCoord + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, pos.yCoord + 0.5D + (double)(rand.nextFloat() * 1), pos.zCoord + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, d, d1, d2);
                 }
 
                 parentAnimal.worldObj.spawnEntityInWorld(babyAnimal);
@@ -286,7 +286,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                     newAnimal = new EntityChicken(this.jobWorld);
                 }
 
-                ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
+                ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.xCoord, controlBox.yCoord + 1.0, controlBox.zCoord, 0.0F, 0.0F);
                 if (!this.jobWorld.isRemote) {
                     this.jobWorld.spawnEntityInWorld((Entity)newAnimal);
                 }

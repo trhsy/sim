@@ -227,9 +227,9 @@ public class JobBuilder extends Job implements Serializable {
                 if (ConfigLoader.configFolkTalking) {
                     //判断性别，发出不一样的声音
                     if (this.theFolk.gender == 0) {
-                        this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1, 1, false);
+                        this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
                     } else {
-                        this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1, 1, false);
+                        this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
                     }
                 }
                 //等待资源
@@ -240,7 +240,7 @@ public class JobBuilder extends Job implements Serializable {
                     World world = MinecraftServer.getServer().worldServerForDimension(this.theFolk.location.theDimension);
                     this.theConBox = new EntityConBox(world);
                     this.theConBox.theFolk = this.theFolk;
-                    this.theConBox.setLocationAndAngles(this.theFolk.employedAt.x + 2, this.theFolk.employedAt.y, this.theFolk.employedAt.z, 0.0F, 0.0F);
+                    this.theConBox.setLocationAndAngles(this.theFolk.employedAt.xCoord + 2, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, 0.0F, 0.0F);
                     if (!world.isRemote) {
                         world.spawnEntityInWorld(this.theConBox);
                     }
@@ -349,12 +349,12 @@ public class JobBuilder extends Job implements Serializable {
             } else {
                 //如果步骤1
                 if (this.step == 1) {
-                    this.cx = (int) this.theFolk.employedAt.x;
-                    this.cy = (int) this.theFolk.employedAt.y;
-                    this.cz = (int) this.theFolk.employedAt.z;
-                    this.ex = (int) this.theFolk.employedAt.x;
-                    this.ey = (int) this.theFolk.employedAt.y;
-                    this.ez = (int) this.theFolk.employedAt.z;
+                    this.cx = (int) this.theFolk.employedAt.xCoord;
+                    this.cy = (int) this.theFolk.employedAt.yCoord;
+                    this.cz = (int) this.theFolk.employedAt.zCoord;
+                    this.ex = (int) this.theFolk.employedAt.xCoord;
+                    this.ey = (int) this.theFolk.employedAt.yCoord;
+                    this.ez = (int) this.theFolk.employedAt.zCoord;
                     this.bx = this.ex;
                     this.by = this.ey;
                     this.bz = this.ez;

@@ -6,8 +6,11 @@ package com.trhsy.sim.common.gui.folk;/**
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.References;
 import com.trhsy.sim.common.core.entity.Relationship;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.packets.PacketHandler;
+import com.trhsy.sim.packets.toServer.OpenFolkInventoryPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -326,10 +329,10 @@ public class GuiEntityFolk extends GuiScreen {
                     }
                     //库存
                     if (guibutton.displayString.contentEquals(I18n.format("container.sim.guiFolk.Inventory"))) {
-                        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-                        player.openGui(ModSim.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
-                        player.inventory.openInventory(player);
-                        //PacketHandler.net.sendToServer(new OpenFolkInventoryPacket(References.GUI_FOLKINVENTORY));
+                        //EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+                        //player.openGui(ModSim.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+                        //player.inventory.openInventory(player);
+                        ModSimReloaded.packetPipeline.sendToServer(new OpenFolkInventoryPacket(References.GUI_FOLKINVENTORY));
                     }
                 } else if (this.currentPage == 1) {
                     //情感分页  返回

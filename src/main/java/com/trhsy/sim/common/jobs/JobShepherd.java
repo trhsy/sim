@@ -108,8 +108,8 @@ public class JobShepherd extends Job implements Serializable {
         this.theFolk.isWorking = false;
         this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Sharpening");
         this.theFolk.stayPut = false;
-        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).expand(3, 2, 3));
-        Double playerdist = this.mc.thePlayer.getDistance(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z);
+        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord + 1).expand(3, 2, 3));
+        Double playerdist = this.mc.thePlayer.getDistance(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord);
         int s;
         if (playerdist > 60) {
             try {
@@ -222,39 +222,39 @@ public class JobShepherd extends Job implements Serializable {
     }
 
     public void spawnSheepIfNeeded(V3 controlBox) {
-        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z + 1.0).expand(3.0, 2.0, 3.0));
+        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(controlBox.xCoord, controlBox.yCoord, controlBox.zCoord, controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord + 1.0).expand(3.0, 2.0, 3.0));
         Random ra = new Random();
         EntitySheep sheep;
         if (list.size() > 0 && list.size() < 6) {
             for(int fuck = 0; fuck < 6 - list.size(); ++fuck) {
                 sheep = new EntitySheep(this.jobWorld);
-                sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
+                sheep.setLocationAndAngles(controlBox.xCoord, controlBox.yCoord + 1.0, controlBox.zCoord, 0.0F, 0.0F);
                 sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
                 this.jobWorld.spawnEntityInWorld(sheep);
             }
         } else if (list.size() == 0) {
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x - 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord - 1.0, controlBox.yCoord + 1.0, controlBox.zCoord - 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord, controlBox.yCoord + 1.0, controlBox.zCoord - 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z - 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord - 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 1.0, controlBox.y + 1.0, controlBox.z + 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord + 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.x + 2.0, controlBox.y + 1.0, controlBox.z + 2.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 2.0, controlBox.yCoord + 1.0, controlBox.zCoord + 2.0, 0.0F, 0.0F);
             this.jobWorld.spawnEntityInWorld(sheep);
         }
 

@@ -93,14 +93,14 @@ public class DemolishBuildingPacket implements IMessage {
                     public void run() {
                         try {
                             for (V3 blockLoc : v3s) {
-                                Block l = theWorld.getBlockState(new BlockPos(blockLoc.x, blockLoc.y, blockLoc.z)).getBlock();
+                                Block l = theWorld.getBlockState(new BlockPos(blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord)).getBlock();
 
                                 if (l != null && ModSimReloaded.demolishBlocks.size() < 500) {
                                     blockLoc.blockID = l;
                                     ModSimReloaded.demolishBlocks.add(blockLoc);
                                 }
 
-                                theWorld.setBlockToAir(new BlockPos(blockLoc.x, blockLoc.y, blockLoc.z));
+                                theWorld.setBlockToAir(new BlockPos(blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord));
 
                             }
                         } catch (Exception e) {

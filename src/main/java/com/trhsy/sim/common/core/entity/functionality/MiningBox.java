@@ -162,7 +162,7 @@ public class MiningBox implements Serializable {
 
                         theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
                         if (theWorld != null) {
-                            id = theWorld.getBlockState(new BlockPos(box.location.x, box.location.y, box.location.z)).getBlock();
+                            id = theWorld.getBlockState(new BlockPos(box.location.xCoord, box.location.yCoord, box.location.zCoord)).getBlock();
                             if (id == BlockLoader.blockMiningBox) {
                                 ModSimReloaded.theMiningBoxes.add(box);
                             } else {
@@ -186,7 +186,7 @@ public class MiningBox implements Serializable {
                                 f.delete();
                             } else {
                                 try {
-                                    id = theWorld.getBlockState(new BlockPos(xyz.x, xyz.y, xyz.z)).getBlock();
+                                    id = theWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
                                     if (id == BlockLoader.blockMiningBox && mining != null) {
                                         ModSimReloaded.theMiningBoxes.add(mining);
                                     } else {

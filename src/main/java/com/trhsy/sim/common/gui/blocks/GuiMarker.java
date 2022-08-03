@@ -211,26 +211,26 @@ public class GuiMarker extends GuiScreen {
                 V3 Bxyz = ((Marker)BlockMarker.markers.get(2)).toV3();
                 V3 exyz = new V3(Math.floor(GuiMarker.this.mc.thePlayer.posX), Math.floor(GuiMarker.this.mc.thePlayer.posY), Math.floor(GuiMarker.this.mc.thePlayer.posZ), Bxyz.theDimension);
                 int ltrCountx;
-                if (cxyz.x == Lxyz.x) {
-                    ltrCountx = (int) (Math.abs(Lxyz.z - cxyz.z) - 1);
+                if (cxyz.xCoord == Lxyz.xCoord) {
+                    ltrCountx = (int) (Math.abs(Lxyz.zCoord - cxyz.zCoord) - 1);
                 } else {
-                    ltrCountx = (int) (Math.abs(Lxyz.x - cxyz.x) - 1);
+                    ltrCountx = (int) (Math.abs(Lxyz.xCoord - cxyz.xCoord) - 1);
                 }
 
                 int ftbCountx;
-                if (cxyz.x == Bxyz.x) {
-                    ftbCountx = (int) (Math.abs(Bxyz.z - cxyz.z) - 1);
+                if (cxyz.xCoord == Bxyz.xCoord) {
+                    ftbCountx = (int) (Math.abs(Bxyz.zCoord - cxyz.zCoord) - 1);
                 } else {
-                    ftbCountx = (int) (Math.abs(Bxyz.x - cxyz.x) - 1);
+                    ftbCountx = (int) (Math.abs(Bxyz.xCoord - cxyz.xCoord) - 1);
                 }
 
                 if (ftbCountx != 0 && ltrCountx != 0) {
-                    int cx = (int)cxyz.x;
-                    int cy = (int)cxyz.y;
-                    int cz = (int)cxyz.z;
-                    int ex = (int)exyz.x;
-                    int ey = (int)exyz.y;
-                    int ez = (int)exyz.z;
+                    int cx = (int)cxyz.xCoord;
+                    int cy = (int)cxyz.yCoord;
+                    int cz = (int)cxyz.zCoord;
+                    int ex = (int)exyz.xCoord;
+                    int ey = (int)exyz.yCoord;
+                    int ez = (int)exyz.zCoord;
                     int bxx = ex;
                     int byx = ey;
                     int bzx = ez;
@@ -363,7 +363,7 @@ public class GuiMarker extends GuiScreen {
                     out.close();
                     Thread.sleep(500L);
                     GuiMarker.this.errorText = I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16");
-                    GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.x, GuiMarker.this.location.y, GuiMarker.this.location.z, ModSim.MODID + ":computer", 1, 1);
+                    GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.xCoord, GuiMarker.this.location.yCoord, GuiMarker.this.location.zCoord, ModSim.MODID + ":computer", 1, 1);
                     Building.initialiseAllBuildings();
 
                 } else {

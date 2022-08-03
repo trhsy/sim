@@ -335,11 +335,11 @@ public class JobCheesemaker extends Job {
                         }
                         //牛奶
                         milkBlock = (V3) iterator.next();
-                        BlockPos blockPos= new BlockPos(milkBlock.x, milkBlock.y, milkBlock.z);
+                        BlockPos blockPos= new BlockPos(milkBlock.xCoord, milkBlock.yCoord, milkBlock.zCoord);
                         id = this.jobWorld.getBlockState(blockPos).getBlock();
                         meta = id.getMetaFromState(this.jobWorld.getBlockState(blockPos));
                     } while (id != Blocks.air && (id != BlockLoader.blockFluidMilk || meta != 1));
-                    BlockPos blockPos=new BlockPos(milkBlock.x, milkBlock.y, milkBlock.z);
+                    BlockPos blockPos=new BlockPos(milkBlock.xCoord, milkBlock.yCoord, milkBlock.zCoord);
                     this.jobWorld.setBlockState(blockPos,BlockLoader.blockFluidMilk.getDefaultState(),3);
 
                     try {
@@ -484,7 +484,7 @@ public class JobCheesemaker extends Job {
                 for(int m = milkBlocks.size() - 1; m > 0; --m) {
                     cheese = (V3)milkBlocks.get(m);
 
-                    BlockPos blockPos= new BlockPos(cheese.x, cheese.y, cheese.z);
+                    BlockPos blockPos= new BlockPos(cheese.xCoord, cheese.yCoord, cheese.zCoord);
                     id = this.jobWorld.getBlockState(blockPos).getBlock();
                     dist = id.getMetaFromState(this.jobWorld.getBlockState(blockPos));
 
@@ -502,10 +502,10 @@ public class JobCheesemaker extends Job {
 
                     while(i$.hasNext()) {
                         cheese = (V3) i$.next();
-                        id = this.jobWorld.getBlockState(new BlockPos(cheese.x, cheese.y, cheese.z)).getBlock();
+                        id = this.jobWorld.getBlockState(new BlockPos(cheese.xCoord, cheese.yCoord, cheese.zCoord)).getBlock();
                         dist = cheese.getDistanceTo(currentStirPos);
                         if (id != BlockLoader.blockCheese && dist < 5) {
-                            BlockPos blockPos=new BlockPos(cheese.x, cheese.y, cheese.z);
+                            BlockPos blockPos=new BlockPos(cheese.xCoord, cheese.yCoord, cheese.zCoord);
                             this.jobWorld.setBlockState(blockPos,BlockLoader.blockCheese.getDefaultState(),3);
                             placedCheese = true;
                             break;
@@ -563,11 +563,11 @@ public class JobCheesemaker extends Job {
                     while(iterator.hasNext()) {
                         block = (V3)iterator.next();
 
-                        id = this.jobWorld.getBlockState(new BlockPos(block.x, block.y, block.z)).getBlock();
+                        id = this.jobWorld.getBlockState(new BlockPos(block.xCoord, block.yCoord, block.zCoord)).getBlock();
                         if (((V3) stirPositions.get(0)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheese) {
                             gotBlock = true;
                             this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(BlockLoader.blockCheese));
-                            BlockPos blockPos=new BlockPos(block.x, block.y, block.z);
+                            BlockPos blockPos=new BlockPos(block.xCoord, block.yCoord, block.zCoord);
                             this.jobWorld.setBlockState(blockPos,id.getDefaultState(),3);
                             this.theFolk.isWorking = true;
                             GameStates var10000 = ModSimReloaded.states;
@@ -594,11 +594,11 @@ public class JobCheesemaker extends Job {
                     while(iterator.hasNext()) {
                         block = (V3)iterator.next();
 
-                        id = this.jobWorld.getBlockState(new BlockPos(block.x, block.y, block.z)).getBlock();
+                        id = this.jobWorld.getBlockState(new BlockPos(block.xCoord, block.yCoord, block.zCoord)).getBlock();
                         if (((V3) stirPositions.get(1)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheese) {
                             gotBlock = true;
                             this.theFolk.getVillagerInventory().setInventorySlotContents(0,new ItemStack(BlockLoader.blockCheese));
-                            BlockPos blockPos=new BlockPos(block.x, block.y, block.z);
+                            BlockPos blockPos=new BlockPos(block.xCoord, block.yCoord, block.zCoord);
                             this.jobWorld.setBlockState(blockPos,id.getDefaultState(),3);
                             break;
                         }

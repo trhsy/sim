@@ -174,7 +174,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 V3 bs = this.blockOfClay.clone();
                 /*Double var5 = bs.y;
                 Double var6 = bs.y = bs.y + 1.0;*/
-                bs = new V3(bs.x - 1.0, bs.y + 1.0, bs.z, bs.theDimension);
+                bs = new V3(bs.xCoord - 1.0, bs.yCoord + 1.0, bs.zCoord, bs.theDimension);
                 this.theFolk.beamMeTo(bs);
             }
 
@@ -184,9 +184,9 @@ public class JobBrickMaker extends Job implements Serializable {
                 }
 
                 this.gotoCount = 0;
-                BlockPos blockPos = new BlockPos(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z);
+                BlockPos blockPos = new BlockPos(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord);
                 this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
-                this.mc.theWorld.playSound(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z, "step.sand", 1, 1, false);
+                this.mc.theWorld.playSound(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord, "step.sand", 1, 1, false);
                 this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
                 this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.getVillagerInventory().getSizeInventory();
                 GameStates var10000 = ModSimReloaded.states;
@@ -213,7 +213,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 V3 adj = this.theFolk.employedAt.clone();
                 /*Double var3 = adj.y;
                 Double var4 = adj.y = adj.y + 1.0;*/
-                adj = new V3(adj.x - 1.0, adj.y + 1.0, adj.z, adj.theDimension);
+                adj = new V3(adj.xCoord - 1.0, adj.yCoord + 1.0, adj.zCoord, adj.theDimension);
                 this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
             } else if (this.step == 2) {

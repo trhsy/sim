@@ -128,12 +128,11 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 }
 
                 if (markers.size() < 4) {
-                    V3 pos = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId());
-                    pos.y = pos.y + 0.01;
+                    V3 pos = new V3(blockPos.getX(),blockPos.getY()+1,blockPos.getZ(), world.provider.getDimensionId());
                     if (ConfigLoader.configEnableMarkerAlignmentBeams) {
                         EntityAlignBeam beam = new EntityAlignBeam(world);
                         ma.caption = markerCaption;
-                        beam.setLocationAndAngles(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+                        beam.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 0.0F, 0.0F);
                         beam.yaw = 0.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam);
@@ -141,7 +140,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam);
                         EntityAlignBeam beam2 = new EntityAlignBeam(world);
-                        beam2.setLocationAndAngles(pos.x, pos.y, pos.z, 90.0F, 0.0F);
+                        beam2.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 90.0F, 0.0F);
                         beam2.yaw = 90.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam2);
@@ -149,7 +148,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam2);
                         EntityAlignBeam beam3 = new EntityAlignBeam(world);
-                        beam3.setLocationAndAngles(pos.x, pos.y, pos.z, 180.0F, 0.0F);
+                        beam3.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 180.0F, 0.0F);
                         beam3.yaw = 180.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam3);
@@ -157,7 +156,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam3);
                         EntityAlignBeam beam4 = new EntityAlignBeam(world);
-                        beam4.setLocationAndAngles(pos.x, pos.y, pos.z, 270.0F, 0.0F);
+                        beam4.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 270.0F, 0.0F);
                         beam4.yaw = 270.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam4);
@@ -183,7 +182,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         try {
             for (int i = 0; i < markers.size(); i++) {
                 Marker m = (Marker) markers.get(i);
-                if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
+                if ((double) m.x == position.xCoord && (double) m.y == position.yCoord && (double) m.z == position.zCoord) {
                     ret = m;
                     break;
                 }

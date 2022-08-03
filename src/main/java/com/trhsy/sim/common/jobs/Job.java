@@ -136,7 +136,8 @@ public abstract class Job {
                     } else if (dist > 1 && dist < 3) {
                         //复制当前数据
                         V3 work = theFolk.employedAt.clone();
-                        work.y=work.y+1;
+                        work.addVector(work.xCoord,work.yCoord+1,work.zCoord);
+                        //work.y=work.yCoord+1;
                         //去位置
                         theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                         theFolk.location = work;
@@ -275,7 +276,7 @@ public abstract class Job {
             if (vRet != null) {
                 //世界服务器的维度                                                       维度
                 World theWorld = MinecraftServer.getServer().worldServerForDimension(vRet.theDimension);
-                BlockPos blockPos = new BlockPos(vRet.x, vRet.y, vRet.z);
+                BlockPos blockPos = new BlockPos(vRet.xCoord, vRet.yCoord, vRet.zCoord);
                 //设置熔炉位置 转换为int
                 ret = (TileEntityFurnace) theWorld.getTileEntity(blockPos);
             }
@@ -786,9 +787,9 @@ public abstract class Job {
     public List<ItemStack> translateBlockWhenMined(World world, V3 location) {
         List<ItemStack> itemStacks = new CopyOnWriteArrayList<ItemStack>();
         try {
-            int i = (int) location.x;
-            int j = (int) location.y;
-            int k = (int) location.z;
+            int i = (int) location.xCoord;
+            int j = (int) location.yCoord;
+            int k = (int) location.zCoord;
             BlockPos blockPos = new BlockPos(i, j, k);
             Block block = world.getBlockState(blockPos).getBlock();
             if (block == null) {
@@ -850,15 +851,15 @@ public abstract class Job {
                         for (int d = 1; d < distanceLimit; d++) {
                             for (int xo = -d; xo <= d; xo++) {
                                 for (int zo = -d; zo <= d; zo++) {
-                                    int sx = (int) (startXYZ.x + xo);
+                                    int sx = (int) (startXYZ.xCoord + xo);
                                     int sy;
                                     if (scanDownwards) {
-                                        sy = (int) (startXYZ.y - yo);
+                                        sy = (int) (startXYZ.yCoord - yo);
                                     } else {
-                                        sy = (int) (startXYZ.y + yo);
+                                        sy = (int) (startXYZ.yCoord + yo);
                                     }
 
-                                    int sz = (int) (startXYZ.z + zo);
+                                    int sz = (int) (startXYZ.zCoord + zo);
                                     skip = false;
 
                                     for (int b = 0; b < blockIDs.size(); b++) {
@@ -920,7 +921,7 @@ public abstract class Job {
 
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
-            BlockPos blockPos = new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z);
+            BlockPos blockPos = new BlockPos(startXYZ.xCoord, startXYZ.yCoord, startXYZ.zCoord);
             TileEntity te = theWorld.getTileEntity(blockPos);
             if (te != null) {
                 if (te instanceof IInventory && !(te instanceof TileEntityFurnace) && !(te instanceof TileEntityWindmill)) {
@@ -932,9 +933,9 @@ public abstract class Job {
                 for (int yo = -d; yo <= d; yo++) {
                     for (int xo = -d; xo <= d; xo++) {
                         for (int zo = -d; zo <= d; zo++) {
-                            int sx = (int) (startXYZ.x + xo);
-                            int sy = (int) (startXYZ.y + yo);
-                            int sz = (int) (startXYZ.z + zo);
+                            int sx = (int) (startXYZ.xCoord + xo);
+                            int sy = (int) (startXYZ.yCoord + yo);
+                            int sz = (int) (startXYZ.zCoord + zo);
                             blockPos = new BlockPos(sx, sy, sz);
                             te = theWorld.getTileEntity(blockPos);
                             if (te != null) {
@@ -990,26 +991,22 @@ public abstract class Job {
             }
 
             V3 test = startXYZ.clone();
-            test.x++;
-            BlockPos blockPos = new BlockPos(test.x, test.y, test.z);
+            BlockPos blockPos = new BlockPos(test.xCoord+1, test.yCoord, test.zCoord);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
             test = startXYZ.clone();
-            test.x--;
-            blockPos = new BlockPos(test.x, test.y, test.z);
+            blockPos = new BlockPos(test.xCoord-1, test.yCoord, test.zCoord);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
             test = startXYZ.clone();
-            test.z++;
-            blockPos = new BlockPos(test.x, test.y, test.z);
+            blockPos = new BlockPos(test.xCoord, test.yCoord, test.zCoord+1);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
             test = startXYZ.clone();
-            test.z--;
-            blockPos = new BlockPos(test.x, test.y, test.z);
+            blockPos = new BlockPos(test.xCoord, test.yCoord, test.zCoord-1);
             if (((World) theWorld).isAirBlock(blockPos)) {
                 return test;
             }
@@ -1033,16 +1030,16 @@ public abstract class Job {
         V3 ret = null;
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
-            if (theWorld.getBlockState(new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z)).getBlock() == block) {
+            if (theWorld.getBlockState(new BlockPos(startXYZ.xCoord, startXYZ.yCoord, startXYZ.zCoord)).getBlock() == block) {
                 return startXYZ;
             } else {
                 for (int d = 1; d < searchDistance; d++) {
                     for (int yo = -searchDistance; yo <= searchDistance; yo++) {
                         for (int xo = -d; xo <= d; xo++) {
                             for (int zo = -d; zo <= d; zo++) {
-                                int sx = (int) (startXYZ.x + xo);
-                                int sy = (int) (startXYZ.y + yo);
-                                int sz = (int) (startXYZ.z + zo);
+                                int sx = (int) (startXYZ.xCoord + xo);
+                                int sy = (int) (startXYZ.yCoord + yo);
+                                int sz = (int) (startXYZ.zCoord + zo);
                                 if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
                                     ret = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
                                     return ret;
@@ -1072,16 +1069,16 @@ public abstract class Job {
         V3 ret = null;
         try {
             World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
-            BlockPos blockpos = new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z);
+            BlockPos blockpos = new BlockPos(startXYZ.xCoord, startXYZ.yCoord, startXYZ.zCoord);
             if (theWorld.getBlockState(blockpos).getBlock() == block) {
                 return startXYZ;
             } else {
                 for (int d = 1; d < searchDistance; d++) {
                     for (int xo = -d; xo <= d; xo++) {
                         for (int zo = -d; zo <= d; zo++) {
-                            int sx = (int) (startXYZ.x + xo);
-                            int sy = (int) startXYZ.y;
-                            int sz = (int) (startXYZ.z + zo);
+                            int sx = (int) (startXYZ.xCoord + xo);
+                            int sy = (int) startXYZ.yCoord;
+                            int sz = (int) (startXYZ.zCoord + zo);
                             if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
                                 ret = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
                                 return ret;
@@ -1117,9 +1114,9 @@ public abstract class Job {
                 for (int xo = -distanceLimit; xo <= distanceLimit; xo++) {
                     for (int zo = -distanceLimit; zo <= distanceLimit; zo++) {
                         try {
-                            int sx = (int) (startXYZ.x + xo);
-                            int sy = (int) (startXYZ.y + yo);
-                            int sz = (int) (startXYZ.z + zo);
+                            int sx = (int) (startXYZ.xCoord + xo);
+                            int sy = (int) (startXYZ.yCoord + yo);
+                            int sz = (int) (startXYZ.zCoord + zo);
                             count++;
                             if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
                                 V3 v = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
@@ -1139,7 +1136,7 @@ public abstract class Job {
 
             for (int i = 0; i < blocksFound.size(); i++) {
                 V3 v = (V3) blocksFound.get(i);
-                double distance = Math.sqrt((v.x - startXYZ.x) * (v.x - startXYZ.x) + (v.z - startXYZ.z) * (v.z - startXYZ.z));
+                double distance = Math.sqrt((v.xCoord - startXYZ.xCoord) * (v.xCoord - startXYZ.xCoord) + (v.zCoord - startXYZ.zCoord) * (v.zCoord - startXYZ.zCoord));
                 if (distance < cd) {
                     cd = distance;
                     ci = i;
@@ -1201,7 +1198,7 @@ public abstract class Job {
     public int getAnimalCountInPen(V3 controlBox, Class animal) {
         int size = 0;
         try {
-            List list = this.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1, controlBox.y + 1, controlBox.z + 1).expand(3.0, 2.0, 3.0));
+            List list = this.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.xCoord, controlBox.yCoord, controlBox.zCoord, controlBox.xCoord + 1, controlBox.yCoord + 1, controlBox.zCoord + 1).expand(3.0, 2.0, 3.0));
             if (list == null) {
                 return size;
             } else {

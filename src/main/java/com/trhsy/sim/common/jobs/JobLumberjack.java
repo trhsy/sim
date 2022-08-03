@@ -218,9 +218,9 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theFolk.isWorking = true;
 
                 for (i = 0; i < 20; i++) {
-                    l = (int)this.foundWoodAt.x;
-                    int y = (int)(this.foundWoodAt.y - 1);
-                    int z = (int)this.foundWoodAt.z;
+                    l = (int)this.foundWoodAt.xCoord;
+                    int y = (int)(this.foundWoodAt.yCoord - 1);
+                    int z = (int)this.foundWoodAt.zCoord;
                     if (this.jobWorld == null) {
                         this.theFolk.selfFire();
                         return;
@@ -229,14 +229,14 @@ public class JobLumberjack extends Job implements Serializable {
                     if (this.jobWorld.getBlockState(new BlockPos(l, y, z)).getBlock() != Blocks.log) {
                         break;
                     }
-
-                    this.foundWoodAt.y = (double) y;
+                    this.foundWoodAt.addVector(this.foundWoodAt.xCoord,y,this.foundWoodAt.zCoord);
+                    //this.foundWoodAt.yCoord = (double) y;
                 }
 
                 this.step = 2;
             } else if (this.step == 2) {
 
-                if (this.jobWorld.getBlockState(new BlockPos(this.foundWoodAt.x, this.foundWoodAt.y, this.foundWoodAt.z)).getBlock() == Blocks.log) {
+                if (this.jobWorld.getBlockState(new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord)).getBlock() == Blocks.log) {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -244,7 +244,7 @@ public class JobLumberjack extends Job implements Serializable {
 
                             for (int d = 0; d < 12; ++d) {
                                 try {
-                                    mc.theWorld.playSound(theFolk.location.x, theFolk.location.y, theFolk.location.z, "step.wood", 1, 1, false);
+                                    mc.theWorld.playSound(theFolk.location.xCoord, theFolk.location.yCoord, theFolk.location.zCoord, "step.wood", 1, 1, false);
                                 } catch (Exception e) {
                                 }
 
@@ -281,7 +281,7 @@ public class JobLumberjack extends Job implements Serializable {
                     }
 
                     List<ItemStack> log = this.translateBlockWhenMined(this.jobWorld, this.foundWoodAt);
-                    BlockPos blockPos1 = new BlockPos(this.foundWoodAt.x, this.foundWoodAt.y, this.foundWoodAt.z);
+                    BlockPos blockPos1 = new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord);
                     this.jobWorld.setBlockState(blockPos1, Blocks.air.getDefaultState(), 3);
                     if (log != null) {
                         for (l = 0; l < log.size(); ++l) {
@@ -293,7 +293,8 @@ public class JobLumberjack extends Job implements Serializable {
                     count = this.getInventoryCount(this.theFolk, Blocks.log);
                     this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Got") + count + I18n.format("container.sim.job.lumberjack.farmer.logs_so_far");
                     this.theFolk.stayPut = false;
-                    this.foundWoodAt.y = this.foundWoodAt.y + 1;
+                    this.foundWoodAt.addVector(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord + 1,this.foundWoodAt.zCoord);
+                    //this.foundWoodAt.yCoord = this.foundWoodAt.yCoord + 1;
                     this.step = 2;
                 } else if (this.step == 4) {
                     if (this.theFolk.isSpawned()) {
@@ -430,7 +431,7 @@ public class JobLumberjack extends Job implements Serializable {
                     this.jobWorld.setBlockState(blockPos1, is.getDefaultState());
                 }
             } else {
-                BlockPos blockPos1 = new BlockPos(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z);
+                BlockPos blockPos1 = new BlockPos(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord);
                 this.jobWorld.setBlockState(blockPos1, Blocks.sapling.getDefaultState(), 3);
             }
         } catch (Exception e) {
