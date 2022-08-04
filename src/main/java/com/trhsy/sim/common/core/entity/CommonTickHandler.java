@@ -85,10 +85,12 @@ public class CommonTickHandler {
                         //还没有启动——现在就这么做
                         //ModSimReloaded.log.info("Haven't run startup - doing that now");
                         ModSimReloaded.log.info("还没有启动——现在就这么做");
+
                         this.serverWorld = MinecraftServer.getServer().getEntityWorld();
                         this.currentWorld = ModSimReloaded.getSavesDataFolder();
+
                         //CommTH: Startup - set serverWorld/currentWorld
-                        ModSimReloaded.log.info("CommTH: 启动 - 设置 serverWorld/currentWorld");
+//                        ModSimReloaded.log.info("CommTH: 启动 - 设置 serverWorld/currentWorld");
                         ModSimReloaded.log.info("运行重置世界功能");
                         //ModSimReloaded.log.info("Running Reset World Function");
                         ModSimReloaded.resetAndLoadNewWorld();

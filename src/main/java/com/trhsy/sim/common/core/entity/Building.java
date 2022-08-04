@@ -73,7 +73,7 @@ public class Building implements Serializable {
     //需求
     public transient HashMap<ItemStack, Integer> requirements = new HashMap();
     //控制箱位置
-    public transient V3 conBoxLocation ;
+    public transient V3 conBoxLocation;
     //住宅建筑物
     private static transient List<Building> buildingsRes = new CopyOnWriteArrayList();
     //商业建筑物
@@ -87,7 +87,12 @@ public class Building implements Serializable {
     //特除的空气方块
     public List<V3> blockSpecial = new CopyOnWriteArrayList();
     //运行初始化线程
-    private static boolean runningInitThread = false;
+    private static boolean runningInitThread1 = false;
+    private static boolean runningInitThread2 = false;
+    private static boolean runningInitThread3 = false;
+    private static boolean runningInitThread4 = false;
+    private static boolean runningInitThread5 = false;
+
 
     public Building() {
     }
@@ -562,19 +567,19 @@ public class Building implements Serializable {
         try {
             int sizesearch = 0;
             if (theType.contentEquals("residential")) {
-                retBuildings=buildingsRes;
+                retBuildings = buildingsRes;
                 //copyArrayList(buildingsRes, retBuildings);
             } else if (theType.contentEquals("commercial")) {
-                retBuildings=buildingsCom;
+                retBuildings = buildingsCom;
                 //copyArrayList(buildingsCom, retBuildings);
             } else if (theType.contentEquals("industrial")) {
-                retBuildings=buildingsInd;
+                retBuildings = buildingsInd;
                 //copyArrayList(buildingsInd, retBuildings);
             } else if (theType.contentEquals("other")) {
-                retBuildings=buildingsOth;
+                retBuildings = buildingsOth;
                 //copyArrayList(buildingsOth, retBuildings);
             } else if (theType.contentEquals("special")) {
-                retBuildings=buildingsSpec;
+                retBuildings = buildingsSpec;
                 //copyArrayList(buildingsSpec, retBuildings);
             }
 
@@ -705,9 +710,8 @@ public class Building implements Serializable {
     public void saveThisBuilding() {
         try {
             List<String> strings = new CopyOnWriteArrayList();
-            strings.clear();
             if (this.primaryXYZ != null) {
-                String xyz = "b" + this.primaryXYZ.toString().replaceAll(",", "_");
+                String xyz = this.displayName+this.primaryXYZ.toString().replaceAll(".0,", "_");
                 strings.add("displayname|" + this.displayName);
                 strings.add("type|" + this.type);
                 strings.add("primaryxyz|" + this.primaryXYZ.toString());
@@ -728,7 +732,7 @@ public class Building implements Serializable {
 
                 strings.add("blocksinbuilding|" + this.blocksInBuilding);
                 //String temp = "tenants|";
-                StringBuilder stringBuilder=new StringBuilder("tenants|");
+                StringBuilder stringBuilder = new StringBuilder("tenants|");
                 for (String tennant : this.tenants) {
                     if (!tennant.trim().contentEquals("")) {
                         //temp = temp + tennant.trim() + ",";
@@ -738,7 +742,7 @@ public class Building implements Serializable {
 
                 strings.add(stringBuilder.toString());
                 //temp = "blocklocs|";
-                stringBuilder=new StringBuilder("blocklocs|");
+                stringBuilder = new StringBuilder("blocklocs|");
                 for (V3 block : this.blockLocations) {
                     if (block != null & block.toString().contains(",")) {
                         //temp = temp + block + "B";
@@ -749,7 +753,7 @@ public class Building implements Serializable {
                 strings.add(stringBuilder.toString());
                 if (this.blockSpecial.size() > 0) {
                     //temp = "blockspecial|";
-                    stringBuilder=new StringBuilder("blockspecial|");
+                    stringBuilder = new StringBuilder("blockspecial|");
                     for (V3 block : this.blockSpecial) {
                         if (block != null & block.toString().contains(",")) {
                             //temp = temp + block + "," + block.meta + "B";
@@ -770,17 +774,15 @@ public class Building implements Serializable {
 
     public static void saveAllBuildings() {
         try {
-            Minecraft mc = Minecraft.getMinecraft();
             List<String> strings = new CopyOnWriteArrayList();
-
             for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
                 strings.clear();
-                Building building = (Building) ModSimReloaded.theBuildings.get(b);
+                Building building = ModSimReloaded.theBuildings.get(b);
                 if (building != null && building.primaryXYZ != null) {
                     V3 pxyz = building.primaryXYZ;
                     World buildingWorld = MinecraftServer.getServer().worldServerForDimension(building.primaryXYZ.theDimension);
                     Block id = buildingWorld.getBlockState(new BlockPos(pxyz.xCoord, pxyz.yCoord, pxyz.zCoord)).getBlock();
-                    String xyz = "b" + building.primaryXYZ.toString().replaceAll(",", "_");
+                    String xyz = building.displayName+ building.primaryXYZ.toString().replaceAll(".0,", "_");
                     if (id != BlockLoader.blockControlBox && id != BlockLoader.blockConstructorBox) {
                         File f = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
                         if (f.exists()) {
@@ -1022,61 +1024,69 @@ public class Building implements Serializable {
 
     public static void initialiseAllBuildings() {
         try {
-            if (!runningInitThread) {
+            if (!runningInitThread1) {
                 Thread residential = new Thread(new Runnable() {
                     @Override
                     public void run() {
-
+                        Building.runningInitThread1 = true;
                         Building.buildingsRes.clear();
                         Building.initBuildingsOfType("residential");
-
+                        Building.runningInitThread1 = false;
                         ModSimReloaded.log.info("residential: 线程已完成从磁盘初始化所有建筑物");
                     }
-                },"residential_sim");
+                }, "residential_sim");
                 residential.start();
+            }
+            if (!runningInitThread2) {
                 Thread commercial = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Building.runningInitThread = true;
+                        Building.runningInitThread2 = true;
                         Building.buildingsCom.clear();
                         Building.initBuildingsOfType("commercial");
-                        Building.runningInitThread = false;
+                        Building.runningInitThread2 = false;
                         ModSimReloaded.log.info("commercial: 线程已完成从磁盘初始化所有建筑物");
                     }
-                },"commercial_sim");
+                }, "commercial_sim");
                 commercial.start();
+            }
+            if (!runningInitThread3) {
                 Thread industrial = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Building.runningInitThread = true;
+                        Building.runningInitThread3 = true;
                         Building.buildingsInd.clear();
                         Building.initBuildingsOfType("industrial");
-                        Building.runningInitThread = false;
+                        Building.runningInitThread3 = false;
                         ModSimReloaded.log.info("industrial: 线程已完成从磁盘初始化所有建筑物");
                     }
-                },"industrial_sim");
+                }, "industrial_sim");
                 industrial.start();
+            }
+            if (!runningInitThread4) {
                 Thread other = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Building.runningInitThread = true;
+                        Building.runningInitThread4 = true;
                         Building.buildingsOth.clear();
                         Building.initBuildingsOfType("other");
-                        Building.runningInitThread = false;
+                        Building.runningInitThread4 = false;
                         ModSimReloaded.log.info("other: 线程已完成从磁盘初始化所有建筑物");
                     }
-                },"other_sim");
+                }, "other_sim");
                 other.start();
+            }
+            if (!runningInitThread5) {
                 Thread special = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Building.runningInitThread = true;
+                        Building.runningInitThread5 = true;
                         Building.buildingsSpec.clear();
                         Building.initBuildingsOfType("special");
-                        Building.runningInitThread = false;
+                        Building.runningInitThread5 = false;
                         ModSimReloaded.log.info("special: 线程已完成从磁盘初始化所有建筑物");
                     }
-                },"special_sim");
+                }, "special_sim");
                 special.start();
             }
         } catch (Exception e) {
