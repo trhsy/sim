@@ -3,7 +3,6 @@ package com.trhsy.sim;
 import com.trhsy.sim.client.ClientProxy;
 import com.trhsy.sim.common.CommonProxy;
 import com.trhsy.sim.common.config.PulseManager;
-import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -12,7 +11,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import org.apache.logging.log4j.Logger;
 
 /**
  * 指的是Mod接受的Minecraft版本，当版本不对时，FML会优雅地抛出一个错误而不是继续加载这个Mod

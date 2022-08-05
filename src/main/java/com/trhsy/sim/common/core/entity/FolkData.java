@@ -10,7 +10,7 @@ import com.trhsy.sim.common.core.entity.folk.traits.Traits;
 import com.trhsy.sim.common.jobs.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.packets.PacketHandler;
+import com.trhsy.sim.packets.NetWorkLoader;
 import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -20,6 +20,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
@@ -888,7 +890,10 @@ public class FolkData implements Serializable {
                 if (System.currentTimeMillis() - this.timeSinceLastSave > (long) about10) {
                     Side side = FMLCommonHandler.instance().getEffectiveSide();
                     if (side == Side.SERVER) {
-                        PacketHandler.net.sendToServer(new UpdateFolkPositionPacket(this.location.toString() + ";" + this.name));
+                        UpdateFolkPositionPacket updateFolkPositionPacket=new UpdateFolkPositionPacket();
+                        updateFolkPositionPacket.nbt = new NBTTagCompound();
+                        updateFolkPositionPacket.nbt.setString("NPCDaTa",this.location.toString() + ";" + this.name);
+                        NetWorkLoader.net.sendToServer(updateFolkPositionPacket);
                         this.saveThisFolk();
                     }
 

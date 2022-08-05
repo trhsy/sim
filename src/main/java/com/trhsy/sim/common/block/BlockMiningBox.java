@@ -5,7 +5,7 @@ import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.functionality.Marker;
 import com.trhsy.sim.common.core.entity.functionality.MiningBox;
-import com.trhsy.sim.common.gui.blocks.GuiMining;
+import com.trhsy.sim.client.gui.blocks.GuiMining;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -21,7 +21,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName BlockMiningBox

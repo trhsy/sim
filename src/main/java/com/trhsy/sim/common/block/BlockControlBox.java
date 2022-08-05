@@ -3,9 +3,10 @@ package com.trhsy.sim.common.block;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.GameMode;
 import com.trhsy.sim.common.core.entity.V3;
-import com.trhsy.sim.common.gui.blocks.GuiBankATM;
-import com.trhsy.sim.common.gui.blocks.GuiControlBox;
+import com.trhsy.sim.client.gui.blocks.GuiBankATM;
+import com.trhsy.sim.client.gui.blocks.GuiControlBox;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.loader.GuiElementLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -119,8 +120,9 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
                     mc.displayGuiScreen(ui2);
                 }
             } else {
-                ui = new GuiControlBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
-                mc.displayGuiScreen(ui);
+                thePlayer.openGui(ModSim.instance, GuiElementLoader.GUI_CONTROL_SID,world,blockPos.getX(),blockPos.getY(),blockPos.getZ());
+                //ui = new GuiControlBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
+                //mc.displayGuiScreen(ui);
             }
 
         } catch (Exception e) {

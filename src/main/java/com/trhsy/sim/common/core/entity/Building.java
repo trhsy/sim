@@ -711,7 +711,7 @@ public class Building implements Serializable {
         try {
             List<String> strings = new CopyOnWriteArrayList();
             if (this.primaryXYZ != null) {
-                String xyz = this.displayName+this.primaryXYZ.toString().replaceAll(".0,", "_");
+                String xyz = this.displayName + this.primaryXYZ.toString().replaceAll(".0,", "_");
                 strings.add("displayname|" + this.displayName);
                 strings.add("type|" + this.type);
                 strings.add("primaryxyz|" + this.primaryXYZ.toString());
@@ -782,7 +782,7 @@ public class Building implements Serializable {
                     V3 pxyz = building.primaryXYZ;
                     World buildingWorld = MinecraftServer.getServer().worldServerForDimension(building.primaryXYZ.theDimension);
                     Block id = buildingWorld.getBlockState(new BlockPos(pxyz.xCoord, pxyz.yCoord, pxyz.zCoord)).getBlock();
-                    String xyz = building.displayName+ building.primaryXYZ.toString().replaceAll(".0,", "_");
+                    String xyz = building.displayName + building.primaryXYZ.toString().replaceAll(".0,", "_");
                     if (id != BlockLoader.blockControlBox && id != BlockLoader.blockConstructorBox) {
                         File f = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator + xyz + ".sk2");
                         if (f.exists()) {
@@ -849,13 +849,14 @@ public class Building implements Serializable {
     public static void loadAllBuildings() {
         try {
             File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
-            buildingsFolder.mkdirs();
+            if (buildingsFolder == null) {
+                buildingsFolder.mkdirs();
+            }
             File[] files = buildingsFolder.listFiles();
             Building build;
             ModSimReloaded.theBuildings.clear();
             for (File f : files) {
                 if (f.getName().endsWith(".sk2")) {
-
                     List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                     build = new Building();
                     for (String line : strings) {
@@ -990,6 +991,169 @@ public class Building implements Serializable {
 
     }
 
+    public static Building loadBuildingsByLoction(V3 location) {
+        Building build = new Building();
+        try {
+            File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
+            if (buildingsFolder == null) {
+                buildingsFolder.mkdirs();
+            }
+            File[] files = buildingsFolder.listFiles();
+            String locationXYZ = location.toString().replaceAll(".0,", "_");
+            for (File f : files) {
+                String fName = f.getName();
+                if (fName.contains(locationXYZ)) {
+                    if (fName.endsWith(".sk2")) {
+                        List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                        build = new Building();
+                        for (String line : strings) {
+                            int m1 = line.indexOf("|");
+                            String name = line.substring(0, m1);
+                            String value = line.substring(m1 + 1);
+                            if (name.contentEquals("displayname")) {
+                                build.displayName = value;
+                            } else if (name.contentEquals("type")) {
+                                build.type = value;
+                            } else if (name.contentEquals("primaryxyz")) {
+                                if (!value.contentEquals("null")) {
+                                    String[] v = value.split(",");
+                                    double x = Double.parseDouble(v[0]);
+                                    double y = Double.parseDouble(v[1]);
+                                    double z = Double.parseDouble(v[2]);
+                                    build.primaryXYZ = new V3(x, y, z);
+                                }
+                            } else if (name.contentEquals("livingxyz")) {
+                                if (!value.contentEquals("null")) {
+                                    String[] v = value.split(",");
+                                    double x = Double.parseDouble(v[0]);
+                                    double y = Double.parseDouble(v[1]);
+                                    double z = Double.parseDouble(v[2]);
+                                    build.livingXYZ = new V3(x, y, z);
+                                }
+                            } else if (name.contentEquals("buildingcomplete")) {
+                                build.buildingComplete = Boolean.parseBoolean(value);
+                            } else if (name.contentEquals("capacity")) {
+                                build.capacity = Integer.parseInt(value);
+                            } else if (name.contentEquals("builddir")) {
+                                build.buildDirection = value;
+                            } else if (name.contentEquals("lmarker")) {
+                                if (!value.contentEquals("null")) {
+                                    String[] v = value.split(",");
+                                    double x = Double.parseDouble(v[0]);
+                                    double y = Double.parseDouble(v[1]);
+                                    double z = Double.parseDouble(v[2]);
+                                    build.lumbermillMarker = new V3(x, y, z);
+                                }
+                            } else if (name.contentEquals("blocksinbuilding")) {
+                                build.blocksInBuilding = Integer.parseInt(value);
+                            } else {
+                                String[] blocks;
+                                String[] array;
+                                int lengths;
+                                String block;
+                                if (name.contentEquals("tenants")) {
+                                    if (value.trim().contentEquals("")) {
+                                        build.tenants.clear();
+                                    } else {
+                                        blocks = value.split(",");
+                                        array = blocks;
+                                        lengths = blocks.length;
+
+                                        for (int i_j = 0; i_j < lengths; i_j++) {
+                                            block = array[i_j];
+                                            if (!block.trim().contentEquals("")) {
+                                                build.tenants.add(block);
+                                            }
+                                        }
+                                    }
+                                } else if (name.contentEquals("blocklocs")) {
+                                    if (value.contains("B") && value.contains(",")) {
+                                        blocks = value.split("B");
+                                        array = blocks;
+                                        lengths = blocks.length;
+
+                                        for (int i1 = 0; i1 < lengths; i1++) {
+                                            block = array[i1];
+                                            if (block.contains(",")) {
+                                                String[] v = block.split(",");
+                                                double x = Double.parseDouble(v[0]);
+                                                double y = Double.parseDouble(v[1]);
+                                                double z = Double.parseDouble(v[2]);
+                                                build.blockLocations.add(new V3(x, y, z));
+                                            }
+                                        }
+                                    }
+                                } else if (name.contentEquals("blockspecial") && value.contains("B") && value.contains(",")) {
+                                    blocks = value.split("B");
+                                    array = blocks;
+
+                                    for (int i_j = 0; i_j < blocks.length; i_j++) {
+                                        block = array[i_j];
+                                        if (block.contains(",")) {
+                                            int p1 = block.lastIndexOf(",");
+                                            String v = block.substring(0, p1);
+                                            String meta = block.substring(p1 + 1);
+                                            String[] v1 = v.split(",");
+                                            double x = Double.parseDouble(v1[0]);
+                                            double y = Double.parseDouble(v1[1]);
+                                            double z = Double.parseDouble(v1[2]);
+                                            V3 v3 = new V3(x, y, z);
+                                            v3.meta = Integer.parseInt(meta);
+                                            build.blockSpecial.add(v3);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        build.loadStructure();
+                        updateBuildings(build);
+                    }else{
+                        if (fName.endsWith(".suk")) {
+                            build = (Building) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                            if (build != null) {
+                                V3 xyz = build.primaryXYZ;
+                                World buildingWorld = MinecraftServer.getServer().worldServerForDimension(build.primaryXYZ.theDimension);
+                                Block id = buildingWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
+                                Building dupe = null;
+                                if (ModSimReloaded.theBuildings.size() > 0) {
+                                    dupe = getBuilding(xyz);
+                                }
+
+                                if (id == BlockLoader.blockControlBox && dupe == null) {
+                                    build.loadStructure();
+                                    updateBuildings(build);
+                                    //ModSimReloaded.theBuildings.add(build);
+                                } else {
+                                    f.delete();
+                                    ModSimReloaded.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("loadBuildingsByLoction出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return build;
+    }
+    public static void updateBuildings(Building build){
+        List<Building> buildings=ModSimReloaded.theBuildings;
+        Boolean flag=true;
+        for(int i=0;i<buildings.size();i++){
+            Building b=buildings.get(i);
+            if(b.displayName.equals(build.displayName)){
+                buildings.set(i,build);
+                break;
+            }else{
+                flag=false;
+            }
+        }
+        if(!flag){
+            ModSimReloaded.theBuildings.add(build);
+        }
+    }
     public static void checkTenants() {
         try {
             for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {
@@ -1022,6 +1186,9 @@ public class Building implements Serializable {
         }
     }
 
+    /**
+     * 初始化本地设备
+     */
     public static void initialiseAllBuildings() {
         try {
             if (!runningInitThread1) {
@@ -1096,6 +1263,11 @@ public class Building implements Serializable {
 
     }
 
+    /**
+     * @param partialFilename
+     * @param type
+     * @return
+     */
     public static Building getBuildingForFolk(String partialFilename, String type) {
         Building build = null;
         try {
@@ -1134,10 +1306,6 @@ public class Building implements Serializable {
                     buildingsSpec.add(build);
                 }
 
-                /*try {
-                    Thread.sleep(30L);
-                } catch (Exception e) {
-                }*/
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

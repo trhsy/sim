@@ -35,8 +35,6 @@ public class EventLoader {
     public EventLoader() {
         try {
             MinecraftForge.EVENT_BUS.register(this);
-            MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
-            MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
             EventLoader.EVENT_BUS.register(this);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("EventLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -2,7 +2,7 @@ package com.trhsy.sim.common.commands;
 
 import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.packets.PacketHandler;
+import com.trhsy.sim.packets.NetWorkLoader;
 import com.trhsy.sim.packets.server.GenerateFolkPacket;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
@@ -49,7 +49,7 @@ public class CommandGenerateFolk implements ICommand {
         try {
             if (argString.length == 0) {
                 //FolkData.forceGenerateNewFolk(sender.getEntityWorld());
-                PacketHandler.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld(), true));
+                NetWorkLoader.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld(), true));
             } else if (argString.length == 1) {
                 FolkData.forceGenerateNewFolk(sender.getEntityWorld(), argString[0]);
             } else if (argString.length == 2) {

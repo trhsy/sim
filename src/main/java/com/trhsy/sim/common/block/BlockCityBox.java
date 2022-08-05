@@ -2,7 +2,7 @@ package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.V3;
-import com.trhsy.sim.common.gui.blocks.GuiCityBox;
+import com.trhsy.sim.client.gui.blocks.GuiCityBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

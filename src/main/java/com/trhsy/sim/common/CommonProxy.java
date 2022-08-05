@@ -1,13 +1,13 @@
 package com.trhsy.sim.common;
 
-import com.trhsy.sim.ModSim;
+import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.config.SimConfigSync;
+import com.trhsy.sim.common.core.entity.CommonTickHandler;
 import com.trhsy.sim.common.core.entity.folk.genetics.Race;
 import com.trhsy.sim.common.core.entity.folk.traits.Traits;
-import com.trhsy.sim.common.gui.GuiHandler;
 import com.trhsy.sim.common.loader.*;
 import com.trhsy.sim.common.util.UpdateChecker;
-import com.trhsy.sim.packets.PacketHandler;
+import com.trhsy.sim.packets.NetWorkLoader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,8 +16,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 /**
@@ -38,8 +39,6 @@ public class CommonProxy {
         try {
             ModSimReloaded.log = event.getModLog();
 
-            PacketHandler.initPackets();
-            NetworkRegistry.INSTANCE.registerGuiHandler(ModSim.instance, new GuiHandler());
             new UpdateChecker(event);
             /**配置**/
             ConfigLoader.load(event);
@@ -66,10 +65,12 @@ public class CommonProxy {
             new GuiElementLoader();
             //Traits
             Traits.loadTraits();
-
             Race.loadRaces();
+            new NetWorkLoader(event);
+            registerMisc();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("preInit出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("preInit出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -91,41 +92,51 @@ public class CommonProxy {
         try {
             MinecraftForge.EVENT_BUS.register(new SimConfigSync());
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("postInit出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("postInit出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     /**
      * 系统命令
+     *
      * @param event
      */
     public void serverStarting(FMLServerStartingEvent event) {
         try {
             new CommandLoader(event);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("serverStarting出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
-
+    public void registerMisc() {
+        MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
+        MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
+    }
+    @SideOnly(Side.CLIENT)
     public World getClientWorld() {
-        World world=null;
+        World world = null;
         try {
-            world=FMLClientHandler.instance().getServer().getEntityWorld();
+            world = FMLClientHandler.instance().getServer().getEntityWorld();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getClientWorld出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("getClientWorld出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return world;
     }
 
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
-        EntityPlayer entityPlayer=null;
+        EntityPlayer entityPlayer = null;
         try {
-            entityPlayer=ctx.getServerHandler().playerEntity;
+            entityPlayer = ctx.getServerHandler().playerEntity;
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getPlayerEntity出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("getPlayerEntity出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return entityPlayer;
     }
+
 
 }

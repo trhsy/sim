@@ -423,7 +423,6 @@ public class JobBuilder extends Job implements Serializable {
                         }
 
                         String[] bl = null;
-                        int st = 0;
                         try {
                             //获取结构体
                             bl = this.theBuilding.structure[this.acount].split(":");
@@ -478,7 +477,7 @@ public class JobBuilder extends Job implements Serializable {
                         try {
                             currBlockId = this.jobWorld.getBlockState(new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo)).getBlock();
                             //
-                            if (blockId != currBlockId && (blockId != Blocks.dirt || currBlockId != Blocks.grass)) {
+                            if (blockId != currBlockId && (blockId != Blocks.dirt || currBlockId != Blocks.grass)||(blockId != Blocks.grass|| currBlockId != Blocks.dirt )) {
                                 alreadyPlaced = false;
                             } else {
                                 alreadyPlaced = true;
@@ -597,7 +596,8 @@ public class JobBuilder extends Job implements Serializable {
                                         if (!alreadyPlaced) {
                                             this.theFolk.stayPut = true;
                                             BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                                            this.jobWorld.setBlockState(blockPos, blockId.getDefaultState(), 3);
+
+                                            this.jobWorld.setBlockState(blockPos, blockId.getStateFromMeta(subtype), 3);
                                             this.jobWorld.markBlockForUpdate(blockPos);
                                         }
 

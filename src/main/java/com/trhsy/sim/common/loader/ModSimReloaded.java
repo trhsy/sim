@@ -4,10 +4,9 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.*;
 import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.core.entity.functionality.MiningBox;
-import com.trhsy.sim.common.gui.GuiRunMod;
+import com.trhsy.sim.client.gui.GuiRunMod;
 import com.trhsy.sim.common.jobs.JobSoldier;
 import com.trhsy.sim.common.jobs.Vocation;
-import com.trhsy.sim.packets.toServer.PacketPipeline;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -108,7 +107,6 @@ public class ModSimReloaded {
     //Gui的运行模式
     private static GuiRunMod runModui = null;
 
-    public static final PacketPipeline packetPipeline = new PacketPipeline();
     public ModSimReloaded() {
 
     }

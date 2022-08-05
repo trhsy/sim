@@ -1,0 +1,415 @@
+package com.trhsy.sim.client.gui.blocks;
+/**
+ * @author trhsy
+ * @date 2022/1/27 0027
+ * @apiNote
+ */
+
+import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.core.entity.Commodity;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.PricesForBlocks;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.client.gui.enums.ATMscreen;
+import com.trhsy.sim.common.jobs.Job;
+import com.trhsy.sim.common.loader.ModSimReloaded;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+/**
+ * ========================================
+ *
+ * @ClassName GuiBankATM
+ * @Description todo 银行ATM
+ * @Author Administrator
+ * @Date 2022/1/27 0027上午 11:24
+ * ========================================
+ **/
+@SideOnly(Side.CLIENT)
+public class GuiBankATM extends GuiScreen {
+    //银行地址
+    private V3 bankLocation = null;
+    //玩家
+    private EntityPlayer thePlayer = null;
+    //鼠标计数
+    private int mouseCount = 0;
+    //银屏
+    private ATMscreen theScreen;
+    private List<Commodity> cart;
+    //错误文本
+    private String errorText;
+
+    long fuckingBodge;
+
+    public GuiBankATM(V3 location, EntityPlayer player) {
+        try {
+            this.theScreen = ATMscreen.START;
+            this.cart = new CopyOnWriteArrayList();
+            this.errorText = "";
+            this.fuckingBodge = 0L;
+            this.bankLocation = location;
+            this.thePlayer = player;
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBankATM出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+    }
+
+    @Override
+    public void initGui() {
+        try {
+            boolean robbed = false;
+            List<V3> blocks = Job.findClosestBlocks(this.bankLocation, Blocks.diamond_block, 10);
+            if (blocks.size() == 0) {
+                robbed = true;
+            }
+
+            blocks = Job.findClosestBlocks(this.bankLocation, Blocks.emerald_block, 10);
+            if (blocks.size() == 0) {
+                robbed = true;
+            }
+
+            blocks = Job.findClosestBlocks(this.bankLocation, Blocks.gold_block, 10);
+            if (blocks.size() == 0) {
+                robbed = true;
+            }
+
+            if (robbed) {
+                this.mc.currentScreen = null;
+                this.mc.setIngameFocus();
+                //看起来你已经抢了银行！
+                String sim_gui_ATMs = I18n.format("container.sim.sim_gui_ATMs");
+                ModSimReloaded.sendChat(sim_gui_ATMs);
+            } else {
+                if (ModSimReloaded.theCommodities.size() == 0) {
+                    Commodity.refreshAvailableCommoditities();
+                }
+
+                this.buttonList.clear();
+                if (this.theScreen == ATMscreen.START) {
+                    //寄存物品
+                    String sim_gui_ATMs_Deposit = I18n.format("container.sim.sim_gui_ATMs_Deposit");
+                    this.buttonList.add(new GuiButton(0, this.width / 2 - 50, 50, 100, 20, sim_gui_ATMs_Deposit));
+                    //购买商品
+                    String sim_gui_ATMs_Commodities = I18n.format("container.sim.sim_gui_ATMs_Commodities");
+                    this.buttonList.add(new GuiButton(1, this.width / 2 - 50, 70, 100, 20, sim_gui_ATMs_Commodities));
+                } else {
+                    int offset;
+                    int inv;
+                    if (this.theScreen == ATMscreen.DEPOSIT) {
+                        offset = 30;
+
+                        for(inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); inv++) {
+                            ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
+                            if (is != null) {
+                                String sim_gui_ATMs_Sell_1 = I18n.format("container.sim.sim_gui_ATMs_Sell_1");
+                                String sim_gui_ATMs_Sell = I18n.format("container.sim.sim_gui_ATMs_Sell");
+                                String sim_gui_ATMs_for = I18n.format("container.sim.sim_gui_ATMs_for");
+                                if (is.getItem() == Items.diamond) {
+
+                                    this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceDiamond)));
+
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.stackSize)));
+                                    offset += 20;
+                                } else if (is.getItem() == Items.emerald) {
+                                    this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceEmerald)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceEmerald * (float) is.stackSize)));
+                                    offset += 20;
+                                } else if (is.getItem() == Items.redstone) {
+                                    this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceRedstone)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.stackSize)));
+                                    offset += 20;
+                                } else if (is.getItem() == Items.glowstone_dust) {
+                                    this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGlowstone)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.stackSize)));
+                                    offset += 20;
+                                } else if (is.getItem() == Items.gold_ingot) {
+                                    this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGold)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGold * (float) is.stackSize)));
+                                    offset += 20;
+                                }
+                            }
+                        }
+                    } else if (this.theScreen == ATMscreen.COMMODITIES) {
+                        offset = 30;
+
+                        for (inv = 0; inv < ModSimReloaded.theCommodities.size(); inv++) {
+                            this.buttonList.add(new GuiButton(inv + 200, this.width / 2, offset, 20, 20, "-"));
+                            this.buttonList.add(new GuiButton(inv + 300, this.width / 2 + 20, offset, 20, 20, "+"));
+                            offset += 20;
+                        }
+                        String sim_gui_ATMs_Buy = I18n.format("container.sim.sim_gui_ATMs_Buy");
+                        this.buttonList.add(new GuiButton(400, this.width - 60, this.height - 30, 50, 20, sim_gui_ATMs_Buy));
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBankATM-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+
+    }
+
+    @Override
+    public void drawScreen(int i, int j, float f) {
+        try {
+            if (this.mouseCount < 10) {
+                ++this.mouseCount;
+                Mouse.setGrabbed(false);
+            }
+
+            this.drawDefaultBackground();
+            String sim_gui_ATMs_Ltd = I18n.format("container.sim.sim_gui_ATMs_Ltd");
+            this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Ltd, this.width / 2, 5, 16777215);
+            if (this.theScreen == ATMscreen.START) {
+                String sim_gui_ATMs_Welcome = I18n.format("container.sim.sim_gui_ATMs_Welcome");
+                this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Welcome, this.width / 2, 15, 65280);
+                String sim_gui_ATMs_exchange = I18n.format("container.sim.sim_gui_ATMs_exchange");
+                this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_exchange, this.width / 2, 25, 65280);
+                String sim_gui_ATMs_Diamonds = I18n.format("container.sim.sim_gui_ATMs_Diamonds");
+                this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Diamonds, this.width / 2, 35, 65280);
+            } else {
+                int offset;
+                if (this.theScreen == ATMscreen.DEPOSIT) {
+                    offset = 35;
+                    boolean playerHasItems = false;
+                    String sim_gui_ATMs_Items = I18n.format("container.sim.sim_gui_ATMs_Items");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Items, this.width / 2, 15, 65280);
+
+                    for (int inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); inv++) {
+                        ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
+                        if (is != null && (is.getItem() == Items.diamond || is.getItem() == Items.emerald || is.getItem() == Items.redstone || is.getItem() == Items.glowstone_dust || is.getItem() == Items.gold_ingot)) {
+                            this.drawString(this.fontRendererObj, is.stackSize + " x " + is.getDisplayName(), 40, offset, 65280);
+                            playerHasItems = true;
+                            offset += 20;
+                        }
+                    }
+
+                    if (!playerHasItems) {
+                        String sim_gui_ATMs_sorry = I18n.format("container.sim.sim_gui_ATMs_sorry");
+                        this.drawString(this.fontRendererObj, sim_gui_ATMs_sorry, 40, offset, 65280);
+                    }
+                } else if (this.theScreen == ATMscreen.COMMODITIES) {
+                    String sim_gui_ATMs_today = I18n.format("container.sim.sim_gui_ATMs_today");
+                    this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_today, this.width / 2, 20, 65280);
+                    offset = 35;
+                    if (ModSimReloaded.theCommodities.size() == 0) {
+                        String sim_gui_ATMs_later = I18n.format("container.sim.sim_gui_ATMs_later");
+                        this.drawString(this.fontRendererObj, sim_gui_ATMs_later, 20, offset, 65280);
+                    }
+
+                    for (int it = 0; it < ModSimReloaded.theCommodities.size(); it++) {
+                        Commodity item = (Commodity) ModSimReloaded.theCommodities.get(it);
+                        this.drawString(this.fontRendererObj, item.quantity + " x " + item.theItemStack.getDisplayName() + " @ " + ModSimReloaded.displayMoney(item.priceEach) + " each", 20, offset, 65280);
+                        int qty = 0;
+
+                        for (int ci = 0; ci < this.cart.size(); ++ci) {
+                            Commodity cartItem = (Commodity) this.cart.get(ci);
+                            if (cartItem.theItemStack.getDisplayName().contentEquals(item.theItemStack.getDisplayName())) {
+                                qty = cartItem.quantity;
+                            }
+                        }
+
+                        this.drawString(this.fontRendererObj, qty + "", this.width / 2 - 30, offset, 65280);
+                        offset += 20;
+                    }
+                }
+            }
+
+            this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 15, 16711680);
+            super.drawScreen(i, j, f);
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBankATM-drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+
+
+    }
+
+
+
+    /**
+     * 执行动作
+     * @param guibutton
+     */
+    @Override
+    protected void actionPerformed(GuiButton guibutton) {
+        try {
+            if (System.currentTimeMillis() - this.fuckingBodge >= 500L) {
+                this.fuckingBodge = System.currentTimeMillis();
+                String sim_gui_ATMs_Deposit = I18n.format("container.sim.sim_gui_ATMs_Deposit");
+                String sim_gui_ATMs_Commodities = I18n.format("container.sim.sim_gui_ATMs_Commodities");
+                if (guibutton.displayString.contentEquals(sim_gui_ATMs_Deposit)) {
+                    this.theScreen = ATMscreen.DEPOSIT;
+                    this.initGui();
+                } else if (guibutton.displayString.contentEquals(sim_gui_ATMs_Commodities)) {
+                    this.theScreen = ATMscreen.COMMODITIES;
+                    this.initGui();
+                } else {
+                    GameStates var10000;
+                    if (guibutton.id >= 100 && guibutton.id < 200) {
+                        ItemStack is = this.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
+                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
+                        String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 4);
+                        NumberFormat format = NumberFormat.getInstance();
+                        Object number = 0;
+
+                        try {
+                            number = format.parse(money);
+                        } catch (Exception e) {
+                        }
+
+                        float soldFor = ((Number)number).floatValue();
+                        var10000 = ModSimReloaded.states;
+                        var10000.credits += soldFor;
+                        --is.stackSize;
+                        if (is.stackSize == 0) {
+                            is = null;
+                        }
+
+                        this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 100, is);
+                        this.initGui();
+                    } else if (guibutton.id >= 500 && guibutton.id < 600) {
+                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
+                        NumberFormat format = NumberFormat.getInstance();
+                        Object number = 0;
+
+                        try {
+                            number = format.parse(guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 4));
+                        } catch (Exception e) {
+                        }
+
+                        float soldFor = ((Number)number).floatValue();
+                        var10000 = ModSimReloaded.states;
+                        var10000.credits += soldFor;
+                        this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack)null);
+                        this.initGui();
+                    } else {
+                        int ci;
+                        Commodity cartItem;
+                        Commodity comm;
+                        if (guibutton.id >= 200 && guibutton.id < 300) {
+                            comm = (Commodity) ModSimReloaded.theCommodities.get(guibutton.id - 200);
+
+                            for(ci = 0; ci < this.cart.size(); ++ci) {
+                                cartItem = (Commodity)this.cart.get(ci);
+                                if (cartItem.theItemStack.getDisplayName().contentEquals(comm.theItemStack.getDisplayName()) && cartItem.quantity > 0) {
+                                    --cartItem.quantity;
+                                    break;
+                                }
+
+                                if (cartItem.quantity == 0) {
+                                    this.cart.remove(ci);
+                                    break;
+                                }
+                            }
+                        } else if (guibutton.id >= 300 && guibutton.id < 400) {
+                            comm = (Commodity) ModSimReloaded.theCommodities.get(guibutton.id - 300);
+                            boolean added = false;
+
+                            for(int cj = 0; cj < this.cart.size(); ++cj) {
+                                Commodity cc = (Commodity)this.cart.get(cj);
+                                if (cc.theItemStack.getDisplayName().contentEquals(comm.theItemStack.getDisplayName())) {
+                                    if (cc.quantity >= comm.quantity) {
+                                        return;
+                                    }
+
+                                    ++cc.quantity;
+                                    added = true;
+                                    break;
+                                }
+                            }
+
+                            if (!added) {
+                                this.cart.add(new Commodity(comm.theItemStack, 1, comm.priceEach));
+                            }
+                        } else if (guibutton.id == 400) {
+                            if (this.cart.size() == 0) {
+                                String sim_gui_ATMs_added = I18n.format("container.sim.sim_gui_ATMs_added");
+                                this.errorText = sim_gui_ATMs_added;
+                                return;
+                            }
+
+                            float cost = 0.0F;
+
+                            ItemStack is;
+                            for (ci = 0; ci < this.cart.size(); ++ci) {
+                                cartItem = (Commodity) this.cart.get(ci);
+                                is = cartItem.theItemStack;
+                                is.stackSize = cartItem.quantity;
+                                cost += (float) cartItem.quantity * cartItem.priceEach;
+                            }
+
+                            if (cost > ModSimReloaded.states.credits) {
+                                String sim_gui_ATMs_cost = I18n.format("container.sim.sim_gui_ATMs_cost");
+                                String sim_gui_ATMs_only = I18n.format("container.sim.sim_gui_ATMs_only");
+                                this.errorText = sim_gui_ATMs_cost + ModSimReloaded.displayMoney(cost) + sim_gui_ATMs_only + ModSimReloaded.displayMoney(ModSimReloaded.states.credits);
+                                return;
+                            }
+
+                            for (ci = 0; ci < this.cart.size(); ++ci) {
+                                cartItem = (Commodity) this.cart.get(ci);
+                                is = cartItem.theItemStack;
+                                is.stackSize = cartItem.quantity;
+                                this.thePlayer.inventory.addItemStackToInventory(is);
+
+                                for (int ai = 0; ai < ModSimReloaded.theCommodities.size(); ++ai) {
+                                    Commodity ac = (Commodity) ModSimReloaded.theCommodities.get(ai);
+                                    if (ac.theItemStack.getDisplayName().contentEquals(cartItem.theItemStack.getDisplayName())) {
+                                        ModSimReloaded.theCommodities.remove(ai);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            var10000 = ModSimReloaded.states;
+                            var10000.credits -= cost;
+                            String sim_gui_ATMs_worth = I18n.format("container.sim.sim_gui_ATMs_worth");
+                            ModSimReloaded.sendChat(sim_gui_ATMs_worth + ModSimReloaded.displayMoney(cost));
+                            ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                        }
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIBANJATMactionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+    }
+
+    @Override
+    protected void keyTyped(char c, int i) {
+        try {
+            if (i == 1) {
+                this.mc.currentScreen = null;
+                this.mc.setIngameFocus();
+            }
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+
+    }
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
+    @Override
+    public void onGuiClosed() {
+        Keyboard.enableRepeatEvents(false);
+    }
+
+}

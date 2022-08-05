@@ -2,8 +2,8 @@ package com.trhsy.sim.common.core.entity;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.ai.EntityAIWanderSUK;
-import com.trhsy.sim.common.gui.folk.GuiEntityFolk;
-import com.trhsy.sim.common.gui.folk.GuiMerchant;
+import com.trhsy.sim.client.gui.folk.GuiEntityFolk;
+import com.trhsy.sim.client.gui.folk.GuiMerchant;
 import com.trhsy.sim.common.jobs.JobFisherman;
 import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
@@ -194,8 +194,8 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if (this.theData == null && System.currentTimeMillis() - this.ghostTimer > 5000L) {
                         ModSimReloaded.log.info("NPC: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以判定为死亡");
                         //设置死亡
-                        this.onDeath(DamageSource.inWall);
-                        //this.setDead();
+                        //this.onDeath(DamageSource.inWall);
+                        this.setDead();
                     }
                 }
 
@@ -408,8 +408,10 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
 
                     } else if (entity instanceof EntityFolk && (int) this.posX == (int) entity.posX && (int) this.posZ == (int) entity.posZ) {
-                        this.motionX += 0.10000000149011612D;
-                        this.theData.stayPut = false;
+                        if(this.theData!=null){
+                            this.motionX += 0.10000000149011612D;
+                            this.theData.stayPut = false;
+                        }
                     }
                 }
             }

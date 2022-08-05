@@ -23,7 +23,9 @@ import java.util.Random;
 /**
  * 客户端的
  */
-public class ClientTickHandler extends GuiScreen {
+public class ClientTickHandler {
+    public ClientTickHandler() {
+    }
     Minecraft mc = Minecraft.getMinecraft();
     Long timeSinceLastSave = 0L;
     public static int beamingStage = 1;
@@ -31,114 +33,60 @@ public class ClientTickHandler extends GuiScreen {
     public static V3 beamingTo = null;
     public static EntityPlayer beamingPlayer = null;
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        try {
-            FMLCommonHandler.instance().bus().register(this);
-        } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端init出错了：" + e.getMessage()+"行数："+element.getLineNumber());
-        }
-    }
 
     @SubscribeEvent
     public void tick(WorldTickEvent event) {
-        try {
-            this.onTickInGame();
-        } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage()+"行数："+element.getLineNumber());
-        }
-
     }
 
     @SubscribeEvent
     public void tick(ClientTickEvent event) {
-    }
-
-    @SubscribeEvent
-    public void tick(RenderTickEvent event) {
         try {
-            this.onGui();
+            this.onTickInGame();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-    }
 
+    }
     public void onTickInGame() {
         try {
+            if (this.mc.currentScreen != null) {
+                if (this.mc.currentScreen.toString().toLowerCase().contains("guimainmenu")) {
+                    //ModSimReloaded.log.info("ClientTH: 在Gui主菜单中");
+                }
+            }
             if (beamingTo != null) {
                 this.beamingPlayer();
             }
-
-            try {
-                if (ModSimReloaded.states.gameModeNumber <= 0) {
-                    return;
-                }
-            } catch (Exception e) {
+            if (ModSimReloaded.states.gameModeNumber <= 0) {
+                return;
+                //ModSim.proxy.ranStartup = true;
             }
-
-            if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("ingamemenu") && System.currentTimeMillis() - this.timeSinceLastSave > 10000L) {
-                ConfigLoader.configFile.save();
-                ModSimReloaded.states.saveStates();
-                Building.saveAllBuildings();
-                CourierTask.saveCourierTasksAndPoints();
-                MiningBox.saveMiningBoxes();
-                FarmingBox.saveFarmingBoxes();
-
-                for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                    FolkData folk = ModSimReloaded.theFolks.get(f);
-                    folk.updateLocationFromEntity();
-                    folk.saveThisFolk();
-                }
-
-                this.timeSinceLastSave = System.currentTimeMillis();
-            }
-        } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端onTickInGame出错了：" + e.getMessage()+"行数："+element.getLineNumber());
-        }
-
-
-    }
-
-    public void onGui() {
-        try {
-            if (this.mc.currentScreen == null) {
-                String worldname = "unknown";
-
-                try {
-                    if (ModSimReloaded.states.gameModeNumber == 10) {
-                        return;
-                    }
-
-                    worldname = this.mc.getIntegratedServer().getFolderName();
-                    worldname = MinecraftServer.getServer().getFolderName();
-                } catch (Exception e) {
-                    this.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy2"), this.width / 2, 2, 16777215);
-                    return;
-                }
-
-                try {
-                    if (ModSim.proxy.ranStartup) {
-                        int HUDoffset = 0;
-                        if (this.mc.thePlayer.dimension == 1) {
-                            HUDoffset = 20;
+            if (mc.currentScreen != null) {
+                if (mc.currentScreen.toString().toLowerCase().contains("ingamemenu")) {
+                    if (System.currentTimeMillis() - timeSinceLastSave > 10000) {
+                        ConfigLoader.configFile.save();
+                        ModSimReloaded.states.saveStates();
+                        Building.saveAllBuildings();
+                        CourierTask.saveCourierTasksAndPoints();
+                        MiningBox.saveMiningBoxes();
+                        FarmingBox.saveFarmingBoxes();
+                        for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
+                            FolkData folk = ModSimReloaded.theFolks.get(f);
+                            folk.updateLocationFromEntity();
+                            folk.saveThisFolk();
                         }
 
-                        HUDoffset = HUDoffset + ConfigLoader.configHUDoffset;
-                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                            this.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size(), this.width / 2, 2 + HUDoffset, 16777215);
-                        } else {
-                            this.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size() + "   " + I18n.format("container.sim.trhsy4") + ": " + ModSimReloaded.displayMoney(ModSimReloaded.states.credits), this.width / 2, 2 + HUDoffset, 16777215);
-                        }
-                    } else {
-                        this.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy5"), this.width / 2, 2, 16777215);
+                        this.timeSinceLastSave = System.currentTimeMillis();
                     }
-                } catch (Exception e) {
-                    //var3.printStackTrace();
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端onGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("客户端onTickInGame出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+
+
     }
 
     private void beamingPlayer() {
@@ -175,7 +123,8 @@ public class ClientTickHandler extends GuiScreen {
                 return;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端beamingPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("客户端beamingPlayer出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
