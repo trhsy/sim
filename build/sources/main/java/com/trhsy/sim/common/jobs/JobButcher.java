@@ -5,11 +5,10 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -18,7 +17,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -33,13 +32,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobButcher extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207904271422L;
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient float pay = 0.0F;
-    private transient CopyOnWriteArrayList<IInventory> chestsAtFarm = new CopyOnWriteArrayList();
-    private transient CopyOnWriteArrayList<IInventory> chestsAtShop = new CopyOnWriteArrayList();
+    private transient List<IInventory> chestsAtFarm = new CopyOnWriteArrayList();
+    private transient List<IInventory> chestsAtShop = new CopyOnWriteArrayList();
     private transient int currentFarmNum = 0;
     private transient Building farm = null;
     private transient boolean onRoute = false;
@@ -56,7 +55,7 @@ public class JobButcher extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -134,7 +133,7 @@ public class JobButcher extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobButcher-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -150,7 +149,7 @@ public class JobButcher extends Job implements Serializable {
                 try {
                     if (this.farm != null && this.farm.primaryXYZ != null) {
                         this.onRoute = true;
-                        this.theFolk.gotoXYZ(this.farm.primaryXYZ, GotoMethod.BEAM);
+                        this.theFolk.gotoXYZ(this.farm.primaryXYZ, null);
                     } else {
                         this.theStage = Stage.GOBACKTOSTORE;
                     }
@@ -214,7 +213,7 @@ public class JobButcher extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.butcher.Taking");
             if (!this.onRoute) {
                 this.onRoute = true;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             } else {
                 double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist < 2) {
@@ -257,7 +256,7 @@ public class JobButcher extends Job implements Serializable {
                     GameStates var10000 = ModSimReloaded.states;
                     var10000.credits -= this.pay;
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.collected") + ModSimReloaded.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
-                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 }
 
                 this.step = 2;
@@ -354,7 +353,7 @@ public class JobButcher extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATSHOP;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

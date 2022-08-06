@@ -1,5 +1,5 @@
-employedat|null
-vocation|null
+employedat|125.0,63.0,325.0,0
+vocation|BUILDER
 name|方依瑞
 age|19
 gender|0
@@ -9,12 +9,12 @@ trait1|夜猫子
 trait2|强壮的人可以更快地做体力劳动。无论是采矿、伐木、建筑还是挖沙。
 trait3|矮人血脉
 trait4|讨厌户外活动
-levelfood|8
+levelfood|10
 levelbuilder|1.0620029
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|127.0,63.0,320.0,0
+location|125.0,63.0,325.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

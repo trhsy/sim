@@ -1,10 +1,10 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.EntityAlignBeam;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.functionality.Marker;
-import com.trhsy.sim.common.gui.blocks.GuiMarker;
+import com.trhsy.sim.common.core.entity.EntityAlignBeam;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.Marker;
+import com.trhsy.sim.client.gui.blocks.GuiMarker;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -25,7 +25,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -36,14 +36,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 public class BlockMarker extends Block implements IExtendedEntityProperties {
     public static boolean hasPlaced = false;
-    public static CopyOnWriteArrayList<Marker> markers = new CopyOnWriteArrayList();
+    public static List<Marker> markers = new CopyOnWriteArrayList();
     public V3 location;
 
     public BlockMarker() {
         super(Material.wood);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(2.0F);
-        this.setResistance(1.0F);
+        this.setResistance(1);
         this.setUnlocalizedName("markerBar");
         this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.setLightLevel(0.1F);
@@ -128,12 +128,11 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 }
 
                 if (markers.size() < 4) {
-                    V3 pos = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), world.provider.getDimensionId());
-                    pos.y = pos.y + 0.01;
+                    V3 pos = new V3(blockPos.getX(),blockPos.getY()+1,blockPos.getZ(), world.provider.getDimensionId());
                     if (ConfigLoader.configEnableMarkerAlignmentBeams) {
                         EntityAlignBeam beam = new EntityAlignBeam(world);
                         ma.caption = markerCaption;
-                        beam.setLocationAndAngles(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+                        beam.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 0.0F, 0.0F);
                         beam.yaw = 0.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam);
@@ -141,7 +140,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam);
                         EntityAlignBeam beam2 = new EntityAlignBeam(world);
-                        beam2.setLocationAndAngles(pos.x, pos.y, pos.z, 90.0F, 0.0F);
+                        beam2.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 90.0F, 0.0F);
                         beam2.yaw = 90.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam2);
@@ -149,7 +148,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam2);
                         EntityAlignBeam beam3 = new EntityAlignBeam(world);
-                        beam3.setLocationAndAngles(pos.x, pos.y, pos.z, 180.0F, 0.0F);
+                        beam3.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 180.0F, 0.0F);
                         beam3.yaw = 180.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam3);
@@ -157,7 +156,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam3);
                         EntityAlignBeam beam4 = new EntityAlignBeam(world);
-                        beam4.setLocationAndAngles(pos.x, pos.y, pos.z, 270.0F, 0.0F);
+                        beam4.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 270.0F, 0.0F);
                         beam4.yaw = 270.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam4);
@@ -183,7 +182,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         try {
             for (int i = 0; i < markers.size(); i++) {
                 Marker m = (Marker) markers.get(i);
-                if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
+                if ((double) m.x == position.xCoord && (double) m.y == position.yCoord && (double) m.z == position.zCoord) {
                     ret = m;
                     break;
                 }
@@ -201,7 +200,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
             this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
             GuiMarker ui = new GuiMarker(this.location, thePlayer);
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);

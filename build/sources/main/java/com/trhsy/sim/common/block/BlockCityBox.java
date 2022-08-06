@@ -1,9 +1,8 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.gui.blocks.GuiCityBox;
-import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.client.gui.blocks.GuiCityBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -29,7 +28,7 @@ public class BlockCityBox extends Block {
         super(Material.wood);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(10.0F);
-        this.setResistance(1.0F);
+        this.setResistance(1);
         this.setUnlocalizedName("city_box");
         //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
@@ -38,7 +37,7 @@ public class BlockCityBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1.0F, 1.0F);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1, 1);
             GuiCityBox ui = null;
             Minecraft mc = Minecraft.getMinecraft();
             mc.setIngameNotInFocus();

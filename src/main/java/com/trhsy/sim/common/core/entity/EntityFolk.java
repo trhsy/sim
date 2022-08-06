@@ -419,6 +419,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("EntityFolk-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            e.printStackTrace();
         }
 
     }

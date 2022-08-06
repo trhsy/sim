@@ -306,7 +306,6 @@ public class FarmingBox implements Serializable {
 
     public static void loadFarmingBoxes() {
         try {
-            Minecraft mc = Minecraft.getMinecraft();
             File farmFiles = new File(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator);
             farmFiles.mkdirs();
             boolean useNewFormat = false;

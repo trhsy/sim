@@ -1154,6 +1154,13 @@ public class Building implements Serializable {
             ModSimReloaded.theBuildings.add(build);
         }
     }
+    /**
+     * @Author fan
+     * @Description //TODO 检查租户
+     * @Date 20:39 2022/8/6
+     * @Param []
+     * @return void
+     **/
     public static void checkTenants() {
         try {
             for (int b = 0; b < ModSimReloaded.theBuildings.size(); ++b) {

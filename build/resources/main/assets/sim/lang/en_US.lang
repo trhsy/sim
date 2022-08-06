@@ -1097,8 +1097,8 @@ container.sim.COLLECTINGWHEAT=collecting wheat
 container.sim.GOINGTOWHEATFARM=going to wheat farm
 container.sim.ARRIVEDATSHOP=arrived at shop
 
-
-
+container.sim.building.piston=piston
+container.sim.building.button=button
 
 
 

@@ -40,10 +40,14 @@ public class EntityAIWanderSUK extends EntityAIBase {
     public boolean shouldExecute() {
         EntityFolk actualFolk = (EntityFolk) this.entity;
         if (!this.mustUpdate) {
-            if (actualFolk.theData.age >= 100) {
-                return false;
-            }
-            if(actualFolk.theData.stayPut){
+            if(actualFolk.theData!=null){
+                if (actualFolk.theData.age >= 100) {
+                    return false;
+                }
+                if(actualFolk.theData.stayPut){
+                    return false;
+                }
+            }else{
                 return false;
             }
         }

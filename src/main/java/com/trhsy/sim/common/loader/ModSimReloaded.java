@@ -4,7 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.*;
 import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.core.entity.functionality.MiningBox;
-import com.trhsy.sim.client.gui.GuiRunMod;
+import com.trhsy.sim.common.gui.GuiRunMod;
 import com.trhsy.sim.common.jobs.JobSoldier;
 import com.trhsy.sim.common.jobs.Vocation;
 import net.minecraft.block.Block;
@@ -169,31 +169,40 @@ public class ModSimReloaded {
                     GuiRunMod runModui = new GuiRunMod();
                     Minecraft.getMinecraft().displayGuiScreen(runModui);
                 }
-
             } else {
                 if (states.gameModeNumber >= 0) {
-                    ModSimReloaded.log.info("模拟城市程序已经运行");
+                    if (ModSim.proxy.ranStartup) {
+                        ModSimReloaded.log.info("模拟城市程序已经运行");
+                        ModSim.proxy.ranStartup = true;
+                        return;
+                    }
+                    //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
+                    String welcome = I18n.format("container.sim.welcome");
+                    String welcomes = I18n.format("container.sim.welcomes");
+                    sendChat(welcome + ModSim.VERSION + welcomes);
+                    //清空线程池中的所有npc
+                    theFolks.clear();
+                    //从磁盘加载所有建筑并初始化它们
+                    Building.initialiseAllBuildings();
+                    //加载世界上的建筑
+                    Building.loadAllBuildings();
+                    //所有快递点
+                    CourierTask.loadCourierTasksAndPoints();
+                    //采矿箱
+                    MiningBox.loadMiningBoxes();
+                    //农田箱
+                    FarmingBox.loadFarmingBoxes();
+                    //加载npc人物
+                    FolkData.loadAndSpawnFolks();
+                    //npc关系
+                    Relationship.loadRelationships();
+                    //updateCheck();
+                    //更新时间
+                    isDay = isDayTime();
+                    Building.checkTenants();
+                    //模组已运行
                     ModSim.proxy.ranStartup = true;
                 }
-                //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
-                String welcome = I18n.format("container.sim.welcome");
-                String welcomes = I18n.format("container.sim.welcomes");
-                sendChat(welcome + ModSim.VERSION + welcomes);
-                //清空线程池中的所有npc
-                theFolks.clear();
-                //从磁盘加载所有建筑并初始化它们
-                Building.initialiseAllBuildings();
-                //加载世界上的建筑
-                Building.loadAllBuildings();
-                CourierTask.loadCourierTasksAndPoints();
-                MiningBox.loadMiningBoxes();
-                FarmingBox.loadFarmingBoxes();
-                FolkData.loadAndSpawnFolks();
-                Relationship.loadRelationships();
-                //updateCheck();
-                isDay = isDayTime();
-                Building.checkTenants();
-                ModSim.proxy.ranStartup = true;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

@@ -2,7 +2,7 @@ package com.trhsy.sim.common;
 
 import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.config.SimConfigSync;
-import com.trhsy.sim.common.core.entity.CommonTickHandler;
+import com.trhsy.sim.common.core.CommonTickHandler;
 import com.trhsy.sim.common.core.entity.folk.genetics.Race;
 import com.trhsy.sim.common.core.entity.folk.traits.Traits;
 import com.trhsy.sim.common.loader.*;

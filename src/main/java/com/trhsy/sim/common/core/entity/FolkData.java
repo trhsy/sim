@@ -51,15 +51,15 @@ public class FolkData implements Serializable {
      * @Date 11:04 2022/3/26
      * @Param
      **/
-    public V3 employedAt ;
+    public V3 employedAt;
     //职业 他们的职业类型或null（如果失业）-用于创建他们的工作对象
-    public Vocation vocation ;
+    public Vocation vocation;
     /**
      * 对其工作（工作类别和子类别）的引用，如果失业，则为空-根据其职业领域在启动时创建
      **/
     protected ItemStack[] validTools = new ItemStack[0];
     //当前工作
-    public transient Job theirJob ;
+    public transient Job theirJob;
     //姓名 以字符串形式显示其全名
     public String name = "";
     //年龄 0至17岁的人=儿童18+成人
@@ -69,7 +69,7 @@ public class FolkData implements Serializable {
     //皮肤数
     public int skinnumber = 1;
     //npc 亲属
-    public Race folkRace ;
+    public Race folkRace;
     //亲属名称
     public String folkRaceName = "";
     /**
@@ -101,7 +101,7 @@ public class FolkData implements Serializable {
      **/
     public FolkAction action = FolkAction.WANDER;
     //NULL或到达时应打开的折叠操作
-    public FolkAction actionArrival ;
+    public FolkAction actionArrival;
     /**
      * 他们应该站在原地不动吗
      */
@@ -109,7 +109,7 @@ public class FolkData implements Serializable {
     /**
      * 目的地 目标为V3，如果没有，则为null
      */
-    public V3 destination ;
+    public V3 destination;
     /**
      * 其当前位置，包括维度（在工作和模拟工作时更新）
      */
@@ -143,9 +143,9 @@ public class FolkData implements Serializable {
     public static transient long anyFolkLastSpoke = 0L;
     //无法存储在JOB类中的各种与工作相关的变量
     //建筑物 参考他们正在建造的建筑（如果他们是建筑商）-bodge，但没有其他地方可以保存它
-    public Building theBuilding ;
+    public Building theBuilding;
     //地形成型器类型
-    public TerraformerType terraformerType ;
+    public TerraformerType terraformerType;
     //地形形成器半径
     public int terraformerRadius = 1;
 
@@ -153,10 +153,10 @@ public class FolkData implements Serializable {
     //设置库存
     private InventoryBasic villagerInventory;
     //实体人 对实体的引用，以便我们可以检查它的isDead（）并处理它等
-    public transient EntityFolk theEntity ;
+    public transient EntityFolk theEntity;
     //开始去的时间 当他们去和走路/微笑时设置，如果他们不能在40秒内到达那里，则用于向他们微笑
     public transient Long timeStartedGotoing = 0L;
-    public transient GotoMethod gotoMethod ;
+    public transient GotoMethod gotoMethod;
     //自上次保存以来的时间
     private transient long timeSinceLastSave = 0L;
     //自上次状态更新以来的时间
@@ -164,9 +164,9 @@ public class FolkData implements Serializable {
     //自最后一分钟起的时间
     private transient long timeSinceLastMinute = 0L;
     //它们发送到的位置，如果不发送，则为空
-    public transient V3 beamingTo ;
+    public transient V3 beamingTo;
     //挂起
-    private transient FolkData hangingWith ;
+    private transient FolkData hangingWith;
     //通话计数器
     private transient int talkCounter = 0;
     //交配阶段 -1今天没有0.0到0.9=有1.0=有
@@ -250,7 +250,7 @@ public class FolkData implements Serializable {
             //加载出npc
             V3 v = this.location;
             if (v == null) {
-                v = new V3(0,5,0);
+                v = new V3(0, 5, 0);
             }
             this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(v.theDimension));
             ModSimReloaded.theFolks.add(this);
@@ -447,7 +447,7 @@ public class FolkData implements Serializable {
                                 world.spawnEntityInWorld(this.theEntity);
                             }
                             this.entityId = this.theEntity.getEntityId();
-                            ModSimReloaded.log.info("FolkData:repawnEntity() " + this.name + " 在当前位置，x:" + this.location.xCoord + ",y:" + this.location.yCoord+ ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + this.theEntity.getEntityId());
+                            ModSimReloaded.log.info("FolkData:repawnEntity() " + this.name + " 在当前位置，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + this.theEntity.getEntityId());
                         }
 
                     }
@@ -467,7 +467,7 @@ public class FolkData implements Serializable {
     public static void triggerAllUpdates() {
         try {
             for (int f = 0; f < ModSimReloaded.theFolks.size(); f++) {
-                FolkData fd =  ModSimReloaded.theFolks.get(f);
+                FolkData fd = ModSimReloaded.theFolks.get(f);
                 fd.onUpdate();
             }
         } catch (Exception e) {
@@ -486,7 +486,7 @@ public class FolkData implements Serializable {
         try {
             this.location = newLocation.clone();
             if (this.theEntity != null) {
-                newLocation.addVector(Math.floor(newLocation.xCoord) + 0.5,newLocation.yCoord ,Math.floor(newLocation.zCoord) + 0.5);
+                newLocation.addVector(Math.floor(newLocation.xCoord) + 0.5, newLocation.yCoord, Math.floor(newLocation.zCoord) + 0.5);
                 this.theEntity.posX = newLocation.xCoord;
                 this.theEntity.posY = newLocation.yCoord;
                 this.theEntity.posZ = newLocation.zCoord;
@@ -570,11 +570,11 @@ public class FolkData implements Serializable {
                     //更新实体位置
                     this.updateLocationFromEntity();
                     V3 liveAt = null;
-                    if(this.getHome()!=null){
+                    if (this.getHome() != null) {
                         if (this.getHome().livingXYZ != null) {
                             liveAt = this.getHome().livingXYZ.clone();
                         }
-                    }else{
+                    } else {
                         this.getHomeForHomeless();
                     }
 
@@ -598,40 +598,40 @@ public class FolkData implements Serializable {
                         Building b = (Building) ModSimReloaded.theBuildings.get(rand.nextInt(ModSimReloaded.theBuildings.size()));
                         //获得距离建筑的距离
                         double dist = (double) this.location.getDistanceTo(b.primaryXYZ);
-                        //商业
-                        if (b.type.contentEquals("commercial") && dist < 40) {
-                            //是否有店主
-                            boolean hasShopKeeper = false;
-
-                            for (int f = 0; f < ModSimReloaded.theFolks.size(); f++) {
-                                //获得店主
-                                FolkData keeper = (FolkData) ModSimReloaded.theFolks.get(f);
-                                //店主被雇佣并且 店主在店里
-                                if (keeper.employedAt != null && keeper.employedAt.isSameCoordsAs(b.primaryXYZ, true, true)) {
-                                    hasShopKeeper = true;
+                        //农场
+                        String farm = I18n.format("container.sim.gui_Farm");
+                        if (dist < 100) {
+                            //商业
+                            if (b.type.contentEquals("commercial")) {
+                                //是否有店主
+                                boolean hasShopKeeper = false;
+                                for (int f = 0; f < ModSimReloaded.theFolks.size(); f++) {
+                                    //获得店主
+                                    FolkData keeper = (FolkData) ModSimReloaded.theFolks.get(f);
+                                    //店主被雇佣并且 店主在店里
+                                    if (keeper.employedAt != null && keeper.employedAt.isSameCoordsAs(b.primaryXYZ, true, true)) {
+                                        hasShopKeeper = true;
+                                        break;
+                                    }
+                                }
+                                //有店主
+                                if (hasShopKeeper) {
+                                    ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个距离之外。");
+                                    //设置走过去
+                                    this.gotoXYZ(b.primaryXYZ, null);
+                                    this.destination.doNotTimeout = true;
+                                    this.statusText = shopping + b.displayName;
+                                    gotWanderPoint = true;
+                                    if (this.hangingWith != null) {
+                                        //闲逛
+                                        this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
+                                        this.hangingWith.hangingWith = null;
+                                        this.hangingWith = null;
+                                    }
                                     break;
                                 }
-                            }
-                            //有店主
-                            if (hasShopKeeper) {
-                                ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个距离之外。");
-                                //设置走过去
-                                this.gotoXYZ(b.primaryXYZ, null);
-                                this.destination.doNotTimeout = true;
-                                this.statusText = shopping + b.displayName;
-                                gotWanderPoint = true;
-                                if (this.hangingWith != null) {
-                                    //闲逛
-                                    this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
-                                    this.hangingWith.hangingWith = null;
-                                    this.hangingWith = null;
-                                }
-                                break;
-                            }
-                        } else {
-                            //农场
-                            String farm = I18n.format("container.sim.gui_Farm");
-                            if (b.type.contentEquals("industrial") && dist < 40 && !b.displayName.toLowerCase().contains(farm)) {
+                                //工业
+                            } else if (b.type.contentEquals("industrial") && !b.displayName.toLowerCase().contains(farm)) {
                                 ModSimReloaded.log.info("FolkData: onUpdate() " + this.name + "距离" + b.displayName + " " + dist + " 个街区之外。");
                                 this.gotoXYZ(b.primaryXYZ, null);
                                 this.destination.doNotTimeout = true;
@@ -644,31 +644,29 @@ public class FolkData implements Serializable {
                                     this.hangingWith = null;
                                 }
                                 break;
-                            }
-                        }
-                        //住宅
-                        if (b.type.contentEquals("residential") && dist < 40 && this.hangingWith == null && b.tenants != null && b.tenants.size() > 0) {
-                            FolkData resy = getFolkByName((String) b.tenants.get(0));
-                            if (!resy.name.contentEquals(this.name) && resy.hangingWith == null) {
-                                if (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME) {
-                                    ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个街区之外。");
-                                    this.gotoXYZ(b.primaryXYZ, null);
-                                    gotWanderPoint = true;
-                                    hanging = I18n.format("container.sim.folk_data_Hanging");
-                                    this.statusText = hanging + resy.name;
-                                    resy.gotoXYZ(b.primaryXYZ, null);
-                                    if (this.destination != null) {
-                                        this.destination.doNotTimeout = true;
-                                    }
+                            } else if (b.type.contentEquals("residential") && this.hangingWith == null && b.tenants != null && b.tenants.size() > 0) {
+                                //住宅
+                                FolkData resy = getFolkByName((String) b.tenants.get(0));
+                                if (!resy.name.contentEquals(this.name) && resy.hangingWith == null) {
+                                    if (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME) {
+                                        ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个街区之外。");
+                                        this.gotoXYZ(b.primaryXYZ, null);
+                                        gotWanderPoint = true;
+                                        hanging = I18n.format("container.sim.folk_data_Hanging");
+                                        this.statusText = hanging + resy.name;
+                                        resy.gotoXYZ(b.primaryXYZ, null);
+                                        if (this.destination != null) {
+                                            this.destination.doNotTimeout = true;
+                                        }
 
-                                    resy.statusText = hanging + this.name;
-                                    this.hangingWith = resy;
-                                    resy.hangingWith = this;
-                                    break;
+                                        resy.statusText = hanging + this.name;
+                                        this.hangingWith = resy;
+                                        resy.hangingWith = this;
+                                        break;
+                                    }
                                 }
                             }
                         }
-
                     }
 
                     if (!gotWanderPoint) {
@@ -679,7 +677,7 @@ public class FolkData implements Serializable {
                         WorldServer world = MinecraftServer.getServer().worldServerForDimension(this.location.theDimension);
                         while (world.getBlockState(new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord)).getBlock() != null && wanderTo.yCoord < 255.0) {
                             //wanderTo.yCoord = wanderTo.yCoord + 1;
-                            wanderTo.addVector(wanderTo.xCoord,wanderTo.yCoord+1 ,wanderTo.zCoord);
+                            wanderTo.addVector(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
                         }
 
                         //ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
@@ -769,7 +767,7 @@ public class FolkData implements Serializable {
                         //ModSimReloaded.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
                         this.updateLocationFromEntity();
                         V3 temp = this.employedAt.clone();
-                        temp.addVector(temp.xCoord+5,temp.yCoord ,temp.zCoord);
+                        temp.addVector(temp.xCoord + 5, temp.yCoord, temp.zCoord);
                         //temp.xCoord += 5.0;
                         this.gotoXYZ(temp, GotoMethod.SHIFT);
                         this.gotoXYZ(this.employedAt, null);
@@ -890,9 +888,9 @@ public class FolkData implements Serializable {
                 if (System.currentTimeMillis() - this.timeSinceLastSave > (long) about10) {
                     Side side = FMLCommonHandler.instance().getEffectiveSide();
                     if (side == Side.SERVER) {
-                        UpdateFolkPositionPacket updateFolkPositionPacket=new UpdateFolkPositionPacket();
+                        UpdateFolkPositionPacket updateFolkPositionPacket = new UpdateFolkPositionPacket();
                         updateFolkPositionPacket.nbt = new NBTTagCompound();
-                        updateFolkPositionPacket.nbt.setString("NPCDaTa",this.location.toString() + ";" + this.name);
+                        updateFolkPositionPacket.nbt.setString("NPCDaTa", this.location.toString() + ";" + this.name);
                         NetWorkLoader.net.sendToServer(updateFolkPositionPacket);
                         this.saveThisFolk();
                     }
@@ -908,7 +906,7 @@ public class FolkData implements Serializable {
                 }
 
                 if (this.statusText.contains(hanging) || this.statusText.contains(shopping)) {
-                    if(this.destination == null && this.theEntity != null){
+                    if (this.destination == null && this.theEntity != null) {
                         this.talkCounter++;
                         if (this.talkCounter == 12) {
                             if (ConfigLoader.configFolkTalking) {
@@ -1264,13 +1262,13 @@ public class FolkData implements Serializable {
                     BlockPos blockPos = new BlockPos(ret.xCoord, ret.yCoord, ret.zCoord);
                     bid = p.worldObj.getBlockState(blockPos).getBlock();
                     if (p.worldObj.canSeeSky(blockPos) || p.dimension != 0) {
-                        if(bid != Blocks.leaves && bid == null){
+                        if (bid != Blocks.leaves && bid == null) {
                             found = true;
                         }
                     }
 
                     //ret.yCoord = ret.yCoord + 1;
-                    ret.addVector(ret.xCoord,ret.yCoord+1 ,ret.zCoord);
+                    ret.addVector(ret.xCoord, ret.yCoord + 1, ret.zCoord);
                     if (ret.yCoord > 200) {
                         break;
                     }
@@ -1497,7 +1495,7 @@ public class FolkData implements Serializable {
 
                     if (this.destination != null) {
                         if (this.gotoMethod == GotoMethod.SHIFT) {
-                            this.destination.addVector(this.destination.xCoord+0.5,this.destination.yCoord ,this.destination.zCoord+0.5);
+                            this.destination.addVector(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
                             if (this.theEntity != null) {
                                 this.theEntity.posX = this.destination.xCoord;
                                 this.theEntity.posY = this.destination.yCoord;
@@ -1560,13 +1558,13 @@ public class FolkData implements Serializable {
                     if (id1.getLocalizedName().contains("air") && id2.getLocalizedName().contains("air")) {
                         break;
                     }
-                    whereTo.addVector(whereTo.xCoord,whereTo.yCoord+1 ,whereTo.zCoord);
+                    whereTo.addVector(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord);
                     //whereTo.yCoord = whereTo.yCoord + 1;
                 }
                 //whereTo.xCoord = whereTo.xCoord + 1;
                 //whereTo.zCoord =  whereTo.zCoord + 1;
                 //whereTo.yCoord = whereTo.yCoord - 1.0;
-                whereTo.addVector(whereTo.xCoord+1,whereTo.yCoord-1 ,whereTo.zCoord+1);
+                whereTo.addVector(whereTo.xCoord + 1, whereTo.yCoord - 1, whereTo.zCoord + 1);
 
 
                 this.destination = whereTo.clone();
@@ -1621,7 +1619,7 @@ public class FolkData implements Serializable {
                 World theWorld = Minecraft.getMinecraft().theWorld;
                 for (int p = 0; p < 10; ++p) {
                     //仅需要粒子的客户端世界
-                    if(theWorld!=null){
+                    if (theWorld != null) {
                         if (!ConfigLoader.configDisableBeamEffect) {
                             theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.location.xCoord + random.nextDouble() - 0.5D, this.location.yCoord - 1.0, this.location.zCoord + random.nextDouble() - 0.5D, 0, -d4, 0);
                         }
@@ -1649,115 +1647,99 @@ public class FolkData implements Serializable {
             if (!folksFolder.exists()) {
                 folksFolder.mkdirs();
             }
-
-            boolean useNewFormat = false;
             for (File f : folksFolder.listFiles()) {
                 if (f.getName().endsWith(".sk2")) {
-                    useNewFormat = true;
-                    break;
-                }
-            }
+                    List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                    FolkData folkd = new FolkData();
+                    for (String line : strings) {
+                        if (line.contains("|")) {
+                            int m1 = line.indexOf("|");
+                            String name = line.substring(0, m1);
+                            String value = line.substring(m1 + 1);
 
-            if (useNewFormat) {
-                for (File f : folksFolder.listFiles()) {
-                    if (f.getName().endsWith(".sk2")) {
-                        List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
-                        FolkData folkd = new FolkData();
-                        for (String line : strings) {
-                            if (line.contains("|")) {
-                                int m1 = line.indexOf("|");
-                                String name = line.substring(0, m1);
-                                String value = line.substring(m1 + 1);
-
-                                try {
-                                    if (name.contentEquals("employedat")) {
-                                        if (!value.contentEquals("null")) {
-                                            String[] v = value.split(",");
-                                            double x = Double.parseDouble(v[0]);
-                                            double y = Double.parseDouble(v[1]);
-                                            double z = Double.parseDouble(v[2]);
-                                            folkd.employedAt = new V3(x,y,z);
-                                        }
-                                    } else if (name.contentEquals("vocation")) {
-                                        if (!value.contentEquals("null")) {
-                                            folkd.vocation = Vocation.valueOf(value);
-                                        }
-                                    } else if (name.contentEquals("name")) {
-                                        folkd.name = value;
-                                    } else if (name.contentEquals("age")) {
-                                        folkd.age = Integer.parseInt(value);
-                                    } else if (name.contentEquals("gender")) {
-                                        folkd.gender = Integer.parseInt(value);
-                                    } else if (name.contentEquals("skin")) {
-                                        folkd.skinnumber = Integer.parseInt(value);
-                                    } else if (name.contentEquals("levelfood")) {
-                                        folkd.levelFood = Integer.parseInt(value);
-                                    } else if (name.contentEquals("trait1")) {
-                                        folkd.trait1 = value;
-                                    } else if (name.contentEquals("trait2")) {
-                                        folkd.trait2 = value;
-                                    } else if (name.contentEquals("trait3")) {
-                                        folkd.trait3 = value;
-                                    } else if (name.contentEquals("trait4")) {
-                                        folkd.trait4 = value;
-                                    } else if (name.contentEquals("levelfun")) {
-                                        folkd.levelFun = Integer.parseInt(value);
-                                    } else if (name.contentEquals("levelbuilder")) {
-                                        folkd.levelBuilder = Float.parseFloat(value);
-                                    } else if (name.contentEquals("levelminer")) {
-                                        folkd.levelMiner = Float.parseFloat(value);
-                                    } else if (name.contentEquals("levelsoldier")) {
-                                        folkd.levelSoldier = Float.parseFloat(value);
-                                    } else if (name.contentEquals("stayput")) {
-                                        folkd.stayPut = Boolean.parseBoolean(value);
-                                    } else if (name.contentEquals("location")) {
+                            try {
+                                if (name.contentEquals("employedat")) {
+                                    if (!value.contentEquals("null")) {
                                         String[] v = value.split(",");
                                         double x = Double.parseDouble(v[0]);
                                         double y = Double.parseDouble(v[1]);
                                         double z = Double.parseDouble(v[2]);
-                                        folkd.location = new V3(x,y,z);
-                                    } else if (name.contentEquals("pregnancy")) {
-                                        folkd.pregnancyStage = Float.parseFloat(value);
-                                    } else if (name.contentEquals("building")) {
-                                        if (!value.contentEquals("null")) {
-                                            int m2 = value.indexOf("|");
-                                            int m3 = value.indexOf("||");
-                                            String fn = value.substring(0, m2);
-                                            String type = value.substring(m2 + 1, m3);
-                                            String dir = value.substring(m3 + 2);
-                                            folkd.theBuilding = Building.getBuildingForFolk(fn, type);
-                                            folkd.theBuilding.buildDirection = dir;
-                                        }
-                                    } else if (name.contentEquals("terraformtype")) {
-                                        if (!value.contentEquals("null")) {
-                                            folkd.terraformerType = TerraformerType.valueOf(value);
-                                        }
-                                    } else if (name.contentEquals("terraformradius")) {
-                                        folkd.terraformerRadius = Integer.parseInt(value);
+                                        folkd.employedAt = new V3(x, y, z);
                                     }
-                                } catch (Exception e) {
-                                    StackTraceElement element = e.getStackTrace()[0];
-                                    ModSimReloaded.log.error("加载NPC数据出错：" + e.getMessage() + "行数：" + element.getLineNumber());
+                                } else if (name.contentEquals("vocation")) {
+                                    if (!value.contentEquals("null")) {
+                                        folkd.vocation = Vocation.valueOf(value);
+                                    }
+                                } else if (name.contentEquals("name")) {
+                                    folkd.name = value;
+                                } else if (name.contentEquals("age")) {
+                                    folkd.age = Integer.parseInt(value);
+                                } else if (name.contentEquals("gender")) {
+                                    folkd.gender = Integer.parseInt(value);
+                                } else if (name.contentEquals("skin")) {
+                                    folkd.skinnumber = Integer.parseInt(value);
+                                } else if (name.contentEquals("levelfood")) {
+                                    folkd.levelFood = Integer.parseInt(value);
+                                } else if (name.contentEquals("trait1")) {
+                                    folkd.trait1 = value;
+                                } else if (name.contentEquals("trait2")) {
+                                    folkd.trait2 = value;
+                                } else if (name.contentEquals("trait3")) {
+                                    folkd.trait3 = value;
+                                } else if (name.contentEquals("trait4")) {
+                                    folkd.trait4 = value;
+                                } else if (name.contentEquals("levelfun")) {
+                                    folkd.levelFun = Integer.parseInt(value);
+                                } else if (name.contentEquals("levelbuilder")) {
+                                    folkd.levelBuilder = Float.parseFloat(value);
+                                } else if (name.contentEquals("levelminer")) {
+                                    folkd.levelMiner = Float.parseFloat(value);
+                                } else if (name.contentEquals("levelsoldier")) {
+                                    folkd.levelSoldier = Float.parseFloat(value);
+                                } else if (name.contentEquals("stayput")) {
+                                    folkd.stayPut = Boolean.parseBoolean(value);
+                                } else if (name.contentEquals("location")) {
+                                    String[] v = value.split(",");
+                                    double x = Double.parseDouble(v[0]);
+                                    double y = Double.parseDouble(v[1]);
+                                    double z = Double.parseDouble(v[2]);
+                                    folkd.location = new V3(x, y, z);
+                                } else if (name.contentEquals("pregnancy")) {
+                                    folkd.pregnancyStage = Float.parseFloat(value);
+                                } else if (name.contentEquals("building")) {
+                                    if (!value.contentEquals("null")) {
+                                        int m2 = value.indexOf("|");
+                                        int m3 = value.indexOf("||");
+                                        String fn = value.substring(0, m2);
+                                        String type = value.substring(m2 + 1, m3);
+                                        String dir = value.substring(m3 + 2);
+                                        folkd.theBuilding = Building.getBuildingForFolk(fn, type);
+                                        folkd.theBuilding.buildDirection = dir;
+                                    }
+                                } else if (name.contentEquals("terraformtype")) {
+                                    if (!value.contentEquals("null")) {
+                                        folkd.terraformerType = TerraformerType.valueOf(value);
+                                    }
+                                } else if (name.contentEquals("terraformradius")) {
+                                    folkd.terraformerRadius = Integer.parseInt(value);
                                 }
+                            } catch (Exception e) {
+                                StackTraceElement element = e.getStackTrace()[0];
+                                ModSimReloaded.log.error("加载NPC数据出错：" + e.getMessage() + "行数：" + element.getLineNumber());
                             }
                         }
-
-                        if (folkd != null) {
-                            ModSimReloaded.log.info("FolkData: loadAndSpawnFolks() 加载 " + folkd.name + " 使用新的文件系统");
-                            folkd.hasLoaded();
-                        }
                     }
-                }
-            } else {
-                //使用旧格式（仅第一次）
-                for (File f : folksFolder.listFiles()) {
-                    if (f.getName().endsWith(".suk")) {
-                        FolkData folkd = (FolkData) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
-                        if (folkd != null) {
-                            folkd.hasLoaded();
-                        } else {
-                            f.delete();
-                        }
+
+                    if (folkd != null) {
+                        ModSimReloaded.log.info("FolkData: loadAndSpawnFolks() 加载 " + folkd.name + " 使用新的文件系统");
+                        folkd.hasLoaded();
+                    }
+                } else if (f.getName().endsWith(".suk")) {
+                    FolkData folkd = (FolkData) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                    if (folkd != null) {
+                        folkd.hasLoaded();
+                    } else {
+                        f.delete();
                     }
                 }
             }

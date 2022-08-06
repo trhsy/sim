@@ -8,30 +8,55 @@ import net.minecraft.client.resources.I18n;
  * @apiNote
  */
 public enum Vocation {
+    //建筑师
     BUILDER,
+    //伐木工人
     LUMBERJACK,
+    //矿工
     MINER,
+    //农作物种植者
     CROPFARMER,
+    //面包师
     BAKER,
+    //士兵
     SOLDIER,
+    //牧羊人
     SHEPHERD,
+    //杂货商
     GROCER,
+    //快递员
     COURIER,
+    //商户
     MERCHANT,
+    //屠夫
     BUTCHER,
+    //养猪户
     PIGFARMER,
+    //牧牛人
     CATTLEFARMER,
+    //养鸡户
     CHICKENFARMER,
+    ///地形形成器
     TERRAFORMER,
+    //玻璃制造商
     GLASSMAKER,
+    //渔夫
     FISHERMAN,
+    //路径生成器
     PATHBUILDER,
+    //奶农
     DAIRYFARMER,
+    //奶酪制造商
     CHEESEMAKER,
+    //汉堡经理
     BURGERSMANAGER,
+    //汉堡厨师
     BURGERSFRYCOOK,
+    //汉堡服务员
     BURGERSWAITER,
+    //鸡蛋养殖场
     EGGFARMER,
+    //砖匠
     BRICKMAKER;
 
     private Vocation() {

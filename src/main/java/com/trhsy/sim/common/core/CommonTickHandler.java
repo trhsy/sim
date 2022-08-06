@@ -1,9 +1,13 @@
-package com.trhsy.sim.common.core.entity;
+package com.trhsy.sim.common.core;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.CourierTask;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.Relationship;
 import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.core.entity.functionality.MiningBox;
-import com.trhsy.sim.client.gui.GuiRunMod;
+import com.trhsy.sim.common.gui.GuiRunMod;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.Minecraft;
@@ -69,22 +73,23 @@ public class CommonTickHandler {
                 }
             }
             Long now = System.currentTimeMillis();
-            if (this.serverWorld != null) {
-                //触发NPC所有更新
-                FolkData.triggerAllUpdates();
-                //处理昼夜转换
-                ModSimReloaded.dayTransitionHandler();
-                //如果要升级的农场不为空则升级农场
-                if (ModSimReloaded.farmToUpgrade != null) {
-                    ModSimReloaded.upgradeFarm();
-                }
-                //需要拆除的方块不为空则
-                if (ModSimReloaded.demolishBlocks.size() > 0) {
-                    ModSimReloaded.demolishBlocks();
-                }
-            }
             //每秒一次
             if (now - this.lastSecondTickAt > 1000L) {
+                if (this.serverWorld != null) {
+                    ModSimReloaded.log.info("触发更新");
+                    //触发NPC所有更新
+                    FolkData.triggerAllUpdates();
+                    //处理昼夜转换
+                    ModSimReloaded.dayTransitionHandler();
+                    //如果要升级的农场不为空则升级农场
+                    if (ModSimReloaded.farmToUpgrade != null) {
+                        ModSimReloaded.upgradeFarm();
+                    }
+                    //需要拆除的方块不为空则
+                    if (ModSimReloaded.demolishBlocks.size() > 0) {
+                        ModSimReloaded.demolishBlocks();
+                    }
+                }
                 if (ModSim.proxy.ranStartup==false) {
                     //还没有启动——现在就这么做
                     //ModSimReloaded.log.info("Haven't run startup - doing that now");
@@ -104,10 +109,12 @@ public class CommonTickHandler {
                     //已经在启动中运行
                     if (!this.currentWorld.contentEquals(ModSimReloaded.getSavesDataFolder())){
                         if( now- this.lastReset > 30000L) {
-                            ModSimReloaded.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSimReloaded.getSavesDataFolder());
-                            this.currentWorld = ModSimReloaded.getSavesDataFolder();
-                            ModSim.proxy.ranStartup = false;
-                            ModSimReloaded.resetAndLoadNewWorld();
+                            if(ModSim.proxy.ranStartup == false){
+                                ModSimReloaded.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSimReloaded.getSavesDataFolder());
+                                this.currentWorld = ModSimReloaded.getSavesDataFolder();
+                                ModSim.proxy.ranStartup = false;
+                                ModSimReloaded.resetAndLoadNewWorld();
+                            }
                         }
                     }
                     //停止下雨MOD-在我的世界里一直下雨的时候实现了这个！
@@ -117,7 +124,7 @@ public class CommonTickHandler {
                         }
                     }
                 }
-
+                now = System.currentTimeMillis();
                 this.lastSecondTickAt = now;
             }
             now=System.currentTimeMillis();

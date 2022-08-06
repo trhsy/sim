@@ -1,4 +1,4 @@
-package com.trhsy.sim.client.gui;
+package com.trhsy.sim.common.gui;
 
 import com.google.common.collect.Lists;
 import com.trhsy.sim.common.loader.ConfigLoader;

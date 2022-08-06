@@ -34,9 +34,9 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     public BlockLiving() {
         super(Material.carpet, TYPE, EnumBlockLiving.class);
         //this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLiving.WHITE));
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1, 0.0625F, 1);
         this.setHardness(10.0F);
-        this.setResistance(1.0F);
+        this.setResistance(1);
         this.setUnlocalizedName("livingBlock");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
@@ -78,7 +78,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     protected void setBlockBoundsFromMeta(int meta) {
         int i = 0;
         float f = (float) (1 * (1 + i)) / 16.0F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1, f, 1);
     }
 
     @Override

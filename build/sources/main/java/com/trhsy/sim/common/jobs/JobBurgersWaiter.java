@@ -4,20 +4,18 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ItemLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -33,7 +31,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobBurgersWaiter extends Job {
 
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public int runDelay = 1000;
     private long timeSinceLastRun = 0L;
@@ -48,7 +46,7 @@ public class JobBurgersWaiter extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -107,18 +105,18 @@ public class JobBurgersWaiter extends Job {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBurgersWaiter-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
 
     private void stageServing() {
         try {
-            CopyOnWriteArrayList<V3> serve = this.theStore.getSpecialBlocks(2);
+            List<V3> serve = this.theStore.getSpecialBlocks(2);
             if (!serve.isEmpty()) {
-                CopyOnWriteArrayList<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
+                List<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
                 if (!theChests.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)serve.get(0), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ((V3)serve.get(0), null);
 
                     try {
                         this.theFolk.destination.destinationAcc = 0.3D;
@@ -164,12 +162,12 @@ public class JobBurgersWaiter extends Job {
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSTORE;
-                CopyOnWriteArrayList<V3> back = this.theStore.getSpecialBlocks(2);
+                List<V3> back = this.theStore.getSpecialBlocks(2);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)back.get(0), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ((V3)back.get(0), null);
                 }
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

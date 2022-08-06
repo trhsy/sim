@@ -5,14 +5,13 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameMode;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FarmType;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameMode;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FarmType;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -21,15 +20,12 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -49,7 +45,7 @@ public class JobCropFarmer extends Job implements Serializable {
     //职业
     public Vocation vocation = null;
     //实体人
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     //状态
     public Stage theStage=null;
 
@@ -60,7 +56,7 @@ public class JobCropFarmer extends Job implements Serializable {
     //养殖箱
     private transient FarmingBox farmingBlock = null;
 
-    private transient CopyOnWriteArrayList<IInventory> farmingChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> farmingChests = new CopyOnWriteArrayList();
     //去哪里
     private transient String farmDir = "";
     //未破坏统计
@@ -106,7 +102,7 @@ public class JobCropFarmer extends Job implements Serializable {
             }
             if (this.theFolk.destination == null) {
                 //目的地为空重新设置 为雇佣地
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
 
             }
             //设置养殖箱位置
@@ -220,7 +216,7 @@ public class JobCropFarmer extends Job implements Serializable {
             this.theFolk.stayPut = true;
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist > 3) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
 
             if (this.farmingChests.isEmpty()) {
@@ -231,9 +227,9 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.step = 1;
                 this.theFolk.stayPut = true;
                 if (this.theFolk.gender == 0) {
-                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1.0F, 1.0F, false);
+                    this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
                 } else {
-                    this.jobWorld.playSound(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
+                    this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
                 }
             }
         } catch (Exception e) {
@@ -263,13 +259,13 @@ public class JobCropFarmer extends Job implements Serializable {
             }
             try {
                 //第一个标记下方的地面
-                this.mx = m1.x.intValue();
-                this.my = m1.y.intValue() - 1;
-                this.mz = m1.z.intValue();
-                int m2x = m2.x.intValue();
-                int m1x = m1.x.intValue();
-                int m2z = m2.z.intValue();
-                int m1z = m1.z.intValue();
+                this.mx = (int) m1.xCoord;
+                this.my = (int) (m1.yCoord - 1);
+                this.mz = (int)m1.zCoord;
+                int m2x = (int)m2.xCoord;
+                int m1x = (int)m1.xCoord;
+                int m2z = (int)m2.zCoord;
+                int m1z = (int)m1.zCoord;
                 if (m2x == m1x) {
                     if (m2z > this.mz) {
                         this.farmDir = "z+";
@@ -327,7 +323,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
             this.xxx = this.mx + this.xo;
             //下面的地面 Y
-            this.yyy = this.farmingBlock.location.y.intValue();
+            this.yyy = (int) this.farmingBlock.location.yCoord;
             //农业箱
             this.zzz = this.mz + this.zo;
 
@@ -362,7 +358,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 //计算位置
                 int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 3) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
                 this.step = 2;
@@ -403,7 +399,7 @@ public class JobCropFarmer extends Job implements Serializable {
                         V3 harvestBlock = new V3((double) this.xxx, (double) this.yyy, (double) this.zzz, this.jobWorld.provider.getDimensionId());
 
                         //开采时翻译块
-                        //CopyOnWriteArrayList<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
+                        //List<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, harvestBlock);
                         //甘蔗/仙人掌农场
                         if (this.farmingBlock.farmType == FarmType.SUGAR && this.farmingBlock.farmType == FarmType.CACTUS) {
                             Block sid1 = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy + 1, this.zzz)).getBlock();
@@ -533,7 +529,7 @@ public class JobCropFarmer extends Job implements Serializable {
             if (this.theFolk.theEntity != null) {
                 this.theFolk.gotoXYZ(v3center, null);
                 //获取AABB中的实体，排除实体
-                List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.x, v3center.y, v3center.z, v3center.x + 1.0, v3center.y + 1.0, v3center.z + 1.0).expand(3.0, 2.0, 3.0));
+                List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.xCoord, v3center.yCoord, v3center.zCoord, v3center.xCoord + 1.0, v3center.yCoord + 1.0, v3center.zCoord + 1.0).expand(3.0, 2.0, 3.0));
                 Iterator iterator1 = list1.iterator();
                 if (!list1.isEmpty()) {
                     do {
@@ -541,11 +537,11 @@ public class JobCropFarmer extends Job implements Serializable {
                             break;
                         }
 
-                        Entity entity1 = (Entity) iterator1.next();
-                        if (!(entity1 instanceof EntityItem)) {
+                        Entity entity = (Entity) iterator1.next();
+                        if (!(entity instanceof EntityItem)) {
                             continue;
                         }
-                        EntityItem entityitem = (EntityItem) entity1;
+                        EntityItem entityitem = (EntityItem) entity;
                         ItemStack is = entityitem.getEntityItem();
 //                        ItemFood food = (ItemFood) is.getItem();
 //                        if (food != null) {
@@ -600,7 +596,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             if (this.id != Blocks.dirt && this.id != Blocks.grass) {
                                 BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
                                 this.jobWorld.setBlockState(blockPos2, Blocks.dirt.getDefaultState(), 3);
-                                this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
+                                this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
                                 hasTilled = true;
                                 ModSimReloaded.states.credits -= 0.01F;
                             }
@@ -638,7 +634,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             if ((boolean1 && boolean2) || this.farmingBlock.farmType == FarmType.WHEAT || this.farmingBlock.farmType == FarmType.CARROT || this.farmingBlock.farmType == FarmType.POTATO || this.farmingBlock.farmType == FarmType.CUSTOM) {
                                 BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
                                 this.jobWorld.setBlockState(blockPos2, Blocks.farmland.getDefaultState(), 3);
-                                this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
+                                this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
                                 hasTilled = true;
                                 ModSimReloaded.states.credits -= 0.01F;
                             }
@@ -843,7 +839,7 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
 
                         if (hasSown) {
-                            this.jobWorld.playSound((double) this.xxx, (double) this.yyy, (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1.0F, 1.0F, false);
+                            this.jobWorld.playSound((double) this.xxx, (double) this.yyy, (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
                             GameStates var10000 = ModSimReloaded.states;
                             var10000.credits -= 0.01F;
                             this.doneSomeWork = true;
@@ -878,7 +874,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 Random ra = new Random();
                 int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 3) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
                 int r = ra.nextInt(10);
@@ -943,7 +939,7 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("农民去上班出错了:" + e.getMessage()+"行数："+element.getLineNumber());

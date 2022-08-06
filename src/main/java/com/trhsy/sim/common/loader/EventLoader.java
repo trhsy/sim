@@ -1,7 +1,5 @@
 package com.trhsy.sim.common.loader;
 
-import com.trhsy.sim.client.ClientTickHandler;
-import com.trhsy.sim.common.core.entity.CommonTickHandler;
 import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.block.state.IBlockState;

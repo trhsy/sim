@@ -29,11 +29,11 @@ public class BlockLightBox extends EnumBlock<EnumBlockLightBox> {
     public BlockLightBox() {
         super(Material.wood,TYPE,EnumBlockLightBox.class);
         //this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLightBox.WHITE));
-        this.setLightLevel(1.0F);
+        this.setLightLevel(1);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(2.0F);
-        this.setResistance(1.0F);
+        this.setResistance(1);
         this.setTickRandomly(true);
         //this.setTextureName(ModSim.MODID + ":" + "light_block_White");
         this.setUnlocalizedName("lightBox");

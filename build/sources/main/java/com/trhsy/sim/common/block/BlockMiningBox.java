@@ -1,11 +1,11 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.functionality.Marker;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
-import com.trhsy.sim.common.gui.blocks.GuiMining;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.Marker;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
+import com.trhsy.sim.client.gui.blocks.GuiMining;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -20,8 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 /**
  * @ClassName BlockMiningBox
@@ -34,7 +33,7 @@ public class BlockMiningBox extends Block {
         super(Material.wood);
         this.setStepSound(Block.soundTypeWood);
         this.setHardness(2.0F);
-        this.setResistance(1.0F);
+        this.setResistance(1);
         this.setUnlocalizedName("miningBox");
         //this.setTextureName(ModSim.MODID + ":" + "mining_box");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
@@ -80,7 +79,7 @@ public class BlockMiningBox extends Block {
 
             MiningBox m = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             ModSimReloaded.theMiningBoxes.remove(m);
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1, 1);
             super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("挖矿箱onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -92,11 +91,11 @@ public class BlockMiningBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
         MiningBox miningBlock = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
 
             miningBlock.location.theDimension = thePlayer.dimension;
-            CopyOnWriteArrayList<FolkData> folks = FolkData.getFolksByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
+            List<FolkData> folks = FolkData.getFolksByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
             GuiMining ui = new GuiMining(miningBlock, folks);
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);

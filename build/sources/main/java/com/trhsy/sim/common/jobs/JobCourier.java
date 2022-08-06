@@ -4,13 +4,12 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.CourierTask;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.CourierTask;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
@@ -18,7 +17,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -34,12 +33,12 @@ public class JobCourier extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207901844141L;
 
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private transient CopyOnWriteArrayList<CourierTask> courierTasks = new CopyOnWriteArrayList();
-    private transient CopyOnWriteArrayList<IInventory> chests = new CopyOnWriteArrayList();
+    private transient List<CourierTask> courierTasks = new CopyOnWriteArrayList();
+    private transient List<IInventory> chests = new CopyOnWriteArrayList();
     private transient int currentTask = 0;
     private transient long timeSinceLastCycle = 0L;
     private transient V3 pickup;
@@ -58,7 +57,7 @@ public class JobCourier extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -110,7 +109,7 @@ public class JobCourier extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobCourier-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -153,8 +152,8 @@ public class JobCourier extends Job implements Serializable {
                     V3 d = this.pickup.clone();
                     //Double var4 = d.y;
                     //Double var5 = d.y = d.y + 1;
-                    d=new V3(d.x,d.y+1,d.z,d.theDimension);
-                    this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
+                    d=new V3(d.xCoord,d.yCoord+1,d.zCoord,d.theDimension);
+                    this.theFolk.gotoXYZ(d, null);
                     this.onRoute = true;
                 } else {
                     this.theStage = Stage.IDLE;
@@ -228,7 +227,7 @@ public class JobCourier extends Job implements Serializable {
                 this.dropoff = task.dropoff.clone();
             } else {
                 this.theStage = Stage.ATDEPOT;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 if (task != null) {
                     this.courierTasks.remove(task);
                 }
@@ -242,15 +241,12 @@ public class JobCourier extends Job implements Serializable {
             if (!this.onRoute) {
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.On_my") + this.dropoff.name + I18n.format("container.sim.job.courier.drop_off");
                 V3 d = this.dropoff.clone();
-                d=new V3(d.x,d.y+1,d.z,d.theDimension);
+                d=new V3(d.xCoord,d.yCoord+1,d.zCoord,d.theDimension);
                 if (d == null) {
                     d = this.theFolk.employedAt.clone();
                 }
-
-                Double var4 = d.y;
-                Double var5 = d.y = d.y + 1;
                 this.theFolk.beamMeTo(d);
-                this.theFolk.gotoXYZ(d, GotoMethod.BEAM);
+                this.theFolk.gotoXYZ(d, null);
                 this.onRoute = true;
             } else {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -274,7 +270,7 @@ public class JobCourier extends Job implements Serializable {
         try {
             CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
             V3 dropoff = task.dropoff;
-            dropoff=new V3(dropoff.x,dropoff.y+1,dropoff.z,dropoff.theDimension);
+            dropoff=new V3(dropoff.xCoord,dropoff.yCoord+1,dropoff.zCoord,dropoff.theDimension);
             if (dropoff == null) {
                 dropoff = this.theFolk.employedAt;
                 dropoff.name = I18n.format("container.sim.job.courier.The_depot");
@@ -322,7 +318,7 @@ public class JobCourier extends Job implements Serializable {
                 this.currentTask = 0;
                 this.timeSinceLastCycle = System.currentTimeMillis();
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.theStage = Stage.IDLE;
             } else {
                 this.theStage = Stage.GOINGTOPICKUP;
@@ -344,7 +340,7 @@ public class JobCourier extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.Arrived");
                 this.theStage = Stage.ATDEPOT;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
 
         } catch (Exception e) {
