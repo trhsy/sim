@@ -12,18 +12,18 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
 /**
  * 客户端的
  */
-public class ClientTickHandler {
+
+public class ClientTickHandler extends GuiScreen{
     public ClientTickHandler() {
     }
     Minecraft mc = Minecraft.getMinecraft();
@@ -36,17 +36,21 @@ public class ClientTickHandler {
 
     @SubscribeEvent
     public void tick(WorldTickEvent event) {
-    }
-
-    @SubscribeEvent
-    public void tick(ClientTickEvent event) {
         try {
             this.onTickInGame();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+    }
 
+    @SubscribeEvent
+    public void tick(ClientTickEvent event) {
+    }
+
+    @SubscribeEvent
+    public void tick(RenderTickEvent event) {
+        this.onGui();
     }
     public void onTickInGame() {
         try {
@@ -88,7 +92,44 @@ public class ClientTickHandler {
 
 
     }
+    public void onGui() {
+        if (this.mc.currentScreen == null) {
+            String worldname = "unknown";
 
+            try {
+                if (ModSimReloaded.states.gameModeNumber == 10) {
+                    return;
+                }
+
+//                worldname = this.mc.getIntegratedServer().getFolderName();
+                worldname = MinecraftServer.getServer().getFolderName();
+            } catch (Exception var4) {
+                this.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy2"), this.width / 2, 2, 16777215);
+                return;
+            }
+
+            try {
+                if (ModSim.proxy.ranStartup) {
+                    int HUDoffset = 0;
+                    if (this.mc.thePlayer.dimension == 1) {
+                        HUDoffset = 20;
+                    }
+
+                    HUDoffset = HUDoffset + ConfigLoader.configHUDoffset;
+                    if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                        this.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size(), this.width / 2, 2 + HUDoffset, 16777215);
+                    } else {
+                        this.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size() + "   " + I18n.format("container.sim.trhsy4") + ": " + ModSimReloaded.displayMoney(ModSimReloaded.states.credits), this.width / 2, 2 + HUDoffset, 16777215);
+                    }
+                } else {
+                    this.drawString(this.mc.fontRendererObj, I18n.format("container.sim.trhsy5"), this.width / 2, 2, 16777215);
+                }
+            } catch (Exception var3) {
+                var3.printStackTrace();
+            }
+        }
+
+    }
     private void beamingPlayer() {
         try {
             Minecraft mc = Minecraft.getMinecraft();

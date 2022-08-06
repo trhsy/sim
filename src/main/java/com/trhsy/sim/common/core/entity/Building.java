@@ -87,6 +87,7 @@ public class Building implements Serializable {
     //特除的空气方块
     public List<V3> blockSpecial = new CopyOnWriteArrayList();
     //运行初始化线程
+    private static boolean runningInitThread = false;
     private static boolean runningInitThread1 = false;
     private static boolean runningInitThread2 = false;
     private static boolean runningInitThread3 = false;
@@ -1107,7 +1108,7 @@ public class Building implements Serializable {
                         }
                         build.loadStructure();
                         updateBuildings(build);
-                    }else{
+                    } else {
                         if (fName.endsWith(".suk")) {
                             build = (Building) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
                             if (build != null) {
@@ -1138,28 +1139,30 @@ public class Building implements Serializable {
         }
         return build;
     }
-    public static void updateBuildings(Building build){
-        List<Building> buildings=ModSimReloaded.theBuildings;
-        Boolean flag=true;
-        for(int i=0;i<buildings.size();i++){
-            Building b=buildings.get(i);
-            if(b.displayName.equals(build.displayName)){
-                buildings.set(i,build);
+
+    public static void updateBuildings(Building build) {
+        List<Building> buildings = ModSimReloaded.theBuildings;
+        Boolean flag = true;
+        for (int i = 0; i < buildings.size(); i++) {
+            Building b = buildings.get(i);
+            if (b.displayName.equals(build.displayName)) {
+                buildings.set(i, build);
                 break;
-            }else{
-                flag=false;
+            } else {
+                flag = false;
             }
         }
-        if(!flag){
+        if (!flag) {
             ModSimReloaded.theBuildings.add(build);
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 检查租户
-     * @Date 20:39 2022/8/6
+     * @Date 23:01 2022/8/6
      * @Param []
-     * @return void
      **/
     public static void checkTenants() {
         try {
@@ -1198,71 +1201,23 @@ public class Building implements Serializable {
      */
     public static void initialiseAllBuildings() {
         try {
-            if (!runningInitThread1) {
-                Thread residential = new Thread(new Runnable() {
+                Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Building.runningInitThread1 = true;
                         Building.buildingsRes.clear();
                         Building.initBuildingsOfType("residential");
-                        Building.runningInitThread1 = false;
-                        ModSimReloaded.log.info("residential: 线程已完成从磁盘初始化所有建筑物");
-                    }
-                }, "residential_sim");
-                residential.start();
-            }
-            if (!runningInitThread2) {
-                Thread commercial = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Building.runningInitThread2 = true;
                         Building.buildingsCom.clear();
                         Building.initBuildingsOfType("commercial");
-                        Building.runningInitThread2 = false;
-                        ModSimReloaded.log.info("commercial: 线程已完成从磁盘初始化所有建筑物");
-                    }
-                }, "commercial_sim");
-                commercial.start();
-            }
-            if (!runningInitThread3) {
-                Thread industrial = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Building.runningInitThread3 = true;
                         Building.buildingsInd.clear();
                         Building.initBuildingsOfType("industrial");
-                        Building.runningInitThread3 = false;
-                        ModSimReloaded.log.info("industrial: 线程已完成从磁盘初始化所有建筑物");
-                    }
-                }, "industrial_sim");
-                industrial.start();
-            }
-            if (!runningInitThread4) {
-                Thread other = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Building.runningInitThread4 = true;
                         Building.buildingsOth.clear();
                         Building.initBuildingsOfType("other");
-                        Building.runningInitThread4 = false;
-                        ModSimReloaded.log.info("other: 线程已完成从磁盘初始化所有建筑物");
-                    }
-                }, "other_sim");
-                other.start();
-            }
-            if (!runningInitThread5) {
-                Thread special = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Building.runningInitThread5 = true;
                         Building.buildingsSpec.clear();
                         Building.initBuildingsOfType("special");
-                        Building.runningInitThread5 = false;
-                        ModSimReloaded.log.info("special: 线程已完成从磁盘初始化所有建筑物");
+                        ModSimReloaded.log.info("所有建筑加载完成");
                     }
-                }, "special_sim");
-                special.start();
-            }
+                }, "thread_sim");
+                thread.start();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

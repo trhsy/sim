@@ -1,5 +1,6 @@
 package com.trhsy.sim.common;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.config.SimConfigSync;
 import com.trhsy.sim.common.core.CommonTickHandler;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
