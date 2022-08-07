@@ -15,7 +15,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
@@ -43,8 +43,14 @@ public class CommonTickHandler {
     public static final SimpleNetworkWrapper INSTANCE;
 
     @SubscribeEvent
-    public void tick(TickEvent.WorldTickEvent event) {
+    public void tick(WorldTickEvent event) {
+//        System.out.println("ServerWorldTickEvent");
 
+    }
+
+    @SubscribeEvent
+    public void tick(ServerTickEvent event) {
+//        System.out.println("ServerTickEvent");
         try {
             if (this.ticks == 200) {
                 this.onTickInGame();
@@ -57,11 +63,6 @@ public class CommonTickHandler {
         }
     }
 
-    @SubscribeEvent
-    public void tick(TickEvent.ServerTickEvent event) {
-//        System.out.println("111000");
-    }
-
     public void onTickInGame() {
         try {
             if (this.mc.currentScreen != null && this.mc.currentScreen.toString().toLowerCase().contains("guimainmenu")) {
@@ -71,7 +72,7 @@ public class CommonTickHandler {
             if (FMLCommonHandler.instance().getSide().isClient()) {
                 if (ModSimReloaded.states.gameModeNumber == 10) {
                     ModSim.proxy.ranStartup = true;
-                    return;
+//                    return;
                 }
             }
             Long now = System.currentTimeMillis();
@@ -109,18 +110,17 @@ public class CommonTickHandler {
                     ModSimReloaded.log.info("运行重置世界功能");
                     //ModSimReloaded.log.info("Running Reset World Function");
                     ModSimReloaded.resetAndLoadNewWorld();
+                    this.lastReset=now;
                     //数据包已经有了一个解决方案——它们需要被修复。
                 } else {
                     //用于检测世界变化-这仍然是一个bug，当玩家通过主菜单切换时不会卸载世界
                     //已经在启动中运行
                     if (!this.currentWorld.contentEquals(ModSimReloaded.getSavesDataFolder())){
                         if( now- this.lastReset > 30000L) {
-                            if(ModSim.proxy.ranStartup == false){
                                 ModSimReloaded.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSimReloaded.getSavesDataFolder());
                                 this.currentWorld = ModSimReloaded.getSavesDataFolder();
                                 ModSim.proxy.ranStartup = false;
                                 ModSimReloaded.resetAndLoadNewWorld();
-                            }
                         }
                     }
                     //停止下雨MOD-在我的世界里一直下雨的时候实现了这个！

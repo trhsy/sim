@@ -116,6 +116,11 @@ public class ModSimReloaded {
      */
     public static void resetAndLoadNewWorld() {
         try {
+            if (ModSim.proxy.ranStartup) {
+                ModSimReloaded.log.info("模拟城市程序已经运行");
+                ModSim.proxy.ranStartup = true;
+                return;
+            }
             //获取有效的线程
             Side side = FMLCommonHandler.instance().getEffectiveSide();
             ModSimReloaded.log.info("重置并加载世界 " + side.toString() + " SIDE");
@@ -171,11 +176,7 @@ public class ModSimReloaded {
                 }
             } else {
                 if (states.gameModeNumber >= 0) {
-                    if (ModSim.proxy.ranStartup) {
-                        ModSimReloaded.log.info("模拟城市程序已经运行");
-                        ModSim.proxy.ranStartup = true;
-                        return;
-                    }
+
                     //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
                     String welcome = I18n.format("container.sim.welcome");
                     String welcomes = I18n.format("container.sim.welcomes");

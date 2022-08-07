@@ -1,8 +1,6 @@
-credits|100976.18
-credits|100984.52
-gamemode|0
-dayofweek|6
-dayofweek|1
+credits|10.0
+gamemode|-1
+dayofweek|0
 lastupdatecheck|0
 folkNoise|true
 disableBeamEffect|false
@@ -11,4 +9,3 @@ populationLimit|100
 uid|0
 cheatMode|false
 population|0
-

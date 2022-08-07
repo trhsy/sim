@@ -1201,9 +1201,9 @@ public class Building implements Serializable {
      */
     public static void initialiseAllBuildings() {
         try {
-                Thread thread = new Thread(new Runnable() {
+                /*Thread thread = new Thread(new Runnable() {
                     @Override
-                    public void run() {
+                    public void run() {*/
                         Building.buildingsRes.clear();
                         Building.initBuildingsOfType("residential");
                         Building.buildingsCom.clear();
@@ -1214,10 +1214,10 @@ public class Building implements Serializable {
                         Building.initBuildingsOfType("other");
                         Building.buildingsSpec.clear();
                         Building.initBuildingsOfType("special");
-                        ModSimReloaded.log.info("所有建筑加载完成");
-                    }
+                        ModSimReloaded.log.info("***********************所有建筑加载完成***************");
+                    /*}
                 }, "thread_sim");
-                thread.start();
+                thread.start();*/
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

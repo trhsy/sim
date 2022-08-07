@@ -14,8 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.*;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 import java.util.Random;
 
@@ -36,16 +35,17 @@ public class ClientTickHandler extends GuiScreen{
 
     @SubscribeEvent
     public void tick(WorldTickEvent event) {
+
+    }
+
+    @SubscribeEvent
+    public void tick(ClientTickEvent event) {
         try {
             this.onTickInGame();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("客户端tick出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-    }
-
-    @SubscribeEvent
-    public void tick(ClientTickEvent event) {
     }
 
     @SubscribeEvent
@@ -56,15 +56,15 @@ public class ClientTickHandler extends GuiScreen{
         try {
             if (this.mc.currentScreen != null) {
                 if (this.mc.currentScreen.toString().toLowerCase().contains("guimainmenu")) {
-                    //ModSimReloaded.log.info("ClientTH: 在Gui主菜单中");
+//                    ModSimReloaded.log.info("ClientTH: 在Gui主菜单中");
                 }
             }
             if (beamingTo != null) {
                 this.beamingPlayer();
             }
             if (ModSimReloaded.states.gameModeNumber <= 0) {
-                return;
-                //ModSim.proxy.ranStartup = true;
+                ModSim.proxy.ranStartup = true;
+//                return;
             }
             if (mc.currentScreen != null) {
                 if (mc.currentScreen.toString().toLowerCase().contains("ingamemenu")) {
