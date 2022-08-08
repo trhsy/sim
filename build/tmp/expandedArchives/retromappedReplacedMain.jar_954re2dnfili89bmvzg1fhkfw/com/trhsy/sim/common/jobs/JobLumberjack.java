@@ -4,13 +4,12 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -25,8 +24,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -43,12 +40,12 @@ public class JobLumberjack extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207904887741L;
     //职业
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private transient CopyOnWriteArrayList<IInventory> millChests = new CopyOnWriteArrayList();
-    private transient V3 foundWoodAt = new V3();
+    private transient List<IInventory> millChests = new CopyOnWriteArrayList();
+    private transient V3 foundWoodAt = null;
     private transient Building lumbermill = null;
     private transient long startedGoing = 0L;
     public transient boolean isChopping = false;
@@ -67,7 +64,7 @@ public class JobLumberjack extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -126,7 +123,7 @@ public class JobLumberjack extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLumberjack-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -179,7 +176,7 @@ public class JobLumberjack extends Job implements Serializable {
             this.theFolk.isWorking = false;
             if (!this.onRoute) {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.Going");
-                this.theFolk.gotoXYZ(this.foundWoodAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.foundWoodAt, null);
                 this.startedGoing = System.currentTimeMillis();
                 this.onRoute = true;
             } else {
@@ -221,9 +218,9 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theFolk.isWorking = true;
 
                 for (i = 0; i < 20; i++) {
-                    l = this.foundWoodAt.x.intValue();
-                    int y = this.foundWoodAt.y.intValue() - 1;
-                    int z = this.foundWoodAt.z.intValue();
+                    l = (int)this.foundWoodAt.field_72450_a;
+                    int y = (int)(this.foundWoodAt.field_72448_b - 1);
+                    int z = (int)this.foundWoodAt.field_72449_c;
                     if (this.jobWorld == null) {
                         this.theFolk.selfFire();
                         return;
@@ -232,14 +229,14 @@ public class JobLumberjack extends Job implements Serializable {
                     if (this.jobWorld.func_180495_p(new BlockPos(l, y, z)).func_177230_c() != Blocks.field_150364_r) {
                         break;
                     }
-
-                    this.foundWoodAt.y = (double) y;
+                    this.foundWoodAt.func_72441_c(this.foundWoodAt.field_72450_a,y,this.foundWoodAt.field_72449_c);
+                    //this.foundWoodAt.yCoord = (double) y;
                 }
 
                 this.step = 2;
             } else if (this.step == 2) {
 
-                if (this.jobWorld.func_180495_p(new BlockPos(this.foundWoodAt.x.intValue(), this.foundWoodAt.y.intValue(), this.foundWoodAt.z.intValue())).func_177230_c() == Blocks.field_150364_r) {
+                if (this.jobWorld.func_180495_p(new BlockPos(this.foundWoodAt.field_72450_a, this.foundWoodAt.field_72448_b, this.foundWoodAt.field_72449_c)).func_177230_c() == Blocks.field_150364_r) {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -247,7 +244,7 @@ public class JobLumberjack extends Job implements Serializable {
 
                             for (int d = 0; d < 12; ++d) {
                                 try {
-                                    mc.field_71441_e.func_72980_b(theFolk.location.x, theFolk.location.y, theFolk.location.z, "step.wood", 1.0F, 1.0F, false);
+                                    mc.field_71441_e.func_72980_b(theFolk.location.field_72450_a, theFolk.location.field_72448_b, theFolk.location.field_72449_c, "step.wood", 1, 1, false);
                                 } catch (Exception e) {
                                 }
 
@@ -284,7 +281,7 @@ public class JobLumberjack extends Job implements Serializable {
                     }
 
                     List<ItemStack> log = this.translateBlockWhenMined(this.jobWorld, this.foundWoodAt);
-                    BlockPos blockPos1 = new BlockPos(this.foundWoodAt.x.intValue(), this.foundWoodAt.y.intValue(), this.foundWoodAt.z.intValue());
+                    BlockPos blockPos1 = new BlockPos(this.foundWoodAt.field_72450_a, this.foundWoodAt.field_72448_b, this.foundWoodAt.field_72449_c);
                     this.jobWorld.func_180501_a(blockPos1, Blocks.field_150350_a.func_176223_P(), 3);
                     if (log != null) {
                         for (l = 0; l < log.size(); ++l) {
@@ -296,7 +293,8 @@ public class JobLumberjack extends Job implements Serializable {
                     count = this.getInventoryCount(this.theFolk, Blocks.field_150364_r);
                     this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.Got") + count + I18n.func_135052_a("container.sim.job.lumberjack.farmer.logs_so_far");
                     this.theFolk.stayPut = false;
-                    this.foundWoodAt.y = this.foundWoodAt.y + 1;
+                    this.foundWoodAt.func_72441_c(this.foundWoodAt.field_72450_a, this.foundWoodAt.field_72448_b + 1,this.foundWoodAt.field_72449_c);
+                    //this.foundWoodAt.yCoord = this.foundWoodAt.yCoord + 1;
                     this.step = 2;
                 } else if (this.step == 4) {
                     if (this.theFolk.isSpawned()) {
@@ -338,7 +336,7 @@ public class JobLumberjack extends Job implements Serializable {
             if (this.step == 1) {
                 //将木材送回伐木场箱子
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.Delivering");
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.step = 2;
             } else {
                 if (this.step == 2) {
@@ -389,7 +387,7 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.a_lumberjack");
                 this.theStage = Stage.ARRIVEDATMILL;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -404,9 +402,9 @@ public class JobLumberjack extends Job implements Serializable {
             if (this.theFolk.isSpawned()) {
                 List<Entity> list1 = this.jobWorld.func_72839_b(this.theFolk.theEntity, new AxisAlignedBB(this.theFolk.theEntity.field_70165_t, this.theFolk.theEntity.field_70163_u, this.theFolk.theEntity.field_70161_v, this.theFolk.theEntity.field_70165_t + 1, this.theFolk.theEntity.field_70163_u + 1, this.theFolk.theEntity.field_70161_v + 1).func_72314_b(3, 4, 3));
                 if (!list1.isEmpty()) {
-                    for (Entity entity1 : list1) {
-                        if (entity1 instanceof EntityItem) {
-                            EntityItem entityitem = (EntityItem) entity1;
+                    for (Entity entity : list1) {
+                        if (entity instanceof EntityItem) {
+                            EntityItem entityitem = (EntityItem) entity;
                             ItemStack is = entityitem.func_92059_d();
                             Item ID = is.func_77973_b();
                             if (ID == Item.func_150898_a(Blocks.field_150345_g)) {
@@ -433,7 +431,7 @@ public class JobLumberjack extends Job implements Serializable {
                     this.jobWorld.func_175656_a(blockPos1, is.func_176223_P());
                 }
             } else {
-                BlockPos blockPos1 = new BlockPos(this.theFolk.location.x.intValue(), this.theFolk.location.y.intValue(), this.theFolk.location.z.intValue());
+                BlockPos blockPos1 = new BlockPos(this.theFolk.location.field_72450_a, this.theFolk.location.field_72448_b, this.theFolk.location.field_72449_c);
                 this.jobWorld.func_180501_a(blockPos1, Blocks.field_150345_g.func_176223_P(), 3);
             }
         } catch (Exception e) {

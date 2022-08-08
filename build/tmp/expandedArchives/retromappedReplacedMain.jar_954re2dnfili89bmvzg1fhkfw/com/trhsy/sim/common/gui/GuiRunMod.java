@@ -1,7 +1,6 @@
 package com.trhsy.sim.common.gui;
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
+import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -43,7 +42,7 @@ public class GuiRunMod extends GuiScreen {
             this.field_146292_n.add(new GuiButton(2, this.field_146294_l / 2 - 75, 140, creative));
             this.field_146292_n.add(new GuiButton(3, this.field_146294_l / 2 - 75, 190, hardcore));
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiRunMod-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 

@@ -2,13 +2,12 @@ package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.entity.*;
-import com.trhsy.sim.common.entity.EntityAlignBeam;
-import com.trhsy.sim.common.entity.EntityConBox;
-import com.trhsy.sim.common.entity.EntityFolk;
-import com.trhsy.sim.common.entity.EntityWindmill;
+import com.trhsy.sim.common.core.entity.EntityAlignBeam;
+import com.trhsy.sim.common.core.entity.EntityConBox;
+import com.trhsy.sim.common.core.entity.EntityFolk;
+import com.trhsy.sim.common.core.entity.EntityWindmill;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

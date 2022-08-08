@@ -18,7 +18,7 @@ public class ItemCopperAxe extends ItemAxe {
      * @Description //TODO 枚举 WOOD，STONE，IRON，EMERALD，GOLD
      * 木头、石头、铁、钻石、金
      * WOOD(0, 59, 2.0F, 0.0F, 15),
-     * STONE(1, 131, 4.0F, 1.0F, 5),
+     * STONE(1, 131, 4.0F, 1, 5),
      * IRON(2, 250, 6.0F, 2.0F, 14),
      * EMERALD(3, 1561, 8.0F, 3.0F, 10),
      * GOLD(0, 32, 12.0F, 0.0F, 22);

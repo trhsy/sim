@@ -4,10 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -15,7 +15,6 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathEntity;
-import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -38,7 +37,7 @@ public class JobSoldier extends Job implements Serializable {
     //职业
     public Vocation vocation = null;
     //实体人
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     //阶段
     public Stage theStage;
     public transient int runDelay = 1000;
@@ -60,7 +59,7 @@ public class JobSoldier extends Job implements Serializable {
             }
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -88,7 +87,7 @@ public class JobSoldier extends Job implements Serializable {
                 if (this.theStage == Stage.IDLE) {
                     this.theStage = Stage.ONPATROL;
                     if (this.theFolk.destination == null) {
-                        this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                     }
                 } else if (this.theStage == Stage.ONPATROL) {
                     this.stageOnPatrol();
@@ -98,7 +97,7 @@ public class JobSoldier extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobSoldier-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -117,7 +116,7 @@ public class JobSoldier extends Job implements Serializable {
             if (this.theFolk.isSpawned()) {
                 EntityPlayer player = this.jobWorld.func_72977_a(this.theFolk.theEntity.field_70165_t, this.theFolk.theEntity.field_70163_u, this.theFolk.theEntity.field_70161_v, 50);
                 if (player != null) {
-                    this.theFolk.gotoXYZ(new V3(player.field_70165_t, player.field_70163_u, player.field_70161_v, player.field_71093_bK), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(new V3(player.field_70165_t, player.field_70163_u, player.field_70161_v, player.field_71093_bK), null);
                 }
             }
 
@@ -127,17 +126,14 @@ public class JobSoldier extends Job implements Serializable {
             int xo = this.rand.nextInt(60) - 30;
             int zo = this.rand.nextInt(60) - 30;
 
-            V3 wanderTo;
-            Double var6;
-
-            for(wanderTo = new V3(this.theFolk.location.x + (double)xo, this.theFolk.location.y - 1, this.theFolk.location.z + (double)zo, this.theFolk.location.theDimension); this.jobWorld.func_180495_p(new BlockPos(wanderTo.x.intValue(), wanderTo.y.intValue(), wanderTo.z.intValue())).func_177230_c() != null && wanderTo.y < 255; var6 = wanderTo.y = wanderTo.y + 1) {
-                Double var5 = wanderTo.y;
+            V3 wanderTo = new V3(this.theFolk.location.field_72450_a + (double)xo, this.theFolk.location.field_72448_b - 1, this.theFolk.location.field_72449_c + (double)zo, this.theFolk.location.theDimension);
+            if( this.jobWorld.func_180495_p(new BlockPos(wanderTo.field_72450_a, wanderTo.field_72448_b, wanderTo.field_72449_c)).func_177230_c() != null && wanderTo.field_72448_b < 255) {
+                wanderTo.func_72441_c(wanderTo.field_72450_a,wanderTo.field_72448_b,wanderTo.field_72449_c);
             }
-
-            this.theFolk.gotoXYZ(wanderTo, GotoMethod.WALK);
+            this.theFolk.gotoXYZ(wanderTo, null);
         }
 
-        List list = this.jobWorld.func_72839_b(this.mc.field_71439_g, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0, this.theFolk.employedAt.y + 1.0, this.theFolk.employedAt.z + 1.0).func_72314_b(100, 5.0, 100));
+        List list = this.jobWorld.func_72839_b(this.mc.field_71439_g, new AxisAlignedBB(this.theFolk.employedAt.field_72450_a, this.theFolk.employedAt.field_72448_b, this.theFolk.employedAt.field_72449_c, this.theFolk.employedAt.field_72450_a + 1.0, this.theFolk.employedAt.field_72448_b + 1.0, this.theFolk.employedAt.field_72449_c + 1.0).func_72314_b(100, 5.0, 100));
 
 
             this.badGuy = this.findClosestHostileMob(list);
@@ -147,7 +143,7 @@ public class JobSoldier extends Job implements Serializable {
                 this.count = 100;
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.soldier.farmer.Going") + this.badGuy.getEntityData();
                 if (this.theFolk.isSpawned()) {
-                    this.theFolk.gotoXYZ(new V3(this.badGuy.field_70165_t, this.badGuy.field_70163_u, this.badGuy.field_70161_v, this.theFolk.theEntity.field_71093_bK), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(new V3(this.badGuy.field_70165_t, this.badGuy.field_70163_u, this.badGuy.field_70161_v, this.theFolk.theEntity.field_71093_bK), null);
                 } else {
                     this.theFolk.gotoXYZ(new V3(this.badGuy.field_70165_t, this.badGuy.field_70163_u, this.badGuy.field_70161_v, this.theFolk.theEntity.field_71093_bK), GotoMethod.SHIFT);
                 }
@@ -170,7 +166,7 @@ public class JobSoldier extends Job implements Serializable {
                 int distance = (int)this.theFolk.theEntity.func_70032_d(this.badGuy);
                 if (this.theFolk.destination == null) {
                     if (this.theFolk.isSpawned()) {
-                        this.theFolk.gotoXYZ(new V3(this.badGuy.field_70165_t, this.badGuy.field_70163_u, this.badGuy.field_70161_v, this.theFolk.theEntity.field_71093_bK), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(new V3(this.badGuy.field_70165_t, this.badGuy.field_70163_u, this.badGuy.field_70161_v, this.theFolk.theEntity.field_71093_bK), null);
                     } else {
                         this.theFolk.gotoXYZ(new V3(this.badGuy.field_70165_t, this.badGuy.field_70163_u, this.badGuy.field_70161_v, this.theFolk.theEntity.field_71093_bK), GotoMethod.SHIFT);
                     }
@@ -192,7 +188,7 @@ public class JobSoldier extends Job implements Serializable {
 
                     if (this.badGuy.field_70128_L) {
                         this.theStage = Stage.ONPATROL;
-                        this.runDelay = (int)((11.0F - this.theFolk.levelSoldier) * 500.0F * (11.0F - this.theFolk.levelSoldier));
+                        this.runDelay = (int)((11 - this.theFolk.levelSoldier) * 500.0F * (11 - this.theFolk.levelSoldier));
                         ++this.kills;
                         if (this.theFolk.levelSoldier < 10.0F) {
                             FolkData var10000 = this.theFolk;
@@ -250,7 +246,7 @@ public class JobSoldier extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.soldier.farmer.Reporting");
                 this.theStage = Stage.ONPATROL;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -1,11 +1,11 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
-import com.trhsy.sim.common.entity.functionality.Marker;
-import com.trhsy.sim.common.gui.blocks.GuiFarming;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.functionality.Marker;
+import com.trhsy.sim.client.gui.blocks.GuiFarming;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -31,7 +31,7 @@ public class BlockFarmingBox extends Block {
         super(Material.field_151575_d);
         this.func_149672_a(Block.field_149766_f);
         this.func_149711_c(2.0F);
-        this.func_149752_b(1.0F);
+        this.func_149752_b(1);
         this.func_149663_c("farmingBox");
         //this.setTextureName(ModSim.MODID + ":" + "farming_box");
         this.func_149647_a(CreativeTabsLoader.tabSimU);
@@ -53,7 +53,7 @@ public class BlockFarmingBox extends Block {
 
             FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
             ModSimReloaded.theFarmingBoxes.remove(m);
-            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1, 1);
             super.func_176206_d(world, blockPos,iBlockState);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -113,18 +113,19 @@ public class BlockFarmingBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer entityplayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1, 1);
 
-            try {
                 FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), entityplayer.field_71093_bK));
-                farmingBlock.location.theDimension = entityplayer.field_71093_bK;
-                FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), entityplayer.field_71093_bK));
-                Minecraft mc = Minecraft.func_71410_x();
-                mc.func_147108_a(new GuiFarming(farmingBlock, folk));
-            } catch (Exception e) {
-                String farming_box_Sorry = I18n.func_135052_a("container.sim.farming_box_Sorry");
-                ModSimReloaded.sendChat(farming_box_Sorry);
-            }
+                if(farmingBlock!=null){
+                    farmingBlock.location.theDimension = entityplayer.field_71093_bK;
+                    FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), entityplayer.field_71093_bK));
+                    Minecraft mc = Minecraft.func_71410_x();
+                    mc.func_147108_a(new GuiFarming(farmingBlock, folk));
+                }else{
+                    String farming_box_Sorry = I18n.func_135052_a("container.sim.farming_box_Sorry");
+                    ModSimReloaded.sendChat(farming_box_Sorry);
+                }
+
 
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -12,8 +12,6 @@ processing com\trhsy\sim\client\entity\model\ModelAlignBeam.java
 processing com\trhsy\sim\client\entity\model\ModelConBox.java
 processing com\trhsy\sim\client\entity\model\ModelFolkFemale.java
 processing com\trhsy\sim\client\entity\model\ModelWindmill.java
-processing com\trhsy\sim\client\gui\ConfigGui.java
-processing com\trhsy\sim\client\gui\GuiRunMod.java
 processing com\trhsy\sim\client\gui\KeyHandler.java
 processing com\trhsy\sim\client\gui\SimMenuWarning.java
 processing com\trhsy\sim\client\gui\ThreadGuiMerchant.java
@@ -82,13 +80,13 @@ processing com\trhsy\sim\common\config\PulseManager.java
 processing com\trhsy\sim\common\config\SimConfig.java
 processing com\trhsy\sim\common\config\SimConfigSync.java
 processing com\trhsy\sim\common\config\TinkerNetwork.java
+processing com\trhsy\sim\common\core\CommonTickHandler.java
 processing com\trhsy\sim\common\core\Pulse.java
 processing com\trhsy\sim\common\core\PulseMeta.java
 processing com\trhsy\sim\common\core\Unused.java
 processing com\trhsy\sim\common\core\entity\Building.java
 processing com\trhsy\sim\common\core\entity\BuildingReader.java
 processing com\trhsy\sim\common\core\entity\Commodity.java
-processing com\trhsy\sim\common\core\entity\CommonTickHandler.java
 processing com\trhsy\sim\common\core\entity\CourierTask.java
 processing com\trhsy\sim\common\core\entity\EntityAlignBeam.java
 processing com\trhsy\sim\common\core\entity\EntityConBox.java
@@ -134,6 +132,8 @@ processing com\trhsy\sim\common\core\entity\infrastructure\InfrastructureWater.j
 processing com\trhsy\sim\common\core\entity\job.java
 processing com\trhsy\sim\common\creativetab\CreativeTabsFMLTutor.java
 processing com\trhsy\sim\common\event\PlayerRightClickGrassBlockEvent.java
+processing com\trhsy\sim\common\gui\ConfigGui.java
+processing com\trhsy\sim\common\gui\GuiRunMod.java
 processing com\trhsy\sim\common\item\ItemBlockFolkLivingBlock.java
 processing com\trhsy\sim\common\item\ItemBlockMeta.java
 processing com\trhsy\sim\common\item\ItemBucketMilk.java

@@ -12,170 +12,179 @@ See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more i
          by: Searge, ProfMobius, Fesh0r,         
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\api\resources', not found
 Version string '1.8.9-1.0.0 Beta' does not match SemVer specification 
 You should try SemVer : http://semver.org/
 All projects evaluated.
 Selected primary task 'build' from project :
 Tasks to be executed: [task ':deobfCompileDummyTask', task ':deobfProvidedDummyTask', task ':sourceApiJava', task ':compileApiJava', task ':processApiResources', task ':apiClasses', task ':sourceMainJava', task ':compileJava', task ':processResources', task ':classes', task ':jar', task ':sourceTestJava', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':extractMcpData', task ':extractMcpMappings', task ':getVersionJson', task ':extractUserdev', task ':genSrgs', task ':reobfJar', task ':extractRangemapReplacedMain', task ':retromapReplacedMain', task ':sourceJar', task ':assemble', task ':check', task ':build']
-:deobfCompileDummyTask (Thread[main,5,main]) started.
+:deobfCompileDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfCompileDummyTask
 Executing task ':deobfCompileDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfCompileDummyTask (Thread[main,5,main]) completed. Took 0.014 secs.
-:deobfProvidedDummyTask (Thread[main,5,main]) started.
+:deobfCompileDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.006 secs.
+:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfProvidedDummyTask
 Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfProvidedDummyTask (Thread[main,5,main]) completed. Took 0.01 secs.
-:sourceApiJava (Thread[main,5,main]) started.
+:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.004 secs.
+:sourceApiJava (Thread[Daemon worker,5,main]) started.
 :sourceApiJava
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\java', not found
-Executing task ':sourceApiJava' (up-to-date check took 0.019 secs) due to:
-  Value of input property 'replacements' has changed for task ':sourceApiJava'
-:sourceApiJava (Thread[main,5,main]) completed. Took 0.035 secs.
-:compileApiJava (Thread[main,5,main]) started.
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\outputFileStates.bin
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\fileHashes.bin
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\fileSnapshots.bin
+Invalidating in-memory cache of H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\.gradle\2.7\taskArtifacts\taskArtifacts.bin
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\api\java', not found
+Skipping task ':sourceApiJava' as it is up-to-date (took 0.025 secs).
+:sourceApiJava UP-TO-DATE
+:sourceApiJava (Thread[Daemon worker,5,main]) completed. Took 0.027 secs.
+:compileApiJava (Thread[Daemon worker,5,main]) started.
 :compileApiJava
 Skipping task ':compileApiJava' as it has no source files.
 :compileApiJava UP-TO-DATE
-:compileApiJava (Thread[main,5,main]) completed. Took 0.008 secs.
-:processApiResources (Thread[main,5,main]) started.
+:compileApiJava (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:processApiResources (Thread[Daemon worker,5,main]) started.
 :processApiResources
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\api\resources', not found
 Skipping task ':processApiResources' as it has no source files.
 :processApiResources UP-TO-DATE
-:processApiResources (Thread[main,5,main]) completed. Took 0.011 secs.
-:apiClasses (Thread[main,5,main]) started.
+:processApiResources (Thread[Daemon worker,5,main]) completed. Took 0.003 secs.
+:apiClasses (Thread[Daemon worker,5,main]) started.
 :apiClasses
 Skipping task ':apiClasses' as it has no actions.
 :apiClasses UP-TO-DATE
-:apiClasses (Thread[main,5,main]) completed. Took 0.011 secs.
-:sourceMainJava (Thread[main,5,main]) started.
+:apiClasses (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:sourceMainJava (Thread[Daemon worker,5,main]) started.
 :sourceMainJava
-Executing task ':sourceMainJava' (up-to-date check took 4.035 secs) due to:
-  No history is available.
-:sourceMainJava (Thread[main,5,main]) completed. Took 4.827 secs.
-:compileJava (Thread[main,5,main]) started.
+Executing task ':sourceMainJava' (up-to-date check took 1.5 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\common\block\BlockConstructorBox.java has changed.
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\common\block\BlockCityBox.java has changed.
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\common\item\tool\ItemTinPickaxe.java has changed.
+:sourceMainJava (Thread[Daemon worker,5,main]) completed. Took 3.48 secs.
+:compileJava (Thread[Daemon worker,5,main]) started.
 :compileJava
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-Executing task ':compileJava' (up-to-date check took 2.611 secs) due to:
-  No history is available.
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+Executing task ':compileJava' (up-to-date check took 0.377 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\classes\main\com\trhsy\sim\client\entity\RenderEntityFolk.class has changed.
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\classes\main\com\trhsy\sim\common\jobs\JobCourier.class has changed.
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\classes\main\com\trhsy\sim\common\block\BlockWindmill.class has changed.
 All input files are considered out-of-date for incremental task ':compileJava'.
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
 Compiling with JDK Java compiler API.
 警告: [options] 未与 -source 1.6 一起设置引导类路径
-注: D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\client\ClientProxy.java使用或覆盖了已过时的 API。
+注: H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\client\ClientProxy.java使用或覆盖了已过时的 API。
 注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
 注: 某些输入文件使用了未经检查或不安全的操作。
 注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
 1 个警告
-:compileJava (Thread[main,5,main]) completed. Took 7.187 secs.
-:processResources (Thread[main,5,main]) started.
+:compileJava (Thread[Daemon worker,5,main]) completed. Took 4.022 secs.
+:processResources (Thread[Daemon worker,5,main]) started.
 :processResources
-Executing task ':processResources' (up-to-date check took 9.578 secs) due to:
-  No history is available.
-:processResources (Thread[main,5,main]) completed. Took 12.207 secs.
-:classes (Thread[main,5,main]) started.
+Executing task ':processResources' (up-to-date check took 0.311 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\resources\main\assets\sim\lang\en_US.lang has changed.
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\resources\main\assets\sim\lang\zh_CN.lang has changed.
+:processResources (Thread[Daemon worker,5,main]) completed. Took 7.032 secs.
+:classes (Thread[Daemon worker,5,main]) started.
 :classes
 Skipping task ':classes' as it has no actions.
-:classes (Thread[main,5,main]) completed. Took 0.004 secs.
-:jar (Thread[main,5,main]) started.
+:classes (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:jar (Thread[Daemon worker,5,main]) started.
 :jar
-Executing task ':jar' (up-to-date check took 0.25 secs) due to:
-  No history is available.
-:jar (Thread[main,5,main]) completed. Took 1.241 secs.
-:sourceTestJava (Thread[main,5,main]) started.
+Executing task ':jar' (up-to-date check took 0.117 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\libs\simulated-1.8.9-1.0.0 Beta.jar has changed.
+:jar (Thread[Daemon worker,5,main]) completed. Took 1.328 secs.
+:sourceTestJava (Thread[Daemon worker,5,main]) started.
 :sourceTestJava
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\test\java', not found
-Executing task ':sourceTestJava' (up-to-date check took 0.006 secs) due to:
-  Value of input property 'replacements' has changed for task ':sourceTestJava'
-:sourceTestJava (Thread[main,5,main]) completed. Took 0.032 secs.
-:compileTestJava (Thread[main,5,main]) started.
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\test\java', not found
+Skipping task ':sourceTestJava' as it is up-to-date (took 0.002 secs).
+:sourceTestJava UP-TO-DATE
+:sourceTestJava (Thread[Daemon worker,5,main]) completed. Took 0.003 secs.
+:compileTestJava (Thread[Daemon worker,5,main]) started.
 :compileTestJava
 Skipping task ':compileTestJava' as it has no source files.
 :compileTestJava UP-TO-DATE
-:compileTestJava (Thread[main,5,main]) completed. Took 0.007 secs.
-:processTestResources (Thread[main,5,main]) started.
+:compileTestJava (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:processTestResources (Thread[Daemon worker,5,main]) started.
 :processTestResources
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\test\resources', not found
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\src\test\resources', not found
 Skipping task ':processTestResources' as it has no source files.
 :processTestResources UP-TO-DATE
-:processTestResources (Thread[main,5,main]) completed. Took 0.008 secs.
-:testClasses (Thread[main,5,main]) started.
+:processTestResources (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:testClasses (Thread[Daemon worker,5,main]) started.
 :testClasses
 Skipping task ':testClasses' as it has no actions.
 :testClasses UP-TO-DATE
-:testClasses (Thread[main,5,main]) completed. Took 0.007 secs.
-:test (Thread[main,5,main]) started.
+:testClasses (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
+:test (Thread[Daemon worker,5,main]) started.
 :test
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\build\classes\test', not found
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\classes\test', not found
 Skipping task ':test' as it has no source files.
 :test UP-TO-DATE
-:test (Thread[main,5,main]) completed. Took 0.009 secs.
-:extractMcpData (Thread[main,5,main]) started.
+:test (Thread[Daemon worker,5,main]) completed. Took 0.002 secs.
+:extractMcpData (Thread[Daemon worker,5,main]) started.
 :extractMcpData
 Skipping task ':extractMcpData' as task onlyIf is false.
 :extractMcpData SKIPPED
-:extractMcpData (Thread[main,5,main]) completed. Took 1.162 secs.
-:extractMcpMappings (Thread[main,5,main]) started.
+:extractMcpData (Thread[Daemon worker,5,main]) completed. Took 0.743 secs.
+:extractMcpMappings (Thread[Daemon worker,5,main]) started.
 :extractMcpMappings
 Skipping task ':extractMcpMappings' as task onlyIf is false.
 :extractMcpMappings SKIPPED
-:extractMcpMappings (Thread[main,5,main]) completed. Took 0.542 secs.
-:getVersionJson (Thread[main,5,main]) started.
+:extractMcpMappings (Thread[Daemon worker,5,main]) completed. Took 0.517 secs.
+:getVersionJson (Thread[Daemon worker,5,main]) started.
 :getVersionJson
-Executing task ':getVersionJson' (up-to-date check took 0.06 secs) due to:
+Executing task ':getVersionJson' (up-to-date check took 0.014 secs) due to:
   Task.upToDateWhen is false.
-:getVersionJson (Thread[main,5,main]) completed. Took 0.45 secs.
-:extractUserdev (Thread[main,5,main]) started.
+:getVersionJson (Thread[Daemon worker,5,main]) completed. Took 1.91 secs.
+:extractUserdev (Thread[Daemon worker,5,main]) started.
 :extractUserdev
-Skipping task ':extractUserdev' as it is up-to-date (took 0.533 secs).
+Skipping task ':extractUserdev' as it is up-to-date (took 0.044 secs).
 :extractUserdev UP-TO-DATE
-:extractUserdev (Thread[main,5,main]) completed. Took 0.545 secs.
-:genSrgs (Thread[main,5,main]) started.
+:extractUserdev (Thread[Daemon worker,5,main]) completed. Took 0.046 secs.
+:genSrgs (Thread[Daemon worker,5,main]) started.
 :genSrgs
 Skipping task ':genSrgs' as task onlyIf is false.
 :genSrgs SKIPPED
-:genSrgs (Thread[main,5,main]) completed. Took 0.251 secs.
-:reobfJar (Thread[main,5,main]) started.
+:genSrgs (Thread[Daemon worker,5,main]) completed. Took 0.283 secs.
+:reobfJar (Thread[Daemon worker,5,main]) started.
 :reobfJar
 Executing task ':reobfJar' (up-to-date check took 0.0 secs) due to:
   Task.upToDateWhen is false.
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-:reobfJar (Thread[main,5,main]) completed. Took 2.396 secs.
-:extractRangemapReplacedMain (Thread[main,5,main]) started.
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+:reobfJar (Thread[Daemon worker,5,main]) completed. Took 3.211 secs.
+:extractRangemapReplacedMain (Thread[Daemon worker,5,main]) started.
 :extractRangemapReplacedMain
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-Executing task ':extractRangemapReplacedMain' (up-to-date check took 0.131 secs) due to:
-  No history is available.
-D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-:extractRangemapReplacedMain (Thread[main,5,main]) completed. Took 14.263 secs.
-:retromapReplacedMain (Thread[main,5,main]) started.
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+Executing task ':extractRangemapReplacedMain' (up-to-date check took 0.059 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\retromapping\replacedMain.rangemap has changed.
+H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java
+file or directory 'H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\libs', not found
+:extractRangemapReplacedMain (Thread[Daemon worker,5,main]) completed. Took 14.211 secs.
+:retromapReplacedMain (Thread[Daemon worker,5,main]) started.
 :retromapReplacedMain
-Executing task ':retromapReplacedMain' (up-to-date check took 0.05 secs) due to:
-  No history is available.
+Executing task ':retromapReplacedMain' (up-to-date check took 0.024 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\retromapping\retromappedReplacedMain.jar has changed.
 remapping source...
-:retromapReplacedMain (Thread[main,5,main]) completed. Took 1.55 secs.
-:sourceJar (Thread[main,5,main]) started.
+:retromapReplacedMain (Thread[Daemon worker,5,main]) completed. Took 2.462 secs.
+:sourceJar (Thread[Daemon worker,5,main]) started.
 :sourceJar
-Executing task ':sourceJar' (up-to-date check took 0.553 secs) due to:
-  No history is available.
-:sourceJar (Thread[main,5,main]) completed. Took 1.387 secs.
-:assemble (Thread[main,5,main]) started.
+Executing task ':sourceJar' (up-to-date check took 0.67 secs) due to:
+  Output file H:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\libs\simulated-1.8.9-1.0.0 Beta-sources.jar has changed.
+:sourceJar (Thread[Daemon worker,5,main]) completed. Took 1.764 secs.
+:assemble (Thread[Daemon worker,5,main]) started.
 :assemble
 Skipping task ':assemble' as it has no actions.
-:assemble (Thread[main,5,main]) completed. Took 0.003 secs.
-:check (Thread[main,5,main]) started.
+:assemble (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:check (Thread[Daemon worker,5,main]) started.
 :check
 Skipping task ':check' as it has no actions.
 :check UP-TO-DATE
-:check (Thread[main,5,main]) completed. Took 0.005 secs.
-:build (Thread[main,5,main]) started.
+:check (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:build (Thread[Daemon worker,5,main]) started.
 :build
 Skipping task ':build' as it has no actions.
-:build (Thread[main,5,main]) completed. Took 0.003 secs.
+:build (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
 
 BUILD SUCCESSFUL
 
-Total time: 1 mins 36.84 secs
+Total time: 47.837 secs

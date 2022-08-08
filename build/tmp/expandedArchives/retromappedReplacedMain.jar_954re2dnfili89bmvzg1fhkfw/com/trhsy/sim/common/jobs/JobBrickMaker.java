@@ -1,11 +1,10 @@
 package com.trhsy.sim.common.jobs;
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -17,7 +16,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -26,12 +25,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobBrickMaker extends Job implements Serializable {
     private static final long serialVersionUID = 1177111222904279141L;
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient V3 blockOfClay = null;
-    private transient CopyOnWriteArrayList<IInventory> factoryChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> factoryChests = new CopyOnWriteArrayList();
     private transient TileEntityFurnace factoryFurnace = null;
     private long lastGotocmd = 0L;
     private int gotoCount = 0;
@@ -48,7 +47,7 @@ public class JobBrickMaker extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -111,7 +110,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBrickMaker-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -147,7 +146,7 @@ public class JobBrickMaker extends Job implements Serializable {
             double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
             if (dist > 4.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.blockOfClay, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.blockOfClay, null);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
             }
@@ -166,7 +165,7 @@ public class JobBrickMaker extends Job implements Serializable {
         this.theFolk.updateLocationFromEntity();
         double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
         if (dist > 6.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
-            this.theFolk.gotoXYZ(this.blockOfClay, GotoMethod.WALK);
+            this.theFolk.gotoXYZ(this.blockOfClay, null);
             this.theFolk.stayPut = false;
             this.lastGotocmd = System.currentTimeMillis();
             ++this.gotoCount;
@@ -175,7 +174,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 V3 bs = this.blockOfClay.clone();
                 /*Double var5 = bs.y;
                 Double var6 = bs.y = bs.y + 1.0;*/
-                bs = new V3(bs.x - 1.0, bs.y + 1.0, bs.z, bs.theDimension);
+                bs = new V3(bs.field_72450_a - 1.0, bs.field_72448_b + 1.0, bs.field_72449_c, bs.theDimension);
                 this.theFolk.beamMeTo(bs);
             }
 
@@ -185,9 +184,9 @@ public class JobBrickMaker extends Job implements Serializable {
                 }
 
                 this.gotoCount = 0;
-                BlockPos blockPos = new BlockPos(this.blockOfClay.x.intValue(), this.blockOfClay.y.intValue(), this.blockOfClay.z.intValue());
+                BlockPos blockPos = new BlockPos(this.blockOfClay.field_72450_a, this.blockOfClay.field_72448_b, this.blockOfClay.field_72449_c);
                 this.jobWorld.func_180501_a(blockPos, Blocks.field_150350_a.func_176223_P(), 3);
-                this.mc.field_71441_e.func_72980_b(this.blockOfClay.x, this.blockOfClay.y, this.blockOfClay.z, "step.sand", 1.0F, 1.0F, false);
+                this.mc.field_71441_e.func_72980_b(this.blockOfClay.field_72450_a, this.blockOfClay.field_72448_b, this.blockOfClay.field_72449_c, "step.sand", 1, 1, false);
                 this.theFolk.getVillagerInventory().func_70299_a(0, new ItemStack(Item.func_150898_a(Blocks.field_150435_aG), 1));
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.JobBrickMaker3") + this.theFolk.getVillagerInventory().func_70302_i_();
                 GameStates var10000 = ModSimReloaded.states;
@@ -214,8 +213,8 @@ public class JobBrickMaker extends Job implements Serializable {
                 V3 adj = this.theFolk.employedAt.clone();
                 /*Double var3 = adj.y;
                 Double var4 = adj.y = adj.y + 1.0;*/
-                adj = new V3(adj.x - 1.0, adj.y + 1.0, adj.z, adj.theDimension);
-                this.theFolk.gotoXYZ(adj, GotoMethod.WALK);
+                adj = new V3(adj.field_72450_a - 1.0, adj.field_72448_b + 1.0, adj.field_72449_c, adj.theDimension);
+                this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -227,7 +226,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -336,7 +335,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.cheese_maker.the_factory");
                 this.theStage = Stage.USEFURNACE;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -1,6 +1,8 @@
 package com.trhsy.sim.common.loader;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.client.gui.blocks.GuiControlBox;
+import com.trhsy.sim.common.core.entity.V3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -10,7 +12,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
  *
  */
 public class GuiElementLoader implements IGuiHandler {
-    public static final int GUI_DEMO = 1;
+    public static final int GUI_CONTROL_SID = 1;
 
     /**
      * 注册GUI
@@ -28,19 +30,19 @@ public class GuiElementLoader implements IGuiHandler {
      * 服务器端 GUI
      *
      * @param ID 用于判断打开那个GUI的编码
-     * @param entityPlayer
+     * @param thePlayer
      * @param world
-     * @param i1
-     * @param i2
-     * @param i3
+     * @param x
+     * @param y
+     * @param z
      * @return
      */
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer entityPlayer, World world, int i1, int i2, int i3) {
+    public Object getServerGuiElement(int ID, EntityPlayer thePlayer, World world, int x, int y, int z) {
         try {
             switch (ID) {
-                case GUI_DEMO:
-                    //return new ContainerDemo();
+                case GUI_CONTROL_SID:
+                    return new GuiControlBox(new V3(x,y,z, thePlayer.field_71093_bK), thePlayer);
                 default:
                     return null;
             }
@@ -54,19 +56,19 @@ public class GuiElementLoader implements IGuiHandler {
      * 客户端 GUI
      *
      * @param ID 用于判断打开那个GUI的编码
-     * @param entityPlayer
+     * @param thePlayer
      * @param world
-     * @param i1
-     * @param i2
-     * @param i3
+     * @param x
+     * @param y
+     * @param z
      * @return
      */
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer entityPlayer, World world, int i1, int i2, int i3) {
+    public Object getClientGuiElement(int ID, EntityPlayer thePlayer, World world, int x, int y, int z) {
         try {
             switch (ID) {
-                case GUI_DEMO:
-                    //return new ContainerDemo();
+                case GUI_CONTROL_SID:
+                    return new GuiControlBox(new V3(x,y,z, thePlayer.field_71093_bK), thePlayer);
                 default:
                     return null;
             }

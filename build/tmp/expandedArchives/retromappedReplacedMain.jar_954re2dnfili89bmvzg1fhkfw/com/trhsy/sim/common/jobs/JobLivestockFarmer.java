@@ -4,12 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -25,7 +23,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -42,11 +39,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobLivestockFarmer extends Job implements Serializable {
     private static final long serialVersionUID = -1177112209988279141L;
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private List<IInventory> farmChests = new CopyOnWriteArrayList();
     EntityAnimal redShirt = null;
 
     public JobLivestockFarmer() {
@@ -61,7 +58,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -109,7 +106,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLivestockFarmer-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -154,13 +151,13 @@ public class JobLivestockFarmer extends Job implements Serializable {
             List list = null;
             if (this.vocation == Vocation.CATTLEFARMER) {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.livestock.farmer.Feeding");
-                list = this.jobWorld.func_72872_a(EntityCow.class,new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).func_72314_b(4, 2, 4));
+                list = this.jobWorld.func_72872_a(EntityCow.class,new AxisAlignedBB(this.theFolk.employedAt.field_72450_a, this.theFolk.employedAt.field_72448_b, this.theFolk.employedAt.field_72449_c, this.theFolk.employedAt.field_72450_a + 1, this.theFolk.employedAt.field_72448_b + 1, this.theFolk.employedAt.field_72449_c + 1).func_72314_b(4, 2, 4));
             } else if (this.vocation == Vocation.CHICKENFARMER) {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.livestock.farmer.chickens");
-                list = this.jobWorld.func_72872_a(EntityChicken.class, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1, this.theFolk.employedAt.y + 1, this.theFolk.employedAt.z + 1).func_72314_b(4.0, 2.0, 4.0));
+                list = this.jobWorld.func_72872_a(EntityChicken.class, new AxisAlignedBB(this.theFolk.employedAt.field_72450_a, this.theFolk.employedAt.field_72448_b, this.theFolk.employedAt.field_72449_c, this.theFolk.employedAt.field_72450_a + 1, this.theFolk.employedAt.field_72448_b + 1, this.theFolk.employedAt.field_72449_c + 1).func_72314_b(4.0, 2.0, 4.0));
             } else if (this.vocation == Vocation.PIGFARMER) {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.livestock.farmer.pigs");
-                list = this.jobWorld.func_72872_a(EntityPig.class, new AxisAlignedBB(this.theFolk.employedAt.x, this.theFolk.employedAt.y, this.theFolk.employedAt.z, this.theFolk.employedAt.x + 1.0, this.theFolk.employedAt.y + 1.0, this.theFolk.employedAt.z + 1.0).func_72314_b(4.0, 2.0, 4.0));
+                list = this.jobWorld.func_72872_a(EntityPig.class, new AxisAlignedBB(this.theFolk.employedAt.field_72450_a, this.theFolk.employedAt.field_72448_b, this.theFolk.employedAt.field_72449_c, this.theFolk.employedAt.field_72450_a + 1.0, this.theFolk.employedAt.field_72448_b + 1.0, this.theFolk.employedAt.field_72449_c + 1.0).func_72314_b(4.0, 2.0, 4.0));
             }
 
             int adultCount = 0;
@@ -214,11 +211,11 @@ public class JobLivestockFarmer extends Job implements Serializable {
             Random rand = new Random();
             this.theFolk.statusText = I18n.func_135052_a("container.sim.job.livestock.farmer.Off");
             if (this.theFolk.theEntity != null) {
-                this.theFolk.theEntity.func_70625_a(this.redShirt, 1.0F, 1.0F);
+                this.theFolk.theEntity.func_70625_a(this.redShirt, 1, 1);
             }
 
             this.redShirt.func_70606_j(0.0F);
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+            this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             int quant = 0;
             this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             boolean ok = true;
@@ -266,7 +263,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                     double d = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
-                    this.mc.field_71441_e.func_175688_a(EnumParticleTypes.HEART, pos.x + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, pos.y + 0.5D + (double)(rand.nextFloat() * 1.0F), pos.z + (double)(rand.nextFloat() * 1.0F * 2.0F) - 1.0, d, d1, d2);
+                    this.mc.field_71441_e.func_175688_a(EnumParticleTypes.HEART, pos.field_72450_a + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, pos.field_72448_b + 0.5D + (double)(rand.nextFloat() * 1), pos.field_72449_c + (double)(rand.nextFloat() * 1 * 2.0F) - 1.0, d, d1, d2);
                 }
 
                 parentAnimal.field_70170_p.func_72838_d(babyAnimal);
@@ -289,7 +286,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                     newAnimal = new EntityChicken(this.jobWorld);
                 }
 
-                ((EntityAnimal)newAnimal).func_70012_b(controlBox.x, controlBox.y + 1.0, controlBox.z, 0.0F, 0.0F);
+                ((EntityAnimal)newAnimal).func_70012_b(controlBox.field_72450_a, controlBox.field_72448_b + 1.0, controlBox.field_72449_c, 0.0F, 0.0F);
                 if (!this.jobWorld.field_72995_K) {
                     this.jobWorld.func_72838_d((Entity)newAnimal);
                 }
@@ -311,7 +308,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.livestock.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

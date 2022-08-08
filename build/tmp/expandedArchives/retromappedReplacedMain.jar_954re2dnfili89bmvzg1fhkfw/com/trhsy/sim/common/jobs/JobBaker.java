@@ -5,12 +5,12 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.enums.FarmType;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.enums.FarmType;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -47,7 +47,7 @@ public class JobBaker extends Job implements Serializable {
     /*
         模拟NPC
      */
-    public FolkData theFolk;
+    public FolkData theFolk=new FolkData();
     /*
     默认运行延迟 1m
      */
@@ -63,11 +63,11 @@ public class JobBaker extends Job implements Serializable {
     /*
     面包店/烘焙箱
      */
-    private transient CopyOnWriteArrayList<IInventory> bakeryChests = null;
+    private transient List<IInventory> bakeryChests = null;
     /*
     农场箱子
      */
-    private transient CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> farmChests = new CopyOnWriteArrayList();
     /*
     当前农场数量
      */
@@ -97,7 +97,7 @@ public class JobBaker extends Job implements Serializable {
                 //目的地为空
                 if (this.theFolk.destination == null) {
                     //设置目的地为雇佣地点
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -179,7 +179,7 @@ public class JobBaker extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobBaker-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -195,7 +195,7 @@ public class JobBaker extends Job implements Serializable {
                     this.theStage = Stage.GOBACKTOBAKERY;
                     this.step = 1;
                 } else {
-                    this.theFolk.gotoXYZ(this.farm.getLocation(), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.farm.getLocation(), null);
                     this.runDelay = 1000;
                     this.step = 2;
                 }
@@ -267,7 +267,7 @@ public class JobBaker extends Job implements Serializable {
         try {
             this.theFolk.statusText = I18n.func_135052_a("container.sim.job.Baker_Taking");
             if (this.theFolk.destination == null && this.step == 1) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.runDelay = 100;
                 this.step = 2;
             }
@@ -327,9 +327,9 @@ public class JobBaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     if (this.theFolk.theEntity != null) {
                         if (this.theFolk.gender == 0) {
-                            this.mc.field_71441_e.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerm", 1.0F, 1.0F, false);
+                            this.mc.field_71441_e.func_72980_b(this.theFolk.location.field_72450_a, this.theFolk.location.field_72448_b, this.theFolk.location.field_72449_c, ModSim.MODID + ":bakerm", 1, 1, false);
                         } else {
-                            this.mc.field_71441_e.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":bakerf", 1.0F, 1.0F, false);
+                            this.mc.field_71441_e.func_72980_b(this.theFolk.location.field_72450_a, this.theFolk.location.field_72448_b, this.theFolk.location.field_72449_c, ModSim.MODID + ":bakerf", 1, 1, false);
                         }
                     }
 
@@ -356,7 +356,7 @@ public class JobBaker extends Job implements Serializable {
                     GameStates var10000 = ModSimReloaded.states;
                     var10000.credits -= this.pay;
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.Baker_paid") + ModSimReloaded.displayMoney(this.pay) + I18n.func_135052_a("container.sim.job.credits"));
-                    this.mc.field_71441_e.func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+                    this.mc.field_71441_e.func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1, 1, false);
                 }
 
                 this.step = 2;
@@ -380,7 +380,7 @@ public class JobBaker extends Job implements Serializable {
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.has_sold") + breadStack.field_77994_a + I18n.func_135052_a("container.sim.job.folks_today"));
 
                     for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                        FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                        FolkData folk = ModSimReloaded.theFolks.get(f);
                         if (breadStack.field_77994_a > 0) {
                             folk.levelFood = 10;
                             --breadStack.field_77994_a;
@@ -442,7 +442,7 @@ public class JobBaker extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATSHOP;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -4,12 +4,12 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.enums.FarmType;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.FarmingBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.enums.FarmType;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -37,13 +37,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobGrocer extends Job implements Serializable {
     private static final long serialVersionUID = -1177119265904279141L;
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient float pay = 0.0F;
-    private transient CopyOnWriteArrayList<IInventory> grocerChests = new CopyOnWriteArrayList();
-    private transient CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> grocerChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> farmChests = new CopyOnWriteArrayList();
     private transient int currentFarmNum = 0;
     private transient FarmingBox farm = null;
     private transient boolean onRoute = false;
@@ -65,7 +65,7 @@ public class JobGrocer extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             }
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public class JobGrocer extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobGrocer-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -142,7 +142,7 @@ public class JobGrocer extends Job implements Serializable {
                     this.theStage = Stage.GOBACKTOSTORE;
                 } else {
                     this.onRoute = true;
-                    this.theFolk.gotoXYZ(this.farm.getLocation(), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.farm.getLocation(), null);
                 }
             } else {
                 double dist = 0;
@@ -214,7 +214,7 @@ public class JobGrocer extends Job implements Serializable {
             this.theFolk.statusText = I18n.func_135052_a("container.sim.job.grocer.farmer.Taking");
             if (!this.onRoute) {
                 this.onRoute = true;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             } else {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
                     this.theFolk.updateLocationFromEntity();
@@ -271,7 +271,7 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.updateLocationFromEntity();
                 sell = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (sell > 2 && this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.grocer.farmer.Selling");
@@ -370,7 +370,7 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSHOP;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

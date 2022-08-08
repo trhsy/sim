@@ -28,8 +28,6 @@ public class CommonTickHandler {
     Long lastSecondTickAt = 0L;
     /*最后勾选*/
     Long lastMinuteTickAt = 0L;
-    /*运行mod ui*/
-    GuiRunMod runModui;
     /*当前世界*/
     String currentWorld = "";
 
@@ -117,10 +115,11 @@ public class CommonTickHandler {
                     //已经在启动中运行
                     if (!this.currentWorld.contentEquals(ModSimReloaded.getSavesDataFolder())){
                         if( now- this.lastReset > 30000L) {
-                                ModSimReloaded.log.info("currentWorld=" + this.currentWorld + "     getSaves=" + ModSimReloaded.getSavesDataFolder());
                                 this.currentWorld = ModSimReloaded.getSavesDataFolder();
+                                ModSimReloaded.log.info("创建时间=" + this.currentWorld + " 保存在=" + ModSimReloaded.getSavesDataFolder());
                                 ModSim.proxy.ranStartup = false;
                                 ModSimReloaded.resetAndLoadNewWorld();
+
                         }
                     }
                     //停止下雨MOD-在我的世界里一直下雨的时候实现了这个！

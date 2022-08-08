@@ -1,10 +1,10 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.EntityAlignBeam;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.functionality.Marker;
-import com.trhsy.sim.common.gui.blocks.GuiMarker;
+import com.trhsy.sim.common.core.entity.EntityAlignBeam;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.Marker;
+import com.trhsy.sim.client.gui.blocks.GuiMarker;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -25,7 +25,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -36,14 +36,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 public class BlockMarker extends Block implements IExtendedEntityProperties {
     public static boolean hasPlaced = false;
-    public static CopyOnWriteArrayList<Marker> markers = new CopyOnWriteArrayList();
+    public static List<Marker> markers = new CopyOnWriteArrayList();
     public V3 location;
 
     public BlockMarker() {
         super(Material.field_151575_d);
         this.func_149672_a(Block.field_149766_f);
         this.func_149711_c(2.0F);
-        this.func_149752_b(1.0F);
+        this.func_149752_b(1);
         this.func_149663_c("markerBar");
         this.func_149676_a(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.func_149715_a(0.1F);
@@ -128,12 +128,11 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 }
 
                 if (markers.size() < 4) {
-                    V3 pos = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q());
-                    pos.y = pos.y + 0.01;
+                    V3 pos = new V3(blockPos.func_177958_n(),blockPos.func_177956_o()+1,blockPos.func_177952_p(), world.field_73011_w.func_177502_q());
                     if (ConfigLoader.configEnableMarkerAlignmentBeams) {
                         EntityAlignBeam beam = new EntityAlignBeam(world);
                         ma.caption = markerCaption;
-                        beam.func_70012_b(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+                        beam.func_70012_b(pos.field_72450_a, pos.field_72448_b, pos.field_72449_c, 0.0F, 0.0F);
                         beam.yaw = 0.0F;
                         if (!world.field_72995_K) {
                             world.func_72838_d(beam);
@@ -141,7 +140,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam);
                         EntityAlignBeam beam2 = new EntityAlignBeam(world);
-                        beam2.func_70012_b(pos.x, pos.y, pos.z, 90.0F, 0.0F);
+                        beam2.func_70012_b(pos.field_72450_a, pos.field_72448_b, pos.field_72449_c, 90.0F, 0.0F);
                         beam2.yaw = 90.0F;
                         if (!world.field_72995_K) {
                             world.func_72838_d(beam2);
@@ -149,7 +148,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam2);
                         EntityAlignBeam beam3 = new EntityAlignBeam(world);
-                        beam3.func_70012_b(pos.x, pos.y, pos.z, 180.0F, 0.0F);
+                        beam3.func_70012_b(pos.field_72450_a, pos.field_72448_b, pos.field_72449_c, 180.0F, 0.0F);
                         beam3.yaw = 180.0F;
                         if (!world.field_72995_K) {
                             world.func_72838_d(beam3);
@@ -157,7 +156,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam3);
                         EntityAlignBeam beam4 = new EntityAlignBeam(world);
-                        beam4.func_70012_b(pos.x, pos.y, pos.z, 270.0F, 0.0F);
+                        beam4.func_70012_b(pos.field_72450_a, pos.field_72448_b, pos.field_72449_c, 270.0F, 0.0F);
                         beam4.yaw = 270.0F;
                         if (!world.field_72995_K) {
                             world.func_72838_d(beam4);
@@ -183,7 +182,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         try {
             for (int i = 0; i < markers.size(); i++) {
                 Marker m = (Marker) markers.get(i);
-                if ((double) m.x == position.x && (double) m.y == position.y && (double) m.z == position.z) {
+                if ((double) m.x == position.field_72450_a && (double) m.y == position.field_72448_b && (double) m.z == position.field_72449_c) {
                     ret = m;
                     break;
                 }
@@ -201,7 +200,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
             this.location = new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK);
-            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1, 1);
             GuiMarker ui = new GuiMarker(this.location, thePlayer);
             Minecraft mc = Minecraft.func_71410_x();
             mc.func_147108_a(ui);

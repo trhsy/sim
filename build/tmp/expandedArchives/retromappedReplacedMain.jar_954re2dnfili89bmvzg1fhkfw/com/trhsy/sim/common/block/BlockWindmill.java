@@ -1,6 +1,6 @@
 package com.trhsy.sim.common.block;
 
-import com.trhsy.sim.common.entity.TileEntityWindmill;
+import com.trhsy.sim.common.core.entity.TileEntityWindmill;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;

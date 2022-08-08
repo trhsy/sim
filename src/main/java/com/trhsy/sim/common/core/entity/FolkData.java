@@ -1256,18 +1256,17 @@ public class FolkData implements Serializable {
             Block bid;
 
             for (int go = 30; go > 1; go--) {
-                ret = new V3(p.posX, 5.0, p.posZ + (double) go, p.dimension);
+                ret = new V3(p.posX, p.posY, p.posZ + (double) go, p.dimension);
 
                 while (!found) {
                     BlockPos blockPos = new BlockPos(ret.xCoord, ret.yCoord, ret.zCoord);
                     bid = p.worldObj.getBlockState(blockPos).getBlock();
                     if (p.worldObj.canSeeSky(blockPos) || p.dimension != 0) {
-                        if (bid != Blocks.leaves && bid == null) {
+                        if (bid == Blocks.air && bid != null) {
                             found = true;
                         }
                     }
 
-                    //ret.yCoord = ret.yCoord + 1;
                     ret.addVector(ret.xCoord, ret.yCoord + 1, ret.zCoord);
                     if (ret.yCoord > 200) {
                         break;
@@ -1279,7 +1278,7 @@ public class FolkData implements Serializable {
                 }
             }
             if (!found) {
-                return new V3(0d, 5d, 0d, 0);
+                return new V3(p.posX, p.posY, p.posZ, 0);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -1642,107 +1641,115 @@ public class FolkData implements Serializable {
      */
     public static void loadAndSpawnFolks() {
         try {
-            ModSimReloaded.theFolks.clear();
-            File folksFolder = new File(ModSimReloaded.getSavesDataFolder() + "folks" + File.separator);
-            if (!folksFolder.exists()) {
-                folksFolder.mkdirs();
-            }
-            for (File f : folksFolder.listFiles()) {
-                if (f.getName().endsWith(".sk2")) {
-                    List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
-                    FolkData folkd = new FolkData();
-                    for (String line : strings) {
-                        if (line.contains("|")) {
-                            int m1 = line.indexOf("|");
-                            String name = line.substring(0, m1);
-                            String value = line.substring(m1 + 1);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ModSimReloaded.log.info("***********************开始加载npc人物***************");
 
-                            try {
-                                if (name.contentEquals("employedat")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        folkd.employedAt = new V3(x, y, z);
+                    ModSimReloaded.theFolks.clear();
+                    File folksFolder = new File(ModSimReloaded.getSavesDataFolder() + "folks" + File.separator);
+                    if (!folksFolder.exists()) {
+                        folksFolder.mkdirs();
+                    }
+                    for (File f : folksFolder.listFiles()) {
+                        if (f.getName().endsWith(".sk2")) {
+                            List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                            FolkData folkd = new FolkData();
+                            for (String line : strings) {
+                                if (line.contains("|")) {
+                                    int m1 = line.indexOf("|");
+                                    String name = line.substring(0, m1);
+                                    String value = line.substring(m1 + 1);
+
+                                    try {
+                                        if (name.contentEquals("employedat")) {
+                                            if (!value.contentEquals("null")) {
+                                                String[] v = value.split(",");
+                                                double x = Double.parseDouble(v[0]);
+                                                double y = Double.parseDouble(v[1]);
+                                                double z = Double.parseDouble(v[2]);
+                                                folkd.employedAt = new V3(x, y, z);
+                                            }
+                                        } else if (name.contentEquals("vocation")) {
+                                            if (!value.contentEquals("null")) {
+                                                folkd.vocation = Vocation.valueOf(value);
+                                            }
+                                        } else if (name.contentEquals("name")) {
+                                            folkd.name = value;
+                                        } else if (name.contentEquals("age")) {
+                                            folkd.age = Integer.parseInt(value);
+                                        } else if (name.contentEquals("gender")) {
+                                            folkd.gender = Integer.parseInt(value);
+                                        } else if (name.contentEquals("skin")) {
+                                            folkd.skinnumber = Integer.parseInt(value);
+                                        } else if (name.contentEquals("levelfood")) {
+                                            folkd.levelFood = Integer.parseInt(value);
+                                        } else if (name.contentEquals("trait1")) {
+                                            folkd.trait1 = value;
+                                        } else if (name.contentEquals("trait2")) {
+                                            folkd.trait2 = value;
+                                        } else if (name.contentEquals("trait3")) {
+                                            folkd.trait3 = value;
+                                        } else if (name.contentEquals("trait4")) {
+                                            folkd.trait4 = value;
+                                        } else if (name.contentEquals("levelfun")) {
+                                            folkd.levelFun = Integer.parseInt(value);
+                                        } else if (name.contentEquals("levelbuilder")) {
+                                            folkd.levelBuilder = Float.parseFloat(value);
+                                        } else if (name.contentEquals("levelminer")) {
+                                            folkd.levelMiner = Float.parseFloat(value);
+                                        } else if (name.contentEquals("levelsoldier")) {
+                                            folkd.levelSoldier = Float.parseFloat(value);
+                                        } else if (name.contentEquals("stayput")) {
+                                            folkd.stayPut = Boolean.parseBoolean(value);
+                                        } else if (name.contentEquals("location")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            folkd.location = new V3(x, y, z);
+                                        } else if (name.contentEquals("pregnancy")) {
+                                            folkd.pregnancyStage = Float.parseFloat(value);
+                                        } else if (name.contentEquals("building")) {
+                                            if (!value.contentEquals("null")) {
+                                                int m2 = value.indexOf("|");
+                                                int m3 = value.indexOf("||");
+                                                String fn = value.substring(0, m2);
+                                                String type = value.substring(m2 + 1, m3);
+                                                String dir = value.substring(m3 + 2);
+                                                folkd.theBuilding = Building.getBuildingForFolk(fn, type);
+                                                folkd.theBuilding.buildDirection = dir;
+                                            }
+                                        } else if (name.contentEquals("terraformtype")) {
+                                            if (!value.contentEquals("null")) {
+                                                folkd.terraformerType = TerraformerType.valueOf(value);
+                                            }
+                                        } else if (name.contentEquals("terraformradius")) {
+                                            folkd.terraformerRadius = Integer.parseInt(value);
+                                        }
+                                    } catch (Exception e) {
+                                        StackTraceElement element = e.getStackTrace()[0];
+                                        ModSimReloaded.log.error("加载NPC数据出错：" + e.getMessage() + "行数：" + element.getLineNumber());
                                     }
-                                } else if (name.contentEquals("vocation")) {
-                                    if (!value.contentEquals("null")) {
-                                        folkd.vocation = Vocation.valueOf(value);
-                                    }
-                                } else if (name.contentEquals("name")) {
-                                    folkd.name = value;
-                                } else if (name.contentEquals("age")) {
-                                    folkd.age = Integer.parseInt(value);
-                                } else if (name.contentEquals("gender")) {
-                                    folkd.gender = Integer.parseInt(value);
-                                } else if (name.contentEquals("skin")) {
-                                    folkd.skinnumber = Integer.parseInt(value);
-                                } else if (name.contentEquals("levelfood")) {
-                                    folkd.levelFood = Integer.parseInt(value);
-                                } else if (name.contentEquals("trait1")) {
-                                    folkd.trait1 = value;
-                                } else if (name.contentEquals("trait2")) {
-                                    folkd.trait2 = value;
-                                } else if (name.contentEquals("trait3")) {
-                                    folkd.trait3 = value;
-                                } else if (name.contentEquals("trait4")) {
-                                    folkd.trait4 = value;
-                                } else if (name.contentEquals("levelfun")) {
-                                    folkd.levelFun = Integer.parseInt(value);
-                                } else if (name.contentEquals("levelbuilder")) {
-                                    folkd.levelBuilder = Float.parseFloat(value);
-                                } else if (name.contentEquals("levelminer")) {
-                                    folkd.levelMiner = Float.parseFloat(value);
-                                } else if (name.contentEquals("levelsoldier")) {
-                                    folkd.levelSoldier = Float.parseFloat(value);
-                                } else if (name.contentEquals("stayput")) {
-                                    folkd.stayPut = Boolean.parseBoolean(value);
-                                } else if (name.contentEquals("location")) {
-                                    String[] v = value.split(",");
-                                    double x = Double.parseDouble(v[0]);
-                                    double y = Double.parseDouble(v[1]);
-                                    double z = Double.parseDouble(v[2]);
-                                    folkd.location = new V3(x, y, z);
-                                } else if (name.contentEquals("pregnancy")) {
-                                    folkd.pregnancyStage = Float.parseFloat(value);
-                                } else if (name.contentEquals("building")) {
-                                    if (!value.contentEquals("null")) {
-                                        int m2 = value.indexOf("|");
-                                        int m3 = value.indexOf("||");
-                                        String fn = value.substring(0, m2);
-                                        String type = value.substring(m2 + 1, m3);
-                                        String dir = value.substring(m3 + 2);
-                                        folkd.theBuilding = Building.getBuildingForFolk(fn, type);
-                                        folkd.theBuilding.buildDirection = dir;
-                                    }
-                                } else if (name.contentEquals("terraformtype")) {
-                                    if (!value.contentEquals("null")) {
-                                        folkd.terraformerType = TerraformerType.valueOf(value);
-                                    }
-                                } else if (name.contentEquals("terraformradius")) {
-                                    folkd.terraformerRadius = Integer.parseInt(value);
                                 }
-                            } catch (Exception e) {
-                                StackTraceElement element = e.getStackTrace()[0];
-                                ModSimReloaded.log.error("加载NPC数据出错：" + e.getMessage() + "行数：" + element.getLineNumber());
+                            }
+
+                            if (folkd != null) {
+                                ModSimReloaded.log.info("FolkData: loadAndSpawnFolks() 加载 " + folkd.name + " 使用新的文件系统");
+                                folkd.hasLoaded();
+                            }
+                        } else if (f.getName().endsWith(".suk")) {
+                            FolkData folkd = (FolkData) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                            if (folkd != null) {
+                                folkd.hasLoaded();
+                            } else {
+                                f.delete();
                             }
                         }
                     }
-
-                    if (folkd != null) {
-                        ModSimReloaded.log.info("FolkData: loadAndSpawnFolks() 加载 " + folkd.name + " 使用新的文件系统");
-                        folkd.hasLoaded();
-                    }
-                } else if (f.getName().endsWith(".suk")) {
-                    FolkData folkd = (FolkData) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
-                    if (folkd != null) {
-                        folkd.hasLoaded();
-                    } else {
-                        f.delete();
-                    }
-                }
-            }
+                    ModSimReloaded.log.info("***********************加载npc人物完成***************");
+                }},"loadAndSpawnFolks_sim");
+            thread.start();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("loadAndSpawnFolks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

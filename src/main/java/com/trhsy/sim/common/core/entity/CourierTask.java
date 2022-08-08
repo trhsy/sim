@@ -76,144 +76,150 @@ public class CourierTask implements Serializable {
 
     public static void loadCourierTasksAndPoints() {
         try {
-            ModSimReloaded.theCourierPoints.clear();
-            ModSimReloaded.theCourierTasks.clear();
-            //快递点
-            File courierPoints = new File(ModSimReloaded.getSavesDataFolder() + "CourierPoints" + File.separator);
-            courierPoints.mkdirs();
-            //快递任务
-            File courierTasks = new File(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator);
-            courierTasks.mkdirs();
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ModSimReloaded.log.info("***********************开始所有快递点***************");
+                    ModSimReloaded.theCourierPoints.clear();
+                    ModSimReloaded.theCourierTasks.clear();
+                    //快递点
+                    File courierPoints = new File(ModSimReloaded.getSavesDataFolder() + "CourierPoints" + File.separator);
+                    courierPoints.mkdirs();
+                    //快递任务
+                    File courierTasks = new File(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator);
+                    courierTasks.mkdirs();
 
-            boolean useNewFormat = false;
-            File[] listFiles = courierPoints.listFiles();
-            int lengths = listFiles.length;
+                    boolean useNewFormat = false;
+                    File[] listFiles = courierPoints.listFiles();
+                    int lengths = listFiles.length;
 
-            int i;
-            File f;
-            for (i = 0; i < lengths; i++) {
-                f = listFiles[i];
-                if (f.getName().endsWith(".sk2")) {
-                    useNewFormat = true;
-                    break;
-                }
-            }
-
-            if (useNewFormat) {
-                listFiles = courierPoints.listFiles();
-                lengths = listFiles.length;
-
-                List<String> strings;
-                Iterator iterator;
-                int m1;
-                String name;
-                String value;
-                for (m1 = 0; m1 < lengths; ++m1) {
-                    f = listFiles[m1];
-                    if (f.getName().endsWith(".sk2")) {
-                        strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
-                        V3 v = null;
-                        for (String line : strings) {
-                            if (line.contains("|")) {
-                                m1 = line.indexOf("|");
-                                name = line.substring(0, m1);
-                                value = line.substring(m1 + 1);
-                                if (name.contentEquals("location")) {
-                                    String[] v1 = value.split(",");
-                                    double x = Double.parseDouble(v1[0]);
-                                    double y = Double.parseDouble(v1[1]);
-                                    double z = Double.parseDouble(v1[2]);
-                                    v = new V3(x,y,z);
-                                } else if (name.contentEquals("name")) {
-                                    v.name = value;
-                                }
-                            }
-                        }
-
-                        if (v != null && !alreadyGotPoint(v)) {
-                            ModSimReloaded.theCourierPoints.add(v);
-                        } else {
-                            f.delete();
+                    int i;
+                    File f;
+                    for (i = 0; i < lengths; i++) {
+                        f = listFiles[i];
+                        if (f.getName().endsWith(".sk2")) {
+                            useNewFormat = true;
+                            break;
                         }
                     }
-                }
 
-                listFiles = courierTasks.listFiles();
-                lengths = listFiles.length;
+                    if (useNewFormat) {
+                        listFiles = courierPoints.listFiles();
+                        lengths = listFiles.length;
 
-                for (m1 = 0; m1 < lengths; ++m1) {
-                    f = listFiles[m1];
-                    if (f.getName().endsWith(".sk2")) {
-                        strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
-                        CourierTask ct = new CourierTask();
-                        for (String line : strings) {
-                            if (line.contains("|")) {
-                                m1 = line.indexOf("|");
-                                name = line.substring(0, m1);
-                                value = line.substring(m1 + 1);
-                                if (name.contentEquals("folk")) {
-                                    ct.folkname = value;
-                                } else if (name.contentEquals("pickup")) {
-                                    String[] v = value.split(",");
-                                    double x = Double.parseDouble(v[0]);
-                                    double y = Double.parseDouble(v[1]);
-                                    double z = Double.parseDouble(v[2]);
-                                    ct.pickup = new V3(x,y,z);
-                                } else if (name.contentEquals("dropoff")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        ct.dropoff = new V3(x,y,z);
+                        List<String> strings;
+                        Iterator iterator;
+                        int m1;
+                        String name;
+                        String value;
+                        for (m1 = 0; m1 < lengths; ++m1) {
+                            f = listFiles[m1];
+                            if (f.getName().endsWith(".sk2")) {
+                                strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                                V3 v = null;
+                                for (String line : strings) {
+                                    if (line.contains("|")) {
+                                        m1 = line.indexOf("|");
+                                        name = line.substring(0, m1);
+                                        value = line.substring(m1 + 1);
+                                        if (name.contentEquals("location")) {
+                                            String[] v1 = value.split(",");
+                                            double x = Double.parseDouble(v1[0]);
+                                            double y = Double.parseDouble(v1[1]);
+                                            double z = Double.parseDouble(v1[2]);
+                                            v = new V3(x, y, z);
+                                        } else if (name.contentEquals("name")) {
+                                            v.name = value;
+                                        }
                                     }
-                                } else if (name.contentEquals("repeat")) {
-                                    ct.repeat = Boolean.parseBoolean(value);
-                                } else if (name.contentEquals("name")) {
-                                    ct.name = value;
+                                }
+
+                                if (v != null && !alreadyGotPoint(v)) {
+                                    ModSimReloaded.theCourierPoints.add(v);
+                                } else {
+                                    f.delete();
                                 }
                             }
                         }
 
-                        if (!alreadyGotTask(ct) && ct != null && ct.dropoff != null && ct.pickup != null) {
-                            ModSimReloaded.theCourierTasks.add(ct);
-                        } else {
-                            f.delete();
+                        listFiles = courierTasks.listFiles();
+                        lengths = listFiles.length;
+
+                        for (m1 = 0; m1 < lengths; ++m1) {
+                            f = listFiles[m1];
+                            if (f.getName().endsWith(".sk2")) {
+                                strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                                CourierTask ct = new CourierTask();
+                                for (String line : strings) {
+                                    if (line.contains("|")) {
+                                        m1 = line.indexOf("|");
+                                        name = line.substring(0, m1);
+                                        value = line.substring(m1 + 1);
+                                        if (name.contentEquals("folk")) {
+                                            ct.folkname = value;
+                                        } else if (name.contentEquals("pickup")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            ct.pickup = new V3(x, y, z);
+                                        } else if (name.contentEquals("dropoff")) {
+                                            if (!value.contentEquals("null")) {
+                                                String[] v = value.split(",");
+                                                double x = Double.parseDouble(v[0]);
+                                                double y = Double.parseDouble(v[1]);
+                                                double z = Double.parseDouble(v[2]);
+                                                ct.dropoff = new V3(x, y, z);
+                                            }
+                                        } else if (name.contentEquals("repeat")) {
+                                            ct.repeat = Boolean.parseBoolean(value);
+                                        } else if (name.contentEquals("name")) {
+                                            ct.name = value;
+                                        }
+                                    }
+                                }
+
+                                if (!alreadyGotTask(ct) && ct != null && ct.dropoff != null && ct.pickup != null) {
+                                    ModSimReloaded.theCourierTasks.add(ct);
+                                } else {
+                                    f.delete();
+                                }
+                            }
+                        }
+                    } else {
+                        listFiles = courierPoints.listFiles();
+                        lengths = listFiles.length;
+
+                        for (i = 0; i < lengths; i++) {
+                            f = listFiles[i];
+                            if (f.getName().endsWith(".suk")) {
+                                V3 point = (V3) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                                if (!alreadyGotPoint(point)) {
+                                    ModSimReloaded.theCourierPoints.add(point);
+                                } else {
+                                    f.delete();
+                                }
+                            }
+                        }
+
+                        listFiles = courierTasks.listFiles();
+                        lengths = listFiles.length;
+
+                        for (i = 0; i < lengths; i++) {
+                            f = listFiles[i];
+                            if (f.getName().endsWith(".suk")) {
+                                CourierTask task = (CourierTask) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                                if (!alreadyGotTask(task)) {
+                                    ModSimReloaded.theCourierTasks.add(task);
+                                } else {
+                                    f.delete();
+                                }
+                            }
                         }
                     }
-                }
-            } else {
-                listFiles = courierPoints.listFiles();
-                lengths = listFiles.length;
-
-                for (i = 0; i < lengths; i++) {
-                    f = listFiles[i];
-                    if (f.getName().endsWith(".suk")) {
-                        V3 point = (V3) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
-                        if (!alreadyGotPoint(point)) {
-                            ModSimReloaded.theCourierPoints.add(point);
-                        } else {
-                            f.delete();
-                        }
-                    }
-                }
-
-                listFiles = courierTasks.listFiles();
-                lengths = listFiles.length;
-
-                for (i = 0; i < lengths; i++) {
-                    f = listFiles[i];
-                    if (f.getName().endsWith(".suk")) {
-                        CourierTask task = (CourierTask) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
-                        if (!alreadyGotTask(task)) {
-                            ModSimReloaded.theCourierTasks.add(task);
-                        } else {
-                            f.delete();
-                        }
-                    }
-                }
-            }
-
+                    ModSimReloaded.log.info("***********************加载所有快递点完成***************");
+                }},"loadCourierTasksAndPoints_sim");
+            thread.start();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadCourierTasksAndPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

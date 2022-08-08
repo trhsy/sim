@@ -115,16 +115,17 @@ public class BlockFarmingBox extends Block {
         try {
             world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
 
-            try {
                 FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));
-                farmingBlock.location.theDimension = entityplayer.dimension;
-                FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));
-                Minecraft mc = Minecraft.getMinecraft();
-                mc.displayGuiScreen(new GuiFarming(farmingBlock, folk));
-            } catch (Exception e) {
-                String farming_box_Sorry = I18n.format("container.sim.farming_box_Sorry");
-                ModSimReloaded.sendChat(farming_box_Sorry);
-            }
+                if(farmingBlock!=null){
+                    farmingBlock.location.theDimension = entityplayer.dimension;
+                    FolkData folk = FolkData.getFolkByEmployedAt(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));
+                    Minecraft mc = Minecraft.getMinecraft();
+                    mc.displayGuiScreen(new GuiFarming(farmingBlock, folk));
+                }else{
+                    String farming_box_Sorry = I18n.format("container.sim.farming_box_Sorry");
+                    ModSimReloaded.sendChat(farming_box_Sorry);
+                }
+
 
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("初始化对齐梁出错了：" + e.getMessage()+"行数："+element.getLineNumber());

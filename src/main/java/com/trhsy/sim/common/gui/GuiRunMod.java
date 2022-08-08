@@ -5,6 +5,7 @@ import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.input.Mouse;
 
@@ -93,6 +94,7 @@ public class GuiRunMod extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         try {
+            World world=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld();
             switch (guibutton.id) {
                 case 0:
                     //不运行模拟城镇 按超过10次
@@ -102,7 +104,7 @@ public class GuiRunMod extends GuiScreen {
                 case 1:
                     ModSimReloaded.states.gameModeNumber = 0;
                     ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
-                    FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
+                    FolkData.generateNewFolk(world);
                     break;
                 case 2:
                     ModSimReloaded.states.gameModeNumber = 1;
@@ -114,7 +116,7 @@ public class GuiRunMod extends GuiScreen {
                     ModSimReloaded.states.gameModeNumber = 0;
                     ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
                     //生成一个新的NPC
-                    FolkData.generateNewFolk(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld());
+                    FolkData.generateNewFolk(world);
                     break;
             }
             ModSimReloaded.states.saveStates();

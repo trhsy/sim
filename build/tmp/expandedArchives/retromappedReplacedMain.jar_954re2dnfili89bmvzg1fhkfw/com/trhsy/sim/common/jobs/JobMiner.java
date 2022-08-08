@@ -5,13 +5,12 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameMode;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameMode;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -23,7 +22,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -39,14 +37,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobMiner extends Job implements Serializable {
 
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient int step = 1;
     private long timeSinceLastChestFullMessage = 0L;
     transient Long timeSinceLastGoto = 0L;
-    transient CopyOnWriteArrayList<IInventory> miningChests = null;
+    transient List<IInventory> miningChests = null;
     String mineDir = "";
     //如果它是空的，则作为一个标志，表示我们正在垂直挖掘，或者水平方向+x-x+z-z
     String mineHorizontalDir = "";
@@ -86,7 +84,7 @@ public class JobMiner extends Job implements Serializable {
 
             this.theMiningBox = MiningBox.getMiningBlockByBoxXYZ(folk.employedAt);
             if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
             /**
              * 看看我们是不是在水平挖掘
@@ -98,11 +96,11 @@ public class JobMiner extends Job implements Serializable {
             } else {
                 if (this.theMiningBox.marker1XYZ != null && this.theMiningBox.marker2XYZ == null) {
                     V3 xyz = this.theMiningBox.location;
-                    int mbX = xyz.x.intValue();
-                    int mbZ = xyz.z.intValue();
+                    int mbX = (int) xyz.field_72450_a;
+                    int mbZ = (int) xyz.field_72449_c;
                     xyz = this.theMiningBox.marker1XYZ;
-                    int mX = xyz.x.intValue();
-                    int mZ = xyz.z.intValue();
+                    int mX = (int) xyz.field_72450_a;
+                    int mZ = (int) xyz.field_72449_c;
                     if (mbX < mX) {
                         this.mineHorizontalDir = "+x";
                     } else if (mbX > mX) {
@@ -177,7 +175,7 @@ public class JobMiner extends Job implements Serializable {
             }
 
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobMiner-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -198,7 +196,7 @@ public class JobMiner extends Job implements Serializable {
                 this.step = 1;
                 this.theStage = Stage.WAITINGFORCHEST;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -242,9 +240,9 @@ public class JobMiner extends Job implements Serializable {
                     if (this.theFolk.theEntity != null) {
                         try {
                             if (this.theFolk.gender == 0) {
-                                this.mc.field_71441_e.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readym", 1.0F, 1.0F, false);
+                                this.mc.field_71441_e.func_72980_b(this.theFolk.location.field_72450_a, this.theFolk.location.field_72448_b, this.theFolk.location.field_72449_c, ModSim.MODID + ":readym", 1, 1, false);
                             } else {
-                                this.mc.field_71441_e.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":readyf", 1.0F, 1.0F, false);
+                                this.mc.field_71441_e.func_72980_b(this.theFolk.location.field_72450_a, this.theFolk.location.field_72448_b, this.theFolk.location.field_72449_c, ModSim.MODID + ":readyf", 1, 1, false);
                             }
                         } catch (Exception e) {
                             //切换维度时，playSound可以进行NPE
@@ -267,7 +265,7 @@ public class JobMiner extends Job implements Serializable {
 
             if (this.vNextMineableBlock != null) {
                 this.theFolk.updateLocationFromEntity();
-                if (this.theFolk.location.getDistanceTo(this.vNextMineableBlock) < 10 || !(this.vNextMineableBlock.y <= 20)) {
+                if (this.theFolk.location.getDistanceTo(this.vNextMineableBlock) < 10 || !(this.vNextMineableBlock.field_72448_b <= 20)) {
                     this.theStage = Stage.MINING;
                     this.theFolk.stayPut = true;
                     return;
@@ -278,9 +276,9 @@ public class JobMiner extends Job implements Serializable {
                             this.theFolk.statusText = I18n.func_135052_a("container.sim.job.miner.farmer.Beam");
                             if (this.theFolk.theEntity != null) {
                                 if (this.theFolk.gender == 0) {
-                                    this.mc.field_71441_e.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamm", 1.0F, 1.0F, false);
+                                    this.mc.field_71441_e.func_72980_b(this.theFolk.location.field_72450_a, this.theFolk.location.field_72448_b, this.theFolk.location.field_72449_c, ModSim.MODID + ":beamm", 1, 1, false);
                                 } else {
-                                    this.mc.field_71441_e.func_72980_b(this.theFolk.location.x, this.theFolk.location.y, this.theFolk.location.z, ModSim.MODID + ":beamf", 1.0F, 1.0F, false);
+                                    this.mc.field_71441_e.func_72980_b(this.theFolk.location.field_72450_a, this.theFolk.location.field_72448_b, this.theFolk.location.field_72449_c, ModSim.MODID + ":beamf", 1, 1, false);
                                 }
                             }
 
@@ -311,7 +309,7 @@ public class JobMiner extends Job implements Serializable {
             this.theFolk.action = FolkAction.WANDER;
             //他们已经完成了挖掘矿井
             ModSimReloaded.sendChat(this.theFolk.name + I18n.func_135052_a("container.sim.job.miner.farmer.finished"));
-            this.mc.field_71441_e.func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1.0F, 1.0F, false);
+            this.mc.field_71441_e.func_72980_b(this.mc.field_71439_g.field_70165_t, this.mc.field_71439_g.field_70163_u, this.mc.field_71439_g.field_70161_v, ModSim.MODID + ":cash", 1, 1, false);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageBeamingUp出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -334,17 +332,17 @@ public class JobMiner extends Job implements Serializable {
                 return;
             } else {
                 if (this.mineHorizontalDir.contentEquals("")) {
-                    mx = m1.x.intValue();
-                    my = m1.y.intValue() - 1;
-                    mz = m1.z.intValue();
-                    if (m2.x.intValue() == m1.x.intValue()) {
-                        if (m2.z.intValue() > mz) {
+                    mx = (int)m1.field_72450_a;
+                    my = (int) (m1.field_72448_b - 1);
+                    mz = (int)m1.field_72449_c;
+                    if (m2.field_72450_a == m1.field_72450_a) {
+                        if (m2.field_72449_c > mz) {
                             this.mineDir = "z+";
                         } else {
                             this.mineDir = "z-";
                         }
-                    } else if (m2.z.intValue() == m1.z.intValue()) {
-                        if (m2.x.intValue() > mx) {
+                    } else if (m2.field_72449_c == m1.field_72449_c) {
+                        if (m2.field_72450_a > mx) {
                             this.mineDir = "x+";
                         } else {
                             this.mineDir = "x-";
@@ -354,16 +352,16 @@ public class JobMiner extends Job implements Serializable {
                     Block id = null;
                     int ftbCount = 0, ltrCount = 0;
                     int xo = 0, zo = 0;
-                    if (m1.x.intValue() == m2.x.intValue()) {
-                        ltrCount = Math.abs(m2.z.intValue() - m1.z.intValue()) - 1;
+                    if (m1.field_72450_a == m2.field_72450_a) {
+                        ltrCount = (int) (Math.abs(m2.field_72449_c - m1.field_72449_c) - 1);
                     } else {
-                        ltrCount = Math.abs(m2.x.intValue() - m1.x.intValue()) - 1;
+                        ltrCount = (int) (Math.abs(m2.field_72450_a - m1.field_72450_a) - 1);
                     }
 
-                    if (m1.x.intValue() == m3.x.intValue()) {
-                        ftbCount = Math.abs(m3.z.intValue() - m1.z.intValue()) - 1;
+                    if (m1.field_72450_a == m3.field_72450_a) {
+                        ftbCount = (int) (Math.abs(m3.field_72449_c - m1.field_72449_c) - 1);
                     } else {
-                        ftbCount = Math.abs(m3.x.intValue() - m1.x.intValue()) - 1;
+                        ftbCount = (int) (Math.abs(m3.field_72450_a - m1.field_72450_a) - 1);
                     }
 
                     gotABlock:
@@ -414,23 +412,27 @@ public class JobMiner extends Job implements Serializable {
                     } catch (Exception e) {
                     }
                 } else {
-                    V3 vMine = new V3(m1.x, m1.y, m1.z, this.theFolk.employedAt.theDimension);
+                    V3 vMine = new V3(m1.field_72450_a, m1.field_72448_b, m1.field_72449_c, this.theFolk.employedAt.theDimension);
 
                     if (this.mineHorizontalDir.contentEquals("+x")) {
-                        vMine.x++;
+                        //vMine.x++;
+                        vMine.func_72441_c(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c);
                         //vMine = new V3(vMine.x + 1, vMine.y, vMine.z, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("-x")) {
-                        vMine.x--;
+                        //vMine.x--;
+                        vMine.func_72441_c(vMine.field_72450_a-1,vMine.field_72448_b,vMine.field_72449_c);
                         // vMine = new V3(vMine.x - 1, vMine.y, vMine.z, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("+z")) {
-                        vMine.z++;
+                        //vMine.z++;
+                        vMine.func_72441_c(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c+1);
                         // vMine = new V3(vMine.x, vMine.y, vMine.z + 1, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("-z")) {
-                        vMine.z--;
+                        //vMine.z--;
+                        vMine.func_72441_c(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c-1);
                         //vMine = new V3(vMine.x, vMine.y, vMine.z - 1, vMine.theDimension);
                     }
 
-                    V3 vMineable = new V3();
+                    V3 vMineable = null;
                     Block id = null;
                     int meta = 0, xo = 0, yo = 0, zo = 0;
                     boolean flagFound = false;
@@ -461,27 +463,31 @@ public class JobMiner extends Job implements Serializable {
                                         return;
                                     }
 
-                                    vMineable = new V3(vMine.x + (double) xo, vMine.y + (double) yo, vMine.z + (double) zo, this.theFolk.employedAt.theDimension);
+                                    vMineable = new V3(vMine.field_72450_a + (double) xo, vMine.field_72448_b + (double) yo, vMine.field_72449_c + (double) zo, this.theFolk.employedAt.theDimension);
 
-                                    id = this.jobWorld.func_180495_p(new BlockPos(vMineable.x.intValue(), vMineable.y.intValue(), vMineable.z.intValue())).func_177230_c();
+                                    id = this.jobWorld.func_180495_p(new BlockPos(vMineable.field_72450_a, vMineable.field_72448_b, vMineable.field_72449_c)).func_177230_c();
                                     if (ftb % 10 == 0 && (double) btt == Math.floor((double) (this.theMiningBox.size / 2)) && ltr == 0) {
                                         V3 lightbox = vMineable.clone();
 
                                         if (this.mineHorizontalDir.contentEquals("+x")) {
-                                            lightbox.z--;
+                                            //lightbox.z--;
+                                            lightbox.func_72441_c(lightbox.field_72450_a,lightbox.field_72448_b,lightbox.field_72449_c-1);
                                             //lightbox = new V3(lightbox.x, lightbox.y, lightbox.z - 1, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("-x")) {
-                                            lightbox.z++;
+                                            //lightbox.z++;
+                                            lightbox.func_72441_c(lightbox.field_72450_a,lightbox.field_72448_b,lightbox.field_72449_c+1);
                                             //lightbox = new V3(lightbox.x, lightbox.y, lightbox.z + 1, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("+z")) {
-                                            lightbox.x++;
+                                            //lightbox.x++;
+                                            lightbox.func_72441_c(lightbox.field_72450_a+1,lightbox.field_72448_b,lightbox.field_72449_c);
                                             // lightbox = new V3(lightbox.x + 1, lightbox.y, lightbox.z, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("-z")) {
-                                            lightbox.x--;
+                                            //lightbox.x--;
+                                            lightbox.func_72441_c(lightbox.field_72450_a-1,lightbox.field_72448_b,lightbox.field_72449_c);
                                             //lightbox = new V3(lightbox.x - 1, lightbox.y, lightbox.z, lightbox.theDimension);
                                         }
 
-                                        Block lbid = this.jobWorld.func_180495_p(new BlockPos(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue())).func_177230_c();
+                                        Block lbid = this.jobWorld.func_180495_p(new BlockPos(lightbox.field_72450_a, lightbox.field_72448_b, lightbox.field_72449_c)).func_177230_c();
                                         if (this.miningChests.size() > 0 && lbid != BlockLoader.blockLightBox) {
                                             ItemStack light = null;
 
@@ -491,7 +497,7 @@ public class JobMiner extends Job implements Serializable {
 
                                             if (light != null) {
                                                 ModSimReloaded.log.info("灯箱放置在 " + lightbox.toString());
-                                                BlockPos blockPos1 = new BlockPos(lightbox.x.intValue(), lightbox.y.intValue(), lightbox.z.intValue());
+                                                BlockPos blockPos1 = new BlockPos(lightbox.field_72450_a, lightbox.field_72448_b, lightbox.field_72449_c);
                                                 this.jobWorld.func_180501_a(blockPos1, BlockLoader.blockLightBox.func_176223_P(), 3);
                                             }
                                         }
@@ -556,18 +562,18 @@ public class JobMiner extends Job implements Serializable {
             //是孕期
             if (this.theFolk.isSpawned() && System.currentTimeMillis() - this.timeSinceLastGoto > 7000L) {
                 this.theFolk.updateLocationFromEntity();//从实体更新位置
-                if (this.theFolk.location.y - this.vNextMineableBlock.y > 4) {
+                if (this.theFolk.location.field_72448_b - this.vNextMineableBlock.field_72448_b > 4) {
                     this.vNextMineableBlock.doNotTimeout = false;
-                    if (this.vNextMineableBlock.y > 20) {
-                        this.theFolk.gotoXYZ(this.vNextMineableBlock, GotoMethod.BEAM);
+                    if (this.vNextMineableBlock.field_72448_b > 20) {
+                        this.theFolk.gotoXYZ(this.vNextMineableBlock, null);
                     } else {
                         this.theFolk.stayPut = true;
                     }
                 } else {
                     this.vNextMineableBlock.doNotTimeout = true;
-                    if (this.vNextMineableBlock.y > 20) {
+                    if (this.vNextMineableBlock.field_72448_b > 20) {
                         this.theFolk.stayPut = false;
-                        this.theFolk.gotoXYZ(this.vNextMineableBlock, GotoMethod.WALK);//行走
+                        this.theFolk.gotoXYZ(this.vNextMineableBlock, null);//行走
                     } else {
                         this.theFolk.stayPut = true;
                     }
@@ -582,7 +588,7 @@ public class JobMiner extends Job implements Serializable {
                 public void run() {
                     for (int d = 0; d < 5; ++d) {
                         try {
-                            JobMiner.this.jobWorld.func_72980_b(vNextMineableBlock.x, vNextMineableBlock.y, vNextMineableBlock.z, "dig.stone", 1.0F, 1.0F, false);
+                            JobMiner.this.jobWorld.func_72980_b(vNextMineableBlock.field_72450_a, vNextMineableBlock.field_72448_b, vNextMineableBlock.field_72449_c, "dig.stone", 1, 1, false);
                         } catch (Exception e) {
                         }
 
@@ -599,20 +605,20 @@ public class JobMiner extends Job implements Serializable {
                 //挖掘挖掘
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.miner.farmer.Diggy");
             }
-            BlockPos blockPos = new BlockPos(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
+            BlockPos blockPos = new BlockPos(this.vNextMineableBlock.field_72450_a, this.vNextMineableBlock.field_72448_b, this.vNextMineableBlock.field_72449_c);
             Block blockid = this.jobWorld.func_180495_p(blockPos).func_177230_c();
             int id = Block.func_149682_b(blockid);
 
             int idmeta = blockid.func_176201_c(this.jobWorld.func_180495_p(new BlockPos(blockPos)));
             if (this.jobWorld != null) {
                 List<ItemStack> minedStacks = this.translateBlockWhenMined(this.jobWorld, this.vNextMineableBlock);//开采时平移块体
-                BlockPos blockPos1 = new BlockPos(this.vNextMineableBlock.x.intValue(), this.vNextMineableBlock.y.intValue(), this.vNextMineableBlock.z.intValue());
+                BlockPos blockPos1 = new BlockPos(this.vNextMineableBlock.field_72450_a, this.vNextMineableBlock.field_72448_b, this.vNextMineableBlock.field_72449_c);
                 this.jobWorld.func_180501_a(blockPos1, Blocks.field_150350_a.func_176223_P(), 3);
                 if (this.theFolk.theEntity != null) {
                     try {
-                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0.1f, 0.3f, 0);
-                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0, 0.2f, 0);
-                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.x.intValue(), (double) this.vNextMineableBlock.y.intValue(), (double) this.vNextMineableBlock.z.intValue(), 0, 0.1f, 0.1f);
+                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.field_72450_a, (double) this.vNextMineableBlock.field_72448_b, (double) this.vNextMineableBlock.field_72449_c, 0.1f, 0.3f, 0);
+                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.field_72450_a, (double) this.vNextMineableBlock.field_72448_b, (double) this.vNextMineableBlock.field_72449_c, 0, 0.2f, 0);
+                        this.mc.field_71441_e.func_175688_a(EnumParticleTypes.EXPLOSION_NORMAL, (double) this.vNextMineableBlock.field_72450_a, (double) this.vNextMineableBlock.field_72448_b, (double) this.vNextMineableBlock.field_72449_c, 0, 0.1f, 0.1f);
                     } catch (Exception e) {
                     }
                 }
@@ -636,19 +642,19 @@ public class JobMiner extends Job implements Serializable {
                 }
 
                 if (this.theFolk.employedAt != null) {//要去的地方不是空
-                    if (this.theFolk.employedAt.y - this.vNextMineableBlock.y > 3) {
+                    if (this.theFolk.employedAt.field_72448_b - this.vNextMineableBlock.field_72448_b > 3) {
                         if (this.theMiningBox.addGlassCover && this.mineHorizontalDir.contentEquals("")) {//加上玻璃
 
-                            Block gid = this.jobWorld.func_180495_p(new BlockPos(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue())).func_177230_c();
+                            Block gid = this.jobWorld.func_180495_p(new BlockPos(this.vNextMineableBlock.field_72450_a, this.theFolk.employedAt.field_72448_b, this.vNextMineableBlock.field_72449_c)).func_177230_c();
                             if (gid == null && this.miningChests.size() > 0) {
                                 ItemStack glass = inventoriesGet(this.miningChests, new ItemStack(Blocks.field_150359_w, 1), false, false);
                                 if (glass != null) {
-                                    BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue());
+                                    BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.field_72450_a, this.theFolk.employedAt.field_72448_b, this.vNextMineableBlock.field_72449_c);
                                     this.jobWorld.func_180501_a(blockPos2, Blocks.field_150359_w.func_176223_P(), 3);
                                 }
                             }
                         } else {
-                            BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.x.intValue(), this.theFolk.employedAt.y.intValue(), this.vNextMineableBlock.z.intValue());
+                            BlockPos blockPos2 = new BlockPos(this.vNextMineableBlock.field_72450_a, this.theFolk.employedAt.field_72448_b, this.vNextMineableBlock.field_72449_c);
                             this.jobWorld.func_180501_a(blockPos2, Blocks.field_150350_a.func_176223_P(), 2);
                         }
                     }

@@ -1,9 +1,9 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.gui.blocks.GuiBuildingConstructor;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.client.gui.blocks.GuiBuildingConstructor;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -16,8 +16,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
 
 /**
  * 建筑箱
@@ -43,7 +41,7 @@ public class BlockConstructorBox extends Block {
     public void func_176213_c(World world, BlockPos blockPos, IBlockState iBlockState) {
         try {
             if (!world.field_72995_K) {
-                world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":constructoractivated", 1.0F, 1.0F);
+                world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":constructoractivated", 1, 1);
             }
             super.func_176213_c(world, blockPos, iBlockState);
         } catch (Exception e) {
@@ -61,7 +59,7 @@ public class BlockConstructorBox extends Block {
     public void func_176206_d(World world, BlockPos blockPos, IBlockState iBlockState) {
         try {
             if (!world.field_72995_K) {
-                world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+                world.func_72908_a(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1, 1);
             }
             FolkData theFolk = FolkData.getFolkByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(),blockPos.func_177952_p(), world.field_73011_w.func_177502_q()));
             if (theFolk != null) {
@@ -78,7 +76,7 @@ public class BlockConstructorBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1, 1);
             int px = (int)Math.floor(thePlayer.field_70165_t);
             int py = (int)Math.floor(thePlayer.field_70163_u);
             int pz = (int)Math.floor(thePlayer.field_70161_v);

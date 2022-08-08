@@ -4,12 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -18,7 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -34,13 +32,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobFisherman extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207254191941L;
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk=new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
     private transient long timeSinceLastCaughtFish = 0L;
     private transient int fishCount = 0;
-    private transient CopyOnWriteArrayList<IInventory> dockChests = new CopyOnWriteArrayList();
+    private transient List<IInventory> dockChests = new CopyOnWriteArrayList();
 
     public JobFisherman(FolkData folk) {
         try {
@@ -51,7 +49,7 @@ public class JobFisherman extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -98,7 +96,7 @@ public class JobFisherman extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobFisherman-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -141,7 +139,7 @@ public class JobFisherman extends Job implements Serializable {
                 }
 
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageFishing出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -173,7 +171,7 @@ public class JobFisherman extends Job implements Serializable {
             if (dist <= 3) {
                 this.theFolk.stayPut = true;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCaughtFish出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -231,7 +229,7 @@ public class JobFisherman extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATDOCK;
                 this.timeSinceLastCaughtFish = System.currentTimeMillis();
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

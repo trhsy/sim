@@ -76,132 +76,111 @@ public class MiningBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getMiningBlockByBoxXYZ出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("getMiningBlockByBoxXYZ出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return ret;
     }
 
     public static void loadMiningBoxes() {
         try {
-            Minecraft mc = Minecraft.getMinecraft();
-            File mineFiles = new File(ModSimReloaded.getSavesDataFolder() + "Mining" + File.separator);
-            mineFiles.mkdirs();
-            boolean useNewFormat = false;
-            File[] arr$ = mineFiles.listFiles();
-            int len$ = arr$.length;
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ModSimReloaded.log.info("***********************开始加载采矿箱***************");
+                    File mineFiles = new File(ModSimReloaded.getSavesDataFolder() + "Mining" + File.separator);
+                    mineFiles.mkdirs();
+                    File[] arrFiles = mineFiles.listFiles();
+                    WorldServer theWorld;
+                    Block id;
+                    ModSimReloaded.theMiningBoxes.clear();
+                    for (File f : arrFiles) {
+                        if (f.getName().endsWith(".sk2")) {
+                            List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                            MiningBox box = new MiningBox();
+                            Iterator iterator = strings.iterator();
 
-            int i$;
-            File f;
-            for (i$ = 0; i$ < len$; i$++) {
-                f = arr$[i$];
-                if (f.getName().endsWith(".sk2")) {
-                    useNewFormat = true;
-                    break;
-                }
-            }
-
-            WorldServer theWorld;
-            Block id;
-            if (useNewFormat) {
-                ModSimReloaded.theMiningBoxes.clear();
-                arr$ = mineFiles.listFiles();
-                len$ = arr$.length;
-
-                for (i$ = 0; i$ < len$; i$++) {
-                    f = arr$[i$];
-                    if (f.getName().endsWith(".sk2")) {
-                        List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
-                        MiningBox box = new MiningBox();
-                        Iterator iterator = strings.iterator();
-
-                        while (iterator.hasNext()) {
-                            String line = (String) iterator.next();
-                            if (line.contains("|")) {
-                                int m1 = line.indexOf("|");
-                                String name = line.substring(0, m1);
-                                String value = line.substring(m1 + 1);
-                                if (name.contentEquals("location")) {
-                                    String[] v = value.split(",");
-                                    double x = Double.parseDouble(v[0]);
-                                    double y = Double.parseDouble(v[1]);
-                                    double z = Double.parseDouble(v[2]);
-                                    box.location = new V3(x,y,z);
-                                } else if (name.contentEquals("m1")) {
-                                    if (!value.contentEquals("null")) {
+                            while (iterator.hasNext()) {
+                                String line = (String) iterator.next();
+                                if (line.contains("|")) {
+                                    int m1 = line.indexOf("|");
+                                    String name = line.substring(0, m1);
+                                    String value = line.substring(m1 + 1);
+                                    if (name.contentEquals("location")) {
                                         String[] v = value.split(",");
                                         double x = Double.parseDouble(v[0]);
                                         double y = Double.parseDouble(v[1]);
                                         double z = Double.parseDouble(v[2]);
-                                        box.marker1XYZ = new V3(x,y,z);
+                                        box.location = new V3(x, y, z);
+                                    } else if (name.contentEquals("m1")) {
+                                        if (!value.contentEquals("null")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            box.marker1XYZ = new V3(x, y, z);
+                                        }
+                                    } else if (name.contentEquals("m2")) {
+                                        if (!value.contentEquals("null")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            box.marker2XYZ = new V3(x, y, z);
+                                        }
+                                    } else if (name.contentEquals("m3")) {
+                                        if (!value.contentEquals("null")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            box.marker3XYZ = new V3(x, y, z);
+                                        }
+                                    } else if (name.contentEquals("discards")) {
+                                        box.discards = Integer.parseInt(value);
+                                    } else if (name.contentEquals("cover")) {
+                                        box.addGlassCover = Boolean.parseBoolean(value);
+                                    } else if (name.contentEquals("hsize")) {
+                                        box.size = Integer.parseInt(value);
                                     }
-                                } else if (name.contentEquals("m2")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        box.marker2XYZ = new V3(x,y,z);
-                                    }
-                                } else if (name.contentEquals("m3")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        box.marker3XYZ = new V3(x,y,z);
-                                    }
-                                } else if (name.contentEquals("discards")) {
-                                    box.discards = Integer.parseInt(value);
-                                } else if (name.contentEquals("cover")) {
-                                    box.addGlassCover = Boolean.parseBoolean(value);
-                                } else if (name.contentEquals("hsize")) {
-                                    box.size = Integer.parseInt(value);
                                 }
                             }
-                        }
 
-                        theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
-                        if (theWorld != null) {
-                            id = theWorld.getBlockState(new BlockPos(box.location.xCoord, box.location.yCoord, box.location.zCoord)).getBlock();
-                            if (id == BlockLoader.blockMiningBox) {
-                                ModSimReloaded.theMiningBoxes.add(box);
-                            } else {
-                                f.delete();
+                            theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
+                            if (theWorld != null) {
+                                id = theWorld.getBlockState(new BlockPos(box.location.xCoord, box.location.yCoord, box.location.zCoord)).getBlock();
+                                if (id == BlockLoader.blockMiningBox) {
+                                    ModSimReloaded.theMiningBoxes.add(box);
+                                } else {
+                                    f.delete();
+                                }
                             }
-                        }
-                    }
-                }
-            } else {
-                arr$ = mineFiles.listFiles();
-                len$ = arr$.length;
-
-                for (i$ = 0; i$ < len$; i$++) {
-                    f = arr$[i$];
-                    if (f.getName().endsWith(".suk")) {
-                        MiningBox mining = (MiningBox) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
-                        if (mining != null) {
-                            V3 xyz = mining.location;
-                            theWorld = MinecraftServer.getServer().worldServerForDimension(xyz.theDimension);
-                            if (theWorld == null) {
-                                f.delete();
-                            } else {
-                                try {
+                        } else if (f.getName().endsWith(".suk")) {
+                            MiningBox mining = (MiningBox) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                            if (mining != null) {
+                                V3 xyz = mining.location;
+                                theWorld = MinecraftServer.getServer().worldServerForDimension(xyz.theDimension);
+                                if (theWorld == null) {
+                                    f.delete();
+                                } else {
                                     id = theWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
                                     if (id == BlockLoader.blockMiningBox && mining != null) {
                                         ModSimReloaded.theMiningBoxes.add(mining);
                                     } else {
                                         f.delete();
                                     }
-                                } catch (Exception e) {
-                                    //var14.printStackTrace();
                                 }
                             }
                         }
                     }
+                    ModSimReloaded.log.info("***********************加载采矿箱完成***************");
                 }
-            }
+            }, "loadMiningBoxes_sim");
+            thread.start();
+
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadMiningBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("loadMiningBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -212,34 +191,31 @@ public class MiningBox implements Serializable {
             Side side = FMLCommonHandler.instance().getEffectiveSide();
             if (side == Side.SERVER) {
                 List<String> strings = new CopyOnWriteArrayList();
-
                 for (int b = 0; b < ModSimReloaded.theMiningBoxes.size(); ++b) {
-                    try {
-                        MiningBox mining = (MiningBox) ModSimReloaded.theMiningBoxes.get(b);
-                        strings.clear();
-                        strings.add("location|" + mining.location.toString());
-                        if (mining.marker1XYZ != null) {
-                            strings.add("m1|" + mining.marker1XYZ.toString());
-                            if (mining.marker2XYZ != null) {
-                                strings.add("m2|" + mining.marker2XYZ.toString());
-                            }
-
-                            if (mining.marker3XYZ != null) {
-                                strings.add("m3|" + mining.marker3XYZ.toString());
-                            }
-
-                            strings.add("discards|" + mining.discards);
-                            strings.add("cover|" + mining.addGlassCover);
-                            strings.add("hsize|" + mining.size);
-                            String xyz = "m" + mining.location.toString().replaceAll(",", "_");
-                            ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Mining" + File.separator + xyz + ".sk2", strings);
+                    MiningBox mining = (MiningBox) ModSimReloaded.theMiningBoxes.get(b);
+                    strings.clear();
+                    strings.add("location|" + mining.location.toString());
+                    if (mining.marker1XYZ != null) {
+                        strings.add("m1|" + mining.marker1XYZ.toString());
+                        if (mining.marker2XYZ != null) {
+                            strings.add("m2|" + mining.marker2XYZ.toString());
                         }
-                    } catch (Exception e) {
+
+                        if (mining.marker3XYZ != null) {
+                            strings.add("m3|" + mining.marker3XYZ.toString());
+                        }
+
+                        strings.add("discards|" + mining.discards);
+                        strings.add("cover|" + mining.addGlassCover);
+                        strings.add("hsize|" + mining.size);
+                        String xyz = "m" + mining.location.toString().replaceAll(",", "_");
+                        ModSimReloaded.saveSK2(ModSimReloaded.getSavesDataFolder() + "Mining" + File.separator + xyz + ".sk2", strings);
                     }
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("saveMiningBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("saveMiningBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 

@@ -1,11 +1,11 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.functionality.Marker;
-import com.trhsy.sim.common.entity.functionality.MiningBox;
-import com.trhsy.sim.common.gui.blocks.GuiMining;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.functionality.Marker;
+import com.trhsy.sim.common.core.entity.functionality.MiningBox;
+import com.trhsy.sim.client.gui.blocks.GuiMining;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -20,8 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 /**
  * @ClassName BlockMiningBox
@@ -34,7 +33,7 @@ public class BlockMiningBox extends Block {
         super(Material.field_151575_d);
         this.func_149672_a(Block.field_149766_f);
         this.func_149711_c(2.0F);
-        this.func_149752_b(1.0F);
+        this.func_149752_b(1);
         this.func_149663_c("miningBox");
         //this.setTextureName(ModSim.MODID + ":" + "mining_box");
         this.func_149647_a(CreativeTabsLoader.tabSimU);
@@ -80,7 +79,7 @@ public class BlockMiningBox extends Block {
 
             MiningBox m = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p()));
             ModSimReloaded.theMiningBoxes.remove(m);
-            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1.0F, 1.0F);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":powerdown", 1, 1);
             super.func_176206_d(world, blockPos,iBlockState);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("挖矿箱onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -92,11 +91,11 @@ public class BlockMiningBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-        world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1.0F, 1.0F);
+        world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1, 1);
         MiningBox miningBlock = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), thePlayer.field_71093_bK));
 
             miningBlock.location.theDimension = thePlayer.field_71093_bK;
-            CopyOnWriteArrayList<FolkData> folks = FolkData.getFolksByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), thePlayer.field_71093_bK));
+            List<FolkData> folks = FolkData.getFolksByEmployedAt(new V3(blockPos.func_177958_n(), blockPos.func_177956_o(), blockPos.func_177952_p(), thePlayer.field_71093_bK));
             GuiMining ui = new GuiMining(miningBlock, folks);
             Minecraft mc = Minecraft.func_71410_x();
             mc.func_147108_a(ui);

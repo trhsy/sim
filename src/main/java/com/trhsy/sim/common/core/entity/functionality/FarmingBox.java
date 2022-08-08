@@ -40,7 +40,8 @@ public class FarmingBox implements Serializable {
             this.farmType = FarmType.WHEAT;
             this.level = 1;
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -53,7 +54,8 @@ public class FarmingBox implements Serializable {
                 this.level = 1;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -69,7 +71,8 @@ public class FarmingBox implements Serializable {
                 this.level = 1;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("养殖箱FarmingBox出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -157,36 +160,37 @@ public class FarmingBox implements Serializable {
                 for (int i = 0; i <= this.getSizeWidth(); i++) {
                     ret.add(c.clone());
                     if (m2.xCoord > m1.xCoord) {
-                        c.addVector(m1.xCoord+i,c.yCoord,c.zCoord);
+                        c.addVector(m1.xCoord + i, c.yCoord, c.zCoord);
                         //c.xCoord = m1.xCoord + (double) i;
                     } else if (m2.xCoord < m1.xCoord) {
                         //c.xCoord = m1.xCoord - (double) i;
-                        c.addVector(m1.xCoord-i,c.yCoord,c.zCoord);
+                        c.addVector(m1.xCoord - i, c.yCoord, c.zCoord);
                     } else if (m2.zCoord > m1.zCoord) {
                         //c.zCoord = m1.zCoord + (double) i;
-                        c.addVector(c.xCoord,c.yCoord,m1.zCoord+i);
+                        c.addVector(c.xCoord, c.yCoord, m1.zCoord + i);
                     } else if (m2.zCoord < m1.zCoord) {
                         //c.zCoord = m1.zCoord - (double) i;
-                        c.addVector(c.xCoord,c.yCoord,m1.zCoord-i);
+                        c.addVector(c.xCoord, c.yCoord, m1.zCoord - i);
                     }
                 }
 
                 if (m3.xCoord > m1.xCoord) {
                     //c.xCoord = m1.xCoord + (double) o;
-                    c.addVector(m1.xCoord+o,c.yCoord,c.zCoord);
+                    c.addVector(m1.xCoord + o, c.yCoord, c.zCoord);
                 } else if (m3.xCoord < m1.xCoord) {
                     //c.xCoord = m1.xCoord - (double) o;
-                    c.addVector(m1.xCoord-o,c.yCoord,c.zCoord);
+                    c.addVector(m1.xCoord - o, c.yCoord, c.zCoord);
                 } else if (m3.zCoord > m1.zCoord) {
                     //c.zCoord = m1.zCoord + (double) o;
-                    c.addVector(c.xCoord,c.yCoord,m1.zCoord+o);
+                    c.addVector(c.xCoord, c.yCoord, m1.zCoord + o);
                 } else if (m3.zCoord < m1.zCoord) {
                     //c.zCoord = m1.zCoord - (double) o;
-                    c.addVector(c.xCoord,c.yCoord,m1.zCoord-o);
+                    c.addVector(c.xCoord, c.yCoord, m1.zCoord - o);
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱getSoilBlockPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("养殖箱getSoilBlockPoints出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -211,70 +215,71 @@ public class FarmingBox implements Serializable {
             for (int i = 0; i <= this.getSizeWidth() + 2; i++) {
                 if (m2.xCoord - b.xCoord > 1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m2.xCoord - b.xCoord < -1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m2.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
                 } else if (m2.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
                 if (m3.xCoord - b.xCoord > 1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m3.xCoord - b.xCoord < -1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m3.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
                 } else if (m3.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeWidth() + 2; i++) {
                 if (m2.xCoord - b.xCoord + 1 > 1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m2.xCoord - b.xCoord + 1 < -1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m2.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
                 } else if (m2.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
                 if (m3.xCoord - b.xCoord > 1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord-1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m3.xCoord - b.xCoord < -1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord+1,c.yCoord,c.zCoord);
+                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m3.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord-1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
                 } else if (m3.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord,c.yCoord,c.zCoord+1);
+                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
                 }
                 ret.add(c.clone());
             }
 
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("获取周边节点发生错误：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("获取周边节点发生错误：" + e.getMessage() + "行数：" + element.getLineNumber());
             //var11.printStackTrace();
         }
         return ret;
@@ -299,125 +304,120 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱getFarmingBlockByBoxXYZ出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("养殖箱getFarmingBlockByBoxXYZ出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return ret;
     }
 
     public static void loadFarmingBoxes() {
         try {
-            File farmFiles = new File(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator);
-            farmFiles.mkdirs();
-            boolean useNewFormat = false;
-            File[] arrFiles = farmFiles.listFiles();
-            File f;
-            for (int i = 0; i < arrFiles.length; i++) {
-                f = arrFiles[i];
-                if (f.getName().endsWith(".sk2")) {
-                    useNewFormat = true;
-                    break;
-                }
-            }
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ModSimReloaded.log.info("***********************开始加载农田箱***************");
+                    File farmFiles = new File(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator);
+                    farmFiles.mkdirs();
+                    File[] arrFiles = farmFiles.listFiles();
 
-            WorldServer theWorld;
-            Block id;
-            if (useNewFormat) {
-                ModSimReloaded.theFarmingBoxes.clear();
-                for (int i = 0; i < arrFiles.length; i++) {
-                    f = arrFiles[i];
-                    if (f.getName().endsWith(".sk2")) {
-                        List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
-                        FarmingBox box = new FarmingBox();
-                        Iterator iterator = strings.iterator();
+                    WorldServer theWorld;
+                    Block id;
+                    ModSimReloaded.theFarmingBoxes.clear();
+                    for (File f : arrFiles) {
+                        if (f.getName().endsWith(".sk2")) {
+                            List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                            FarmingBox box = new FarmingBox();
+                            Iterator iterator = strings.iterator();
 
-                        while (iterator.hasNext()) {
-                            String line = (String) iterator.next();
-                            if (line.contains("|")) {
-                                int m1 = line.indexOf("|");
-                                String name = line.substring(0, m1);
-                                String value = line.substring(m1 + 1);
-                                if (name.contentEquals("location")) {
-                                    String[] v = value.split(",");
-                                    double x = Double.parseDouble(v[0]);
-                                    double y = Double.parseDouble(v[1]);
-                                    double z = Double.parseDouble(v[2]);
-                                    box.location = new V3(x,y,z);
-                                } else if (name.contentEquals("m1")) {
-                                    if (!value.contentEquals("null")) {
+                            while (iterator.hasNext()) {
+                                String line = (String) iterator.next();
+                                if (line.contains("|")) {
+                                    int m1 = line.indexOf("|");
+                                    String name = line.substring(0, m1);
+                                    String value = line.substring(m1 + 1);
+                                    if (name.contentEquals("location")) {
                                         String[] v = value.split(",");
                                         double x = Double.parseDouble(v[0]);
                                         double y = Double.parseDouble(v[1]);
                                         double z = Double.parseDouble(v[2]);
-                                        box.marker1XYZ = new V3(x,y,z);
+                                        box.location = new V3(x, y, z);
+                                    } else if (name.contentEquals("m1")) {
+                                        if (!value.contentEquals("null")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            box.marker1XYZ = new V3(x, y, z);
+                                        }
+                                    } else if (name.contentEquals("m2")) {
+                                        if (!value.contentEquals("null")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            box.marker2XYZ = new V3(x, y, z);
+                                        }
+                                    } else if (name.contentEquals("m3")) {
+                                        if (!value.contentEquals("null")) {
+                                            String[] v = value.split(",");
+                                            double x = Double.parseDouble(v[0]);
+                                            double y = Double.parseDouble(v[1]);
+                                            double z = Double.parseDouble(v[2]);
+                                            box.marker3XYZ = new V3(x, y, z);
+                                        }
+                                    } else if (name.contentEquals("type")) {
+                                        box.farmType = FarmType.valueOf(value);
+                                    } else if (name.contentEquals("level")) {
+                                        box.level = Integer.parseInt(value);
                                     }
-                                } else if (name.contentEquals("m2")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        box.marker2XYZ = new V3(x,y,z);
-                                    }
-                                } else if (name.contentEquals("m3")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        box.marker3XYZ = new V3(x,y,z);
-                                    }
-                                } else if (name.contentEquals("type")) {
-                                    box.farmType = FarmType.valueOf(value);
-                                } else if (name.contentEquals("level")) {
-                                    box.level = Integer.parseInt(value);
                                 }
                             }
-                        }
 
-                        theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
-                        if (theWorld != null) {
-                            id = theWorld.getBlockState(new BlockPos(box.location.xCoord, box.location.yCoord, box.location.zCoord)).getBlock();
-                            if (id == BlockLoader.blockFarmingBox) {
-                                ModSimReloaded.theFarmingBoxes.add(box);
+                            theWorld = MinecraftServer.getServer().worldServerForDimension(box.location.theDimension);
+                            if (theWorld != null) {
+                                id = theWorld.getBlockState(new BlockPos(box.location.xCoord, box.location.yCoord, box.location.zCoord)).getBlock();
+                                if (id == BlockLoader.blockFarmingBox) {
+                                    ModSimReloaded.theFarmingBoxes.add(box);
+                                } else {
+                                    f.delete();
+                                }
+                            }
+                        } else if (f.getName().endsWith(".suk")) {
+                            FarmingBox farming = (FarmingBox) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                            if (farming != null) {
+                                V3 xyz = farming.location;
+                                theWorld = MinecraftServer.getServer().worldServerForDimension(xyz.theDimension);
+                                if (theWorld == null) {
+                                    f.delete();
+                                } else {
+                                    try {
+                                        id = theWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
+                                        //id = theWorld.getBlock(xyz.xCoord, xyz.yCoord, xyz.zCoord);
+                                        if (id == BlockLoader.blockFarmingBox) {
+                                            ModSimReloaded.theFarmingBoxes.add(farming);
+                                        } else {
+                                            f.delete();
+                                        }
+                                    } catch (Exception e) {
+                                        //var14.printStackTrace();
+                                    }
+                                }
                             } else {
                                 f.delete();
+                                String s = I18n.format("container.sim.farming_box_boxes");
+                                ModSimReloaded.sendChat(s);
                             }
                         }
                     }
+                    ModSimReloaded.log.info("***********************加载农田箱完成***************");
                 }
-            } else {
-                for (int i = 0; i < arrFiles.length; i++) {
-                    f = arrFiles[i];
-                    if (f.getName().endsWith(".suk")) {
-                        FarmingBox farming = (FarmingBox) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
-                        if (farming != null) {
-                            V3 xyz = farming.location;
-                            theWorld = MinecraftServer.getServer().worldServerForDimension(xyz.theDimension);
-                            if (theWorld == null) {
-                                f.delete();
-                            } else {
-                                try {
-                                    id = theWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
-                                    //id = theWorld.getBlock(xyz.xCoord, xyz.yCoord, xyz.zCoord);
-                                    if (id == BlockLoader.blockFarmingBox) {
-                                        ModSimReloaded.theFarmingBoxes.add(farming);
-                                    } else {
-                                        f.delete();
-                                    }
-                                } catch (Exception e) {
-                                    //var14.printStackTrace();
-                                }
-                            }
-                        } else {
-                            f.delete();
-                            String s = I18n.format("container.sim.farming_box_boxes");
-                            ModSimReloaded.sendChat(s);
-                        }
-                    }
-                }
-            }
+            }, "loadMiningBoxes_sim");
+            thread.start();
+
+
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱loadFarmingBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("养殖箱loadFarmingBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -446,7 +446,8 @@ public class FarmingBox implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("养殖箱saveFarmingBoxes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("养殖箱saveFarmingBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 }

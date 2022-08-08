@@ -4,18 +4,15 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.Building;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.Building;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ItemLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -24,8 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -40,10 +37,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobCheesemaker extends Job {
 
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public int runDelay = 1000;
-    private CopyOnWriteArrayList<IInventory> chestsAtDairy = new CopyOnWriteArrayList();
+    private List<IInventory> chestsAtDairy = new CopyOnWriteArrayList();
     private int currentFarmNum = 0;
     private Building farm = null;
     private long timeSinceLastRun = 0L;
@@ -61,7 +58,7 @@ public class JobCheesemaker extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -156,7 +153,7 @@ public class JobCheesemaker extends Job {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobCheesemaker-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
@@ -167,8 +164,8 @@ public class JobCheesemaker extends Job {
     private void stageArrivedAtFactory() {
         try {
             //特殊方块 5
-            CopyOnWriteArrayList<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
-            CopyOnWriteArrayList<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
+            List<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
+            List<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
             this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), chests, new ItemStack(Items.field_151117_aB, 64), (Block)null);
             this.theStage = Stage.GOINGTODAIRYFARM;
             this.currentFarmNum = -1;
@@ -187,12 +184,12 @@ public class JobCheesemaker extends Job {
             //当前农场数量
             ++this.currentFarmNum;
             //通过搜索获得建筑 奶牛场
-            CopyOnWriteArrayList<Building> dairyFarms = Building.getBuildingBySearch(I18n.func_135052_a("container.sim.gui_contains_Dairy_Farm"), true);
+            List<Building> dairyFarms = Building.getBuildingBySearch(I18n.func_135052_a("container.sim.gui_contains_Dairy_Farm"), true);
             //如果奶牛场不为空，或者 奶牛场个数-1小于等于当前奶牛农场值
             if (!dairyFarms.isEmpty() && dairyFarms.size() - 1 <= this.currentFarmNum) {
                 this.farm = (Building)dairyFarms.get(this.currentFarmNum);
                 //去农场
-                this.theFolk.gotoXYZ(this.farm.primaryXYZ, GotoMethod.BEAM);
+                this.theFolk.gotoXYZ(this.farm.primaryXYZ, null);
                 //切换状态为 收集牛奶
                 this.theStage = Stage.COLLECTINGMILK;
                 this.step = 1;
@@ -250,10 +247,10 @@ public class JobCheesemaker extends Job {
                     return;
                 }
                 //奶酪厂 获取特除方块 3
-                CopyOnWriteArrayList<V3> tanktop = this.theCheeseFactory.getSpecialBlocks(3);
+                List<V3> tanktop = this.theCheeseFactory.getSpecialBlocks(3);
                 if (!tanktop.isEmpty()) {
                     //对齐光波
-                    this.theFolk.gotoXYZ((V3)tanktop.get(0), GotoMethod.BEAM);
+                    this.theFolk.gotoXYZ((V3)tanktop.get(0), null);
                     //去蓄水池
                     this.theStage = Stage.GOINGTOTANK;
                     this.step = 1;
@@ -322,7 +319,7 @@ public class JobCheesemaker extends Job {
                     this.step = 3;
                 }
             } else if (this.step == 2) {
-                CopyOnWriteArrayList<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
+                List<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
                 int lightID = Block.func_149682_b(BlockLoader.blockLightBox);
                 ModSimReloaded.log.info(Integer.toString(lightID));
                 boolean filledOk = false;
@@ -338,11 +335,11 @@ public class JobCheesemaker extends Job {
                         }
                         //牛奶
                         milkBlock = (V3) iterator.next();
-                        BlockPos blockPos= new BlockPos(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
+                        BlockPos blockPos= new BlockPos(milkBlock.field_72450_a, milkBlock.field_72448_b, milkBlock.field_72449_c);
                         id = this.jobWorld.func_180495_p(blockPos).func_177230_c();
                         meta = id.func_176201_c(this.jobWorld.func_180495_p(blockPos));
                     } while (id != Blocks.field_150350_a && (id != BlockLoader.blockFluidMilk || meta != 1));
-                    BlockPos blockPos=new BlockPos(milkBlock.x.intValue(), milkBlock.y.intValue(), milkBlock.z.intValue());
+                    BlockPos blockPos=new BlockPos(milkBlock.field_72450_a, milkBlock.field_72448_b, milkBlock.field_72449_c);
                     this.jobWorld.func_180501_a(blockPos,BlockLoader.blockFluidMilk.func_176223_P(),3);
 
                     try {
@@ -361,8 +358,8 @@ public class JobCheesemaker extends Job {
                     this.theStage = Stage.STIRING;
                     this.step = 1;
                     this.theFolk.isWorking = false;
-                    CopyOnWriteArrayList<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
-                    CopyOnWriteArrayList<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
+                    List<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
+                    List<IInventory> chests = inventoriesFindClosest((V3)cheesechest.get(0), 4);
                     this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), chests, (ItemStack)null);
                 }
             } else if (this.step == 3) {
@@ -385,15 +382,15 @@ public class JobCheesemaker extends Job {
      **/
     private void stageStiring() {
         try {
-            CopyOnWriteArrayList<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
+            List<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
             if (this.step == 1) {
                 //检查牛奶粘度
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.cheese_maker.viscosity");
                 if (!stirPositions.isEmpty()) {
                     if (this.tubToggle) {
-                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(0), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(0), null);
                     } else {
-                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(1), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ(this.currentStirPos = (V3)stirPositions.get(1), null);
                     }
 
                     this.tubToggle = !this.tubToggle;
@@ -475,8 +472,8 @@ public class JobCheesemaker extends Job {
      **/
     private void transformMilkToCheese(V3 currentStirPos) {
         try {
-            CopyOnWriteArrayList<V3> milkBlocks = this.theCheeseFactory.getSpecialBlocks(0);
-            CopyOnWriteArrayList<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
+            List<V3> milkBlocks = this.theCheeseFactory.getSpecialBlocks(0);
+            List<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
             if (!milkBlocks.isEmpty() && !cheeseBlocks.isEmpty()) {
                 boolean placedCheese = false;
                 int milkGotCount = 0;
@@ -487,7 +484,7 @@ public class JobCheesemaker extends Job {
                 for(int m = milkBlocks.size() - 1; m > 0; --m) {
                     cheese = (V3)milkBlocks.get(m);
 
-                    BlockPos blockPos= new BlockPos(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
+                    BlockPos blockPos= new BlockPos(cheese.field_72450_a, cheese.field_72448_b, cheese.field_72449_c);
                     id = this.jobWorld.func_180495_p(blockPos).func_177230_c();
                     dist = id.func_176201_c(this.jobWorld.func_180495_p(blockPos));
 
@@ -505,10 +502,10 @@ public class JobCheesemaker extends Job {
 
                     while(i$.hasNext()) {
                         cheese = (V3) i$.next();
-                        id = this.jobWorld.func_180495_p(new BlockPos(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue())).func_177230_c();
+                        id = this.jobWorld.func_180495_p(new BlockPos(cheese.field_72450_a, cheese.field_72448_b, cheese.field_72449_c)).func_177230_c();
                         dist = cheese.getDistanceTo(currentStirPos);
                         if (id != BlockLoader.blockCheese && dist < 5) {
-                            BlockPos blockPos=new BlockPos(cheese.x.intValue(), cheese.y.intValue(), cheese.z.intValue());
+                            BlockPos blockPos=new BlockPos(cheese.field_72450_a, cheese.field_72448_b, cheese.field_72449_c);
                             this.jobWorld.func_180501_a(blockPos,BlockLoader.blockCheese.func_176223_P(),3);
                             placedCheese = true;
                             break;
@@ -541,12 +538,12 @@ public class JobCheesemaker extends Job {
      **/
     private void stageHarvestCheese() {
         try {
-            CopyOnWriteArrayList<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
-            CopyOnWriteArrayList<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
+            List<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
+            List<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
             //提取奶酪块
             this.theFolk.statusText = I18n.func_135052_a("container.sim.job.cheese_maker.Extracting");
             if (this.step == 1) {
-                this.theFolk.gotoXYZ((V3)stirPositions.get(0), GotoMethod.WALK);
+                this.theFolk.gotoXYZ((V3)stirPositions.get(0), null);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.destination == null) {
@@ -566,11 +563,11 @@ public class JobCheesemaker extends Job {
                     while(iterator.hasNext()) {
                         block = (V3)iterator.next();
 
-                        id = this.jobWorld.func_180495_p(new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue())).func_177230_c();
+                        id = this.jobWorld.func_180495_p(new BlockPos(block.field_72450_a, block.field_72448_b, block.field_72449_c)).func_177230_c();
                         if (((V3) stirPositions.get(0)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheese) {
                             gotBlock = true;
                             this.theFolk.getVillagerInventory().func_70299_a(0,new ItemStack(BlockLoader.blockCheese));
-                            BlockPos blockPos=new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue());
+                            BlockPos blockPos=new BlockPos(block.field_72450_a, block.field_72448_b, block.field_72449_c);
                             this.jobWorld.func_180501_a(blockPos,id.func_176223_P(),3);
                             this.theFolk.isWorking = true;
                             GameStates var10000 = ModSimReloaded.states;
@@ -582,7 +579,7 @@ public class JobCheesemaker extends Job {
                     if (!gotBlock) {
                         this.theFolk.isWorking = false;
                         this.step = 4;
-                        this.theFolk.gotoXYZ((V3)stirPositions.get(1), GotoMethod.WALK);
+                        this.theFolk.gotoXYZ((V3)stirPositions.get(1), null);
                     }
                 } else if (this.step == 4) {
                     if (this.theFolk.destination == null) {
@@ -597,11 +594,11 @@ public class JobCheesemaker extends Job {
                     while(iterator.hasNext()) {
                         block = (V3)iterator.next();
 
-                        id = this.jobWorld.func_180495_p(new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue())).func_177230_c();
+                        id = this.jobWorld.func_180495_p(new BlockPos(block.field_72450_a, block.field_72448_b, block.field_72449_c)).func_177230_c();
                         if (((V3) stirPositions.get(1)).getDistanceTo(block) < 5 && id == BlockLoader.blockCheese) {
                             gotBlock = true;
                             this.theFolk.getVillagerInventory().func_70299_a(0,new ItemStack(BlockLoader.blockCheese));
-                            BlockPos blockPos=new BlockPos(block.x.intValue(), block.y.intValue(), block.z.intValue());
+                            BlockPos blockPos=new BlockPos(block.field_72450_a, block.field_72448_b, block.field_72449_c);
                             this.jobWorld.func_180501_a(blockPos,id.func_176223_P(),3);
                             break;
                         }
@@ -627,14 +624,14 @@ public class JobCheesemaker extends Job {
      */
     private void stageSliceCheese() {
         try {
-            CopyOnWriteArrayList<V3> slicewaypoint = this.theCheeseFactory.getSpecialBlocks(5);
+            List<V3> slicewaypoint = this.theCheeseFactory.getSpecialBlocks(5);
             if (slicewaypoint.isEmpty()) {
                 this.theFolk.selfFire();
                 //有一个与奶酪厂的问题，尝试重新建立它的航点问题
                 ModSimReloaded.sendChat(I18n.func_135052_a("container.sim.job.cheese_maker.problem"));
             } else {
                 if (this.step == 1) {
-                    this.theFolk.gotoXYZ((V3)slicewaypoint.get(0), GotoMethod.WALK);
+                    this.theFolk.gotoXYZ((V3)slicewaypoint.get(0), null);
                     this.step = 2;
                 } else if (this.step == 2) {
                     if (this.theFolk.destination == null) {
@@ -642,7 +639,7 @@ public class JobCheesemaker extends Job {
                         this.theFolk.stayPut = true;
                     }
                 } else {
-                    CopyOnWriteArrayList chests;
+                    List chests;
                     if (this.step == 3) {
                         chests = Job.inventoriesFindClosest((V3)slicewaypoint.get(0), 4);
                         if (chests.isEmpty()) {
@@ -698,7 +695,7 @@ public class JobCheesemaker extends Job {
                 this.theStage = Stage.ARRIVEDATFACTORY;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

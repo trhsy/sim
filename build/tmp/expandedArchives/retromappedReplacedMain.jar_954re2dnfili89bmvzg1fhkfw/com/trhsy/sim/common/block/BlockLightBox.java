@@ -29,11 +29,11 @@ public class BlockLightBox extends EnumBlock<EnumBlockLightBox> {
     public BlockLightBox() {
         super(Material.field_151575_d,TYPE,EnumBlockLightBox.class);
         //this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLightBox.WHITE));
-        this.func_149715_a(1.0F);
+        this.func_149715_a(1);
         this.func_149647_a(CreativeTabsLoader.tabSimU);
         this.func_149672_a(Block.field_149766_f);
         this.func_149711_c(2.0F);
-        this.func_149752_b(1.0F);
+        this.func_149752_b(1);
         this.func_149675_a(true);
         //this.setTextureName(ModSim.MODID + ":" + "light_block_White");
         this.func_149663_c("lightBox");

@@ -3,7 +3,6 @@ package com.trhsy.sim.common.gui;
 import com.google.common.collect.Lists;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.common.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;

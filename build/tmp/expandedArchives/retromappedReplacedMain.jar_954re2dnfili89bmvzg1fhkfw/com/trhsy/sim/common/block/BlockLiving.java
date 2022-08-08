@@ -34,9 +34,9 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     public BlockLiving() {
         super(Material.field_151593_r, TYPE, EnumBlockLiving.class);
         //this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLiving.WHITE));
-        this.func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
+        this.func_149676_a(0.0F, 0.0F, 0.0F, 1, 0.0625F, 1);
         this.func_149711_c(10.0F);
-        this.func_149752_b(1.0F);
+        this.func_149752_b(1);
         this.func_149663_c("livingBlock");
         this.func_149647_a(CreativeTabsLoader.tabSimU);
     }
@@ -78,7 +78,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     protected void setBlockBoundsFromMeta(int meta) {
         int i = 0;
         float f = (float) (1 * (1 + i)) / 16.0F;
-        this.func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+        this.func_149676_a(0.0F, 0.0F, 0.0F, 1, f, 1);
     }
 
     @Override

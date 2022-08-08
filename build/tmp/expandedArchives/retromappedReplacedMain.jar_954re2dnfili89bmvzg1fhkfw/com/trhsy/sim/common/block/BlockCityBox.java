@@ -1,9 +1,8 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.gui.blocks.GuiCityBox;
-import com.trhsy.sim.common.loader.CreativeTabsLoader;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.client.gui.blocks.GuiCityBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -29,7 +28,7 @@ public class BlockCityBox extends Block {
         super(Material.field_151575_d);
         this.func_149672_a(Block.field_149766_f);
         this.func_149711_c(10.0F);
-        this.func_149752_b(1.0F);
+        this.func_149752_b(1);
         this.func_149663_c("city_box");
         //this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
@@ -38,7 +37,7 @@ public class BlockCityBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID+":computer", 1.0F, 1.0F);
+            world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID+":computer", 1, 1);
             GuiCityBox ui = null;
             Minecraft mc = Minecraft.func_71410_x();
             mc.func_71364_i();

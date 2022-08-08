@@ -153,233 +153,231 @@ public class GuiControlBox extends GuiScreen {
                 this.buttonList.add(new GuiButton(30, this.width - 110, this.height - 50, 100, 20, I18n.format("container.sim.Beam_me_to")));
                 int down;
                 FolkData folk = new FolkData();
-                ;
-                //类型为商业或者工业
-                if (this.theBuilding.type.contentEquals("commercial") || this.theBuilding.type.contentEquals("industrial")) {
-                    down = 70;
-                    int idx = 2;
-                    //雇佣人数为0
-                    this.employeeCount = 0;
-                    //员工清理
-                    this.employees.clear();
+                if(this.theBuilding.type!=null){
+                    //类型为商业或者工业
+                    if (this.theBuilding.type.contentEquals("commercial") || this.theBuilding.type.contentEquals("industrial")) {
+                        down = 70;
+                        int idx = 2;
+                        //雇佣人数为0
+                        this.employeeCount = 0;
+                        //员工清理
+                        this.employees.clear();
 
-                    for (int fc = 0; fc < ModSimReloaded.theFolks.size(); ++fc) {
-                        folk = ModSimReloaded.theFolks.get(fc);
-                        if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
-                            this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") + " " + folk.name));
-                            this.employees.put(idx + 100, folk.name);
-                            if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Depot"))) {
-                                this.buttonList.add(new GuiButton(idx + 100, this.width - 190, down - 6, 50, 20, I18n.format("container.sim.Tasks")));
-                            }
-
-                            down += 20;
-                            ++this.employeeCount;
-                            idx++;
-                        }
-                    }
-                }
-
-                GuiButton b;
-                if (this.theBuilding.type.contentEquals("commercial")) {
-                    //System.out.println("***************************commercial*********************");
-                    //面包店
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Bakery"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire6")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //杂货铺
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Grocery_Store"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire9")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //肉铺
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Butchers"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire20")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //汉堡店
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
-                        List<FolkData> employees = FolkData.getFolksByEmployedAt(this.theBuilding.primaryXYZ);
-                        Boolean flag = false;
-                        GuiButton b1;
-                        this.buttonList.add(b1 = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire4")));
-                        for (FolkData folkData : employees) {
-                            if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSMANAGER) {
-                                flag = true;
-                                break;
-                            }
-                        }
-
-                        if (flag) {
-                            b1.enabled = false;
-                        }
-
-                        flag = false;
-                        GuiButton b2;
-                        this.buttonList.add(b2 = new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire3")));
-                        for (FolkData folkData : employees) {
-                            if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSFRYCOOK) {
-                                flag = true;
-                                break;
-                            }
-                        }
-
-                        if (flag) {
-                            b2.enabled = false;
-                        }
-                        flag = false;
-                        GuiButton b3;
-                        this.buttonList.add(b3 = new GuiButton(3, 10, this.height - 70, 100, 20, I18n.format("container.sim.Hire2")));
-                        for (FolkData folkData : employees) {
-                            if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSWAITER) {
-                                flag = true;
-                                break;
-                            }
-                        }
-
-                        if (flag) {
-                            b3.enabled = false;
-                        }
-                    }
-                }
-
-                if (this.theBuilding.type.contentEquals("industrial")) {
-                    //伐木场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Lumbermill"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire19")));
-                        if (this.employeeCount > 4) {
-                            b.enabled = false;
-                        }
-
-                        if (BlockMarker.markers.size() == 1) {
-                            this.buttonList.add(new GuiButton(20, this.width / 2 + 100, this.height - 30, 100, 20, I18n.format("container.sim.Set_Lumber_area")));
-                        }
-                    }
-                    //建筑商
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Builders_Merchant"))) {
-                        //雇佣商人
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire11")));
-                        GuiButton b2;
-                        //买/卖
-                        this.buttonList.add(b2 = new GuiButton(25, 10, this.height - 50, 100, 20, I18n.format("container.sim.Buy_Sell")));
-                        if (!ModSimReloaded.isDayTime() || this.employeeCount == 0) {
-                            b2.enabled = false;
-                        }
-
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //军营
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire7")));
-                        if (this.employeeCount > 9) {
-                            b.enabled = false;
-                        }
-                    }
-                    //牧羊场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Sheep_Farm"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire8")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //鸡蛋农场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Egg_Farm"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire17")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //养牛场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Cattle_Farm"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire18")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //养猪场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Pig_Farm"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire16")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //养鸡场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Chicken_Farm"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire15")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //仓库
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Depot"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire10")));
-                        if (this.employeeCount > 3) {
-                            b.enabled = false;
-                        }
-                    }
-                    //玻璃工厂
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Glass_Factory"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire14")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //板砖厂
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Brick_factory"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire23")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //渔场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Fishing_Dock"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire13")));
-                        if (this.employeeCount > 1) {
-                            b.enabled = false;
-                        }
-                    }
-                    //奶牛场
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Dairy_Farm"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire12")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-                    //奶酪工厂
-                    if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Cheese_Factory"))) {
-                        this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire5")));
-                        if (this.employeeCount > 0) {
-                            b.enabled = false;
-                        }
-                    }
-
-                    down = 70;
-                    int idx = 2;
-
-                    for (int i = 0; i < ModSimReloaded.theFolks.size(); i++) {
-                        folk = (FolkData) ModSimReloaded.theFolks.get(i);
-                        if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
-                            if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
-                                this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Dismiss") + " " + folk.name));
-                            } else if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
-                                this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Fire") + " " + folk.vocation.toString()));
-                            } else {
+                        for (int fc = 0; fc < ModSimReloaded.theFolks.size(); ++fc) {
+                            folk = ModSimReloaded.theFolks.get(fc);
+                            if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                                 this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") + " " + folk.name));
+                                this.employees.put(idx + 100, folk.name);
+                                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Depot"))) {
+                                    this.buttonList.add(new GuiButton(idx + 100, this.width - 190, down - 6, 50, 20, I18n.format("container.sim.Tasks")));
+                                }
+
+                                down += 20;
+                                ++this.employeeCount;
+                                idx++;
+                            }
+                        }
+                    }
+                    GuiButton b;
+                    if (this.theBuilding.type.contentEquals("commercial")) {
+                        //System.out.println("***************************commercial*********************");
+                        //面包店
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Bakery"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire6")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //杂货铺
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Grocery_Store"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire9")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //肉铺
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Butchers"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire20")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //汉堡店
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
+                            List<FolkData> employees = FolkData.getFolksByEmployedAt(this.theBuilding.primaryXYZ);
+                            Boolean flag = false;
+                            GuiButton b1;
+                            this.buttonList.add(b1 = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire4")));
+                            for (FolkData folkData : employees) {
+                                if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSMANAGER) {
+                                    flag = true;
+                                    break;
+                                }
                             }
 
-                            down += 20;
+                            if (flag) {
+                                b1.enabled = false;
+                            }
+
+                            flag = false;
+                            GuiButton b2;
+                            this.buttonList.add(b2 = new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire3")));
+                            for (FolkData folkData : employees) {
+                                if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSFRYCOOK) {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+
+                            if (flag) {
+                                b2.enabled = false;
+                            }
+                            flag = false;
+                            GuiButton b3;
+                            this.buttonList.add(b3 = new GuiButton(3, 10, this.height - 70, 100, 20, I18n.format("container.sim.Hire2")));
+                            for (FolkData folkData : employees) {
+                                if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSWAITER) {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+
+                            if (flag) {
+                                b3.enabled = false;
+                            }
+                        }
+                    }
+                    if (this.theBuilding.type.contentEquals("industrial")) {
+                        //伐木场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Lumbermill"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire19")));
+                            if (this.employeeCount > 4) {
+                                b.enabled = false;
+                            }
+
+                            if (BlockMarker.markers.size() == 1) {
+                                this.buttonList.add(new GuiButton(20, this.width / 2 + 100, this.height - 30, 100, 20, I18n.format("container.sim.Set_Lumber_area")));
+                            }
+                        }
+                        //建筑商
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Builders_Merchant"))) {
+                            //雇佣商人
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire11")));
+                            GuiButton b2;
+                            //买/卖
+                            this.buttonList.add(b2 = new GuiButton(25, 10, this.height - 50, 100, 20, I18n.format("container.sim.Buy_Sell")));
+                            if (!ModSimReloaded.isDayTime() || this.employeeCount == 0) {
+                                b2.enabled = false;
+                            }
+
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //军营
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire7")));
+                            if (this.employeeCount > 9) {
+                                b.enabled = false;
+                            }
+                        }
+                        //牧羊场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Sheep_Farm"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire8")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //鸡蛋农场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Egg_Farm"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire17")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //养牛场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Cattle_Farm"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire18")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //养猪场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Pig_Farm"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire16")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //养鸡场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Chicken_Farm"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire15")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //仓库
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Depot"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire10")));
+                            if (this.employeeCount > 3) {
+                                b.enabled = false;
+                            }
+                        }
+                        //玻璃工厂
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Glass_Factory"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire14")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //板砖厂
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Brick_factory"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire23")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //渔场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Fishing_Dock"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire13")));
+                            if (this.employeeCount > 1) {
+                                b.enabled = false;
+                            }
+                        }
+                        //奶牛场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Dairy_Farm"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire12")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+                        //奶酪工厂
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Cheese_Factory"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire5")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
+
+                        down = 70;
+                        int idx = 2;
+
+                        for (int i = 0; i < ModSimReloaded.theFolks.size(); i++) {
+                            folk = (FolkData) ModSimReloaded.theFolks.get(i);
+                            if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
+                                if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
+                                    this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Dismiss") + " " + folk.name));
+                                } else if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
+                                    this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Fire") + " " + folk.vocation.toString()));
+                                } else {
+                                    this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") + " " + folk.name));
+                                }
+
+                                down += 20;
+                            }
                         }
                     }
                 }
-
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -422,36 +420,37 @@ public class GuiControlBox extends GuiScreen {
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Type") + " : " + this.theBuilding.type + " (" + isComplete + ")", 5, 47, 16777088);
                 int down;
                 if(this.theBuilding!=null){
+                if(this.theBuilding.type!=null){
+                    if (!this.theBuilding.type.contentEquals("residential")) {
+                        if (!this.theBuilding.type.contentEquals("industrial") && !this.theBuilding.type.contentEquals("commercial")) {
+                            if (this.theBuilding.type.contentEquals("other")) {
+                            }
+                        } else {
+                            this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + " :", 5, 57, 16777088);
+                            down = 70;
 
-                if (!this.theBuilding.type.contentEquals("residential")) {
-                    if (!this.theBuilding.type.contentEquals("industrial") && !this.theBuilding.type.contentEquals("commercial")) {
-                        if (this.theBuilding.type.contentEquals("other")) {
-                        }
-                    } else {
-                        this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + " :", 5, 57, 16777088);
-                        down = 70;
-
-                        for (down = 0; down < ModSimReloaded.theFolks.size(); ++down) {
-                            FolkData folk = (FolkData) ModSimReloaded.theFolks.get(down);
-                            if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
-                                this.fontRendererObj.drawString(folk.name + " (" + folk.age + ") - " + folk.vocation.toString(), 20, down, 16777120);
-                                down += 20;
+                            for (down = 0; down < ModSimReloaded.theFolks.size(); ++down) {
+                                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(down);
+                                if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
+                                    this.fontRendererObj.drawString(folk.name + " (" + folk.age + ") - " + folk.vocation.toString(), 20, down, 16777120);
+                                    down += 20;
+                                }
                             }
                         }
-                    }
-                } else {
-                    String s = "";
-                    if (this.theBuilding.tenants.size() > 1 || this.theBuilding.tenants.size() == 0) {
-                        s = "s";
-                    }
+                    } else {
+                        String s = "";
+                        if (this.theBuilding.tenants.size() > 1 || this.theBuilding.tenants.size() == 0) {
+                            s = "s";
+                        }
 
-                    this.fontRendererObj.drawString(this.theBuilding.tenants.size() + I18n.format("container.sim.Resident") + s + " :", 5, 57, 16777088);
-                    down = 70;
+                        this.fontRendererObj.drawString(this.theBuilding.tenants.size() + I18n.format("container.sim.Resident") + s + " :", 5, 57, 16777088);
+                        down = 70;
 
-                    for (int t = 0; t < this.theBuilding.tenants.size(); ++t) {
-                        String folkname = (String) this.theBuilding.tenants.get(t);
-                        this.fontRendererObj.drawString(folkname, 20, down, 16777120);
-                        down += 20;
+                        for (int t = 0; t < this.theBuilding.tenants.size(); ++t) {
+                            String folkname = (String) this.theBuilding.tenants.get(t);
+                            this.fontRendererObj.drawString(folkname, 20, down, 16777120);
+                            down += 20;
+                        }
                     }
                 }
 

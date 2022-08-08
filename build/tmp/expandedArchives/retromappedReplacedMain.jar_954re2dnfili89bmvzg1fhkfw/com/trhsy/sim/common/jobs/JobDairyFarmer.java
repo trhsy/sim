@@ -4,12 +4,10 @@ package com.trhsy.sim.common.jobs;/**
  * @apiNote
  */
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.common.entity.FolkData;
-import com.trhsy.sim.common.entity.GameStates;
-import com.trhsy.sim.common.entity.V3;
-import com.trhsy.sim.common.entity.enums.FolkAction;
-import com.trhsy.sim.common.entity.enums.GotoMethod;
+import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -18,7 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -33,11 +31,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 public class JobDairyFarmer extends Job {
     public Vocation vocation = null;
-    public FolkData theFolk = null;
+    public FolkData theFolk =new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
-    private CopyOnWriteArrayList<IInventory> farmChests = new CopyOnWriteArrayList();
+    private List<IInventory> farmChests = new CopyOnWriteArrayList();
     private String[] cowNames = new String[6];
 
     public JobDairyFarmer(FolkData folk) {
@@ -49,7 +47,7 @@ public class JobDairyFarmer extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.BEAM);
+                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -110,7 +108,7 @@ public class JobDairyFarmer extends Job {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobDairyFarmer-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -197,7 +195,7 @@ public class JobDairyFarmer extends Job {
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.dairy.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, GotoMethod.WALK);
+                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -214,7 +212,7 @@ public class JobDairyFarmer extends Job {
         try {
             for(int c = 1; c <= count; ++c) {
                 newAnimal = new EntityCow(this.jobWorld);
-                newAnimal.func_70012_b(controlBox.x + 1, controlBox.y + 1, controlBox.z, 0.0F, 0.0F);
+                newAnimal.func_70012_b(controlBox.field_72450_a + 1, controlBox.field_72448_b + 1, controlBox.field_72449_c, 0.0F, 0.0F);
                 if (!this.jobWorld.field_72995_K) {
                     this.jobWorld.func_72838_d(newAnimal);
                 }
