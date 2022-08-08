@@ -1,4 +1,4 @@
-employedat|124.0,63.0,331.0,0
+employedat|154.0,63.0,324.0,0
 vocation|BUILDER
 name|宰父昀然
 age|19
@@ -16,6 +16,6 @@ levelsoldier|1.0
 stayput|false
 location|124.0,63.0,331.0,0
 pregnancy|0.0
-building|null
+building|8 单元.txt|residential||-x
 terraformtype|null
 terraformradius|1

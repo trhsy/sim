@@ -80,20 +80,20 @@ public class CommonTickHandler {
                     ModSimReloaded.log.info("触发更新");
                     //触发NPC所有更新
                     FolkData.triggerAllUpdates();
-                    ModSimReloaded.log.info("触发NPC更新");
+//                    ModSimReloaded.log.info("触发NPC更新");
                     //处理昼夜转换
                     ModSimReloaded.dayTransitionHandler();
-                    ModSimReloaded.log.info("触发昼夜转换更新");
+//                    ModSimReloaded.log.info("触发昼夜转换更新");
                     //如果要升级的农场不为空则升级农场
                     if (ModSimReloaded.farmToUpgrade != null) {
                         ModSimReloaded.upgradeFarm();
                     }
-                    ModSimReloaded.log.info("触发要升级的农场更新");
+//                    ModSimReloaded.log.info("触发要升级的农场更新");
                     //需要拆除的方块不为空则
                     if (ModSimReloaded.demolishBlocks.size() > 0) {
                         ModSimReloaded.demolishBlocks();
                     }
-                    ModSimReloaded.log.info("触发需要拆除的方块更新");
+//                    ModSimReloaded.log.info("触发需要拆除的方块更新");
                 }
                 if (ModSim.proxy.ranStartup==false) {
                     //还没有启动——现在就这么做
@@ -115,6 +115,7 @@ public class CommonTickHandler {
                     //已经在启动中运行
                     if (!this.currentWorld.contentEquals(ModSimReloaded.getSavesDataFolder())){
                         if( now- this.lastReset > 30000L) {
+                                this.serverWorld = MinecraftServer.getServer().getEntityWorld();
                                 this.currentWorld = ModSimReloaded.getSavesDataFolder();
                                 ModSimReloaded.log.info("创建时间=" + this.currentWorld + " 保存在=" + ModSimReloaded.getSavesDataFolder());
                                 ModSim.proxy.ranStartup = false;
@@ -150,7 +151,7 @@ public class CommonTickHandler {
                     //Saved game data in
                 }
 
-                this.lastMinuteTickAt = now;
+                this.lastMinuteTickAt = System.currentTimeMillis();
             }
 
         } catch (Exception e) {

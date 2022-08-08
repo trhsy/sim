@@ -1,5 +1,5 @@
-employedat|125.0,63.0,325.0,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|方依瑞
 age|19
 gender|0
@@ -14,7 +14,7 @@ levelbuilder|1.0620029
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|125.0,63.0,325.0,0
+location|127.0,63.0,320.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

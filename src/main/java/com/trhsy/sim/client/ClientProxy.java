@@ -62,7 +62,6 @@ public class ClientProxy extends CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         try {
             super.postInit(event);
-            registerMisc();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端代理初始化出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

@@ -1208,7 +1208,7 @@ public class Building implements Serializable {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    ModSimReloaded.log.info("***********************开始所有建筑加载完成***************");
+                    ModSimReloaded.log.info("***********************开始所有建筑蓝图加载***************");
                     Building.buildingsRes.clear();
                     Building.initBuildingsOfType("residential");
                     Building.buildingsCom.clear();
@@ -1219,7 +1219,7 @@ public class Building implements Serializable {
                     Building.initBuildingsOfType("other");
                     Building.buildingsSpec.clear();
                     Building.initBuildingsOfType("special");
-                    ModSimReloaded.log.info("***********************所有建筑加载完成***************");
+                    ModSimReloaded.log.info("***********************所有建筑蓝图加载完成***************");
                 }
             }, "thread_sim");
             thread.start();

@@ -14,12 +14,14 @@ import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.packets.NetWorkLoader;
+import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
 import com.trhsy.sim.packets.server.LoadBuildingPacket;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -444,7 +446,6 @@ public class GuiBuildingConstructor extends GuiScreen {
                     int y;
                     int idx;
                     if (this.currentPage == 4) {
-                        try {
                             x = 10;
                             y = 65;
                             idx = 1;
@@ -465,9 +466,6 @@ public class GuiBuildingConstructor extends GuiScreen {
                                     break;
                                 }
                             }
-                        } catch (Exception e) {
-                            //var18.printStackTrace();
-                        }
                     } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
                         if (this.currentPage == 8) {
                             //返回
@@ -610,9 +608,9 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param guibutton
      */
     @Override
-    @SubscribeEvent(
+    /*@SubscribeEvent(
             priority = EventPriority.NORMAL
-    )
+    )*/
     public void actionPerformed(GuiButton guibutton) {
         try {
             if (System.currentTimeMillis() - this.fuckingBodge >= 100L) {
@@ -676,21 +674,28 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
                                 if (guibutton.displayString.contentEquals(sim_gui_BC_Build_it)) {
                                     if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
+                                        //清掉同一路径下的建筑
                                         ModSimReloaded.theBuildings.remove(this.selectedBuilding);
                                     }
 
                                     this.selectedBuilding.conBoxLocation = this.constructorLoc.clone();
                                     ModSimReloaded.theBuildings.add(this.selectedBuilding);
+                                    //保存这个建筑
                                     this.selectedBuilding.saveThisBuilding();
-                                    NetWorkLoader.net.sendToAll(new LoadBuildingPacket("GuiBuildingCon"));
+                                    //向所有人发送信息 加载建筑包
+                                    LoadBuildingPacket loadBuildingPacket = new LoadBuildingPacket();
+                                    loadBuildingPacket.nbt = new NBTTagCompound();
+                                    loadBuildingPacket.nbt.setString("GuiBuilding", "GuiBuildingCon");
+                                    NetWorkLoader.net.sendToAll(loadBuildingPacket);
+//                                    NetWorkLoader.net.sendToAll(new LoadBuildingPacket());
 
                                     for (int i = 0; i < this.theWorkers.size(); i++) {
-                                        FolkData theWorker = (FolkData) this.theWorkers.get(i);
+                                        FolkData theWorker = this.theWorkers.get(i);
                                         theWorker.theBuilding = this.selectedBuilding;
                                         theWorker.saveThisFolk();
                                     }
 
-                                    this.mc.displayGuiScreen((GuiScreen) null);
+                                    this.mc.displayGuiScreen( null);
                                     this.mc.setIngameFocus();
                                     return;
                                 }

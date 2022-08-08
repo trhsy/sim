@@ -8,6 +8,7 @@ import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -25,21 +26,22 @@ import net.minecraftforge.fml.relauncher.Side;
  **/
 public class LoadBuildingPacket implements IMessage {
     private String GuiBuildingCon;
-
+    public NBTTagCompound nbt;
     public LoadBuildingPacket() {
     }
-    public LoadBuildingPacket(String GuiBuildingCon) {
+    /*public LoadBuildingPacket(String GuiBuildingCon) {
         try {
             this.GuiBuildingCon = GuiBuildingCon;
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("LoadBuildingPacket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
-    }
+    }*/
 
     @Override
     public void fromBytes(ByteBuf buf) {
         try {
-            this.GuiBuildingCon = ByteBufUtils.readUTF8String(buf);
+            nbt = ByteBufUtils.readTag(buf);
+//            this.GuiBuildingCon = ByteBufUtils.readUTF8String(buf);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -48,12 +50,14 @@ public class LoadBuildingPacket implements IMessage {
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.GuiBuildingCon);
+        ByteBufUtils.writeTag(buf, nbt);
+//        ByteBufUtils.writeUTF8String(buf, this.GuiBuildingCon);
     }
     public static class Handler implements IMessageHandler<LoadBuildingPacket, IMessage> {
         @Override
         public IMessage onMessage(LoadBuildingPacket message, MessageContext ctx) {
             if (ctx.side == Side.CLIENT) {
+                final String nbt =message.nbt.getString("GuiBuilding");
                 Minecraft.getMinecraft().addScheduledTask(new Runnable() {
                     @Override
                     public void run() {
