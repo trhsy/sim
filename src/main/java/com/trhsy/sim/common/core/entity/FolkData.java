@@ -486,7 +486,7 @@ public class FolkData implements Serializable {
         try {
             this.location = newLocation.clone();
             if (this.theEntity != null) {
-                newLocation.addVector(Math.floor(newLocation.xCoord) + 0.5, newLocation.yCoord, Math.floor(newLocation.zCoord) + 0.5);
+                newLocation=new V3(Math.floor(newLocation.xCoord) + 0.5, newLocation.yCoord, Math.floor(newLocation.zCoord) + 0.5);
                 this.theEntity.posX = newLocation.xCoord;
                 this.theEntity.posY = newLocation.yCoord;
                 this.theEntity.posZ = newLocation.zCoord;
@@ -679,7 +679,7 @@ public class FolkData implements Serializable {
                         Block block=world.getBlockState(blockPos).getBlock();
                         if (block != null && wanderTo.yCoord < 255.0) {
                             //wanderTo.yCoord = wanderTo.yCoord + 1;
-                            wanderTo.addVector(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
+                            wanderTo=new V3(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
                         }
 
                         //ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
@@ -769,7 +769,7 @@ public class FolkData implements Serializable {
                         //ModSimReloaded.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
                         this.updateLocationFromEntity();
                         V3 temp = this.employedAt.clone();
-                        temp.addVector(temp.xCoord + 5, temp.yCoord, temp.zCoord);
+                        temp=new V3(temp.xCoord + 5, temp.yCoord, temp.zCoord);
                         //temp.xCoord += 5.0;
                         this.gotoXYZ(temp, GotoMethod.SHIFT);
                         this.gotoXYZ(this.employedAt, null);
@@ -1273,7 +1273,7 @@ public class FolkData implements Serializable {
                         }
                     }
 
-                    ret.addVector(ret.xCoord, ret.yCoord + 1, ret.zCoord);
+                    ret=new V3(ret.xCoord, ret.yCoord + 1, ret.zCoord);
                     if (ret.yCoord > 200) {
                         break;
                     }
@@ -1500,12 +1500,15 @@ public class FolkData implements Serializable {
 
                     if (this.destination != null) {
                         if (this.gotoMethod == GotoMethod.SHIFT) {
-                            this.destination.addVector(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
+                            this.destination=new V3(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
                             if (this.theEntity != null) {
-                                this.theEntity.posX = this.destination.xCoord;
-                                this.theEntity.posY = this.destination.yCoord;
-                                this.theEntity.posZ = this.destination.zCoord;
+                                if(this.destination!=null){
+                                    this.theEntity.posX = this.destination.xCoord;
+                                    this.theEntity.posY = this.destination.yCoord;
+                                    this.theEntity.posZ = this.destination.zCoord;
+                                }
                                 //如果维度不一样传送到维度
+                                //修改为不管维度一样不一样都要传送
                                 if (this.location.theDimension != this.destination.theDimension) {
                                     this.theEntity.travelToDimension(this.destination.theDimension);
                                     this.theEntity.dimension = this.destination.theDimension;
@@ -1564,13 +1567,13 @@ public class FolkData implements Serializable {
                     if (id1.getLocalizedName().contains("air") && id2.getLocalizedName().contains("air")) {
                         break;
                     }
-                    whereTo.addVector(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord);
+                    whereTo=new V3(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord);
                     //whereTo.yCoord = whereTo.yCoord + 1;
                 }
                 //whereTo.xCoord = whereTo.xCoord + 1;
                 //whereTo.zCoord =  whereTo.zCoord + 1;
                 //whereTo.yCoord = whereTo.yCoord - 1.0;
-                whereTo.addVector(whereTo.xCoord + 1, whereTo.yCoord - 1, whereTo.zCoord + 1);
+                whereTo=new V3(whereTo.xCoord + 1, whereTo.yCoord - 1, whereTo.zCoord + 1);
 
 
                 this.destination = whereTo.clone();

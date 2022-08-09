@@ -416,19 +416,19 @@ public class JobMiner extends Job implements Serializable {
 
                     if (this.mineHorizontalDir.contentEquals("+x")) {
                         //vMine.x++;
-                        vMine.addVector(vMine.xCoord+1,vMine.yCoord,vMine.zCoord);
+                        vMine=new V3(vMine.xCoord+1,vMine.yCoord,vMine.zCoord);
                         //vMine = new V3(vMine.x + 1, vMine.y, vMine.z, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("-x")) {
                         //vMine.x--;
-                        vMine.addVector(vMine.xCoord-1,vMine.yCoord,vMine.zCoord);
+                        vMine=new V3(vMine.xCoord-1,vMine.yCoord,vMine.zCoord);
                         // vMine = new V3(vMine.x - 1, vMine.y, vMine.z, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("+z")) {
                         //vMine.z++;
-                        vMine.addVector(vMine.xCoord+1,vMine.yCoord,vMine.zCoord+1);
+                        vMine=new V3(vMine.xCoord+1,vMine.yCoord,vMine.zCoord+1);
                         // vMine = new V3(vMine.x, vMine.y, vMine.z + 1, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("-z")) {
                         //vMine.z--;
-                        vMine.addVector(vMine.xCoord+1,vMine.yCoord,vMine.zCoord-1);
+                        vMine=new V3(vMine.xCoord+1,vMine.yCoord,vMine.zCoord-1);
                         //vMine = new V3(vMine.x, vMine.y, vMine.z - 1, vMine.theDimension);
                     }
 
@@ -471,19 +471,19 @@ public class JobMiner extends Job implements Serializable {
 
                                         if (this.mineHorizontalDir.contentEquals("+x")) {
                                             //lightbox.z--;
-                                            lightbox.addVector(lightbox.xCoord,lightbox.yCoord,lightbox.zCoord-1);
+                                            lightbox=new V3(lightbox.xCoord,lightbox.yCoord,lightbox.zCoord-1);
                                             //lightbox = new V3(lightbox.x, lightbox.y, lightbox.z - 1, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("-x")) {
                                             //lightbox.z++;
-                                            lightbox.addVector(lightbox.xCoord,lightbox.yCoord,lightbox.zCoord+1);
+                                            lightbox=new V3(lightbox.xCoord,lightbox.yCoord,lightbox.zCoord+1);
                                             //lightbox = new V3(lightbox.x, lightbox.y, lightbox.z + 1, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("+z")) {
                                             //lightbox.x++;
-                                            lightbox.addVector(lightbox.xCoord+1,lightbox.yCoord,lightbox.zCoord);
+                                            lightbox=new V3(lightbox.xCoord+1,lightbox.yCoord,lightbox.zCoord);
                                             // lightbox = new V3(lightbox.x + 1, lightbox.y, lightbox.z, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("-z")) {
                                             //lightbox.x--;
-                                            lightbox.addVector(lightbox.xCoord-1,lightbox.yCoord,lightbox.zCoord);
+                                            lightbox=new V3(lightbox.xCoord-1,lightbox.yCoord,lightbox.zCoord);
                                             //lightbox = new V3(lightbox.x - 1, lightbox.y, lightbox.z, lightbox.theDimension);
                                         }
 

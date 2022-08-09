@@ -709,9 +709,12 @@ public class EntityFolk extends EntityCreature implements INpc {
                 Block idX2 = this.worldObj.getBlockState(blockPos2).getBlock();
                 Block idz = this.worldObj.getBlockState(blockPos3).getBlock();
                 Block idZ2 = this.worldObj.getBlockState(blockPos4).getBlock();
-                this.motionY = this.theData.location.yCoord+1;
-                this.motionX = this.theData.location.xCoord;
-                this.motionZ = this.theData.location.zCoord;
+                if(this.theData.location!=null) {
+                    this.motionY = this.theData.location.yCoord+1;
+                    this.motionX = this.theData.location.xCoord;
+                    this.motionZ = this.theData.location.zCoord;
+                }
+
                 if (idx == null) {
                     this.motionX =this.theData.location.xCoord+1;
                 } else if (idX2 == null) {
@@ -722,7 +725,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     this.motionZ = this.theData.location.zCoord-1;
                 }
                 //受伤要跑出受伤范围
-                this.theData.gotoXYZ(new V3(motionX,motionY,motionZ,0), GotoMethod.BEAM);
+                this.theData.gotoXYZ(new V3(motionX,motionY,motionZ,0), GotoMethod.SHIFT);
             }
 
             if (this.theData == null) {

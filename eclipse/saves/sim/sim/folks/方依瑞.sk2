@@ -14,7 +14,7 @@ levelbuilder|10.062003
 levelminer|10.0
 levelsoldier|10.0
 stayput|false
-location|96.0,63.0,325.0,0
+location|101.5,63.0,325.5,0
 pregnancy|0.0
 building|4 公寓.txt|residential||+x
 terraformtype|null

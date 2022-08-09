@@ -1,5 +1,5 @@
-employedat|null
-vocation|null
+employedat|96.0,63.0,267.0,0
+vocation|BUILDER
 name|浦悦鑫
 age|18
 gender|0
@@ -16,6 +16,6 @@ levelsoldier|10.0
 stayput|false
 location|147.0,63.0,396.0,0
 pregnancy|0.0
-building|null
+building|Flowepot酒店.txt|residential||-z
 terraformtype|null
 terraformradius|1

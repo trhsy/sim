@@ -103,7 +103,6 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
             world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
-            GuiControlBox ui = null;
             GuiBankATM ui2 = null;
             Minecraft mc = Minecraft.getMinecraft();
             mc.setIngameNotInFocus();

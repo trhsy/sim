@@ -160,32 +160,32 @@ public class FarmingBox implements Serializable {
                 for (int i = 0; i <= this.getSizeWidth(); i++) {
                     ret.add(c.clone());
                     if (m2.xCoord > m1.xCoord) {
-                        c.addVector(m1.xCoord + i, c.yCoord, c.zCoord);
+                        c=new V3(m1.xCoord + i, c.yCoord, c.zCoord);
                         //c.xCoord = m1.xCoord + (double) i;
                     } else if (m2.xCoord < m1.xCoord) {
                         //c.xCoord = m1.xCoord - (double) i;
-                        c.addVector(m1.xCoord - i, c.yCoord, c.zCoord);
+                        c=new V3(m1.xCoord - i, c.yCoord, c.zCoord);
                     } else if (m2.zCoord > m1.zCoord) {
                         //c.zCoord = m1.zCoord + (double) i;
-                        c.addVector(c.xCoord, c.yCoord, m1.zCoord + i);
+                        c=new V3(c.xCoord, c.yCoord, m1.zCoord + i);
                     } else if (m2.zCoord < m1.zCoord) {
                         //c.zCoord = m1.zCoord - (double) i;
-                        c.addVector(c.xCoord, c.yCoord, m1.zCoord - i);
+                        c=new V3(c.xCoord, c.yCoord, m1.zCoord - i);
                     }
                 }
 
                 if (m3.xCoord > m1.xCoord) {
                     //c.xCoord = m1.xCoord + (double) o;
-                    c.addVector(m1.xCoord + o, c.yCoord, c.zCoord);
+                    c=new V3(m1.xCoord + o, c.yCoord, c.zCoord);
                 } else if (m3.xCoord < m1.xCoord) {
                     //c.xCoord = m1.xCoord - (double) o;
-                    c.addVector(m1.xCoord - o, c.yCoord, c.zCoord);
+                    c=new V3(m1.xCoord - o, c.yCoord, c.zCoord);
                 } else if (m3.zCoord > m1.zCoord) {
                     //c.zCoord = m1.zCoord + (double) o;
-                    c.addVector(c.xCoord, c.yCoord, m1.zCoord + o);
+                    c=new V3(c.xCoord, c.yCoord, m1.zCoord + o);
                 } else if (m3.zCoord < m1.zCoord) {
                     //c.zCoord = m1.zCoord - (double) o;
-                    c.addVector(c.xCoord, c.yCoord, m1.zCoord - o);
+                    c=new V3(c.xCoord, c.yCoord, m1.zCoord - o);
                 }
             }
         } catch (Exception e) {
@@ -215,64 +215,64 @@ public class FarmingBox implements Serializable {
             for (int i = 0; i <= this.getSizeWidth() + 2; i++) {
                 if (m2.xCoord - b.xCoord > 1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m2.xCoord - b.xCoord < -1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m2.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord + 1);
                 } else if (m2.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord - 1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
                 if (m3.xCoord - b.xCoord > 1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m3.xCoord - b.xCoord < -1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m3.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord + 1);
                 } else if (m3.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord - 1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeWidth() + 2; i++) {
                 if (m2.xCoord - b.xCoord + 1 > 1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m2.xCoord - b.xCoord + 1 < -1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m2.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord - 1);
                 } else if (m2.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord + 1);
                 }
                 ret.add(c.clone());
             }
             for (int i = 0; i <= this.getSizeLength() + 2; i++) {
                 if (m3.xCoord - b.xCoord > 1.0) {
                     //c.xCoord = c.xCoord - 1.0;
-                    c.addVector(c.xCoord - 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord - 1, c.yCoord, c.zCoord);
                 } else if (m3.xCoord - b.xCoord < -1.0) {
                     //c.xCoord = c.xCoord + 1.0;
-                    c.addVector(c.xCoord + 1, c.yCoord, c.zCoord);
+                    c=new V3(c.xCoord + 1, c.yCoord, c.zCoord);
                 } else if (m3.zCoord - b.zCoord > 1.0) {
                     //c.zCoord = c.zCoord - 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord - 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord - 1);
                 } else if (m3.zCoord - b.zCoord < -1.0) {
                     //c.zCoord = c.zCoord + 1.0;
-                    c.addVector(c.xCoord, c.yCoord, c.zCoord + 1);
+                    c=new V3(c.xCoord, c.yCoord, c.zCoord + 1);
                 }
                 ret.add(c.clone());
             }
