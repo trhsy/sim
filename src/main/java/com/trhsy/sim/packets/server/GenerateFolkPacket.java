@@ -17,9 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
  */
 public class GenerateFolkPacket implements IMessage {
     public NBTTagCompound nbt;
-
     static World world;
-    static boolean isForced;
 
     /**
      * 生成npc包
@@ -30,11 +28,9 @@ public class GenerateFolkPacket implements IMessage {
     /**
      * 生成npc包
      * @param whirld
-     * @param forced
      */
-    public GenerateFolkPacket(World whirld, boolean forced) {
+    public GenerateFolkPacket(World whirld) {
         try {
-            isForced = forced;
             world = whirld;
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GenerateFolkPacket出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -48,7 +44,7 @@ public class GenerateFolkPacket implements IMessage {
     @Override
     public void fromBytes(ByteBuf buf) {
         try {
-            isForced = buf.readBoolean();
+            //isForced = buf.readBoolean();
             nbt = ByteBufUtils.readTag(buf);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -63,7 +59,7 @@ public class GenerateFolkPacket implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {
         try {
-            buf.writeBoolean(isForced);
+            //buf.writeBoolean(isForced);
             ByteBufUtils.writeTag(buf,nbt);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -79,6 +75,7 @@ public class GenerateFolkPacket implements IMessage {
         @Override
         public IMessage onMessage(GenerateFolkPacket message, MessageContext ctx) {
             if (ctx.side == Side.CLIENT) {
+                final boolean isForced =message.nbt.getBoolean("NPC_Packet");
                 Minecraft.getMinecraft().addScheduledTask(new Runnable() {
                     @Override
                     public void run() {

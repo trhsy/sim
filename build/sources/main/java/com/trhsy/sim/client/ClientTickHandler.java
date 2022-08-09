@@ -69,17 +69,15 @@ public class ClientTickHandler extends GuiScreen{
             if (mc.currentScreen != null) {
                 if (mc.currentScreen.toString().toLowerCase().contains("ingamemenu")) {
                     if (System.currentTimeMillis() - timeSinceLastSave > 10000) {
-                        ConfigLoader.configFile.save();
+                        Long start = System.currentTimeMillis();
                         ModSimReloaded.states.saveStates();
+                        Building.checkTenants();
                         Building.saveAllBuildings();
                         CourierTask.saveCourierTasksAndPoints();
                         MiningBox.saveMiningBoxes();
                         FarmingBox.saveFarmingBoxes();
-                        for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
-                            FolkData folk = ModSimReloaded.theFolks.get(f);
-                            folk.updateLocationFromEntity();
-                            folk.saveThisFolk();
-                        }
+                        Relationship.saveRelationships();
+                        ModSimReloaded.log.info("CTH: 将游戏数据保存在 " + (System.currentTimeMillis() - start) + " ms");
 
                         this.timeSinceLastSave = System.currentTimeMillis();
                     }

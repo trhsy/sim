@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -31,7 +32,6 @@ public class ClientProxy extends CommonProxy {
             super.preInit(event);
             new ItemRenderLoader();
             new EntityRenderLoader();
-            registerMisc();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("客户端代理初始化出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -70,8 +70,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerMisc() {
         super.registerMisc();
-        FMLCommonHandler.instance().bus().register(this);
-
     }
     @Override
     public EntityPlayer getPlayerEntity(MessageContext ctx) {

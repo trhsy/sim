@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -69,7 +70,7 @@ public class CommonProxy {
             Traits.loadTraits();
             Race.loadRaces();
             new NetWorkLoader(event);
-            registerMisc();
+            //registerMisc();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("preInit出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -93,6 +94,7 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         try {
             MinecraftForge.EVENT_BUS.register(new SimConfigSync());
+            registerMisc();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("postInit出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

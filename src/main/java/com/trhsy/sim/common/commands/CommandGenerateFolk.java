@@ -8,6 +8,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 
@@ -49,7 +52,10 @@ public class CommandGenerateFolk implements ICommand {
         try {
             if (argString.length == 0) {
                 //FolkData.forceGenerateNewFolk(sender.getEntityWorld());
-                NetWorkLoader.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld(), true));
+                GenerateFolkPacket generateFolkPacket=new GenerateFolkPacket();
+                generateFolkPacket.nbt = new NBTTagCompound();
+                generateFolkPacket.nbt.setBoolean("NPC_Packet",true);
+                NetWorkLoader.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld()));
             } else if (argString.length == 1) {
                 FolkData.forceGenerateNewFolk(sender.getEntityWorld(), argString[0]);
             } else if (argString.length == 2) {

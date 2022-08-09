@@ -518,7 +518,7 @@ public class FolkData implements Serializable {
             //60秒
             if (now - this.timeSinceLastMinute > 60000L) {
                 //如果 状态有 和朋友一起，在商店购物，参观，待在家，在家放松
-                if (!this.statusText.contains(hanging) && !this.statusText.startsWith(shopping) && !this.statusText.contains(visiting) && !this.statusText.contains(staying) && !this.statusText.contains(relaxing) && this.levelFun > 1 && this.isWorking == false) {
+                if (!this.statusText.contains(hanging) && !this.statusText.startsWith(shopping) && !this.statusText.contains(visiting) && !this.statusText.contains(staying) && !this.statusText.contains(relaxing) && this.levelFun > 1 && !this.isWorking) {
                     //乐趣--
                     levelFun -= 1;
                 }
@@ -595,9 +595,9 @@ public class FolkData implements Serializable {
                 if (this.action == FolkAction.WANDER && this.isSpawned() && this.employedAt == null && this.age >= 18 && !this.statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
                     for (int xo = 0; xo < ModSimReloaded.theBuildings.size(); xo++) {
                         //随机去逛
-                        Building b = (Building) ModSimReloaded.theBuildings.get(rand.nextInt(ModSimReloaded.theBuildings.size()));
+                        Building b = ModSimReloaded.theBuildings.get(rand.nextInt(ModSimReloaded.theBuildings.size()));
                         //获得距离建筑的距离
-                        double dist = (double) this.location.getDistanceTo(b.primaryXYZ);
+                        double dist = this.location.getDistanceTo(b.primaryXYZ);
                         //农场
                         String farm = I18n.format("container.sim.gui_Farm");
                         if (dist < 100) {
@@ -675,7 +675,9 @@ public class FolkData implements Serializable {
                         int zo = rand.nextInt(60) - 30;
                         V3 wanderTo = new V3(this.location.xCoord + (double) xo, this.location.yCoord, this.location.zCoord + (double) zo, this.location.theDimension);
                         WorldServer world = MinecraftServer.getServer().worldServerForDimension(this.location.theDimension);
-                        while (world.getBlockState(new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord)).getBlock() != null && wanderTo.yCoord < 255.0) {
+                        BlockPos blockPos=new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord);
+                        Block block=world.getBlockState(blockPos).getBlock();
+                        if (block != null && wanderTo.yCoord < 255.0) {
                             //wanderTo.yCoord = wanderTo.yCoord + 1;
                             wanderTo.addVector(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
                         }
@@ -1185,7 +1187,11 @@ public class FolkData implements Serializable {
             if (this.theEntity == null) {
                 falg = false;
             } else {
-                falg = this.theEntity.isDead;
+                if(this.theEntity.isDead){
+                    falg = false;
+                }else{
+                    falg =true;
+                }
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -1466,7 +1472,7 @@ public class FolkData implements Serializable {
                         //如果玩家处于不同维度或超出范围，则为空
                         if (playpos != null) {
                             if (this.location.getDistanceTo(playpos) >= 100 && whereTo.getDistanceTo(playpos) >= 100) {
-                                this.gotoMethod = GotoMethod.SHIFT;
+                                this.gotoMethod = GotoMethod.BEAM;
                             }
 
                             try {
@@ -1474,12 +1480,12 @@ public class FolkData implements Serializable {
                                     this.gotoMethod = GotoMethod.SHIFT;
                                 }
                             } catch (Exception e) {
-                                this.gotoMethod = GotoMethod.SHIFT;
+                                this.gotoMethod = GotoMethod.BEAM;
                             }
                         }
 
                         if (methodOfTravel == null) {
-                            methodOfTravel = GotoMethod.SHIFT;
+                            this.gotoMethod = GotoMethod.WALK;
                         }
                     } else {
                         this.gotoMethod = methodOfTravel;
@@ -1499,7 +1505,7 @@ public class FolkData implements Serializable {
                                 this.theEntity.posX = this.destination.xCoord;
                                 this.theEntity.posY = this.destination.yCoord;
                                 this.theEntity.posZ = this.destination.zCoord;
-
+                                //如果维度不一样传送到维度
                                 if (this.location.theDimension != this.destination.theDimension) {
                                     this.theEntity.travelToDimension(this.destination.theDimension);
                                     this.theEntity.dimension = this.destination.theDimension;
@@ -1518,6 +1524,7 @@ public class FolkData implements Serializable {
                             this.timeStartedGotoing = System.currentTimeMillis();
                             if (this.theEntity != null) {
                                 this.theEntity.gotPath = false;
+                                this.theEntity.moveEntity(whereTo.xCoord,whereTo.yCoord,whereTo.zCoord);
                             }
                         }
 

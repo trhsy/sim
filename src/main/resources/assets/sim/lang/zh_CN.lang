@@ -886,9 +886,9 @@ container.sim.folkData12=无聊的
 container.sim.folkData13=焦虑不安
 container.sim.Windmill1=将矿石造粒并产生金币能量
 
-container.sim.GotoMethod1=热
+container.sim.GotoMethod1=传送
 container.sim.GotoMethod2=移动
-container.sim.GotoMethod3=解雇
+container.sim.GotoMethod3=步行
 
 container.sim.Fire=解雇
 container.sim.Dismiss=解雇

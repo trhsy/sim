@@ -77,7 +77,7 @@ public class CommonTickHandler {
             //每秒一次
             if (now - this.lastSecondTickAt > 1000L) {
                 if (this.serverWorld != null) {
-                    ModSimReloaded.log.info("触发更新");
+                    //ModSimReloaded.log.info("触发每秒更新");
                     //触发NPC所有更新
                     FolkData.triggerAllUpdates();
 //                    ModSimReloaded.log.info("触发NPC更新");
@@ -94,6 +94,7 @@ public class CommonTickHandler {
                         ModSimReloaded.demolishBlocks();
                     }
 //                    ModSimReloaded.log.info("触发需要拆除的方块更新");
+//                    ModSimReloaded.log.info("每秒更新结束");
                 }
                 if (ModSim.proxy.ranStartup==false) {
                     //还没有启动——现在就这么做

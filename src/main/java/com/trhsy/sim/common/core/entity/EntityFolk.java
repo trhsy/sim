@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.ai.EntityAIWanderSUK;
 import com.trhsy.sim.client.gui.folk.GuiEntityFolk;
 import com.trhsy.sim.client.gui.folk.GuiMerchant;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.jobs.JobFisherman;
 import com.trhsy.sim.common.jobs.Stage;
 import com.trhsy.sim.common.jobs.Vocation;
@@ -19,6 +20,7 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -94,6 +96,8 @@ public class EntityFolk extends EntityCreature implements INpc {
             //避免实体
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D));
+            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
             //游泳
             this.tasks.addTask(4, new EntityAISwimming(this));
 
@@ -705,16 +709,20 @@ public class EntityFolk extends EntityCreature implements INpc {
                 Block idX2 = this.worldObj.getBlockState(blockPos2).getBlock();
                 Block idz = this.worldObj.getBlockState(blockPos3).getBlock();
                 Block idZ2 = this.worldObj.getBlockState(blockPos4).getBlock();
-                this.motionY += 0.4D;
+                this.motionY = this.theData.location.yCoord+1;
+                this.motionX = this.theData.location.xCoord;
+                this.motionZ = this.theData.location.zCoord;
                 if (idx == null) {
-                    this.motionX += 0.8999999761581421;
+                    this.motionX =this.theData.location.xCoord+1;
                 } else if (idX2 == null) {
-                    this.motionX -= 0.8999999761581421;
+                    this.motionX =this.theData.location.xCoord- 1;
                 } else if (idz == null) {
-                    this.motionZ += 0.8999999761581421;
+                    this.motionZ =this.theData.location.zCoord+1;
                 } else if (idZ2 == null) {
-                    this.motionZ -= 0.8999999761581421;
+                    this.motionZ = this.theData.location.zCoord-1;
                 }
+                //受伤要跑出受伤范围
+                this.theData.gotoXYZ(new V3(motionX,motionY,motionZ,0), GotoMethod.BEAM);
             }
 
             if (this.theData == null) {

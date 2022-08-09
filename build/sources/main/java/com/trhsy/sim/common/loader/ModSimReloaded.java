@@ -171,7 +171,7 @@ public class ModSimReloaded {
             //如果未运行模拟城市，弹出GUI页面
             if (states.gameModeNumber == -1) {
                 if (ModSimReloaded.runModui == null) {
-                    GuiRunMod runModui = new GuiRunMod();
+                    runModui = new GuiRunMod();
                     Minecraft.getMinecraft().displayGuiScreen(runModui);
                 }
             } else {
@@ -205,6 +205,9 @@ public class ModSimReloaded {
                     ModSim.proxy.ranStartup = true;
                 }
             }
+            //模组已运行
+            ModSim.proxy.ranStartup = true;
+            ModSimReloaded.log.info("重载世界结束");
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("resetAndLoadNewWorld出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

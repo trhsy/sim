@@ -220,8 +220,8 @@ public class GuiControlBox extends GuiScreen {
                             }
 
                             flag = false;
-                            GuiButton b2;
-                            this.buttonList.add(b2 = new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire3")));
+                            GuiButton b2= new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire3"));
+                            this.buttonList.add(b2);
                             for (FolkData folkData : employees) {
                                 if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSFRYCOOK) {
                                     flag = true;

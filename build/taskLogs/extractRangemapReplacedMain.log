@@ -1,5 +1,5 @@
 Symbol range map extraction starting
-Processing 216 files
+Processing 215 files
 processing com\trhsy\sim\ModSim.java
 processing com\trhsy\sim\client\ClientProxy.java
 processing com\trhsy\sim\client\ClientTickHandler.java
@@ -35,7 +35,6 @@ processing com\trhsy\sim\client\gui\folk\GuiMerchant.java
 processing com\trhsy\sim\client\gui\folk\GuiShowEmployees.java
 processing com\trhsy\sim\client\gui\inventory\NPCInventory.java
 processing com\trhsy\sim\client\gui\other\GuiBeamPlayerTo.java
-processing com\trhsy\sim\client\gui\other\GuiRunMod.java
 processing com\trhsy\sim\client\loader\EntityRenderLoader.java
 processing com\trhsy\sim\client\loader\ItemRenderLoader.java
 processing com\trhsy\sim\common\CommonProxy.java

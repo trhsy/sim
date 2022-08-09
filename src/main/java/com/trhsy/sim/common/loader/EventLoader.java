@@ -3,9 +3,12 @@ package com.trhsy.sim.common.loader;
 import com.trhsy.sim.common.core.CommonTickHandler;
 import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.event.PlayerRightClickGrassBlockEvent;
+import com.trhsy.sim.packets.NetWorkLoader;
+import com.trhsy.sim.packets.server.GenerateFolkPacket;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
@@ -74,7 +77,7 @@ public class EventLoader {
     /**
      * @return void
      * @Author fan
-     * @Description //TODO 右键草方块
+     * @Description //TODO 右键生成的NPC的蛋蛋
      * @Date 23:47 2022/5/13
      * @Param [event]
      **/
@@ -85,7 +88,11 @@ public class EventLoader {
 //            BlockPos pos = event.pos;
 //            Entity tnt = new EntityTNTPrimed(event.world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
 //            event.world.spawnEntityInWorld(tnt);
-                FolkData.generateNewFolk(event.world);
+//                FolkData.generateNewFolk(event.world);
+                GenerateFolkPacket generateFolkPacket=new GenerateFolkPacket();
+                generateFolkPacket.nbt = new NBTTagCompound();
+                generateFolkPacket.nbt.setBoolean("NPC_Packet",true);
+                NetWorkLoader.net.sendToServer(new GenerateFolkPacket(event.world));
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onPlayerClickGrassBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
