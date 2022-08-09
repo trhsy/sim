@@ -13,7 +13,7 @@ levelfood|8
 levelbuilder|10.341016
 levelminer|10.0
 levelsoldier|10.0
-stayput|false
+stayput|true
 location|154.0,63.0,324.0,0
 pregnancy|0.0
 building|8 单元.txt|residential||-x
