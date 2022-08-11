@@ -629,7 +629,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 GuiEmployFolk gui;
                                 if (guibutton.id == 2) {
                                     gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
-                                    this.mc.displayGuiScreen((GuiScreen) null);
+                                    this.mc.displayGuiScreen(null);
                                     this.mc.displayGuiScreen(gui);
                                 } else if (guibutton.id == 3) {
                                     this.fireAllFolksForThisBuilding();
@@ -637,16 +637,16 @@ public class GuiBuildingConstructor extends GuiScreen {
                                     this.showPage();
                                 } else if (guibutton.id == 4) {
                                     GuiScreen guiScreen = new GuiShowEmployees();
-                                    this.mc.displayGuiScreen((GuiScreen) null);
+                                    this.mc.displayGuiScreen(null);
                                     this.mc.displayGuiScreen(guiScreen);
                                 } else if (guibutton.id != 5) {
                                     if (guibutton.id == 6) {
                                         GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
-                                        this.mc.displayGuiScreen((GuiScreen) null);
+                                        this.mc.displayGuiScreen(null);
                                         this.mc.displayGuiScreen(guiScreen);
                                     } else if (guibutton.id == 7) {
                                         gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
-                                        this.mc.displayGuiScreen((GuiScreen) null);
+                                        this.mc.displayGuiScreen(null);
                                         this.mc.displayGuiScreen(gui);
                                     }
                                 }
@@ -795,7 +795,7 @@ public class GuiBuildingConstructor extends GuiScreen {
     public void keyTyped(char c, int i) {
         try {
             if (i == 1) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
                 this.mc.setIngameFocus();
             } else {
                 if (this.tfSearch != null) {

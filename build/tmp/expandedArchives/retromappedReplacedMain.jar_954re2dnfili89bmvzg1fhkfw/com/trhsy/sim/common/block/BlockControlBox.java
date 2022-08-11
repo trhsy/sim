@@ -103,7 +103,6 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
             world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1, 1);
-            GuiControlBox ui = null;
             GuiBankATM ui2 = null;
             Minecraft mc = Minecraft.func_71410_x();
             mc.func_71364_i();
