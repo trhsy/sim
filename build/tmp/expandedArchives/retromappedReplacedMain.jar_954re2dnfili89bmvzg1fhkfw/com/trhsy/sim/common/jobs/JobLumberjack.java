@@ -229,7 +229,7 @@ public class JobLumberjack extends Job implements Serializable {
                     if (this.jobWorld.func_180495_p(new BlockPos(l, y, z)).func_177230_c() != Blocks.field_150364_r) {
                         break;
                     }
-                    this.foundWoodAt.func_72441_c(this.foundWoodAt.field_72450_a,y,this.foundWoodAt.field_72449_c);
+                    this.foundWoodAt=new V3(this.foundWoodAt.field_72450_a,y,this.foundWoodAt.field_72449_c);
                     //this.foundWoodAt.yCoord = (double) y;
                 }
 
@@ -293,7 +293,7 @@ public class JobLumberjack extends Job implements Serializable {
                     count = this.getInventoryCount(this.theFolk, Blocks.field_150364_r);
                     this.theFolk.statusText = I18n.func_135052_a("container.sim.job.lumberjack.farmer.Got") + count + I18n.func_135052_a("container.sim.job.lumberjack.farmer.logs_so_far");
                     this.theFolk.stayPut = false;
-                    this.foundWoodAt.func_72441_c(this.foundWoodAt.field_72450_a, this.foundWoodAt.field_72448_b + 1,this.foundWoodAt.field_72449_c);
+                    this.foundWoodAt=new V3(this.foundWoodAt.field_72450_a, this.foundWoodAt.field_72448_b + 1,this.foundWoodAt.field_72449_c);
                     //this.foundWoodAt.yCoord = this.foundWoodAt.yCoord + 1;
                     this.step = 2;
                 } else if (this.step == 4) {

@@ -1,7 +1,7 @@
-employedat|96.0,63.0,267.0,0
+employedat|138.0,63.0,330.0,0
 vocation|BUILDER
 name|浦悦鑫
-age|18
+age|19
 gender|0
 skin|56
 race|
@@ -9,13 +9,13 @@ trait1|矮人血脉
 trait2|喜欢户外活动
 trait3|强壮的
 trait4|夜猫子
-levelfood|9
+levelfood|6
 levelbuilder|10.43202
 levelminer|10.0
 levelsoldier|10.0
 stayput|false
-location|147.0,63.0,396.0,0
+location|149.5,69.0,334.5,0
 pregnancy|0.0
-building|Flowepot酒店.txt|residential||-z
+building|面包店.txt|commercial||-x
 terraformtype|null
 terraformradius|1

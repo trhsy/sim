@@ -416,19 +416,19 @@ public class JobMiner extends Job implements Serializable {
 
                     if (this.mineHorizontalDir.contentEquals("+x")) {
                         //vMine.x++;
-                        vMine.func_72441_c(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c);
+                        vMine=new V3(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c);
                         //vMine = new V3(vMine.x + 1, vMine.y, vMine.z, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("-x")) {
                         //vMine.x--;
-                        vMine.func_72441_c(vMine.field_72450_a-1,vMine.field_72448_b,vMine.field_72449_c);
+                        vMine=new V3(vMine.field_72450_a-1,vMine.field_72448_b,vMine.field_72449_c);
                         // vMine = new V3(vMine.x - 1, vMine.y, vMine.z, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("+z")) {
                         //vMine.z++;
-                        vMine.func_72441_c(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c+1);
+                        vMine=new V3(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c+1);
                         // vMine = new V3(vMine.x, vMine.y, vMine.z + 1, vMine.theDimension);
                     } else if (this.mineHorizontalDir.contentEquals("-z")) {
                         //vMine.z--;
-                        vMine.func_72441_c(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c-1);
+                        vMine=new V3(vMine.field_72450_a+1,vMine.field_72448_b,vMine.field_72449_c-1);
                         //vMine = new V3(vMine.x, vMine.y, vMine.z - 1, vMine.theDimension);
                     }
 
@@ -471,19 +471,19 @@ public class JobMiner extends Job implements Serializable {
 
                                         if (this.mineHorizontalDir.contentEquals("+x")) {
                                             //lightbox.z--;
-                                            lightbox.func_72441_c(lightbox.field_72450_a,lightbox.field_72448_b,lightbox.field_72449_c-1);
+                                            lightbox=new V3(lightbox.field_72450_a,lightbox.field_72448_b,lightbox.field_72449_c-1);
                                             //lightbox = new V3(lightbox.x, lightbox.y, lightbox.z - 1, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("-x")) {
                                             //lightbox.z++;
-                                            lightbox.func_72441_c(lightbox.field_72450_a,lightbox.field_72448_b,lightbox.field_72449_c+1);
+                                            lightbox=new V3(lightbox.field_72450_a,lightbox.field_72448_b,lightbox.field_72449_c+1);
                                             //lightbox = new V3(lightbox.x, lightbox.y, lightbox.z + 1, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("+z")) {
                                             //lightbox.x++;
-                                            lightbox.func_72441_c(lightbox.field_72450_a+1,lightbox.field_72448_b,lightbox.field_72449_c);
+                                            lightbox=new V3(lightbox.field_72450_a+1,lightbox.field_72448_b,lightbox.field_72449_c);
                                             // lightbox = new V3(lightbox.x + 1, lightbox.y, lightbox.z, lightbox.theDimension);
                                         } else if (this.mineHorizontalDir.contentEquals("-z")) {
                                             //lightbox.x--;
-                                            lightbox.func_72441_c(lightbox.field_72450_a-1,lightbox.field_72448_b,lightbox.field_72449_c);
+                                            lightbox=new V3(lightbox.field_72450_a-1,lightbox.field_72448_b,lightbox.field_72449_c);
                                             //lightbox = new V3(lightbox.x - 1, lightbox.y, lightbox.z, lightbox.theDimension);
                                         }
 

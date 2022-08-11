@@ -18,6 +18,7 @@ import com.trhsy.sim.client.gui.other.GuiBeamPlayerTo;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBanner;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -153,7 +154,7 @@ public class GuiControlBox extends GuiScreen {
                 this.buttonList.add(new GuiButton(30, this.width - 110, this.height - 50, 100, 20, I18n.format("container.sim.Beam_me_to")));
                 int down;
                 FolkData folk = new FolkData();
-                if(this.theBuilding.type!=null){
+                if (this.theBuilding.type != null) {
                     //类型为商业或者工业
                     if (this.theBuilding.type.contentEquals("commercial") || this.theBuilding.type.contentEquals("industrial")) {
                         down = 70;
@@ -220,7 +221,7 @@ public class GuiControlBox extends GuiScreen {
                             }
 
                             flag = false;
-                            GuiButton b2= new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire3"));
+                            GuiButton b2 = new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire3"));
                             this.buttonList.add(b2);
                             for (FolkData folkData : employees) {
                                 if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSFRYCOOK) {
@@ -419,40 +420,40 @@ public class GuiControlBox extends GuiScreen {
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.theBuilding.displayNameWithoutPK + author, 5, 37, 16777088);
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Type") + " : " + this.theBuilding.type + " (" + isComplete + ")", 5, 47, 16777088);
                 int down;
-                if(this.theBuilding!=null){
-                if(this.theBuilding.type!=null){
-                    if (!this.theBuilding.type.contentEquals("residential")) {
-                        if (!this.theBuilding.type.contentEquals("industrial") && !this.theBuilding.type.contentEquals("commercial")) {
-                            if (this.theBuilding.type.contentEquals("other")) {
-                            }
-                        } else {
-                            this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + " :", 5, 57, 16777088);
-                            down = 70;
+                if (this.theBuilding != null) {
+                    if (this.theBuilding.type != null) {
+                        if (!this.theBuilding.type.contentEquals("residential")) {
+                            if (!this.theBuilding.type.contentEquals("industrial") && !this.theBuilding.type.contentEquals("commercial")) {
+                                if (this.theBuilding.type.contentEquals("other")) {
+                                }
+                            } else {
+                                this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + " :", 5, 57, 16777088);
+                                down = 70;
 
-                            for (down = 0; down < ModSimReloaded.theFolks.size(); ++down) {
-                                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(down);
-                                if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
-                                    this.fontRendererObj.drawString(folk.name + " (" + folk.age + ") - " + folk.vocation.toString(), 20, down, 16777120);
-                                    down += 20;
+                                for (down = 0; down < ModSimReloaded.theFolks.size(); ++down) {
+                                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(down);
+                                    if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
+                                        this.fontRendererObj.drawString(folk.name + " (" + folk.age + ") - " + folk.vocation.toString(), 20, down, 16777120);
+                                        down += 20;
+                                    }
                                 }
                             }
-                        }
-                    } else {
-                        String s = "";
-                        if (this.theBuilding.tenants.size() > 1 || this.theBuilding.tenants.size() == 0) {
-                            s = "s";
-                        }
+                        } else {
+                            String s = "";
+                            if (this.theBuilding.tenants.size() > 1 || this.theBuilding.tenants.size() == 0) {
+                                s = "s";
+                            }
 
-                        this.fontRendererObj.drawString(this.theBuilding.tenants.size() + I18n.format("container.sim.Resident") + s + " :", 5, 57, 16777088);
-                        down = 70;
+                            this.fontRendererObj.drawString(this.theBuilding.tenants.size() + I18n.format("container.sim.Resident") + s + " :", 5, 57, 16777088);
+                            down = 70;
 
-                        for (int t = 0; t < this.theBuilding.tenants.size(); ++t) {
-                            String folkname = (String) this.theBuilding.tenants.get(t);
-                            this.fontRendererObj.drawString(folkname, 20, down, 16777120);
-                            down += 20;
+                            for (int t = 0; t < this.theBuilding.tenants.size(); ++t) {
+                                String folkname = (String) this.theBuilding.tenants.get(t);
+                                this.fontRendererObj.drawString(folkname, 20, down, 16777120);
+                                down += 20;
+                            }
                         }
                     }
-                }
 
                 }
             }
@@ -601,22 +602,22 @@ public class GuiControlBox extends GuiScreen {
                                 guibutton.enabled = false;
                             } else if (guibutton.id == 21) {
                                 GuiScreen gui = new GuiShowEmployees();
-                                this.mc.displayGuiScreen((GuiScreen) null);
+                                this.mc.displayGuiScreen(null);
                                 this.mc.displayGuiScreen(gui);
                                 //任务
                             } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Tasks"))) {
                                 folkname = (String) this.employees.get(guibutton.id);
                                 GuiScreen gui = new GuiCourierTasks(this.location, folkname, this.playerWhoClickedIt);
-                                this.mc.displayGuiScreen((GuiScreen) null);
+                                this.mc.displayGuiScreen(null);
                                 this.mc.displayGuiScreen(gui);
                                 //买卖
                             } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.gui_btn_name_Buy_Sell"))) {
                                 GuiScreen uiGuiScreen = new GuiMerchant();
-                                this.mc.displayGuiScreen((GuiScreen) null);
+                                this.mc.displayGuiScreen(null);
                                 this.mc.displayGuiScreen(uiGuiScreen);
                             } else if (guibutton.id == 30) {
                                 GuiScreen guiScreen = new GuiBeamPlayerTo(this.playerWhoClickedIt);
-                                this.mc.displayGuiScreen((GuiScreen) null);
+                                this.mc.displayGuiScreen(null);
                                 this.mc.displayGuiScreen(guiScreen);
                                 //旋转楼梯
                             } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.Rotate_Stairs"))) {
@@ -660,7 +661,7 @@ public class GuiControlBox extends GuiScreen {
 
                                 theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1, 1);
                                 ModSimReloaded.theBuildings.remove(bindex);
-                                this.mc.displayGuiScreen((GuiScreen) null);
+                                this.mc.displayGuiScreen(null);
                             }
                         } else {
                             String dis = guibutton.displayString;
@@ -718,7 +719,7 @@ public class GuiControlBox extends GuiScreen {
     public void keyTyped(char c, int i) {
         try {
             if (i == 1) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
@@ -742,112 +743,10 @@ public class GuiControlBox extends GuiScreen {
                 Chunk chunk = theWorld.getChunkFromBlockCoords(blockPos);
                 ItemStack is = new ItemStack(theWorld.getBlockState(blockPos).getBlock(), 1, id.getMetaFromState(theWorld.getBlockState(blockPos)));
                 int newmeta;
-                if (is != null&&is.getItem()!=null) {
+                if (is != null && is.getItem() != null) {
                     String displayName = is.getDisplayName();
                     //如果包含楼梯
-                    if (!displayName.contains(I18n.format("container.sim.building.stairs"))) {
-                        //火把
-                        if (!displayName.contains(I18n.format("container.sim.building.torch"))) {
-                            //床
-                            if (displayName.contains(I18n.format("container.sim.building.bed"))) {
-                                newmeta = is.getMetadata();
-                                ++newmeta;
-                                if (newmeta == 4) {
-                                    newmeta = 0;
-                                }
-                                theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                                //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 2);
-                                //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 2);
-                                //Block.getBlockFromItem(is.getItem()) != Blocks.piston && Block.getBlockFromItem(is.getItem()) != Blocks.piston_extension && Block.getBlockFromItem(is.getItem()) != Blocks.piston_head
-                            } else if (displayName.contains(I18n.format("container.sim.building.piston"))) {
-                                if (Block.getBlockFromItem(is.getItem()) == Blocks.wall_sign) {
-                                    newmeta = is.getMetadata();
-                                    if (newmeta == 0) {
-                                        newmeta = 4;
-                                    } else if (newmeta == 4) {
-                                        newmeta = 8;
-                                    } else if (newmeta == 8) {
-                                        newmeta = 12;
-                                    } else if (newmeta == 12) {
-                                        newmeta = 0;
-                                    }
-                                    theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 2);
-                                    //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 2);
-                                    //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 2);
-                                } else if (Block.getBlockFromItem(is.getItem()) != Blocks.wall_sign && Block.getBlockFromItem(is.getItem()) != Blocks.ladder) {
-                                    //Block.getBlockFromItem(is.getItem()) != Blocks.stone_button && Block.getBlockFromItem(is.getItem()) != Blocks.wooden_button
-                                    if (displayName.contains(I18n.format("container.sim.building.button"))) {
-                                        if (Block.getBlockFromItem(is.getItem()) == Blocks.oak_fence_gate) {
-                                            newmeta = is.getMetadata();
-                                            ++newmeta;
-                                            if (newmeta > 3) {
-                                                newmeta = 0;
-                                            }
-                                            theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                                            //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
-                                            //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
-                                        }
-                                    } else {
-                                        newmeta = is.getMetadata();
-                                        if (newmeta == 1) {
-                                            newmeta = 3;
-                                        } else if (newmeta == 3) {
-                                            newmeta = 2;
-                                        } else if (newmeta == 2) {
-                                            newmeta = 4;
-                                        } else if (newmeta == 4) {
-                                            newmeta = 1;
-                                        }
-                                        theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
-                                        //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
-                                    }
-                                } else {
-                                    newmeta = is.getMetadata();
-                                    if (newmeta == 2) {
-                                        newmeta = 5;
-                                    } else if (newmeta == 5) {
-                                        newmeta = 3;
-                                    } else if (newmeta == 3) {
-                                        newmeta = 4;
-                                    } else if (newmeta == 4) {
-                                        newmeta = 2;
-                                    }
-                                    theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                                    //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
-                                    //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
-                                }
-                            } else {
-                                newmeta = is.getMetadata();
-                                if (newmeta == 2) {
-                                    newmeta = 5;
-                                } else if (newmeta == 5) {
-                                    newmeta = 3;
-                                } else if (newmeta == 3) {
-                                    newmeta = 4;
-                                } else if (newmeta == 4) {
-                                    newmeta = 2;
-                                }
-                                theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                                //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
-                                //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
-                            }
-                        } else {
-                            newmeta = is.getMetadata();
-                            if (newmeta == 1) {
-                                newmeta = 3;
-                            } else if (newmeta == 3) {
-                                newmeta = 2;
-                            } else if (newmeta == 2) {
-                                newmeta = 4;
-                            } else if (newmeta == 4) {
-                                newmeta = 1;
-                            }
-                            theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                            //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
-                            //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
-                        }
-                    } else {
+                    if (displayName.contains(I18n.format("container.sim.building.stairs"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 0) {
                             newmeta = 2;
@@ -858,9 +757,103 @@ public class GuiControlBox extends GuiScreen {
                         } else if (newmeta == 3) {
                             newmeta = 0;
                         }
-                        theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 3);
-                        //theWorld.setBlockMetadataWithNotify(blockLoc.x, blockLoc.y, blockLoc.z, newmeta, 3);
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                    }
+                    //火把
+                    if (displayName.contains(I18n.format("container.sim.building.torch"))) {
+                        newmeta = is.getMetadata();
+                        if (newmeta == 1) {
+                            newmeta = 3;
+                        } else if (newmeta == 3) {
+                            newmeta = 2;
+                        } else if (newmeta == 2) {
+                            newmeta = 4;
+                        } else if (newmeta == 4) {
+                            newmeta = 1;
+                        }
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                    }
+                    //床
+                    if (displayName.contains(I18n.format("container.sim.building.bed"))) {
+                        newmeta = is.getMetadata();
+                        ++newmeta;
+                        if (newmeta == 4) {
+                            newmeta = 0;
+                        }
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                    }
+                    //活塞
+                    if (displayName.contains(I18n.format("container.sim.building.piston"))) {
+                        newmeta = is.getMetadata();
+                        if (newmeta == 2) {
+                            newmeta = 5;
+                        } else if (newmeta == 5) {
+                            newmeta = 3;
+                        } else if (newmeta == 3) {
+                            newmeta = 4;
+                        } else if (newmeta == 4) {
+                            newmeta = 2;
+                        }
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                    }
+                    //标识牌
+                    if (Block.getBlockFromItem(is.getItem()) == Blocks.wall_sign) {
+                        newmeta = is.getMetadata();
+                        if (newmeta == 0) {
+                            newmeta = 4;
+                        } else if (newmeta == 4) {
+                            newmeta = 8;
+                        } else if (newmeta == 8) {
+                            newmeta = 12;
+                        } else if (newmeta == 12) {
+                            newmeta = 0;
+                        }
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 2);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                    }
+                    //梯子
+                    if (Block.getBlockFromItem(is.getItem()) == Blocks.ladder) {
+                        newmeta = is.getMetadata();
+                        if (newmeta == 2) {
+                            newmeta = 5;
+                        } else if (newmeta == 5) {
+                            newmeta = 3;
+                        } else if (newmeta == 3) {
+                            newmeta = 4;
+                        } else if (newmeta == 4) {
+                            newmeta = 2;
+                        }
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                    }
+                    //按钮
+                    if (displayName.contains(I18n.format("container.sim.building.button"))) {
+                        newmeta = is.getMetadata();
+                        if (newmeta == 1) {
+                            newmeta = 3;
+                        } else if (newmeta == 3) {
+                            newmeta = 2;
+                        } else if (newmeta == 2) {
+                            newmeta = 4;
+                        } else if (newmeta == 4) {
+                            newmeta = 1;
+                        }
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                    }
+                    //栅栏门
+                    if (Block.getBlockFromItem(is.getItem()) == Blocks.oak_fence_gate) {
+                        newmeta = is.getMetadata();
+                        ++newmeta;
+                        if (newmeta > 3) {
+                            newmeta = 0;
+                        }
+                        //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
+                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
                     }
                 }
             }

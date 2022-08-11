@@ -447,7 +447,7 @@ public class FolkData implements Serializable {
                                 world.spawnEntityInWorld(this.theEntity);
                             }
                             this.entityId = this.theEntity.getEntityId();
-                            ModSimReloaded.log.info("FolkData:repawnEntity() " + this.name + " 在当前位置，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + this.theEntity.getEntityId());
+                            ModSimReloaded.log.info("NPC 在玩家50格之内， " + this.name + " 在当前位置，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + this.theEntity.getEntityId());
                         }
 
                     }
@@ -741,7 +741,7 @@ public class FolkData implements Serializable {
                     this.updateLocationFromEntity();
                     int range = this.getDistanceToPlayer();
                     if (range >= 50 && this.theEntity != null) {
-                        //ModSimReloaded.log.info("FolkData: onSecTasks - 手动解除抵押 " + this.name + " 的权限，因为它们距离 " + range + " 个街区远");
+                        ModSimReloaded.log.info("NPC" + this.name + "离玩家 " + range + " 个街区远,所以下一刻被摧毁");
                         this.theEntity.setDead();
                     }
                 }

@@ -302,7 +302,7 @@ public class GuiEmployFolk extends GuiScreen {
     public void keyTyped(char c, int i) {
         try {
             if (i == 1) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {

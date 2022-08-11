@@ -136,7 +136,7 @@ public abstract class Job {
                     } else if (dist > 1 && dist < 3) {
                         //复制当前数据
                         V3 work = theFolk.employedAt.clone();
-                        work.addVector(work.xCoord,work.yCoord+1,work.zCoord);
+                        work=new V3(work.xCoord,work.yCoord+1,work.zCoord);
                         //work.y=work.yCoord+1;
                         //去位置
                         theFolk.gotoXYZ(work, GotoMethod.SHIFT);

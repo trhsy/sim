@@ -1,7 +1,7 @@
 employedat|139.0,63.0,364.0,0
 vocation|CROPFARMER
 name|太叔宏峻
-age|18
+age|19
 gender|0
 skin|7
 race|
@@ -13,8 +13,8 @@ levelfood|8
 levelbuilder|10.0
 levelminer|10.0
 levelsoldier|10.0
-stayput|true
-location|139.0,63.0,364.0,0
+stayput|false
+location|150.0,63.0,376.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -128,7 +128,7 @@ public class JobSoldier extends Job implements Serializable {
 
             V3 wanderTo = new V3(this.theFolk.location.field_72450_a + (double)xo, this.theFolk.location.field_72448_b - 1, this.theFolk.location.field_72449_c + (double)zo, this.theFolk.location.theDimension);
             if( this.jobWorld.func_180495_p(new BlockPos(wanderTo.field_72450_a, wanderTo.field_72448_b, wanderTo.field_72449_c)).func_177230_c() != null && wanderTo.field_72448_b < 255) {
-                wanderTo.func_72441_c(wanderTo.field_72450_a,wanderTo.field_72448_b,wanderTo.field_72449_c);
+                wanderTo=new V3(wanderTo.field_72450_a,wanderTo.field_72448_b,wanderTo.field_72449_c);
             }
             this.theFolk.gotoXYZ(wanderTo, null);
         }

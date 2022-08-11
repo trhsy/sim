@@ -462,11 +462,10 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
                     } else {
                         if (!this.gotPath) {
-                            PathEntity path = this.getNavigator().getPathToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord);
-                            //PathEntity path = this.worldObj.getEntityPathToXYZ(this, this.theData.destination.x, this.theData.destination.y, this.theData.destination.z, 40.0F, true, true, true, true);
-                            if (path != null) {
-                                this.getNavigator().setPath(path, 0.3D);
-                                this.gotPath = true;
+                            Boolean flag=this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord, 0.3D);
+                            this.gotPath =flag;
+                            if (flag==false) {
+                                this.gotPath = this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord+0.5, this.theData.destination.yCoord, this.theData.destination.zCoord+0.5, 0.3D);
                             }
                         }
                     }
@@ -638,7 +637,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     ui = new GuiEntityFolk(this.theData, entityplayer);
                 }
 
-                mc.displayGuiScreen((GuiScreen) ui);
+                mc.displayGuiScreen(ui);
                 if (this.theData.age < 18) {
                     this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":helloc", 1, 1, false);
                 } else if (this.theData.gender == 0) {
@@ -715,17 +714,17 @@ public class EntityFolk extends EntityCreature implements INpc {
                     this.motionZ = this.theData.location.zCoord;
                 }
 
-                if (idx == null) {
+                if (idx!=null&&idx==Blocks.air) {
                     this.motionX =this.theData.location.xCoord+1;
-                } else if (idX2 == null) {
+                } else if (idX2 != null&&idX2==Blocks.air) {
                     this.motionX =this.theData.location.xCoord- 1;
-                } else if (idz == null) {
+                } else if (idz != null&&idz==Blocks.air) {
                     this.motionZ =this.theData.location.zCoord+1;
-                } else if (idZ2 == null) {
+                } else if (idZ2 != null&&idZ2==Blocks.air) {
                     this.motionZ = this.theData.location.zCoord-1;
                 }
                 //受伤要跑出受伤范围
-                this.theData.gotoXYZ(new V3(motionX,motionY,motionZ,0), GotoMethod.SHIFT);
+                this.theData.gotoXYZ(new V3(motionX,motionY,motionZ,0), null);
             }
 
             if (this.theData == null) {
