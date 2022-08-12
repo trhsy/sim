@@ -1,10 +1,10 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.client.gui.blocks.GuiControlBox;
 import com.trhsy.sim.common.core.entity.GameMode;
 import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.client.gui.blocks.GuiBankATM;
-import com.trhsy.sim.client.gui.blocks.GuiControlBox;
 import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.GuiElementLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -103,6 +103,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
     public boolean func_180639_a(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
             world.func_72908_a(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), ModSim.MODID + ":computer", 1, 1);
+            GuiControlBox ui = null;
             GuiBankATM ui2 = null;
             Minecraft mc = Minecraft.func_71410_x();
             mc.func_71364_i();
@@ -110,7 +111,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
             int ma=iBlockState1.func_177230_c().func_176201_c(iBlockState1);
             if (ma != 0 && ma != 2) {
                 if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
-                    mc.func_147108_a((GuiScreen) null);
+                    mc.func_147108_a(null);
                     //银行在创造模式下不活动（因为没有钱！）
                     String control_box_Creative = I18n.func_135052_a("container.sim.control_box_Creative");
                     ModSimReloaded.sendChat(control_box_Creative);
@@ -119,13 +120,15 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
                     mc.func_147108_a(ui2);
                 }
             } else {
-                thePlayer.openGui(ModSim.instance, GuiElementLoader.GUI_CONTROL_SID,world,blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p());
-                //ui = new GuiControlBox(new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension), thePlayer);
-                //mc.displayGuiScreen(ui);
+                //int id = GuiElementLoader.GUI_CONTROL_SID;
+                //thePlayer.openGui(ModSim.instance, id,world,blockPos.getX(),blockPos.getY(),blockPos.getZ());
+                ui = new GuiControlBox(new V3(blockPos.func_177958_n(),blockPos.func_177956_o(),blockPos.func_177952_p(), thePlayer.field_71093_bK), thePlayer);
+                mc.func_147108_a(ui);
             }
 
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("控制箱onBlockActivated出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            e.printStackTrace();
             return false;
         }
 

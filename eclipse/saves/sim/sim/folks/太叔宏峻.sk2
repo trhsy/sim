@@ -1,7 +1,7 @@
-employedat|139.0,63.0,364.0,0
-vocation|CROPFARMER
+employedat|138.0,63.0,330.0,0
+vocation|BUILDER
 name|太叔宏峻
-age|20
+age|21
 gender|0
 skin|7
 race|
@@ -9,13 +9,13 @@ trait1|勇敢的
 trait2|讨厌户外活动
 trait3|夜猫子
 trait4|强壮的人可以更快地做体力劳动。无论是采矿、伐木、建筑还是挖沙。
-levelfood|7
+levelfood|6
 levelbuilder|10.0
 levelminer|10.0
 levelsoldier|10.0
 stayput|false
-location|140.0,63.0,365.0,0
+location|289.0,126.0,722.0,0
 pregnancy|0.0
-building|null
+building|面包店.txt|commercial||-x
 terraformtype|null
 terraformradius|1

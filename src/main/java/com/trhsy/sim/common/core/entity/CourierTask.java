@@ -75,10 +75,11 @@ public class CourierTask implements Serializable {
     }
 
     public static void loadCourierTasksAndPoints() {
-        try {
+
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
                     ModSimReloaded.log.info("***********************开始所有快递点***************");
                     ModSimReloaded.theCourierPoints.clear();
                     ModSimReloaded.theCourierTasks.clear();
@@ -218,11 +219,12 @@ public class CourierTask implements Serializable {
                         }
                     }
                     ModSimReloaded.log.info("***********************加载所有快递点完成***************");
+                    } catch (Exception e) {
+                        StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadCourierTasksAndPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+                    }
                 }},"loadCourierTasksAndPoints_sim");
             thread.start();
-        } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadCourierTasksAndPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
-        }
+
 
     }
 

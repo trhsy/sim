@@ -416,7 +416,7 @@ public class ModSimReloaded {
      * npc 年龄增长
      */
     private static void evolveFolks() {
-        try {
+
             if (theFolks.size() > 0) {
                 Random rand = new Random();
                 //evolving folks
@@ -426,8 +426,6 @@ public class ModSimReloaded {
                     public void run() {
                         try {
                             Thread.sleep(3000L);
-                        } catch (Exception e) {
-                        }
                         //总租金
                         float totalRent = 0.0F;
                         //总税务
@@ -480,7 +478,10 @@ public class ModSimReloaded {
                             //今天没有收到房租,你应该雇一个人来盖一栋住宅。
                             sendChat(I18n.format("container.sim.main_No_rent"));
                         }
-
+                        } catch (Exception e) {
+                            StackTraceElement element = e.getStackTrace()[0];
+                            ModSimReloaded.log.error("evolveFolks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                        }
                     }
                 });
                 //启动线程
@@ -592,10 +593,7 @@ public class ModSimReloaded {
                 //刷新可用商品
                 Commodity.refreshAvailableCommoditities();
             }
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimReloaded.log.error("evolveFolks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
+
 
     }
 

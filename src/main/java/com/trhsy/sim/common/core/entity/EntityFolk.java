@@ -438,7 +438,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public void moveEntity(double x, double y, double z) {
         try {
-            if (this.isDead && this.theData != null) {
+            if (this.theData != null) {
                 double dist = 0;
                 if (this.theData.destination != null && this.theData.beamingTo == null) {
                     try {
@@ -465,7 +465,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                             Boolean flag=this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord, 0.3D);
                             this.gotPath =flag;
                             if (flag==false) {
-                                this.gotPath = this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord+0.5, this.theData.destination.yCoord, this.theData.destination.zCoord+0.5, 0.3D);
+                                V3 v = this.theData.destination;
+                                if (v != null) {
+                                    ModSimReloaded.log.info("实体人: " + this.theData.name + " 即将传输至☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
+                                    this.theData.stayPut = true;
+                                    this.theData.timeStartedGotoing = System.currentTimeMillis();
+                                    this.theData.beamMeTo(v);
+                                }
                             }
                         }
                     }

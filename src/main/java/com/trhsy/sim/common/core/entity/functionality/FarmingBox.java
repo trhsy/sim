@@ -311,10 +311,11 @@ public class FarmingBox implements Serializable {
     }
 
     public static void loadFarmingBoxes() {
-        try {
+
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
                     ModSimReloaded.log.info("***********************开始加载农田箱***************");
                     File farmFiles = new File(ModSimReloaded.getSavesDataFolder() + "Farming" + File.separator);
                     farmFiles.mkdirs();
@@ -410,15 +411,16 @@ public class FarmingBox implements Serializable {
                         }
                     }
                     ModSimReloaded.log.info("***********************加载农田箱完成***************");
+                    } catch (Exception e) {
+                        StackTraceElement element = e.getStackTrace()[0];
+                        ModSimReloaded.log.error("养殖箱loadFarmingBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                    }
                 }
             }, "loadMiningBoxes_sim");
             thread.start();
 
 
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimReloaded.log.error("养殖箱loadFarmingBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
+
     }
 
     public static void saveFarmingBoxes() {

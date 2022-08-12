@@ -240,13 +240,13 @@ public class JobLumberjack extends Job implements Serializable {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
+                            try {
                             isChopping = true;
 
                             for (int d = 0; d < 12; ++d) {
-                                try {
+
                                     mc.theWorld.playSound(theFolk.location.xCoord, theFolk.location.yCoord, theFolk.location.zCoord, "step.wood", 1, 1, false);
-                                } catch (Exception e) {
-                                }
+
 
                                 if (theFolk.theEntity != null) {
                                     theFolk.theEntity.swingProgress = 0.3F;
@@ -266,6 +266,8 @@ public class JobLumberjack extends Job implements Serializable {
                             }
 
                             isChopping = false;
+                            } catch (Exception e) {
+                            }
                         }
                     });
                     t.start();

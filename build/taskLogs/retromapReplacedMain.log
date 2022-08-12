@@ -38674,7 +38674,6 @@ Adding 0 imports
 End  Processing: com\trhsy\sim\client\gui\inventory\NPCInventory.java
 
 Start Processing: com\trhsy\sim\client\gui\other\GuiBeamPlayerTo.java
-Warning: com\trhsy\sim\client\gui\other\GuiBeamPlayerTo.java has CRLF line endings; consider switching to LF
 Rename class net/minecraft/entity/player/EntityPlayer[908,920]::EntityPlayer->EntityPlayer
 [method, com/trhsy/sim/client/gui/other/GuiBeamPlayerTo/GuiBeamPlayerTo, (Lnet/minecraft/entity/player/EntityPlayer;)V]
 FOUND CONSTR method com/trhsy/sim/client/gui/other/GuiBeamPlayerTo/GuiBeamPlayerTo (Lnet/minecraft/entity/player/EntityPlayer;)V com/trhsy/sim/client/gui/other/GuiBeamPlayerTo
@@ -45015,7 +45014,6 @@ Adding 0 imports
 End  Processing: com\trhsy\sim\common\core\entity\folk\traits\Traits.java
 
 Start Processing: com\trhsy\sim\common\core\entity\functionality\FarmingBox.java
-Warning: com\trhsy\sim\common\core\entity\functionality\FarmingBox.java has CRLF line endings; consider switching to LF
 [method, com/trhsy/sim/common/core/entity/functionality/FarmingBox/FarmingBox, ()V]
 FOUND CONSTR method com/trhsy/sim/common/core/entity/functionality/FarmingBox/FarmingBox ()V com/trhsy/sim/common/core/entity/functionality/FarmingBox
 [method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
@@ -46376,7 +46374,6 @@ Adding 1 imports
 End  Processing: com\trhsy\sim\common\item\tool\ItemTinSword.java
 
 Start Processing: com\trhsy\sim\common\jobs\Job.java
-Warning: com\trhsy\sim\common\jobs\Job.java has CRLF line endings; consider switching to LF
 Rename class net/minecraft/client/Minecraft[1375,1384]::Minecraft->Minecraft
 Rename class net/minecraft/client/Minecraft[1390,1399]::Minecraft->Minecraft
 Rename method net/minecraft/client/Minecraft/getMinecraft ()Lnet/minecraft/client/Minecraft;[1400,1412]::getMinecraft->func_71410_x
@@ -47452,8 +47449,7 @@ Adding 0 imports
 End  Processing: com\trhsy\sim\common\jobs\JobBrickMaker.java
 
 Start Processing: com\trhsy\sim\common\jobs\JobBuilder.java
-Warning: com\trhsy\sim\common\jobs\JobBuilder.java has CRLF line endings; consider switching to LF
-Rename class net/minecraft/inventory/IInventory[1452,1462]::IInventory->IInventory
+Rename class net/minecraft/inventory/IInventory[1453,1463]::IInventory->IInventory
 [method, com/trhsy/sim/common/jobs/JobBuilder/JobBuilder, ()V]
 FOUND CONSTR method com/trhsy/sim/common/jobs/JobBuilder/JobBuilder ()V com/trhsy/sim/common/jobs/JobBuilder
 [method, com/trhsy/sim/common/jobs/JobBuilder/JobBuilder, (Lcom/trhsy/sim/common/core/entity/FolkData;)V]
@@ -47478,10 +47474,10 @@ FOUND CONSTR method com/trhsy/sim/common/jobs/JobBuilder/JobBuilder (Lcom/trhsy/
 [method, com/trhsy/sim/common/core/entity/FolkData/selfFire, ()V]
 [method, com/trhsy/sim/common/core/entity/FolkData/updateLocationFromEntity, ()V]
 [method, com/trhsy/sim/common/core/entity/V3/getDistanceTo, (Lcom/trhsy/sim/common/core/entity/V3;)I]
-Rename class net/minecraft/client/resources/I18n[5122,5126]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[5127,5133]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[5641,5645]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[5646,5652]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[5123,5127]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[5128,5134]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[5642,5646]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[5647,5653]::format->func_135052_a
 [method, com/trhsy/sim/common/loader/ModSimReloaded/isDayTime, ()Z]
 [method, com/trhsy/sim/common/jobs/JobBuilder/stageBlueprint, ()V]
 [method, com/trhsy/sim/common/jobs/JobBuilder/stageWaitingForResources, ()V]
@@ -47492,51 +47488,51 @@ Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Lja
 [method, java/lang/Throwable/getMessage, ()Ljava/lang/String;]
 [method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, com/trhsy/sim/common/jobs/JobBuilder/stageBlueprint, ()V]
-Rename class net/minecraft/client/resources/I18n[7661,7665]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[7666,7672]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[7811,7815]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[7816,7822]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[7662,7666]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[7667,7673]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[7812,7816]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[7817,7823]::format->func_135052_a
 [method, com/trhsy/sim/common/core/entity/FolkData/updateLocationFromEntity, ()V]
 [method, com/trhsy/sim/common/core/entity/V3/getDistanceTo, (Lcom/trhsy/sim/common/core/entity/V3;)I]
-Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[8422,8431]::playSound->func_72980_b
-Rename field net/minecraft/util/Vec3/xCoord[8457,8463]::xCoord->field_72450_a
-Rename field net/minecraft/util/Vec3/yCoord[8494,8500]::yCoord->field_72448_b
-Rename field net/minecraft/util/Vec3/zCoord[8531,8537]::zCoord->field_72449_c
-Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[8653,8662]::playSound->func_72980_b
-Rename field net/minecraft/util/Vec3/xCoord[8688,8694]::xCoord->field_72450_a
-Rename field net/minecraft/util/Vec3/yCoord[8725,8731]::yCoord->field_72448_b
-Rename field net/minecraft/util/Vec3/zCoord[8762,8768]::zCoord->field_72449_c
-Rename class net/minecraft/world/World[9061,9066]::World->World
-Rename class net/minecraft/server/MinecraftServer[9075,9090]::MinecraftServer->MinecraftServer
-Rename method net/minecraft/server/MinecraftServer/getServer ()Lnet/minecraft/server/MinecraftServer;[9091,9100]::getServer->func_71276_C
-Rename method net/minecraft/server/MinecraftServer/worldServerForDimension (I)Lnet/minecraft/world/WorldServer;[9106,9129]::worldServerForDimension->func_71218_a
-Rename method net/minecraft/entity/Entity/setLocationAndAngles (DDDFF)V[9312,9332]::setLocationAndAngles->func_70012_b
-Rename field net/minecraft/util/Vec3/xCoord[9349,9355]::xCoord->field_72450_a
-Rename field net/minecraft/util/Vec3/yCoord[9392,9398]::yCoord->field_72448_b
-Rename field net/minecraft/util/Vec3/zCoord[9431,9437]::zCoord->field_72449_c
-Rename field net/minecraft/world/World/isRemote[9490,9498]::isRemote->field_72995_K
-Rename method net/minecraft/world/World/spawnEntityInWorld (Lnet/minecraft/entity/Entity;)Z[9537,9555]::spawnEntityInWorld->func_72838_d
+Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[8423,8432]::playSound->func_72980_b
+Rename field net/minecraft/util/Vec3/xCoord[8458,8464]::xCoord->field_72450_a
+Rename field net/minecraft/util/Vec3/yCoord[8495,8501]::yCoord->field_72448_b
+Rename field net/minecraft/util/Vec3/zCoord[8532,8538]::zCoord->field_72449_c
+Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[8654,8663]::playSound->func_72980_b
+Rename field net/minecraft/util/Vec3/xCoord[8689,8695]::xCoord->field_72450_a
+Rename field net/minecraft/util/Vec3/yCoord[8726,8732]::yCoord->field_72448_b
+Rename field net/minecraft/util/Vec3/zCoord[8763,8769]::zCoord->field_72449_c
+Rename class net/minecraft/world/World[9062,9067]::World->World
+Rename class net/minecraft/server/MinecraftServer[9076,9091]::MinecraftServer->MinecraftServer
+Rename method net/minecraft/server/MinecraftServer/getServer ()Lnet/minecraft/server/MinecraftServer;[9092,9101]::getServer->func_71276_C
+Rename method net/minecraft/server/MinecraftServer/worldServerForDimension (I)Lnet/minecraft/world/WorldServer;[9107,9130]::worldServerForDimension->func_71218_a
+Rename method net/minecraft/entity/Entity/setLocationAndAngles (DDDFF)V[9313,9333]::setLocationAndAngles->func_70012_b
+Rename field net/minecraft/util/Vec3/xCoord[9350,9356]::xCoord->field_72450_a
+Rename field net/minecraft/util/Vec3/yCoord[9393,9399]::yCoord->field_72448_b
+Rename field net/minecraft/util/Vec3/zCoord[9432,9438]::zCoord->field_72449_c
+Rename field net/minecraft/world/World/isRemote[9491,9499]::isRemote->field_72995_K
+Rename method net/minecraft/world/World/spawnEntityInWorld (Lnet/minecraft/entity/Entity;)Z[9538,9556]::spawnEntityInWorld->func_72838_d
 [method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
 [method, org/apache/logging/log4j/Logger/error, (Ljava/lang/String;)V]
 [method, java/lang/Throwable/getMessage, ()Ljava/lang/String;]
 [method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, com/trhsy/sim/common/jobs/JobBuilder/stageWaitingForResources, ()V]
-Rename class net/minecraft/client/resources/I18n[10142,10146]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[10147,10153]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[10143,10147]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[10148,10154]::format->func_135052_a
 [method, com/trhsy/sim/common/jobs/Job/inventoriesFindClosest, (Lcom/trhsy/sim/common/core/entity/V3;I)Ljava/util/List;]
 [method, java/util/Collection/size, ()I]
-Rename class net/minecraft/client/resources/I18n[10435,10439]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[10440,10446]::format->func_135052_a
-Rename class net/minecraft/inventory/IInventory[10610,10620]::IInventory->IInventory
+Rename class net/minecraft/client/resources/I18n[10436,10440]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[10441,10447]::format->func_135052_a
+Rename class net/minecraft/inventory/IInventory[10611,10621]::IInventory->IInventory
 [method, java/util/List/get, (I)Ljava/lang/Object;]
-Rename method net/minecraft/inventory/IInventory/openInventory (Lnet/minecraft/entity/player/EntityPlayer;)V[10653,10666]::openInventory->func_174889_b
-Rename field net/minecraft/client/Minecraft/thePlayer[10670,10679]::thePlayer->field_71439_g
+Rename method net/minecraft/inventory/IInventory/openInventory (Lnet/minecraft/entity/player/EntityPlayer;)V[10654,10667]::openInventory->func_174889_b
+Rename field net/minecraft/client/Minecraft/thePlayer[10671,10680]::thePlayer->field_71439_g
 [method, org/apache/logging/log4j/Logger/warn, (Ljava/lang/String;)V]
 [method, com/trhsy/sim/common/core/entity/V3/getDistanceTo, (Lcom/trhsy/sim/common/core/entity/V3;)I]
-Rename class net/minecraft/inventory/IInventory[11229,11239]::IInventory->IInventory
+Rename class net/minecraft/inventory/IInventory[11230,11240]::IInventory->IInventory
 [method, java/util/List/get, (I)Ljava/lang/Object;]
-Rename method net/minecraft/inventory/IInventory/closeInventory (Lnet/minecraft/entity/player/EntityPlayer;)V[11272,11286]::closeInventory->func_174886_c
-Rename field net/minecraft/client/Minecraft/thePlayer[11289,11298]::thePlayer->field_71439_g
+Rename method net/minecraft/inventory/IInventory/closeInventory (Lnet/minecraft/entity/player/EntityPlayer;)V[11273,11287]::closeInventory->func_174886_c
+Rename field net/minecraft/client/Minecraft/thePlayer[11290,11299]::thePlayer->field_71439_g
 [method, com/trhsy/sim/common/core/entity/FolkData/selfFire, ()V]
 [method, com/trhsy/sim/common/core/entity/FolkData/isSpawned, ()Z]
 [method, com/trhsy/sim/common/core/entity/FolkData/updateLocationFromEntity, ()V]
@@ -47547,37 +47543,37 @@ Rename field net/minecraft/client/Minecraft/thePlayer[11289,11298]::thePlayer->f
 [method, java/lang/Throwable/getMessage, ()Ljava/lang/String;]
 [method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, com/trhsy/sim/common/jobs/JobBuilder/stageInProgress, ()V]
-Rename class net/minecraft/block/Block[12751,12756]::Block->Block
+Rename class net/minecraft/block/Block[12752,12757]::Block->Block
 [method, com/trhsy/sim/common/core/entity/FolkData/updateLocationFromEntity, ()V]
 [method, com/trhsy/sim/common/core/entity/V3/getDistanceTo, (Lcom/trhsy/sim/common/core/entity/V3;)I]
 [method, com/trhsy/sim/common/core/entity/FolkData/gotoXYZ, (Lcom/trhsy/sim/common/core/entity/V3;Lcom/trhsy/sim/common/core/entity/enums/GotoMethod;)V]
-Rename field net/minecraft/util/Vec3/xCoord[13351,13357]::xCoord->field_72450_a
-Rename field net/minecraft/util/Vec3/yCoord[13426,13432]::yCoord->field_72448_b
-Rename field net/minecraft/util/Vec3/zCoord[13501,13507]::zCoord->field_72449_c
-Rename field net/minecraft/util/Vec3/xCoord[13576,13582]::xCoord->field_72450_a
-Rename field net/minecraft/util/Vec3/yCoord[13651,13657]::yCoord->field_72448_b
-Rename field net/minecraft/util/Vec3/zCoord[13726,13732]::zCoord->field_72449_c
+Rename field net/minecraft/util/Vec3/xCoord[13352,13358]::xCoord->field_72450_a
+Rename field net/minecraft/util/Vec3/yCoord[13427,13433]::yCoord->field_72448_b
+Rename field net/minecraft/util/Vec3/zCoord[13502,13508]::zCoord->field_72449_c
+Rename field net/minecraft/util/Vec3/xCoord[13577,13583]::xCoord->field_72450_a
+Rename field net/minecraft/util/Vec3/yCoord[13652,13658]::yCoord->field_72448_b
+Rename field net/minecraft/util/Vec3/zCoord[13727,13733]::zCoord->field_72449_c
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[14602,14606]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[14607,14613]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[14603,14607]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[14608,14614]::format->func_135052_a
 [method, com/trhsy/sim/common/core/entity/FolkData/selfFire, ()V]
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[14950,14954]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[14955,14961]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[15141,15145]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[15146,15152]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[14951,14955]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[14956,14962]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[15142,15146]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[15147,15153]::format->func_135052_a
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[15460,15464]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[15465,15471]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[15461,15465]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[15466,15472]::format->func_135052_a
 [method, com/trhsy/sim/common/core/entity/FolkData/selfFire, ()V]
 [method, java/util/Collection/clear, ()V]
-Rename class net/minecraft/client/resources/I18n[16245,16249]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[16250,16256]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[16246,16250]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[16251,16257]::format->func_135052_a
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
@@ -47587,193 +47583,166 @@ Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Lja
 [method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
 [method, org/apache/logging/log4j/Logger/error, (Ljava/lang/String;)V]
 [method, java/lang/String/split, (Ljava/lang/String;)[Ljava/lang/String;]
-Rename class net/minecraft/block/Block[17882,17887]::Block->Block
-Rename method net/minecraft/block/Block/getBlockFromName (Ljava/lang/String;)Lnet/minecraft/block/Block;[17888,17904]::getBlockFromName->func_149684_b
+Rename class net/minecraft/block/Block[17883,17888]::Block->Block
+Rename method net/minecraft/block/Block/getBlockFromName (Ljava/lang/String;)Lnet/minecraft/block/Block;[17889,17905]::getBlockFromName->func_149684_b
 [method, java/lang/Integer/parseInt, (Ljava/lang/String;)I]
-Rename class net/minecraft/init/Blocks[18166,18172]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/grass[18173,18178]::grass->field_150349_c
-Rename class net/minecraft/init/Blocks[18229,18235]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/dirt[18236,18240]::dirt->field_150346_d
+Rename class net/minecraft/init/Blocks[18167,18173]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/grass[18174,18179]::grass->field_150349_c
+Rename class net/minecraft/init/Blocks[18230,18236]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/dirt[18237,18241]::dirt->field_150346_d
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
 [method, com/trhsy/sim/common/core/entity/Building/saveThisBuilding, ()V]
-[method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
-[method, org/apache/logging/log4j/Logger/warn, (Ljava/lang/String;)V]
-[method, java/lang/Throwable/getMessage, ()Ljava/lang/String;]
-[method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, java/util/Collection/add, (Ljava/lang/Object;)Z]
-Rename class net/minecraft/block/Block[20413,20418]::Block->Block
-Rename method net/minecraft/world/IBlockAccess/getBlockState (Lnet/minecraft/util/BlockPos;)Lnet/minecraft/block/state/IBlockState;[20518,20531]::getBlockState->func_180495_p
-Rename class net/minecraft/util/BlockPos[20536,20544]::BlockPos->BlockPos
-Rename method net/minecraft/block/state/IBlockState/getBlock ()Lnet/minecraft/block/Block;[20602,20610]::getBlock->func_177230_c
-Rename class net/minecraft/init/Blocks[20720,20726]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/dirt[20727,20731]::dirt->field_150346_d
-Rename class net/minecraft/init/Blocks[20760,20766]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/grass[20767,20772]::grass->field_150349_c
-Rename class net/minecraft/init/Blocks[20796,20802]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/grass[20803,20808]::grass->field_150349_c
-Rename class net/minecraft/init/Blocks[20835,20841]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/dirt[20842,20846]::dirt->field_150346_d
-[method, com/trhsy/sim/common/core/entity/FolkData/selfFire, ()V]
-[method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
-[method, org/apache/logging/log4j/Logger/error, (Ljava/lang/String;)V]
-[method, java/lang/Throwable/getMessage, ()Ljava/lang/String;]
-[method, java/lang/StackTraceElement/getLineNumber, ()I]
-Rename class net/minecraft/item/ItemStack[21516,21525]::ItemStack->ItemStack
-Rename class net/minecraft/item/ItemStack[21539,21548]::ItemStack->ItemStack
-Rename method net/minecraft/item/ItemStack/getDisplayName ()Ljava/lang/String;[21732,21746]::getDisplayName->func_82833_r
+Rename class net/minecraft/block/Block[20073,20078]::Block->Block
+Rename method net/minecraft/world/IBlockAccess/getBlockState (Lnet/minecraft/util/BlockPos;)Lnet/minecraft/block/state/IBlockState;[20144,20157]::getBlockState->func_180495_p
+Rename class net/minecraft/util/BlockPos[20162,20170]::BlockPos->BlockPos
+Rename method net/minecraft/block/state/IBlockState/getBlock ()Lnet/minecraft/block/Block;[20228,20236]::getBlock->func_177230_c
+Rename method net/minecraft/block/Block/getUnlocalizedName ()Ljava/lang/String;[20533,20551]::getUnlocalizedName->func_149739_a
 [method, java/util/Collection/add, (Ljava/lang/Object;)Z]
 [method, com/trhsy/sim/common/jobs/Job/inventoriesFindClosest, (Lcom/trhsy/sim/common/core/entity/V3;I)Ljava/util/List;]
 [method, com/trhsy/sim/common/jobs/Job/mineBlockIntoChests, (Ljava/util/List;Lcom/trhsy/sim/common/core/entity/V3;)Z]
-Rename class net/minecraft/util/BlockPos[22924,22932]::BlockPos->BlockPos
-Rename class net/minecraft/util/BlockPos[22948,22956]::BlockPos->BlockPos
-Rename method net/minecraft/world/World/setBlockState (Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z[23056,23069]::setBlockState->func_180501_a
-Rename class net/minecraft/init/Blocks[23080,23086]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/air[23087,23090]::air->field_150350_a
-Rename method net/minecraft/block/Block/getDefaultState ()Lnet/minecraft/block/state/IBlockState;[23102,23117]::getDefaultState->func_176223_P
-Rename class net/minecraft/init/Blocks[23410,23416]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/planks[23417,23423]::planks->field_150344_f
-Rename class net/minecraft/init/Blocks[23446,23452]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/cobblestone[23453,23464]::cobblestone->field_150347_e
-Rename class net/minecraft/init/Blocks[23482,23488]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/glass[23489,23494]::glass->field_150359_w
-Rename class net/minecraft/init/Blocks[23518,23524]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/wool[23525,23529]::wool->field_150325_L
-Rename class net/minecraft/init/Blocks[23554,23560]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/brick_block[23561,23572]::brick_block->field_150336_V
-Rename class net/minecraft/init/Blocks[23590,23596]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/dirt[23597,23601]::dirt->field_150346_d
-Rename class net/minecraft/init/Blocks[23626,23632]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/stonebrick[23633,23643]::stonebrick->field_150417_aV
-Rename class net/minecraft/init/Blocks[23663,23669]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/oak_fence[23670,23679]::oak_fence->field_180407_aO
-Rename class net/minecraft/init/Blocks[23700,23706]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/stone[23707,23712]::stone->field_150348_b
-Rename class net/minecraft/init/Blocks[23736,23742]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/log[23743,23746]::log->field_150364_r
-Rename class net/minecraft/item/ItemStack[23787,23796]::ItemStack->ItemStack
+Rename class net/minecraft/util/BlockPos[21335,21343]::BlockPos->BlockPos
+Rename class net/minecraft/util/BlockPos[21359,21367]::BlockPos->BlockPos
+Rename method net/minecraft/world/World/setBlockState (Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z[21467,21480]::setBlockState->func_180501_a
+Rename class net/minecraft/init/Blocks[21491,21497]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/air[21498,21501]::air->field_150350_a
+Rename method net/minecraft/block/Block/getDefaultState ()Lnet/minecraft/block/state/IBlockState;[21513,21528]::getDefaultState->func_176223_P
+Rename class net/minecraft/init/Blocks[21821,21827]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/planks[21828,21834]::planks->field_150344_f
+Rename class net/minecraft/init/Blocks[21857,21863]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/cobblestone[21864,21875]::cobblestone->field_150347_e
+Rename class net/minecraft/init/Blocks[21893,21899]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/glass[21900,21905]::glass->field_150359_w
+Rename class net/minecraft/init/Blocks[21929,21935]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/wool[21936,21940]::wool->field_150325_L
+Rename class net/minecraft/init/Blocks[21965,21971]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/brick_block[21972,21983]::brick_block->field_150336_V
+Rename class net/minecraft/init/Blocks[22001,22007]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/dirt[22008,22012]::dirt->field_150346_d
+Rename class net/minecraft/init/Blocks[22037,22043]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/stonebrick[22044,22054]::stonebrick->field_150417_aV
+Rename class net/minecraft/init/Blocks[22074,22080]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/oak_fence[22081,22090]::oak_fence->field_180407_aO
+Rename class net/minecraft/init/Blocks[22111,22117]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/stone[22118,22123]::stone->field_150348_b
+Rename class net/minecraft/init/Blocks[22147,22153]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/log[22154,22157]::log->field_150364_r
+Rename class net/minecraft/item/ItemStack[22198,22207]::ItemStack->ItemStack
 [method, com/trhsy/sim/common/jobs/Job/inventoriesFindClosest, (Lcom/trhsy/sim/common/core/entity/V3;I)Ljava/util/List;]
 [method, com/trhsy/sim/common/jobs/Job/inventoriesGet, (Ljava/util/List;Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/item/ItemStack;]
-Rename class net/minecraft/item/ItemStack[24136,24145]::ItemStack->ItemStack
-Rename class net/minecraft/init/Blocks[24895,24901]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/grass[24902,24907]::grass->field_150349_c
-Rename class net/minecraft/init/Blocks[24931,24937]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/water[24938,24943]::water->field_150355_j
-Rename class net/minecraft/init/Blocks[24967,24973]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/water[24974,24979]::water->field_150355_j
-Rename class net/minecraft/init/Blocks[25003,25009]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/lava[25010,25014]::lava->field_150353_l
-Rename class net/minecraft/init/Blocks[25039,25045]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/lava[25046,25050]::lava->field_150353_l
-Rename class net/minecraft/init/Blocks[25075,25081]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/wall_sign[25082,25091]::wall_sign->field_150444_as
-Rename class net/minecraft/init/Blocks[25112,25118]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/cake[25119,25123]::cake->field_150414_aQ
-Rename class net/minecraft/init/Blocks[25149,25155]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/stone_slab[25156,25166]::stone_slab->field_150333_U
-Rename class net/minecraft/init/Blocks[25185,25191]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/wooden_slab[25192,25203]::wooden_slab->field_150376_bx
-Rename class net/minecraft/init/Blocks[25222,25228]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/double_wooden_slab[25229,25247]::double_wooden_slab->field_150373_bw
-Rename class net/minecraft/init/Blocks[25259,25265]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/double_stone_slab[25266,25283]::double_stone_slab->field_150334_T
-Rename class net/minecraft/init/Blocks[25295,25301]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/farmland[25302,25310]::farmland->field_150458_ak
-Rename class net/minecraft/init/Blocks[25332,25338]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/oak_door[25339,25347]::oak_door->field_180413_ao
-Rename class net/minecraft/init/Blocks[25369,25375]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/iron_door[25376,25385]::iron_door->field_150454_av
-Rename class net/minecraft/init/Blocks[25406,25412]::Blocks->Blocks
-Rename field net/minecraft/init/Blocks/bed[25413,25416]::bed->field_150324_C
+Rename class net/minecraft/item/ItemStack[22547,22556]::ItemStack->ItemStack
+Rename class net/minecraft/init/Blocks[23306,23312]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/grass[23313,23318]::grass->field_150349_c
+Rename class net/minecraft/init/Blocks[23342,23348]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/water[23349,23354]::water->field_150355_j
+Rename class net/minecraft/init/Blocks[23378,23384]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/water[23385,23390]::water->field_150355_j
+Rename class net/minecraft/init/Blocks[23414,23420]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/lava[23421,23425]::lava->field_150353_l
+Rename class net/minecraft/init/Blocks[23450,23456]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/lava[23457,23461]::lava->field_150353_l
+Rename class net/minecraft/init/Blocks[23486,23492]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/wall_sign[23493,23502]::wall_sign->field_150444_as
+Rename class net/minecraft/init/Blocks[23523,23529]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/cake[23530,23534]::cake->field_150414_aQ
+Rename class net/minecraft/init/Blocks[23560,23566]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/stone_slab[23567,23577]::stone_slab->field_150333_U
+Rename class net/minecraft/init/Blocks[23596,23602]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/wooden_slab[23603,23614]::wooden_slab->field_150376_bx
+Rename class net/minecraft/init/Blocks[23633,23639]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/double_wooden_slab[23640,23658]::double_wooden_slab->field_150373_bw
+Rename class net/minecraft/init/Blocks[23670,23676]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/double_stone_slab[23677,23694]::double_stone_slab->field_150334_T
+Rename class net/minecraft/init/Blocks[23706,23712]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/farmland[23713,23721]::farmland->field_150458_ak
+Rename class net/minecraft/init/Blocks[23743,23749]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/oak_door[23750,23758]::oak_door->field_180413_ao
+Rename class net/minecraft/init/Blocks[23780,23786]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/iron_door[23787,23796]::iron_door->field_150454_av
+Rename class net/minecraft/init/Blocks[23817,23823]::Blocks->Blocks
+Rename field net/minecraft/init/Blocks/bed[23824,23827]::bed->field_150324_C
 [method, com/trhsy/sim/common/jobs/Job/inventoriesFindClosest, (Lcom/trhsy/sim/common/core/entity/V3;I)Ljava/util/List;]
 [method, com/trhsy/sim/common/jobs/Job/inventoriesGet, (Ljava/util/List;Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/item/ItemStack;]
-Rename class net/minecraft/item/ItemStack[25637,25646]::ItemStack->ItemStack
+Rename class net/minecraft/item/ItemStack[24048,24057]::ItemStack->ItemStack
 [method, java/lang/String/toLowerCase, ()Ljava/lang/String;]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
-Rename class net/minecraft/client/resources/I18n[26666,26670]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[26671,26677]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[26762,26766]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[26767,26773]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[25189,25193]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[25194,25200]::format->func_135052_a
 [method, java/lang/String/toLowerCase, ()Ljava/lang/String;]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
-Rename class net/minecraft/client/resources/I18n[26948,26952]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[26953,26959]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[27043,27047]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[27048,27054]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[27222,27226]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[27227,27233]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[25428,25432]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[25433,25439]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[25607,25611]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[25612,25618]::format->func_135052_a
 [method, java/lang/System/currentTimeMillis, ()J]
 [method, java/lang/System/currentTimeMillis, ()J]
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[27653,27657]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[27658,27664]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[27783,27787]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[27788,27794]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[26042,26046]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[26047,26053]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[26172,26176]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[26177,26183]::format->func_135052_a
 [method, java/lang/String/toLowerCase, ()Ljava/lang/String;]
 [method, java/lang/String/contentEquals, (Ljava/lang/CharSequence;)Z]
-Rename class net/minecraft/client/resources/I18n[28491,28495]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[28496,28502]::format->func_135052_a
-Rename class net/minecraft/util/BlockPos[28862,28870]::BlockPos->BlockPos
-Rename class net/minecraft/util/BlockPos[28886,28894]::BlockPos->BlockPos
-Rename method net/minecraft/world/World/setBlockState (Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z[29011,29024]::setBlockState->func_180501_a
-Rename method net/minecraft/block/Block/getStateFromMeta (I)Lnet/minecraft/block/state/IBlockState;[29043,29059]::getStateFromMeta->func_176203_a
-Rename method net/minecraft/world/World/markBlockForUpdate (Lnet/minecraft/util/BlockPos;)V[29129,29147]::markBlockForUpdate->func_175689_h
+Rename class net/minecraft/client/resources/I18n[26826,26830]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[26831,26837]::format->func_135052_a
+Rename class net/minecraft/util/BlockPos[27173,27181]::BlockPos->BlockPos
+Rename class net/minecraft/util/BlockPos[27197,27205]::BlockPos->BlockPos
+Rename method net/minecraft/world/World/setBlockState (Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z[27318,27331]::setBlockState->func_180501_a
+Rename method net/minecraft/block/Block/getStateFromMeta (I)Lnet/minecraft/block/state/IBlockState;[27350,27366]::getStateFromMeta->func_176203_a
+Rename method net/minecraft/world/World/markBlockForUpdate (Lnet/minecraft/util/BlockPos;)V[27432,27450]::markBlockForUpdate->func_175689_h
 [method, java/lang/Math/floor, (D)D]
 [method, java/lang/Math/floor, (D)D]
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[29940,29944]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[29945,29951]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[28187,28191]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[28192,28198]::format->func_135052_a
 [method, java/lang/System/currentTimeMillis, ()J]
-Rename field net/minecraft/client/Minecraft/theWorld[30269,30277]::theWorld->field_71441_e
-Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[30283,30292]::playSound->func_72980_b
+Rename field net/minecraft/client/Minecraft/theWorld[28500,28508]::theWorld->field_71441_e
+Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[28514,28523]::playSound->func_72980_b
 [method, java/lang/System/currentTimeMillis, ()J]
-Rename field net/minecraft/client/Minecraft/theWorld[30621,30629]::theWorld->field_71441_e
-Rename field net/minecraft/world/World/isRemote[30635,30643]::isRemote->field_72995_K
-Rename field net/minecraft/client/Minecraft/theWorld[30704,30712]::theWorld->field_71441_e
-Rename method net/minecraft/world/World/spawnParticle (Lnet/minecraft/util/EnumParticleTypes;DDDDDD[I)V[30718,30731]::spawnParticle->func_175688_a
-Rename class net/minecraft/util/EnumParticleTypes[30732,30749]::EnumParticleTypes->EnumParticleTypes
-Rename field net/minecraft/util/EnumParticleTypes/EXPLOSION_NORMAL[30750,30766]::EXPLOSION_NORMAL->EXPLOSION_NORMAL
-Rename field net/minecraft/client/Minecraft/theWorld[30922,30930]::theWorld->field_71441_e
-Rename method net/minecraft/world/World/spawnParticle (Lnet/minecraft/util/EnumParticleTypes;DDDDDD[I)V[30936,30949]::spawnParticle->func_175688_a
-Rename class net/minecraft/util/EnumParticleTypes[30950,30967]::EnumParticleTypes->EnumParticleTypes
-Rename field net/minecraft/util/EnumParticleTypes/EXPLOSION_NORMAL[30968,30984]::EXPLOSION_NORMAL->EXPLOSION_NORMAL
-Rename field net/minecraft/client/Minecraft/theWorld[31140,31148]::theWorld->field_71441_e
-Rename method net/minecraft/world/World/spawnParticle (Lnet/minecraft/util/EnumParticleTypes;DDDDDD[I)V[31154,31167]::spawnParticle->func_175688_a
-Rename class net/minecraft/util/EnumParticleTypes[31168,31185]::EnumParticleTypes->EnumParticleTypes
-Rename field net/minecraft/util/EnumParticleTypes/EXPLOSION_NORMAL[31186,31202]::EXPLOSION_NORMAL->EXPLOSION_NORMAL
+Rename field net/minecraft/client/Minecraft/theWorld[28840,28848]::theWorld->field_71441_e
+Rename field net/minecraft/world/World/isRemote[28854,28862]::isRemote->field_72995_K
+Rename field net/minecraft/client/Minecraft/theWorld[28919,28927]::theWorld->field_71441_e
+Rename method net/minecraft/world/World/spawnParticle (Lnet/minecraft/util/EnumParticleTypes;DDDDDD[I)V[28933,28946]::spawnParticle->func_175688_a
+Rename class net/minecraft/util/EnumParticleTypes[28947,28964]::EnumParticleTypes->EnumParticleTypes
+Rename field net/minecraft/util/EnumParticleTypes/EXPLOSION_NORMAL[28965,28981]::EXPLOSION_NORMAL->EXPLOSION_NORMAL
+Rename field net/minecraft/client/Minecraft/theWorld[29133,29141]::theWorld->field_71441_e
+Rename method net/minecraft/world/World/spawnParticle (Lnet/minecraft/util/EnumParticleTypes;DDDDDD[I)V[29147,29160]::spawnParticle->func_175688_a
+Rename class net/minecraft/util/EnumParticleTypes[29161,29178]::EnumParticleTypes->EnumParticleTypes
+Rename field net/minecraft/util/EnumParticleTypes/EXPLOSION_NORMAL[29179,29195]::EXPLOSION_NORMAL->EXPLOSION_NORMAL
+Rename field net/minecraft/client/Minecraft/theWorld[29347,29355]::theWorld->field_71441_e
+Rename method net/minecraft/world/World/spawnParticle (Lnet/minecraft/util/EnumParticleTypes;DDDDDD[I)V[29361,29374]::spawnParticle->func_175688_a
+Rename class net/minecraft/util/EnumParticleTypes[29375,29392]::EnumParticleTypes->EnumParticleTypes
+Rename field net/minecraft/util/EnumParticleTypes/EXPLOSION_NORMAL[29393,29409]::EXPLOSION_NORMAL->EXPLOSION_NORMAL
 [method, org/apache/logging/log4j/Logger/warn, (Ljava/lang/String;)V]
-Rename class net/minecraft/util/BlockPos[31908,31916]::BlockPos->BlockPos
-Rename class net/minecraft/util/BlockPos[31932,31940]::BlockPos->BlockPos
-Rename method net/minecraft/world/World/setBlockState (Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z[32052,32065]::setBlockState->func_180501_a
-Rename method net/minecraft/block/Block/getDefaultState ()Lnet/minecraft/block/state/IBlockState;[32084,32099]::getDefaultState->func_176223_P
-[method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
-[method, org/apache/logging/log4j/Logger/warn, (Ljava/lang/String;)V]
-[method, java/lang/Throwable/getMessage, ()Ljava/lang/String;]
-[method, java/lang/StackTraceElement/getLineNumber, ()I]
+Rename class net/minecraft/util/BlockPos[30083,30091]::BlockPos->BlockPos
+Rename class net/minecraft/util/BlockPos[30107,30115]::BlockPos->BlockPos
+Rename method net/minecraft/world/World/setBlockState (Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z[30223,30236]::setBlockState->func_180501_a
+Rename method net/minecraft/block/Block/getDefaultState ()Lnet/minecraft/block/state/IBlockState;[30255,30270]::getDefaultState->func_176223_P
 [method, com/trhsy/sim/common/jobs/JobBuilder/stageComplete, ()V]
-Rename method net/minecraft/entity/EntityLivingBase/swingItem ()V[33829,33838]::swingItem->func_71038_i
+Rename method net/minecraft/entity/EntityLivingBase/swingItem ()V[31713,31722]::swingItem->func_71038_i
 [method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
 [method, org/apache/logging/log4j/Logger/error, (Ljava/lang/String;)V]
 [method, java/lang/Throwable/getMessage, ()Ljava/lang/String;]
 [method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, com/trhsy/sim/common/jobs/JobBuilder/stageComplete, ()V]
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[34635,34639]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[34640,34646]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[32530,32534]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[32535,32541]::format->func_135052_a
 [method, com/trhsy/sim/common/CommonProxy/getClientWorld, ()Lnet/minecraft/world/World;]
-Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[34797,34806]::playSound->func_72980_b
-Rename field net/minecraft/client/Minecraft/thePlayer[34818,34827]::thePlayer->field_71439_g
-Rename field net/minecraft/entity/Entity/posX[34832,34836]::posX->field_70165_t
-Rename field net/minecraft/client/Minecraft/thePlayer[34855,34864]::thePlayer->field_71439_g
-Rename field net/minecraft/entity/Entity/posY[34869,34873]::posY->field_70163_u
-Rename field net/minecraft/client/Minecraft/thePlayer[34892,34901]::thePlayer->field_71439_g
-Rename field net/minecraft/entity/Entity/posZ[34906,34910]::posZ->field_70161_v
+Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[32692,32701]::playSound->func_72980_b
+Rename field net/minecraft/client/Minecraft/thePlayer[32713,32722]::thePlayer->field_71439_g
+Rename field net/minecraft/entity/Entity/posX[32727,32731]::posX->field_70165_t
+Rename field net/minecraft/client/Minecraft/thePlayer[32750,32759]::thePlayer->field_71439_g
+Rename field net/minecraft/entity/Entity/posY[32764,32768]::posY->field_70163_u
+Rename field net/minecraft/client/Minecraft/thePlayer[32787,32796]::thePlayer->field_71439_g
+Rename field net/minecraft/entity/Entity/posZ[32801,32805]::posZ->field_70161_v
 [method, com/trhsy/sim/common/core/entity/Building/saveThisBuilding, ()V]
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[35196,35200]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[35201,35207]::format->func_135052_a
-Rename class net/minecraft/client/resources/I18n[35284,35288]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[35289,35295]::format->func_135052_a
-Rename method net/minecraft/entity/Entity/setSneaking (Z)V[35481,35492]::setSneaking->func_70095_a
+Rename class net/minecraft/client/resources/I18n[33091,33095]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[33096,33102]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[33179,33183]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[33184,33190]::format->func_135052_a
+Rename method net/minecraft/entity/Entity/setSneaking (Z)V[33376,33387]::setSneaking->func_70095_a
 [method, com/trhsy/sim/common/core/entity/FolkData/selfFire, ()V]
 [method, java/util/Collection/size, ()I]
 [method, java/util/List/get, (I)Ljava/lang/Object;]
@@ -47785,8 +47754,8 @@ Rename method net/minecraft/entity/Entity/setSneaking (Z)V[35481,35492]::setSnea
 [method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, com/trhsy/sim/common/jobs/Job/onArrivedAtWork, ()V]
 [method, com/trhsy/sim/common/core/entity/V3/getDistanceTo, (Lcom/trhsy/sim/common/core/entity/V3;)I]
-Rename class net/minecraft/client/resources/I18n[36854,36858]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[36859,36865]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[34749,34753]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[34754,34760]::format->func_135052_a
 [method, com/trhsy/sim/common/core/entity/FolkData/gotoXYZ, (Lcom/trhsy/sim/common/core/entity/V3;Lcom/trhsy/sim/common/core/entity/enums/GotoMethod;)V]
 [method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
 [method, org/apache/logging/log4j/Logger/error, (Ljava/lang/String;)V]
@@ -50537,7 +50506,6 @@ Adding 0 imports
 End  Processing: com\trhsy\sim\common\jobs\JobLivestockFarmer.java
 
 Start Processing: com\trhsy\sim\common\jobs\JobLumberjack.java
-Warning: com\trhsy\sim\common\jobs\JobLumberjack.java has CRLF line endings; consider switching to LF
 Rename class net/minecraft/inventory/IInventory[1577,1587]::IInventory->IInventory
 [method, com/trhsy/sim/common/jobs/JobLumberjack/JobLumberjack, ()V]
 FOUND CONSTR method com/trhsy/sim/common/jobs/JobLumberjack/JobLumberjack ()V com/trhsy/sim/common/jobs/JobLumberjack
@@ -50803,7 +50771,6 @@ Adding 0 imports
 End  Processing: com\trhsy\sim\common\jobs\JobLumberjack.java
 
 Start Processing: com\trhsy\sim\common\jobs\JobMiner.java
-Warning: com\trhsy\sim\common\jobs\JobMiner.java has CRLF line endings; consider switching to LF
 Rename class net/minecraft/inventory/IInventory[1535,1545]::IInventory->IInventory
 [method, com/trhsy/sim/common/jobs/JobMiner/JobMiner, ()V]
 FOUND CONSTR method com/trhsy/sim/common/jobs/JobMiner/JobMiner ()V com/trhsy/sim/common/jobs/JobMiner
@@ -51534,7 +51501,6 @@ Adding 0 imports
 End  Processing: com\trhsy\sim\common\jobs\JobShepherd.java
 
 Start Processing: com\trhsy\sim\common\jobs\JobSoldier.java
-Warning: com\trhsy\sim\common\jobs\JobSoldier.java has CRLF line endings; consider switching to LF
 Rename class net/minecraft/entity/Entity[1377,1383]::Entity->Entity
 [method, com/trhsy/sim/common/jobs/JobSoldier/JobSoldier, ()V]
 FOUND CONSTR method com/trhsy/sim/common/jobs/JobSoldier/JobSoldier ()V com/trhsy/sim/common/jobs/JobSoldier
@@ -51696,7 +51662,6 @@ Adding 0 imports
 End  Processing: com\trhsy\sim\common\jobs\JobSoldier.java
 
 Start Processing: com\trhsy\sim\common\jobs\JobTerraformer.java
-Warning: com\trhsy\sim\common\jobs\JobTerraformer.java has CRLF line endings; consider switching to LF
 Rename class net/minecraft/inventory/IInventory[1353,1363]::IInventory->IInventory
 [method, com/trhsy/sim/common/jobs/JobTerraformer/JobTerraformer, ()V]
 FOUND CONSTR method com/trhsy/sim/common/jobs/JobTerraformer/JobTerraformer ()V com/trhsy/sim/common/jobs/JobTerraformer
@@ -52092,16 +52057,16 @@ Rename method net/minecraft/block/Block/getDefaultState ()Lnet/minecraft/block/s
 [method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, com/trhsy/sim/common/jobs/JobTerraformer/stageComplete, ()V]
 [method, com/trhsy/sim/common/loader/ModSimReloaded/sendChat, (Ljava/lang/String;)V]
-Rename class net/minecraft/client/resources/I18n[27911,27915]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[27916,27922]::format->func_135052_a
-Rename field net/minecraft/client/Minecraft/theWorld[28000,28008]::theWorld->field_71441_e
-Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[28014,28023]::playSound->func_72980_b
-Rename field net/minecraft/client/Minecraft/thePlayer[28035,28044]::thePlayer->field_71439_g
-Rename field net/minecraft/entity/Entity/posX[28049,28053]::posX->field_70165_t
-Rename field net/minecraft/client/Minecraft/thePlayer[28072,28081]::thePlayer->field_71439_g
-Rename field net/minecraft/entity/Entity/posY[28086,28090]::posY->field_70163_u
-Rename field net/minecraft/client/Minecraft/thePlayer[28109,28118]::thePlayer->field_71439_g
-Rename field net/minecraft/entity/Entity/posZ[28123,28127]::posZ->field_70161_v
+Rename class net/minecraft/client/resources/I18n[27926,27930]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[27931,27937]::format->func_135052_a
+Rename field net/minecraft/client/Minecraft/theWorld[28015,28023]::theWorld->field_71441_e
+Rename method net/minecraft/world/World/playSound (DDDLjava/lang/String;FFZ)V[28029,28038]::playSound->func_72980_b
+Rename field net/minecraft/client/Minecraft/thePlayer[28050,28059]::thePlayer->field_71439_g
+Rename field net/minecraft/entity/Entity/posX[28064,28068]::posX->field_70165_t
+Rename field net/minecraft/client/Minecraft/thePlayer[28087,28096]::thePlayer->field_71439_g
+Rename field net/minecraft/entity/Entity/posY[28101,28105]::posY->field_70163_u
+Rename field net/minecraft/client/Minecraft/thePlayer[28124,28133]::thePlayer->field_71439_g
+Rename field net/minecraft/entity/Entity/posZ[28138,28142]::posZ->field_70161_v
 [method, com/trhsy/sim/common/core/entity/FolkData/selfFire, ()V]
 [method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
 [method, org/apache/logging/log4j/Logger/error, (Ljava/lang/String;)V]
@@ -52109,8 +52074,8 @@ Rename field net/minecraft/entity/Entity/posZ[28123,28127]::posZ->field_70161_v
 [method, java/lang/StackTraceElement/getLineNumber, ()I]
 [method, com/trhsy/sim/common/jobs/Job/onArrivedAtWork, ()V]
 [method, com/trhsy/sim/common/core/entity/V3/getDistanceTo, (Lcom/trhsy/sim/common/core/entity/V3;)I]
-Rename class net/minecraft/client/resources/I18n[28916,28920]::I18n->I18n
-Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[28921,28927]::format->func_135052_a
+Rename class net/minecraft/client/resources/I18n[28931,28935]::I18n->I18n
+Rename method net/minecraft/client/resources/I18n/format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;[28936,28942]::format->func_135052_a
 [method, com/trhsy/sim/common/core/entity/FolkData/gotoXYZ, (Lcom/trhsy/sim/common/core/entity/V3;Lcom/trhsy/sim/common/core/entity/enums/GotoMethod;)V]
 [method, java/lang/Throwable/getStackTrace, ()[Ljava/lang/StackTraceElement;]
 [method, org/apache/logging/log4j/Logger/error, (Ljava/lang/String;)V]

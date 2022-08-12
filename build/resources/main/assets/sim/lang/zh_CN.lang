@@ -165,9 +165,9 @@ container.sim.sim_gui_BC6=费用
 container.sim.sim_gui_BC7=尺寸
 container.sim.sim_gui_BC8=对应块构造数量应该是
 container.sim.sim_gui_BC9=橡木
-container.sim.sim_gui_BC10=橡木
+container.sim.sim_gui_BC10=原木
 container.sim.sim_gui_BC11=橡木木板
-container.sim.sim_gui_BC12=橡木木板
+container.sim.sim_gui_BC12=木板
 
 container.sim.sim_gui_BC_worker=员工
 container.sim.sim_gui_BC_Staff=工作人员

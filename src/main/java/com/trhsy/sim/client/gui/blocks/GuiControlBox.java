@@ -26,6 +26,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -749,111 +750,121 @@ public class GuiControlBox extends GuiScreen {
                     if (displayName.contains(I18n.format("container.sim.building.stairs"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 0) {
-                            newmeta = 2;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 1) {
-                            newmeta = 3;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 2) {
-                            newmeta = 1;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 3) {
-                            newmeta = 0;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
                         }
+
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.DOWN);//0
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.UP);//1
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                     //火把
                     if (displayName.contains(I18n.format("container.sim.building.torch"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 1) {
-                            newmeta = 3;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 3) {
-                            newmeta = 2;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 2) {
-                            newmeta = 4;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            newmeta = 1;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
                         }
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                     //床
                     if (displayName.contains(I18n.format("container.sim.building.bed"))) {
                         newmeta = is.getMetadata();
                         ++newmeta;
                         if (newmeta == 4) {
-                            newmeta = 0;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         }
+
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                     //活塞
                     if (displayName.contains(I18n.format("container.sim.building.piston"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 2) {
-                            newmeta = 5;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 5) {
-                            newmeta = 3;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 3) {
-                            newmeta = 4;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            newmeta = 2;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
                         }
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                     //标识牌
                     if (Block.getBlockFromItem(is.getItem()) == Blocks.wall_sign) {
                         newmeta = is.getMetadata();
                         if (newmeta == 0) {
-                            newmeta = 4;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 4) {
-                            newmeta = 8;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 8) {
-                            newmeta = 12;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 12) {
-                            newmeta = 0;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
                         }
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 2);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                     //梯子
                     if (Block.getBlockFromItem(is.getItem()) == Blocks.ladder) {
                         newmeta = is.getMetadata();
                         if (newmeta == 2) {
-                            newmeta = 5;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 5) {
-                            newmeta = 3;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 3) {
-                            newmeta = 4;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            newmeta = 2;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
                         }
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                     //按钮
                     if (displayName.contains(I18n.format("container.sim.building.button"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 1) {
-                            newmeta = 3;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 3) {
-                            newmeta = 2;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 2) {
-                            newmeta = 4;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            newmeta = 1;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
                         }
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                     //栅栏门
                     if (Block.getBlockFromItem(is.getItem()) == Blocks.oak_fence_gate) {
                         newmeta = is.getMetadata();
                         ++newmeta;
                         if (newmeta > 3) {
-                            newmeta = 0;
+                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
                         }
+                        //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
-                        theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta).withProperty(BlockBanner.ROTATION,newmeta), 1);
+                        //theWorld.markAndNotifyBlock(blockPos, chunk, id.getDefaultState(), id.getStateFromMeta(newmeta), 1);
                     }
                 }
             }

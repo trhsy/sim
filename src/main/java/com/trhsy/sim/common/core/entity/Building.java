@@ -848,10 +848,11 @@ public class Building implements Serializable {
     }
 
     public static void loadAllBuildings() {
-        try {
+
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
                     ModSimReloaded.log.info("***********************开始加载世界上的建筑***************");
                     File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
                     if (buildingsFolder == null) {
@@ -989,13 +990,15 @@ public class Building implements Serializable {
                         }
                     }
                     ModSimReloaded.log.info("***********************加载世界上的建筑完成***************");
+                    } catch (Exception e) {
+                        StackTraceElement element = e.getStackTrace()[0];
+                        ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                    }
                 }
+
             }, "loadAllBuildings_sim");
             thread.start();
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
+
 
 
     }
@@ -1204,10 +1207,11 @@ public class Building implements Serializable {
      * 初始化本地设备
      */
     public static void initialiseAllBuildings() {
-        try {
+
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
                     ModSimReloaded.log.info("***********************开始所有建筑蓝图加载***************");
                     Building.buildingsRes.clear();
                     Building.initBuildingsOfType("residential");
@@ -1220,13 +1224,14 @@ public class Building implements Serializable {
                     Building.buildingsSpec.clear();
                     Building.initBuildingsOfType("special");
                     ModSimReloaded.log.info("***********************所有建筑蓝图加载完成***************");
+                    } catch (Exception e) {
+                        StackTraceElement element = e.getStackTrace()[0];
+                        ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                    }
                 }
             }, "thread_sim");
             thread.start();
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
+
 
     }
 

@@ -218,10 +218,8 @@ public class JobSoldier extends Job implements Serializable {
                 for(int j = 0; j < mobs.size(); ++j) {
                     Entity entity1 = (Entity)mobs.get(j);
                     if (entity1 instanceof EntityMob || entity1 instanceof IMob) {
-
-                        PathEntity path =this.theFolk.theEntity.func_70661_as().func_75488_a(entity1.field_70165_t, entity1.field_70163_u, entity1.field_70161_v);
-                        //PathEntity path = this.jobWorld.getEntityPathToXYZ(this.theFolk.theEntity, (int)entity1.posX, (int)entity1.posY, (int)entity1.posZ, 40.0F, true, true, true, true);
-                        if (path != null) {
+                        Boolean flag=this.theFolk.theEntity.func_70661_as().func_75492_a(entity1.field_70165_t, entity1.field_70163_u, entity1.field_70161_v,0.3);
+                        if (flag) {
                             closestBadGuy = entity1;
                             break;
                         }

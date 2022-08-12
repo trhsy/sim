@@ -582,6 +582,10 @@ public class GuiBuildingConstructor extends GuiScreen {
                                             break;
                                         }
                                     }
+                                    else {
+                                        String sim_gui_BC_Nothing_found = I18n.format("container.sim.sim_gui_BC_Nothing_found");
+                                        this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
+                                    }
                                 } else {
                                     this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "<" + sim_gui_BC_Page));
                                 }
@@ -590,9 +594,6 @@ public class GuiBuildingConstructor extends GuiScreen {
                             if (this.fixedBuildingCount == -1) {
                                 this.fixedBuildingCount = this.buildingsOnPage;
                             }
-                        } else {
-                            String sim_gui_BC_Nothing_found = I18n.format("container.sim.sim_gui_BC_Nothing_found");
-                            this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
                         }
                     }
                 }

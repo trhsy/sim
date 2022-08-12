@@ -83,10 +83,11 @@ public class MiningBox implements Serializable {
     }
 
     public static void loadMiningBoxes() {
-        try {
+
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
                     ModSimReloaded.log.info("***********************开始加载采矿箱***************");
                     File mineFiles = new File(ModSimReloaded.getSavesDataFolder() + "Mining" + File.separator);
                     mineFiles.mkdirs();
@@ -174,14 +175,15 @@ public class MiningBox implements Serializable {
                         }
                     }
                     ModSimReloaded.log.info("***********************加载采矿箱完成***************");
+                    } catch (Exception e) {
+                        StackTraceElement element = e.getStackTrace()[0];
+                        ModSimReloaded.log.error("loadMiningBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                    }
                 }
             }, "loadMiningBoxes_sim");
             thread.start();
 
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimReloaded.log.error("loadMiningBoxes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
+
 
 
     }

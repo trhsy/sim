@@ -834,11 +834,12 @@ public abstract class Job {
      * @param oneLayerOnly
      */
     public void setClosestBlocksOfType(final V3 startXYZ, final List<Block> blockIDs, final int distanceLimit, final boolean needsToSeeSky, final boolean scanDownwards, final boolean oneLayerOnly) {
-        try {
+
             Thread t = new Thread(new Runnable() {
 
                 @Override
                 public void run() {
+                    try {
                     World theWorld = MinecraftServer.getServer().worldServerForDimension(startXYZ.theDimension);
                     HashMap hm = new HashMap();
                     boolean skip = false;
@@ -900,12 +901,14 @@ public abstract class Job {
 
                     Job.this.closestBlocks = new CopyOnWriteArrayList(hm.values());
                     Job.this.step = 3;
+                    } catch (Exception e) {
+                        StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("设置最接近的类型块出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+                    }
                 }
+
             });
             t.start();
-        } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("设置最接近的类型块出错了：" + e.getMessage()+"行数："+element.getLineNumber());
-        }
+
     }
 
     /**

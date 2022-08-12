@@ -40,7 +40,7 @@ public class ModSim {
      * 将生成该mod的实例注册到对应mod的id里面，也可以访问其他mod的，要注意这里的id和此mod的id相同
      */
     @Mod.Instance(ModSim.MODID)
-    public static ModSim instance = new ModSim();
+    public static ModSim instance;
     /**
      * 服务端代理
      **/
