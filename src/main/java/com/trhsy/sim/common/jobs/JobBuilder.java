@@ -139,7 +139,7 @@ public class JobBuilder extends Job implements Serializable {
                 //建筑工正忙着建筑 并且 步=1
                 if (this.theStage == Stage.INPROGRESS && this.step == 1) {
                     //建筑速度
-                    this.runDelay = (int) (2000.0F / this.theFolk.levelBuilder);
+                    this.runDelay = (int) (2000 / this.theFolk.levelBuilder);
                 }
                 //当前毫秒-上次运行>=延迟
                 if (System.currentTimeMillis() - this.timeSinceLastRun >= (long) this.runDelay) {
@@ -400,7 +400,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.step = 2;
                     this.theBuilding.blockLocations.clear();
                 } else if (this.step == 2) {
-                    do {
+                    if(blockId == null || alreadyPlaced){
                         //已经开始建筑一个
                         this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                         if (this.theBuilding.buildDirection.contentEquals("+z")) {
@@ -476,8 +476,14 @@ public class JobBuilder extends Job implements Serializable {
                         } else {
                             alreadyPlaced = true;
                         }
+                        String want = "?";
+                        try{
+                            ItemStack itemStack=new ItemStack(blockId);
+                             want = itemStack.getDisplayName();
+                        }catch (Exception e){
+                            want = "?";
+                        }
 
-                        String want = blockId.getUnlocalizedName();
                         //获取
                         if (blockId != null) {
                             this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
@@ -541,11 +547,11 @@ public class JobBuilder extends Job implements Serializable {
                                 this.theStage = Stage.WAITINGFORRESOURCES;
                                 String wantName="";
                                 //木板
-                                if (want.toLowerCase().contentEquals("planks")) {
+                                if (want.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC11"))) {
                                     wantName = I18n.format("container.sim.sim_gui_BC12");
                                 }
                        //橡木
-                                if (want.toLowerCase().contentEquals("wood")) {
+                                if (want.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC9"))) {
                                     wantName = I18n.format("container.sim.sim_gui_BC10");
                                 }
                                 //等待
@@ -561,6 +567,8 @@ public class JobBuilder extends Job implements Serializable {
 
                             if (!alreadyPlaced) {
                                 try {
+                                    if(blockId!=null){
+
                                     if (blockId == BlockLoader.blockLiving) {
                                         alreadyPlaced = true;
                                     }
@@ -604,6 +612,8 @@ public class JobBuilder extends Job implements Serializable {
                                         GameStates var25 = ModSimReloaded.states;
                                         var25.credits -= 0.02F;
                                     }
+
+                                    }
                                 } catch (Exception e) {
                                     ModSimReloaded.log.warn("JobBuilder: 可能不存在的方块（来自其他模组）ID=" + blockId);
                                     BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
@@ -640,9 +650,10 @@ public class JobBuilder extends Job implements Serializable {
                         }
 
                         if (this.theFolk.theEntity != null) {
+                            //摆动玩家持有的物品。
                             this.theFolk.theEntity.swingItem();
                         }
-                    } while (blockId == null || alreadyPlaced);
+                    }
                 }
 
             }

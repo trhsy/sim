@@ -73,26 +73,15 @@ public class EntityFolk extends EntityCreature implements INpc {
 
             //会捡起地上的东西
             this.setCanPickUpLoot(true);
-            //this.setEquipmentDropChance(1, 1);
 
             //闲置任务
             this.tasks.addTask(1, new EntityAILookIdle(this));
+            //闲逛
+            this.tasks.addTask(1, new EntityAIWanderSUK(this, 0.5D));
             //住进屋子
             this.tasks.addTask(2, new EntityAIMoveIndoors(this));
             //限制开门
             this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
-            //实体AI监视最近2
-            this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1));
-            //实体AI监视最近
-            this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-            //闲逛
-            this.tasks.addTask(9, new EntityAIWanderSUK(this, 0.5D));
-            //闲逛
-            //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
-            //开门
-            this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
-            //走向限制
-            this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3));
             //避免实体
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
@@ -100,7 +89,18 @@ public class EntityFolk extends EntityCreature implements INpc {
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
             //游泳
             this.tasks.addTask(4, new EntityAISwimming(this));
+            //开门
+            this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
+            //实体AI监视最近
+            this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+            //实体AI监视最近2
+            this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1));
 
+            //闲逛
+            //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
+
+            //走向限制
+//            this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3));
 
             //拾取战利品
             this.setCanPickUpLoot(true);
@@ -397,10 +397,10 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if (entity instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem) entity;
                         ItemStack is = entityitem.getEntityItem();
-                        Item item=is.getItem();
-                        if(item!=null){
-                            String itemName=item.getRegistryName();
-                            if(itemName.contains("mutton")||itemName.contains("rabbit")||itemName.contains("pie")||itemName.contains("carrot")||itemName.contains("potato")||itemName.contains("carrot")||itemName.contains("eye")||itemName.contains("flesh")||itemName.contains("chicken")||itemName.contains("beef")||itemName.contains("melon")||itemName.contains("cookie")||itemName.contains("fish")||itemName.contains("bread")||itemName.contains("apple")||itemName.contains("burger")||itemName.contains("fries")||itemName.contains("cheese")){
+                        Item item = is.getItem();
+                        if (item != null) {
+                            String itemName = item.getRegistryName();
+                            if (itemName.contains("mutton") || itemName.contains("rabbit") || itemName.contains("pie") || itemName.contains("carrot") || itemName.contains("potato") || itemName.contains("carrot") || itemName.contains("eye") || itemName.contains("flesh") || itemName.contains("chicken") || itemName.contains("beef") || itemName.contains("melon") || itemName.contains("cookie") || itemName.contains("fish") || itemName.contains("bread") || itemName.contains("apple") || itemName.contains("burger") || itemName.contains("fries") || itemName.contains("cheese")) {
                                 System.out.println(itemName);
                                 ItemFood food = (ItemFood) item;
                                 if (this.theData.levelFood < 10 && food != null) {
@@ -412,7 +412,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
 
                     } else if (entity instanceof EntityFolk && (int) this.posX == (int) entity.posX && (int) this.posZ == (int) entity.posZ) {
-                        if(this.theData!=null){
+                        if (this.theData != null) {
                             this.motionX += 0.10000000149011612D;
                             this.theData.stayPut = false;
                         }
@@ -462,15 +462,16 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
                     } else {
                         if (!this.gotPath) {
-                            Boolean flag=this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord, 0.3D);
-                            this.gotPath =flag;
-                            if (flag==false) {
-                                V3 v = this.theData.destination;
-                                if (v != null) {
-                                    ModSimReloaded.log.info("实体人: " + this.theData.name + " 即将传输至☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
-                                    this.theData.stayPut = true;
-                                    this.theData.timeStartedGotoing = System.currentTimeMillis();
-                                    this.theData.beamMeTo(v);
+                            Boolean flag = this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord, 0.3D);
+                            this.gotPath = flag;
+                            if (flag == false) {
+                                V3 v = new V3(this.theData.destination.xCoord + 0.5, this.theData.destination.yCoord, this.theData.destination.zCoord + 0.5);
+                                this.theData.destination = v;
+                                PathEntity path = this.getNavigator().getPathToXYZ(v.xCoord, v.yCoord, v.zCoord);
+                                if (path != null) {
+                                    ModSimReloaded.log.info("实体人:[ " + this.theData.name + " ]即走过去☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
+                                    this.getNavigator().setPath(path, 0.3D);
+                                    this.gotPath = true;
                                 }
                             }
                         }
@@ -481,7 +482,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         donttimeout = this.theData.destination.doNotTimeout;
                     }
                     if (this.theData.timeStartedGotoing != null && !donttimeout) {
-                        if (System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null) {
+                        if (System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L &&this.theData.beamingTo == null) {
                             this.getNavigator().clearPathEntity();
                             if (dist > 2.0) {
                                 V3 v = this.theData.destination;
@@ -495,26 +496,19 @@ public class EntityFolk extends EntityCreature implements INpc {
                             }
                         }
                     }
-                }
-
-                if (this.theData.stayPut) {
-                    this.motionX = 0;
-                    this.motionY = 0;
-                    this.motionZ = 0;
-                    this.getNavigator().clearPathEntity();
-                } else {
-                    if (x < 0) {
-                        x = 0;
+                }else{
+                    if (x <= 0) {
+                        x = this.theData.location.xCoord+0.5;
                     }
-                    if (y < 0) {
-                        y = 0;
+                    if (y <= 0) {
+                        y = this.theData.location.yCoord+0.5;
                     }
-                    if (z < 0) {
-                        z = 0;
+                    if (z <= 0) {
+                        z = this.theData.location.zCoord+0.5;
                     }
+                    this.theData.destination=new V3(x,y,z);
                     super.moveEntity(x, y, z);
                 }
-
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -703,47 +697,49 @@ public class EntityFolk extends EntityCreature implements INpc {
         try {
             if (!this.isBurning()) {
                 this.heal(10.0F);
-                if (this.theData != null && this.theData.stayPut) {
-                    this.theData.stayPut = false;
-                }
-                BlockPos blockPos1 = new BlockPos(this.posX + 1, this.posY, this.posZ);
-                BlockPos blockPos2 = new BlockPos(this.posX - 1, this.posY, this.posZ);
-                BlockPos blockPos3 = new BlockPos(this.posX, this.posY, this.posZ + 1);
-                BlockPos blockPos4 = new BlockPos(this.posX + 1, this.posY, this.posZ - 1);
-                Block idx = this.worldObj.getBlockState(blockPos1).getBlock();
-                Block idX2 = this.worldObj.getBlockState(blockPos2).getBlock();
-                Block idz = this.worldObj.getBlockState(blockPos3).getBlock();
-                Block idZ2 = this.worldObj.getBlockState(blockPos4).getBlock();
-                if(this.theData.location!=null) {
-                    this.motionY = this.theData.location.yCoord+1;
-                    this.motionX = this.theData.location.xCoord;
-                    this.motionZ = this.theData.location.zCoord;
+                if (this.theData != null) {
+                    if (this.theData.stayPut) {
+                        this.theData.stayPut = false;
+                    }
+                    BlockPos blockPos1 = new BlockPos(this.posX + 1, this.posY, this.posZ);
+                    BlockPos blockPos2 = new BlockPos(this.posX - 1, this.posY, this.posZ);
+                    BlockPos blockPos3 = new BlockPos(this.posX, this.posY, this.posZ + 1);
+                    BlockPos blockPos4 = new BlockPos(this.posX + 1, this.posY, this.posZ - 1);
+                    Block idx = this.worldObj.getBlockState(blockPos1).getBlock();
+                    Block idX2 = this.worldObj.getBlockState(blockPos2).getBlock();
+                    Block idz = this.worldObj.getBlockState(blockPos3).getBlock();
+                    Block idZ2 = this.worldObj.getBlockState(blockPos4).getBlock();
+                    if (this.theData.location != null) {
+                        this.motionY = this.theData.location.yCoord + 1;
+                        this.motionX = this.theData.location.xCoord;
+                        this.motionZ = this.theData.location.zCoord;
+                    }
+
+                    if (idx != null && idx == Blocks.air) {
+                        this.motionX = this.theData.location.xCoord + 1;
+                    } else if (idX2 != null && idX2 == Blocks.air) {
+                        this.motionX = this.theData.location.xCoord - 1;
+                    } else if (idz != null && idz == Blocks.air) {
+                        this.motionZ = this.theData.location.zCoord + 1;
+                    } else if (idZ2 != null && idZ2 == Blocks.air) {
+                        this.motionZ = this.theData.location.zCoord - 1;
+                    }
+                    //受伤要跑出受伤范围
+                    this.theData.gotoXYZ(new V3(motionX, motionY, motionZ, 0), null);
                 }
 
-                if (idx!=null&&idx==Blocks.air) {
-                    this.motionX =this.theData.location.xCoord+1;
-                } else if (idX2 != null&&idX2==Blocks.air) {
-                    this.motionX =this.theData.location.xCoord- 1;
-                } else if (idz != null&&idz==Blocks.air) {
-                    this.motionZ =this.theData.location.zCoord+1;
-                } else if (idZ2 != null&&idZ2==Blocks.air) {
-                    this.motionZ = this.theData.location.zCoord-1;
-                }
-                //受伤要跑出受伤范围
-                this.theData.gotoXYZ(new V3(motionX,motionY,motionZ,0), null);
-            }
-
-            if (this.theData == null) {
-                hurtSound = null;
-            } else if (ConfigLoader.configFolkTalking) {
-                if (System.currentTimeMillis() - this.lastHurt > 10000L) {
-                    this.lastHurt = System.currentTimeMillis();
-                    hurtSound = this.theData.gender == 0 ? ModSim.MODID + ":OuchM" : ModSim.MODID + ":OuchF";
+                if (this.theData == null) {
+                    hurtSound = null;
+                } else if (ConfigLoader.configFolkTalking) {
+                    if (System.currentTimeMillis() - this.lastHurt > 10000L) {
+                        this.lastHurt = System.currentTimeMillis();
+                        hurtSound = this.theData.gender == 0 ? ModSim.MODID + ":OuchM" : ModSim.MODID + ":OuchF";
+                    } else {
+                        hurtSound = null;
+                    }
                 } else {
                     hurtSound = null;
                 }
-            } else {
-                hurtSound = null;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

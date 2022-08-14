@@ -71,7 +71,7 @@ public class Building implements Serializable {
     //块位置
     public List<V3> blockLocations = new CopyOnWriteArrayList();
     //需求
-    public transient HashMap<ItemStack, Integer> requirements = new HashMap();
+    public transient HashMap<ItemStack, Integer> requirements;
     //控制箱位置
     public transient V3 conBoxLocation;
     //住宅建筑物
@@ -848,159 +848,160 @@ public class Building implements Serializable {
     }
 
     public static void loadAllBuildings() {
-
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                    ModSimReloaded.log.info("***********************开始加载世界上的建筑***************");
-                    File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
-                    if (buildingsFolder == null) {
-                        buildingsFolder.mkdirs();
-                    }
-                    File[] files = buildingsFolder.listFiles();
-                    Building build;
-                    ModSimReloaded.theBuildings.clear();
-                    for (File f : files) {
-                        if (f.getName().endsWith(".sk2")) {
-                            List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
-                            build = new Building();
-                            for (String line : strings) {
-                                int m1 = line.indexOf("|");
-                                String name = line.substring(0, m1);
-                                String value = line.substring(m1 + 1);
-                                if (name.contentEquals("displayname")) {
-                                    build.displayName = value;
-                                } else if (name.contentEquals("type")) {
-                                    build.type = value;
-                                } else if (name.contentEquals("primaryxyz")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        build.primaryXYZ = new V3(x, y, z);
-                                    }
-                                } else if (name.contentEquals("livingxyz")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        build.livingXYZ = new V3(x, y, z);
-                                    }
-                                } else if (name.contentEquals("buildingcomplete")) {
-                                    build.buildingComplete = Boolean.parseBoolean(value);
-                                } else if (name.contentEquals("capacity")) {
-                                    build.capacity = Integer.parseInt(value);
-                                } else if (name.contentEquals("builddir")) {
-                                    build.buildDirection = value;
-                                } else if (name.contentEquals("lmarker")) {
-                                    if (!value.contentEquals("null")) {
-                                        String[] v = value.split(",");
-                                        double x = Double.parseDouble(v[0]);
-                                        double y = Double.parseDouble(v[1]);
-                                        double z = Double.parseDouble(v[2]);
-                                        build.lumbermillMarker = new V3(x, y, z);
-                                    }
-                                } else if (name.contentEquals("blocksinbuilding")) {
-                                    build.blocksInBuilding = Integer.parseInt(value);
-                                } else {
-                                    String[] blocks;
-                                    String[] array;
-                                    int lengths;
-                                    String block;
-                                    if (name.contentEquals("tenants")) {
-                                        if (value.trim().contentEquals("")) {
-                                            build.tenants.clear();
+            if(runningInitThread1==false){
+                runningInitThread1=true;
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            ModSimReloaded.log.info("***********************开始加载世界上的建筑***************");
+                            File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
+                            if (buildingsFolder == null) {
+                                buildingsFolder.mkdirs();
+                            }
+                            File[] files = buildingsFolder.listFiles();
+                            Building build;
+                            ModSimReloaded.theBuildings.clear();
+                            for (File f : files) {
+                                if (f.getName().endsWith(".sk2")) {
+                                    List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
+                                    build = new Building();
+                                    for (String line : strings) {
+                                        int m1 = line.indexOf("|");
+                                        String name = line.substring(0, m1);
+                                        String value = line.substring(m1 + 1);
+                                        if (name.contentEquals("displayname")) {
+                                            build.displayName = value;
+                                        } else if (name.contentEquals("type")) {
+                                            build.type = value;
+                                        } else if (name.contentEquals("primaryxyz")) {
+                                            if (!value.contentEquals("null")) {
+                                                String[] v = value.split(",");
+                                                double x = Double.parseDouble(v[0]);
+                                                double y = Double.parseDouble(v[1]);
+                                                double z = Double.parseDouble(v[2]);
+                                                build.primaryXYZ = new V3(x, y, z);
+                                            }
+                                        } else if (name.contentEquals("livingxyz")) {
+                                            if (!value.contentEquals("null")) {
+                                                String[] v = value.split(",");
+                                                double x = Double.parseDouble(v[0]);
+                                                double y = Double.parseDouble(v[1]);
+                                                double z = Double.parseDouble(v[2]);
+                                                build.livingXYZ = new V3(x, y, z);
+                                            }
+                                        } else if (name.contentEquals("buildingcomplete")) {
+                                            build.buildingComplete = Boolean.parseBoolean(value);
+                                        } else if (name.contentEquals("capacity")) {
+                                            build.capacity = Integer.parseInt(value);
+                                        } else if (name.contentEquals("builddir")) {
+                                            build.buildDirection = value;
+                                        } else if (name.contentEquals("lmarker")) {
+                                            if (!value.contentEquals("null")) {
+                                                String[] v = value.split(",");
+                                                double x = Double.parseDouble(v[0]);
+                                                double y = Double.parseDouble(v[1]);
+                                                double z = Double.parseDouble(v[2]);
+                                                build.lumbermillMarker = new V3(x, y, z);
+                                            }
+                                        } else if (name.contentEquals("blocksinbuilding")) {
+                                            build.blocksInBuilding = Integer.parseInt(value);
                                         } else {
-                                            blocks = value.split(",");
-                                            array = blocks;
-                                            lengths = blocks.length;
+                                            String[] blocks;
+                                            String[] array;
+                                            int lengths;
+                                            String block;
+                                            if (name.contentEquals("tenants")) {
+                                                if (value.trim().contentEquals("")) {
+                                                    build.tenants.clear();
+                                                } else {
+                                                    blocks = value.split(",");
+                                                    array = blocks;
+                                                    lengths = blocks.length;
 
-                                            for (int i_j = 0; i_j < lengths; i_j++) {
-                                                block = array[i_j];
-                                                if (!block.trim().contentEquals("")) {
-                                                    build.tenants.add(block);
+                                                    for (int i_j = 0; i_j < lengths; i_j++) {
+                                                        block = array[i_j];
+                                                        if (!block.trim().contentEquals("")) {
+                                                            build.tenants.add(block);
+                                                        }
+                                                    }
+                                                }
+                                            } else if (name.contentEquals("blocklocs")) {
+                                                if (value.contains("B") && value.contains(",")) {
+                                                    blocks = value.split("B");
+                                                    array = blocks;
+                                                    lengths = blocks.length;
+
+                                                    for (int i1 = 0; i1 < lengths; i1++) {
+                                                        block = array[i1];
+                                                        if (block.contains(",")) {
+                                                            String[] v = block.split(",");
+                                                            double x = Double.parseDouble(v[0]);
+                                                            double y = Double.parseDouble(v[1]);
+                                                            double z = Double.parseDouble(v[2]);
+                                                            build.blockLocations.add(new V3(x, y, z));
+                                                        }
+                                                    }
+                                                }
+                                            } else if (name.contentEquals("blockspecial") && value.contains("B") && value.contains(",")) {
+                                                blocks = value.split("B");
+                                                array = blocks;
+
+                                                for (int i_j = 0; i_j < blocks.length; i_j++) {
+                                                    block = array[i_j];
+                                                    if (block.contains(",")) {
+                                                        int p1 = block.lastIndexOf(",");
+                                                        String v = block.substring(0, p1);
+                                                        String meta = block.substring(p1 + 1);
+                                                        String[] v1 = v.split(",");
+                                                        double x = Double.parseDouble(v1[0]);
+                                                        double y = Double.parseDouble(v1[1]);
+                                                        double z = Double.parseDouble(v1[2]);
+                                                        V3 v3 = new V3(x, y, z);
+                                                        v3.meta = Integer.parseInt(meta);
+                                                        build.blockSpecial.add(v3);
+                                                    }
                                                 }
                                             }
                                         }
-                                    } else if (name.contentEquals("blocklocs")) {
-                                        if (value.contains("B") && value.contains(",")) {
-                                            blocks = value.split("B");
-                                            array = blocks;
-                                            lengths = blocks.length;
-
-                                            for (int i1 = 0; i1 < lengths; i1++) {
-                                                block = array[i1];
-                                                if (block.contains(",")) {
-                                                    String[] v = block.split(",");
-                                                    double x = Double.parseDouble(v[0]);
-                                                    double y = Double.parseDouble(v[1]);
-                                                    double z = Double.parseDouble(v[2]);
-                                                    build.blockLocations.add(new V3(x, y, z));
-                                                }
+                                    }
+                                    build.loadStructure();
+                                    ModSimReloaded.theBuildings.add(build);
+                                } else {
+                                    if (f.getName().endsWith(".suk")) {
+                                        build = (Building) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
+                                        if (build != null) {
+                                            V3 xyz = build.primaryXYZ;
+                                            World buildingWorld = MinecraftServer.getServer().worldServerForDimension(build.primaryXYZ.theDimension);
+                                            Block id = buildingWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
+                                            Building dupe = null;
+                                            if (ModSimReloaded.theBuildings.size() > 0) {
+                                                dupe = getBuilding(xyz);
                                             }
-                                        }
-                                    } else if (name.contentEquals("blockspecial") && value.contains("B") && value.contains(",")) {
-                                        blocks = value.split("B");
-                                        array = blocks;
 
-                                        for (int i_j = 0; i_j < blocks.length; i_j++) {
-                                            block = array[i_j];
-                                            if (block.contains(",")) {
-                                                int p1 = block.lastIndexOf(",");
-                                                String v = block.substring(0, p1);
-                                                String meta = block.substring(p1 + 1);
-                                                String[] v1 = v.split(",");
-                                                double x = Double.parseDouble(v1[0]);
-                                                double y = Double.parseDouble(v1[1]);
-                                                double z = Double.parseDouble(v1[2]);
-                                                V3 v3 = new V3(x, y, z);
-                                                v3.meta = Integer.parseInt(meta);
-                                                build.blockSpecial.add(v3);
+                                            if (id == BlockLoader.blockControlBox && dupe == null) {
+                                                build.loadStructure();
+                                                ModSimReloaded.theBuildings.add(build);
+                                            } else {
+                                                f.delete();
+                                                ModSimReloaded.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
                                             }
                                         }
                                     }
                                 }
                             }
-                            build.loadStructure();
-                            ModSimReloaded.theBuildings.add(build);
-                        } else {
-                            if (f.getName().endsWith(".suk")) {
-                                build = (Building) ModSimReloaded.loadObject(f.getAbsoluteFile().toString());
-                                if (build != null) {
-                                    V3 xyz = build.primaryXYZ;
-                                    World buildingWorld = MinecraftServer.getServer().worldServerForDimension(build.primaryXYZ.theDimension);
-                                    Block id = buildingWorld.getBlockState(new BlockPos(xyz.xCoord, xyz.yCoord, xyz.zCoord)).getBlock();
-                                    Building dupe = null;
-                                    if (ModSimReloaded.theBuildings.size() > 0) {
-                                        dupe = getBuilding(xyz);
-                                    }
-
-                                    if (id == BlockLoader.blockControlBox && dupe == null) {
-                                        build.loadStructure();
-                                        ModSimReloaded.theBuildings.add(build);
-                                    } else {
-                                        f.delete();
-                                        ModSimReloaded.log.info("Building: 已删除作为id的建筑=" + id + " or dupe");
-                                    }
-                                }
-                            }
+                            runningInitThread1=false;
+                            ModSimReloaded.log.info("***********************加载世界上的建筑完成***************");
+                        } catch (Exception e) {
+                            StackTraceElement element = e.getStackTrace()[0];
+                            ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
                         }
+
                     }
-                    ModSimReloaded.log.info("***********************加载世界上的建筑完成***************");
-                    } catch (Exception e) {
-                        StackTraceElement element = e.getStackTrace()[0];
-                        ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-                    }
-                }
 
-            }, "loadAllBuildings_sim");
-            thread.start();
-
-
-
+                }, "loadAllBuildings_sim");
+                thread.start();
+            }
     }
 
     public static Building loadBuildingsByLoction(V3 location) {
@@ -1207,32 +1208,33 @@ public class Building implements Serializable {
      * 初始化本地设备
      */
     public static void initialiseAllBuildings() {
-
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                    ModSimReloaded.log.info("***********************开始所有建筑蓝图加载***************");
-                    Building.buildingsRes.clear();
-                    Building.initBuildingsOfType("residential");
-                    Building.buildingsCom.clear();
-                    Building.initBuildingsOfType("commercial");
-                    Building.buildingsInd.clear();
-                    Building.initBuildingsOfType("industrial");
-                    Building.buildingsOth.clear();
-                    Building.initBuildingsOfType("other");
-                    Building.buildingsSpec.clear();
-                    Building.initBuildingsOfType("special");
-                    ModSimReloaded.log.info("***********************所有建筑蓝图加载完成***************");
-                    } catch (Exception e) {
-                        StackTraceElement element = e.getStackTrace()[0];
-                        ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            if(runningInitThread==false){
+                runningInitThread=true;
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            ModSimReloaded.log.info("***********************开始所有建筑蓝图加载***************");
+                            Building.buildingsRes.clear();
+                            Building.initBuildingsOfType("residential");
+                            Building.buildingsCom.clear();
+                            Building.initBuildingsOfType("commercial");
+                            Building.buildingsInd.clear();
+                            Building.initBuildingsOfType("industrial");
+                            Building.buildingsOth.clear();
+                            Building.initBuildingsOfType("other");
+                            Building.buildingsSpec.clear();
+                            Building.initBuildingsOfType("special");
+                            runningInitThread=false;
+                            ModSimReloaded.log.info("***********************所有建筑蓝图加载完成***************");
+                        } catch (Exception e) {
+                            StackTraceElement element = e.getStackTrace()[0];
+                            ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                        }
                     }
-                }
-            }, "thread_sim");
-            thread.start();
-
-
+                }, "thread_sim");
+                thread.start();
+            }
     }
 
     /**

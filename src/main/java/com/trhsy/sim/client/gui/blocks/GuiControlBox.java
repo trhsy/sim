@@ -644,10 +644,7 @@ public class GuiControlBox extends GuiScreen {
                                 }
 
                                 ModSimReloaded.demolishWorld = theWorld;
-                                Iterator iterator = this.theBuilding.blockLocations.iterator();
-
-                                while (iterator.hasNext()) {
-                                    V3 blockLoc = (V3) iterator.next();
+                                for (V3 blockLoc : this.theBuilding.blockLocations) {
                                     BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord);
                                     Block l = theWorld.getBlockState(blockPos).getBlock();
                                     if (l != null && ModSimReloaded.demolishBlocks.size() < 500) {
@@ -750,13 +747,13 @@ public class GuiControlBox extends GuiScreen {
                     if (displayName.contains(I18n.format("container.sim.building.stairs"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 0) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 1) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 2) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 3) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.NORTH);//2
                         }
 
                         //id.rotateBlock(theWorld,blockPos, EnumFacing.DOWN);//0
@@ -768,13 +765,13 @@ public class GuiControlBox extends GuiScreen {
                     if (displayName.contains(I18n.format("container.sim.building.torch"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 1) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 3) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 2) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.NORTH);//2
                         }
                         //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
@@ -785,7 +782,7 @@ public class GuiControlBox extends GuiScreen {
                         newmeta = is.getMetadata();
                         ++newmeta;
                         if (newmeta == 4) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);
                         }
 
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
@@ -795,13 +792,13 @@ public class GuiControlBox extends GuiScreen {
                     if (displayName.contains(I18n.format("container.sim.building.piston"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 2) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 5) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 3) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.NORTH);//2
                         }
                         //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
@@ -811,13 +808,13 @@ public class GuiControlBox extends GuiScreen {
                     if (Block.getBlockFromItem(is.getItem()) == Blocks.wall_sign) {
                         newmeta = is.getMetadata();
                         if (newmeta == 0) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 4) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 8) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 12) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.NORTH);//2
                         }
                         //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 2);
@@ -827,13 +824,13 @@ public class GuiControlBox extends GuiScreen {
                     if (Block.getBlockFromItem(is.getItem()) == Blocks.ladder) {
                         newmeta = is.getMetadata();
                         if (newmeta == 2) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 5) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 3) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.NORTH);//2
                         }
                         //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
@@ -843,13 +840,13 @@ public class GuiControlBox extends GuiScreen {
                     if (displayName.contains(I18n.format("container.sim.building.button"))) {
                         newmeta = is.getMetadata();
                         if (newmeta == 1) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.EAST);//5
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.EAST);//5
                         } else if (newmeta == 3) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);//4
                         } else if (newmeta == 2) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.SOUTH);//3
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.SOUTH);//3
                         } else if (newmeta == 4) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.NORTH);//2
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.NORTH);//2
                         }
                         //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);
@@ -860,7 +857,7 @@ public class GuiControlBox extends GuiScreen {
                         newmeta = is.getMetadata();
                         ++newmeta;
                         if (newmeta > 3) {
-                            id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);//4
+                            id.rotateBlock(theWorld, blockPos, EnumFacing.WEST);//4
                         }
                         //id.rotateBlock(theWorld,blockPos, EnumFacing.WEST);
                         //theWorld.setBlockState(blockPos, id.getStateFromMeta(newmeta), 1);

@@ -99,10 +99,7 @@ public class MiningBox implements Serializable {
                         if (f.getName().endsWith(".sk2")) {
                             List<String> strings = ModSimReloaded.loadSK2(f.getAbsoluteFile().toString());
                             MiningBox box = new MiningBox();
-                            Iterator iterator = strings.iterator();
-
-                            while (iterator.hasNext()) {
-                                String line = (String) iterator.next();
+                            for (String line:strings){
                                 if (line.contains("|")) {
                                     int m1 = line.indexOf("|");
                                     String name = line.substring(0, m1);

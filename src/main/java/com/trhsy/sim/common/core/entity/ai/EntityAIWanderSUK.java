@@ -41,14 +41,13 @@ public class EntityAIWanderSUK extends EntityAIBase {
         EntityFolk actualFolk = (EntityFolk) this.entity;
         if (!this.mustUpdate) {
             if(actualFolk.theData!=null){
-                if (actualFolk.theData.age >= 100) {
-                    return false;
-                }
                 if(actualFolk.theData.stayPut){
+                    return true;
+                }else{
                     return false;
                 }
             }else{
-                return false;
+                return true;
             }
         }
         V3 v = actualFolk.theData.destination;
@@ -59,13 +58,19 @@ public class EntityAIWanderSUK extends EntityAIBase {
             this.yPosition = v.yCoord;
             this.zPosition = v.zCoord;
             this.mustUpdate = false;
-            return true;
+            return false;
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 返回正在进行的EntityAIBase是否应继续执行
+     * @Date 10:36 2022/8/13
+     * @Param []
+     * @return boolean
+     **/
     @Override
     public boolean continueExecuting() {
-        return !this.entity.getNavigator().noPath();
+        return this.shouldExecute()||!this.entity.getNavigator().noPath();
     }
 
     /**

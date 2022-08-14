@@ -77,9 +77,10 @@ public class GuiBuildingConstructor extends GuiScreen {
 
     /**
      * Gui构建构造函数
-     * @param location 建筑商
+     *
+     * @param location       建筑商
      * @param buildDirection 建筑方向
-     * @param theFolks 建筑工
+     * @param theFolks       建筑工
      */
     public GuiBuildingConstructor(V3 location, String buildDirection, List<FolkData> theFolks) {
         try {
@@ -113,13 +114,15 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBuildingConstructor出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiBuildingConstructor出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     /**
      * Gui 暂停游戏
      * 如果此 GUI 在单人游戏中显示时应该暂停游戏，则返回 true
+     *
      * @return
      */
     @Override
@@ -143,7 +146,8 @@ public class GuiBuildingConstructor extends GuiScreen {
             //更新画面
             super.updateScreen();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("updateScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -161,12 +165,14 @@ public class GuiBuildingConstructor extends GuiScreen {
             //初始化
             super.initGui();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBuildingConstructor-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiBuildingConstructor-initGui出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     /**
      * 绘制屏幕和其中的所有组件。 参数：mouseX、mouseY、renderPartialTicks
+     *
      * @param i
      * @param j
      * @param f
@@ -279,10 +285,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                     String sim_gui_BC_requirements_for = I18n.format("container.sim.sim_gui_BC_requirements_for");
                     this.drawCenteredString(this.fontRendererObj, sim_gui_BC_requirements_for + this.selectedBuilding.displayNameWithoutPK, this.width / 2, 50, 16777130);
                     int y = 70;
-                    Iterator it = this.selectedBuilding.requirements.entrySet().iterator();
-
-                    while (it.hasNext()) {
-                        Map.Entry pairs = (Map.Entry) it.next();
+                    HashMap<ItemStack, Integer> itemStackIntegerHashMap = this.selectedBuilding.requirements;
+                    for (Map.Entry pairs : itemStackIntegerHashMap.entrySet()) {
                         ItemStack is = (ItemStack) pairs.getKey();
                         if (is != null) {
                             if (y + 20 > this.height - 20) {
@@ -313,14 +317,15 @@ public class GuiBuildingConstructor extends GuiScreen {
                     break;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];
-            ModSimReloaded.log.warn("GuiBuildingConstructor-drawScreen出错了:"+e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.warn("GuiBuildingConstructor-drawScreen出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         super.drawScreen(i, j, f);
     }
 
     /**
      * 显示需求
+     *
      * @param block
      * @param qty
      * @param y
@@ -354,12 +359,13 @@ public class GuiBuildingConstructor extends GuiScreen {
 
             this.drawString(this.fontRendererObj, st, 250, y, 16777215);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("displayReq出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("displayReq出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     /**
-     *显示分页
+     * 显示分页
      */
     private void showPage() {
         try {
@@ -446,26 +452,26 @@ public class GuiBuildingConstructor extends GuiScreen {
                     int y;
                     int idx;
                     if (this.currentPage == 4) {
-                            x = 10;
-                            y = 65;
-                            idx = 1;
+                        x = 10;
+                        y = 65;
+                        idx = 1;
 
-                            for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
-                                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(y);
-                                //解雇
-                                String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
-                                this.buttonList.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
-                                ++x;
-                                x += 100;
-                                if (x + 100 > this.width) {
-                                    x = 10;
-                                    y += 20;
-                                }
-
-                                if (y + 20 > this.height - 50) {
-                                    break;
-                                }
+                        for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
+                            FolkData folk = (FolkData) ModSimReloaded.theFolks.get(y);
+                            //解雇
+                            String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
+                            this.buttonList.add(new GuiButton(idx, x, y, 100, 20, sim_gui_BC_Fire + folk.name));
+                            ++x;
+                            x += 100;
+                            if (x + 100 > this.width) {
+                                x = 10;
+                                y += 20;
                             }
+
+                            if (y + 20 > this.height - 50) {
+                                break;
+                            }
+                        }
                     } else if (this.currentPage != 2 && this.currentPage != 5 && this.currentPage != 6 && this.currentPage != 7) {
                         if (this.currentPage == 8) {
                             //返回
@@ -480,7 +486,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                         List<Building> houses = new CopyOnWriteArrayList();
                         String theType = "";
                         this.buildingsOnPage = 0;
-                        this.tfSearch = new GuiTextField(0,this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);
+                        this.tfSearch = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 50, this.height - 30, 100, 20);
                         this.tfSearch.setText(this.search);
                         this.tfSearch.setFocused(true);
                         this.tfSearch.setMaxStringLength(10);
@@ -500,7 +506,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                             //获取其他蓝图
                             houses = Building.getBuildingBlueprints("other", this.tfSearch.getText().trim());
                             theType = "other";
-                        }else if (this.currentPage == 9) {
+                        } else if (this.currentPage == 9) {
                             //获取特除蓝图
                             houses = Building.getBuildingBlueprints("special", this.tfSearch.getText().trim());
                             theType = "special";
@@ -581,8 +587,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                             this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, sim_gui_BC_Page + ">"));
                                             break;
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         String sim_gui_BC_Nothing_found = I18n.format("container.sim.sim_gui_BC_Nothing_found");
                                         this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
                                     }
@@ -600,12 +605,14 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
 
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("showPage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("showPage出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     /**
      * 激活时由按钮列表中的控件调用。（鼠标按下按钮）
+     *
      * @param guibutton
      */
     @Override
@@ -665,7 +672,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                             } else if (guibutton.id == 8) {
                                 this.currentPage = 7;
                                 this.showPage();
-                            }else if (guibutton.id == 9) {
+                            } else if (guibutton.id == 9) {
                                 this.currentPage = 9;
                                 this.showPage();
                             }
@@ -696,7 +703,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                         theWorker.saveThisFolk();
                                     }
 
-                                    this.mc.displayGuiScreen( null);
+                                    this.mc.displayGuiScreen(null);
                                     this.mc.setIngameFocus();
                                     return;
                                 }
@@ -713,7 +720,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                     this.currentPage = this.previousPage;
                                     this.showPage();
                                 }
-                            }else if (this.currentPage != 3 && this.currentPage == 4) {
+                            } else if (this.currentPage != 3 && this.currentPage == 4) {
                                 this.fireAllFolksForThisBuilding();
                                 this.currentPage = 0;
                                 this.showPage();
@@ -768,7 +775,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIBUILDINGCONSTORUCTOR-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GUIBUILDINGCONSTORUCTOR-actionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -787,7 +795,8 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
             this.theWorkers.clear();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fireAllFolksForThisBuilding出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("fireAllFolksForThisBuilding出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -809,7 +818,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -817,12 +827,13 @@ public class GuiBuildingConstructor extends GuiScreen {
     @Override
     public void mouseClicked(int i, int j, int k) {
         try {
-        if (this.tfSearch != null) {
-            this.tfSearch.mouseClicked(i, j, k);
-        }
+            if (this.tfSearch != null) {
+                this.tfSearch.mouseClicked(i, j, k);
+            }
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("mouseClicked出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             //e.printStackTrace();
         }
     }

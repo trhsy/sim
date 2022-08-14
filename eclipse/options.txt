@@ -14,7 +14,7 @@ difficulty:0
 fancyGraphics:true
 ao:2
 renderClouds:true
-resourcePacks:[]
+resourcePacks:["R3D SR 视差贴图 - 128x"]
 incompatibleResourcePacks:[]
 lastServer:
 lang:zh_CN

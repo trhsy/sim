@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -79,10 +80,8 @@ public class ItemBlockMeta extends ItemColored {
         try {
             Item item = this;
             ResourceLocation loc = GameData.getBlockRegistry().getNameForObject(this.block);
-            Iterator var3 = this.mappingProperty.getAllowedValues().iterator();
-
-            while(var3.hasNext()) {
-                Comparable o = (Comparable)var3.next();
+            Collection<Comparable> comparables= this.mappingProperty.getAllowedValues();
+            for (Comparable o :comparables){
                 int meta = this.block.getMetaFromState(this.block.getDefaultState().withProperty(this.mappingProperty, o));
                 String name = this.mappingProperty.getName(o);
                 ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(loc, this.mappingProperty.getName() + "=" + name));
