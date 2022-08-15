@@ -1,5 +1,5 @@
-employedat|97.0,63.0,308.0,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|尤正清
 age|22
 gender|0
@@ -14,7 +14,7 @@ levelbuilder|9.1
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|97.0,63.0,308.0,0
+location|245.0,66.5,476.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

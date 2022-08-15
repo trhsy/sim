@@ -545,7 +545,7 @@ public class JobBuilder extends Job implements Serializable {
 
                             if (!gotBlock) {
                                 this.theStage = Stage.WAITINGFORRESOURCES;
-                                String wantName="";
+                                String wantName=want;
                                 //木板
                                 if (want.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC11"))) {
                                     wantName = I18n.format("container.sim.sim_gui_BC12");

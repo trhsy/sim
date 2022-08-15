@@ -245,6 +245,7 @@ container.sim.folk_data_and=和
 container.sim.folk_data_expecting_a_baby=要生宝宝了！
 container.sim.folk_data_moving=正在进入他们的
 container.sim.folk_data_Moved=搬进我的
+container.sim.folk_data_noHome=还没有房子，能让TA先搬进自己的房子吗？
 container.sim.folk_data_has_dropped=从他们的库存中取走了
 container.sim.folk_data_inventory=件物品
 container.sim.folk_data_death_cactus=(被仙人掌扎死... 最糟糕的死法之一.)

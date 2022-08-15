@@ -47,8 +47,8 @@ public class Flightpath {
 
             label46:
             for (Map.Entry<Object, Map<Class, Set<Method>>> ent : this.subscribers.entrySet()) {
+                Map<Class,Set<Method>> methods=ent.getValue();
                 Iterator var5 = ((Map) ent.getValue()).entrySet().iterator();
-
                 while (true) {
                     Map.Entry objEnt;
                     do {

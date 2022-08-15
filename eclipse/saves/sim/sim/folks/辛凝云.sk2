@@ -1,5 +1,5 @@
-employedat|null
-vocation|null
+employedat|97.0,63.0,308.0,0
+vocation|BUILDER
 name|辛凝云
 age|19
 gender|1
@@ -10,12 +10,12 @@ trait2|夜猫子
 trait3|勇敢的
 trait4|友善的
 levelfood|9
-levelbuilder|9.0
+levelbuilder|1.1651188
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|255.5,126.5,641.5,0
+location|97.5,64.0,308.5,0
 pregnancy|0.0
-building|null
+building|模拟银行.txt|commercial||+x
 terraformtype|null
 terraformradius|1

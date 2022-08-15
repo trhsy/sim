@@ -356,6 +356,7 @@ container.sim.job.Arrived_Hamburger=Cooking a tasty Hamburger
 container.sim.job.Arrived_Fries=Cooking a serving of Fries
 container.sim.job.Arrived_Checking_Ingrediants=Checking Ingrediants
 container.sim.job.manager.Checking=Checking my errands list
+container.sim.folk_data_noHome=There is no house yet. Can you let TA move into his own house first?
 container.sim.job.manager.On_my=On my way to the
 container.sim.job.manager.Buying=Buying items at the 
 container.sim.job.manager.Buying_items=Buying items at the
