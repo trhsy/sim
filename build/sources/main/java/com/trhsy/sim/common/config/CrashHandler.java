@@ -26,15 +26,19 @@ public class CrashHandler implements ICrashCallable {
     }
 
     @Override
-    public String call() throws Exception {
+    public String call() {
         String out = "\n";
-
-        PulseMeta meta;
-        String state;
-        for(Iterator var2 = this.manager.getAllPulseMetadata().iterator(); var2.hasNext(); out = out + "\t\t- " + meta.getId() + " (" + state + ")\n") {
-            meta = (PulseMeta) var2.next();
-            state = getStateFromMeta(meta);
+        try {
+            PulseMeta meta;
+            String state;
+            for (Iterator var2 = this.manager.getAllPulseMetadata().iterator(); var2.hasNext(); out = out + "\t\t- " + meta.getId() + " (" + state + ")\n") {
+                meta = (PulseMeta) var2.next();
+                state = getStateFromMeta(meta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         return out;
     }

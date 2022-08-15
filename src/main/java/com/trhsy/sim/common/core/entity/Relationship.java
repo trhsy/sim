@@ -173,17 +173,12 @@ public class Relationship implements Serializable {
         FolkData folkData = null;
         try {
             List<Relationship> rels = getRelationshipsFor(sonDaughter);
-            Iterator i$ = rels.iterator();
-
-            Relationship rel;
-            do {
-                if (!i$.hasNext()) {
-                    return null;
+            for (Relationship rel:rels){
+                if(rel.theLevel != Level.MOTHERDAUGHTER && rel.theLevel != Level.MOTHERSON){
+                    folkData = rel.folk1.age > rel.folk2.age ? FolkData.getFolkByName(rel.folk1.name) : FolkData.getFolkByName(rel.folk2.name);
+                    return folkData;
                 }
-
-                rel = (Relationship) i$.next();
-            } while (rel.theLevel != Level.MOTHERDAUGHTER && rel.theLevel != Level.MOTHERSON);
-            folkData = rel.folk1.age > rel.folk2.age ? FolkData.getFolkByName(rel.folk1.name) : FolkData.getFolkByName(rel.folk2.name);
+            }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getMotherOf出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

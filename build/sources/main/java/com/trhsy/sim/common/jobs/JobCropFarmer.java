@@ -529,30 +529,20 @@ public class JobCropFarmer extends Job implements Serializable {
             if (this.theFolk.theEntity != null) {
                 this.theFolk.gotoXYZ(v3center, null);
                 //获取AABB中的实体，排除实体
-                List list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.xCoord, v3center.yCoord, v3center.zCoord, v3center.xCoord + 1.0, v3center.yCoord + 1.0, v3center.zCoord + 1.0).expand(3.0, 2.0, 3.0));
-                Iterator iterator1 = list1.iterator();
-                if (!list1.isEmpty()) {
-                    do {
-                        if (!iterator1.hasNext()) {
-                            break;
-                        }
-
-                        Entity entity = (Entity) iterator1.next();
-                        if (!(entity instanceof EntityItem)) {
-                            continue;
-                        }
-                        EntityItem entityitem = (EntityItem) entity;
-                        ItemStack is = entityitem.getEntityItem();
+                List<Entity> list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.xCoord, v3center.yCoord, v3center.zCoord, v3center.xCoord + 1.0, v3center.yCoord + 1.0, v3center.zCoord + 1.0).expand(3.0, 2.0, 3.0));
+                for(Entity entity:list1){
+                    if (!(entity instanceof EntityItem)) {
+                        continue;
+                    }
+                    EntityItem entityitem = (EntityItem) entity;
+                    ItemStack is = entityitem.getEntityItem();
 //                        ItemFood food = (ItemFood) is.getItem();
 //                        if (food != null) {
-                        boolean ok = this.inventoriesPut(this.farmingChests, is, false);
-                        if (ok) {
-                            entityitem.setDead();
-                        }
-//                        }
-                    } while (true);
+                    boolean ok = this.inventoriesPut(this.farmingChests, is, false);
+                    if (ok) {
+                        entityitem.setDead();
+                    }
                 }
-
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("捡掉的庄稼出错了:" + e.getMessage()+"行数："+element.getLineNumber());

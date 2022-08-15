@@ -558,6 +558,7 @@ public class JobBuilder extends Job implements Serializable {
                                 this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Waiting") + wantName;
                                 if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ConfigLoader.configMaterialReminderInterval * 60 * 1000)) {
                                     this.lastNotifiedOfMaterials = System.currentTimeMillis();
+                                    //需要更多
                                     ModSimReloaded.sendChat(this.theFolk.name + " ( " + I18n.format("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.format("container.sim.job.builder_constructor_started_more") + wantName);
                                 }
 

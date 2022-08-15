@@ -92,9 +92,7 @@ public abstract class RecipeMatch {
         Iterator var2 = match.stacks.iterator();
 
         while(true) {
-            while(var2.hasNext()) {
-                ItemStack stack = (ItemStack)var2.next();
-
+            for ( ItemStack stack :match.stacks){
                 for(int i = 0; i < stacks.length; i++) {
                     if (ItemStack.areItemsEqual(stack, stacks[i]) && ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
                         if (stacks[i].stackSize < stack.stackSize) {
@@ -154,10 +152,7 @@ public abstract class RecipeMatch {
         public RecipeMatch.Match matches(ItemStack[] stacks) {
             List<ItemStack> found = Lists.newLinkedList();
             int stillNeeded = this.amountNeeded;
-            Iterator var4 = this.oredictEntry.iterator();
-
-            while(var4.hasNext()) {
-                ItemStack ore = (ItemStack)var4.next();
+            for (ItemStack ore:oredictEntry){
                 ItemStack[] var6 = stacks;
                 int var7 = stacks.length;
 
@@ -209,16 +204,13 @@ public abstract class RecipeMatch {
 
             for(int var6 = 0; var6 < var5; ++var6) {
                 ItemStack stack = var12[var6];
-                Iterator iter = needed.iterator();
-
-                while(iter.hasNext()) {
-                    int index = (Integer)iter.next();
+                for (int index:needed){
                     ItemStack template = this.itemStacks[index];
                     if (ItemStack.areItemsEqual(template, stack) && ItemStack.areItemStackTagsEqual(template, stack)) {
                         ItemStack copy = stack.copy();
                         copy.stackSize = 1;
                         found.add(copy);
-                        iter.remove();
+                        needed.remove(index);
                         break;
                     }
                 }

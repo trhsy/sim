@@ -760,13 +760,9 @@ public class ModSimReloaded {
     public static void saveSK2(String fullFilename, List<String> strings) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fullFilename));
-            Iterator iterator = strings.iterator();
-
-            while (iterator.hasNext()) {
-                String line = (String) iterator.next();
+            for (String line:strings){
                 bw.write(line + "\r\n");
             }
-
             bw.close();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

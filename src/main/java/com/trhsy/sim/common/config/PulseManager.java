@@ -14,10 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName PulseManager
@@ -29,7 +26,7 @@ import java.util.Map;
 public class PulseManager {
     private Logger log;
     private final boolean useConfig;
-    private final LinkedHashMap<Object, PulseMeta> pulses = new LinkedHashMap();
+    private final Map<Object, PulseMeta> pulses = new LinkedHashMap();
     private final Flightpath flightpath = new Flightpath(new AnnotationLocator(Subscribe.class));
     private boolean blockNewRegistrations = false;
     private boolean configLoaded = false;
@@ -185,14 +182,13 @@ public class PulseManager {
 
     public boolean isPulseLoaded(String pulseId) {
         Iterator var2 = this.pulses.entrySet().iterator();
-
         Map.Entry entry;
         do {
             if (!var2.hasNext()) {
                 return false;
             }
 
-            entry = (Map.Entry) var2.next();
+           entry = (Map.Entry) var2.next();
         } while (!((PulseMeta) entry.getValue()).getId().equals(pulseId));
 
         return true;

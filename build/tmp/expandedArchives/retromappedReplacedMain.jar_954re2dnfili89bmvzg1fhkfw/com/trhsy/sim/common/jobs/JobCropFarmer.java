@@ -529,30 +529,20 @@ public class JobCropFarmer extends Job implements Serializable {
             if (this.theFolk.theEntity != null) {
                 this.theFolk.gotoXYZ(v3center, null);
                 //获取AABB中的实体，排除实体
-                List list1 = this.jobWorld.func_72839_b(this.theFolk.theEntity, new AxisAlignedBB(v3center.field_72450_a, v3center.field_72448_b, v3center.field_72449_c, v3center.field_72450_a + 1.0, v3center.field_72448_b + 1.0, v3center.field_72449_c + 1.0).func_72314_b(3.0, 2.0, 3.0));
-                Iterator iterator1 = list1.iterator();
-                if (!list1.isEmpty()) {
-                    do {
-                        if (!iterator1.hasNext()) {
-                            break;
-                        }
-
-                        Entity entity = (Entity) iterator1.next();
-                        if (!(entity instanceof EntityItem)) {
-                            continue;
-                        }
-                        EntityItem entityitem = (EntityItem) entity;
-                        ItemStack is = entityitem.func_92059_d();
+                List<Entity> list1 = this.jobWorld.func_72839_b(this.theFolk.theEntity, new AxisAlignedBB(v3center.field_72450_a, v3center.field_72448_b, v3center.field_72449_c, v3center.field_72450_a + 1.0, v3center.field_72448_b + 1.0, v3center.field_72449_c + 1.0).func_72314_b(3.0, 2.0, 3.0));
+                for(Entity entity:list1){
+                    if (!(entity instanceof EntityItem)) {
+                        continue;
+                    }
+                    EntityItem entityitem = (EntityItem) entity;
+                    ItemStack is = entityitem.func_92059_d();
 //                        ItemFood food = (ItemFood) is.getItem();
 //                        if (food != null) {
-                        boolean ok = this.inventoriesPut(this.farmingChests, is, false);
-                        if (ok) {
-                            entityitem.func_70106_y();
-                        }
-//                        }
-                    } while (true);
+                    boolean ok = this.inventoriesPut(this.farmingChests, is, false);
+                    if (ok) {
+                        entityitem.func_70106_y();
+                    }
                 }
-
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("捡掉的庄稼出错了:" + e.getMessage()+"行数："+element.getLineNumber());

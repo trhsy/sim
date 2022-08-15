@@ -331,25 +331,14 @@ public class JobCheesemaker extends Job {
                 int lightID = Block.getIdFromBlock(BlockLoader.blockLightBox);
                 ModSimReloaded.log.info(Integer.toString(lightID));
                 boolean filledOk = false;
-                Iterator iterator = milkblocks.iterator();
-
-                label61:
-                {
-                    V3 milkBlock;
-                    Block id;
-                    int meta;
-                    do {
-                        if (!iterator.hasNext()) {
-                            break label61;
-                        }
-                        //牛奶
-                        milkBlock = (V3) iterator.next();
-                        BlockPos blockPos = new BlockPos(milkBlock.xCoord, milkBlock.yCoord, milkBlock.zCoord);
-                        id = this.jobWorld.getBlockState(blockPos).getBlock();
-                        meta = id.getMetaFromState(this.jobWorld.getBlockState(blockPos));
-                    } while (id != Blocks.air && (id != BlockLoader.blockFluidMilk || meta != 1));
+                for (V3 milkBlock : milkblocks) {
+                    //牛奶
                     BlockPos blockPos = new BlockPos(milkBlock.xCoord, milkBlock.yCoord, milkBlock.zCoord);
-                    this.jobWorld.setBlockState(blockPos, BlockLoader.blockFluidMilk.getDefaultState(), 3);
+                    Block id = this.jobWorld.getBlockState(blockPos).getBlock();
+                    int meta = id.getMetaFromState(this.jobWorld.getBlockState(blockPos));
+                    if (id != Blocks.air && (id != BlockLoader.blockFluidMilk || meta != 1)) {
+                        this.jobWorld.setBlockState(blockPos, BlockLoader.blockFluidMilk.getDefaultState(), 3);
+                    }
 
                     try {
                         this.theFolk.getVillagerInventory().removeStackFromSlot(0);

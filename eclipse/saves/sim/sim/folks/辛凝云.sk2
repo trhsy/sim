@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|辛凝云
-age|18
+age|19
 gender|1
 skin|11
 race|
@@ -9,12 +9,12 @@ trait1|强壮的
 trait2|夜猫子
 trait3|勇敢的
 trait4|友善的
-levelfood|10
+levelfood|9
 levelbuilder|9.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|262.89999997615814,133.90000009536743,556.8999999761581,0
+location|255.5,126.5,641.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

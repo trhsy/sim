@@ -447,7 +447,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         ModSimReloaded.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                         return;
                     }
-
+                    Boolean flag=false;
                     if (dist <= 2.0) {
                         this.theData.updateLocationFromEntity();
                         this.motionX = 0;
@@ -462,7 +462,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
                     } else {
                         if (!this.gotPath) {
-                            Boolean flag = this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord, 0.3D);
+                            flag = this.getNavigator().tryMoveToXYZ(this.theData.destination.xCoord, this.theData.destination.yCoord, this.theData.destination.zCoord, 0.3D);
                             this.gotPath = flag;
                             if (flag == false) {
                                 V3 v = new V3(this.theData.destination.xCoord + 0.5, this.theData.destination.yCoord, this.theData.destination.zCoord + 0.5);
@@ -481,7 +481,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if (this.theData.destination != null) {
                         donttimeout = this.theData.destination.doNotTimeout;
                     }
-                    if (this.theData.timeStartedGotoing != null && !donttimeout) {
+                    if (this.theData.timeStartedGotoing != null && !donttimeout&&!flag) {
                         if (System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L &&this.theData.beamingTo == null) {
                             this.getNavigator().clearPathEntity();
                             if (dist > 2.0) {
@@ -497,13 +497,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
                     }
                 }else{
-                    if (x <= 0) {
+                    if (x <= 1) {
                         x = this.theData.location.xCoord+0.5;
                     }
-                    if (y <= 0) {
+                    if (y <= 1) {
                         y = this.theData.location.yCoord+0.5;
                     }
-                    if (z <= 0) {
+                    if (z <= 1) {
                         z = this.theData.location.zCoord+0.5;
                     }
                     this.theData.destination=new V3(x,y,z);
@@ -701,7 +701,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if (this.theData.stayPut) {
                         this.theData.stayPut = false;
                     }
-                    BlockPos blockPos1 = new BlockPos(this.posX + 1, this.posY, this.posZ);
+                    /*BlockPos blockPos1 = new BlockPos(this.posX + 1, this.posY, this.posZ);
                     BlockPos blockPos2 = new BlockPos(this.posX - 1, this.posY, this.posZ);
                     BlockPos blockPos3 = new BlockPos(this.posX, this.posY, this.posZ + 1);
                     BlockPos blockPos4 = new BlockPos(this.posX + 1, this.posY, this.posZ - 1);
@@ -709,11 +709,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     Block idX2 = this.worldObj.getBlockState(blockPos2).getBlock();
                     Block idz = this.worldObj.getBlockState(blockPos3).getBlock();
                     Block idZ2 = this.worldObj.getBlockState(blockPos4).getBlock();
-                    if (this.theData.location != null) {
-                        this.motionY = this.theData.location.yCoord + 1;
-                        this.motionX = this.theData.location.xCoord;
-                        this.motionZ = this.theData.location.zCoord;
-                    }
+
 
                     if (idx != null && idx == Blocks.air) {
                         this.motionX = this.theData.location.xCoord + 1;
@@ -723,6 +719,11 @@ public class EntityFolk extends EntityCreature implements INpc {
                         this.motionZ = this.theData.location.zCoord + 1;
                     } else if (idZ2 != null && idZ2 == Blocks.air) {
                         this.motionZ = this.theData.location.zCoord - 1;
+                    }*/
+                    if (this.theData.location != null) {
+                        this.motionY = this.theData.location.yCoord + 0.5;
+                        this.motionX = this.theData.location.xCoord+0.5;
+                        this.motionZ = this.theData.location.zCoord+0.5;
                     }
                     //受伤要跑出受伤范围
                     this.theData.gotoXYZ(new V3(motionX, motionY, motionZ, 0), null);
