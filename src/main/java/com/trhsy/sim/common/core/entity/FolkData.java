@@ -433,8 +433,8 @@ public class FolkData implements Serializable {
                         this.theEntity = new EntityFolk(world);
                         this.theEntity.setLocationAndAngles(this.location.xCoord, this.location.yCoord, this.location.zCoord, 0.0F, 0.0F);
                         if (!world.isRemote) {
-                            world.spawnEntityInWorld(this.theEntity);
                             this.theEntity.theData = this;
+                            world.spawnEntityInWorld(this.theEntity);
                         }
                         this.entityId = this.theEntity.getEntityId();
                         ModSimReloaded.log.info("NPC ， " + this.name + " 在当前位置已重生，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + this.theEntity.getEntityId());
@@ -545,7 +545,7 @@ public class FolkData implements Serializable {
                         ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + employedAt.xCoord + ",y:" + employedAt.yCoord + ",z:" + employedAt.zCoord);
                         this.statusText = I18n.format("container.sim.folk_data_Going_work");
                         this.action = FolkAction.ONWAYTOWORK;
-                        this.gotoXYZ(this.employedAt, GotoMethod.BEAM);
+                        this.gotoXYZ(this.employedAt, null);
                         return;
                     }
                     //去工作的路上
@@ -555,8 +555,8 @@ public class FolkData implements Serializable {
                         //ModSimReloaded.log.warn("FolkData:onUpdate() " + this.name + " 还在工作");
                         this.updateLocationFromEntity();
                         V3 temp = this.employedAt.clone();
-                        temp = new V3(temp.xCoord + 0.5, temp.yCoord+0.5, temp.zCoord+0.5);
-                        this.gotoXYZ(temp, GotoMethod.BEAM);
+                        temp = new V3(temp.xCoord + 0.5, temp.yCoord + 0.5, temp.zCoord + 0.5);
+                        this.gotoXYZ(temp, null);
                         return;
                     }
                 }
@@ -904,7 +904,7 @@ public class FolkData implements Serializable {
                                     this.hangingWith = null;
                                 }
                                 break;
-                            } else if (b.type.contentEquals("residential") && this.hangingWith == null && b.tenants != null && b.tenants.size() > 0) {
+                            } else if (b.type.contentEquals("residential") && this.hangingWith == null /*&& b.tenants != null && b.tenants.size() > 0*/) {
                                 //住宅
                                 FolkData resy = getFolkByName((String) b.tenants.get(0));
                                 if (!resy.name.contentEquals(this.name) && resy.hangingWith == null) {
@@ -941,7 +941,7 @@ public class FolkData implements Serializable {
                         }
 
                         //ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
-                        this.gotoXYZ(wanderTo, GotoMethod.WALK);
+                        this.gotoXYZ(wanderTo, null);
                         if (this.destination != null) {
                             this.destination.doNotTimeout = true;
                         }
@@ -1046,19 +1046,19 @@ public class FolkData implements Serializable {
                     }
                 }
             } else if (this.action == FolkAction.ATWORK) {
-                boolean falg=true;
+                boolean falg = true;
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                     Building building = ModSimReloaded.theBuildings.get(b);
                     if (building.tenants.size() > 0 && building.buildingComplete && building.type.contentEquals("residential")) {
-                        if(building.tenants.toString().contains(this.name)){
-                            falg=true;
+                        if (building.tenants.toString().contains(this.name)) {
+                            falg = true;
                             break;
-                        }else{
-                            falg=false;
+                        } else {
+                            falg = false;
                         }
                     }
                 }
-                if(!falg){
+                if (!falg) {
                     String noHome = I18n.format("container.sim.folk_data_noHome");
                     ModSimReloaded.sendChat(this.name + noHome);
                 }
@@ -1226,7 +1226,7 @@ public class FolkData implements Serializable {
             if (p == null) {
                 i = 9999;
             } else {
-                V3 pv = new V3(p.posX, p.posY, p.posZ, this.location.theDimension);
+                V3 pv = new V3(p.prevPosX, p.prevPosY, p.prevPosZ, this.location.theDimension);
                 i = this.location.getDistanceTo(pv);
             }
         } catch (Exception e) {
@@ -1502,7 +1502,6 @@ public class FolkData implements Serializable {
                             this.timeStartedGotoing = System.currentTimeMillis();
                             if (this.theEntity != null) {
                                 this.theEntity.gotPath = this.theEntity.getNavigator().tryMoveToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord, 0.3D);
-                                ;
 //                                this.theEntity.moveEntity(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord);
                             }
                         }
@@ -1527,7 +1526,7 @@ public class FolkData implements Serializable {
             this.stayPut = true;
             //仅当它们当前已繁殖时才执行此操作
             this.updateLocationFromEntity();
-            if (this.beamingTo == null && whereToIn != null) {
+            if (this.beamingTo == null || whereToIn != null) {
                 this.timeStartedGotoing = System.currentTimeMillis();
                 V3 whereTo = whereToIn.clone();
 //            World destWorld = MinecraftServer.getServer().worldServerForDimension(whereTo.theDimension);

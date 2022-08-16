@@ -130,6 +130,7 @@ public abstract class Job {
                     if (dist <= 1) {
                         //工作中
                         theFolk.action = FolkAction.ATWORK;
+                        theFolk.stayPut=true;
                         //他刚上班
                         this.onArrivedAtWork();
                         //如果大于1小于3

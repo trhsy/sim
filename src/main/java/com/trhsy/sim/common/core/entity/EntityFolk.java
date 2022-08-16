@@ -438,7 +438,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public void moveEntity(double x, double y, double z) {
         try {
-            if (this.theData != null) {
+            if (this.theData != null && this.theData != null) {
                 double dist = 0;
                 if (this.theData.destination != null && this.theData.beamingTo == null) {
                     try {
@@ -447,7 +447,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         ModSimReloaded.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                         return;
                     }
-                    Boolean flag=false;
+                    Boolean flag = true;
                     if (dist <= 2.0) {
                         this.theData.updateLocationFromEntity();
                         this.motionX = 0;
@@ -481,8 +481,8 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if (this.theData.destination != null) {
                         donttimeout = this.theData.destination.doNotTimeout;
                     }
-                    if (this.theData.timeStartedGotoing != null && !donttimeout&&!flag) {
-                        if (System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L &&this.theData.beamingTo == null) {
+                    if (this.theData.timeStartedGotoing != null && !donttimeout) {
+                        if (System.currentTimeMillis() - this.theData.timeStartedGotoing > 40000L && this.theData.beamingTo == null) {
                             this.getNavigator().clearPathEntity();
                             if (dist > 2.0) {
                                 V3 v = this.theData.destination;
@@ -496,17 +496,24 @@ public class EntityFolk extends EntityCreature implements INpc {
                             }
                         }
                     }
-                }else{
+                }
+                if (this.theData.stayPut) {
+                    this.motionX = 0;
+                    this.motionY = 0;
+                    this.motionZ = 0;
+                    this.getNavigator().clearPathEntity();
+                } else {
                     if (x <= 1) {
-                        x = this.theData.location.xCoord+0.5;
+                        x = this.theData.location.xCoord + 0.5;
                     }
                     if (y <= 1) {
-                        y = this.theData.location.yCoord+0.5;
+                        y = this.theData.location.yCoord + 0.5;
                     }
                     if (z <= 1) {
-                        z = this.theData.location.zCoord+0.5;
+                        z = this.theData.location.zCoord + 0.5;
                     }
-                    this.theData.destination=new V3(x,y,z);
+                    this.theData.destination = new V3(x, y, z);
+                    ModSimReloaded.log.info("moveEntity,x:" + x + ",y:" + y + ",z:" + z);
                     super.moveEntity(x, y, z);
                 }
             }
@@ -722,8 +729,8 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }*/
                     if (this.theData.location != null) {
                         this.motionY = this.theData.location.yCoord + 0.5;
-                        this.motionX = this.theData.location.xCoord+0.5;
-                        this.motionZ = this.theData.location.zCoord+0.5;
+                        this.motionX = this.theData.location.xCoord + 0.5;
+                        this.motionZ = this.theData.location.zCoord + 0.5;
                     }
                     //受伤要跑出受伤范围
                     this.theData.gotoXYZ(new V3(motionX, motionY, motionZ, 0), null);

@@ -104,6 +104,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist <= 1) {
                 this.theFolk.action = FolkAction.ATWORK;
+                //在工作中原地不动
                 this.theFolk.stayPut = true;
                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.INSTORE;

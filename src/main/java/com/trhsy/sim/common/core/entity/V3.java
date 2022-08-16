@@ -111,8 +111,7 @@ public class V3 extends Vec3 {
             if (other == null) {
                 i= 0;
             } else {
-                double dist = Math.sqrt((other.xCoord - this.xCoord) * (other.xCoord - this.xCoord) + (other.yCoord - this.yCoord) * (other.yCoord - this.yCoord) + (other.zCoord - this.zCoord) * (other.zCoord - this.zCoord));
-                i= (int)dist;
+                i= (int)Math.sqrt((other.xCoord - this.xCoord) * (other.xCoord - this.xCoord) + (other.yCoord - this.yCoord) * (other.yCoord - this.yCoord) + (other.zCoord - this.zCoord) * (other.zCoord - this.zCoord));
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getDistanceTo出错了：" + e.getMessage()+"行数："+element.getLineNumber());

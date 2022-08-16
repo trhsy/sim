@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|卢恒毅
-age|18
+age|19
 gender|0
 skin|59
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|203.80444405232564,129.5,674.3717204228154,0
+location|97.5,64.0,308.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

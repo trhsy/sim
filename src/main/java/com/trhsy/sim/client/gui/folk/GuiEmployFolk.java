@@ -35,7 +35,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 @SideOnly(Side.CLIENT)
 public class GuiEmployFolk extends GuiScreen {
-    FolkData theFolk=new FolkData();
+    FolkData theFolk;
     //**控制箱的位置**/
     V3 controlBoxLocation;
     /**
@@ -208,6 +208,7 @@ public class GuiEmployFolk extends GuiScreen {
 
                     if (guibutton.id == 1000) {
                         if (ModSimReloaded.states.credits <= 0.0F && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                            //你需要一些金币来雇佣员工。
                             ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_you_need"));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
@@ -215,6 +216,7 @@ public class GuiEmployFolk extends GuiScreen {
                         }
 
                         if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE && this.vocation == Vocation.MERCHANT) {
+                            //建筑商的商人不能在创造性模式下雇佣
                             ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_Builder_merchant"));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
@@ -231,6 +233,7 @@ public class GuiEmployFolk extends GuiScreen {
                             }
 
                             FolkData f = FolkData.getFolkByName(folkname);
+                            //去我的新工作...
                             f.statusText = I18n.format("container.sim.gui.button_Going");
                             efolks.add(f);
                             this.hireFolks(efolks);
@@ -271,14 +274,14 @@ public class GuiEmployFolk extends GuiScreen {
                 this.mc.displayGuiScreen(uiGuiMining);
                 //农作物种植者
             } else if (this.vocation == Vocation.CROPFARMER) {
-                GuiFarming uiFarming = new GuiFarming(this.farmingBox, (FolkData) efolks.get(0));
+                GuiFarming uiFarming = new GuiFarming(this.farmingBox, efolks.get(0));
                 this.mc.displayGuiScreen(uiFarming);
                 //路径生成器
             } else if (this.vocation == Vocation.PATHBUILDER) {
                 GuiPathBox uiGuiPathBox = new GuiPathBox(this.pathBox, efolks);
                 this.mc.displayGuiScreen(uiGuiPathBox);
             } else {
-                GuiControlBox uiGuiControlBox = new GuiControlBox(this.controlBoxLocation, (FolkData) efolks.get(0));
+                GuiControlBox uiGuiControlBox = new GuiControlBox(this.controlBoxLocation, efolks.get(0));
                 this.mc.displayGuiScreen(uiGuiControlBox);
             }
         } catch (Exception e) {

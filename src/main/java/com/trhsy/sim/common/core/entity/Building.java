@@ -840,11 +840,12 @@ public class Building implements Serializable {
                     }
                 }
             }
+            ModSimReloaded.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 个建筑成功");
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("saveAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-        ModSimReloaded.log.info("建筑物.saveAllBuildings " + ModSimReloaded.theBuildings.size() + " 个建筑成功");
+
     }
 
     public static void loadAllBuildings() {
@@ -1008,7 +1009,7 @@ public class Building implements Serializable {
         Building build = new Building();
         try {
             File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
-            if (buildingsFolder == null) {
+            if (buildingsFolder == null||!buildingsFolder.exists()) {
                 buildingsFolder.mkdirs();
             }
             File[] files = buildingsFolder.listFiles();

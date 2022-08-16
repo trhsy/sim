@@ -545,7 +545,7 @@ public class JobBuilder extends Job implements Serializable {
 
                             if (!gotBlock) {
                                 this.theStage = Stage.WAITINGFORRESOURCES;
-                                String wantName="";
+                                String wantName=want;
                                 //木板
                                 if (want.toLowerCase().contentEquals(I18n.func_135052_a("container.sim.sim_gui_BC11"))) {
                                     wantName = I18n.func_135052_a("container.sim.sim_gui_BC12");
@@ -558,6 +558,7 @@ public class JobBuilder extends Job implements Serializable {
                                 this.theFolk.statusText = I18n.func_135052_a("container.sim.job.builder_constructor_started_Waiting") + wantName;
                                 if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ConfigLoader.configMaterialReminderInterval * 60 * 1000)) {
                                     this.lastNotifiedOfMaterials = System.currentTimeMillis();
+                                    //需要更多
                                     ModSimReloaded.sendChat(this.theFolk.name + " ( " + I18n.func_135052_a("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.func_135052_a("container.sim.job.builder_constructor_started_more") + wantName);
                                 }
 

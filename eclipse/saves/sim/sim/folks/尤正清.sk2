@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|尤正清
-age|22
+age|23
 gender|0
 skin|9
 race|
@@ -14,7 +14,7 @@ levelbuilder|9.1
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|245.0,66.5,476.0,0
+location|97.5,64.0,308.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

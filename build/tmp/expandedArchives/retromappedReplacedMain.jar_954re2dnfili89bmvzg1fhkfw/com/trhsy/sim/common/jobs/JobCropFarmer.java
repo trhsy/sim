@@ -11,6 +11,7 @@ import com.trhsy.sim.common.core.entity.GameStates;
 import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.enums.FarmType;
 import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -527,7 +528,7 @@ public class JobCropFarmer extends Job implements Serializable {
     private void pickUpDroppedCrops(V3 v3center) {
         try {
             if (this.theFolk.theEntity != null) {
-                this.theFolk.gotoXYZ(v3center, null);
+                this.theFolk.gotoXYZ(v3center, GotoMethod.WALK);
                 //获取AABB中的实体，排除实体
                 List<Entity> list1 = this.jobWorld.func_72839_b(this.theFolk.theEntity, new AxisAlignedBB(v3center.field_72450_a, v3center.field_72448_b, v3center.field_72449_c, v3center.field_72450_a + 1.0, v3center.field_72448_b + 1.0, v3center.field_72449_c + 1.0).func_72314_b(3.0, 2.0, 3.0));
                 for(Entity entity:list1){

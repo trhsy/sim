@@ -29,6 +29,9 @@ public class EntityLoader {
         try {
             registerEntity(EntityFolk.class, "EntityFolk", 80, 3, true);
             registerEntityEgg(EntityFolk.class, 0xffff66, 0x660000);
+            registerEntity(EntityAlignBeam.class, "EntityAlignBeam", 80, 3, true);
+            registerEntity(EntityConBox.class, "EntityConBox", 80, 3, true);
+            registerEntity(EntityWindmill.class, "EntityWindmill", 80, 3, true);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("EntityLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

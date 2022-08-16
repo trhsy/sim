@@ -329,8 +329,14 @@ container.sim.job.Baker_Arrived=Arrived at the Bakery
 container.sim.job.builder_Arrived=Arrived at work
 container.sim.job.builder_building=Please choose which building I should build
 container.sim.job.builder_blueprints=Looking through blueprints...
-
+container.sim.render_No_further_requirements=No further requirements
+container.sim.render_Building_complete=Building complete
 container.sim.job.builder_Checking=Checking building resources...
+container.sim.render_1=Blocks required for
+container.sim.render_2=less than 1 stack
+container.sim.render_3=1 stack
+container.sim.render_4= stacks
+container.sim.render_5=
 container.sim.job.builder_constructor_block=Please place at least one chest/storage block near to constructor block.
 container.sim.job.builder_constructor_direction=Can't determine the direction to build in, please stand on one of the four sides of the constructor when you right-click it
 container.sim.job.builder_constructor_started_building=has started building a

@@ -331,25 +331,14 @@ public class JobCheesemaker extends Job {
                 int lightID = Block.func_149682_b(BlockLoader.blockLightBox);
                 ModSimReloaded.log.info(Integer.toString(lightID));
                 boolean filledOk = false;
-                Iterator iterator = milkblocks.iterator();
-
-                label61:
-                {
-                    V3 milkBlock;
-                    Block id;
-                    int meta;
-                    do {
-                        if (!iterator.hasNext()) {
-                            break label61;
-                        }
-                        //牛奶
-                        milkBlock = (V3) iterator.next();
-                        BlockPos blockPos = new BlockPos(milkBlock.field_72450_a, milkBlock.field_72448_b, milkBlock.field_72449_c);
-                        id = this.jobWorld.func_180495_p(blockPos).func_177230_c();
-                        meta = id.func_176201_c(this.jobWorld.func_180495_p(blockPos));
-                    } while (id != Blocks.field_150350_a && (id != BlockLoader.blockFluidMilk || meta != 1));
+                for (V3 milkBlock : milkblocks) {
+                    //牛奶
                     BlockPos blockPos = new BlockPos(milkBlock.field_72450_a, milkBlock.field_72448_b, milkBlock.field_72449_c);
-                    this.jobWorld.func_180501_a(blockPos, BlockLoader.blockFluidMilk.func_176223_P(), 3);
+                    Block id = this.jobWorld.func_180495_p(blockPos).func_177230_c();
+                    int meta = id.func_176201_c(this.jobWorld.func_180495_p(blockPos));
+                    if (id != Blocks.field_150350_a && (id != BlockLoader.blockFluidMilk || meta != 1)) {
+                        this.jobWorld.func_180501_a(blockPos, BlockLoader.blockFluidMilk.func_176223_P(), 3);
+                    }
 
                     try {
                         this.theFolk.getVillagerInventory().func_70304_b(0);

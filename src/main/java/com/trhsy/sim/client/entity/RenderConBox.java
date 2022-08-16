@@ -9,8 +9,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Map;
@@ -18,6 +21,7 @@ import java.util.Map;
 /**
  * 渲染 漂浮的建筑箱
  */
+@SideOnly(Side.CLIENT)
 public class RenderConBox extends Render<EntityConBox> {
     private static final ResourceLocation myTexture = new ResourceLocation(ModSim.MODID, "textures/models/entityConBox.png");
 
@@ -35,7 +39,7 @@ public class RenderConBox extends Render<EntityConBox> {
     public void doRender(EntityConBox var1, double x, double y, double z,
                          float boxYaw, float TextYaw) {
         try {
-            entity = (EntityConBox) var1;
+            entity = var1;
             //MC 1.6.2
             //int texture = renderManager.renderEngine.getTexture(modelBox.renderTexture);
             //renderManager.renderEngine.bindTexture(texture);
@@ -70,7 +74,7 @@ public class RenderConBox extends Render<EntityConBox> {
                             }
 
                             float offset = (actualCount * 0.2f) + 2.5f;
-                            displayText("Blocks required for " + entity.theFolk.theBuilding.displayNameWithoutPK, 0.02F, (float) x + 1, (float) y
+                            displayText(I18n.format("container.sim.render_1 ") + entity.theFolk.theBuilding.displayNameWithoutPK, 0.02F, (float) x + 1, (float) y
                                     + offset, (float) z, 0xEFFFEF);
                             //offset-=0.2f;
 
@@ -83,11 +87,11 @@ public class RenderConBox extends Render<EntityConBox> {
                                             String ss = "";
 
                                             if ((int) stacks == 0) {
-                                                ss = "less than 1 stack";
+                                                ss = I18n.format("container.sim.render_2");
                                             } else if ((int) stacks == 1) {
-                                                ss = "1 stack";
+                                                ss = I18n.format("container.sim.render_3");
                                             } else {
-                                                ss = (int) stacks + " stacks";
+                                                ss = (int) stacks + I18n.format("container.sim.render_4");
                                             }
 
                                             ItemStack is = (ItemStack) pairs.getKey();
@@ -95,12 +99,12 @@ public class RenderConBox extends Render<EntityConBox> {
                                             if (is.stackSize > 0) {
                                                 String itemName = is.getDisplayName();
 
-                                                if (itemName.toLowerCase().contentEquals("oak wood")) {
-                                                    itemName = "Logs";
+                                                if (itemName.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC9"))) {
+                                                    itemName = I18n.format("container.sim.sim_gui_BC10");
                                                 }
 
-                                                if (itemName.toLowerCase().contains("oak wood planks")) {
-                                                    itemName = "Planks";
+                                                if (itemName.toLowerCase().contains(I18n.format("container.sim.sim_gui_BC11"))) {
+                                                    itemName = I18n.format("container.sim.sim_gui_BC12");
                                                 }
 
                                                 String line = pairs.getValue() + " x " + itemName
@@ -123,9 +127,9 @@ public class RenderConBox extends Render<EntityConBox> {
                             }
                         } else {
                             if (entity.theFolk.theBuilding.buildingComplete) {
-                                displayText("Building complete", 0.02F, (float) x + 1, (float) y + 2, (float) z, 0xAFFFAF);
+                                displayText(I18n.format("container.sim.render_Building_complete"), 0.02F, (float) x + 1, (float) y + 2, (float) z, 0xAFFFAF);
                             } else {
-                                displayText("No further requirements", 0.02F, (float) x + 1, (float) y + 2, (float) z, 0xAFFFAF);
+                                displayText(I18n.format("container.sim.render_No_further_requirements"), 0.02F, (float) x + 1, (float) y + 2, (float) z, 0xAFFFAF);
                             }
                         }
                     }

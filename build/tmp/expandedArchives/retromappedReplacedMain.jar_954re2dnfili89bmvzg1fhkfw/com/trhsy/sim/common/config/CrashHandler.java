@@ -3,6 +3,7 @@ package com.trhsy.sim.common.config;
 import com.trhsy.sim.common.core.PulseMeta;
 import net.minecraftforge.fml.common.ICrashCallable;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -29,11 +30,11 @@ public class CrashHandler implements ICrashCallable {
     public String call() {
         String out = "\n";
         try {
-            PulseMeta meta;
             String state;
-            for (Iterator var2 = this.manager.getAllPulseMetadata().iterator(); var2.hasNext(); out = out + "\t\t- " + meta.getId() + " (" + state + ")\n") {
-                meta = (PulseMeta) var2.next();
+            Collection<PulseMeta> pulseMetas=this.manager.getAllPulseMetadata();
+            for (PulseMeta meta:pulseMetas){
                 state = getStateFromMeta(meta);
+                out = out + "\t\t- " + meta.getId() + " (" + state + ")\n";
             }
         } catch (Exception e) {
             e.printStackTrace();
