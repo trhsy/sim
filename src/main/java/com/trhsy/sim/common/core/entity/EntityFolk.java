@@ -507,7 +507,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         x = this.theData.location.xCoord + 0.5;
                     }
                     if (y <= 1) {
-                        y = this.theData.location.yCoord + 0.5;
+                        y = this.theData.location.yCoord;
                     }
                     if (z <= 1) {
                         z = this.theData.location.zCoord + 0.5;
