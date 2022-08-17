@@ -1,4 +1,3 @@
-
 // For those who want the bleeding edge
 buildscript {
     repositories {
@@ -39,6 +38,20 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+		maven {
+		  credentials {
+			username '62fc82532b16b2e74110d0f6'
+			password 'ZE2Feawlg7O]'
+		  }
+		  url 'https://packages.aliyun.com/maven/repository/2266638-release-DKyUYN/'
+		}
+		maven {
+		  credentials {
+			username '62fc82532b16b2e74110d0f6'
+			password 'ZE2Feawlg7O]'
+		  }
+		  url 'https://packages.aliyun.com/maven/repository/2266638-snapshot-XE0aNZ/'
+		}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
