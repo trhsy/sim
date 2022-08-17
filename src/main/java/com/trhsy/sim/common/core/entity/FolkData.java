@@ -1569,7 +1569,7 @@ public class FolkData implements Serializable {
                     ModSim.proxy.getClientWorld().playSound(location.xCoord, location.yCoord, location.zCoord, ModSim.MODID + ":beamdown", 1, 1, false);
                     ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f, false);
                     ModSimReloaded.log.info("传送完毕：x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
-                    this.stayPut = false;
+                    this.stayPut = true;
                 }
 
                 this.beamingTo = whereTo.clone();

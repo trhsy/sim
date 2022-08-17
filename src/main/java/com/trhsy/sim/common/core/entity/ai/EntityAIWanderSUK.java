@@ -42,12 +42,12 @@ public class EntityAIWanderSUK extends EntityAIBase {
         if (!this.mustUpdate) {
             if(actualFolk.theData!=null){
                 if(actualFolk.theData.stayPut){
-                    return true;
-                }else{
                     return false;
+                }else{
+                    return true;
                 }
             }else{
-                return true;
+                return false;
             }
         }
         V3 v = actualFolk.theData.destination;
@@ -58,7 +58,7 @@ public class EntityAIWanderSUK extends EntityAIBase {
             this.yPosition = v.yCoord;
             this.zPosition = v.zCoord;
             this.mustUpdate = false;
-            return false;
+            return true;
         }
     }
     /**

@@ -438,7 +438,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public void moveEntity(double x, double y, double z) {
         try {
-            if (this.theData != null && this.theData != null) {
+            if (!this.isDead && this.theData != null) {
                 double dist = 0;
                 if (this.theData.destination != null && this.theData.beamingTo == null) {
                     try {
@@ -514,7 +514,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }
                     this.theData.destination = new V3(x, y, z);
                     ModSimReloaded.log.info("moveEntity,x:" + x + ",y:" + y + ",z:" + z);
-                    super.moveEntity(x, y, z);
+                    this.moveEntity(x, y, z);
                 }
             }
         } catch (Exception e) {
