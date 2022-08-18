@@ -1,5 +1,5 @@
-employedat|null
-vocation|null
+employedat|96.0,63.0,267.0,0
+vocation|BUILDER
 name|苗鹏志
 age|24
 gender|0
@@ -14,7 +14,7 @@ levelbuilder|1.0146674
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|126.5,64.0,320.5,0
+location|148.69999998807907,65.20000004768372,306.69999998807907,0
 pregnancy|0.0
 building|null
 terraformtype|null

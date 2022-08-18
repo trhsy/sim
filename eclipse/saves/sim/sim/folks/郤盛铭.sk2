@@ -1,5 +1,5 @@
-employedat|97.0,63.0,308.0,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|郤盛铭
 age|24
 gender|0
@@ -14,8 +14,8 @@ levelbuilder|2.536619
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|126.5,64.0,272.5,0
+location|101.5,63.0,267.5,0
 pregnancy|0.0
-building|金库.txt|residential||+x
+building|null
 terraformtype|null
 terraformradius|1

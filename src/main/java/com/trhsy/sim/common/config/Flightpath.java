@@ -47,18 +47,11 @@ public class Flightpath {
 
             label46:
             for (Map.Entry<Object, Map<Class, Set<Method>>> ent : this.subscribers.entrySet()) {
-                Map<Class,Set<Method>> methods=ent.getValue();
-                Iterator var5 = ((Map) ent.getValue()).entrySet().iterator();
-                while (true) {
-                    Map.Entry objEnt;
-                    do {
-                        if (!var5.hasNext()) {
-                            continue label46;
-                        }
 
-                        objEnt = (Map.Entry) var5.next();
-                    } while (!((Class) objEnt.getKey()).isAssignableFrom(evt.getClass()));
-
+                for (Map.Entry objEnt : ent.getValue().entrySet()) {
+                    if (!((Class) objEnt.getKey()).isAssignableFrom(evt.getClass())) {
+                        continue label46;
+                    }
                     Set<Method> ms = (Set) objEnt.getValue();
                     for (Method m : ms) {
                         try {

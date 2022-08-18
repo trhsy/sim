@@ -181,16 +181,11 @@ public class PulseManager {
     }
 
     public boolean isPulseLoaded(String pulseId) {
-        Iterator var2 = this.pulses.entrySet().iterator();
-        Map.Entry entry;
-        do {
-            if (!var2.hasNext()) {
+        for(Map.Entry entrys:this.pulses.entrySet()){
+            if(!((PulseMeta) entrys.getValue()).getId().equals(pulseId)){
                 return false;
             }
-
-           entry = (Map.Entry) var2.next();
-        } while (!((PulseMeta) entry.getValue()).getId().equals(pulseId));
-
+        }
         return true;
     }
 

@@ -196,7 +196,7 @@ public class FolkData implements Serializable {
             this.terraformerType = null;
             this.terraformerRadius = 1;
             this.villagerInventory = new InventoryBasic("Items", false, 8);
-            this.theEntity = null;
+            theEntity = null;
             this.timeStartedGotoing = 0L;
             this.gotoMethod = null;
             this.timeSinceLastSave = 0L;
@@ -421,7 +421,7 @@ public class FolkData implements Serializable {
     public void updateLocationFromEntity() {
         try {
             if (this.isSpawned()) {
-                this.location = new V3(this.theEntity.prevPosX, this.theEntity.prevPosY, this.theEntity.prevPosZ, this.location.theDimension);
+                this.location = new V3(theEntity.prevPosX, theEntity.prevPosY, theEntity.prevPosZ, this.location.theDimension);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -436,27 +436,28 @@ public class FolkData implements Serializable {
      */
     public void respawnEntity(World world) {
         try {
-            if (world != null) {
+            if (world == null) {
                 return;
             }
-            if (this.beamingTo == null) {
+            //不要在传送中间重新生成
+            if (this.beamingTo != null) {
                 return;
             }
             //已经繁殖了，所以不需要
-            if (this.theEntity == null) {
-                if (this.theEntity.isDead) {
+            if (theEntity != null) {
+                if (!theEntity.isDead) {
                     return;
                 }
             }
             if (getDistanceToPlayer() < 100) {
-                this.theEntity = new EntityFolk(world);
-                this.theEntity.setLocationAndAngles(this.location.xCoord, this.location.yCoord, this.location.zCoord, 0.0F, 0.0F);
+                theEntity = new EntityFolk(world);
+                theEntity.setLocationAndAngles(this.location.xCoord, this.location.yCoord, this.location.zCoord, 0.0F, 0.0F);
                 if (!world.isRemote) {
-                    this.theEntity.theData = this;
-                    world.spawnEntityInWorld(this.theEntity);
+                    theEntity.theData = this;
+                    world.spawnEntityInWorld(theEntity);
                 }
-                this.entityId = this.theEntity.getEntityId();
-                ModSimReloaded.log.info("NPC ， " + this.name + " 在当前位置已重生，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + this.theEntity.getEntityId());
+                this.entityId = theEntity.getEntityId();
+                ModSimReloaded.log.info("NPC ， " + this.name + " 在当前位置已重生，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + theEntity.getEntityId());
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -490,11 +491,11 @@ public class FolkData implements Serializable {
     public void serverToClientLocationUpdate(V3 newLocation) {
         try {
             this.location = newLocation.clone();
-            if (this.theEntity != null) {
+            if (theEntity != null) {
                 newLocation = new V3(Math.floor(newLocation.xCoord) + 0.5, newLocation.yCoord, Math.floor(newLocation.zCoord) + 0.5);
-                this.theEntity.posX = newLocation.xCoord;
-                this.theEntity.posY = newLocation.yCoord;
-                this.theEntity.posZ = newLocation.zCoord;
+                theEntity.posX = newLocation.xCoord;
+                theEntity.posY = newLocation.yCoord;
+                theEntity.posZ = newLocation.zCoord;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -547,13 +548,13 @@ public class FolkData implements Serializable {
                     }
                 } else {
                     //如果它们是繁殖的，看看它们是否在射程之外，并迫使它们绝望
-                    this.theEntity.dimension = this.location.theDimension;
+                    theEntity.dimension = this.location.theDimension;
                     this.updateLocationFromEntity();
                     int range = this.getDistanceToPlayer();
                     if (range >= 100) {
                         if (theEntity != null) {
                             ModSimReloaded.log.info("NPC" + this.name + "离玩家 " + range + " 个街区远,位于x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + ",所以下一刻被摧毁");
-                            this.theEntity.setDead();
+                            theEntity.setDead();
                         }
                     }
                 }
@@ -564,7 +565,7 @@ public class FolkData implements Serializable {
                         ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + employedAt.xCoord + ",y:" + employedAt.yCoord + ",z:" + employedAt.zCoord);
                         this.statusText = I18n.format("container.sim.folk_data_Going_work");
                         this.action = FolkAction.ONWAYTOWORK;
-                        this.gotoXYZ(employedAt, GotoMethod.BEAM);
+                        this.gotoXYZ(employedAt, null);
                         return;
                     }
                     //去工作的路上
@@ -708,7 +709,7 @@ public class FolkData implements Serializable {
                 }
                 //和朋友在一起  或者 在购物
                 if (this.statusText.contains(hanging) || this.statusText.contains(shopping)) {
-                    if (this.destination == null && this.theEntity != null) {
+                    if (this.destination == null && theEntity != null) {
                         this.talkCounter++;
                         if (this.talkCounter == 12) {
                             if (ConfigLoader.configFolkTalking) {
@@ -742,7 +743,7 @@ public class FolkData implements Serializable {
                                 double d0 = rand.nextDouble() * 0.5D;
                                 double d1 = rand.nextDouble() * 0.5D;
                                 double d2 = rand.nextDouble() * 0.5D;
-                                theWorld.spawnParticle(EnumParticleTypes.HEART, this.theEntity.posX, this.theEntity.posY + 2.1, this.theEntity.posZ, d0, d1, d2);
+                                theWorld.spawnParticle(EnumParticleTypes.HEART, theEntity.posX, theEntity.posY + 2.1, theEntity.posZ, d0, d1, d2);
                                 male.updateLocationFromEntity();
                                 if ((double) this.matingStage < 0.15D) {
                                     //有时，它们在交配过程中会走失LOL：-）
@@ -777,7 +778,7 @@ public class FolkData implements Serializable {
                         String expecting_a_baby = I18n.format("container.sim.folk_data_expecting_a_baby");
                         ModSimReloaded.sendChat(news + this.name + and + male.name + expecting_a_baby);
                         if (this.isSpawned()) {
-                            this.theEntity.setJumping(true);
+                            theEntity.setJumping(true);
                         }
 
                         if (male.isSpawned()) {
@@ -1198,16 +1199,16 @@ public class FolkData implements Serializable {
     public boolean isSpawned() {
         boolean falg = true;
         try {
-            if (this.theEntity == null) {
+            if (theEntity == null) {
                 FolkData folkData = getFolkByName(this.name);
                 if (folkData != null) {
-                    this.theEntity = folkData.theEntity;
+                    theEntity = folkData.theEntity;
                 }
             }
-            if (this.theEntity == null) {
+            if (theEntity == null) {
                 falg = false;
             } else {
-                if (this.theEntity.isDead) {
+                if (theEntity.isDead) {
                     //this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
                     falg = false;
                 } else {
@@ -1401,9 +1402,9 @@ public class FolkData implements Serializable {
                 for (int inv = 0; inv < this.villagerInventory.getSizeInventory(); inv++) {
                     ItemStack is = (ItemStack) this.villagerInventory.getStackInSlot(inv);
                     if (is != null) {
-                        if (this.theEntity != null) {
+                        if (theEntity != null) {
                             try {
-                                this.theEntity.entityDropItem(is, (float) is.stackSize);
+                                theEntity.entityDropItem(is, (float) is.stackSize);
                             } catch (Exception e) {
                             }
                         } else {
@@ -1428,9 +1429,9 @@ public class FolkData implements Serializable {
             }
 
             this.villagerInventory.clear();
-            if (this.theEntity != null) {
-                this.theEntity.swingProgress = 0.0F;
-                this.theEntity.getNavigator().clearPathEntity();
+            if (theEntity != null) {
+                theEntity.swingProgress = 0.0F;
+                theEntity.getNavigator().clearPathEntity();
             }
 
             this.employedAt = null;
@@ -1504,17 +1505,17 @@ public class FolkData implements Serializable {
                     if (this.destination != null) {
                         if (this.gotoMethod == GotoMethod.SHIFT) {
                             this.destination = new V3(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
-                            if (this.theEntity != null) {
+                            if (theEntity != null) {
                                 if (this.destination != null) {
-                                    this.theEntity.posX = this.destination.xCoord;
-                                    this.theEntity.posY = this.destination.yCoord;
-                                    this.theEntity.posZ = this.destination.zCoord;
+                                    theEntity.posX = this.destination.xCoord;
+                                    theEntity.posY = this.destination.yCoord;
+                                    theEntity.posZ = this.destination.zCoord;
                                 }
                                 //如果维度不一样传送到维度
                                 //修改为不管维度一样不一样都要传送
                                 if (this.location.theDimension != this.destination.theDimension) {
-                                    this.theEntity.travelToDimension(this.destination.theDimension);
-                                    this.theEntity.dimension = this.destination.theDimension;
+                                    theEntity.travelToDimension(this.destination.theDimension);
+                                    theEntity.dimension = this.destination.theDimension;
                                     this.location.theDimension = this.destination.theDimension;
                                 }
                             }
@@ -1528,17 +1529,17 @@ public class FolkData implements Serializable {
                         } else if (this.gotoMethod == GotoMethod.WALK) {
                             this.stayPut = false;
                             this.timeStartedGotoing = System.currentTimeMillis();
-                            if (this.theEntity != null) {
-                                this.theEntity.gotPath = this.theEntity.getNavigator().tryMoveToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord, 0.3D);
-                                if (this.theEntity.gotPath) {
-                                    PathEntity path = this.theEntity.getNavigator().getPathToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord);
+                            if (theEntity != null) {
+                                theEntity.gotPath = theEntity.getNavigator().tryMoveToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord, 0.3D);
+                                if (theEntity.gotPath) {
+                                    PathEntity path = theEntity.getNavigator().getPathToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord);
                                     if (path != null) {
                                         ModSimReloaded.log.info("实体人:[ " + this.name + " ]即走过去☞x:" + this.destination.xCoord + ",y:" + this.destination.yCoord + ",z:" + this.destination.zCoord);
-                                        this.theEntity.getNavigator().setPath(path, 0.3D);
-                                        this.theEntity.gotPath = true;
+                                        theEntity.getNavigator().setPath(path, 0.3D);
+                                        theEntity.gotPath = true;
                                     }
                                 }
-//                                this.theEntity.moveEntity(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord);
+//                                theEntity.moveEntity(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord);
                             }
                         }
 
@@ -1582,15 +1583,15 @@ public class FolkData implements Serializable {
                 //ModSimReloaded.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
                 this.stayPut = true;
                 if (this.isSpawned()) {
-                    if (this.theEntity != null) {
-                        this.theEntity.getNavigator().clearPathEntity();
+                    if (theEntity != null) {
+                        theEntity.getNavigator().clearPathEntity();
                     }
                 }
 
                 if (ModSim.proxy.getClientWorld() != null) {
                     ModSim.proxy.getClientWorld().playSound(location.xCoord, location.yCoord, location.zCoord, ModSim.MODID + ":beamdown", 1, 1, false);
                     ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f, false);
-                    ModSimReloaded.log.info("传送完毕：x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
+//                    ModSimReloaded.log.info("传送完毕：x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
                     this.stayPut = true;
                 }
 
@@ -1609,11 +1610,11 @@ public class FolkData implements Serializable {
     private void doBeaming() {
         try {
             if (System.currentTimeMillis() - this.timeStartedGotoing > 4000L || this.beamingTo == null) {
-                if (this.theEntity != null) {
-                    this.theEntity.setPosition(this.beamingTo.xCoord, this.beamingTo.yCoord, this.beamingTo.zCoord);
-                    if (this.theEntity.dimension != this.beamingTo.theDimension) {
-                        this.theEntity.travelToDimension(this.beamingTo.theDimension);
-                        this.theEntity.dimension = this.beamingTo.theDimension;
+                if (theEntity != null) {
+                    theEntity.setPosition(this.beamingTo.xCoord, this.beamingTo.yCoord, this.beamingTo.zCoord);
+                    if (theEntity.dimension != this.beamingTo.theDimension) {
+                        theEntity.travelToDimension(this.beamingTo.theDimension);
+                        theEntity.dimension = this.beamingTo.theDimension;
                         this.location.theDimension = this.beamingTo.theDimension;
                     }
                 }
@@ -1640,8 +1641,6 @@ public class FolkData implements Serializable {
                             theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.beamingTo.xCoord + random.nextDouble() - 0.5D, this.beamingTo.yCoord - 1.0, this.beamingTo.zCoord + random.nextDouble() - 0.5D, 0, -d4, 0);
                         }
                     }
-
-
                 }
             }
         } catch (Exception e) {
@@ -1733,7 +1732,9 @@ public class FolkData implements Serializable {
                                                 String type = value.substring(m2 + 1, m3);
                                                 String dir = value.substring(m3 + 2);
                                                 folkd.theBuilding = Building.getBuildingForFolk(fn, type);
-                                                folkd.theBuilding.buildDirection = dir;
+                                                if(folkd.theBuilding!=null){
+                                                    folkd.theBuilding.buildDirection = dir;
+                                                }
                                             }
                                         } else if (name.contentEquals("terraformtype")) {
                                             if (!value.contentEquals("null")) {
@@ -2761,7 +2762,7 @@ public class FolkData implements Serializable {
     }
 
     public void setTheEntity(EntityFolk theEntity) {
-        this.theEntity = theEntity;
+        theEntity = theEntity;
     }
 
     public Long getTimeStartedGotoing() {
