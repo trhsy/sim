@@ -38,7 +38,7 @@ public class JobBuilder extends Job implements Serializable {
     //建筑阶段
     public Stage theStage;
     //实体人数据
-    public FolkData theFolk = new FolkData();
+    public FolkData theFolk = null;
     //职业
     public Vocation vocation = null;
     //运行延迟
@@ -55,23 +55,29 @@ public class JobBuilder extends Job implements Serializable {
     private transient long lastNotifiedOfMaterials = 0L;
     //上次播放的声音
     private transient long soundLastPlayed = 0L;
+    //三维构建循环
     int l = 0;
     int ftb = 0;
     int ltr = 0;
+
     int xo = 0;
     int zo = 0;
     int acount = 0;
+
     int cx;
     int cy;
     int cz;
+
     int ex;
     int ey;
     int ez;
+
     int bx = 0;
     int by = 0;
     int bz = 0;
 
     public JobBuilder() {
+        // 不用
     }
 
     /**
@@ -87,12 +93,14 @@ public class JobBuilder extends Job implements Serializable {
             }
 
             if (this.theFolk != null) {
+                return;
+                //首次雇用时为空，这是第二天
+            }
                 if (this.theFolk.destination == null) {
                     this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
                 this.theBuilding = this.theFolk.theBuilding;
-            }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("JobBuilder出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -330,7 +338,7 @@ public class JobBuilder extends Job implements Serializable {
     }
 
     /**
-     * 接到为正在进行
+     * 阶段为正在进行
      */
     private void stageInProgress() {
         try {
@@ -352,12 +360,15 @@ public class JobBuilder extends Job implements Serializable {
                     this.cx = (int) this.theFolk.employedAt.xCoord;
                     this.cy = (int) this.theFolk.employedAt.yCoord;
                     this.cz = (int) this.theFolk.employedAt.zCoord;
+
                     this.ex = (int) this.theFolk.employedAt.xCoord;
                     this.ey = (int) this.theFolk.employedAt.yCoord;
                     this.ez = (int) this.theFolk.employedAt.zCoord;
+
                     this.bx = this.ex;
                     this.by = this.ey;
                     this.bz = this.ez;
+
                     if (this.theBuilding.buildDirection.contentEquals("-x")) {
                         this.bx = this.cx + 1;
                     } else if (this.theBuilding.buildDirection.contentEquals("+x")) {
@@ -367,14 +378,14 @@ public class JobBuilder extends Job implements Serializable {
                     } else if (this.theBuilding.buildDirection.contentEquals("+z")) {
                         this.bz = cz - 1;
                     } else {
-                        if (!this.theBuilding.buildDirection.contentEquals("+z")) {
-                            //不能确定建造的方向，当你右键点击它时请站在构造的四边之一
-                            ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
-                            this.theFolk.selfFire();
-                            return;
-                        }
+                        //if (!this.theBuilding.buildDirection.contentEquals("+z")) {
+                        //不能确定建造的方向，当你右键点击它时请站在构造的四边之一
+                        ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
+                        this.theFolk.selfFire();
+                        return;
+                        //}
 
-                        this.bz = this.cz - 1;
+                        //this.bz = this.cz - 1;
                     }
                     //开始建造
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_started_building") + this.theBuilding.displayNameWithoutPK);
@@ -400,7 +411,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.step = 2;
                     this.theBuilding.blockLocations.clear();
                 } else if (this.step == 2) {
-                    if(blockId == null || alreadyPlaced){
+                    do {
                         //已经开始建筑一个
                         this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Building") + this.theBuilding.displayNameWithoutPK;
                         if (this.theBuilding.buildDirection.contentEquals("+z")) {
@@ -427,7 +438,6 @@ public class JobBuilder extends Job implements Serializable {
                             //获取结构体
                             bl = this.theBuilding.structure[this.acount].split(":");
                         } catch (Exception e) {
-                            StackTraceElement element = e.getStackTrace()[0];
                             ModSimReloaded.log.error("JobBuilder: 建筑中的空块,改用空气");
                             bl = "0:0".split(":");
                         }
@@ -453,7 +463,6 @@ public class JobBuilder extends Job implements Serializable {
                             this.theBuilding.saveThisBuilding();
                         }
 
-                        V3 v3;
                         //地毯 并且建筑为住宅
                         if (blockId == BlockLoader.blockLiving && this.theBuilding.type == "residential") {
                             //生活区
@@ -462,55 +471,60 @@ public class JobBuilder extends Job implements Serializable {
                             subtype = 0;
                             //如果方块为特除 并且 为住宅
                         } else if (blockId == BlockLoader.blockSpecial && this.theBuilding.type != "residential") {
-                            v3 = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
+                            V3 v3 = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
                             v3.meta = subtype;
                             this.theBuilding.blockSpecial.add(v3);
                             blockId = null;
                             subtype = 0;
                         }
-                        Block currBlockId;
+                        Block currBlockId = null;
                         currBlockId = this.jobWorld.getBlockState(new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo)).getBlock();
-                        //
-                        if (blockId != currBlockId) {
-                            alreadyPlaced = false;
-                        } else {
+                        //要放置的方块是否已放置
+                        if (blockId == currBlockId || (blockId == Blocks.dirt && currBlockId == Blocks.grass) || (blockId == Blocks.grass && currBlockId == Blocks.dirt)) {
                             alreadyPlaced = true;
+                        } else {
+                            alreadyPlaced = false;
                         }
-                        String want = "?";
-                        try{
-                            ItemStack itemStack=new ItemStack(blockId);
-                             want = itemStack.getDisplayName();
-                        }catch (Exception e){
+                        String want = "?？？";
+                        try {
+                            ItemStack itemStack = new ItemStack(blockId, 1, 0);
+                            if (itemStack != null) {
+                                want = itemStack.getDisplayName();
+                                //获取
+                                if (blockId != null) {
+                                    this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
+                                }
+                            } else {
+                                want = "?？？";
+                            }
+                        } catch (Exception e) {
                             want = "?";
                         }
 
-                        //获取
-                        if (blockId != null) {
-                            this.theBuilding.blockLocations.add(new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo, this.theFolk.location.theDimension));
-                        }
+
                         //放置未完成
-                        if (!alreadyPlaced && currBlockId != null) {
+                        if (!alreadyPlaced) {
+                            if (currBlockId != null) {
+                                V3 blockToRemove = new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                                //找到最近的箱子
+                                this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
+                                //将矿块开采到箱子中
+                                this.mineBlockIntoChests(this.constructorChests, blockToRemove);
 
-                            V3 blockToRemove = new V3(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                            //找到最近的箱子
-                            this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                            //将矿块开采到箱子中
-                            this.mineBlockIntoChests(this.constructorChests, blockToRemove);
-
-                            BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
-                            this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
-                            //设置正在工作
-                            this.theFolk.isWorking = true;
+                                BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                                this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
+                                //设置正在工作
+                                this.theFolk.isWorking = true;
+                            }
                         }
 
                         if (!alreadyPlaced) {
                             boolean gotBlock = false;
                             boolean requiredBlocks = blockId == Blocks.planks || blockId == Blocks.cobblestone || blockId == Blocks.glass || blockId == Blocks.wool || blockId == Blocks.brick_block || blockId == Blocks.dirt || blockId == Blocks.stonebrick || blockId == Blocks.oak_fence || blockId == Blocks.stone || blockId == Blocks.log;
-                            ItemStack got;
                             if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
                                 if (requiredBlocks) {
                                     this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                                    got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
+                                    ItemStack got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
                                     if (got != null) {
                                         gotBlock = true;
                                     } else {
@@ -523,9 +537,13 @@ public class JobBuilder extends Job implements Serializable {
                                 gotBlock = true;
                             } else if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
                                 if (blockId != null) {
-                                    if (blockId != Blocks.grass && blockId != Blocks.water && blockId != Blocks.water && blockId != Blocks.lava && blockId != Blocks.lava && blockId != Blocks.wall_sign && blockId != Blocks.cake && blockId != Blocks.stone_slab && blockId != Blocks.wooden_slab && blockId != Blocks.double_wooden_slab && blockId != Blocks.double_stone_slab && blockId != Blocks.farmland && blockId != Blocks.oak_door && blockId != Blocks.iron_door && blockId != Blocks.bed) {
+                                    //专家模式下提供的块
+                                    if (blockId == Blocks.grass && blockId == Blocks.water && blockId == Blocks.lava && blockId == Blocks.wall_sign && blockId == Blocks.cake && blockId == Blocks.stone_slab && blockId == Blocks.wooden_slab && blockId == Blocks.double_wooden_slab && blockId == Blocks.double_stone_slab && blockId == Blocks.farmland && blockId == Blocks.oak_door && blockId == Blocks.iron_door && blockId == Blocks.bed) {
+                                        //这里的问题是，它需要将块转换为项
+                                        gotBlock = true;
+                                    } else {
                                         this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                                        got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
+                                        ItemStack got = inventoriesGet(this.constructorChests, new ItemStack(blockId, 1, 0), false, false);
                                         if (got != null) {
                                             gotBlock = true;
                                         } else {
@@ -535,8 +553,10 @@ public class JobBuilder extends Job implements Serializable {
                                         if (blockId == BlockLoader.blockControlBox) {
                                             gotBlock = true;
                                         }
-                                    } else {
-                                        gotBlock = true;
+                                        if (blockId == BlockLoader.blockLiving) {
+                                            gotBlock = true;
+                                        }
+
                                     }
                                 } else {
                                     gotBlock = true;
@@ -545,18 +565,18 @@ public class JobBuilder extends Job implements Serializable {
 
                             if (!gotBlock) {
                                 this.theStage = Stage.WAITINGFORRESOURCES;
-                                String wantName=want;
+                                String wantName = want;
                                 //木板
                                 if (want.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC11"))) {
                                     wantName = I18n.format("container.sim.sim_gui_BC12");
                                 }
-                       //橡木
+                                //橡木
                                 if (want.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC9"))) {
                                     wantName = I18n.format("container.sim.sim_gui_BC10");
                                 }
                                 //等待
                                 this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_started_Waiting") + wantName;
-                                if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (long) (ConfigLoader.configMaterialReminderInterval * 60 * 1000)) {
+                                if (System.currentTimeMillis() - this.lastNotifiedOfMaterials > (ConfigLoader.configMaterialReminderInterval * 60 * 1000)) {
                                     this.lastNotifiedOfMaterials = System.currentTimeMillis();
                                     //需要更多
                                     ModSimReloaded.sendChat(this.theFolk.name + " ( " + I18n.format("container.sim.job.builder_constructor_started_who's") + this.theFolk.theBuilding.displayNameWithoutPK + ")" + I18n.format("container.sim.job.builder_constructor_started_more") + wantName);
@@ -568,51 +588,48 @@ public class JobBuilder extends Job implements Serializable {
 
                             if (!alreadyPlaced) {
                                 try {
-                                    if(blockId!=null){
+                                    if (blockId != null) {
 
-                                    if (blockId == BlockLoader.blockLiving) {
-                                        alreadyPlaced = true;
-                                    }
+                                        if (blockId == BlockLoader.blockLiving) {
+                                            alreadyPlaced = true;
+                                            //银行控制箱
+                                        }else if (blockId == BlockLoader.blockControlBox && this.theBuilding.displayNameWithoutPK.contentEquals(I18n.format("container.sim.ATMs"))) {
+                                            subtype = 1;
+                                        }
+                                        //把积木放好
+                                        if (!alreadyPlaced) {
+                                            this.theFolk.stayPut = true;
+                                            BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
 
-                                    if (blockId == BlockLoader.blockControlBox && this.theBuilding.displayNameWithoutPK.toLowerCase().contentEquals(I18n.format("container.sim.ATMs"))) {
-                                        subtype = 1;
-                                    }
-                                    //把积木放好
-                                    if (!alreadyPlaced) {
-                                        this.theFolk.stayPut = true;
-                                        BlockPos blockPos = new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo);
+                                            this.jobWorld.setBlockState(blockPos, blockId.getStateFromMeta(subtype), 3);
+                                            this.jobWorld.markBlockForUpdate(blockPos);
+                                        }
 
-                                        this.jobWorld.setBlockState(blockPos, blockId.getStateFromMeta(subtype), 3);
-                                        this.jobWorld.markBlockForUpdate(blockPos);
-                                    }
+                                        int b4 = (int) Math.floor((double) this.theFolk.levelBuilder);
+                                        if (this.theFolk.levelBuilder < 10.0F) {
+                                            this.theFolk.levelBuilder += (float) (0.001 / b4);
+                                        }
 
-                                    int b4 = (int) Math.floor((double) this.theFolk.levelBuilder);
-                                    if (this.theFolk.levelBuilder < 10.0F) {
-                                        FolkData var10000 = this.theFolk;
-                                        var10000.levelBuilder = (float) ((var10000.levelBuilder + 0.001) / b4);
-                                    }
+                                        int aft = (int) Math.floor((double) this.theFolk.levelBuilder);
+                                        if (b4 != aft) {
+                                            //刚刚升级到建造者等级
+                                            ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_levelled") + aft);
+                                        }
+                                        //每2秒播放一次音效
+                                        if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
+                                            this.mc.theWorld.playSound((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), ModSim.MODID + ":construction", 1, 1, false);
+                                            this.soundLastPlayed = System.currentTimeMillis();
+                                        }
+                                        //在客户端生成粒子
+                                        if (this.mc.theWorld.isRemote) {
+                                            this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.3f, 0);
+                                            this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.2f, 0);
+                                            this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.1f, 0);
+                                        }
 
-                                    int aft = (int) Math.floor((double) this.theFolk.levelBuilder);
-                                    if (b4 != aft) {
-                                        //刚刚升级到建造者等级
-                                        ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_levelled") + aft);
-                                    }
-                                    //每2秒播放一次音效
-                                    if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
-                                        this.mc.theWorld.playSound((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), ModSim.MODID + ":construction", 1, 1, false);
-                                        this.soundLastPlayed = System.currentTimeMillis();
-                                    }
-
-                                    if (this.mc.theWorld.isRemote) {
-                                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.3f, 0);
-                                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.2f, 0);
-                                        this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.1f, 0);
-                                    }
-
-                                    if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE && blockId != BlockLoader.blockLiving) {
-                                        GameStates var25 = ModSimReloaded.states;
-                                        var25.credits -= 0.02F;
-                                    }
+                                        if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE && blockId != BlockLoader.blockLiving) {
+                                            ModSimReloaded.states.credits -= 0.02F;
+                                        }
 
                                     }
                                 } catch (Exception e) {
@@ -640,24 +657,26 @@ public class JobBuilder extends Job implements Serializable {
                             }
                         }
 
-                        if (blockId != null && !alreadyPlaced) {
+                        if (blockId == null && alreadyPlaced) {
+                            this.runDelay = 0;
+                        } else {
                             if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
                                 this.runDelay = 0;
                             } else {
-                                this.runDelay = (int) (2000.0F / this.theFolk.levelBuilder);
+                                this.runDelay =(int)(2000 / this.theFolk.levelBuilder);
                             }
-                        } else {
-                            this.runDelay = 0;
+
                         }
 
                         if (this.theFolk.theEntity != null) {
                             //摆动玩家持有的物品。
                             this.theFolk.theEntity.swingItem();
                         }
-                    }
+                    } while (blockId == null || alreadyPlaced);
                 }
 
             }
+            //System.out.println(System.currentTimeMillis());
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("jobBuilder-stageInProgress出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

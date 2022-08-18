@@ -184,7 +184,7 @@ public class ModSimReloaded {
                     //清空线程池中的所有npc
                     theFolks.clear();
                     //从磁盘加载所有建筑并初始化它们
-                    Building.initialiseAllBuildings();
+                    //Building.initialiseAllBuildings();
                     //加载世界上的建筑
                     Building.loadAllBuildings();
                     //所有快递点

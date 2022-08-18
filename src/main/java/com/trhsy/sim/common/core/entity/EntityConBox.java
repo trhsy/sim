@@ -131,10 +131,6 @@ public class EntityConBox extends Entity {
         return null;
     }
 
-    //@Override
-    //public AxisAlignedBB getBoundingBox() {
-    //    return null;
-    //}
     @Override
     public boolean canBePushed() {
         return false;

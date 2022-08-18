@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.common.config.SimConfigSync;
 import com.trhsy.sim.common.core.CommonTickHandler;
+import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.core.entity.folk.genetics.Race;
 import com.trhsy.sim.common.core.entity.folk.traits.Traits;
 import com.trhsy.sim.common.loader.*;
@@ -70,6 +71,8 @@ public class CommonProxy {
             Traits.loadTraits();
             Race.loadRaces();
             new NetWorkLoader(event);
+            /**加载所有建筑物**/
+            Building.initialiseAllBuildings();
             //registerMisc();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|尤正清
-age|23
+age|24
 gender|0
 skin|9
 race|
@@ -9,12 +9,12 @@ trait1|讨厌户外活动
 trait2|友善的
 trait3|矮人血脉
 trait4|强壮的
-levelfood|7
+levelfood|5
 levelbuilder|9.1
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|97.5,64.0,308.5,0
+location|116.0,66.0,347.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -74,7 +74,7 @@ public class RenderConBox extends Render<EntityConBox> {
                             }
 
                             float offset = (actualCount * 0.2f) + 2.5f;
-                            displayText(I18n.format("container.sim.render_1 ") + entity.theFolk.theBuilding.displayNameWithoutPK, 0.02F, (float) x + 1, (float) y
+                            displayText(I18n.format("container.sim.render_1") + entity.theFolk.theBuilding.displayNameWithoutPK, 0.02F, (float) x + 1, (float) y
                                     + offset, (float) z, 0xEFFFEF);
                             //offset-=0.2f;
 
