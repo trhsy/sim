@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|139.0,63.0,364.0,0
+vocation|CROPFARMER
 name|尤正清
-age|24
+age|25
 gender|0
 skin|9
 race|
@@ -14,7 +14,7 @@ levelbuilder|9.1
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|116.0,66.0,347.0,0
+location|144.5,64.0,364.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

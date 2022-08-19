@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|145.0,63.0,334.0,0
+vocation|BAKER
 name|谭依瑞
-age|24
+age|25
 gender|0
 skin|23
 race|
@@ -13,7 +13,7 @@ levelfood|6
 levelbuilder|9.004686
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
+stayput|true
 location|154.5,64.0,324.5,0
 pregnancy|0.0
 building|null

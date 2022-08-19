@@ -1046,12 +1046,11 @@ public class FolkData implements Serializable {
      */
     private void getHomeForHomeless() {
         try {
+            Building.loadAllBuildings();
             if (this.action == FolkAction.WANDER) {
-                Building.loadAllBuildings();
-
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                     Building building = ModSimReloaded.theBuildings.get(b);
-                    if (building.tenants.size() == 0 && building.buildingComplete && building.type.contentEquals("residential")) {
+                    if (building.tenants.size() == 0 && building.buildingComplete == true && building.type.contentEquals("residential")) {
                         building.tenants.add(this.name);
                         this.action = FolkAction.GOINGHOME;
                         this.actionArrival = FolkAction.STAYINGHOME;
@@ -1208,12 +1207,7 @@ public class FolkData implements Serializable {
             if (theEntity == null) {
                 falg = false;
             } else {
-                if (theEntity.isDead) {
-                    //this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
-                    falg = false;
-                } else {
-                    falg = true;
-                }
+                falg = !theEntity.isDead;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -1253,7 +1247,7 @@ public class FolkData implements Serializable {
             if (p == null) {
                 i = 9999;
             } else {
-                V3 pv = new V3(p.prevPosX, p.prevPosY, p.prevPosZ, this.location.theDimension);
+                V3 pv = new V3(p.posX, p.posY, p.posZ, this.location.theDimension);
                 i = this.location.getDistanceTo(pv);
             }
         } catch (Exception e) {
@@ -1281,7 +1275,7 @@ public class FolkData implements Serializable {
                 return new V3(p.posX, p.posY, p.posZ, 0);
             }
             boolean found = false;
-            Block bid;
+            Block bid = null;
 
             for (int go = 30; go > 1; go--) {
                 ret = new V3(p.posX, p.posY, p.posZ + (double) go, p.dimension);
@@ -1290,7 +1284,7 @@ public class FolkData implements Serializable {
                     BlockPos blockPos = new BlockPos(ret.xCoord, ret.yCoord, ret.zCoord);
                     bid = p.worldObj.getBlockState(blockPos).getBlock();
                     if (p.worldObj.canSeeSky(blockPos) || p.dimension != 0) {
-                        if (bid == Blocks.air && bid != null) {
+                        if (bid == Blocks.air && bid != Blocks.leaves && bid != null) {
                             found = true;
                         }
                     }
@@ -1400,18 +1394,12 @@ public class FolkData implements Serializable {
                 int count = 0;
 
                 for (int inv = 0; inv < this.villagerInventory.getSizeInventory(); inv++) {
-                    ItemStack is = (ItemStack) this.villagerInventory.getStackInSlot(inv);
+                    ItemStack is = this.villagerInventory.getStackInSlot(inv);
                     if (is != null) {
                         if (theEntity != null) {
-                            try {
-                                theEntity.entityDropItem(is, (float) is.stackSize);
-                            } catch (Exception e) {
-                            }
+                            theEntity.entityDropItem(is, (float) is.stackSize);
                         } else {
-                            try {
-                                getClosestPlayer(this.location).entityDropItem(is, (float) is.stackSize);
-                            } catch (Exception e) {
-                            }
+                            getClosestPlayer(this.location).entityDropItem(is, (float) is.stackSize);
                         }
 
                         count += is.stackSize;
@@ -1460,92 +1448,112 @@ public class FolkData implements Serializable {
      */
     public void gotoXYZ(V3 whereTo, GotoMethod methodOfTravel) {
         try {
-            if (whereTo != null) {
-                this.stayPut = false;
-                this.destination = whereTo.clone();
-                if (this.destination != null) {
-                    this.destination.doNotTimeout = false;
-                    int dist = this.location.getDistanceTo(whereTo);
-                    if (methodOfTravel == null) {
-                        V3 playpos = null;
-                        EntityPlayer pl = getClosestPlayer(this.location);
-                        if (pl != null) {
-                            playpos = new V3(pl.posX, pl.posY, pl.posZ, pl.dimension);
-                        }
-                        //小于40则走过去
-                        if (dist < 100) {
-                            this.gotoMethod = GotoMethod.WALK;
-                        }
-                        if (!this.isSpawned() || dist >= 100) {
-                            this.gotoMethod = GotoMethod.BEAM;
-                        }
-                        //如果玩家处于不同维度或超出范围，则为空
-                        if (playpos != null) {
-                            if (this.location.getDistanceTo(playpos) >= 100 && whereTo.getDistanceTo(playpos) >= 100) {
-                                this.gotoMethod = GotoMethod.SHIFT;
-                            }
-                            try {
-                                if (this.location.theDimension != Minecraft.getMinecraft().thePlayer.dimension && this.destination.theDimension != Minecraft.getMinecraft().thePlayer.dimension) {
-                                    this.gotoMethod = GotoMethod.SHIFT;
-                                }
-                            } catch (Exception e) {
-                                this.gotoMethod = GotoMethod.SHIFT;
-                            }
-                        }
+            /*if(theEntity.worldObj.isRemote == true);
+    	{
+    		SimukraftReloaded.log.info("Is Remote");
+    	}
+    	if(theEntity.worldObj.isRemote == false)
+    	{
+    		SimukraftReloaded.log.info("Is NOT Remote");
+    	}*/
 
-                        if (methodOfTravel == null) {
-                            if (this.gotoMethod == null) {
-                                this.gotoMethod = GotoMethod.BEAM;
-                            }
-                        }
-                    } else {
-                        this.gotoMethod = methodOfTravel;
+            if (whereTo == null) {
+                return;
+            }
+            this.stayPut = false;
+            this.destination = whereTo.clone();
+            if (this.destination == null) {
+                return;
+            }
+            this.destination.doNotTimeout = false;
+            int dist = this.location.getDistanceTo(whereTo);
+            if (!this.isSpawned()) {
+                methodOfTravel = null;
+            }
+            if (methodOfTravel == null) {
+                V3 playpos = null;
+                EntityPlayer pl = getClosestPlayer(this.location);
+                if (pl == null || (this.location.theDimension != this.destination.theDimension)) {
+                    dist = 999;
+                } else {
+                    playpos = new V3(pl.posX, pl.posY, pl.posZ, pl.dimension);
+                }
+                //小于40则走过去
+                if (dist < 100) {
+                    this.gotoMethod = GotoMethod.WALK;
+                }
+                if (!this.isSpawned() || dist >= 100) {
+                    this.gotoMethod = GotoMethod.BEAM;
+                }
+                //如果玩家处于不同维度或超出范围，则为空
+                if (playpos != null) {
+                    if (this.location.getDistanceTo(playpos) >= 100 && whereTo.getDistanceTo(playpos) >= 100) {
+                        this.gotoMethod = GotoMethod.SHIFT;
                     }
-
-                    if (this.destination != null) {
-                        if (this.gotoMethod == GotoMethod.SHIFT) {
-                            this.destination = new V3(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
-                            if (theEntity != null) {
-                                if (this.destination != null) {
-                                    theEntity.posX = this.destination.xCoord;
-                                    theEntity.posY = this.destination.yCoord;
-                                    theEntity.posZ = this.destination.zCoord;
-                                }
-                                //如果维度不一样传送到维度
-                                //修改为不管维度一样不一样都要传送
-                                if (this.location.theDimension != this.destination.theDimension) {
-                                    theEntity.travelToDimension(this.destination.theDimension);
-                                    theEntity.dimension = this.destination.theDimension;
-                                    this.location.theDimension = this.destination.theDimension;
-                                }
-                            }
-
-                            this.location = this.destination.clone();
-
-                            this.destination = null;
-                        } else if (this.gotoMethod == GotoMethod.BEAM) {
-                            this.timeStartedGotoing = System.currentTimeMillis();
-                            this.beamMeTo(whereTo);
-                        } else if (this.gotoMethod == GotoMethod.WALK) {
-                            this.stayPut = false;
-                            this.timeStartedGotoing = System.currentTimeMillis();
-                            if (theEntity != null) {
-                                theEntity.gotPath = theEntity.getNavigator().tryMoveToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord, 0.3D);
-                                if (theEntity.gotPath) {
-                                    PathEntity path = theEntity.getNavigator().getPathToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord);
-                                    if (path != null) {
-                                        ModSimReloaded.log.info("实体人:[ " + this.name + " ]即走过去☞x:" + this.destination.xCoord + ",y:" + this.destination.yCoord + ",z:" + this.destination.zCoord);
-                                        theEntity.getNavigator().setPath(path, 0.3D);
-                                        theEntity.gotPath = true;
-                                    }
-                                }
-//                                theEntity.moveEntity(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord);
-                            }
+                    try {
+                        if (this.location.theDimension != Minecraft.getMinecraft().thePlayer.dimension && this.destination.theDimension != Minecraft.getMinecraft().thePlayer.dimension) {
+                            this.gotoMethod = GotoMethod.SHIFT;
                         }
-
+                    } catch (Exception e) {
+                        this.gotoMethod = GotoMethod.SHIFT;
                     }
                 }
+
+                if (methodOfTravel == null) {
+                    if (this.gotoMethod == null) {
+                        this.gotoMethod = GotoMethod.BEAM;
+                    }
+                }
+            } else {
+                this.gotoMethod = methodOfTravel;
             }
+
+            if (this.destination == null) {
+                return;
+            }
+
+            if (this.gotoMethod == GotoMethod.SHIFT) {
+                this.destination = new V3(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
+                if (theEntity != null) {
+                    if (this.destination != null) {
+                        theEntity.posX = this.destination.xCoord;
+                        theEntity.posY = this.destination.yCoord;
+                        theEntity.posZ = this.destination.zCoord;
+                    }
+                    //如果维度不一样传送到维度
+                    //修改为不管维度一样不一样都要传送
+                    if (this.location.theDimension != this.destination.theDimension) {
+                        theEntity.travelToDimension(this.destination.theDimension);
+                        theEntity.dimension = this.destination.theDimension;
+                        this.location.theDimension = this.destination.theDimension;
+                    }
+                }
+
+                this.location = this.destination.clone();
+
+                this.destination = null;
+            } else if (this.gotoMethod == GotoMethod.BEAM) {
+                this.timeStartedGotoing = System.currentTimeMillis();
+                this.beamMeTo(whereTo);
+            } else if (this.gotoMethod == GotoMethod.WALK) {
+                this.stayPut = false;
+                this.timeStartedGotoing = System.currentTimeMillis();
+                if (theEntity != null) {
+                    this.theEntity.gotPath = false;
+                    //已经设置了它们的目的地，所以这就是它所需要的一切。只有当它们重生并在步行距离内时，它才会到达这里，所以实体的MoveEntity（）方法现在接管。
+                    /*theEntity.gotPath = theEntity.getNavigator().tryMoveToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord, 0.3D);
+                    if (theEntity.gotPath) {
+                        PathEntity path = theEntity.getNavigator().getPathToXYZ(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord);
+                        if (path != null) {
+                            ModSimReloaded.log.info("实体人:[ " + this.name + " ]即走过去☞x:" + this.destination.xCoord + ",y:" + this.destination.yCoord + ",z:" + this.destination.zCoord);
+                            theEntity.getNavigator().setPath(path, 0.3D);
+                            theEntity.gotPath = true;
+                        }
+                    }*/
+//                                theEntity.moveEntity(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord);
+                }
+            }
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("gotoXYZ出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -1563,40 +1571,45 @@ public class FolkData implements Serializable {
             this.stayPut = true;
             //仅当它们当前已繁殖时才执行此操作
             this.updateLocationFromEntity();
-            if (this.beamingTo == null || whereToIn != null) {
-                this.timeStartedGotoing = System.currentTimeMillis();
-                V3 whereTo = whereToIn.clone();
-//            World destWorld = MinecraftServer.getServer().worldServerForDimension(whereTo.theDimension);
-            /*for (int i = 0; i < 200; i++) {
+            if (this.beamingTo != null) {
+                return;
+            }
+            if (whereToIn == null) {
+                return;
+            }
+
+            this.timeStartedGotoing = System.currentTimeMillis();
+            V3 whereTo = whereToIn.clone();
+            World destWorld = MinecraftServer.getServer().worldServerForDimension(whereTo.theDimension);
+            for (int i = 0; i < 200; i++) {
                 Block id1 = destWorld.getBlockState(new BlockPos(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord)).getBlock();
                 Block id2 = destWorld.getBlockState(new BlockPos(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord)).getBlock();
-                if (id1.getLocalizedName().contains("air") && id2.getLocalizedName().contains("air")) {
+                if (id1==null && id2==null) {
                     break;
                 }
-                whereTo = new V3(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord);
+                whereTo = new V3(whereTo.xCoord, whereTo.yCoord +1, whereTo.zCoord);
                 //whereTo.yCoord = whereTo.yCoord + 1;
-            }*/
-                whereTo = new V3(whereTo.xCoord + 0.5, whereTo.yCoord + 1, whereTo.zCoord + 0.5);
-
-
-                this.destination = whereTo.clone();
-                //ModSimReloaded.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
-                this.stayPut = true;
-                if (this.isSpawned()) {
-                    if (theEntity != null) {
-                        theEntity.getNavigator().clearPathEntity();
-                    }
-                }
-
-                if (ModSim.proxy.getClientWorld() != null) {
-                    ModSim.proxy.getClientWorld().playSound(location.xCoord, location.yCoord, location.zCoord, ModSim.MODID + ":beamdown", 1, 1, false);
-                    ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f, false);
-//                    ModSimReloaded.log.info("传送完毕：x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
-                    this.stayPut = true;
-                }
-
-                this.beamingTo = whereTo.clone();
             }
+            whereTo = new V3(whereTo.xCoord + 0.5, whereTo.yCoord -199, whereTo.zCoord + 0.5);
+
+
+            this.destination = whereTo.clone();
+            //ModSimReloaded.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
+            this.stayPut = true;
+            if (this.isSpawned()) {
+                if (theEntity != null) {
+                    theEntity.getNavigator().clearPathEntity();
+                }
+            }
+
+            if (ModSim.proxy.getClientWorld() != null) {
+                ModSim.proxy.getClientWorld().playSound(location.xCoord, location.yCoord, location.zCoord, ModSim.MODID + ":beamdown", 1, 1, false);
+                ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f, false);
+//                    ModSimReloaded.log.info("传送完毕：x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
+//                this.stayPut = true;
+            }
+
+            this.beamingTo = whereTo.clone();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("将民俗传递到指定位置出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -1611,7 +1624,9 @@ public class FolkData implements Serializable {
         try {
             if (System.currentTimeMillis() - this.timeStartedGotoing > 4000L || this.beamingTo == null) {
                 if (theEntity != null) {
-                    theEntity.setPosition(this.beamingTo.xCoord, this.beamingTo.yCoord, this.beamingTo.zCoord);
+                    //设置实体的位置并更新“最后”变量
+                    //theEntity.setPosition(this.beamingTo.xCoord, this.beamingTo.yCoord, this.beamingTo.zCoord);
+                    this.theEntity.setPositionAndUpdate(beamingTo.xCoord, beamingTo.yCoord+1, beamingTo.zCoord);
                     if (theEntity.dimension != this.beamingTo.theDimension) {
                         theEntity.travelToDimension(this.beamingTo.theDimension);
                         theEntity.dimension = this.beamingTo.theDimension;
@@ -1630,6 +1645,7 @@ public class FolkData implements Serializable {
             Double d4 = ((double) random.nextFloat() - 2.0) * 2.0;
             this.stayPut = true;
             if (!MinecraftServer.getServer().isDedicatedServer()) {
+                //仅需要粒子的客户端世界
                 World theWorld = Minecraft.getMinecraft().theWorld;
                 for (int p = 0; p < 10; ++p) {
                     //仅需要粒子的客户端世界
@@ -1732,7 +1748,7 @@ public class FolkData implements Serializable {
                                                 String type = value.substring(m2 + 1, m3);
                                                 String dir = value.substring(m3 + 2);
                                                 folkd.theBuilding = Building.getBuildingForFolk(fn, type);
-                                                if(folkd.theBuilding!=null){
+                                                if (folkd.theBuilding != null) {
                                                     folkd.theBuilding.buildDirection = dir;
                                                 }
                                             }
@@ -1851,9 +1867,9 @@ public class FolkData implements Serializable {
         Building home = null;
         try {
             for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
-                home = (Building) ModSimReloaded.theBuildings.get(b);
+                home = ModSimReloaded.theBuildings.get(b);
                 for (int t = 0; t < home.tenants.size(); ++t) {
-                    String tennant = (String) home.tenants.get(t);
+                    String tennant = home.tenants.get(t);
                     if (tennant.contentEquals(this.name)) {
                         return home;
                     }
@@ -1934,7 +1950,7 @@ public class FolkData implements Serializable {
         FolkData f = null;
         try {
             for (int x = 0; x < ModSimReloaded.theFolks.size(); x++) {
-                f = (FolkData) ModSimReloaded.theFolks.get(x);
+                f = ModSimReloaded.theFolks.get(x);
                 if (f.location.isSameCoordsAs(loc, true, false)) {
                     return f;
                 }
@@ -1956,7 +1972,7 @@ public class FolkData implements Serializable {
         FolkData f = null;
         try {
             for (int x = 0; x < ModSimReloaded.theFolks.size(); x++) {
-                f = (FolkData) ModSimReloaded.theFolks.get(x);
+                f = ModSimReloaded.theFolks.get(x);
                 if (f.employedAt != null && f.employedAt.isSameCoordsAs(employedAt, true, false)) {
                     return f;
                 }
@@ -1999,17 +2015,19 @@ public class FolkData implements Serializable {
      * @param showEmployed
      * @return
      */
-    public static CopyOnWriteArrayList getFolkUnemployed(boolean showEmployed) {
-        CopyOnWriteArrayList f = new CopyOnWriteArrayList();
+    public static List getFolkUnemployed(boolean showEmployed) {
+       List f = new CopyOnWriteArrayList();
         try {
             for (int x = 0; x < ModSimReloaded.theFolks.size(); x++) {
-                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(x);
+                FolkData folk = ModSimReloaded.theFolks.get(x);
                 if (showEmployed) {
                     if (folk.employedAt != null) {
                         f.add(folk);
                     }
-                } else if (folk.employedAt == null && folk.age > 17 && folk.pregnancyStage == 0.0F) {
-                    f.add(folk);
+                } else {
+                    if (folk.employedAt == null && folk.age > 17 && folk.pregnancyStage == 0.0F) {
+                        f.add(folk);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -2024,11 +2042,11 @@ public class FolkData implements Serializable {
      *
      * @return
      */
-    public static CopyOnWriteArrayList getFolkHomeless() {
-        CopyOnWriteArrayList f = new CopyOnWriteArrayList();
+    public static List getFolkHomeless() {
+        List f = new CopyOnWriteArrayList();
         try {
             for (int x = 0; x < ModSimReloaded.theFolks.size(); x++) {
-                FolkData folk = (FolkData) ModSimReloaded.theFolks.get(x);
+                FolkData folk =ModSimReloaded.theFolks.get(x);
                 if (folk.getHome() == null) {
                     f.add(folk);
                 }
@@ -2049,7 +2067,7 @@ public class FolkData implements Serializable {
     public static FolkData getFolkDataByEntityId(int id) {
         try {
             for (int i = 0; i < ModSimReloaded.theFolks.size(); i++) {
-                FolkData fd = (FolkData) ModSimReloaded.theFolks.get(i);
+                FolkData fd =ModSimReloaded.theFolks.get(i);
                 if (fd.theEntity != null && fd.theEntity.getEntityId() == id) {
                     return fd;
                 }
@@ -2165,7 +2183,7 @@ public class FolkData implements Serializable {
             int i = 0;
             //找到阵法中的人
             for (int q = 0; q < ModSimReloaded.theFolks.size(); q++) {
-                FolkData fo = (FolkData) ModSimReloaded.theFolks.get(q);
+                FolkData fo = ModSimReloaded.theFolks.get(q);
                 if (fo.name.contentEquals(this.name)) {
                     i = q;
                     break;
@@ -2176,9 +2194,9 @@ public class FolkData implements Serializable {
             //如果是合作伙伴，则取消他们的合作伙伴关系
             try {
                 //删除其所有关系
-                for (int q = 0; q < ModSimReloaded.theRelationships.size(); ++q) {
+                for (int q = 0; q < ModSimReloaded.theRelationships.size(); q++) {
                     try {
-                        Relationship rel = (Relationship) ModSimReloaded.theRelationships.get(q);
+                        Relationship rel = ModSimReloaded.theRelationships.get(q);
                         if (rel.folk1.name.contentEquals(this.name) || rel.folk2.name.contentEquals(this.name)) {
                             String fn = rel.folk1.name.replaceAll(" ", "") + rel.folk2.name.replaceAll(" ", "");
                             File f = new File(ModSimReloaded.getSavesDataFolder() + "Relationships" + File.separator + fn + ".sk2");
@@ -2216,10 +2234,11 @@ public class FolkData implements Serializable {
             //将他们从家中驱逐出去：-）
             if (this.getHome() != null) {
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
-                    Building building = (Building) ModSimReloaded.theBuildings.get(b);
-                    if (building != null && this.getHome() != null && building.primaryXYZ.isSameCoordsAs(this.getHome().primaryXYZ, true, false)) {
+                    Building building = ModSimReloaded.theBuildings.get(b);
+                    if (building != null && this.getHome() != null ){
+                           if(building.primaryXYZ.isSameCoordsAs(this.getHome().primaryXYZ, true, false)) {
                         building.removeTennant(this.name);
-                    }
+                    }}
                 }
             }
         } catch (Exception e) {

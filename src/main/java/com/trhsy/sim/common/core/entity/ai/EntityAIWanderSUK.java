@@ -39,38 +39,43 @@ public class EntityAIWanderSUK extends EntityAIBase {
     @Override
     public boolean shouldExecute() {
         EntityFolk actualFolk = (EntityFolk) this.entity;
-        if (!this.mustUpdate) {
-            if(actualFolk.theData!=null){
-                if(actualFolk.theData.stayPut){
+        if (this.entity.isWithinHomeDistanceCurrentPosition()) {
+            return false;
+        }else{
+            if (!this.mustUpdate) {
+                if (actualFolk.theData != null) {
+                    if (actualFolk.theData.stayPut) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
                     return false;
-                }else{
-                    return true;
                 }
-            }else{
+            }
+            V3 v = actualFolk.theData.destination;
+            if (v == null) {
                 return false;
+            } else {
+                this.xPosition = v.xCoord;
+                this.yPosition = v.yCoord;
+                this.zPosition = v.zCoord;
+                this.mustUpdate = false;
+                return true;
             }
         }
-        V3 v = actualFolk.theData.destination;
-        if (v == null) {
-            return false;
-        } else {
-            this.xPosition = v.xCoord;
-            this.yPosition = v.yCoord;
-            this.zPosition = v.zCoord;
-            this.mustUpdate = false;
-            return true;
-        }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 返回正在进行的EntityAIBase是否应继续执行
      * @Date 10:36 2022/8/13
      * @Param []
-     * @return boolean
      **/
     @Override
     public boolean continueExecuting() {
-        return this.shouldExecute()||!this.entity.getNavigator().noPath();
+        return !this.entity.getNavigator().noPath();
     }
 
     /**
@@ -82,23 +87,21 @@ public class EntityAIWanderSUK extends EntityAIBase {
             this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimReloaded.log.error("NPC智能AI移动发生错误：" + e.getMessage()+"行数："+element.getLineNumber());
+            ModSimReloaded.log.error("NPC智能AI移动发生错误：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     /**
      * 使任务绕过机会
      */
-    public void makeUpdate()
-    {
+    public void makeUpdate() {
         this.mustUpdate = true;
     }
 
     /**
      * 更改任务执行的随机可能性
      */
-    public void setExecutionChance(int newchance)
-    {
+    public void setExecutionChance(int newchance) {
         this.executionChance = newchance;
     }
 }

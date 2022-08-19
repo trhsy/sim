@@ -137,7 +137,7 @@ public class GuiEmployFolk extends GuiScreen {
             this.buttonList.add(new GuiButton(0, this.width / 2 - 200, this.height - 30, I18n.format("container.sim.sim_gui_player_to_Cancel")));
             //好
             this.buttonList.add(new GuiButton(1000, this.width / 2, this.height - 30, I18n.format("container.sim.gui_btn_name_OK")));
-            CopyOnWriteArrayList folks = FolkData.getFolkUnemployed(false);
+            List folks = FolkData.getFolkUnemployed(false);
             int x = 10;
             int y = 40;
             int idx = 1;

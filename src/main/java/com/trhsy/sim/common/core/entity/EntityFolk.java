@@ -77,7 +77,8 @@ public class EntityFolk extends EntityCreature implements INpc {
             //闲置任务
             this.tasks.addTask(1, new EntityAILookIdle(this));
             //闲逛
-            this.tasks.addTask(1, new EntityAIWanderSUK(this, 0.5D));
+            //this.tasks.addTask(5, new EntityAIWanderSUK(this, 0.5D));
+            this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
             //住进屋子
             this.tasks.addTask(2, new EntityAIMoveIndoors(this));
             //限制开门
@@ -89,6 +90,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
             //游泳
             this.tasks.addTask(4, new EntityAISwimming(this));
+
             //开门
             this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
             //实体AI监视最近
@@ -218,16 +220,14 @@ public class EntityFolk extends EntityCreature implements INpc {
                     //定义随机值
                     Random r = new Random();
                     //获取到玩家的距离
-                    double dist = (double) theData.getDistanceToPlayer();
+                    double dist =theData.getDistanceToPlayer();
 
                     if (ModSimReloaded.states != null) {
                         long var10000 = System.currentTimeMillis();
-                        FolkData var10001 = theData;
                         Long ls = var10000 - FolkData.anyFolkLastSpoke;
                         //配置NPC说英文
                         if (ConfigLoader.configFolkTalkingEnglish && ls > 5000L && (!theData.greetedToday & dist < 5.0 || theData.vocation == Vocation.BURGERSWAITER && dist < 5.0 && r.nextInt(20) == 2)) {
                             theData.greetedToday = true;
-                            FolkData var18 = theData;
                             FolkData.anyFolkLastSpoke = System.currentTimeMillis();
                             int sf = r.nextInt(25) + 1;
                             String fn = ModSim.MODID + ":";
@@ -483,7 +483,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (theData.destination != null) {
                     donttimeout = theData.destination.doNotTimeout;
                 }
-                if (theData.timeStartedGotoing != null && !donttimeout && System.currentTimeMillis() - theData.timeStartedGotoing > 40000L && theData.beamingTo == null) {
+                if (theData.timeStartedGotoing != null && donttimeout==false && System.currentTimeMillis() - theData.timeStartedGotoing > 40000L && theData.beamingTo == null) {
                     this.getNavigator().clearPathEntity();
                     if (dist > 2.0) {
                         V3 v = theData.destination;
@@ -512,7 +512,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (z <= 1) {
                     z = theData.location.zCoord + 0.5;
                 }
-                theData.destination = new V3(x, y, z);
+                //theData.destination = new V3(x, y, z);
                 //ModSimReloaded.log.info("moveEntity,x:" + x + ",y:" + y + ",z:" + z);
                 super.moveEntity(x, y, z);
             }
@@ -632,6 +632,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             if (theData == null) {
                 this.setDead();
                 falg = false;
+                return falg;
             } else {
                 if (theData.theirJob != null) {
                     if (theData.vocation == Vocation.MERCHANT && ModSimReloaded.isDayTime()) {
@@ -653,6 +654,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 }
 
                 falg = true;
+                return falg;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -737,7 +739,9 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 if (theData == null) {
                     hurtSound = null;
-                } else if (ConfigLoader.configFolkTalking) {
+                    return hurtSound;
+                }
+                if (ConfigLoader.configFolkTalking) {
                     if (System.currentTimeMillis() - this.lastHurt > 10000L) {
                         this.lastHurt = System.currentTimeMillis();
                         hurtSound = theData.gender == 0 ? ModSim.MODID + ":OuchM" : ModSim.MODID + ":OuchF";

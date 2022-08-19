@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|97.0,63.0,308.0,0
+vocation|BUILDER
 name|田菱莺
-age|21
+age|22
 gender|1
 skin|12
 race|
@@ -9,13 +9,13 @@ trait1|夜猫子
 trait2|友善的
 trait3|讨厌户外活动
 trait4|勇敢的
-levelfood|7
+levelfood|6
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
+stayput|true
 location|146.69999998807907,66.20000004768372,274.69999998807907,0
 pregnancy|0.0
-building|null
+building|金库.txt|residential||+x
 terraformtype|null
 terraformradius|1

@@ -2,107 +2,107 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <resourceExtensions>
-      <entry name=".+\.(properties|xml|html|dtd|tld)" />
-      <entry name=".+\.(gif|png|jpeg|jpg)" />
+      <entry name=".+\.(properties|xml|html|dtd|tld)"/>
+      <entry name=".+\.(gif|png|jpeg|jpg)"/>
     </resourceExtensions>
     <wildcardResourcePatterns>
-      <entry name="!?*.class" />
-      <entry name="!?*.scala" />
-      <entry name="!?*.java" />
-      <entry name="!?*.groovy" />
+      <entry name="!?*.class"/>
+      <entry name="!?*.scala"/>
+      <entry name="!?*.java"/>
+      <entry name="!?*.groovy"/>
     </wildcardResourcePatterns>
-    <bytecodeTargetLevel target="1.6" />
+    <bytecodeTargetLevel target="1.6"/>
   </component>
-  <component name="CopyrightManager" default="" />
+  <component name="CopyrightManager" default=""/>
   <component name="DependencyValidationManager">
-    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
+    <option name="SKIP_IMPORT_STATEMENTS" value="false"/>
   </component>
   <component name="EntryPointsManager">
     <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="net.minecraftforge.fml.common.Mod" />
-      <item index="1" class="java.lang.String" itemvalue="net.minecraftforge.fml.common.Mod.EventHandler" />
-      <item index="2" class="java.lang.String" itemvalue="net.minecraftforge.fml.common.eventhandler.SubscribeEvent" />
-      <item index="3" class="java.lang.String" itemvalue="net.minecraftforge.eventbus.api.SubscribeEvent" />
+      <item index="0" class="java.lang.String" itemvalue="net.minecraftforge.fml.common.Mod"/>
+      <item index="1" class="java.lang.String" itemvalue="net.minecraftforge.fml.common.Mod.EventHandler"/>
+      <item index="2" class="java.lang.String" itemvalue="net.minecraftforge.fml.common.eventhandler.SubscribeEvent"/>
+      <item index="3" class="java.lang.String" itemvalue="net.minecraftforge.eventbus.api.SubscribeEvent"/>
     </list>
   </component>
   <component name="GradleUISettings">
-    <setting name="root" />
+    <setting name="root"/>
   </component>
   <component name="GradleUISettings2">
-    <setting name="root" />
+    <setting name="root"/>
   </component>
-  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C" />
+  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C"/>
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
-      <option name="myName" value="Project Default" />
+      <option name="myName" value="Project Default"/>
       <inspection_tool class="JavaDoc" enabled="true" level="WARNING" enabled_by_default="true">
         <option name="TOP_LEVEL_CLASS_OPTIONS">
           <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="" />
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none"/>
+            <option name="REQUIRED_TAGS" value=""/>
           </value>
         </option>
         <option name="INNER_CLASS_OPTIONS">
           <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="" />
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none"/>
+            <option name="REQUIRED_TAGS" value=""/>
           </value>
         </option>
         <option name="METHOD_OPTIONS">
           <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="@return@param@throws or @exception" />
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none"/>
+            <option name="REQUIRED_TAGS" value="@return@param@throws or @exception"/>
           </value>
         </option>
         <option name="FIELD_OPTIONS">
           <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="" />
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none"/>
+            <option name="REQUIRED_TAGS" value=""/>
           </value>
         </option>
-        <option name="IGNORE_DEPRECATED" value="false" />
-        <option name="IGNORE_JAVADOC_PERIOD" value="true" />
-        <option name="IGNORE_DUPLICATED_THROWS" value="false" />
-        <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-        <option name="myAdditionalJavadocTags" value="date" />
+        <option name="IGNORE_DEPRECATED" value="false"/>
+        <option name="IGNORE_JAVADOC_PERIOD" value="true"/>
+        <option name="IGNORE_DUPLICATED_THROWS" value="false"/>
+        <option name="IGNORE_POINT_TO_ITSELF" value="false"/>
+        <option name="myAdditionalJavadocTags" value="date"/>
       </inspection_tool>
     </profile>
-    <version value="1.0" />
+    <version value="1.0"/>
   </component>
   <component name="JavadocGenerationManager">
-    <option name="OTHER_OPTIONS" value="" />
+    <option name="OTHER_OPTIONS" value=""/>
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module filepath="$PROJECT_DIR$/sim-u-1.8.9.iml" fileurl="file://$PROJECT_DIR$/sim-u-1.8.9.iml" />
+      <module filepath="$PROJECT_DIR$/sim-u-1.8.9.iml" fileurl="file://$PROJECT_DIR$/sim-u-1.8.9.iml"/>
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="1.8" project-jdk-type="JavaSDK" assert-keyword="true" assert-jdk-15="true">
+    <output url="file://$PROJECT_DIR$/out"/>
   </component>
   <component name="ProjectType">
-    <option name="id" value="jpab" />
+    <option name="id" value="jpab"/>
   </component>
   <component name="SvnBranchConfigurationManager">
-    <option name="mySupportsUserInfoFilter" value="true" />
+    <option name="mySupportsUserInfoFilter" value="true"/>
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="Git" />
+    <mapping directory="" vcs="Git"/>
   </component>
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl />
+            <SplitterProportionsDataImpl/>
           </splitter-proportions>
-          <settings />
+          <settings/>
         </UIState>
       </state>
       <state key="Copyright.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl />
+            <SplitterProportionsDataImpl/>
           </splitter-proportions>
         </UIState>
       </state>
@@ -112,7 +112,7 @@
             <SplitterProportionsDataImpl>
               <option name="proportions">
                 <list>
-                  <option value="0.2" />
+                  <option value="0.2"/>
                 </list>
               </option>
             </SplitterProportionsDataImpl>
@@ -123,9 +123,9 @@
       <state key="ScopeChooserConfigurable.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl />
+            <SplitterProportionsDataImpl/>
           </splitter-proportions>
-          <settings />
+          <settings/>
         </UIState>
       </state>
     </states>

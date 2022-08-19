@@ -15,6 +15,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -28,7 +29,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 @SideOnly(Side.CLIENT)
 public class GuiShowEmployees extends GuiScreen {
-    CopyOnWriteArrayList folks;
+    List folks;
     //鼠标计数
     private int mouseCount = 0;
     //前叉偏移
