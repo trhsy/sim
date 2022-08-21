@@ -1,7 +1,7 @@
 employedat|96.0,63.0,409.0,0
 vocation|TERRAFORMER
 name|钭佩卿
-age|22
+age|23
 gender|1
 skin|16
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|true
-location|92.5,64.0,270.5,0
+location|95.5,64.0,321.5,0
 pregnancy|0.0
 building|null
 terraformtype|WATERTODIRT

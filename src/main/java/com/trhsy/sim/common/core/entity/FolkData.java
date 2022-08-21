@@ -451,13 +451,17 @@ public class FolkData implements Serializable {
             }
             if (getDistanceToPlayer() < 100) {
                 theEntity = new EntityFolk(world);
+                //设置实体在世界中的位置和偏航/俯仰
                 theEntity.setLocationAndAngles(this.location.xCoord, this.location.yCoord, this.location.zCoord, 0.0F, 0.0F);
                 if (!world.isRemote) {
-                    theEntity.theData = this;
-                    world.spawnEntityInWorld(theEntity);
+                    if (theEntity.isDead||theEntity.theData==null) {
+                        theEntity.theData = this;
+                        world.spawnEntityInWorld(theEntity);
+                        ModSimReloaded.log.info("NPC ， " + this.name + " 在当前位置已重生，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + theEntity.getEntityId());
+                    }
                 }
                 this.entityId = theEntity.getEntityId();
-                ModSimReloaded.log.info("NPC ， " + this.name + " 在当前位置已重生，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + theEntity.getEntityId());
+
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -545,6 +549,7 @@ public class FolkData implements Serializable {
                     if (range < 100) {
                         //重生
                         this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
+                        ModSimReloaded.log.info("NPC" + this.name + "离玩家 " + range + " 个街区远,位于x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + ",所以下一刻被重生");
                     }
                 } else {
                     //如果它们是繁殖的，看看它们是否在射程之外，并迫使它们绝望

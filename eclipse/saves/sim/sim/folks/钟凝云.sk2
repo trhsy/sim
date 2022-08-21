@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|钟凝云
-age|18
+age|19
 gender|1
 skin|6
 race|
@@ -9,12 +9,12 @@ trait1|喜欢户外活动
 trait2|夜猫子
 trait3|擅长园艺
 trait4|强壮的
-levelfood|10
+levelfood|9
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|198.83711674089224,68.0,378.70423596833876,0
+location|148.5,66.0,291.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

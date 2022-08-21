@@ -63,7 +63,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         super(world);
         try {
             //避开水
-            ((PathNavigateGround) this.getNavigator()).setAvoidsWater(true);
+            ((PathNavigateGround) this.getNavigator()).setAvoidsWater(false);
             //会进门
             ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
             //破门而入
@@ -76,13 +76,22 @@ public class EntityFolk extends EntityCreature implements INpc {
 
             //闲置任务
             this.tasks.addTask(1, new EntityAILookIdle(this));
-            //闲逛
-            //this.tasks.addTask(5, new EntityAIWanderSUK(this, 0.5D));
-            this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
+
             //住进屋子
             this.tasks.addTask(2, new EntityAIMoveIndoors(this));
             //限制开门
             this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
+            //实体AI监视最近2
+            this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1));
+            //实体AI监视最近
+            this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+//开门
+            this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
+            //闲逛
+            //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
+            //闲逛
+            //this.tasks.addTask(5, new EntityAIWanderSUK(this, 0.5D));
+            this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
             //避免实体
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
@@ -91,21 +100,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             //游泳
             this.tasks.addTask(4, new EntityAISwimming(this));
 
-            //开门
-            this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
-            //实体AI监视最近
-            this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-            //实体AI监视最近2
-            this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1));
 
-            //闲逛
-            //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
-
-            //走向限制
-//            this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3));
-
-            //拾取战利品
-            this.setCanPickUpLoot(true);
             //启动
             if (!ModSim.proxy.ranStartup) {
                 ModSimReloaded.log.info("实体人：重置npc");
@@ -124,6 +119,13 @@ public class EntityFolk extends EntityCreature implements INpc {
 
     }
 
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 频繁调用，因此实体可以根据需要在每次滴答声时更新其状态。例如，僵尸和骷髅会利用这一点对阳光做出反应并开始燃烧。
+     * @Date 20:29 2022/8/20
+     * @Param []
+     **/
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
@@ -186,12 +188,13 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public void onUpdate() {
         try {
+            super.onUpdate();
             //如果NPC数据信息为空
             if (theData == null) {
                 //npc 没有死
                 if (!this.isDead) {
                     //定时器为初始值，定义当前时间
-                    if (this.ghostTimer == -1L) {
+                    if (this.ghostTimer == -1) {
                         this.ghostTimer = System.currentTimeMillis();
                     }
                     //重新赋值NPC数据，实体 ID 的民间数据
@@ -220,7 +223,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     //定义随机值
                     Random r = new Random();
                     //获取到玩家的距离
-                    double dist =theData.getDistanceToPlayer();
+                    double dist = theData.getDistanceToPlayer();
 
                     if (ModSimReloaded.states != null) {
                         long var10000 = System.currentTimeMillis();
@@ -374,14 +377,11 @@ public class EntityFolk extends EntityCreature implements INpc {
                             }
 
                             if (r.nextBoolean()) {
-                                try {
-                                    ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1, 1, false);
-                                } catch (Exception e) {
-                                }
+                                ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1, 1, false);
                             }
                         }
                     }
-
+                    //饿死
                     if (theData.levelFood < 0) {
                         this.onDeath(DamageSource.starve);
                     }
@@ -390,7 +390,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 }
             }
 
-            List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).expand(2.0, 4.0, 2.0));
+            List list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(this.posX, this.posY, this.posZ,this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).expand(2.0, 4.0, 2.0));
             if (!list1.isEmpty()) {
                 for (Object entitys : list1) {
                     Entity entity = (Entity) entitys;
@@ -464,17 +464,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }
                 } else {
                     if (!this.gotPath) {
-                        flag = this.getNavigator().tryMoveToXYZ(theData.destination.xCoord, theData.destination.yCoord, theData.destination.zCoord, 0.3D);
-                        this.gotPath = flag;
-                        if (flag == false) {
-                            V3 v = new V3(theData.destination.xCoord + 0.5, theData.destination.yCoord, theData.destination.zCoord + 0.5);
-                            theData.destination = v;
-                            PathEntity path = this.getNavigator().getPathToXYZ(v.xCoord, v.yCoord, v.zCoord);
-                            if (path != null) {
-                                ModSimReloaded.log.info("实体人:[ " + theData.name + " ]即走过去☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
-                                this.getNavigator().setPath(path, 0.3D);
-                                this.gotPath = true;
-                            }
+                        V3 v = new V3(theData.destination.xCoord + 0.5, theData.destination.yCoord, theData.destination.zCoord + 0.5);
+                        theData.destination = v;
+                        PathEntity path = this.getNavigator().getPathToXYZ(v.xCoord, v.yCoord, v.zCoord);
+                        if (path != null) {
+                            ModSimReloaded.log.info("实体人:[ " + theData.name + " ]即走过去☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
+                            this.getNavigator().setPath(path, 0.3D);
+                            this.gotPath = true;
                         }
                     }
                 }
@@ -483,7 +479,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if (theData.destination != null) {
                     donttimeout = theData.destination.doNotTimeout;
                 }
-                if (theData.timeStartedGotoing != null && donttimeout==false && System.currentTimeMillis() - theData.timeStartedGotoing > 40000L && theData.beamingTo == null) {
+                if (theData.timeStartedGotoing != null && donttimeout == false && System.currentTimeMillis() - theData.timeStartedGotoing > 40000L && theData.beamingTo == null) {
                     this.getNavigator().clearPathEntity();
                     if (dist > 2.0) {
                         V3 v = theData.destination;
@@ -504,13 +500,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                 this.getNavigator().clearPathEntity();
             } else {
                 if (x <= 1) {
-                    x = theData.location.xCoord + 0.5;
+                    x = theData.location.xCoord;
                 }
                 if (y <= 1) {
                     y = theData.location.yCoord;
                 }
                 if (z <= 1) {
-                    z = theData.location.zCoord + 0.5;
+                    z = theData.location.zCoord;
                 }
                 //theData.destination = new V3(x, y, z);
                 //ModSimReloaded.log.info("moveEntity,x:" + x + ",y:" + y + ",z:" + z);
@@ -780,15 +776,15 @@ public class EntityFolk extends EntityCreature implements INpc {
         return true;
     }
 
-    //@Override
-    //public AxisAlignedBB getCollisionBox(Entity par1Entity) {
-    //    return par1Entity.getCollisionBox(par1Entity);
-    //}
+   /* @Override
+    public AxisAlignedBB getCollisionBoundingBox(Entity par1Entity) {
+        return par1Entity.getCollisionBox(par1Entity);
+    }
 
-    //@Override
-    //public AxisAlignedBB getBoundingBox() {
-    //    return this.boundingBox;
-    //}
+    @Override
+    public AxisAlignedBB getEntityBoundingBox() {
+        return this.getEntityBoundingBox();
+    }*/
 
     @Override
     public boolean canBeCollidedWith() {

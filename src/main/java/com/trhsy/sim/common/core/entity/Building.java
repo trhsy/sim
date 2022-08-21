@@ -849,18 +849,20 @@ public class Building implements Serializable {
     }
 
     public static void loadAllBuildings() {
-            if(runningInitThread1==false){
-                runningInitThread1=true;
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ModSimReloaded.log.info("***********************开始加载世界上的建筑***************");
-                            File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
-                            if (buildingsFolder == null) {
-                                buildingsFolder.mkdirs();
-                            }
-                            File[] files = buildingsFolder.listFiles();
+        if (runningInitThread1 == false) {
+            runningInitThread1 = true;
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ModSimReloaded.log.info("***********************开始加载世界上的建筑***************");
+                        File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
+                        if (buildingsFolder == null) {
+                            buildingsFolder.mkdirs();
+                        }
+                        File[] files = buildingsFolder.listFiles();
+                        if (files.length > 1) {
+
                             Building build;
                             ModSimReloaded.theBuildings.clear();
                             for (File f : files) {
@@ -991,25 +993,26 @@ public class Building implements Serializable {
                                     }
                                 }
                             }
-                            runningInitThread1=false;
-                            ModSimReloaded.log.info("***********************加载世界上的建筑完成***************");
-                        } catch (Exception e) {
-                            StackTraceElement element = e.getStackTrace()[0];
-                            ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
                         }
-
+                        runningInitThread1 = false;
+                        ModSimReloaded.log.info("***********************加载世界上的建筑完成***************");
+                    } catch (Exception e) {
+                        StackTraceElement element = e.getStackTrace()[0];
+                        ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
                     }
 
-                }, "loadAllBuildings_sim");
-                thread.start();
-            }
+                }
+
+            }, "loadAllBuildings_sim");
+            thread.start();
+        }
     }
 
     public static Building loadBuildingsByLoction(V3 location) {
         Building build = new Building();
         try {
             File buildingsFolder = new File(ModSimReloaded.getSavesDataFolder() + "Buildings" + File.separator);
-            if (buildingsFolder == null||!buildingsFolder.exists()) {
+            if (buildingsFolder == null || !buildingsFolder.exists()) {
                 buildingsFolder.mkdirs();
             }
             File[] files = buildingsFolder.listFiles();
@@ -1209,33 +1212,33 @@ public class Building implements Serializable {
      * 初始化本地设备
      */
     public static void initialiseAllBuildings() {
-            if(runningInitThread==false){
-                runningInitThread=true;
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ModSimReloaded.log.info("***********************开始所有建筑蓝图加载***************");
-                            Building.buildingsRes.clear();
-                            Building.initBuildingsOfType("residential");
-                            Building.buildingsCom.clear();
-                            Building.initBuildingsOfType("commercial");
-                            Building.buildingsInd.clear();
-                            Building.initBuildingsOfType("industrial");
-                            Building.buildingsOth.clear();
-                            Building.initBuildingsOfType("other");
-                            Building.buildingsSpec.clear();
-                            Building.initBuildingsOfType("special");
-                            runningInitThread=false;
-                            ModSimReloaded.log.info("***********************所有建筑蓝图加载完成***************");
-                        } catch (Exception e) {
-                            StackTraceElement element = e.getStackTrace()[0];
-                            ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-                        }
+        if (runningInitThread == false) {
+            runningInitThread = true;
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ModSimReloaded.log.info("***********************开始所有建筑蓝图加载***************");
+                        Building.buildingsRes.clear();
+                        Building.initBuildingsOfType("residential");
+                        Building.buildingsCom.clear();
+                        Building.initBuildingsOfType("commercial");
+                        Building.buildingsInd.clear();
+                        Building.initBuildingsOfType("industrial");
+                        Building.buildingsOth.clear();
+                        Building.initBuildingsOfType("other");
+                        Building.buildingsSpec.clear();
+                        Building.initBuildingsOfType("special");
+                        runningInitThread = false;
+                        ModSimReloaded.log.info("***********************所有建筑蓝图加载完成***************");
+                    } catch (Exception e) {
+                        StackTraceElement element = e.getStackTrace()[0];
+                        ModSimReloaded.log.error("initialiseAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
                     }
-                }, "thread_sim");
-                thread.start();
-            }
+                }
+            }, "thread_sim");
+            thread.start();
+        }
     }
 
     /**

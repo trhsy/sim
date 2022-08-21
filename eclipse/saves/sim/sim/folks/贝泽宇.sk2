@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|贝泽宇
-age|19
+age|20
 gender|0
 skin|53
 race|
@@ -9,12 +9,12 @@ trait1|夜猫子
 trait2|强壮的
 trait3|讨厌户外活动
 trait4|友善的
-levelfood|10
+levelfood|9
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|193.0,65.0,387.0,0
+location|95.5,64.0,321.5,0
 pregnancy|0.0
 building|null
 terraformtype|null
