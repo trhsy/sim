@@ -18,12 +18,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * 通用勾号处理程序
  */
 public class CommonTickHandler {
-    private World serverWorld;
+    private World serverWorld=null;
     /*最后勾选*/
     Long lastSecondTickAt = 0L;
     /*最后勾选*/
@@ -70,32 +71,33 @@ public class CommonTickHandler {
             if (FMLCommonHandler.instance().getSide().isClient()) {
                 if (ModSimReloaded.states.gameModeNumber == 10) {
                     ModSim.proxy.ranStartup = true;
-//                    return;
+                    return;
                 }
             }
             Long now = System.currentTimeMillis();
-            //每秒一次
-            if (now - this.lastSecondTickAt > 1000L) {
-                if (this.serverWorld != null) {
-                    //ModSimReloaded.log.info("触发每秒更新");
-                    //触发NPC所有更新
-                    FolkData.triggerAllUpdates();
+            if (this.serverWorld != null) {
+                //ModSimReloaded.log.info("触发每秒更新");
+                //触发NPC所有更新
+                FolkData.triggerAllUpdates();
 //                    ModSimReloaded.log.info("触发NPC更新");
-                    //处理昼夜转换
-                    ModSimReloaded.dayTransitionHandler();
+                //处理昼夜转换
+                ModSimReloaded.dayTransitionHandler();
 //                    ModSimReloaded.log.info("触发昼夜转换更新");
-                    //如果要升级的农场不为空则升级农场
-                    if (ModSimReloaded.farmToUpgrade != null) {
-                        ModSimReloaded.upgradeFarm();
-                    }
+                //如果要升级的农场不为空则升级农场
+                if (ModSimReloaded.farmToUpgrade != null) {
+                    ModSimReloaded.upgradeFarm();
+                }
 //                    ModSimReloaded.log.info("触发要升级的农场更新");
-                    //需要拆除的方块不为空则
-                    if (ModSimReloaded.demolishBlocks.size() > 0) {
-                        ModSimReloaded.demolishBlocks();
-                    }
+                //需要拆除的方块不为空则
+                if (ModSimReloaded.demolishBlocks.size() > 0) {
+                    ModSimReloaded.demolishBlocks();
+                }
 //                    ModSimReloaded.log.info("触发需要拆除的方块更新");
 //                    ModSimReloaded.log.info("每秒更新结束");
-                }
+            }
+            //每秒一次
+            if (now - this.lastSecondTickAt > 1000L) {
+
                 if (ModSim.proxy.ranStartup==false) {
                     //还没有启动——现在就这么做
                     //ModSimReloaded.log.info("Haven't run startup - doing that now");
@@ -161,7 +163,27 @@ public class CommonTickHandler {
         }
 
     }
+    public void resetSimUKraft()
+    {
+        //这会首先重置所有内容，如果玩家切换了世界，会因为奇怪的MC GUI切换而多次命中，因此lastReset会阻止它每30秒运行一次以上。
+        if (System.currentTimeMillis() - lastReset > 30000)
+        {
 
+            lastReset = System.currentTimeMillis();
+            Side side = FMLCommonHandler.instance().getEffectiveSide();
+
+            ModSimReloaded.log.info(side.toString()+"-side CommTH: resetSimUKraft()");
+        }
+    }
+    private void startingWorld()
+    {
+        if (!ModSim.proxy.ranStartup)
+        {
+            // TODO: no longer used
+
+
+        }
+    }
     public String getLabel() {
         return "CommonTickHandler";
     }

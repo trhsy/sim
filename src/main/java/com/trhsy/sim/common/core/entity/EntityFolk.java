@@ -53,8 +53,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     private long greetTimer = 0L;
     //最后一次受伤
     private long lastHurt = 0L;
-    //日历
-    private Calendar cal = new GregorianCalendar();
+
     //找到路了吗
     public boolean gotPath;
 
@@ -99,11 +98,12 @@ public class EntityFolk extends EntityCreature implements INpc {
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
             //游泳
             this.tasks.addTask(4, new EntityAISwimming(this));
-
+            this.isDead=false;
 
             //启动
             if (!ModSim.proxy.ranStartup) {
                 ModSimReloaded.log.info("实体人：重置npc");
+                theData.isDead=true;
                 this.setDead();
             }
 //停用算时间是否是圣诞节
@@ -204,6 +204,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         ModSimReloaded.log.info("NPC: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以判定为死亡");
                         //设置死亡
                         //this.onDeath(DamageSource.inWall);
+                        theData.isDead=true;
                         this.setDead();
                     }
                 }
@@ -626,6 +627,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             mc.currentScreen = null;
             GuiScreen ui = null;
             if (theData == null) {
+                theData.isDead=true;
                 this.setDead();
                 falg = false;
                 return falg;

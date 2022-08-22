@@ -9,12 +9,12 @@ trait1|强壮的
 trait2|夜猫子
 trait3|勇敢的
 trait4|友善的
-levelfood|6
+levelfood|3
 levelbuilder|1.1661189
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-59.5,238.0,-1433.5,0
+location|-64.5,238.0,-1433.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

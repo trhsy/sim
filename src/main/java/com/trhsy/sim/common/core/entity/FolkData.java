@@ -174,6 +174,8 @@ public class FolkData implements Serializable {
     protected transient float matingStage = -1;
     //实体id
     private transient int entityId;
+    //NPC 是否不活动了
+    public boolean isDead;
 
     public FolkData() {
         try {
@@ -206,6 +208,7 @@ public class FolkData implements Serializable {
             hangingWith = null;
             this.talkCounter = 0;
             this.matingStage = -1;
+            this.isDead = false;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("FolkData出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -284,6 +287,7 @@ public class FolkData implements Serializable {
             //生成特征
             generateTraits();
             this.respawnEntity(theWorld);
+            this.isDead = false;
             ModSimReloaded.theFolks.add(this);
             //刚刚进入该地区。
             String just = I18n.format("container.sim.folk_data_just");
@@ -300,7 +304,7 @@ public class FolkData implements Serializable {
             this.gender = rand.nextInt(2);
             this.name = theName;
             this.age = 18;
-
+            this.isDead = false;
             if (gender == 0) {
                 //this.folkRace = Races.raceList.get(rand.nextInt(Races.raceList.size()));
                 //this.folkRaceName = folkRace.getRaceName();
@@ -344,7 +348,7 @@ public class FolkData implements Serializable {
         try {
             Random rand = new Random();
             String surname = "Unknown";
-
+            this.isDead = false;
             generateTraits();
 
             if (father != null) {
@@ -445,7 +449,7 @@ public class FolkData implements Serializable {
             }
             //已经繁殖了，所以不需要
             if (theEntity != null) {
-                if (!theEntity.isDead) {
+                if (!theEntity.isDead || !this.isDead) {
                     return;
                 }
             }
@@ -454,9 +458,11 @@ public class FolkData implements Serializable {
                 //设置实体在世界中的位置和偏航/俯仰
                 theEntity.setLocationAndAngles(this.location.xCoord, this.location.yCoord, this.location.zCoord, 0.0F, 0.0F);
                 if (!world.isRemote) {
-                    if (theEntity.isDead||theEntity.theData==null) {
+                    if (theEntity.isDead || theEntity.theData == null || this.isDead) {
                         theEntity.theData = this;
                         world.spawnEntityInWorld(theEntity);
+                        theEntity.isDead = false;
+                        this.isDead = false;
                         ModSimReloaded.log.info("NPC ， " + this.name + " 在当前位置已重生，x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + " 维度:" + this.location.theDimension + " 实体id:" + theEntity.getEntityId());
                     }
                 }
@@ -525,7 +531,216 @@ public class FolkData implements Serializable {
             String shopping = I18n.format("container.sim.folk_data_Shopping");
             Random rand = new Random();
             Long now = System.currentTimeMillis();
+            //其余的将在每次更新/勾选时运行
+            //如果他们正在微笑，则执行微笑进度
+            if (this.beamingTo != null) {
+                this.doBeaming();
+            }
+            //日夜不停地更新工作内容
+            if (this.theirJob != null) {
+                this.theirJob.onUpdate();
+            }
+            //60秒
+            if (now - this.timeSinceLastMinute > 60000L) {
+                //如果 状态有 和朋友一起，在商店购物，参观，待在家，在家放松
+                if (!this.statusText.contains(hanging) && !this.statusText.startsWith(shopping) && !this.statusText.contains(visiting) && !this.statusText.contains(staying) && !this.statusText.contains(relaxing) && this.levelFun > 1 && !this.isWorking) {
+                    //乐趣--
+                    levelFun -= 1;
+                }
+                //在工作中并且乐趣大于11
+                if (this.isWorking == true && this.levelFun > 1) {
+                    levelFun -= 1;
+                }
+                //没有家
+                if (this.getHome() == null && this.timeSinceLastMinute > 0L) {
+                    this.getHomeForHomeless();
+                }
+                //和朋友在一起，并且社交大于1
+                if (!statusText.contains(hanging) && this.levelSocial > 1) {
+                    levelSocial -= 1;
+                }
+                //如果怀孕并在第9天分娩！
+                long t = MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L;
+                if (t < 2000L && this.pregnancyStage >= 1) {
+                    //循环所有建筑物
+                    for (Building build : ModSimReloaded.theBuildings) {
+                        //诊所
+                        String clinic = I18n.format("container.sim.FolkData.Clinic");
+                        //建筑不为空 主体坐标不为空 建筑名字包括诊所
+                        if (build != null && build.primaryXYZ != null && build.displayName.contains(clinic)) {
+                            //目的地等于空
+                            if (this.destination == null) {
+                                if (!build.blockSpecial.isEmpty()) {
+                                    V3 bed = build.blockSpecial.get(0);
+                                    this.gotoXYZ(bed, null);
+                                    //就要生孩子了,她正在去诊所的路上！
+                                    String baby = I18n.format("container.sim.folk_data_baby");
+                                    ModSimReloaded.sendChat(this.name + baby);
+                                }
+                            }
+                        }
+                    }
+                    //生孩子
+                    this.action = FolkAction.HAVINGBABY;
+                } else if (t > 2000L && this.pregnancyStage >= 1) {
+                    //刚生了个孩子
+                    this.statusText = I18n.format("container.sim.folk_data_a_baby");
+                    this.pregnancyStage = 0.0F;
+                    //和父母在一起
+                    FolkData male = Relationship.isFolkLivingWithSomeone(this, true);
+                    new FolkData(MinecraftServer.getServer().worldServerForDimension(0), this, male);
+                }
+                //待在家里或在家放松时，确保他们不会走得太远
+                if (this.action == FolkAction.ATHOME || this.action == FolkAction.STAYINGHOME) {
+                    //更新实体位置
+                    this.updateLocationFromEntity();
+                    V3 liveAt = null;
+                    if (this.getHome() != null) {
+                        if (this.getHome().livingXYZ != null) {
+                            liveAt = this.getHome().livingXYZ.clone();
+                        }
+                    }
 
+                    if (liveAt == null) {
+                        if (this.getHome() != null) {
+                            if (this.getHome().primaryXYZ != null) {
+                                liveAt = this.getHome().primaryXYZ.clone();
+                            }
+                        }
+                    }
+                    if (liveAt != null) {
+                        if (this.location.getDistanceTo(liveAt) > 5 && this.destination == null || this.location.theDimension != this.getHome().primaryXYZ.theDimension) {
+                            this.actionArrival = this.action;
+                            this.gotoXYZ(liveAt, null);
+                        }
+                    }
+                }
+                //如果他们在闲逛，就让他们逛商店和房子
+                boolean gotWanderPoint = false;
+                //闲逛 已经生成 没有被雇佣 年龄大于18 状态中没有宝宝
+                if (this.action == FolkAction.WANDER && this.isSpawned() && this.employedAt == null && this.age >= 18 && !this.statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
+                    for (int xo = 0; xo < ModSimReloaded.theBuildings.size(); xo++) {
+                        //随机去逛
+                        Building b = ModSimReloaded.theBuildings.get(rand.nextInt(ModSimReloaded.theBuildings.size()));
+                        //获得距离建筑的距离
+                        double dist = this.location.getDistanceTo(b.primaryXYZ);
+                        //农场
+                        String farm = I18n.format("container.sim.gui_Farm");
+                        if (dist < 100) {
+                            //商业
+                            if (b.type.contentEquals("commercial")) {
+                                //是否有店主
+                                boolean hasShopKeeper = false;
+                                for (int f = 0; f < ModSimReloaded.theFolks.size(); f++) {
+                                    //获得店主
+                                    FolkData keeper = (FolkData) ModSimReloaded.theFolks.get(f);
+                                    //店主被雇佣并且 店主在店里
+                                    if (keeper.employedAt != null && keeper.employedAt.isSameCoordsAs(b.primaryXYZ, true, true)) {
+                                        hasShopKeeper = true;
+                                        break;
+                                    }
+                                }
+                                //有店主
+                                if (hasShopKeeper) {
+                                    //ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个距离之外。");
+                                    //设置走过去
+                                    this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
+                                    this.destination.doNotTimeout = true;
+                                    this.statusText = shopping + b.displayName;
+                                    gotWanderPoint = true;
+                                    if (this.hangingWith != null) {
+                                        //闲逛
+                                        this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
+                                        this.hangingWith.hangingWith = null;
+                                        this.hangingWith = null;
+                                    }
+                                    break;
+                                }
+                                //工业
+                            } else if (b.type.contentEquals("industrial") && !b.displayName.toLowerCase().contains(farm)) {
+                                //ModSimReloaded.log.info("FolkData: onUpdate() " + this.name + "距离" + b.displayName + " " + dist + " 个街区之外。");
+                                this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
+                                this.destination.doNotTimeout = true;
+                                this.statusText = I18n.format("container.sim.folk_data_Visiting") + b.displayName;
+                                gotWanderPoint = true;
+
+                                if (this.hangingWith != null) {
+                                    this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
+                                    this.hangingWith.hangingWith = null;
+                                    this.hangingWith = null;
+                                }
+                                break;
+                            } else if (b.type.contentEquals("residential") && this.hangingWith == null) {
+                                if (b.tenants != null && b.tenants.size() > 0) {
+                                    //住宅
+                                    FolkData resy = getFolkByName(b.tenants.get(0));
+                                    if (!resy.name.contentEquals(this.name) && resy.hangingWith == null) {
+                                        if (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME) {
+                                            ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个街区之外。");
+                                            this.gotoXYZ(b.primaryXYZ, null);
+                                            gotWanderPoint = true;
+                                            hanging = I18n.format("container.sim.folk_data_Hanging");
+                                            this.statusText = hanging + resy.name;
+                                            resy.gotoXYZ(b.primaryXYZ, null);
+                                            if (this.destination != null) {
+                                                this.destination.doNotTimeout = true;
+                                            }
+
+                                            resy.statusText = hanging + this.name;
+                                            this.hangingWith = resy;
+                                            resy.hangingWith = this;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (!gotWanderPoint) {
+                        //随机让去一个地方
+                        V3 wanderTo = new V3(this.location.xCoord + 1, this.location.yCoord, this.location.zCoord + 1, this.location.theDimension);
+                        WorldServer world = MinecraftServer.getServer().worldServerForDimension(this.location.theDimension);
+                        BlockPos blockPos = new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord);
+                        Block block = world.getBlockState(blockPos).getBlock();
+                        if (block != null && wanderTo.yCoord < 255.0) {
+                            //wanderTo.yCoord = wanderTo.yCoord + 1;
+                            wanderTo = new V3(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
+                        }
+
+                        //ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
+                        this.gotoXYZ(wanderTo, GotoMethod.WALK);
+                        if (this.destination != null) {
+                            this.destination.doNotTimeout = true;
+                        }
+
+                        this.statusText = I18n.format("container.sim.folk_data.Wandering");
+                        this.stayPut = false;
+                    }
+                    //宝宝闲逛
+                } else if (this.action == FolkAction.WANDER && this.isSpawned() && this.age < 18) {
+                    //跟着TA妈妈
+                    FolkData male = Relationship.getMotherOf(this);
+                    if (male != null) {
+                        this.gotoXYZ(male.location, null);
+                    }
+                }
+
+                if (this.hangingWith != null) {
+                    //闲逛
+                    if (!this.hangingWith.statusText.contains(this.name)) {
+                        this.hangingWith = null;
+                        this.statusText = I18n.format("container.sim.folk_data.Wandering");
+                    }
+                }
+                //晚上，并且和某人在一起 交配欲望小于0
+                if (!ModSimReloaded.isDayTime() && Relationship.isFolkLivingWithSomeone(this) && this.matingStage < 0.0F) {
+                    //尝试生宝宝
+                    this.tryForBaby();
+                }
+
+                this.timeSinceLastMinute = now - (long) rand.nextInt(20000);
+            }
             /**每秒钟一次的任务**/
             if (now - this.timeSinceLastStatusUpdate > 1000L) {
                 //没有特征 生成特征
@@ -559,6 +774,7 @@ public class FolkData implements Serializable {
                     if (range >= 100) {
                         if (theEntity != null) {
                             ModSimReloaded.log.info("NPC" + this.name + "离玩家 " + range + " 个街区远,位于x:" + this.location.xCoord + ",y:" + this.location.yCoord + ",z:" + this.location.zCoord + ",所以下一刻被摧毁");
+                            isDead = true;
                             theEntity.setDead();
                         }
                     }
@@ -803,216 +1019,6 @@ public class FolkData implements Serializable {
                 this.timeSinceLastStatusUpdate = now;
             }
 
-            //60秒
-            if (now - this.timeSinceLastMinute > 60000L) {
-                //如果 状态有 和朋友一起，在商店购物，参观，待在家，在家放松
-                if (!this.statusText.contains(hanging) && !this.statusText.startsWith(shopping) && !this.statusText.contains(visiting) && !this.statusText.contains(staying) && !this.statusText.contains(relaxing) && this.levelFun > 1 && !this.isWorking) {
-                    //乐趣--
-                    levelFun -= 1;
-                }
-                //在工作中并且乐趣大于11
-                if (this.isWorking == true && this.levelFun > 1) {
-                    levelFun -= 1;
-                }
-                //没有家
-                if (this.getHome() == null && this.timeSinceLastMinute > 0L) {
-                    this.getHomeForHomeless();
-                }
-                //和朋友在一起，并且社交大于1
-                if (!statusText.contains(hanging) && this.levelSocial > 1) {
-                    levelSocial -= 1;
-                }
-                //如果怀孕并在第9天分娩！
-                long t = MinecraftServer.getServer().worldServers[0].getWorldTime() % 24000L;
-                if (t < 2000L && this.pregnancyStage >= 1) {
-                    //循环所有建筑物
-                    for (Building build : ModSimReloaded.theBuildings) {
-                        //诊所
-                        String clinic = I18n.format("container.sim.FolkData.Clinic");
-                        //建筑不为空 主体坐标不为空 建筑名字包括诊所
-                        if (build != null && build.primaryXYZ != null && build.displayName.contains(clinic)) {
-                            //目的地等于空
-                            if (this.destination == null) {
-                                if (!build.blockSpecial.isEmpty()) {
-                                    V3 bed = build.blockSpecial.get(0);
-                                    this.gotoXYZ(bed, null);
-                                    //就要生孩子了,她正在去诊所的路上！
-                                    String baby = I18n.format("container.sim.folk_data_baby");
-                                    ModSimReloaded.sendChat(this.name + baby);
-                                }
-                            }
-                        }
-                    }
-                    //生孩子
-                    this.action = FolkAction.HAVINGBABY;
-                } else if (t > 2000L && this.pregnancyStage >= 1) {
-                    //刚生了个孩子
-                    this.statusText = I18n.format("container.sim.folk_data_a_baby");
-                    this.pregnancyStage = 0.0F;
-                    //和父母在一起
-                    FolkData male = Relationship.isFolkLivingWithSomeone(this, true);
-                    new FolkData(MinecraftServer.getServer().worldServerForDimension(0), this, male);
-                }
-                //待在家里或在家放松时，确保他们不会走得太远
-                if (this.action == FolkAction.ATHOME || this.action == FolkAction.STAYINGHOME) {
-                    //更新实体位置
-                    this.updateLocationFromEntity();
-                    V3 liveAt = null;
-                    if (this.getHome() != null) {
-                        if (this.getHome().livingXYZ != null) {
-                            liveAt = this.getHome().livingXYZ.clone();
-                        }
-                    }
-
-                    if (liveAt == null) {
-                        if (this.getHome() != null) {
-                            if (this.getHome().primaryXYZ != null) {
-                                liveAt = this.getHome().primaryXYZ.clone();
-                            }
-                        }
-                    }
-                    if (liveAt != null) {
-                        if (this.location.getDistanceTo(liveAt) > 5 && this.destination == null || this.location.theDimension != this.getHome().primaryXYZ.theDimension) {
-                            this.actionArrival = this.action;
-                            this.gotoXYZ(liveAt, null);
-                        }
-                    }
-                }
-                //如果他们在闲逛，就让他们逛商店和房子
-                boolean gotWanderPoint = false;
-                //闲逛 已经生成 没有被雇佣 年龄大于18 状态中没有宝宝
-                if (this.action == FolkAction.WANDER && this.isSpawned() && this.employedAt == null && this.age >= 18 && !this.statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
-                    for (int xo = 0; xo < ModSimReloaded.theBuildings.size(); xo++) {
-                        //随机去逛
-                        Building b = ModSimReloaded.theBuildings.get(rand.nextInt(ModSimReloaded.theBuildings.size()));
-                        //获得距离建筑的距离
-                        double dist = this.location.getDistanceTo(b.primaryXYZ);
-                        //农场
-                        String farm = I18n.format("container.sim.gui_Farm");
-                        if (dist < 100) {
-                            //商业
-                            if (b.type.contentEquals("commercial")) {
-                                //是否有店主
-                                boolean hasShopKeeper = false;
-                                for (int f = 0; f < ModSimReloaded.theFolks.size(); f++) {
-                                    //获得店主
-                                    FolkData keeper = (FolkData) ModSimReloaded.theFolks.get(f);
-                                    //店主被雇佣并且 店主在店里
-                                    if (keeper.employedAt != null && keeper.employedAt.isSameCoordsAs(b.primaryXYZ, true, true)) {
-                                        hasShopKeeper = true;
-                                        break;
-                                    }
-                                }
-                                //有店主
-                                if (hasShopKeeper) {
-                                    //ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个距离之外。");
-                                    //设置走过去
-                                    this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
-                                    this.destination.doNotTimeout = true;
-                                    this.statusText = shopping + b.displayName;
-                                    gotWanderPoint = true;
-                                    if (this.hangingWith != null) {
-                                        //闲逛
-                                        this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
-                                        this.hangingWith.hangingWith = null;
-                                        this.hangingWith = null;
-                                    }
-                                    break;
-                                }
-                                //工业
-                            } else if (b.type.contentEquals("industrial") && !b.displayName.toLowerCase().contains(farm)) {
-                                //ModSimReloaded.log.info("FolkData: onUpdate() " + this.name + "距离" + b.displayName + " " + dist + " 个街区之外。");
-                                this.gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
-                                this.destination.doNotTimeout = true;
-                                this.statusText = I18n.format("container.sim.folk_data_Visiting") + b.displayName;
-                                gotWanderPoint = true;
-
-                                if (this.hangingWith != null) {
-                                    this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
-                                    this.hangingWith.hangingWith = null;
-                                    this.hangingWith = null;
-                                }
-                                break;
-                            } else if (b.type.contentEquals("residential") && this.hangingWith == null) {
-                                if (b.tenants != null && b.tenants.size() > 0) {
-                                    //住宅
-                                    FolkData resy = getFolkByName(b.tenants.get(0));
-                                    if (!resy.name.contentEquals(this.name) && resy.hangingWith == null) {
-                                        if (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME) {
-                                            ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个街区之外。");
-                                            this.gotoXYZ(b.primaryXYZ, null);
-                                            gotWanderPoint = true;
-                                            hanging = I18n.format("container.sim.folk_data_Hanging");
-                                            this.statusText = hanging + resy.name;
-                                            resy.gotoXYZ(b.primaryXYZ, null);
-                                            if (this.destination != null) {
-                                                this.destination.doNotTimeout = true;
-                                            }
-
-                                            resy.statusText = hanging + this.name;
-                                            this.hangingWith = resy;
-                                            resy.hangingWith = this;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (!gotWanderPoint) {
-                        //随机让去一个地方
-                        V3 wanderTo = new V3(this.location.xCoord + 1, this.location.yCoord, this.location.zCoord + 1, this.location.theDimension);
-                        WorldServer world = MinecraftServer.getServer().worldServerForDimension(this.location.theDimension);
-                        BlockPos blockPos = new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord);
-                        Block block = world.getBlockState(blockPos).getBlock();
-                        if (block != null && wanderTo.yCoord < 255.0) {
-                            //wanderTo.yCoord = wanderTo.yCoord + 1;
-                            wanderTo = new V3(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
-                        }
-
-                        //ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + this.name + " to " + wanderTo.toString());
-                        this.gotoXYZ(wanderTo, GotoMethod.WALK);
-                        if (this.destination != null) {
-                            this.destination.doNotTimeout = true;
-                        }
-
-                        this.statusText = I18n.format("container.sim.folk_data.Wandering");
-                        this.stayPut = false;
-                    }
-                    //宝宝闲逛
-                } else if (this.action == FolkAction.WANDER && this.isSpawned() && this.age < 18) {
-                    //跟着TA妈妈
-                    FolkData male = Relationship.getMotherOf(this);
-                    if (male != null) {
-                        this.gotoXYZ(male.location, null);
-                    }
-                }
-
-                if (this.hangingWith != null) {
-                    //闲逛
-                    if (!this.hangingWith.statusText.contains(this.name)) {
-                        this.hangingWith = null;
-                        this.statusText = I18n.format("container.sim.folk_data.Wandering");
-                    }
-                }
-                //晚上，并且和某人在一起 交配欲望小于0
-                if (!ModSimReloaded.isDayTime() && Relationship.isFolkLivingWithSomeone(this) && this.matingStage < 0.0F) {
-                    //尝试生宝宝
-                    this.tryForBaby();
-                }
-
-                this.timeSinceLastMinute = now - (long) rand.nextInt(20000);
-            }
-            //其余的将在每次更新/勾选时运行
-            //如果他们正在微笑，则执行微笑进度
-            if (this.beamingTo != null) {
-                this.doBeaming();
-            }
-            //日夜不停地更新工作内容
-            if (this.theirJob != null) {
-                this.theirJob.onUpdate();
-            }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("FolkData-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -1211,8 +1217,10 @@ public class FolkData implements Serializable {
             }
             if (theEntity == null) {
                 falg = false;
+                return falg;
             } else {
-                falg = !theEntity.isDead;
+                //return theEntity.isEntityAlive();
+                return true;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -1577,9 +1585,11 @@ public class FolkData implements Serializable {
             //仅当它们当前已繁殖时才执行此操作
             this.updateLocationFromEntity();
             if (this.beamingTo != null) {
+                //ModSimReloaded.log.warn("FolkData:beamMeTo() 已经传送 " + this.name);
                 return;
             }
             if (whereToIn == null) {
+                //ModSimReloaded.log.warn("FolkData: beamMeTo() 传送地址为空，取消传送 ");
                 return;
             }
 
@@ -1589,29 +1599,26 @@ public class FolkData implements Serializable {
             for (int i = 0; i < 200; i++) {
                 Block id1 = destWorld.getBlockState(new BlockPos(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord)).getBlock();
                 Block id2 = destWorld.getBlockState(new BlockPos(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord)).getBlock();
-                if (id1==null && id2==null) {
+                if (id1 == null && id2 == null) {
                     break;
                 }
-                whereTo = new V3(whereTo.xCoord, whereTo.yCoord +1, whereTo.zCoord);
+                whereTo = new V3(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord);
                 //whereTo.yCoord = whereTo.yCoord + 1;
             }
-            whereTo = new V3(whereTo.xCoord + 0.5, whereTo.yCoord -199, whereTo.zCoord + 0.5);
+            whereTo = new V3(whereTo.xCoord + 0.5, whereTo.yCoord - 199, whereTo.zCoord + 0.5);
 
 
             this.destination = whereTo.clone();
             //ModSimReloaded.log.info("FolkData: BeamMeTo() for " + this.name + " to " + whereTo.toString() + " Dim:" + whereTo.theDimension);
             this.stayPut = true;
-            if (this.isSpawned()) {
+            if (isSpawned()) {
                 if (theEntity != null) {
                     theEntity.getNavigator().clearPathEntity();
                 }
             }
-
             if (ModSim.proxy.getClientWorld() != null) {
                 ModSim.proxy.getClientWorld().playSound(location.xCoord, location.yCoord, location.zCoord, ModSim.MODID + ":beamdown", 1, 1, false);
                 ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f, false);
-//                    ModSimReloaded.log.info("传送完毕：x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
-//                this.stayPut = true;
             }
 
             this.beamingTo = whereTo.clone();
@@ -1628,10 +1635,11 @@ public class FolkData implements Serializable {
     private void doBeaming() {
         try {
             if (System.currentTimeMillis() - this.timeStartedGotoing > 4000L || this.beamingTo == null) {
+                //通过传送到达
                 if (theEntity != null) {
                     //设置实体的位置并更新“最后”变量
                     //theEntity.setPosition(this.beamingTo.xCoord, this.beamingTo.yCoord, this.beamingTo.zCoord);
-                    this.theEntity.setPositionAndUpdate(beamingTo.xCoord, beamingTo.yCoord+1, beamingTo.zCoord);
+                    this.theEntity.setPositionAndUpdate(beamingTo.xCoord, beamingTo.yCoord + 1, beamingTo.zCoord);
                     if (theEntity.dimension != this.beamingTo.theDimension) {
                         theEntity.travelToDimension(this.beamingTo.theDimension);
                         theEntity.dimension = this.beamingTo.theDimension;
@@ -1643,22 +1651,21 @@ public class FolkData implements Serializable {
                 this.location = this.beamingTo.clone();
                 this.destination = null;
                 this.beamingTo = null;
+                this.saveThisFolk();
                 this.respawnEntity(MinecraftServer.getServer().worldServerForDimension(this.location.theDimension));
                 return;
             }
             Random random = new Random();
-            Double d4 = ((double) random.nextFloat() - 2.0) * 2.0;
+            Double d4 = ((double) random.nextFloat() - 2) * 2;
             this.stayPut = true;
             if (!MinecraftServer.getServer().isDedicatedServer()) {
                 //仅需要粒子的客户端世界
                 World theWorld = Minecraft.getMinecraft().theWorld;
-                for (int p = 0; p < 10; ++p) {
-                    //仅需要粒子的客户端世界
-                    if (theWorld != null) {
+                if (theWorld != null) {
+                    for (int p = 0; p < 10; p++) {
+                        //仅需要粒子的客户端世界
                         if (!ConfigLoader.configDisableBeamEffect) {
                             theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.location.xCoord + random.nextDouble() - 0.5D, this.location.yCoord - 1.0, this.location.zCoord + random.nextDouble() - 0.5D, 0, -d4, 0);
-                        }
-                        if (!ConfigLoader.configDisableBeamEffect) {
                             theWorld.spawnParticle(EnumParticleTypes.PORTAL, this.beamingTo.xCoord + random.nextDouble() - 0.5D, this.beamingTo.yCoord - 1.0, this.beamingTo.zCoord + random.nextDouble() - 0.5D, 0, -d4, 0);
                         }
                     }
@@ -1667,6 +1674,8 @@ public class FolkData implements Serializable {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("doBeaming出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            this.destination = null;
+            beamingTo = null;
         }
     }
 
@@ -1935,6 +1944,7 @@ public class FolkData implements Serializable {
             for (int x = 0; x < ModSimReloaded.theFolks.size(); x++) {
                 FolkData f = ModSimReloaded.theFolks.get(x);
                 if (f.name.contentEquals(name)) {
+                    //ModSimReloaded.log.info("依据姓名找到NPC:"+name);
                     return f;
                 }
             }
@@ -2021,7 +2031,7 @@ public class FolkData implements Serializable {
      * @return
      */
     public static List getFolkUnemployed(boolean showEmployed) {
-       List f = new CopyOnWriteArrayList();
+        List f = new CopyOnWriteArrayList();
         try {
             for (int x = 0; x < ModSimReloaded.theFolks.size(); x++) {
                 FolkData folk = ModSimReloaded.theFolks.get(x);
@@ -2051,7 +2061,7 @@ public class FolkData implements Serializable {
         List f = new CopyOnWriteArrayList();
         try {
             for (int x = 0; x < ModSimReloaded.theFolks.size(); x++) {
-                FolkData folk =ModSimReloaded.theFolks.get(x);
+                FolkData folk = ModSimReloaded.theFolks.get(x);
                 if (folk.getHome() == null) {
                     f.add(folk);
                 }
@@ -2072,7 +2082,7 @@ public class FolkData implements Serializable {
     public static FolkData getFolkDataByEntityId(int id) {
         try {
             for (int i = 0; i < ModSimReloaded.theFolks.size(); i++) {
-                FolkData fd =ModSimReloaded.theFolks.get(i);
+                FolkData fd = ModSimReloaded.theFolks.get(i);
                 if (fd.theEntity != null && fd.theEntity.getEntityId() == id) {
                     return fd;
                 }
@@ -2240,10 +2250,11 @@ public class FolkData implements Serializable {
             if (this.getHome() != null) {
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                     Building building = ModSimReloaded.theBuildings.get(b);
-                    if (building != null && this.getHome() != null ){
-                           if(building.primaryXYZ.isSameCoordsAs(this.getHome().primaryXYZ, true, false)) {
-                        building.removeTennant(this.name);
-                    }}
+                    if (building != null && this.getHome() != null) {
+                        if (building.primaryXYZ.isSameCoordsAs(this.getHome().primaryXYZ, true, false)) {
+                            building.removeTennant(this.name);
+                        }
+                    }
                 }
             }
         } catch (Exception e) {

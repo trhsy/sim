@@ -384,7 +384,7 @@ public class ModSimReloaded {
             if (!isDayTime() && isDay == true) {
                 isDay = false;
                 //Day to Night transition
-                ModSimReloaded.log.info("渡过一晚");
+                ModSimReloaded.log.info("夜幕降临");
                 if (theFolks.size() > 1) {
                     Random rand = new Random();
                     int f1 = rand.nextInt(theFolks.size());

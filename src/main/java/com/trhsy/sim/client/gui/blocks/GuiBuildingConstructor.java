@@ -95,7 +95,7 @@ public class GuiBuildingConstructor extends GuiScreen {
 
                 for (int f = 0; f < ModSimReloaded.theFolks.size(); ++f) {
                     //得到npc 数据
-                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(f);
+                    FolkData folk = ModSimReloaded.theFolks.get(f);
                     //NPC 被雇佣 并且 坐标是当前要建筑的地方
                     if (folk.employedAt != null && folk.employedAt.isSameCoordsAs(this.constructorLoc, true, true)) {
                         //如果 NPC职业是建筑师
@@ -110,6 +110,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                         }
                         //把当前建筑工人添加进去
                         this.theWorkers.add(folk);
+                        break;
                     }
                 }
             }
@@ -201,14 +202,15 @@ public class GuiBuildingConstructor extends GuiScreen {
             String t = sim_gui_BC_chosen;
 
             try {
-                //如果NPC 大于0
+                //如果要工作的NPC 大于0
                 if (this.theWorkers.size() > 0) {
+                    FolkData folkData = this.theWorkers.get(0);
                     //获取工作
-                    JobBuilder theirJob = (JobBuilder) ((FolkData) this.theWorkers.get(0)).theirJob;
+                    JobBuilder theirJob = (JobBuilder) folkData.theirJob;
                     s = theirJob.theStage.toString();
-                    if (((FolkData) this.theWorkers.get(0)).theBuilding != null) {
+                    if (folkData.theBuilding != null) {
                         //当前名称
-                        t = ((FolkData) this.theWorkers.get(0)).theBuilding.displayName;
+                        t = folkData.theBuilding.displayName;
                     }
                 }
             } catch (Exception e) {
@@ -616,42 +618,52 @@ public class GuiBuildingConstructor extends GuiScreen {
      * @param guibutton
      */
     @Override
-    /*@SubscribeEvent(
-            priority = EventPriority.NORMAL
-    )*/
+    //@SubscribeEvent(priority = EventPriority.NORMAL)
     public void actionPerformed(GuiButton guibutton) {
         try {
             if (System.currentTimeMillis() - this.fuckingBodge >= 100L) {
                 this.fuckingBodge = System.currentTimeMillis();
+                //如果按钮启用
                 if (guibutton.enabled) {
                     if (guibutton.id == 0) {
+                        //
                         this.mc.currentScreen = null;
+                        //如果Minecraft窗口处于激活状态，则将焦点设置为ingame。还清除当前显示的任何GUI屏幕
                         this.mc.setIngameFocus();
                     } else {
                         if (this.currentPage == 0) {
+                            //选择建筑
                             String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
                             if (guibutton.displayString.contentEquals(sim_gui_BC_Choose_building)) {
                                 this.currentPage = 1;
+                                //显示建筑页
                                 this.showPage();
                             } else {
                                 GuiEmployFolk gui;
                                 if (guibutton.id == 2) {
+                                    //初始化雇佣员工
                                     gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
+                                    //先清除画面
                                     this.mc.displayGuiScreen(null);
+                                    //再显示
                                     this.mc.displayGuiScreen(gui);
                                 } else if (guibutton.id == 3) {
+                                    //解雇
                                     this.fireAllFolksForThisBuilding();
                                     this.currentPage = 0;
                                     this.showPage();
                                 } else if (guibutton.id == 4) {
+                                    //显示员工
                                     GuiScreen guiScreen = new GuiShowEmployees();
                                     this.mc.displayGuiScreen(null);
                                     this.mc.displayGuiScreen(guiScreen);
                                 } else if (guibutton.id != 5) {
+                                    //现在选择要建造的商业建筑
                                     if (guibutton.id == 6) {
                                         GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
                                         this.mc.displayGuiScreen(null);
                                         this.mc.displayGuiScreen(guiScreen);
+                                        //现在选择要建造的商业建筑
                                     } else if (guibutton.id == 7) {
                                         gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
                                         this.mc.displayGuiScreen(null);
@@ -660,6 +672,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 }
                             }
                         } else if (this.currentPage == 1) {
+                            //现在选择要建造的住宅楼
                             if (guibutton.id == 5) {
                                 this.currentPage = 2;
                                 this.showPage();

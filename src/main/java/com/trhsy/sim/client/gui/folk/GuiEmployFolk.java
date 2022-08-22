@@ -80,9 +80,13 @@ public class GuiEmployFolk extends GuiScreen {
      */
     public GuiEmployFolk(V3 controlBoxLocation, String dir, Vocation vocation) {
         try {
+            //控制箱位置
             this.controlBoxLocation = controlBoxLocation;
+            //建筑方向
             this.buildDirection = dir;
+            //职业
             this.vocation = vocation;
+            //如果是建筑工，最大雇员是1
             if (this.vocation == Vocation.BUILDER) {
                 this.maxEmployees = 1;
             }
@@ -145,16 +149,15 @@ public class GuiEmployFolk extends GuiScreen {
             for (int f = 0; f < folks.size(); ++f) {
                 FolkData folk = (FolkData) folks.get(f);
                 String xp = "";
-                //int ixp = false;
                 int ixp;
                 if (this.vocation == Vocation.BUILDER) {
-                    ixp = (int) Math.floor((double) folk.levelBuilder);
+                    ixp = (int) Math.floor(folk.levelBuilder);
                     xp = " (" + ixp + ")";
                 } else if (this.vocation == Vocation.MINER) {
-                    ixp = (int) Math.floor((double) folk.levelMiner);
+                    ixp = (int) Math.floor( folk.levelMiner);
                     xp = " (" + ixp + ")";
                 } else if (this.vocation == Vocation.SOLDIER) {
-                    ixp = (int) Math.floor((double) folk.levelSoldier);
+                    ixp = (int) Math.floor( folk.levelSoldier);
                     xp = " (" + ixp + ")";
                 }
 
@@ -226,7 +229,7 @@ public class GuiEmployFolk extends GuiScreen {
                         List<FolkData> efolks = new CopyOnWriteArrayList();
 
                         for (int w = 0; w < this.selectedFolks.size(); ++w) {
-                            GuiButton button = (GuiButton) this.selectedFolks.get(w);
+                            GuiButton button = this.selectedFolks.get(w);
                             String folkname = button.displayString;
                             if (folkname.contains("(")) {
                                 folkname = button.displayString.substring(0, button.displayString.indexOf(" (")).trim();
@@ -236,6 +239,7 @@ public class GuiEmployFolk extends GuiScreen {
                             //去我的新工作...
                             f.statusText = I18n.format("container.sim.gui.button_Going");
                             efolks.add(f);
+                            //雇佣员工
                             this.hireFolks(efolks);
                         }
                     }
@@ -251,16 +255,21 @@ public class GuiEmployFolk extends GuiScreen {
     public void hireFolks(List<FolkData> efolks) {
         try {
             for (int i = 0; i < efolks.size(); i++) {
+                //找到要雇佣的人
                 FolkData efolk = efolks.get(i);
+                //其雇佣地点为此建筑的控制箱
                 efolk.employedAt = this.controlBoxLocation;
+                //职业为此建筑
                 efolk.setTheirJob(this.vocation);
-                if (ModSimReloaded.isDayTime()) {
+                //白天//此人是夜猫子
+                if (ModSimReloaded.isDayTime()||efolk.isNightOwl()) {
+                    //去雇佣地点
                     efolk.gotoXYZ(efolk.employedAt, null);
                 }
             }
             this.mc.currentScreen = null;
             GuiBuildingConstructor ui;
-            //建筑者
+            //建筑师
             if (this.vocation == Vocation.BUILDER) {
                 ui = new GuiBuildingConstructor(this.controlBoxLocation, this.buildDirection, efolks);
                 this.mc.displayGuiScreen(ui);
@@ -281,6 +290,7 @@ public class GuiEmployFolk extends GuiScreen {
                 GuiPathBox uiGuiPathBox = new GuiPathBox(this.pathBox, efolks);
                 this.mc.displayGuiScreen(uiGuiPathBox);
             } else {
+                //控制箱
                 GuiControlBox uiGuiControlBox = new GuiControlBox(this.controlBoxLocation, efolks.get(0));
                 this.mc.displayGuiScreen(uiGuiControlBox);
             }

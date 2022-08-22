@@ -89,7 +89,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                 for (int mm = 0; mm < 4; ++mm) {
                     try {
-                        ((EntityAlignBeam) marker.beams.get(mm)).setDead();
+                        (marker.beams.get(mm)).setDead();
                     } catch (Exception e) {
                     }
                 }
