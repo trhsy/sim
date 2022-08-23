@@ -87,9 +87,9 @@ public class EntityFolk extends EntityCreature implements INpc {
 //开门
             this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
             //闲逛
-            //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
+            this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
             //闲逛
-            //this.tasks.addTask(5, new EntityAIWanderSUK(this, 0.5D));
+            //this.tasks.addTask(9, new EntityAIWanderSUK(this, 0.5D));
             this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
             //避免实体
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
@@ -103,7 +103,6 @@ public class EntityFolk extends EntityCreature implements INpc {
             //启动
             if (!ModSim.proxy.ranStartup) {
                 ModSimReloaded.log.info("实体人：重置npc");
-                theData.isDead=true;
                 this.setDead();
             }
 //停用算时间是否是圣诞节
@@ -204,7 +203,6 @@ public class EntityFolk extends EntityCreature implements INpc {
                         ModSimReloaded.log.info("NPC: " + this.getEntityId() + " - 他们的数据已经空了5秒多，所以判定为死亡");
                         //设置死亡
                         //this.onDeath(DamageSource.inWall);
-                        theData.isDead=true;
                         this.setDead();
                     }
                 }
@@ -627,7 +625,6 @@ public class EntityFolk extends EntityCreature implements INpc {
             mc.currentScreen = null;
             GuiScreen ui = null;
             if (theData == null) {
-                theData.isDead=true;
                 this.setDead();
                 falg = false;
                 return falg;

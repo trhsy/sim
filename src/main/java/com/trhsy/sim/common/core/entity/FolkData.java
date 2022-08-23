@@ -174,8 +174,6 @@ public class FolkData implements Serializable {
     protected transient float matingStage = -1;
     //实体id
     private transient int entityId;
-    //NPC 是否不活动了
-    public boolean isDead;
 
     public FolkData() {
         try {
@@ -208,7 +206,6 @@ public class FolkData implements Serializable {
             hangingWith = null;
             talkCounter = 0;
             matingStage = -1;
-            isDead = false;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("FolkData出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -287,7 +284,6 @@ public class FolkData implements Serializable {
             //生成特征
             generateTraits();
             respawnEntity(theWorld);
-            isDead = false;
             ModSimReloaded.theFolks.add(this);
             //刚刚进入该地区。
             String just = I18n.format("container.sim.folk_data_just");
@@ -304,7 +300,6 @@ public class FolkData implements Serializable {
             gender = rand.nextInt(2);
             name = theName;
             age = 18;
-            isDead = false;
             if (gender == 0) {
                 //folkRace = Races.raceList.get(rand.nextInt(Races.raceList.size()));
                 //folkRaceName = folkRace.getRaceName();
@@ -348,7 +343,6 @@ public class FolkData implements Serializable {
         try {
             Random rand = new Random();
             String surname = "Unknown";
-            isDead = false;
             generateTraits();
 
             if (father != null) {
@@ -425,7 +419,8 @@ public class FolkData implements Serializable {
     public void updateLocationFromEntity() {
         try {
             if (isSpawned()) {
-                location = new V3(theEntity.posX, theEntity.posY, theEntity.posZ, location.theDimension);
+                //location = new V3(theEntity.posX, theEntity.posY, theEntity.posZ, location.theDimension);
+                location = new V3(theEntity.lastTickPosX, theEntity.lastTickPosY, theEntity.lastTickPosZ, location.theDimension);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -449,24 +444,23 @@ public class FolkData implements Serializable {
             }
             //已经繁殖了，所以不需要
             if (theEntity != null) {
-                if (!theEntity.isDead || !isDead) {
+                if (!theEntity.isDead ) {
                     return;
                 }
             }
-            if(employedAt!=null){
-                location=employedAt;
+            if (employedAt != null) {
+                location = employedAt.clone();
             }
             if (getDistanceToPlayer() < 100) {
                 theEntity = new EntityFolk(world);
                 //设置实体在世界中的位置和偏航/俯仰
                 theEntity.setLocationAndAngles(location.xCoord, location.yCoord, location.zCoord, 0.0F, 0.0F);
                 if (!world.isRemote) {
-                    if (theEntity.isDead || theEntity.theData == null || isDead) {
+                    if (theEntity.isDead || theEntity.theData == null) {
                         theEntity.theData = this;
                         world.spawnEntityInWorld(theEntity);
                         theEntity.isDead = false;
-                        isDead = false;
-                        ModSimReloaded.log.info("NPC ， " + name + " 在当前位置已重生，x:" + location.xCoord + ",y:" + location.yCoord + ",z:" + location.zCoord + " 维度:" + location.theDimension + " 实体id:" + theEntity.getEntityId());
+                        ModSimReloaded.log.info("NPC【" + name + "】在当前位置已重生，x:" + location.xCoord + ",y:" + location.yCoord + ",z:" + location.zCoord + " 维度:" + location.theDimension + " 实体id:" + theEntity.getEntityId());
                     }
                 }
                 entityId = theEntity.getEntityId();
@@ -534,15 +528,7 @@ public class FolkData implements Serializable {
             String shopping = I18n.format("container.sim.folk_data_Shopping");
             Random rand = new Random();
             Long now = System.currentTimeMillis();
-            //其余的将在每次更新/勾选时运行
-            //如果他们正在微笑，则执行微笑进度
-            if (beamingTo != null) {
-                doBeaming();
-            }
-            //日夜不停地更新工作内容
-            if (theirJob != null) {
-                theirJob.onUpdate();
-            }
+
             //60秒
             if (now - timeSinceLastMinute > 60000L) {
                 //如果 状态有 和朋友一起，在商店购物，参观，待在家，在家放松
@@ -703,13 +689,11 @@ public class FolkData implements Serializable {
                     if (!gotWanderPoint) {
                         //随机让去一个地方
                         V3 wanderTo = new V3(location.xCoord + 1, location.yCoord, location.zCoord + 1, location.theDimension);
-                        WorldServer world = MinecraftServer.getServer().worldServerForDimension(location.theDimension);
-                        BlockPos blockPos = new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord);
-                        Block block = world.getBlockState(blockPos).getBlock();
-                        if (block != null && wanderTo.yCoord < 255.0) {
-                            //wanderTo.yCoord = wanderTo.yCoord + 1;
-                            wanderTo = new V3(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
-                        }
+                        //WorldServer world = MinecraftServer.getServer().worldServerForDimension(location.theDimension);
+                        //while (world.getBlockState(new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord)).getBlock() != null && wanderTo.yCoord < 255.0) {
+                        //    //wanderTo.yCoord = wanderTo.yCoord + 1;
+                        //    wanderTo = new V3(wanderTo.xCoord, wanderTo.yCoord + 1, wanderTo.zCoord);
+                        //}
 
                         //ModSimReloaded.log.info("FolkData:onUpdate() 漫游命令 " + name + " to " + wanderTo.toString());
                         gotoXYZ(wanderTo, GotoMethod.WALK);
@@ -767,7 +751,7 @@ public class FolkData implements Serializable {
                     if (range < 100) {
                         //重生
                         respawnEntity(MinecraftServer.getServer().worldServerForDimension(location.theDimension));
-                        ModSimReloaded.log.info("NPC" + name + "离玩家 " + range + " 个街区远,位于x:" + location.xCoord + ",y:" + location.yCoord + ",z:" + location.zCoord + ",所以下一刻被重生");
+                        //ModSimReloaded.log.info("NPC" + name + "离玩家 " + range + " 个街区远,位于x:" + location.xCoord + ",y:" + location.yCoord + ",z:" + location.zCoord + ",所以下一刻被重生");
                     }
                 } else {
                     //如果它们是繁殖的，看看它们是否在射程之外，并迫使它们绝望
@@ -777,7 +761,6 @@ public class FolkData implements Serializable {
                     if (range >= 100) {
                         if (theEntity != null) {
                             ModSimReloaded.log.info("NPC" + name + "离玩家 " + range + " 个街区远,位于x:" + location.xCoord + ",y:" + location.yCoord + ",z:" + location.zCoord + ",所以下一刻被摧毁");
-                            isDead = true;
                             theEntity.setDead();
                         }
                     }
@@ -1021,7 +1004,15 @@ public class FolkData implements Serializable {
 
                 timeSinceLastStatusUpdate = now;
             }
-
+            //其余的将在每次更新/勾选时运行
+            //如果他们正在微笑，则执行微笑进度
+            if (beamingTo != null) {
+                doBeaming();
+            }
+            //日夜不停地更新工作内容
+            if (theirJob != null) {
+                theirJob.onUpdate();
+            }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("FolkData-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -1124,7 +1115,7 @@ public class FolkData implements Serializable {
                     status1 = vocation.toString();
                 }
             }
-            Random rand = new Random();
+            //Random rand = new Random();
             Building building = getHome();
             if (building != null) {
                 //拥有自己的房子
@@ -1186,7 +1177,7 @@ public class FolkData implements Serializable {
                 //发疯
                 socialStatus = I18n.format("container.sim.FolkData.Going_Insane");
             }
-
+            //生存环境
             if (levelEnvironment == 10) {
                 environmentStatus = I18n.format("container.sim.FolkData.Beautiful_Surroundings");
             } else if (levelEnvironment > 7) {
@@ -1223,7 +1214,8 @@ public class FolkData implements Serializable {
                 return falg;
             } else {
                 //return theEntity.isEntityAlive();
-                return true;
+                theEntity.isDead=false;
+                return !theEntity.isDead;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -1262,10 +1254,12 @@ public class FolkData implements Serializable {
             EntityPlayer p = getClosestPlayer(location);
             if (p == null) {
                 i = 9999;
-            } else {
-                V3 pv = new V3(p.posX, p.posY, p.posZ, location.theDimension);
-                i = location.getDistanceTo(pv);
+                return i;
             }
+            V3 pv = new V3(p.posX, p.posY, p.posZ, location.theDimension);
+            i = location.getDistanceTo(pv);
+            return i;
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("getDistanceToPlayer出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -1608,7 +1602,7 @@ public class FolkData implements Serializable {
                 whereTo = new V3(whereTo.xCoord, whereTo.yCoord + 1, whereTo.zCoord);
                 //whereTo.yCoord = whereTo.yCoord + 1;
             }
-            whereTo = new V3(whereTo.xCoord, whereTo.yCoord - 199, whereTo.zCoord);
+            whereTo = new V3(whereTo.xCoord, whereTo.yCoord - 1, whereTo.zCoord);
 
 
             destination = whereTo.clone();
@@ -1623,8 +1617,9 @@ public class FolkData implements Serializable {
                 ModSim.proxy.getClientWorld().playSound(location.xCoord, location.yCoord, location.zCoord, ModSim.MODID + ":beamdown", 1, 1, false);
                 ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f, false);
             }
-
+            respawnEntity(MinecraftServer.getServer().worldServerForDimension(location.theDimension));
             beamingTo = whereTo.clone();
+            location = beamingTo.clone();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("将民俗传递到指定位置出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -1637,7 +1632,7 @@ public class FolkData implements Serializable {
      */
     private void doBeaming() {
         try {
-            if (System.currentTimeMillis() - timeStartedGotoing > 4000L || beamingTo != null) {
+            if (System.currentTimeMillis() - timeStartedGotoing > 4000L || beamingTo == null) {
                 //通过传送到达
                 if (theEntity != null) {
                     //设置实体的位置并更新“最后”变量
@@ -1673,7 +1668,7 @@ public class FolkData implements Serializable {
                         }
                     }
                 }
-                
+
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -2165,27 +2160,27 @@ public class FolkData implements Serializable {
             }
 
             if (deathBy.contentEquals("")) {
-                Random r = new Random();
-                int i = r.nextInt(6);
-                if (i == 0) {
-                    //(在洗澡时触电身亡)
-                    deathBy = I18n.format("container.sim.folk_data_death_by_Electrocuted");
-                } else if (i == 1) {
-                    //(在楼梯上被溜冰鞋绊倒了)
-                    deathBy = I18n.format("container.sim.folk_data_death_by_Tripped");
-                } else if (i == 2) {
-                    //(被牛践踏)
-                    deathBy = I18n.format("container.sim.folk_data_death_by_Trampled");
-                } else if (i == 3) {
-                    //(被地雷车碾过)
-                    deathBy = I18n.format("container.sim.folk_data_death_by_Ran");
-                } else if (i == 4) {
-                    //(在香蕉皮上滑倒)
-                    deathBy = I18n.format("container.sim.folk_data_death_by_Slipped");
-                } else if (i == 5) {
+                //Random r = new Random();
+                //int i = r.nextInt(6);
+                //if (i == 0) {
+                //    //(在洗澡时触电身亡)
+                //    deathBy = I18n.format("container.sim.folk_data_death_by_Electrocuted");
+                //} else if (i == 1) {
+                //    //(在楼梯上被溜冰鞋绊倒了)
+                //    deathBy = I18n.format("container.sim.folk_data_death_by_Tripped");
+                //} else if (i == 2) {
+                //    //(被牛践踏)
+                //    deathBy = I18n.format("container.sim.folk_data_death_by_Trampled");
+                //} else if (i == 3) {
+                //    //(被地雷车碾过)
+                //    deathBy = I18n.format("container.sim.folk_data_death_by_Ran");
+                //} else if (i == 4) {
+                //    //(在香蕉皮上滑倒)
+                //    deathBy = I18n.format("container.sim.folk_data_death_by_Slipped");
+                //} else if (i == 5) {
                     //(被砍死)
                     deathBy = I18n.format("container.sim.folk_data_death_by_killed");
-                }
+                //}
             }
 
             String only = "";

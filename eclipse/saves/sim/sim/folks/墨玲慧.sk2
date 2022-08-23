@@ -14,7 +14,7 @@ levelbuilder|1.4793546
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|183.5,64.0,353.5,0
+location|183.0,63.0,353.0,0
 pregnancy|0.0
 building|null
 terraformtype|WATERTODIRT

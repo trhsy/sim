@@ -201,23 +201,24 @@ public class GuiBuildingConstructor extends GuiScreen {
             String s = sim_gui_BC_Idle;
             String t = sim_gui_BC_chosen;
 
-            try {
-                //如果要工作的NPC 大于0
-                if (this.theWorkers.size() > 0) {
-                    FolkData folkData = this.theWorkers.get(0);
-                    //获取工作
-                    JobBuilder theirJob = (JobBuilder) folkData.theirJob;
+            //如果要工作的NPC 大于0
+            if (this.theWorkers.size() > 0) {
+                FolkData folkData = this.theWorkers.get(0);
+                //获取工作
+                JobBuilder theirJob = (JobBuilder) folkData.theirJob;
+                if (theirJob != null) {
                     s = theirJob.theStage.toString();
                     if (folkData.theBuilding != null) {
                         //当前名称
                         t = folkData.theBuilding.displayName;
                     }
+                } else {
+                    //在路上
+                    String sim_gui_BC_their = I18n.format("container.sim.sim_gui_BC_their");
+                    s = sim_gui_BC_their;
+                    t = "";
                 }
-            } catch (Exception e) {
-                //在路上
-                String sim_gui_BC_their = I18n.format("container.sim.sim_gui_BC_their");
-                s = sim_gui_BC_their;
-                t = "";
+
             }
             String sim_gui_BC_Current = I18n.format("container.sim.sim_gui_BC_Current");//目前状态
             String sim_gui_BC_Building = I18n.format("container.sim.sim_gui_BC_Building");//建筑类型
@@ -598,7 +599,7 @@ public class GuiBuildingConstructor extends GuiScreen {
                             if (this.fixedBuildingCount == -1) {
                                 this.fixedBuildingCount = this.buildingsOnPage;
                             }
-                        }else{
+                        } else {
                             String sim_gui_BC_Nothing_found = I18n.format("container.sim.sim_gui_BC_Nothing_found");
                             this.buttonList.add(new GuiButton(1, 10, 60, 300, 20, sim_gui_BC_Nothing_found));
                         }

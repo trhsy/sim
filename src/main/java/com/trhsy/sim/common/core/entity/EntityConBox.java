@@ -48,7 +48,6 @@ public class EntityConBox extends Entity {
         this.ignoreFrustumCheck = true;
         if (!ModSim.proxy.ranStartup) {
             //ModSimReloaded.log.info("EntityConBox: 被杀死的系统产生了ConBox");
-            theFolk.isDead=true;
             this.setDead();
         }
 
@@ -63,13 +62,11 @@ public class EntityConBox extends Entity {
                 if (this.theFolk != null && this.theFolk.theBuilding == null) {
                     ModSimReloaded.log.info("EntityConBox: 建筑完成后移除conBox");
                     this.spawnExplosionParticle(this);
-                    theFolk.isDead=true;
                     this.setDead();
                 }
 
                 List<V3> conblocks = Job.findClosestBlocks(new V3(this.posX, this.posY, this.posZ, this.dimension), BlockLoader.blockConstructorBox, 5);
                 if (conblocks.size() < 1) {
-                    theFolk.isDead=true;
                     this.setDead();
                 }
 

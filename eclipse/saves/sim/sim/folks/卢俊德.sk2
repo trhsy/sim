@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|159.5,63.0,267.5,0
+location|154.0,63.0,267.0,0
 pregnancy|0.0
 building|医院.txt|commercial||+z
 terraformtype|null
