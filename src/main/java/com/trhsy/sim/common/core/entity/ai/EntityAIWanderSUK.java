@@ -4,12 +4,12 @@ import com.trhsy.sim.common.core.entity.EntityFolk;
 import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIWander;
 
 /**
  * npc 的智能AI 闲逛
  */
-public class EntityAIWanderSUK extends EntityAIBase {
+public class EntityAIWanderSUK extends EntityAIWander {
     private EntityCreature entity;
     private double xPosition;
     private double yPosition;
@@ -19,15 +19,15 @@ public class EntityAIWanderSUK extends EntityAIBase {
     private boolean mustUpdate;
 
     public EntityAIWanderSUK(EntityCreature folk, double speedIn) {
-        this(folk, speedIn, 120);
+        super(folk, speedIn, 120);
     }
 
-    public EntityAIWanderSUK(EntityCreature folk, double speedIn, int chance) {
+    /*public EntityAIWanderSUK(EntityCreature folk, double speedIn, int chance) {
         this.entity = folk;
         this.speed = speedIn;
         this.executionChance = chance;
         this.setMutexBits(1);
-    }
+    }*/
 
     /**
      * @return boolean
@@ -39,10 +39,13 @@ public class EntityAIWanderSUK extends EntityAIBase {
     @Override
     public boolean shouldExecute() {
         EntityFolk actualFolk = (EntityFolk) this.entity;
-        if (this.entity.isWithinHomeDistanceCurrentPosition()) {
+        /*if (this.entity.isWithinHomeDistanceCurrentPosition()) {
             return false;
-        }else{
+        }else{*/
             if (!this.mustUpdate) {
+                if(actualFolk==null){
+                    return false;
+                }
                 if (actualFolk.theData != null) {
                     if (actualFolk.theData.stayPut) {
                         return false;
@@ -63,7 +66,7 @@ public class EntityAIWanderSUK extends EntityAIBase {
                 this.mustUpdate = false;
                 return true;
             }
-        }
+//        }
     }
 
     /**
@@ -85,6 +88,7 @@ public class EntityAIWanderSUK extends EntityAIBase {
     public void startExecuting() {
         try {
             this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
+            ModSimReloaded.log.info("NPC智能AI移动到x：" + this.xPosition + ",y：" + this.yPosition+",z:"+this.zPosition);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("NPC智能AI移动发生错误：" + e.getMessage() + "行数：" + element.getLineNumber());

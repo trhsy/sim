@@ -785,10 +785,10 @@ public class FolkData implements Serializable {
                         action = FolkAction.ONWAYTOWORK;
                         //ModSimReloaded.log.warn("FolkData:onUpdate() " + name + " 还在工作");
                         updateLocationFromEntity();
-                        V3 temp = employedAt.clone();
-                        temp = new V3(temp.xCoord + 0.5, temp.yCoord, temp.zCoord);
-                        gotoXYZ(temp, null);
-                        gotoXYZ(employedAt, null);
+//                        V3 temp = employedAt.clone();
+//                        temp = new V3(temp.xCoord + 0.5, temp.yCoord, temp.zCoord);
+//                        gotoXYZ(temp, null);
+                        gotoXYZ(employedAt, GotoMethod.SHIFT);
                         return;
                     }
                 }
