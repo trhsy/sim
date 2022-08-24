@@ -226,15 +226,15 @@ public class GuiBuildingConstructor extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, sim_gui_BC_Building + t, this.width / 2, 40, 11206655);
             switch (this.currentPage) {
                 case 0:
-                    String sim_gui_BC_building_constructor = I18n.format("container.sim.sim_gui_BC_building_constructor");//请选择需要建造的项目
+                    String sim_gui_BC_building_constructor = I18n.format("container.sim.sim_gui_BC_building_constructor");//请为此建筑构建器选择一项任务
                     this.drawCenteredString(this.fontRendererObj, sim_gui_BC_building_constructor, this.width / 2, 100, 16777130);
                     break;
                 case 1:
-                    String sim_gui_BC_building = I18n.format("container.sim.sim_gui_BC_building");//请选择一个建筑类型
+                    String sim_gui_BC_building = I18n.format("container.sim.sim_gui_BC_building");//建筑类型
                     this.drawCenteredString(this.fontRendererObj, sim_gui_BC_building, this.width / 2, 100, 16777130);
                     break;
                 case 2:
-                    String sim_gui_BC_residential = I18n.format("container.sim.sim_gui_BC_residential");//现在选择住宅建筑
+                    String sim_gui_BC_residential = I18n.format("container.sim.sim_gui_BC_residential");//现在选择要建造的住宅楼
                     this.drawCenteredString(this.fontRendererObj, sim_gui_BC_residential, this.width / 2, 50, 16777130);
                     this.tfSearch.drawTextBox();
                     break;
@@ -375,7 +375,7 @@ public class GuiBuildingConstructor extends GuiScreen {
             this.mc.setIngameNotInFocus();
             //清除所有按钮
             this.buttonList.clear();
-            //完成
+            //左上角完成
             String sim_gui_BC_Done = I18n.format("container.sim.sim_gui_BC_Done");
             this.buttonList.add(new GuiButton(0, 2, 12, 50, 20, sim_gui_BC_Done));
             //如果选定建筑物为空
@@ -385,65 +385,74 @@ public class GuiBuildingConstructor extends GuiScreen {
             }
 
             if (this.currentPage == 0) {
-                //选择建筑
-                String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
+                //第一排
                 //雇佣建筑工
                 String sim_gui_BC_Hire_builder = I18n.format("container.sim.Hire1");
-                this.buttonList.add(new GuiButton(2, this.width / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 180, 150, 120, 20, sim_gui_BC_Hire_builder));
+                //选择建筑
+                String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
+                this.buttonList.add(new GuiButton(2, this.width / 2 - 60, 150, 120, 20, sim_gui_BC_Choose_building));
+
                 //员工
-                String sim_gui_BC_worker = I18n.format("container.sim.sim_gui_BC_worker");
-                String w = sim_gui_BC_worker;
+                String w = I18n.format("container.sim.sim_gui_BC_worker");
+                ;
                 //如果工人为1
                 if (this.theWorkers.size() == 1) {
                     //获取员工名称
-                    w = ((FolkData) this.theWorkers.get(0)).name;
+                    w = (this.theWorkers.get(0)).name;
                 } else if (this.theWorkers.size() > 1) {
                     //工作人员
                     String sim_gui_BC_Staff = I18n.format("container.sim.sim_gui_BC_Staff");
                     w = sim_gui_BC_Staff + "(" + this.theWorkers.size() + ")";
                 }
+
                 //解雇
                 String sim_gui_BC_Fire = I18n.format("container.sim.Fire");
                 this.buttonList.add(new GuiButton(3, this.width / 2 + 60, 150, 120, 20, sim_gui_BC_Fire + w));
-                //显示员工
-                String sim_gui_BC_Show_Employees = I18n.format("container.sim.sim_gui_BC_Show_Employees");
-                this.buttonList.add(new GuiButton(4, this.width / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
+                //第二排
+                //雇佣规划师
+                this.buttonList.add(new GuiButton(4, this.width / 2 - 180, 170, 120, 20, I18n.format("container.sim.Hire22")));
                 //规划区域
                 String sim_gui_BC_Terraform_area = I18n.format("container.sim.sim_gui_BC_Terraform_area");
-                this.buttonList.add(new GuiButton(5, -600, 170, 120, 20, "-"));
-                this.buttonList.add(new GuiButton(6, this.width / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
-                //雇佣规划师
-                this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, I18n.format("container.sim.Hire22")));
+                this.buttonList.add(new GuiButton(5, this.width / 2 - 60, 170, 120, 20, sim_gui_BC_Terraform_area));
+                //显示员工
+                String sim_gui_BC_Show_Employees = I18n.format("container.sim.sim_gui_BC_Show_Employees");
+                this.buttonList.add(new GuiButton(6, this.width / 2 + 60, 170, 120, 20, sim_gui_BC_Show_Employees));
+
+                //this.buttonList.add(new GuiButton(5, this.width / 2+60, 210, 120, 20, "-"));
+
+
                 if (this.theWorkers.size() == 0) {
-                    ((GuiButton) this.buttonList.get(1)).enabled = false;
-                    ((GuiButton) this.buttonList.get(2)).enabled = true;
-                    ((GuiButton) this.buttonList.get(3)).enabled = false;
-                    ((GuiButton) this.buttonList.get(6)).enabled = false;
-                    ((GuiButton) this.buttonList.get(7)).enabled = true;
+                    (this.buttonList.get(1)).enabled = true;
+                    (this.buttonList.get(2)).enabled = false;
+                    (this.buttonList.get(3)).enabled = false;
+                    (this.buttonList.get(4)).enabled = true;
+                    (this.buttonList.get(5)).enabled = false;
+                    (this.buttonList.get(6)).enabled = true;
                 } else {
-                    ((GuiButton) this.buttonList.get(1)).enabled = true;
-                    ((GuiButton) this.buttonList.get(2)).enabled = false;
-                    ((GuiButton) this.buttonList.get(3)).enabled = true;
-                    ((GuiButton) this.buttonList.get(6)).enabled = true;
-                    ((GuiButton) this.buttonList.get(7)).enabled = false;
+                    (this.buttonList.get(1)).enabled = false;
+                    (this.buttonList.get(2)).enabled = true;
+                    (this.buttonList.get(3)).enabled = true;
+                    (this.buttonList.get(4)).enabled = false;
+                    (this.buttonList.get(5)).enabled = true;
+                    (this.buttonList.get(6)).enabled = true;
                 }
             } else if (this.currentPage == 1) {
                 //现在选择要建造的住宅楼
                 String sim_gui_BC_Residential = I18n.format("container.sim.sim_gui_BC_Residential");
+                this.buttonList.add(new GuiButton(7, this.width / 2 - 200, 150, 100, 20, sim_gui_BC_Residential));
                 //现在选择要建造的商业建筑
                 String sim_gui_BC_Commercial = I18n.format("container.sim.sim_gui_BC_Commercial");
+                this.buttonList.add(new GuiButton(8, this.width / 2 - 100, 150, 100, 20, sim_gui_BC_Commercial));
                 //现在选择要建造的工业建筑
                 String sim_gui_BC_Industrial = I18n.format("container.sim.sim_gui_BC_Industrial");
+                this.buttonList.add(new GuiButton(9, this.width / 2, 150, 100, 20, sim_gui_BC_Industrial));
                 //其他
                 String sim_gui_BC_Other = I18n.format("container.sim.sim_gui_BC_Other");
+                this.buttonList.add(new GuiButton(10, this.width / 2 + 100, 150, 100, 20, sim_gui_BC_Other));
                 //特别
                 String sim_gui_BC_special = I18n.format("container.sim.sim_gui_BC_special");
-                this.buttonList.add(new GuiButton(5, this.width / 2 - 200, 150, 100, 20, sim_gui_BC_Residential));
-                this.buttonList.add(new GuiButton(6, this.width / 2 - 100, 150, 100, 20, sim_gui_BC_Commercial));
-                this.buttonList.add(new GuiButton(7, this.width / 2, 150, 100, 20, sim_gui_BC_Industrial));
-                this.buttonList.add(new GuiButton(8, this.width / 2 + 100, 150, 100, 20, sim_gui_BC_Other));
-                this.buttonList.add(new GuiButton(9, this.width / 2 - 50, 180, 100, 20, sim_gui_BC_special));
+                this.buttonList.add(new GuiButton(11, this.width / 2 - 50, 180, 100, 20, sim_gui_BC_special));
             } else if (this.currentPage != 3) {
                 if (this.currentPage == 10) {
                     //返回
@@ -456,7 +465,6 @@ public class GuiBuildingConstructor extends GuiScreen {
                     int idx;
                     if (this.currentPage == 4) {
                         x = 10;
-                        y = 65;
                         idx = 1;
 
                         for (y = 0; y < ModSimReloaded.theFolks.size(); ++y) {
@@ -633,60 +641,62 @@ public class GuiBuildingConstructor extends GuiScreen {
                         this.mc.setIngameFocus();
                     } else {
                         if (this.currentPage == 0) {
+                            GuiEmployFolk gui;
                             //选择建筑
-                            String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
-                            if (guibutton.displayString.contentEquals(sim_gui_BC_Choose_building)) {
+                            //String sim_gui_BC_Choose_building = I18n.format("container.sim.sim_gui_BC_Choose_building");
+                            //雇佣建筑工
+                            if (guibutton.id == 1) {
+                                //初始化雇佣员工
+                                gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
+                                //先清除画面
+                                this.mc.displayGuiScreen(null);
+                                //再显示
+                                this.mc.displayGuiScreen(gui);
+                                //选择建筑
+                            } else if (guibutton.id == 2) {
                                 this.currentPage = 1;
                                 //显示建筑页
                                 this.showPage();
-                            } else {
-                                GuiEmployFolk gui;
-                                if (guibutton.id == 2) {
-                                    //初始化雇佣员工
-                                    gui = new GuiEmployFolk(this.constructorLoc, this.buildDirection, Vocation.BUILDER);
-                                    //先清除画面
-                                    this.mc.displayGuiScreen(null);
-                                    //再显示
-                                    this.mc.displayGuiScreen(gui);
-                                } else if (guibutton.id == 3) {
-                                    //解雇
-                                    this.fireAllFolksForThisBuilding();
-                                    this.currentPage = 0;
-                                    this.showPage();
-                                } else if (guibutton.id == 4) {
-                                    //显示员工
-                                    GuiScreen guiScreen = new GuiShowEmployees();
-                                    this.mc.displayGuiScreen(null);
-                                    this.mc.displayGuiScreen(guiScreen);
-                                } else if (guibutton.id != 5) {
-                                    //现在选择要建造的商业建筑
-                                    if (guibutton.id == 6) {
-                                        GuiScreen guiScreen = new GuiTerraform((FolkData) this.theWorkers.get(0));
-                                        this.mc.displayGuiScreen(null);
-                                        this.mc.displayGuiScreen(guiScreen);
-                                        //现在选择要建造的商业建筑
-                                    } else if (guibutton.id == 7) {
-                                        gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
-                                        this.mc.displayGuiScreen(null);
-                                        this.mc.displayGuiScreen(gui);
-                                    }
-                                }
+                                //解雇员工
+                            } else if (guibutton.id == 3) {
+                                this.fireAllFolksForThisBuilding();
+                                this.currentPage = 0;
+                                this.showPage();
+                                //雇佣规划师
+                            } else if (guibutton.id == 4) {
+                                gui = new GuiEmployFolk(this.constructorLoc, "N/A", Vocation.TERRAFORMER);
+                                this.mc.displayGuiScreen(null);
+                                this.mc.displayGuiScreen(gui);
+                                //规划区域
+                            } else if (guibutton.id == 5) {
+                                GuiScreen guiScreen = new GuiTerraform(this.theWorkers.get(0));
+                                this.mc.displayGuiScreen(null);
+                                this.mc.displayGuiScreen(guiScreen);
+                            }else if (guibutton.id == 6) {
+                                //显示员工
+                                GuiScreen guiScreen = new GuiShowEmployees();
+                                this.mc.displayGuiScreen(null);
+                                this.mc.displayGuiScreen(guiScreen);
                             }
                         } else if (this.currentPage == 1) {
                             //现在选择要建造的住宅楼
-                            if (guibutton.id == 5) {
+                            if (guibutton.id == 7) {
                                 this.currentPage = 2;
                                 this.showPage();
-                            } else if (guibutton.id == 6) {
+                                ////现在选择要建造的商业建筑
+                            } else if (guibutton.id == 8) {
                                 this.currentPage = 5;
                                 this.showPage();
-                            } else if (guibutton.id == 7) {
+                                //现在选择要建造的商业建筑
+                            } else if (guibutton.id == 9) {
                                 this.currentPage = 6;
                                 this.showPage();
-                            } else if (guibutton.id == 8) {
+                                //现在选择要建造的其他建筑
+                            } else if (guibutton.id == 10) {
                                 this.currentPage = 7;
                                 this.showPage();
-                            } else if (guibutton.id == 9) {
+                                //现在选择要建造的特除建筑
+                            } else if (guibutton.id == 11) {
                                 this.currentPage = 9;
                                 this.showPage();
                             }
@@ -795,11 +805,14 @@ public class GuiBuildingConstructor extends GuiScreen {
 
     }
 
+    /**
+     * 解除这个建筑的所有员工
+     */
     public void fireAllFolksForThisBuilding() {
         try {
             for (int i = 0; i < this.theWorkers.size(); i++) {
                 //员工
-                FolkData worker = (FolkData) this.theWorkers.get(i);
+                FolkData worker = this.theWorkers.get(i);
                 if (worker.vocation == Vocation.BUILDER) {
                     JobBuilder theirJob = (JobBuilder) worker.theirJob;
                     theirJob.theStage = Stage.IDLE;

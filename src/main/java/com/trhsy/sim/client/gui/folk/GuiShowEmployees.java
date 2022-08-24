@@ -49,9 +49,11 @@ public class GuiShowEmployees extends GuiScreen {
             this.showPage();
             super.initGui();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiShowEmployees-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiShowEmployees-initGui出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+
     private void showPage() {
         try {
             this.buttonList.clear();
@@ -61,8 +63,9 @@ public class GuiShowEmployees extends GuiScreen {
             if (this.folkOffset < 0) {
                 this.folkOffset = 0;
             }
-
-            for(int f = this.folkOffset; f < this.folks.size(); f++) {
+            //取消
+            this.buttonList.add(new GuiButton(0, 2, 12,50,20,I18n.format("container.sim.sim_gui_player_to_Cancel")));
+            for (int f = this.folkOffset; f < this.folks.size(); f++) {
                 this.buttonList.add(new GuiButton(f, this.width - 55, y, 50, 20, I18n.format("container.sim.Fire")));
                 y += 20;
                 if (y + 20 > this.height - 50) {
@@ -86,10 +89,12 @@ public class GuiShowEmployees extends GuiScreen {
             }
         } catch (Exception e) {
             //var5.printStackTrace();
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("显示员工出错："+e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("显示员工出错：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
+
     @Override
     public void drawScreen(int i, int j, float f) {
         try {
@@ -104,8 +109,8 @@ public class GuiShowEmployees extends GuiScreen {
                 this.folkOffset = 0;
             }
 
-            for(int ff = this.folkOffset; ff < this.folks.size(); ff++) {
-                FolkData folk = (FolkData)this.folks.get(ff);
+            for (int ff = this.folkOffset; ff < this.folks.size(); ff++) {
+                FolkData folk = (FolkData) this.folks.get(ff);
                 this.drawString(this.fontRendererObj, folk.name, 2, y, 10551295);
                 if (folk.employedAt == null) {
                     this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_unemployed"), 110, y, 16715792);
@@ -143,8 +148,8 @@ public class GuiShowEmployees extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];
-            ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.warn("在绘制字符串/屏幕时捕获异常：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
         super.drawScreen(i, j, f);
@@ -152,19 +157,25 @@ public class GuiShowEmployees extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-        try {if (guibutton.id == 1000) {
-            this.folkOffset -= this.folksOnAPage;
-            this.showPage();
-        } else if (guibutton.id == 1001) {
-            this.folkOffset += this.folksOnAPage;
-            this.showPage();
-        } else {
-            FolkData folk = (FolkData)this.folks.get(guibutton.id);
-            folk.selfFire();
-            guibutton.enabled = false;
-        }
+
+        try {
+            if(guibutton.id==0){
+                this.mc.currentScreen = null;
+                this.mc.setIngameFocus();
+            }else if (guibutton.id == 1000) {
+                this.folkOffset -= this.folksOnAPage;
+                this.showPage();
+            } else if (guibutton.id == 1001) {
+                this.folkOffset += this.folksOnAPage;
+                this.showPage();
+            } else {
+                FolkData folk = (FolkData) this.folks.get(guibutton.id);
+                folk.selfFire();
+                guibutton.enabled = false;
+            }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiSowEmployees-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiSowEmployees-actionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -173,32 +184,38 @@ public class GuiShowEmployees extends GuiScreen {
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     @Override
     public void onGuiClosed() {
         try {
             Keyboard.enableRepeatEvents(false);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
+
     @Override
     public void keyTyped(char c, int i) {
         try {
             if (i == 1) {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen((GuiScreen) null);
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+
     @Override
     public void mouseClicked(int i, int j, int k) {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("鼠标点击出问题了："+e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("鼠标点击出问题了：" + e.getMessage() + "行数：" + element.getLineNumber());
             //e.printStackTrace();
         }
     }

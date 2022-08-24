@@ -243,6 +243,7 @@ public class FolkData implements Serializable {
             villagerInventory = new InventoryBasic("Items", false, 8);
             //安排他们的工作
             setTheirJob(vocation);
+            ModSimReloaded.log.info(name+",开始重生了");
             respawnEntity(MinecraftServer.getServer().worldServerForDimension(0));
             ModSimReloaded.theFolks.add(this);
         } catch (Exception e) {
@@ -418,9 +419,11 @@ public class FolkData implements Serializable {
      */
     public void updateLocationFromEntity() {
         try {
+            theEntity.setPosition(location.xCoord, location.yCoord, location.zCoord);
             if (isSpawned()) {
-                //location = new V3(theEntity.posX, theEntity.posY, theEntity.posZ, location.theDimension);
-                location = new V3(theEntity.lastTickPosX, theEntity.lastTickPosY, theEntity.lastTickPosZ, location.theDimension);
+                location = new V3(theEntity.posX, theEntity.posY, theEntity.posZ, location.theDimension);
+                //theEntity.setPosition(location.xCoord,location.yCoord,location.zCoord);
+                //location = new V3(theEntity.lastTickPosX, theEntity.lastTickPosY, theEntity.lastTickPosZ, location.theDimension);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -455,11 +458,12 @@ public class FolkData implements Serializable {
                 theEntity = new EntityFolk(world);
                 //设置实体在世界中的位置和偏航/俯仰
                 theEntity.setLocationAndAngles(location.xCoord, location.yCoord, location.zCoord, 0.0F, 0.0F);
+                theEntity.setPosition(location.xCoord, location.yCoord, location.zCoord);
                 if (!world.isRemote) {
                     if (theEntity.isDead || theEntity.theData == null) {
                         theEntity.theData = this;
                         world.spawnEntityInWorld(theEntity);
-                        theEntity.isDead = false;
+                        //theEntity.isDead = false;
                         ModSimReloaded.log.info("NPC【" + name + "】在当前位置已重生，x:" + location.xCoord + ",y:" + location.yCoord + ",z:" + location.zCoord + " 维度:" + location.theDimension + " 实体id:" + theEntity.getEntityId());
                     }
                 }
@@ -782,8 +786,8 @@ public class FolkData implements Serializable {
                         //ModSimReloaded.log.warn("FolkData:onUpdate() " + name + " 还在工作");
                         updateLocationFromEntity();
                         V3 temp = employedAt.clone();
-                        temp = new V3(temp.xCoord + 5, temp.yCoord, temp.zCoord);
-                        gotoXYZ(temp, GotoMethod.SHIFT);
+                        temp = new V3(temp.xCoord + 0.5, temp.yCoord, temp.zCoord);
+                        gotoXYZ(temp, null);
                         gotoXYZ(employedAt, null);
                         return;
                     }
@@ -1523,12 +1527,11 @@ public class FolkData implements Serializable {
             }
 
             if (gotoMethod == GotoMethod.SHIFT) {
+                ModSimReloaded.log.info(name+":选择SHIFT去x:"+whereTo.xCoord+",y:"+whereTo.yCoord+",z:"+whereTo.zCoord);
                 destination = new V3(destination.xCoord + 0.5, destination.yCoord, destination.zCoord + 0.5);
                 if (theEntity != null) {
                     if (destination != null) {
-                        theEntity.posX = destination.xCoord;
-                        theEntity.posY = destination.yCoord;
-                        theEntity.posZ = destination.zCoord;
+                        theEntity.setPosition(destination.xCoord,destination.yCoord,destination.zCoord);
                     }
                     //如果维度不一样传送到维度
                     //修改为不管维度一样不一样都要传送
@@ -1538,14 +1541,14 @@ public class FolkData implements Serializable {
                         location.theDimension = destination.theDimension;
                     }
                 }
-
                 location = destination.clone();
-
                 destination = null;
             } else if (gotoMethod == GotoMethod.BEAM) {
+                ModSimReloaded.log.info(name+":选择传送去x:"+whereTo.xCoord+",y:"+whereTo.yCoord+",z:"+whereTo.zCoord);
                 timeStartedGotoing = System.currentTimeMillis();
                 beamMeTo(whereTo);
             } else if (gotoMethod == GotoMethod.WALK) {
+                ModSimReloaded.log.info(name+":选择步行去x:"+whereTo.xCoord+",y:"+whereTo.yCoord+",z:"+whereTo.zCoord);
                 stayPut = false;
                 timeStartedGotoing = System.currentTimeMillis();
                 if (theEntity != null) {

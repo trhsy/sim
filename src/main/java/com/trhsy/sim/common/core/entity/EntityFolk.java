@@ -87,9 +87,8 @@ public class EntityFolk extends EntityCreature implements INpc {
 //开门
             this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
             //闲逛
-            this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
-            //闲逛
-            //this.tasks.addTask(9, new EntityAIWanderSUK(this, 0.5D));
+            //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
+            this.tasks.addTask(9, new EntityAIWanderSUK(this, 0.5D));
             this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
             //避免实体
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
