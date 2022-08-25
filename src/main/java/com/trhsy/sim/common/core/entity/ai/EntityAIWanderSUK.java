@@ -14,12 +14,10 @@ public class EntityAIWanderSUK extends EntityAIWander {
     private double xPosition;
     private double yPosition;
     private double zPosition;
-    private double speed;
-    private int executionChance;
-    private boolean mustUpdate;
 
     public EntityAIWanderSUK(EntityCreature folk, double speedIn) {
         super(folk, speedIn, 120);
+        this.entity = folk;
     }
 
     /*public EntityAIWanderSUK(EntityCreature folk, double speedIn, int chance) {
@@ -42,19 +40,12 @@ public class EntityAIWanderSUK extends EntityAIWander {
         /*if (this.entity.isWithinHomeDistanceCurrentPosition()) {
             return false;
         }else{*/
-            if (!this.mustUpdate) {
-                if(actualFolk==null){
-                    return false;
-                }
-                if (actualFolk.theData != null) {
-                    if (actualFolk.theData.stayPut) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
+        if (actualFolk == null) {
+            return false;
+        }
+        if (actualFolk.theData != null) {
+            if (actualFolk.theData.stayPut) {
+                return false;
             }
             V3 v = actualFolk.theData.destination;
             if (v == null) {
@@ -63,9 +54,11 @@ public class EntityAIWanderSUK extends EntityAIWander {
                 this.xPosition = v.xCoord;
                 this.yPosition = v.yCoord;
                 this.zPosition = v.zCoord;
-                this.mustUpdate = false;
                 return true;
             }
+        } else {
+            return false;
+        }
 //        }
     }
 
@@ -87,25 +80,12 @@ public class EntityAIWanderSUK extends EntityAIWander {
     @Override
     public void startExecuting() {
         try {
-            this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
-            ModSimReloaded.log.info("NPC智能AI移动到x：" + this.xPosition + ",y：" + this.yPosition+",z:"+this.zPosition);
+            this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition,0.3);
+            ModSimReloaded.log.info("NPC智能AI移动到x：" + this.xPosition + ",y：" + this.yPosition + ",z:" + this.zPosition);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("NPC智能AI移动发生错误：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
-    /**
-     * 使任务绕过机会
-     */
-    public void makeUpdate() {
-        this.mustUpdate = true;
-    }
-
-    /**
-     * 更改任务执行的随机可能性
-     */
-    public void setExecutionChance(int newchance) {
-        this.executionChance = newchance;
-    }
 }

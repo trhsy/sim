@@ -419,7 +419,8 @@ public class FolkData implements Serializable {
      */
     public void updateLocationFromEntity() {
         try {
-            theEntity.setPosition(location.xCoord, location.yCoord, location.zCoord);
+            //theEntity.setPosition(location.xCoord, location.yCoord, location.zCoord);
+            //theEntity.setLocationAndAngles(location.xCoord, location.yCoord, location.zCoord, 0.0F, 0.0F);
             if (isSpawned()) {
                 location = new V3(theEntity.posX, theEntity.posY, theEntity.posZ, location.theDimension);
                 //theEntity.setPosition(location.xCoord,location.yCoord,location.zCoord);
@@ -458,7 +459,8 @@ public class FolkData implements Serializable {
                 theEntity = new EntityFolk(world);
                 //设置实体在世界中的位置和偏航/俯仰
                 theEntity.setLocationAndAngles(location.xCoord, location.yCoord, location.zCoord, 0.0F, 0.0F);
-                theEntity.setPosition(location.xCoord, location.yCoord, location.zCoord);
+                //if(theEntity.getCanSpawnHere()){}
+                //theEntity.setPosition(location.xCoord, location.yCoord, location.zCoord);
                 if (!world.isRemote) {
                     if (theEntity.isDead || theEntity.theData == null) {
                         theEntity.theData = this;
@@ -692,7 +694,9 @@ public class FolkData implements Serializable {
 
                     if (!gotWanderPoint) {
                         //随机让去一个地方
+
                         V3 wanderTo = new V3(location.xCoord + 1, location.yCoord, location.zCoord + 1, location.theDimension);
+                        ModSimReloaded.log.info(name+":要随机去一个地方，x:"+wanderTo.xCoord+",y:"+wanderTo.yCoord+",z:"+wanderTo.zCoord);
                         //WorldServer world = MinecraftServer.getServer().worldServerForDimension(location.theDimension);
                         //while (world.getBlockState(new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord)).getBlock() != null && wanderTo.yCoord < 255.0) {
                         //    //wanderTo.yCoord = wanderTo.yCoord + 1;
@@ -1404,7 +1408,7 @@ public class FolkData implements Serializable {
         //ModSimReloaded.log.info("FolkData: selfFire() " + name);
         try {
             isWorking = false;
-            if (villagerInventory.getSizeInventory() > 0) {
+            if (villagerInventory!=null&&villagerInventory.getSizeInventory() > 0) {
                 int count = 0;
 
                 for (int inv = 0; inv < villagerInventory.getSizeInventory(); inv++) {
@@ -1531,7 +1535,8 @@ public class FolkData implements Serializable {
                 destination = new V3(destination.xCoord + 0.5, destination.yCoord, destination.zCoord + 0.5);
                 if (theEntity != null) {
                     if (destination != null) {
-                        theEntity.setPosition(destination.xCoord,destination.yCoord,destination.zCoord);
+                        //theEntity.setPosition(destination.xCoord,destination.yCoord,destination.zCoord);
+                        theEntity.setLocationAndAngles(location.xCoord, location.yCoord, location.zCoord, 0.0F, 0.0F);
                     }
                     //如果维度不一样传送到维度
                     //修改为不管维度一样不一样都要传送
@@ -1554,6 +1559,7 @@ public class FolkData implements Serializable {
                 if (theEntity != null) {
                     theEntity.gotPath = false;
                     //已经设置了它们的目的地，所以这就是它所需要的一切。只有当它们重生并在步行距离内时，它才会到达这里，所以实体的MoveEntity（）方法现在接管。
+
                     /*theEntity.gotPath = theEntity.getNavigator().tryMoveToXYZ(destination.xCoord, destination.yCoord, destination.zCoord, 0.3D);
                     if (theEntity.gotPath) {
                         PathEntity path = theEntity.getNavigator().getPathToXYZ(destination.xCoord, destination.yCoord, destination.zCoord);
@@ -1691,7 +1697,6 @@ public class FolkData implements Serializable {
             public void run() {
                 try {
                     ModSimReloaded.log.info("***********************开始加载npc人物***************");
-
                     ModSimReloaded.theFolks.clear();
                     File folksFolder = new File(ModSimReloaded.getSavesDataFolder() + "folks" + File.separator);
                     if (!folksFolder.exists()) {

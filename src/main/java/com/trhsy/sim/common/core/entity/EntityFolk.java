@@ -186,7 +186,6 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public void onUpdate() {
         try {
-            super.onUpdate();
             //如果NPC数据信息为空
             if (theData == null) {
                 //npc 没有死
@@ -207,6 +206,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 }
 
             } else {
+                //this.setLocationAndAngles(theData.location.xCoord, theData.location.yCoord, theData.location.zCoord, 0.0F, 0.0F);
                 //如果实体人工作中
                 if (theData.isWorking) {
 
@@ -447,7 +447,6 @@ public class EntityFolk extends EntityCreature implements INpc {
                     ModSimReloaded.log.warn("人们 theData.destination 中的目标为空 moveEntity()");
                     return;
                 }
-                Boolean flag = true;
                 if (dist <= 2.0) {
                     theData.updateLocationFromEntity();
                     this.motionX = 0;
@@ -497,15 +496,15 @@ public class EntityFolk extends EntityCreature implements INpc {
                 this.motionZ = 0;
                 this.getNavigator().clearPathEntity();
             } else {
-                if (x <= 1) {
+               /* if (x <= 0) {
                     x = theData.location.xCoord;
                 }
-                if (y <= 1) {
+                if (y <= 0) {
                     y = theData.location.yCoord;
                 }
-                if (z <= 1) {
+                if (z <= 0) {
                     z = theData.location.zCoord;
-                }
+                }*/
                 //theData.destination = new V3(x, y, z);
                 //ModSimReloaded.log.info("moveEntity,x:" + x + ",y:" + y + ",z:" + z);
                 super.moveEntity(x, y, z);
