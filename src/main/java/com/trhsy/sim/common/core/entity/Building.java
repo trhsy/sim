@@ -712,6 +712,7 @@ public class Building implements Serializable {
         try {
             List<String> strings = new CopyOnWriteArrayList();
             if (this.primaryXYZ != null) {
+
                 String xyz = this.displayName + this.primaryXYZ.toString().replaceAll(".0,", "_");
                 strings.add("displayname|" + this.displayName);
                 strings.add("type|" + this.type);
@@ -719,7 +720,7 @@ public class Building implements Serializable {
                 if (this.livingXYZ == null) {
                     strings.add("livingxyz|null");
                 } else {
-                    strings.add("livingxyz|" + this.livingXYZ);
+                    strings.add("livingxyz|" + this.livingXYZ.toString());
                 }
 
                 strings.add("buildingcomplete|" + this.buildingComplete);
@@ -861,7 +862,7 @@ public class Building implements Serializable {
                             buildingsFolder.mkdirs();
                         }
                         File[] files = buildingsFolder.listFiles();
-                        if (files.length > 1) {
+                        if (files!=null&&files.length > 1) {
 
                             Building build;
                             ModSimReloaded.theBuildings.clear();

@@ -243,7 +243,7 @@ public class FolkData implements Serializable {
             villagerInventory = new InventoryBasic("Items", false, 8);
             //安排他们的工作
             setTheirJob(vocation);
-            ModSimReloaded.log.info(name+",开始重生了");
+            ModSimReloaded.log.info(name + ",开始重生了");
             respawnEntity(MinecraftServer.getServer().worldServerForDimension(0));
             ModSimReloaded.theFolks.add(this);
         } catch (Exception e) {
@@ -448,7 +448,7 @@ public class FolkData implements Serializable {
             }
             //已经繁殖了，所以不需要
             if (theEntity != null) {
-                if (!theEntity.isDead ) {
+                if (!theEntity.isDead) {
                     return;
                 }
             }
@@ -696,7 +696,7 @@ public class FolkData implements Serializable {
                         //随机让去一个地方
 
                         V3 wanderTo = new V3(location.xCoord + 1, location.yCoord, location.zCoord + 1, location.theDimension);
-                        ModSimReloaded.log.info(name+":要随机去一个地方，x:"+wanderTo.xCoord+",y:"+wanderTo.yCoord+",z:"+wanderTo.zCoord);
+                        ModSimReloaded.log.info(name + ":要随机去一个地方，x:" + wanderTo.xCoord + ",y:" + wanderTo.yCoord + ",z:" + wanderTo.zCoord);
                         //WorldServer world = MinecraftServer.getServer().worldServerForDimension(location.theDimension);
                         //while (world.getBlockState(new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord)).getBlock() != null && wanderTo.yCoord < 255.0) {
                         //    //wanderTo.yCoord = wanderTo.yCoord + 1;
@@ -1222,7 +1222,7 @@ public class FolkData implements Serializable {
                 return falg;
             } else {
                 //return theEntity.isEntityAlive();
-                theEntity.isDead=false;
+                theEntity.isDead = false;
                 return !theEntity.isDead;
             }
         } catch (Exception e) {
@@ -1408,50 +1408,54 @@ public class FolkData implements Serializable {
         //ModSimReloaded.log.info("FolkData: selfFire() " + name);
         try {
             isWorking = false;
-            if (villagerInventory!=null&&villagerInventory.getSizeInventory() > 0) {
-                int count = 0;
+                if (villagerInventory != null&&villagerInventory.getSizeInventory() > 0) {
+                    int count = 0;
+                    for (int inv = 0; inv < villagerInventory.getSizeInventory(); inv++) {
+                        ItemStack is = villagerInventory.getStackInSlot(inv);
+                        if (is != null) {
+                            if (theEntity != null) {
+                                theEntity.entityDropItem(is, (float) is.stackSize);
+                            } else {
+                                getClosestPlayer(location).entityDropItem(is, (float) is.stackSize);
+                            }
 
-                for (int inv = 0; inv < villagerInventory.getSizeInventory(); inv++) {
-                    ItemStack is = villagerInventory.getStackInSlot(inv);
-                    if (is != null) {
-                        if (theEntity != null) {
-                            theEntity.entityDropItem(is, (float) is.stackSize);
-                        } else {
-                            getClosestPlayer(location).entityDropItem(is, (float) is.stackSize);
+                            count += is.stackSize;
                         }
+                    }
 
-                        count += is.stackSize;
+                    if (count > 0) {
+                        //从他们的库存中取走了
+                        String has_dropped = I18n.format("container.sim.folk_data_has_dropped");
+                        //件物品
+                        String inventory = I18n.format("container.sim.folk_data_inventory");
+
+                        ModSimReloaded.sendChat(name + has_dropped + count + inventory);
                     }
                 }
+            if (villagerInventory != null){
+                villagerInventory.clear();
+            }else{
+                villagerInventory= new InventoryBasic("Items", false, 8);
+            }
 
-                if (count > 0) {
-                    //从他们的库存中取走了
-                    String has_dropped = I18n.format("container.sim.folk_data_has_dropped");
-                    //件物品
-                    String inventory = I18n.format("container.sim.folk_data_inventory");
-
-                    ModSimReloaded.sendChat(name + has_dropped + count + inventory);
+                if (theEntity != null) {
+                    theEntity.swingProgress = 0.0F;
+                    theEntity.getNavigator().clearPathEntity();
                 }
-            }
 
-            villagerInventory.clear();
-            if (theEntity != null) {
-                theEntity.swingProgress = 0.0F;
-                theEntity.getNavigator().clearPathEntity();
-            }
+                employedAt = null;
+                if (vocation == Vocation.BUILDER) {
+                    theBuilding = null;
+                }
 
-            employedAt = null;
-            if (vocation == Vocation.BUILDER) {
-                theBuilding = null;
-            }
-
-            vocation = null;
-            theirJob = null;
-            action = FolkAction.WANDER;
-            statusText = I18n.format("container.sim.folk_data.Wandering");
-            stayPut = false;
-            saveThisFolk();
-        } catch (Exception e) {
+                vocation = null;
+                theirJob = null;
+                action = FolkAction.WANDER;
+                statusText = I18n.format("container.sim.folk_data.Wandering");
+                stayPut = false;
+                saveThisFolk();
+        } catch (
+                Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("selfFire出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
@@ -1531,7 +1535,7 @@ public class FolkData implements Serializable {
             }
 
             if (gotoMethod == GotoMethod.SHIFT) {
-                ModSimReloaded.log.info(name+":选择SHIFT去x:"+whereTo.xCoord+",y:"+whereTo.yCoord+",z:"+whereTo.zCoord);
+                ModSimReloaded.log.info(name + ":选择SHIFT去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
                 destination = new V3(destination.xCoord + 0.5, destination.yCoord, destination.zCoord + 0.5);
                 if (theEntity != null) {
                     if (destination != null) {
@@ -1549,11 +1553,11 @@ public class FolkData implements Serializable {
                 location = destination.clone();
                 destination = null;
             } else if (gotoMethod == GotoMethod.BEAM) {
-                ModSimReloaded.log.info(name+":选择传送去x:"+whereTo.xCoord+",y:"+whereTo.yCoord+",z:"+whereTo.zCoord);
+                ModSimReloaded.log.info(name + ":选择传送去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
                 timeStartedGotoing = System.currentTimeMillis();
                 beamMeTo(whereTo);
             } else if (gotoMethod == GotoMethod.WALK) {
-                ModSimReloaded.log.info(name+":选择步行去x:"+whereTo.xCoord+",y:"+whereTo.yCoord+",z:"+whereTo.zCoord);
+                ModSimReloaded.log.info(name + ":选择步行去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
                 stayPut = false;
                 timeStartedGotoing = System.currentTimeMillis();
                 if (theEntity != null) {
@@ -2186,8 +2190,8 @@ public class FolkData implements Serializable {
                 //    //(在香蕉皮上滑倒)
                 //    deathBy = I18n.format("container.sim.folk_data_death_by_Slipped");
                 //} else if (i == 5) {
-                    //(被砍死)
-                    deathBy = I18n.format("container.sim.folk_data_death_by_killed");
+                //(被砍死)
+                deathBy = I18n.format("container.sim.folk_data_death_by_killed");
                 //}
             }
 
@@ -2457,433 +2461,5 @@ public class FolkData implements Serializable {
      */
     public InventoryBasic getVillagerInventory() {
         return villagerInventory;
-    }
-
-    public V3 getEmployedAt() {
-        return employedAt;
-    }
-
-    public void setEmployedAt(V3 employedAt) {
-        employedAt = employedAt;
-    }
-
-    public Vocation getVocation() {
-        return vocation;
-    }
-
-    public void setVocation(Vocation vocation) {
-        vocation = vocation;
-    }
-
-    public ItemStack[] getValidTools() {
-        return validTools;
-    }
-
-    public void setValidTools(ItemStack[] validTools) {
-        validTools = validTools;
-    }
-
-    public Job getTheirJob() {
-        return theirJob;
-    }
-
-    public void setTheirJob(Job theirJob) {
-        theirJob = theirJob;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        age = age;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        gender = gender;
-    }
-
-    public int getSkinnumber() {
-        return skinnumber;
-    }
-
-    public void setSkinnumber(int skinnumber) {
-        skinnumber = skinnumber;
-    }
-
-    public Race getFolkRace() {
-        return folkRace;
-    }
-
-    public void setFolkRace(Race folkRace) {
-        folkRace = folkRace;
-    }
-
-    public String getFolkRaceName() {
-        return folkRaceName;
-    }
-
-    public void setFolkRaceName(String folkRaceName) {
-        folkRaceName = folkRaceName;
-    }
-
-    public String getTrait1() {
-        return trait1;
-    }
-
-    public void setTrait1(String trait1) {
-        trait1 = trait1;
-    }
-
-    public String getTrait2() {
-        return trait2;
-    }
-
-    public void setTrait2(String trait2) {
-        trait2 = trait2;
-    }
-
-    public String getTrait3() {
-        return trait3;
-    }
-
-    public void setTrait3(String trait3) {
-        trait3 = trait3;
-    }
-
-    public String getTrait4() {
-        return trait4;
-    }
-
-    public void setTrait4(String trait4) {
-        trait4 = trait4;
-    }
-
-    public int getLevelFood() {
-        return levelFood;
-    }
-
-    public void setLevelFood(int levelFood) {
-        levelFood = levelFood;
-    }
-
-    public int getLevelFun() {
-        return levelFun;
-    }
-
-    public void setLevelFun(int levelFun) {
-        levelFun = levelFun;
-    }
-
-    public int getLevelSocial() {
-        return levelSocial;
-    }
-
-    public void setLevelSocial(int levelSocial) {
-        levelSocial = levelSocial;
-    }
-
-    public int getLevelEnvironment() {
-        return levelEnvironment;
-    }
-
-    public void setLevelEnvironment(int levelEnvironment) {
-        levelEnvironment = levelEnvironment;
-    }
-
-    public float getLevelBuilder() {
-        return levelBuilder;
-    }
-
-    public void setLevelBuilder(float levelBuilder) {
-        levelBuilder = levelBuilder;
-    }
-
-    public float getLevelMiner() {
-        return levelMiner;
-    }
-
-    public void setLevelMiner(float levelMiner) {
-        levelMiner = levelMiner;
-    }
-
-    public float getLevelSoldier() {
-        return levelSoldier;
-    }
-
-    public void setLevelSoldier(float levelSoldier) {
-        levelSoldier = levelSoldier;
-    }
-
-    public FolkAction getAction() {
-        return action;
-    }
-
-    public void setAction(FolkAction action) {
-        action = action;
-    }
-
-    public FolkAction getActionArrival() {
-        return actionArrival;
-    }
-
-    public void setActionArrival(FolkAction actionArrival) {
-        actionArrival = actionArrival;
-    }
-
-    public Boolean getStayPut() {
-        return stayPut;
-    }
-
-    public void setStayPut(Boolean stayPut) {
-        stayPut = stayPut;
-    }
-
-    public V3 getDestination() {
-        return destination;
-    }
-
-    public void setDestination(V3 destination) {
-        destination = destination;
-    }
-
-    public V3 getLocation() {
-        return location;
-    }
-
-    public void setLocation(V3 location) {
-        location = location;
-    }
-
-    public String getStatusText() {
-        return statusText;
-    }
-
-    public void setStatusText(String statusText) {
-        statusText = statusText;
-    }
-
-    public String getStatus1() {
-        return status1;
-    }
-
-    public void setStatus1(String status1) {
-        status1 = status1;
-    }
-
-    public String getStatus2() {
-        return status2;
-    }
-
-    public void setStatus2(String status2) {
-        status2 = status2;
-    }
-
-    public String getStatus3() {
-        return status3;
-    }
-
-    public void setStatus3(String status3) {
-        status3 = status3;
-    }
-
-    public String getStatus4() {
-        return status4;
-    }
-
-    public void setStatus4(String status4) {
-        status4 = status4;
-    }
-
-    public String getFunStatus() {
-        return funStatus;
-    }
-
-    public void setFunStatus(String funStatus) {
-        funStatus = funStatus;
-    }
-
-    public String getSocialStatus() {
-        return socialStatus;
-    }
-
-    public void setSocialStatus(String socialStatus) {
-        socialStatus = socialStatus;
-    }
-
-    public String getEnvironmentStatus() {
-        return environmentStatus;
-    }
-
-    public void setEnvironmentStatus(String environmentStatus) {
-        environmentStatus = environmentStatus;
-    }
-
-    public float getShaggingStage() {
-        return shaggingStage;
-    }
-
-    public void setShaggingStage(float shaggingStage) {
-        shaggingStage = shaggingStage;
-    }
-
-    public float getPregnancyStage() {
-        return pregnancyStage;
-    }
-
-    public void setPregnancyStage(float pregnancyStage) {
-        pregnancyStage = pregnancyStage;
-    }
-
-    public boolean isWorking() {
-        return isWorking;
-    }
-
-    public void setWorking(boolean working) {
-        isWorking = working;
-    }
-
-    public boolean isGreetedToday() {
-        return greetedToday;
-    }
-
-    public void setGreetedToday(boolean greetedToday) {
-        greetedToday = greetedToday;
-    }
-
-    public static long getAnyFolkLastSpoke() {
-        return anyFolkLastSpoke;
-    }
-
-    public static void setAnyFolkLastSpoke(long anyFolkLastSpoke) {
-        FolkData.anyFolkLastSpoke = anyFolkLastSpoke;
-    }
-
-    public Building getTheBuilding() {
-        return theBuilding;
-    }
-
-    public void setTheBuilding(Building theBuilding) {
-        theBuilding = theBuilding;
-    }
-
-    public TerraformerType getTerraformerType() {
-        return terraformerType;
-    }
-
-    public void setTerraformerType(TerraformerType terraformerType) {
-        terraformerType = terraformerType;
-    }
-
-    public int getTerraformerRadius() {
-        return terraformerRadius;
-    }
-
-    public void setTerraformerRadius(int terraformerRadius) {
-        terraformerRadius = terraformerRadius;
-    }
-
-    public void setVillagerInventory(InventoryBasic villagerInventory) {
-        villagerInventory = villagerInventory;
-    }
-
-    public EntityFolk getTheEntity() {
-        return theEntity;
-    }
-
-    public void setTheEntity(EntityFolk theEntity) {
-        theEntity = theEntity;
-    }
-
-    public Long getTimeStartedGotoing() {
-        return timeStartedGotoing;
-    }
-
-    public void setTimeStartedGotoing(Long timeStartedGotoing) {
-        timeStartedGotoing = timeStartedGotoing;
-    }
-
-    public GotoMethod getGotoMethod() {
-        return gotoMethod;
-    }
-
-    public void setGotoMethod(GotoMethod gotoMethod) {
-        gotoMethod = gotoMethod;
-    }
-
-    public long getTimeSinceLastSave() {
-        return timeSinceLastSave;
-    }
-
-    public void setTimeSinceLastSave(long timeSinceLastSave) {
-        timeSinceLastSave = timeSinceLastSave;
-    }
-
-    public long getTimeSinceLastStatusUpdate() {
-        return timeSinceLastStatusUpdate;
-    }
-
-    public void setTimeSinceLastStatusUpdate(long timeSinceLastStatusUpdate) {
-        timeSinceLastStatusUpdate = timeSinceLastStatusUpdate;
-    }
-
-    public long getTimeSinceLastMinute() {
-        return timeSinceLastMinute;
-    }
-
-    public void setTimeSinceLastMinute(long timeSinceLastMinute) {
-        timeSinceLastMinute = timeSinceLastMinute;
-    }
-
-    public V3 getBeamingTo() {
-        return beamingTo;
-    }
-
-    public void setBeamingTo(V3 beamingTo) {
-        beamingTo = beamingTo;
-    }
-
-    public FolkData getHangingWith() {
-        return hangingWith;
-    }
-
-    public void setHangingWith(FolkData hangingWith) {
-        hangingWith = hangingWith;
-    }
-
-    public int getTalkCounter() {
-        return talkCounter;
-    }
-
-    public void setTalkCounter(int talkCounter) {
-        talkCounter = talkCounter;
-    }
-
-    public float getMatingStage() {
-        return matingStage;
-    }
-
-    public void setMatingStage(float matingStage) {
-        matingStage = matingStage;
-    }
-
-    public int getEntityId() {
-        return entityId;
-    }
-
-    public void setEntityId(int entityId) {
-        entityId = entityId;
     }
 }
