@@ -188,6 +188,7 @@ public class GuiEmployFolk extends GuiScreen {
                 ++this.mouseCount;
                 Mouse.setGrabbed(false);
             }
+            //选择你想雇佣谁作为一名员工
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_who_you") + this.vocation.toString(), this.width / 2, 17, 16777215);
             super.drawScreen(i, j, f);
         } catch (Exception e) {
@@ -201,6 +202,7 @@ public class GuiEmployFolk extends GuiScreen {
         try {
             if (guibutton.enabled) {
                 if (guibutton.id == 0) {
+                    //取消
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
                 } else {
@@ -208,7 +210,7 @@ public class GuiEmployFolk extends GuiScreen {
                         this.selectedFolks.add(guibutton);
                         guibutton.enabled = false;
                     }
-
+                    //好
                     if (guibutton.id == 1000) {
                         if (ModSimReloaded.states.credits <= 0.0F && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
                             //你需要一些金币来雇佣员工。

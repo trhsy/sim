@@ -146,7 +146,7 @@ public abstract class Job {
                 }
 
                 //  是否白天               活动的              去工作路上                             活动中                工作中
-                if (ModSimReloaded.isDayTime()) {
+                if (ModSimReloaded.isDayTime()|| theFolk.isNightOwl()) {
                     if (theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
                         //活动设置为去工作路上
                         theFolk.action = FolkAction.ONWAYTOWORK;
@@ -156,20 +156,6 @@ public abstract class Job {
                         if (theFolk.destination == null) {
                             //设置目的地
                             theFolk.gotoXYZ(theFolk.employedAt, null);
-                        }
-                    }
-                } else {
-                    if (theFolk.isNightOwl()) {
-                        if (theFolk.action != FolkAction.ONWAYTOWORK && theFolk.action != FolkAction.ATWORK) {
-                            //活动设置为去工作路上
-                            theFolk.action = FolkAction.ONWAYTOWORK;
-                            //设置原地不动为否
-                            theFolk.stayPut = false;
-                            //如果目的地为空
-                            if (theFolk.destination == null) {
-                                //设置目的地
-                                theFolk.gotoXYZ(theFolk.employedAt, null);
-                            }
                         }
                     }
                 }
@@ -381,7 +367,7 @@ public abstract class Job {
         ItemStack retStack = null;
         try {
             for (int c = 0; c < chests.size(); ++c) {
-                IInventory chest = (IInventory) chests.get(c);
+                IInventory chest = chests.get(c);
                 //库存获取
                 retStack = inventoryGet(chest, whatItem, getRandomItem, compareMeta);
                 if (retStack != null) {

@@ -238,12 +238,13 @@ public class JobBaker extends Job implements Serializable {
      */
     private void stageCollectingWheat() {
         try {
+            //收集小麦
             this.theFolk.statusText = I18n.format("container.sim.job.Baker_Collecting");
             this.runDelay = 1000;
             if (this.step == 1) {
                 this.farmChests = inventoriesFindClosest(this.farm.getLocation(), 5);
                 if (this.farmChests.size() > 0) {
-                    ((IInventory)this.farmChests.get(0)).openInventory(mc.thePlayer);
+                    (this.farmChests.get(0)).openInventory(mc.thePlayer);
                     this.step = 2;
                 }
             } else if (this.step == 2) {
@@ -251,7 +252,7 @@ public class JobBaker extends Job implements Serializable {
                 this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.farmChests, new ItemStack(Items.wheat, 640), Blocks.air);
                 this.step = 3;
             } else if (this.step == 3) {
-                ((IInventory)this.farmChests.get(0)).closeInventory(mc.thePlayer);
+                (this.farmChests.get(0)).closeInventory(mc.thePlayer);
                 this.theStage = Stage.GOINGTOWHEATFARM;
                 this.step = 1;
             }
@@ -314,7 +315,7 @@ public class JobBaker extends Job implements Serializable {
                     this.bakeryChests = inventoriesFindClosest(this.theFolk.employedAt, 4);
 
                     try {
-                        ((IInventory)this.bakeryChests.get(0)).openInventory(mc.thePlayer);
+                        (this.bakeryChests.get(0)).openInventory(mc.thePlayer);
                     } catch (Exception e) {
                     }
 
@@ -322,7 +323,7 @@ public class JobBaker extends Job implements Serializable {
                     this.theFolk.getVillagerInventory().clear();
                     this.step = 3;
                 } else if (this.step == 3) {
-                    ((IInventory) this.bakeryChests.get(0)).closeInventory(mc.thePlayer);
+                    ( this.bakeryChests.get(0)).closeInventory(mc.thePlayer);
                     this.theFolk.statusText = I18n.format("container.sim.job.Baker_Selling");
                     this.theFolk.stayPut = true;
                     if (this.theFolk.theEntity != null) {
@@ -365,6 +366,7 @@ public class JobBaker extends Job implements Serializable {
                     this.step = 3;
                 }
             } else if (this.step == 3) {
+                //关闭商店
                 this.theFolk.statusText = I18n.format("container.sim.job.Baker_Closing");
                 //int sell = false;
                 ItemStack breadStack = null;
@@ -390,6 +392,9 @@ public class JobBaker extends Job implements Serializable {
 
                 this.step = 4;
             } else if (this.step == 4) {
+                this.theFolk.action=FolkAction.WANDER;
+                this.theFolk.stayPut=false;
+                this.theFolk.isWorking=false;
             }
 
         } catch (Exception e) {
@@ -406,7 +411,7 @@ public class JobBaker extends Job implements Serializable {
         try {
             while(!found) {
                 try {
-                    FarmingBox farm = (FarmingBox) ModSimReloaded.theFarmingBoxes.get(this.currentFarmNum);
+                    FarmingBox farm =  ModSimReloaded.theFarmingBoxes.get(this.currentFarmNum);
                     if (farm.farmType == FarmType.WHEAT) {
                         found = true;
                         ++this.currentFarmNum;

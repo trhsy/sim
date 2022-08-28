@@ -90,11 +90,11 @@ public class EntityFolk extends EntityCreature implements INpc {
             //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
             this.tasks.addTask(9, new EntityAIWanderSUK(this, 0.5D));
             this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.3D));
-            //避免实体
+            //避开实体
             this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
-            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D));
-            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
+//            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+//            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D));
+//            this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
             //游泳
             this.tasks.addTask(4, new EntityAISwimming(this));
             this.isDead=false;
@@ -727,7 +727,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         this.motionZ = theData.location.zCoord + 0.5;
                     }
                     //受伤要跑出受伤范围
-                    theData.gotoXYZ(new V3(motionX, motionY, motionZ, 0), null);
+                    theData.gotoXYZ(new V3(motionX, motionY, motionZ, 0), GotoMethod.SHIFT);
                 }
 
                 if (theData == null) {

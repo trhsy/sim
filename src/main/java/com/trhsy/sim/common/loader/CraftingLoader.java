@@ -67,6 +67,8 @@ public class CraftingLoader {
             GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 5), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 4)});
             GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 6), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 5)});
             GameRegistry.addShapelessRecipe(new ItemStack(BlockLoader.blockLightBox, 1, 7), new Object[]{BlockLoader.blockLightBox, new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 14), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 10), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 5)});
+
+
             //九个奶酪片合成奶酪块
             GameRegistry.addRecipe(new ItemStack(BlockLoader.blockCheese, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(ItemLoader.itemCheese, 1, 0)});
             //一个奶酪块分解九奶酪片
@@ -94,9 +96,12 @@ public class CraftingLoader {
                     'P', Blocks.planks,
                     'W', BlockLoader.blockConstructorBox
             });
+            //地毯
+            for (int i = 0; i < 16; i++) {
+                GameRegistry.addRecipe(new ItemStack(BlockLoader.blockLiving, 3,i), new Object[]{"SSS", 'S', Items.stick});
+            }
 
-            int c;
-            for (c = 0; c < 16; ++c) {
+            for (int c = 0; c < 16; ++c) {
                 /** 风车叶片
                  *木棍 木棍 木棍
                  *羊毛 羊毛 羊毛
@@ -104,7 +109,7 @@ public class CraftingLoader {
                 GameRegistry.addRecipe(new ItemStack(ItemLoader.itemWindmillVane, 1, c), new Object[]{"WWW", "SSS", 'S', Items.stick, 'W', new ItemStack(Blocks.wool, 1, c)});
             }
 
-            for (c = 0; c < 16; ++c) {
+            for (int c = 0; c < 16; ++c) {
                 /** 风车帆
                  *      叶片
                  * 叶片 木板 叶片
@@ -113,7 +118,7 @@ public class CraftingLoader {
                 GameRegistry.addRecipe(new ItemStack(ItemLoader.itemWindmillSails, 1, c), new Object[]{" V ", "VPV", " V ", 'V', new ItemStack(ItemLoader.itemWindmillVane, 1, c), 'P', Blocks.planks});
             }
 
-            for (c = 0; c < 16; ++c) {
+            for (int c = 0; c < 16; ++c) {
                 /** 风车
                  * 风车帆
                  * 风车底座

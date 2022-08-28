@@ -711,12 +711,16 @@ public class Building implements Serializable {
     public void saveThisBuilding() {
         try {
             List<String> strings = new CopyOnWriteArrayList();
+            strings.clear();
             if (this.primaryXYZ != null) {
-
                 String xyz = this.displayName + this.primaryXYZ.toString().replaceAll(".0,", "_");
                 strings.add("displayname|" + this.displayName);
                 strings.add("type|" + this.type);
-                strings.add("primaryxyz|" + this.primaryXYZ.toString());
+                if (this.primaryXYZ == null) {
+                    strings.add("primaryxyz|null");
+                } else {
+                    strings.add("primaryxyz|" + this.primaryXYZ.toString());
+                }
                 if (this.livingXYZ == null) {
                     strings.add("livingxyz|null");
                 } else {
@@ -862,7 +866,7 @@ public class Building implements Serializable {
                             buildingsFolder.mkdirs();
                         }
                         File[] files = buildingsFolder.listFiles();
-                        if (files!=null&&files.length > 1) {
+                        if (files != null && files.length > 1) {
 
                             Building build;
                             ModSimReloaded.theBuildings.clear();

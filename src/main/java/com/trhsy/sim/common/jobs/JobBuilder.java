@@ -155,8 +155,10 @@ public class JobBuilder extends Job implements Serializable {
                     this.timeSinceLastRun = System.currentTimeMillis();
                     //当前建筑工不为空并且 职业不是建筑工
                     if (this.theFolk.theirJob != null && this.theFolk.vocation != Vocation.BUILDER) {
+                        ModSimReloaded.log.warn("当前建筑工不为空并且 职业不是建筑工 辞职");
                         //解雇
                         this.theFolk.selfFire();
+
                     } else {
                         //更新实体位置
                         this.theFolk.updateLocationFromEntity();
@@ -306,7 +308,8 @@ public class JobBuilder extends Job implements Serializable {
             } else if (this.step == 3) {
                 //NPC职业不是建筑师
                 if (this.theFolk.vocation != Vocation.BUILDER) {
-                    //咨询解雇
+                    //解雇
+                    ModSimReloaded.log.warn("NPC职业不是建筑师 辞职");
                     this.theFolk.selfFire();
                     return;
                 }
@@ -381,6 +384,7 @@ public class JobBuilder extends Job implements Serializable {
                         //if (!this.theBuilding.buildDirection.contentEquals("+z")) {
                         //不能确定建造的方向，当你右键点击它时请站在构造的四边之一
                         ModSimReloaded.sendChat(I18n.format("container.sim.job.builder_constructor_direction"));
+                        ModSimReloaded.log.warn("不能确定建造的方向，当你右键点击它时请站在构造的四边之一 辞职");
                         this.theFolk.selfFire();
                         return;
                         //}
@@ -400,6 +404,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     //建筑物为空 辞职
                     if (this.theBuilding == null) {
+                        ModSimReloaded.log.warn("建筑物为空 辞职");
                         this.theFolk.selfFire();
                         return;
                     }
@@ -429,6 +434,7 @@ public class JobBuilder extends Job implements Serializable {
                         }
                         //建筑物为空 辞职
                         if (this.theBuilding == null) {
+                            ModSimReloaded.log.warn("建筑物为空 辞职");
                             this.theFolk.selfFire();
                             return;
                         }
@@ -451,10 +457,10 @@ public class JobBuilder extends Job implements Serializable {
                             blockId = Blocks.dirt;
                         }
                         //类型为其他
-                        if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
-                            blockId = BlockLoader.blockControlBox;
-                            subtype = 2;//控制箱其他
-                        }
+//                        if (this.theBuilding.type.contentEquals("other") && this.acount == 0) {
+//                            blockId = BlockLoader.blockControlBox;
+//                            subtype = 2;//控制箱其他
+//                        }
                         //获得控制箱id
                         if (blockId == BlockLoader.blockControlBox) {
                             //主体的坐标
@@ -480,7 +486,7 @@ public class JobBuilder extends Job implements Serializable {
                         Block currBlockId = null;
                         currBlockId = this.jobWorld.getBlockState(new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo)).getBlock();
                         //要放置的方块是否已放置
-                        if (blockId == currBlockId || (blockId == Blocks.dirt && currBlockId == Blocks.grass) || (blockId == Blocks.grass && currBlockId == Blocks.dirt)) {
+                        if (blockId == currBlockId || (blockId == Blocks.dirt && currBlockId == Blocks.grass) || (blockId == Blocks.grass && currBlockId == Blocks.dirt) || blockId.getUnlocalizedName().contains("door")|| blockId==Blocks.bed) {
                             alreadyPlaced = true;
                         } else {
                             alreadyPlaced = false;
@@ -712,6 +718,7 @@ public class JobBuilder extends Job implements Serializable {
             }
 
             this.theFolk.stayPut = false;
+            ModSimReloaded.log.warn("建筑物已完成 辞职");
             this.theFolk.selfFire();
             this.theStage = Stage.IDLE;
             boolean activeBuilders = false;

@@ -48,7 +48,7 @@ tile.blockGasDispenser.sulphurDioxide.name=Sulphur Dioxide Gas Dispenser
 tile.blockGasDispenser.radiationGas.name=Radiation Gas Gas Dispenser
 
 tile.blockSpecial.name=Special
-
+container.sim.job.Grocer_today=There is no fresh food for sale today. Do you have a normal watermelon / Pumpkin / carrot / potato, farm?
 container.sim.sim_gui_BC1=Now select a special type of building
 container.sim.sim_gui_BC2=Architectural details
 container.sim.sim_gui_BC3=Building name
