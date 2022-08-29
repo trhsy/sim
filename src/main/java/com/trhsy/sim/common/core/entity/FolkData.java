@@ -780,6 +780,9 @@ public class FolkData implements Serializable {
                         ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + this.employedAt.xCoord + ",y:" + this.employedAt.yCoord + ",z:" + this.employedAt.zCoord);
                         this.statusText = I18n.format("container.sim.folk_data_Going_work");
                         this.action= FolkAction.ONWAYTOWORK;
+                        V3 temp = employedAt.clone();
+                        temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
+                        gotoXYZ(temp, GotoMethod.SHIFT);
                         gotoXYZ(this.employedAt, null);
                         return;
                     }
@@ -789,9 +792,9 @@ public class FolkData implements Serializable {
                         this.action= FolkAction.ONWAYTOWORK;
                         //ModSimReloaded.log.warn("FolkData:onUpdate() " + name + " 还在工作");
                         updateLocationFromEntity();
-//                        V3 temp = employedAt.clone();
-//                        temp = new V3(temp.xCoord + 0.5, temp.yCoord, temp.zCoord);
-//                        gotoXYZ(temp, GotoMethod.SHIFT);
+                        V3 temp = employedAt.clone();
+                        temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
+                        gotoXYZ(temp, GotoMethod.SHIFT);
                         gotoXYZ(this.employedAt, null);
                         return;
                     }
@@ -1533,7 +1536,7 @@ public class FolkData implements Serializable {
             }
 
             if (this.gotoMethod == GotoMethod.SHIFT) {
-                ModSimReloaded.log.info(name + ":选择SHIFT去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
+                //ModSimReloaded.log.info(name + ":选择SHIFT去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
                 this.destination = new V3(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
                 if (this.theEntity != null) {
                     if (this.destination != null) {
@@ -1551,11 +1554,11 @@ public class FolkData implements Serializable {
                 this.location = this.destination.clone();
                 this.destination = null;
             } else if (this.gotoMethod == GotoMethod.BEAM) {
-                ModSimReloaded.log.info(name + ":选择传送去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
+                //ModSimReloaded.log.info(name + ":选择传送去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
                 this.timeStartedGotoing = System.currentTimeMillis();
                 beamMeTo(whereTo);
             } else if (this.gotoMethod == GotoMethod.WALK) {
-                ModSimReloaded.log.info(name + ":选择步行去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
+                //ModSimReloaded.log.info(name + ":选择步行去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
                 this.stayPut = false;
                 this.timeStartedGotoing = System.currentTimeMillis();
                 if (this.theEntity != null) {

@@ -473,20 +473,20 @@ public class JobBuilder extends Job implements Serializable {
                         if (blockId == BlockLoader.blockLiving && this.theBuilding.type == "residential") {
                             //生活区
                             this.theBuilding.livingXYZ = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
-                            blockId = null;
+                            blockId = BlockLoader.blockLiving;
                             subtype = 0;
                             //如果方块为特除 并且 为住宅
                         } else if (blockId == BlockLoader.blockSpecial && this.theBuilding.type != "residential") {
                             V3 v3 = new V3((double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), this.theFolk.employedAt.theDimension);
                             v3.meta = subtype;
                             this.theBuilding.blockSpecial.add(v3);
-                            blockId = null;
+                            blockId = BlockLoader.blockSpecial;
                             subtype = 0;
                         }
                         Block currBlockId = null;
                         currBlockId = this.jobWorld.getBlockState(new BlockPos(this.bx + this.xo, this.by + this.l, this.bz + this.zo)).getBlock();
                         //要放置的方块是否已放置
-                        if (blockId == currBlockId || (blockId == Blocks.dirt && currBlockId == Blocks.grass) || (blockId == Blocks.grass && currBlockId == Blocks.dirt) || blockId.getUnlocalizedName().contains("door")|| blockId==Blocks.bed) {
+                        if (blockId == currBlockId || (blockId == Blocks.dirt && currBlockId == Blocks.grass) || (blockId == Blocks.grass && currBlockId == Blocks.dirt) || currBlockId.getUnlocalizedName().contains("door")|| currBlockId==Blocks.bed) {
                             alreadyPlaced = true;
                         } else {
                             alreadyPlaced = false;

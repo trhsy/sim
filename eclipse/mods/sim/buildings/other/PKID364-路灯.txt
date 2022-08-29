@@ -1,6 +1,6 @@
 1x3x5
 A=0:0;C=85:0;AU=Frogbash;
-AAC
+$AC
 AAC
 AAC
 *AC

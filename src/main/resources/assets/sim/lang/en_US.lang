@@ -910,6 +910,19 @@ container.sim.Hire23=Hire Bricklayer
 container.sim.Hire24=Hire Path Builder
 container.sim.Hire25=Hire Farmer
 
+container.sim.Hire26=Hire Barefoot Doctor
+container.sim.Hire27=Hire Obstetrician
+container.sim.Hire28=Hire bartender
+container.sim.Hire29=Hire cat owner
+container.sim.Hire30=Hire fireman
+container.sim.Hire31=Hire Grocer
+container.sim.Hire32=Hire Tellers
+container.sim.Hire33=Hire tickets seller
+
+container.sim.FolkData.Grocery_store=grocery store
+container.sim.FolkData.cinema=cinema
+container.sim.FolkData.railway_station=railway station
+container.sim.this_Building_idea=The building function is under development...
 
 container.sim.Fire=Fire
 container.sim.Dismiss=Dismiss
@@ -980,8 +993,10 @@ container.sim.building.door=door
 container.sim.building.stairs=stairs
 container.sim.building.grass=grass
 container.sim.building.bed=bed
-
-
+container.sim.FolkData.Hospital=Hospital
+container.sim.FolkData.pub=pub
+container.sim.FolkData.pet_shop=pet shop
+container.sim.FolkData.firehouse=firehouse
 container.sim.FolkData.Clinic=Clinic
 container.sim.FolkData.Great_Banter=Great Banter
 container.sim.FolkData.Socially_Fulfilled=Socially Fulfilled

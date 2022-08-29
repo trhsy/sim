@@ -58,7 +58,7 @@ public class GuiControlBox extends GuiScreen {
     public Building theBuilding = null;
     //模拟NPC
     public FolkData theFolk = new FolkData();
-    ;
+
     //员工人数
     public int employeeCount = 0;
     //雇员
@@ -170,6 +170,7 @@ public class GuiControlBox extends GuiScreen {
                             if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                                 this.buttonList.add(new GuiButton(idx, this.width - 140, down - 6, 130, 20, I18n.format("container.sim.Fire") + " " + folk.name));
                                 this.employees.put(idx + 100, folk.name);
+                                //仓库
                                 if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Depot"))) {
                                     this.buttonList.add(new GuiButton(idx + 100, this.width - 190, down - 6, 50, 20, I18n.format("container.sim.Tasks")));
                                 }
@@ -190,7 +191,7 @@ public class GuiControlBox extends GuiScreen {
                                 b.enabled = false;
                             }
                         }
-                        //杂货铺
+                        //食品铺
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Grocery_Store"))) {
                             this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire9")));
                             if (this.employeeCount > 0) {
@@ -247,6 +248,54 @@ public class GuiControlBox extends GuiScreen {
                             if (flag) {
                                 b3.enabled = false;
                             }
+                        }
+                        //诊所
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Clinic"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire26")));
+                            b.enabled = false;
+
+                        }
+                        //医院
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Hospital"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire27")));
+                            b.enabled = false;
+
+                        }
+                        //酒馆
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pub"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire28")));
+                            b.enabled = false;
+
+                        }
+                        //宠物店
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pet_shop"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire29")));
+                            b.enabled = false;
+
+                        }
+                        //消防站
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.firehouse"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire30")));
+                            b.enabled = false;
+
+                        }
+                        //杂货铺
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Grocery_store"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire31")));
+                            b.enabled = false;
+
+                        }
+                        //火车站
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.railway_station"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire32")));
+                            b.enabled = false;
+
+                        }
+                        //电影院
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.cinema"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire33")));
+                            b.enabled = false;
+
                         }
                     }
                     if (this.theBuilding.type.contentEquals("industrial")) {
@@ -367,8 +416,10 @@ public class GuiControlBox extends GuiScreen {
                         for (int i = 0; i < ModSimReloaded.theFolks.size(); i++) {
                             folk = (FolkData) ModSimReloaded.theFolks.get(i);
                             if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
+                                //军营
                                 if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Barracks"))) {
                                     this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Dismiss") + " " + folk.name));
+                                //汉堡店
                                 } else if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Burgers"))) {
                                     this.buttonList.add(new GuiButton(idx, this.width - 210, down - 6, 200, 20, I18n.format("container.sim.Fire") + " " + folk.vocation.toString()));
                                 } else {
@@ -388,7 +439,7 @@ public class GuiControlBox extends GuiScreen {
     }
 
     /**
-     * 移动检查
+     * 渲染
      *
      * @param i
      * @param j
@@ -403,9 +454,12 @@ public class GuiControlBox extends GuiScreen {
             }
 
             this.drawDefaultBackground();
+            //构建控制面板
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Building_Control_Panel"), this.width / 2, 17, 16777215);
             if (this.theBuilding == null) {
+                //错误：此建筑的信息丢失
                 this.fontRendererObj.drawString(I18n.format("container.sim.on_this_building") + "(" + this.location.toString() + ")", 5, 77, 16711680);
+                //如果此建筑是房屋,请仅单击下面的“修复房屋”
                 this.fontRendererObj.drawString(I18n.format("container.sim.this_Building"), 5, 97, 16711680);
             } else {
                 String author = "";
@@ -417,7 +471,10 @@ public class GuiControlBox extends GuiScreen {
                 if (this.theBuilding.buildingComplete) {
                     isComplete = I18n.format("container.sim.Active_Building");
                 }
-
+                // 电影院/杂货铺/火车站/消防站/宠物店/酒馆/诊所/医院
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.cinema"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Grocery_store"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.railway_station"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.firehouse"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pet_shop"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pub"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Clinic"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Hospital"))){
+                    this.fontRendererObj.drawString(I18n.format("container.sim.this_Building_idea"), 5, 97, 16711680);
+                }
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.theBuilding.displayNameWithoutPK + author, 5, 37, 16777088);
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Type") + " : " + this.theBuilding.type + " (" + isComplete + ")", 5, 47, 16777088);
                 int down;

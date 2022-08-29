@@ -578,7 +578,7 @@ container.sim.Set_Lumber_area=设置木材面积
 
 container.sim.Buy_Sell=买/卖
 
-
+container.sim.this_Building_idea=该建筑功能正在开发中...
 container.sim.Building_Control_Panel=构建控制面板
 container.sim.on_this_building= 错误：此建筑的信息丢失
 container.sim.this_Building=如果此建筑是房屋,请仅单击下面的“修复房屋”
@@ -591,7 +591,7 @@ container.sim.Resident=居民
 container.sim.Repaired_House=修建房子
 
 container.sim.gui_contains_Bakery=面包店
-container.sim.gui_contains_Grocery_Store=杂货店
+container.sim.gui_contains_Grocery_Store=食品店
 container.sim.gui_contains_Butchers=肉铺
 container.sim.gui_contains_Burgers=汉堡店
 container.sim.gui_contains_Lumbermill=伐木场
@@ -877,7 +877,14 @@ container.sim.Hire23=雇佣板砖工匠
 container.sim.Hire24=雇佣路径建设者
 container.sim.Hire25=雇佣农民
 
-
+container.sim.Hire26=雇佣赤脚大夫
+container.sim.Hire27=雇佣妇产科医生
+container.sim.Hire28=雇佣酒保
+container.sim.Hire29=雇佣铲屎官
+container.sim.Hire30=雇佣消防员
+container.sim.Hire31=雇佣杂货商
+container.sim.Hire32=雇佣检票员
+container.sim.Hire33=雇佣售票员
 
 container.sim.folkData1=失业的
 container.sim.folkData2=拥有自己的房子
@@ -985,7 +992,13 @@ container.sim.building.torch=火把
 container.sim.building.grass=草
 container.sim.building.bed=床
 container.sim.FolkData.Clinic=诊所
-
+container.sim.FolkData.Hospital=医院
+container.sim.FolkData.pub=酒馆
+container.sim.FolkData.pet_shop=宠物店
+container.sim.FolkData.firehouse=消防站
+container.sim.FolkData.Grocery_store=杂货铺
+container.sim.FolkData.railway_station=火车站
+container.sim.FolkData.cinema=电影院
 container.sim.FolkData.Great_Banter=伟人
 
 container.sim.FolkData.Socially_Fulfilled=名人

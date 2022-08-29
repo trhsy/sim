@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|邱梦泽
-age|19
+age|20
 gender|1
 skin|54
 race|
@@ -9,12 +9,12 @@ trait1|讨厌户外活动
 trait2|擅长园艺
 trait3|友善的
 trait4|夜猫子
-levelfood|7
-levelbuilder|1.0
+levelfood|10
+levelbuilder|11.121006
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
-location|-175.5882991151209,242.0,-2734.9954441183127,0
+stayput|true
+location|-67.0,237.0,-1431.0,0
 pregnancy|0.0
 building|null
 terraformtype|null
