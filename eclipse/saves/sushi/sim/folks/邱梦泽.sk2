@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|邱梦泽
-age|20
+age|21
 gender|1
 skin|54
 race|
@@ -13,7 +13,7 @@ levelfood|10
 levelbuilder|11.121006
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
+stayput|false
 location|-67.0,237.0,-1431.0,0
 pregnancy|0.0
 building|null

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|伯昊文
-age|23
+age|24
 gender|0
 skin|38
 race|
@@ -9,11 +9,11 @@ trait1|勇敢的
 trait2|夜猫子
 trait3|擅长园艺
 trait4|喜欢户外活动
-levelfood|10
+levelfood|9
 levelbuilder|10.007
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
+stayput|false
 location|-92.0,237.0,-1432.0,0
 pregnancy|0.0
 building|null

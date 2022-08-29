@@ -606,7 +606,7 @@ public class FolkData implements Serializable {
                     if (liveAt != null) {
                         if (this.location.getDistanceTo(liveAt) > 5 && this.destination == null || this.location.theDimension != getHome().primaryXYZ.theDimension) {
                             this.actionArrival = action;
-                            gotoXYZ(liveAt, null);
+                            gotoXYZ(new V3(liveAt.xCoord,liveAt.yCoord+1,liveAt.zCoord), null);
                         }
                     }
                 }
@@ -780,21 +780,9 @@ public class FolkData implements Serializable {
                         ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + this.employedAt.xCoord + ",y:" + this.employedAt.yCoord + ",z:" + this.employedAt.zCoord);
                         this.statusText = I18n.format("container.sim.folk_data_Going_work");
                         this.action= FolkAction.ONWAYTOWORK;
-                        V3 temp = employedAt.clone();
+                        /*V3 temp = employedAt.clone();
                         temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
-                        gotoXYZ(temp, GotoMethod.SHIFT);
-                        gotoXYZ(this.employedAt, null);
-                        return;
-                    }
-                    //去工作的路上
-                    if (this.employedAt != null && this.action!= FolkAction.ATWORK && this.destination != null &&this.pregnancyStage == 0.0F) {
-                        this.statusText = I18n.format("container.sim.folk_data_Going_work");
-                        this.action= FolkAction.ONWAYTOWORK;
-                        //ModSimReloaded.log.warn("FolkData:onUpdate() " + name + " 还在工作");
-                        updateLocationFromEntity();
-                        V3 temp = employedAt.clone();
-                        temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
-                        gotoXYZ(temp, GotoMethod.SHIFT);
+                        gotoXYZ(temp, GotoMethod.SHIFT);*/
                         gotoXYZ(this.employedAt, null);
                         return;
                     }
@@ -803,6 +791,29 @@ public class FolkData implements Serializable {
                 if (this.pregnancyStage > 0.0F && this.employedAt != null && ModSimReloaded.isDayTime()) {
                     //产假
                     this.statusText = I18n.format("container.sim.folk_data_Maternity_leave");
+                }
+                //如果白天他们有工作就去工作
+                if (ModSimReloaded.isDayTime() || isNightOwl()) {
+                    //去工作的路上
+                    if (this.employedAt != null && this.action!= FolkAction.ATWORK && this.destination != null &&this.pregnancyStage == 0.0F) {
+                        this.statusText = I18n.format("container.sim.folk_data_Going_work");
+                        this.action= FolkAction.ONWAYTOWORK;
+                        //ModSimReloaded.log.warn("FolkData:onUpdate() " + name + " 还在工作");
+                        updateLocationFromEntity();
+                        V3 temp = employedAt.clone();
+                        temp = new V3(temp.xCoord+5, temp.yCoord+1, temp.zCoord);
+                        gotoXYZ(temp, GotoMethod.SHIFT);
+                        gotoXYZ(this.employedAt, null);
+                        return;
+                    }
+                }
+                if (this.action == FolkAction.ONWAYTOWORK) {
+                    //去工作
+                    this.statusText = I18n.format("container.sim.folk_data_Going_work");
+                    this.stayPut = false;
+                    if (this.destination == null) {
+                        this.gotoXYZ(this.employedAt, null);
+                    }
                 }
                 if (this.action== FolkAction.STAYINGHOME && this.hangingWith == null) {
                     //待在家里
@@ -1034,6 +1045,7 @@ public class FolkData implements Serializable {
      */
     private void tryForBaby() {
         try {
+            ModSimReloaded.log.info(this.name+"尝试要个小孩儿！");
             //只有非怀孕女性才需要这样做
             if (this.gender == 1 && this.pregnancyStage == 0.0F) {
                 FolkData malePartner = Relationship.isFolkLivingWithSomeone(this, true);

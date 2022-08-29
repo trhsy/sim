@@ -259,8 +259,9 @@ public class GuiEmployFolk extends GuiScreen {
             for (int i = 0; i < efolks.size(); i++) {
                 //找到要雇佣的人
                 FolkData efolk = efolks.get(i);
+                V3 v3=this.controlBoxLocation.clone();
                 //其雇佣地点为此建筑的控制箱
-                efolk.employedAt = this.controlBoxLocation;
+                efolk.employedAt = new V3(v3.xCoord,v3.yCoord+1,v3.zCoord);
                 //职业为此建筑
                 efolk.setTheirJob(this.vocation);
                 //白天//此人是夜猫子
