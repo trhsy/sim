@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|-81.0,237.0,-1307.0,0
+vocation|BUILDER
 name|褚松秋
-age|18
+age|19
 gender|1
 skin|23
 race|
@@ -10,12 +10,12 @@ trait2|强壮的
 trait3|矮人血脉
 trait4|勇敢的
 levelfood|9
-levelbuilder|1.0
+levelbuilder|8.5760269
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|290.0,237.0,-965.0,0
+location|-81.53639917692048,237.0,-1307.3117674755886,0
 pregnancy|0.0
-building|null
+building|熔岩和水井.txt|other||-x
 terraformtype|null
 terraformradius|1

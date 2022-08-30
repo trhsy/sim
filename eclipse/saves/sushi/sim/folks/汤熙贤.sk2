@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|汤熙贤
-age|19
+age|20
 gender|0
 skin|48
 race|
@@ -14,7 +14,7 @@ levelbuilder|11.028001
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-177.5,475.5,-2611.5,0
+location|-91.21180229634047,238.0,-1306.489500302662,0
 pregnancy|0.0
 building|null
 terraformtype|null
