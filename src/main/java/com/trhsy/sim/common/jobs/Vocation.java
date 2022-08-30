@@ -22,7 +22,7 @@ public enum Vocation {
     SOLDIER,
     //牧羊人
     SHEPHERD,
-    //杂货商
+    //食品商
     GROCER,
     //快递员
     COURIER,
@@ -139,7 +139,7 @@ public enum Vocation {
         } else if (this == SHEPHERD) {
             return I18n.format("container.sim.Vocation8");
         } else if (this == GROCER) {
-            return I18n.format("container.sim.Vocation9");
+            return I18n.format("container.sim.Vocation26");
         } else if (this == COURIER) {
             return I18n.format("container.sim.Vocation10");
         } else if (this == MERCHANT) {

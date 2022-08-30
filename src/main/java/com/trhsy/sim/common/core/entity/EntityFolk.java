@@ -375,6 +375,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                             }
 
                             if (r.nextBoolean()) {
+                                //ModSim.proxy.getClientWorld().playSoundAtEntity();
                                 ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1, 1, false);
                             }
                         }

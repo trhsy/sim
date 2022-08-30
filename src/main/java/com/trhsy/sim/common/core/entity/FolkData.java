@@ -20,9 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
@@ -35,7 +33,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -167,7 +164,7 @@ public class FolkData implements Serializable {
     //它们发送到的位置，如果不发送，则为空
     public transient V3 beamingTo;
     //挂起
-    private transient FolkData hangingWith;
+    private transient FolkData hangingWith = null;
     //通话计数器
     private transient int talkCounter = 0;
     //交配阶段 -1今天没有0.0到0.9=有1.0=有
@@ -203,7 +200,6 @@ public class FolkData implements Serializable {
             this.timeSinceLastStatusUpdate = 0L;
             this.timeSinceLastMinute = 0L;
             this.beamingTo = null;
-            this.hangingWith = null;
             this.talkCounter = 0;
             this.matingStage = -1;
         } catch (Exception e) {
@@ -2371,10 +2367,20 @@ public class FolkData implements Serializable {
                 } else if (vocation == Vocation.EGGFARMER) {
                     this.theirJob = new JobEggFarmer(this);
                 }
+                //赤脚大夫
+                //妇产科医生
+                //酒保
+                //铲屎官
+                //消防员
+                //检票员
+                //售票员
+                //插花师
+                //杂货商
 
-
-                this.theirJob.resetJob();
-                this.theirJob.step = 1;
+                if(this.theirJob!=null){
+                    this.theirJob.resetJob();
+                    this.theirJob.step = 1;
+                }
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

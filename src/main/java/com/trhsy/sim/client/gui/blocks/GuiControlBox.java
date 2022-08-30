@@ -193,7 +193,7 @@ public class GuiControlBox extends GuiScreen {
                         }
                         //食品铺
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Grocery_Store"))) {
-                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire9")));
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire35")));
                             if (this.employeeCount > 0) {
                                 b.enabled = false;
                             }
@@ -294,6 +294,12 @@ public class GuiControlBox extends GuiScreen {
                         //电影院
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.cinema"))){
                             this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire33")));
+                            b.enabled = false;
+
+                        }
+                        //花店
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.florist"))){
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire34")));
                             b.enabled = false;
 
                         }
@@ -471,8 +477,8 @@ public class GuiControlBox extends GuiScreen {
                 if (this.theBuilding.buildingComplete) {
                     isComplete = I18n.format("container.sim.Active_Building");
                 }
-                // 电影院/杂货铺/火车站/消防站/宠物店/酒馆/诊所/医院
-                if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.cinema"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Grocery_store"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.railway_station"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.firehouse"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pet_shop"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pub"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Clinic"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Hospital"))){
+                // 花店//电影院/杂货铺/火车站/消防站/宠物店/酒馆/诊所/医院
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.florist"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.cinema"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Grocery_store"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.railway_station"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.firehouse"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pet_shop"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pub"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Clinic"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Hospital"))){
                     this.fontRendererObj.drawString(I18n.format("container.sim.this_Building_idea"), 5, 97, 16711680);
                 }
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.theBuilding.displayNameWithoutPK + author, 5, 37, 16777088);
@@ -559,7 +565,7 @@ public class GuiControlBox extends GuiScreen {
                         this.mc.currentScreen = null;
                         ui = new GuiEmployFolk(this.location, "", Vocation.SHEPHERD);
                         this.mc.displayGuiScreen(ui);
-                        //雇佣杂货商
+                        //雇佣食品商
                     } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire9"))) {
                         this.mc.currentScreen = null;
                         ui = new GuiEmployFolk(this.location, "", Vocation.GROCER);

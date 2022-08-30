@@ -58,7 +58,9 @@ public class JobCheesemaker extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
+                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -689,7 +691,9 @@ public class JobCheesemaker extends Job {
                 this.theStage = Stage.ARRIVEDATFACTORY;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

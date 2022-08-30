@@ -6,6 +6,7 @@ package com.trhsy.sim.common.jobs;/**
 
 import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.enums.FarmType;
 import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.core.entity.enums.GotoMethod;
@@ -29,7 +30,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * ========================================
  *
  * @ClassName JobGrocer
- * @Description todo 水果店商
+ * @Description todo 食品商
  * @Author Administrator
  * @Date 2022/1/27 0027下午 3:50
  * ========================================
@@ -67,7 +68,9 @@ public class JobGrocer extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
+                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             }
         } catch (Exception e) {
@@ -235,7 +238,9 @@ public class JobGrocer extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Taking");
             if (!this.onRoute) {
                 this.onRoute = true;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             } else {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
                     this.theFolk.updateLocationFromEntity();
@@ -297,7 +302,9 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.updateLocationFromEntity();
                 int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 2 && this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
+                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
                 //卖生鲜
                 this.theFolk.statusText = I18n.format("container.sim.job.grocer.farmer.Selling");
@@ -433,7 +440,9 @@ public class JobGrocer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.ARRIVEDATSHOP;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

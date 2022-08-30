@@ -47,7 +47,8 @@ public class JobBrickMaker extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
                 }
 
             }
@@ -226,7 +227,8 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -335,7 +337,8 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.the_factory");
                 this.theStage = Stage.USEFURNACE;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

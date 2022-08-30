@@ -8,6 +8,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.core.entity.GameStates;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
@@ -55,7 +56,8 @@ public class JobButcher extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
                 }
 
             }
@@ -213,7 +215,9 @@ public class JobButcher extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.butcher.Taking");
             if (!this.onRoute) {
                 this.onRoute = true;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             } else {
                 double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist < 2) {
@@ -353,7 +357,9 @@ public class JobButcher extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATSHOP;
                 this.currentFarmNum = 0;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

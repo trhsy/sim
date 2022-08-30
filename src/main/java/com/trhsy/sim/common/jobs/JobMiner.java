@@ -84,7 +84,9 @@ public class JobMiner extends Job implements Serializable {
 
             this.theMiningBox = MiningBox.getMiningBlockByBoxXYZ(folk.employedAt);
             if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
             /**
              * 看看我们是不是在水平挖掘
@@ -196,7 +198,9 @@ public class JobMiner extends Job implements Serializable {
                 this.step = 1;
                 this.theStage = Stage.WAITINGFORCHEST;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.text.DecimalFormat;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -375,8 +374,8 @@ public class ModSimReloaded {
                     while (f2 == f1) {
                         f2 = rand.nextInt(theFolks.size());
                     }
-                    FolkData folk1 = (FolkData) theFolks.get(f1);
-                    FolkData folk2 = (FolkData) theFolks.get(f2);
+                    FolkData folk1 = theFolks.get(f1);
+                    FolkData folk2 =theFolks.get(f2);
                     Relationship.meddleWithRelationship(folk1, folk2);
                 }
             }

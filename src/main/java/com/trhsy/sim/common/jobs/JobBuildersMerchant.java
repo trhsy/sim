@@ -5,6 +5,7 @@ package com.trhsy.sim.common.jobs;/**
  */
 
 import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
@@ -40,7 +41,8 @@ public class JobBuildersMerchant extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
                 }
 
             }
@@ -79,7 +81,8 @@ public class JobBuildersMerchant extends Job implements Serializable {
                     this.theFolk.updateLocationFromEntity();
                     double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                     if (dist > 5 && this.theFolk.destination == null) {
-                        this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                        V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                        this.theFolk.gotoXYZ(v3, null);
                     }
 
                     if (dist <= 5) {
@@ -109,7 +112,8 @@ public class JobBuildersMerchant extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.Arrived_at_the_store");
                 this.theStage = Stage.INSTORE;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

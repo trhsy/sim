@@ -57,7 +57,9 @@ public class JobCourier extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    this.theFolk.gotoXYZ(v3, null);
+                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
@@ -227,7 +229,9 @@ public class JobCourier extends Job implements Serializable {
                 this.dropoff = task.dropoff.clone();
             } else {
                 this.theStage = Stage.ATDEPOT;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 if (task != null) {
                     this.courierTasks.remove(task);
                 }
@@ -318,7 +322,9 @@ public class JobCourier extends Job implements Serializable {
                 this.currentTask = 0;
                 this.timeSinceLastCycle = System.currentTimeMillis();
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.theStage = Stage.IDLE;
             } else {
                 this.theStage = Stage.GOINGTOPICKUP;

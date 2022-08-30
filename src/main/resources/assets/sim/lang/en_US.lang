@@ -841,7 +841,7 @@ container.sim.Vocation22=Fast Food Manager
 container.sim.Vocation23=Fast Food Fry Cook
 container.sim.Vocation24=Fast Food Waiter
 container.sim.Vocation25=Bricklayer
-
+container.sim.Vocation26=Food merchant
 container.sim.folkData1=Unemployed
 container.sim.folkData2=Home owner
 container.sim.folkData3=Homeless
@@ -909,7 +909,7 @@ container.sim.Hire22=Hire terraformer
 container.sim.Hire23=Hire Bricklayer
 container.sim.Hire24=Hire Path Builder
 container.sim.Hire25=Hire Farmer
-
+container.sim.FolkData.florist=florist
 container.sim.Hire26=Hire Barefoot Doctor
 container.sim.Hire27=Hire Obstetrician
 container.sim.Hire28=Hire bartender
@@ -918,7 +918,7 @@ container.sim.Hire30=Hire fireman
 container.sim.Hire31=Hire Grocer
 container.sim.Hire32=Hire Tellers
 container.sim.Hire33=Hire tickets seller
-
+container.sim.Hire34=Hire flower arrangers
 container.sim.FolkData.Grocery_store=grocery store
 container.sim.FolkData.cinema=cinema
 container.sim.FolkData.railway_station=railway station

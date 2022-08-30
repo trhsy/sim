@@ -259,15 +259,15 @@ public class GuiEmployFolk extends GuiScreen {
             for (int i = 0; i < efolks.size(); i++) {
                 //找到要雇佣的人
                 FolkData efolk = efolks.get(i);
-                V3 v3=this.controlBoxLocation.clone();
                 //其雇佣地点为此建筑的控制箱
-                efolk.employedAt = new V3(v3.xCoord,v3.yCoord+1,v3.zCoord);
+                efolk.employedAt = this.controlBoxLocation.clone();
                 //职业为此建筑
                 efolk.setTheirJob(this.vocation);
                 //白天//此人是夜猫子
                 if (ModSimReloaded.isDayTime()||efolk.isNightOwl()) {
+                    V3 v3=new V3(efolk.employedAt.xCoord,efolk.employedAt.yCoord+1,efolk.employedAt.zCoord);
                     //去雇佣地点
-                    efolk.gotoXYZ(efolk.employedAt, null);
+                    efolk.gotoXYZ(v3, null);
                 }
             }
             this.mc.currentScreen = null;

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|伯昊文
-age|24
+age|25
 gender|0
 skin|38
 race|
@@ -14,7 +14,7 @@ levelbuilder|10.007
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-92.0,237.0,-1432.0,0
+location|-177.5,475.5,-2611.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -56,7 +56,9 @@ public class JobShepherd extends Job implements Serializable {
 
         if (this.theFolk != null) {
             if (this.theFolk.destination == null) {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, null);
+                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
 
         }
@@ -271,7 +273,9 @@ public class JobShepherd extends Job implements Serializable {
             this.theStage = Stage.ARRIVEDATFARM;
             this.spawnSheepIfNeeded(this.theFolk.employedAt);
         } else {
-            this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+            V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+            this.theFolk.gotoXYZ(v3, null);
+            //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
         }
 
     }
