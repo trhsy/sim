@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|查锐翰
-age|18
+age|19
 gender|0
 skin|47
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-174.0,236.0,-1270.0,0
+location|-173.69999998807907,237.0,-1275.699999988079,0
 pregnancy|0.0
 building|null
 terraformtype|null

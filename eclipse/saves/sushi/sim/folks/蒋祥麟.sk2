@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|蒋祥麟
-age|25
+age|26
 gender|0
 skin|9
 race|
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|10000.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
-location|-85.69999998807907,237.0,-1446.0,0
+stayput|false
+location|-85.0,238.0,-1446.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

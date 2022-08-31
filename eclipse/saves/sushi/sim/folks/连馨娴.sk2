@@ -1,7 +1,7 @@
 employedat|-123.0,236.0,-1329.0,0
 vocation|CATTLEFARMER
 name|连馨娴
-age|19
+age|20
 gender|1
 skin|55
 race|
@@ -14,7 +14,7 @@ levelbuilder|1000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-122.55896613148673,236.0,-1328.8446722379244,0
+location|-123.0,236.0,-1329.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|拓跋嘉荣
-age|18
+age|19
 gender|0
 skin|14
 race|
@@ -14,7 +14,7 @@ levelbuilder|1000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-177.5,475.5,-2611.5,0
+location|-231.5,475.5,-2559.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -1,7 +1,7 @@
 employedat|-133.0,236.0,-1360.0,0
 vocation|SHEPHERD
 name|耿浩志
-age|19
+age|20
 gender|0
 skin|8
 race|
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|10000.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
-location|-158.0,237.0,-1300.0,0
+stayput|false
+location|-133.0,236.0,-1360.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

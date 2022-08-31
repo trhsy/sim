@@ -603,7 +603,7 @@ public class GuiControlBox extends GuiScreen {
                         ui = new GuiEmployFolk(this.location, "", Vocation.SHEPHERD);
                         this.mc.displayGuiScreen(ui);
                         //雇佣食品商
-                    } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire9"))) {
+                    } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire35"))) {
                         this.mc.currentScreen = null;
                         ui = new GuiEmployFolk(this.location, "", Vocation.GROCER);
                         this.mc.displayGuiScreen(ui);

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|屈茂琪
-age|18
+age|19
 gender|0
 skin|58
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-71.69999998807907,237.0,-1441.699999988079,0
+location|328.5,238.0,-1030.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

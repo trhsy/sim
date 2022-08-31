@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|奚俊德
-age|19
+age|20
 gender|0
 skin|28
 race|
@@ -14,7 +14,7 @@ levelbuilder|1000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|173.5,237.0,-1042.5,0
+location|-117.0,237.0,-1281.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -1,7 +1,7 @@
 employedat|-63.0,237.0,-1468.0,0
 vocation|BURGERSWAITER
 name|闾丘俊栋
-age|20
+age|21
 gender|0
 skin|18
 race|
@@ -14,7 +14,7 @@ levelbuilder|11000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|true
-location|-90.0,238.0,-1295.0,0
+location|-90.0,237.0,-1295.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -284,16 +284,11 @@ public class GuiBankATM extends GuiScreen {
                     if (guibutton.id >= 100 && guibutton.id < 200) {
                         ItemStack is = this.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
                         ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
-                        String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")));
-                        NumberFormat format = NumberFormat.getInstance();
-                        Object number = 0;
-
-                        try {
-                            number = format.parse(money);
-                        } catch (Exception e) {
-                        }
-
-                        float soldFor = ((Number) number).floatValue();
+                        String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
+//                        NumberFormat format = NumberFormat.getInstance();
+//                        String number = "";
+                        //number = format.parse(money);
+                        float soldFor = Float.parseFloat(money);
                         var10000 = ModSimReloaded.states;
                         var10000.credits += soldFor;
                         --is.stackSize;
@@ -305,10 +300,10 @@ public class GuiBankATM extends GuiScreen {
                         this.initGui();
                     } else if (guibutton.id >= 500 && guibutton.id < 600) {
                         ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
-                        NumberFormat format = NumberFormat.getInstance();
-                        Object number = 0;
-                        number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")));
-                        float soldFor = ((Number) number).floatValue();
+//                        NumberFormat format = NumberFormat.getInstance();
+//                        String number = "";
+                        String number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
+                        float soldFor = Float.parseFloat(number);
                         var10000 = ModSimReloaded.states;
                         var10000.credits += soldFor;
                         this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack) null);

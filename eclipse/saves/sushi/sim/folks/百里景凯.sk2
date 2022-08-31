@@ -1,7 +1,7 @@
 employedat|-111.0,237.0,-1366.0,0
 vocation|BUTCHER
 name|百里景凯
-age|19
+age|20
 gender|0
 skin|27
 race|
@@ -13,7 +13,7 @@ levelfood|10
 levelbuilder|10000.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
+stayput|false
 location|-111.0,237.0,-1366.0,0
 pregnancy|0.0
 building|null
