@@ -690,7 +690,6 @@ public class FolkData implements Serializable {
 
                     if (!gotWanderPoint) {
                         //随机让去一个地方
-
                         V3 wanderTo = new V3(this.location.xCoord + 1, this.location.yCoord, this.location.zCoord + 1, this.location.theDimension);
                         ModSimReloaded.log.info(this.name + ":要随机去一个地方，x:" + wanderTo.xCoord + ",y:" + wanderTo.yCoord + ",z:" + wanderTo.zCoord);
                         //WorldServer world = MinecraftServer.getServer().worldServerForDimension(location.theDimension);
@@ -776,9 +775,9 @@ public class FolkData implements Serializable {
                         ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + this.employedAt.xCoord + ",y:" + this.employedAt.yCoord + ",z:" + this.employedAt.zCoord);
                         this.statusText = I18n.format("container.sim.folk_data_Going_work");
                         this.action= FolkAction.ONWAYTOWORK;
-                        /*V3 temp = employedAt.clone();
+                        V3 temp = employedAt.clone();
                         temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
-                        gotoXYZ(temp, GotoMethod.SHIFT);*/
+                        gotoXYZ(temp, GotoMethod.SHIFT);
                         gotoXYZ(this.employedAt, null);
                         return;
                     }
@@ -1635,9 +1634,12 @@ public class FolkData implements Serializable {
                     this.theEntity.getNavigator().clearPathEntity();
                 }
             }
+
             if (ModSim.proxy.getClientWorld() != null) {
-                ModSim.proxy.getClientWorld().playSound(this.location.xCoord, this.location.yCoord,this.location.zCoord, ModSim.MODID + ":beamdown", 1, 1, false);
-                ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f, false);
+                if (!ModSim.proxy.getClientWorld().isRemote) {
+                    ModSim.proxy.getClientWorld().playSoundEffect(this.location.xCoord, this.location.yCoord, this.location.zCoord, ModSim.MODID + ":beamdown", 1, 1);
+                    ModSim.proxy.getClientWorld().playSoundEffect(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f);
+                }
             }
             respawnEntity(MinecraftServer.getServer().worldServerForDimension(location.theDimension));
             this.beamingTo = whereTo.clone();

@@ -217,11 +217,9 @@ public class GuiControlBox extends GuiScreen {
                                     break;
                                 }
                             }
-
                             if (flag) {
                                 b1.enabled = false;
                             }
-
                             flag = false;
                             GuiButton b2 = new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire3"));
                             this.buttonList.add(b2);
@@ -231,7 +229,6 @@ public class GuiControlBox extends GuiScreen {
                                     break;
                                 }
                             }
-
                             if (flag) {
                                 b2.enabled = false;
                             }
@@ -244,10 +241,50 @@ public class GuiControlBox extends GuiScreen {
                                     break;
                                 }
                             }
-
                             if (flag) {
                                 b3.enabled = false;
                             }
+                        }
+                        //麦当劳
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.MacDonald"))){
+                            /*List<FolkData> employees = FolkData.getFolksByEmployedAt(this.theBuilding.primaryXYZ);
+                            Boolean flag = false;*/
+                            GuiButton b1;
+                            this.buttonList.add(b1 = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire36")));
+                            /*for (FolkData folkData : employees) {
+                                if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSMANAGER) {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (flag) {*/
+                                b1.enabled = false;
+                            /*}
+                            flag = false;*/
+                            GuiButton b2 = new GuiButton(2, 10, this.height - 50, 100, 20, I18n.format("container.sim.Hire37"));
+                            this.buttonList.add(b2);
+                           /* for (FolkData folkData : employees) {
+                                if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSFRYCOOK) {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (flag) {*/
+                                b2.enabled = false;
+                           /* }
+                            flag = false;*/
+                            GuiButton b3;
+                            this.buttonList.add(b3 = new GuiButton(3, 10, this.height - 70, 100, 20, I18n.format("container.sim.Hire38")));
+                            /*for (FolkData folkData : employees) {
+                                if (folkData.employedAt != null && folkData.employedAt.isSameCoordsAs(this.theBuilding.primaryXYZ, true, true) && folkData.vocation == Vocation.BURGERSWAITER) {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (flag) {*/
+                                b3.enabled = false;
+//                            }
+
                         }
                         //诊所
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Clinic"))){
@@ -477,8 +514,8 @@ public class GuiControlBox extends GuiScreen {
                 if (this.theBuilding.buildingComplete) {
                     isComplete = I18n.format("container.sim.Active_Building");
                 }
-                // 花店//电影院/杂货铺/火车站/消防站/宠物店/酒馆/诊所/医院
-                if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.florist"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.cinema"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Grocery_store"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.railway_station"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.firehouse"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pet_shop"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pub"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Clinic"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Hospital"))){
+                // 麦当劳/花店//电影院/杂货铺/火车站/消防站/宠物店/酒馆/诊所/医院
+                if (this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.MacDonald"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.florist"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.cinema"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Grocery_store"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.railway_station"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.firehouse"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pet_shop"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.pub"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Clinic"))||this.theBuilding.displayName.contains(I18n.format("container.sim.FolkData.Hospital"))){
                     this.fontRendererObj.drawString(I18n.format("container.sim.this_Building_idea"), 5, 97, 16711680);
                 }
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.theBuilding.displayNameWithoutPK + author, 5, 37, 16777088);
