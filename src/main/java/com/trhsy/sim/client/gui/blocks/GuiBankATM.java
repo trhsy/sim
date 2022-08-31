@@ -64,7 +64,8 @@ public class GuiBankATM extends GuiScreen {
             this.bankLocation = location;
             this.thePlayer = player;
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBankATM出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiBankATM出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -100,7 +101,7 @@ public class GuiBankATM extends GuiScreen {
 
                 this.buttonList.clear();
                 if (this.theScreen == ATMscreen.START) {
-                    //寄存物品
+                    //存款项目
                     String sim_gui_ATMs_Deposit = I18n.format("container.sim.sim_gui_ATMs_Deposit");
                     this.buttonList.add(new GuiButton(0, this.width / 2 - 50, 50, 100, 20, sim_gui_ATMs_Deposit));
                     //购买商品
@@ -112,30 +113,37 @@ public class GuiBankATM extends GuiScreen {
                     if (this.theScreen == ATMscreen.DEPOSIT) {
                         offset = 30;
 
-                        for(inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); inv++) {
+                        for (inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); inv++) {
                             ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
                             if (is != null) {
+                                //出售一个
                                 String sim_gui_ATMs_Sell_1 = I18n.format("container.sim.sim_gui_ATMs_Sell_1");
+                                //出售
                                 String sim_gui_ATMs_Sell = I18n.format("container.sim.sim_gui_ATMs_Sell");
+                                // 个
                                 String sim_gui_ATMs_for = I18n.format("container.sim.sim_gui_ATMs_for");
+                                //钻石
                                 if (is.getItem() == Items.diamond) {
 
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceDiamond)));
-
                                     this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.stackSize)));
                                     offset += 20;
+                                    //绿宝石
                                 } else if (is.getItem() == Items.emerald) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceEmerald)));
                                     this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceEmerald * (float) is.stackSize)));
                                     offset += 20;
+                                    //红石
                                 } else if (is.getItem() == Items.redstone) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceRedstone)));
                                     this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.stackSize)));
                                     offset += 20;
+                                    //萤石粉
                                 } else if (is.getItem() == Items.glowstone_dust) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGlowstone)));
                                     this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.stackSize)));
                                     offset += 20;
+                                    //金锭
                                 } else if (is.getItem() == Items.gold_ingot) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGold)));
                                     this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimReloaded.displayMoney(PricesForBlocks.bankPriceGold * (float) is.stackSize)));
@@ -151,6 +159,7 @@ public class GuiBankATM extends GuiScreen {
                             this.buttonList.add(new GuiButton(inv + 300, this.width / 2 + 20, offset, 20, 20, "+"));
                             offset += 20;
                         }
+                        //购买
                         String sim_gui_ATMs_Buy = I18n.format("container.sim.sim_gui_ATMs_Buy");
                         this.buttonList.add(new GuiButton(400, this.width - 60, this.height - 30, 50, 20, sim_gui_ATMs_Buy));
                     }
@@ -158,7 +167,8 @@ public class GuiBankATM extends GuiScreen {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBankATM-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiBankATM-initGui出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -172,13 +182,17 @@ public class GuiBankATM extends GuiScreen {
             }
 
             this.drawDefaultBackground();
+            //模拟城镇能力有限公司
             String sim_gui_ATMs_Ltd = I18n.format("container.sim.sim_gui_ATMs_Ltd");
             this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Ltd, this.width / 2, 5, 16777215);
             if (this.theScreen == ATMscreen.START) {
+                //欢迎来到模拟城镇银行,使用这台自动取款机你可以存放你的宝石
                 String sim_gui_ATMs_Welcome = I18n.format("container.sim.sim_gui_ATMs_Welcome");
                 this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Welcome, this.width / 2, 15, 65280);
+                //作为模拟城镇金币的交换,我们为您提供最优惠的价格
                 String sim_gui_ATMs_exchange = I18n.format("container.sim.sim_gui_ATMs_exchange");
                 this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_exchange, this.width / 2, 25, 65280);
+                //钻石、翡翠、红石、辉石和黄金。
                 String sim_gui_ATMs_Diamonds = I18n.format("container.sim.sim_gui_ATMs_Diamonds");
                 this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Diamonds, this.width / 2, 35, 65280);
             } else {
@@ -186,11 +200,13 @@ public class GuiBankATM extends GuiScreen {
                 if (this.theScreen == ATMscreen.DEPOSIT) {
                     offset = 35;
                     boolean playerHasItems = false;
+                    //本行接受的库存物品：
                     String sim_gui_ATMs_Items = I18n.format("container.sim.sim_gui_ATMs_Items");
                     this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Items, this.width / 2, 15, 65280);
 
                     for (int inv = 0; inv < this.thePlayer.inventory.getSizeInventory(); inv++) {
                         ItemStack is = this.thePlayer.inventory.getStackInSlot(inv);
+                        //钻石、绿宝石、红石、萤石粉、金锭
                         if (is != null && (is.getItem() == Items.diamond || is.getItem() == Items.emerald || is.getItem() == Items.redstone || is.getItem() == Items.glowstone_dust || is.getItem() == Items.gold_ingot)) {
                             this.drawString(this.fontRendererObj, is.stackSize + " x " + is.getDisplayName(), 40, offset, 65280);
                             playerHasItems = true;
@@ -199,14 +215,17 @@ public class GuiBankATM extends GuiScreen {
                     }
 
                     if (!playerHasItems) {
+                        //你没有我们想买的东西,抱歉。
                         String sim_gui_ATMs_sorry = I18n.format("container.sim.sim_gui_ATMs_sorry");
                         this.drawString(this.fontRendererObj, sim_gui_ATMs_sorry, 40, offset, 65280);
                     }
                 } else if (this.theScreen == ATMscreen.COMMODITIES) {
+                    //今天可以买到的商品
                     String sim_gui_ATMs_today = I18n.format("container.sim.sim_gui_ATMs_today");
                     this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_today, this.width / 2, 20, 65280);
                     offset = 35;
                     if (ModSimReloaded.theCommodities.size() == 0) {
+                        //目前没有物品,请稍后再来。
                         String sim_gui_ATMs_later = I18n.format("container.sim.sim_gui_ATMs_later");
                         this.drawString(this.fontRendererObj, sim_gui_ATMs_later, 20, offset, 65280);
                     }
@@ -232,16 +251,17 @@ public class GuiBankATM extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 15, 16711680);
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBankATM-drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiBankATM-drawScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
     }
 
 
-
     /**
      * 执行动作
+     *
      * @param guibutton
      */
     @Override
@@ -249,7 +269,9 @@ public class GuiBankATM extends GuiScreen {
         try {
             if (System.currentTimeMillis() - this.fuckingBodge >= 500L) {
                 this.fuckingBodge = System.currentTimeMillis();
+                //存款项目
                 String sim_gui_ATMs_Deposit = I18n.format("container.sim.sim_gui_ATMs_Deposit");
+                //购买商品
                 String sim_gui_ATMs_Commodities = I18n.format("container.sim.sim_gui_ATMs_Commodities");
                 if (guibutton.displayString.contentEquals(sim_gui_ATMs_Deposit)) {
                     this.theScreen = ATMscreen.DEPOSIT;
@@ -262,7 +284,7 @@ public class GuiBankATM extends GuiScreen {
                     if (guibutton.id >= 100 && guibutton.id < 200) {
                         ItemStack is = this.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
                         ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
-                        String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 4);
+                        String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")));
                         NumberFormat format = NumberFormat.getInstance();
                         Object number = 0;
 
@@ -271,7 +293,7 @@ public class GuiBankATM extends GuiScreen {
                         } catch (Exception e) {
                         }
 
-                        float soldFor = ((Number)number).floatValue();
+                        float soldFor = ((Number) number).floatValue();
                         var10000 = ModSimReloaded.states;
                         var10000.credits += soldFor;
                         --is.stackSize;
@@ -285,16 +307,11 @@ public class GuiBankATM extends GuiScreen {
                         ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
                         NumberFormat format = NumberFormat.getInstance();
                         Object number = 0;
-
-                        try {
-                            number = format.parse(guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 4));
-                        } catch (Exception e) {
-                        }
-
-                        float soldFor = ((Number)number).floatValue();
+                        number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")));
+                        float soldFor = ((Number) number).floatValue();
                         var10000 = ModSimReloaded.states;
                         var10000.credits += soldFor;
-                        this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack)null);
+                        this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack) null);
                         this.initGui();
                     } else {
                         int ci;
@@ -303,8 +320,8 @@ public class GuiBankATM extends GuiScreen {
                         if (guibutton.id >= 200 && guibutton.id < 300) {
                             comm = (Commodity) ModSimReloaded.theCommodities.get(guibutton.id - 200);
 
-                            for(ci = 0; ci < this.cart.size(); ++ci) {
-                                cartItem = (Commodity)this.cart.get(ci);
+                            for (ci = 0; ci < this.cart.size(); ++ci) {
+                                cartItem = (Commodity) this.cart.get(ci);
                                 if (cartItem.theItemStack.getDisplayName().contentEquals(comm.theItemStack.getDisplayName()) && cartItem.quantity > 0) {
                                     --cartItem.quantity;
                                     break;
@@ -319,8 +336,8 @@ public class GuiBankATM extends GuiScreen {
                             comm = (Commodity) ModSimReloaded.theCommodities.get(guibutton.id - 300);
                             boolean added = false;
 
-                            for(int cj = 0; cj < this.cart.size(); ++cj) {
-                                Commodity cc = (Commodity)this.cart.get(cj);
+                            for (int cj = 0; cj < this.cart.size(); ++cj) {
+                                Commodity cc = (Commodity) this.cart.get(cj);
                                 if (cc.theItemStack.getDisplayName().contentEquals(comm.theItemStack.getDisplayName())) {
                                     if (cc.quantity >= comm.quantity) {
                                         return;
@@ -337,6 +354,7 @@ public class GuiBankATM extends GuiScreen {
                             }
                         } else if (guibutton.id == 400) {
                             if (this.cart.size() == 0) {
+                                //您尚未添加任何项目。
                                 String sim_gui_ATMs_added = I18n.format("container.sim.sim_gui_ATMs_added");
                                 this.errorText = sim_gui_ATMs_added;
                                 return;
@@ -346,21 +364,23 @@ public class GuiBankATM extends GuiScreen {
 
                             ItemStack is;
                             for (ci = 0; ci < this.cart.size(); ++ci) {
-                                cartItem = (Commodity) this.cart.get(ci);
+                                cartItem = this.cart.get(ci);
                                 is = cartItem.theItemStack;
                                 is.stackSize = cartItem.quantity;
                                 cost += (float) cartItem.quantity * cartItem.priceEach;
                             }
 
                             if (cost > ModSimReloaded.states.credits) {
+                                //代价是
                                 String sim_gui_ATMs_cost = I18n.format("container.sim.sim_gui_ATMs_cost");
+                                //, 但你只有
                                 String sim_gui_ATMs_only = I18n.format("container.sim.sim_gui_ATMs_only");
                                 this.errorText = sim_gui_ATMs_cost + ModSimReloaded.displayMoney(cost) + sim_gui_ATMs_only + ModSimReloaded.displayMoney(ModSimReloaded.states.credits);
                                 return;
                             }
 
                             for (ci = 0; ci < this.cart.size(); ++ci) {
-                                cartItem = (Commodity) this.cart.get(ci);
+                                cartItem = this.cart.get(ci);
                                 is = cartItem.theItemStack;
                                 is.stackSize = cartItem.quantity;
                                 this.thePlayer.inventory.addItemStackToInventory(is);
@@ -376,6 +396,7 @@ public class GuiBankATM extends GuiScreen {
 
                             var10000 = ModSimReloaded.states;
                             var10000.credits -= cost;
+                            //购买的商品价值
                             String sim_gui_ATMs_worth = I18n.format("container.sim.sim_gui_ATMs_worth");
                             ModSimReloaded.sendChat(sim_gui_ATMs_worth + ModSimReloaded.displayMoney(cost));
                             ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
@@ -387,7 +408,8 @@ public class GuiBankATM extends GuiScreen {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIBANJATMactionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GUIBANJATMactionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -399,14 +421,17 @@ public class GuiBankATM extends GuiScreen {
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
+
     @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);

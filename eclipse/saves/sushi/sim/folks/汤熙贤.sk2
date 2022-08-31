@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|汤熙贤
-age|20
+age|21
 gender|0
 skin|48
 race|
@@ -10,11 +10,11 @@ trait2|强壮的人可以更快地做体力劳动。无论是采矿、伐木、�
 trait3|夜猫子
 trait4|强壮的
 levelfood|10
-levelbuilder|11.028001
+levelbuilder|1100.028
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-91.21180229634047,238.0,-1306.489500302662,0
+location|-177.5,475.5,-2611.5,0
 pregnancy|0.0
 building|null
 terraformtype|null

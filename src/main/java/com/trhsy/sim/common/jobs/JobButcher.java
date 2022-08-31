@@ -195,8 +195,11 @@ public class JobButcher extends Job implements Serializable {
                     this.step = 2;
                 }
             } else if (this.step == 2) {
+                //chicken 鸡肉
                 this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.chicken, 1, 640), (Block)null);
+                //porkchop 猪排
                 this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.porkchop, 1, 640), (Block)null);
+                //牛肉
                 this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.beef, 1, 640), (Block)null);
                 this.step = 3;
             } else if (this.step == 3) {

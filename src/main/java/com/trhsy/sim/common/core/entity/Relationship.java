@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.core.entity;
 
 import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.core.entity.enums.Level;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
@@ -390,11 +391,13 @@ public class Relationship implements Serializable {
                                             this.folk1.action = FolkAction.GOINGHOME;
                                             this.folk1.actionArrival = FolkAction.ATHOME;
                                             V3 v3 = this.folk1.getHome().primaryXYZ;
+                                            this.folk1.gotoXYZ(v3, GotoMethod.SHIFT);
                                             this.folk1.gotoXYZ(v3, null);
 
                                             this.folk2.action = FolkAction.GOINGHOME;
                                             this.folk2.actionArrival = FolkAction.ATHOME;
                                             V3 v32 = this.folk2.getHome().primaryXYZ;
+                                            this.folk2.gotoXYZ(v32, GotoMethod.SHIFT);
                                             this.folk2.gotoXYZ(v32, null);
                                         }
                                     }

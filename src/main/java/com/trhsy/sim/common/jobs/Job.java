@@ -660,7 +660,7 @@ public abstract class Job {
         ItemStack got = null;
         try {
             for (int c = 0; c < fromChests.size(); ++c) {
-                IInventory chest = (IInventory) fromChests.get(c);
+                IInventory chest = fromChests.get(c);
                 this.openCloseChest(chest, 2000);
             }
 
@@ -670,11 +670,11 @@ public abstract class Job {
                     folkInventory.setInventorySlotContents(limit, got);
                     ret = true;
                 }
-
                 limit++;
             } while (got != null && limit < 27);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("将一些物品/任何物品从一组箱子中转移到人们的库存中出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            e.printStackTrace();
         }
         return ret;
     }

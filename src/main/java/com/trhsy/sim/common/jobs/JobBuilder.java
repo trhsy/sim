@@ -7,6 +7,7 @@ package com.trhsy.sim.common.jobs;/**
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.*;
 import com.trhsy.sim.common.core.entity.enums.FolkAction;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.BlockLoader;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
@@ -358,6 +359,7 @@ public class JobBuilder extends Job implements Serializable {
             //距离大于5并且NPC目的地为空
             if (dist > 5 && this.theFolk.destination == null) {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                this.theFolk.gotoXYZ(v3, GotoMethod.SHIFT);
                 this.theFolk.gotoXYZ(v3, null);
                 return;
             } else {
@@ -626,7 +628,7 @@ public class JobBuilder extends Job implements Serializable {
                                         }
                                         //每2秒播放一次音效
                                         if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
-                                            this.mc.theWorld.playSoundEffect((this.bx + this.xo), (this.by + this.l),(this.bz + this.zo), ModSim.MODID + ":construction", 1, 1);
+                                            this.mc.theWorld.playSound((this.bx + this.xo), (this.by + this.l),(this.bz + this.zo), ModSim.MODID + ":construction", 1, 1,true);
                                             this.soundLastPlayed = System.currentTimeMillis();
                                         }
                                         //在客户端生成粒子

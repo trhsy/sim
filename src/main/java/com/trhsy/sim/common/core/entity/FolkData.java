@@ -192,7 +192,7 @@ public class FolkData implements Serializable {
             this.theBuilding = null;
             this.terraformerType = null;
             this.terraformerRadius = 1;
-            this.villagerInventory = new InventoryBasic("Items", false, 8);
+            this.villagerInventory = new InventoryBasic("Items", false, 27);
             this.theEntity = null;
             this.timeStartedGotoing = 0L;
             this.gotoMethod = null;
@@ -236,7 +236,7 @@ public class FolkData implements Serializable {
             }
 
             //初始化NPC背包
-            this.villagerInventory = new InventoryBasic("Items", false, 8);
+            this.villagerInventory = new InventoryBasic("Items", false, 27);
             //安排他们的工作
             setTheirJob(this.vocation);
             ModSimReloaded.log.info(name + ",开始重生了");
@@ -1077,9 +1077,11 @@ public class FolkData implements Serializable {
                         this.actionArrival = FolkAction.STAYINGHOME;
                         if (building.livingXYZ != null) {
                             V3 v3 = new V3(building.livingXYZ.xCoord, building.livingXYZ.yCoord, building.livingXYZ.zCoord, building.livingXYZ.theDimension);
+                            gotoXYZ(v3, GotoMethod.SHIFT);
                             gotoXYZ(v3, null);
                         } else {
                             V3 v3 = new V3(building.primaryXYZ.xCoord, building.primaryXYZ.yCoord, building.primaryXYZ.zCoord, building.primaryXYZ.theDimension);
+                            gotoXYZ(v3, GotoMethod.SHIFT);
                             gotoXYZ(v3, null);
                         }
 
@@ -1248,7 +1250,7 @@ public class FolkData implements Serializable {
     public boolean isNightOwl() {
         boolean falg = false;
         try {
-            if (this.trait1.equals(I18n.format("container.sim.traits13")) || trait2.equals(I18n.format("container.sim.traits13")) || trait3.equals(I18n.format("container.sim.traits13")) || trait4.equals(I18n.format("container.sim.traits13"))) {
+            if ((this.trait1.equals(I18n.format("container.sim.traits13")) || trait2.equals(I18n.format("container.sim.traits13")) || trait3.equals(I18n.format("container.sim.traits13")) || trait4.equals(I18n.format("container.sim.traits13")))&&this.vocation!=null&&this.vocation==Vocation.BUILDER) {
                 falg = true;
             }
         } catch (Exception e) {
@@ -1443,7 +1445,7 @@ public class FolkData implements Serializable {
             if (this.villagerInventory != null){
                 this.villagerInventory.clear();
             }else{
-                this.villagerInventory= new InventoryBasic("Items", false, 8);
+                this.villagerInventory= new InventoryBasic("Items", false, 27);
             }
 
                 if (this.theEntity != null) {
@@ -1637,8 +1639,8 @@ public class FolkData implements Serializable {
 
             if (ModSim.proxy.getClientWorld() != null) {
                 if (!ModSim.proxy.getClientWorld().isRemote) {
-                    ModSim.proxy.getClientWorld().playSoundEffect(this.location.xCoord, this.location.yCoord, this.location.zCoord, ModSim.MODID + ":beamdown", 1, 1);
-                    ModSim.proxy.getClientWorld().playSoundEffect(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f);
+                    ModSim.proxy.getClientWorld().playSound(this.location.xCoord, this.location.yCoord, this.location.zCoord, ModSim.MODID + ":beamdown", 1, 1,true);
+                    ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f,true);
                 }
             }
             respawnEntity(MinecraftServer.getServer().worldServerForDimension(location.theDimension));
