@@ -563,6 +563,7 @@ public class FolkData implements Serializable {
                             if (this.destination == null) {
                                 if (!build.blockSpecial.isEmpty()) {
                                     V3 bed = build.blockSpecial.get(0);
+                                    bed=new V3(bed.xCoord,bed.yCoord+1,bed.zCoord);
                                     gotoXYZ(bed, null);
                                     //就要生孩子了,她正在去诊所的路上！
                                     String baby = I18n.format("container.sim.folk_data_baby");
@@ -635,7 +636,8 @@ public class FolkData implements Serializable {
                                 if (hasShopKeeper) {
                                     //ModSimReloaded.log.info("FolkData:onUpdate() " + name + " 距离 " + b.displayName + " " + dist + " 个距离之外。");
                                     //设置走过去
-                                    gotoXYZ(b.primaryXYZ, null);
+                                    V3 v=new V3(b.primaryXYZ.xCoord,b.primaryXYZ.yCoord+1,b.primaryXYZ.zCoord);
+                                    gotoXYZ(v, null);
                                     this.destination.doNotTimeout = true;
                                     this.statusText = shopping + b.displayName;
                                     gotWanderPoint = true;
@@ -650,7 +652,8 @@ public class FolkData implements Serializable {
                                 //工业
                             } else if (b.type.contentEquals("industrial") && !b.displayName.toLowerCase().contains(farm)) {
                                 //ModSimReloaded.log.info("FolkData: onUpdate() " + name + "距离" + b.displayName + " " + dist + " 个街区之外。");
-                                gotoXYZ(b.primaryXYZ, null);
+                                V3 v=new V3(b.primaryXYZ.xCoord,b.primaryXYZ.yCoord+1,b.primaryXYZ.zCoord);
+                                gotoXYZ(v, null);
                                 this.destination.doNotTimeout = true;
                                 this.statusText = I18n.format("container.sim.folk_data_Visiting") + b.displayName;
                                 gotWanderPoint = true;
@@ -668,11 +671,13 @@ public class FolkData implements Serializable {
                                     if (!resy.name.contentEquals(name) && resy.hangingWith == null) {
                                         if (resy.action == FolkAction.WANDER || resy.action == FolkAction.STAYINGHOME) {
                                             ModSimReloaded.log.info("FolkData:onUpdate() " + this.name + " 距离 " + b.displayName + " " + dist + " 个街区之外。");
-                                            gotoXYZ(b.primaryXYZ, null);
+                                            V3 v=new V3(b.primaryXYZ.xCoord,b.primaryXYZ.yCoord+1,b.primaryXYZ.zCoord);
+                                            gotoXYZ(v, null);
                                             gotWanderPoint = true;
                                             hanging = I18n.format("container.sim.folk_data_Hanging");
                                             this.statusText = hanging + resy.name;
-                                            resy.gotoXYZ(b.primaryXYZ, null);
+                                            V3 v1=new V3(b.primaryXYZ.xCoord,b.primaryXYZ.yCoord+1,b.primaryXYZ.zCoord);
+                                            resy.gotoXYZ(v1, null);
                                             if (this.destination != null) {
                                                 this.destination.doNotTimeout = true;
                                             }
@@ -778,7 +783,7 @@ public class FolkData implements Serializable {
                         V3 temp = employedAt.clone();
                         temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
                         gotoXYZ(temp, GotoMethod.SHIFT);
-                        gotoXYZ(temp, null);
+//                        gotoXYZ(temp, null);
                         //ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + temp.xCoord + ",y:" + temp.yCoord + ",z:" + temp.zCoord);
                         return;
                     }
@@ -799,7 +804,7 @@ public class FolkData implements Serializable {
                         V3 temp = employedAt.clone();
                         temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
                         gotoXYZ(temp, GotoMethod.SHIFT);
-                        gotoXYZ(temp, null);
+//                        gotoXYZ(temp, null);
                         //ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + temp.xCoord + ",y:" + temp.yCoord + ",z:" + temp.zCoord);
                         return;
                     }
@@ -812,7 +817,7 @@ public class FolkData implements Serializable {
                         V3 temp = employedAt.clone();
                         temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
                         gotoXYZ(temp, GotoMethod.SHIFT);
-                        this.gotoXYZ(temp, null);
+//                        this.gotoXYZ(temp, null);
                     }
                 }
                 if (this.action== FolkAction.STAYINGHOME && this.hangingWith == null) {
@@ -892,7 +897,7 @@ public class FolkData implements Serializable {
                                     this.stayPut = false;
                                     V3 v3=new V3(liveAt.xCoord,liveAt.yCoord+1,liveAt.zCoord);
                                     gotoXYZ(v3, GotoMethod.SHIFT);
-                                    gotoXYZ(liveAt, null);
+//                                    gotoXYZ(liveAt, null);
                                     this.action= FolkAction.GOINGHOME;
                                     //回家
                                     this.statusText = I18n.format("container.sim.folk_data_Going_home");
@@ -976,7 +981,7 @@ public class FolkData implements Serializable {
                                 male.updateLocationFromEntity();
                                 if ((double) this.matingStage < 0.15D) {
                                     //有时，它们在交配过程中会走失LOL：-）
-                                    gotoXYZ(male.location, null);
+                                    gotoXYZ(male.location, GotoMethod.SHIFT);
                                 }
 
                                 theWorld.spawnParticle(EnumParticleTypes.HEART, male.location.xCoord, male.location.yCoord + 2.1, male.location.zCoord, d0, d1, d2);
@@ -1055,7 +1060,7 @@ public class FolkData implements Serializable {
                     //拥有一秒钟的任务可以处理其余的任务
                     this.matingStage = 0.0F;
                     if (malePartner.isSpawned()) {
-                        gotoXYZ(new V3(malePartner.theEntity.posX, malePartner.theEntity.posY, malePartner.theEntity.posZ, malePartner.theEntity.dimension), null);
+                        gotoXYZ(new V3(malePartner.theEntity.posX, malePartner.theEntity.posY+1, malePartner.theEntity.posZ, malePartner.theEntity.dimension), GotoMethod.SHIFT);
                     }
                 }
             } else {
@@ -1085,11 +1090,11 @@ public class FolkData implements Serializable {
                         if (building.livingXYZ != null) {
                             V3 v3 = new V3(building.livingXYZ.xCoord, building.livingXYZ.yCoord+1, building.livingXYZ.zCoord, building.livingXYZ.theDimension);
                             gotoXYZ(v3, GotoMethod.SHIFT);
-                            gotoXYZ(v3, null);
+//                            gotoXYZ(v3, null);
                         } else {
                             V3 v3 = new V3(building.primaryXYZ.xCoord, building.primaryXYZ.yCoord+1, building.primaryXYZ.zCoord, building.primaryXYZ.theDimension);
                             gotoXYZ(v3, GotoMethod.SHIFT);
-                            gotoXYZ(v3, null);
+//                            gotoXYZ(v3, null);
                         }
 
                         ModSimReloaded.states.saveStates();
@@ -1553,11 +1558,11 @@ public class FolkData implements Serializable {
 
             if (this.gotoMethod == GotoMethod.SHIFT) {
                 //ModSimReloaded.log.info(name + ":选择SHIFT去x:" + whereTo.xCoord + ",y:" + whereTo.yCoord + ",z:" + whereTo.zCoord);
-                this.destination = new V3(this.destination.xCoord + 0.5, this.destination.yCoord, this.destination.zCoord + 0.5);
+                this.destination = new V3(this.destination.xCoord, this.destination.yCoord+1, this.destination.zCoord);
                 if (this.theEntity != null) {
                     if (this.destination != null) {
                         //theEntity.setPosition(destination.xCoord,destination.yCoord,destination.zCoord);
-                        this.theEntity.setLocationAndAngles(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord, 0.0F, 0.0F);
+                        this.theEntity.setLocationAndAngles(this.destination.xCoord, this.destination.yCoord+1, this.destination.zCoord, 0.0F, 0.0F);
                     }
                     //如果维度不一样传送到维度
                     //修改为不管维度一样不一样都要传送

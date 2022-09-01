@@ -1,5 +1,5 @@
-employedat|-200.0,237.0,-1457.0,0
-vocation|GLASSMAKER
+employedat|null
+vocation|null
 name|百里景凯
 age|22
 gender|0
@@ -14,7 +14,7 @@ levelbuilder|10000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-197.00325769920033,237.0,-1460.300000011921,0
+location|-154.0,237.0,-1353.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

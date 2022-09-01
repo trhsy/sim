@@ -34,7 +34,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobGlassMaker extends Job implements Serializable {
     private static final long serialVersionUID = 1177111222904279141L;
     public Vocation vocation = null;
-    public FolkData theFolk =new FolkData();
+    public FolkData theFolk = new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
@@ -57,13 +57,14 @@ public class JobGlassMaker extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobGlassMaker出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("JobGlassMaker出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -121,7 +122,8 @@ public class JobGlassMaker extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobGlassMaker-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("JobGlassMaker-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -146,10 +148,18 @@ public class JobGlassMaker extends Job implements Serializable {
 
             this.theStage = Stage.GOTOSANDBLOCK;
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageScanForSand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageScanForSand出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 去沙子旁边
+     * @Date 22:16 2022/9/1
+     * @Param []
+     **/
     private void stageGotoSandBlock() {
         try {
             if (this.theFolk.theEntity != null) {
@@ -167,17 +177,30 @@ public class JobGlassMaker extends Job implements Serializable {
 
             this.theStage = Stage.COLLECTSAND;
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGotoSandBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageGotoSandBlock出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
 
+    /**
+     * @return void
+     * @Author fan
+     * @Description //TODO 收集沙子
+     * @Date 22:17 2022/9/1
+     * @Param []
+     **/
     private void stageCollectSand() {
         try {
+            //停顿一秒
             this.runDelay = 1000;
+            //在工作中
             this.theFolk.isWorking = true;
+            //更新NPC位置
             this.theFolk.updateLocationFromEntity();
-            double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfSand);
+            //NPC距离沙子距离
+            double dist = this.theFolk.location.getDistanceTo(this.blockOfSand);
+            //大于6 去到沙子旁边
             if (dist > 6 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.gotoXYZ(this.blockOfSand, null);
                 this.theFolk.stayPut = false;
@@ -186,47 +209,53 @@ public class JobGlassMaker extends Job implements Serializable {
                 if (this.gotoCount > 2) {
                     this.gotoCount = 0;
                     V3 bs = this.blockOfSand.clone();
-               /* Double var5 = bs.y;
-                Double var6 = bs.y = bs.y + 1;*/
-                    bs = new V3(bs.xCoord , bs.yCoord + 1, bs.zCoord, bs.theDimension);
+                    bs = new V3(bs.xCoord, bs.yCoord + 1, bs.zCoord, bs.theDimension);
                     this.theFolk.beamMeTo(bs);
                 }
 
-            } else if (!(dist > 6)) {
-                if (dist < 6) {
-                }
+            }
+            if (!(dist > 6)) {
+                return;
+            }
+            if (dist < 6) {
+                //theFolk.stayPut=true;
+            }
 
-                this.gotoCount = 0;
-                BlockPos blockPos1 = new BlockPos(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord);
-                this.jobWorld.setBlockState(blockPos1, this.jobWorld.getBlockState(blockPos1).getBlock().getDefaultState(), 3);
-                this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
-                this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Blocks.sand, 1));
-                //我得到沙子惹！
-                this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.getVillagerInventory().getSizeInventory();
-                GameStates var10000 = ModSimReloaded.states;
-                var10000.credits = (float) ((double) var10000.credits - 0.012D);
-                if (this.theFolk.getVillagerInventory().getSizeInventory() < 64) {
-                    this.theStage = Stage.SCANFORSAND;
-                } else {
-                    this.theStage = Stage.RETURNSAND;
-                    this.step = 1;
-                }
+            this.gotoCount = 0;
+            BlockPos blockPos1 = new BlockPos(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord);
+            this.jobWorld.setBlockState(blockPos1, Blocks.air.getDefaultState(), 3);
+            this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
+            this.theFolk.getVillagerInventory().func_174894_a(new ItemStack(Blocks.sand, 1));
+            //我得到沙子惹！
+            this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.getVillagerInventory().getStackInSlot(0).stackSize;
+            GameStates var10000 = ModSimReloaded.states;
+            var10000.credits = (float) ((double) var10000.credits - 0.012D);
+            if (this.theFolk.getVillagerInventory().getStackInSlot(0).stackSize < 64) {
+                this.theStage = Stage.SCANFORSAND;
+            } else {
+                this.theStage = Stage.RETURNSAND;
+                this.step = 1;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobGlassMaker-stageCollectSand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("JobGlassMaker-stageCollectSand出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 返回沙子
+     * @Date 23:06 2022/9/1
+     * @Param []
+     * @return void
+     **/
     private void stageReturnSand() {
         this.theFolk.isWorking = false;
 
         try {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
-                /*Double var3 = adj.y;
-                Double var4 = adj.y = adj.y + 1;*/
-                adj = new V3(adj.xCoord , adj.yCoord + 1, adj.zCoord, adj.theDimension);
+                adj = new V3(adj.xCoord, adj.yCoord + 1, adj.zCoord, adj.theDimension);
                 this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
             } else if (this.step == 2) {
@@ -234,24 +263,25 @@ public class JobGlassMaker extends Job implements Serializable {
                     this.theFolk.updateLocationFromEntity();
                 }
 
-                double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                double dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist < 4) {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
-                this.openCloseChest((IInventory) this.factoryChests.get(0), 1000);
+                this.openCloseChest(this.factoryChests.get(0), 1000);
                 boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.factoryChests, (ItemStack) null);
                 this.theStage = Stage.USEFURNACE;
                 this.step = 1;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageReturnSand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageReturnSand出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -339,7 +369,8 @@ public class JobGlassMaker extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageUseFurnace出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageUseFurnace出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -353,12 +384,13 @@ public class JobGlassMaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Arrived");
                 this.theStage = Stage.USEFURNACE;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

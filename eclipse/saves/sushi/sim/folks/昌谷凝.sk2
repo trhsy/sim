@@ -1,5 +1,5 @@
-employedat|-214.0,237.0,-1459.0,0
-vocation|LUMBERJACK
+employedat|null
+vocation|null
 name|昌谷凝
 age|19
 gender|1
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-219.86095379526898,237.0,-1465.4713419575555,0
+location|-155.0,238.0,-1388.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -1,5 +1,5 @@
-employedat|-186.0,238.0,-1461.0,0
-vocation|FISHERMAN
+employedat|null
+vocation|null
 name|高聪汶
 age|19
 gender|1
@@ -14,8 +14,8 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-186.0,237.0,-1461.0,0
+location|114.0,238.0,-1143.0,0
 pregnancy|0.0
 building|null
-terraformtype|null
-terraformradius|1
+terraformtype|NATURE
+terraformradius|30

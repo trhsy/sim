@@ -1,5 +1,5 @@
-employedat|-133.0,236.0,-1329.0,0
-vocation|PIGFARMER
+employedat|null
+vocation|null
 name|赫连尚天
 age|31
 gender|1
@@ -14,7 +14,7 @@ levelbuilder|10000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-133.0,236.0,-1329.0,0
+location|-84.30000001192093,237.0,-1446.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

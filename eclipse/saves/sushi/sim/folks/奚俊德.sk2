@@ -1,5 +1,5 @@
-employedat|-33.0,238.0,-1413.0,0
-vocation|SOLDIER
+employedat|-200.0,237.0,-1457.0,0
+vocation|GLASSMAKER
 name|奚俊德
 age|22
 gender|0
@@ -14,7 +14,7 @@ levelbuilder|1000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|26.0,236.0,-1476.0,0
+location|-196.55776646425102,237.0,-1467.699999988079,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -1,5 +1,5 @@
-employedat|-63.0,237.0,-1468.0,0
-vocation|BURGERSFRYCOOK
+employedat|null
+vocation|null
 name|毕凝羽
 age|22
 gender|1
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|1100.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
-location|-71.0,238.0,-1325.0,0
+stayput|false
+location|-102.0,240.0,-1319.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

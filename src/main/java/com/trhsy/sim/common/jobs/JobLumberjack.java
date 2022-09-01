@@ -218,7 +218,7 @@ public class JobLumberjack extends Job implements Serializable {
     private void stageChoppingTree() {
         try {
             int count;
-            Block theWood = theFolk.theEntity.worldObj.getBlock(foundWoodAt.xCoord, foundWoodAt.yCoord, foundWoodAt.zCoord);
+            Block block = this.jobWorld.getBlockState(new BlockPos(foundWoodAt.xCoord, foundWoodAt.yCoord, foundWoodAt.zCoord)).getBlock();
             if (this.step == 1) {
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Choppy");
                 this.theFolk.isWorking = true;
@@ -231,7 +231,7 @@ public class JobLumberjack extends Job implements Serializable {
                         this.theFolk.selfFire();
                         return;
                     }
-                    Block block = this.jobWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
+                    block = this.jobWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
                     if (block != Blocks.log || block != Blocks.log2) {
                         break;
                     } else {
@@ -241,7 +241,7 @@ public class JobLumberjack extends Job implements Serializable {
 
                 this.step = 2;
             } else if (this.step == 2) {
-                Block block = this.jobWorld.getBlockState(new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord)).getBlock();
+                block = this.jobWorld.getBlockState(new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord)).getBlock();
                 if (block == Blocks.log || block == Blocks.log2) {
                     Thread t = new Thread(new Runnable() {
                         @Override

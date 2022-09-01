@@ -618,7 +618,7 @@ public abstract class Job {
         try {
             for (int i = 0; i < folkInventory.getSizeInventory(); i++) {
                 try {
-                    ItemStack folkStack = (ItemStack) folkInventory.getStackInSlot(i);
+                    ItemStack folkStack = folkInventory.getStackInSlot(i);
                     if (specificItems != null && specificItems.getItem() == folkStack.getItem()) {
                         okToPlace = true;
                     } else if (specificItems == null) {

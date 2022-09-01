@@ -1,5 +1,5 @@
-employedat|-31.0,237.0,-1382.0,0
-vocation|CHEESEMAKER
+employedat|null
+vocation|null
 name|屈茂琪
 age|21
 gender|0
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
-location|-66.0,238.0,-1425.0,0
+stayput|false
+location|-66.0,237.0,-1425.0,0
 pregnancy|0.0
 building|null
 terraformtype|null
