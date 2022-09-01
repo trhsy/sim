@@ -8,6 +8,7 @@ import com.trhsy.sim.client.gui.blocks.*;
 import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.core.entity.GameMode;
 import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.core.entity.functionality.PathBox;
@@ -266,6 +267,10 @@ public class GuiEmployFolk extends GuiScreen {
                 //白天//此人是夜猫子
                 if (ModSimReloaded.isDayTime()||efolk.isNightOwl()) {
                     V3 v3=new V3(efolk.employedAt.xCoord,efolk.employedAt.yCoord+1,efolk.employedAt.zCoord);
+                    int dist = efolk.location.getDistanceTo(v3);
+                    if(dist>10){
+                        efolk.gotoXYZ(v3, GotoMethod.SHIFT);
+                    }
                     //去雇佣地点
                     efolk.gotoXYZ(v3, null);
                 }

@@ -520,7 +520,6 @@ public class GuiControlBox extends GuiScreen {
                 }
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.theBuilding.displayNameWithoutPK + author, 5, 37, 16777088);
                 this.fontRendererObj.drawString(I18n.format("container.sim.sim_Type") + " : " + this.theBuilding.type + " (" + isComplete + ")", 5, 47, 16777088);
-                int down;
                 if (this.theBuilding != null) {
                     if (this.theBuilding.type != null) {
                         if (!this.theBuilding.type.contentEquals("residential")) {
@@ -529,10 +528,10 @@ public class GuiControlBox extends GuiScreen {
                                 }
                             } else {
                                 this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + " :", 5, 57, 16777088);
-                                down = 70;
+                                int down = 70;
 
-                                for (down = 0; down < ModSimReloaded.theFolks.size(); ++down) {
-                                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(down);
+                                for (int k = 0; k < ModSimReloaded.theFolks.size(); k++) {
+                                    FolkData folk = (FolkData) ModSimReloaded.theFolks.get(k);
                                     if (this.theBuilding.primaryXYZ.isSameCoordsAs(folk.employedAt, true, true)) {
                                         this.fontRendererObj.drawString(folk.name + " (" + folk.age + ") - " + folk.vocation.toString(), 20, down, 16777120);
                                         down += 20;
@@ -546,9 +545,9 @@ public class GuiControlBox extends GuiScreen {
                             }
 
                             this.fontRendererObj.drawString(this.theBuilding.tenants.size() + I18n.format("container.sim.Resident") + s + " :", 5, 57, 16777088);
-                            down = 70;
+                            int down = 70;
 
-                            for (int t = 0; t < this.theBuilding.tenants.size(); ++t) {
+                            for (int t = 0; t < this.theBuilding.tenants.size(); t++) {
                                 String folkname = (String) this.theBuilding.tenants.get(t);
                                 this.fontRendererObj.drawString(folkname, 20, down, 16777120);
                                 down += 20;

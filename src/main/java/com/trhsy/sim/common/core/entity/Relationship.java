@@ -391,13 +391,15 @@ public class Relationship implements Serializable {
                                             this.folk1.action = FolkAction.GOINGHOME;
                                             this.folk1.actionArrival = FolkAction.ATHOME;
                                             V3 v3 = this.folk1.getHome().primaryXYZ;
-                                            this.folk1.gotoXYZ(v3, GotoMethod.SHIFT);
+                                            V3 v11=new V3(v3.xCoord,v3.yCoord+1,v3.zCoord);
+                                            this.folk1.gotoXYZ(v11, GotoMethod.SHIFT);
                                             this.folk1.gotoXYZ(v3, null);
 
                                             this.folk2.action = FolkAction.GOINGHOME;
                                             this.folk2.actionArrival = FolkAction.ATHOME;
                                             V3 v32 = this.folk2.getHome().primaryXYZ;
-                                            this.folk2.gotoXYZ(v32, GotoMethod.SHIFT);
+                                            V3 v=new V3(v32.xCoord,v32.yCoord+1,v32.zCoord);
+                                            this.folk2.gotoXYZ(v, GotoMethod.SHIFT);
                                             this.folk2.gotoXYZ(v32, null);
                                         }
                                     }

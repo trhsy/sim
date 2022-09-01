@@ -867,7 +867,6 @@ public class Building implements Serializable {
                         }
                         File[] files = buildingsFolder.listFiles();
                         if (files != null && files.length > 1) {
-
                             Building build;
                             ModSimReloaded.theBuildings.clear();
                             for (File f : files) {

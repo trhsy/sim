@@ -645,7 +645,7 @@ public class ModSimReloaded {
                     farmToUpgradePoints = farmToUpgrade.getPerimeterPoints();
                 }
                 //获取元素
-                point = (V3) farmToUpgradePoints.get(farmToUpgradeCounter);
+                point = farmToUpgradePoints.get(farmToUpgradeCounter);
                 theWorld = MinecraftServer.getServer().worldServerForDimension(point.theDimension);
                 BlockPos blockPos = new BlockPos(point.xCoord, point.yCoord, point.zCoord);
                 //如果该区域没有障碍物，则设置围栏

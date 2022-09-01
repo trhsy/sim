@@ -40,7 +40,7 @@ public class JobLumberjack extends Job implements Serializable {
     private static final long serialVersionUID = -1177112207904887741L;
     //职业
     public Vocation vocation = null;
-    public FolkData theFolk =new FolkData();
+    public FolkData theFolk = new FolkData();
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
@@ -64,14 +64,15 @@ public class JobLumberjack extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLumberjack出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("JobLumberjack出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -125,7 +126,8 @@ public class JobLumberjack extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobLumberjack-onUpdate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("JobLumberjack-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -166,7 +168,8 @@ public class JobLumberjack extends Job implements Serializable {
             this.onRoute = false;
 
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageScanForTree出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageScanForTree出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -204,7 +207,8 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGotoTree出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageGotoTree出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -213,61 +217,57 @@ public class JobLumberjack extends Job implements Serializable {
      */
     private void stageChoppingTree() {
         try {
-            int i;
-            int l;
+            int count;
+            Block theWood = theFolk.theEntity.worldObj.getBlock(foundWoodAt.xCoord, foundWoodAt.yCoord, foundWoodAt.zCoord);
             if (this.step == 1) {
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Choppy");
                 this.theFolk.isWorking = true;
-
-                for (i = 0; i < 20; i++) {
-                    l = (int)this.foundWoodAt.xCoord;
-                    int y = (int)(this.foundWoodAt.yCoord - 1);
-                    int z = (int)this.foundWoodAt.zCoord;
+                //找到行李箱的底部
+                for (int i = 0; i < 20; i++) {
+                    int x = (int) this.foundWoodAt.xCoord;
+                    int y = (int) (this.foundWoodAt.yCoord - 0);
+                    int z = (int) this.foundWoodAt.zCoord;
                     if (this.jobWorld == null) {
                         this.theFolk.selfFire();
                         return;
                     }
-                    ;
-                    if (this.jobWorld.getBlockState(new BlockPos(l, y, z)).getBlock() != Blocks.log) {
+                    Block block = this.jobWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
+                    if (block != Blocks.log || block != Blocks.log2) {
                         break;
+                    } else {
+                        this.foundWoodAt = new V3(this.foundWoodAt.xCoord, y, this.foundWoodAt.zCoord);
                     }
-                    this.foundWoodAt=new V3(this.foundWoodAt.xCoord,y,this.foundWoodAt.zCoord);
-                    //this.foundWoodAt.yCoord = (double) y;
                 }
 
                 this.step = 2;
             } else if (this.step == 2) {
-
-                if (this.jobWorld.getBlockState(new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord)).getBlock() == Blocks.log) {
+                Block block = this.jobWorld.getBlockState(new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord)).getBlock();
+                if (block == Blocks.log || block == Blocks.log2) {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                            isChopping = true;
-
-                            for (int d = 0; d < 12; ++d) {
-
+                                isChopping = true;
+                                for (int d = 0; d < 12; d++) {
                                     mc.theWorld.playSound(theFolk.location.xCoord, theFolk.location.yCoord, theFolk.location.zCoord, "step.wood", 1, 1, false);
+                                    if (theFolk.theEntity != null) {
+                                        theFolk.theEntity.swingProgress = 0.3F;
 
+                                        try {
+                                            Thread.sleep(100L);
+                                        } catch (Exception e) {
+                                        }
 
-                                if (theFolk.theEntity != null) {
-                                    theFolk.theEntity.swingProgress = 0.3F;
+                                        theFolk.theEntity.swingProgress = 0.7F;
 
-                                    try {
-                                        Thread.sleep(100L);
-                                    } catch (Exception e) {
-                                    }
-
-                                    theFolk.theEntity.swingProgress = 0.7F;
-
-                                    try {
-                                        Thread.sleep(100L);
-                                    } catch (Exception e) {
+                                        try {
+                                            Thread.sleep(100L);
+                                        } catch (Exception e) {
+                                        }
                                     }
                                 }
-                            }
 
-                            isChopping = false;
+                                isChopping = false;
                             } catch (Exception e) {
                             }
                         }
@@ -278,7 +278,6 @@ public class JobLumberjack extends Job implements Serializable {
                     this.step = 4;
                 }
             } else {
-                int count;
                 if (this.step == 3) {
                     if (this.isChopping) {
                         return;
@@ -288,8 +287,8 @@ public class JobLumberjack extends Job implements Serializable {
                     BlockPos blockPos1 = new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord);
                     this.jobWorld.setBlockState(blockPos1, Blocks.air.getDefaultState(), 3);
                     if (log != null) {
-                        for (l = 0; l < log.size(); ++l) {
-                            ItemStack isl = (ItemStack) log.get(l);
+                        for (int l = 0; l < log.size(); ++l) {
+                            ItemStack isl = log.get(l);
                             this.theFolk.getVillagerInventory().setInventorySlotContents(l, isl);
                         }
                     }
@@ -297,14 +296,14 @@ public class JobLumberjack extends Job implements Serializable {
                     count = this.getInventoryCount(this.theFolk, Blocks.log);
                     this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Got") + count + I18n.format("container.sim.job.lumberjack.farmer.logs_so_far");
                     this.theFolk.stayPut = false;
-                    this.foundWoodAt=new V3(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord + 1,this.foundWoodAt.zCoord);
+                    this.foundWoodAt = new V3(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord + 1, this.foundWoodAt.zCoord);
                     //this.foundWoodAt.yCoord = this.foundWoodAt.yCoord + 1;
                     this.step = 2;
                 } else if (this.step == 4) {
                     if (this.theFolk.isSpawned()) {
                         count = this.getInventoryCount(this.theFolk, Blocks.sapling);
                         if (count > 0) {
-                            for (i = 0; i < this.theFolk.getVillagerInventory().getSizeInventory(); i++) {
+                            for (int i = 0; i < this.theFolk.getVillagerInventory().getSizeInventory(); i++) {
                                 ItemStack fis = (ItemStack) this.theFolk.getVillagerInventory().getStackInSlot(i);
                                 if (fis != null && Block.getBlockFromItem(fis.getItem()) == Blocks.sapling) {
                                     this.theFolk.getVillagerInventory().removeStackFromSlot(i);
@@ -327,7 +326,8 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageChoppingTree出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageChoppingTree出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -340,7 +340,7 @@ public class JobLumberjack extends Job implements Serializable {
             if (this.step == 1) {
                 //将木材送回伐木场箱子
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Delivering");
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.step = 2;
@@ -374,7 +374,8 @@ public class JobLumberjack extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageReturnWood出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("stageReturnWood出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
@@ -393,12 +394,13 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.a_lumberjack");
                 this.theStage = Stage.ARRIVEDATMILL;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -425,7 +427,8 @@ public class JobLumberjack extends Job implements Serializable {
 
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("pickUpSaplings出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("pickUpSaplings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -443,7 +446,8 @@ public class JobLumberjack extends Job implements Serializable {
                 this.jobWorld.setBlockState(blockPos1, Blocks.sapling.getDefaultState(), 3);
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("plantSapling出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("plantSapling出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 

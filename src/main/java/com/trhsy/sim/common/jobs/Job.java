@@ -138,7 +138,6 @@ public abstract class Job {
                         //复制当前数据
                         V3 work = theFolk.employedAt.clone();
                         work=new V3(work.xCoord,work.yCoord+1,work.zCoord);
-                        //work.y=work.yCoord+1;
                         //去位置
                         theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                         theFolk.location = work;
@@ -155,7 +154,10 @@ public abstract class Job {
                         //如果目的地为空
                         if (theFolk.destination == null) {
                             //设置目的地
-                            theFolk.gotoXYZ(theFolk.employedAt, null);
+                            V3 v=new V3(theFolk.employedAt.xCoord,theFolk.employedAt.yCoord+1,theFolk.employedAt.zCoord);
+                            //去位置
+                            theFolk.gotoXYZ(v, GotoMethod.SHIFT);
+                            theFolk.gotoXYZ(v, null);
                         }
                     }
                 }

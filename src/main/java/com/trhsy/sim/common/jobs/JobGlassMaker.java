@@ -38,6 +38,7 @@ public class JobGlassMaker extends Job implements Serializable {
     public Stage theStage;
     public transient int runDelay = 1000;
     public transient long timeSinceLastRun = 0L;
+    //找到沙子地点
     private transient V3 blockOfSand = null;
     private transient List<IInventory> factoryChests = new CopyOnWriteArrayList();
     private transient TileEntityFurnace factoryFurnace = null;
@@ -136,7 +137,7 @@ public class JobGlassMaker extends Job implements Serializable {
             if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.glass"))) {
                 this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Going");
             }
-
+            //找到80个格子内的沙子
             this.blockOfSand = findClosestBlockType(this.theFolk.employedAt, Blocks.sand, 80, true);
             if (this.blockOfSand == null) {
                 this.theStage = Stage.USEFURNACE;
@@ -197,7 +198,7 @@ public class JobGlassMaker extends Job implements Serializable {
 
                 this.gotoCount = 0;
                 BlockPos blockPos1 = new BlockPos(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord);
-                this.jobWorld.setBlockState(blockPos1, this.blockOfSand.blockID.getDefaultState(), 3);
+                this.jobWorld.setBlockState(blockPos1, this.jobWorld.getBlockState(blockPos1).getBlock().getDefaultState(), 3);
                 this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
                 this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Blocks.sand, 1));
                 //我得到沙子惹！
@@ -212,7 +213,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCollectSand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("JobGlassMaker-stageCollectSand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

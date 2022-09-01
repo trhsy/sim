@@ -635,7 +635,7 @@ public class FolkData implements Serializable {
                                 if (hasShopKeeper) {
                                     //ModSimReloaded.log.info("FolkData:onUpdate() " + name + " 距离 " + b.displayName + " " + dist + " 个距离之外。");
                                     //设置走过去
-                                    gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
+                                    gotoXYZ(b.primaryXYZ, null);
                                     this.destination.doNotTimeout = true;
                                     this.statusText = shopping + b.displayName;
                                     gotWanderPoint = true;
@@ -650,7 +650,7 @@ public class FolkData implements Serializable {
                                 //工业
                             } else if (b.type.contentEquals("industrial") && !b.displayName.toLowerCase().contains(farm)) {
                                 //ModSimReloaded.log.info("FolkData: onUpdate() " + name + "距离" + b.displayName + " " + dist + " 个街区之外。");
-                                gotoXYZ(b.primaryXYZ, GotoMethod.WALK);
+                                gotoXYZ(b.primaryXYZ, null);
                                 this.destination.doNotTimeout = true;
                                 this.statusText = I18n.format("container.sim.folk_data_Visiting") + b.displayName;
                                 gotWanderPoint = true;
@@ -771,14 +771,15 @@ public class FolkData implements Serializable {
                 //如果白天他们有工作就去工作
                 if (ModSimReloaded.isDayTime() || isNightOwl()) {
                     //要工作了
-                    if (this.employedAt != null && (this.action!= FolkAction.ONWAYTOWORK && this.action!= FolkAction.ATWORK && this.pregnancyStage == 0.0F)) {
-                        ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + this.employedAt.xCoord + ",y:" + this.employedAt.yCoord + ",z:" + this.employedAt.zCoord);
+                    if (this.employedAt != null && this.action!= FolkAction.ONWAYTOWORK && this.action!= FolkAction.ATWORK && this.pregnancyStage == 0.0F) {
+
                         this.statusText = I18n.format("container.sim.folk_data_Going_work");
                         this.action= FolkAction.ONWAYTOWORK;
                         V3 temp = employedAt.clone();
                         temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
                         gotoXYZ(temp, GotoMethod.SHIFT);
-                        gotoXYZ(this.employedAt, null);
+                        gotoXYZ(temp, null);
+                        //ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + temp.xCoord + ",y:" + temp.yCoord + ",z:" + temp.zCoord);
                         return;
                     }
                 }
@@ -796,9 +797,10 @@ public class FolkData implements Serializable {
                         //ModSimReloaded.log.warn("FolkData:onUpdate() " + name + " 还在工作");
                         updateLocationFromEntity();
                         V3 temp = employedAt.clone();
-                        temp = new V3(temp.xCoord+5, temp.yCoord+1, temp.zCoord);
+                        temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
                         gotoXYZ(temp, GotoMethod.SHIFT);
-                        gotoXYZ(this.employedAt, null);
+                        gotoXYZ(temp, null);
+                        //ModSimReloaded.log.info("FolkData: " + this.name + " 要工作了,地址是：x:" + temp.xCoord + ",y:" + temp.yCoord + ",z:" + temp.zCoord);
                         return;
                     }
                 }
@@ -807,7 +809,10 @@ public class FolkData implements Serializable {
                     this.statusText = I18n.format("container.sim.folk_data_Going_work");
                     this.stayPut = false;
                     if (this.destination == null) {
-                        this.gotoXYZ(this.employedAt, null);
+                        V3 temp = employedAt.clone();
+                        temp = new V3(temp.xCoord, temp.yCoord+1, temp.zCoord);
+                        gotoXYZ(temp, GotoMethod.SHIFT);
+                        this.gotoXYZ(temp, null);
                     }
                 }
                 if (this.action== FolkAction.STAYINGHOME && this.hangingWith == null) {
@@ -885,6 +890,8 @@ public class FolkData implements Serializable {
                                 int chance = this.location.getDistanceTo(liveAt);
                                 if (chance > 1 && this.destination == null) {
                                     this.stayPut = false;
+                                    V3 v3=new V3(liveAt.xCoord,liveAt.yCoord+1,liveAt.zCoord);
+                                    gotoXYZ(v3, GotoMethod.SHIFT);
                                     gotoXYZ(liveAt, null);
                                     this.action= FolkAction.GOINGHOME;
                                     //回家
@@ -983,13 +990,13 @@ public class FolkData implements Serializable {
                     //已完成
                 } else if (this.matingStage >= 1 && this.matingStage < 1.1F) {
                     this.matingStage = 1.1F;
-                    int chance = rand.nextInt(7);
+                    int chance = rand.nextInt(5);
                     ModSimReloaded.log.info("FolkData: 完成了对宝宝的尝试 = 机会:" + chance);
                     FolkData male = Relationship.isFolkLivingWithSomeone(this, true);
                     //在家放松
                     this.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
                     male.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
-                    //七分之一的怀孕机会，女性也需要少于45岁
+                    //5分之一的怀孕机会，女性也需要少于45岁
                     if (chance == 1 && this.age < 45) {
                         this.pregnancyStage = 0.1F;
                         //好消息！
@@ -1067,8 +1074,8 @@ public class FolkData implements Serializable {
      */
     private void getHomeForHomeless() {
         try {
-            Building.loadAllBuildings();
             if (this.action== FolkAction.WANDER) {
+                //Building.loadAllBuildings();
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                     Building building = ModSimReloaded.theBuildings.get(b);
                     if (building.tenants.size() == 0 && building.buildingComplete == true && building.type.contentEquals("residential")) {
@@ -1076,11 +1083,11 @@ public class FolkData implements Serializable {
                         this.action= FolkAction.GOINGHOME;
                         this.actionArrival = FolkAction.STAYINGHOME;
                         if (building.livingXYZ != null) {
-                            V3 v3 = new V3(building.livingXYZ.xCoord, building.livingXYZ.yCoord, building.livingXYZ.zCoord, building.livingXYZ.theDimension);
+                            V3 v3 = new V3(building.livingXYZ.xCoord, building.livingXYZ.yCoord+1, building.livingXYZ.zCoord, building.livingXYZ.theDimension);
                             gotoXYZ(v3, GotoMethod.SHIFT);
                             gotoXYZ(v3, null);
                         } else {
-                            V3 v3 = new V3(building.primaryXYZ.xCoord, building.primaryXYZ.yCoord, building.primaryXYZ.zCoord, building.primaryXYZ.theDimension);
+                            V3 v3 = new V3(building.primaryXYZ.xCoord, building.primaryXYZ.yCoord+1, building.primaryXYZ.zCoord, building.primaryXYZ.theDimension);
                             gotoXYZ(v3, GotoMethod.SHIFT);
                             gotoXYZ(v3, null);
                         }
@@ -1550,7 +1557,7 @@ public class FolkData implements Serializable {
                 if (this.theEntity != null) {
                     if (this.destination != null) {
                         //theEntity.setPosition(destination.xCoord,destination.yCoord,destination.zCoord);
-                        this.theEntity.setLocationAndAngles(this.location.xCoord, this.location.yCoord, this.location.zCoord, 0.0F, 0.0F);
+                        this.theEntity.setLocationAndAngles(this.destination.xCoord, this.destination.yCoord, this.destination.zCoord, 0.0F, 0.0F);
                     }
                     //如果维度不一样传送到维度
                     //修改为不管维度一样不一样都要传送

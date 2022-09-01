@@ -466,7 +466,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                         theData.destination = v;
                         PathEntity path = this.getNavigator().getPathToXYZ(v.xCoord, v.yCoord, v.zCoord);
                         if (path != null) {
-                            ModSimReloaded.log.info("实体人:[ " + theData.name + " ]即走过去☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
+                            //ModSimReloaded.log.info("实体人:[ " + theData.name + " ]即走过去☞x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord);
                             this.getNavigator().setPath(path, 0.3D);
                             this.gotPath = true;
                         }
@@ -723,12 +723,12 @@ public class EntityFolk extends EntityCreature implements INpc {
                         this.motionZ = theData.location.zCoord - 1;
                     }*/
                     if (theData.location != null) {
-                        this.motionY = theData.location.yCoord + 0.5;
+                        this.motionY = theData.location.yCoord+0.5;
                         this.motionX = theData.location.xCoord + 0.5;
                         this.motionZ = theData.location.zCoord + 0.5;
                     }
                     //受伤要跑出受伤范围
-                    theData.gotoXYZ(new V3(motionX, motionY, motionZ, 0), GotoMethod.SHIFT);
+                    theData.gotoXYZ(new V3(motionX, motionY, motionZ, 0), GotoMethod.WALK);
                 }
 
                 if (theData == null) {

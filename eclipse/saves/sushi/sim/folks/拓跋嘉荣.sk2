@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|-111.0,237.0,-1366.0,0
+vocation|BUTCHER
 name|拓跋嘉荣
-age|19
+age|21
 gender|0
 skin|14
 race|
@@ -14,7 +14,7 @@ levelbuilder|1000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-231.5,475.5,-2559.5,0
+location|-111.0,237.0,-1366.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

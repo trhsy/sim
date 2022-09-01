@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|燕博然
-age|25
+age|27
 gender|0
 skin|21
 race|
@@ -14,7 +14,7 @@ levelbuilder|1100.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|379.0,238.0,-1044.0,0
+location|-34.0,246.0,-1398.0,0
 pregnancy|0.0
 building|null
 terraformtype|null
