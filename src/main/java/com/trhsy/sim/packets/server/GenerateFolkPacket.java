@@ -3,6 +3,7 @@ package com.trhsy.sim.packets.server;
 import com.trhsy.sim.common.core.entity.FolkData;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
+import io.netty.util.ReferenceCountUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -46,6 +47,7 @@ public class GenerateFolkPacket implements IMessage {
         try {
             //isForced = buf.readBoolean();
             nbt = ByteBufUtils.readTag(buf);
+            buf.release();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -61,6 +63,7 @@ public class GenerateFolkPacket implements IMessage {
         try {
             //buf.writeBoolean(isForced);
             ByteBufUtils.writeTag(buf,nbt);
+            //ReferenceCountUtil.release(buf);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

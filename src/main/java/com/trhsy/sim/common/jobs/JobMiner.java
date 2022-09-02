@@ -24,6 +24,7 @@ import net.minecraft.util.EnumParticleTypes;
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * ========================================
@@ -587,7 +588,8 @@ public class JobMiner extends Job implements Serializable {
                 this.theFolk.timeStartedGotoing = System.currentTimeMillis();
             }
 
-            Thread t = new Thread(new Runnable() {
+            ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+            threadPoolExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
                     for (int d = 0; d < 5; ++d) {
@@ -604,7 +606,7 @@ public class JobMiner extends Job implements Serializable {
 
                 }
             });
-            t.start();
+            //threadPoolExecutor.shutdown();
             if (this.lastMinedBlockName.contentEquals("")) {
                 //挖掘挖掘
                 this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Diggy");

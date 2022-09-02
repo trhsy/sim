@@ -28,6 +28,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * ========================================
@@ -824,7 +825,8 @@ public abstract class Job {
      */
     public void setClosestBlocksOfType(final V3 startXYZ, final List<Block> blockIDs, final int distanceLimit, final boolean needsToSeeSky, final boolean scanDownwards, final boolean oneLayerOnly) {
 
-            Thread t = new Thread(new Runnable() {
+        ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+        threadPoolExecutor.submit(new Runnable() {
 
                 @Override
                 public void run() {
@@ -896,7 +898,7 @@ public abstract class Job {
                 }
 
             });
-            t.start();
+        //threadPoolExecutor.shutdown();
 
     }
 

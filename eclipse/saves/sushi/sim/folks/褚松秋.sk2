@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|褚松秋
-age|23
+age|24
 gender|1
 skin|23
 race|
@@ -13,7 +13,7 @@ levelfood|10
 levelbuilder|9.9999998E10
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
+stayput|true
 location|-86.0,240.0,-1287.0,0
 pregnancy|0.0
 building|null

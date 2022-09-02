@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|耿浩志
-age|22
+age|23
 gender|0
 skin|8
 race|
@@ -9,12 +9,12 @@ trait1|勇敢的
 trait2|喜欢户外活动
 trait3|矮人血脉
 trait4|夜猫子
-levelfood|9
+levelfood|10
 levelbuilder|10000.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-158.0,238.0,-1300.0,0
+location|-158.0,240.0,-1300.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * ========================================
@@ -160,7 +161,8 @@ public class JobShepherd extends Job implements Serializable {
                 this.theFolk.theEntity.faceEntity(this.sheepToShear, 1, 1);
                 this.theFolk.isWorking = true;
                 this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1, 1, false);
-                Thread t = new Thread(new Runnable() {
+                ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+                threadPoolExecutor.submit(new Runnable() {
                     @Override
                     public void run() {
                         isShearing = true;
@@ -178,7 +180,7 @@ public class JobShepherd extends Job implements Serializable {
                         theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Watching");
                     }
                 });
-                t.start();
+                //threadPoolExecutor.shutdown();
                 this.theFolk.theEntity.faceEntity(this.sheepToShear, 1, 1);
                 this.step = 4;
             }

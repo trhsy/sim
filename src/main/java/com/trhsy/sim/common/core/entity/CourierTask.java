@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 仓库快递员任务
@@ -29,7 +30,7 @@ public class CourierTask implements Serializable {
     public static V3 getCourierPoint(String name) {
         try {
             for (int x = 0; x < ModSimReloaded.theCourierPoints.size(); ++x) {
-                V3 v = (V3) ModSimReloaded.theCourierPoints.get(x);
+                V3 v = ModSimReloaded.theCourierPoints.get(x);
                 if (v.name.contentEquals(name)) {
                     return v;
                 }
@@ -76,7 +77,8 @@ public class CourierTask implements Serializable {
 
     public static void loadCourierTasksAndPoints() {
 
-            Thread thread = new Thread(new Runnable() {
+        ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+        threadPoolExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -109,7 +111,6 @@ public class CourierTask implements Serializable {
                         lengths = listFiles.length;
 
                         List<String> strings;
-                        Iterator iterator;
                         int m1;
                         String name;
                         String value;
@@ -223,7 +224,8 @@ public class CourierTask implements Serializable {
                         StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("loadCourierTasksAndPoints出错了：" + e.getMessage()+"行数："+element.getLineNumber());
                     }
                 }},"loadCourierTasksAndPoints_sim");
-            thread.start();
+            //thread.start();
+
 
 
     }

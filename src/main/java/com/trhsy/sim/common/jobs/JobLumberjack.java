@@ -26,6 +26,7 @@ import net.minecraft.util.BlockPos;
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * ========================================
@@ -174,7 +175,7 @@ public class JobLumberjack extends Job implements Serializable {
     }
 
     /**
-     * 去书旁边
+     * 去树旁边
      */
     private void stageGotoTree() {
         try {
@@ -243,7 +244,8 @@ public class JobLumberjack extends Job implements Serializable {
             } else if (this.step == 2) {
                 block = this.jobWorld.getBlockState(new BlockPos(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord, this.foundWoodAt.zCoord)).getBlock();
                 if (block == Blocks.log || block == Blocks.log2) {
-                    Thread t = new Thread(new Runnable() {
+                    ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+                    threadPoolExecutor.submit(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -272,7 +274,7 @@ public class JobLumberjack extends Job implements Serializable {
                             }
                         }
                     });
-                    t.start();
+                    //threadPoolExecutor.shutdown();
                     this.step = 3;
                 } else {
                     this.step = 4;
@@ -289,7 +291,8 @@ public class JobLumberjack extends Job implements Serializable {
                     if (log != null) {
                         for (int l = 0; l < log.size(); ++l) {
                             ItemStack isl = log.get(l);
-                            this.theFolk.getVillagerInventory().setInventorySlotContents(l, isl);
+                            this.theFolk.getVillagerInventory().func_174894_a(isl);
+                            //this.theFolk.getVillagerInventory().setInventorySlotContents(l, isl);
                         }
                     }
 

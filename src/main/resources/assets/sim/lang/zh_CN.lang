@@ -620,7 +620,7 @@ container.sim.gui_btn_name_Buy_Sell=买/卖
 
 
 container.sim.gui_btn_name_Add=添加
-
+container.sim.gui_btn_name_Pick_stick=请使用标记棒标记一个地点
 container.sim.gui_btn_name_Delete=删除
 container.sim.gui_btn_name_Deliver_back=送回仓库
 container.sim.gui_btn_name_Courier_tasks=快递任务

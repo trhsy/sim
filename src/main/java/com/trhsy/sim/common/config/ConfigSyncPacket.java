@@ -2,6 +2,7 @@ package com.trhsy.sim.common.config;
 
 import com.google.common.collect.Lists;
 import io.netty.buffer.ByteBuf;
+import io.netty.util.ReferenceCountUtil;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -52,6 +53,7 @@ public class ConfigSyncPacket extends AbstractPacket {
                 category.put(name, new Property(name, value, Property.Type.tryParse(type)));
             }
         }
+        buf.release();
 
     }
 
@@ -67,6 +69,6 @@ public class ConfigSyncPacket extends AbstractPacket {
                 ByteBufUtils.writeUTF8String(buf, prop.getString());
             }
         }
-
+        //ReferenceCountUtil.release(buf);
     }
 }

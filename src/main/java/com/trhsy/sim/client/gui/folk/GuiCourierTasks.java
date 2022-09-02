@@ -33,7 +33,7 @@ import java.util.HashMap;
 @SideOnly(Side.CLIENT)
 public class GuiCourierTasks extends GuiScreen {
     V3 controlBoxLocation;
-    FolkData theFolk=new FolkData();
+    FolkData theFolk = new FolkData();
     HashMap tasks = new HashMap();
     String onPage = "main";
     CourierTask newtask = new CourierTask();
@@ -46,9 +46,11 @@ public class GuiCourierTasks extends GuiScreen {
             this.theFolk = FolkData.getFolkByName(folkname);
             this.thePlayer = pl;
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiCourierTasks出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiCourierTasks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+
     @Override
     public boolean doesGuiPauseGame() {
         return false;
@@ -56,6 +58,7 @@ public class GuiCourierTasks extends GuiScreen {
 
     @Override
     public void updateScreen() {
+        //theGuiTextField1.updateCursorCounter();
     }
 
     @Override
@@ -65,80 +68,75 @@ public class GuiCourierTasks extends GuiScreen {
 
     private void initscreen() {
         try {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, I18n.format("container.sim.sim_gui_BC_Done")));
-        int idx;
-        int t;
-        int y;
-        if (this.onPage.contentEquals("main")) {
-            this.buttonList.add(new GuiButton(1, 5, this.height - 20, 50, 20, I18n.format("container.sim.gui_btn_name_Add")));
-            idx = 2;
-            //int y = true;
+            this.buttonList.clear();
+            this.buttonList.add(new GuiButton(0, 5, 5, 50, 20, I18n.format("container.sim.sim_gui_BC_Done")));
+            if (this.onPage.contentEquals("main")) {
+                this.buttonList.add(new GuiButton(1, 5, this.height - 20, 50, 20, I18n.format("container.sim.gui_btn_name_Add")));
+                int idx = 2;
+                int y = 30;
 
-            for (t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
-                CourierTask ct = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
-                if (ct.folkname.contentEquals(this.theFolk.name)) {
-                    y = 30 + (idx - 2) * 20;
-                    if (y + 20 > this.height) {
-                        break;
+                for (int t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
+                    CourierTask ct = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
+                    if (ct.folkname.contentEquals(this.theFolk.name)) {
+                        y = 30 + (idx - 2) * 20;
+                        if (y + 20 > this.height) {
+                            break;
+                        }
+
+                        this.buttonList.add(new GuiButton(idx, this.width - 50, y, 50, 20, I18n.format("container.sim.gui_btn_name_Delete")));
+                        this.tasks.put(idx, t);
+                        idx++;
+                    }
+                }
+            } else if (this.onPage.contentEquals("add")) {
+                int x = 10,y = 40,idx = 2;
+
+                for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
+                    V3 cpoint = ModSimReloaded.theCourierPoints.get(f);
+                    this.buttonList.add(new GuiButton(idx, x, y, 110, 20, cpoint.name));
+                    idx++;
+                    x += 110;
+                    if (x + 110 > this.width) {
+                        x = 10;
+                        y += 20;
                     }
 
-                    this.buttonList.add(new GuiButton(idx, this.width - 50, y, 50, 20, I18n.format("container.sim.gui_btn_name_Delete")));
-                    this.tasks.put(idx, t);
-                    idx++;
+                    if (y + 20 > this.height - 50) {
+                        break;
+                    }
                 }
+
+                GuiButton b;
+                this.buttonList.add(b = new GuiButton(1, this.width - 160, this.height - 25, 150, 20, I18n.format("container.sim.gui_btn_name_Deliver_back")));
+                b.enabled = false;
             }
-        } else if (this.onPage.contentEquals("add")) {
-            idx = 10;
-            y = 40;
-            t = 2;
-
-            for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
-                V3 cpoint = (V3) ModSimReloaded.theCourierPoints.get(f);
-                this.buttonList.add(new GuiButton(t, idx, y, 110, 20, cpoint.name));
-                ++t;
-                idx += 110;
-                if (idx + 110 > this.width) {
-                    idx = 10;
-                    y += 20;
-                }
-
-                if (y + 20 > this.height - 50) {
-                    break;
-                }
-            }
-
-            GuiButton b;
-            this.buttonList.add(b = new GuiButton(1, this.width - 160, this.height - 25, 150, 20, I18n.format("container.sim.gui_btn_name_Deliver_back")));
-            b.enabled = false;
-        }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiCourierTasks-initscreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiCourierTasks-initscreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     @Override
     public void drawScreen(int i, int j, float f) {
         try {
-        this.drawDefaultBackground();
-        if (this.mouseCount < 10) {
-            ++this.mouseCount;
-            Mouse.setGrabbed(false);
-        }
+            this.drawDefaultBackground();
+            if (this.mouseCount < 10) {
+                this.mouseCount++;
+                Mouse.setGrabbed(false);
+            }
 
-        if (this.onPage.contentEquals("main")) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Courier_tasks") + this.theFolk.name, this.width / 2, 17, 16777215);
-            int idx = 2;
+            if (this.onPage.contentEquals("main")) {
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Courier_tasks") + this.theFolk.name, this.width / 2, 17, 16777215);
+                int idx = 2;
 
-            for (int t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
-                CourierTask ct = (CourierTask) ModSimReloaded.theCourierTasks.get(t);
-                if (ct.folkname.contentEquals(this.theFolk.name)) {
-                    int y = 40 + (idx - 2) * 20;
-                    if (y + 20 > this.height) {
-                        break;
-                    }
+                for (int t = 0; t < ModSimReloaded.theCourierTasks.size(); ++t) {
+                    CourierTask ct = ModSimReloaded.theCourierTasks.get(t);
+                    if (ct.folkname.contentEquals(this.theFolk.name)) {
+                        int y = 40 + (idx - 2) * 20;
+                        if (y + 20 > this.height) {
+                            break;
+                        }
 
-                    try {
                         this.fontRendererObj.drawString(ct.pickup.name, 5, y - 5, 16777103);
                         this.fontRendererObj.drawString("->", this.width / 3, y - 5, 16776960);
                         if (ct.dropoff == null) {
@@ -148,20 +146,24 @@ public class GuiCourierTasks extends GuiScreen {
                         }
 
                         idx++;
-                    } catch (Exception e) {
-                        //var9.printStackTrace();
                     }
                 }
+            } else if (this.onPage.contentEquals("add")) {
+                //选择一个提货点
+                if(this.newtask.pickup!=null){
+                    if (this.newtask.pickup.name.contentEquals("")) {
+                        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_a_pick"), this.width / 2, 17, 16777215);
+                    } else {
+                        //从   拿起,然后在
+                        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Pick_up_from") + this.newtask.pickup.name + I18n.format("container.sim.gui_btn_name_and_drop_off") + "...", this.width / 2, 17, 16777215);
+                    }
+                }else{
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Pick_stick"), this.width / 2, 17, 16777215);
+                }
             }
-        } else if (this.onPage.contentEquals("add")) {
-            if (this.newtask.pickup.name.contentEquals("")) {
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_a_pick"), this.width / 2, 17, 16777215);
-            } else {
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Pick_up_from") + this.newtask.pickup.name + I18n.format("container.sim.gui_btn_name_and_drop_off")+"...", this.width / 2, 17, 16777215);
-            }
-        }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiCourierTasks-drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiCourierTasks-drawScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         super.drawScreen(i, j, f);
     }
@@ -171,7 +173,7 @@ public class GuiCourierTasks extends GuiScreen {
         try {
             if (guibutton.enabled) {
                 if (guibutton.id == 0) {
-                    this.mc.displayGuiScreen((GuiScreen)null);
+                    this.mc.displayGuiScreen((GuiScreen) null);
                     GuiControlBox ui = new GuiControlBox(this.controlBoxLocation, this.thePlayer);
                     this.mc.displayGuiScreen(ui);
                 } else {
@@ -180,7 +182,7 @@ public class GuiCourierTasks extends GuiScreen {
                             this.onPage = "add";
                             this.initscreen();
                         } else if (guibutton.id >= 2) {
-                            int tidx = (Integer)this.tasks.get(guibutton.id);
+                            int tidx = (Integer) this.tasks.get(guibutton.id);
                             String fn = "ct" + tidx + this.theFolk.name.replace(" ", "");
                             File file = new File(ModSimReloaded.getSavesDataFolder() + "CourierTasks" + File.separator + fn + ".sk2");
                             file.delete();
@@ -222,20 +224,22 @@ public class GuiCourierTasks extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUICOURIERTASKS-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GUICOURIERTASKS-actionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
     public GuiButton getButtonWithId(int id) {
         try {
-            for(int x = 0; x < this.buttonList.size(); ++x) {
-                GuiButton retbut = (GuiButton)this.buttonList.get(x);
+            for (int x = 0; x < this.buttonList.size(); ++x) {
+                GuiButton retbut = (GuiButton) this.buttonList.get(x);
                 if (retbut.id == id) {
                     return retbut;
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getButtonWithId出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("getButtonWithId出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return null;
     }
@@ -246,7 +250,8 @@ public class GuiCourierTasks extends GuiScreen {
             Keyboard.enableRepeatEvents(false);
             this.mc.setIngameFocus();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -255,12 +260,13 @@ public class GuiCourierTasks extends GuiScreen {
     public void keyTyped(char c, int i) {
         try {
             if (i == 1) {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen((GuiScreen) null);
                 GuiControlBox ui = new GuiControlBox(this.controlBoxLocation, this.thePlayer);
                 this.mc.displayGuiScreen(ui);
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }

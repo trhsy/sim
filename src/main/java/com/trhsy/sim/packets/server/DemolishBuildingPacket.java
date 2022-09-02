@@ -4,6 +4,7 @@ import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
+import io.netty.util.ReferenceCountUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
@@ -68,6 +69,7 @@ public class DemolishBuildingPacket implements IMessage {
             v3 = ByteBufUtils.readUTF8String(buf).split(",");
             buildingV3 = new V3(Integer.parseInt(v3[0]), Integer.parseInt(v3[1]), Integer.parseInt(v3[2]), Integer.parseInt(v3[3]));
             theBuilding = Building.getBuilding(buildingV3);
+            buf.release();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -78,6 +80,7 @@ public class DemolishBuildingPacket implements IMessage {
     public void toBytes(ByteBuf buf) {
         try {
             ByteBufUtils.writeUTF8String(buf, theBuilding.primaryXYZ.toString());
+            //ReferenceCountUtil.release(buf);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("toBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

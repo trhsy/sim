@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|赫连尚天
-age|31
+age|32
 gender|1
 skin|28
 race|
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|10000.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
-location|-84.30000001192093,237.0,-1446.0,0
+stayput|true
+location|-85.0,237.0,-1446.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

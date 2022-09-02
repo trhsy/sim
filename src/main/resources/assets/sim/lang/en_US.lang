@@ -621,7 +621,7 @@ container.sim.gui_btn_name_Buy_Sell=Buy/Sell
 
 
 container.sim.gui_btn_name_Add=Add
-
+container.sim.gui_btn_name_Pick_stick=Please mark a place with a marker stick
 container.sim.gui_btn_name_Delete=Delete
 container.sim.gui_btn_name_Deliver_back=Deliver back to depot
 container.sim.gui_btn_name_Courier_tasks=Courier tasks for

@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|郭云慧
-age|19
+age|20
 gender|1
 skin|57
 race|
@@ -9,11 +9,11 @@ trait1|讨厌户外活动
 trait2|勇敢的
 trait3|擅长园艺
 trait4|喜欢户外活动
-levelfood|9
+levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
+stayput|true
 location|-71.0,238.0,-1325.0,0
 pregnancy|0.0
 building|null

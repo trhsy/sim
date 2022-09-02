@@ -7,6 +7,7 @@ package com.trhsy.sim.packets.server;/**
 import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import io.netty.buffer.ByteBuf;
+import io.netty.util.ReferenceCountUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -41,6 +42,7 @@ public class LoadBuildingPacket implements IMessage {
     public void fromBytes(ByteBuf buf) {
         try {
             nbt = ByteBufUtils.readTag(buf);
+            buf.release();
 //            this.GuiBuildingCon = ByteBufUtils.readUTF8String(buf);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("fromBytes出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -51,6 +53,7 @@ public class LoadBuildingPacket implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeTag(buf, nbt);
+        //ReferenceCountUtil.release(buf);
 //        ByteBufUtils.writeUTF8String(buf, this.GuiBuildingCon);
     }
     public static class Handler implements IMessageHandler<LoadBuildingPacket, IMessage> {

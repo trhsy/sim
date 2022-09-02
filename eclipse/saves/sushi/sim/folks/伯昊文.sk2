@@ -1,7 +1,7 @@
 employedat|-111.0,237.0,-1327.0,0
 vocation|BAKER
 name|伯昊文
-age|30
+age|31
 gender|0
 skin|38
 race|
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|1000.007
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
-location|-111.0,237.0,-1327.0,0
+stayput|true
+location|-79.0,239.0,-1348.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

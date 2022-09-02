@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 建筑物
@@ -856,7 +857,8 @@ public class Building implements Serializable {
     public static void loadAllBuildings() {
         if (runningInitThread1 == false) {
             runningInitThread1 = true;
-            Thread thread = new Thread(new Runnable() {
+            ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+            threadPoolExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -1008,7 +1010,7 @@ public class Building implements Serializable {
                 }
 
             }, "loadAllBuildings_sim");
-            thread.start();
+            //threadPoolExecutor.shutdown();
         }
     }
 
@@ -1218,7 +1220,8 @@ public class Building implements Serializable {
     public static void initialiseAllBuildings() {
         if (runningInitThread == false) {
             runningInitThread = true;
-            Thread thread = new Thread(new Runnable() {
+            ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+            threadPoolExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -1241,7 +1244,7 @@ public class Building implements Serializable {
                     }
                 }
             }, "thread_sim");
-            thread.start();
+            //threadPoolExecutor.shutdown();
         }
     }
 

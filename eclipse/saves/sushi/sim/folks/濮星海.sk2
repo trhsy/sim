@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|濮星海
-age|19
+age|20
 gender|0
 skin|63
 race|
@@ -14,7 +14,7 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-91.69999998807907,237.0,-1435.699999988079,0
+location|260.0,238.0,-1065.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -24,6 +24,7 @@ import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * ========================================
@@ -316,7 +317,8 @@ public class GuiMerchant extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
                 this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
-                Thread t = new Thread(new Runnable() {
+                ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+                threadPoolExecutor.submit(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -327,7 +329,7 @@ public class GuiMerchant extends GuiScreen {
                         GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1, 1, false);
                     }
                 });
-                t.start();
+                //threadPoolExecutor.shutdown();
             } else {
                 ModSimReloaded.sendChat(I18n.format("container.sim.Merchant12"));
                 this.mc.currentScreen = null;

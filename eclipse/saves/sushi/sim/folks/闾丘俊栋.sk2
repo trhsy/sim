@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|闾丘俊栋
-age|23
+age|24
 gender|0
 skin|18
 race|
@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|11000.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
-location|-90.0,237.0,-1295.0,0
+stayput|true
+location|-89.21404418423673,238.0,-1295.6021915815518,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -10,6 +10,7 @@ import com.trhsy.sim.common.core.entity.folk.traits.Traits;
 import com.trhsy.sim.common.jobs.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import com.trhsy.sim.common.util.NamedThreadFactory;
 import com.trhsy.sim.packets.NetWorkLoader;
 import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
 import net.minecraft.block.Block;
@@ -31,7 +32,10 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -730,6 +734,7 @@ public class FolkData implements Serializable {
                 }
                 //晚上，并且和某人在一起 交配欲望小于0
                 if (!ModSimReloaded.isDayTime() && Relationship.isFolkLivingWithSomeone(this) && this.matingStage < 0.0F) {
+                    goHome();
                     //尝试生宝宝
                     tryForBaby();
                 }
@@ -868,52 +873,7 @@ public class FolkData implements Serializable {
                 }
 
                 if (!ModSimReloaded.isDayTime() && !isSoldier) {
-                    if (!isNightOwl()||this.action!= FolkAction.ATWORK) {
-                        this.action= FolkAction.WANDER;
-                        this.isWorking = false;
-                        if (getHome() == null) {
-                            //【徘徊
-                            this.statusText = I18n.format("container.sim.folk_data.Wandering");
-                            this.stayPut = false;
-                        } else {
-                            if (this.gotoMethod == GotoMethod.WALK) {
-                                updateLocationFromEntity();
-                            }
-
-                            V3 liveAt = null;
-                            if (getHome().livingXYZ != null) {
-                                liveAt = getHome().livingXYZ.clone();
-                            }
-
-                            if (liveAt == null) {
-                                if (getHome().primaryXYZ != null) {
-                                    liveAt = getHome().primaryXYZ.clone();
-                                }
-                            }
-
-                            if (liveAt != null) {
-                                int chance = this.location.getDistanceTo(liveAt);
-                                if (chance > 1 && this.destination == null) {
-                                    this.stayPut = false;
-                                    V3 v3=new V3(liveAt.xCoord,liveAt.yCoord+1,liveAt.zCoord);
-                                    gotoXYZ(v3, GotoMethod.SHIFT);
-//                                    gotoXYZ(liveAt, null);
-                                    this.action= FolkAction.GOINGHOME;
-                                    //回家
-                                    this.statusText = I18n.format("container.sim.folk_data_Going_home");
-                                    this.isWorking = false;
-                                }
-
-                                if (chance <= 1 && !statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
-                                    this.stayPut = true;
-                                    this.action= FolkAction.ATHOME;
-                                    //在家放松
-                                    this.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
-                                    this.isWorking = false;
-                                }
-                            }
-                        }
-                    }
+                    goHome();
                 } else {
                     this.stayPut = false;
                 }
@@ -1047,6 +1007,57 @@ public class FolkData implements Serializable {
         }
     }
 
+    /**
+     * 回家
+     */
+    private void goHome(){
+    if (!isNightOwl()||this.action!= FolkAction.ATWORK) {
+        this.action= FolkAction.WANDER;
+        this.isWorking = false;
+        if (getHome() == null) {
+            //【徘徊
+            this.statusText = I18n.format("container.sim.folk_data.Wandering");
+            this.stayPut = false;
+        } else {
+            if (this.gotoMethod == GotoMethod.WALK) {
+                updateLocationFromEntity();
+            }
+
+            V3 liveAt = null;
+            if (getHome().livingXYZ != null) {
+                liveAt = getHome().livingXYZ.clone();
+            }
+
+            if (liveAt == null) {
+                if (getHome().primaryXYZ != null) {
+                    liveAt = getHome().primaryXYZ.clone();
+                }
+            }
+
+            if (liveAt != null) {
+                int chance = this.location.getDistanceTo(liveAt);
+                if (chance > 1 && this.destination == null) {
+                    this.stayPut = false;
+                    V3 v3=new V3(liveAt.xCoord,liveAt.yCoord+1,liveAt.zCoord);
+                    gotoXYZ(v3, GotoMethod.SHIFT);
+//                                    gotoXYZ(liveAt, null);
+                    this.action= FolkAction.GOINGHOME;
+                    //回家
+                    this.statusText = I18n.format("container.sim.folk_data_Going_home");
+                    this.isWorking = false;
+                }
+
+                if (chance <= 1 && !statusText.contains(I18n.format("container.sim.folk_data.baby"))) {
+                    this.stayPut = true;
+                    this.action= FolkAction.ATHOME;
+                    //在家放松
+                    this.statusText = I18n.format("container.sim.folk_data_Relaxing_home");
+                    this.isWorking = false;
+                }
+            }
+        }
+    }
+}
     /**
      * 这是在“一分钟一次”上调用的，但仅在夜间调用一次，并且只有在夜间，而且他们有一个伴侣
      */
@@ -1720,8 +1731,8 @@ public class FolkData implements Serializable {
      * 在加载所有预先存在的peops数据时，FolkData类将决定是否应该将它们生成到world中
      */
     public static void loadAndSpawnFolks() {
-
-        Thread thread = new Thread(new Runnable() {
+        ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+        threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -1835,8 +1846,15 @@ public class FolkData implements Serializable {
                     ModSimReloaded.log.error("FolkData-loadAndSpawnFolks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
                 }
             }
+        },"loadAndSpawnFolks_sim");
+        //threadPoolExecutor.shutdown();
+       /* Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
         }, "loadAndSpawnFolks_sim");
-        thread.start();
+        thread.start();*/
 
     }
 
@@ -1918,16 +1936,18 @@ public class FolkData implements Serializable {
         try {
             for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                 home = ModSimReloaded.theBuildings.get(b);
-                for (int t = 0; t < home.tenants.size(); ++t) {
-                    String tennant = home.tenants.get(t);
-                    if (tennant.contentEquals(name)) {
-                        return home;
+                if("residential".equals(home.type)){
+                    for (int t = 0; t < home.tenants.size(); ++t) {
+                        String tennant = home.tenants.get(t);
+                        if (tennant.contentEquals(name)) {
+                            return home;
+                        }
                     }
                 }
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimReloaded.log.error("getHome获取该居民居住的建筑/房屋出错了:");
+            ModSimReloaded.log.error("getHome获取该居民居住的建筑/房屋出错了:"+element.getLineNumber());
         }
         return null;
     }

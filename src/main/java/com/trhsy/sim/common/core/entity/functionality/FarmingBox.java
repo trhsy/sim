@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @ClassName FarmingBox
@@ -312,7 +313,8 @@ public class FarmingBox implements Serializable {
 
     public static void loadFarmingBoxes() {
 
-        Thread thread = new Thread(new Runnable() {
+        ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+        threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -414,7 +416,7 @@ public class FarmingBox implements Serializable {
                 }
             }
         }, "loadMiningBoxes_sim");
-        thread.start();
+        //threadPoolExecutor.shutdown();
 
 
     }

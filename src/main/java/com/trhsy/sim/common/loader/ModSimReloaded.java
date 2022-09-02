@@ -7,6 +7,7 @@ import com.trhsy.sim.common.core.entity.functionality.MiningBox;
 import com.trhsy.sim.common.gui.GuiRunMod;
 import com.trhsy.sim.common.jobs.JobSoldier;
 import com.trhsy.sim.common.jobs.Vocation;
+import com.trhsy.sim.common.util.NamedThreadFactory;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -28,7 +29,10 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 加载任务
@@ -105,7 +109,7 @@ public class ModSimReloaded {
     public static World demolishWorld = null;
     //Gui的运行模式
     private static GuiRunMod runModui = null;
-
+    public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(11, 20, 5000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(5), new NamedThreadFactory("demo-thread-pool", false), new ThreadPoolExecutor.AbortPolicy());
     public ModSimReloaded() {
 
     }
@@ -420,7 +424,8 @@ public class ModSimReloaded {
                 Random rand = new Random();
                 //evolving folks
                 ModSimReloaded.log.info("进化的人");
-                Thread t = new Thread(new Runnable() {
+                ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
+                threadPoolExecutor.submit(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -484,7 +489,7 @@ public class ModSimReloaded {
                     }
                 });
                 //启动线程
-                t.start();
+                //threadPoolExecutor.shutdown();
 
                 for (int i = 0; i < theFolks.size(); i++) {
                     //获取npc

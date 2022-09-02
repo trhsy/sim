@@ -1,7 +1,7 @@
 employedat|null
 vocation|null
 name|龙于海
-age|19
+age|20
 gender|0
 skin|32
 race|
@@ -13,7 +13,7 @@ levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|false
+stayput|true
 location|-153.0,238.0,-1377.0,0
 pregnancy|0.0
 building|null

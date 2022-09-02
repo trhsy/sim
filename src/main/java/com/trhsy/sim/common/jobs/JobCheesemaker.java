@@ -390,9 +390,9 @@ public class JobCheesemaker extends Job {
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.viscosity");
                 if (!stirPositions.isEmpty()) {
                     if (this.tubToggle) {
-                        this.theFolk.gotoXYZ(this.currentStirPos = (V3) stirPositions.get(0), null);
+                        this.theFolk.gotoXYZ(this.currentStirPos =  stirPositions.get(0), null);
                     } else {
-                        this.theFolk.gotoXYZ(this.currentStirPos = (V3) stirPositions.get(1), null);
+                        this.theFolk.gotoXYZ(this.currentStirPos =  stirPositions.get(1), null);
                     }
 
                     this.tubToggle = !this.tubToggle;
