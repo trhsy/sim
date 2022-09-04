@@ -78,21 +78,19 @@ public class GuiMarker extends GuiScreen {
     public void initGui() {
         try {
             this.buttonList.clear();
+            //
             this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 100, 100, I18n.format("container.sim.sim_gui_Copy_structure")));
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 160, I18n.format("container.sim.sim_gui_Set_new")));
-
-            for(int x = 1; x <= 2; ++x) {
-                ((GuiButton)this.buttonList.get(x)).enabled = false;
-            }
+            GuiButton b=new GuiButton(1, this.width / 2 - 100, 100, I18n.format("container.sim.sim_gui_Copy_structure"));
+            //复制结构/建造
+            this.buttonList.add(b);
+            b.enabled = false;
 
             if (BlockMarker.markers.size() == 3) {
-                ((GuiButton)this.buttonList.get(1)).enabled = true;
-            } else if (BlockMarker.markers.size() == 1) {
-                ((GuiButton)this.buttonList.get(2)).enabled = true;
-                this.theGuiTextField1 = new GuiTextField(0,this.fontRendererObj, this.width / 2 - this.width / 3 / 2, 138, this.width / 3, 20);
-                this.theGuiTextField1.setMaxStringLength(23);
-            }
+                (this.buttonList.get(1)).enabled = true;
+            } /*else if (BlockMarker.markers.size() == 1) {
+                (this.buttonList.get(2)).enabled = true;
+
+            }*/
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMarker-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -112,9 +110,7 @@ public class GuiMarker extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Markers3"), this.width / 2, 70, 10551295);
             this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Markers4"), this.width / 2, 85, 10551295);
             this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 50, 16711680);
-            if (this.theGuiTextField1 != null) {
-                this.theGuiTextField1.drawTextBox();
-            }
+
             super.drawScreen(i, j, f);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMarker-drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -131,35 +127,6 @@ public class GuiMarker extends GuiScreen {
                 //复制结构/建造
                 if (guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_Copy_structure"))) {
                     new ThreadFacsimile();
-                } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_Set_new"))) {
-                    String s = ((Marker)BlockMarker.markers.get(0)).toString();
-                    String[] ss = s.split(",");
-                    String name = this.theGuiTextField1.getText().trim();
-                    if (name.length() == 0) {
-                        this.errorText =I18n.format("container.sim.Markers5");
-                        this.theGuiTextField1.isFocused();
-                        return;
-                    }
-
-                    V3 point = new V3(Double.parseDouble(ss[0]), Double.parseDouble(ss[1]), Double.parseDouble(ss[2]), this.thePlayer.dimension);
-                    List<IInventory> chestInvs = Job.inventoriesFindClosest(point, 5);
-                    if (chestInvs.size() == 0) {
-                        this.errorText = I18n.format("container.sim.Markers6");
-                        return;
-                    }
-
-                    point.name = name;
-
-                    for (int p = 0; p < ModSimReloaded.theCourierPoints.size(); ++p) {
-                        V3 epoint = (V3) ModSimReloaded.theCourierPoints.get(p);
-                        if (epoint.name.contentEquals(name)) {
-                            this.errorText = I18n.format("container.sim.Markers7") + name + I18n.format("container.sim.Markers8");
-                            return;
-                        }
-                    }
-
-                    ModSimReloaded.theCourierPoints.add(point);
-                    this.errorText = I18n.format("container.sim.Markers9") + name + I18n.format("container.sim.Markers10");
                 }
 
             }
@@ -173,9 +140,7 @@ public class GuiMarker extends GuiScreen {
     @Override
     protected void mouseClicked(int i, int j, int k) {
         try {
-        if (this.theGuiTextField1 != null) {
-            this.theGuiTextField1.mouseClicked(i, j, k);
-        }
+
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
             //e.printStackTrace();

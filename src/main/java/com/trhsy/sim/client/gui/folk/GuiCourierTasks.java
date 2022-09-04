@@ -89,7 +89,7 @@ public class GuiCourierTasks extends GuiScreen {
                     }
                 }
             } else if (this.onPage.contentEquals("add")) {
-                int x = 10,y = 40,idx = 2;
+                int x = 10, y = 40, idx = 2;
 
                 for (int f = 0; f < ModSimReloaded.theCourierPoints.size(); ++f) {
                     V3 cpoint = ModSimReloaded.theCourierPoints.get(f);
@@ -150,15 +150,12 @@ public class GuiCourierTasks extends GuiScreen {
                 }
             } else if (this.onPage.contentEquals("add")) {
                 //选择一个提货点
-                if(this.newtask.pickup!=null){
-                    if (this.newtask.pickup.name.contentEquals("")) {
-                        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_a_pick"), this.width / 2, 17, 16777215);
-                    } else {
-                        //从   拿起,然后在
-                        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Pick_up_from") + this.newtask.pickup.name + I18n.format("container.sim.gui_btn_name_and_drop_off") + "...", this.width / 2, 17, 16777215);
-                    }
-                }else{
-                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Pick_stick"), this.width / 2, 17, 16777215);
+                if (this.newtask.pickup == null || this.newtask.pickup.name.contentEquals("")) {
+                    //选择一个提货点
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Choose_a_pick"), this.width / 2, 17, 16777215);
+                } else {
+                    //从   拿起,然后在
+                    this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_btn_name_Pick_up_from") + this.newtask.pickup.name + I18n.format("container.sim.gui_btn_name_and_drop_off") + "...", this.width / 2, 17, 16777215);
                 }
             }
         } catch (Exception e) {
@@ -193,23 +190,25 @@ public class GuiCourierTasks extends GuiScreen {
                     } else if (this.onPage.contentEquals("add")) {
                         String name;
                         V3 v;
-                        if (this.newtask.pickup.name.contentEquals("")) {
+
+                        if (this.newtask.pickup == null || this.newtask.pickup.name.contentEquals("")) {
                             name = guibutton.displayString.trim();
                             v = CourierTask.getCourierPoint(name);
+                            this.newtask.pickup=v.clone();
                             this.newtask.pickup.name = name;
-                            this.newtask.pickup.setVals(v);
                             guibutton.enabled = false;
                             GuiButton but = this.getButtonWithId(1);
                             but.enabled = true;
-                        } else if (this.newtask.dropoff != null && this.newtask.dropoff.name.contentEquals("")) {
+                        } else if (this.newtask.dropoff == null || this.newtask.dropoff.name.contentEquals("")) {
                             if (guibutton.id == 1) {
-                                this.newtask.dropoff.name = "Depot";
-                                this.newtask.dropoff.setVals(this.controlBoxLocation);
+                                //仓库
+                                this.newtask.dropoff=this.controlBoxLocation.clone();
+                                this.newtask.dropoff.name = I18n.format("container.sim.gui_btn_name_The_Depot");
                             } else {
                                 name = guibutton.displayString.trim();
                                 v = CourierTask.getCourierPoint(name);
+                                this.newtask.dropoff=v.clone();
                                 this.newtask.dropoff.name = name;
-                                this.newtask.dropoff.setVals(v);
                             }
 
                             guibutton.enabled = false;
@@ -220,7 +219,6 @@ public class GuiCourierTasks extends GuiScreen {
                             this.initscreen();
                         }
                     }
-
                 }
             }
         } catch (Exception e) {

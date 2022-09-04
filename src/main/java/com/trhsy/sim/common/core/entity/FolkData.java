@@ -196,7 +196,7 @@ public class FolkData implements Serializable {
             this.theBuilding = null;
             this.terraformerType = null;
             this.terraformerRadius = 1;
-            this.villagerInventory = new InventoryBasic("Items", false, 27);
+            this.villagerInventory = new InventoryBasic("Items", false, 64);
             this.theEntity = null;
             this.timeStartedGotoing = 0L;
             this.gotoMethod = null;
@@ -240,7 +240,7 @@ public class FolkData implements Serializable {
             }
 
             //初始化NPC背包
-            this.villagerInventory = new InventoryBasic("Items", false, 27);
+            this.villagerInventory = new InventoryBasic("Items", false, 64);
             //安排他们的工作
             setTheirJob(this.vocation);
             ModSimReloaded.log.info(name + ",开始重生了");
@@ -458,15 +458,17 @@ public class FolkData implements Serializable {
             if (getDistanceToPlayer() < 100) {
                 this.theEntity = new EntityFolk(world);
                 //设置实体在世界中的位置和偏航/俯仰
-                this.theEntity.setLocationAndAngles(this.location.xCoord, this.location.yCoord, this.location.zCoord, 0.0F, 0.0F);
+                V3 v=new V3(this.location.xCoord-0.5, this.location.yCoord+1, this.location.zCoord+0.5);
+                this.theEntity.setLocationAndAngles(v.xCoord,v.yCoord,v.zCoord, 0.0F, 0.0F);
                 //if(theEntity.getCanSpawnHere()){}
                 //theEntity.setPosition(location.xCoord, location.yCoord, location.zCoord);
                 if (!world.isRemote) {
                     if (this.theEntity.isDead || this.theEntity.theData == null) {
                         this.theEntity.theData = this;
                         world.spawnEntityInWorld(this.theEntity);
+                        this.location=v.clone();
                         //theEntity.isDead = false;
-                        ModSimReloaded.log.info("NPC【" + name + "】在当前位置已重生，x:" + location.xCoord + ",y:" + location.yCoord + ",z:" + location.zCoord + " 维度:" + location.theDimension + " 实体id:" + theEntity.getEntityId());
+                        ModSimReloaded.log.info("NPC【" + name + "】在当前位置已重生，x:" + v.xCoord + ",y:" + v.yCoord + ",z:" + v.zCoord + " 维度:" + location.theDimension + " 实体id:" + theEntity.getEntityId());
                     }
                 }
                 this.entityId = this.theEntity.getEntityId();
@@ -1468,7 +1470,7 @@ public class FolkData implements Serializable {
             if (this.villagerInventory != null){
                 this.villagerInventory.clear();
             }else{
-                this.villagerInventory= new InventoryBasic("Items", false, 27);
+                this.villagerInventory= new InventoryBasic("Items", false, 64);
             }
 
                 if (this.theEntity != null) {

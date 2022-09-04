@@ -85,7 +85,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     public void onBlockDestroyedByPlayer(World world, BlockPos blockPos, IBlockState iBlockState) {
         try {
             for (int m = 0; m < markers.size(); ++m) {
-                Marker marker = (Marker) markers.get(m);
+                Marker marker =markers.get(m);
 
                 for (int mm = 0; mm < 4; ++mm) {
                     try {

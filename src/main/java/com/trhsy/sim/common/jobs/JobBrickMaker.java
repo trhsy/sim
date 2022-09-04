@@ -78,6 +78,7 @@ public class JobBrickMaker extends Job implements Serializable {
             super.onUpdateGoingToWork(this.theFolk);
             if (this.theStage == Stage.IDLE) {
                 this.runDelay = 2000;
+                //扫描黏土
                 this.theStage = Stage.SCANFORCLAY;
             } else {
                 if (this.theStage != Stage.COLLECTCLAY && this.theStage != Stage.GOTOCLAYBLOCK && this.theStage != Stage.SCANFORCLAY) {
@@ -93,16 +94,22 @@ public class JobBrickMaker extends Job implements Serializable {
                     }
 
                     if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                        //扫描黏土
                         if (this.theStage == Stage.SCANFORCLAY) {
                             this.stageScanForClay();
+                            //去找黏土块
                         } else if (this.theStage == Stage.GOTOCLAYBLOCK) {
                             this.stageGotoClayBlock();
+                            //收集黏土
                         } else if (this.theStage == Stage.COLLECTCLAY) {
                             this.stageCollectClay();
+                            //返回黏土
                         } else if (this.theStage == Stage.RETURNCLAY) {
                             this.stageReturnClay();
+                            //使用熔炉
                         } else if (this.theStage == Stage.USEFURNACE) {
                             this.stageUseFurnace();
+                            //不能工作
                         } else if (this.theStage == Stage.CANTWORK) {
                             this.stageCantWork();
                         }
@@ -118,25 +125,47 @@ public class JobBrickMaker extends Job implements Serializable {
     private void stageCantWork() {
         this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker1");
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 扫描黏土
+     * @Date 20:40 2022/9/4
+     * @Param []
+     * @return void
+     **/
     private void stageScanForClay() {
         try {
+            ItemStack itemStack= this.theFolk.getVillagerInventory().getStackInSlot(0);
+            if(itemStack!=null&&itemStack.stackSize>0){
+                this.theStage = Stage.RETURNCLAY;
+                this.step = 1;
+                return;
+            }
+            //到达 ||砖
             if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.brick"))) {
+                //去挖掘一些粘土
                 this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker2");
             }
+            //寻找黏土
             this.blockOfClay = findClosestBlockType(this.theFolk.employedAt, Blocks.clay, 80, true);
+            //使用熔炉
             if (this.blockOfClay == null) {
                 this.theStage = Stage.USEFURNACE;
                 return;
             }
-
+            //去找黏土块
             this.theStage = Stage.GOTOCLAYBLOCK;
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageScanForClay出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 去找黏土块
+     * @Date 20:42 2022/9/4
+     * @Param []
+     * @return void
+     **/
     private void stageGotoClayBlock() {
         try {
             if (this.theFolk.theEntity != null) {
@@ -144,27 +173,35 @@ public class JobBrickMaker extends Job implements Serializable {
             }
 
             this.theFolk.updateLocationFromEntity();
-            double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
+            //距离黏土多远
+            double dist = this.theFolk.location.getDistanceTo(this.blockOfClay);
             if (dist > 4.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
                 this.theFolk.gotoXYZ(this.blockOfClay, null);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
             }
-
+            //收集黏土
             this.theStage = Stage.COLLECTCLAY;
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGotoClayBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 收集黏土
+     * @Date 20:43 2022/9/4
+     * @Param []
+     * @return void
+     **/
     private void stageCollectClay() {
         try {
         this.runDelay = 1000;
         this.theFolk.isWorking = true;
         this.theFolk.updateLocationFromEntity();
-        double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfClay);
+        //距离黏土多远
+        double dist = this.theFolk.location.getDistanceTo(this.blockOfClay);
         if (dist > 6.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
             this.theFolk.gotoXYZ(this.blockOfClay, null);
             this.theFolk.stayPut = false;
@@ -173,28 +210,29 @@ public class JobBrickMaker extends Job implements Serializable {
             if (this.gotoCount > 2) {
                 this.gotoCount = 0;
                 V3 bs = this.blockOfClay.clone();
-                /*Double var5 = bs.y;
-                Double var6 = bs.y = bs.y + 1.0;*/
                 bs = new V3(bs.xCoord - 1.0, bs.yCoord + 1.0, bs.zCoord, bs.theDimension);
                 this.theFolk.beamMeTo(bs);
             }
 
-        } else if (!(dist > 6.0)) {
-
-                if (dist < 6.0) {
-                }
-
+        } else {
                 this.gotoCount = 0;
+                //黏土块位置
                 BlockPos blockPos = new BlockPos(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord);
+                //挖掉
                 this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
+                //播放音乐
                 this.mc.theWorld.playSound(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord, "step.sand", 1, 1, false);
-                this.theFolk.getVillagerInventory().setInventorySlotContents(0, new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
+                //放到npc箱子里
+                this.theFolk.getVillagerInventory().func_174894_a( new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
+                //我得到粘土惹
                 this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.getVillagerInventory().getSizeInventory();
                 GameStates var10000 = ModSimReloaded.states;
                 var10000.credits = (float) ((double) var10000.credits - 0.012D);
                 if (this.theFolk.getVillagerInventory().getSizeInventory() < 64) {
+                    //扫描黏土
                     this.theStage = Stage.SCANFORCLAY;
                 } else {
+                    //返回黏土
                     this.theStage = Stage.RETURNCLAY;
                     this.step = 1;
                 }
@@ -205,15 +243,19 @@ public class JobBrickMaker extends Job implements Serializable {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCollectClay出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 返回黏土
+     * @Date 20:47 2022/9/4
+     * @Param []
+     * @return void
+     **/
     private void stageReturnClay() {
         this.theFolk.isWorking = false;
 
         try {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
-                /*Double var3 = adj.y;
-                Double var4 = adj.y = adj.y + 1.0;*/
                 adj = new V3(adj.xCoord - 1.0, adj.yCoord + 1.0, adj.zCoord, adj.theDimension);
                 this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
@@ -222,7 +264,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.theFolk.updateLocationFromEntity();
                 }
 
-                double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
+                double dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist < 4.0) {
                     this.theFolk.stayPut = true;
                     this.step = 3;
@@ -242,7 +284,13 @@ public class JobBrickMaker extends Job implements Serializable {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 使用熔炼
+     * @Date 20:58 2022/9/4
+     * @Param []
+     * @return void
+     **/
     private void stageUseFurnace() {
         try {
             this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);

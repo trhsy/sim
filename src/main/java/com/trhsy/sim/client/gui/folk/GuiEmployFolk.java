@@ -11,7 +11,6 @@ import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.core.entity.functionality.FarmingBox;
 import com.trhsy.sim.common.core.entity.functionality.MiningBox;
-import com.trhsy.sim.common.core.entity.functionality.PathBox;
 import com.trhsy.sim.common.jobs.Vocation;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
@@ -54,7 +53,7 @@ public class GuiEmployFolk extends GuiScreen {
     /**
      * 路径箱
      **/
-    PathBox pathBox;
+//    PathBox pathBox;
     /**
      * 职业
      **/
@@ -121,7 +120,7 @@ public class GuiEmployFolk extends GuiScreen {
 
     }
 
-    public GuiEmployFolk(PathBox thePathBox, Vocation v) {
+    /*public GuiEmployFolk(PathBox thePathBox, Vocation v) {
         try {
             this.controlBoxLocation = thePathBox.location;
             this.vocation = v;
@@ -132,7 +131,7 @@ public class GuiEmployFolk extends GuiScreen {
             //var4.printStackTrace();
         }
 
-    }
+    }*/
 
     @Override
     public void initGui() {
@@ -294,10 +293,10 @@ public class GuiEmployFolk extends GuiScreen {
                 GuiFarming uiFarming = new GuiFarming(this.farmingBox, efolks.get(0));
                 this.mc.displayGuiScreen(uiFarming);
                 //路径生成器
-            } else if (this.vocation == Vocation.PATHBUILDER) {
+            }/* else if (this.vocation == Vocation.PATHBUILDER) {
                 GuiPathBox uiGuiPathBox = new GuiPathBox(this.pathBox, efolks);
                 this.mc.displayGuiScreen(uiGuiPathBox);
-            } else {
+            }*/ else {
                 //控制箱
                 GuiControlBox uiGuiControlBox = new GuiControlBox(this.controlBoxLocation, efolks.get(0));
                 this.mc.displayGuiScreen(uiGuiControlBox);

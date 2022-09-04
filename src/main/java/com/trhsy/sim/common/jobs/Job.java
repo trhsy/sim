@@ -674,7 +674,7 @@ public abstract class Job {
                     ret = true;
                 }
                 limit++;
-            } while (got != null && limit < 27);
+            } while (got != null && limit < 64);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("将一些物品/任何物品从一组箱子中转移到人们的库存中出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             e.printStackTrace();

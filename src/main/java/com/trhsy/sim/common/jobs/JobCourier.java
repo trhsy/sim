@@ -87,6 +87,7 @@ public class JobCourier extends Job implements Serializable {
             }
 
             super.onUpdateGoingToWork(this.theFolk);
+            //在仓库
             if (this.theStage == Stage.ATDEPOT) {
                 this.runDelay = 15000;
             } else {
@@ -97,14 +98,19 @@ public class JobCourier extends Job implements Serializable {
                 this.timeSinceLastRun = System.currentTimeMillis();
                 if (this.theStage == Stage.IDLE && ModSimReloaded.isDayTime()) {
                     this.onUpdateGoingToWork(this.theFolk);
+                    //在仓库
                 } else if (this.theStage == Stage.ATDEPOT) {
                     this.stageAtDepot();
+                    //去取件
                 } else if (this.theStage == Stage.GOINGTOPICKUP) {
                     this.stageGoingToPickup();
+                    //提货
                 } else if (this.theStage == Stage.PICKINGUP) {
                     this.stagePickingUp();
+                    //准备卸货
                 } else if (this.theStage == Stage.GOINGTODROPOFF) {
                     this.stageGoingToDropoff();
+                    //卸货
                 } else if (this.theStage == Stage.DROPPINGOFF) {
                     this.stageDroppingOff();
                 }
@@ -177,7 +183,13 @@ public class JobCourier extends Job implements Serializable {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoingToPickup出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 提货
+     * @Date 22:35 2022/9/3
+     * @Param []
+     * @return void
+     **/
     private void stagePickingUp() {
         try {
             CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
@@ -199,7 +211,7 @@ public class JobCourier extends Job implements Serializable {
                 this.theFolk.action = FolkAction.ATWORK;
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.Picking");
                 ModSimReloaded.log.info("JobCourier: pickupStage() " + this.theFolk.name + "(courier)找到 " + this.chests.size() + " 个箱子 " + pickup.name);
-                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chests, (ItemStack) null, BlockLoader.blockLightBox);
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chests, null, BlockLoader.blockLightBox);
             }
 
             if (this.theFolk.getVillagerInventory().getSizeInventory() == 0) {
@@ -221,7 +233,13 @@ public class JobCourier extends Job implements Serializable {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stagePickingUp出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 准备去卸货
+     * @Date 22:35 2022/9/3
+     * @Param []
+     * @return void
+     **/
     private void stageGoingToDropoff() {
         try {
             CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
@@ -269,14 +287,21 @@ public class JobCourier extends Job implements Serializable {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoingToDropoff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 卸货
+     * @Date 22:35 2022/9/3
+     * @Param []
+     * @return void
+     **/
     private void stageDroppingOff() {
         try {
-            CourierTask task = (CourierTask)this.courierTasks.get(this.currentTask);
+            CourierTask task = this.courierTasks.get(this.currentTask);
             V3 dropoff = task.dropoff;
             dropoff=new V3(dropoff.xCoord,dropoff.yCoord+1,dropoff.zCoord,dropoff.theDimension);
             if (dropoff == null) {
                 dropoff = this.theFolk.employedAt;
+                //仓库
                 dropoff.name = I18n.format("container.sim.job.courier.The_depot");
             }
 
@@ -293,31 +318,36 @@ public class JobCourier extends Job implements Serializable {
                 }
             } else {
                 this.theFolk.stayPut = true;
+                //送东西
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.Dropping");
                 this.theFolk.action = FolkAction.ATWORK;
                 ModSimReloaded.log.info("JobCourier: " + this.theFolk.name + " 找到 " + this.chests.size() + " 个箱子 " + dropoff.name);
-
-                while(this.theFolk.getVillagerInventory().getSizeInventory() > 0) {
-                    int oldSize = this.theFolk.getVillagerInventory().getSizeInventory();
-                    GameStates var10000 = ModSimReloaded.states;
-                    var10000.credits -= 0.11F;
-                    ItemStack invItem = (ItemStack)this.theFolk.getVillagerInventory().getStackInSlot(0);
-                    if (this.theFolk.getVillagerInventory().getSizeInventory() > 1) {
-                        this.theFolk.statusText = this.theFolk.getVillagerInventory().getSizeInventory() + I18n.format("container.sim.job.courier.unload");
-                    } else {
-                        this.theFolk.statusText = I18n.format("container.sim.job.courier.Last");
-                    }
-
-                    boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.chests, (ItemStack)null);
-                    if (!placed) {
-                        ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
-                        break;
+                for (int i=0;i<this.theFolk.getVillagerInventory().getSizeInventory();i++){
+                    int oldSize = this.theFolk.getVillagerInventory().getStackInSlot(i).stackSize;
+                    if(oldSize>0) {
+                        GameStates var10000 = ModSimReloaded.states;
+                        var10000.credits -= 0.11F;
+                        ItemStack invItem = this.theFolk.getVillagerInventory().getStackInSlot(0);
+                        if (oldSize > 1) {
+                            //要卸载的成堆物品
+                            this.theFolk.statusText = this.theFolk.getVillagerInventory().getSizeInventory() + I18n.format("container.sim.job.courier.unload");
+                        } else {
+                            //最后加载...
+                            this.theFolk.statusText = I18n.format("container.sim.job.courier.Last");
+                        }
+                        boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.chests, null);
+                        if (!placed) {
+                            //(快递员) 无法将物品放入箱子
+                            ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.courier.Courier") + dropoff.name + I18n.format("container.sim.job.courier.because"));
+                            break;
+                        }
                     }
                 }
             }
 
             ++this.currentTask;
             if (this.currentTask >= this.courierTasks.size()) {
+                //检查我的任务列表
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.task_list");
                 this.currentTask = 0;
                 this.timeSinceLastCycle = System.currentTimeMillis();
@@ -335,7 +365,13 @@ public class JobCourier extends Job implements Serializable {
 
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 在工作中
+     * @Date 22:36 2022/9/3
+     * @Param []
+     * @return void
+     **/
     @Override
     public void onArrivedAtWork() {
         try {

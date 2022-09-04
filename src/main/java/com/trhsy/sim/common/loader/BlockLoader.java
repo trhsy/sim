@@ -1,6 +1,5 @@
 package com.trhsy.sim.common.loader;
 
-import com.google.common.base.Function;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.block.*;
 import com.trhsy.sim.common.block.fluid.BlockFluidMilk;
@@ -9,15 +8,11 @@ import com.trhsy.sim.common.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemMultiTexture;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,7 +46,7 @@ public class BlockLoader {
      * @Param
      * @return
      **/
-    public static Block blockCityBox=new BlockCityBox();
+    public static Block blockCityBox=new BlockPathBox();
     /**
      * @Author fan
      * @Description //TODO 复合砖

@@ -13,8 +13,8 @@ levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
-stayput|true
-location|-155.0,238.0,-1365.0,0
+stayput|false
+location|-154.69999998807907,241.0,-1367.699999988079,0
 pregnancy|0.0
 building|null
 terraformtype|null

@@ -462,7 +462,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }
                 } else {
                     if (!this.gotPath) {
-                        V3 v = new V3(theData.destination.xCoord + 0.5, theData.destination.yCoord, theData.destination.zCoord + 0.5);
+                        V3 v = new V3(theData.destination.xCoord, theData.destination.yCoord+1, theData.destination.zCoord);
                         theData.destination = v;
                         PathEntity path = this.getNavigator().getPathToXYZ(v.xCoord, v.yCoord, v.zCoord);
                         if (path != null) {
@@ -723,9 +723,9 @@ public class EntityFolk extends EntityCreature implements INpc {
                         this.motionZ = theData.location.zCoord - 1;
                     }*/
                     if (theData.location != null) {
-                        this.motionY = theData.location.yCoord+0.5;
+                        this.motionY = theData.location.yCoord;
                         this.motionX = theData.location.xCoord + 1;
-                        this.motionZ = theData.location.zCoord + 0.5;
+                        this.motionZ = theData.location.zCoord;
                     }
                     //受伤要跑出受伤范围
                     theData.gotoXYZ(new V3(this.motionX, this.motionY, this.motionZ, 0), GotoMethod.SHIFT);

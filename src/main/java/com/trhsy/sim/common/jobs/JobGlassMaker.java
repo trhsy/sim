@@ -104,16 +104,22 @@ public class JobGlassMaker extends Job implements Serializable {
                     }
 
                     if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                        //扫描沙子
                         if (this.theStage == Stage.SCANFORSAND) {
                             this.stageScanForSand();
+                            //去寻找沙子
                         } else if (this.theStage == Stage.GOTOSANDBLOCK) {
                             this.stageGotoSandBlock();
+                            //收集沙子
                         } else if (this.theStage == Stage.COLLECTSAND) {
                             this.stageCollectSand();
+                            //返回沙子
                         } else if (this.theStage == Stage.RETURNSAND) {
                             this.stageReturnSand();
+                            //使用熔炉
                         } else if (this.theStage == Stage.USEFURNACE) {
                             this.stageUseFurnace();
+                            //不能工作
                         } else if (this.theStage == Stage.CANTWORK) {
                             this.stageCantWork();
                         }
@@ -135,8 +141,15 @@ public class JobGlassMaker extends Job implements Serializable {
 
     private void stageScanForSand() {
         try {
+            ItemStack itemStack= this.theFolk.getVillagerInventory().getStackInSlot(0);
+            if(itemStack!=null&&itemStack.stackSize>0){
+                this.theStage = Stage.RETURNSAND;
+                this.step = 1;
+                return;
+            }
             //去挖掘一些沙子
             if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.glass"))) {
+                //要去挖更多的沙子
                 this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Going");
             }
             //找到80个格子内的沙子
@@ -162,6 +175,7 @@ public class JobGlassMaker extends Job implements Serializable {
      **/
     private void stageGotoSandBlock() {
         try {
+
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.swingProgress = 0.0F;
             }
@@ -285,7 +299,13 @@ public class JobGlassMaker extends Job implements Serializable {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 使用熔炉
+     * @Date 20:53 2022/9/4
+     * @Param []
+     * @return void
+     **/
     private void stageUseFurnace() {
 
         try {
@@ -298,30 +318,34 @@ public class JobGlassMaker extends Job implements Serializable {
                 ItemStack currentSand;
                 ItemStack gotFuel;
                 if (this.step == 1) {
+                    //检查炉子燃料
                     this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Checking");
+                    //沙子
                     currentSand = this.factoryFurnace.getStackInSlot(1);
-                    gotFuel = null;
                     if (currentSand == null) {
+                        //煤炭
                         gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.coal, 64), false, false, new ItemStack(Items.coal, 64));
+                        //熔岩桶
                         if (gotFuel == null) {
                             gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.lava_bucket, 1), false, false, new ItemStack(Items.lava_bucket, 1));
                         }
-
+                        //木材
                         if (gotFuel == null) {
                             gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.log, 64), false, false, new ItemStack(Blocks.log, 64));
                         }
-
+                        //木板
                         if (gotFuel == null) {
                             gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.planks, 64), false, false, new ItemStack(Blocks.planks, 1));
                         }
 
                         if (gotFuel == null) {
+                            //(玻璃制造商) 我的的炉子没有任何燃料
                             ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.glass.farmer.furnace"));
                             this.theStage = Stage.SCANFORSAND;
                             this.step = 1;
                             return;
                         }
-
+                        //将燃料放到熔炉
                         this.factoryFurnace.setInventorySlotContents(1, gotFuel);
                         this.step = 2;
                         return;
@@ -329,11 +353,12 @@ public class JobGlassMaker extends Job implements Serializable {
 
                     this.step = 2;
                 } else if (this.step == 2) {
+                    //往炉子里加沙子
                     this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Adding");
                     if (this.factoryFurnace != null) {
                         currentSand = this.factoryFurnace.getStackInSlot(0);
-                        gotFuel = null;
                         if (currentSand == null) {
+                            //取箱子的沙子
                             gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.sand, 64), false, false, new ItemStack(Blocks.sand, 64));
                             if (gotFuel != null) {
                                 this.factoryFurnace.setInventorySlotContents(0, gotFuel);
@@ -353,17 +378,19 @@ public class JobGlassMaker extends Job implements Serializable {
                         return;
                     }
                 } else if (this.step == 3) {
+                    //获得玻璃
                     currentSand = this.factoryFurnace.getStackInSlot(2);
                     if (currentSand != null) {
+                        //将玻璃放入仓库
                         this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Putting");
                         this.inventoriesPut(this.factoryChests, currentSand, true);
                         GameStates var10000 = ModSimReloaded.states;
                         var10000.credits = (float) ((double) var10000.credits - 0.005D * (double) currentSand.stackSize);
-                        this.factoryFurnace.setInventorySlotContents(2, (ItemStack) null);
+                        this.factoryFurnace.setInventorySlotContents(2, null);
                     } else {
+                        //没有制造玻璃
                         this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.glass");
                     }
-
                     this.theStage = Stage.SCANFORSAND;
                 }
 
