@@ -1,5 +1,5 @@
-employedat|-922.0,6.0,676.0,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|颖子
 age|22
 gender|1
@@ -16,6 +16,6 @@ levelsoldier|10.0
 stayput|false
 location|-922.0,7.0,676.0,0
 pregnancy|0.0
-building|1单元牢房.txt|residential||+z
+building|null
 terraformtype|null
 terraformradius|1
