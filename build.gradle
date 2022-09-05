@@ -64,12 +64,7 @@ idea{
         inheritOutputDirs = true
     }
 }
-/*
-// for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
-plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
-}
-*/
+
 version = "1.8.9-1.0.0 Beta"
 group= "com.trhsy.sim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "simulated"
@@ -105,3 +100,5 @@ processResources
     }
 }
 [compileJava,compileTestJava]*.options*.encoding = 'UTF-8'
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = "D:\\java\\jdk1.8.0_271\\bin\\javac.exe"

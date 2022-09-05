@@ -1092,8 +1092,8 @@ public class FolkData implements Serializable {
      */
     private void getHomeForHomeless() {
         try {
+            Building.loadAllBuildings();
             if (this.action== FolkAction.WANDER) {
-                //Building.loadAllBuildings();
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                     Building building = ModSimReloaded.theBuildings.get(b);
                     if (building.tenants.size() == 0 && building.buildingComplete == true && building.type.contentEquals("residential")) {

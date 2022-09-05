@@ -592,7 +592,7 @@ container.sim.Employees=Employees
 container.sim.Resident=Resident
 container.sim.Repaired_House=Repaired House
 container.sim.gui_contains_Bakery=Bakery
-container.sim.gui_contains_Grocery_Store=Grocery Store
+container.sim.gui_contains_Grocery_Store=Grocery
 container.sim.gui_contains_Butchers=Butchers
 container.sim.gui_contains_Burgers=Burgers
 
@@ -616,9 +616,8 @@ container.sim.gui_btn_name_Demolish=Demolish
 container.sim.gui_btn_name_Set_Lumber_area=Set Lumber area
 container.sim.gui_btn_name_Tasks=Tasks
 container.sim.gui_btn_name_Buy_Sell=Buy/Sell
-
-
-
+container.sim.update_checker1=NEW update of Sim-U Reloaded available (
+container.sim.update_checker2=) please check the thread.
 
 container.sim.gui_btn_name_Add=Add
 container.sim.gui_btn_name_Pick_stick=Please mark a place with a marker stick

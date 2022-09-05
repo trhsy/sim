@@ -141,12 +141,7 @@ public class JobGlassMaker extends Job implements Serializable {
 
     private void stageScanForSand() {
         try {
-            ItemStack itemStack= this.theFolk.getVillagerInventory().getStackInSlot(0);
-            if(itemStack!=null&&itemStack.stackSize>0){
-                this.theStage = Stage.RETURNSAND;
-                this.step = 1;
-                return;
-            }
+
             //去挖掘一些沙子
             if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.glass"))) {
                 //要去挖更多的沙子
@@ -155,7 +150,20 @@ public class JobGlassMaker extends Job implements Serializable {
             //找到80个格子内的沙子
             this.blockOfSand = findClosestBlockType(this.theFolk.employedAt, Blocks.sand, 80, true);
             if (this.blockOfSand == null) {
-                this.theStage = Stage.USEFURNACE;
+                ItemStack itemStack= this.theFolk.getVillagerInventory().getStackInSlot(0);
+                if(itemStack!=null&&itemStack.stackSize>0){
+                    this.theStage = Stage.RETURNSAND;
+                    this.step = 1;
+                    return;
+                }
+                ItemStack gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Blocks.sand, 64), false, false, new ItemStack(Blocks.sand, 64));
+                if (gotFuel != null) {
+                    //this.factoryFurnace.setInventorySlotContents(0, gotFuel);
+                    this.theStage = Stage.USEFURNACE;
+                    return;
+                }
+
+                this.theStage = Stage.CANTWORK;
                 return;
             }
 
@@ -228,11 +236,8 @@ public class JobGlassMaker extends Job implements Serializable {
                 }
 
             }
-            if (!(dist > 6)) {
-                return;
-            }
             if (dist < 6) {
-                //theFolk.stayPut=true;
+                theFolk.stayPut=true;
             }
 
             this.gotoCount = 0;
@@ -289,7 +294,7 @@ public class JobGlassMaker extends Job implements Serializable {
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
                 this.openCloseChest(this.factoryChests.get(0), 1000);
-                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.factoryChests, (ItemStack) null);
+                boolean placed = this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), this.factoryChests,  null);
                 this.theStage = Stage.USEFURNACE;
                 this.step = 1;
             }

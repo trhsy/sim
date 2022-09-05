@@ -2,6 +2,7 @@ package com.trhsy.sim.common.util;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -20,12 +21,23 @@ public class UpdateChecker {
 
     public UpdateChecker(FMLPreInitializationEvent event) {
         try {
-            File checks = new File(ModSimReloaded.getSimukraftFolder()+ File.separator+"/buildings");
-            if(!checks.exists()){
-                //onUpdate();
+            File checks = new File(ModSimReloaded.getSimukraftFolder() + File.separator + "/buildings");
+            String baseURL = "https://trhsy.github.io/sim/1.8.9/version.txt";
+            if (!checks.exists()) {
+                onUpdate();
             }
-        }catch (Exception e){
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage()+"行数："+element.getLineNumber());
+            String ver = downloadFile(baseURL, ModSimReloaded.getSimukraftFolder() + File.separator + "version.txt");
+            if (ver != null) {
+                ver = ver.trim();
+                if (!ver.contentEquals("")) {
+                    if (!ModSim.VERSION.contentEquals(ver)) {
+                        ModSimReloaded.sendChat(I18n.format("container.sim.update_checker1") + ver + I18n.format("container.sim.update_checker2") );
+                    }
+                }
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("检查sim建筑包出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -33,25 +45,25 @@ public class UpdateChecker {
     public void onUpdate() {
         try {
 //"https://www.dropbox.com/s/i51v1lsq0u89elw/";
-            String baseURL = "https://trhsy.github.io/sim/Simukraft_zh_CN_1_8_9.zip";
-            String lang= FMLCommonHandler.instance().getCurrentLanguage();
-            if("en_US".equals(lang)) {
-                baseURL = "https://trhsy.github.io/sim/Simukraft_en_US_1_8_9.zip";
+            String baseURL = "https://trhsy.github.io/sim/1.8.9/Simukraft_zh_CN.zip";
+            String lang = FMLCommonHandler.instance().getCurrentLanguage();
+            if ("en_US".equals(lang)) {
+                baseURL = "https://trhsy.github.io/sim/1.8.9/Simukraft_en_US.zip";
             }
-            String unzipFilePath= ModSimReloaded.getSimukraftFolder();
-            File checks = new File(unzipFilePath+ File.separator);
+            String unzipFilePath = ModSimReloaded.getSimukraftFolder();
+            File checks = new File(unzipFilePath + File.separator);
             File[] checkss = checks.listFiles();
 
             for (File f : checkss) {
                 deleteFile(f);
             }
             checks.mkdir();
-            String simFile=unzipFilePath+ File.separator + "Simukraft.zip";
-            String ver = this.downloadFile(baseURL,  simFile);
+            String simFile = unzipFilePath + File.separator + "Simukraft.zip";
+            String ver = this.downloadFile(baseURL, simFile);
             if (ver != null) {
                 File zipFile = new File(ver);
                 //开始解压
-                ModSimReloaded.log.info("开始解压：",zipFile.getName());
+                ModSimReloaded.log.info("开始解压：", zipFile.getName());
                 ZipEntry entry = null;
                 String entryFilePath = null, entryDirPath = null;
                 File entryFile = null, entryDir = null;
@@ -60,9 +72,9 @@ public class UpdateChecker {
                 BufferedInputStream bis = null;
                 BufferedOutputStream bos = null;
                 ZipFile zip = new ZipFile(zipFile);
-                Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>)zip.entries();
+                Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>) zip.entries();
                 //循环对压缩包里的每一个文件进行解压
-                while(entries.hasMoreElements()) {
+                while (entries.hasMoreElements()) {
 
                     entry = entries.nextElement();
 
@@ -82,13 +94,13 @@ public class UpdateChecker {
                         bos.flush();
                         bos.close();
                         //ModSimReloaded.log.info("创建解压文件：",entryFile.getName());
-                    }else {
-                        entryDirPath = entryFilePath.substring(0, entryFilePath.length()-1);
+                    } else {
+                        entryDirPath = entryFilePath.substring(0, entryFilePath.length() - 1);
                         entryDir = new File(entryDirPath);
                         //如果文件夹路径不存在，则创建文件夹
                         if (!entryDir.exists() || !entryDir.isDirectory()) {
                             entryDir.mkdirs();
-                            ModSimReloaded.log.info("创建解压文件夹：",entryDir.getName());
+                            ModSimReloaded.log.info("创建解压文件夹：", entryDir.getName());
                         }
                     }
 
@@ -99,36 +111,38 @@ public class UpdateChecker {
             new File(simFile).deleteOnExit();
 
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("检查sim建筑包出错了："+e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("检查sim建筑包出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             //e.printStackTrace();
         }
 
 
     }
 
-    public static void deleteFile(File file){
+    public static void deleteFile(File file) {
         ModSimReloaded.log.info("开始删除文件/文件夹");
-        if(file.exists()){
+        if (file.exists()) {
             file.delete();
         }
-        if(file.exists()){
+        if (file.exists()) {
             File[] paths = file.listFiles();
-            for(File str:paths){
+            for (File str : paths) {
                 deleteFile(str);
             }
             file.delete();
-            paths = null;	// lets gc do its works
+            paths = null;    // lets gc do its works
         }
-        file = null;	// lets gc do its works
+        file = null;    // lets gc do its works
     }
+
     public String downloadFile(String url, String localFile) {
-        File f=new File(localFile);
-        if(f.exists()){
+        File f = new File(localFile);
+        if (f.exists()) {
             deleteFile(f);
         }
-        ModSimReloaded.log.info("将从此链接下载文件：\n"+url);
+        ModSimReloaded.log.info("将从此链接下载文件：\n" + url);
         try {
-            URL aURL =new URL(url);
+            URL aURL = new URL(url);
             InputStream is = aURL.openStream();
             BufferedInputStream in = new BufferedInputStream(is);
             FileOutputStream fos = new FileOutputStream(localFile);

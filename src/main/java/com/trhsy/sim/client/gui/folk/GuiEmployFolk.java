@@ -313,7 +313,7 @@ public class GuiEmployFolk extends GuiScreen {
         try {
             Keyboard.enableRepeatEvents(false);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiEmployFolk-onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

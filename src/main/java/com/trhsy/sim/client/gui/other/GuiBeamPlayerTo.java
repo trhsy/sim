@@ -70,7 +70,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("initscreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBeamPlayerTo-initscreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -128,7 +128,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("getButtonWithId出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBeamPlayerTo-getButtonWithId出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return null;
     }
@@ -139,7 +139,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
             Keyboard.enableRepeatEvents(false);
             this.mc.setIngameFocus();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBeamPlayerTo-onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
 
@@ -150,7 +150,7 @@ public class GuiBeamPlayerTo extends GuiScreen {
                 this.mc.displayGuiScreen((GuiScreen)null);
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiBeamPlayerTo-keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

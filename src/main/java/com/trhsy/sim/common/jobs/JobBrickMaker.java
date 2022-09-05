@@ -6,6 +6,7 @@ import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.enums.FolkAction;
 import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.loader.ModSimReloaded;
+import jdk.nashorn.internal.ir.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -134,12 +135,7 @@ public class JobBrickMaker extends Job implements Serializable {
      **/
     private void stageScanForClay() {
         try {
-            ItemStack itemStack= this.theFolk.getVillagerInventory().getStackInSlot(0);
-            if(itemStack!=null&&itemStack.stackSize>0){
-                this.theStage = Stage.RETURNCLAY;
-                this.step = 1;
-                return;
-            }
+
             //到达 ||砖
             if (this.theFolk.statusText.contains(I18n.format("container.sim.Arrived")) || this.theFolk.statusText.contains(I18n.format("container.sim.brick"))) {
                 //去挖掘一些粘土
@@ -147,9 +143,15 @@ public class JobBrickMaker extends Job implements Serializable {
             }
             //寻找黏土
             this.blockOfClay = findClosestBlockType(this.theFolk.employedAt, Blocks.clay, 80, true);
-            //使用熔炉
+            //没有找到黏土
             if (this.blockOfClay == null) {
-                this.theStage = Stage.USEFURNACE;
+                ItemStack itemStack= this.theFolk.getVillagerInventory().getStackInSlot(0);
+                if(itemStack!=null&&itemStack.stackSize>0){
+                    this.theStage = Stage.RETURNCLAY;
+                    this.step = 1;
+                    return;
+                }
+                this.theStage = Stage.CANTWORK;
                 return;
             }
             //去找黏土块
@@ -223,20 +225,22 @@ public class JobBrickMaker extends Job implements Serializable {
                 //播放音乐
                 this.mc.theWorld.playSound(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord, "step.sand", 1, 1, false);
                 //放到npc箱子里
-                this.theFolk.getVillagerInventory().func_174894_a( new ItemStack(Item.getItemFromBlock(Blocks.clay), 1));
-                //我得到粘土惹
-                this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + this.theFolk.getVillagerInventory().getSizeInventory();
-                GameStates var10000 = ModSimReloaded.states;
-                var10000.credits = (float) ((double) var10000.credits - 0.012D);
-                if (this.theFolk.getVillagerInventory().getSizeInventory() < 64) {
-                    //扫描黏土
-                    this.theStage = Stage.SCANFORCLAY;
-                } else {
-                    //返回黏土
-                    this.theStage = Stage.RETURNCLAY;
-                    this.step = 1;
+                this.theFolk.getVillagerInventory().func_174894_a(new ItemStack(Items.clay_ball, 4));
+                ItemStack itemStack=this.theFolk.getVillagerInventory().getStackInSlot(0);
+                if(itemStack!=null&&itemStack.stackSize>0){
+                    //我得到粘土惹
+                    this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker3") + itemStack.stackSize;
+                    GameStates var10000 = ModSimReloaded.states;
+                    var10000.credits = (float) ((double) var10000.credits - 0.012D);
+                    if (this.theFolk.getVillagerInventory().getSizeInventory() < 64) {
+                        //扫描黏土
+                        this.theStage = Stage.SCANFORCLAY;
+                    } else {
+                        //返回黏土
+                        this.theStage = Stage.RETURNCLAY;
+                        this.step = 1;
+                    }
                 }
-
 
         }
         } catch (Exception e) {
@@ -304,6 +308,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker5");
                     currentClay = this.factoryFurnace.getStackInSlot(1);
                     if (currentClay == null) {
+
                         gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.coal, 64), false, false, new ItemStack(Items.coal, 64));
                         if (gotFuel == null) {
                             gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.lava_bucket, 1), false, false, new ItemStack(Items.lava_bucket, 1));
@@ -335,7 +340,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     if (this.factoryFurnace != null) {
                         currentClay = this.factoryFurnace.getStackInSlot(0);
                         if (currentClay == null) {
-                            gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.clay), 64), false, false, new ItemStack(Blocks.clay, 64));
+                            gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.clay_ball, 64), false, false, new ItemStack(Blocks.clay, 64));
                             if (gotFuel != null) {
                                 this.factoryFurnace.setInventorySlotContents(0, gotFuel);
                             }
@@ -343,8 +348,7 @@ public class JobBrickMaker extends Job implements Serializable {
                             this.step = 3;
                             return;
                         }
-
-                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Item.getItemFromBlock(Blocks.clay), 64 - currentClay.stackSize), false, false, new ItemStack(Blocks.clay, 64 - currentClay.stackSize));
+                        gotFuel = inventoriesGet(this.factoryChests, new ItemStack(Items.clay_ball, 64 - currentClay.stackSize), false, false, new ItemStack(Blocks.clay, 64 - currentClay.stackSize));
                         if (gotFuel != null) {
                             currentClay.stackSize += gotFuel.stackSize;
                             this.factoryFurnace.setInventorySlotContents(0, currentClay);

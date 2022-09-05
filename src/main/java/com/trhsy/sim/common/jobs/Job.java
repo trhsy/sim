@@ -347,7 +347,7 @@ public abstract class Job {
         ItemStack retStack = null;
         try {
             for (int c = 0; c < chests.size(); c++) {
-                IInventory chest = (IInventory) chests.get(c);
+                IInventory chest = chests.get(c);
                 retStack = inventoryGet(chest, whatItem, getRandomItem, compareMeta);
                 if (retStack != null) {
                     return retStack;
@@ -933,7 +933,7 @@ public abstract class Job {
                             blockPos = new BlockPos(sx, sy, sz);
                             te = theWorld.getTileEntity(blockPos);
                             if (te != null) {
-                                if (te instanceof IInventory && !(te instanceof TileEntityWindmill) && !alreadyGotChest(ret, (IInventory) te)) {
+                                if (te instanceof IInventory && !(te instanceof TileEntityFurnace)&&!(te instanceof TileEntityWindmill) && !alreadyGotChest(ret, (IInventory) te)) {
                                     ret.add((IInventory) te);
                                 }
                             }
@@ -1034,7 +1034,7 @@ public abstract class Job {
                                 int sx = (int) (startXYZ.xCoord + xo);
                                 int sy = (int) (startXYZ.yCoord + yo);
                                 int sz = (int) (startXYZ.zCoord + zo);
-                                if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
+                                if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock().getBlockState() == block.getBlockState()) {
                                     ret = new V3((double) sx, (double) sy, (double) sz, startXYZ.theDimension);
                                     return ret;
                                 }

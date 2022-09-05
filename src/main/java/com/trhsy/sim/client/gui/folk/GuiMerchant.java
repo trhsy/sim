@@ -362,8 +362,8 @@ public class GuiMerchant extends GuiScreen {
             } else {
                 float total = 0.0F;
 
-                for (int g = 0; g < ((IInventory) chests.get(0)).getSizeInventory(); g++) {
-                    ItemStack is = ((IInventory) chests.get(0)).getStackInSlot(g);
+                for (int g = 0; g < ( chests.get(0)).getSizeInventory(); g++) {
+                    ItemStack is = ( chests.get(0)).getStackInSlot(g);
                     if (is != null && is.stackSize >= 1) {
                         stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
                         if (stackPrice > 0.0F) {
@@ -371,7 +371,7 @@ public class GuiMerchant extends GuiScreen {
                             ModSimReloaded.states.credits += stackPrice;
                             PricesForBlocks.adjustPrice((Block) block, false);
                             total += stackPrice;
-                            ((IInventory) chests.get(0)).setInventorySlotContents(g, (ItemStack) null);
+                            (chests.get(0)).setInventorySlotContents(g, (ItemStack) null);
                         }
                     }
                 }
@@ -398,7 +398,7 @@ public class GuiMerchant extends GuiScreen {
         try {
             Keyboard.enableRepeatEvents(false);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMerchant-onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
     }

@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|-948.0,6.0,672.0,0
+vocation|BRICKMAKER
 name|归博然
-age|20
+age|21
 gender|0
 skin|33
 race|
@@ -9,12 +9,12 @@ trait1|夜猫子
 trait2|擅长园艺
 trait3|友善的
 trait4|勇敢的
-levelfood|9
+levelfood|10
 levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-974.0,807.0,670.0,0
+location|-1892.0,24.0,1348.0,0
 pregnancy|0.0
 building|null
 terraformtype|null

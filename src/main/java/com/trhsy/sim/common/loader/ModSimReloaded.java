@@ -109,7 +109,7 @@ public class ModSimReloaded {
     public static World demolishWorld = null;
     //Gui的运行模式
     private static GuiRunMod runModui = null;
-    public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(11, 20, 5000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(5), new NamedThreadFactory("demo-thread-pool", false), new ThreadPoolExecutor.AbortPolicy());
+    public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(11, 20, 5000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(5), new NamedThreadFactory("demo-thread-pool", false), new ThreadPoolExecutor.AbortPolicy());
     public ModSimReloaded() {
 
     }

@@ -723,9 +723,9 @@ public class EntityFolk extends EntityCreature implements INpc {
                         this.motionZ = theData.location.zCoord - 1;
                     }*/
                     if (theData.location != null) {
-                        this.motionY = theData.location.yCoord;
+                        this.motionY = theData.location.yCoord+1;
                         this.motionX = theData.location.xCoord + 1;
-                        this.motionZ = theData.location.zCoord;
+                        this.motionZ = theData.location.zCoord+1;
                     }
                     //受伤要跑出受伤范围
                     theData.gotoXYZ(new V3(this.motionX, this.motionY, this.motionZ, 0), GotoMethod.SHIFT);
