@@ -534,7 +534,7 @@ public class JobBuilder extends Job implements Serializable {
                             //木板|圆石|玻璃|羊毛|砖块|泥土|石砖|栅栏|石头|原木
                             boolean requiredBlocks = blockId == Blocks.planks || blockId == Blocks.cobblestone || blockId == Blocks.glass || blockId == Blocks.wool || blockId == Blocks.brick_block || blockId == Blocks.dirt || blockId == Blocks.stonebrick || blockId.getUnlocalizedName().contains("fence") || blockId == Blocks.stone || blockId == Blocks.log;
                             //正常模式
-                            if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
+                            if (GameMode.getGameMode() == GameMode.GAMEMODES.NORMAL) {
                                 if (requiredBlocks) {
                                     ////找到最近的箱子
                                     this.constructorChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -549,10 +549,10 @@ public class JobBuilder extends Job implements Serializable {
                                     gotBlock = true;
                                 }
                                 //创造模式
-                            } else if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                            } else if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                                 gotBlock = true;
                                 //专家模式
-                            } else if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
+                            } else if (GameMode.getGameMode()== GameMode.GAMEMODES.HARDCORE) {
                                 if (blockId != null) {
                                     //专家模式下提供的块 玻璃|水|熔岩|标志|
                                     if (blockId == Blocks.grass && blockId == Blocks.water && blockId == Blocks.lava && blockId == Blocks.wall_sign && blockId == Blocks.cake && blockId == Blocks.stone_slab && blockId == Blocks.wooden_slab && blockId == Blocks.double_wooden_slab && blockId == Blocks.double_stone_slab && blockId == Blocks.farmland && blockId == Blocks.oak_door && blockId == Blocks.iron_door && blockId == Blocks.bed) {
@@ -644,7 +644,7 @@ public class JobBuilder extends Job implements Serializable {
                                             this.mc.theWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double) (this.bx + this.xo), (double) (this.by + this.l), (double) (this.bz + this.zo), 0, 0.1f, 0);
                                         }
 
-                                        if (blockId != null && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE && blockId != BlockLoader.blockLiving) {
+                                        if (blockId != null && GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE && blockId != BlockLoader.blockLiving) {
                                             ModSimReloaded.states.credits -= 0.02F;
                                         }
 
@@ -677,7 +677,7 @@ public class JobBuilder extends Job implements Serializable {
                         if (blockId == null && alreadyPlaced) {
                             this.runDelay = 0;
                         } else {
-                            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                            if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                                 this.runDelay = 0;
                             } else {
                                 this.runDelay =(int)(2000 / this.theFolk.levelBuilder);

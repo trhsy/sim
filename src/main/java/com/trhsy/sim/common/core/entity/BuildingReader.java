@@ -538,7 +538,7 @@ public class BuildingReader implements Serializable {
         boolean got;
         ItemStack is;
         int val;
-        if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
+        if (GameMode.getGameMode()== GameMode.GAMEMODES.NORMAL) {
             name = "";
 
             try {
@@ -565,11 +565,11 @@ public class BuildingReader implements Serializable {
                 }
             }
         } else {
-            if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+            if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                 return;
             }
 
-            if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
+            if (GameMode.getGameMode()== GameMode.GAMEMODES.HARDCORE) {
                 name = "";
 
                 try {

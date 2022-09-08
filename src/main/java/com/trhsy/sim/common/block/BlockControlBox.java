@@ -110,7 +110,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBoxMaterial> {
             IBlockState iBlockState1=world.getBlockState(blockPos);
             int ma=iBlockState1.getBlock().getMetaFromState(iBlockState1);
             if (ma != 0 && ma != 2) {
-                if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                     mc.displayGuiScreen(null);
                     //银行在创造模式下不活动（因为没有钱！）
                     String control_box_Creative = I18n.format("container.sim.control_box_Creative");

@@ -57,6 +57,14 @@ public class GameMode {
 
     }
 
+    public static GAMEMODES getGameMode() {
+        return gameMode;
+    }
+
+    public static void setGameMode(GAMEMODES gameMode) {
+        GameMode.gameMode = gameMode;
+    }
+
     public static enum GAMEMODES {
         /**
          * 不运行

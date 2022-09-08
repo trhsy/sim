@@ -98,7 +98,7 @@ public class JobTerraformer extends Job {
             //正在进行
             if (this.theStage == Stage.INPROGRESS) {
                 //创造模式
-                if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                     this.runDelay = 1;
                 } else {
                     this.runDelay = 300;
@@ -285,7 +285,7 @@ public class JobTerraformer extends Job {
                 //int count = false;
                 ItemStack gotDirt;
                 if (this.theType == TerraformerType.WATERTODIRT) {
-                    if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                    if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                         gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Blocks.dirt, 1), false, false);
                         if (gotDirt == null) {
                             this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.dirt");
@@ -299,7 +299,7 @@ public class JobTerraformer extends Job {
                     hasPlacedTree = false;
                     if (this.counter % 15 == 0) {
                         hasPlacedTree = true;
-                        if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             is = inventoriesGet(this.constructorChests, (ItemStack) null, true, false);
                             if (is == null) {
                                 this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.saplings");
@@ -313,7 +313,7 @@ public class JobTerraformer extends Job {
                     }
                 } else if (this.theType != TerraformerType.LAWNMOWER && this.theType != TerraformerType.DEICER && this.theType != TerraformerType.FLATTENIZER) {
                     if (this.theType == TerraformerType.VALUEPACK) {
-                        if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Blocks.dirt, 1), false, false);
                             if (gotDirt == null) {
                                 this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.dirt");
@@ -323,7 +323,7 @@ public class JobTerraformer extends Job {
                             }
                         }
                     } else if (this.theType != TerraformerType.GLACIAL && this.theType != TerraformerType.MOISTURIZER) {
-                        if (this.theType == TerraformerType.THERMALIZER && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        if (this.theType == TerraformerType.THERMALIZER && GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Items.bucket, 1), false, false);
                             if (gotDirt == null) {
                                 this.theFolk.statusText = I18n.format("container.sim.job.terra.farmer.buckets");
@@ -332,7 +332,7 @@ public class JobTerraformer extends Job {
                                 return;
                             }
                         }
-                    } else if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                    } else if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                         if (this.buckets == 0) {
                             gotDirt = inventoriesGet(this.constructorChests, new ItemStack(Items.water_bucket, 1), false, false);
                             if (gotDirt == null) {
@@ -360,7 +360,7 @@ public class JobTerraformer extends Job {
                 if (this.theType == TerraformerType.WATERTODIRT) {
                     BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord, v.zCoord);
                     this.jobWorld.setBlockState(blockPos2, Blocks.dirt.getDefaultState(), 3);
-                    if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                    if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                         var10000 = ModSimReloaded.states;
                         var10000.credits = (float) ((double) var10000.credits - 0.009D);
                     }
@@ -368,7 +368,7 @@ public class JobTerraformer extends Job {
                     if (hasPlacedTree) {
                         BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord + 1, v.zCoord);
                         this.jobWorld.setBlockState(blockPos2, Blocks.sapling.getDefaultState(), 3);
-                        if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             var10000 = ModSimReloaded.states;
                             var10000.credits = (float) ((double) var10000.credits - 0.009D);
                         }
@@ -413,7 +413,7 @@ public class JobTerraformer extends Job {
                             if (this.mc.theWorld.isRemote) {
                                 BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord, v.zCoord);
                                 this.jobWorld.setBlockState(blockPos2, Blocks.dirt.getDefaultState(), 3);
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     var10000 = ModSimReloaded.states;
                                     var10000.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
@@ -425,7 +425,7 @@ public class JobTerraformer extends Job {
                                 if ((blockId == Blocks.water || blockId == Blocks.water) && this.mc.theWorld.isRemote) {
                                     BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord, v.zCoord);
                                     this.jobWorld.setBlockState(blockPos2, Blocks.ice.getDefaultState(), 3);
-                                    if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                    if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                         var10000 = ModSimReloaded.states;
                                         var10000.credits = (float) ((double) var10000.credits - 0.009D);
                                     }
@@ -436,7 +436,7 @@ public class JobTerraformer extends Job {
                                 if (idBelow != null && idBelow != Blocks.ice && idBelow != Blocks.water && idBelow != Blocks.water && idBelow != Blocks.snow && this.mc.theWorld.isRemote) {
                                     BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord, v.zCoord);
                                     this.jobWorld.setBlockState(blockPos2, Blocks.snow.getDefaultState(), 3);
-                                    if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                    if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                         var10000 = ModSimReloaded.states;
                                         var10000.credits = (float) ((double) var10000.credits - 0.009D);
                                     }
@@ -447,7 +447,7 @@ public class JobTerraformer extends Job {
                                 BlockPos blockPos = new BlockPos(v.xCoord, v.yCoord, v.zCoord);
                                 this.jobWorld.setBlockState(blockPos, Blocks.obsidian.getDefaultState(), 3);
                                 this.jobWorld.markBlockForUpdate(blockPos);
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     var10000 = ModSimReloaded.states;
                                     var10000.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
@@ -457,7 +457,7 @@ public class JobTerraformer extends Job {
                                 BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord, v.zCoord);
                                 this.jobWorld.setBlockState(blockPos2, Blocks.air.getDefaultState(), 3);
                                 this.jobWorld.markBlockForUpdate(blockPos2);
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     var10000 = ModSimReloaded.states;
                                     var10000.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
@@ -469,7 +469,7 @@ public class JobTerraformer extends Job {
                             this.jobWorld.setBlockState(blockPos2, Blocks.grass.getDefaultState(), 3);
                             this.jobWorld.markBlockForUpdate(blockPos2);
                             ++this.counter;
-                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                            if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                 var10000 = ModSimReloaded.states;
                                 var10000.credits = (float) ((double) var10000.credits - 0.009D);
                             }
@@ -492,7 +492,7 @@ public class JobTerraformer extends Job {
                         if (this.mc.theWorld.isRemote) {
                             BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord, v.zCoord);
                             this.jobWorld.setBlockState(blockPos2, Blocks.air.getDefaultState(), 3);
-                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                            if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                 var10000 = ModSimReloaded.states;
                                 var10000.credits = (float) ((double) var10000.credits - 0.009D);
                             }

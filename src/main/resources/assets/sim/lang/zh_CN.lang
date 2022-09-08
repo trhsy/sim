@@ -47,7 +47,7 @@ tile.blockSpecial.name=空气
 tile.markerBar.name=标记棒
 tile.miningBox.name=采矿箱
 tile.compositeBrick.name=复合砖
-tile.pathConstructor.name=建造路径块
+tile.path_box.name=路径箱
 tile.windmill.name=风车
 
 item.granulesCopper.name=铜颗粒

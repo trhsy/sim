@@ -212,7 +212,7 @@ public class GuiEmployFolk extends GuiScreen {
                     }
                     //好
                     if (guibutton.id == 1000) {
-                        if (ModSimReloaded.states.credits <= 0.0F && GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        if (ModSimReloaded.states.credits <= 0.0F && GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             //你需要一些金币来雇佣员工。
                             ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_you_need"));
                             this.mc.currentScreen = null;
@@ -220,7 +220,7 @@ public class GuiEmployFolk extends GuiScreen {
                             return;
                         }
 
-                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE && this.vocation == Vocation.MERCHANT) {
+                        if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE && this.vocation == Vocation.MERCHANT) {
                             //建筑商的商人不能在创造性模式下雇佣
                             ModSimReloaded.sendChat(I18n.format("container.sim.gui_sendChat_Builder_merchant"));
                             this.mc.currentScreen = null;

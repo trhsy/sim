@@ -470,7 +470,7 @@ public class Building implements Serializable {
             String grass = I18n.format("container.sim.building.grass");
             String bed = I18n.format("container.sim.building.bed");
             //如果游戏模式为普通
-            if (GameMode.gameMode == GameMode.GAMEMODES.NORMAL) {
+            if (GameMode.getGameMode()== GameMode.GAMEMODES.NORMAL) {
                 try {
                     //获取方块名称
                     name = theBlock.getDisplayName().toLowerCase();
@@ -506,10 +506,10 @@ public class Building implements Serializable {
                         }
                     }
                 }
-            } else if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+            } else if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                 //创造模式
                 return;
-            } else if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
+            } else if (GameMode.getGameMode()== GameMode.GAMEMODES.HARDCORE) {
                 //专家模式
                 name = "";
 

@@ -130,7 +130,7 @@ public class ClientTickHandler extends GuiScreen {
                         }
 
                         HUDoffset = HUDoffset + ConfigLoader.configHUDoffset;
-                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                        if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                             this.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size(), this.width / 2, 2 + HUDoffset, 16777215);
                         } else {
                             this.drawString(this.mc.fontRendererObj, worldname + " (" + ModSimReloaded.getDayOfWeek() + ") - " + I18n.format("container.sim.trhsy3") + ": " + ModSimReloaded.theFolks.size() + "   " + I18n.format("container.sim.trhsy4") + ": " + ModSimReloaded.displayMoney(ModSimReloaded.states.credits), this.width / 2, 2 + HUDoffset, 16777215);

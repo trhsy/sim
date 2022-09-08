@@ -151,7 +151,7 @@ public class JobMiner extends Job implements Serializable {
             if (this.theStage == Stage.MINING) {
                 this.runDelay = (int) (2000.0F / this.theFolk.levelMiner);
                 //是创造模式
-                if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                     this.runDelay = 10;
                 }
             }
@@ -629,7 +629,7 @@ public class JobMiner extends Job implements Serializable {
                     }
                 }
 
-                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                     GameStates var10000 = ModSimReloaded.states;
                     var10000.credits -= 0.012F;
                     int b4 = (int) Math.floor((double) this.theFolk.levelMiner);

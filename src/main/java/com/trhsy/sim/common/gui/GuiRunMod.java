@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.gui;
 
 import com.trhsy.sim.common.core.entity.FolkData;
+import com.trhsy.sim.common.core.entity.GameMode;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -103,17 +104,21 @@ public class GuiRunMod extends GuiScreen {
                     break;
                 case 1:
                     ModSimReloaded.states.gameModeNumber = 0;
+                    GameMode.setGameModeFromNumber(0);
                     ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
                     FolkData.generateNewFolk(world);
                     break;
                 case 2:
                     ModSimReloaded.states.gameModeNumber = 1;
+                    GameMode.setGameModeFromNumber(1);
                     break;
                 case 3:
                     ModSimReloaded.states.gameModeNumber = 2;
+                    GameMode.setGameModeFromNumber(2);
                     break;
                 default:
                     ModSimReloaded.states.gameModeNumber = 0;
+                    GameMode.setGameModeFromNumber(0);
                     ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
                     //生成一个新的NPC
                     FolkData.generateNewFolk(world);

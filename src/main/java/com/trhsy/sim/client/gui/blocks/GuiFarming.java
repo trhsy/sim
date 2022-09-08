@@ -122,7 +122,7 @@ public class GuiFarming extends GuiScreen {
             } else if (this.theFarmingBox.level == 1 && this.theFarmingBox.farmType == FarmType.CACTUS) {
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_sugar"), this.width / 2, 130, 16777215);
             } else if (this.theFarmingBox.level < 3) {
-                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                     this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Upgrade_will_cost") + ModSimReloaded.displayMoney(this.getUpgradeCost()) + I18n.format("container.sim.gui_Farming_text_credits"), this.width / 2, 130, 16777215);
                 } else {
                     this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Farming_text_Upgrade_is_Free"), this.width / 2, 130, 16777215);
@@ -192,7 +192,7 @@ public class GuiFarming extends GuiScreen {
                         //获取金币
                         float cash = ModSimReloaded.states.credits;
                         //如果游戏模式为创造 资金为1000
-                        if (GameMode.gameMode == GameMode.GAMEMODES.CREATIVE) {
+                        if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
                             cash = 1000.0F;
                         }
 
@@ -204,7 +204,7 @@ public class GuiFarming extends GuiScreen {
                             //如果长 宽 都大于4
                             if (this.theFarmingBox.getSizeLength() >= 4 && this.theFarmingBox.getSizeWidth() >= 4) {
                                 //如果游戏模式为创造
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     GameStates var10000 = ModSimReloaded.states;
                                     var10000.credits -= this.getUpgradeCost();
                                 }

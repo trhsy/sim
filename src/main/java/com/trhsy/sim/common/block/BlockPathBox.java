@@ -3,6 +3,7 @@ package com.trhsy.sim.common.block;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.client.gui.blocks.GuiPathBox;
 import com.trhsy.sim.common.core.entity.V3;
+import com.trhsy.sim.common.loader.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -31,7 +32,7 @@ public class BlockPathBox extends Block {
         this.setHardness(10.0F);
         this.setResistance(1);
         this.setUnlocalizedName("path_box");
-        //this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
     @Override

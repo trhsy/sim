@@ -98,7 +98,7 @@ public class GuiMining extends GuiScreen {
                 }
 
                 GuiButton gb = null;
-                if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
+                if (GameMode.getGameMode()!= GameMode.GAMEMODES.HARDCORE) {
                     this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 120, i));
                     this.buttonList.add(gb = new GuiButton(3, this.width / 2 - 100, 160, j));
                 }
@@ -121,7 +121,7 @@ public class GuiMining extends GuiScreen {
     }
     private void extraButtons() {
         try {
-            if (GameMode.gameMode != GameMode.GAMEMODES.HARDCORE) {
+            if (GameMode.getGameMode()!= GameMode.GAMEMODES.HARDCORE) {
                 String i = "";
                 String j = "";
                 if (this.theMiningBox.discards == 0) {

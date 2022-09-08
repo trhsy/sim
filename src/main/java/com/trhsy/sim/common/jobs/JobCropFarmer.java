@@ -690,7 +690,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
                         //小麦
                         if (this.farmingBlock.farmType == FarmType.WHEAT) {
-                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                            if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                 ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat_seeds, 1), false, false);
                                 if (seed == null) {
                                     this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.No_more");
@@ -708,7 +708,7 @@ public class JobCropFarmer extends Job implements Serializable {
                         } else if (this.farmingBlock.farmType == FarmType.PUMPKIN) {
                             if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
                                 //留出空间
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.pumpkin_seeds, 1), false, false);
                                     if (seed == null) {
                                         this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.pumpkin");
@@ -727,7 +727,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             //西瓜
                         } else if (this.farmingBlock.farmType == FarmType.MELON) {
                             if (this.ftb % 4 == 0 || this.ftb % 4 == 1) {
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.melon_seeds, 1), false, false);
                                     if (seed == null) {
                                         //我需要更多西瓜籽！
@@ -745,7 +745,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             }
                             //胡萝卜
                         } else if (this.farmingBlock.farmType == FarmType.CARROT) {
-                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                            if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                 ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.carrot, 1), false, false);
                                 if (seed == null) {
                                     //我需要更多的胡萝卜来种植！
@@ -762,7 +762,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             hasSown = true;
                             //土豆
                         } else if (this.farmingBlock.farmType == FarmType.POTATO) {
-                            if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                            if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                 ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.potato, 1), false, false);
                                 if (seed == null) {
                                     this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.potatoes");
@@ -781,7 +781,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
                             Block cid = this.jobWorld.getBlockState(new BlockPos(this.xxx, this.yyy - 1, this.zzz)).getBlock();
                             if (cid == Blocks.dirt || cid == Blocks.grass || cid == Blocks.sand) {
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Items.wheat, 1), false, false);
                                     if (seed == null) {
                                         this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.sugar");
@@ -797,7 +797,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             //仙人掌
                         } else if (this.farmingBlock.farmType == FarmType.CACTUS) {
                             if ((this.xxx + this.zzz) % 2 == 0) {
-                                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                                     ItemStack seed = inventoriesGet(this.farmingChests, new ItemStack(Blocks.cactus, 1), false, false);
                                     if (seed == null) {
                                         this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.cactus");
@@ -878,7 +878,7 @@ public class JobCropFarmer extends Job implements Serializable {
 
                 int r = ra.nextInt(10);
                 if (r == 0) {
-                    if (GameMode.gameMode == GameMode.GAMEMODES.HARDCORE) {
+                    if (GameMode.getGameMode()== GameMode.GAMEMODES.HARDCORE) {
                         //哇,极限模式真的很难！
                         this.theFolk.statusText = I18n.format("container.sim.job.crop.farmer.Wow");
                     } else {

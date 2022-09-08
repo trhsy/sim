@@ -435,7 +435,7 @@ public class ModSimReloaded {
                         //总税务
                         float totalCorpTax = 0.0F;
                         //如果游戏模式不是创造模式
-                        if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             //循环所有的建筑
                             for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                                 //获得建筑
@@ -478,7 +478,7 @@ public class ModSimReloaded {
                             if (p != null) {
                                 ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1, 1, false);
                             }
-                        } else if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                        } else if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             //今天没有收到房租,你应该雇一个人来盖一栋住宅。
                             sendChat(I18n.format("container.sim.main_No_rent"));
                         }
@@ -535,7 +535,7 @@ public class ModSimReloaded {
                     }
                 }
                 //不是创造模式
-                if (GameMode.gameMode != GameMode.GAMEMODES.CREATIVE) {
+                if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                     //随机数 每个比赛周让他们老化一年
                     int fl = rand.nextInt(theFolks.size());
                     //循环所有
