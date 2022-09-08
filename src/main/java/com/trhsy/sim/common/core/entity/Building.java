@@ -460,6 +460,7 @@ public class Building implements Serializable {
             String bricks = I18n.format("container.sim.building.bricks");
             String dirt = I18n.format("container.sim.building.dirt");
             String stone_bricks = I18n.format("container.sim.building.stone_bricks");
+            String railing = I18n.format("container.sim.building.railing");
             String fence = I18n.format("container.sim.building.fence");
             String stone = I18n.format("container.sim.building.stone");
             String wood = I18n.format("container.sim.building.wood");
@@ -478,15 +479,17 @@ public class Building implements Serializable {
                 }
                 //System.out.println(name);
                 //如果 名字包含 木板，圆石，玻璃，羊毛，砖块，泥土，石砖，栅栏，石头，木头，石板，并且不包含 门，楼梯，草方块
-                if (name.contains(planks) || name.contentEquals(cobblestone)
-                        || name.contentEquals(glass) || name.contains(wool)
-                        || name.contentEquals(bricks)
-                        || name.contentEquals(dirt)
-                        || name.contentEquals(stone_bricks)
-                        || name.contentEquals(fence)
-                        || name.contentEquals(stone)
+                if (name.contains(planks) || name.contains(cobblestone)
+                        || name.contains(glass) || name.contains(wool)
+                        || name.contains(bricks)
+                        || name.contains(dirt)
+                        || name.contains(stone_bricks)
+                        || name.contains(fence)
+                        || name.contains(railing)
+                        || name.contains(stone)
                         || (name.contains(wood))) {
                     if (!name.contains(slab) && !name.contains(door) && !name.contains(stairs) && !name.contains(grass)) {
+                        //板|门|楼梯|草
                         boolean got = false;
                         for (Map.Entry pairs : requirements.entrySet()) {
                             ItemStack is = (ItemStack) pairs.getKey();

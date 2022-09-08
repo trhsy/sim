@@ -598,6 +598,7 @@ container.sim.gui_contains_Burgers=Burgers
 
 container.sim.gui_contains_Lumbermill=Lumbermill
 container.sim.gui_contains_Builders_Merchant=Builders Merchant
+container.sim.building.railing=bars
 container.sim.gui_contains_Barracks=Barracks
 container.sim.gui_contains_Sheep_Farm=Sheep Farm
 container.sim.gui_contains_Egg_Farm=Egg Farm

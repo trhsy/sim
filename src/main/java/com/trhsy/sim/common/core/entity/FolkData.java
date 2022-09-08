@@ -10,7 +10,6 @@ import com.trhsy.sim.common.core.entity.folk.traits.Traits;
 import com.trhsy.sim.common.jobs.*;
 import com.trhsy.sim.common.loader.ConfigLoader;
 import com.trhsy.sim.common.loader.ModSimReloaded;
-import com.trhsy.sim.common.util.NamedThreadFactory;
 import com.trhsy.sim.packets.NetWorkLoader;
 import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
 import net.minecraft.block.Block;
@@ -32,10 +31,8 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;

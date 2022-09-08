@@ -1,5 +1,5 @@
-employedat|-922.0,6.0,676.0,0
-vocation|BUILDER
+employedat|null
+vocation|null
 name|颖子
 age|22
 gender|1
@@ -9,13 +9,13 @@ trait1|强壮的人可以更快地做体力劳动。无论是采矿、伐木、�
 trait2|友善的
 trait3|矮人血脉
 trait4|勇敢的
-levelfood|4
+levelfood|3
 levelbuilder|9999.0
 levelminer|10.0
 levelsoldier|10.0
 stayput|false
-location|-922.0,7.0,676.0,0
+location|-900.0,7.0,676.0,0
 pregnancy|0.0
-building|1单元牢房.txt|residential||+z
+building|null
 terraformtype|null
 terraformradius|1

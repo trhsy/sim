@@ -998,6 +998,7 @@ container.sim.building.stairs=楼梯
 container.sim.building.torch=火把
 container.sim.building.grass=草
 container.sim.building.bed=床
+container.sim.building.railing=栏杆
 container.sim.FolkData.MacDonald=麦当劳
 container.sim.FolkData.Clinic=诊所
 container.sim.FolkData.Hospital=医院
