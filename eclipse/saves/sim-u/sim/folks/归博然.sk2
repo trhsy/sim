@@ -14,7 +14,11 @@ levelbuilder|1.0
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
+<<<<<<< HEAD
 location|-948.0,7.0,672.0,0
+=======
+location|-948.0,8.0,672.0,0
+>>>>>>> a1c43b7076cddf7520137c1c56dd90b179d0eaa0
 pregnancy|0.0
 building|null
 terraformtype|null
