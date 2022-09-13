@@ -309,7 +309,11 @@ public class GuiBuildingConstructor extends GuiScreen {
                                     //木板
                                     itemName = I18n.format("container.sim.sim_gui_BC12");
                                 }
-
+                                //玻璃
+                                if (itemName.toLowerCase().contains(I18n.format("container.sim.Merchant20").toLowerCase())) {
+                                    //玻璃
+                                    itemName = I18n.format("container.sim.Merchant20");
+                                }
                                 this.displayReq(itemName, (Integer) pairs.getValue(), y);
                                 y += 15;
                             }
@@ -335,7 +339,7 @@ public class GuiBuildingConstructor extends GuiScreen {
      */
     private void displayReq(String block, int qty, int y) {
         try {
-            double stacks = Math.floor((double) (qty / 64));
+            double stacks = Math.floor((qty / 64));
             this.drawString(this.fontRendererObj, qty + "", 90, y, 16777215);
             this.drawString(this.fontRendererObj, "x", 125, y, 16777215);
             this.drawString(this.fontRendererObj, block, 150, y, 16777215);

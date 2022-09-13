@@ -479,8 +479,10 @@ public class Building implements Serializable {
                 }
                 //System.out.println(name);
                 //如果 名字包含 木板，圆石，玻璃，羊毛，砖块，泥土，石砖，栅栏，石头，木头，石板，并且不包含 门，楼梯，草方块
-                if (name.contains(planks) || name.contains(cobblestone)
-                        || name.contains(glass) || name.contains(wool)
+                if (name.contains(planks)
+                        || name.contains(cobblestone)
+                        || name.contains(glass)
+                        || name.contains(wool)
                         || name.contains(bricks)
                         || name.contains(dirt)
                         || name.contains(stone_bricks)
@@ -488,10 +490,10 @@ public class Building implements Serializable {
                         || name.contains(railing)
                         || name.contains(stone)
                         || (name.contains(wood))) {
-                    if (!name.contains(slab) && !name.contains(door) && !name.contains(stairs) && !name.contains(grass)) {
-                        //板|门|楼梯|草
+                    //名字不包含//板|门|楼梯|草
+                    if (/*!name.contains(slab) &&*/ !name.contains(door) && !name.contains(stairs) && !name.contains(grass)) {
                         boolean got = false;
-                        for (Map.Entry pairs : requirements.entrySet()) {
+                        for (Map.Entry pairs : this.requirements.entrySet()) {
                             ItemStack is = (ItemStack) pairs.getKey();
                             if (is.getItem() == theBlock.getItem()) {
                                 val = (Integer) pairs.getValue();

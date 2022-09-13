@@ -655,16 +655,18 @@ public class FolkData implements Serializable {
                                 //工业
                             } else if (b.type.contentEquals("industrial") && !b.displayName.toLowerCase().contains(farm)) {
                                 //ModSimReloaded.log.info("FolkData: onUpdate() " + name + "距离" + b.displayName + " " + dist + " 个街区之外。");
-                                V3 v=new V3(b.primaryXYZ.xCoord,b.primaryXYZ.yCoord+1,b.primaryXYZ.zCoord);
-                                gotoXYZ(v, null);
-                                this.destination.doNotTimeout = true;
-                                this.statusText = I18n.format("container.sim.folk_data_Visiting") + b.displayName;
-                                gotWanderPoint = true;
+                                if(b.primaryXYZ!=null){
+                                    V3 v=new V3(b.primaryXYZ.xCoord,b.primaryXYZ.yCoord+1,b.primaryXYZ.zCoord);
+                                    gotoXYZ(v, null);
+                                    this.destination.doNotTimeout = true;
+                                    this.statusText = I18n.format("container.sim.folk_data_Visiting") + b.displayName;
+                                    gotWanderPoint = true;
 
-                                if (this.hangingWith != null) {
-                                    this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
-                                    this.hangingWith.hangingWith = null;
-                                    this.hangingWith = null;
+                                    if (this.hangingWith != null) {
+                                        this.hangingWith.statusText = I18n.format("container.sim.folk_data.Wandering");
+                                        this.hangingWith.hangingWith = null;
+                                        this.hangingWith = null;
+                                    }
                                 }
                                 break;
                             } else if (b.type.contentEquals("residential") && hangingWith == null) {

@@ -763,6 +763,10 @@ public class ModSimReloaded {
 
     public static void saveSK2(String fullFilename, List<String> strings) {
         try {
+            File f=new File(fullFilename);
+            if(!f.exists()){
+                f.createNewFile();
+            }
             BufferedWriter bw = new BufferedWriter(new FileWriter(fullFilename));
             for (String line:strings){
                 bw.write(line + "\r\n");

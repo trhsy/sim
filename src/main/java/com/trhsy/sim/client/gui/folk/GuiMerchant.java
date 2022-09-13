@@ -105,7 +105,6 @@ public class GuiMerchant extends GuiScreen {
                     } else if (b == 1) {
                         //木材
                         blockName = I18n.format("container.sim.Merchant17");
-                        ;
                         fprice = PricesForBlocks.getPrice(Blocks.log, true);
                     } else if (b == 2) {
                         //圆石

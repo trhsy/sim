@@ -40,10 +40,6 @@ public class RenderConBox extends Render<EntityConBox> {
                          float boxYaw, float TextYaw) {
         try {
             entity = var1;
-            //MC 1.6.2
-            //int texture = renderManager.renderEngine.getTexture(modelBox.renderTexture);
-            //renderManager.renderEngine.bindTexture(texture);
-            //GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
             this.renderManager.renderEngine.bindTexture(myTexture);
             x = x + Math.sin(entity.boxYaw / 20) / 10;
             z = z + Math.cos(entity.boxYaw / 20) / 10;
@@ -88,10 +84,13 @@ public class RenderConBox extends Render<EntityConBox> {
                                             String ss = "";
 
                                             if ((int) stacks == 0) {
+                                                //小于1个堆栈
                                                 ss = I18n.format("container.sim.render_2");
                                             } else if ((int) stacks == 1) {
+                                                //1堆
                                                 ss = I18n.format("container.sim.render_3");
                                             } else {
+                                                //堆
                                                 ss = (int) stacks + I18n.format("container.sim.render_4");
                                             }
 
@@ -99,12 +98,14 @@ public class RenderConBox extends Render<EntityConBox> {
 
                                             if (is.stackSize > 0) {
                                                 String itemName = is.getDisplayName();
-
+                                                //橡木
                                                 if (itemName.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC9"))) {
+                                                    //原木
                                                     itemName = I18n.format("container.sim.sim_gui_BC10");
                                                 }
-
+                                                //橡木木板
                                                 if (itemName.toLowerCase().contains(I18n.format("container.sim.sim_gui_BC11"))) {
+                                                    //木板
                                                     itemName = I18n.format("container.sim.sim_gui_BC12");
                                                 }
 
