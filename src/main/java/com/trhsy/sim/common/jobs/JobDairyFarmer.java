@@ -86,6 +86,7 @@ public class JobDairyFarmer extends Job {
             }
 
             super.onUpdateGoingToWork(this.theFolk);
+            //等待挤牛奶
             if (this.theStage == Stage.WAITINGFORMILKING) {
                 this.runDelay = 40000;
             } else {
@@ -95,14 +96,19 @@ public class JobDairyFarmer extends Job {
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
                 this.timeSinceLastRun = System.currentTimeMillis();
                 if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                    //到达农场
                     if (this.theStage == Stage.ARRIVEDATFARM) {
                         this.stageArrived();
+                        //等待挤牛奶
                     } else if (this.theStage == Stage.WAITINGFORMILKING) {
                         this.stageWaiting();
+                        //挤
                     } else if (this.theStage == Stage.MILKING) {
                         this.stageMilking();
+                        //存储牛奶
                     } else if (this.theStage == Stage.STORINGMILK) {
                         this.stageStoringMilk();
+                        //不能工作
                     } else if (this.theStage == Stage.CANTWORK) {
                         this.stageCantWork();
                     }
@@ -117,7 +123,9 @@ public class JobDairyFarmer extends Job {
     private void stageArrived() {
         try {
             this.vocation = this.theFolk.vocation;
+            //等待挤牛奶
             this.theStage = Stage.WAITINGFORMILKING;
+            //暖牛乳
             this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Warming");
             //int count = false;
             int count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityCow.class);
@@ -151,7 +159,7 @@ public class JobDairyFarmer extends Job {
         try {
             Random rand = new Random();
             int c = rand.nextInt(6);
-            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Milking") + this.cowNames[c] + I18n.format("container.sim.job.dairy.farmer.the_cow");
+            this.theFolk.statusText = I18n.format("container.sim.job.dairy.farmer.Milking") + /*this.cowNames[c] +*/ I18n.format("container.sim.job.dairy.farmer.the_cow");
             this.theStage = Stage.STORINGMILK;
             this.theFolk.isWorking = true;
         } catch (Exception e) {

@@ -300,11 +300,13 @@ public class JobBrickMaker extends Job implements Serializable {
             this.factoryFurnace = this.findFurnace(this.theFolk.employedAt);
             this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             if (this.factoryFurnace == null) {
+                //我的炉子不见了！
                 ModSimReloaded.sendChat(this.theFolk.name + "：" + I18n.format("container.sim.JobBrickMaker4"));
             } else {
                 ItemStack currentClay;
                 ItemStack gotFuel;
                 if (this.step == 1) {
+                    //检查燃烧炉
                     this.theFolk.statusText = I18n.format("container.sim.JobBrickMaker5");
                     currentClay = this.factoryFurnace.getStackInSlot(1);
                     if (currentClay == null) {
@@ -323,6 +325,7 @@ public class JobBrickMaker extends Job implements Serializable {
                         }
 
                         if (gotFuel == null) {
+                            //（板砖厂）炉子里没有任何燃料,请添加燃料谢谢！
                             ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.JobBrickMaker6"));
                             this.theStage = Stage.SCANFORCLAY;
                             this.step = 1;

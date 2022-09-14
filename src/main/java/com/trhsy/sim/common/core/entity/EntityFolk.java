@@ -587,13 +587,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                 itemStack = new ItemStack(ItemLoader.itemCheese, 1, 0);
             } else if (theData.vocation == Vocation.BURGERSMANAGER) {
                 //汉堡经理
-                itemStack = new ItemStack(ItemLoader.itemCheeseburger, 1, 3);
+                itemStack = new ItemStack(ItemLoader.itemCheeseburger, 1, 0);
             } else if (theData.vocation == Vocation.BURGERSFRYCOOK) {
                 //后厨
                 itemStack = new ItemStack(ItemLoader.tinSpade, 1);
             } else if (theData.vocation == Vocation.BURGERSWAITER) {
                 //汉堡服务员
-                itemStack = new ItemStack(ItemLoader.itemFries, 1, 2);
+                itemStack = new ItemStack(ItemLoader.itemFries, 1, 0);
             } else if (theData.vocation == Vocation.FISHERMAN) {
                 //职业渔夫
                 JobFisherman jf = (JobFisherman) theData.theirJob;

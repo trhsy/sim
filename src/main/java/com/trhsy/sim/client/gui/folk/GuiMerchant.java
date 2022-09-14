@@ -24,6 +24,7 @@ import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -39,9 +40,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class GuiMerchant extends GuiScreen {
     private int currentPage = 0;
     //持有购买数量
-    private static List<Integer> quantities = null;
+    private static List<Integer> quantities = new CopyOnWriteArrayList<Integer>();
     //基于玩家库存的销售限制
-    private static List<Integer> sellLimits = null;
+    private static List<Integer> sellLimits = new CopyOnWriteArrayList<Integer>();
     private Float totalCost = 0.0F;
     private int mouseCount = 0;
 
@@ -61,15 +62,16 @@ public class GuiMerchant extends GuiScreen {
     public void initGui() {
         try {
             Keyboard.enableRepeatEvents(true);
-            quantities.clear();
+            this.quantities.clear();
             sellLimits.clear();
             for (int i = 0; i < 9; i++) {
-                quantities.add(0);
+                this.quantities.add(0);
                 sellLimits.add(0);
             }
             this.showPage();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMerchant-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiMerchant-initGui出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -144,11 +146,11 @@ public class GuiMerchant extends GuiScreen {
                     }
 
                     price = PricesForBlocks.formatPrice(fprice);
-                    subtotal = PricesForBlocks.formatPrice((float) (Integer) quantities.get(b) * fprice);
-                    grandTotal += (float) (Integer) quantities.get(b) * fprice;
+                    subtotal = PricesForBlocks.formatPrice((float) this.quantities.get(b) * fprice);
+                    grandTotal += (float) this.quantities.get(b) * fprice;
                     this.drawString(this.fontRendererObj, blockName, 2, 40 + b * 20, 16777215);
                     this.drawString(this.fontRendererObj, price, 100, 40 + b * 20, 16777215);
-                    this.drawString(this.fontRendererObj, quantities.get(b) + "", 200, 40 + b * 20, 16777215);
+                    this.drawString(this.fontRendererObj, this.quantities.get(b) + "", 200, 40 + b * 20, 16777215);
                     this.drawString(this.fontRendererObj, subtotal, 350, 40 + b * 20, 16777215);
                 }
 
@@ -159,7 +161,8 @@ public class GuiMerchant extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMerchant-drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiMerchant-drawScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -189,7 +192,8 @@ public class GuiMerchant extends GuiScreen {
                 this.buttonList.add(new GuiButton(2, this.width - 100, this.height - 20, 100, 20, I18n.format("container.sim.Merchant10")));
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("showPage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("showPage出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -215,15 +219,15 @@ public class GuiMerchant extends GuiScreen {
                     if (guibutton.id != 1) {
                         //数量较少
                         if (guibutton.id >= 100 && guibutton.id < 200) {
-                            int q = (Integer) quantities.get(guibutton.id - 100);
+                            int q = this.quantities.get(guibutton.id - 100);
                             if (q > 0) {
                                 q--;
-                                quantities.set(guibutton.id - 100, q);
+                                this.quantities.set(guibutton.id - 100, q);
                             }
                         } else if (guibutton.id >= 200) {
-                            int q = (Integer) quantities.get(guibutton.id - 200);
+                            int q = this.quantities.get(guibutton.id - 200);
                             q++;
-                            quantities.set(guibutton.id - 200, q);
+                            this.quantities.set(guibutton.id - 200, q);
                         } else if (guibutton.id == 2) {
                             if (ModSimReloaded.states.credits < this.totalCost) {
                                 //抱歉，您的卡已被拒绝，您可以尝试减少购买。
@@ -237,17 +241,17 @@ public class GuiMerchant extends GuiScreen {
                     }
                 } else if (this.currentPage == 2) {
                     if (guibutton.id >= 100 && guibutton.id < 200) {
-                        int q = (Integer) quantities.get(guibutton.id - 100);
+                        int q = this.quantities.get(guibutton.id - 100);
                         if (q > 0) {
                             q--;
-                            quantities.set(guibutton.id - 100, q);
+                            this.quantities.set(guibutton.id - 100, q);
                         }
                     } else if (guibutton.id >= 200) {
                         //阻止玩家卖出比他们拥有的更多的东西
-                        int q = (Integer) quantities.get(guibutton.id - 200);
-                        if (q < (Integer) sellLimits.get(guibutton.id - 200)) {
+                        int q = this.quantities.get(guibutton.id - 200);
+                        if (q < sellLimits.get(guibutton.id - 200)) {
                             q++;
-                            quantities.set(guibutton.id - 200, q);
+                            this.quantities.set(guibutton.id - 200, q);
                         }
                     } else if (guibutton.id == 2) {
                         this.sellStuff();
@@ -255,9 +259,9 @@ public class GuiMerchant extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GUIMERCHANT-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GUIMERCHANT-actionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-
 
 
     }
@@ -274,10 +278,11 @@ public class GuiMerchant extends GuiScreen {
             Block block = null;
             boolean ok = false;
             Float stackPrice = 0.0F;
+            //找到箱子
             List<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
             if (chests != null && chests.size() != 0) {
                 for (int i = 0; i < 9; i++) {
-                    quant = (Integer) quantities.get(i);
+                    quant = this.quantities.get(i);
                     ModSimReloaded.log.info(String.valueOf(quant));
                     if (quant > 0) {
                         if (i == 0) {
@@ -302,7 +307,7 @@ public class GuiMerchant extends GuiScreen {
 
                         for (int c = 1; c <= quant; c++) {
                             stack = new ItemStack(block, 64);
-                            this.placeIntoChest((IInventory) chests.get(0), stack, stack.getMetadata(), 64);
+                            this.placeIntoChest(chests.get(0), stack, stack.getMetadata(), 64);
                             stackPrice = PricesForBlocks.getPrice(block, true);
                             GameStates var10000 = ModSimReloaded.states;
                             //64 * 基本价格 + 25% 加价
@@ -336,7 +341,8 @@ public class GuiMerchant extends GuiScreen {
                 return;
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("buyStuff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("buyStuff出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -358,12 +364,13 @@ public class GuiMerchant extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
                 return;
-            } else {
-                float total = 0.0F;
+            }
+            float total = 0.0F;
 
-                for (int g = 0; g < ( chests.get(0)).getSizeInventory(); g++) {
-                    ItemStack is = ( chests.get(0)).getStackInSlot(g);
-                    if (is != null && is.stackSize >= 1) {
+            for (int g = 0; g < chests.get(0).getSizeInventory(); g++) {
+                ItemStack is = chests.get(0).getStackInSlot(g);
+                if (is != null ) {
+                    if(is.stackSize == 64){
                         stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
                         if (stackPrice > 0.0F) {
                             //64 * 基本价格
@@ -374,20 +381,21 @@ public class GuiMerchant extends GuiScreen {
                         }
                     }
                 }
-
-                if (total == 0.0F) {
-                    //箱子里没有我想从你那里买的有效堆栈？
-                    ModSimReloaded.sendChat(I18n.format("container.sim.Merchant14"));
-                } else {
-                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
-                    ModSimReloaded.sendChat(I18n.format("container.sim.Merchant15") + ModSimReloaded.displayMoney(total));
-                }
-
-                this.mc.currentScreen = null;
-                this.mc.setIngameFocus();
             }
+
+            if (total == 0.0F) {
+                //箱子里没有我想从你那里买的有效堆栈？
+                ModSimReloaded.sendChat(I18n.format("container.sim.Merchant14"));
+            } else {
+                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                ModSimReloaded.sendChat(I18n.format("container.sim.Merchant15") + ModSimReloaded.displayMoney(total));
+            }
+
+            this.mc.currentScreen = null;
+            this.mc.setIngameFocus();
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("sellStuff出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("sellStuff出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -397,7 +405,8 @@ public class GuiMerchant extends GuiScreen {
         try {
             Keyboard.enableRepeatEvents(false);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("GuiMerchant-onGuiClosed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("GuiMerchant-onGuiClosed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -410,7 +419,8 @@ public class GuiMerchant extends GuiScreen {
                 this.mc.setIngameFocus();
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("keyTyped出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -419,7 +429,8 @@ public class GuiMerchant extends GuiScreen {
         try {
             super.mouseClicked(i, j, k);
         } catch (IOException e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("mouseClicked鼠标点击出错：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("mouseClicked鼠标点击出错：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -438,32 +449,30 @@ public class GuiMerchant extends GuiScreen {
         try {
             if (stack == null) {
                 placedOK = true;
-            } else {
-                for (int q = 1; q <= quantity; q++) {
-                    for (int i = 0; i < chest.getSizeInventory(); i++) {
-                        ItemStack is = chest.getStackInSlot(i);
+                return placedOK;
+            }
+            for (int q = 1; q <= quantity; q++) {
+                for (int g = 0; g < chest.getSizeInventory(); g++) {
+                    ItemStack is = chest.getStackInSlot(g);
 
-                        if (is == null) {
-                            is = new ItemStack(stack.getItem(), 64, idmeta);
-                            chest.setInventorySlotContents(i, is);
-                            placedOK = true;
-                            //重新进入数量循环
-                            break;
-                        }
-
-                        if (is == stack && is.getMetadata() == idmeta && is.stackSize < 64) {
-                            ++is.stackSize;
-                            chest.setInventorySlotContents(1, is);
-                            placedOK = true;
-                            break;
-                        }
+                    if (is == null) {
+                        is = new ItemStack(stack.getItem(), 1, idmeta);
+                        chest.setInventorySlotContents(g, is);
+                        placedOK = true;
+                        //重新进入数量循环
+                        break;
+                    } else if (is.getItem() == stack.getItem() && is.getMetadata() == idmeta && is.stackSize < 64) {
+                        is.stackSize++;
+                        chest.setInventorySlotContents(g, is);
+                        placedOK = true;
+                        break;
                     }
                 }
-
-
             }
+
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("placeIntoChest出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimReloaded.log.error("placeIntoChest出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return placedOK;
     }

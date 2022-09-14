@@ -278,6 +278,7 @@ public class JobButcher extends Job implements Serializable {
                     this.theFolk.beamMeTo(this.theFolk.employedAt);
                 }
             } else if (this.step == 3) {
+                //关门
                 this.theFolk.statusText = I18n.format("container.sim.job.butcher.Closing");
                 int sell = 0;
                 boolean notEnough = false;

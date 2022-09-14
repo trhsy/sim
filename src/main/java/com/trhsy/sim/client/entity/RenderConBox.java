@@ -39,29 +39,29 @@ public class RenderConBox extends Render<EntityConBox> {
     public void doRender(EntityConBox var1, double x, double y, double z,
                          float boxYaw, float TextYaw) {
         try {
-            entity = var1;
+            this.entity = var1;
             this.renderManager.renderEngine.bindTexture(myTexture);
-            x = x + Math.sin(entity.boxYaw / 20) / 10;
-            z = z + Math.cos(entity.boxYaw / 20) / 10;
-            y = y + Math.sin(entity.boxYaw / 10) / 10;
+            x = x + Math.sin(this.entity.boxYaw / 20) / 10;
+            z = z + Math.cos(this.entity.boxYaw / 20) / 10;
+            y = y + Math.sin(this.entity.boxYaw / 10) / 10;
             GL11.glPushMatrix();
             GL11.glTranslatef((float) x + 0.5f, (float) y + 1.5f, (float) z + 0.5f);
-            GL11.glRotatef(entity.boxYaw, 0, 1, 0);
+            GL11.glRotatef(this.entity.boxYaw, 0, 1, 0);
             GL11.glScalef(0.5f, 0.5f, 0.5f);
-            modelBox.render(entity, 0f, 0f, 0f, 0f, 0f, 0f); // no idea what the parms do :-)
+            modelBox.render(this.entity, 0f, 0f, 0f, 0f, 0f, 0f); // no idea what the parms do :-)
             GL11.glPopMatrix();
 
-            if (entity.theFolk == null) {
-                entity.theFolk = EntityConBox.getFolk(new V3(entity.posX, entity.posY, entity.posZ, entity.dimension));
+            if (this.entity.theFolk == null) {
+                this.entity.theFolk = EntityConBox.getFolk(new V3(this.entity.posX, this.entity.posY, this.entity.posZ, this.entity.dimension));
             }
 
-            if (entity.theFolk != null) {
+            if (this.entity.theFolk != null) {
                 if (displayBox) {
-                    if (entity.theFolk.theBuilding != null) {
-                        if (entity.theFolk.theBuilding.requirements != null && entity.theFolk.theBuilding.requirements.size() > 0) {
+                    if (this.entity.theFolk.theBuilding != null) {
+                        if (this.entity.theFolk.theBuilding.requirements != null && this.entity.theFolk.theBuilding.requirements.size() > 0) {
                             if (actualCount == -1) {
                                 actualCount = 0;
-                                for (Map.Entry pairs : entity.theFolk.theBuilding.requirements.entrySet()) {
+                                for (Map.Entry pairs : this.entity.theFolk.theBuilding.requirements.entrySet()) {
 
                                     if (pairs.getKey() != null) {
                                         actualCount++;
@@ -71,12 +71,12 @@ public class RenderConBox extends Render<EntityConBox> {
 
                             float offset = (actualCount * 0.2f) + 2.5f;
                             //所需的块
-                            displayText(I18n.format("container.sim.render_1") + entity.theFolk.theBuilding.displayNameWithoutPK, 0.02F, (float) x + 1, (float) y
+                            displayText(I18n.format("container.sim.render_1") + this.entity.theFolk.theBuilding.displayNameWithoutPK, 0.02F, (float) x + 1, (float) y
                                     + offset, (float) z, 0xEFFFEF);
                             //offset-=0.2f;
 
                             try {
-                                for (Map.Entry pairs : entity.theFolk.theBuilding.requirements.entrySet()) {
+                                for (Map.Entry pairs : this.entity.theFolk.theBuilding.requirements.entrySet()) {
                                     try {
                                         if (pairs.getValue() != null) {
                                             String st = pairs.getValue().toString();
@@ -122,13 +122,13 @@ public class RenderConBox extends Render<EntityConBox> {
                                     }
                                 }
                             } catch (Exception e) {
-                                if (entity != null) {
-                                    entity.setDead();
+                                if (this.entity != null) {
+                                    this.entity.setDead();
                                     return;
                                 } // random NPE, no pattern yet
                             }
                         } else {
-                            if (entity.theFolk.theBuilding.buildingComplete) {
+                            if (this.entity.theFolk.theBuilding.buildingComplete) {
                                 displayText(I18n.format("container.sim.render_Building_complete"), 0.02F, (float) x + 1, (float) y + 2, (float) z, 0xAFFFAF);
                             } else {
                                 displayText(I18n.format("container.sim.render_No_further_requirements"), 0.02F, (float) x + 1, (float) y + 2, (float) z, 0xAFFFAF);
@@ -145,7 +145,7 @@ public class RenderConBox extends Render<EntityConBox> {
 
     private void displayText(String theString, float scale, float xpos, float ypos, float zpos, int col) {
         try {
-            double dist = entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
+            double dist = this.entity.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
             if (dist > 15) {
                 return;
             }
@@ -175,7 +175,7 @@ public class RenderConBox extends Render<EntityConBox> {
 
     @Override
     protected ResourceLocation getEntityTexture(EntityConBox entity) {
-        if (entity instanceof EntityConBox) {
+        if (this.entity instanceof EntityConBox) {
             return myTexture;
         } else {
             return null;

@@ -309,11 +309,11 @@ public class GuiBuildingConstructor extends GuiScreen {
                                     //木板
                                     itemName = I18n.format("container.sim.sim_gui_BC12");
                                 }
-                                //玻璃
+                               /* //玻璃
                                 if (itemName.toLowerCase().contains(I18n.format("container.sim.Merchant20").toLowerCase())) {
                                     //玻璃
                                     itemName = I18n.format("container.sim.Merchant20");
-                                }
+                                }*/
                                 this.displayReq(itemName, (Integer) pairs.getValue(), y);
                                 y += 15;
                             }
@@ -399,7 +399,6 @@ public class GuiBuildingConstructor extends GuiScreen {
 
                 //员工
                 String w = I18n.format("container.sim.sim_gui_BC_worker");
-                ;
                 //如果工人为1
                 if (this.theWorkers.size() == 1) {
                     //获取员工名称

@@ -1096,7 +1096,7 @@ public class FolkData implements Serializable {
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                     Building building = ModSimReloaded.theBuildings.get(b);
                     if (building.tenants.size() == 0 && building.buildingComplete == true && building.type.contentEquals("residential")) {
-                        building.tenants.add(name);
+                        building.tenants.add(this.name);
                         this.action= FolkAction.GOINGHOME;
                         this.actionArrival = FolkAction.STAYINGHOME;
                         if (building.livingXYZ != null) {
@@ -2384,9 +2384,9 @@ public class FolkData implements Serializable {
                 } else if (vocation == Vocation.FISHERMAN) {
                     this.theirJob = new JobFisherman(this);
                     //路径生成器
-                } else if (vocation != Vocation.PATHBUILDER) {
+                } /*else if (vocation != Vocation.PATHBUILDER) {
                     //奶农
-                } else if (vocation == Vocation.DAIRYFARMER) {
+                }*/ else if (vocation == Vocation.DAIRYFARMER) {
                     this.theirJob = new JobDairyFarmer(this);
                     //奶酪制造商
                 } else if (vocation == Vocation.CHEESEMAKER) {

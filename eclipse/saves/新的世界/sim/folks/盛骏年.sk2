@@ -1,7 +1,7 @@
-employedat|null
-vocation|null
+employedat|-312.0,4.0,918.0,0
+vocation|BRICKMAKER
 name|盛骏年
-age|18
+age|20
 gender|0
 skin|61
 race|
@@ -9,12 +9,12 @@ trait1|勇敢的
 trait2|强壮的
 trait3|喜欢户外活动
 trait4|擅长园艺
-levelfood|9
-levelbuilder|1.3140147
+levelfood|10
+levelbuilder|1000.314
 levelminer|1.0
 levelsoldier|1.0
 stayput|false
-location|-253.68581851781894,4.875,958.6286291314069,0
+location|-311.1630800671793,6.0,917.5859500912851,0
 pregnancy|0.0
 building|null
 terraformtype|null

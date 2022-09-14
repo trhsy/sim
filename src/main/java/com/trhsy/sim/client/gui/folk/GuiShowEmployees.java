@@ -66,7 +66,7 @@ public class GuiShowEmployees extends GuiScreen {
             //取消
             this.buttonList.add(new GuiButton(0, 2, 12,50,20,I18n.format("container.sim.sim_gui_player_to_Cancel")));
             for (int f = this.folkOffset; f < this.folks.size(); f++) {
-                this.buttonList.add(new GuiButton(f, this.width - 55, y, 50, 20, I18n.format("container.sim.Fire")));
+                this.buttonList.add(new GuiButton(f+1, this.width - 55, y, 50, 20, I18n.format("container.sim.Fire")));
                 y += 20;
                 if (y + 20 > this.height - 50) {
                     more = true;
@@ -169,7 +169,7 @@ public class GuiShowEmployees extends GuiScreen {
                 this.folkOffset += this.folksOnAPage;
                 this.showPage();
             } else {
-                FolkData folk = (FolkData) this.folks.get(guibutton.id);
+                FolkData folk = (FolkData) this.folks.get(guibutton.id-1);
                 folk.selfFire();
                 guibutton.enabled = false;
             }

@@ -440,6 +440,7 @@ public class GuiControlBox extends GuiScreen {
                         }
                         //奶牛场
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Dairy_Farm"))) {
+                            //雇佣牛奶农
                             this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire12")));
                             if (this.employeeCount > 0) {
                                 b.enabled = false;

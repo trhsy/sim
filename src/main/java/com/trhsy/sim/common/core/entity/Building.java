@@ -491,7 +491,7 @@ public class Building implements Serializable {
                         || name.contains(stone)
                         || (name.contains(wood))) {
                     //名字不包含//板|门|楼梯|草
-                    if (/*!name.contains(slab) &&*/ !name.contains(door) && !name.contains(stairs) && !name.contains(grass)) {
+                    if (!name.contains(slab) && !name.contains(door) && !name.contains(stairs) && !name.contains(grass)) {
                         boolean got = false;
                         for (Map.Entry pairs : this.requirements.entrySet()) {
                             ItemStack is = (ItemStack) pairs.getKey();
