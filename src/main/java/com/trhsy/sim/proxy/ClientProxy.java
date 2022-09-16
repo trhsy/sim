@@ -1,6 +1,7 @@
 package com.trhsy.sim.proxy;
 
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.render.ItemRenderLoader;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

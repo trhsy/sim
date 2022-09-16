@@ -14,7 +14,7 @@ difficulty:0
 fancyGraphics:true
 ao:2
 renderClouds:true
-resourcePacks:[]
+resourcePacks:["mcmap.cc-[上帝光芒材质包][512x512].zip"]
 incompatibleResourcePacks:[]
 lastServer:
 lang:zh_CN
@@ -78,6 +78,12 @@ key_key.hotbar.6:7
 key_key.hotbar.7:8
 key_key.hotbar.8:9
 key_key.hotbar.9:10
+key_veinminer.key.enable:41
+key_key.jei.toggleOverlay:24:CONTROL
+key_key.jei.focusSearch:33:CONTROL
+key_key.jei.showRecipe:19
+key_key.jei.showUses:22
+key_key.jei.recipeBack:14
 soundCategory_master:1.0
 soundCategory_music:1.0
 soundCategory_record:1.0

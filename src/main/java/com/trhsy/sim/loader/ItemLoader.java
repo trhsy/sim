@@ -1,9 +1,12 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.item.granules.ItemGranulesCopper;
 import com.trhsy.sim.util.Util;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -39,6 +42,7 @@ public class ItemLoader {
      */
     private static void register(Item item, String name) {
         try {
+            //GameRegistry.registerItem(item.setRegistryName(name));
             GameRegistry.register(item.setRegistryName(name));
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-register出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -65,7 +69,8 @@ public class ItemLoader {
         /**ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
          ModelLoader.setCustomModelResourceLocation(item, 0, model);**/
         try {
-            registerRender(item, 0, item.getRegistryName().getResourceDomain());
+            ResourceLocation resourceLocation=item.getRegistryName();
+            registerRender(item, 0, resourceLocation.getResourcePath());
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-registerRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -74,7 +79,8 @@ public class ItemLoader {
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item,int meta,String name) {
         try {
-            ModelResourceLocation model = new ModelResourceLocation(name, "inventory");
+            ResourceLocation resourcelocation = new ResourceLocation(ModSim.MODID,name);
+            ModelResourceLocation model = new ModelResourceLocation(resourcelocation, "inventory");
             ModelLoader.setCustomModelResourceLocation(item, meta, model);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-registerRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());

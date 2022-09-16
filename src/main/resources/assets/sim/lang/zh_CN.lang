@@ -1,10 +1,9 @@
 container.sim.title=丨 模拟城市 丨 官方Q群: 749090174  丨 由TRHSY重制 丨 微信公众号：dasha500
 configgui.title=模拟城市配置
 tile.cheeseBlock.name=奶酪块
-tile.constructorBox.name=建筑盒
-tile.block_control_box.top.name=控制箱
-tile.block_control_box.atm.name=银行控制箱
-tile.block_control_box.other.name=其他控制箱
+tile.controlBoxTop.name=建筑盒
+tile.controlBoxAtm.name=银行控制箱
+tile.controlBoxOther.name=其他控制箱
 tile.city_box.name=城市箱
 tile.farmingBox.name=养殖箱
 fluid.fluidMilk=液体奶

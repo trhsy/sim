@@ -1,10 +1,9 @@
 container.sim.title=Simulated town
 configgui.title=sim config gui
 tile.cheeseBlock.name=cheese block
-tile.constructorBox.name=constructor box
-tile.block_control_box.top.name=control box
-tile.block_control_box.atm.name=ATM control box
-tile.block_control_box.other.name=other control box
+tile.controlBoxTop.name=control box
+tile.controlBoxAtm.name=ATM control box
+tile.controlBoxOther.name=other control box
 tile.city_box.name=city box
 tile.farmingBox.name=farming box
 fluid.fluidMilk=fluid Milk
