@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "sim:blocks/light/block_light_white"
+    "all": "sim:blocks/light/block_light_red"
   }
 }
