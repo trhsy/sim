@@ -1,50 +1,49 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "transform":"forge:default-block",
-    "model": "sim:block_light_box",
+    "model": "cube_all",
     "textures": {
       "all": "sim:blocks/light/block_light_white"
     }
   },
   "variants": {
-    "type": {
-      "white": {
+    "color": {
+      "0": {
         "textures": {
           "all": "sim:blocks/light/block_light_white"
         }
       },
-      "red": {
+      "1": {
         "textures": {
           "all": "sim:blocks/light/block_light_red"
         }
       },
-      "orange": {
+      "2": {
         "textures": {
           "all": "sim:blocks/light/block_light_orange"
         }
       },
-      "yellow": {
+      "3": {
         "textures": {
           "all": "sim:blocks/light/block_light_yellow"
         }
       },
-      "green": {
+      "4": {
         "textures": {
           "all": "sim:blocks/light/block_light_green"
         }
       },
-      "blue": {
+      "5": {
         "textures": {
           "all": "sim:blocks/light/block_light_blue"
         }
       },
-      "purple": {
+      "6": {
         "textures": {
           "all": "sim:blocks/light/block_light_purple"
         }
       },
-      "rainbow": {
+      "7": {
         "textures": {
           "all": "sim:blocks/light/block_light_rainbow"
         }

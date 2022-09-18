@@ -1,10 +1,8 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.block.BlockLightBox;
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.block.BlockCheese;
-import com.trhsy.sim.block.BlockCompositeBrick;
-import com.trhsy.sim.block.BlockConstructorBox;
-import com.trhsy.sim.block.BlockControlBox;
+import com.trhsy.sim.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -36,11 +34,19 @@ public class BlockLoader {
     /**
      * 住宅控制箱
      */
-    public static Block blockControlBox=new BlockControlBox(Material.wood);
+    public static Block blockControlBox=new BlockControlTopBox(Material.wood);
+    /**银行控制箱**/
+    public static Block blockControlAtmBox=new BlockControlAtmBox(Material.wood);
+    /**其他控制箱**/
+    public static Block blockControlOtherBox=new BlockControlOtherBox(Material.wood);
+    /**铜块**/
+    public static Block blockCopper=new BlockCopper(Material.iron);
+    /**铜矿**/
+    public static Block blockCopperOre=new BlockCopperOre();
+    /**灯箱**/
+    public static Block blockLightBox=new BlockLightBox(Material.wood);
 
-    public static void register(IForgeRegistry<Block> registry) {
-        registry.register(blockConstructorBox);
-    }
+
 
     /**
      * 加载方块
@@ -55,7 +61,19 @@ public class BlockLoader {
             register(blockCheese, "block_cheese");
             /**复合砖**/
             register(blockCompositeBrick, "block_composite_brick");
+            /**住宅控制箱**/
             register(blockControlBox, "block_control_box_top");
+            /**银行控制箱**/
+            register(blockControlAtmBox, "block_control_box_atm");
+            /**其他控制箱**/
+            register(blockControlOtherBox, "block_control_box_other");
+            /**铜块**/
+            register(blockCopper, "block_copper");
+            /**铜矿**/
+            register(blockCopperOre, "block_copper_ore");
+            /**灯箱**/
+            register(blockLightBox, "block_light_box");
+
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -82,10 +100,27 @@ public class BlockLoader {
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
         try {
+            /**建筑盒**/
             registerRender(blockConstructorBox);
+            /**奶酪块**/
             registerRender(blockCheese);
+            /**复合砖**/
             registerRender(blockCompositeBrick);
+            /**住宅控制箱**/
             registerRender(blockControlBox);
+            /**银行控制箱**/
+            registerRender(blockControlAtmBox);
+            /**其他控制箱**/
+            registerRender(blockControlOtherBox);
+            /**铜块**/
+            registerRender(blockCopper);
+            /**铜矿**/
+            registerRender(blockCopperOre);
+            /**灯箱**/
+            for(int i = 0; i < 8; ++i) {
+            registerRender(blockLightBox,i,"block_light_box");
+            }
+
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -127,7 +162,12 @@ public class BlockLoader {
     private static void registerRender(Block block, int meta, String name) {
         try {
             ResourceLocation resourcelocation = new ResourceLocation(ModSim.MODID,name);
+
             ModelResourceLocation model = new ModelResourceLocation(resourcelocation, "inventory");
+            if(name.contains("block_light_box")){
+                resourcelocation = new ResourceLocation(ModSim.MODID,name+meta);
+                model = new ModelResourceLocation(resourcelocation, "color=" + meta );
+            }
             Item item=Item.getItemFromBlock(block);
             ModelLoader.setCustomModelResourceLocation(item, meta, model);
         } catch (Exception e) {

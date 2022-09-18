@@ -8,13 +8,13 @@ import net.minecraft.block.material.Material;
 import java.util.Random;
 
 /**
- * 住宅控制箱
+ * 银行控制箱
  * @author Administrator
  */
-public class BlockControlBox extends BlockBase {
+public class BlockControlAtmBox extends BlockBase {
 
-    public BlockControlBox(Material material) {
-        super(material,"controlBox");
+    public BlockControlAtmBox(Material material) {
+        super(material,"controlBoxAtm");
         this.setStepSound(SoundType.WOOD);
         this.setHardness(10.0F);
         this.setResistance(1);

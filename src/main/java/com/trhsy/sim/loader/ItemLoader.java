@@ -1,6 +1,7 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.item.ItemLightBlock;
 import com.trhsy.sim.item.granules.ItemGranulesCopper;
 import com.trhsy.sim.util.Util;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -21,6 +22,8 @@ import java.util.Locale;
 public class ItemLoader {
     /**铜粒儿**/
     public static Item itemGranulesCopper=new ItemGranulesCopper();
+    /**灯箱**/
+    public static Item itemLightBlock=new ItemLightBlock(BlockLoader.blockLightBox);
     /**
      * 加载物品
      *
@@ -30,6 +33,7 @@ public class ItemLoader {
         try {
             /**铜粒儿**/
             register(itemGranulesCopper, "item_granules_copper");
+//            register(itemLightBlock, "block_light_box");
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -60,6 +64,10 @@ public class ItemLoader {
         try {
             /**铜粒儿**/
             registerRender(itemGranulesCopper);
+            for (int i=0;i<8;i++){
+                registerRender(itemLightBlock, i,"block_light_box");
+            }
+
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
