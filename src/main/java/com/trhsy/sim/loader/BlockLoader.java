@@ -3,6 +3,9 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.block.BlockLightBox;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.*;
+import com.trhsy.sim.util.EnumBlock;
+import com.trhsy.sim.util.ItemBlockMeta;
+import com.trhsy.sim.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -16,6 +19,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Locale;
 
 
 public class BlockLoader {
@@ -44,7 +49,7 @@ public class BlockLoader {
     /**铜矿**/
     public static Block blockCopperOre=new BlockCopperOre();
     /**灯箱**/
-    public static Block blockLightBox=new BlockLightBox(Material.wood);
+    public static Block blockLightBox;
 
 
 
@@ -72,7 +77,9 @@ public class BlockLoader {
             /**铜矿**/
             register(blockCopperOre, "block_copper_ore");
             /**灯箱**/
-            register(blockLightBox, "block_light_box");
+            blockLightBox=registerEnumBlock(new BlockLightBox(), ModSim.MODID+":block_light_box");
+            ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.COLOR);
+
 
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -93,6 +100,24 @@ public class BlockLoader {
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-register出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
+    }
+    protected static <T extends EnumBlock<?>> T registerEnumBlock(T block, String name) {
+        try {
+            registers(block, ItemBlockMeta.class, name);
+            ItemBlockMeta.setMappingProperty(block, block.prop);
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerEnumBlock出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+        return block;
+    }
+    protected static <T extends Block> T registers(T block, Class<? extends ItemBlock> itemBlockClazz, String name, Object... itemCtorArgs) {
+        try {
+                block.setRegistryName(name);
+                GameRegistry.registerBlock(block, itemBlockClazz, name, itemCtorArgs);
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registers出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+        return block;
     }
     /**
      * 添加模型
@@ -118,7 +143,7 @@ public class BlockLoader {
             registerRender(blockCopperOre);
             /**灯箱**/
             for(int i = 0; i < 8; ++i) {
-            registerRender(blockLightBox,i,"block_light_box");
+            registerRender(blockLightBox,i,"block_light_box"+i);
             }
 
         }catch (Exception e){
@@ -164,10 +189,10 @@ public class BlockLoader {
             ResourceLocation resourcelocation = new ResourceLocation(ModSim.MODID,name);
 
             ModelResourceLocation model = new ModelResourceLocation(resourcelocation, "inventory");
-            if(name.contains("block_light_box")){
-                resourcelocation = new ResourceLocation(ModSim.MODID,name+meta);
-                model = new ModelResourceLocation(resourcelocation, "color=" + meta );
-            }
+            //if(name.contains("block_light_box")){
+            //    resourcelocation = new ResourceLocation(ModSim.MODID,name);
+            //    model = new ModelResourceLocation(resourcelocation, "color=" + meta );
+            //}
             Item item=Item.getItemFromBlock(block);
             ModelLoader.setCustomModelResourceLocation(item, meta, model);
         } catch (Exception e) {

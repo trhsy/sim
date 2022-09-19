@@ -8,42 +8,42 @@
   },
   "variants": {
     "color": {
-      "0": {
+      "white": {
         "textures": {
           "all": "sim:blocks/light/block_light_white"
         }
       },
-      "1": {
+      "red": {
         "textures": {
           "all": "sim:blocks/light/block_light_red"
         }
       },
-      "2": {
+      "orange": {
         "textures": {
           "all": "sim:blocks/light/block_light_orange"
         }
       },
-      "3": {
+      "yellow": {
         "textures": {
           "all": "sim:blocks/light/block_light_yellow"
         }
       },
-      "4": {
+      "green": {
         "textures": {
           "all": "sim:blocks/light/block_light_green"
         }
       },
-      "5": {
+      "blue": {
         "textures": {
           "all": "sim:blocks/light/block_light_blue"
         }
       },
-      "6": {
+      "purple": {
         "textures": {
           "all": "sim:blocks/light/block_light_purple"
         }
       },
-      "7": {
+      "rainbow": {
         "textures": {
           "all": "sim:blocks/light/block_light_rainbow"
         }
