@@ -51,7 +51,14 @@ public class BlockLoader {
     /**灯箱**/
     public static Block blockLightBox;
 
-
+    /**地毯**/
+    public static Block blockLiving;
+    /**标记棒**/
+    public static Block blockMarker=new BlockMarker(Material.wood);
+    /**挖矿箱**/
+    public static Block blockMiningBox=new BlockMiningBox(Material.wood);
+    /**路径箱**/
+    public static Block blockPathBox=new BlockPathBox(Material.wood);
 
     /**
      * 加载方块
@@ -76,10 +83,18 @@ public class BlockLoader {
             register(blockCopper, "block_copper");
             /**铜矿**/
             register(blockCopperOre, "block_copper_ore");
+            /**标记棒**/
+            register(blockMarker, "block_marker");
+            /**挖矿箱**/
+            register(blockMiningBox, "block_mining_box");
+            /**路径箱**/
+            register(blockMiningBox, "block_path_box");
             /**灯箱**/
             blockLightBox=registerEnumBlock(new BlockLightBox(), ModSim.MODID+":block_light_box");
             ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.COLOR);
-
+            /**毛毯，生活区，夜晚移动**/
+            blockLiving=registerEnumBlock(new BlockLiving(), ModSim.MODID+":block_living");
+            ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
 
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -145,7 +160,16 @@ public class BlockLoader {
             for(int i = 0; i < 8; ++i) {
             registerRender(blockLightBox,i,"block_light_box"+i);
             }
-
+            /**地毯**/
+            for(int i = 0; i < 16; ++i) {
+                registerRender(blockLiving,i,"block_living"+i);
+            }
+            /**标记棒**/
+            registerRender(blockMarker);
+            /**采矿箱**/
+            registerRender(blockMiningBox);
+            /**路径箱**/
+            registerRender(blockMiningBox);
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
