@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 
 /**
  * 复合砖
- * @author Administrator
+ * @author Trhsy
  */
 public class BlockCompositeBrick extends BlockBase {
     public BlockCompositeBrick(Material materialIn) {

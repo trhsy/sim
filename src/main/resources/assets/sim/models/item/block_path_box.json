@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/block_city_box",
+  "parent": "sim:block/block_path_box",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

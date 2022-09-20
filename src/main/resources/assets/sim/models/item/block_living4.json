@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/block_living_light_blue",
+  "parent": "sim:block/block_living_yellow",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

@@ -36,18 +36,17 @@ public class BlockLoader {
      * 复合砖块
      */
     public static Block blockCompositeBrick=new BlockCompositeBrick(Material.rock);
-    /**
-     * 住宅控制箱
-     */
-    public static Block blockControlBox=new BlockControlTopBox(Material.wood);
-    /**银行控制箱**/
-    public static Block blockControlAtmBox=new BlockControlAtmBox(Material.wood);
-    /**其他控制箱**/
-    public static Block blockControlOtherBox=new BlockControlOtherBox(Material.wood);
+    /**控制箱***/
+    public static Block blockControlBox;
+
     /**铜块**/
     public static Block blockCopper=new BlockCopper(Material.iron);
     /**铜矿**/
     public static Block blockCopperOre=new BlockCopperOre();
+    /**锡块**/
+    public static Block blockTin=new BlockTin(Material.iron);
+    /**锡矿**/
+    public static Block blockTinOre=new BlockTinOre();
     /**灯箱**/
     public static Block blockLightBox;
 
@@ -59,6 +58,10 @@ public class BlockLoader {
     public static Block blockMiningBox=new BlockMiningBox(Material.wood);
     /**路径箱**/
     public static Block blockPathBox=new BlockPathBox(Material.wood);
+    /**路径箱**/
+    public static Block blockSpecial=new BlockSpecial();
+    /**风车**/
+    public static Block blockWindmill=new BlockWindmill(Material.wood);
 
     /**
      * 加载方块
@@ -73,22 +76,30 @@ public class BlockLoader {
             register(blockCheese, "block_cheese");
             /**复合砖**/
             register(blockCompositeBrick, "block_composite_brick");
-            /**住宅控制箱**/
-            register(blockControlBox, "block_control_box_top");
-            /**银行控制箱**/
-            register(blockControlAtmBox, "block_control_box_atm");
-            /**其他控制箱**/
-            register(blockControlOtherBox, "block_control_box_other");
+            /**控制箱**/
+            blockControlBox=registerEnumBlock(new BlockControlBox(), ModSim.MODID+":block_control_box");
+            ItemBlockMeta.setMappingProperty(blockControlBox,BlockControlBox.TYPE);
+
             /**铜块**/
             register(blockCopper, "block_copper");
             /**铜矿**/
             register(blockCopperOre, "block_copper_ore");
+            /**锡块**/
+            register(blockTin, "block_tin");
+            /**锡矿**/
+            register(blockTinOre, "block_tin_ore");
             /**标记棒**/
             register(blockMarker, "block_marker");
             /**挖矿箱**/
             register(blockMiningBox, "block_mining_box");
             /**路径箱**/
-            register(blockMiningBox, "block_path_box");
+            register(blockPathBox, "block_path_box");
+            /**特制方块空气**/
+            register(blockSpecial, "block_special");
+
+            /**风车**/
+            register(blockWindmill, "block_windmill");
+
             /**灯箱**/
             blockLightBox=registerEnumBlock(new BlockLightBox(), ModSim.MODID+":block_light_box");
             ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.COLOR);
@@ -146,12 +157,16 @@ public class BlockLoader {
             registerRender(blockCheese);
             /**复合砖**/
             registerRender(blockCompositeBrick);
-            /**住宅控制箱**/
-            registerRender(blockControlBox);
-            /**银行控制箱**/
-            registerRender(blockControlAtmBox);
-            /**其他控制箱**/
-            registerRender(blockControlOtherBox);
+            for (int i = 0; i < 3; i++) {
+                /**控制箱**/
+                registerRender(blockControlBox,i,"block_control_box"+i);
+            }
+            ///**住宅控制箱**/
+            //registerRender(blockControlBox);
+            ///**银行控制箱**/
+            //registerRender(blockControlAtmBox);
+            ///**其他控制箱**/
+            //registerRender(blockControlOtherBox);
             /**铜块**/
             registerRender(blockCopper);
             /**铜矿**/
@@ -169,7 +184,15 @@ public class BlockLoader {
             /**采矿箱**/
             registerRender(blockMiningBox);
             /**路径箱**/
-            registerRender(blockMiningBox);
+            registerRender(blockPathBox);
+            /**风车**/
+            registerRender(blockWindmill);
+            /**空气**/
+            registerRender(blockSpecial);
+            /**锡块**/
+            registerRender(blockTin);
+            /**锡矿**/
+            registerRender(blockTinOre);
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

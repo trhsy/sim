@@ -26,6 +26,8 @@ public class BlockMarker extends BlockBase{
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }
+
+    @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return CARPET_AABB;
@@ -33,11 +35,12 @@ public class BlockMarker extends BlockBase{
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
+    @Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
-
+    @Override
     public boolean isFullCube(IBlockState state)
     {
         return false;

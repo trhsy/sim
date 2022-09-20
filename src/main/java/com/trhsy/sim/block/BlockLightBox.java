@@ -1,27 +1,20 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.block.BlockBase;
 import com.trhsy.sim.block.enums.EnumLightColour;
-import com.trhsy.sim.item.ItemLightBlock;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.util.EnumBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

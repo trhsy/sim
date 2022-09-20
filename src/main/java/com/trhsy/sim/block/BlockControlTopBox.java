@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * 住宅控制箱
- * @author Administrator
+ * @author Trhsy
  */
 public class BlockControlTopBox extends BlockBase {
 

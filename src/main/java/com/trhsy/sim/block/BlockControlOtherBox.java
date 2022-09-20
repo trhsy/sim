@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * 其他控制箱
- * @author Administrator
+ * @author Trhsy
  */
 public class BlockControlOtherBox extends BlockBase {
 

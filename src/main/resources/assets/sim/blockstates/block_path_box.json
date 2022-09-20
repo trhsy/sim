@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "sim:block_path_box"
+    }
+  }
+}

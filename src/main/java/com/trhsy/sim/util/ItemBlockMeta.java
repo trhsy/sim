@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import java.util.Locale;
 
 /**
- * @author Administrator
+ * @author Trhsy
  */
 public class ItemBlockMeta extends ItemColored {
     protected IProperty mappingProperty;

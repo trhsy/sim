@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * 银行控制箱
- * @author Administrator
+ * @author Trhsy
  */
 public class BlockControlAtmBox extends BlockBase {
 

@@ -22,6 +22,7 @@
         }
       },
       "atm": {
+        "model": "sim:block_control_box",
         "textures": {
           "top": "sim:blocks/control/block_control_box_atm",
           "front": "sim:blocks/control/block_control_box_atm",
@@ -30,6 +31,7 @@
         }
       },
       "other": {
+        "model": "sim:block_control_box",
         "textures": {
           "top": "sim:blocks/control/block_control_box_other",
           "front": "sim:blocks/control/block_control_box_other",

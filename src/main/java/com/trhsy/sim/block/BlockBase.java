@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 
 /**
  * 创建块的基础
- * @author Administrator
+ * @author Trhsy
  */
 public class BlockBase extends Block {
     /**
