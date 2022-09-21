@@ -29,11 +29,11 @@ public class FluidLoader {
     /**
      * 流体牛奶
      **/
-    public static Fluid fluidMilk = new FluidMilk();
+    public static Fluid fluidMilk = new FluidMilk().setBlock(BlockLoader.fluidMilk).setUnlocalizedName(BlockLoader.fluidMilk.getUnlocalizedName());
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
         try {
-            registerFluidRender(BlockLoader.fluidMilk, "fluid_milk");
+//            registerFluidRender(, "fluid_milk");
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

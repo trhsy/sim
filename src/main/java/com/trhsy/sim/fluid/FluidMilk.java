@@ -2,7 +2,9 @@ package com.trhsy.sim.fluid;
 
 import com.trhsy.sim.ModSim;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 /**
  * @author Trhsy
@@ -23,6 +25,10 @@ public class FluidMilk extends Fluid {
         this.setLuminosity(0);//用于设置这个流体的亮度，也就是在Minecraft中的亮度，默认为水的亮度，也就是0
         this.setTemperature(300);//用于设置这个流体的温度，使用热力学温标，也就是开尔文，默认为室温，也就是300
         //FluidRegistry.registerFluid(this);
+    }
+    @Override
+    public String getLocalizedName(FluidStack fs) {
+        return I18n.translateToLocal("tile.fluidMilk.name");
     }
 
 }

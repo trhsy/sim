@@ -110,7 +110,7 @@ public class BlockLoader {
             blockLiving=registerEnumBlock(new BlockLiving(), ModSim.MODID+":block_living");
             ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
             /**流体牛奶**/
-            register(fluidMilk, "fluid_milk");
+//            register(fluidMilk, "fluid_milk");
 
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -199,7 +199,7 @@ public class BlockLoader {
             /**锡矿**/
             registerRender(blockTinOre);
             /**牛奶块**/
-            registerRender(fluidMilk);
+//            registerRender(fluidMilk);
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
