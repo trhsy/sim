@@ -11,19 +11,17 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Set;
 
 /**
  * @author Trhsy
  * @Package: com.trhsy.sim.item.tool
- * @ClassName: ItemCopperAxe
- * @Description: 铜斧子
- * @date 2022/9/20 0020 下午 8:25
+ * @ClassName: ItemTinAxe
+ * @Description: 锡斧子
+ * @date 2022/9/21 0021 上午 9:00
  */
-public class ItemCopperAxe extends ItemTool {
+public class ItemTinAxe extends ItemTool {
     /**
      * @Author fan
      * @Description //TODO 枚举 WOOD，STONE，IRON，EMERALD，GOLD
@@ -42,17 +40,19 @@ public class ItemCopperAxe extends ItemTool {
      * @Param
      * @return
      **/
-    public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 500, 16.0F, 4.0F, 22);
+    public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("TIN", 3, 500, 16.0F, 4.0F, 22);
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] {Blocks.planks, Blocks.bookshelf, Blocks.log, Blocks.log2, Blocks.chest, Blocks.pumpkin, Blocks.lit_pumpkin, Blocks.melon_block, Blocks.ladder, Blocks.wooden_button, Blocks.wooden_pressure_plate});
-    private static final float[] ATTACK_DAMAGES = new float[] {6.0F, 8.0F, 8.0F, 8.0F, 6.0F};
-    private static final float[] ATTACK_SPEEDS = new float[] { -3.2F, -3.2F, -3.1F, -3.0F, -3.0F};
-    public ItemCopperAxe() {
+    private static final float[] ATTACK_DAMAGES = new float[]{6.0F, 8.0F, 8.0F, 8.0F, 6.0F};
+    private static final float[] ATTACK_SPEEDS = new float[]{-3.2F, -3.2F, -3.1F, -3.0F, -3.0F};
+
+    public ItemTinAxe() {
         super(REDSTONE,EFFECTIVE_ON);
-        this.damageVsEntity=ATTACK_DAMAGES[3];
+        this.damageVsEntity = ATTACK_DAMAGES[3];
         this.attackSpeed = ATTACK_SPEEDS[3];
-        this.setUnlocalizedName("copperAxe");
+        this.setUnlocalizedName("tinAxe");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
     @Override
     public float getStrVsBlock(ItemStack stack, IBlockState state) {
         Material material = state.getMaterial();
@@ -68,15 +68,5 @@ public class ItemCopperAxe extends ItemTool {
             return true;
         }
         return super.getIsRepairable(toRepair, repair);
-    }
-    /**
-     * 3D渲染
-     * @return
-     */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean isFull3D()
-    {
-        return true;
     }
 }

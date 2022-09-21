@@ -1,9 +1,6 @@
 package com.trhsy.sim.proxy;
 
-import com.trhsy.sim.loader.BlockLoader;
-import com.trhsy.sim.loader.CreativeTabsLoader;
-import com.trhsy.sim.loader.ItemLoader;
-import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -22,6 +19,9 @@ public class CommonProxy {
         new ItemLoader(event);
         /**方块加载注册**/
         new BlockLoader(event);
+        /**流体加载注册**/
+        new FluidLoader(event);
+
         /**方块对应物品的渲染**/
         new ItemRenderLoader();
     }

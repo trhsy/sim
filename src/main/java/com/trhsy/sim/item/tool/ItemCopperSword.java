@@ -1,29 +1,21 @@
 package com.trhsy.sim.item.tool;
 
-import com.google.common.collect.Sets;
 import com.trhsy.sim.loader.CreativeTabsLoader;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.ItemSword;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Set;
-
 /**
  * @author Trhsy
  * @Package: com.trhsy.sim.item.tool
- * @ClassName: ItemCopperAxe
- * @Description: 铜斧子
- * @date 2022/9/20 0020 下午 8:25
+ * @ClassName: ItemCopperSword
+ * @Description: 铜剑
+ * @date 2022/9/21 0021 上午 9:00
  */
-public class ItemCopperAxe extends ItemTool {
+public class ItemCopperSword extends ItemSword {
     /**
      * @Author fan
      * @Description //TODO 枚举 WOOD，STONE，IRON，EMERALD，GOLD
@@ -43,21 +35,13 @@ public class ItemCopperAxe extends ItemTool {
      * @return
      **/
     public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 500, 16.0F, 4.0F, 22);
-    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] {Blocks.planks, Blocks.bookshelf, Blocks.log, Blocks.log2, Blocks.chest, Blocks.pumpkin, Blocks.lit_pumpkin, Blocks.melon_block, Blocks.ladder, Blocks.wooden_button, Blocks.wooden_pressure_plate});
-    private static final float[] ATTACK_DAMAGES = new float[] {6.0F, 8.0F, 8.0F, 8.0F, 6.0F};
-    private static final float[] ATTACK_SPEEDS = new float[] { -3.2F, -3.2F, -3.1F, -3.0F, -3.0F};
-    public ItemCopperAxe() {
-        super(REDSTONE,EFFECTIVE_ON);
-        this.damageVsEntity=ATTACK_DAMAGES[3];
-        this.attackSpeed = ATTACK_SPEEDS[3];
-        this.setUnlocalizedName("copperAxe");
+
+    public ItemCopperSword() {
+        super(REDSTONE);
+        this.setUnlocalizedName("copperSword");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
-    @Override
-    public float getStrVsBlock(ItemStack stack, IBlockState state) {
-        Material material = state.getMaterial();
-        return material != Material.wood && material != Material.plants && material != Material.vine ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
-    }
+
     /**
      * Return whether this item is repairable in an anvil.
      */

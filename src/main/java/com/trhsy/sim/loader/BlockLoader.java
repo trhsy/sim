@@ -7,6 +7,7 @@ import com.trhsy.sim.util.EnumBlock;
 import com.trhsy.sim.util.ItemBlockMeta;
 import com.trhsy.sim.util.Util;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
@@ -62,6 +63,8 @@ public class BlockLoader {
     public static Block blockSpecial=new BlockSpecial();
     /**风车**/
     public static Block blockWindmill=new BlockWindmill(Material.wood);
+    /**静态牛奶块***/
+    public static BlockStaticLiquid fluidMilk= new BlockFluidMilk(Material.water);
 
     /**
      * 加载方块
@@ -106,6 +109,8 @@ public class BlockLoader {
             /**毛毯，生活区，夜晚移动**/
             blockLiving=registerEnumBlock(new BlockLiving(), ModSim.MODID+":block_living");
             ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
+            /**流体牛奶**/
+            register(fluidMilk, "fluid_milk");
 
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -193,6 +198,8 @@ public class BlockLoader {
             registerRender(blockTin);
             /**锡矿**/
             registerRender(blockTinOre);
+            /**牛奶块**/
+            registerRender(fluidMilk);
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

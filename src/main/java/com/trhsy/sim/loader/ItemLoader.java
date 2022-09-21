@@ -11,6 +11,7 @@ import com.trhsy.sim.item.food.ItemCheese;
 import com.trhsy.sim.item.food.ItemCheeseburger;
 import com.trhsy.sim.item.food.ItemFries;
 import com.trhsy.sim.item.granules.*;
+import com.trhsy.sim.item.tool.*;
 import com.trhsy.sim.util.Util;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.*;
@@ -56,17 +57,16 @@ public class ItemLoader {
     /**奶酪汉堡**/
     public static ItemFood itemCheeseburger=new ItemCheeseburger();
 
-
-  /*  *//**铜镐**//*
+    /**铜斧子**/
+    public static Item copperAxe = new ItemCopperAxe();
+    /**铜镐**/
     public static ItemPickaxe copperPickaxe = new ItemCopperPickaxe();
-    *//**铜锄头**//*
+    /**铜锄头**/
     public static ItemHoe copperHoe = new ItemCopperHoe();
-    *//**铜斧子**//*
-    public static ItemAxe copperAxe = new ItemCopperAxe();
-    *//**铜锹**//*
+    /**铜锹**/
     public static ItemSpade copperSpade = new ItemCopperSpade();
-    *//**铜剑**//*
-    public static ItemSword copperSword = new ItemCopperSword();*/
+    /**铜剑**/
+    public static ItemSword copperSword = new ItemCopperSword();
     /**铜头盔**/
     public static ItemArmor copperHelmet = new ItemCopperArmor.Helmet();
     /**铜甲**/
@@ -77,16 +77,16 @@ public class ItemLoader {
     public static ItemArmor copperBoots = new ItemCopperArmor.Boots();
 
 
-   /* *//**锡镐**//*
+   /**锡镐**/
     public static ItemPickaxe tinPickaxe = new ItemTinPickaxe();
-    *//**锡锄头**//*
+    /**锡锄头**/
     public static ItemHoe tinHoe = new ItemTinHoe();
-    *//**锡斧子**//*
-    public static ItemAxe tinAxe = new ItemTinAxe();
-    *//**锡锹**//*
+   /**锡斧子**/
+    public static Item tinAxe = new ItemTinAxe();
+    /**锡锹**/
     public static ItemSpade tinSpade = new ItemTinSpade();
-    *//**锡剑**//*
-    public static ItemSword tinSword = new ItemTinSword();*/
+    /**锡剑**/
+    public static ItemSword tinSword = new ItemTinSword();
     /**锡头盔**/
     public static ItemArmor tinHelmet = new ItemTinArmor.Helmet();
     /**锡甲**/
@@ -129,16 +129,16 @@ public class ItemLoader {
             /**奶酪汉堡**/
             register(itemCheeseburger,"food_cheese_burger");
 
-          /*  *//**铜镐**//*
+            /**铜镐**/
             register(copperPickaxe, "item_copper_pickaxe");
-            *//**铜锄头**//*
+            /**铜锄头**/
             register(copperHoe, "item_copper_hoe");
-            *//**铜斧**//*
+            /**铜斧**/
             register(copperAxe, "item_copper_axe");
-            *//**铜锹**//*
+            /**铜锹**/
             register(copperSpade, "item_copper_spade");
-            *//**铜剑**//*
-            register(copperSword, "item_copper_sword");*/
+            /**铜剑**/
+            register(copperSword, "item_copper_sword");
             /**铜头盔**/
             register(copperHelmet, "item_copper_helmet");
             /**铜胸甲**/
@@ -147,16 +147,16 @@ public class ItemLoader {
             register(copperLeggings, "item_copper_leggings");
             /**铜鞋**/
             register(copperBoots, "item_copper_boots");
-         /*   *//**锡镐**//*
+            /**锡镐**/
             register(tinPickaxe, "item_tin_pickaxe");
-            *//**锡锄头**//*
+            /**锡锄头**/
             register(tinHoe, "item_tin_hoe");
-            *//**锡斧**//*
+            /**锡斧**/
             register(tinAxe, "item_tin_axe");
-            *//**锡锹**//*
+            /**锡锹**/
             register(tinSpade, "item_tin_spade");
-            *//**锡剑**//*
-            register(tinSword, "item_tin_sword");*/
+            /**锡剑**/
+            register(tinSword, "item_tin_sword");
             /**锡头盔**/
             register(tinHelmet, "item_tin_helmet");
             /**锡胸甲**/
@@ -214,16 +214,16 @@ public class ItemLoader {
             /**奶酪汉堡**/
             registerRender(itemCheeseburger);
 
-           /* *//**铜镐**//*
+            /**铜镐**/
             registerRender(copperPickaxe);
-            *//**铜锄头**//*
+             /**铜锄头**/
             registerRender(copperHoe);
-            *//**铜斧子**//*
+             /**铜斧子**/
             registerRender(copperAxe);
-            *//**铜锹**//*
+             /**铜锹**/
             registerRender(copperSpade);
-            *//**铜剑**//*
-            registerRender(copperSword);*/
+             /**铜剑**/
+            registerRender(copperSword);
             /**铜头盔**/
             registerRender(copperHelmet);
             /**铜胸甲**/
@@ -234,16 +234,16 @@ public class ItemLoader {
             registerRender(copperBoots);
 
 
-           /* *//**锡镐**//*
+           /**锡镐**/
             registerRender(tinPickaxe);
-            *//**锡锄头**//*
+            /**锡锄头**/
             registerRender(tinHoe);
-            *//**锡斧子**//*
+            /**锡斧子**/
             registerRender(tinAxe);
-            *//**锡锹**//*
+            /**锡锹**/
             registerRender(tinSpade);
-            *//**锡剑**//*
-            registerRender(tinSword);*/
+            /**锡剑**/
+            registerRender(tinSword);
             /**锡头盔**/
             registerRender(tinHelmet);
             /**锡胸甲**/
