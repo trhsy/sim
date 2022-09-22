@@ -21,9 +21,10 @@ public class CommonProxy {
         new BlockLoader(event);
         /**流体加载注册**/
         new FluidLoader(event);
-
         /**方块对应物品的渲染**/
         new ItemRenderLoader();
+        /**启动通讯**/
+        new NetWorkLoader(event);
     }
 
     public void init(FMLInitializationEvent event) {

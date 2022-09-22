@@ -1,6 +1,7 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.item.ItemBucketMilk;
 import com.trhsy.sim.item.ItemWindmillBase;
 import com.trhsy.sim.item.ItemWindmillSails;
 import com.trhsy.sim.item.ItemWindmillVane;
@@ -12,17 +13,16 @@ import com.trhsy.sim.item.food.ItemCheeseburger;
 import com.trhsy.sim.item.food.ItemFries;
 import com.trhsy.sim.item.granules.*;
 import com.trhsy.sim.item.tool.*;
-import com.trhsy.sim.util.Util;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Locale;
 
 /**
  * 物品加载类
@@ -95,6 +95,8 @@ public class ItemLoader {
     public static ItemArmor tinLeggings = new ItemTinArmor.Leggings();
     /**锡鞋**/
     public static ItemArmor tinBoots = new ItemTinArmor.Boots();
+    /**牛奶桶**/
+    public static ItemBucket itemBucketMilk= new ItemBucketMilk();
     /**
      * 加载物品
      *
@@ -165,6 +167,9 @@ public class ItemLoader {
             register(tinLeggings, "item_tin_leggings");
             /**锡鞋**/
             register(tinBoots, "item_tin_boots");
+            /**牛奶桶**/
+            register(itemBucketMilk, "item_bucket_milk");
+            FluidContainerRegistry.registerFluidContainer(FluidLoader.fluidMilk, new ItemStack(itemBucketMilk), FluidContainerRegistry.EMPTY_BUCKET);
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -263,7 +268,8 @@ public class ItemLoader {
             for (int i = 0; i < 16; i++) {
                 registerRender(itemWindmillVane,i,"item_windmill_vane"+i);
             }
-
+            /**牛奶桶**/
+            registerRender(itemBucketMilk);
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

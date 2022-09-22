@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
  * @author Trhsy
  * @Package: com.trhsy.sim.block
  * @ClassName: BlockFluidMilk
- * @Description:
+ * @Description: 静态牛奶块
  * @date 2022/9/21 0021 下午 3:36
  */
 public class BlockFluidMilk extends BlockStaticLiquid {
