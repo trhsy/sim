@@ -1,9 +1,13 @@
 package com.trhsy.sim.gui;
 
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenSetupGui;
+import com.trhsy.sim.network.server.PacketSetupMod;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.input.Mouse;
@@ -99,40 +103,56 @@ public class GuiRunMod extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         try {
-            World world= FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld();
-            /*switch (guibutton.id) {
+            switch (guibutton.id) {
                 case 0:
                     //不运行模拟城镇 按超过10次
-                    ModSimReloaded.states.gameModeNumber = 10;
-                    ModSimReloaded.log.info("关闭重新加载的模拟城市");
+                    this.mc.currentScreen=null;
+                    this.mc.setIngameFocus();
+                    ModSimLoader.log.info("关闭重新加载的模拟城市");
                     break;
                 case 1:
-                    ModSimReloaded.states.gameModeNumber = 0;
-                    GameMode.setGameModeFromNumber(0);
-                    ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
-                    FolkData.generateNewFolk(world);
+                    NetWorkLoader.net.sendToServer(new PacketSetupMod(0));
+                    ModSimLoader.log.info("在正常模式下重新加载模拟城市");
+                    this.buttonList.get(0).visible=false;
+                    this.buttonList.get(1).visible=false;
+                    this.buttonList.get(2).visible=false;
+                    this.mc.currentScreen=null;
+                    this.mc.setIngameFocus();
+
                     break;
                 case 2:
-                    ModSimReloaded.states.gameModeNumber = 1;
-                    GameMode.setGameModeFromNumber(1);
+                    NetWorkLoader.net.sendToServer(new PacketSetupMod(1));
+                    ModSimLoader.log.info("在创造模式下重新加载模拟城市");
+                    this.buttonList.get(0).visible=false;
+                    this.buttonList.get(1).visible=false;
+                    this.buttonList.get(2).visible=false;
+                    this.mc.currentScreen=null;
+                    this.mc.setIngameFocus();
                     break;
                 case 3:
-                    ModSimReloaded.states.gameModeNumber = 2;
-                    GameMode.setGameModeFromNumber(2);
+                    NetWorkLoader.net.sendToServer(new PacketSetupMod(2));
+                    ModSimLoader.log.info("在专业模式下重新加载模拟城市");
+                    this.buttonList.get(0).visible=false;
+                    this.buttonList.get(1).visible=false;
+                    this.buttonList.get(2).visible=false;
+                    this.mc.currentScreen=null;
+                    this.mc.setIngameFocus();
                     break;
                 default:
-                    ModSimReloaded.states.gameModeNumber = 0;
-                    GameMode.setGameModeFromNumber(0);
-                    ModSimReloaded.log.info("在正常模式下重新加载模拟城市");
-                    //生成一个新的NPC
-                    FolkData.generateNewFolk(world);
+                    NetWorkLoader.net.sendToServer(new PacketSetupMod(0));
+                    ModSimLoader.log.info("在正常模式下重新加载模拟城市");
+                    this.buttonList.get(0).visible=false;
+                    this.buttonList.get(1).visible=false;
+                    this.buttonList.get(2).visible=false;
+                    this.mc.currentScreen=null;
+                    this.mc.setIngameFocus();
                     break;
             }
-            ModSimLoader.states.saveStates();*/
-            this.running = false;
+//            ModSimLoader.states.saveStates();
+//            this.running = false;
             //当前屏幕为空
-            this.mc.currentScreen = null;
-            this.mc.setIngameFocus();
+//            this.mc.currentScreen = null;
+//            this.mc.setIngameFocus();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("GuiRunMod-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

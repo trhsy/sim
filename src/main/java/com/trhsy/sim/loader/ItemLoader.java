@@ -1,10 +1,8 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.item.*;
 import com.trhsy.sim.item.ItemBucketMilk;
-import com.trhsy.sim.item.ItemWindmillBase;
-import com.trhsy.sim.item.ItemWindmillSails;
-import com.trhsy.sim.item.ItemWindmillVane;
 import com.trhsy.sim.item.armor.ItemCopperArmor;
 import com.trhsy.sim.item.armor.ItemTinArmor;
 import com.trhsy.sim.item.food.ItemBurger;
@@ -97,6 +95,9 @@ public class ItemLoader {
     public static ItemArmor tinBoots = new ItemTinArmor.Boots();
     /**牛奶桶**/
     public static ItemBucket itemBucketMilk= new ItemBucketMilk();
+
+    /**模拟城市启动卷轴**/
+    public static Item itemSimULoader=new ItemSimULoader();
     /**
      * 加载物品
      *
@@ -170,6 +171,9 @@ public class ItemLoader {
             /**牛奶桶**/
             register(itemBucketMilk, "item_bucket_milk");
             FluidContainerRegistry.registerFluidContainer(FluidLoader.fluidMilk, new ItemStack(itemBucketMilk), FluidContainerRegistry.EMPTY_BUCKET);
+
+            /**模拟城市启动卷轴**/
+            register(itemSimULoader, "item_sim_u_loader");
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -270,6 +274,8 @@ public class ItemLoader {
             }
             /**牛奶桶**/
             registerRender(itemBucketMilk);
+            /**模拟城市启动卷轴**/
+            registerRender(itemSimULoader);
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

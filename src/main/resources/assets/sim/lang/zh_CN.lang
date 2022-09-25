@@ -52,7 +52,7 @@ tile.miningBox.name=采矿箱
 tile.compositeBrick.name=复合砖
 tile.pathBox.name=路径箱
 tile.windmill.name=风车
-
+item.simReel.name=模拟城市启动卷轴
 item.granulesCopper.name=铜颗粒
 item.granulesCopper.info=放入熔炉中制作铜锭
 item.granulesGold.name=金颗粒

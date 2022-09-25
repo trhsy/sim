@@ -64,7 +64,7 @@ container.sim.sim_gui_BC_Go_demand=demand
 container.sim.sim_gui_BC10=Logs
 container.sim.sim_gui_BC11=oak wood planks
 container.sim.sim_gui_BC12=Planks
-
+item.simReel.name=sim start-up reel
 item.granulesCopper.name=Copper granules
 item.granulesCopper.info=Place into furnace to make Copper ingots
 item.granulesGold.name=Gold granules

@@ -32,9 +32,15 @@ public class PacketOpenSetupGui implements IMessage {
 
         @Override
         public IMessage onMessage(PacketOpenSetupGui message, MessageContext ctx) {
+            try {
             FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {
                 this.handle(message, ctx);
             });
+            } catch (Exception e) {
+                StackTraceElement element=e.getStackTrace()[0];
+                ModSimLoader.log.error("PacketOpenSetupGui-onMessage打开启动模组界面出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+//                var4.printStackTrace();
+            }
             return null;
         }
 
