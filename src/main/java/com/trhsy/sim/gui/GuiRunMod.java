@@ -137,6 +137,8 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(2).visible=false;
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
+                    this.updateScreen();
+                    this.initGui();
                     break;
                 default:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(0));

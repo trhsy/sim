@@ -25,9 +25,10 @@ public class ItemSimULoader extends ItemBase {
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (!worldIn.isRemote) {
             NetWorkLoader.net.sendTo(new PacketOpenSetupGui(), (EntityPlayerMP)playerIn);
-            /*if (!playerIn.func_184812_l_()) {
-                playerIn.func_184586_b(hand).func_190920_e(0);
-            }*/
+            //创造
+            if (!playerIn.isCreative()) {
+                playerIn.getHeldItem(hand).func_190920_e(0);
+            }
         }
         return super.onItemRightClick(itemStackIn,worldIn, playerIn, hand);
     }
