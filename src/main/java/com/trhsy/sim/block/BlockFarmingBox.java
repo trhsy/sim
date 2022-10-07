@@ -13,7 +13,7 @@ import net.minecraft.block.material.Material;
 public class BlockFarmingBox extends BlockBase{
     public BlockFarmingBox(Material material) {
         super(material,"farmingBox");
-        this.setStepSound(SoundType.WOOD);
+        this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);
         this.setResistance(1);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);

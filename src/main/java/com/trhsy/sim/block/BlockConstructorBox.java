@@ -12,7 +12,7 @@ public class BlockConstructorBox extends BlockBase{
     public BlockConstructorBox(Material materialIn) {
         super(materialIn,"constructorBox");
         //用于设定走在方块上的响声。
-        this.setStepSound(SoundType.WOOD);
+        this.setSoundType(SoundType.WOOD);
         //方块硬度
         this.setHardness(0.5F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);

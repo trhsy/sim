@@ -27,7 +27,7 @@ public class ItemSimULoader extends ItemBase {
             NetWorkLoader.net.sendTo(new PacketOpenSetupGui(), (EntityPlayerMP)playerIn);
             //创造
             if (!playerIn.isCreative()) {
-                playerIn.getHeldItem(hand).func_190920_e(0);
+                playerIn.getHeldItem(hand).onItemUseFinish(worldIn,playerIn);
             }
         }
         return super.onItemRightClick(itemStackIn,worldIn, playerIn, hand);

@@ -5,7 +5,13 @@ import com.trhsy.sim.loader.CreativeTabsLoader;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
-
+/**
+ * @Author fan
+ * @Description //TODO 空气
+ * @Date 18:46 2022/10/7
+ * @Param 
+ * @return 
+ **/
 public class BlockSpecial extends BlockAir{
 
     public static final ResourceLocation still = new ResourceLocation(ModSim.MODID + ":" + "block_special");

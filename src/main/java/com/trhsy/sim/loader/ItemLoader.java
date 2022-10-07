@@ -56,15 +56,15 @@ public class ItemLoader {
     public static ItemFood itemCheeseburger=new ItemCheeseburger();
 
     /**铜斧子**/
-    public static Item copperAxe = new ItemCopperAxe();
+    public static ItemTool copperAxe = new ItemCopperAxe();
     /**铜镐**/
-    public static ItemPickaxe copperPickaxe = new ItemCopperPickaxe();
+    public static ItemTool copperPickaxe = new ItemCopperPickaxe();
     /**铜锄头**/
-    public static ItemHoe copperHoe = new ItemCopperHoe();
+    public static Item copperHoe = new ItemCopperHoe();
     /**铜锹**/
-    public static ItemSpade copperSpade = new ItemCopperSpade();
+    public static ItemTool copperSpade = new ItemCopperSpade();
     /**铜剑**/
-    public static ItemSword copperSword = new ItemCopperSword();
+    public static Item copperSword = new ItemCopperSword();
     /**铜头盔**/
     public static ItemArmor copperHelmet = new ItemCopperArmor.Helmet();
     /**铜甲**/
@@ -76,15 +76,15 @@ public class ItemLoader {
 
 
    /**锡镐**/
-    public static ItemPickaxe tinPickaxe = new ItemTinPickaxe();
+    public static ItemTool tinPickaxe = new ItemTinPickaxe();
     /**锡锄头**/
-    public static ItemHoe tinHoe = new ItemTinHoe();
+    public static Item tinHoe = new ItemTinHoe();
    /**锡斧子**/
-    public static Item tinAxe = new ItemTinAxe();
+    public static ItemTool tinAxe = new ItemTinAxe();
     /**锡锹**/
-    public static ItemSpade tinSpade = new ItemTinSpade();
+    public static ItemTool tinSpade = new ItemTinSpade();
     /**锡剑**/
-    public static ItemSword tinSword = new ItemTinSword();
+    public static Item tinSword = new ItemTinSword();
     /**锡头盔**/
     public static ItemArmor tinHelmet = new ItemTinArmor.Helmet();
     /**锡甲**/

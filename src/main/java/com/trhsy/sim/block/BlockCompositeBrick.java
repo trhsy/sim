@@ -12,7 +12,7 @@ import net.minecraft.block.material.Material;
 public class BlockCompositeBrick extends BlockBase {
     public BlockCompositeBrick(Material materialIn) {
         super(materialIn,"compositeBrick");
-        this.setStepSound(SoundType.STONE);
+        this.setSoundType(SoundType.STONE);
         this.setHardness(8.0F);
         this.setResistance(7.0F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);

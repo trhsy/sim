@@ -32,7 +32,7 @@ public class ItemTinArmor  extends ItemArmor {
      * @Param
      * @return
      **/
-    public static final ItemArmor.ArmorMaterial TIN_ARMOR = EnumHelper.addArmorMaterial("TIN", ModSim.MODID + ":" + "tin", 15, new int[]{5, 5, 5, 5}, 35, SoundEvents.item_armor_equip_iron);
+    public static final ItemArmor.ArmorMaterial TIN_ARMOR = EnumHelper.addArmorMaterial("TIN", ModSim.MODID + ":" + "tin", 15, new int[]{5, 5, 5, 5}, 35, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
 
     public ItemTinArmor(EntityEquipmentSlot armorType) {
         /**
