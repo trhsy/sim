@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 import java.util.Iterator;
 import java.util.UUID;
@@ -16,6 +17,8 @@ import java.util.UUID;
  * @Date 2022/9/2921:05
  **/
 public class EventLoader {
+    /**已加载世界**/
+    public static boolean hasLoadedWorld;
     /**
      * 自定义的事件在这里被注册
      **/
@@ -29,13 +32,19 @@ public class EventLoader {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("EventLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 当玩家加入的时候
+     * @Date 19:19 2022/10/7
+     * @Param [event]
+     * @return void
+     **/
     @SubscribeEvent
     public void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         Thread skinThread = new Thread(() -> {
             try{
                 if (event.player != null) {
-                    System.out.println("1");
+                    System.out.println("*********************玩家加入*****************");
                 /*Iterator var1 = WorldData.folks.iterator();
 
                 while(var1.hasNext()) {
@@ -58,5 +67,9 @@ public class EventLoader {
 
         });
         skinThread.start();
+    }
+    @SubscribeEvent
+    public void clientDisconnected(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+        hasLoadedWorld = false;
     }
 }
