@@ -53,14 +53,4 @@ public class ItemTinSword extends ItemSword {
         return super.getIsRepairable(toRepair, repair);
     }
 
-    /**
-     * 3D渲染
-     * @return
-     */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean isFull3D()
-    {
-        return true;
-    }
 }

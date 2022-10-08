@@ -28,6 +28,7 @@ public class ClientProxy extends CommonProxy{
         super.postInit(event);
     }
 
+    @Override
     public void renderTick(TickEvent.RenderTickEvent renderTickEvent){
 
     }

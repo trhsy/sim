@@ -5,6 +5,7 @@ import com.trhsy.sim.loader.render.ItemRenderLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
  *公共代理
@@ -25,11 +26,16 @@ public class CommonProxy {
         new ItemRenderLoader();
         /**启动通讯**/
         new NetWorkLoader(event);
+        /**事件加载**/
+        new EventLoader();
     }
 
     public void init(FMLInitializationEvent event) {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
+    }
+
+    public void renderTick(TickEvent.RenderTickEvent e) {
     }
 }

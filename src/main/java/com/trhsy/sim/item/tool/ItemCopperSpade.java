@@ -1,12 +1,19 @@
 package com.trhsy.sim.item.tool;
 
+import com.google.common.collect.Sets;
 import com.trhsy.sim.loader.CreativeTabsLoader;
+import com.trhsy.sim.loader.ItemLoader;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Set;
 
 /**
  * @author Trhsy
@@ -15,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @Description: 铜铲
  * @date 2022/9/21 0021 上午 8:59
  */
-public class ItemCopperSpade extends ItemSpade {
+public class ItemCopperSpade extends ItemTool {
     /**
      * @Author fan
      * @Description //TODO 枚举 WOOD，STONE，IRON，EMERALD，GOLD
@@ -36,10 +43,13 @@ public class ItemCopperSpade extends ItemSpade {
      **/
     public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("COPPER", 3, 500, 16.0F, 2.0F, 22);
 
+    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] {Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND, Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SNOW, Blocks.SNOW_LAYER, Blocks.SOUL_SAND, Blocks.GRASS_PATH});
     public ItemCopperSpade() {
-        super(REDSTONE);
+        super(2F, -3.0F,REDSTONE,EFFECTIVE_ON);
         this.setUnlocalizedName("copperSpade");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        this.toolClass = "shovel";
+
     }
     /**
      * Return whether this item is repairable in an anvil.
@@ -52,14 +62,27 @@ public class ItemCopperSpade extends ItemSpade {
         }
         return super.getIsRepairable(toRepair, repair);
     }
-    /**
-     * 3D渲染
-     * @return
-     */
+
+    /*===================================== FORGE START =================================*/
+    private String toolClass;
     @Override
-    @SideOnly(Side.CLIENT)
-    public boolean isFull3D()
+    public int getHarvestLevel(ItemStack stack, String toolClass)
     {
-        return true;
+        int level = super.getHarvestLevel(stack, toolClass);
+        if (level == -1 && toolClass != null && toolClass.equals(this.toolClass))
+        {
+            return this.toolMaterial.getHarvestLevel();
+        }
+        else
+        {
+            return level;
+        }
     }
+
+    @Override
+    public Set<String> getToolClasses(ItemStack stack)
+    {
+        return toolClass != null ? com.google.common.collect.ImmutableSet.of(toolClass) : super.getToolClasses(stack);
+    }
+    /*===================================== FORGE END =================================*/
 }

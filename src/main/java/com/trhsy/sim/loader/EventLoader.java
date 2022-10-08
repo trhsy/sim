@@ -1,10 +1,16 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.ModSim;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 import java.util.Iterator;
@@ -68,6 +74,72 @@ public class EventLoader {
         });
         skinThread.start();
     }
+
+    /**
+     * 世界保存
+     * @param event
+     */
+    @SubscribeEvent
+    public void worldSave(WorldEvent.Save event) {
+
+    }
+
+    /**
+     * 世界加载
+     * @param event
+     */
+    @SubscribeEvent
+    public void worldLoad(WorldEvent.Load event) {
+        ModSimLoader.log.info("检查是否应该加载人员");
+        if (event.getWorld().isRemote) {
+            ModSimLoader.log.info("世界遥远，正在取消");
+        } else if (hasLoadedWorld) {
+            ModSimLoader.log.info("世界尚未加载，正在取消");
+        } else {
+            ModSimLoader.log.info("清除旧的世界数据");
+
+            ModSimLoader.log.info("加载世界...");
+
+            ModSimLoader.log.info("装载农场");
+            ModSimLoader.log.info("装载矿场");
+            ModSimLoader.log.info("获得保存的NPC");
+            ModSimLoader.log.info("加载建筑物");
+
+            hasLoadedWorld = true;
+        }
+    }
+
+    /**
+     * 钩子
+     * @param event
+     */
+    @SubscribeEvent
+    public void worldTick(TickEvent.WorldTickEvent event) {
+
+    }
+
+    /**
+     * 渲染钩子
+     * @param e
+     */
+    @SubscribeEvent
+    public void renderTick(TickEvent.RenderTickEvent e) {
+        ModSim.proxy.renderTick(e);
+    }
+
+    /**
+     * 当实体加入世界
+     * @param event
+     */
+    @SubscribeEvent
+    public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        Entity entity = event.getEntity();
+        World worldObj = event.getWorld();
+    }
+    /**
+     * 客户端断开连接
+     * @param event
+     */
     @SubscribeEvent
     public void clientDisconnected(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         hasLoadedWorld = false;

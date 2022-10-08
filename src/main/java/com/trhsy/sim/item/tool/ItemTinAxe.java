@@ -7,7 +7,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.util.EnumHelper;
@@ -42,15 +41,12 @@ public class ItemTinAxe extends ItemTool {
      **/
     public static final Item.ToolMaterial REDSTONE = EnumHelper.addToolMaterial("TIN", 3, 500, 16.0F, 4.0F, 22);
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] {Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER, Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE});
-    private static final float[] ATTACK_DAMAGES = new float[]{6.0F, 8.0F, 8.0F, 8.0F, 6.0F};
-    private static final float[] ATTACK_SPEEDS = new float[]{-3.2F, -3.2F, -3.1F, -3.0F, -3.0F};
 
     public ItemTinAxe() {
         super(REDSTONE,EFFECTIVE_ON);
-        this.damageVsEntity = ATTACK_DAMAGES[3];
-        this.attackSpeed = ATTACK_SPEEDS[3];
         this.setUnlocalizedName("tinAxe");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        toolClass="axe";
     }
 
     @Override
@@ -69,4 +65,26 @@ public class ItemTinAxe extends ItemTool {
         }
         return super.getIsRepairable(toRepair, repair);
     }
+    /*===================================== FORGE START =================================*/
+    private String toolClass;
+    @Override
+    public int getHarvestLevel(ItemStack stack, String toolClass)
+    {
+        int level = super.getHarvestLevel(stack, toolClass);
+        if (level == -1 && toolClass != null && toolClass.equals(this.toolClass))
+        {
+            return this.toolMaterial.getHarvestLevel();
+        }
+        else
+        {
+            return level;
+        }
+    }
+
+    @Override
+    public Set<String> getToolClasses(ItemStack stack)
+    {
+        return toolClass != null ? com.google.common.collect.ImmutableSet.of(toolClass) : super.getToolClasses(stack);
+    }
+    /*===================================== FORGE END =================================*/
 }
