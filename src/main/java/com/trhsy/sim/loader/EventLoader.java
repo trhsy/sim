@@ -1,7 +1,11 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -13,6 +17,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -25,6 +30,10 @@ import java.util.UUID;
 public class EventLoader {
     /**已加载世界**/
     public static boolean hasLoadedWorld;
+    /**上次可以户连接的时间**/
+    public static long timeSinceLastClientUpdate = 0L;
+    /**分钟计时器**/
+    long minuteTimer = System.currentTimeMillis();
     /**
      * 自定义的事件在这里被注册
      **/
@@ -73,6 +82,21 @@ public class EventLoader {
 
         });
         skinThread.start();
+        try{
+            String baseURL = "https://trhsy.github.io/sim/1.9/version.txt";
+            String ver = ModSimLoader.downloadFile(baseURL, ModSimLoader.getSimukraftFolder() + File.separator + "version.txt");
+            if (ver != null) {
+                ver = ver.trim();
+                if (!ver.contentEquals("")&&!"1.0.0 Beta".contentEquals(ver)) {
+                    if (!ModSim.VERSION.contentEquals(ver)) {
+                        ModSimLoader.sendChat(I18n.format("container.sim.update_checker1") + ver + I18n.format("container.sim.update_checker2") );
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
     }
 
     /**
@@ -115,7 +139,24 @@ public class EventLoader {
      */
     @SubscribeEvent
     public void worldTick(TickEvent.WorldTickEvent event) {
+        if (!event.world.isRemote && System.currentTimeMillis() - this.timeSinceLastClientUpdate > 2000L) {
+            this.timeSinceLastClientUpdate = System.currentTimeMillis();
+            /*NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
+            NetWorkLoader.net.sendToAll(new PacketUpdateMoney());*/
 
+
+            if (ModSimLoader.states.gameModeNumber != -1 && !event.world.isRemote) {
+                if(ModSimLoader.isDayTime(event.world)){
+                    if (System.currentTimeMillis() - this.minuteTimer > 60000L) {
+
+                    }
+                }
+            }
+            //实时更新人的状态
+            if (!event.world.isRemote) {
+
+            }
+        }
     }
 
     /**
@@ -128,13 +169,29 @@ public class EventLoader {
     }
 
     /**
-     * 当实体加入世界
+     * 当实体加入世界赋予玩家手里第一个物品栏里一个模拟城市任命卷轴
      * @param event
      */
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         Entity entity = event.getEntity();
         World worldObj = event.getWorld();
+        if (!event.getWorld().isRemote && entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer)entity;
+            boolean shouldGive = ItemLoader.itemSimULoader != null && ModSimLoader.states.gameModeNumber == -1;
+            if (shouldGive) {
+                ItemStack starter = new ItemStack(ItemLoader.itemSimULoader);
+                if (!player.inventory.addItemStackToInventory(starter)) {
+                    float f = 0.7F;
+                    float d0 = worldObj.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+                    float d1 = worldObj.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+                    float d2 = worldObj.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+                    EntityItem entityitem = new EntityItem(worldObj, player.posX + (double)d0, player.posY + (double)d1, player.posZ + (double)d2, new ItemStack(ItemLoader.itemSimULoader));
+                    entityitem.setDefaultPickupDelay();
+                    worldObj.spawnEntityInWorld(entityitem);
+                }
+            }
+        }
     }
     /**
      * 客户端断开连接
