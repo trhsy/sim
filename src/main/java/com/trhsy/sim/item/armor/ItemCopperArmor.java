@@ -33,7 +33,7 @@ public class ItemCopperArmor extends ItemArmor {
      * @Param
      * @return
      **/
-    public static final ItemArmor.ArmorMaterial COPPER_ARMOR = EnumHelper.addArmorMaterial("COPPER", ModSim.MODID + ":" + "copper", 15, new int[]{5, 5, 5, 5}, 35,SoundEvents.item_armor_equip_iron);
+    public static final ItemArmor.ArmorMaterial COPPER_ARMOR = EnumHelper.addArmorMaterial("COPPER", ModSim.MODID + ":" + "copper", 15, new int[]{5, 5, 5, 5}, 35,SoundEvents.ITEM_ARMOR_EQUIP_IRON);
 
     public ItemCopperArmor(EntityEquipmentSlot armorType) {
         /**

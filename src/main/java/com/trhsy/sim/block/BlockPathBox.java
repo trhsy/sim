@@ -6,14 +6,14 @@ import net.minecraft.block.material.Material;
 
 /**
  * @ClassName BlockPathBox
- * @Description todo
+ * @Description todo 路径箱
  * @Author Tian
  * @Date 2022/9/1921:53
  **/
 public class BlockPathBox extends BlockBase{
     public BlockPathBox(Material material) {
         super(material,"pathBox");
-        this.setStepSound(SoundType.WOOD);
+        this.setSoundType(SoundType.WOOD);
         this.setHardness(10.0F);
         this.setResistance(1);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);

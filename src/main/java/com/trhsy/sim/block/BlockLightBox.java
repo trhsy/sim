@@ -29,10 +29,10 @@ import java.util.List;
 public class BlockLightBox extends EnumBlock<EnumLightColour> {
     public static final PropertyEnum<EnumLightColour> COLOR = PropertyEnum.create("color", EnumLightColour.class);
     public BlockLightBox(){
-        super(Material.wood,COLOR,EnumLightColour.class);
+        super(Material.WOOD,COLOR,EnumLightColour.class);
         this.setLightLevel(1);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
-        this.setStepSound(SoundType.WOOD);
+        this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);
         this.setResistance(1);
         this.setUnlocalizedName("lightBox");

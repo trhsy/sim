@@ -67,7 +67,7 @@ public class ModSim {
      *
      * @param event
      */
-    @Mod.EventHandler
+    @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         try {
             proxy.postInit(event);

@@ -6,6 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.Display;
 
 /**
@@ -27,4 +28,7 @@ public class ClientProxy extends CommonProxy{
         super.postInit(event);
     }
 
+    public void renderTick(TickEvent.RenderTickEvent renderTickEvent){
+
+    }
 }

@@ -19,13 +19,14 @@ import java.util.Random;
 
 /**
  * @author Trhsy
+ * 控制箱
  */
 public class BlockControlBox extends EnumBlock<EnumControlBox> {
     public static final PropertyEnum<EnumControlBox> TYPE = PropertyEnum.create("type", EnumControlBox.class);
 
     public BlockControlBox() {
-        super(Material.wood, TYPE, EnumControlBox.class);
-        this.setStepSound(SoundType.WOOD);
+        super(Material.WOOD, TYPE, EnumControlBox.class);
+        this.setSoundType(SoundType.WOOD);
         this.setHardness(10.0F);
         this.setResistance(1);
         this.setUnlocalizedName("controlBox");

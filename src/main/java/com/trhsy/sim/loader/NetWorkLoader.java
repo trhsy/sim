@@ -2,6 +2,7 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.network.client.PacketOpenSetupGui;
+import com.trhsy.sim.network.server.PacketSetupMod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -32,7 +33,7 @@ public class NetWorkLoader {
      * 服务端
      */
     public void registerMessagesAsServer(){
-
+        registerMessage(PacketSetupMod.Handler.class,PacketSetupMod.class,Side.SERVER);
     }
 
     /**

@@ -11,14 +11,14 @@ import net.minecraft.world.IBlockAccess;
 /**
  * @ClassName BlockMarker
  * @Description todo
- * @Author Tian
+ * @Author Tian 标记棒
  * @Date 2022/9/1921:17
  **/
 public class BlockMarker extends BlockBase{
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.4, 0.0D, 0.4, 0.6, 0.9, 0.6);
     public BlockMarker(Material material) {
         super(material,"markerBar");
-        this.setStepSound(SoundType.WOOD);
+        this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);
         this.setResistance(1);
 //        this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);

@@ -24,23 +24,23 @@ Creating In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifa
 Creating In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\taskArtifacts.bin: MaxSize{2000}
 :deobfCompileDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfCompileDummyTask
-Executing task ':deobfCompileDummyTask' (up-to-date check took 0.001 secs) due to:
+Executing task ':deobfCompileDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfCompileDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.007 secs.
+:deobfCompileDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.01 secs.
 :deobfProvidedDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfProvidedDummyTask
 Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.003 secs.
+:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.004 secs.
 :ideaModule (Thread[Daemon worker,5,main]) started.
 :ideaModule
 Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\taskArtifacts.bin
-Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\treeSnapshots.bin
 Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileSnapshotsToTreeSnapshotsIndex.bin
-Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\treeSnapshotUsage.bin
-Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileHashes.bin
 Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileSnapshots.bin
-Executing task ':ideaModule' (up-to-date check took 0.083 secs) due to:
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileHashes.bin
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\treeSnapshotUsage.bin
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\treeSnapshots.bin
+Executing task ':ideaModule' (up-to-date check took 0.015 secs) due to:
   Task.upToDateWhen is false.
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
@@ -48,22 +48,22 @@ file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
-:ideaModule (Thread[Daemon worker,5,main]) completed. Took 2.824 secs.
+:ideaModule (Thread[Daemon worker,5,main]) completed. Took 0.672 secs.
 :ideaProject (Thread[Daemon worker,5,main]) started.
 :ideaProject
 Executing task ':ideaProject' (up-to-date check took 0.001 secs) due to:
   Task.upToDateWhen is false.
-:ideaProject (Thread[Daemon worker,5,main]) completed. Took 0.038 secs.
+:ideaProject (Thread[Daemon worker,5,main]) completed. Took 0.055 secs.
 :ideaWorkspace (Thread[Daemon worker,5,main]) started.
 :ideaWorkspace
 Executing task ':ideaWorkspace' (up-to-date check took 0.0 secs) due to:
   Task.upToDateWhen is false.
-:ideaWorkspace (Thread[Daemon worker,5,main]) completed. Took 0.364 secs.
+:ideaWorkspace (Thread[Daemon worker,5,main]) completed. Took 0.208 secs.
 :idea (Thread[Daemon worker,5,main]) started.
 :idea
 Skipping task ':idea' as it has no actions.
-:idea (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:idea (Thread[Daemon worker,5,main]) completed. Took 0.001 secs.
 
 BUILD SUCCESSFUL
 
-Total time: 1 mins 21.725 secs
+Total time: 52.233 secs

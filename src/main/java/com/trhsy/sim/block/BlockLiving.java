@@ -33,7 +33,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     public static final PropertyEnum<EnumBlockLiving> TYPE = PropertyEnum.create("type", EnumBlockLiving.class);
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
     public BlockLiving() {
-        super(Material.carpet, TYPE, EnumBlockLiving.class);
+        super(Material.CARPET, TYPE, EnumBlockLiving.class);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLiving.WHITE));
         this.setHardness(10.0F);
         this.setResistance(1);

@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 public class ItemBucketMilk extends ItemBucket {
     public ItemBucketMilk(){
         super(BlockLoader.fluidMilk);
-        this.setContainerItem(Items.bucket);
+        this.setContainerItem(Items.BUCKET);
         this.setUnlocalizedName("bucketMilk");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 

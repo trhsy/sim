@@ -28,24 +28,28 @@ public class BlockLoader {
     /**
      * 建筑箱
      **/
-    public static Block blockConstructorBox= new BlockConstructorBox(Material.wood);
+    public static Block blockConstructorBox= new BlockConstructorBox(Material.WOOD);
+    /**农田箱**/
+    public static Block blockFarmingBox = new BlockFarmingBox(Material.WOOD);
+    /**挖矿箱**/
+    public static Block blockMiningBox = new BlockMiningBox(Material.WOOD);
     /**
      * 奶酪块
      */
-    public static Block blockCheese=new BlockCheese(Material.cake);
+    public static Block blockCheese=new BlockCheese(Material.CAKE);
     /**
      * 复合砖块
      */
-    public static Block blockCompositeBrick=new BlockCompositeBrick(Material.rock);
+    public static Block blockCompositeBrick=new BlockCompositeBrick(Material.ROCK);
     /**控制箱***/
     public static Block blockControlBox;
 
     /**铜块**/
-    public static Block blockCopper=new BlockCopper(Material.iron);
+    public static Block blockCopper=new BlockCopper(Material.IRON);
     /**铜矿**/
     public static Block blockCopperOre=new BlockCopperOre();
     /**锡块**/
-    public static Block blockTin=new BlockTin(Material.iron);
+    public static Block blockTin=new BlockTin(Material.IRON);
     /**锡矿**/
     public static Block blockTinOre=new BlockTinOre();
     /**灯箱**/
@@ -54,17 +58,15 @@ public class BlockLoader {
     /**地毯**/
     public static Block blockLiving;
     /**标记棒**/
-    public static Block blockMarker=new BlockMarker(Material.wood);
-    /**挖矿箱**/
-    public static Block blockMiningBox=new BlockMiningBox(Material.wood);
+    public static Block blockMarker=new BlockMarker(Material.WOOD);
     /**路径箱**/
-    public static Block blockPathBox=new BlockPathBox(Material.wood);
+    public static Block blockPathBox=new BlockPathBox(Material.WOOD);
     /**路径箱**/
     public static Block blockSpecial=new BlockSpecial();
     /**风车**/
-    public static Block blockWindmill=new BlockWindmill(Material.wood);
+    public static Block blockWindmill=new BlockWindmill(Material.WOOD);
     /**静态牛奶块***/
-    public static BlockStaticLiquid fluidMilk= new BlockFluidMilk(Material.water);
+    public static BlockStaticLiquid fluidMilk= new BlockFluidMilk(Material.WATER);
 
     /**
      * 加载方块
@@ -75,6 +77,11 @@ public class BlockLoader {
         try {
             /**建筑盒**/
             register(blockConstructorBox, "block_constructor_box");
+            /**农田盒**/
+            register(blockFarmingBox, "block_farming_box");
+            /**挖矿盒**/
+            register(blockMiningBox, "block_mining_box");
+
             /**奶酪块**/
             register(blockCheese, "block_cheese");
             /**复合砖**/
@@ -93,8 +100,6 @@ public class BlockLoader {
             register(blockTinOre, "block_tin_ore");
             /**标记棒**/
             register(blockMarker, "block_marker");
-            /**挖矿箱**/
-            register(blockMiningBox, "block_mining_box");
             /**路径箱**/
             register(blockPathBox, "block_path_box");
             /**特制方块空气**/
@@ -158,6 +163,10 @@ public class BlockLoader {
         try {
             /**建筑盒**/
             registerRender(blockConstructorBox);
+            /**农田盒**/
+            registerRender(blockFarmingBox);
+            /**挖矿盒**/
+            registerRender(blockMiningBox);
             /**奶酪块**/
             registerRender(blockCheese);
             /**复合砖**/
@@ -166,12 +175,6 @@ public class BlockLoader {
                 /**控制箱**/
                 registerRender(blockControlBox,i,"block_control_box"+i);
             }
-            ///**住宅控制箱**/
-            //registerRender(blockControlBox);
-            ///**银行控制箱**/
-            //registerRender(blockControlAtmBox);
-            ///**其他控制箱**/
-            //registerRender(blockControlOtherBox);
             /**铜块**/
             registerRender(blockCopper);
             /**铜矿**/

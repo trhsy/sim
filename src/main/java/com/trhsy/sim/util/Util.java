@@ -89,7 +89,7 @@ public class Util {
 
     public static boolean isCtrlKeyDown() {
         boolean isCtrlKeyDown = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
-        if (!isCtrlKeyDown && Minecraft.isRunningOnMac) {
+        if (!isCtrlKeyDown && Minecraft.IS_RUNNING_ON_MAC) {
             isCtrlKeyDown = Keyboard.isKeyDown(219) || Keyboard.isKeyDown(220);
         }
 
