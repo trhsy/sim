@@ -41,18 +41,32 @@ public class GuiRunMod extends GuiScreen {
     public void initGui() {
         try {
             ModSimLoader.log.info("初始化GUI");
-            //不运行模拟城镇
-            String not_run = I18n.format("container.sim.not_run");
-            //正常模式
-            String normal = I18n.format("container.sim.normal");
-            //创造模式
-            String creative = I18n.format("container.sim.creative");
-            //专家模式
-            String hardcore = I18n.format("container.sim.hardcore");
-            this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, not_run));
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 90, normal));
-            this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, creative));
-            this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, hardcore));
+            if(page==0){
+                this.buttonList.clear();
+                //不接受
+                String not_accept = I18n.format("container.sim.not_accept");
+                //接受
+                String accept = I18n.format("container.sim.accept");
+                //接受
+                this.buttonList.add(new GuiButton(4, 160, 130,50,20, accept));
+                //不接受
+                this.buttonList.add(new GuiButton(5, 240, 130,50,20, not_accept));
+            }else{
+                this.buttonList.clear();
+                //不运行模拟城镇
+                String not_run = I18n.format("container.sim.not_run");
+                //正常模式
+                String normal = I18n.format("container.sim.normal");
+                //创造模式
+                String creative = I18n.format("container.sim.creative");
+                //专家模式
+                String hardcore = I18n.format("container.sim.hardcore");
+                this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, not_run));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 90, normal));
+                this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, creative));
+                this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, hardcore));
+            }
+
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("GuiRunMod-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -74,21 +88,44 @@ public class GuiRunMod extends GuiScreen {
             }
             //默认背景
             this.drawDefaultBackground();
-            //请选择模拟城镇的游戏模式
-            String sim_gui_game_mode = I18n.format("container.sim.sim_gui_game_mode");
-            //这个模式会关闭这个世界的模拟城市
-            String sim_gui_switches = I18n.format("container.sim.sim_gui_switches");
-            //非常适合初学者和专家。不太有挑战性。
-            String sim_gui_beginners = I18n.format("container.sim.sim_gui_beginners");
-            //不需要钱,一切免费,不需要方块,要有创意！
-            String sim_gui_everything = I18n.format("container.sim.sim_gui_everything");
-            //建设者需要所有的方块,更难玩游戏
-            String sim_gui_Builders = I18n.format("container.sim.sim_gui_Builders");
-            this.drawCenteredString(this.fontRendererObj, sim_gui_game_mode, this.width / 2, 20, 16777215);
-            this.drawCenteredString(this.fontRendererObj, sim_gui_switches, this.width / 2, 60, 16776960);
-            this.drawCenteredString(this.fontRendererObj, sim_gui_beginners, this.width / 2, 110, 16776960);
-            this.drawCenteredString(this.fontRendererObj, sim_gui_everything, this.width / 2, 160, 16776960);
-            this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
+            if(page==0){
+                //任命书
+                String sim_gui_rms = I18n.format("container.sim.sim_gui_rms");
+                this.drawCenteredString(this.fontRendererObj, sim_gui_rms, this.width / 2, 17, 16777215);
+                //冒险家，当你厌倦了冒险后，你可以尝试接受这个委任书。
+                //它可以帮你成为这个城市唯一的话语人，你可以雇佣NPC为你工作，
+                //他们可以成为建筑师，规划师，面包师，农民，屠夫，牧羊人，养鸡农民，
+                //养牛人，士兵，玻璃制造商，板砖工人等等很多职业。帮助你为你的城市添砖加瓦，
+                //出一份力，最初你只有10点资金，想要更好的发展城市，剩下的只能你自己想办法了，加油冒险家！
+                String sim_gui_zw0 = I18n.format("container.sim.sim_gui_zw0");
+                String sim_gui_zw1 = I18n.format("container.sim.sim_gui_zw1");
+                String sim_gui_zw2 = I18n.format("container.sim.sim_gui_zw2");
+                String sim_gui_zw3 = I18n.format("container.sim.sim_gui_zw3");
+                String sim_gui_zw4= I18n.format("container.sim.sim_gui_zw4");
+
+                this.drawCenteredString(this.fontRendererObj, sim_gui_zw0, this.width / 2, 60, 16776960);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_zw1, this.width / 2, 70, 16776960);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_zw2, this.width / 2, 80, 16776960);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_zw3, this.width / 2, 90, 16776960);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_zw4, this.width / 2, 100, 16776960);
+            }else{
+                //请选择模拟城镇的游戏模式
+                String sim_gui_game_mode = I18n.format("container.sim.sim_gui_game_mode");
+                //这个模式会关闭这个世界的模拟城市
+                String sim_gui_switches = I18n.format("container.sim.sim_gui_switches");
+                //非常适合初学者和专家。不太有挑战性。
+                String sim_gui_beginners = I18n.format("container.sim.sim_gui_beginners");
+                //不需要钱,一切免费,不需要方块,要有创意！
+                String sim_gui_everything = I18n.format("container.sim.sim_gui_everything");
+                //建设者需要所有的方块,更难玩游戏
+                String sim_gui_Builders = I18n.format("container.sim.sim_gui_Builders");
+                this.drawCenteredString(this.fontRendererObj, sim_gui_game_mode, this.width / 2, 20, 16777215);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_switches, this.width / 2, 60, 16776960);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_beginners, this.width / 2, 110, 16776960);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_everything, this.width / 2, 160, 16776960);
+                this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
+            }
+
             super.drawScreen(i, j, f);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];
@@ -139,6 +176,17 @@ public class GuiRunMod extends GuiScreen {
                     this.mc.setIngameFocus();
 //                    this.updateScreen();
 //                    this.initGui();
+                    break;
+                case 4:
+                    ModSimLoader.log.info("接受任命书");
+                    this.page=1;
+                    this.updateScreen();
+                    this.initGui();
+                    break;
+                case 5:
+                    ModSimLoader.log.info("不接受任命书");
+                    this.mc.currentScreen=null;
+                    this.mc.setIngameFocus();
                     break;
                 default:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(0));

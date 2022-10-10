@@ -1029,7 +1029,7 @@ container.sim.guiFolk.Inventory=库存
 
 container.sim.commands1=无效的参数，应该是：/credits <amount>
 container.sim.commands2=金额必须是数字！
-container.sim.commands3=无效参数，应为：/generate NPC <name> 或 /generate SIM
+container.sim.commands3=无效参数，应为：/generate NPC <name>
 
 container.sim.traits1=勇敢的
 container.sim.traits2=勇敢的人能成为更好的士兵。他们在杀死暴徒之间等待的时间只有普通士兵的一半。他们的士兵技能也提升了两倍。
@@ -1134,3 +1134,13 @@ container.sim.ARRIVEDATSHOP=到达商店
 
 container.sim.building.piston=活塞
 container.sim.building.button=按钮
+container.sim.change_credits=更改Sim资金<金额>
+
+container.sim.sim_gui_rms=Sim 市长任命书
+container.sim.sim_gui_zw0=冒险家，当你厌倦了冒险后，你可以尝试接受这个委任书。
+container.sim.sim_gui_zw1=它可以帮你成为这个城市唯一的话语人，你可以雇佣NPC为你工作，
+container.sim.sim_gui_zw2=他们可以成为建筑师，规划师，面包师，农民，屠夫，牧羊人，养鸡农民，
+container.sim.sim_gui_zw3=养牛人，士兵，玻璃制造商，板砖工人等等很多职业。帮助你为你的城市添砖加瓦，
+container.sim.sim_gui_zw4=出一份力，最初你只有10点资金，想要更好的发展城市，剩下的只能你自己想办法了，加油冒险家！
+container.sim.not_accept=不接受
+container.sim.accept=接受

@@ -1132,6 +1132,17 @@ container.sim.ARRIVEDATSHOP=arrived at shop
 
 container.sim.building.piston=piston
 container.sim.building.button=button
+container.sim.change_credits=change credits <amount>
+container.sim.sim_gui_rms=Sim Letter of appointment
+container.sim.sim_gui_zw0=Adventurer, when you are tired of taking risks, you can try to accept this appointment.
+container.sim.sim_gui_zw1=It can help you become the only speaker in the city. You can hire NPC to work for you. They can become architects,
+container.sim.sim_gui_zw2=planners, bakers, farmers, butchers, shepherds, chicken farmers,cattle breeders, soldiers, glass manufacturers,
+container.sim.sim_gui_zw3=brick workers and many other professions. To help you make a contribution to your city,at first you only have 10 points of capital.
+container.sim.sim_gui_zw4= If you want to develop the city better, you have to find your own way to do the rest. Come on adventurers!
 
 
+
+
+container.sim.not_accept=not accept
+container.sim.accept=accept
 

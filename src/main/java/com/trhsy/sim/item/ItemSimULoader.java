@@ -22,12 +22,13 @@ public class ItemSimULoader extends ItemBase {
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
+    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (!worldIn.isRemote) {
             NetWorkLoader.net.sendTo(new PacketOpenSetupGui(), (EntityPlayerMP)playerIn);
             //创造
             if (!playerIn.isCreative()) {
-                playerIn.getHeldItem(hand).onItemUseFinish(worldIn,playerIn);
+                playerIn.getHeldItem(hand).splitStack(1);
             }
         }
         return super.onItemRightClick(itemStackIn,worldIn, playerIn, hand);

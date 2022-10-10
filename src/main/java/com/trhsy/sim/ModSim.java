@@ -1,5 +1,6 @@
 package com.trhsy.sim;
 
+import com.trhsy.sim.loader.CommandLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.proxy.CommonProxy;
 import net.minecraft.init.Blocks;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = ModSim.MODID,name = ModSim.NAME,useMetadata = true, version = ModSim.VERSION,acceptedMinecraftVersions = "1.9")
 public class ModSim {
@@ -76,4 +78,13 @@ public class ModSim {
         }
 
     }
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        try {
+            proxy.serverStarting(event);
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("serverStarting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+    }
+
 }

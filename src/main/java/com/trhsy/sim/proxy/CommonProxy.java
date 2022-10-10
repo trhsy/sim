@@ -5,6 +5,7 @@ import com.trhsy.sim.loader.render.ItemRenderLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
@@ -37,5 +38,14 @@ public class CommonProxy {
     }
 
     public void renderTick(TickEvent.RenderTickEvent e) {
+    }
+
+    public void serverStarting(FMLServerStartingEvent event) {
+        try {
+            new CommandLoader(event);
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("serverStarting出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 }

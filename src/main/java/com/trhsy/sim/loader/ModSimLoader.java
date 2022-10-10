@@ -1,18 +1,20 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.gui.GuiRunMod;
-import com.trhsy.sim.network.GameStates;
+import com.trhsy.sim.util.GameStates;
+import com.trhsy.sim.util.entity.NpcIdentity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * sim 加载信息
@@ -23,10 +25,12 @@ public class ModSimLoader {
      * 全局日志调用
      */
     public static Logger log;
-    /*
-       包含他们正在玩的这个关卡的所有游戏状态和设置
-        */
+    /**包含他们正在玩的这个关卡的所有游戏状态和设置**/
     public static GameStates states = new GameStates();
+    /**天数**/
+    public static int day;
+    /**临时可雇佣Npc姓名**/
+    public static List<NpcIdentity> tempHireableNpcNames = new CopyOnWriteArrayList();
     /**
      * 运行模组
      */
@@ -38,7 +42,7 @@ public class ModSimLoader {
      *
      * @return
      */
-    public static String getSimukraftFolder() {
+    public static String getSimFolder() {
         try {
             String strmc = (new File(".")).getAbsolutePath();
             strmc = strmc.substring(0, strmc.length() - 1);
@@ -51,6 +55,75 @@ public class ModSimLoader {
         } catch (Exception e) {
             return "";
         }
+    }
+    /**显示金额格式**/
+    public static String displayMoney(float money) {
+        String output = null;
+        try {
+            DecimalFormat myFormatter = new DecimalFormat("#,##0.00");
+            output = myFormatter.format( money);
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("displayMoney出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return output;
+    }
+
+    /**
+     * 以字符串形式获取“.minecraft/saves/游戏世界名称/sim/”文件夹 保存数据文件夹
+     *
+     * @return
+     */
+    public static String getSavesDataFolder() {
+        String ret = "";
+        try {
+            File worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsoluteFile();
+            File mainFolder = new File(worldPath.getAbsolutePath() + File.separator + "sim"+ File.separator);
+            ret=mainFolder.getAbsolutePath();
+            /*String strmc = (new File(".")).getAbsolutePath();
+            strmc = strmc.substring(0, strmc.length() - 1);
+            File test = new File(strmc + "saves");
+            if (test.exists()) {
+                //客户端
+                ret = (new File(strmc + File.separator + "saves" + File.separator  + "sim" + File.separator)).getAbsolutePath() + File.separator;
+            } else {
+                //服务器端
+                strmc = strmc + File.separator + "sim" + File.separator;
+                ret = (new File(strmc)).getAbsolutePath();
+            }
+            File f = new File(ret);*/
+            if (!mainFolder.exists()) {
+                mainFolder.mkdirs();
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("getSavesDataFolder出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return ret;
+    }
+
+    /**
+     * 从配置文件中读取内容
+     * @param fullFilename
+     * @return
+     */
+    public static List<String> loadSK2(String fullFilename) {
+        CopyOnWriteArrayList ret = new CopyOnWriteArrayList();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fullFilename));
+
+            for (String line = br.readLine(); line != null; line = br.readLine()) {
+                ret.add(line);
+            }
+
+            br.close();
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("loadSK2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
+        return ret;
     }
     /**
      * 判断是否白天 当世界上是白天时返回true，忽略其他世界时间
@@ -80,7 +153,7 @@ public class ModSimLoader {
      */
     public static void sendChat(String theText) {
         try {
-            FMLCommonHandler.instance().getMinecraftServerInstance().getServer().addChatMessage(new TextComponentString(theText));
+            FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString(theText));
            /* WorldServer[] worldServers = MinecraftServer.getServer().worldServers;
             int length = worldServers.length;
             for (World w : MinecraftServer.getServer().worldServers) {
@@ -98,12 +171,13 @@ public class ModSimLoader {
     }
     /**
      * @Author fan
-     * @Description //TODO 下载文件
+     * @Description //TODO 下载version文件并返回内容
      * @Date 20:26 2022/10/8
      * @Param [url, localFile]
      * @return java.lang.String
      **/
     public static String downloadFile(String url, String localFile) {
+        String ret = "";
         File f = new File(localFile);
         if (f.exists()) {
             deleteFile(f);
@@ -124,15 +198,15 @@ public class ModSimLoader {
             }
 
             bout.flush();
-            //ret = new String(data);
+            ret = new String(data);
             bout.close();
             in.close();
         } catch (Exception e) {
-            //ret = "";
-            //var9.printStackTrace();
+            ret = "";
+            e.printStackTrace();
         }
 
-        return localFile;
+        return ret;
     }
     /**
      * @Author fan
@@ -156,4 +230,29 @@ public class ModSimLoader {
         }
         file = null;    // lets gc do its works
     }
+
+    /**
+     * 保存配置文件
+     * @param fullFilename
+     * @param strings
+     */
+    public static void saveSK2(String fullFilename, List<String> strings) {
+        try {
+            File f=new File(fullFilename);
+            if(!f.exists()){
+                f.createNewFile();
+            }
+            BufferedWriter bw = new BufferedWriter(new FileWriter(fullFilename));
+            for (String line:strings){
+                bw.write(line + "\r\n");
+            }
+            bw.close();
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("saveSK2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            //var5.printStackTrace();
+        }
+
+    }
+
 }

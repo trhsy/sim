@@ -1,7 +1,10 @@
 package com.trhsy.sim.proxy;
 
+import com.trhsy.sim.gui.GuiHud;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -30,6 +33,38 @@ public class ClientProxy extends CommonProxy{
 
     @Override
     public void renderTick(TickEvent.RenderTickEvent renderTickEvent){
+        Minecraft mc = Minecraft.getMinecraft();
+        GuiScreen hud = new GuiHud();
+        if (mc.currentScreen == null) {
+            String worldname = "unknown";
+            try {
+                if (ModSimLoader.states.gameModeNumber== -1) {
+                    return;
+                }
+                worldname = mc.getIntegratedServer().getFolderName();
+            } catch (Exception var7) {
+                worldname = "Server";
+            }
+            try {
+                if (ModSimLoader.states.gameModeNumber != 10) {
+                    if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+                        int HUDoffset = 0;
+                        if (mc.thePlayer.dimension == 1) {
+                            HUDoffset = 20;
+                        }
 
+                        if (ModSimLoader.states.gameModeNumber == 1) {
+                            hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimLoader.day + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
+                        } else {
+                            hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimLoader.day + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimLoader.tempHireableNpcNames.size() + "   "+ I18n.format("container.sim.trhsy4") +": " + ModSimLoader.displayMoney(ModSimLoader.states.credits), hud.width / 2, 2 + HUDoffset, 16777215);
+                        }
+                    }
+                } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+                    hud.drawString(mc.fontRendererObj, I18n.format("container.sim.trhsy5"), hud.width / 2, 2, 16777215);
+                }
+            } catch (Exception var6) {
+                var6.printStackTrace();
+            }
+        }
     }
 }
