@@ -1146,3 +1146,17 @@ container.sim.sim_gui_zw4= If you want to develop the city better, you have to f
 container.sim.not_accept=not accept
 container.sim.accept=accept
 
+container.sim.config_loader0=This enables or disables the beaming effect (purple particles) - Set to true to turn them off.
+container.sim.config_loader1=If the folks BLARG talking gets annoying, set this to false
+container.sim.config_loader2=If the folks ENGLISH talking gets annoying, set this to false
+container.sim.config_loader3=The radius in blocks that the lumberjack will look for trees from the starting point, don't set this too high, otherwise it will slow down MC every time they scan for the nearest tree, so 30 to 1000 should be ok (1000 is 1 Kilometre)
+container.sim.config_loader4=Limit the population from growing beyond this number if you have an older computer
+container.sim.config_loader5=When placing a marker it fires out 4 alignment beams, setting this to false will turn those beams off
+container.sim.config_loader6=If you think the mining/farming boxes are too cheap/overpowered, set this to true to make the recipies require diamond tools instead of stone tools
+container.sim.config_loader7=When a builder runs out of materials, they will let you know about it every 3 minutes, set to 0 for no further reminders.
+container.sim.config_loader8=This positions the HUD (population and money text at the top of the screen) - default is 0, which is the top, value is in pixels, so setting 320 will display it 320 pixels from the top of the screen. Alter this to suit your screen resolution and avoid clashing with other text, setting to minus 10 will display it offscreen.
+container.sim.config_loader9=This is just a personal mod :-) If you too find it rains ALL THE F***ING TIME in your world and it annoys you/causes lag, set this to true and you'll only have brief showers instead
+container.sim.config_loader10=These are the male first names used by the random name generator, keep the format the same or bad things will happen.
+container.sim.config_loader11=These are the female first names used by the random name generator, keep the format the same or bad things will happen.
+container.sim.config_loader12=These are the last names used by the random name generator, keep the format the same or bad things will happen.
+

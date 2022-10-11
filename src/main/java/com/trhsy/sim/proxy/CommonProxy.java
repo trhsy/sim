@@ -2,6 +2,8 @@ package com.trhsy.sim.proxy;
 
 import com.trhsy.sim.loader.*;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
+import com.trhsy.sim.npc.geneics.Race;
+import com.trhsy.sim.npc.traits.Traits;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -15,6 +17,8 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         ModSimLoader.log = event.getModLog();
+        /**配置**/
+        ConfigLoader.load(event);
         /**创造模式物品栏**/
         new CreativeTabsLoader(event);
         /**物品加载注册**/
@@ -29,6 +33,13 @@ public class CommonProxy {
         new NetWorkLoader(event);
         /**事件加载**/
         new EventLoader();
+        /**合成表**/
+        new CraftingLoader();
+        /**矿物生成**/
+        new WorldGeneratorLoader();
+
+        Traits.loadTraits();
+        Race.loadRaces();
     }
 
     public void init(FMLInitializationEvent event) {

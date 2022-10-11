@@ -2,6 +2,7 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
+import com.trhsy.sim.util.SimConfigSync;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;

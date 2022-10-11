@@ -31,6 +31,8 @@ public class ModSimLoader {
     public static int day;
     /**临时可雇佣Npc姓名**/
     public static List<NpcIdentity> tempHireableNpcNames = new CopyOnWriteArrayList();
+    /**是否加载npc**/
+    public static boolean hasLoadedFolks = false;
     /**
      * 运行模组
      */

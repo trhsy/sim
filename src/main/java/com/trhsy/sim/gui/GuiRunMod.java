@@ -142,6 +142,7 @@ public class GuiRunMod extends GuiScreen {
         try {
             switch (guibutton.id) {
                 case 0:
+                    this.page=0;
                     //不运行模拟城镇 按超过10次
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
@@ -149,6 +150,7 @@ public class GuiRunMod extends GuiScreen {
                     break;
                 case 1:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(0));
+                    this.page=0;
                     ModSimLoader.log.info("在正常模式下重新加载模拟城市");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
@@ -159,6 +161,7 @@ public class GuiRunMod extends GuiScreen {
                     break;
                 case 2:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(1));
+                    this.page=0;
                     ModSimLoader.log.info("在创造模式下重新加载模拟城市");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
@@ -168,6 +171,7 @@ public class GuiRunMod extends GuiScreen {
                     break;
                 case 3:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(2));
+                    this.page=0;
                     ModSimLoader.log.info("在专业模式下重新加载模拟城市");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
@@ -179,17 +183,23 @@ public class GuiRunMod extends GuiScreen {
                     break;
                 case 4:
                     ModSimLoader.log.info("接受任命书");
+                    this.buttonList.get(0).visible=false;
+                    this.buttonList.get(1).visible=false;
                     this.page=1;
                     this.updateScreen();
                     this.initGui();
                     break;
                 case 5:
                     ModSimLoader.log.info("不接受任命书");
+                    this.page=0;
+                    this.buttonList.get(0).visible=false;
+                    this.buttonList.get(1).visible=false;
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
                     break;
                 default:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(0));
+                    this.page=0;
                     ModSimLoader.log.info("在正常模式下重新加载模拟城市");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
