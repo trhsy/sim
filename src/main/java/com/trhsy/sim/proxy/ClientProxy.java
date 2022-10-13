@@ -1,6 +1,7 @@
 package com.trhsy.sim.proxy;
 
 import com.trhsy.sim.gui.GuiHud;
+import com.trhsy.sim.loader.EntityLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
 import net.minecraft.client.Minecraft;
@@ -29,6 +30,7 @@ public class ClientProxy extends CommonProxy{
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
+        EntityLoader.registerRenders();
     }
 
     @Override

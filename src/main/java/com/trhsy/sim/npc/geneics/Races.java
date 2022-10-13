@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Races {
+
     public static Race raceHuman = new RaceHuman();
     public static Race raceElf = new RaceElf();
     public static Race raceDarkElf = new RaceDarkElf();

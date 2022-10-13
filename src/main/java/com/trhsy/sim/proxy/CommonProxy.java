@@ -37,9 +37,10 @@ public class CommonProxy {
         new CraftingLoader();
         /**矿物生成**/
         new WorldGeneratorLoader();
-
+        EntityLoader.init();
         Traits.loadTraits();
         Race.loadRaces();
+
     }
 
     public void init(FMLInitializationEvent event) {

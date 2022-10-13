@@ -215,7 +215,7 @@ container.sim.windmill_base=用底座制造风车
 container.sim.windmill=制作一个风车底座来制作风车
 container.sim.windmill_sail=制作4个这样的叶片,合成风车帆
 container.sim.sim_folks=给小镇居民们的美味小吃
-
+container.sim.In_a_relationship=有对象
 container.sim.control_box_Creative=银行在创造模式下不活动（因为没有钱！）
 container.sim.farming_box_isEmpty=你需要先放置3个标记棒来标出农业区域
 container.sim.farming_box_size=你需要放置3个标记,而不是
@@ -696,13 +696,14 @@ container.sim.gui_Farming_text_credits=金额
 
 container.sim.main_buildings= 文件夹丢失,模拟城镇安装不正确,请复制simukraft文件夹和zip文件。
 container.sim.main_available=模拟城镇的最新更新可用(https://www.curseforge.com/minecraft/mc-mods/sim-u)
-container.sim.main_Collected=今天收了
-container.sim.main_rent_today=金的房租。
+container.sim.main_Collected=你今天收了
+container.sim.main_rent_today=的房租。
 container.sim.main_tax_today=金的税收。
 container.sim.main_No_rent=今天没有收到房租,你应该雇一个人来盖一栋住宅。
 container.sim.main_is_now= 现在18岁了,他们会开始找房子,你现在也可以雇佣他们了。
 container.sim.main_is_old= 年纪大了,感觉不太好。。。哦不！
-container.sim.main_is_VERY= 非常饿,你应该建一个农场、杂货店、面包店或向他们扔一些食物。
+container.sim.main_is_VERY=快饿死了！你应该建立一个农场，杂货店，面包店或向他们扔一些食物。
+container.sim.others_starving= 其他人正在挨饿！你应该建立一个农场，杂货店，面包店或向他们扔一些食物。
 container.sim.main_Paid1=支付了
 container.sim.main_Paid2= 酬金,昨天杀了
 container.sim.main_Paid3= 个敌对暴徒。
@@ -774,9 +775,15 @@ container.sim.Mining12=错误：请在采矿箱前放置标记
 container.sim.Mining13=和
 container.sim.Mining14= 其他人
 container.sim.Mining15=水平井的规模
-
+container.sim.married=正在结婚！
+container.sim.moving=正在搬进{}家
 container.sim.PathBox1=选择路径类型
-
+container.sim.girlFriend=女朋友
+container.sim.boyFriend=男朋友
+container.sim.Wife=妻子
+container.sim.extendedFamily=大家庭
+container.sim.Husband=丈夫
+container.sim.cousin=远亲
 container.sim.PathBox3=木桥
 container.sim.PathBox4=路径箱
 container.sim.PathBox5=错误：未放置标记 - 先放置标记

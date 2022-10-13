@@ -8,13 +8,17 @@ import net.minecraft.client.resources.I18n;
  * @author Trhsy
  * @Package: com.trhsy.sim.npc.traits
  * @ClassName: Trait
- * @Description:
+ * @Description: 特征
  * @date 2022/10/11 14:45
  */
 public class Trait {
+    /**特征名称**/
     public String traitName;
+    /**特征描述**/
     public String traitDesc;
+    /**反特征特征**/
     public Trait traitOpposite;
+    /****/
     public NpcData theFolk;
 
     public Trait() {

@@ -3,6 +3,7 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.network.client.ConfigSyncPacket;
 import com.trhsy.sim.network.client.PacketOpenSetupGui;
+import com.trhsy.sim.network.client.PacketSendFolkSkin;
 import com.trhsy.sim.network.server.PacketSetupMod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -43,6 +44,8 @@ public class NetWorkLoader {
     public void registerMessagesAsClient(){
         registerMessage(PacketOpenSetupGui.Handler.class,PacketOpenSetupGui.class,Side.CLIENT);
         registerMessage(ConfigSyncPacket.Handler.class,ConfigSyncPacket.class,Side.CLIENT);
+        registerMessage(PacketSendFolkSkin.Handler.class,PacketSendFolkSkin.class,Side.CLIENT);
+
     }
     /**
      *

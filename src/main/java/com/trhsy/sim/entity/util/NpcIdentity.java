@@ -1,4 +1,4 @@
-package com.trhsy.sim.util.entity;
+package com.trhsy.sim.entity.util;
 
 /**
  * @author Trhsy

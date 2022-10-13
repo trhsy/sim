@@ -1,8 +1,12 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.gui.GuiRunMod;
+import com.trhsy.sim.network.client.PacketUpdateMoney;
+import com.trhsy.sim.npc.Building;
+import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.util.GameStates;
-import com.trhsy.sim.util.entity.NpcIdentity;
+import com.trhsy.sim.entity.util.NpcSkin;
+import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -13,7 +17,9 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -29,10 +35,18 @@ public class ModSimLoader {
     public static GameStates states = new GameStates();
     /**天数**/
     public static int day;
+    /**npc 数据**/
+    public static List<NpcData> folks = new CopyOnWriteArrayList();
+    /**建筑**/
+    public static List<Building> buildings = new CopyOnWriteArrayList();
     /**临时可雇佣Npc姓名**/
     public static List<NpcIdentity> tempHireableNpcNames = new CopyOnWriteArrayList();
+
     /**是否加载npc**/
     public static boolean hasLoadedFolks = false;
+    /**npc 皮肤**/
+    public static List<NpcSkin> folkSkins = new CopyOnWriteArrayList();
+
     /**
      * 运行模组
      */
@@ -58,6 +72,13 @@ public class ModSimLoader {
             return "";
         }
     }
+    public static void addMoney(float amount) {
+        if (ModSimLoader.states.gameModeNumber == 0) {
+            ModSimLoader.states.credits += amount;
+            NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
+        }
+
+    }
     /**显示金额格式**/
     public static String displayMoney(float money) {
         String output = null;
@@ -70,7 +91,16 @@ public class ModSimLoader {
         }
         return output;
     }
-
+    public static NpcIdentity getFolkByUUID(UUID uuid) {
+        NpcIdentity npcIdentity=null;
+        for (int i = 0; i < tempHireableNpcNames.size(); i++) {
+            NpcIdentity npcIdentity1=tempHireableNpcNames.get(i);
+            if(npcIdentity1.id.contentEquals(uuid.toString())){
+                npcIdentity=npcIdentity1;
+            }
+        }
+        return npcIdentity;
+    }
     /**
      * 以字符串形式获取“.minecraft/saves/游戏世界名称/sim/”文件夹 保存数据文件夹
      *
@@ -257,4 +287,13 @@ public class ModSimLoader {
 
     }
 
+    public static NpcData getFolkDataByUID(String uid) {
+        NpcData npcDatas=null;
+        for (NpcData npcData:folks){
+            if(npcData.ID.contentEquals(uid.toLowerCase())){
+                npcDatas=npcData;
+            }
+        }
+        return npcDatas;
+    }
 }
