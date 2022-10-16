@@ -18,7 +18,7 @@ import java.util.List;
  * @author Trhsy
  * @Package: com.trhsy.sim.network.client
  * @ClassName: ConfigSyncPacket
- * @Description:
+ * @Description: 配置同步
  * @date 2022/10/11 11:08
  */
 public class ConfigSyncPacket implements IMessage {

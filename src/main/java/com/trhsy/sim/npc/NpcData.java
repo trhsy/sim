@@ -2,30 +2,38 @@ package com.trhsy.sim.npc;
 
 import com.trhsy.sim.entity.EntityFolk;
 import com.trhsy.sim.entity.util.NpcIdentity;
+import com.trhsy.sim.loader.ConfigLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketSendFolkSkin;
-import com.trhsy.sim.npc.geneics.NpcRace;
-import com.trhsy.sim.npc.geneics.Race;
+import com.trhsy.sim.npc.job.Job;
+import com.trhsy.sim.npc.moodbuff.MoodBuff;
+import com.trhsy.sim.npc.race.Race;
+import com.trhsy.sim.npc.race.Races;
+import com.trhsy.sim.npc.task.*;
 import com.trhsy.sim.npc.traits.Trait;
 import com.trhsy.sim.util.EnumFamilyType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -51,7 +59,7 @@ public class NpcData {
     /**饱食度**/
     public int hunger = 10;
     /**种族**/
-    public NpcRace race;
+    public Race race;
     /**工作**/
     public Job job;
     /**npc实体**/
@@ -59,9 +67,13 @@ public class NpcData {
     /**情感关系**/
     public List<FolkRelationship> relationships = new CopyOnWriteArrayList();
     /**情绪**/
+    public List<MoodBuff> buffs = new ArrayList();
     /**物品栏**/
     public List<ItemStack> inventory = new CopyOnWriteArrayList<>();
     /**任务**/
+    public List<Task> tasks = new ArrayList();
+    /**当前任务**/
+    public Task currentTask;
     /**特征1**/
     public Trait trait1;
     /**特征2**/
@@ -127,6 +139,8 @@ public class NpcData {
         this.lastPathAttempt = 0L;
         //性别随机
         this.gender = this.rand.nextInt(2);
+        /**皮肤随机*/
+        this.skinnumber =rand.nextInt(64);
         //种族分配
         this.assignRace();
         /**年龄**/
@@ -134,12 +148,14 @@ public class NpcData {
         ModSimLoader.folks.add(this);
         EntityFolk e = new EntityFolk(world, true);
         e.isBeingCreated = true;
-        EntityPlayer thePlayer = (EntityPlayer)world.playerEntities.get(0);
+        EntityPlayer thePlayer = world.playerEntities.get(0);
         e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
         this.pos = V3.fromBlockPos(thePlayer.getPosition());
         if (!fromCommand) {
             Vec3d newPos;
-            for(newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7); newPos == null; newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7)) {
+            newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
+            if(newPos == null){
+                newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }
 
             while(!world.isAirBlock((new BlockPos(newPos)).up())) {
@@ -164,6 +180,236 @@ public class NpcData {
         this.saveFolk();
         this.isLoaded = true;
     }
+    public NpcData(World world, UUID uuid) {
+        this.holding = null;
+        this.matingStage = -1.0F;
+        this.rand = new Random();
+        /**皮肤随机*/
+        this.skinnumber =rand.nextInt(64);
+        this.tempStage = -1;
+        this.timeSinceLastStatusUpdate = 0L;
+        this.minuteUpdate = 0L;
+        this.tempEmployLoc = null;
+        this.lastPathAttempt = 0L;
+        if (!world.isRemote) {
+            this.loadFolk(world, uuid);
+        }
+
+    }
+
+    public NpcData(World world, NpcData mother, NpcData father) {
+        this.holding = null;
+        this.matingStage = -1.0F;
+        this.rand = new Random();
+        this.tempStage = -1;
+        this.timeSinceLastStatusUpdate = 0L;
+        /**皮肤随机*/
+        this.skinnumber =rand.nextInt(64);
+        this.minuteUpdate = 0L;
+        this.tempEmployLoc = null;
+        this.lastPathAttempt = 0L;
+        this.gender = this.rand.nextInt(2);
+        if (this.rand.nextInt(2) == 0) {
+            this.assignRace(mother.race.raceName, true);
+        } else {
+            this.assignRace(father.race.raceName, true);
+        }
+
+        this.surname = father.surname;
+        EntityFolk e = new EntityFolk(world, true);
+        e.isBeingCreated = true;
+        e.setPositionAndUpdate(mother.entity.posX, mother.entity.posY, mother.entity.posZ);
+        this.pos = mother.pos;
+        e.theData = this;
+        this.ID = e.getUniqueID().toString();
+        this.entity = e;
+        this.assignFamilyMembers(mother, father);
+        this.home = mother.home;
+        mother.home.occupants.add(this);
+        world.spawnEntityInWorld(e);
+        NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
+        this.sendSkinPathToClient();
+        this.saveFolk();
+        this.isLoaded = true;
+    }
+    public void assignFamilyMembers(NpcData mother, NpcData father) {
+        this.assignRelationshipsFromParent(mother);
+        this.assignRelationshipsFromParent(father);
+    }
+    public void assignRelationshipsFromParent(NpcData parent) {
+        this.relationships.add(new FolkRelationship(this, parent, EnumFamilyType.PARENT));
+        parent.relationships.add(new FolkRelationship(parent, this, EnumFamilyType.CHILD));
+        for(FolkRelationship rel:parent.relationships){
+            NpcData folk2 = rel.getOther();
+            if(rel.familyType != EnumFamilyType.EXTENDED && rel.familyType != EnumFamilyType.GRANDCHILD && rel.familyType != EnumFamilyType.GRANDPARENT && rel.familyType != EnumFamilyType.PARENTSIBLING){
+                if(folk2==null){
+                    folk2 = rel.getOther();
+                }
+                if (rel.familyType == EnumFamilyType.CHILD && this.getRelationshipWith(folk2) == null) {
+                    this.relationships.add(new FolkRelationship(this, folk2, EnumFamilyType.SIBLING));
+                    folk2.relationships.add(new FolkRelationship(folk2, this, EnumFamilyType.SIBLING));
+                }
+
+                if (rel.familyType == EnumFamilyType.SIBLING && this.getRelationshipWith(folk2) == null) {
+                    this.relationships.add(new FolkRelationship(this, folk2, EnumFamilyType.PARENTSIBLING));
+                    folk2.relationships.add(new FolkRelationship(folk2, this, EnumFamilyType.SIBLINGCHILD));
+                }
+
+                if (rel.familyType == EnumFamilyType.SIBLINGCHILD && this.getRelationshipWith(folk2) == null) {
+                    this.relationships.add(new FolkRelationship(this, folk2, EnumFamilyType.COUSIN));
+                    folk2.relationships.add(new FolkRelationship(folk2, this, EnumFamilyType.COUSIN));
+                }
+
+                if (rel.familyType == EnumFamilyType.PARENT && this.getRelationshipWith(folk2) == null) {
+                    this.relationships.add(new FolkRelationship(this, folk2, EnumFamilyType.GRANDPARENT));
+                    folk2.relationships.add(new FolkRelationship(folk2, this, EnumFamilyType.GRANDCHILD));
+                }
+            }
+            if (this.getRelationshipWith(folk2) == null) {
+                this.relationships.add(new FolkRelationship(this, folk2, EnumFamilyType.EXTENDED));
+                folk2.relationships.add(new FolkRelationship(folk2, this, EnumFamilyType.EXTENDED));
+            }
+        }
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 加载NPC
+     * @Date 19:59 2022/10/15
+     * @Param [world, loadID]
+     * @return void
+     **/
+    public void loadFolk(World world, UUID loadID) {
+        DimensionManager d = new DimensionManager();
+        File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
+        npcFolder.mkdirs();
+        this.entity = (EntityFolk)FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(loadID);
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(npcFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+
+            for(String line = reader.readLine(); line != null; line = reader.readLine()) {
+                int m1 = line.indexOf("|");
+                String name = line.substring(0, m1).toLowerCase();
+                String value = line.substring(m1 + 1).toLowerCase();
+                ModSimLoader.log.info(line);
+                if (line.contains("id|")) {
+                    this.ID = value;
+                    if (this.entity == null) {
+                        this.entity = (EntityFolk)world.getMinecraftServer().getEntityFromUuid(UUID.fromString(this.ID));
+                    }
+                }
+
+                if (line.contains("fname|")) {
+                    this.forename = value.substring(0, 1).toUpperCase() + value.substring(1);
+                } else if (line.contains("sname|")) {
+                    this.surname = value.substring(0, 1).toUpperCase() + value.substring(1);
+                } else if (line.contains("gender|")) {
+                    this.gender = Integer.valueOf(value);
+                } else if (line.contains("age|") && !line.contains("jobstage")) {
+                    this.age = Integer.valueOf(value);
+                } else if (line.contains("race|")) {
+                    this.assignRace(value, false);
+                } else if (line.contains("skin|")) {
+                    this.race.skinName = value;
+                } else if (line.contains("pos|")) {
+                    this.pos = V3.fromString(value);
+                } else if (line.contains("hunger|")) {
+                    this.hunger = Integer.valueOf(value);
+                } else if (line.contains("buildingskill|")) {
+                    this.skillBuilding = Float.valueOf(value);
+                } else if (line.contains("farmingskill|")) {
+                    this.skillFarming = Float.valueOf(value);
+                } else if (line.contains("holding|")) {
+                    try {
+                        this.holding = new ItemStack(Item.getByNameOrId(value));
+                        this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
+                    } catch (Exception var16) {
+                    }
+                } else if (line.contains("employedat|")) {
+                    if (!value.contentEquals("null")) {
+                        this.tempEmployLoc = V3.fromString(value);
+                    }
+                } else if (line.contains("job|")) {
+                    if (!value.contentEquals("null")) {
+                        BlockPos p;
+                        /*if (value.split(";")[0].contentEquals("builder")) {
+                            p = V3.fromString(value.split(";")[1]).toBlockPos();
+                            int d2 = Integer.valueOf(value.split(";")[2]);
+                            this.job = new JobBuilder(this, p, d2, world);
+                        } else if (value.split(";")[0].contentEquals("dairyfarmer")) {
+                            this.job = new JobDairyFarmer(this, this.tempEmployLoc, world);
+                        } else if (value.split(";")[0].contentEquals("baker")) {
+                            this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("butcher")) {
+                            this.job = new JobButcher(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("pig farmer")) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, "pig", world);
+                        } else if (value.split(";")[0].contentEquals("cow farmer")) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, "cow", world);
+                        } else if (value.split(";")[0].contentEquals("chicken farmer")) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, "chicken", world);
+                        } else if (value.split(";")[0].contentEquals("farmer")) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            FarmBox fb = WorldData.getFarm(V3.fromBlockPos(p));
+                            this.job = new JobFarmer(this, p, world, fb);
+                        } else if (value.split(";")[0].contentEquals("miner")) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            MineBox mb = WorldData.getMine(V3.fromBlockPos(p));
+                            this.job = new JobMiner(this, p, world, mb);
+                        } else if (value.split(";")[0].contentEquals("egg farmer")) {
+                            this.job = new JobEggFarmer(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("fisherman")) {
+                            this.job = new JobFisherman(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("grocer")) {
+                            this.job = new JobGrocer(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("lumberjack")) {
+                            this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("shepherd")) {
+                            this.job = new JobShepherd(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("soldier")) {
+                            this.job = new JobSoldier(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (value.split(";")[0].contentEquals("")) {
+                        }*/
+                    }
+
+                    if (this.job != null) {
+                        this.job.stage = this.tempStage;
+                    }
+                } else if (line.contains("jobstage|")) {
+                    if (this.job != null) {
+                        this.job.stage = Integer.parseInt(value);
+                    } else {
+                        this.tempStage = Integer.parseInt(value);
+                    }
+                } else if (line.contains("relationship|")) {
+                    String[] rels = value.split(";");
+                    String[] var12 = rels;
+                    int var13 = rels.length;
+
+                    for(int var14 = 0; var14 < var13; ++var14) {
+                        String rel = var12[var14];
+                        if (rel.length() > 0) {
+                            this.relationships.add(new FolkRelationship(this, rel.toUpperCase()));
+                        }
+                    }
+                }
+            }
+
+            reader.close();
+            if (this.entity != null) {
+                this.entity.setDead();
+            }
+
+            this.respawn(world, this.pos.toBlockPos());
+        } catch (Exception var17) {
+            var17.printStackTrace();
+        }
+
+        this.isLoaded = true;
+    }
     public void fire() {
         this.setStatus("Wandering");
         this.job = null;
@@ -173,44 +419,40 @@ public class NpcData {
 
         this.stayPut = false;
     }
+    /**
+     * @Author fan
+     * @Description //TODO 分配种族
+     * @Date 15:57 2022/10/14
+     * @Param []
+     * @return void
+     **/
     public void assignRace() {
         try {
-            File raceFolder = new File(ModSimLoader.getSimFolder() + File.separator + "races");
-            File[] races = raceFolder.listFiles();
-            File pickedRace = races[this.rand.nextInt(races.length)];
-            File raceData = new File(pickedRace.getAbsolutePath() + File.separator + pickedRace.getName() + ".RACE");
-            BufferedReader reader = new BufferedReader(new FileReader(raceData));
-            String line = reader.readLine();
+            this.race = Races.raceList.get(rand.nextInt(Races.raceList.size()));
 
-            for(this.race = new NpcRace(); line != null; line = reader.readLine()) {
-                if (line.contains("name=")) {
-                    this.race.name = line.split("=")[1];
-                } else if (line.contains("description")) {
-                    this.race.desc = line.split("=")[1];
-                } else if (line.contains("lifespan")) {
-                    this.race.lifespan = Integer.valueOf(line.split("=")[1]);
-                } else if (line.contains("maturity")) {
-                    this.race.maturity = Integer.valueOf(line.split("=")[1]);
-                } else if (line.contains("malenameset") && this.gender == 0) {
-                    this.forename = line.split("=")[1].split(";")[this.rand.nextInt(line.split("=")[1].split(";").length)];
-                } else if (line.contains("femalenameset") && this.gender == 1) {
-                    this.forename = line.split("=")[1].split(";")[this.rand.nextInt(line.split("=")[1].split(";").length)];
-                } else if (line.contains("surnameset")) {
-                    this.surname = line.split("=")[1].split(";")[this.rand.nextInt(line.split("=")[1].split(";").length)];
-                }
-            }
-
-            reader.close();
-            File[] skins = null;
-            if (this.gender == 0) {
+            /*if (this.gender == 0) {
                 skins = (new File(pickedRace.getAbsolutePath() + File.separator + "male")).listFiles();
             } else {
                 skins = (new File(pickedRace.getAbsolutePath() + File.separator + "female")).listFiles();
             }
 
-            this.race.skinName = skins[this.rand.nextInt(skins.length)].getName();
+            this.race.skinName = skins[this.rand.nextInt(skins.length)].getName();*/
         } catch (Exception var8) {
             var8.printStackTrace();
+        }
+    }
+    public void assignRace(String existingRaceName, boolean newChild) {
+        try {
+            for (int i = 0; i < Races.raceList.size(); i++) {
+                Race race=Races.raceList.get(i);
+                if(existingRaceName.equals(race.raceName)){
+                    this.race =race;
+                    break;
+                }
+            }
+
+        } catch (Exception var9) {
+            var9.printStackTrace();
         }
     }
 
@@ -230,7 +472,7 @@ public class NpcData {
         if (this.entity != null && !this.isDead) {
             BufferedWriter writer = null;
             try{
-                File npcFolder = new File(ModSimLoader.getSimFolder() + File.separator + "npc");
+                File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
                 npcFolder.mkdirs();
                 File logFile = new File(npcFolder + File.separator + this.entity.getUniqueID() + ".sk2");
                 writer = new BufferedWriter(new FileWriter(logFile));
@@ -239,35 +481,40 @@ public class NpcData {
                 writer.write("sname|" + this.surname + "\n");
                 writer.write("gender|" + this.gender + "\n");
                 writer.write("age|" + String.valueOf(this.age) + "\n");
-                writer.write("race|" + this.race.name + "\n");
+                writer.write("race|" + this.race.raceName + "\n");
                 writer.write("skin|" + this.race.skinName + "\n");
                 writer.write("pos|" + this.pos.toString() + "\n");
                 writer.write("hunger|" + String.valueOf(this.hunger) + "\n");
                 writer.write("buildingskill|" + String.valueOf(this.skillBuilding) + "\n");
                 writer.write("farmingskill|" + String.valueOf(this.skillFarming) + "\n");
-                writer.write("holding|" + this.entity.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getDisplayName() + "\n");
+                ItemStack itemStack=this.entity.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
+                String holdings="";
+                if(itemStack!=null){
+                    holdings=itemStack.getDisplayName();
+                }
+                writer.write("holding|" + holdings + "\n");
                 boolean isBuilding = false;
-                /*if (this.job != null) {
+                if (this.job != null) {
                     writer.write("employedat|" + this.job.workPlace.toString() + "\n");
                     if (this.job.jobName.contentEquals("builder")) {
-                        JobBuilder jb = (JobBuilder)this.job;
+                        /*JobBuilder jb = this.job;
                         writer.write("job|" + this.job.jobName + ";" + jb.workPlace.toString() + ";" + jb.direction + "\n");
                         if (jb.blueprint != null) {
                             writer.write("building|" + jb.blueprint.name + "\n");
-                        }
+                        }*/
                     } else {
                         writer.write("job|" + this.job.jobName + "\n");
                         writer.write("jobstage|" + this.job.stage + "\n");
                     }
-                } else {*/
+                } else {
                     writer.write("employedat|null\n");
                     writer.write("job|null\n");
                     writer.write("jobstage|-1\n");
-                //}
+                }
                 writer.write("relationship|");
-                /*for(int i = 0; i < this.relationships.size(); ++i) {
+                for(int i = 0; i < this.relationships.size(); ++i) {
                     writer.write(((FolkRelationship)this.relationships.get(i)).toString() + (i < this.relationships.size() - 1 ? ";" : ""));
-                }*/
+                }
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
@@ -283,12 +530,22 @@ public class NpcData {
 
     public String getName() {
         String name="";
+
+        if (this.gender == 0) {
+            int i = rand.nextInt(ConfigLoader.configMaleNames.length);
+            this.forename = ConfigLoader.configMaleNames[i].trim();
+        }else {
+            int i = rand.nextInt(ConfigLoader.configFemaleNames.length);
+            this.forename = ConfigLoader.configFemaleNames[i].trim();
+        }
+        int i = rand.nextInt(ConfigLoader.configSurnames.length);
+        this.surname = ConfigLoader.configSurnames[i].trim();
         if(this.surname != null && this.forename != null){
             String lang = FMLCommonHandler.instance().getCurrentLanguage();
             if ("en_US".equals(lang)) {
-                name = forename + " " + surname;
+                name = this.forename + " " + this.surname;
             } else {
-                name = surname + forename;
+                name = this.surname + this.forename;
             }
         }
         return  name;
@@ -304,13 +561,17 @@ public class NpcData {
         return this.status;
     }
     public String getJobTitle() {
-        //return this.job != null ? this.job.toString() : "Unemployed";
-        return "Unemployed";
+        /**被解雇的**/
+        String s=I18n.format("container.sim.gui_Folk_unemployed");
+        return this.job != null ? this.job.toString() : s;
+//        return "Unemployed";
     }
 
     public String getHousingStatus() {
-        //return this.home != null ? "Homeowner" : "Homeless";
-        return "Homeowner";
+        String s=I18n.format("container.sim.folkData3");
+        String s1=I18n.format("container.sim.folkData2");
+        return this.home != null ? s1 : s;
+//        return "Homeowner";
     }
     public void respawn(World world, BlockPos bp) {
         if (this.entity == null && this.isLoaded) {
@@ -354,11 +615,11 @@ public class NpcData {
 
     public String getHunger() {
         if (this.hunger > 8) {
-            return "Well fed";
+            return I18n.format("container.sim.folkData6");
         } else if (this.hunger > 4) {
-            return "A little hungry";
+            return I18n.format("container.sim.folkData7");
         } else {
-            return this.hunger > 1 ? "Very hungry" : "Starving";
+            return this.hunger > 1 ? I18n.format("container.sim.folkData9") : I18n.format("container.sim.folkData8");
         }
     }
     public NpcData getFamily(EnumFamilyType fam) {
@@ -368,18 +629,11 @@ public class NpcData {
                 rels=rel;
             }
         }
-        /*Iterator var2 = this.relationships.iterator();
-
-        FolkRelationship rel;
-        do {
-            if (!var2.hasNext()) {
-                return null;
-            }
-
-            rel = (FolkRelationship)var2.next();
-        } while(rel.familyType != fam);*/
-
-        return rels.getOther();
+        if(rels==null){
+            return null;
+        }else{
+            return rels.getOther();
+        }
     }
 
     /**
@@ -393,7 +647,422 @@ public class NpcData {
     public void setStatus(String sts) {
         this.status = sts;
     }
+    /**更新NPC状态**/
     public void onUpdate() {
+        Long now = System.currentTimeMillis();
+        if (now - this.timeSinceLastStatusUpdate > 1000L) {
+            this.onSecond();
+            this.timeSinceLastStatusUpdate = now;
+        }
+        if (now - this.minuteUpdate > 60000L) {
+            this.onMinute();
+            this.minuteUpdate = now;
+        }
 
+        if (this.entity == null) {
+            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+            for (EntityPlayerMP player:players.getPlayerList()){
+                if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 50.0D && !player.worldObj.isRemote) {
+                    ModSimLoader.hasLoadedFolks = true;
+                    this.respawn(player.worldObj, this.pos.toBlockPos());
+                }
+            }
+        }
+
+        if (this.entity != null && !this.entity.worldObj.isRemote) {
+            this.entity.onFolkUpdate();
+            this.pos = V3.fromVec3d(this.entity.getPositionVector());
+            this.pos.dimension = this.entity.dimension;
+            boolean shouldDespawn = true;
+            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+            for(EntityPlayerMP player :players.getPlayerList()){
+                if (player.getDistance(this.entity.posX,this.entity.posY,this.entity.posZ) < 80.0F) {
+                    shouldDespawn = false;
+                }
+            }
+
+            if (shouldDespawn) {
+                this.entity.setDead();
+                this.entity.theData = null;
+                this.entity = null;
+            }
+        }
+
+        if (this.job != null && this.shouldWork()) {
+            if (!this.job.atWork) {
+            }
+
+            this.job.onUpdate();
+        } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
+            try {
+                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
+            } catch (Exception var6) {
+            }
+
+            this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
+            this.job.stage = 0;
+            this.job.atWork = false;
+            this.job.onWayToWork = false;
+            this.job.currentTask = null;
+            this.stayPut = false;
+        }
+
+        if ((this.job == null || !this.shouldWork()) && this.entity != null) {
+            if (!this.tasks.isEmpty()) {
+                if (this.currentTask != null) {
+                    this.currentTask.update();
+                } else {
+                    this.currentTask = (Task)this.tasks.get(0);
+                    this.currentTask.begin();
+                }
+            } else if (ModSimLoader.isDayTime(this.entity.worldObj)) {
+                this.pickRandomTask();
+            } else {
+                //睡觉
+                this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));
+            }
+        }
+    }
+    public boolean shouldWork() {
+
+        if (this.entity == null) {
+            return false;
+        } else if (this.job == null) {
+            return false;
+        } else if (this.pregnancyStage > 0.0F) {
+            return false;
+            //士兵
+        } else if (this.job != null && this.job.jobName == I18n.format("container.sim.Vocation7")) {
+            return !ModSimLoader.isDayTime(this.entity.worldObj);
+        } else {
+            return ModSimLoader.isDayTime(this.entity.worldObj);
+        }
+    }
+    public void onSecond() {
+        if (this.entity != null) {
+            if (this.job != null && this.shouldWork()) {
+                this.job.onSecond();
+            }
+
+            if (this.home != null) {
+                if (this.entity == null) {
+                    return;
+                }
+
+                if (ModSimLoader.isDayTime(this.entity.worldObj) && this.stayPut && this.isSleeping && this.shouldWork()) {
+                    this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
+                    this.stayPut = false;
+                    this.isSleeping = false;
+                }
+            }
+
+            if (this.entity != null) {
+                List<EntityFolk> nearbyFolks = this.entity.worldObj.getEntitiesWithinAABB(EntityFolk.class, new AxisAlignedBB(this.entity.posX - 3.0D, this.entity.posY - 1.0D, this.entity.posZ - 3.0D, this.entity.posX + 3.0D, this.entity.posY + 1.0D, this.entity.posZ + 3.0D));
+                Iterator var2 = nearbyFolks.iterator();
+
+                while(var2.hasNext()) {
+                    EntityFolk f = (EntityFolk)var2.next();
+                    NpcData fd = f.theData;
+                    if (fd != null && fd.ID != this.ID) {
+                        FolkRelationship rel = this.getRelationshipWith(fd);
+                        if (rel != null) {
+                            if (this.rand.nextInt(20) > 18) {
+                                if (this.rand.nextInt(2) > 0) {
+                                    rel.addLevel(1);
+                                } else {
+                                    rel.addLevel(-1);
+                                }
+                            }
+                        } else if (this.rand.nextInt(10) > 8) {
+                            this.addRelationship(fd);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    public void onMinute() {
+        if (this.entity != null && !this.isDead) {
+            if (this.job != null && this.shouldWork()) {
+                this.job.onMinute();
+            }
+
+            NpcData father;
+            if (this.home == null) {
+                if (this.job == null || this.job != null && !this.shouldWork()) {
+                    if (this.age < this.race.maturity) {
+                        father = this.getParent(0);
+                        NpcData mother = this.getParent(1);
+                        Building newHome = null;
+                        if (father != null && father.home != null) {
+                            newHome = father.home;
+                        }
+
+                        if (mother != null && mother.home != null) {
+                            newHome = mother.home;
+                        }
+
+                        if (newHome != null) {
+                            newHome.occupants.add(this);
+                            this.home = newHome;
+                            String s1=I18n.format("container.sim.npcData_onupdate1");
+                            String s2=I18n.format("container.sim.npcData_onupdate2");
+                            ModSimLoader.sendChat(this.getName() + s1 + this.home.buildingName + s2);
+                        }
+                    } else {
+                        Building empty = ModSimLoader.getEmptyHome();
+                        if (empty != null) {
+                            empty.occupants.add(this);
+                            this.home = empty;
+
+                            FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString(this.getName() + I18n.format("container.sim.npcData_onupdate3") + empty.buildingName));
+                            this.moveToXYZ(this.home.livingXYZ);
+                        }
+                    }
+                }
+            } else {
+                if (this.currentTask instanceof TaskSleep && this.isAtBuilding(this.home) && this.gender == 0 && this.getSpouse() != null) {
+                    father = this.getSpouse();
+                    if (father.isAtBuilding(this.home) && father.pregnancyStage < 0.1F && this.rand.nextInt(6) == 5) {
+                        this.addTask(new TaskProcreate(this, 10000L, father));
+                        father.addTask(new TaskProcreate(father, 10000L, this));
+                        this.currentTask.completeTask();
+                        father.currentTask.completeTask();
+                    }
+                }
+
+                if (this.pregnancyStage >= 1.0F) {
+                    this.pregnancyStage = 0.0F;
+                    new NpcData(this.entity.worldObj, this.getSpouse(), this);
+                    this.setStatus(I18n.format("container.sim.folk_data_a_baby"));
+                }
+            }
+
+        }
+    }
+    public void addTask(Task task) {
+        if (task instanceof TaskSleep && this.currentTask != null && !(this.currentTask instanceof TaskSleep) && !this.currentTask.interruptSleep) {
+            this.currentTask = null;
+            this.tasks.clear();
+        }
+
+        this.tasks.add(task);
+    }
+
+    public void nextTask() {
+        this.currentTask = null;
+        this.tasks.remove(0);
+        if (this.tasks.size() > 0) {
+            this.currentTask = (Task)this.tasks.get(0);
+            this.currentTask.begin();
+        }
+
+    }
+
+    public void pickRandomTask() {
+        if (this.home != null && this.rand.nextInt(4) == 3) {
+            this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), this.home, "Relaxing at home"));
+        } else if (this.rand.nextInt(4) == 3) {
+            Iterator var1 = ModSimLoader.buildings.iterator();
+
+            while(var1.hasNext()) {
+                Building b = (Building)var1.next();
+                if (b.controlXYZ.getDistanceTo(this.pos) < 40 && this.rand.nextInt(4) == 3) {
+                    if (b.buildingType.contentEquals("Residential")) {
+                        Iterator var3 = b.occupants.iterator();
+
+                        label61:
+                        while(true) {
+                            NpcData fd;
+                            do {
+                                do {
+                                    do {
+                                        do {
+                                            if (!var3.hasNext()) {
+                                                break label61;
+                                            }
+
+                                            fd = (NpcData)var3.next();
+                                        } while(fd.ID == this.ID);
+                                    } while(this.isAdult() != fd.isAdult());
+                                } while(fd.shouldWork());
+                            } while(!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null);
+
+                            this.addTask(new TaskSocialise(this, (long)(this.rand.nextInt(15000) + 15000), fd, b, false));
+                            fd.currentTask = null;
+                            fd.tasks.clear();
+                            fd.addTask(new TaskSocialise(fd, (long)(this.rand.nextInt(15000) + 15000), this, b, true));
+                        }
+                    }
+
+                    if (b.buildingType.contentEquals("Commercial")) {
+
+                        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Shopping") + b.buildingName));
+                    } else if (b.buildingType.contentEquals("Industrial")) {
+                        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                    } else if (!b.buildingType.contentEquals("Residential")) {
+                        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                    }
+                    break;
+                }
+            }
+        } else {
+            this.addTask(new TaskWander(this, (long)(this.rand.nextInt(30000) + 30000)));
+        }
+
+    }
+    public void addRelationship(NpcData folk2) {
+        boolean relExists = false;
+
+        Iterator var3 = this.relationships.iterator();
+
+        while(var3.hasNext()) {
+            FolkRelationship rel = (FolkRelationship)var3.next();
+            if (rel.getOther() == folk2) {
+                relExists = true;
+            }
+        }
+
+        if (!relExists) {
+            this.relationships.add(new FolkRelationship(this, folk2, EnumFamilyType.UNRELATED));
+            folk2.relationships.add(new FolkRelationship(folk2, this, EnumFamilyType.UNRELATED));
+        }
+
+    }
+
+    public NpcData getRelation(EnumFamilyType relCheck) {
+        Iterator var2 = this.relationships.iterator();
+
+        FolkRelationship rel;
+        do {
+            if (!var2.hasNext()) {
+                return null;
+            }
+
+            rel = (FolkRelationship)var2.next();
+        } while(rel.familyType != relCheck);
+
+        return rel.getOther();
+    }
+
+    public NpcData getParent(int gender) {
+        NpcData npcData = null;
+        for (FolkRelationship rel:this.relationships){
+            if(rel.familyType != EnumFamilyType.PARENT || rel.getOther().gender != gender){
+                npcData=rel.getOther();
+
+            }
+        }
+        return npcData;
+    }
+
+    public NpcData getSpouse() {
+        NpcData npcData = null;
+        for (FolkRelationship rel:this.relationships){
+            if(rel.familyType != EnumFamilyType.SPOUSE){
+                npcData=rel.getOther();
+
+            }
+        }
+        return npcData;
+    }
+    public boolean moveToXYZ(V3 v3) {
+        if (!this.stayPut && this.entity != null && this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
+            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+            double expectedtime = (double)System.currentTimeMillis() + dist * 0.6D;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean forceMoveToXYZ(V3 v3) {
+        this.entity.getNavigator().clearPathEntity();
+        v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
+        if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
+            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+            double expectedtime = (double)System.currentTimeMillis() + dist * 0.6D;
+            return true;
+        } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
+            return true;
+        } else {
+            if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
+                if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.worldObj.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
+                    this.entity.setPositionAndUpdate(v3.x + 0.5D, v3.y, v3.z + 0.5D);
+                    this.entity.getNavigator().clearPathEntity();
+                }
+            } else {
+                this.lastPathAttempt = System.currentTimeMillis();
+            }
+
+            return false;
+        }
+    }
+
+    public boolean forceMoveToXYZNoWarp(V3 v3) {
+        v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
+        if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
+            return true;
+        } else {
+            return this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D);
+        }
+    }
+    public boolean isAtBuilding(Building b) {
+        return this.isAtBuilding(b, 2.0F);
+    }
+
+    public boolean isAtBuilding(Building b, float maxDist) {
+        if (this.entity == null) {
+            return false;
+        } else if (b.buildingType.toLowerCase().contentEquals("residential")) {
+            return (float)b.livingXYZ.getDistanceTo(this.pos) < maxDist;
+        } else {
+            return (float)b.controlXYZ.getDistanceTo(this.pos) < maxDist;
+        }
+    }
+
+    public boolean isAtLocation(V3 v3) {
+        if (this.entity == null) {
+            return false;
+        } else {
+            return Math.abs(this.entity.posX - v3.x) < 2.0D && Math.abs(this.entity.posZ - v3.z) < 2.0D;
+        }
+    }
+
+    public boolean isAtLocation(V3 v3, int dist) {
+        if (this.entity == null) {
+            return false;
+        } else {
+            return Math.abs(this.entity.posX - v3.x) < (double)dist && Math.abs(this.entity.posZ - v3.z) < (double)dist;
+        }
+    }
+
+    public boolean isAtLocation(BlockPos blockPos) {
+        if (this.entity == null) {
+            return false;
+        } else {
+            return (new BlockPos(this.entity)).distanceSq(blockPos) < 2.0D;
+        }
+    }
+    public void adjustRelationship(NpcData other, int amount) {
+        FolkRelationship rel = this.getRelationshipWith(other);
+        if (rel != null) {
+            rel.addLevel(amount);
+        } else {
+            this.addRelationship(other);
+        }
+
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 是成年人
+     * @Date 18:57 2022/10/16
+     * @Param []
+     * @return boolean
+     **/
+    public boolean isAdult() {
+        return this.age >= this.race.maturity;
     }
 }

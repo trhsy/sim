@@ -65,9 +65,8 @@ public class Building {
 
     public void saveBuilding() {
         if (!this.markedForDeletion) {
-            StringBuilder var10002 = new StringBuilder();
             new DimensionManager();
-            File buildingFolder = new File(var10002.append(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()).append(File.separator).append("suk2").append(File.separator).append("buildings").toString());
+            File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "buildings");
             buildingFolder.mkdirs();
             BufferedWriter writer = null;
 

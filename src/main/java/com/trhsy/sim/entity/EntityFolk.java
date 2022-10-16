@@ -125,5 +125,31 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
         return texture;
     }
+    /**
+     * @Author fan
+     * @Description //TODO 当NPC更新时
+     * @Date 10:40 2022/10/16
+     * @Param []
+     * @return void
+     **/
+    public void onFolkUpdate() {
+        if (!this.worldObj.isRemote) {
+            EntityFolk e = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString()).entity;
+            if (e != null && this.theData != null && this.addedToChunk) {
+                if (this.theData.entity != null && !this.theData.entity.equals(this)) {
+                    ModSimLoader.log.info("获得重复的民间实体");
+                    this.setDead();
+                }
 
+                if (!e.equals(this)) {
+                }
+            }
+        }
+
+        if (this.theData == null && !this.isBeingCreated && !this.worldObj.isRemote) {
+            this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
+            this.theData.entity = this;
+            this.theData.sendSkinPathToClient();
+        }
+    }
 }

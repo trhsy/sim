@@ -3,6 +3,7 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.npc.Building;
+import com.trhsy.sim.npc.DynamicSkin;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.util.GameStates;
 import com.trhsy.sim.entity.util.NpcSkin;
@@ -18,6 +19,7 @@ import java.io.*;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -46,7 +48,7 @@ public class ModSimLoader {
     public static boolean hasLoadedFolks = false;
     /**npc 皮肤**/
     public static List<NpcSkin> folkSkins = new CopyOnWriteArrayList();
-
+    public static List<DynamicSkin> skins = new CopyOnWriteArrayList();
     /**
      * 运行模组
      */
@@ -156,6 +158,16 @@ public class ModSimLoader {
         }
 
         return ret;
+    }
+    public static Building getEmptyHome() {
+        Building empty = null;
+        for (Building b:buildings){
+            if (b.buildingType.contentEquals("Residential") && b.occupants.size() < 1) {
+                empty = b;
+                break;
+            }
+        }
+        return empty;
     }
     /**
      * 判断是否白天 当世界上是白天时返回true，忽略其他世界时间
@@ -296,4 +308,6 @@ public class ModSimLoader {
         }
         return npcDatas;
     }
+
+
 }

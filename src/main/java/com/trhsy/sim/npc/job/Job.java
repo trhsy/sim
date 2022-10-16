@@ -1,6 +1,9 @@
-package com.trhsy.sim.npc;
+package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.npc.Building;
+import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.task.JobTask;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -76,5 +79,14 @@ public class Job {
             this.currentTask.begin();
         }
 
+    }
+
+    public void onUpdate() {
+    }
+
+    public void onMinute() {
+    }
+
+    public void onSecond() {
     }
 }

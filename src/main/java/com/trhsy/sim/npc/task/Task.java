@@ -1,42 +1,39 @@
-package com.trhsy.sim.task;
+package com.trhsy.sim.npc.task;
 
-import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.npc.job.Job;
 import com.trhsy.sim.npc.NpcData;
 
 import java.util.Random;
 
 /**
- * @author Trhsy
- * @Package: com.trhsy.sim.task
- * @ClassName: JobTask
- * @Description:
- * @date 2022/10/13 17:44
- */
-public abstract class JobTask {
-    public Job job;
+ * @ClassName Task
+ * @Description todo 任务
+ * @Author TRHSY
+ * @Date 2022/10/1615:47
+ **/
+public abstract class Task {
     public NpcData folk;
     public transient long deadline;
     public transient long timeSinceLastRun = 0L;
-    public int stage;
     public boolean hasBegun;
     public boolean completed;
+    public boolean interruptSleep;
     public Random rand = new Random();
 
-    public JobTask(Job j, long ms) {
-        this.job = j;
-        this.folk = j.folk;
+    public Task(NpcData folk, long ms) {
+        this.folk = folk;
         this.deadline = ms;
     }
 
     public void completeTask() {
         this.onTaskComplete();
         this.completed = true;
+        this.folk.nextTask();
     }
 
     public void failTask(String message) {
         this.onTaskComplete();
         this.completed = true;
+        this.folk.nextTask();
     }
 
     public void begin() {
@@ -46,17 +43,13 @@ public abstract class JobTask {
     }
 
     public void update() {
-        if (this.completed) {
-            this.job.nextTask();
-        } else if (this.deadline > 0L && System.currentTimeMillis() - this.timeSinceLastRun > this.deadline) {
-            ModSimLoader.log.info("运行 completeTask() 任务完成在 " + this.deadline + " ms");
-            this.completeTask();
-        } else {
-            this.onUpdate();
+        if (!this.completed) {
+            if (this.deadline > 0L && System.currentTimeMillis() - this.timeSinceLastRun > this.deadline) {
+                this.completeTask();
+            } else {
+                this.onUpdate();
+            }
         }
-    }
-
-    public void onSecond() {
     }
 
     public abstract void onTaskBegin();

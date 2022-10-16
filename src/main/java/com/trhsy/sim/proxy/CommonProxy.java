@@ -2,7 +2,7 @@ package com.trhsy.sim.proxy;
 
 import com.trhsy.sim.loader.*;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
-import com.trhsy.sim.npc.geneics.Race;
+import com.trhsy.sim.npc.race.Race;
 import com.trhsy.sim.npc.traits.Traits;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

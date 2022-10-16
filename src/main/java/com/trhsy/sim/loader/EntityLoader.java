@@ -28,6 +28,7 @@ public class EntityLoader {
     public static void init() {
         registerEntity(EntityFolk.class, "EntityFolk", 64, 3, true);
     }
+    @SideOnly(Side.CLIENT)
     public static void registerRenders() {
         try {
             // TODO

@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityFolk;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.entity.util.NpcIdentity;
+import com.trhsy.sim.npc.DynamicSkin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBiped;
@@ -12,10 +13,14 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import org.lwjgl.opengl.GL11;
+
+import javax.imageio.ImageIO;
+import java.io.File;
 
 /**
  * @author Trhsy
@@ -33,6 +38,20 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
     }
     @Override
     protected ResourceLocation getEntityTexture(EntityFolk entity) {
+        try{
+            NpcIdentity cfi = ModSimLoader.getFolkByUUID(entity.getUniqueID());
+            for (DynamicSkin skin:ModSimLoader.skins){
+                if(!skin.skinPath.contentEquals(cfi.skinPath)){
+                    File f = new File(ModSimLoader.getSimFolder(), cfi.skinPath);
+                    DynamicTexture dt = new DynamicTexture(ImageIO.read(f));
+                    ModSimLoader.skins.add(new DynamicSkin(dt, cfi.skinPath));
+                    return Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation(ModSim.MODID, dt);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         if (entity instanceof EntityFolk) {
             EntityFolk theFolk = (EntityFolk) entity;
             ResourceLocation myTexture = new ResourceLocation(ModSim.MODID, "skins/" + theFolk.getTexture());

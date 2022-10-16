@@ -243,6 +243,8 @@ container.sim.folk_data_Having_baby=生宝宝！
 container.sim.folk_data_Going_home=回家
 container.sim.folk_data_Relaxing_home=在家放松
 container.sim.folk_data_Trying_baby=想要个宝宝
+container.sim.folk_data.Sleeping=睡觉
+container.sim.folk_other_was_null=其他是空
 container.sim.folk_data_Good_news=好消息！
 container.sim.folk_data_and=和
 container.sim.folk_data_expecting_a_baby=要生宝宝了！
@@ -1164,3 +1166,17 @@ container.sim.config_loader9=这只是一个个人模式：-）如果你也发�
 container.sim.config_loader10=这些是随机名字生成器使用的男性名字，请保持格式不变，否则会发生不好的事情。
 container.sim.config_loader11=这些是随机名字生成器使用的女性名字，保持格式不变，否则会发生不好的事情。
 container.sim.config_loader12=这些是随机名称生成器使用的姓氏，请保持格式不变，否则会发生错误。
+
+container.sim.race_dark_elf=暗夜精灵
+container.sim.race_dark_elf_Desc=暗夜精灵是高地精灵的远祖。
+
+container.sim.race_elf=精灵
+container.sim.race_elf_Desc=精灵是一个神话般的种族，它是在矿难高地进化而来的。
+
+container.sim.race_Human=人族
+container.sim.race_Human_Desc=人类是居住在地球上的有意识生命的一般种族。他们是如何到达Minecraftia的还不清楚。
+container.sim.race_Orc=兽人
+container.sim.race_Orc_Desc=兽人可能看起来很可怕，也可以随心所欲，但几乎总是温和的动物。
+container.sim.npcData_onupdate1= 已经搬到了
+container.sim.npcData_onupdate2= ，和TA父母一起
+container.sim.npcData_onupdate3= 已搬入

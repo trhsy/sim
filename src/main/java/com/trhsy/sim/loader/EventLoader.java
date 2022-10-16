@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -150,16 +151,39 @@ public class EventLoader {
         } else {
 
             ModSimLoader.log.info("清除旧的世界数据");
+            ModSimLoader.folks.clear();
+            ModSimLoader.buildings.clear();
+//            ModSimLoader.farms.clear();
             ModSimLoader.states.dayOfWeek=0;
             ModSimLoader.states.gameModeNumber=-1;
             ModSimLoader.states.credits=10.0F;
             this.timeSinceLastClientUpdate = 0L;
-            ModSimLoader.log.info("加载世界...");
-            ModSimLoader.states.loadStates();
-            ModSimLoader.log.info("装载农场");
-            ModSimLoader.log.info("装载矿场");
-            ModSimLoader.log.info("获得保存的NPC");
-            ModSimLoader.log.info("加载建筑物");
+            File[] buildingSaves;
+            File buildingFile;
+
+                ModSimLoader.log.info("加载世界...");
+                ModSimLoader.states.loadStates();
+                ModSimLoader.log.info("装载农场");
+                ModSimLoader.log.info("装载矿场");
+            try {
+                ModSimLoader.log.info("获得保存的NPC");
+                new DimensionManager();
+                File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
+                if(npcFolder.exists()){
+                    npcFolder.mkdirs();
+                }
+                buildingSaves=npcFolder.listFiles();
+                for (int i = 0; i <buildingSaves.length; i++) {
+                    buildingFile=buildingSaves[i];
+                    ModSimLoader.log.info("得到Npc " + buildingFile.getName());
+                    ModSimLoader.folks.add(new NpcData(event.getWorld(), UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+                ModSimLoader.log.info("加载建筑物");
+
+
 
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
             hasLoadedWorld = true;
@@ -184,7 +208,7 @@ public class EventLoader {
                     b.demolish(event.world, false);
                 }
             }
-            if (ModSimLoader.states.gameModeNumber != -1 && !event.world.isRemote) {
+            if (ModSimLoader.states.gameModeNumber != -1 && !event.world.isRemote&&event.world.playerEntities.size()>0) {
                 if(ModSimLoader.isDayTime(event.world)){
                     NpcData starves=null;
                     if (System.currentTimeMillis() - this.minuteTimer > 60000L) {

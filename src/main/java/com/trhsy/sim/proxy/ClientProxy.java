@@ -20,6 +20,7 @@ public class ClientProxy extends CommonProxy{
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        EntityLoader.registerRenders();
     }
     @Override
     public void init(FMLInitializationEvent event) {
@@ -30,7 +31,6 @@ public class ClientProxy extends CommonProxy{
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
-        EntityLoader.registerRenders();
     }
 
     @Override
