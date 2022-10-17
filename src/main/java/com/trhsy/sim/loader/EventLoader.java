@@ -198,9 +198,11 @@ public class EventLoader {
     public void worldTick(TickEvent.WorldTickEvent event) {
         if (!event.world.isRemote && System.currentTimeMillis() - this.timeSinceLastClientUpdate > 2000L) {
             this.timeSinceLastClientUpdate = System.currentTimeMillis();
+            //可雇佣的人
             NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
+            //更新资金
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
-
+            //检查建筑物
             for (int i = 0; i <ModSimLoader.buildings.size() ; --i) {
                 Building b = (Building)ModSimLoader.buildings.get(i - 1);
                 if (event.world.getBlockState(b.controlXYZ.toBlockPos()).getBlock() != BlockLoader.blockControlBox) {
@@ -208,18 +210,21 @@ public class EventLoader {
                     b.demolish(event.world, false);
                 }
             }
+            //检查游戏状态
             if (ModSimLoader.states.gameModeNumber != -1 && !event.world.isRemote&&event.world.playerEntities.size()>0) {
+                //是白天
                 if(ModSimLoader.isDayTime(event.world)){
                     NpcData starves=null;
                     if (System.currentTimeMillis() - this.minuteTimer > 60000L) {
                         boolean spawnNew = true;
                         for (NpcData starve:ModSimLoader.folks){
-                            if (starve.isDead) {
-                                if (starve.home != null) {
-                                    starve.home.occupants.remove(starve);
-                                    starve.home = null;
+                            starves=starve;
+                            if (starves.isDead) {
+                                if (starves.home != null) {
+                                    starves.home.occupants.remove(starves);
+                                    starves.home = null;
                                 }
-                            } else if (starve.home == null) {
+                            } else if (starves.home == null) {
                                 spawnNew = false;
                             }
                         }
@@ -248,55 +253,59 @@ public class EventLoader {
                             //您已收集 今天的租金。
                             ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
                         }
-                        label130:for (NpcData f:ModSimLoader.folks){
-                            if(f.entity!=null){
-                                String hungerName = "";
-                                int hungerCount = 0;
-                                NpcData starve = null;
-                                if (f.hunger > 0) {
-                                    --f.hunger;
-                                } else if (this.rand.nextInt(4) == 3) {
-                                    starve = f;
-                                } else {
-                                    hungerName = f.getName();
-                                    ++hungerCount;
+
+                        label130:while (true){
+                            for (NpcData f:ModSimLoader.folks) {
+                                if (f.entity != null) {
+                                    String hungerName = "";
+                                    int hungerCount = 0;
+                                    NpcData starve = null;
+                                    for (NpcData f1:ModSimLoader.folks) {
+                                        if (f1.hunger > 0) {
+                                            --f1.hunger;
+                                        } else if (this.rand.nextInt(4) == 3) {
+                                            starve = f1;
+                                        } else {
+                                            hungerName = f1.getName();
+                                            ++hungerCount;
+                                        }
+                                        if (hungerName != "") {
+                                            String starving=I18n.format("container.sim.main_is_VERY");
+                                            String others_starving=I18n.format("container.sim.others_starving");
+                                            String message = hungerCount > 1 ? hungerName + starving : hungerName + I18n.format("container.sim.Mining13") + hungerCount + others_starving;
+                                            ModSimLoader.sendChat(message);
+                                        }
+                                    }
+                                    if(starve != null){
+                                        starve.entity.attackEntityFrom(DamageSource.starve, 999.0F);
+                                    }
+                                    break label130;
+                                }
+                                f.matingStage = -1.0F;
+                                if (f.pregnancyStage > 0.0F) {
+                                    f.pregnancyStage += 0.1F;
                                 }
 
-                                if (hungerName != "") {
-                                    String starving=I18n.format("container.sim.main_is_VERY");
-                                    String others_starving=I18n.format("container.sim.others_starving");
-                                    String message = hungerCount > 1 ? hungerName + starving : hungerName + I18n.format("container.sim.Mining13") + hungerCount + others_starving;
-                                    ModSimLoader.sendChat(message);
-                                }
-                                if(starve != null){
-                                    starve.entity.attackEntityFrom(DamageSource.starve, 999.0F);
-                                }
-                                break label130;
-                            }
-                            f.matingStage = -1.0F;
-                            if (f.pregnancyStage > 0.0F) {
-                                f.pregnancyStage += 0.1F;
-                            }
-
-                            int currentAge = f.age;
-                            if (f.age >= f.race.maturity) {
-                                if (ModSimLoader.states.dayOfWeek == 6) {
+                                int currentAge = f.age;
+                                if (f.age >= f.race.maturity) {
+                                    if (ModSimLoader.states.dayOfWeek == 6) {
+                                        ++f.age;
+                                    }
+                                } else if (ModSimLoader.states.dayOfWeek == 3 || ModSimLoader.states.dayOfWeek == 6) {
                                     ++f.age;
                                 }
-                            } else if (ModSimLoader.states.dayOfWeek == 3 || ModSimLoader.states.dayOfWeek == 6) {
-                                ++f.age;
-                            }
 
-                            if (currentAge < f.race.maturity && f.age >= f.race.maturity) {
-                                f.evict();
-                                String s=I18n.format("container.sim.main_is_now");
-                                ModSimLoader.sendChat(f.getName() + s);
-                            }
+                                if (currentAge < f.race.maturity && f.age >= f.race.maturity) {
+                                    f.evict();
+                                    String s=I18n.format("container.sim.main_is_now");
+                                    ModSimLoader.sendChat(f.getName() + s);
+                                }
 
-                            if (f.age >= f.race.lifespan && this.rand.nextInt(10) == 5) {
-                                String s=I18n.format("container.sim.main_is_old");
-                                ModSimLoader.sendChat(f.getName() + " is old and not feeling very well...oh no!");
-                                f.entity.attackEntityFrom(DamageSource.starve, 999.0F);
+                                if (f.age >= f.race.lifespan && this.rand.nextInt(10) == 5) {
+                                    String s=I18n.format("container.sim.main_is_old");
+                                    ModSimLoader.sendChat(f.getName() + s);
+                                    f.entity.attackEntityFrom(DamageSource.starve, 999.0F);
+                                }
                             }
                         }
                     }

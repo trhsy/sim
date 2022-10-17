@@ -55,7 +55,7 @@ public class NpcData {
     /**性别 0=男性1=女性**/
     public int gender;
     /**状态 **/
-    public String status = "Wandering";
+    public String status = I18n.format("container.sim.folk_data.Wandering");
     /**饱食度**/
     public int hunger = 10;
     /**种族**/
@@ -281,7 +281,10 @@ public class NpcData {
     public void loadFolk(World world, UUID loadID) {
         DimensionManager d = new DimensionManager();
         File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
-        npcFolder.mkdirs();
+        if(npcFolder.exists()){
+            npcFolder.mkdirs();
+        }
+
         this.entity = (EntityFolk)FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(loadID);
 
         try {
@@ -411,7 +414,7 @@ public class NpcData {
         this.isLoaded = true;
     }
     public void fire() {
-        this.setStatus("Wandering");
+        this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
         this.job = null;
         if (this.entity != null) {
             this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
@@ -429,14 +432,7 @@ public class NpcData {
     public void assignRace() {
         try {
             this.race = Races.raceList.get(rand.nextInt(Races.raceList.size()));
-
-            /*if (this.gender == 0) {
-                skins = (new File(pickedRace.getAbsolutePath() + File.separator + "male")).listFiles();
-            } else {
-                skins = (new File(pickedRace.getAbsolutePath() + File.separator + "female")).listFiles();
-            }
-
-            this.race.skinName = skins[this.rand.nextInt(skins.length)].getName();*/
+            this.race.skinName=this.getTexture();
         } catch (Exception var8) {
             var8.printStackTrace();
         }
@@ -461,7 +457,7 @@ public class NpcData {
      */
     public void sendSkinPathToClient() {
         if (this.entity != null) {
-            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), this.entity.getTexture() ));
+            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), this.race.skinName ));
         }
     }
 
@@ -469,6 +465,7 @@ public class NpcData {
      * 保存NPC
      */
     public void saveFolk() {
+        ModSimLoader.log.info("开始保存NPC数据：");
         if (this.entity != null && !this.isDead) {
             BufferedWriter writer = null;
             try{
@@ -532,14 +529,21 @@ public class NpcData {
         String name="";
 
         if (this.gender == 0) {
-            int i = rand.nextInt(ConfigLoader.configMaleNames.length);
-            this.forename = ConfigLoader.configMaleNames[i].trim();
+            if(this.forename==null||this.forename==""){
+                int i = rand.nextInt(ConfigLoader.configMaleNames.length);
+                this.forename = ConfigLoader.configMaleNames[i].trim();
+            }
+
         }else {
-            int i = rand.nextInt(ConfigLoader.configFemaleNames.length);
-            this.forename = ConfigLoader.configFemaleNames[i].trim();
+            if(this.forename==null||this.forename==""){
+                int i = rand.nextInt(ConfigLoader.configFemaleNames.length);
+                this.forename = ConfigLoader.configFemaleNames[i].trim();
+            }
         }
-        int i = rand.nextInt(ConfigLoader.configSurnames.length);
-        this.surname = ConfigLoader.configSurnames[i].trim();
+        if(this.surname==null||this.surname==""){
+            int i = rand.nextInt(ConfigLoader.configSurnames.length);
+            this.surname = ConfigLoader.configSurnames[i].trim();
+        }
         if(this.surname != null && this.forename != null){
             String lang = FMLCommonHandler.instance().getCurrentLanguage();
             if ("en_US".equals(lang)) {
@@ -552,9 +556,11 @@ public class NpcData {
     }
 
     public NpcIdentity getClientIdentity() {
-        //String skin = "races/" + this.race.name.toLowerCase() + (this.gender == 0 ? "/male/" : "/female/") + this.race.skinName;
-        String skin =(this.gender == 0 ? "/male/" : "/female/")+skinnumber;
-        NpcIdentity npcIdentity=new NpcIdentity(this.ID,this.getName(),String.valueOf(this.age),this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.maturity), skin);
+        NpcIdentity npcIdentity=null;
+        if(this.entity!=null){
+            String skin =this.race.skinName;
+            npcIdentity=new NpcIdentity(this.ID,this.getName(),String.valueOf(this.age),this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.maturity), skin);
+        }
         return npcIdentity;
     }
     public String getStatusText() {
@@ -573,8 +579,15 @@ public class NpcData {
         return this.home != null ? s1 : s;
 //        return "Homeowner";
     }
+    /**
+     * @Author fan
+     * @Description //TODO 重生
+     * @Date 13:29 2022/10/17
+     * @Param [world, bp]
+     * @return void
+     **/
     public void respawn(World world, BlockPos bp) {
-        if (this.entity == null && this.isLoaded) {
+        if (this.entity == null && !this.isLoaded) {
             EntityFolk ef = new EntityFolk(world, this.ID);
             ef.setHeldItem(EnumHand.MAIN_HAND, this.holding);
             this.pos = new V3(bp);
@@ -585,18 +598,14 @@ public class NpcData {
         }
     }
     public FolkRelationship getRelationshipWith(NpcData folk2) {
-        Iterator var2 = this.relationships.iterator();
-
-        FolkRelationship rel;
-        do {
-            if (!var2.hasNext()) {
-                return null;
+        FolkRelationship rels=null;
+        for (FolkRelationship rel:this.relationships){
+            if(rel.getOther() != folk2){
+                rels=rel;
+                return rels;
             }
-
-            rel = (FolkRelationship)var2.next();
-        } while(rel.getOther() != folk2);
-
-        return rel;
+        }
+        return rels;
     }
     public String getRelationshipStatus() {
         if (this.getFamily(EnumFamilyType.SPOUSE) != null) {
@@ -650,20 +659,23 @@ public class NpcData {
     /**更新NPC状态**/
     public void onUpdate() {
         Long now = System.currentTimeMillis();
+        //每秒更新
         if (now - this.timeSinceLastStatusUpdate > 1000L) {
             this.onSecond();
             this.timeSinceLastStatusUpdate = now;
         }
+        //每分钟更新
         if (now - this.minuteUpdate > 60000L) {
             this.onMinute();
             this.minuteUpdate = now;
         }
-
+        //实体是空的
         if (this.entity == null) {
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
             for (EntityPlayerMP player:players.getPlayerList()){
                 if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 50.0D && !player.worldObj.isRemote) {
                     ModSimLoader.hasLoadedFolks = true;
+                    //重生
                     this.respawn(player.worldObj, this.pos.toBlockPos());
                 }
             }
@@ -758,10 +770,7 @@ public class NpcData {
 
             if (this.entity != null) {
                 List<EntityFolk> nearbyFolks = this.entity.worldObj.getEntitiesWithinAABB(EntityFolk.class, new AxisAlignedBB(this.entity.posX - 3.0D, this.entity.posY - 1.0D, this.entity.posZ - 3.0D, this.entity.posX + 3.0D, this.entity.posY + 1.0D, this.entity.posZ + 3.0D));
-                Iterator var2 = nearbyFolks.iterator();
-
-                while(var2.hasNext()) {
-                    EntityFolk f = (EntityFolk)var2.next();
+                for (EntityFolk f:nearbyFolks){
                     NpcData fd = f.theData;
                     if (fd != null && fd.ID != this.ID) {
                         FolkRelationship rel = this.getRelationshipWith(fd);
@@ -778,6 +787,7 @@ public class NpcData {
                         }
                     }
                 }
+
             }
 
         }
@@ -1064,5 +1074,27 @@ public class NpcData {
      **/
     public boolean isAdult() {
         return this.age >= this.race.maturity;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 获取皮肤
+     * @Date 13:17 2022/10/17
+     * @Param []
+     * @return java.lang.String
+     **/
+    public String getTexture() {
+        String texture = "";
+        try {
+                //System.out.println("实体人性别："+theData.gender);
+                if (this.gender == 0) {
+                    texture = "male" + this.skinnumber + ".png";
+                } else {
+                    texture = "female" + this.skinnumber + ".png";
+                }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("getTexture出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return texture;
     }
 }

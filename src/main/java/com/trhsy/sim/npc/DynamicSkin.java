@@ -1,6 +1,7 @@
 package com.trhsy.sim.npc;
 
 import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * @ClassName DynamicSkin
@@ -9,10 +10,10 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
  * @Date 2022/10/1520:17
  **/
 public class DynamicSkin {
-    public DynamicTexture texture;
+    public ResourceLocation texture;
     public String skinPath;
 
-    public DynamicSkin(DynamicTexture texture, String skinPath) {
+    public DynamicSkin(ResourceLocation texture, String skinPath) {
         this.texture = texture;
         this.skinPath = skinPath;
     }

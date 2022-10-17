@@ -10,7 +10,7 @@ import com.trhsy.sim.loader.ModSimLoader;
  */
 public class Race implements Serializable {
     /**名称**/
-    public String raceName = "";
+    public String raceName;
     /**描述**/
     public String desc;
     /**皮肤**/
@@ -40,7 +40,7 @@ public class Race implements Serializable {
         return raceName;
     }
     public void setRaceName(String name) {
-        name = raceName;
+        raceName = name;
     }
 
     public void setDesc(String desc) {

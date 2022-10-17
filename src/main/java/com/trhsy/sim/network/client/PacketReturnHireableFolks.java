@@ -4,6 +4,7 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Trhsy
@@ -22,11 +24,14 @@ import java.util.List;
  * @date 2022/10/13 15:04
  */
 public class PacketReturnHireableFolks implements IMessage {
-    public List<NpcIdentity> folkNames = new ArrayList();
+    public List<NpcIdentity> folkNames = new CopyOnWriteArrayList<>();
     public PacketReturnHireableFolks() {
+        this.folkNames= new CopyOnWriteArrayList<>();
         for (NpcData folk:ModSimLoader.folks){
             NpcIdentity identity = folk.getClientIdentity();
-            this.folkNames.add(identity);
+            if(identity!=null &&!folk.isDead){
+                this.folkNames.add(identity);
+            }
         }
     }
     @Override
@@ -53,17 +58,11 @@ public class PacketReturnHireableFolks implements IMessage {
 
     @Override
     public void toBytes(ByteBuf buf) {
-        StringBuilder b = new StringBuilder();
-        Iterator var3 = this.folkNames.iterator();
-
-        while(var3.hasNext()) {
-            NpcIdentity fName = (NpcIdentity)var3.next();
-            b.append(fName.id + "," + fName.name + "," + fName.age + "," + fName.status + "," + fName.job + "," + fName.house + "," + fName.relationship + "," + fName.hunger + "," + fName.maturityAge + "," + fName.skinPath + ";");
+        String s="";
+        for (NpcIdentity fName :this.folkNames){
+            s+=fName.id + "," + fName.name + "," + fName.age + "," + fName.status + "," + fName.job + "," + fName.house + "," + fName.relationship + "," + fName.hunger + "," + fName.maturityAge + "," + fName.skinPath + ";";
         }
-
-        if (b.toString().length() > 0) {
-            ByteBufUtils.writeUTF8String(buf, b.toString().substring(0, b.toString().length() - 1));
-        }
+            ByteBufUtils.writeUTF8String(buf, s);
 
     }
 

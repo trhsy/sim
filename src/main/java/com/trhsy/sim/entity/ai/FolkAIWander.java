@@ -1,6 +1,7 @@
 package com.trhsy.sim.entity.ai;
 
 import com.trhsy.sim.entity.EntityFolk;
+import com.trhsy.sim.npc.task.TaskSleep;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -16,8 +17,7 @@ import javax.annotation.Nullable;
  * @date 2022/10/13 10:59
  */
 public class FolkAIWander extends EntityAIWander{
-    EntityFolk folk;
-    private EntityCreature entity;
+    private EntityFolk folk;
     private boolean mustUpdate;
     private int executionChance;
     private double xPosition;
@@ -31,22 +31,22 @@ public class FolkAIWander extends EntityAIWander{
     }
     @Nullable
     protected Vec3d getPosition() {
-        return this.folk.theData.stayPut ? this.folk.getPositionVector() : RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
+        return this.folk.theData.stayPut ? this.folk.getPositionVector() : RandomPositionGenerator.findRandomTarget(this.folk, 10, 7);
     }
 
     @Override
     public boolean shouldExecute(){
         if (this.folk.theData == null) {
             return false;
-        } else if (!this.folk.theData.stayPut) {
+        } else if (!this.folk.theData.stayPut && !(this.folk.theData.currentTask instanceof TaskSleep)) {
             if (!this.mustUpdate) {
-               /* if (this.entity.getIdleTime() >= 100) {
+                /*if (this.entity.getIdleTime() >= 100) {
                     return false;
                 }*/
 
-                if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
+                /*if (this.folk.getRNG().nextInt(this.executionChance) != 0) {
                     return false;
-                }
+                }*/
             }
 
             Vec3d vec3d = this.getPosition();
@@ -67,6 +67,6 @@ public class FolkAIWander extends EntityAIWander{
     @Override
     public void startExecuting()
     {
-        this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
+        this.folk.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
     }
 }

@@ -16,11 +16,14 @@ import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.util.Iterator;
 
 /**
  * @author Trhsy
@@ -37,28 +40,31 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
         this.addLayer(new LayerHeldItem(this));
     }
     @Override
-    protected ResourceLocation getEntityTexture(EntityFolk entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityFolk entity) {
         try{
             NpcIdentity cfi = ModSimLoader.getFolkByUUID(entity.getUniqueID());
-            for (DynamicSkin skin:ModSimLoader.skins){
-                if(!skin.skinPath.contentEquals(cfi.skinPath)){
-                    File f = new File(ModSimLoader.getSimFolder(), cfi.skinPath);
-                    DynamicTexture dt = new DynamicTexture(ImageIO.read(f));
-                    ModSimLoader.skins.add(new DynamicSkin(dt, cfi.skinPath));
-                    return Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation(ModSim.MODID, dt);
+            Iterator var8 =ModSimLoader.skins.iterator();
+            DynamicSkin skin=null;
+            do {
+                if(cfi!=null){
+                if (!var8.hasNext()) {
+                        ResourceLocation myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
+                        ModSimLoader.log.info("实体人："+cfi.id+"，皮肤："+myTexture.toString());
+                        ModSimLoader.skins.add(new DynamicSkin(myTexture, cfi.skinPath));
+                        return myTexture;
                 }
+
+                skin = (DynamicSkin)var8.next();
+                }
+            } while(skin!=null&&!skin.skinPath.contentEquals(cfi.skinPath));
+            if(skin!=null){
+                return new ResourceLocation(ModSim.MODID, "skins/" + skin.skinPath);
             }
+
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        if (entity instanceof EntityFolk) {
-            EntityFolk theFolk = (EntityFolk) entity;
-            ResourceLocation myTexture = new ResourceLocation(ModSim.MODID, "skins/" + theFolk.getTexture());
-            return myTexture;
-        } else {
-            return null;
-        }
+        return  null;
     }
     @Override
     public void doRender(EntityFolk par1Entity, double par2, double par4, double par6, float par8, float par9) {
@@ -85,14 +91,14 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                 NpcIdentity data=ModSimLoader.getFolkByUUID(entityFolk.getUniqueID());
                 if (dist < 20.0D && data != null) {
                     if (Integer.parseInt(data.age) <  Integer.parseInt(data.maturityAge)) {
-                        this.displayText(data.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6 - 0.4F, (float) d2, entityFolk);
+                        this.displayText(data.name + " (" + data.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6 - 0.4F, (float) d2, entityFolk);
                         this.displayText(data.status, 0.02F, -256, (float) d, (float) d1 + f3 + f6 - 0.7F, (float) d2, entityFolk);
                         this.displayText(data.hunger, 0.02F, -256, (float) d, (float) d1 + f3 + f6 - 1, (float) d2, entityFolk);
                     } else if (dist >= 4) {
-                        this.displayText(data.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6, (float) d2, entityFolk);
+                        this.displayText(data.name + " (" + data.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6, (float) d2, entityFolk);
                         this.displayText(data.status, 0.02F, -256, (float) d, (float) d1 + f3 + f6 - 0.3F, (float) d2, entityFolk);
                     } else {
-                        this.displayText(data.name + " (" + entityFolk.theData.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6 + 1.5F, (float) d2, entityFolk);
+                        this.displayText(data.name + " (" + data.age + ")", 0.03F, -1, (float) d, (float) d1 + f3 + f6 + 1.5F, (float) d2, entityFolk);
                         this.displayText(data.status, 0.02F, -256, (float) d, (float) d1 + f3 + f6 + 1.2F, (float) d2, entityFolk);
                         this.displayText(data.job, 0.02F, -256, (float) d, (float) d1 + f3 + f6 + 0.9F, (float) d2, entityFolk);
                         this.displayText(data.house, 0.02F, -256, (float) d, (float) d1 + f3 + f6 + 0.6F, (float) d2, entityFolk);

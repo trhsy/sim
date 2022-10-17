@@ -2,6 +2,7 @@ package com.trhsy.sim.entity;
 
 import com.trhsy.sim.entity.ai.FolkAIOpenFenceGate;
 import com.trhsy.sim.entity.ai.FolkAIWander;
+import com.trhsy.sim.entity.render.RenderEntityFolk;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import net.minecraft.entity.EntityCreature;
@@ -27,9 +28,11 @@ public class EntityFolk extends EntityCreature implements INpc {
     /**更新状态分钟**/
     private transient long timeSinceLastMinute = 0L;
     /**NPC数据**/
-    public NpcData theData = null;
+    public NpcData theData;
+    public RenderEntityFolk renderEntityFolk;
     /**正在创建**/
     public boolean isBeingCreated = false;
+    long secondTimer = 0L;
     public EntityFolk(World worldIn) {
         super(worldIn);
         if(!worldIn.isRemote&& ModSimLoader.hasLoadedFolks){
@@ -103,28 +106,13 @@ public class EntityFolk extends EntityCreature implements INpc {
     }
     @Override
     public void onUpdate() {
+        super.onUpdate();
+        if (System.currentTimeMillis() - this.secondTimer > 1000L) {
 
-    }
-
-    public String getTexture() {
-        String texture = "";
-        try {
-            if (this.theData != null) {
-                //System.out.println("实体人性别："+theData.gender);
-                if (this.theData.gender == 0) {
-                    texture = "male" + this.theData.skinnumber + ".png";
-                } else {
-                    texture = "female" + this.theData.skinnumber + ".png";
-                }
-            } else {
-                texture = "male0.png";
-            }
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("getTexture出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-        return texture;
     }
+
+
     /**
      * @Author fan
      * @Description //TODO 当NPC更新时

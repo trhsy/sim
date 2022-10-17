@@ -20,7 +20,7 @@ public class ClientProxy extends CommonProxy{
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-        EntityLoader.registerRenders();
+        EntityLoader.initModels();
     }
     @Override
     public void init(FMLInitializationEvent event) {
