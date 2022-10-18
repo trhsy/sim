@@ -40,7 +40,7 @@ public class ClientProxy extends CommonProxy{
         if (mc.currentScreen == null) {
             String worldname = "unknown";
             try {
-                if (ModSimLoader.states.gameModeNumber== -1) {
+                if (ModSimLoader.states.gameModeNumber== 999) {
                     return;
                 }
                 worldname = mc.getIntegratedServer().getFolderName();

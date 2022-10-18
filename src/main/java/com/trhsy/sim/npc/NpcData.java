@@ -13,6 +13,7 @@ import com.trhsy.sim.npc.race.Race;
 import com.trhsy.sim.npc.race.Races;
 import com.trhsy.sim.npc.task.*;
 import com.trhsy.sim.npc.traits.Trait;
+import com.trhsy.sim.npc.traits.Traits;
 import com.trhsy.sim.util.EnumFamilyType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -23,6 +24,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.management.PlayerList;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -33,6 +35,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -145,6 +148,8 @@ public class NpcData {
         this.assignRace();
         /**年龄**/
         this.age = this.race.maturity;
+        //特征
+        generateTraits();
         ModSimLoader.folks.add(this);
         EntityFolk e = new EntityFolk(world, true);
         e.isBeingCreated = true;
@@ -191,6 +196,7 @@ public class NpcData {
         this.minuteUpdate = 0L;
         this.tempEmployLoc = null;
         this.lastPathAttempt = 0L;
+
         if (!world.isRemote) {
             this.loadFolk(world, uuid);
         }
@@ -216,6 +222,7 @@ public class NpcData {
         }
 
         this.surname = father.surname;
+        generateTraits();
         EntityFolk e = new EntityFolk(world, true);
         e.isBeingCreated = true;
         e.setPositionAndUpdate(mother.entity.posX, mother.entity.posY, mother.entity.posZ);
@@ -316,7 +323,13 @@ public class NpcData {
                     this.race.skinName = value;
                 } else if (line.contains("pos|")) {
                     this.pos = V3.fromString(value);
-                } else if (line.contains("hunger|")) {
+                }else if (line.contains("trait1|")) {
+                    this.trait1=Trait.getTraitFromName(value);
+                }else if (line.contains("trait2|")) {
+                    this.trait2=Trait.getTraitFromName(value);
+                }else if (line.contains("trait3|")) {
+                    this.trait3=Trait.getTraitFromName(value);
+                }else if (line.contains("hunger|")) {
                     this.hunger = Integer.valueOf(value);
                 } else if (line.contains("buildingskill|")) {
                     this.skillBuilding = Float.valueOf(value);
@@ -481,6 +494,9 @@ public class NpcData {
                 writer.write("race|" + this.race.raceName + "\n");
                 writer.write("skin|" + this.race.skinName + "\n");
                 writer.write("pos|" + this.pos.toString() + "\n");
+                writer.write("trait1|" + this.trait1.traitName + "\n");
+                writer.write("trait2|" + this.trait2.traitName + "\n");
+                writer.write("trait3|" + this.trait3.traitName + "\n");
                 writer.write("hunger|" + String.valueOf(this.hunger) + "\n");
                 writer.write("buildingskill|" + String.valueOf(this.skillBuilding) + "\n");
                 writer.write("farmingskill|" + String.valueOf(this.skillFarming) + "\n");
@@ -1096,5 +1112,133 @@ public class NpcData {
             ModSimLoader.log.error("getTexture出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return texture;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO NPC死亡
+     * @Date 15:20 2022/10/18
+     * @Param [cause]
+     * @return void
+     **/
+    public void onDeath(DamageSource cause) {
+        String deathMessage = "";
+        if (cause == DamageSource.starve) {
+            //张三 饿死了。他们当时18岁。
+            deathMessage = this.getName() + I18n.format("container.sim.folk_data_death_by_They") + this.age + I18n.format("container.sim.folk_data_death_by_years");
+        } else {
+            deathMessage = this.getName() + I18n.format("container.sim.folk_data_death_by_were") + this.age + I18n.format("container.sim.folk_data_death_by_years");
+        }
+
+        this.isDead = true;
+        for (NpcData npcData:ModSimLoader.folks){
+            ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
+            if (npcData.ID.contentEquals(this.ID) && !npcData.entity.worldObj.isRemote) {
+
+            }
+            ModSimLoader.log.info("找到匹配ID");
+            ModSimLoader.sendChat(deathMessage);
+            if (this.home != null) {
+                this.home.occupants.remove(this);
+                this.home.saveBuilding();
+            }
+
+            ModSimLoader.folks.remove(npcData);
+            try {
+                Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
+                return;
+            } catch (Exception var5) {
+                var5.printStackTrace();
+            }
+        }
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 找到保存位置
+     * @Date 15:43 2022/10/18
+     * @Param []
+     * @return java.lang.String
+     **/
+    public String getSaveFolder() {
+        DimensionManager d = new DimensionManager();
+        String worldPath = "";
+        worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + File.separator + "sim";
+        return worldPath;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 生成特征
+     * @Date 17:30 2022/10/18
+     * @Param []
+     * @return void
+     **/
+    public void generateTraits() {
+        try {
+            Random rand = new Random();
+            Trait[] traits1 = Traits.traitList;
+            //Trait 1
+            this.trait1 = Trait.getTraitFromName(traits1[rand.nextInt(traits1.length - 1)].traitName);
+
+
+            //Trait 2
+            this.trait2 = Trait.getTraitFromName(traits1[rand.nextInt(traits1.length - 1)].traitName);
+
+            while (this.trait2 == this.trait1 || traitHasOpposite(this.trait2)) {
+                this.trait2 = Trait.getTraitFromName(traits1[rand.nextInt(traits1.length - 1)].traitName);
+            }
+
+
+            //Trait 3
+            this.trait3 = Trait.getTraitFromName(traits1[rand.nextInt(traits1.length - 1)].traitName);
+
+            while (this.trait3 == this.trait2 || this.trait3 == this.trait1 || traitHasOpposite(this.trait3)) {
+                this.trait3 = Trait.getTraitFromName(traits1[rand.nextInt(traits1.length - 1)].traitName);
+            }
+
+
+
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("generateTraits出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
+    }
+    /**
+     * 特质具有相反的性质
+     *
+     * @param trait
+     * @return
+     */
+    public boolean traitHasOpposite(Trait trait) {
+        try {
+            if (Trait.getTraitFromName(trait.traitName).traitOpposite != null) {
+                if (trait.traitName.contains(Trait.getTraitFromName(trait.traitName).traitOpposite.traitName)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("traitHasOpposite出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return false;
+    }
+    /**
+     * 有特点
+     *
+     * @param trait
+     * @return
+     */
+    public boolean hasTrait(Trait trait) {
+        boolean flag = true;
+        try {
+            if (this.trait1.traitName.contentEquals(trait.traitName) || this.trait2.traitName.contentEquals(trait.traitName) || this.trait3.traitName.contentEquals(trait.traitName)) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("hasTrait出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return flag;
     }
 }

@@ -3,14 +3,22 @@ package com.trhsy.sim.entity;
 import com.trhsy.sim.entity.ai.FolkAIOpenFenceGate;
 import com.trhsy.sim.entity.ai.FolkAIWander;
 import com.trhsy.sim.entity.render.RenderEntityFolk;
+import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenFolkGui;
 import com.trhsy.sim.npc.NpcData;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -39,6 +47,8 @@ public class EntityFolk extends EntityCreature implements INpc {
             //没加载，毁灭吧
             this.setDead();
         }
+        //会捡起地上的东西
+        this.setCanPickUpLoot(true);
         //会进门
         ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
         //破门而入
@@ -51,9 +61,14 @@ public class EntityFolk extends EntityCreature implements INpc {
     }
     public EntityFolk(World world, boolean isCreating) {
         super(world);
+        //会捡起地上的东西
+        this.setCanPickUpLoot(true);
         //会进门
         ((PathNavigateGround)this.getNavigator()).setEnterDoors(true);
+        //破门而入
         ((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
+        //会游泳
+        ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
         this.isBeingCreated = isCreating;
         this.setSize(0.6F, 1.8F);
         this.enablePersistence();
@@ -62,9 +77,14 @@ public class EntityFolk extends EntityCreature implements INpc {
     public EntityFolk(World world, String id) {
         super(world);
         this.setUniqueId(UUID.fromString(id));
+        //会捡起地上的东西
+        this.setCanPickUpLoot(true);
         //会进门
         ((PathNavigateGround)this.getNavigator()).setEnterDoors(true);
+        //破门而入
         ((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
+        //会游泳
+        ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
         this.isBeingCreated = false;
         this.setSize(0.6F, 1.8F);
         this.enablePersistence();
@@ -75,6 +95,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      */
     @Override
     public void initEntityAI() {
+
         //智能游泳
         this.tasks.addTask(0, new EntityAISwimming(this));
         //限制打开门
@@ -86,11 +107,19 @@ public class EntityFolk extends EntityCreature implements INpc {
         //自由闲逛
         this.tasks.addTask(6, new FolkAIWander(this, 1.0D));
         //最近观看
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         //看起来很空闲
         this.tasks.addTask(8, new EntityAILookIdle(this));
-    }
+        //住进屋子
+        this.tasks.addTask(9, new EntityAIMoveIndoors(this));
+        //实体AI监视最近2
+        this.tasks.addTask(11, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1));
+        //限制走向
+        this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
+        //避开实体僵尸
+        this.tasks.addTask(13, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
 
+    }
     /**
      * 应用实体属性
      */
@@ -104,6 +133,23 @@ public class EntityFolk extends EntityCreature implements INpc {
         //跟随范围
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(256.0D);
     }
+    /**
+     * @Author fan
+     * @Description //TODO 能否重生
+     * @Date 15:18 2022/10/18
+     * @Param []
+     * @return boolean
+     **/
+    protected boolean canDespawn() {
+        return false;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 实体更新
+     * @Date 15:18 2022/10/18
+     * @Param []
+     * @return void
+     **/
     @Override
     public void onUpdate() {
         super.onUpdate();
@@ -111,8 +157,6 @@ public class EntityFolk extends EntityCreature implements INpc {
 
         }
     }
-
-
     /**
      * @Author fan
      * @Description //TODO 当NPC更新时
@@ -138,6 +182,88 @@ public class EntityFolk extends EntityCreature implements INpc {
             this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
             this.theData.entity = this;
             this.theData.sendSkinPathToClient();
+        }
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 死亡
+     * @Date 15:22 2022/10/18
+     * @Param [cause]
+     * @return void
+     **/
+    public void onDeath(DamageSource cause) {
+        if (this.theData != null) {
+            this.theData.onDeath(cause);
+        }
+
+        super.onDeath(cause);
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 交互
+     * @Date 15:01 2022/10/18
+     * @Param [player, hand]
+     * @return boolean
+     **/
+    public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
+        if (!player.worldObj.isRemote) {
+            NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP)player);
+        }
+        return true;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 摆动手臂
+     * @Date 15:44 2022/10/18
+     * @Param []
+     * @return void
+     **/
+    public void swing() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                for(int d = 0; d < 12; ++d) {
+                    EntityFolk.this.swingProgress = 0.3F;
+
+                    try {
+                        Thread.sleep(100L);
+                    } catch (Exception var4) {
+                    }
+
+                    EntityFolk.this.swingProgress = 0.7F;
+
+                    try {
+                        Thread.sleep(100L);
+                    } catch (Exception var3) {
+                    }
+                }
+
+            }
+        });
+        t.start();
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 移动
+     * @Date 15:45 2022/10/18
+     * @Param []
+     * @return boolean
+     **/
+    public boolean isMoving() {
+        return this.motionX > 0.0D || this.motionY > 0.0D || this.motionZ > 0.0D;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 是儿童
+     * @Date 15:46 2022/10/18
+     * @Param []
+     * @return boolean
+     **/
+    public boolean isChild() {
+        NpcIdentity cfi = ModSimLoader.getFolkByUUID(this.getUniqueID());
+        if (cfi != null) {
+            return Integer.parseInt(cfi.age) < Integer.parseInt(cfi.maturityAge);
+        } else {
+            return false;
         }
     }
 }

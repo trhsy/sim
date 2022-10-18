@@ -155,7 +155,7 @@ public class EventLoader {
             ModSimLoader.buildings.clear();
 //            ModSimLoader.farms.clear();
             ModSimLoader.states.dayOfWeek=0;
-            ModSimLoader.states.gameModeNumber=-1;
+            ModSimLoader.states.gameModeNumber=999;
             ModSimLoader.states.credits=10.0F;
             this.timeSinceLastClientUpdate = 0L;
             File[] buildingSaves;
@@ -211,7 +211,7 @@ public class EventLoader {
                 }
             }
             //检查游戏状态
-            if (ModSimLoader.states.gameModeNumber != -1 && !event.world.isRemote&&event.world.playerEntities.size()>0) {
+            if (ModSimLoader.states.gameModeNumber != 999 && !event.world.isRemote&&event.world.playerEntities.size()>0) {
                 //是白天
                 if(ModSimLoader.isDayTime(event.world)){
                     NpcData starves=null;
@@ -346,7 +346,7 @@ public class EventLoader {
             String welcome ="【"+player.getName()+"】"+I18n.format("container.sim.welcome");
             String welcomes = I18n.format("container.sim.welcomes");
             ModSimLoader.sendChat(welcome + ModSim.VERSION + welcomes);
-            boolean shouldGive = ItemLoader.itemSimULoader != null && ModSimLoader.states.gameModeNumber == -1;
+            boolean shouldGive = ItemLoader.itemSimULoader != null && ModSimLoader.states.gameModeNumber == 999;
             if (shouldGive) {
                 ItemStack starter = new ItemStack(ItemLoader.itemSimULoader);
                 if (!player.inventory.addItemStackToInventory(starter)) {

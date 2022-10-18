@@ -1,6 +1,8 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.gui.GuiFolk;
 import com.trhsy.sim.gui.GuiRunMod;
+import com.trhsy.sim.network.client.PacketOpenFolkGui;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.npc.Building;
 import com.trhsy.sim.npc.DynamicSkin;
@@ -74,6 +76,13 @@ public class ModSimLoader {
             return "";
         }
     }
+    /**
+     * @Author fan
+     * @Description //TODO 添加金额
+     * @Date 14:05 2022/10/18
+     * @Param [amount]
+     * @return void
+     **/
     public static void addMoney(float amount) {
         if (ModSimLoader.states.gameModeNumber == 0) {
             ModSimLoader.states.credits += amount;
@@ -93,6 +102,13 @@ public class ModSimLoader {
         }
         return output;
     }
+    /**
+     * @Author fan
+     * @Description //TODO 根据uid 获取NPC信息
+     * @Date 14:05 2022/10/18
+     * @Param [uuid]
+     * @return com.trhsy.sim.entity.util.NpcIdentity
+     **/
     public static NpcIdentity getFolkByUUID(UUID uuid) {
         NpcIdentity npcIdentity=null;
         for(NpcIdentity npcIdentity1:tempHireableNpcNames) {
@@ -158,6 +174,13 @@ public class ModSimLoader {
 
         return ret;
     }
+    /**
+     * @Author fan
+     * @Description //TODO 找到空房子
+     * @Date 14:05 2022/10/18
+     * @Param []
+     * @return com.trhsy.sim.npc.Building
+     **/
     public static Building getEmptyHome() {
         Building empty = null;
         for (Building b:buildings){
@@ -297,7 +320,13 @@ public class ModSimLoader {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 根据uid获取NPC数据
+     * @Date 14:04 2022/10/18
+     * @Param [uid]
+     * @return com.trhsy.sim.npc.NpcData
+     **/
     public static NpcData getFolkDataByUID(String uid) {
         NpcData npcDatas=null;
         for (NpcData npcData:folks){
@@ -308,5 +337,14 @@ public class ModSimLoader {
         return npcDatas;
     }
 
-
+    /**
+     * @Author fan
+     * @Description //TODO 打开npcUI
+     * @Date 14:03 2022/10/18
+     * @Param [message]
+     * @return void
+     **/
+    public static void openFolkGui(PacketOpenFolkGui message) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiFolk(message));
+    }
 }

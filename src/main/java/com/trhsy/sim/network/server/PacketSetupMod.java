@@ -22,7 +22,7 @@ public class PacketSetupMod implements IMessage {
     }
     @Override
     public void fromBytes(ByteBuf buf) {
-//        this.gamemode = buf.readInt();
+        this.gamemode = buf.readInt();
     }
 
     @Override

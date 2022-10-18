@@ -40,11 +40,18 @@ public class NetWorkLoader {
      * 客户端
      */
     public void registerMessagesAsClient(){
+        //开始卷轴启动页
         registerMessage(PacketOpenSetupGui.Handler.class,PacketOpenSetupGui.class,Side.CLIENT);
+        //配置文件
         registerMessage(ConfigSyncPacket.Handler.class,ConfigSyncPacket.class,Side.CLIENT);
+        //发送NPC皮肤
         registerMessage(PacketSendFolkSkin.Handler.class,PacketSendFolkSkin.class,Side.CLIENT);
+        //可雇佣 的NPC
         registerMessage(PacketReturnHireableFolks.Handler.class,PacketReturnHireableFolks.class,Side.CLIENT);
+        //更新资金
         registerMessage(PacketUpdateMoney.Handler.class,PacketUpdateMoney.class,Side.CLIENT);
+        //打开NPC互动界面
+        registerMessage(PacketOpenFolkGui.Handler.class,PacketOpenFolkGui.class,Side.CLIENT);
     }
     /**
      *

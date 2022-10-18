@@ -16,7 +16,7 @@ public class GameStates {
     /**人口**/
     public int population = 0;
     /**游戏模式编号**/
-    public int gameModeNumber = -1;
+    public int gameModeNumber = 999;
     /**金币**/
     public float credits = 10.0F;
     /**是否开启作弊**/
