@@ -79,14 +79,6 @@ public class Trait {
         return traitDesc;
     }
 
-
-    /**
-     * 设置特征的图标
-     */
-    public void setTraitIcon() {
-
-    }
-
     /**
      * 告诉有这种特质的人他们的“特殊”建筑在哪里（如果他们有）
      */

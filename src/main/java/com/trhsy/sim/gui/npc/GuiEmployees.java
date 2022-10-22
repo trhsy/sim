@@ -1,0 +1,154 @@
+package com.trhsy.sim.gui.npc;
+
+import com.trhsy.sim.entity.util.NpcIdentity;
+import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.server.PacketFireFolk;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
+import java.util.ArrayList;
+
+/**
+ * @ClassName GuiEmployees
+ * @Description todo 员工信息
+ * @Author TRHSY
+ * @Date 2022/10/2013:44
+ **/
+public class GuiEmployees extends GuiScreen {
+    ArrayList<NpcIdentity> folks;
+    private int mouseCount = 0;
+    private int folkOffset = 0;
+    private int folksOnAPage = 0;
+
+    public GuiEmployees() {
+    }
+
+    public void initGui() {
+        this.folks = new ArrayList(ModSimLoader.tempHireableNpcNames);
+        this.showPage();
+        super.initGui();
+    }
+
+    private void showPage() {
+        try {
+            this.buttonList.clear();
+            int y = 30;
+            boolean more = false;
+            int count = 0;
+            if (this.folkOffset < 0) {
+                this.folkOffset = 0;
+            }
+
+            for(int f = this.folkOffset; f < this.folks.size(); ++f) {
+                //失业
+                if (!((NpcIdentity)this.folks.get(f)).job.contentEquals(I18n.format("container.sim.gui_Folk_unemployed"))) {
+                    //解雇
+                    this.buttonList.add(new GuiButton(f, this.width - 55, y, 50, 20, I18n.format("container.sim.Fire")));
+                }
+
+                y += 20;
+                if (y + 20 > this.height - 50) {
+                    more = true;
+                    break;
+                }
+
+                ++count;
+            }
+
+            if (this.folksOnAPage == 0) {
+                this.folksOnAPage = count + 1;
+            }
+
+            if (this.folkOffset > 0) {
+                this.buttonList.add(new GuiButton(1000, 0, 0, 50, 20, "<"));
+            }
+
+            if (more) {
+                this.buttonList.add(new GuiButton(1001, this.width - 50, 0, 50, 20, ">"));
+            }
+        } catch (Exception var5) {
+            var5.printStackTrace();
+        }
+
+    }
+
+    public void drawScreen(int i, int j, float f) {
+        if (this.mouseCount < 10) {
+            ++this.mouseCount;
+            Mouse.setGrabbed(false);
+        }
+
+        this.drawDefaultBackground();
+        this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.employees"), this.width / 2, 17, 16777215);
+        int y = 35;
+        if (this.folkOffset < 0) {
+            this.folkOffset = 0;
+        }
+
+        for(int ff = this.folkOffset; ff < this.folks.size(); ++ff) {
+            NpcIdentity folk = (NpcIdentity)this.folks.get(ff);
+            this.drawString(this.fontRendererObj, folk.name, 2, y, 10551295);
+            String status;
+            if (folk.job.contentEquals(I18n.format("container.sim.gui_Folk_unemployed"))) {
+                this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_unemployed"), 110, y, 16715792);
+            } else {
+                status = folk.job;
+                this.drawString(this.fontRendererObj, status, 110, y, 10551295);
+            }
+
+            status = "";
+
+            try {
+                status = folk.status;
+            } catch (Exception var9) {
+            }
+            //在家
+            if (status.contains(I18n.format("container.sim.FolkAction9"))) {
+                //在家放松
+                status = I18n.format("container.sim.folk_data_Relaxing_home");
+            }
+
+            this.drawString(this.fontRendererObj, status, 250, y, 10551295);
+            y += 20;
+            if (y + 20 > this.height - 50) {
+                break;
+            }
+        }
+
+        super.drawScreen(i, j, f);
+    }
+
+    public void actionPerformed(GuiButton guibutton) {
+        if (guibutton.id == 1000) {
+            this.folkOffset -= this.folksOnAPage;
+            this.showPage();
+        } else if (guibutton.id == 1001) {
+            this.folkOffset += this.folksOnAPage;
+            this.showPage();
+        } else {
+            NpcIdentity folk = (NpcIdentity)this.folks.get(guibutton.id);
+            NetWorkLoader.net.sendToServer(new PacketFireFolk(folk.id));
+            guibutton.enabled = false;
+        }
+
+    }
+
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
+
+    public void onGuiClosed() {
+        Keyboard.enableRepeatEvents(false);
+    }
+
+    public void keyTyped(char c, int i) {
+        if (i == 1) {
+            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.setIngameFocus();
+        }
+    }
+}

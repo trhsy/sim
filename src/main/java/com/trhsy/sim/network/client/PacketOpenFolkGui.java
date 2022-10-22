@@ -59,7 +59,7 @@ public class PacketOpenFolkGui implements IMessage {
         this.folkTrait2=fd.trait2.getTraitName();
         this.folkTrait3=fd.trait3.getTraitName();
         this.status=fd.status;
-        fd.getHunger();
+        this.hungerStatus=fd.getHunger();
         if (fd.job != null) {
             this.jobName = fd.job.toString();
         } else {
@@ -90,6 +90,7 @@ public class PacketOpenFolkGui implements IMessage {
         this.folkTrait2 = ByteBufUtils.readUTF8String(buf);
         this.folkTrait3 = ByteBufUtils.readUTF8String(buf);
         this.status = ByteBufUtils.readUTF8String(buf);
+        this.hungerStatus=ByteBufUtils.readUTF8String(buf);
     }
 
     @Override
@@ -107,6 +108,7 @@ public class PacketOpenFolkGui implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.folkTrait2);
         ByteBufUtils.writeUTF8String(buf, this.folkTrait3);
         ByteBufUtils.writeUTF8String(buf, this.status);
+        ByteBufUtils.writeUTF8String(buf, this.hungerStatus);
     }
     public static class Handler implements IMessageHandler<PacketOpenFolkGui, IMessage> {
         public Handler() {

@@ -4,16 +4,14 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityFolk;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
-import com.trhsy.sim.npc.Building;
+import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
-import com.trhsy.sim.util.SimConfigSync;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,10 +24,15 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.util.Iterator;
+import java.io.FileOutputStream;
+import java.util.Enumeration;
 import java.util.Random;
 import java.util.UUID;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * @ClassName EventLoader
@@ -82,9 +85,6 @@ public class EventLoader {
 
                         fd.sendSkinPathToClient();
                     }
-                Iterator var1 = ModSimLoader.folks.iterator();
-
-
                 }
             }catch (Exception e){
                 e.getMessage();
@@ -93,7 +93,14 @@ public class EventLoader {
 
         });
         skinThread.start();
+
         try{
+            //建筑文件检查
+            File checks = new File(ModSimLoader.getSimFolder() + File.separator + "/buildings");
+            if (!checks.exists()) {
+                onUpdate();
+            }
+            //检查模组更新提醒
             String baseURL = "https://trhsy.github.io/sim/1.9/version.txt";
             String ver = ModSimLoader.downloadFile(baseURL, ModSimLoader.getSimFolder() + File.separator + "version.txt");
             if (ver != null) {
@@ -109,7 +116,82 @@ public class EventLoader {
 
         }
     }
+    public void onUpdate() {
+        try {
+//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
+            String baseURL = "https://trhsy.github.io/sim/1.9/Simukraft_zh_CN.zip";
+            String lang = FMLCommonHandler.instance().getCurrentLanguage();
+            if ("en_US".equals(lang)) {
+                baseURL = "https://trhsy.github.io/sim/1.9/Simukraft_en_US.zip";
+            }
+            String unzipFilePath = ModSimLoader.getSimFolder();
+            File checks = new File(unzipFilePath + File.separator);
+            File[] checkss = checks.listFiles();
 
+            for (File f : checkss) {
+                ModSimLoader.deleteFile(f);
+            }
+            checks.mkdir();
+            String simFile = unzipFilePath + File.separator + "Simukraft.zip";
+            String ver = ModSimLoader.downloadSimFile(baseURL, simFile);
+            if (ver != null) {
+                File zipFile = new File(ver);
+                //开始解压
+                ModSimLoader.log.info("开始解压：", zipFile.getName());
+                ZipEntry entry = null;
+                String entryFilePath = null, entryDirPath = null;
+                File entryFile = null, entryDir = null;
+                int index = 0, count = 0;
+                byte[] buffer = new byte[1024];
+                BufferedInputStream bis = null;
+                BufferedOutputStream bos = null;
+                ZipFile zip = new ZipFile(zipFile);
+                Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>) zip.entries();
+                //循环对压缩包里的每一个文件进行解压
+                while (entries.hasMoreElements()) {
+
+                    entry = entries.nextElement();
+
+                    //构建压缩包中一个文件解压后保存的文件全路径
+                    entryFilePath = unzipFilePath + File.separator + entry.getName();
+                    //构建解压后保存的文件夹路径
+                    index = entryFilePath.lastIndexOf(".txt");
+                    if (index != -1) {
+                        //创建解压文件
+                        entryFile = new File(entryFilePath);
+                        //写入文件
+                        bos = new BufferedOutputStream(new FileOutputStream(entryFile));
+                        bis = new BufferedInputStream(zip.getInputStream(entry));
+                        while ((count = bis.read(buffer, 0, 1024)) != -1) {
+                            bos.write(buffer, 0, count);
+                        }
+                        bos.flush();
+                        bos.close();
+                        //ModSimReloaded.log.info("创建解压文件：",entryFile.getName());
+                    } else {
+                        entryDirPath = entryFilePath.substring(0, entryFilePath.length() - 1);
+                        entryDir = new File(entryDirPath);
+                        //如果文件夹路径不存在，则创建文件夹
+                        if (!entryDir.exists() || !entryDir.isDirectory()) {
+                            entryDir.mkdirs();
+                            ModSimLoader.log.info("创建解压文件夹：", entryDir.getName());
+                        }
+                    }
+
+                }
+
+            }
+
+            new File(simFile).deleteOnExit();
+
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("检查sim建筑包出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            //e.printStackTrace();
+        }
+
+
+    }
     /**
      * 世界保存
      * @param event
@@ -169,7 +251,7 @@ public class EventLoader {
                 ModSimLoader.log.info("获得保存的NPC");
                 new DimensionManager();
                 File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
-                if(npcFolder.exists()){
+                if(!npcFolder.exists()){
                     npcFolder.mkdirs();
                 }
                 buildingSaves=npcFolder.listFiles();
@@ -203,8 +285,8 @@ public class EventLoader {
             //更新资金
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
             //检查建筑物
-            for (int i = 0; i <ModSimLoader.buildings.size() ; --i) {
-                Building b = (Building)ModSimLoader.buildings.get(i - 1);
+            for (int i = 0; i <ModSimLoader.buildings.size(); --i) {
+                Building b = ModSimLoader.buildings.get(i - 1);
                 if (event.world.getBlockState(b.controlXYZ.toBlockPos()).getBlock() != BlockLoader.blockControlBox) {
                     ModSimLoader.log.info(b.buildingName + " 没有控制块-正在销毁");
                     b.demolish(event.world, false);
@@ -297,11 +379,13 @@ public class EventLoader {
 
                                 if (currentAge < f.race.maturity && f.age >= f.race.maturity) {
                                     f.evict();
+                                    //现在18岁了,他们会开始找房子,你现在也可以雇佣他们了。
                                     String s=I18n.format("container.sim.main_is_now");
                                     ModSimLoader.sendChat(f.getName() + s);
                                 }
 
                                 if (f.age >= f.race.lifespan && this.rand.nextInt(10) == 5) {
+                                    //年纪大了,感觉不太好。。。哦不！
                                     String s=I18n.format("container.sim.main_is_old");
                                     ModSimLoader.sendChat(f.getName() + s);
                                     f.entity.attackEntityFrom(DamageSource.starve, 999.0F);

@@ -2,7 +2,7 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.network.client.*;
-import com.trhsy.sim.network.server.PacketSetupMod;
+import com.trhsy.sim.network.server.*;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -33,7 +33,15 @@ public class NetWorkLoader {
      * 服务端
      */
     public void registerMessagesAsServer(){
+        //启动
         registerMessage(PacketSetupMod.Handler.class,PacketSetupMod.class,Side.SERVER);
+        //雇佣
+        registerMessage(PacketHireFolk.Handler.class,PacketHireFolk.class,Side.SERVER);
+        //解雇
+        registerMessage(PacketFireFolk.Handler.class,PacketFireFolk.class,Side.SERVER);
+        //获得蓝图
+        registerMessage(PacketSendBlueprint.Handler.class,PacketSendBlueprint.class,Side.SERVER);
+        registerMessage(PacketGetHireableFolks.Handler.class,PacketGetHireableFolks.class,Side.SERVER);
     }
 
     /**
@@ -52,6 +60,11 @@ public class NetWorkLoader {
         registerMessage(PacketUpdateMoney.Handler.class,PacketUpdateMoney.class,Side.CLIENT);
         //打开NPC互动界面
         registerMessage(PacketOpenFolkGui.Handler.class,PacketOpenFolkGui.class,Side.CLIENT);
+        //打开建筑箱gui
+        registerMessage(PacketOpenConstructorGui.Handler.class,PacketOpenConstructorGui.class,Side.CLIENT);
+        //请求蓝图
+        registerMessage(PacketSendBuildingRequirements.Handler.class,PacketSendBuildingRequirements.class,Side.CLIENT);
+
     }
     /**
      *

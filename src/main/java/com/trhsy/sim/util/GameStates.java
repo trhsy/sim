@@ -1,6 +1,7 @@
 package com.trhsy.sim.util;
 
 import com.trhsy.sim.loader.ModSimLoader;
+import net.minecraft.client.resources.I18n;
 
 import java.io.File;
 import java.util.List;
@@ -22,7 +23,7 @@ public class GameStates {
     /**是否开启作弊**/
     public boolean cheatMode = false;
     /**星期几**/
-    public int dayOfWeek = 0;
+    public static int dayOfWeek = 0;
     /**上次更新检查**/
     public long lastUpdateCheck = 0L;
     /**用户ID**/
@@ -35,7 +36,17 @@ public class GameStates {
     public boolean disableBeamEffect = false;
     /**民间噪音**/
     public boolean folkNoise = true;
-
+    protected static final String[] dow = new String[]{I18n.format("container.sim.simSun"), I18n.format("container.sim.simMon"), I18n.format("container.sim.simTue"), I18n.format("container.sim.simWed"), I18n.format("container.sim.simThu"), I18n.format("container.sim.simFri"), I18n.format("container.sim.simSat")};
+    /**
+     * @Author fan
+     * @Description //TODO 星期几
+     * @Date 16:02 2022/10/21
+     * @Param []
+     * @return java.lang.String
+     **/
+    public static String getDayOfWeek() {
+        return dow[dayOfWeek];
+    }
     /**
      * 加载配置文件
      */

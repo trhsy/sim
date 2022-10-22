@@ -47,6 +47,7 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
+        ModSimLoader.loadAllBuildings();
     }
 
     public void renderTick(TickEvent.RenderTickEvent e) {

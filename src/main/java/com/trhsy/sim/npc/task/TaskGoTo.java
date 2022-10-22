@@ -1,6 +1,6 @@
 package com.trhsy.sim.npc.task;
 
-import com.trhsy.sim.npc.Building;
+import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
 
 /**

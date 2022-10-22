@@ -1,4 +1,4 @@
-package com.trhsy.sim.gui;
+package com.trhsy.sim.gui.npc;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * @ClassName GuiFolk
- * @Description todo
+ * @Description todo NPC 交互界面
  * @Author TRHSY
  * @Date 2022/10/1812:55
  **/
@@ -25,6 +25,7 @@ public class GuiFolk extends GuiScreen {
     String housingStatus;
     String relationshipStatus;
     String status;
+    String hungerStatus;
     String folkRaceName;
     String folkTrait1;
     String folkTrait2;
@@ -49,7 +50,7 @@ public class GuiFolk extends GuiScreen {
         this.relationshipData = message.relationshipData;
         this.building = message.building;
         this.farming = message.farming;
-
+        this.hungerStatus = message.hungerStatus ;
     }
 
     public boolean doesGuiPauseGame() {
@@ -103,49 +104,53 @@ public class GuiFolk extends GuiScreen {
         this.drawDefaultBackground();
         this.drawTexturedModalRect(posX, 5, 0, 0, 256, 256);
         if (this.page == 0) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Here_my"), this.width / 2, 17, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Here_my"), this.width / 2, 17, 0x000000);
             //姓名
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Name")+":", labelPos, 27, 0x000000);
-            this.drawString(this.fontRendererObj, this.folkName, this.width / 2, 27, 16777215);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Name")+":", labelPos, 27, 0x000000);
+            this.fontRendererObj.drawString( this.folkName, this.width / 2, 27, 0x000000);
             //年龄
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Age")+":", labelPos, 37, 0x000000);
-            this.drawString(this.fontRendererObj, String.valueOf(this.folkAge), this.width / 2, 37, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Age")+":", labelPos, 37, 0x000000);
+            this.fontRendererObj.drawString( String.valueOf(this.folkAge), this.width / 2, 37, 0x000000);
             //性别
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Gender")+":", labelPos, 47, 0x000000);
-            this.drawString(this.fontRendererObj, this.folkGender == 0 ? I18n.format("container.sim.gui_Folk_Male") : I18n.format("container.sim.gui_Folk_Female"), this.width / 2, 47, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Gender")+":", labelPos, 47, 0x000000);
+            this.fontRendererObj.drawString( this.folkGender == 0 ? I18n.format("container.sim.gui_Folk_Male") : I18n.format("container.sim.gui_Folk_Female"), this.width / 2, 47, 0x000000);
             //种族
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Species")+":", labelPos, 57, 0x000000);
-            this.drawString(this.fontRendererObj, this.folkRaceName, this.width / 2, 57, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Species")+":", labelPos, 57, 0x000000);
+            this.fontRendererObj.drawString( this.folkRaceName, this.width / 2, 57, 0x000000);
             //工作
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Job")+":", labelPos, 67, 0x000000);
-            this.drawString(this.fontRendererObj, this.jobName, this.width / 2, 67, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Job")+":", labelPos, 67, 0x000000);
+            this.fontRendererObj.drawString( this.jobName, this.width / 2, 67, 0x000000);
             //住房状态
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Housing_status")+":", labelPos, 77, 0x000000);
-            this.drawString(this.fontRendererObj, this.housingStatus, this.width / 2, 77, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Housing_status")+":", labelPos, 77, 0x000000);
+            this.fontRendererObj.drawString( this.housingStatus, this.width / 2, 77, 0x000000);
             //建筑等级
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Building_skill")+":", labelPos, 87, 0x000000);
-            this.drawString(this.fontRendererObj, this.building, this.width / 2, 87, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Building_skill")+":", labelPos, 87, 0x000000);
+            this.fontRendererObj.drawString( this.building, this.width / 2, 87, 0x000000);
             //农耕等级
-            this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Farming_Skill")+":", labelPos, 97, 0x000000);
-            this.drawString(this.fontRendererObj, this.farming, this.width / 2, 97, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Farming_Skill")+":", labelPos, 97, 0x000000);
+            this.fontRendererObj.drawString(this.farming, this.width / 2, 97, 0x000000);
         } else if(this.page == 1) {
             //的关系
-            this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_Relationshipss")+":", this.width / 2, 17, 0x000000);
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Relationshipss")+":", this.width / 2, 17, 0x000000);
             int height = 50;
             String[] var7 = this.relationshipData.split(";");
             int var8 = var7.length;
 
             for (int var9 = 0; var9 < var8; ++var9) {
                 String relDat = var7[var9];
-                this.drawString(this.fontRendererObj, relDat, labelPos, height, 0x000000);
+                this.fontRendererObj.drawString( relDat, labelPos, height, 0x000000);
                 height += 15;
             }
         }else if(this.page == 2) {
             //XX的需要
-            this.drawCenteredString(this.fontRendererObj, this.folkName + I18n.format("container.sim.gui_Folk_Needs"), this.width / 2, 10, 0x000000);
-            //状态
-            this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Hunger") + ":", this.width / 3, 20, 0);
+            this.fontRendererObj.drawString( this.folkName + I18n.format("container.sim.gui_Folk_Needs"), this.width / 2, 10, 0x000000);
+            //当前状态
+            this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Status") + ":", this.width / 3, 20, 0);
             this.fontRendererObj.drawString(this.status, this.width / 2, 20, 128);
+            //饥饿状态
+            this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Hunger") + ":", this.width / 3, 30, 0);
+            this.fontRendererObj.drawString(this.hungerStatus, this.width / 2, 30, 128);
+
            /* //乐趣
             this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Fun") + ":", this.width / 3, 30, 0);
             this.fontRendererObj.drawString(this.funStatus, this.width / 2, 30, 128);

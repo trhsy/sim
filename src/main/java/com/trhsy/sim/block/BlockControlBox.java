@@ -3,6 +3,7 @@ package com.trhsy.sim.block;
 import com.trhsy.sim.block.enums.EnumControlBox;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.util.EnumBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -14,6 +15,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +24,7 @@ import java.util.Random;
  * 控制箱
  */
 public class BlockControlBox extends EnumBlock<EnumControlBox> {
+    public List<NpcData> employees = new ArrayList();
     public static final PropertyEnum<EnumControlBox> TYPE = PropertyEnum.create("type", EnumControlBox.class);
 
     public BlockControlBox() {
