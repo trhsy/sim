@@ -10,63 +10,257 @@ See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more i
          by: Searge, ProfMobius, Fesh0r,         
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
-Version string '1.8.9-1.0.2 Beta' does not match SemVer specification 
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
+Version string '1.8.9-1.0.3 Beta' does not match SemVer specification 
 You should try SemVer : http://semver.org/
+All projects evaluated.
+Selected primary task 'build' from project :
+Tasks to be executed: [task ':deobfCompileDummyTask', task ':getVersionJson', task ':extractUserdev', task ':downloadClient', task ':downloadServer', task ':splitServerJar', task ':mergeJars', task ':applyBinaryPatches', task ':deobfProvidedDummyTask', task ':extractDependencyATs', task ':extractMcpData', task ':extractMcpMappings', task ':genSrgs', task ':deobfMcMCP', task ':sourceApiJava', task ':compileApiJava', task ':processApiResources', task ':apiClasses', task ':sourceMainJava', task ':compileJava', task ':processResources', task ':classes', task ':jar', task ':sourceTestJava', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':reobfJar', task ':extractRangemapReplacedMain', task ':retromapReplacedMain', task ':sourceJar', task ':assemble', task ':check', task ':build']
+Creating In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileHashes.bin: MaxSize{400000}
+Creating In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\treeSnapshots.bin: MaxSize{20000}
+Creating In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\treeSnapshotUsage.bin: MaxSize{20000}
+Creating In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileSnapshotsToTreeSnapshotsIndex.bin: MaxSize{10000}
+Creating In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileSnapshots.bin: MaxSize{10000}
+Creating In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\taskArtifacts.bin: MaxSize{2000}
+:deobfCompileDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfCompileDummyTask
+Executing task ':deobfCompileDummyTask' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:deobfCompileDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:getVersionJson (Thread[Daemon worker,5,main]) started.
 :getVersionJson
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\treeSnapshotUsage.bin
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileSnapshotsToTreeSnapshotsIndex.bin
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileHashes.bin
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\taskArtifacts.bin
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileSnapshots.bin
+Invalidating in-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\treeSnapshots.bin
+Executing task ':getVersionJson' (up-to-date check took 0.095 secs) due to:
+  Task.upToDateWhen is false.
+:getVersionJson (Thread[Daemon worker,5,main]) completed. Took 0.297 secs.
+:extractUserdev (Thread[Daemon worker,5,main]) started.
 :extractUserdev
-Download https://maven.minecraftforge.net/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/forge-1.8.9-11.15.1.2318-1.8.9-userdev.jar
+Skipping task ':extractUserdev' as it is up-to-date (took 0.046 secs).
 :extractUserdev UP-TO-DATE
+:extractUserdev (Thread[Daemon worker,5,main]) completed. Took 0.046 secs.
+:downloadClient (Thread[Daemon worker,5,main]) started.
+:downloadClient
+Skipping task ':downloadClient' as task onlyIf is false.
 :downloadClient SKIPPED
+:downloadClient (Thread[Daemon worker,5,main]) completed. Took 1.158 secs.
+:downloadServer (Thread[Daemon worker,5,main]) started.
+:downloadServer
+Skipping task ':downloadServer' as task onlyIf is false.
 :downloadServer SKIPPED
+:downloadServer (Thread[Daemon worker,5,main]) completed. Took 1.142 secs.
+:splitServerJar (Thread[Daemon worker,5,main]) started.
+:splitServerJar
+Skipping task ':splitServerJar' as task onlyIf is false.
 :splitServerJar SKIPPED
+:splitServerJar (Thread[Daemon worker,5,main]) completed. Took 1.044 secs.
+:mergeJars (Thread[Daemon worker,5,main]) started.
+:mergeJars
+Skipping task ':mergeJars' as task onlyIf is false.
 :mergeJars SKIPPED
+:mergeJars (Thread[Daemon worker,5,main]) completed. Took 0.626 secs.
+:applyBinaryPatches (Thread[Daemon worker,5,main]) started.
 :applyBinaryPatches
+Skipping task ':applyBinaryPatches' as task onlyIf is false.
+:applyBinaryPatches SKIPPED
+:applyBinaryPatches (Thread[Daemon worker,5,main]) completed. Took 0.766 secs.
+:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) started.
 :deobfProvidedDummyTask
+Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:deobfProvidedDummyTask (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:extractDependencyATs (Thread[Daemon worker,5,main]) started.
+:extractDependencyATs
+Skipping task ':extractDependencyATs' as task onlyIf is false.
 :extractDependencyATs SKIPPED
+:extractDependencyATs (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:extractMcpData (Thread[Daemon worker,5,main]) started.
 :extractMcpData
-Download https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp/1.8.9/mcp-1.8.9-srg.zip
+Skipping task ':extractMcpData' as task onlyIf is false.
 :extractMcpData SKIPPED
+:extractMcpData (Thread[Daemon worker,5,main]) completed. Took 1.549 secs.
+:extractMcpMappings (Thread[Daemon worker,5,main]) started.
 :extractMcpMappings
-Download https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_stable/22-1.8.9/mcp_stable-22-1.8.9.zip
+ Corrupted Cache!
+Checksums found: 9da9e2a9d200298f1578d2bcd05b1146
+feba5ea7f7c8d9301bceafc401d334fb
+367a4d7a607515ccbaeed8e4d2fb6a97
+05f5ad109deba63f5d4bb6861a4abef2
+35ebdba408d64f5cbc345b589547f183
+b326b5062b2f0e69046810717534cb09
+68934a3e9455fa72420237eb05902327
+6565921ec228346f98bb39a7eca4308e
+Checksums calculated: 9da9e2a9d200298f1578d2bcd05b1146
+feba5ea7f7c8d9301bceafc401d334fb
+367a4d7a607515ccbaeed8e4d2fb6a97
+302a27ae108f40d687d243607699e964
+98fdef8a3491f13d05c90ce247adbd4f
+22ba12d27540d67debeebf3337e198f0
+74bdedbc9400d1d934270c53d0a2f268
+8c095ddf3c25e87335e3470a65c0d20c
+d96d4a7b1bf265d8887f5114da4b22f1
+3deaca337152c30a67007961b7d64084
+fff3c173f2f10662d63b51d95e97de1b
+323dc3fe133ea2b24f6358f64112f572
+9735ef66e602dfcc5237c269d85d90ab
+39a99404241ca2812fef75f3894e690b
+81d6fa8231325bc22f40545de8c0d63e
+856b1a6b541f10ea22fb815075609de0
+5c645ae841e9a552bac4e615220720e8
+05f5ad109deba63f5d4bb6861a4abef2
+35ebdba408d64f5cbc345b589547f183
+b326b5062b2f0e69046810717534cb09
+68934a3e9455fa72420237eb05902327
+6565921ec228346f98bb39a7eca4308e
+Executing task ':extractMcpMappings' (up-to-date check took 0.046 secs) due to:
+  Output property 'destinationDir' file D:\maven\gradle\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_stable\22\.cache has been removed.
+:extractMcpMappings (Thread[Daemon worker,5,main]) completed. Took 0.751 secs.
+:genSrgs (Thread[Daemon worker,5,main]) started.
 :genSrgs
+Skipping task ':genSrgs' as task onlyIf is false.
+:genSrgs SKIPPED
+:genSrgs (Thread[Daemon worker,5,main]) completed. Took 0.235 secs.
+:deobfMcMCP (Thread[Daemon worker,5,main]) started.
 :deobfMcMCP
-Applying SpecialSource...
-Applying Exceptor...
-:extractNatives
-Download https://libraries.minecraft.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-windows-64.jar
-Download https://libraries.minecraft.net/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5-natives-windows-64.jar
-:extractNatives SKIPPED
-:getAssetIndex UP-TO-DATE
-:getAssets
-Current status: 41/734   5%
-Current status: 83/734   11%
-Current status: 139/734   18%
-Current status: 210/734   28%
-Current status: 295/734   40%
-Current status: 375/734   51%
-Current status: 476/734   64%
-Current status: 530/734   72%
-Current status: 530/734   72%
-Current status: 541/734   73%
-Current status: 545/734   74%
-Current status: 590/734   80%
-Current status: 642/734   87%
-Current status: 710/734   96%
-:makeStart
-Download https://libraries.minecraft.net/com/mojang/authlib/1.5.21/authlib-1.5.21.jar
-Download https://libraries.minecraft.net/com/mojang/realms/1.7.59/realms-1.7.59.jar
-Download https://libraries.minecraft.net/tv/twitch/twitch/6.5/twitch-6.5.jar
-Download https://libraries.minecraft.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-windows-32.jar
-Download https://libraries.minecraft.net/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-osx.jar
-Download https://libraries.minecraft.net/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5-natives-windows-32.jar
-:setupDevWorkspace
-:ideaModule
-Download https://libraries.minecraft.net/com/mojang/authlib/1.5.21/authlib-1.5.21-sources.jar
-:ideaProject
-:ideaWorkspace
-:idea
+Skipping task ':deobfMcMCP' as task onlyIf is false.
+:deobfMcMCP SKIPPED
+:deobfMcMCP (Thread[Daemon worker,5,main]) completed. Took 0.69 secs.
+:sourceApiJava (Thread[Daemon worker,5,main]) started.
+:sourceApiJava
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\java', not found
+Skipping task ':sourceApiJava' as it is up-to-date (took 0.015 secs).
+:sourceApiJava UP-TO-DATE
+:sourceApiJava (Thread[Daemon worker,5,main]) completed. Took 0.015 secs.
+:compileApiJava (Thread[Daemon worker,5,main]) started.
+:compileApiJava
+Skipping task ':compileApiJava' as it has no source files.
+:compileApiJava UP-TO-DATE
+:compileApiJava (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:processApiResources (Thread[Daemon worker,5,main]) started.
+:processApiResources
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
+Skipping task ':processApiResources' as it has no source files.
+:processApiResources UP-TO-DATE
+:processApiResources (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:apiClasses (Thread[Daemon worker,5,main]) started.
+:apiClasses
+Skipping task ':apiClasses' as it has no actions.
+:apiClasses UP-TO-DATE
+:apiClasses (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:sourceMainJava (Thread[Daemon worker,5,main]) started.
+:sourceMainJava
+Executing task ':sourceMainJava' (up-to-date check took 0.659 secs) due to:
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.8.9\src\main\java\com\trhsy\sim\common\block\BlockControlBox.java has changed.
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.8.9\src\main\java\com\trhsy\sim\common\jobs\JobBuilder.java has changed.
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.8.9\src\main\java\com\trhsy\sim\common\block\BlockPathBox.java has changed.
+:sourceMainJava (Thread[Daemon worker,5,main]) completed. Took 3.928 secs.
+:compileJava (Thread[Daemon worker,5,main]) started.
+:compileJava
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+Executing task ':compileJava' (up-to-date check took 2.472 secs) due to:
+  Input property 'classpath' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
+  Input property 'classpath' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
+  Input property 'classpath' file D:\maven\gradle\.gradle\caches\minecraft\net\minecraftforge\forge\1.8.9-11.15.1.2318-1.8.9\stable\22\forgeBin-1.8.9-11.15.1.2318-1.8.9.jar has been added.
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+Compiling with Java command line compiler 'D:\java\jdk1.8.0_271\bin\javac.exe'.
+Starting process 'command 'D:\java\jdk1.8.0_271\bin\javac.exe''. Working directory: D:\work\works\sim-u\sim-u-1.8.9 Command: D:\java\jdk1.8.0_271\bin\javac.exe @D:\work\works\sim-u\sim-u-1.8.9\build\tmp\compileJava\java-compiler-args.txt
+Successfully started process 'command 'D:\java\jdk1.8.0_271\bin\javac.exe''
+警告: [options] 未与 -source 1.6 一起设置引导类路径
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+注: 某些输入文件使用了未经检查或不安全的操作。
+注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+1 个警告
+:compileJava (Thread[Daemon worker,5,main]) completed. Took 8.064 secs.
+:processResources (Thread[Daemon worker,5,main]) started.
+:processResources
+Executing task ':processResources' (up-to-date check took 0.359 secs) due to:
+  Value of input property 'version' has changed for task ':processResources'
+:processResources (Thread[Daemon worker,5,main]) completed. Took 11.539 secs.
+:classes (Thread[Daemon worker,5,main]) started.
+:classes
+Skipping task ':classes' as it has no actions.
+:classes (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:jar (Thread[Daemon worker,5,main]) started.
+:jar
+Executing task ':jar' (up-to-date check took 0.047 secs) due to:
+  No history is available.
+:jar (Thread[Daemon worker,5,main]) completed. Took 0.83 secs.
+:sourceTestJava (Thread[Daemon worker,5,main]) started.
+:sourceTestJava
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\test\java', not found
+Skipping task ':sourceTestJava' as it is up-to-date (took 0.0 secs).
+:sourceTestJava UP-TO-DATE
+:sourceTestJava (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:compileTestJava (Thread[Daemon worker,5,main]) started.
+:compileTestJava
+Skipping task ':compileTestJava' as it has no source files.
+:compileTestJava UP-TO-DATE
+:compileTestJava (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:processTestResources (Thread[Daemon worker,5,main]) started.
+:processTestResources
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\test\resources', not found
+Skipping task ':processTestResources' as it has no source files.
+:processTestResources UP-TO-DATE
+:processTestResources (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:testClasses (Thread[Daemon worker,5,main]) started.
+:testClasses
+Skipping task ':testClasses' as it has no actions.
+:testClasses UP-TO-DATE
+:testClasses (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:test (Thread[Daemon worker,5,main]) started.
+:test
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\build\classes\test', not found
+Skipping task ':test' as it has no source files.
+:test UP-TO-DATE
+:test (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:reobfJar (Thread[Daemon worker,5,main]) started.
+:reobfJar
+Executing task ':reobfJar' (up-to-date check took 0.015 secs) due to:
+  Task.upToDateWhen is false.
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+:reobfJar (Thread[Daemon worker,5,main]) completed. Took 2.284 secs.
+:extractRangemapReplacedMain (Thread[Daemon worker,5,main]) started.
+:extractRangemapReplacedMain
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+Executing task ':extractRangemapReplacedMain' (up-to-date check took 0.127 secs) due to:
+  Input property 'libs' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
+  Input property 'libs' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
+  Input property 'libs' file D:\maven\gradle\.gradle\caches\minecraft\net\minecraftforge\forge\1.8.9-11.15.1.2318-1.8.9\stable\22\forgeBin-1.8.9-11.15.1.2318-1.8.9.jar has been added.
+D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java
+file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
+:extractRangemapReplacedMain (Thread[Daemon worker,5,main]) completed. Took 13.212 secs.
+:retromapReplacedMain (Thread[Daemon worker,5,main]) started.
+:retromapReplacedMain
+Executing task ':retromapReplacedMain' (up-to-date check took 0.032 secs) due to:
+  Input property 'rangeMap' file D:\work\works\sim-u\sim-u-1.8.9\build\retromapping\replacedMain.rangemap has changed.
+  Input property 'sources' file D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\common\core\entity\Relationship.java has changed.
+  Input property 'sources' file D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\client\gui\blocks\GuiBuildingConstructor.java has changed.
+remapping source...
+:retromapReplacedMain (Thread[Daemon worker,5,main]) completed. Took 1.361 secs.
+:sourceJar (Thread[Daemon worker,5,main]) started.
+:sourceJar
+Executing task ':sourceJar' (up-to-date check took 0.015 secs) due to:
+  No history is available.
+:sourceJar (Thread[Daemon worker,5,main]) completed. Took 0.595 secs.
+:assemble (Thread[Daemon worker,5,main]) started.
+:assemble
+Skipping task ':assemble' as it has no actions.
+:assemble (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:check (Thread[Daemon worker,5,main]) started.
+:check
+Skipping task ':check' as it has no actions.
+:check UP-TO-DATE
+:check (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
+:build (Thread[Daemon worker,5,main]) started.
+:build
+Skipping task ':build' as it has no actions.
+:build (Thread[Daemon worker,5,main]) completed. Took 0.0 secs.
 
 BUILD SUCCESSFUL
 
-Total time: 2 mins 7.498 secs
+Total time: 1 mins 48.505 secs
