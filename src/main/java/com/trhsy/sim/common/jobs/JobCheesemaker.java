@@ -58,7 +58,7 @@ public class JobCheesemaker extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
@@ -77,12 +77,12 @@ public class JobCheesemaker extends Job {
             super.onUpdate();
             //
             if (this.theCheeseFactory == null) {
-                Building.loadAllBuildings();
+                //Building.loadAllBuildings();
                 this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
             }
 
             if (this.theCheeseFactory == null) {
-                Building.loadAllBuildings();
+                //Building.loadAllBuildings();
                 this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
             }
 
@@ -169,6 +169,7 @@ public class JobCheesemaker extends Job {
         try {
             //特殊方块 5
             List<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
+
             List<IInventory> chests = inventoriesFindClosest((V3) cheesechest.get(0), 4);
             this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), chests, new ItemStack(Items.milk_bucket, 64), (Block) null);
             this.theStage = Stage.GOINGTODAIRYFARM;
@@ -331,7 +332,7 @@ public class JobCheesemaker extends Job {
             } else if (this.step == 2) {
                 List<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
                 int lightID = Block.getIdFromBlock(BlockLoader.blockLightBox);
-                ModSimReloaded.log.info(Integer.toString(lightID));
+                //ModSimReloaded.log.info(Integer.toString(lightID));
                 boolean filledOk = false;
                 for (V3 milkBlock : milkblocks) {
                     //牛奶
@@ -691,7 +692,7 @@ public class JobCheesemaker extends Job {
                 this.theStage = Stage.ARRIVEDATFACTORY;
                 this.currentFarmNum = 0;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }

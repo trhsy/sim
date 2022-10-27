@@ -47,7 +47,7 @@ public class JobBurgersFryCook extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                 }
 
@@ -71,7 +71,7 @@ public class JobBurgersFryCook extends Job {
                     if (!theFolk.isNightOwl()) {
                         //闲置
                         this.theStage = Stage.IDLE;
-                        return;
+//                        return;
                     }
                 }
 
@@ -185,7 +185,7 @@ public class JobBurgersFryCook extends Job {
                                         return;
                                     }
 
-                                    this.isMakeFood = new ItemStack(ItemLoader.itemCheeseburger, 1, 3);
+                                    this.isMakeFood = new ItemStack(ItemLoader.itemCheeseburger, 1, 0);
                                     this.step = 2;
                                     this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Cooking");
                                 } else if (this.tryMeta == 1) {
@@ -201,7 +201,7 @@ public class JobBurgersFryCook extends Job {
                                         return;
                                     }
 
-                                    this.isMakeFood = new ItemStack(ItemLoader.itemBurger, 1, 1);
+                                    this.isMakeFood = new ItemStack(ItemLoader.itemBurger, 1, 0);
                                     this.step = 2;
                                     this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Hamburger");
                                 } else if (this.tryMeta == 2) {
@@ -211,9 +211,9 @@ public class JobBurgersFryCook extends Job {
                                         return;
                                     }
 
-                                    this.isMakeFood = new ItemStack(ItemLoader.itemFries, 1, 2);
+                                    this.isMakeFood = new ItemStack(ItemLoader.itemFries, 1, 0);
                                     this.step = 2;
-                                    this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Fries");
+                                    this.theFolk.statusText = I18n.format("container.sim.job.Arrived_Fries");//做一个薯条
                                 }
 
                                 if (this.step == 1) {
@@ -270,7 +270,7 @@ public class JobBurgersFryCook extends Job {
                     this.step = 1;
                 }
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
             }
         } catch (Exception e) {

@@ -56,7 +56,7 @@ public class JobButcher extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                 }
 
@@ -84,13 +84,14 @@ public class JobButcher extends Job implements Serializable {
             }
 
             super.onUpdateGoingToWork(this.theFolk);
+            //到达商店
             if (this.theStage == Stage.ARRIVEDATSHOP) {
                 this.theFolk.action = FolkAction.ATWORK;
                 this.runDelay = 11000;
             } else {
                 this.runDelay = 3000;
             }
-
+            //出售肉类
             if (this.theStage == Stage.SELLINGMEAT) {
                 this.runDelay = 10000;
             }
@@ -98,15 +99,20 @@ public class JobButcher extends Job implements Serializable {
             if (System.currentTimeMillis() - this.timeSinceLastRun >= (long)this.runDelay) {
                 this.timeSinceLastRun = System.currentTimeMillis();
                 if (this.theStage != Stage.IDLE || !ModSimReloaded.isDayTime()) {
+                    //到达商店
                     if (this.theStage == Stage.ARRIVEDATSHOP) {
+                        //去农场
                         this.theStage = Stage.GOINGTOMEATFARM;
                     } else if (this.theStage == Stage.GOINGTOMEATFARM) {
                         this.stageGoingToFarm();
+                        //收集肉类
                     } else if (this.theStage == Stage.COLLECTINGMEAT) {
                         this.stageCollectingMeat();
+                        //返回商店
                     } else if (this.theStage == Stage.GOBACKTOSTORE) {
                         this.stageGoBackToStore();
                     } else if (this.theStage == Stage.SELLINGMEAT) {
+                        //出售肉类
                         this.stageSellingMeat();
                     }
                 }
@@ -139,7 +145,13 @@ public class JobButcher extends Job implements Serializable {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 去农场
+     * @Date 10:32 2022/10/25
+     * @Param []
+     * @return void
+     **/
     private void stageGoingToFarm() {
         try {
             //从农场获取新鲜食物
@@ -183,9 +195,16 @@ public class JobButcher extends Job implements Serializable {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 采集肉类
+     * @Date 10:31 2022/10/25
+     * @Param []
+     * @return void
+     **/
     private void stageCollectingMeat() {
         try {
+            //从箱子里捡肉
             this.theFolk.statusText = I18n.format("container.sim.job.butcher.Collecting");
             this.theFolk.action = FolkAction.ATWORK;
             if (this.step == 1) {
@@ -211,14 +230,20 @@ public class JobButcher extends Job implements Serializable {
 
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 返回商店
+     * @Date 10:36 2022/10/25
+     * @Param []
+     * @return void
+     **/
     private void stageGoBackToStore() {
         try {
             this.theFolk.action = FolkAction.ATWORK;
             this.theFolk.statusText = I18n.format("container.sim.job.butcher.Taking");
             if (!this.onRoute) {
                 this.onRoute = true;
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             } else {
@@ -251,10 +276,17 @@ public class JobButcher extends Job implements Serializable {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageGoBackToStore出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 出售肉类
+     * @Date 10:39 2022/10/25
+     * @Param []
+     * @return void
+     **/
     private void stageSellingMeat() {
         try {
             this.theFolk.action = FolkAction.ATWORK;
+            //向顾客出售肉类
             this.theFolk.statusText = I18n.format("container.sim.job.butcher.Selling");
             if (this.step == 1) {
                 this.chestsAtShop = inventoriesFindClosest(this.theFolk.employedAt, 3);
@@ -262,8 +294,9 @@ public class JobButcher extends Job implements Serializable {
                 if (this.pay > 0.0F) {
                     GameStates var10000 = ModSimReloaded.states;
                     var10000.credits -= this.pay;
+                    //他收集了肉并得到了报酬 000 金
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.collected") + ModSimReloaded.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
-                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                    //this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 }
 
                 this.step = 2;
@@ -303,6 +336,7 @@ public class JobButcher extends Job implements Serializable {
                 }
 
                 if (sell > 0) {
+                    //今天卖了 000 块肉给大家。
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.has_sold") + sell + I18n.format("container.sim.job.butcher.folks"));
                 }
 
@@ -326,7 +360,9 @@ public class JobButcher extends Job implements Serializable {
                     Building farm = (Building) ModSimReloaded.theBuildings.get(this.currentFarmNum);
                     //养牛场
                     String cattleFarm=I18n.format("container.sim.gui_contains_Cattle_Farm");
+                    //养猪场
                     String pigFarm=I18n.format("container.sim.gui_contains_Pig_Farm");
+                    //养鸡场
                     String chickenFarm=I18n.format("container.sim.gui_contains_Chicken_Farm");
 
                     if (farm.displayNameWithoutPK.contains(cattleFarm) || farm.displayNameWithoutPK.contains(pigFarm) || farm.displayNameWithoutPK.contains(chickenFarm)) {
@@ -361,7 +397,7 @@ public class JobButcher extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATSHOP;
                 this.currentFarmNum = 0;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }

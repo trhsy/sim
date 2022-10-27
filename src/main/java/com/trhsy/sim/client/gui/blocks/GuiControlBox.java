@@ -97,7 +97,7 @@ public class GuiControlBox extends GuiScreen {
     public GuiControlBox(V3 location, FolkData folk) {
         try {
             this.location = location;
-            Building.loadAllBuildings();
+            //Building.loadAllBuildings();
             this.theBuilding = Building.getBuilding(location);
             this.theFolk = folk;
             //是否白天
@@ -403,6 +403,13 @@ public class GuiControlBox extends GuiScreen {
                                 b.enabled = false;
                             }
                         }
+                        //养兔场
+                        if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_rabbit_Farm"))) {
+                            this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire39")));
+                            if (this.employeeCount > 0) {
+                                b.enabled = false;
+                            }
+                        }
                         //养鸡场
                         if (this.theBuilding.displayName.contains(I18n.format("container.sim.gui_contains_Chicken_Farm"))) {
                             this.buttonList.add(b = new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire15")));
@@ -632,6 +639,11 @@ public class GuiControlBox extends GuiScreen {
                         this.mc.currentScreen = null;
                         ui = new GuiEmployFolk(this.location, "", Vocation.PIGFARMER);
                         this.mc.displayGuiScreen(ui);
+                        //雇佣养兔户
+                    }  else if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire39"))) {
+                        this.mc.currentScreen = null;
+                        ui = new GuiEmployFolk(this.location, "", Vocation.RABBITFARMER);
+                        this.mc.displayGuiScreen(ui);
                         //雇佣养牛户
                     } else if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire18"))) {
                         this.mc.currentScreen = null;
@@ -757,7 +769,7 @@ public class GuiControlBox extends GuiScreen {
                                     this.mc.theWorld.spawnParticle(EnumParticleTypes.FLAME, blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord, 0, 0.4000000059604645D, 0);
                                 }
 
-                                theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1, 1);
+                                //theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1, 1);
                                 ModSimReloaded.theBuildings.remove(bindex);
                                 this.mc.displayGuiScreen(null);
                             }
@@ -833,7 +845,7 @@ public class GuiControlBox extends GuiScreen {
     private void rotateStairs() {
         try {
             World theWorld = this.mc.getIntegratedServer().worldServerForDimension(this.theBuilding.primaryXYZ.theDimension);
-            theWorld.playSoundEffect(this.theBuilding.primaryXYZ.xCoord, this.theBuilding.primaryXYZ.yCoord, this.theBuilding.primaryXYZ.zCoord, ModSim.MODID + ":computer", 1, 2.0F);
+            //theWorld.playSoundEffect(this.theBuilding.primaryXYZ.xCoord, this.theBuilding.primaryXYZ.yCoord, this.theBuilding.primaryXYZ.zCoord, ModSim.MODID + ":computer", 1, 2.0F);
             for (V3 blockLoc : this.theBuilding.blockLocations) {
                 //得到方块
                 BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord);

@@ -25,7 +25,7 @@ public class ConfigLoader {
     public static ConfigLoader instance = new ConfigLoader();
 
     /**配置人口限制**/
-    public static int configPopulationLimit = 100;
+    public static int configPopulationLimit = 500;
     /**配置木材面积**/
     public static int configLumberArea = 30;
     /**配置禁用光束效果**/

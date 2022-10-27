@@ -173,7 +173,7 @@ public class ClientTickHandler extends GuiScreen {
                     beamingPlayer.setPositionAndUpdate(beamingTo.xCoord, beamingTo.yCoord, beamingTo.zCoord);
                 }
             } else if (beamingStage == 2) {
-                mc.theWorld.playSound(beamingTo.xCoord, beamingTo.yCoord, beamingTo.zCoord, ModSim.MODID+":beamdowntwo" , 1f, 1f, false);
+                //mc.theWorld.playSound(beamingTo.xCoord, beamingTo.yCoord, beamingTo.zCoord, ModSim.MODID+":beamdowntwo" , 1f, 1f, false);
                 beamingStage = 3;
             } else if (beamingStage == 3 ) {
                 if(System.currentTimeMillis() - beamingStartedAt > 10000L || beamingTo == null){

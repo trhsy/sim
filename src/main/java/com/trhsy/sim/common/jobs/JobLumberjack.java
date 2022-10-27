@@ -69,7 +69,7 @@ public class JobLumberjack extends Job implements Serializable {
                 //npc 目的地为空
                 if (this.theFolk.destination == null) {
                     //去其雇佣地
-                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
+                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
@@ -312,7 +312,7 @@ public class JobLumberjack extends Job implements Serializable {
                             try {
                                 isChopping = true;
                                 for (int d = 0; d < 12; d++) {
-                                    mc.theWorld.playSound(theFolk.location.xCoord, theFolk.location.yCoord, theFolk.location.zCoord, "step.wood", 1, 1, false);
+                                    //mc.theWorld.playSound(theFolk.location.xCoord, theFolk.location.yCoord, theFolk.location.zCoord, "step.wood", 1, 1, false);
                                     if (theFolk.theEntity != null) {
                                         theFolk.theEntity.swingProgress = 0.3F;
 
@@ -361,8 +361,8 @@ public class JobLumberjack extends Job implements Serializable {
                     //到目前为止拿到
                     this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Got") + count + I18n.format("container.sim.job.lumberjack.farmer.logs_so_far");
                     this.theFolk.stayPut = false;
-                    this.foundWoodAt = new V3(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord + 1, this.foundWoodAt.zCoord);
-                    //this.foundWoodAt.yCoord = this.foundWoodAt.yCoord + 1;
+                    this.foundWoodAt = new V3(this.foundWoodAt.xCoord, this.foundWoodAt.yCoord+0.5, this.foundWoodAt.zCoord);
+                    //this.foundWoodAt.yCoord = this.foundWoodAt.yCoord+0.5;
                     this.step = 2;
                 } else if (this.step == 4) {
                     if (this.theFolk.isSpawned()) {
@@ -406,7 +406,7 @@ public class JobLumberjack extends Job implements Serializable {
             if (this.step == 1) {
                 //将木材送回伐木场箱子
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Delivering");
-                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
+                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 this.step = 2;
@@ -460,7 +460,7 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.a_lumberjack");
                 this.theStage = Stage.ARRIVEDATMILL;
             } else {
-                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
+                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }

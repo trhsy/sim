@@ -349,7 +349,7 @@ public class Relationship implements Serializable {
     public void levelIncrease(int byAmount) {
         try {
             String oldLevel = this.toFullString();
-            ModSimReloaded.log.info("Relationship: 【"+this.folk1.name+"】和【"+this.folk2.name+"】 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
+            //ModSimReloaded.log.info("Relationship: 【"+this.folk1.name+"】和【"+this.folk2.name+"】 当前级别和子级别:" + this.theLevel.toString() + " " + this.theSubLevel);
             this.theSubLevel += byAmount;
             if (this.theSubLevel > 100) {
                 //熟人
@@ -391,14 +391,14 @@ public class Relationship implements Serializable {
                                             this.folk1.action = FolkAction.GOINGHOME;
                                             this.folk1.actionArrival = FolkAction.ATHOME;
                                             V3 v3 = this.folk1.getHome().primaryXYZ;
-                                            V3 v11=new V3(v3.xCoord,v3.yCoord+1,v3.zCoord);
+                                            V3 v11=new V3(v3.xCoord,v3.yCoord+0.5,v3.zCoord);
                                             this.folk1.gotoXYZ(v11, GotoMethod.SHIFT);
                                             this.folk1.gotoXYZ(v3, null);
 
                                             this.folk2.action = FolkAction.GOINGHOME;
                                             this.folk2.actionArrival = FolkAction.ATHOME;
                                             V3 v32 = this.folk2.getHome().primaryXYZ;
-                                            V3 v=new V3(v32.xCoord,v32.yCoord+1,v32.zCoord);
+                                            V3 v=new V3(v32.xCoord,v32.yCoord+0.5,v32.zCoord);
                                             this.folk2.gotoXYZ(v, GotoMethod.SHIFT);
                                             this.folk2.gotoXYZ(v32, null);
                                         }

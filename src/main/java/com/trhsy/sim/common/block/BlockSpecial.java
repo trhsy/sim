@@ -26,6 +26,15 @@ public class BlockSpecial extends BlockAir {
     }
     @Override
     public boolean isOpaqueCube() {
-        return true;
+        return false;
+    }
+
+    /**
+     *是否不普通方块
+     * @return
+     */
+    @Override
+    public boolean isNormalCube() {
+        return false;
     }
 }

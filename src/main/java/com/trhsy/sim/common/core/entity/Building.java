@@ -284,7 +284,7 @@ public class Building implements Serializable {
             //加载所有建筑物
             File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + this.type + "/" + this.displayName + ".txt");
             if (!f.exists()) {
-                ModSimReloaded.log.info("建筑物不存在，加载失败");
+                ModSimReloaded.log.info(this.displayName + ":建筑物不存在，加载失败");
                 return;
             }
             //转换数据
@@ -470,7 +470,7 @@ public class Building implements Serializable {
             String grass = I18n.format("container.sim.building.grass");
             String bed = I18n.format("container.sim.building.bed");
             //如果游戏模式为普通
-            if (GameMode.getGameMode()== GameMode.GAMEMODES.NORMAL) {
+            if (GameMode.getGameMode() == GameMode.GAMEMODES.NORMAL) {
                 try {
                     //获取方块名称
                     name = theBlock.getDisplayName().toLowerCase();
@@ -508,10 +508,10 @@ public class Building implements Serializable {
                         }
                     }
                 }
-            } else if (GameMode.getGameMode()== GameMode.GAMEMODES.CREATIVE) {
+            } else if (GameMode.getGameMode() == GameMode.GAMEMODES.CREATIVE) {
                 //创造模式
                 return;
-            } else if (GameMode.getGameMode()== GameMode.GAMEMODES.HARDCORE) {
+            } else if (GameMode.getGameMode() == GameMode.GAMEMODES.HARDCORE) {
                 //专家模式
                 name = "";
 
@@ -574,23 +574,38 @@ public class Building implements Serializable {
         try {
             int sizesearch = 0;
             if (theType.contentEquals("residential")) {
-                retBuildings = buildingsRes;
+                for (int i = 0; i < buildingsRes.size(); i++) {
+                    retBuildings.add(buildingsRes.get(i));
+                }
+//                retBuildings = buildingsRes;
                 //copyArrayList(buildingsRes, retBuildings);
             } else if (theType.contentEquals("commercial")) {
-                retBuildings = buildingsCom;
+                for (int i = 0; i < buildingsCom.size(); i++) {
+                    retBuildings.add(buildingsCom.get(i));
+                }
+                //retBuildings = buildingsCom;
                 //copyArrayList(buildingsCom, retBuildings);
             } else if (theType.contentEquals("industrial")) {
-                retBuildings = buildingsInd;
+                for (int i = 0; i < buildingsInd.size(); i++) {
+                    retBuildings.add(buildingsInd.get(i));
+                }
+                //retBuildings = buildingsInd;
                 //copyArrayList(buildingsInd, retBuildings);
             } else if (theType.contentEquals("other")) {
-                retBuildings = buildingsOth;
+                for (int i = 0; i < buildingsOth.size(); i++) {
+                    retBuildings.add(buildingsOth.get(i));
+                }
+                //retBuildings = buildingsOth;
                 //copyArrayList(buildingsOth, retBuildings);
             } else if (theType.contentEquals("special")) {
-                retBuildings = buildingsSpec;
+                for (int i = 0; i < buildingsSpec.size(); i++) {
+                    retBuildings.add(buildingsSpec.get(i));
+                }
+                //retBuildings = buildingsSpec;
                 //copyArrayList(buildingsSpec, retBuildings);
             }
 
-            if (!searchWords.contentEquals("")) {
+            if (searchWords != null || searchWords != "") {
                 try {
                     sizesearch = Integer.parseInt(searchWords.substring(2));
                 } catch (Exception e) {
@@ -644,19 +659,19 @@ public class Building implements Serializable {
     public static Building getBuilding(V3 primaryXYZ) {
         Building b = null;
         try {
-            if (ModSimReloaded.theBuildings.size() == 0) {
-                loadAllBuildings();
-            }
-
-            for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
-                try {
-                    b = (Building) ModSimReloaded.theBuildings.get(x);
-                    if (b.primaryXYZ.isSameCoordsAs(primaryXYZ, false, true)) {
+//            if (ModSimReloaded.theBuildings.size() == 0) {
+//                loadAllBuildings();
+//            }
+            if (primaryXYZ != null) {
+                for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
+                    b = ModSimReloaded.theBuildings.get(x);
+                    if (b.primaryXYZ.isSameCoordsAs(primaryXYZ)) {
                         return b;
                     }
-                } catch (Exception e) {
                 }
             }
+
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("建筑getBuilding出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -920,61 +935,53 @@ public class Building implements Serializable {
                                             }
                                         } else if (name.contentEquals("blocksinbuilding")) {
                                             build.blocksInBuilding = Integer.parseInt(value);
-                                        } else {
+                                        } else if (name.contentEquals("tenants")) {
                                             String[] blocks;
-                                            String[] array;
-                                            int lengths;
                                             String block;
-                                            if (name.contentEquals("tenants")) {
-                                                if (value.trim().contentEquals("")) {
-                                                    build.tenants.clear();
-                                                } else {
-                                                    blocks = value.split(",");
-                                                    array = blocks;
-                                                    lengths = blocks.length;
-
-                                                    for (int i_j = 0; i_j < lengths; i_j++) {
-                                                        block = array[i_j];
-                                                        if (!block.trim().contentEquals("")) {
-                                                            build.tenants.add(block);
-                                                        }
+                                            if (value.trim().contentEquals("")) {
+                                                build.tenants.clear();
+                                            } else {
+                                                blocks = value.split(",");
+                                                for (int i = 0; i < blocks.length; i++) {
+                                                    block =blocks[i];
+                                                    if (block!="") {
+                                                        build.tenants.add(block);
                                                     }
                                                 }
-                                            } else if (name.contentEquals("blocklocs")) {
-                                                if (value.contains("B") && value.contains(",")) {
-                                                    blocks = value.split("B");
-                                                    array = blocks;
-                                                    lengths = blocks.length;
-
-                                                    for (int i1 = 0; i1 < lengths; i1++) {
-                                                        block = array[i1];
-                                                        if (block.contains(",")) {
-                                                            String[] v = block.split(",");
-                                                            double x = Double.parseDouble(v[0]);
-                                                            double y = Double.parseDouble(v[1]);
-                                                            double z = Double.parseDouble(v[2]);
-                                                            build.blockLocations.add(new V3(x, y, z));
-                                                        }
-                                                    }
-                                                }
-                                            } else if (name.contentEquals("blockspecial") && value.contains("B") && value.contains(",")) {
+                                            }
+                                        } else if (name.contentEquals("blocklocs")) {
+                                            String[] blocks;
+                                            String block;
+                                            if (value.contains("B") && value.contains(",")) {
                                                 blocks = value.split("B");
-                                                array = blocks;
-
-                                                for (int i_j = 0; i_j < blocks.length; i_j++) {
-                                                    block = array[i_j];
+                                                for (int i = 0; i < blocks.length; i++) {
+                                                    block = blocks[i];
                                                     if (block.contains(",")) {
-                                                        int p1 = block.lastIndexOf(",");
-                                                        String v = block.substring(0, p1);
-                                                        String meta = block.substring(p1 + 1);
-                                                        String[] v1 = v.split(",");
-                                                        double x = Double.parseDouble(v1[0]);
-                                                        double y = Double.parseDouble(v1[1]);
-                                                        double z = Double.parseDouble(v1[2]);
-                                                        V3 v3 = new V3(x, y, z);
-                                                        v3.meta = Integer.parseInt(meta);
-                                                        build.blockSpecial.add(v3);
+                                                        String[] v = block.split(",");
+                                                        double x = Double.parseDouble(v[0]);
+                                                        double y = Double.parseDouble(v[1]);
+                                                        double z = Double.parseDouble(v[2]);
+                                                        build.blockLocations.add(new V3(x, y, z));
                                                     }
+                                                }
+                                            }
+                                        } else if (name.contentEquals("blockspecial") && value.contains("B") && value.contains(",")) {
+                                            String[] blocks;
+                                            String block;
+                                            blocks = value.split("B");
+                                            for (int i = 0; i < blocks.length; i++) {
+                                                block = blocks[i];
+                                                if (block.contains(",")) {
+                                                    int p1 = block.lastIndexOf(",");
+                                                    String v = block.substring(0, p1);
+                                                    String meta = block.substring(p1 + 1);
+                                                    String[] v1 = v.split(",");
+                                                    double x = Double.parseDouble(v1[0]);
+                                                    double y = Double.parseDouble(v1[1]);
+                                                    double z = Double.parseDouble(v1[2]);
+                                                    V3 v3 = new V3(x, y, z);
+                                                    v3.meta = Integer.parseInt(meta);
+                                                    build.blockSpecial.add(v3);
                                                 }
                                             }
                                         }
@@ -1007,7 +1014,8 @@ public class Building implements Serializable {
                         }
                         runningInitThread1 = false;
                         ModSimReloaded.log.info("***********************加载世界上的建筑完成***************");
-                    } catch (Exception e) {
+                    } catch (
+                            Exception e) {
                         StackTraceElement element = e.getStackTrace()[0];
                         ModSimReloaded.log.error("loadAllBuildings出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
                     }
@@ -1017,6 +1025,7 @@ public class Building implements Serializable {
             }, "loadAllBuildings_sim");
             //threadPoolExecutor.shutdown();
         }
+
     }
 
     public static Building loadBuildingsByLoction(V3 location) {

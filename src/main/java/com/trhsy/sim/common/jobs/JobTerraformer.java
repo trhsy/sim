@@ -57,7 +57,7 @@ public class JobTerraformer extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
@@ -366,7 +366,7 @@ public class JobTerraformer extends Job {
                     }
                 } else if (this.theType == TerraformerType.NATURE) {
                     if (hasPlacedTree) {
-                        BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord + 1, v.zCoord);
+                        BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord+0.5, v.zCoord);
                         this.jobWorld.setBlockState(blockPos2, Blocks.sapling.getDefaultState(), 3);
                         if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             var10000 = ModSimReloaded.states;
@@ -377,11 +377,11 @@ public class JobTerraformer extends Job {
                     } else {
                         int r = rand.nextInt(10);
                         if (r == 2) {
-                            BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord + 1, v.zCoord);
+                            BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord+0.5, v.zCoord);
                             this.jobWorld.setBlockState(blockPos2, Blocks.red_flower.getDefaultState(), 3);
                             this.jobWorld.markBlockForUpdate(blockPos2);
                         } else if (r == 5) {
-                            BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord + 1, v.zCoord);
+                            BlockPos blockPos2 = new BlockPos(v.xCoord, v.yCoord+0.5, v.zCoord);
                             this.jobWorld.setBlockState(blockPos2, Blocks.yellow_flower.getDefaultState(), 3);
                         }
 
@@ -514,7 +514,7 @@ public class JobTerraformer extends Job {
         try {
             this.theFolk.isWorking = false;
             ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.terra.farmer.has_completed"));
-            this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+            //this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
             this.theFolk.stayPut = false;
             this.theFolk.terraformerRadius = 1;
             this.theFolk.terraformerType = null;

@@ -98,7 +98,7 @@ public class JobBuilder extends Job implements Serializable {
                 //首次雇用时为空，这是第二天
             }
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                 }
 
@@ -239,9 +239,9 @@ public class JobBuilder extends Job implements Serializable {
                 if (ConfigLoader.configFolkTalking) {
                     //判断性别，发出不一样的声音
                     if (this.theFolk.gender == 0) {
-                        this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
+                        //this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
                     } else {
-                        this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
+                        //this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
                     }
                 }
                 //等待资源
@@ -331,7 +331,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                 } else {
                     //否则传输到目的地
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                 }
             }
@@ -358,7 +358,7 @@ public class JobBuilder extends Job implements Serializable {
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             //距离大于5并且NPC目的地为空
             if (dist > 5 && this.theFolk.destination == null) {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, GotoMethod.SHIFT);
                 this.theFolk.gotoXYZ(v3, null);
                 return;
@@ -634,7 +634,7 @@ public class JobBuilder extends Job implements Serializable {
                                         }
                                         //每2秒播放一次音效
                                         if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
-                                            this.mc.theWorld.playSound((this.bx + this.xo), (this.by + this.l),(this.bz + this.zo), ModSim.MODID + ":construction", 1, 1,true);
+                                            //this.mc.theWorld.playSound((this.bx + this.xo), (this.by + this.l),(this.bz + this.zo), ModSim.MODID + ":construction", 1, 1,true);
                                             this.soundLastPlayed = System.currentTimeMillis();
                                         }
                                         //在客户端生成粒子
@@ -715,7 +715,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.theBuilding.buildingComplete = true;
                     //已完成建设
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
-                    ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                    //ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     this.theBuilding.saveThisBuilding();
                     this.theFolk.theBuilding = null;
                 } else {
@@ -770,7 +770,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.builder_constructor_site");
                 this.theStage = Stage.BLUEPRINT;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
             }
         } catch (Exception e) {

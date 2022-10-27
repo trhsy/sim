@@ -12,10 +12,7 @@ import com.trhsy.sim.common.loader.ModSimReloaded;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.*;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -58,7 +55,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
@@ -112,7 +109,13 @@ public class JobLivestockFarmer extends Job implements Serializable {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 到达农场
+     * @Date 11:16 2022/10/25
+     * @Param []
+     * @return void
+     **/
     private void stageArrived() {
         try {
             this.vocation = this.theFolk.vocation;
@@ -120,27 +123,42 @@ public class JobLivestockFarmer extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Starting");
             //int count = false;
             int count;
+            //养牛户
             if (this.vocation == Vocation.CATTLEFARMER) {
                 count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityCow.class);
                 if (count < 2) {
                     this.spawnAnimals(this.theFolk.employedAt, "Cow", 6 - count);
                 }
+                //养鸡
             } else if (this.vocation == Vocation.CHICKENFARMER) {
                 count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityChicken.class);
                 if (count < 2) {
                     this.spawnAnimals(this.theFolk.employedAt, "Chicken", 6 - count);
                 }
+                //养猪
             } else if (this.vocation == Vocation.PIGFARMER) {
                 count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityPig.class);
                 if (count < 2) {
                     this.spawnAnimals(this.theFolk.employedAt, "Pig", 6 - count);
+                }
+                //养兔
+            }else if (this.vocation == Vocation.RABBITFARMER) {
+                count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityRabbit.class);
+                if (count < 2) {
+                    this.spawnAnimals(this.theFolk.employedAt, "Rabbit", 6 - count);
                 }
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageArrived出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 等待
+     * @Date 11:16 2022/10/25
+     * @Param []
+     * @return void
+     **/
     private void stageWaiting() {
         try {
             this.vocation = this.theFolk.vocation;
@@ -152,14 +170,21 @@ public class JobLivestockFarmer extends Job implements Serializable {
 
             List list = null;
             if (this.vocation == Vocation.CATTLEFARMER) {
+                //喂牛
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Feeding");
-                list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class,new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord + 1).expand(4, 2, 4));
+                list = this.jobWorld.getEntitiesWithinAABB(EntityCow.class,new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord + 1).expand(4, 2, 4));
             } else if (this.vocation == Vocation.CHICKENFARMER) {
+                //喂鸡
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.chickens");
-                list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord + 1).expand(4.0, 2.0, 4.0));
+                list = this.jobWorld.getEntitiesWithinAABB(EntityChicken.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord + 1).expand(4.0, 2.0, 4.0));
             } else if (this.vocation == Vocation.PIGFARMER) {
+                //喂猪
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.pigs");
-                list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1.0, this.theFolk.employedAt.yCoord + 1.0, this.theFolk.employedAt.zCoord + 1.0).expand(4.0, 2.0, 4.0));
+                list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1.0, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord + 1.0).expand(4.0, 2.0, 4.0));
+            }else if (this.vocation == Vocation.RABBITFARMER) {
+                //喂兔子
+                this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.rabbits");
+                list = this.jobWorld.getEntitiesWithinAABB(EntityPig.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1.0, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord + 1.0).expand(4.0, 2.0, 4.0));
             }
 
             int adultCount = 0;
@@ -206,34 +231,49 @@ public class JobLivestockFarmer extends Job implements Serializable {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 屠宰
+     * @Date 11:22 2022/10/25
+     * @Param []
+     * @return void
+     **/
     private void stageSlaughtering() {
         try {
 
             Random rand = new Random();
+            //砍掉它们的头！
             this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Off");
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.faceEntity(this.redShirt, 1, 1);
             }
 
             this.redShirt.setHealth(0.0F);
-            V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+            V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
             this.theFolk.gotoXYZ(v3, null);
             //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             int quant = 0;
             this.farmChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
             boolean ok = true;
+            //牛
             if (this.vocation == Vocation.CATTLEFARMER) {
                 quant = rand.nextInt(2) + 1;
                 ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.beef, quant), true);
                 this.inventoriesPut(this.farmChests, new ItemStack(Items.leather, 1), false);
+            //猪
             } else if (this.vocation == Vocation.PIGFARMER) {
                 quant = rand.nextInt(2) + 1;
                 ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.porkchop, quant), true);
+            //养鸡户
             } else if (this.vocation == Vocation.CHICKENFARMER) {
                 quant = rand.nextInt(2) + 1;
                 ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.chicken, quant), true);
                 this.inventoriesPut(this.farmChests, new ItemStack(Items.feather, 1), false);
+            }else if (this.vocation == Vocation.RABBITFARMER) {
+                quant = rand.nextInt(2) + 1;
+                ok = this.inventoriesPut(this.farmChests, new ItemStack(Items.rabbit, quant), true);
+                this.inventoriesPut(this.farmChests, new ItemStack(Items.rabbit_foot, 1), false);
+                this.inventoriesPut(this.farmChests, new ItemStack(Items.rabbit_hide, 1), false);
             }
 
             if (!ok) {
@@ -251,9 +291,16 @@ public class JobLivestockFarmer extends Job implements Serializable {
     }
 
     private void stageCantWork() {
+        //不能工作,箱子里全是肉
         this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.meat");
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO s生育
+     * @Date 11:56 2022/10/25
+     * @Param [parentAnimal, pos]
+     * @return void
+     **/
     private void procreate(EntityAnimal parentAnimal, V3 pos) {
         try {
             EntityAgeable babyAnimal = parentAnimal.createChild(parentAnimal);
@@ -276,21 +323,33 @@ public class JobLivestockFarmer extends Job implements Serializable {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("procreate出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 产生
+     * @Date 11:56 2022/10/25
+     * @Param [controlBox, animal, count]
+     * @return void
+     **/
     private void spawnAnimals(V3 controlBox, String animal, int count) {
         try {
             EntityAnimal newAnimal = null;
 
             for(int c = 1; c <= count; ++c) {
+                //猪
                 if (animal.contentEquals("Pig")) {
                     newAnimal = new EntityPig(this.jobWorld);
+                    //奶牛
                 } else if (animal.contentEquals("Cow")) {
                     newAnimal = new EntityCow(this.jobWorld);
+                    //鸡
                 } else if (animal.contentEquals("Chicken")) {
                     newAnimal = new EntityChicken(this.jobWorld);
+                    //兔子
+                }else if (animal.contentEquals("Rabbit")) {
+                    newAnimal = new EntityRabbit(this.jobWorld);
                 }
 
-                ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.xCoord, controlBox.yCoord + 1.0, controlBox.zCoord, 0.0F, 0.0F);
+                ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.xCoord, controlBox.yCoord+0.5, controlBox.zCoord, 0.0F, 0.0F);
                 if (!this.jobWorld.isRemote) {
                     this.jobWorld.spawnEntityInWorld((Entity)newAnimal);
                 }
@@ -312,7 +371,7 @@ public class JobLivestockFarmer extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }

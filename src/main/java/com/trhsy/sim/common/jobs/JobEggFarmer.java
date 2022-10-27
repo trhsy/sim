@@ -46,7 +46,7 @@ public class JobEggFarmer extends Job {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
@@ -184,7 +184,7 @@ public class JobEggFarmer extends Job {
                 this.theFolk.statusText = I18n.format("container.sim.job.egg.farmer.Arrived");
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
@@ -203,7 +203,7 @@ public class JobEggFarmer extends Job {
         try {
             for(int c = 1; c <= count; ++c) {
                 newAnimal = new EntityChicken(this.jobWorld);
-                newAnimal.setLocationAndAngles(controlBox.xCoord + 1, controlBox.yCoord + 1, controlBox.zCoord, 0.0F, 0.0F);
+                newAnimal.setLocationAndAngles(controlBox.xCoord + 1, controlBox.yCoord+0.5, controlBox.zCoord, 0.0F, 0.0F);
                 if (!this.jobWorld.isRemote) {
                     this.jobWorld.spawnEntityInWorld(newAnimal);
                 }

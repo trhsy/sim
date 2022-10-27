@@ -348,7 +348,7 @@ public class ModSimReloaded {
                 if (world != null) {
                     EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                     if (p != null) {
-                        ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":rooster", 1, 1, false);
+                       // ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":rooster", 1, 1, false);
                     }
                 }
 
@@ -476,7 +476,7 @@ public class ModSimReloaded {
                             var10000.credits += totalCorpTax;
                             EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                             if (p != null) {
-                                ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                                //ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1, 1, false);
                             }
                         } else if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             //今天没有收到房租,你应该雇一个人来盖一栋住宅。
@@ -615,7 +615,7 @@ public class ModSimReloaded {
 
                     try {
                         Block block = Block.getBlockFromName(blockLoc.name);
-                        BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord + 10 + (new Random()).nextInt(20), blockLoc.zCoord);
+                        BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord+0.50 + (new Random()).nextInt(20), blockLoc.zCoord);
                         block.dropBlockAsItem(demolishWorld, blockPos, block.getDefaultState(), 0);
                         demolishBlocks.remove(0);
                     } catch (Exception e) {

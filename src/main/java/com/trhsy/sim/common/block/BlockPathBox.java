@@ -39,7 +39,7 @@ public class BlockPathBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1, 1);
+            //world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID+":computer", 1, 1);
             GuiPathBox ui = null;
             Minecraft mc = Minecraft.getMinecraft();
             mc.setIngameNotInFocus();

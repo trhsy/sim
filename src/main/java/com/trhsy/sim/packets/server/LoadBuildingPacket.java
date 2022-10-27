@@ -65,7 +65,7 @@ public class LoadBuildingPacket implements IMessage {
                     @Override
                     public void run() {
                         try {
-                            Building.loadAllBuildings();
+                            //Building.loadAllBuildings();
                         } catch (Exception e) {
                             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onMessage出错了：" + e.getMessage()+"行数："+element.getLineNumber());
                         }

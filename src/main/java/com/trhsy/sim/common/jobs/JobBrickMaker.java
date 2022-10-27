@@ -48,7 +48,7 @@ public class JobBrickMaker extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                 }
 
@@ -212,7 +212,7 @@ public class JobBrickMaker extends Job implements Serializable {
             if (this.gotoCount > 2) {
                 this.gotoCount = 0;
                 V3 bs = this.blockOfClay.clone();
-                bs = new V3(bs.xCoord - 1.0, bs.yCoord + 1.0, bs.zCoord, bs.theDimension);
+                bs = new V3(bs.xCoord - 1.0, bs.yCoord+0.5, bs.zCoord, bs.theDimension);
                 this.theFolk.beamMeTo(bs);
             }
 
@@ -223,7 +223,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 //挖掉
                 this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
                 //播放音乐
-                this.mc.theWorld.playSound(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord, "step.sand", 1, 1, false);
+                //this.mc.theWorld.playSound(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord, "step.sand", 1, 1, false);
                 //放到npc箱子里
                 this.theFolk.getVillagerInventory().func_174894_a(new ItemStack(Items.clay_ball, 4));
                 ItemStack itemStack=this.theFolk.getVillagerInventory().getStackInSlot(0);
@@ -260,7 +260,7 @@ public class JobBrickMaker extends Job implements Serializable {
         try {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
-                adj = new V3(adj.xCoord - 1.0, adj.yCoord + 1.0, adj.zCoord, adj.theDimension);
+                adj = new V3(adj.xCoord - 1.0, adj.yCoord+0.5, adj.zCoord, adj.theDimension);
                 this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
             } else if (this.step == 2) {
@@ -273,7 +273,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                    V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                 }
             } else if (this.step == 3) {
@@ -392,7 +392,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.the_factory");
                 this.theStage = Stage.USEFURNACE;
             } else {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
             }
         } catch (Exception e) {

@@ -32,6 +32,8 @@ public enum Vocation {
     BUTCHER,
     //养猪户
     PIGFARMER,
+    //养兔户
+    RABBITFARMER,
     //牧牛人
     CATTLEFARMER,
     //养鸡户
@@ -90,6 +92,8 @@ public enum Vocation {
                 return CATTLEFARMER;
             } else if (s.contentEquals(I18n.format("container.sim.Vocation13"))) {
                 return PIGFARMER;
+            }else if (s.contentEquals(I18n.format("container.sim.Vocation13"))) {
+                return RABBITFARMER;
             } else if (s.contentEquals(I18n.format("container.sim.Vocation14"))) {
                 return CHICKENFARMER;
             } else if (s.contentEquals(I18n.format("container.sim.Vocation15"))) {
@@ -148,7 +152,9 @@ public enum Vocation {
             return I18n.format("container.sim.Vocation15");
         } else if (this == PIGFARMER) {
             return I18n.format("container.sim.Vocation13");
-        } else if (this == CATTLEFARMER) {
+        } else if (this == RABBITFARMER) {
+            return I18n.format("container.sim.Vocation27");
+        }else if (this == CATTLEFARMER) {
             return I18n.format("container.sim.Vocation12");
         } else if (this == CHICKENFARMER) {
             return I18n.format("container.sim.Vocation14");

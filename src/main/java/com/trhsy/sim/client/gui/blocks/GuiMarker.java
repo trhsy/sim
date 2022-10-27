@@ -331,7 +331,7 @@ public class GuiMarker extends GuiScreen {
                     out.close();
                     Thread.sleep(500L);
                     GuiMarker.this.errorText = I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16");
-                    GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.xCoord, GuiMarker.this.location.yCoord, GuiMarker.this.location.zCoord, ModSim.MODID + ":computer", 1, 1);
+                    //GuiMarker.this.mc.theWorld.playSoundEffect(GuiMarker.this.location.xCoord, GuiMarker.this.location.yCoord, GuiMarker.this.location.zCoord, ModSim.MODID + ":computer", 1, 1);
                     Building.initialiseAllBuildings();
 
                 } else {

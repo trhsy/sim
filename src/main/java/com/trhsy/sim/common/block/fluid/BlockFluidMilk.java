@@ -19,5 +19,21 @@ public class BlockFluidMilk extends BlockFluidClassic {
         //this.setTextureName(ModSim.MODID + ":" + "milk_still");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+    /**
+     * 是否不透明立方体
+     * @return
+     */
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
 
+    /**
+     *是否不普通方块
+     * @return
+     */
+    @Override
+    public boolean isNormalCube() {
+        return false;
+    }
 }

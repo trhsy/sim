@@ -3,17 +3,17 @@ mouseSensitivity:0.5
 fov:0.0
 gamma:0.0
 saturation:0.0
-renderDistance:12
+renderDistance:5
 guiScale:0
-particles:0
+particles:2
 bobView:true
 anaglyph3d:false
 maxFps:120
 fboEnable:true
 difficulty:0
-fancyGraphics:true
-ao:2
-renderClouds:true
+fancyGraphics:false
+ao:0
+renderClouds:false
 resourcePacks:["R3D SR 视差贴图 - 128x"]
 incompatibleResourcePacks:[]
 lastServer:

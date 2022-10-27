@@ -75,6 +75,20 @@ public class V3 extends Vec3 {
     public void setVals(V3 v) {
         subtractReverse(v);
     }
+    public boolean isSameCoordsAs(V3 comp){
+        boolean ret = false;
+        if (comp == null) {
+            return false;
+        } else {
+            int i1= (int) (comp.xCoord-this.xCoord);
+            int i2= (int) (comp.yCoord-this.yCoord);
+            int i3= (int) (comp.zCoord-this.zCoord);
+            if(i1==0&&i2==0&&i3==0){
+                ret = true;
+            }
+        }
+        return ret;
+    }
     /**
      * 坐标相同 比较x、y和z，以查看它们是否相同，并且只有INT值，而不是double还比较维度
      * @param comp

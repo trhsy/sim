@@ -376,7 +376,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                             if (r.nextBoolean()) {
                                 //ModSim.proxy.getClientWorld().playSoundAtEntity();
-                                ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1, 1, false);
+                                //ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1, 1, false);
                             }
                         }
                     }
@@ -403,7 +403,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                                 System.out.println(itemName);
                                 ItemFood food = (ItemFood) item;
                                 if (theData.levelFood < 10 && food != null) {
-                                    this.worldObj.playSoundAtEntity(this, "random.burp", 1, 1);
+                                    //this.worldObj.playSoundAtEntity(this, "random.burp", 1, 1);
                                     entityitem.setDead();
                                     ++theData.levelFood;
                                 }
@@ -462,7 +462,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }
                 } else {
                     if (!this.gotPath) {
-                        V3 v = new V3(theData.destination.xCoord, theData.destination.yCoord+1, theData.destination.zCoord);
+                        V3 v = new V3(theData.destination.xCoord, theData.destination.yCoord+0.5, theData.destination.zCoord);
                         theData.destination = v;
                         PathEntity path = this.getNavigator().getPathToXYZ(v.xCoord, v.yCoord, v.zCoord);
                         if (path != null) {
@@ -640,11 +640,11 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 mc.displayGuiScreen(ui);
                 if (theData.age < 18) {
-                    this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":helloc", 1, 1, false);
+                    //this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":helloc", 1, 1, false);
                 } else if (theData.gender == 0) {
-                    this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellom", 1, 1, false);
+                    //this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellom", 1, 1, false);
                 } else {
-                    this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellof", 1, 1, false);
+                    //this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellof", 1, 1, false);
                 }
 
                 falg = true;
@@ -723,12 +723,12 @@ public class EntityFolk extends EntityCreature implements INpc {
                         this.motionZ = theData.location.zCoord - 1;
                     }*/
                     if (theData.location != null) {
-                        this.motionY = theData.location.yCoord+1;
-                        this.motionX = theData.location.xCoord + 1;
-                        this.motionZ = theData.location.zCoord+1;
+                        this.motionY = theData.location.yCoord+0.5;
+                        this.motionX = theData.location.xCoord;
+                        this.motionZ = theData.location.zCoord;
                     }
                     //受伤要跑出受伤范围
-                    theData.gotoXYZ(new V3(this.motionX, this.motionY, this.motionZ, 0), GotoMethod.SHIFT);
+                    theData.gotoXYZ(new V3(this.motionX+1, this.motionY, this.motionZ, 0), GotoMethod.SHIFT);
                 }
 
                 if (theData == null) {

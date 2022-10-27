@@ -1,6 +1,7 @@
 package com.trhsy.sim.common.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.core.entity.EntityAlignBeam;
 import com.trhsy.sim.common.core.entity.V3;
 import com.trhsy.sim.common.core.entity.functionality.Marker;
@@ -113,17 +114,17 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                 if (markers.size() == 1) {
                     markerCaption = "Front-Left";
                     helpText = I18n.format("container.sim.box_Marker_left");
-                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                    //ModSimReloaded.log.info(String.valueOf(markers.size()));
                 } else if (markers.size() == 2) {
                     markerCaption = "Front-Right";
                     helpText = I18n.format("container.sim.box_Marker_right");
-                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                    //ModSimReloaded.log.info(String.valueOf(markers.size()));
                 } else if (markers.size() == 3) {
                     markerCaption = "Rear-Left";
                     helpText = I18n.format("container.sim.box_Marker_Rear_Left");
-                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                    //ModSimReloaded.log.info(String.valueOf(markers.size()));
                 } else {
-                    ModSimReloaded.log.info(String.valueOf(markers.size()));
+                    //ModSimReloaded.log.info(String.valueOf(markers.size()));
                     markerCaption = I18n.format("container.sim.box_Marker_Markers");
                 }
 
@@ -132,7 +133,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
                     if (ConfigLoader.configEnableMarkerAlignmentBeams) {
                         EntityAlignBeam beam = new EntityAlignBeam(world);
                         ma.caption = markerCaption;
-                        beam.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 0.0F, 0.0F);
+                        beam.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 0.0F, 0.1F);
                         beam.yaw = 0.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam);
@@ -140,7 +141,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam);
                         EntityAlignBeam beam2 = new EntityAlignBeam(world);
-                        beam2.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 90.0F, 0.0F);
+                        beam2.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 90.0F, 0.1F);
                         beam2.yaw = 90.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam2);
@@ -148,7 +149,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam2);
                         EntityAlignBeam beam3 = new EntityAlignBeam(world);
-                        beam3.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 180.0F, 0.0F);
+                        beam3.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 180.0F, 0.1F);
                         beam3.yaw = 180.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam3);
@@ -156,7 +157,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
 
                         ma.beams.add(beam3);
                         EntityAlignBeam beam4 = new EntityAlignBeam(world);
-                        beam4.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 270.0F, 0.0F);
+                        beam4.setLocationAndAngles(pos.xCoord, pos.yCoord, pos.zCoord, 270.0F, 0.1F);
                         beam4.yaw = 270.0F;
                         if (!world.isRemote) {
                             world.spawnEntityInWorld(beam4);
@@ -199,8 +200,9 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
+            //Building.initialiseAllBuildings();
             this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
+            //world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
             GuiMarker ui = new GuiMarker(this.location, thePlayer);
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);

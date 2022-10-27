@@ -79,7 +79,7 @@ public class BlockMiningBox extends Block {
 
             MiningBox m = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             ModSimReloaded.theMiningBoxes.remove(m);
-            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1, 1);
+            //world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1, 1);
             super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("挖矿箱onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -91,7 +91,7 @@ public class BlockMiningBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer thePlayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-        world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
+        //world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
         MiningBox miningBlock = MiningBox.getMiningBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), thePlayer.dimension));
 
             miningBlock.location.theDimension = thePlayer.dimension;

@@ -708,7 +708,8 @@ public class GuiBuildingConstructor extends GuiScreen {
                                 //建造它
                                 String sim_gui_BC_Build_it = I18n.format("container.sim.sim_gui_BC_Build_it");
                                 if (guibutton.displayString.contentEquals(sim_gui_BC_Build_it)) {
-                                    if (Building.getBuilding(this.selectedBuilding.primaryXYZ) != null) {
+                                    Building building=Building.getBuilding(this.selectedBuilding.primaryXYZ);
+                                    if ( building!= null) {
                                         //清掉同一路径下的建筑
                                         ModSimReloaded.theBuildings.remove(this.selectedBuilding);
                                     }
@@ -833,8 +834,7 @@ public class GuiBuildingConstructor extends GuiScreen {
 
     @Override
     public void keyTyped(char c, int i) {
-        try {
-            if (i == 1) {
+        try {if (i == 1) {
                 this.mc.displayGuiScreen(null);
                 this.mc.setIngameFocus();
             } else {

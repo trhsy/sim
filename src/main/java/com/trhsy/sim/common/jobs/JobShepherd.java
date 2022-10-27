@@ -57,7 +57,7 @@ public class JobShepherd extends Job implements Serializable {
 
         if (this.theFolk != null) {
             if (this.theFolk.destination == null) {
-                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+                V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
@@ -111,7 +111,7 @@ public class JobShepherd extends Job implements Serializable {
         this.theFolk.isWorking = false;
         this.theFolk.statusText = I18n.format("container.sim.job.shepherd.farmer.Sharpening");
         this.theFolk.stayPut = false;
-        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord + 1).expand(3, 2, 3));
+        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord + 1).expand(3, 2, 3));
         Double playerdist = this.mc.thePlayer.getDistance(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord);
         int s;
         if (playerdist > 60) {
@@ -160,7 +160,7 @@ public class JobShepherd extends Job implements Serializable {
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.faceEntity(this.sheepToShear, 1, 1);
                 this.theFolk.isWorking = true;
-                this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1, 1, false);
+                //this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1, 1, false);
                 ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
                 threadPoolExecutor.submit(new Runnable() {
                     @Override
@@ -226,39 +226,39 @@ public class JobShepherd extends Job implements Serializable {
     }
 
     public void spawnSheepIfNeeded(V3 controlBox) {
-        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(controlBox.xCoord, controlBox.yCoord, controlBox.zCoord, controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord + 1.0).expand(3.0, 2.0, 3.0));
+        List list = this.jobWorld.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(controlBox.xCoord, controlBox.yCoord, controlBox.zCoord, controlBox.xCoord + 1.0, controlBox.yCoord+0.5, controlBox.zCoord + 1.0).expand(3.0, 2.0, 3.0));
         Random ra = new Random();
         EntitySheep sheep;
         if (list.size() > 0 && list.size() < 6) {
             for(int fuck = 0; fuck < 6 - list.size(); ++fuck) {
                 sheep = new EntitySheep(this.jobWorld);
-                sheep.setLocationAndAngles(controlBox.xCoord, controlBox.yCoord + 1.0, controlBox.zCoord, 0.0F, 0.0F);
+                sheep.setLocationAndAngles(controlBox.xCoord, controlBox.yCoord+0.5, controlBox.zCoord, 0.0F, 0.0F);
                 sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
                 this.jobWorld.spawnEntityInWorld(sheep);
             }
         } else if (list.size() == 0) {
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.xCoord - 1.0, controlBox.yCoord + 1.0, controlBox.zCoord - 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord - 1.0, controlBox.yCoord+0.5, controlBox.zCoord - 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.xCoord, controlBox.yCoord + 1.0, controlBox.zCoord - 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord, controlBox.yCoord+0.5, controlBox.zCoord - 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord - 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord+0.5, controlBox.zCoord - 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord+0.5, controlBox.zCoord, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord + 1.0, controlBox.zCoord + 1.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 1.0, controlBox.yCoord+0.5, controlBox.zCoord + 1.0, 0.0F, 0.0F);
             sheep.setFleeceColor(EnumDyeColor.byMetadata(ra.nextInt(12) + 1));
             this.jobWorld.spawnEntityInWorld(sheep);
             sheep = new EntitySheep(this.jobWorld);
-            sheep.setLocationAndAngles(controlBox.xCoord + 2.0, controlBox.yCoord + 1.0, controlBox.zCoord + 2.0, 0.0F, 0.0F);
+            sheep.setLocationAndAngles(controlBox.xCoord + 2.0, controlBox.yCoord+0.5, controlBox.zCoord + 2.0, 0.0F, 0.0F);
             this.jobWorld.spawnEntityInWorld(sheep);
         }
 
@@ -275,7 +275,7 @@ public class JobShepherd extends Job implements Serializable {
             this.theStage = Stage.ARRIVEDATFARM;
             this.spawnSheepIfNeeded(this.theFolk.employedAt);
         } else {
-            V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
+            V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
             this.theFolk.gotoXYZ(v3, null);
             //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
         }

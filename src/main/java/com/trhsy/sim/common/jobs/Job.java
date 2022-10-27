@@ -138,7 +138,7 @@ public abstract class Job {
                     } else if (dist > 1 && dist < 3) {
                         //复制当前数据
                         V3 work = theFolk.employedAt.clone();
-                        work=new V3(work.xCoord,work.yCoord+1,work.zCoord);
+                        work=new V3(work.xCoord,work.yCoord+0.5,work.zCoord);
                         //去位置
                         theFolk.gotoXYZ(work, GotoMethod.SHIFT);
                         theFolk.location = work;
@@ -155,7 +155,7 @@ public abstract class Job {
                         //如果目的地为空
                         if (theFolk.destination == null) {
                             //设置目的地
-                            V3 v=new V3(theFolk.employedAt.xCoord,theFolk.employedAt.yCoord+1,theFolk.employedAt.zCoord);
+                            V3 v=new V3(theFolk.employedAt.xCoord,theFolk.employedAt.yCoord+0.5,theFolk.employedAt.zCoord);
                             //去位置
                             theFolk.gotoXYZ(v, GotoMethod.SHIFT);
                             theFolk.gotoXYZ(v, null);
@@ -617,30 +617,32 @@ public abstract class Job {
         boolean placed = false;
         boolean okToPlace = false;
         try {
-            for (int i = 0; i < folkInventory.getSizeInventory(); i++) {
-                try {
-                    ItemStack folkStack = folkInventory.getStackInSlot(i);
-                    if (specificItems != null && specificItems.getItem() == folkStack.getItem()) {
-                        okToPlace = true;
-                    } else if (specificItems == null) {
-                        okToPlace = true;
-                    } else {
-                        okToPlace = false;
-                    }
-
-                    if (okToPlace) {
-                        placed = this.inventoriesPut(toChests, folkStack, true);
-                        if (!placed) {
-                            ModSimReloaded.log.warn("Job: 无法放置一堆 " + folkStack.getDisplayName() + " in chest");
-                            return false;
+            if(folkInventory!=null){
+                for (int i = 0; i < folkInventory.getSizeInventory(); i++) {
+                    try {
+                        ItemStack folkStack = folkInventory.getStackInSlot(i);
+                        if (specificItems != null && specificItems.getItem() == folkStack.getItem()) {
+                            okToPlace = true;
+                        } else if (specificItems == null) {
+                            okToPlace = true;
+                        } else {
+                            okToPlace = false;
                         }
-                    }
-                } catch (Exception e) {
-                    //var8.printStackTrace();
-                }
-            }
 
-            folkInventory.clear();
+                        if (okToPlace) {
+                            placed = this.inventoriesPut(toChests, folkStack, true);
+                            if (!placed) {
+                                ModSimReloaded.log.warn("Job: 无法放置一堆 " + folkStack.getDisplayName() + " in chest");
+                                return false;
+                            }
+                        }
+                    } catch (Exception e) {
+                        //var8.printStackTrace();
+                    }
+                }
+
+                folkInventory.clear();
+            }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("将物品从NPC转移到箱子 将员工库存转移到一组箱子/库存中出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -751,7 +753,7 @@ public abstract class Job {
 
                 for (int g = 0; g < chest.getSizeInventory(); g++) {
                     ItemStack chestStack = chest.getStackInSlot(g);
-                    if (chestStack != null && chestStack == is) {
+                    if (chestStack != null && chestStack.getUnlocalizedName().equals(is.getUnlocalizedName())) {
                         if (!doCompareMeta) {
                             ret += chestStack.stackSize;
                         } else if (chestStack.getMetadata() == is.getMetadata()) {
@@ -1192,7 +1194,7 @@ public abstract class Job {
     public int getAnimalCountInPen(V3 controlBox, Class animal) {
         int size = 0;
         try {
-            List list = this.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.xCoord, controlBox.yCoord, controlBox.zCoord, controlBox.xCoord + 1, controlBox.yCoord + 1, controlBox.zCoord + 1).expand(3.0, 2.0, 3.0));
+            List list = this.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.xCoord, controlBox.yCoord, controlBox.zCoord, controlBox.xCoord + 1, controlBox.yCoord+0.5, controlBox.zCoord + 1).expand(3.0, 2.0, 3.0));
             if (list == null) {
                 return size;
             } else {

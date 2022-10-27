@@ -57,7 +57,7 @@ public class JobGlassMaker extends Job implements Serializable {
 
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
-                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
+                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
@@ -231,7 +231,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 if (this.gotoCount > 2) {
                     this.gotoCount = 0;
                     V3 bs = this.blockOfSand.clone();
-                    bs = new V3(bs.xCoord, bs.yCoord + 1, bs.zCoord, bs.theDimension);
+                    bs = new V3(bs.xCoord, bs.yCoord+0.5, bs.zCoord, bs.theDimension);
                     this.theFolk.beamMeTo(bs);
                 }
 
@@ -243,7 +243,7 @@ public class JobGlassMaker extends Job implements Serializable {
             this.gotoCount = 0;
             BlockPos blockPos1 = new BlockPos(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord);
             this.jobWorld.setBlockState(blockPos1, Blocks.air.getDefaultState(), 3);
-            this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
+            //this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
             this.theFolk.getVillagerInventory().func_174894_a(new ItemStack(Blocks.sand, 1));
             //我得到沙子惹！
             this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.getVillagerInventory().getStackInSlot(0).stackSize;
@@ -274,7 +274,7 @@ public class JobGlassMaker extends Job implements Serializable {
         try {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
-                adj = new V3(adj.xCoord, adj.yCoord + 1, adj.zCoord, adj.theDimension);
+                adj = new V3(adj.xCoord, adj.yCoord+0.5, adj.zCoord, adj.theDimension);
                 this.theFolk.gotoXYZ(adj, null);
                 this.step = 2;
             } else if (this.step == 2) {
@@ -287,7 +287,7 @@ public class JobGlassMaker extends Job implements Serializable {
                     this.theFolk.stayPut = true;
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
-                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
+                    V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
                     this.theFolk.gotoXYZ(v3, null);
                     //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
                 }
@@ -416,7 +416,7 @@ public class JobGlassMaker extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Arrived");
                 this.theStage = Stage.USEFURNACE;
             } else {
-                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord + 1, this.theFolk.employedAt.zCoord);
+                V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
                 this.theFolk.gotoXYZ(v3, null);
                 //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
             }
