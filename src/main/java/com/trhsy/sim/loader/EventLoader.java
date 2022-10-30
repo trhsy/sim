@@ -95,11 +95,7 @@ public class EventLoader {
         skinThread.start();
 
         try{
-            //建筑文件检查
-            File checks = new File(ModSimLoader.getSimFolder() + File.separator + "/buildings");
-            if (!checks.exists()) {
-                onUpdate();
-            }
+
             //检查模组更新提醒
             String baseURL = "https://trhsy.github.io/sim/1.9/version.txt";
             String ver = ModSimLoader.downloadFile(baseURL, ModSimLoader.getSimFolder() + File.separator + "version.txt");
@@ -116,82 +112,7 @@ public class EventLoader {
 
         }
     }
-    public void onUpdate() {
-        try {
-//"https://www.dropbox.com/s/i51v1lsq0u89elw/";
-            String baseURL = "https://trhsy.github.io/sim/1.9/Simukraft_zh_CN.zip";
-            String lang = FMLCommonHandler.instance().getCurrentLanguage();
-            if ("en_US".equals(lang)) {
-                baseURL = "https://trhsy.github.io/sim/1.9/Simukraft_en_US.zip";
-            }
-            String unzipFilePath = ModSimLoader.getSimFolder();
-            File checks = new File(unzipFilePath + File.separator);
-            File[] checkss = checks.listFiles();
 
-            for (File f : checkss) {
-                ModSimLoader.deleteFile(f);
-            }
-            checks.mkdir();
-            String simFile = unzipFilePath + File.separator + "Simukraft.zip";
-            String ver = ModSimLoader.downloadSimFile(baseURL, simFile);
-            if (ver != null) {
-                File zipFile = new File(ver);
-                //开始解压
-                ModSimLoader.log.info("开始解压：", zipFile.getName());
-                ZipEntry entry = null;
-                String entryFilePath = null, entryDirPath = null;
-                File entryFile = null, entryDir = null;
-                int index = 0, count = 0;
-                byte[] buffer = new byte[1024];
-                BufferedInputStream bis = null;
-                BufferedOutputStream bos = null;
-                ZipFile zip = new ZipFile(zipFile);
-                Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>) zip.entries();
-                //循环对压缩包里的每一个文件进行解压
-                while (entries.hasMoreElements()) {
-
-                    entry = entries.nextElement();
-
-                    //构建压缩包中一个文件解压后保存的文件全路径
-                    entryFilePath = unzipFilePath + File.separator + entry.getName();
-                    //构建解压后保存的文件夹路径
-                    index = entryFilePath.lastIndexOf(".txt");
-                    if (index != -1) {
-                        //创建解压文件
-                        entryFile = new File(entryFilePath);
-                        //写入文件
-                        bos = new BufferedOutputStream(new FileOutputStream(entryFile));
-                        bis = new BufferedInputStream(zip.getInputStream(entry));
-                        while ((count = bis.read(buffer, 0, 1024)) != -1) {
-                            bos.write(buffer, 0, count);
-                        }
-                        bos.flush();
-                        bos.close();
-                        //ModSimReloaded.log.info("创建解压文件：",entryFile.getName());
-                    } else {
-                        entryDirPath = entryFilePath.substring(0, entryFilePath.length() - 1);
-                        entryDir = new File(entryDirPath);
-                        //如果文件夹路径不存在，则创建文件夹
-                        if (!entryDir.exists() || !entryDir.isDirectory()) {
-                            entryDir.mkdirs();
-                            ModSimLoader.log.info("创建解压文件夹：", entryDir.getName());
-                        }
-                    }
-
-                }
-
-            }
-
-            new File(simFile).deleteOnExit();
-
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("检查sim建筑包出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-            //e.printStackTrace();
-        }
-
-
-    }
     /**
      * 世界保存
      * @param event

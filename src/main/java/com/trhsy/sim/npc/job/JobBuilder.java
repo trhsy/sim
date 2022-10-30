@@ -38,27 +38,49 @@ import java.util.*;
  * @Date 2022/10/2014:25
  **/
 public class JobBuilder extends Job{
+    /**建筑蓝图**/
     public BuildingBlueprint blueprint;
+    /**悬浮的控制箱**/
     public EntityConBox conBox;
+    /**要放置的块**/
     List<V3> placedBlocks = new ArrayList();
+    /**缺失的方块**/
     Block missingBlock = null;
+    /**开始位置**/
     BlockPos startPos;
+    /**建造位置**/
     BlockPos constructorPos;
+    /**控制箱位置**/
     BlockPos controllerPos;
+    /**活动区域**/
     BlockPos livingPos;
+    /**建筑箱**/
     public BlockConstructorBox constructorBlock = null;
+    /**方向*/
     public int direction;
+    //默认方向
     public int defaultDirection;
     int x = 0;
     int y = 0;
     int z = 0;
+    /**块的编号**/
     public int blockNumber = 0;
+    /**自上一个块位置的时间**/
     private transient long timeSinceLastBlockPlace = 0L;
+    /**已重新指派员工**/
     boolean hasReassignedEmployee;
+    /**缺失检查**/
     int missingCheck = 0;
-
+    /**
+     * @Author fan
+     * @Description //TODO 初始化工作
+     * @Date 22:12 2022/10/30
+     * @Param [folk, bp, pos, direction, world]
+     * @return npc 蓝图 块
+     **/
     public JobBuilder(NpcData folk, BuildingBlueprint bp, BlockPos pos, int direction, World world) {
         super(folk, pos, world);
+        //建筑工
         this.jobName = I18n.format("container.sim.Vocation1");
         this.startPos = pos;
         this.constructorPos = pos;
@@ -67,19 +89,17 @@ public class JobBuilder extends Job{
         int i = 0;
         boolean hasControlBox = false;
         IBlockState[] var8 = this.blueprint.structure;
-        int var9 = var8.length;
-
-        for(int var10 = 0; var10 < var9; ++var10) {
-            IBlockState st = var8[var10];
+        for (int j = 0; j < var8.length; j++) {
+            IBlockState st = var8[j];
             if (st.getBlock() == BlockLoader.blockControlBox) {
                 hasControlBox = true;
                 break;
             }
-
             ++i;
         }
 
         if (!hasControlBox) {
+            //如果没有找到控制箱，则第一个方块就是建筑箱
             this.blueprint.structure[0] = BlockLoader.blockControlBox.getDefaultState();
         }
 
@@ -183,6 +203,7 @@ public class JobBuilder extends Job{
         if (this.missingCheck < 3) {
             ++this.missingCheck;
         } else {
+            //谁在建造
             String s1=I18n.format("container.sim.job.builder_constructor_started_who's");
             if (this.missingBlock != null && this.missingBlock != Blocks.AIR) {
 
@@ -198,7 +219,13 @@ public class JobBuilder extends Job{
             this.missingCheck = 0;
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 放置方块
+     * @Date 22:07 2022/10/30
+     * @Param []
+     * @return void
+     **/
     public void placeBlock() {
         try {
             boolean normalBlock = true;
@@ -228,6 +255,7 @@ public class JobBuilder extends Job{
             }
 
             if (ModSimLoader.states.credits < 0.02F) {
+                //没有钱付给我！
                 this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
                 return;
             }
