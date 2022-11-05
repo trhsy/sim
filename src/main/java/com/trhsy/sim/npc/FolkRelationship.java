@@ -46,7 +46,9 @@ public class FolkRelationship {
      * @return
      */
     public FolkRelationship getInverse() {
-        return this.getOther().getRelationshipWith(this.folk1);
+        NpcData npcData= this.getOther();
+        FolkRelationship folkRelationship=npcData.getRelationshipWith(this.folk1);
+        return folkRelationship;
     }
 
     /**
@@ -82,7 +84,13 @@ public class FolkRelationship {
     public void addLevel(int amount) {
         this.addLevel(amount, true);
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 增加感情级别
+     * @Date 22:28 2022/11/2
+     * @Param [amount, inverse]
+     * @return void 反向
+     **/
     private void addLevel(int amount, boolean inverse) {
         this.subLevel += amount;
         if (this.subLevel < 0) {
@@ -141,13 +149,17 @@ public class FolkRelationship {
         }
 
         if (inverse) {
-            this.getInverse().addLevel(amount, false);
+            FolkRelationship folkRelationship=this.getInverse();
+            if(folkRelationship!=null){
+                folkRelationship.addLevel(amount, false);
+            }
         }
 
     }
 
     public NpcData getOther() {
-        return ModSimLoader.getFolkDataByUID(this.folk2);
+        NpcData npcData=ModSimLoader.getFolkDataByUID(this.folk2);
+        return npcData;
     }
     public String getText() {
         String txt = "";

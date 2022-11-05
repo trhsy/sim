@@ -2,6 +2,7 @@ package com.trhsy.sim.npc.task;
 
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
+import net.minecraft.client.resources.I18n;
 
 /**
  * @ClassName TaskGoTo
@@ -28,9 +29,9 @@ public class TaskGoTo extends Task{
     public void onUpdate() {
         if (System.currentTimeMillis() - this.second > 1000L) {
             this.second = System.currentTimeMillis();
-            boolean isRes = this.building.buildingType.toLowerCase().contentEquals("residential");
+            boolean isRes = this.building.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"));
             if (!this.folk.isAtBuilding(this.building, isRes ? 2.0F : 4.0F)) {
-                if (this.building.buildingType.toLowerCase().contentEquals("residential")) {
+                if (this.building.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
                     this.folk.forceMoveToXYZ(this.building.livingXYZ);
                 } else {
                     this.folk.forceMoveToXYZ(this.building.controlXYZ);

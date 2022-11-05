@@ -19,11 +19,13 @@ import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.logging.log4j.Logger;
 
@@ -45,6 +47,8 @@ public class ModSimLoader {
      * 全局日志调用
      */
     public static Logger log;
+
+
     /**
      * 包含他们正在玩的这个关卡的所有游戏状态和设置
      **/
@@ -239,7 +243,8 @@ public class ModSimLoader {
     public static Building getEmptyHome() {
         Building empty = null;
         for (Building b : buildings) {
-            if (b.buildingType.contentEquals("Residential") && b.occupants.size() < 1) {
+            //住宅的空房子
+            if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Residential")) && b.occupants.size() < 1) {
                 empty = b;
                 break;
             }
@@ -498,6 +503,22 @@ public class ModSimLoader {
         }
         return typedBlues;
 
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 根据名字获取蓝图
+     * @Date 20:04 2022/11/4
+     * @Param [name]
+     * @return com.trhsy.sim.npc.build.BuildingBlueprint
+     **/
+    public static BuildingBlueprint getBlueprintsByName(String name) {
+        BuildingBlueprint buildingBlueprint=null;
+        for (BuildingBlueprint bb : buildingBlueprints) {
+            if(name.equals(bb.name)){
+                buildingBlueprint=bb;
+            }
+        }
+        return buildingBlueprint;
     }
     /**
      * @Author fan

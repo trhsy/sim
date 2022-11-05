@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  * @author Trhsy
@@ -17,17 +18,18 @@ import javax.annotation.Nullable;
  * @date 2022/10/13 10:59
  */
 public class FolkAIWander extends EntityAIWander{
-    private EntityFolk folk;
-    private boolean mustUpdate;
-    private int executionChance;
-    private double xPosition;
-    private double yPosition;
-    private double zPosition;
-    private double speed;
+    protected EntityFolk folk;
+    protected boolean mustUpdate;
+    protected int executionChance;
+    protected double xPosition;
+    protected double yPosition;
+    protected double zPosition;
+    protected double speed;
     public FolkAIWander(EntityFolk entity, double speedIn) {
         super(entity, speedIn);
         this.folk = entity;
         this.speed=speedIn;
+        this.executionChance = 120;
     }
     @Nullable
     protected Vec3d getPosition() {
@@ -40,13 +42,13 @@ public class FolkAIWander extends EntityAIWander{
             return false;
         } else if (!this.folk.theData.stayPut && !(this.folk.theData.currentTask instanceof TaskSleep)) {
             if (!this.mustUpdate) {
-                /*if (this.entity.getIdleTime() >= 100) {
+                /*if (this.folk.getIdleTime() >= 100) {
                     return false;
                 }*/
-
-                /*if (this.folk.getRNG().nextInt(this.executionChance) != 0) {
+                Random random=this.folk.getRNG();
+                if (random.nextInt(this.executionChance) != 0) {
                     return false;
-                }*/
+                }
             }
 
             Vec3d vec3d = this.getPosition();

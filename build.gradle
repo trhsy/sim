@@ -132,6 +132,8 @@ processResources
         exclude 'mcmod.info'
     }
 }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 [compileJava,compileTestJava]*.options*.encoding = 'UTF-8'
 compileJava.options.fork = true
 compileJava.options.forkOptions.executable = "D:\\java\\jdk1.8.0_271\\bin\\javac.exe"

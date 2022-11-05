@@ -1,7 +1,9 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.entity.EntityConBox;
 import com.trhsy.sim.entity.EntityFolk;
+import com.trhsy.sim.entity.render.RenderConBox;
 import com.trhsy.sim.entity.render.RenderEntityFolk;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -26,15 +28,16 @@ public class EntityLoader {
     }
     public static void init() {
         EntityRegistry.registerModEntity( EntityFolk.class, "EntityFolk", nextID++, ModSim.instance, 64, 3, true);
-//        registerEntity(EntityFolk.class, "EntityFolk", 64, 3, true);
+        EntityRegistry.registerModEntity( EntityConBox.class, "ConBox", nextID++, ModSim.instance, 64, 3, false);
+        //        registerEntity(EntityFolk.class, "EntityFolk", 64, 3, true);
     }
     @SideOnly(Side.CLIENT)
     public static void initModels() {
         try {
             // TODO
             RenderingRegistry.registerEntityRenderingHandler(EntityFolk.class, RenderEntityFolk.FACTORY);
+            RenderingRegistry.registerEntityRenderingHandler(EntityConBox.class, RenderConBox.FACTORY);
             //registerEntityRender(EntityAlignBeam.class, RenderAlignBeam.class);
-            //registerEntityRender(EntityConBox.class, RenderConBox.class);
             //registerEntityRender(EntityWindmill.class, RenderWindmill.class);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());

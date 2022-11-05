@@ -1,5 +1,6 @@
 package com.trhsy.sim.block;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
@@ -13,9 +14,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,11 +39,14 @@ public class BlockConstructorBox extends BlockBase {
     /**
      * @return boolean
      * @Author fan
-     * @Description //TODO 右键
+     * @Description //TODO 右键 激活
      * @Date 16:46 2022/10/19
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      **/
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+//在给定块位置的中心为播放器播放指定的声音
+        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":constructoractivated"));
+        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         int buildDirection = 0;
         if (!worldIn.isRemote) {
             if (ModSimLoader.states.gameModeNumber == 999) {
@@ -91,13 +95,23 @@ public class BlockConstructorBox extends BlockBase {
         return true;
     }
 
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    /**
+     * @Author fan
+     * @Description //TODO 玩家摧毁方块
+     * @Date 17:34 2022/11/1
+     * @Param [worldIn, pos, state]
+     * @return void
+     **/
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
+            //在给定块位置的中心为播放器播放指定的声音
+            SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":powerdown"));
+            worldIn.playSound(worldIn.playerEntities.get(0),pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         for (NpcData fd : ModSimLoader.folks) {
             if (fd.job != null && fd.job.workPlace.equals(V3.fromBlockPos(pos))) {
                 fd.fire();
             }
         }
-        return true;
+        super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
 
 }

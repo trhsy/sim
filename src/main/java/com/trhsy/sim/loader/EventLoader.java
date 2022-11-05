@@ -4,31 +4,48 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityFolk;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
+import com.trhsy.sim.npc.block.FarmBox;
+import com.trhsy.sim.npc.block.MineBox;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.realms.RealmsBufferBuilder;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.Color;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
@@ -97,7 +114,7 @@ public class EventLoader {
         try{
 
             //检查模组更新提醒
-            String baseURL = "https://trhsy.github.io/sim/1.9/version.txt";
+            /*String baseURL = "https://trhsy.github.io/sim/1.9/version.txt";
             String ver = ModSimLoader.downloadFile(baseURL, ModSimLoader.getSimFolder() + File.separator + "version.txt");
             if (ver != null) {
                 ver = ver.trim();
@@ -106,7 +123,7 @@ public class EventLoader {
                         ModSimLoader.sendChat(I18n.format("container.sim.update_checker1") + ver + I18n.format("container.sim.update_checker2") );
                     }
                 }
-            }
+            }*/
         }catch (Exception e){
             e.printStackTrace();
 
@@ -126,6 +143,14 @@ public class EventLoader {
                 ModSimLoader.states.saveStates();
                 //农场保存
                 ModSimLoader.log.info("农场保存，准备保存模组信息");
+                for (FarmBox farmBox:ModSimLoader.farms){
+                    farmBox.saveFarm();
+                }
+                //矿场保存
+                ModSimLoader.log.info("农场保存，准备保存模组信息");
+                for (MineBox mineBox:ModSimLoader.mines){
+                    mineBox.saveMine();
+                }
                 //NPC保存
                 ModSimLoader.log.info("NPC保存，准备保存模组信息");
                 for (NpcData folks:ModSimLoader.folks){
@@ -155,8 +180,9 @@ public class EventLoader {
 
             ModSimLoader.log.info("清除旧的世界数据");
             ModSimLoader.folks.clear();
+            ModSimLoader.farms.clear();
+            ModSimLoader.mines.clear();
             ModSimLoader.buildings.clear();
-//            ModSimLoader.farms.clear();
             ModSimLoader.states.dayOfWeek=0;
             ModSimLoader.states.gameModeNumber=999;
             ModSimLoader.states.credits=10.0F;
@@ -166,8 +192,43 @@ public class EventLoader {
 
                 ModSimLoader.log.info("加载世界...");
                 ModSimLoader.states.loadStates();
-                ModSimLoader.log.info("装载农场");
-                ModSimLoader.log.info("装载矿场");
+
+            try {
+                ModSimLoader.log.info("加载农场");
+                new DimensionManager();
+                File farmsFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms");
+                if(!farmsFolder.exists()){
+                    farmsFolder.mkdirs();
+                }
+                buildingSaves =farmsFolder.listFiles();
+                for (int i = 0; i <buildingSaves.length; i++) {
+                    buildingFile=buildingSaves[i];
+                    ModSimLoader.log.info("打开农场文件: " + buildingFile.getName());
+                    ModSimLoader.farms.add(new FarmBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                }
+            } catch (Exception var10) {
+                ModSimLoader.log.error("加载农场文件出错了");
+                var10.printStackTrace();
+            }
+
+            try {
+                ModSimLoader.log.info("加载矿场");
+                new DimensionManager();
+                File minesFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "mines");
+                if(!minesFolder.exists()){
+                    minesFolder.mkdirs();
+                }
+                buildingSaves = minesFolder.listFiles();
+                for (int i = 0; i < buildingSaves.length; i++) {
+                    buildingFile = buildingSaves[i];
+                    ModSimLoader.log.info("打开矿场文件: " + buildingFile.getName());
+                    ModSimLoader.mines.add(new MineBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                }
+            } catch (Exception var9) {
+                ModSimLoader.log.error("加载矿场文件出错了");
+                var9.printStackTrace();
+            }
+
             try {
                 ModSimLoader.log.info("获得保存的NPC");
                 new DimensionManager();
@@ -184,9 +245,24 @@ public class EventLoader {
             }catch (Exception e){
                 e.printStackTrace();
             }
+            try {
                 ModSimLoader.log.info("加载建筑物");
+                new DimensionManager();
+                File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "buildings");
+                if(!buildingFolder.exists()){
+                    buildingFolder.mkdirs();
+                }
+                buildingSaves =buildingFolder.listFiles();
+                for (int i = 0; i < buildingSaves.length; i++) {
+                    buildingFile =buildingSaves[i];
+                    ModSimLoader.log.info("打开建筑文件: " + buildingFile.getName());
+                    ModSimLoader.buildings.add(new Building(event.getWorld(), UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                }
 
-
+            } catch (Exception var7) {
+                ModSimLoader.log.error("加载建筑文件出错了");
+                var7.printStackTrace();
+            }
 
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
             hasLoadedWorld = true;
@@ -206,12 +282,17 @@ public class EventLoader {
             //更新资金
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
             //检查建筑物
-            for (int i = 0; i <ModSimLoader.buildings.size(); --i) {
-                Building b = ModSimLoader.buildings.get(i - 1);
-                if (event.world.getBlockState(b.controlXYZ.toBlockPos()).getBlock() != BlockLoader.blockControlBox) {
-                    ModSimLoader.log.info(b.buildingName + " 没有控制块-正在销毁");
-                    b.demolish(event.world, false);
-                }
+            for (int i = ModSimLoader.buildings.size(); i >0; --i) {
+//                if(i!=0){
+                    Building b = ModSimLoader.buildings.get(i - 1);
+                    BlockPos pos=new BlockPos(b.controlXYZ.x,b.controlXYZ.y,b.controlXYZ.z);
+                    Block block=event.world.getBlockState(pos).getBlock();
+                    //ModSimLoader.log.info("建筑物："+b.buildingName + "的控制箱在"+pos.toString()+"，识别到的方块名字："+block.getUnlocalizedName());
+                    if (block != BlockLoader.blockControlBox) {
+                        ModSimLoader.log.info(b.buildingName + " 没有控制块-正在销毁");
+                        //b.demolish(event.world, false);
+                    }
+//                }
             }
             //检查游戏状态
             if (ModSimLoader.states.gameModeNumber != 999 && !event.world.isRemote&&event.world.playerEntities.size()>0) {
@@ -324,6 +405,13 @@ public class EventLoader {
                     f.onUpdate();
                 }
             }
+            //停止下雨MOD-在我的世界里一直下雨的时候实现了这个！
+            if(event.world!=null){
+                if (event.world.isRaining() && event.world.getWorldInfo().getRainTime() > 1 && ConfigLoader.configStopRain) {
+                    event.world.getWorldInfo().setRaining(false);
+                    ModSimLoader.log.info("我讨厌下雨-停了吧");
+                }
+            }
         }
     }
 
@@ -373,5 +461,82 @@ public class EventLoader {
     @SubscribeEvent
     public void clientDisconnected(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         hasLoadedWorld = false;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 世界渲染
+     * @Date 17:12 2022/10/31
+     * @Param [event]
+     * @return void
+     **/
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onWorldRenderLast(RenderWorldLastEvent event) {
+        World world = Minecraft.getMinecraft().theWorld;
+        for (EntityPlayer player:world.playerEntities){
+            if (ModSimLoader.previewPos1 != null && ModSimLoader.previewPos2 != null) {
+                drawBoundingBox(player, ModSimLoader.previewPos1, ModSimLoader.previewPos2, true, 4.0F, event);
+            }
+        }
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 预览程序
+     * @Date 17:19 2022/10/31
+     * @Param [player, posA, posB, smooth, width, event]
+     * @return void
+     **/
+    public static void drawBoundingBox(EntityPlayer player, Vec3d posA, Vec3d posB, boolean smooth, float width, RenderWorldLastEvent event) {
+        GL11.glPushAttrib(8192);
+        GL11.glDisable(2884);
+        GL11.glDisable(2896);
+        GL11.glDisable(3553);
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+        double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double)event.getPartialTicks();
+        double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double)event.getPartialTicks();
+        double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double)event.getPartialTicks();
+        Vec3d pos = new Vec3d(d0, d1, d2);
+        GL11.glTranslated(-pos.xCoord, -pos.yCoord, -pos.zCoord);
+        Color c = new Color(255, 0, 0, 150);
+        GL11.glColor4d((double)c.getRed(), (double)c.getGreen(), (double)c.getBlue(), (double)c.getAlpha());
+        GL11.glLineWidth(width);
+        GL11.glDepthMask(false);
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer bufferBuilder = tessellator.getBuffer();
+        bufferBuilder.begin(1, DefaultVertexFormats.POSITION_COLOR);
+        double dx = posA.xCoord - posB.xCoord > 0.0D ? -Math.abs(posA.xCoord - posB.xCoord) : Math.abs(posA.xCoord - posB.xCoord);
+        double dy = Math.abs(posA.yCoord - posB.yCoord);
+        double dz = posA.zCoord - posB.zCoord > 0.0D ? -Math.abs(posA.zCoord - posB.zCoord) : Math.abs(posA.zCoord - posB.zCoord);
+        double xOf = dx > 0.0D ? 0.0D : 1.0D;
+        double zOf = dz > 0.0D ? 0.0D : 1.0D;
+        posA = posA.addVector(xOf, 0.0D, zOf);
+        bufferBuilder.pos(posA.xCoord, posA.yCoord, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord + dy, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord + dy, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord + dy, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord + dy, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord + dy, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord + dy, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord + dy, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord + dy, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord + dy, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord, posA.yCoord + dy, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord + dy, posA.zCoord + dz).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        bufferBuilder.pos(posA.xCoord + dx, posA.yCoord + dy, posA.zCoord).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        tessellator.draw();
+        GL11.glDepthMask(true);
+        GL11.glPopAttrib();
     }
 }

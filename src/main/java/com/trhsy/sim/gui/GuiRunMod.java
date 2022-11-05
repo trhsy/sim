@@ -182,12 +182,19 @@ public class GuiRunMod extends GuiScreen {
 //                    this.initGui();
                     break;
                 case 4:
+
                     ModSimLoader.log.info("接受任命书");
+
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
                     this.page=1;
-                    this.updateScreen();
-                    this.initGui();
+                    this.mc.currentScreen=null;
+                    if(ModSimLoader.states.gameModeNumber!=999){
+                        this.mc.setIngameFocus();
+                    }else{
+                        this.updateScreen();
+                        this.initGui();
+                    }
                     break;
                 case 5:
                     ModSimLoader.log.info("不接受任命书");

@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.block;
 
+import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import net.minecraft.util.EnumFacing;
@@ -53,8 +54,10 @@ public class FarmBox {
     public void saveFarm() {
         StringBuilder var10002 = new StringBuilder();
         new DimensionManager();
-        File farmFolder = new File(var10002.append(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()).append(File.separator).append("suk2").append(File.separator).append("farms").toString());
-        farmFolder.mkdirs();
+        File farmFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms");
+        if(!farmFolder.exists()){
+            farmFolder.mkdirs();
+        }
         BufferedWriter writer = null;
 
         try {
@@ -83,8 +86,10 @@ public class FarmBox {
     public void loadFarm(UUID loadID) {
         StringBuilder var10002 = new StringBuilder();
         new DimensionManager();
-        File farmFolder = new File(var10002.append(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()).append(File.separator).append("suk2").append(File.separator).append("farms").toString());
-        farmFolder.mkdirs();
+        File farmFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms");
+        if(!farmFolder.exists()){
+            farmFolder.mkdirs();
+        }
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(farmFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));

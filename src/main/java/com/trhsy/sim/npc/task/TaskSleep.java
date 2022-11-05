@@ -25,6 +25,7 @@ public class TaskSleep extends Task {
     }
 
     public void onTaskBegin() {
+        //有家
         if (this.folk.home != null) {
             this.folk.stayPut = true;
             if (!this.folk.isAtBuilding(this.folk.home)) {

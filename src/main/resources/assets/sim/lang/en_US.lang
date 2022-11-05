@@ -353,7 +353,6 @@ container.sim.render_1=Blocks required for
 container.sim.render_2=less than 1 stack
 container.sim.render_3=1 stack
 container.sim.render_4= stacks
-container.sim.render_5=
 container.sim.job.builder_constructor_block=Please place at least one chest/storage block near to constructor block.
 container.sim.job.builder_constructor_direction=Can't determine the direction to build in, please stand on one of the four sides of the constructor when you right-click it
 container.sim.job.builder_constructor_started_building=has started building a

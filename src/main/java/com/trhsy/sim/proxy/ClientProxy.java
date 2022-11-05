@@ -3,7 +3,6 @@ package com.trhsy.sim.proxy;
 import com.trhsy.sim.gui.GuiHud;
 import com.trhsy.sim.loader.EntityLoader;
 import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.loader.render.ItemRenderLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;

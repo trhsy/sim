@@ -8,19 +8,25 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
 import com.trhsy.sim.npc.NpcData;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -108,12 +114,11 @@ public class EntityFolk extends EntityCreature implements INpc {
         this.tasks.addTask(6, new FolkAIWander(this, 1.0D));
         //最近观看
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 8.0F, 1));
         //看起来很空闲
         this.tasks.addTask(8, new EntityAILookIdle(this));
         //住进屋子
         this.tasks.addTask(9, new EntityAIMoveIndoors(this));
-        //实体AI监视最近2
-        this.tasks.addTask(11, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1));
         //限制走向
         this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
         //避开实体僵尸
@@ -152,10 +157,42 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (System.currentTimeMillis() - this.secondTimer > 1000L) {
+        long i=System.currentTimeMillis() - this.secondTimer;
+        if (i > 1000L) {
+            this.secondTimer = System.currentTimeMillis();
+            List<Entity> list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).expand(2.0D, 4.0D, 2.0D));
+            for (Entity entity1:list1){
+                if (entity1 instanceof EntityItem) {
+                    EntityItem entityitem = (EntityItem)entity1;
+                    ItemStack is = ((EntityItem)entity1).getEntityItem();
 
+                    try {
+                        Item item=is.getItem();
+                        if(item instanceof ItemFood){
+                            //如果手里拿的是食物就，并且饿了就吃了
+                            ItemFood food = (ItemFood)item;
+                            if (this.theData!=null&&this.theData.hunger < 10 && food != null) {
+                                entityitem.setDead();
+                                ++this.theData.hunger;
+                            }
+                        }
+                    } catch (Exception var8) {
+                        ModSimLoader.log.error("Npc 吃东西出错了："+var8.getMessage());
+                    }
+                } else if (entity1 instanceof EntityFolk && (int)this.posX == (int)entity1.posX && (int)this.posZ == (int)entity1.posZ) {
+                    this.motionX += 0.10000000149011612D;
+
+                    try {
+                        this.theData.stayPut = false;
+                    } catch (Exception var7) {
+                    }
+                }
+            }
+            if (this.theData != null && !this.worldObj.isRemote && !ModSimLoader.folks.contains(this.theData)) {
+                ModSimLoader.folks.add(this.theData);
+            }
         }
+        super.onUpdate();
     }
     /**
      * @Author fan

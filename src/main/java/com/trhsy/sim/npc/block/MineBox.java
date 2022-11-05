@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.block;
 
+import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import net.minecraft.util.EnumFacing;
@@ -53,8 +54,11 @@ public class MineBox {
     public void saveMine() {
         StringBuilder var10002 = new StringBuilder();
         new DimensionManager();
-        File mineFolder = new File(var10002.append(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()).append(File.separator).append("suk2").append(File.separator).append("mines").toString());
-        mineFolder.mkdirs();
+        File mineFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "mines");
+        if(!mineFolder.exists()){
+            mineFolder.mkdirs();
+        }
+
         BufferedWriter writer = null;
 
         try {
@@ -83,8 +87,10 @@ public class MineBox {
     public void loadMine(UUID loadID) {
         StringBuilder var10002 = new StringBuilder();
         new DimensionManager();
-        File mineFolder = new File(var10002.append(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()).append(File.separator).append("suk2").append(File.separator).append("mines").toString());
-        mineFolder.mkdirs();
+        File mineFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "mines");
+        if(!mineFolder.exists()){
+            mineFolder.mkdirs();
+        }
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(mineFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));

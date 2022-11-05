@@ -66,10 +66,17 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
         }
         return  null;
     }
+    /**
+     * @Author fan
+     * @Description //TODO 
+     * @Date 16:35 2022/11/3 实体   偏移量       部分刻度
+     * @Param [par1Entity, x, y, z, entityYaw, partialTicks]
+     * @return void
+     **/
     @Override
-    public void doRender(EntityFolk par1Entity, double par2, double par4, double par6, float par8, float par9) {
-        super.doRender(par1Entity, par2, par4, par6, par8, par9);
-        this.doRenderFolk(par1Entity, par2, par4, par6, par8, par9);
+    public void doRender(EntityFolk par1Entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        super.doRender(par1Entity, x, y, z, entityYaw, partialTicks);
+        this.doRenderFolk(par1Entity, x, y, z, entityYaw, partialTicks);
     }
     /**
      * 渲染npc
