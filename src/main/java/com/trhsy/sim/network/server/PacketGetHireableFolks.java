@@ -4,6 +4,7 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
+import com.trhsy.sim.npc.NpcData;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -15,7 +16,7 @@ import java.util.List;
 
 /**
  * @ClassName PacketGetHireableFolks
- * @Description todo
+ * @Description todo 获取可以受雇佣的人
  * @Author TRHSY
  * @Date 2022/10/2118:04
  **/
@@ -24,6 +25,10 @@ public class PacketGetHireableFolks implements IMessage {
     public boolean isFromClient;
 
     public PacketGetHireableFolks() {
+        /*for (NpcData folk:ModSimLoader.folks){
+            NpcIdentity npcIdentity=folk.getClientIdentity();
+            if(){}
+        }*/
     }
 
     public PacketGetHireableFolks(boolean isFromClient) {

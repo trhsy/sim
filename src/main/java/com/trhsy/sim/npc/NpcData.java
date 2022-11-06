@@ -732,7 +732,7 @@ public class NpcData {
             return married;
         } else {
             //单身狗
-            String single=I18n.format("container.sim.gui_Folk_Single");
+            String single=I18n.format("container.sim.folkData4");
             //有对象
             String In_a_relationship=I18n.format("container.sim.In_a_relationship");
 
@@ -824,6 +824,7 @@ public class NpcData {
             this.entity.onFolkUpdate();
             this.pos = V3.fromVec3d(this.entity.getPositionVector());
             this.pos.dimension = this.entity.dimension;
+            /*
             //是否取消
             boolean shouldDespawn = false;
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
@@ -840,7 +841,7 @@ public class NpcData {
                 this.entity.setDead();
                 this.entity.theData = null;
                 this.entity = null;
-            }
+            }*/
         }
 
         if (this.job != null && this.shouldWork()) {
@@ -925,11 +926,6 @@ public class NpcData {
                     this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
                     this.stayPut = false;
                     this.isSleeping = false;
-                }
-            }else{
-                if(this.status.contains(I18n.format("container.sim.FolkAction6"))&&!ModSimLoader.isDayTime(this.entity.worldObj)){
-                    //睡觉
-                    this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));
                 }
             }
 
@@ -1128,16 +1124,7 @@ public class NpcData {
         }
 
     }
-    /**
-     * @Author fan
-     * @Description //TODO 回家
-     * @Date 14:05 2022/11/3
-     * @Param []
-     * @return void
-     **/
-    public void goHome(){
-        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), this.home, I18n.format("container.sim.FolkAction6")));
-    }
+
     /**
      * @Author fan
      * @Description //TODO 添加关系

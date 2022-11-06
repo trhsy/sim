@@ -30,7 +30,7 @@ public class TaskSleep extends Task {
             this.folk.stayPut = true;
             if (!this.folk.isAtBuilding(this.folk.home)) {
                 //回家
-                this.folk.setStatus(I18n.format("container.sim.FolkAction6"));
+                this.folk.setStatus(I18n.format("container.sim.FolkAction5"));
                 this.folk.forceMoveToXYZ(this.folk.home.livingXYZ);
             }
         } else {
