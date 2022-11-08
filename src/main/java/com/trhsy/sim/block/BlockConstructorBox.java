@@ -44,7 +44,7 @@ public class BlockConstructorBox extends BlockBase {
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      **/
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-//在给定块位置的中心为播放器播放指定的声音
+        //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":constructoractivated"));
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         int buildDirection = 0;
@@ -103,7 +103,7 @@ public class BlockConstructorBox extends BlockBase {
      * @return void
      **/
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
-            //在给定块位置的中心为播放器播放指定的声音
+            //在给定块位置的中心为播放器播放指定的声音 断电 power down
             SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":powerdown"));
             worldIn.playSound(worldIn.playerEntities.get(0),pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         for (NpcData fd : ModSimLoader.folks) {

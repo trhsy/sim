@@ -41,7 +41,11 @@ public class NetWorkLoader {
         registerMessage(PacketFireFolk.Handler.class,PacketFireFolk.class,Side.SERVER);
         //获得蓝图
         registerMessage(PacketSendBlueprint.Handler.class,PacketSendBlueprint.class,Side.SERVER);
+        //获取可雇佣NPC
         registerMessage(PacketGetHireableFolks.Handler.class,PacketGetHireableFolks.class,Side.SERVER);
+        //拆除建筑
+        registerMessage(PacketDemolishBuilding.Handler.class,PacketDemolishBuilding.class,Side.SERVER);
+
     }
 
     /**
@@ -64,6 +68,9 @@ public class NetWorkLoader {
         registerMessage(PacketOpenConstructorGui.Handler.class,PacketOpenConstructorGui.class,Side.CLIENT);
         //请求蓝图
         registerMessage(PacketSendBuildingRequirements.Handler.class,PacketSendBuildingRequirements.class,Side.CLIENT);
+        //打开控制箱
+        registerMessage(PacketOpenControlGui.Handler.class,PacketOpenControlGui.class,Side.CLIENT);
+
 
     }
     /**

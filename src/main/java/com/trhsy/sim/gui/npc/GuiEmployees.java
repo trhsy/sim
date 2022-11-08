@@ -10,7 +10,9 @@ import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 /**
  * @ClassName GuiEmployees
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  * @Date 2022/10/2013:44
  **/
 public class GuiEmployees extends GuiScreen {
-    ArrayList<NpcIdentity> folks;
+    List<NpcIdentity> folks;
     private int mouseCount = 0;
     private int folkOffset = 0;
     private int folksOnAPage = 0;
@@ -28,7 +30,7 @@ public class GuiEmployees extends GuiScreen {
     }
 
     public void initGui() {
-        this.folks = new ArrayList(ModSimLoader.tempHireableNpcNames);
+        this.folks = new CopyOnWriteArrayList<>(ModSimLoader.tempHireableNpcNames);
         this.showPage();
         super.initGui();
     }

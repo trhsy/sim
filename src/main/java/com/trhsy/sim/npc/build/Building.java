@@ -1,17 +1,23 @@
 package com.trhsy.sim.npc.build;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
+import jdk.nashorn.internal.ir.Block;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Trhsy
@@ -25,6 +31,7 @@ public class Building {
     public String buildingName = "";
     public String buildingType = "";
     public String jobType = "";
+    public String author = "Trhsy";
     public int length = 0;
     public int width = 0;
     public int height = 0;
@@ -32,14 +39,20 @@ public class Building {
     public float rent = 0.0F;
     public V3 controlXYZ;
     public V3 livingXYZ;
-    public List<V3> structure = new ArrayList();
-    public List<NpcData> occupants = new ArrayList();
+    public List<V3> structure = new CopyOnWriteArrayList<>();
+    public List<NpcData> occupants = new CopyOnWriteArrayList();
     public BlockPos bed;
     public BlockPos furnace;
     public BlockPos craftingTable;
     public BlockPos buyingPos;
     public boolean markedForDeletion;
-
+    /**
+     * @Author fan
+     * @Description //TODO
+     * @Date 22:00 2022/11/7
+     * @Param [bName, rent, ctrl, lv] 建筑 租金 控制箱 生活区
+     * @return
+     **/
     public Building(String bName, float rent, V3 ctrl, V3 lv) {
         this.buildingName = bName;
         this.controlXYZ = ctrl;
@@ -172,6 +185,7 @@ public class Building {
                         int var11;
                         int var12;
                         String f;
+                        //结构
                         if (line.contains("structure")) {
                             if (value.length() < 1) {
                                 line = reader.readLine();
@@ -186,6 +200,7 @@ public class Building {
                                 f = var10[var12];
                                 this.structure.add(V3.fromString(f));
                             }
+                            //居住者
                         } else if (line.contains("occupants")) {
                             if (value.length() < 1) {
                                 line = reader.readLine();
@@ -201,7 +216,7 @@ public class Building {
                                 NpcData fd = ModSimLoader.getFolkDataByUID(f);
                                 this.occupants.add(fd);
                                 fd.home = this;
-                                ModSimLoader.log.info("Found occupant: " + ModSimLoader.getFolkDataByUID(f).getName());
+                                ModSimLoader.log.info("找到居住者: " + ModSimLoader.getFolkDataByUID(f).getName());
                             }
                         }
                     }
@@ -217,12 +232,17 @@ public class Building {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 建筑才吃
+     * @Date 10:23 2022/11/8
+     * @Param [world, removeStructure]
+     * @return void
+     **/
     public void demolish(World world, boolean removeStructure) {
         this.markedForDeletion = true;
-
-        while(this.occupants.size() > 0) {
-            ((NpcData)this.occupants.get(0)).evict();
+        for (NpcData npcData:this.occupants){
+            npcData.evict();
         }
         for (NpcData fd:ModSimLoader.folks){
             if (fd.job != null && fd.job.workPlace == this.controlXYZ) {
@@ -231,7 +251,11 @@ public class Building {
         }
         if (removeStructure) {
             for (V3 v3:this.structure){
-                world.setBlockToAir(v3.toBlockPos());
+                //播放拆除音效
+//                world.playSound(v3.x,v3.y,v3.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 1, 1,false);
+                BlockPos block=v3.toBlockPos();
+                world.destroyBlock(block,false);
+//                world.setBlockToAir(block);
             }
         }
 

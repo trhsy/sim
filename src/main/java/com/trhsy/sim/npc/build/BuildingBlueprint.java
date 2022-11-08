@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName BuildingBlueprint
@@ -39,10 +40,10 @@ public class BuildingBlueprint {
     public int height;
     public int direction = 0;
     public int blockCount = 0;
-    public List<BuildingSymbol> blocks = new ArrayList();
+    public List<BuildingSymbol> blocks = new CopyOnWriteArrayList<>();
     //蓝图建筑结构
     public IBlockState[] structure;
-    public List<BuildingBlueprint> styles = new ArrayList();
+    public List<BuildingBlueprint> styles = new CopyOnWriteArrayList();
 
     public BuildingBlueprint(File file) {
         this.addBuildingBlueprint(file);
@@ -105,7 +106,13 @@ public class BuildingBlueprint {
                         } else if (String.valueOf(c).contentEquals("$")) {
                             hasControlBox = true;
                             Block block = BlockLoader.blockControlBox;
-                            this.structure[charNumber] = block.getDefaultState();
+                            if (this.name.contentEquals(I18n.format("container.sim.ATMs"))) {
+                                this.structure[charNumber] = block.getStateFromMeta(1);
+                            } else if ("other".equals(this.buildingType) || "special".equals(this.buildingType)) {
+                                this.structure[charNumber] = block.getStateFromMeta(2);
+                            } else {
+                                this.structure[charNumber] = block.getStateFromMeta(0);
+                            }
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("*")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
@@ -318,8 +325,87 @@ public class BuildingBlueprint {
 
                     for(int var11 = 0; var11 < var30.length; ++var11) {
                         char c = var30[var11];
-                        ++this.blockCount;
-                        if (!String.valueOf(c).contentEquals("*") && !String.valueOf(c).contentEquals("!") && !String.valueOf(c).contentEquals("$")) {
+                        //生活块
+                        if (String.valueOf(c).contentEquals("!")) {
+                            Block block = BlockLoader.blockLiving;
+                            this.structure[charNumber] = block.getDefaultState();
+                            ++charNumber;
+                            //控制箱
+                        } else if (String.valueOf(c).contentEquals("$")) {
+                            Block block = BlockLoader.blockControlBox;
+                            if (this.name.contentEquals(I18n.format("container.sim.ATMs"))) {
+                                this.structure[charNumber] = block.getStateFromMeta(1);
+                            } else if ("other".equals(this.buildingType) || "special".equals(this.buildingType)) {
+                                this.structure[charNumber] = block.getStateFromMeta(2);
+                            } else {
+                                this.structure[charNumber] = block.getStateFromMeta(0);
+                            }
+//                            this.structure[charNumber] = block.getDefaultState();
+                            ++charNumber;
+                        } else if (String.valueOf(c).contentEquals("*")) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
+                            ++charNumber;
+                        } else if (String.valueOf(c).contentEquals("+")) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
+                            ++charNumber;
+                        } else if (String.valueOf(c).contentEquals("-")) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
+                            ++charNumber;
+                        } else if ("0".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(0);
+                            ++charNumber;
+                        } else if ("1".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(1);
+                            ++charNumber;
+                        } else if ("2".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(2);
+                            ++charNumber;
+                        } else if ("3".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(3);
+                            ++charNumber;
+                        } else if ("4".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(4);
+                            ++charNumber;
+                        } else if ("5".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(5);
+                            ++charNumber;
+                        } else if ("6".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(6);
+                            ++charNumber;
+                        } else if ("7".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(7);
+                            ++charNumber;
+                        } else if ("8".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(8);
+                            ++charNumber;
+                        } else if ("9".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(9);
+                            ++charNumber;
+                        } else if ("Ã€".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
+                            ++charNumber;
+                        } else if ("Ã†".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(1);
+                            ++charNumber;
+                        } else if ("Ã‡".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(2);
+                            ++charNumber;
+                        } else if ("Ãˆ".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
+                            ++charNumber;
+                        } else if ("ÃŒ".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(4);
+                            ++charNumber;
+                        } else if ("Ã�".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
+                            ++charNumber;
+                        } else if ("Ã‘".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(6);
+                            ++charNumber;
+                        } else if ("Ã’".equals(c)) {
+                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(7);
+                            ++charNumber;
+                        } else {
                             String symbol = String.valueOf(c);
                             Block block = null;
                             for(BuildingSymbol bs:this.blocks){
@@ -332,9 +418,9 @@ public class BuildingBlueprint {
                                 }
                             }
                         }
+                        ++this.blockCount;
                     }
                 }
-
                 ModSimLoader.log.info("读取建筑物 " + file.getName());
                 br.close();
 //                bw.close();

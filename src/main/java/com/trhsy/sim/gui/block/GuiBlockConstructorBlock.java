@@ -19,9 +19,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName GuiBlockConstructorBlock
@@ -37,7 +37,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
     /**建筑蓝图**/
     public BuildingBlueprint selectedBlueprint;
     /**蓝图集合**/
-    public List<BuildingBlueprint> potentialBlueprints = new ArrayList();
+    public List<BuildingBlueprint> potentialBlueprints = new CopyOnWriteArrayList<>();
     /**可雇佣的人**/
     public NpcIdentity[] hireableFolkNames = new NpcIdentity[1000];
     /**雇佣地形师*/

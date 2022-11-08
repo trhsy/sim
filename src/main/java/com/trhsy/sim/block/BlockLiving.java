@@ -35,7 +35,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     public BlockLiving() {
         super(Material.CARPET, TYPE, EnumBlockLiving.class);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLiving.WHITE));
-        this.setHardness(10.0F);
+        this.setHardness(1.0F);
         this.setResistance(1);
         this.setTickRandomly(true);
         this.setUnlocalizedName("livingBlock");

@@ -37,8 +37,11 @@ public class CommonProxy {
         new CraftingLoader();
         /**矿物生成**/
         new WorldGeneratorLoader();
+        /**实体渲染**/
         EntityLoader.init();
+        /**特征**/
         Traits.loadTraits();
+        /**种族*/
         Race.loadRaces();
 
     }
@@ -47,6 +50,7 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
+        /**加载所以建筑蓝图**/
         ModSimLoader.loadAllBuildings();
     }
 

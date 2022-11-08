@@ -1,6 +1,7 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.block.BlockMarker;
+import com.trhsy.sim.gui.block.GuiBlockControllerBlock;
 import com.trhsy.sim.gui.npc.GuiFolk;
 import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.gui.block.GuiBlockConstructorBlock;
@@ -468,7 +469,7 @@ public class ModSimLoader {
      * @Param []
      **/
     public static List<NpcIdentity> getUnemployedFolks() {
-        List<NpcIdentity> hireables = new ArrayList();
+        List<NpcIdentity> hireables = new CopyOnWriteArrayList<>();
         for (NpcIdentity cfi : tempHireableNpcNames) {
 
             if (cfi.job.contentEquals(I18n.format("container.sim.folkData1")) && Integer.parseInt(cfi.age) >= Integer.parseInt(cfi.maturityAge)) {
@@ -486,7 +487,7 @@ public class ModSimLoader {
      * @return java.util.List<com.trhsy.sim.npc.build.BuildingBlueprint>
      **/
     public static List<BuildingBlueprint> getBlueprintsByType(String type, String searchText) {
-        List<BuildingBlueprint> typedBlues = new ArrayList();
+        List<BuildingBlueprint> typedBlues = new CopyOnWriteArrayList<>();
         for (BuildingBlueprint bb : buildingBlueprints) {
 
             if (searchText != "" &&searchText != null) {
@@ -614,7 +615,7 @@ public class ModSimLoader {
      * @return java.util.List<com.trhsy.sim.npc.build.Building>
      **/
     public static List<Building> getClosestBuildingByJob(String jobType, final V3 pos) {
-        List<Building> bs = new ArrayList();
+        List<Building> bs = new CopyOnWriteArrayList<>();
         Iterator var3 = buildings.iterator();
 
         while(var3.hasNext()) {
@@ -644,7 +645,7 @@ public class ModSimLoader {
      * @return java.util.List<com.trhsy.sim.npc.build.Building>
      **/
     public static List<Building> getClosestBuilding(String buildIn, final V3 pos) {
-        List<Building> bs = new ArrayList();
+        List<Building> bs = new CopyOnWriteArrayList();
         Iterator var3 = buildings.iterator();
 
         while(var3.hasNext()) {
@@ -969,8 +970,8 @@ public class ModSimLoader {
      **/
     public static Building getBuildingByUUID(String uuid) {
         Building b1=null;
-        for ( Building b:buildings){
-            if(!b.ID.toString().contentEquals(uuid)){
+        for (Building b:buildings){
+            if(b.ID.toString().contentEquals(uuid)){
                 b1=b;
                 return b1;
             }
@@ -987,6 +988,7 @@ public class ModSimLoader {
 
         return "";
     }
+    /**根据蓝图id找到蓝图*/
     public static BlueprintRequirements getRequirementsByUUID(UUID uuid) {
         BlueprintRequirements cbr=null;
         for (BlueprintRequirements cbr1:blueprintReqs){
@@ -996,5 +998,16 @@ public class ModSimLoader {
            }
         }
         return cbr;
+    }
+    /**打开控制箱*/
+    public static void openControlGui(V3 v3, String buildingId) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, buildingId));
+    }
+    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId));
+    }
+
+    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,isResidential));
     }
 }

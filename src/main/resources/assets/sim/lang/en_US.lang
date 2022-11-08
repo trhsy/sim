@@ -607,7 +607,7 @@ container.sim.on_this_building=ERROR: lost info on this building
 container.sim.this_Building=only click 'fix house' below if this Building IS a house
 container.sim.Under_construction=Under construction
 container.sim.Active_Building=Active Building
-container.sim.sim_Building=Building
+container.sim.sim_Building=Building Name
 container.sim.sim_Type=Type
 container.sim.Employees=Employees
 container.sim.Resident=Resident
@@ -910,6 +910,7 @@ container.sim.MaleNames=Aaron, Adam, Alan, Albatrude, Alexander, Amaranth, Andre
 
 container.sim.Wife=Wife
 container.sim.Husband=Husband
+container.sim.Hire0=Hire
 container.sim.Hire1=Hire builder
 container.sim.Hire2=Hire Waiter
 container.sim.Hire3=Hire Fry Cook
@@ -1194,3 +1195,4 @@ container.sim.npcData_onupdate2= with their parents
 container.sim.npcData_onupdate3= has moved int
 
 container.sim.hire_elsewhere=was hired elsewhere, try hiring a different folk
+container.sim.gui.block_controller_Occupants=Occupants

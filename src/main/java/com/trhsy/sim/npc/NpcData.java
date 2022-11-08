@@ -74,11 +74,11 @@ public class NpcData {
     /**情感关系**/
     public List<FolkRelationship> relationships = new CopyOnWriteArrayList();
     /**情绪**/
-    public List<MoodBuff> buffs = new ArrayList();
+    public List<MoodBuff> buffs = new CopyOnWriteArrayList();
     /**物品栏**/
     public List<ItemStack> inventory = new CopyOnWriteArrayList<>();
     /**任务**/
-    public List<Task> tasks = new ArrayList();
+    public List<Task> tasks = new CopyOnWriteArrayList();
     /**当前任务**/
     public Task currentTask;
     /**特征1**/
@@ -847,8 +847,8 @@ public class NpcData {
         if (this.job != null && this.shouldWork()) {
             if (!this.job.atWork) {
             }
+                this.job.onUpdate();
 
-            this.job.onUpdate();
         } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
             try {
                 this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);

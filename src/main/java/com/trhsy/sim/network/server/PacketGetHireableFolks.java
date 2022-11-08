@@ -11,8 +11,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName PacketGetHireableFolks
@@ -21,7 +21,7 @@ import java.util.List;
  * @Date 2022/10/2118:04
  **/
 public class PacketGetHireableFolks implements IMessage {
-    public List<NpcIdentity> folkNames = new ArrayList();
+    public List<NpcIdentity> folkNames = new CopyOnWriteArrayList<>();
     public boolean isFromClient;
 
     public PacketGetHireableFolks() {

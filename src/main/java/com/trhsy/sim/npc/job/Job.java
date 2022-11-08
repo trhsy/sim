@@ -6,6 +6,7 @@ import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.task.JobTask;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -15,7 +16,6 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -141,10 +141,10 @@ public abstract class Job {
                     if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.worldObj.isRemote) {
                         this.onWayToWork = true;
                         if (this.folk.entity.getDistance(this.workPlace.x, this.workPlace.y, this.workPlace.z) < 20.0D) {
-                            this.folk.setStatus("Going to work");
+                            this.folk.setStatus(I18n.format("container.sim.folk_data_Going_work"));
                             this.folk.forceMoveToXYZ(this.workPlace);
                         } else {
-                            this.folk.setStatus("Going to work");
+                            this.folk.setStatus(I18n.format("container.sim.folk_data_Going_work"));
                             this.folk.entity.setPositionAndUpdate(this.workPlace.x + 0.5D, this.workPlace.y + 1.0D, this.workPlace.z + 0.5D);
                             this.folk.entity.getNavigator().clearPathEntity();
                         }
@@ -163,12 +163,9 @@ public abstract class Job {
                             this.itemGrabTimer = System.currentTimeMillis();
                         } else if (System.currentTimeMillis() - this.itemGrabTimer > 5000L) {
                             this.itemGrabTimer = System.currentTimeMillis();
-                            ArrayList<IInventory> chests = this.inventoriesFindClosest(this.folk.getV3(), 5);
-                            Iterator var2 = chests.iterator();
+                            List<IInventory> chests = this.inventoriesFindClosest(this.folk.getV3(), 5);
 
-                            while(var2.hasNext()) {
-                                IInventory inv = (IInventory)var2.next();
-
+                            for (IInventory inv:chests){
                                 for(int i = 0; i < inv.getFieldCount(); ++i) {
                                     Iterator var5 = this.collectionItems.iterator();
 
@@ -192,8 +189,8 @@ public abstract class Job {
         }
     }
 
-    public ArrayList<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
-        ArrayList ret = new ArrayList();
+    public List<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
+        List ret = new CopyOnWriteArrayList();
 
         try {
             World world = this.folk.entity.worldObj;
@@ -224,7 +221,7 @@ public abstract class Job {
         }
     }
 
-    private boolean alreadyGotChest(ArrayList<IInventory> chests, IInventory chest) {
+    private boolean alreadyGotChest(List<IInventory> chests, IInventory chest) {
         boolean ret = false;
         Iterator var4 = chests.iterator();
 

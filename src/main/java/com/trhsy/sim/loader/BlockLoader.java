@@ -5,7 +5,6 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.*;
 import com.trhsy.sim.util.EnumBlock;
 import com.trhsy.sim.util.ItemBlockMeta;
-import com.trhsy.sim.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
@@ -17,11 +16,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Locale;
 
 
 public class BlockLoader {
