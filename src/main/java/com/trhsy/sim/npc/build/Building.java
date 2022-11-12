@@ -29,7 +29,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Building {
     public UUID ID = null;
     public String buildingName = "";
-    public String buildingType = "";
+    public String buildingType = "NULL";
     public String jobType = "";
     public String author = "Trhsy";
     public int length = 0;

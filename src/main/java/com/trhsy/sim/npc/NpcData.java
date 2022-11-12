@@ -807,54 +807,18 @@ public class NpcData {
             this.onMinute();
             this.minuteUpdate = now;
         }
-        //实体是空的
-        if (this.entity == null) {
-            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-            for (EntityPlayerMP player:players.getPlayerList()){
-                double dist=player.getDistance(this.pos.x, this.pos.y, this.pos.z);
-                if (this.pos != null &&  dist< 50.0D && !player.worldObj.isRemote) {
-                    ModSimLoader.hasLoadedFolks = true;
-                    //重生
-                    this.respawn(player.worldObj, this.pos.toBlockPos());
-                }
-            }
-        }
-
-        if (this.entity != null && !this.entity.worldObj.isRemote) {
-            this.entity.onFolkUpdate();
-            this.pos = V3.fromVec3d(this.entity.getPositionVector());
-            this.pos.dimension = this.entity.dimension;
-            /*
-            //是否取消
-            boolean shouldDespawn = false;
-            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-            for(EntityPlayerMP player :players.getPlayerList()){
-                //NPC距离玩家80步之外消失
-                double dist=player.getDistance(this.entity.posX,this.entity.posY,this.entity.posZ);
-                if ( dist> 80.0F) {
-                    shouldDespawn = true;
-                }
-            }
-
-            if (shouldDespawn) {
-//                goHome();
-                this.entity.setDead();
-                this.entity.theData = null;
-                this.entity = null;
-            }*/
-        }
 
         if (this.job != null && this.shouldWork()) {
-            if (!this.job.atWork) {
-            }
+            /*if (!this.job.atWork) {
+            }*/
                 this.job.onUpdate();
-
+                //有工作，不该工作的时候
         } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
             try {
                 this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
             } catch (Exception var6) {
             }
-
+            //等待
             this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
             this.job.stage = 0;
             this.job.atWork = false;
@@ -895,7 +859,7 @@ public class NpcData {
             return false;
         } else if (this.pregnancyStage > 0.0F) {
             return false;
-            //士兵
+                                                            //士兵
         } else if (this.job != null && this.job.jobName == I18n.format("container.sim.Vocation7")) {
             return !ModSimLoader.isDayTime(this.entity.worldObj);
         } else {
@@ -910,6 +874,7 @@ public class NpcData {
      * @return void
      **/
     public void onSecond() {
+
         if (this.entity != null) {
             //应该工作就去工作
             if (this.job != null && this.shouldWork()) {
@@ -952,6 +917,40 @@ public class NpcData {
 
             }
 
+        }else{
+            //实体是空的
+            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+            for (EntityPlayerMP player:players.getPlayerList()){
+                double dist=player.getDistance(this.pos.x, this.pos.y, this.pos.z);
+                if (this.pos != null &&  dist< 50.0D && !player.worldObj.isRemote) {
+                    ModSimLoader.hasLoadedFolks = true;
+                    //重生
+                    this.respawn(player.worldObj, this.pos.toBlockPos());
+                }
+            }
+        }
+        if (this.entity != null && !this.entity.worldObj.isRemote) {
+            this.entity.onFolkUpdate();
+            this.pos = V3.fromVec3d(this.entity.getPositionVector());
+            this.pos.dimension = this.entity.dimension;
+            /*
+            //是否取消
+            boolean shouldDespawn = false;
+            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+            for(EntityPlayerMP player :players.getPlayerList()){
+                //NPC距离玩家80步之外消失
+                double dist=player.getDistance(this.entity.posX,this.entity.posY,this.entity.posZ);
+                if ( dist> 80.0F) {
+                    shouldDespawn = true;
+                }
+            }
+
+            if (shouldDespawn) {
+//                goHome();
+                this.entity.setDead();
+                this.entity.theData = null;
+                this.entity = null;
+            }*/
         }
     }
     /**

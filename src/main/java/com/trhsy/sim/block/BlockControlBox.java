@@ -162,17 +162,15 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
                 for (NpcData f : ModSimLoader.folks) {
                     //有房子
                     if (f.home == b) {
-                        String uid="";
                         if(b!=null){
-                            uid=b.ID.toString();
+                            NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos,b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, f.getClientIdentity(),true), (EntityPlayerMP) playerIn);
                         }
-                        NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos,uid , f.getClientIdentity(),true), (EntityPlayerMP) playerIn);
                         return true;
                     }
                 }
-                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(), false), (EntityPlayerMP) playerIn);
+                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, false), (EntityPlayerMP) playerIn);
             } else {
-                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(), fd.getClientIdentity(),false), (EntityPlayerMP) playerIn);
+                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, fd.getClientIdentity(),false), (EntityPlayerMP) playerIn);
             }
 
         }

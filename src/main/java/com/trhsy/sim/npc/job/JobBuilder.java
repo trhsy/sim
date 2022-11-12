@@ -23,6 +23,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBed;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
@@ -243,10 +244,10 @@ public class JobBuilder extends Job {
                                 //判断性别，发出不一样的声音
                                 if (this.folk.gender == 0) {
                                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":readym"));
-                                    this.jobWorld.playSound(this.folk.pos.x, this.folk.pos.y, this.folk.pos.z, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+                                    this.jobWorld.playSound(this.folk.pos.x, this.folk.pos.y, this.folk.pos.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
                                 } else {
                                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":readyf"));
-                                    this.jobWorld.playSound(this.folk.pos.x, this.folk.pos.y, this.folk.pos.z, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+                                    this.jobWorld.playSound(this.folk.pos.x, this.folk.pos.y, this.folk.pos.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
                                 }
                             }
                         }
@@ -264,10 +265,11 @@ public class JobBuilder extends Job {
                                 if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     ////上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
-                                    //发送建筑蓝图
-                                    NetWorkLoader.net.sendToAll(new PacketSendBuildingRequirements(this.blueprint, this));
                                     //放置方块
                                     this.placeBlock();
+                                    //发送建筑蓝图
+                                    NetWorkLoader.net.sendToAll(new PacketSendBuildingRequirements(this.blueprint, this));
+
                                 }
                             } else {
                                 //上次时间为当前时间
@@ -324,7 +326,9 @@ public class JobBuilder extends Job {
             //方块编号大于
             if (this.blockNumber >= this.blueprint.structure.length) {
                 this.folk.fire();
-                this.constructorBlock.employee = null;
+                if(this.constructorBlock!=null){
+                    this.constructorBlock.employee = null;
+                }
                 this.createBuilding();
                 ModSimLoader.log.info("从第一次功能检查激发");
                 return;
@@ -348,7 +352,15 @@ public class JobBuilder extends Job {
             }
             Block fs_block = this.folk.entity.worldObj.getBlockState(newBP).getBlock();
             Block fs_st_block=st.getBlock();
-            if (!fs_block.getUnlocalizedName().contentEquals("tile.air") && fs_block !=fs_st_block) {
+            //控制箱
+            if (fs_st_block == BlockLoader.blockControlBox) {
+                this.controllerPos = newBP;
+                //生活方块地毯
+            } else if (fs_st_block == BlockLoader.blockLiving) {
+                this.livingPos = newBP;
+//                st = Blocks.AIR.getDefaultState();
+            }
+            if (fs_block !=fs_st_block) {
 
                 if (ModSimLoader.states.credits < 0.02F) {
                     //没有钱付给我！
@@ -357,20 +369,25 @@ public class JobBuilder extends Job {
                 }
                 Block newBlock = this.folk.entity.worldObj.getBlockState(newBP.down()).getBlock();
                 //门
-                if (st.getBlock() instanceof BlockDoor && newBlock != st.getBlock()) {
+                if (fs_st_block instanceof BlockDoor && newBlock != fs_st_block) {
                     normalBlock = false;
                     //放置门
-                    ItemDoor.placeDoor(this.folk.entity.worldObj, newBP, EnumFacing.NORTH, st.getBlock(), false);
+                    ItemDoor.placeDoor(this.folk.entity.worldObj, newBP, EnumFacing.NORTH, fs_st_block, false);
                     ModSimLoader.addMoney(-0.02F);
                 }
                 //床
-                if (st.getBlock() == Blocks.BED) {
+                if (fs_st_block == Blocks.BED) {
+                    String name=fs_block.getUnlocalizedName();
+                    System.out.println(name);
+                    if(name.contains("bed")){
+                        //                    normalBlock = false;//床不是普通的块
+                    }
                 }
                 //控制箱
-                if (st.getBlock() == BlockLoader.blockControlBox) {
+                if (fs_st_block == BlockLoader.blockControlBox) {
                     this.controllerPos = newBP;
                     //生活方块地毯
-                } else if (st.getBlock() == BlockLoader.blockLiving) {
+                } else if (fs_st_block == BlockLoader.blockLiving) {
                     this.livingPos = newBP;
 //                st = Blocks.AIR.getDefaultState();
                 }
@@ -381,16 +398,16 @@ public class JobBuilder extends Job {
                         //是不是蓝图的块
                         boolean hasBlock = false;
                         //是不是必须的方块
-                        if (!this.blueprint.isRequiredBlock(st.getBlock())) {
+                        if (!this.blueprint.isRequiredBlock(fs_st_block)) {
                             //放置方块
                             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
                             //已放置
                             hasBlock = true;
                         } else {
-                            Block b = st.getBlock();
+                            Block b = fs_st_block;
                             newBlock = this.folk.entity.worldObj.getBlockState(newBP).getBlock();
                             //是否是同一个块，是否已放置
-                            if (this.isSameBlock(newBlock, st.getBlock())) {
+                            if (this.isSameBlock(newBlock, fs_st_block)) {
                                 hasBlock = true;
                                 hasPlaced = true;
                             } else {
@@ -419,7 +436,7 @@ public class JobBuilder extends Job {
                         if (!hasBlock) {
                             //等待材料
                             this.folk.setStatus(I18n.format("container.sim.JobBuilder4"));
-                            this.missingBlock = st.getBlock();
+                            this.missingBlock = fs_st_block;
                             return;
                         }
                         //重置缺少的块
@@ -440,13 +457,80 @@ public class JobBuilder extends Job {
                             this.folk.entity.worldObj.setBlockState(newBP, st);
                             ModSimLoader.addMoney(-0.02F);
                             //栅栏
-                        } else if (st.getBlock() instanceof BlockFence) {
+                        } else if (fs_st_block instanceof BlockFence) {
                             //放置方块
                             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
                             this.folk.entity.worldObj.setBlockState(newBP, st);
                             ModSimLoader.addMoney(-0.02F);
                         } else {
-                            for (IProperty prop : st.getProperties().keySet()) {
+                            EnumFacing facing = null;
+                            IProperty prop = null;
+                            Collection validFacings = null;
+                            do {
+                                for (IProperty p : st.getProperties().keySet()) {
+                                    prop=p;
+                                    if (prop.getName().equals("facing")) {
+                                        //放置方块
+                                        this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
+                                        ModSimLoader.log.info("================================================================");
+                                        ModSimLoader.log.info(this.direction + " : " + this.blueprint.direction);
+                                        ModSimLoader.log.info("得到方块" + fs_st_block.getUnlocalizedName() + "面向");
+                                        facing = (EnumFacing) st.getValue(prop);
+                                        validFacings = prop.getAllowedValues();
+                                        ModSimLoader.log.info("块当前面向" + facing.toString());
+                                        break;
+                                    }
+                                    //放置方块
+                                    this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
+                                    this.folk.entity.worldObj.setBlockState(newBP, st);
+                                    ModSimLoader.addMoney(-0.02F);
+                                }
+                            }while(validFacings!=null&&validFacings.size() <4);
+                            //不朝上 不朝下
+                            if (facing!=null&&facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
+                                IBlockState newState = st.withProperty(prop, facing.rotateY());
+                                if (this.direction == 0 && this.blueprint.direction == 3 || this.direction == 1 && this.blueprint.direction == 0 || this.direction == 2 && this.blueprint.direction == 1 || this.direction == 3 && this.blueprint.direction == 2) {
+                                    newState = st.withProperty(prop, facing.rotateY());
+                                    st = st.withRotation(Rotation.CLOCKWISE_90);
+                                    if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                        this.folk.entity.worldObj.setBlockState(newBP, st);
+                                        ModSimLoader.addMoney(-0.02F);
+                                    }
+                                    ModSimLoader.log.info("方块应该面向 " + facing.rotateY().toString() + " (顺时针方向的)");
+                                    ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) newState.getValue(prop)).toString());
+                                } else if ((this.direction != 0 || this.blueprint.direction != 2) && (this.direction != 1 || this.blueprint.direction != 3) && (this.direction != 2 || this.blueprint.direction != 0) && (this.direction != 3 || this.blueprint.direction != 1)) {
+                                    if (this.direction == 0 && this.blueprint.direction == 1 || this.direction == 1 && this.blueprint.direction == 2 || this.direction == 2 && this.blueprint.direction == 3 || this.direction == 3 && this.blueprint.direction == 0) {
+                                        newState = st.withProperty(prop, facing.rotateYCCW());
+                                        st = st.withRotation(Rotation.COUNTERCLOCKWISE_90);
+                                        if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                            this.folk.entity.worldObj.setBlockState(newBP, st);
+                                            ModSimLoader.addMoney(-0.02F);
+                                        }
+                                        ModSimLoader.log.info("方块应该面向 " + facing.rotateYCCW().toString() + " (逆时针方向)");
+                                        ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) newState.getValue(prop)).toString());
+                                    } else if (this.direction == this.blueprint.direction) {
+                                        if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                            this.folk.entity.worldObj.setBlockState(newBP, st);
+                                            ModSimLoader.addMoney(-0.02F);
+                                        }
+                                        ModSimLoader.log.info("方块应该面向 " + facing.toString() + " (无旋转)");
+                                    } else {
+                                        ModSimLoader.log.info("出了问题(无旋转)");
+                                        ModSimLoader.log.error(this.direction + ":" + this.blueprint.direction);
+                                    }
+                                } else {
+                                    st = st.withRotation(Rotation.CLOCKWISE_180);
+                                    if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                        this.folk.entity.worldObj.setBlockState(newBP, st);
+                                        ModSimLoader.addMoney(-0.02F);
+                                    }
+                                    ModSimLoader.log.info("方块应该面向 " + facing.rotateY().rotateY().toString() + " (快速翻转)");
+                                    ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) st.getValue(prop)).toString());
+                                }
+                            } else {
+                                this.folk.entity.worldObj.setBlockState(newBP, st);
+                            }
+                            /*for (IProperty prop : st.getProperties().keySet()) {
                                 EnumFacing facing;
                                 Collection validFacings;
                                 if (prop.getName().equals("facing")) {
@@ -454,63 +538,16 @@ public class JobBuilder extends Job {
                                     this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
                                     ModSimLoader.log.info("================================================================");
                                     ModSimLoader.log.info(this.direction + " : " + this.blueprint.direction);
-                                    ModSimLoader.log.info("得到方块" + st.getBlock().getUnlocalizedName() + "面向");
+                                    ModSimLoader.log.info("得到方块" + fs_st_block.getUnlocalizedName() + "面向");
                                     facing = (EnumFacing) st.getValue(prop);
                                     validFacings = prop.getAllowedValues();
                                     ModSimLoader.log.info("块当前面向" + facing.toString());
                                     if (validFacings.size() > 4) {
-                                        //不朝上 不朝下
-                                        if (facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
-                                            IBlockState newState = st.withProperty(prop, facing.rotateY());
-                                            ;
-                                            if (this.direction == 0 && this.blueprint.direction == 3 || this.direction == 1 && this.blueprint.direction == 0 || this.direction == 2 && this.blueprint.direction == 1 || this.direction == 3 && this.blueprint.direction == 2) {
-                                                newState = st.withProperty(prop, facing.rotateY());
-                                                st = st.withRotation(Rotation.CLOCKWISE_90);
-                                                if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), st.getBlock())) {
-                                                    this.folk.entity.worldObj.setBlockState(newBP, st);
-                                                    ModSimLoader.addMoney(-0.02F);
-                                                }
-                                                ModSimLoader.log.info("方块应该面向 " + facing.rotateY().toString() + " (顺时针方向的)");
-                                                ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) newState.getValue(prop)).toString());
-                                            } else if ((this.direction != 0 || this.blueprint.direction != 2) && (this.direction != 1 || this.blueprint.direction != 3) && (this.direction != 2 || this.blueprint.direction != 0) && (this.direction != 3 || this.blueprint.direction != 1)) {
-                                                if (this.direction == 0 && this.blueprint.direction == 1 || this.direction == 1 && this.blueprint.direction == 2 || this.direction == 2 && this.blueprint.direction == 3 || this.direction == 3 && this.blueprint.direction == 0) {
-                                                    newState = st.withProperty(prop, facing.rotateYCCW());
-                                                    st = st.withRotation(Rotation.COUNTERCLOCKWISE_90);
-                                                    if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), st.getBlock())) {
-                                                        this.folk.entity.worldObj.setBlockState(newBP, st);
-                                                        ModSimLoader.addMoney(-0.02F);
-                                                    }
-                                                    ModSimLoader.log.info("方块应该面向 " + facing.rotateYCCW().toString() + " (逆时针方向)");
-                                                    ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) newState.getValue(prop)).toString());
-                                                } else if (this.direction == this.blueprint.direction) {
-                                                    if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), st.getBlock())) {
-                                                        this.folk.entity.worldObj.setBlockState(newBP, st);
-                                                        ModSimLoader.addMoney(-0.02F);
-                                                    }
-                                                    ModSimLoader.log.info("方块应该面向 " + facing.toString() + " (无旋转)");
-                                                } else {
-                                                    ModSimLoader.log.info("出了问题(无旋转)");
-                                                    ModSimLoader.log.error(this.direction + ":" + this.blueprint.direction);
-                                                }
-                                            } else {
-                                                st = st.withRotation(Rotation.CLOCKWISE_180);
-                                                if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), st.getBlock())) {
-                                                    this.folk.entity.worldObj.setBlockState(newBP, st);
-                                                    ModSimLoader.addMoney(-0.02F);
-                                                }
-                                                ModSimLoader.log.info("方块应该面向 " + facing.rotateY().rotateY().toString() + " (快速翻转)");
-                                                ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) st.getValue(prop)).toString());
-                                            }
-                                        } else {
-                                            this.folk.entity.worldObj.setBlockState(newBP, st);
-                                        }
+
                                     }
                                 }
-                            }
-                            //放置方块
-                            this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
-                            this.folk.entity.worldObj.setBlockState(newBP, st);
-                            ModSimLoader.addMoney(-0.02F);
+                            }*/
+
                         }
                     }
                 }
@@ -564,7 +601,9 @@ public class JobBuilder extends Job {
             ++this.blockNumber;
             if (this.blockNumber >= this.blueprint.structure.length) {
                 this.folk.fire();
-                this.constructorBlock.employee = null;
+                if(this.constructorBlock!=null){
+                    this.constructorBlock.employee = null;
+                }
                 ModSimLoader.log.info("从中间功能检查中激发");
                 this.createBuilding();
                 return;
@@ -600,9 +639,7 @@ public class JobBuilder extends Job {
                         this.z = 0;
                         ++this.y;
                     }
-                }*/
-                BlockPos tempBP;
-                Block newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
+                }
                 if (this.direction == 0) {
                     tempBP = new BlockPos(this.startPos.getX() + this.x, this.startPos.getY() + this.y, this.startPos.getZ() - this.z);
                     newNumberBP=this.blueprint.structure[this.blockNumber].getBlock();
@@ -621,7 +658,7 @@ public class JobBuilder extends Job {
                 boolean flag1 = newTempBP.getUnlocalizedName().contentEquals(s);
                 boolean flag2 = s != "tile.air";
                 boolean flag3 = !s.contentEquals("tile.air");
-                while (flag1||(flag2&&flag3)) {
+                while (flag1&&flag2&&flag3) {
                     ++this.x;
                     if (this.x > this.blueprint.length - 1) {
                         this.x = 0;
@@ -671,8 +708,7 @@ public class JobBuilder extends Job {
                     flag1 = newTempBP.getUnlocalizedName().contentEquals(s);
                     flag2 = s != "tile.air";
                     flag3 = !s.contentEquals("tile.air");
-                }
-
+                }*/
             } catch (Exception var11) {
                 ModSimLoader.log.info("建造建筑出错误了" + var11.getMessage());
                 this.folk.fire();
@@ -680,9 +716,12 @@ public class JobBuilder extends Job {
             }
         } catch (Exception var12) {
             var12.printStackTrace();
-            ModSimLoader.log.info("因错误而解雇的员工");
+            StackTraceElement element=var12.getStackTrace()[0];
+            ModSimLoader.log.error("因错误而解雇的员工：" + var12.getMessage()+"行数："+element.getLineNumber());
             this.folk.fire();
-            this.constructorBlock.employee = null;
+            if(this.constructorBlock!=null){
+                this.constructorBlock.employee = null;
+            }
         }
 
     }
@@ -740,7 +779,7 @@ public class JobBuilder extends Job {
         ModSimLoader.sendChat(text);
         //播放声音
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-        this.jobWorld.playSound(v3.x, v3.y, v3.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+        this.jobWorld.playSound(v3.x, v3.y, v3.z, soundEvent, SoundCategory.AMBIENT, 1, 1, false);
     }
 
     /**

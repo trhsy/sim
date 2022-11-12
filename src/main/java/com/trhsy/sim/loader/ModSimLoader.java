@@ -1000,14 +1000,14 @@ public class ModSimLoader {
         return cbr;
     }
     /**打开控制箱*/
-    public static void openControlGui(V3 v3, String buildingId) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, buildingId));
+    public static void openControlGui(V3 v3, String buildingId,String buildingName,String jobName,String bType,String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, buildingId,buildingName,jobName,bType,author));
     }
-    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId));
+    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk,String buildingName,String jobName,String bType,String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,buildingName,jobName,bType,author));
     }
 
-    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,isResidential));
+    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential,String buildingName,String jobName,String bType,String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,isResidential,buildingName,jobName,bType,author));
     }
 }

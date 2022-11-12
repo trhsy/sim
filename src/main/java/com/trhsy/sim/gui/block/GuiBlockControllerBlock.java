@@ -40,7 +40,10 @@ public class GuiBlockControllerBlock extends GuiScreen {
     /**建筑id**/
     public String buildingId;
     /**建筑**/
-    public Building buildings ;
+    public String buildingName = "buildingName";
+    public String jobName = "null";
+    private String buildingType;
+    private String author;
     /**选择的NPC**/
     GuiButton selectedEmployee;
     /**当前页**/
@@ -60,43 +63,43 @@ public class GuiBlockControllerBlock extends GuiScreen {
      * @Param [p, bId, bName, jName]
      * @return 
      **/
-    public GuiBlockControllerBlock(V3 p, String bId) {
+    public GuiBlockControllerBlock(V3 p, String bId, String bName, String jName,String bType,String author) {
         this.pos = p;
         this.hasEmployee = false;
         this.employee = null;
         this.buildingId = bId;
-        for (Building building:ModSimLoader.buildings){
-            if(building.ID.toString().equals(bId)){
-                this.buildings=building;
-            }
-        }
+        ModSimLoader.log.info("控制箱ID:"+bId);
+        this.buildingName = bName;
+        this.jobName = jName;
+        this.buildingType=bType;
+        this.author=author;
         this.getHireableFolkNames();
         this.populateJobList();
     }
 
-    public GuiBlockControllerBlock(V3 p, NpcIdentity folk, String bId) {
+    public GuiBlockControllerBlock(V3 p, NpcIdentity folk, String bId, String bName, String jName,String bType,String author) {
         this.pos = p;
         this.employee = folk;
         this.hasEmployee = true;
-        for (Building building:ModSimLoader.buildings){
-            if(building.ID.toString().equals(bId)){
-                this.buildings=building;
-            }
-        }
+        ModSimLoader.log.info("控制箱ID:"+bId);
         this.buildingId = bId;
+        this.buildingName = bName;
+        this.jobName = jName;
+        this.buildingType=bType;
+        this.author=author;
         this.getHireableFolkNames();
         this.populateJobList();
     }
 
-    public GuiBlockControllerBlock(V3 p, NpcIdentity resident, String bId,Boolean isResidential) {
+    public GuiBlockControllerBlock(V3 p, NpcIdentity resident, String bId,Boolean isResidential, String bName,String jName,String bType,String author) {
         this.pos = p;
         this.employee = resident;
-        for (Building building:ModSimLoader.buildings){
-            if(building.ID.toString().equals(bId)){
-                this.buildings=building;
-            }
-        }
+        ModSimLoader.log.info("控制箱ID:"+bId);
         this.buildingId = bId;
+        this.buildingName = bName;
+        this.jobName = jName;
+        this.buildingType=bType;
+        this.author=author;
         this.isResidential = isResidential;
     }
     /**
@@ -146,12 +149,12 @@ public class GuiBlockControllerBlock extends GuiScreen {
             }else{
                 //拆除
                 this.buttonList.add(new GuiButton(1000, this.width - 110, 5, 100, 20, I18n.format("container.sim.Demolish")));
-                if (this.buildings.jobType!=null&&!"null".equals(this.buildings.jobType)) {
+                if (this.jobName!=null&&!"null".equals(this.jobName)) {
                     //显示员工
                     this.buttonList.add(new GuiButton(21, this.width - 110, this.height - 30, 100, 20, I18n.format("container.sim.sim_gui_BC_Show_Employees")));
                     if (!this.hasEmployee) {
                         //雇佣
-                        this.buttonList.add(new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire0") + WordUtils.capitalize(this.buildings.jobType)));
+                        this.buttonList.add(new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire0") + WordUtils.capitalize(this.jobName)));
                         ((GuiButton)this.buttonList.get(2)).enabled = false;
                     } else {
                         //解雇
@@ -205,21 +208,23 @@ public class GuiBlockControllerBlock extends GuiScreen {
             //如果此建筑是房屋,请仅单击下面的“修复房屋”
             this.fontRendererObj.drawString(I18n.format("container.sim.this_Building"), 5, 97, 16711680);
         } else {
-            this.fontRendererObj.drawString(this.buildings.buildingName, this.width / 2, 17, 16777215);
+            this.fontRendererObj.drawString(this.buildingName, this.width / 2, 17, 16777215);
             String author = "";
-            if (this.buildings.author != null && !this.buildings.author.contentEquals("")) {
-                author = this.buildings.author;
+            if (this.author != null && !this.author.contentEquals("")) {
+                author = this.author;
             }
+            //正在建设/修复中
             String isComplete = I18n.format("container.sim.Under_construction");
-            if (this.buildings!=null) {
+            if (this.buildingId!=null) {
+                //建筑可用
                 isComplete = I18n.format("container.sim.Active_Building");
             }
             //建筑名称
-            this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.buildings.buildingName, 5, 37, 16777088);
+            this.fontRendererObj.drawString(I18n.format("container.sim.sim_Building") + " : " + this.buildingName, 5, 37, 16777088);
             //作者
             this.fontRendererObj.drawString(I18n.format("container.sim.sim_gui_BC5") + " : " + author, 5, 47, 16777088);
             //类型
-            this.fontRendererObj.drawString(I18n.format("container.sim.sim_Type") + " : " + this.buildings.buildingType + " (" + isComplete + ")", 5, 57, 16777088);
+            this.fontRendererObj.drawString(I18n.format("container.sim.sim_Type") + " : " + this.buildingType + " (" + isComplete + ")", 5, 57, 16777088);
             if (this.isResidential) {
                 //拥有者
                 this.fontRendererObj.drawString(I18n.format("container.sim.gui.block_controller_Occupants")+":" +this.employee.name, 5, 67, 16777088);
@@ -272,7 +277,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             this.currentPage = 0;
                             this.showPage();
                             //雇佣npc
-                            NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, this.buildings.jobType, this.pos));
+                            NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, this.jobName, this.pos));
                         }
 
                         if (guibutton.id > 99 && guibutton.id < 1000) {

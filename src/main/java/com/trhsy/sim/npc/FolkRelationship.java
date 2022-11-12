@@ -47,7 +47,10 @@ public class FolkRelationship {
      */
     public FolkRelationship getInverse() {
         NpcData npcData= this.getOther();
-        FolkRelationship folkRelationship=npcData.getRelationshipWith(this.folk1);
+        FolkRelationship folkRelationship=null;
+        if(this.folk1!=null){
+            folkRelationship=npcData.getRelationshipWith(this.folk1);
+        }
         return folkRelationship;
     }
 

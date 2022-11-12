@@ -184,7 +184,6 @@ public class GuiRunMod extends GuiScreen {
                 case 4:
 
                     ModSimLoader.log.info("接受任命书");
-
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
                     this.page=1;
