@@ -883,6 +883,7 @@ public class ModSimLoader {
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
+        Collections.sort(ModSimLoader.buildingBlueprints);
 
     }
     public static void onUpdate() {

@@ -812,33 +812,45 @@ public class NpcData {
             /*if (!this.job.atWork) {
             }*/
                 this.job.onUpdate();
-                //有工作，不该工作的时候
+                //有工作，不该工作的时候 实体不是空
         } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
             try {
+                //清除实体手中物品
                 this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
             } catch (Exception var6) {
             }
             //等待
             this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
+            //工作阶段0
             this.job.stage = 0;
+            //停止工作
             this.job.atWork = false;
+            //停止工作
             this.job.onWayToWork = false;
+            //清空最近工作任务
             this.job.currentTask = null;
+            //自由活动
             this.stayPut = false;
         }
-
+        //工作为空 不应该工作 实体不为空
         if ((this.job == null || !this.shouldWork()) && this.entity != null) {
+            //任务不为空
             if (!this.tasks.isEmpty()) {
+                //最近任务不为空
                 if (this.currentTask != null) {
+                    //更新最近任务
                     this.currentTask.update();
                 } else {
+                    //重新获取任务
                     this.currentTask = (Task)this.tasks.get(0);
+                    //开始任务
                     this.currentTask.begin();
                 }
+                //白天的话随机运行任务
             } else if (ModSimLoader.isDayTime(this.entity.worldObj)) {
                 this.pickRandomTask();
             } else {
-
+                //晚上就睡觉
                 //睡觉
                 this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));
             }
@@ -1066,13 +1078,12 @@ public class NpcData {
      * @return void
      **/
     public void pickRandomTask() {
+        //有家并且随机任务是3
         if (this.home != null && this.rand.nextInt(4) == 3) {
+            //回家在家放松
             this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), this.home, I18n.format("container.sim.FolkAction5")));
         } else if (this.rand.nextInt(4) == 3) {
-            Iterator var1 = ModSimLoader.buildings.iterator();
-
-            while(var1.hasNext()) {
-                Building b = (Building)var1.next();
+            for(Building b:ModSimLoader.buildings){
                 if (b.controlXYZ.getDistanceTo(this.pos) < 40 && this.rand.nextInt(4) == 3) {
                     //住宅
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
@@ -1090,11 +1101,15 @@ public class NpcData {
                                             }
 
                                             fd = (NpcData)var3.next();
+                                            //当前NPC
                                         } while(fd.ID == this.ID);
+                                        //成年
                                     } while(this.isAdult() != fd.isAdult());
+                                    //应该工作
                                 } while(fd.shouldWork());
+                                //闲逛 不等于空
                             } while(!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null);
-
+                            //社交任务
                             this.addTask(new TaskSocialise(this, (long)(this.rand.nextInt(15000) + 15000), fd, b, false));
                             fd.currentTask = null;
                             fd.tasks.clear();
@@ -1105,13 +1120,13 @@ public class NpcData {
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Commercial"))) {
 
                         this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Shopping") + b.buildingName));
-                    //工业
+                        //工业
                     } else if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Industrial"))) {
                         this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
-                    //装饰
+                        //装饰
                     } else if (!b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Decorative"))) {
                         this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
-                    //其他
+                        //其他
                     }else if (!b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Other"))) {
                         this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
                     }
@@ -1266,7 +1281,7 @@ public class NpcData {
     }
     /**
      * @Author fan
-     * @Description //TODO 正在建筑
+     * @Description //TODO 在建筑内
      * @Date 11:36 2022/10/21
      * @Param [b]
      * @return boolean
@@ -1276,7 +1291,7 @@ public class NpcData {
     }
     /**
      * @Author fan
-     * @Description //TODO 正在建筑
+     * @Description //TODO 在建筑内
      * @Date 11:36 2022/10/21
      * @Param [b, maxDist]
      * @return boolean
@@ -1284,7 +1299,8 @@ public class NpcData {
     public boolean isAtBuilding(Building b, float maxDist) {
         if (this.entity == null) {
             return false;
-        } else if (b.buildingType.toLowerCase().contentEquals("residential")) {
+            //住宅
+        } else if (b.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
             return (float)b.livingXYZ.getDistanceTo(this.pos) < maxDist;
         } else {
             return (float)b.controlXYZ.getDistanceTo(this.pos) < maxDist;
@@ -1292,7 +1308,7 @@ public class NpcData {
     }
     /**
      * @Author fan
-     * @Description //TODO 正在建筑
+     * @Description //TODO 在建筑内
      * @Date 11:36 2022/10/21
      * @Param [v3]
      * @return boolean
@@ -1400,22 +1416,28 @@ public class NpcData {
         for (NpcData npcData:ModSimLoader.folks){
             ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
             if (npcData.ID.contentEquals(this.ID) && !npcData.entity.worldObj.isRemote) {
+                ModSimLoader.log.info("找到匹配ID");
+                ModSimLoader.sendChat(deathMessage);
+                if (this.home != null) {
+                    this.home.occupants.remove(this);
+                    this.home.saveBuilding();
+                }
 
-            }
-            ModSimLoader.log.info("找到匹配ID");
-            ModSimLoader.sendChat(deathMessage);
-            if (this.home != null) {
-                this.home.occupants.remove(this);
-                this.home.saveBuilding();
+                ModSimLoader.folks.remove(this);
+                try {
+                    Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
+                } catch (Exception var5) {
+                    var5.printStackTrace();
+                }
+            }else{
+                for (FolkRelationship folkRelationship:npcData.relationships) {
+                    if(folkRelationship.folk2.contains(this.ID)){
+                        npcData.relationships.remove(folkRelationship);
+                        npcData.saveFolk();
+                    }
+                }
             }
 
-            ModSimLoader.folks.remove(npcData);
-            try {
-                Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
-                return;
-            } catch (Exception var5) {
-                var5.printStackTrace();
-            }
         }
     }
     /**

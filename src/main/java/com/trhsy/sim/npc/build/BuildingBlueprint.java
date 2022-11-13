@@ -24,21 +24,32 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName BuildingBlueprint
- * @Description todo
+ * @Description todo 建筑蓝图
  * @Author TRHSY
  * @Date 2022/10/1917:42
  **/
-public class BuildingBlueprint {
+public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
+    /**蓝图名称*/
     public String name = I18n.format("container.sim.gui_Folk_Unknown");
+    /**描述*/
     public String desc = "";
+    /**建筑类型*/
     public String buildingType = "";
+    /**作者*/
     public String author = "Trhsy";
+    /**工作*/
     public String jobType = "null";
+    /**文件内容*/
     public String fileContents;
+    /**长*/
     public int length;
+    /**宽*/
     public int width;
+    /**高*/
     public int height;
+    /**建筑方向*/
     public int direction = 0;
+    /**计数块*/
     public int blockCount = 0;
     public List<BuildingSymbol> blocks = new CopyOnWriteArrayList<>();
     //蓝图建筑结构
@@ -114,14 +125,15 @@ public class BuildingBlueprint {
                                 this.structure[charNumber] = block.getStateFromMeta(0);
                             }
                             ++charNumber;
+                            //灯箱
                         } else if (String.valueOf(c).contentEquals("*")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
+                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(0);
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("+")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
+                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(3);
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("-")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
+                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(5);
                             ++charNumber;
                         } else if ("0".equals(c)) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(0);
@@ -343,13 +355,13 @@ public class BuildingBlueprint {
 //                            this.structure[charNumber] = block.getDefaultState();
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("*")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
+                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(0);
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("+")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
+                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(3);
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("-")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
+                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(5);
                             ++charNumber;
                         } else if ("0".equals(c)) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(0);
@@ -633,5 +645,10 @@ public class BuildingBlueprint {
         }
 
         return new Vec3d(pos.offset(facing, this.width + 1).up(this.height).offset(facing.rotateY(), this.length));
+    }
+
+    @Override
+    public int compareTo(BuildingBlueprint o) {
+        return this.structure.length-o.structure.length;
     }
 }

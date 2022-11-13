@@ -23,14 +23,20 @@ public class TaskSleep extends Task {
         super(folk, ms);
         this.statusText = statusText;
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 任务开始
+     * @Date 10:11 2022/11/13
+     * @Param []
+     * @return void
+     **/
     public void onTaskBegin() {
         //有家
         if (this.folk.home != null) {
             this.folk.stayPut = true;
             if (!this.folk.isAtBuilding(this.folk.home)) {
                 //回家
-                this.folk.setStatus(I18n.format("container.sim.FolkAction5"));
+                this.folk.setStatus(I18n.format("container.sim.FolkAction6"));
                 this.folk.forceMoveToXYZ(this.folk.home.livingXYZ);
             }
         } else {
@@ -39,16 +45,25 @@ public class TaskSleep extends Task {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 更新任务
+     * @Date 10:16 2022/11/13
+     * @Param []
+     * @return void
+     **/
     public void onUpdate() {
         if (this.folk.home != null) {
+            //不在建筑内
             if (!this.folk.isAtBuilding(this.folk.home)) {
+                //强制移动到建筑内
                 this.folk.forceMoveToXYZ(this.folk.home.livingXYZ);
             } else {
+                //
                 this.folk.setStatus(this.statusText);
             }
         }
-
+        //白天则完成任务
         if (ModSimLoader.isDayTime(this.folk.entity.worldObj)) {
             this.completeTask();
         }

@@ -22,7 +22,9 @@ public class FolkRelationship {
     public int subLevel;
 
     public FolkRelationship(NpcData folk1, NpcData folk2, EnumFamilyType family) {
+        //不相关的
         this.familyType = EnumFamilyType.UNRELATED;
+        //熟人
         this.level = EnumLevel.AQUAINTANCE;
         this.subLevel = 5;
         this.folk1 = folk1;
@@ -48,7 +50,7 @@ public class FolkRelationship {
     public FolkRelationship getInverse() {
         NpcData npcData= this.getOther();
         FolkRelationship folkRelationship=null;
-        if(this.folk1!=null){
+        if(this.folk1!=null&&npcData!=null){
             folkRelationship=npcData.getRelationshipWith(this.folk1);
         }
         return folkRelationship;
@@ -164,72 +166,87 @@ public class FolkRelationship {
         NpcData npcData=ModSimLoader.getFolkDataByUID(this.folk2);
         return npcData;
     }
+    /**
+     * @Author fan
+     * @Description //TODO 获取状态
+     * @Date 16:37 2022/11/13
+     * @Param []
+     * @return java.lang.String
+     **/
     public String getText() {
         String txt = "";
-        boolean female = this.getOther().gender == 1;
-        switch(this.familyType) {
-            case PARTNER:
-                String girlFriend=I18n.format("container.sim.girlFriend");
-                String boyFriend=I18n.format("container.sim.boyFriend");
-                txt = female ? girlFriend : boyFriend;
-                break;
-            case SPOUSE:
-                String wife=I18n.format("container.sim.Wife");
-                String husband=I18n.format("container.sim.Husband");
-                txt = female ? wife : husband;
-                break;
-            case PARENT:
-                String mother=I18n.format("container.sim.relation_ship_Mother");
-                String father=I18n.format("container.sim.relation_ship_Father");
-                txt = female ? mother : father;
-                break;
-            case CHILD:
-                String son=I18n.format("container.sim.relation_ship_Son");
-                String daughter=I18n.format("container.sim.relation_ship_Daughter");
-                txt = female ? daughter : son;
-                break;
-            case SIBLING:
-                String brother=I18n.format("container.sim.relation_ship_Brother");
-                String sister=I18n.format("container.sim.relation_ship_Sister");
-                txt = female ? sister : brother;
-                break;
-            case GRANDPARENT:
-                String grandfather=I18n.format("container.sim.relation_ship_Grandfather");
-                String grandmother=I18n.format("container.sim.relation_ship_Grandmother");
-                txt = female ? grandmother : grandfather;
-                break;
-            case GRANDCHILD:
-                String granddaughter=I18n.format("container.sim.relation_ship_Granddaughter");
-                String grandson=I18n.format("container.sim.relation_ship_Grandson");
-                txt = female ? granddaughter : grandson;
-                break;
-            case PARENTSIBLING:
-                String aunt=I18n.format("container.sim.relation_ship_Aunt");
-                String uncle=I18n.format("container.sim.relation_ship_Uncle");
-                txt = female ? aunt : uncle;
-                break;
-            case SIBLINGCHILD:
-                String niece=I18n.format("container.sim.relation_ship_Neice");
-                String nephew=I18n.format("container.sim.relation_ship_Nephew");
-                txt = female ? niece : nephew;
-                break;
-            case COUSIN:
-                String cousin=I18n.format("container.sim.cousin");
-                txt = cousin;
-                break;
-            case EXTENDED:
-                String extendedFamily=I18n.format("container.sim.extendedFamily");
-                txt = extendedFamily;
-                break;
-            case UNRELATED:
-                txt = "";
+        NpcData npcData=this.getOther();
+        String name=npcData.getName();
+        if(npcData!=null){
+            name=npcData.getName();
+            //是否女性
+            boolean female = npcData.gender == 1;
+            switch(this.familyType) {
+                case PARTNER:
+                    String girlFriend=I18n.format("container.sim.girlFriend");
+                    String boyFriend=I18n.format("container.sim.boyFriend");
+                    txt = female ? girlFriend : boyFriend;
+                    break;
+                case SPOUSE:
+                    String wife=I18n.format("container.sim.Wife");
+                    String husband=I18n.format("container.sim.Husband");
+                    txt = female ? wife : husband;
+                    break;
+                case PARENT:
+                    String mother=I18n.format("container.sim.relation_ship_Mother");
+                    String father=I18n.format("container.sim.relation_ship_Father");
+                    txt = female ? mother : father;
+                    break;
+                case CHILD:
+                    String son=I18n.format("container.sim.relation_ship_Son");
+                    String daughter=I18n.format("container.sim.relation_ship_Daughter");
+                    txt = female ? daughter : son;
+                    break;
+                case SIBLING:
+                    String brother=I18n.format("container.sim.relation_ship_Brother");
+                    String sister=I18n.format("container.sim.relation_ship_Sister");
+                    txt = female ? sister : brother;
+                    break;
+                case GRANDPARENT:
+                    String grandfather=I18n.format("container.sim.relation_ship_Grandfather");
+                    String grandmother=I18n.format("container.sim.relation_ship_Grandmother");
+                    txt = female ? grandmother : grandfather;
+                    break;
+                case GRANDCHILD:
+                    String granddaughter=I18n.format("container.sim.relation_ship_Granddaughter");
+                    String grandson=I18n.format("container.sim.relation_ship_Grandson");
+                    txt = female ? granddaughter : grandson;
+                    break;
+                case PARENTSIBLING:
+                    String aunt=I18n.format("container.sim.relation_ship_Aunt");
+                    String uncle=I18n.format("container.sim.relation_ship_Uncle");
+                    txt = female ? aunt : uncle;
+                    break;
+                case SIBLINGCHILD:
+                    String niece=I18n.format("container.sim.relation_ship_Neice");
+                    String nephew=I18n.format("container.sim.relation_ship_Nephew");
+                    txt = female ? niece : nephew;
+                    break;
+                case COUSIN:
+                    String cousin=I18n.format("container.sim.cousin");
+                    txt = cousin;
+                    break;
+                case EXTENDED:
+                    String extendedFamily=I18n.format("container.sim.extendedFamily");
+                    txt = extendedFamily;
+                    break;
+                case UNRELATED:
+                    txt = "";
+            }
+
+            if (txt == "") {
+                txt = this.level.getText();
+            }
+            txt=name+":"+txt;
         }
 
-        if (txt == "") {
-            txt = this.level.getText();
-        }
 
-        return this.getOther().getName() + ": " + txt;
+        return txt;
     }
 
     @Override

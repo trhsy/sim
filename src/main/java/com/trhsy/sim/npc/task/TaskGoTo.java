@@ -29,8 +29,10 @@ public class TaskGoTo extends Task{
     public void onUpdate() {
         if (System.currentTimeMillis() - this.second > 1000L) {
             this.second = System.currentTimeMillis();
+            //住宅
             boolean isRes = this.building.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"));
             if (!this.folk.isAtBuilding(this.building, isRes ? 2.0F : 4.0F)) {
+                //住宅
                 if (this.building.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
                     this.folk.forceMoveToXYZ(this.building.livingXYZ);
                 } else {
