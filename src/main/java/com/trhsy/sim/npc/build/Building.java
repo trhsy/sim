@@ -261,6 +261,13 @@ public class Building {
 
         removeBuilding(this.ID);
     }
+    /**
+     * @Author fan
+     * @Description //TODO 移除建筑
+     * @Date 20:54 2022/11/14
+     * @Param [uid]
+     * @return void
+     **/
     public void removeBuilding(UUID uid){
         new DimensionManager();
         File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "buildings");

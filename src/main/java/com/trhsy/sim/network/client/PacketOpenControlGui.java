@@ -5,6 +5,7 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @Date 2022/11/711:44
  **/
 public class PacketOpenControlGui implements IMessage {
+    public NBTTagCompound nbt;
     private V3 v3;
     private String buildingId;
     private String jobName;

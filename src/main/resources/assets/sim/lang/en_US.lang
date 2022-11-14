@@ -333,6 +333,8 @@ container.sim.job.Baker_Fetching=Fetching wheat from farms
 container.sim.job.Baker_Collecting=Collecting Wheat
 container.sim.job.Baker_Taking=Taking wheat back to bakery
 container.sim.job.Baker_Baking_bread=Baking bread
+container.sim.job.Baker_Baking=Baking
+container.sim.job.Baker_bread=bread
 container.sim.job.Baker_Selling=Selling bread to customers
 container.sim.job.Baker_Who=Who stole the chest from my bakery!!
 container.sim.job.Baker_paid=has made some bread and has been paid
@@ -1196,3 +1198,5 @@ container.sim.npcData_onupdate3= has moved int
 
 container.sim.hire_elsewhere=was hired elsewhere, try hiring a different folk
 container.sim.gui.block_controller_Occupants=Occupants
+
+container.sim.job_baker1=Unpacking baking tools

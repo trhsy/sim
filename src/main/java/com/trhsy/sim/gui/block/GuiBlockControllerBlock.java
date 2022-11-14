@@ -24,7 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName GuiBlockControllerBlock
- * @Description todo
+ * @Description todo 控制箱
  * @Author TRHSY
  * @Date 2022/11/711:49
  **/
@@ -39,10 +39,13 @@ public class GuiBlockControllerBlock extends GuiScreen {
     List<String> jobNames = new CopyOnWriteArrayList<>();
     /**建筑id**/
     public String buildingId;
-    /**建筑**/
+    /**建筑名**/
     public String buildingName = "buildingName";
+    /**工作**/
     public String jobName = "null";
+    /**建筑类型**/
     private String buildingType;
+    /**作者**/
     private String author;
     /**选择的NPC**/
     GuiButton selectedEmployee;
@@ -139,19 +142,28 @@ public class GuiBlockControllerBlock extends GuiScreen {
      **/
     public void showPage() {
         this.mc.setIngameNotInFocus();
+        //清楚所有按钮
         this.buttonList.clear();
         //完成
         this.buttonList.add(new GuiButton(0, 2, 12, 50, 20, I18n.format("container.sim.sim_gui_BC_Done")));
         if (this.currentPage == 0) {
+            //如果建筑id不存在则修复
             if(this.buildingId==null||this.buildingId=="") {
                 //添加 修理房子 按钮
                 this.buttonList.add(new GuiButton(3, 10, this.height - 30, 100, 20, I18n.format("container.sim.Fix_House")));
             }else{
                 //拆除
                 this.buttonList.add(new GuiButton(1000, this.width - 110, 5, 100, 20, I18n.format("container.sim.Demolish")));
+                //旋转楼梯
+                this.buttonList.add(new GuiButton(1001, this.width - 110, 25, 100, 20, I18n.format("container.sim.Rotate_Stairs")));
+                //显示员工
+                this.buttonList.add(new GuiButton(21, this.width - 110, this.height - 30, 100, 20, I18n.format("container.sim.sim_gui_BC_Show_Employees")));
+                //将我传送到
+//                this.buttonList.add(new GuiButton(30, this.width - 110, this.height - 50, 100, 20, I18n.format("container.sim.Beam_me_to")));
+                //显示是否有工作
                 if (this.jobName!=null&&!"null".equals(this.jobName)) {
-                    //显示员工
-                    this.buttonList.add(new GuiButton(21, this.width - 110, this.height - 30, 100, 20, I18n.format("container.sim.sim_gui_BC_Show_Employees")));
+
+                    //是否已雇佣
                     if (!this.hasEmployee) {
                         //雇佣
                         this.buttonList.add(new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire0") + WordUtils.capitalize(this.jobName)));
@@ -161,8 +173,6 @@ public class GuiBlockControllerBlock extends GuiScreen {
                         this.buttonList.add(new GuiButton(2, 10, this.height - 30, 100, 20, I18n.format("container.sim.Fire") + WordUtils.capitalize(this.employee.name)));
                         ((GuiButton)this.buttonList.get(2)).enabled = true;
                     }
-                }else{
-
                 }
             }
 
@@ -251,15 +261,24 @@ public class GuiBlockControllerBlock extends GuiScreen {
                     if (this.currentPage == 0) {
                         //拆除
                         if (guibutton.id == 1000) {
+                            //拆除
                             NetWorkLoader.net.sendToServer(new PacketDemolishBuilding(this.buildingId));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
-                        }
-                        //显示员工
-                        if (guibutton.id == 21) {
+                        }else if (guibutton.id == 1001) {
+                            //旋转楼梯
+
+                            return;
+                        }else if (guibutton.id == 21) {
+                            //显示员工
                             Minecraft.getMinecraft().displayGuiScreen(new GuiEmployees());
                             return;
-                        }
+                        }/*else if (guibutton.id == 30) {
+                            //显将我传送到
+//                            GuiScreen guiScreen = new GuiBeamPlayerTo(this.playerWhoClickedIt);
+//                            this.mc.displayGuiScreen(guiScreen);
+                            return;
+                        }*/
                     }
 
                     if (this.currentPage == 1) {
