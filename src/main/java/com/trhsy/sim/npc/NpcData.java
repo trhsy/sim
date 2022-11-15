@@ -11,6 +11,7 @@ import com.trhsy.sim.network.client.PacketSendFolkSkin;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.job.Job;
+import com.trhsy.sim.npc.job.JobBaker;
 import com.trhsy.sim.npc.job.JobBuilder;
 import com.trhsy.sim.npc.moodbuff.MoodBuff;
 import com.trhsy.sim.npc.race.Race;
@@ -378,12 +379,12 @@ public class NpcData {
                             }else{
                                 this.job = new JobBuilder(this, p, d2, world);
                             }
-
+                        //面包师
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation6"))) {
+                            this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
                         } /*else if (job.contentEquals("dairyfarmer")) {
                             this.job = new JobDairyFarmer(this, this.tempEmployLoc, world);
-                        } else if (job.contentEquals("baker")) {
-                            this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("butcher")) {
+                        }  else if (job.contentEquals("butcher")) {
                             this.job = new JobButcher(this, this.tempEmployLoc.toBlockPos(), world);
                         } else if (job.contentEquals("pig farmer")) {
                             p = this.tempEmployLoc.toBlockPos();
@@ -1566,29 +1567,41 @@ public class NpcData {
      * @return void
      **/
     public void hireAt(V3 pos, String jobName, World world) {
-        if (jobName.contentEquals("baker")) {
-            //this.job = new JobBaker(this, pos.toBlockPos(), world);
-        } else if (jobName.contentEquals("butcher")) {
+        //面包师
+        if (jobName.contentEquals(I18n.format("container.sim.Vocation6"))) {
+            this.job = new JobBaker(this, pos.toBlockPos(), world);
+            //屠夫
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
             //this.job = new JobButcher(this, pos.toBlockPos(), world);
-        } else if (jobName.contentEquals("grocer")) {
+            //杂货商
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation9"))) {
             //this.job = new JobGrocer(this, pos.toBlockPos(), world);
-        } else if (jobName.contentEquals("cattle farmer")) {
+            //养牛户
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation12"))) {
             //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "cow", world);
-        } else if (jobName.contentEquals("pig farmer")) {
+            //养猪户
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation13"))) {
             //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "pig", world);
-        } else if (jobName.contentEquals("chicken farmer")) {
+            //养鸡户
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation14"))) {
             //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "chicken", world);
-        } else if (jobName.contentEquals("mutton farmer")) {
+            //养羊户
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
             //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "sheep", world);
-        } else if (jobName.contentEquals("shepherd")) {
+            //牧羊人
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation8"))) {
             //this.job = new JobShepherd(this, pos.toBlockPos(), world);
-        } else if (jobName.contentEquals("lumberjack")) {
+            //伐木工
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
             //this.job = new JobLumberjack(this, pos.toBlockPos(), world);
-        } else if (jobName.contentEquals("soldier")) {
+            //士兵
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation7"))) {
             //this.job = new JobSoldier(this, pos.toBlockPos(), world);
-        } else if (jobName.contentEquals("fisherman")) {
+            //渔夫
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation18"))) {
             //this.job = new JobFisherman(this, pos.toBlockPos(), world);
-        } else if (jobName.contentEquals("egg farmer")) {
+            //蛋农
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation3"))) {
             //this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
         }
 

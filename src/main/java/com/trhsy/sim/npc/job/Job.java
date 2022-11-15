@@ -166,14 +166,11 @@ public abstract class Job {
                             List<IInventory> chests = this.inventoriesFindClosest(this.folk.getV3(), 5);
 
                             for (IInventory inv:chests){
-                                for(int i = 0; i < inv.getFieldCount(); ++i) {
-                                    Iterator var5 = this.collectionItems.iterator();
-
-                                    while(var5.hasNext()) {
-                                        Item item = (Item)var5.next();
+                                for(int i = 0; i < inv.getSizeInventory(); ++i) {
+                                    for (int j = 0; j < this.collectionItems.size(); j++) {
+                                        Item item=this.collectionItems.get(j);
                                         if (inv.getStackInSlot(i).getItem().getUnlocalizedName().contentEquals(item.getUnlocalizedName())) {
                                         }
-
                                         this.folk.inventory.add(inv.getStackInSlot(i));
                                         inv.removeStackFromSlot(i);
                                     }
