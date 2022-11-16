@@ -22,8 +22,14 @@ public class JobTaskProduceItem extends JobTask {
     List<ItemStack> requirements;
     transient long timeToPlace = 0L;
     String status;
-
-    public JobTaskProduceItem(Job j, long ms, Item prod, List<ItemStack> req, int stage, String status) {
+    /**
+     * @Author fan
+     * @Description //TODO
+     * @Date 21:20 2022/11/16
+     * @Param [j, ms, prod, req, stage, status]工作，耗时，成品，消耗品，状态字段
+     * @return
+     **/
+    public JobTaskProduceItem(Job j, long ms, Item prod, List<ItemStack> req, String status) {
         super(j, ms);
         this.produce = prod;
         this.requirements = req;

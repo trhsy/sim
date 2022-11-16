@@ -176,9 +176,8 @@ public class FolkRelationship {
     public String getText() {
         String txt = "";
         NpcData npcData=this.getOther();
-        String name=npcData.getName();
         if(npcData!=null){
-            name=npcData.getName();
+            String name=npcData.getName();
             //是否女性
             boolean female = npcData.gender == 1;
             switch(this.familyType) {
