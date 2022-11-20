@@ -813,12 +813,12 @@ container.sim.ShowEmployees9=建设者需要所有块,更难的游戏
 
 container.sim.Terraform1=取消请求
 container.sim.Terraform2='填海'(填为陆地)
-container.sim.Terraform3='植树' (植树)
-container.sim.Terraform4='割草机' (割草)
-container.sim.Terraform5='扁平化' (平坦地区)
+container.sim.Terraform3='绿化' (铺草坪)
+container.sim.Terraform4='除草' (割草)
+container.sim.Terraform5='平整化' (整平地面)
 container.sim.Terraform6='超值套装' (单层泥土)
-container.sim.Terraform7='冰川' (将水冻住雪地化)
-container.sim.Terraform8='湿润化' (添加水和岩浆)
+container.sim.Terraform7='冰川' (将水冻住或雪地化)
+container.sim.Terraform8='湿润化' (添加水)
 container.sim.Terraform9='炎热化' (添加岩浆)
 container.sim.Terraform10='除雪' (铲雪)
 container.sim.Terraform11=规划区域-请选择一个规划项目

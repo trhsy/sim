@@ -261,7 +261,27 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 this.buttonList.add(new GuiButton(1000, this.width / 2 - 150, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_Back")));
                 //建造它
                 this.buttonList.add(new GuiButton(970, this.width / 2 + 50, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Build_it")));
-            } else if (this.currentPage > 3 && this.currentPage < 12) {
+            } else if (this.currentPage == 13){
+                //规划区域
+                //'填海'(填为陆地)
+                this.buttonList.add(new GuiButton(21, this.width / 2 - 200, 35, 200, 20, I18n.format("container.sim.Terraform2")));
+                //'绿化' (铺草坪)
+                this.buttonList.add(new GuiButton(22, this.width / 2 - 200, 55, 200, 20, I18n.format("container.sim.Terraform3")));
+                //'除草' (割草)
+                this.buttonList.add(new GuiButton(23, this.width / 2 - 200, 75, 200, 20, I18n.format("container.sim.Terraform4")));
+                //'平整化' (整平地面)
+                this.buttonList.add(new GuiButton(24, this.width / 2 - 200, 95, 200, 20, I18n.format("container.sim.Terraform5")));
+                //'超值套装' (单层泥土)
+                this.buttonList.add(new GuiButton(25, this.width / 2 - 200, 115, 200, 20, I18n.format("container.sim.Terraform6")));
+                //'冰川' (将水冻住或雪地化)
+                this.buttonList.add(new GuiButton(26, this.width / 2, 35, 200, 20, I18n.format("container.sim.Terraform7")));
+                //'湿润化' (添加水)
+                this.buttonList.add(new GuiButton(27, this.width / 2, 55, 200, 20, I18n.format("container.sim.Terraform8")));
+                //'炎热化' (添加岩浆)
+                this.buttonList.add(new GuiButton(28, this.width / 2, 75, 200, 20, I18n.format("container.sim.Terraform9")));
+                //'除雪' (铲雪)
+                this.buttonList.add(new GuiButton(29, this.width / 2, 95, 200, 20, I18n.format("container.sim.Terraform10")));
+            }else if (this.currentPage > 3 && this.currentPage < 12) {
                 //页在3和12页
                 this.buildingsOnPage = 0;
                 //搜索输入框
@@ -447,7 +467,12 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                         this.currentPage = 1;
                         this.showPage();
                     }
-
+                    //规划区域
+                    if(guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_BC_Terraform_area"))){
+                        this.previousPage = this.currentPage;
+                        this.currentPage = 13;
+                        this.showPage();
+                    }
                     if (this.currentPage == 11) {
                         //返回
                         if (guibutton.id == 1000) {
@@ -662,6 +687,10 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                         y += 15;
                     }
                 }
+            }else if (this.currentPage == 13) {
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform11"), this.width / 2, 25, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform12"), this.width / 2, 30, 16777215);
+//                this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 80, 16744576);
             }
 
             super.drawScreen(i, j, f);
