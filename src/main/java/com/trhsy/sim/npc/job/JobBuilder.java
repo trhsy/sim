@@ -4,10 +4,7 @@ import com.google.common.collect.UnmodifiableIterator;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockConstructorBox;
 import com.trhsy.sim.entity.EntityConBox;
-import com.trhsy.sim.loader.BlockLoader;
-import com.trhsy.sim.loader.ConfigLoader;
-import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketSendBuildingRequirements;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
@@ -19,7 +16,9 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -30,6 +29,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.util.*;
@@ -95,7 +95,9 @@ public class JobBuilder extends Job {
      * 自上一个块位置的时间
      **/
     private transient long timeSinceLastBlockPlace = 0L;
-    /**上次摆动手臂的时间**/
+    /**
+     * 上次摆动手臂的时间
+     **/
     private transient long timeSwingArm = 0L;
     /**
      * 已重新指派员工
@@ -115,6 +117,7 @@ public class JobBuilder extends Job {
      **/
     public JobBuilder(NpcData folk, BuildingBlueprint bp, BlockPos pos, int direction, World world) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(Blocks.COBBLESTONE);
         //建筑工
         this.jobName = I18n.format("container.sim.Vocation1");
         this.startPos = pos;
@@ -176,6 +179,7 @@ public class JobBuilder extends Job {
      **/
     public JobBuilder(NpcData folk, BlockPos pos, int direction, World world) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(Blocks.COBBLESTONE);
         this.jobName = I18n.format("container.sim.Vocation1");
         this.constructorPos = pos;
         this.startPos = pos;
@@ -195,6 +199,7 @@ public class JobBuilder extends Job {
 
     public JobBuilder(NpcData folk, V3 pos, int direction, World world) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(Blocks.COBBLESTONE);
         this.jobName = I18n.format("container.sim.Vocation1");
         this.constructorPos = pos.toBlockPos();
         this.startPos = pos.toBlockPos();
@@ -241,13 +246,19 @@ public class JobBuilder extends Job {
                             this.hasReassignedEmployee = true;
                             //如果允许 NPC 说话
                             if (ConfigLoader.configFolkTalking) {
+                                World world = FMLClientHandler.instance().getServer().getEntityWorld();
+                                //播放 天亮了鸡叫
+                                SoundEvent soundEvent = null;
                                 //判断性别，发出不一样的声音
                                 if (this.folk.gender == 0) {
-                                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":readym"));
-                                    this.jobWorld.playSound(this.folk.pos.x, this.folk.pos.y, this.folk.pos.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
                                 } else {
-                                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":readyf"));
-                                    this.jobWorld.playSound(this.folk.pos.x, this.folk.pos.y, this.folk.pos.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
+                                }
+                                for (int i = 0; i < world.playerEntities.size(); i++) {
+                                    EntityPlayer entityPlayer = world.playerEntities.get(i);
+                                    BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                                    world.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
                                 }
                             }
                         }
@@ -326,7 +337,7 @@ public class JobBuilder extends Job {
             //方块编号大于
             if (this.blockNumber >= this.blueprint.structure.length) {
                 this.folk.fire();
-                if(this.constructorBlock!=null){
+                if (this.constructorBlock != null) {
                     this.constructorBlock.employee = null;
                 }
                 this.createBuilding();
@@ -351,7 +362,7 @@ public class JobBuilder extends Job {
                 st = this.blueprint.structure[this.blockNumber];
             }
             Block fs_block = this.folk.entity.worldObj.getBlockState(newBP).getBlock();
-            Block fs_st_block=st.getBlock();
+            Block fs_st_block = st.getBlock();
             //控制箱
             if (fs_st_block == BlockLoader.blockControlBox) {
                 this.controllerPos = newBP;
@@ -360,7 +371,7 @@ public class JobBuilder extends Job {
                 this.livingPos = newBP;
 //                st = Blocks.AIR.getDefaultState();
             }
-            if (fs_block !=fs_st_block) {
+            if (fs_block != fs_st_block) {
 
                 if (ModSimLoader.states.credits < 0.02F) {
                     //没有钱付给我！
@@ -377,9 +388,9 @@ public class JobBuilder extends Job {
                 }
                 //床
                 if (fs_st_block == Blocks.BED) {
-                    String name=fs_block.getUnlocalizedName();
+                    String name = fs_block.getUnlocalizedName();
                     System.out.println(name);
-                    if(name.contains("bed")){
+                    if (name.contains("bed")) {
                         //                    normalBlock = false;//床不是普通的块
                     }
                 }
@@ -442,8 +453,8 @@ public class JobBuilder extends Job {
                         //重置缺少的块
                         this.missingBlock = null;
                         Long now = System.currentTimeMillis();
-                        if(now-this.timeSwingArm>2000){
-                            this.timeSwingArm=now;
+                        if (now - this.timeSwingArm > 2000) {
+                            this.timeSwingArm = now;
                             this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                         }
                         //放置方块
@@ -468,7 +479,7 @@ public class JobBuilder extends Job {
                             Collection validFacings = null;
                             do {
                                 for (IProperty p : st.getProperties().keySet()) {
-                                    prop=p;
+                                    prop = p;
                                     if (prop.getName().equals("facing")) {
                                         //放置方块
                                         this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
@@ -485,9 +496,9 @@ public class JobBuilder extends Job {
                                     this.folk.entity.worldObj.setBlockState(newBP, st);
                                     ModSimLoader.addMoney(-0.02F);
                                 }
-                            }while(validFacings!=null&&validFacings.size() <4);
+                            } while (validFacings != null && validFacings.size() < 4);
                             //不朝上 不朝下
-                            if (facing!=null&&facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
+                            if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
                                 IBlockState newState = st.withProperty(prop, facing.rotateY());
                                 if (this.direction == 0 && this.blueprint.direction == 3 || this.direction == 1 && this.blueprint.direction == 0 || this.direction == 2 && this.blueprint.direction == 1 || this.direction == 3 && this.blueprint.direction == 2) {
                                     newState = st.withProperty(prop, facing.rotateY());
@@ -530,35 +541,22 @@ public class JobBuilder extends Job {
                             } else {
                                 this.folk.entity.worldObj.setBlockState(newBP, st);
                             }
-                            /*for (IProperty prop : st.getProperties().keySet()) {
-                                EnumFacing facing;
-                                Collection validFacings;
-                                if (prop.getName().equals("facing")) {
-                                    //放置方块
-                                    this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
-                                    ModSimLoader.log.info("================================================================");
-                                    ModSimLoader.log.info(this.direction + " : " + this.blueprint.direction);
-                                    ModSimLoader.log.info("得到方块" + fs_st_block.getUnlocalizedName() + "面向");
-                                    facing = (EnumFacing) st.getValue(prop);
-                                    validFacings = prop.getAllowedValues();
-                                    ModSimLoader.log.info("块当前面向" + facing.toString());
-                                    if (validFacings.size() > 4) {
-
-                                    }
-                                }
-                            }*/
 
                         }
                     }
                 }
-            }else{
+            } else {
                 Long now = System.currentTimeMillis();
-                if(now-this.timeSwingArm>3000){
-                    this.timeSwingArm=now;
+                if (now - this.timeSwingArm > 3000) {
+                    this.timeSwingArm = now;
                     this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                    //建造的音效
-                    SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
-                    this.jobWorld.playSound((this.startPos.getX() + this.x), (this.startPos.getY() + this.y),(this.startPos.getZ() - this.z),soundEvent,SoundCategory.BLOCKS , 1, 1,false);
+                        //建造的音效
+                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
+                        for (int i = 0; i < this.jobWorld.playerEntities.size(); i++) {
+                            EntityPlayer entityPlayer = this.jobWorld.playerEntities.get(i);
+                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                        this.jobWorld.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
+                        }
                 }
                 //放置方块
                 this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
@@ -601,7 +599,7 @@ public class JobBuilder extends Job {
             ++this.blockNumber;
             if (this.blockNumber >= this.blueprint.structure.length) {
                 this.folk.fire();
-                if(this.constructorBlock!=null){
+                if (this.constructorBlock != null) {
                     this.constructorBlock.employee = null;
                 }
                 ModSimLoader.log.info("从中间功能检查中激发");
@@ -716,10 +714,10 @@ public class JobBuilder extends Job {
             }
         } catch (Exception var12) {
             var12.printStackTrace();
-            StackTraceElement element=var12.getStackTrace()[0];
-            ModSimLoader.log.error("因错误而解雇的员工：" + var12.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = var12.getStackTrace()[0];
+            ModSimLoader.log.error("因错误而解雇的员工：" + var12.getMessage() + "行数：" + element.getLineNumber());
             this.folk.fire();
-            if(this.constructorBlock!=null){
+            if (this.constructorBlock != null) {
                 this.constructorBlock.employee = null;
             }
         }
@@ -778,8 +776,12 @@ public class JobBuilder extends Job {
         String text = this.folk.getName() + I18n.format("container.sim.job.builder_constructor_completed") + this.blueprint.name;
         ModSimLoader.sendChat(text);
         //播放声音
-        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-        this.jobWorld.playSound(v3.x, v3.y, v3.z, soundEvent, SoundCategory.AMBIENT, 1, 1, false);
+        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
+        for (int i = 0; i < this.jobWorld.playerEntities.size(); i++) {
+            EntityPlayer entityPlayer = this.jobWorld.playerEntities.get(i);
+            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+            this.jobWorld.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
+        }
     }
 
     /**

@@ -449,15 +449,39 @@
       }
     ]
   },
-  "constructoractivated": {
+  "sim_u_building_constructor_activated": {
     "category": "master",
     "sounds": [
       {
-        "name": "constructoractivated",
+        "name": "sim_u_building_constructor_activated",
         "stream": "false"
       }
     ]
-  },
+  },"sim_u_kraft_ddd_mining_constructor_activated": {
+  "category": "master",
+  "sounds": [
+    {
+      "name": "sim_u_kraft_ddd_mining_constructor_activated",
+      "stream": "false"
+    }
+  ]
+},"sim_u_ddd": {
+  "category": "master",
+  "sounds": [
+    {
+      "name": "sim_u_ddd",
+      "stream": "false"
+    }
+  ]
+},"sim_u_kraft_ddd_farming_constructor_activated": {
+  "category": "master",
+  "sounds": [
+    {
+      "name": "sim_u_kraft_ddd_farming_constructor_activated",
+      "stream": "false"
+    }
+  ]
+},
   "CoughF": {
     "category": "master",
     "sounds": [
@@ -1178,11 +1202,11 @@
       }
     ]
   },
-  "powerdown": {
+  "power_down": {
     "category": "master",
     "sounds": [
       {
-        "name": "powerdown",
+        "name": "power_down",
         "stream": "false"
       }
     ]
@@ -1196,20 +1220,20 @@
       }
     ]
   },
-  "readyf": {
+  "im_read_y": {
     "category": "master",
     "sounds": [
       {
-        "name": "readyf",
+        "name": "im_read_y",
         "stream": "false"
       }
     ]
   },
-  "readym": {
+  "im_read_m": {
     "category": "master",
     "sounds": [
       {
-        "name": "readym",
+        "name": "im_read_m",
         "stream": "false"
       }
     ]

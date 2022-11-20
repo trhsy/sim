@@ -61,8 +61,9 @@ public class FolkRelationship {
      */
     public void tryMarry() {
         NpcData folk2 = this.getOther();
+        //单身狗
         String singe= I18n.format("container.sim.folkData4");
-        if (this.folk1.getRelationshipStatus().contentEquals(singe) && folk2.getRelationshipStatus().contentEquals(singe)) {
+        if (this.folk1!=null&&folk2!=null&&this.folk1.getRelationshipStatus().contentEquals(singe) && folk2.getRelationshipStatus().contentEquals(singe)) {
             if (this.folk1.gender != folk2.gender && this.folk1.age >= this.folk1.race.maturity && folk2.age >= folk2.race.maturity && this.folk1.home != null && folk2.home != null && this.familyType == EnumFamilyType.UNRELATED) {
                String and=I18n.format("container.sim.Mining13");
                 String married=I18n.format("container.sim.married");

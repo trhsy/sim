@@ -1,5 +1,6 @@
 package com.trhsy.sim.block;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.enums.EnumControlBox;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
@@ -20,8 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -138,6 +138,9 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      **/
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        //在给定块位置的中心为播放器播放指定的声音 computer 控制箱激活
+        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
+        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         //客户端
         if (!worldIn.isRemote) {
             V3 vPos = V3.fromBlockPos(pos);

@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.*;
 import net.minecraft.client.resources.I18n;
@@ -22,6 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobBaker extends Job{
     public JobBaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        folk.holding= new ItemStack(ItemLoader.tinSpade);
         //面包师
         this.jobName = I18n.format("container.sim.Vocation6");
         List<ItemStack> colItems = new ArrayList();

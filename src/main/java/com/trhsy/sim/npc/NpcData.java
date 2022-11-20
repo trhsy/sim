@@ -13,6 +13,7 @@ import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.job.Job;
 import com.trhsy.sim.npc.job.JobBaker;
 import com.trhsy.sim.npc.job.JobBuilder;
+import com.trhsy.sim.npc.job.JobTerrainFormer;
 import com.trhsy.sim.npc.moodbuff.MoodBuff;
 import com.trhsy.sim.npc.race.Race;
 import com.trhsy.sim.npc.race.Races;
@@ -52,81 +53,155 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @date 2022/10/11 14:44
  */
 public class NpcData {
-    /**id**/
+    /**
+     * id
+     **/
     public String ID;
-    /**名**/
+    /**
+     * 名
+     **/
     public String forename;
-    /**姓**/
+    /**
+     * 姓
+     **/
     public String surname;
-    /**年龄 0至17岁的人=儿童18+成人**/
+    /**
+     * 年龄 0至17岁的人=儿童18+成人
+     **/
     public int age;
-    /**性别 0=男性1=女性**/
+    /**
+     * 性别 0=男性1=女性
+     **/
     public int gender;
-    /**状态 **/
+    /**
+     * 状态
+     **/
     public String status = I18n.format("container.sim.folk_data.Wandering");
-    /**饱食度**/
+    /**
+     * 饱食度
+     **/
     public int hunger = 10;
-    /**种族**/
+    /**
+     * 种族
+     **/
     public Race race;
-    /**工作**/
+    /**
+     * 工作
+     **/
     public Job job;
-    /**npc实体**/
+    /**
+     * npc实体
+     **/
     public EntityFolk entity;
-    /**情感关系**/
+    /**
+     * 情感关系
+     **/
     public List<FolkRelationship> relationships = new CopyOnWriteArrayList();
-    /**情绪**/
+    /**
+     * 情绪
+     **/
     public List<MoodBuff> buffs = new CopyOnWriteArrayList();
-    /**物品栏**/
+    /**
+     * 物品栏
+     **/
     public List<ItemStack> inventory = new CopyOnWriteArrayList<>();
-    /**任务**/
+    /**
+     * 任务
+     **/
     public List<Task> tasks = new CopyOnWriteArrayList();
-    /**当前任务**/
+    /**
+     * 当前任务
+     **/
     public Task currentTask;
-    /**特征1**/
+    /**
+     * 特征1
+     **/
     public Trait trait1;
-    /**特征2**/
+    /**
+     * 特征2
+     **/
     public Trait trait2;
-    /**特征3**/
+    /**
+     * 特征3
+     **/
     public Trait trait3;
-    /**正在移动**/
+    /**
+     * 正在移动
+     **/
     public boolean isMoving;
-    /**建筑等级**/
+    /**
+     * 建筑等级
+     **/
     public float skillBuilding = 1.0F;
-    /**耕种等级**/
+    /**
+     * 耕种等级
+     **/
     public float skillFarming = 1.0F;
-    /**采矿等级**/
+    /**
+     * 采矿等级
+     **/
     public float skillMining = 1.0F;
-    /**家**/
+    /**
+     * 家
+     **/
     public Building home;
-    /**位置**/
+    /**
+     * 位置
+     **/
     public V3 pos;
-    /**手持物品**/
+    /**
+     * 手持物品
+     **/
     public ItemStack holding;
     //皮肤数
     public int skinnumber = 1;
-    /**交配阶段**/
+    /**
+     * 交配阶段
+     **/
     public float matingStage;
-    /**怀孕阶段**/
+    /**
+     * 怀孕阶段
+     **/
     public float pregnancyStage;
-    /**随机**/
+    /**
+     * 随机
+     **/
     Random rand;
-    /**留在原地**/
+    /**
+     * 留在原地
+     **/
     public boolean stayPut;
-    /**正在睡觉**/
+    /**
+     * 正在睡觉
+     **/
     public boolean isSleeping;
-    /**已死亡*/
+    /**
+     * 已死亡
+     */
     public boolean isDead;
-    /**已加载**/
+    /**
+     * 已加载
+     **/
     public boolean isLoaded;
-    /**临时雇员**/
+    /**
+     * 临时雇员
+     **/
     private int tempStage;
-    /**自上次状态更新以来的时间**/
+    /**
+     * 自上次状态更新以来的时间
+     **/
     private transient long timeSinceLastStatusUpdate;
-    /**分钟更新**/
+    /**
+     * 分钟更新
+     **/
     private transient long minuteUpdate;
-    /**临时员工位置**/
+    /**
+     * 临时员工位置
+     **/
     V3 tempEmployLoc;
-    /**上次路径尝试**/
+    /**
+     * 上次路径尝试
+     **/
     Long lastPathAttempt;
 
     public NpcData(World world, boolean fromCommand) {
@@ -148,7 +223,7 @@ public class NpcData {
         //性别随机
         this.gender = this.rand.nextInt(2);
         /**皮肤随机*/
-        this.skinnumber =rand.nextInt(64);
+        this.skinnumber = rand.nextInt(64);
         //种族分配
         this.assignRace();
         /**年龄**/
@@ -164,11 +239,11 @@ public class NpcData {
         if (!fromCommand) {
             Vec3d newPos;
             newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
-            if(newPos == null){
+            if (newPos == null) {
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }
 
-            while(!world.isAirBlock((new BlockPos(newPos)).up())) {
+            while (!world.isAirBlock((new BlockPos(newPos)).up())) {
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }
 
@@ -180,7 +255,7 @@ public class NpcData {
         this.ID = e.getUniqueID().toString();
         this.entity = e;
         world.spawnEntityInWorld(e);
-        String fs_ldzl=I18n.format("container.sim.folk_data_just");
+        String fs_ldzl = I18n.format("container.sim.folk_data_just");
         ModSimLoader.sendChat(this.getName() + fs_ldzl);
         //返回可雇佣的人
         NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
@@ -190,12 +265,13 @@ public class NpcData {
         this.saveFolk();
         this.isLoaded = true;
     }
+
     public NpcData(World world, UUID uuid) {
         this.holding = null;
         this.matingStage = -1.0F;
         this.rand = new Random();
         /**皮肤随机*/
-        this.skinnumber =rand.nextInt(64);
+        this.skinnumber = rand.nextInt(64);
         this.tempStage = -1;
         this.timeSinceLastStatusUpdate = 0L;
         this.minuteUpdate = 0L;
@@ -215,7 +291,7 @@ public class NpcData {
         this.tempStage = -1;
         this.timeSinceLastStatusUpdate = 0L;
         /**皮肤随机*/
-        this.skinnumber =rand.nextInt(64);
+        this.skinnumber = rand.nextInt(64);
         this.minuteUpdate = 0L;
         this.tempEmployLoc = null;
         this.lastPathAttempt = 0L;
@@ -244,31 +320,33 @@ public class NpcData {
         this.saveFolk();
         this.isLoaded = true;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 分配家庭成员
      * @Date 10:34 2022/10/21
      * @Param [mother, father]
-     * @return void
      **/
     public void assignFamilyMembers(NpcData mother, NpcData father) {
         this.assignRelationshipsFromParent(mother);
         this.assignRelationshipsFromParent(father);
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 从父级分配关系
      * @Date 10:37 2022/10/21
      * @Param [parent]
-     * @return void
      **/
     public void assignRelationshipsFromParent(NpcData parent) {
         this.relationships.add(new FolkRelationship(this, parent, EnumFamilyType.PARENT));
         parent.relationships.add(new FolkRelationship(parent, this, EnumFamilyType.CHILD));
-        for(FolkRelationship rel:parent.relationships){
+        for (FolkRelationship rel : parent.relationships) {
             NpcData folk2 = rel.getOther();
-            if(rel.familyType != EnumFamilyType.EXTENDED && rel.familyType != EnumFamilyType.GRANDCHILD && rel.familyType != EnumFamilyType.GRANDPARENT && rel.familyType != EnumFamilyType.PARENTSIBLING){
-                if(folk2==null){
+            if (rel.familyType != EnumFamilyType.EXTENDED && rel.familyType != EnumFamilyType.GRANDCHILD && rel.familyType != EnumFamilyType.GRANDPARENT && rel.familyType != EnumFamilyType.PARENTSIBLING) {
+                if (folk2 == null) {
                     folk2 = rel.getOther();
                 }
                 if (rel.familyType == EnumFamilyType.CHILD && this.getRelationshipWith(folk2) == null) {
@@ -297,25 +375,26 @@ public class NpcData {
             }
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 加载NPC
      * @Date 19:59 2022/10/15
      * @Param [world, loadID]
-     * @return void
      **/
     public void loadFolk(World world, UUID loadID) {
         File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
-        if(!npcFolder.exists()){
+        if (!npcFolder.exists()) {
             npcFolder.mkdirs();
         }
 
-        this.entity = (EntityFolk)FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(loadID);
+        this.entity = (EntityFolk) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(loadID);
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(npcFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
-            BuildingBlueprint buildingBlueprint=null;
-            for(String line = reader.readLine(); line != null; line = reader.readLine()) {
+            BuildingBlueprint buildingBlueprint = null;
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
@@ -323,7 +402,7 @@ public class NpcData {
                 if (line.contains("id|")) {
                     this.ID = value;
                     if (this.entity == null) {
-                        this.entity = (EntityFolk)world.getMinecraftServer().getEntityFromUuid(UUID.fromString(this.ID));
+                        this.entity = (EntityFolk) world.getMinecraftServer().getEntityFromUuid(UUID.fromString(this.ID));
                     }
                 }
 
@@ -341,13 +420,13 @@ public class NpcData {
                     this.race.skinName = value;
                 } else if (line.contains("pos|")) {
                     this.pos = V3.fromString(value);
-                }else if (line.contains("trait1|")) {
-                    this.trait1=Trait.getTraitFromName(value);
-                }else if (line.contains("trait2|")) {
-                    this.trait2=Trait.getTraitFromName(value);
-                }else if (line.contains("trait3|")) {
-                    this.trait3=Trait.getTraitFromName(value);
-                }else if (line.contains("hunger|")) {
+                } else if (line.contains("trait1|")) {
+                    this.trait1 = Trait.getTraitFromName(value);
+                } else if (line.contains("trait2|")) {
+                    this.trait2 = Trait.getTraitFromName(value);
+                } else if (line.contains("trait3|")) {
+                    this.trait3 = Trait.getTraitFromName(value);
+                } else if (line.contains("hunger|")) {
                     this.hunger = Integer.valueOf(value);
                 } else if (line.contains("buildingskill|")) {
                     this.skillBuilding = Float.valueOf(value);
@@ -366,21 +445,21 @@ public class NpcData {
                 } else if (line.contains("job|")) {
                     if (!value.contentEquals("null")) {
                         BlockPos p;
-                        String job=value.split(";")[0];
+                        String job = value.split(";")[0];
                         //建筑工
                         if (job.contentEquals(I18n.format("container.sim.Vocation1"))) {
-                            String v=value.split(";")[1];
+                            String v = value.split(";")[1];
                             //建筑/雇佣位置
                             p = V3.fromString(v).toBlockPos();
                             //建筑方向
                             int d2 = Integer.valueOf(value.split(";")[2]);
-                            if(buildingBlueprint!=null){
-                                this.job = new JobBuilder(this,buildingBlueprint,p, d2, world);
-                            }else{
+                            if (buildingBlueprint != null) {
+                                this.job = new JobBuilder(this, buildingBlueprint, p, d2, world);
+                            } else {
                                 this.job = new JobBuilder(this, p, d2, world);
                             }
-                        //面包师
-                        }else if (job.contentEquals(I18n.format("container.sim.Vocation6"))) {
+                            //面包师
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation6"))) {
                             this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
                         } /*else if (job.contentEquals("dairyfarmer")) {
                             this.job = new JobDairyFarmer(this, this.tempEmployLoc, world);
@@ -433,14 +512,14 @@ public class NpcData {
                     String[] var12 = rels;
                     int var13 = rels.length;
 
-                    for(int var14 = 0; var14 < var13; ++var14) {
+                    for (int var14 = 0; var14 < var13; ++var14) {
                         String rel = var12[var14];
                         if (rel.length() > 0) {
                             this.relationships.add(new FolkRelationship(this, rel.toUpperCase()));
                         }
                     }
-                }else if(line.contains("building|")){
-                    buildingBlueprint= ModSimLoader.getBlueprintsByName(value);
+                } else if (line.contains("building|")) {
+                    buildingBlueprint = ModSimLoader.getBlueprintsByName(value);
                 }
             }
 
@@ -456,50 +535,54 @@ public class NpcData {
 
         this.isLoaded = true;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 解雇
      * @Date 10:37 2022/10/21
      * @Param []
-     * @return void
      **/
     public void fire() {
         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
         this.job = null;
+        this.holding = null;
         if (this.entity != null) {
             this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
         }
 
         this.stayPut = false;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 分配种族
      * @Date 15:57 2022/10/14
      * @Param []
-     * @return void
      **/
     public void assignRace() {
         try {
             this.race = Races.raceList.get(rand.nextInt(Races.raceList.size()));
-            this.race.skinName=this.getTexture();
+            this.race.skinName = this.getTexture();
         } catch (Exception var8) {
             var8.printStackTrace();
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 根据种族名字获取种族
      * @Date 10:37 2022/10/21
      * @Param [existingRaceName, newChild]
-     * @return void
      **/
     public void assignRace(String existingRaceName, boolean newChild) {
         try {
             for (int i = 0; i < Races.raceList.size(); i++) {
-                Race race=Races.raceList.get(i);
-                if(existingRaceName.equals(race.raceName)){
-                    this.race =race;
+                Race race = Races.raceList.get(i);
+                if (existingRaceName.equals(race.raceName)) {
+                    this.race = race;
                     break;
                 }
             }
@@ -514,7 +597,7 @@ public class NpcData {
      */
     public void sendSkinPathToClient() {
         if (this.entity != null) {
-            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), this.race.skinName ));
+            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), this.race.skinName));
         }
     }
 
@@ -525,9 +608,9 @@ public class NpcData {
         ModSimLoader.log.info("开始保存NPC数据");
         if (this.entity != null && !this.isDead) {
             BufferedWriter writer = null;
-            try{
+            try {
                 File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
-                if(!npcFolder.exists()){
+                if (!npcFolder.exists()) {
                     npcFolder.mkdirs();
                 }
                 File logFile = new File(npcFolder + File.separator + this.entity.getUniqueID() + ".sk2");
@@ -546,17 +629,17 @@ public class NpcData {
                 writer.write("hunger|" + String.valueOf(this.hunger) + "\n");
                 writer.write("buildingskill|" + String.valueOf(this.skillBuilding) + "\n");
                 writer.write("farmingskill|" + String.valueOf(this.skillFarming) + "\n");
-                ItemStack itemStack=this.entity.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-                String holdings="";
-                if(itemStack!=null&&itemStack.getItem()!=null){
-                    holdings=itemStack.getDisplayName();
+                ItemStack itemStack = this.entity.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
+                String holdings = "";
+                if (itemStack != null && itemStack.getItem() != null) {
+                    holdings = itemStack.getDisplayName();
                 }
                 writer.write("holding|" + holdings + "\n");
                 boolean isBuilding = false;
                 if (this.job != null) {
                     writer.write("employedat|" + this.job.workPlace.toString() + "\n");
                     if (this.job.jobName.contentEquals(I18n.format("container.sim.Vocation1"))) {
-                        JobBuilder jb = (JobBuilder)this.job;
+                        JobBuilder jb = (JobBuilder) this.job;
                         if (jb.blueprint != null) {
                             writer.write("building|" + jb.blueprint.name + "\n");
                         }
@@ -572,12 +655,12 @@ public class NpcData {
                     writer.write("jobstage|-1\n");
                 }
                 writer.write("relationship|");
-                for(int i = 0; i < this.relationships.size(); ++i) {
-                    writer.write(((FolkRelationship)this.relationships.get(i)).toString() + (i < this.relationships.size() - 1 ? ";" : ""));
+                for (int i = 0; i < this.relationships.size(); ++i) {
+                    writer.write(((FolkRelationship) this.relationships.get(i)).toString() + (i < this.relationships.size() - 1 ? ";" : ""));
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 try {
                     writer.close();
                 } catch (Exception var15) {
@@ -587,33 +670,34 @@ public class NpcData {
 
         }
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 得到NPC名字
      * @Date 10:38 2022/10/21
      * @Param []
-     * @return java.lang.String
      **/
     public String getName() {
-        String name="";
+        String name = "";
 
         if (this.gender == 0) {
-            if(this.forename==null||this.forename==""){
+            if (this.forename == null || this.forename == "") {
                 int i = rand.nextInt(ConfigLoader.configMaleNames.length);
                 this.forename = ConfigLoader.configMaleNames[i].trim();
             }
 
-        }else {
-            if(this.forename==null||this.forename==""){
+        } else {
+            if (this.forename == null || this.forename == "") {
                 int i = rand.nextInt(ConfigLoader.configFemaleNames.length);
                 this.forename = ConfigLoader.configFemaleNames[i].trim();
             }
         }
-        if(this.surname==null||this.surname==""){
+        if (this.surname == null || this.surname == "") {
             int i = rand.nextInt(ConfigLoader.configSurnames.length);
             this.surname = ConfigLoader.configSurnames[i].trim();
         }
-        if(this.surname != null && this.forename != null){
+        if (this.surname != null && this.forename != null) {
             String lang = FMLCommonHandler.instance().getCurrentLanguage();
             if ("en_US".equals(lang)) {
                 name = this.forename + " " + this.surname;
@@ -621,65 +705,70 @@ public class NpcData {
                 name = this.surname + this.forename;
             }
         }
-        return  name;
+        return name;
     }
+
     /**
+     * @return com.trhsy.sim.entity.util.NpcIdentity
      * @Author fan
      * @Description //TODO 得到NPC身份信息
      * @Date 10:38 2022/10/21
      * @Param []
-     * @return com.trhsy.sim.entity.util.NpcIdentity
      **/
     public NpcIdentity getClientIdentity() {
-        NpcIdentity npcIdentity=null;
-        if(this.entity!=null){
-            String skin =this.race.skinName;
-            npcIdentity=new NpcIdentity(this.ID,this.getName(),String.valueOf(this.age),this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.maturity), skin);
+        NpcIdentity npcIdentity = null;
+        if (this.entity != null) {
+            String skin = this.race.skinName;
+            npcIdentity = new NpcIdentity(this.ID, this.getName(), String.valueOf(this.age), this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.maturity), skin);
         }
         return npcIdentity;
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 状态文字
      * @Date 10:38 2022/10/21
      * @Param []
-     * @return java.lang.String
      **/
     public String getStatusText() {
         return this.status;
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 工作名称
      * @Date 10:38 2022/10/21
      * @Param []
-     * @return java.lang.String
      **/
     public String getJobTitle() {
         /**被解雇的**/
-        String s=I18n.format("container.sim.gui_Folk_unemployed");
+        String s = I18n.format("container.sim.gui_Folk_unemployed");
         return this.job != null ? this.job.toString() : s;
 //        return "Unemployed";
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 住房信息详情
      * @Date 10:39 2022/10/21
      * @Param []
-     * @return java.lang.String
      **/
     public String getHousingStatus() {
-        String s=I18n.format("container.sim.folkData3");
-        String s1=I18n.format("container.sim.folkData2");
+        String s = I18n.format("container.sim.folkData3");
+        String s1 = I18n.format("container.sim.folkData2");
         return this.home != null ? s1 : s;
 //        return "Homeowner";
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 重生
      * @Date 13:29 2022/10/17
      * @Param [world, bp]
-     * @return void
      **/
     public void respawn(World world, BlockPos bp) {
         if (this.entity == null && this.isLoaded) {
@@ -690,62 +779,65 @@ public class NpcData {
             //坐标
             this.pos = new V3(bp);
             //更新坐标
-            ef.setPositionAndUpdate((double)bp.getX() + 0.5D, (double)bp.getY() + 1.0D, (double)bp.getZ() + 0.5D);
+            ef.setPositionAndUpdate((double) bp.getX() + 0.5D, (double) bp.getY() + 1.0D, (double) bp.getZ() + 0.5D);
             this.entity = ef;
             ef.theData = this;
-            ModSimLoader.log.info("********************Npc:"+this.ID+"重生于x:"+this.pos.x+",y:"+this.pos.y+",z:"+this.pos.z);
-            boolean flag=world.spawnEntityInWorld(ef);
-            if(!flag){
-                this.isLoaded =false;
+            ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
+            boolean flag = world.spawnEntityInWorld(ef);
+            if (!flag) {
+                this.isLoaded = false;
                 ModSimLoader.log.warn("Npc重生失败，再次尝试");
-                this.respawn(world,bp);
+                this.respawn(world, bp);
             }
         }
     }
+
     /**
+     * @return com.trhsy.sim.npc.FolkRelationship
      * @Author fan
      * @Description //TODO 与某一个NPC的关系
      * @Date 10:39 2022/10/21
      * @Param [folk2]
-     * @return com.trhsy.sim.npc.FolkRelationship
      **/
     public FolkRelationship getRelationshipWith(NpcData folk2) {
-        FolkRelationship rels=null;
-        for (FolkRelationship rel:this.relationships){
-            if(rel.getOther() != folk2){
-                rels=rel;
+        FolkRelationship rels = null;
+        for (FolkRelationship rel : this.relationships) {
+            if (rel.getOther() != folk2) {
+                rels = rel;
                 return rels;
             }
         }
         return rels;
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 关系状态
      * @Date 10:39 2022/10/21
      * @Param []
-     * @return java.lang.String
      **/
     public String getRelationshipStatus() {
         if (this.getFamily(EnumFamilyType.SPOUSE) != null) {
             //已婚
-            String married=I18n.format("container.sim.relation_ship_Married");
+            String married = I18n.format("container.sim.relation_ship_Married");
             return married;
         } else {
             //单身狗
-            String single=I18n.format("container.sim.folkData4");
+            String single = I18n.format("container.sim.folkData4");
             //有对象
-            String In_a_relationship=I18n.format("container.sim.In_a_relationship");
+            String In_a_relationship = I18n.format("container.sim.In_a_relationship");
 
             return this.getFamily(EnumFamilyType.PARTNER) != null ? In_a_relationship : single;
         }
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 饥饿程度
      * @Date 10:40 2022/10/21
      * @Param []
-     * @return java.lang.String
      **/
     public String getHunger() {
         if (this.hunger > 8) {
@@ -756,23 +848,24 @@ public class NpcData {
             return this.hunger > 1 ? I18n.format("container.sim.folkData9") : I18n.format("container.sim.folkData8");
         }
     }
+
     /**
+     * @return com.trhsy.sim.npc.NpcData
      * @Author fan
      * @Description //TODO 家庭成员
      * @Date 10:40 2022/10/21
      * @Param [fam]
-     * @return com.trhsy.sim.npc.NpcData
      **/
     public NpcData getFamily(EnumFamilyType fam) {
-        FolkRelationship rels=null;
-        for(FolkRelationship rel:this.relationships){
-            if(rel.familyType == fam){
-                rels=rel;
+        FolkRelationship rels = null;
+        for (FolkRelationship rel : this.relationships) {
+            if (rel.familyType == fam) {
+                rels = rel;
             }
         }
-        if(rels==null){
+        if (rels == null) {
             return null;
-        }else{
+        } else {
             return rels.getOther();
         }
     }
@@ -785,17 +878,21 @@ public class NpcData {
         this.home.saveBuilding();
         this.home = null;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 设置状态
      * @Date 10:40 2022/10/21
      * @Param [sts]
-     * @return void
      **/
     public void setStatus(String sts) {
         this.status = sts;
     }
-    /**更新NPC状态**/
+
+    /**
+     * 更新NPC状态
+     **/
     public void onUpdate() {
         Long now = System.currentTimeMillis();
         //每秒更新
@@ -812,8 +909,8 @@ public class NpcData {
         if (this.job != null && this.shouldWork()) {
             /*if (!this.job.atWork) {
             }*/
-                this.job.onUpdate();
-                //有工作，不该工作的时候 实体不是空
+            this.job.onUpdate();
+            //有工作，不该工作的时候 实体不是空
         } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
             try {
                 //清除实体手中物品
@@ -843,7 +940,7 @@ public class NpcData {
                     this.currentTask.update();
                 } else {
                     //重新获取任务
-                    this.currentTask = (Task)this.tasks.get(0);
+                    this.currentTask = (Task) this.tasks.get(0);
                     //开始任务
                     this.currentTask.begin();
                 }
@@ -857,12 +954,13 @@ public class NpcData {
             }
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 是否应该工作
      * @Date 10:40 2022/10/21
      * @Param []
-     * @return boolean
      **/
     public boolean shouldWork() {
 
@@ -872,19 +970,20 @@ public class NpcData {
             return false;
         } else if (this.pregnancyStage > 0.0F) {
             return false;
-                                                            //士兵
+            //士兵
         } else if (this.job != null && this.job.jobName == I18n.format("container.sim.Vocation7")) {
             return !ModSimLoader.isDayTime(this.entity.worldObj);
         } else {
             return ModSimLoader.isDayTime(this.entity.worldObj);
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 每秒更新 只是更新关系/工作状态
      * @Date 10:40 2022/10/21
      * @Param []
-     * @return void
      **/
     public void onSecond() {
 
@@ -909,7 +1008,7 @@ public class NpcData {
 
             if (this.entity != null) {
                 List<EntityFolk> nearbyFolks = this.entity.worldObj.getEntitiesWithinAABB(EntityFolk.class, new AxisAlignedBB(this.entity.posX - 3.0D, this.entity.posY - 1.0D, this.entity.posZ - 3.0D, this.entity.posX + 3.0D, this.entity.posY + 1.0D, this.entity.posZ + 3.0D));
-                for (EntityFolk f:nearbyFolks){
+                for (EntityFolk f : nearbyFolks) {
                     NpcData fd = f.theData;
                     if (fd != null && fd.ID != this.ID) {
                         //与某人的关系
@@ -930,12 +1029,12 @@ public class NpcData {
 
             }
 
-        }else{
+        } else {
             //实体是空的
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-            for (EntityPlayerMP player:players.getPlayerList()){
-                double dist=player.getDistance(this.pos.x, this.pos.y, this.pos.z);
-                if (this.pos != null &&  dist< 50.0D && !player.worldObj.isRemote) {
+            for (EntityPlayerMP player : players.getPlayerList()) {
+                double dist = player.getDistance(this.pos.x, this.pos.y, this.pos.z);
+                if (this.pos != null && dist < 50.0D && !player.worldObj.isRemote) {
                     ModSimLoader.hasLoadedFolks = true;
                     //重生
                     this.respawn(player.worldObj, this.pos.toBlockPos());
@@ -966,12 +1065,13 @@ public class NpcData {
             }*/
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 每分钟更新 / 工作状态
      * @Date 10:41 2022/10/21
      * @Param []
-     * @return void
      **/
     public void onMinute() {
         if (this.entity != null && !this.isDead) {
@@ -1002,9 +1102,9 @@ public class NpcData {
                             newHome.occupants.add(this);
                             this.home = newHome;
                             // 已经搬到了
-                            String s1=I18n.format("container.sim.npcData_onupdate1");
+                            String s1 = I18n.format("container.sim.npcData_onupdate1");
                             // ，和TA父母一起
-                            String s2=I18n.format("container.sim.npcData_onupdate2");
+                            String s2 = I18n.format("container.sim.npcData_onupdate2");
                             ModSimLoader.sendChat(this.getName() + s1 + this.home.buildingName + s2);
                         }
                     } else {
@@ -1014,7 +1114,7 @@ public class NpcData {
                             empty.occupants.add(this);
                             this.home = empty;
                             // 已搬入
-                            String sText=this.getName() + I18n.format("container.sim.npcData_onupdate3") + empty.buildingName;
+                            String sText = this.getName() + I18n.format("container.sim.npcData_onupdate3") + empty.buildingName;
                             ModSimLoader.sendChat(sText);
                             this.moveToXYZ(this.home.livingXYZ);
                         }
@@ -1040,12 +1140,13 @@ public class NpcData {
 
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 添加任务
      * @Date 10:41 2022/10/21
      * @Param [task]
-     * @return void
      **/
     public void addTask(Task task) {
         if (task instanceof TaskSleep && this.currentTask != null && !(this.currentTask instanceof TaskSleep) && !this.currentTask.interruptSleep) {
@@ -1055,43 +1156,45 @@ public class NpcData {
 
         this.tasks.add(task);
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 下一个任务
      * @Date 10:41 2022/10/21
      * @Param []
-     * @return void
      **/
     public void nextTask() {
         this.currentTask = null;
         this.tasks.remove(0);
         if (this.tasks.size() > 0) {
-            this.currentTask = (Task)this.tasks.get(0);
+            this.currentTask = (Task) this.tasks.get(0);
             this.currentTask.begin();
         }
 
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 选择随机任务
      * @Date 10:41 2022/10/21
      * @Param []
-     * @return void
      **/
     public void pickRandomTask() {
         //有家并且随机任务是3
         if (this.home != null && this.rand.nextInt(4) == 3) {
             //回家在家放松
-            this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), this.home, I18n.format("container.sim.FolkAction5")));
+            this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), this.home, I18n.format("container.sim.FolkAction5")));
         } else if (this.rand.nextInt(4) == 3) {
-            for(Building b:ModSimLoader.buildings){
+            for (Building b : ModSimLoader.buildings) {
                 if (b.controlXYZ.getDistanceTo(this.pos) < 40 && this.rand.nextInt(4) == 3) {
                     //住宅
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
                         Iterator var3 = b.occupants.iterator();
 
                         label61:
-                        while(true) {
+                        while (true) {
                             NpcData fd;
                             do {
                                 do {
@@ -1101,59 +1204,59 @@ public class NpcData {
                                                 break label61;
                                             }
 
-                                            fd = (NpcData)var3.next();
+                                            fd = (NpcData) var3.next();
                                             //当前NPC
-                                        } while(fd.ID == this.ID);
+                                        } while (fd.ID == this.ID);
                                         //成年
-                                    } while(this.isAdult() != fd.isAdult());
+                                    } while (this.isAdult() != fd.isAdult());
                                     //应该工作
-                                } while(fd.shouldWork());
+                                } while (fd.shouldWork());
                                 //闲逛 不等于空
-                            } while(!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null);
+                            } while (!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null);
                             //社交任务
-                            this.addTask(new TaskSocialise(this, (long)(this.rand.nextInt(15000) + 15000), fd, b, false));
+                            this.addTask(new TaskSocialise(this, (long) (this.rand.nextInt(15000) + 15000), fd, b, false));
                             fd.currentTask = null;
                             fd.tasks.clear();
-                            fd.addTask(new TaskSocialise(fd, (long)(this.rand.nextInt(15000) + 15000), this, b, true));
+                            fd.addTask(new TaskSocialise(fd, (long) (this.rand.nextInt(15000) + 15000), this, b, true));
                         }
                     }
                     //商业
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Commercial"))) {
 
-                        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Shopping") + b.buildingName));
+                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Shopping") + b.buildingName));
                         //工业
                     } else if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Industrial"))) {
-                        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
                         //装饰
                     } else if (!b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Decorative"))) {
-                        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
                         //其他
-                    }else if (!b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Other"))) {
-                        this.addTask(new TaskGoTo(this, (long)(this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                    } else if (!b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Other"))) {
+                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
                     }
                     break;
                 }
             }
         } else {
-            this.addTask(new TaskWander(this, (long)(this.rand.nextInt(30000) + 30000)));
+            this.addTask(new TaskWander(this, (long) (this.rand.nextInt(30000) + 30000)));
         }
 
     }
 
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 添加关系
      * @Date 10:43 2022/10/21
      * @Param [folk2]
-     * @return void
      **/
     public void addRelationship(NpcData folk2) {
         boolean relExists = false;
 
         Iterator var3 = this.relationships.iterator();
 
-        while(var3.hasNext()) {
-            FolkRelationship rel = (FolkRelationship)var3.next();
+        while (var3.hasNext()) {
+            FolkRelationship rel = (FolkRelationship) var3.next();
             if (rel.getOther() == folk2) {
                 relExists = true;
             }
@@ -1165,12 +1268,13 @@ public class NpcData {
         }
 
     }
+
     /**
+     * @return com.trhsy.sim.npc.NpcData
      * @Author fan
      * @Description //TODO 获取关系
      * @Date 11:32 2022/10/21
      * @Param [relCheck]
-     * @return com.trhsy.sim.npc.NpcData
      **/
     public NpcData getRelation(EnumFamilyType relCheck) {
         Iterator var2 = this.relationships.iterator();
@@ -1181,74 +1285,78 @@ public class NpcData {
                 return null;
             }
 
-            rel = (FolkRelationship)var2.next();
-        } while(rel.familyType != relCheck);
+            rel = (FolkRelationship) var2.next();
+        } while (rel.familyType != relCheck);
 
         return rel.getOther();
     }
+
     /**
+     * @return com.trhsy.sim.npc.NpcData
      * @Author fan
      * @Description //TODO 获取父亲
      * @Date 11:33 2022/10/21
      * @Param [gender]
-     * @return com.trhsy.sim.npc.NpcData
      **/
     public NpcData getParent(int gender) {
         NpcData npcData = null;
-        for (FolkRelationship rel:this.relationships){
-            if(rel.familyType != EnumFamilyType.PARENT || rel.getOther().gender != gender){
-                npcData=rel.getOther();
+        for (FolkRelationship rel : this.relationships) {
+            if (rel.familyType != EnumFamilyType.PARENT || rel.getOther().gender != gender) {
+                npcData = rel.getOther();
 
             }
         }
         return npcData;
     }
+
     /**
+     * @return com.trhsy.sim.npc.NpcData
      * @Author fan
      * @Description //TODO 获取配偶
      * @Date 11:33 2022/10/21
      * @Param []
-     * @return com.trhsy.sim.npc.NpcData
      **/
     public NpcData getSpouse() {
         NpcData npcData = null;
-        for (FolkRelationship rel:this.relationships){
-            if(rel.familyType != EnumFamilyType.SPOUSE){
-                npcData=rel.getOther();
+        for (FolkRelationship rel : this.relationships) {
+            if (rel.familyType != EnumFamilyType.SPOUSE) {
+                npcData = rel.getOther();
 
             }
         }
         return npcData;
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 移动
      * @Date 11:35 2022/10/21
      * @Param [v3]
-     * @return boolean
      **/
     public boolean moveToXYZ(V3 v3) {
         if (!this.stayPut && this.entity != null && this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            double expectedtime = (double)System.currentTimeMillis() + dist * 0.6D;
+            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
             return true;
         } else {
             return false;
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 强制移动到
      * @Date 11:35 2022/10/21
      * @Param [v3]
-     * @return boolean
      **/
     public boolean forceMoveToXYZ(V3 v3) {
         this.entity.getNavigator().clearPathEntity();
         v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
         if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            double expectedtime = (double)System.currentTimeMillis() + dist * 0.6D;
+            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
             return true;
         } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
             return true;
@@ -1265,12 +1373,13 @@ public class NpcData {
             return false;
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 强制移动到无扭曲
      * @Date 11:36 2022/10/21
      * @Param [v3]
-     * @return boolean
      **/
     public boolean forceMoveToXYZNoWarp(V3 v3) {
         v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
@@ -1280,39 +1389,42 @@ public class NpcData {
             return this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D);
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 在建筑内
      * @Date 11:36 2022/10/21
      * @Param [b]
-     * @return boolean
      **/
     public boolean isAtBuilding(Building b) {
         return this.isAtBuilding(b, 2.0F);
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 在建筑内
      * @Date 11:36 2022/10/21
      * @Param [b, maxDist]
-     * @return boolean
      **/
     public boolean isAtBuilding(Building b, float maxDist) {
         if (this.entity == null) {
             return false;
             //住宅
         } else if (b.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
-            return (float)b.livingXYZ.getDistanceTo(this.pos) < maxDist;
+            return (float) b.livingXYZ.getDistanceTo(this.pos) < maxDist;
         } else {
-            return (float)b.controlXYZ.getDistanceTo(this.pos) < maxDist;
+            return (float) b.controlXYZ.getDistanceTo(this.pos) < maxDist;
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 在建筑内
      * @Date 11:36 2022/10/21
      * @Param [v3]
-     * @return boolean
      **/
     public boolean isAtLocation(V3 v3) {
         if (this.entity == null) {
@@ -1321,26 +1433,28 @@ public class NpcData {
             return Math.abs(this.entity.posX - v3.x) < 2.0D && Math.abs(this.entity.posZ - v3.z) < 2.0D;
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 正在建筑
      * @Date 11:36 2022/10/21
      * @Param [v3, dist]
-     * @return boolean
      **/
     public boolean isAtLocation(V3 v3, int dist) {
         if (this.entity == null) {
             return false;
         } else {
-            return Math.abs(this.entity.posX - v3.x) < (double)dist && Math.abs(this.entity.posZ - v3.z) < (double)dist;
+            return Math.abs(this.entity.posX - v3.x) < (double) dist && Math.abs(this.entity.posZ - v3.z) < (double) dist;
         }
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 正在建筑
      * @Date 11:36 2022/10/21
      * @Param [blockPos]
-     * @return boolean
      **/
     public boolean isAtLocation(BlockPos blockPos) {
         if (this.entity == null) {
@@ -1349,12 +1463,13 @@ public class NpcData {
             return (new BlockPos(this.entity)).distanceSq(blockPos) < 2.0D;
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 调整关系
      * @Date 11:37 2022/10/21
      * @Param [other, amount]
-     * @return void
      **/
     public void adjustRelationship(NpcData other, int amount) {
         FolkRelationship rel = this.getRelationshipWith(other);
@@ -1365,44 +1480,47 @@ public class NpcData {
         }
 
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 是成年人
      * @Date 18:57 2022/10/16
      * @Param []
-     * @return boolean
      **/
     public boolean isAdult() {
         return this.age >= this.race.maturity;
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 获取皮肤
      * @Date 13:17 2022/10/17
      * @Param []
-     * @return java.lang.String
      **/
     public String getTexture() {
         String texture = "";
         try {
-                //System.out.println("实体人性别："+theData.gender);
-                if (this.gender == 0) {
-                    texture = "male" + this.skinnumber + ".png";
-                } else {
-                    texture = "female" + this.skinnumber + ".png";
-                }
+            //System.out.println("实体人性别："+theData.gender);
+            if (this.gender == 0) {
+                texture = "male" + this.skinnumber + ".png";
+            } else {
+                texture = "female" + this.skinnumber + ".png";
+            }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("getTexture出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return texture;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO NPC死亡
      * @Date 15:20 2022/10/18
      * @Param [cause]
-     * @return void
      **/
     public void onDeath(DamageSource cause) {
         String deathMessage = "";
@@ -1414,7 +1532,7 @@ public class NpcData {
         }
 
         this.isDead = true;
-        for (NpcData npcData:ModSimLoader.folks){
+        for (NpcData npcData : ModSimLoader.folks) {
             ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
             if (npcData.ID.contentEquals(this.ID) && !npcData.entity.worldObj.isRemote) {
                 ModSimLoader.log.info("找到匹配ID");
@@ -1430,9 +1548,9 @@ public class NpcData {
                 } catch (Exception var5) {
                     var5.printStackTrace();
                 }
-            }else{
-                for (FolkRelationship folkRelationship:npcData.relationships) {
-                    if(folkRelationship.folk2.contains(this.ID)){
+            } else {
+                for (FolkRelationship folkRelationship : npcData.relationships) {
+                    if (folkRelationship.folk2.contains(this.ID)) {
                         npcData.relationships.remove(folkRelationship);
                         npcData.saveFolk();
                     }
@@ -1441,12 +1559,13 @@ public class NpcData {
 
         }
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 找到保存位置
      * @Date 15:43 2022/10/18
      * @Param []
-     * @return java.lang.String
      **/
     public String getSaveFolder() {
         DimensionManager d = new DimensionManager();
@@ -1454,12 +1573,13 @@ public class NpcData {
         worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + File.separator + "sim";
         return worldPath;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 生成特征
      * @Date 17:30 2022/10/18
      * @Param []
-     * @return void
      **/
     public void generateTraits() {
         try {
@@ -1485,13 +1605,13 @@ public class NpcData {
             }
 
 
-
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("generateTraits出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
+
     /**
      * 特质具有相反的性质
      *
@@ -1511,6 +1631,7 @@ public class NpcData {
         }
         return false;
     }
+
     /**
      * 有特点
      *
@@ -1531,45 +1652,51 @@ public class NpcData {
         }
         return flag;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 添加到随身物品栏
      * @Date 13:23 2022/10/21
      * @Param [is]
-     * @return void
      **/
     public void addToInventory(ItemStack is) {
-        for(int i = 0; i < this.inventory.size(); ++i) {
-            ItemStack itemStack=this.inventory.get(i);
+        for (int i = 0; i < this.inventory.size(); ++i) {
+            ItemStack itemStack = this.inventory.get(i);
             if (itemStack.isItemEqual(is)) {
-                itemStack.stackSize=itemStack.stackSize+is.stackSize;
+                itemStack.stackSize = itemStack.stackSize + is.stackSize;
                 return;
             }
         }
 
         this.inventory.add(is);
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 清除状态
      * @Date 13:24 2022/10/21
      * @Param []
-     * @return void
      **/
     public void clearStatus() {
         this.status = I18n.format("container.sim.folk_data.Wandering");
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 雇佣地点
      * @Date 13:24 2022/10/21
      * @Param [pos, jobName, world]
-     * @return void
      **/
     public void hireAt(V3 pos, String jobName, World world) {
         //面包师
         if (jobName.contentEquals(I18n.format("container.sim.Vocation6"))) {
             this.job = new JobBaker(this, pos.toBlockPos(), world);
+            //地形规划师
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation16"))) {
+            this.job = new JobTerrainFormer(this, pos.toBlockPos(), world);
             //屠夫
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
             //this.job = new JobButcher(this, pos.toBlockPos(), world);
@@ -1605,15 +1732,16 @@ public class NpcData {
             //this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
         }
 
-        BlockControlBox cont = (BlockControlBox)this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
+        BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
         cont.employees.add(this);
     }
+
     /**
+     * @return com.trhsy.sim.npc.V3
      * @Author fan
      * @Description //TODO 获得地点
      * @Date 13:25 2022/10/21
      * @Param []
-     * @return com.trhsy.sim.npc.V3
      **/
     public V3 getV3() {
         return V3.fromBlockPos(new BlockPos(this.entity));

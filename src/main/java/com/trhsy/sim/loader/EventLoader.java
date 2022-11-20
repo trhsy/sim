@@ -25,12 +25,14 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IWorldEventListener;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
@@ -336,11 +338,12 @@ public class EventLoader {
                 }
                 if (!this.newDay) {
                     ModSimLoader.log.info("天亮了");
+                    //播放 天亮了鸡叫
+                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
                     for (int i = 0; i < event.world.playerEntities.size(); i++) {
                         EntityPlayer entityPlayer = event.world.playerEntities.get(i);
-                        //播放 天亮了鸡叫
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                        event.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1, 1);
+                        BlockPos pos = new BlockPos(entityPlayer.posX+1, entityPlayer.posY+1, entityPlayer.posZ+1);
+                        event.world.playSound(null,pos, soundEvent, SoundCategory.AMBIENT,1,1);
                     }
                     this.newDay = true;
                     if (ModSimLoader.states.dayOfWeek >= 6) {
@@ -360,12 +363,12 @@ public class EventLoader {
                         }
 
                         ModSimLoader.addMoney(rent);
-
+                        //播放钱到账
+                        soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                         for (int i = 0; i < event.world.playerEntities.size(); i++) {
                             EntityPlayer entityPlayer = event.world.playerEntities.get(i);
-                            //播放钱到账
-                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                            event.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1, 1);
+                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                            event.world.playSound(null,pos, soundEvent, SoundCategory.AMBIENT,1,1);
                         }
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));

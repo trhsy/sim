@@ -179,16 +179,24 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 //规划区域不可用
                 ((GuiButton)this.buttonList.get(6)).enabled = false;
                 //雇佣规划师不可用
-                ((GuiButton)this.buttonList.get(7)).enabled = false;
+                ((GuiButton)this.buttonList.get(7)).enabled = true;
             } else {
-                //选择建筑可用
-                ((GuiButton)this.buttonList.get(1)).enabled = true;
+                if (this.hiringTerraformer) {
+                    //选择建筑不可用
+                    ((GuiButton)this.buttonList.get(1)).enabled = false;
+                    //规划区域可用
+                    ((GuiButton)this.buttonList.get(6)).enabled = true;
+                }else{
+                    //选择建筑可用
+                    ((GuiButton)this.buttonList.get(1)).enabled = true;
+                    //规划区域不可用
+                    ((GuiButton)this.buttonList.get(6)).enabled = false;
+                }
                 //雇佣建筑工不可用
                 ((GuiButton)this.buttonList.get(2)).enabled = false;
                 //解雇不可用
                 ((GuiButton)this.buttonList.get(3)).enabled = true;
-                //规划区域不可用
-                ((GuiButton)this.buttonList.get(6)).enabled = false;
+
                 //雇佣规划师不可用
                 ((GuiButton)this.buttonList.get(7)).enabled = false;
             }
@@ -384,6 +392,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 if (guibutton.id == 0) {
                     this.mc.currentScreen = null;
                     this.mc.setIngameFocus();
+                    //显示员工
                 } else if (guibutton.id == 4 && this.currentPage == 0) {
                     //雇佣员工
                     Minecraft.getMinecraft().displayGuiScreen(new GuiEmployees());
