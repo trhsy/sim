@@ -4,12 +4,10 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.gui.npc.GuiEmployees;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
-import com.trhsy.sim.network.server.PacketFireFolk;
-import com.trhsy.sim.network.server.PacketGetHireableFolks;
-import com.trhsy.sim.network.server.PacketHireFolk;
-import com.trhsy.sim.network.server.PacketSendBlueprint;
+import com.trhsy.sim.network.server.*;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
+import com.trhsy.sim.npc.build.TerrainType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -30,44 +28,77 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @Date 2022/10/1916:23
  **/
 public class GuiBlockConstructorBlock extends GuiScreen {
-    /**有员工**/
-    public boolean hasEmployee = false;
-    /**雇佣的npc**/
-    public NpcIdentity employee;
-    /**建筑蓝图**/
-    public BuildingBlueprint selectedBlueprint;
-    /**蓝图集合**/
-    public List<BuildingBlueprint> potentialBlueprints = new CopyOnWriteArrayList<>();
-    /**可雇佣的人**/
-    public NpcIdentity[] hireableFolkNames = new NpcIdentity[1000];
-    /**雇佣地形师*/
-    public boolean hiringTerraformer = false;
-    /**选定的员工**/
-    GuiButton selectedEmployee;
-    /**位置**/
-    public BlockPos pos;
-    /**建筑方向**/
-    public int buildDirection;
-    /**分页*/
-    public int currentPage = 0;
-    /**上一页*/
-    public int previousPage = 1;
-    /**搜索*/
-    private GuiTextField tfSearch;
-    /**搜索文字**/
-    private String search = "";
-    /**建筑偏移量*/
-    private int buildingOffset;
-    /**当前第几页*/
-    private int buildingsOnPage = 0;
-    /**建筑的时间*/
-    long fingBodge = 0L;
     /**
+     * 有员工
+     **/
+    public boolean hasEmployee = false;
+    /**
+     * 雇佣的npc
+     **/
+    public NpcIdentity employee;
+    /**
+     * 建筑蓝图
+     **/
+    public BuildingBlueprint selectedBlueprint;
+    /**
+     * 蓝图集合
+     **/
+    public List<BuildingBlueprint> potentialBlueprints = new CopyOnWriteArrayList<>();
+    /**
+     * 可雇佣的人
+     **/
+    public NpcIdentity[] hireableFolkNames = new NpcIdentity[1000];
+    /**
+     * 雇佣地形师
+     */
+    public boolean hiringTerraformer = false;
+    /**
+     * 选定的员工
+     **/
+    GuiButton selectedEmployee;
+    /**
+     * 位置
+     **/
+    public BlockPos pos;
+    /**
+     * 建筑方向
+     **/
+    public int buildDirection;
+    /**
+     * 分页
+     */
+    public int currentPage = 0;
+    /**
+     * 上一页
+     */
+    public int previousPage = 1;
+    /**
+     * 搜索
+     */
+    private GuiTextField tfSearch;
+    /**
+     * 搜索文字
+     **/
+    private String search = "";
+    /**
+     * 建筑偏移量
+     */
+    private int buildingOffset;
+    /**
+     * 当前第几页
+     */
+    private int buildingsOnPage = 0;
+    /**
+     * 建筑的时间
+     */
+    long fingBodge = 0L;
+
+    /**
+     * @return 块，方向
      * @Author fan
      * @Description //TODO 初始化
      * @Date 13:33 2022/10/31
      * @Param [p, bDir]
-     * @return 块，方向
      **/
     public GuiBlockConstructorBlock(BlockPos p, int bDir) {
         this.pos = p;
@@ -88,12 +119,13 @@ public class GuiBlockConstructorBlock extends GuiScreen {
         }
 
     }
+
     /**
+     * @return 方块，建筑方向，npc
      * @Author fan
      * @Description //TODO 初始化
      * @Date 13:37 2022/10/31
      * @Param [p, bDir, folk]
-     * @return 方块，建筑方向，npc
      **/
     public GuiBlockConstructorBlock(BlockPos p, int bDir, NpcIdentity folk) {
         this.pos = p;
@@ -117,34 +149,37 @@ public class GuiBlockConstructorBlock extends GuiScreen {
         }
 
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 如果此GUI在单人游戏中显示时应暂停游戏，则返回true
      * @Date 13:44 2022/10/31
      * @Param []
-     * @return boolean
      **/
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 初始化GUI
      * @Date 13:46 2022/10/31
      * @Param []
-     * @return void
      **/
     public void initGui() {
         super.initGui();
         //显示分页
         this.showPage();
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 显示分页
      * @Date 13:46 2022/10/31
      * @Param []
-     * @return void
      **/
     public void showPage() {
         //设置不聚集
@@ -171,34 +206,34 @@ public class GuiBlockConstructorBlock extends GuiScreen {
             this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, I18n.format("container.sim.Hire22")));
             if (!this.hasEmployee) {
                 //选择建筑隐藏
-                ((GuiButton)this.buttonList.get(1)).enabled = false;
+                ((GuiButton) this.buttonList.get(1)).enabled = false;
                 //雇佣建筑工可用
-                ((GuiButton)this.buttonList.get(2)).enabled = true;
+                ((GuiButton) this.buttonList.get(2)).enabled = true;
                 //解雇不可用
-                ((GuiButton)this.buttonList.get(3)).enabled = false;
+                ((GuiButton) this.buttonList.get(3)).enabled = false;
                 //规划区域不可用
-                ((GuiButton)this.buttonList.get(6)).enabled = false;
+                ((GuiButton) this.buttonList.get(6)).enabled = false;
                 //雇佣规划师不可用
-                ((GuiButton)this.buttonList.get(7)).enabled = true;
+                ((GuiButton) this.buttonList.get(7)).enabled = true;
             } else {
                 if (this.hiringTerraformer) {
                     //选择建筑不可用
-                    ((GuiButton)this.buttonList.get(1)).enabled = false;
+                    ((GuiButton) this.buttonList.get(1)).enabled = false;
                     //规划区域可用
-                    ((GuiButton)this.buttonList.get(6)).enabled = true;
-                }else{
+                    ((GuiButton) this.buttonList.get(6)).enabled = true;
+                } else {
                     //选择建筑可用
-                    ((GuiButton)this.buttonList.get(1)).enabled = true;
+                    ((GuiButton) this.buttonList.get(1)).enabled = true;
                     //规划区域不可用
-                    ((GuiButton)this.buttonList.get(6)).enabled = false;
+                    ((GuiButton) this.buttonList.get(6)).enabled = false;
                 }
                 //雇佣建筑工不可用
-                ((GuiButton)this.buttonList.get(2)).enabled = false;
+                ((GuiButton) this.buttonList.get(2)).enabled = false;
                 //解雇不可用
-                ((GuiButton)this.buttonList.get(3)).enabled = true;
+                ((GuiButton) this.buttonList.get(3)).enabled = true;
 
                 //雇佣规划师不可用
-                ((GuiButton)this.buttonList.get(7)).enabled = false;
+                ((GuiButton) this.buttonList.get(7)).enabled = false;
             }
         } else if (this.currentPage == 1) {
             //住宅
@@ -232,8 +267,8 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                     y = 80;
                     idx = 100;
                     //显示所有失业人员
-                    for(int f = 0; f < ModSimLoader.getUnemployedFolks().size(); ++f) {
-                        NpcIdentity folk = (NpcIdentity)ModSimLoader.getUnemployedFolks().get(f);
+                    for (int f = 0; f < ModSimLoader.getUnemployedFolks().size(); ++f) {
+                        NpcIdentity folk = (NpcIdentity) ModSimLoader.getUnemployedFolks().get(f);
                         this.buttonList.add(new GuiButton(idx, x, y, 110, 20, folk.name));
                         this.hireableFolkNames[idx] = folk;
                         ++idx;
@@ -255,14 +290,16 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 //预览
                 this.buttonList.add(new GuiButton(1001, this.width / 2 - 50, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Preview")));
                 //需求
-                this.buttonList.add(new GuiButton(969, this.width / 2 + 50, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_requirements")+" ->"));
+                this.buttonList.add(new GuiButton(969, this.width / 2 + 50, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_requirements") + " ->"));
             } else if (this.currentPage == 12) {
                 //返回
                 this.buttonList.add(new GuiButton(1000, this.width / 2 - 150, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_Back")));
                 //建造它
                 this.buttonList.add(new GuiButton(970, this.width / 2 + 50, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Build_it")));
-            } else if (this.currentPage == 13){
+            } else if (this.currentPage == 13) {
                 //规划区域
+                //返回
+                this.buttonList.add(new GuiButton(1000, this.width / 2 - 150, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_Back")));
                 //'填海'(填为陆地)
                 this.buttonList.add(new GuiButton(21, this.width / 2 - 200, 35, 200, 20, I18n.format("container.sim.Terraform2")));
                 //'绿化' (铺草坪)
@@ -281,7 +318,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 this.buttonList.add(new GuiButton(28, this.width / 2, 75, 200, 20, I18n.format("container.sim.Terraform9")));
                 //'除雪' (铲雪)
                 this.buttonList.add(new GuiButton(29, this.width / 2, 95, 200, 20, I18n.format("container.sim.Terraform10")));
-            }else if (this.currentPage > 3 && this.currentPage < 12) {
+            } else if (this.currentPage > 3 && this.currentPage < 12) {
                 //页在3和12页
                 this.buildingsOnPage = 0;
                 //搜索输入框
@@ -309,7 +346,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                     //特除
                     this.potentialBlueprints = ModSimLoader.getBlueprintsByType(I18n.format("container.sim.sim_gui_BC_special"), this.tfSearch.getText().trim());
                 } else if (this.currentPage == 9) {
-                //                    this.potentialBlueprints = ModSimLoader.getBlueprintsByType("Administrative", this.tfSearch.getText().trim());
+                    //                    this.potentialBlueprints = ModSimLoader.getBlueprintsByType("Administrative", this.tfSearch.getText().trim());
                 } else if (this.currentPage == 10) {
                     //装饰
                     this.potentialBlueprints = ModSimLoader.getBlueprintsByType(I18n.format("container.sim.sim_gui_BC_Decorative"), this.tfSearch.getText().trim());
@@ -325,7 +362,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                     boolean hasRightArrow = false;
                     this.buildingsOnPage = 0;
                     //所有蓝图
-                    for(int b = 0; b <= this.potentialBlueprints.size(); ++b) {
+                    for (int b = 0; b <= this.potentialBlueprints.size(); ++b) {
                         int boff = b + this.buildingOffset;
                         if (boff < 0) {
                             boff = 0;
@@ -336,14 +373,14 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                             if (this.potentialBlueprints.get(boff) != null) {
                                 String line3 = "";
                                 //建筑蓝图
-                                BuildingBlueprint building = (BuildingBlueprint)this.potentialBlueprints.get(boff);
+                                BuildingBlueprint building = (BuildingBlueprint) this.potentialBlueprints.get(boff);
                                 String realCost = "";
                                 //建筑蓝图所需方块*0.02就是所需金钱
-                                realCost = " (" + ModSimLoader.displayMoney((float)building.blockCount * 0.02F) + ")";
+                                realCost = " (" + ModSimLoader.displayMoney((float) building.blockCount * 0.02F) + ")";
                                 //长宽高
                                 String line2 = building.length + " x " + building.width + " x " + building.height;
                                 //显示金额
-                                line3 = ModSimLoader.displayMoney((float)building.blockCount * 0.02F) + realCost;
+                                line3 = ModSimLoader.displayMoney((float) building.blockCount * 0.02F) + realCost;
                                 //作者
                                 String line4 = building.author;
                                 GuiButton b3;
@@ -372,19 +409,19 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                                 if (this.buildingOffset > 0 && !hasLeftArrow) {
                                     hasLeftArrow = true;
                                     //页
-                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< "+I18n.format("container.sim.sim_gui_BC_Page")));
+                                    this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< " + I18n.format("container.sim.sim_gui_BC_Page")));
                                 }
 
                                 if (y + 20 + 20 + 20 + 20 > this.height && !hasRightArrow) {
                                     hasRightArrow = true;
                                     //页
-                                    this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, I18n.format("container.sim.sim_gui_BC_Page")+" >"));
+                                    this.buttonList.add(new GuiButton(500, this.width - 80, this.height - 20, 75, 20, I18n.format("container.sim.sim_gui_BC_Page") + " >"));
                                     break;
                                 }
                             }
                         } else {
                             //页
-                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< "+I18n.format("container.sim.sim_gui_BC_Page")));
+                            this.buttonList.add(new GuiButton(501, 5, this.height - 20, 75, 20, "< " + I18n.format("container.sim.sim_gui_BC_Page")));
                         }
                     }
                 }
@@ -392,12 +429,13 @@ public class GuiBlockConstructorBlock extends GuiScreen {
         }
 
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 激活时由按钮列表中的控件调用。（鼠标按下按钮）
      * @Date 15:48 2022/10/31
      * @Param [guibutton]
-     * @return void
      **/
     @SubscribeEvent(
             priority = EventPriority.NORMAL
@@ -468,7 +506,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                         this.showPage();
                     }
                     //规划区域
-                    if(guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_BC_Terraform_area"))){
+                    if (guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_BC_Terraform_area"))) {
                         this.previousPage = this.currentPage;
                         this.currentPage = 13;
                         this.showPage();
@@ -510,6 +548,77 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                         if (guibutton.id == 970) {
                             //发送蓝图
                             NetWorkLoader.net.sendToServer(new PacketSendBlueprint(this.selectedBlueprint, this.employee.id, V3.fromBlockPos(this.pos).toString(), this.buildDirection));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        }
+                    } else if (this.currentPage == 13) {
+                        //返回
+                        if (guibutton.id == 1000) {
+                            this.currentPage = this.previousPage;
+                            this.showPage();
+                        }
+                        TerrainType terrainType = null;
+                        if (guibutton.id == 21) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra1"),"1");
+                            //填海
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 22) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra2"),"2");
+                            //绿化
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 23) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra3"),"3");
+                            //除草
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 24) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra4"),"4");
+                            //平整化
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 25) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra5"),"5");
+                            //超值套装
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 26) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra6"),"6");
+                            //冰川
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 27) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra7"),"7");
+                            //湿润化
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 28) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra8"),"8");
+                            //炎热化
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
+                            return;
+                        } else if (guibutton.id == 29) {
+                            terrainType=new TerrainType(I18n.format("container.sim.packetTerra9"),"9");
+                            //除雪
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
@@ -567,7 +676,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                         this.previousPage = this.currentPage;
                         this.currentPage = 9;
                         this.showPage();
-                    } */else if (guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_BC_Decorative"))) {
+                    } */ else if (guibutton.displayString.contentEquals(I18n.format("container.sim.sim_gui_BC_Decorative"))) {
                         //装饰
                         this.previousPage = this.currentPage;
                         this.currentPage = 10;
@@ -584,7 +693,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
 
                         if (guibutton.id > 0 && guibutton.id < 500) {
                             //建筑
-                            for (BuildingBlueprint bb:this.potentialBlueprints){
+                            for (BuildingBlueprint bb : this.potentialBlueprints) {
                                 if (bb.name.contentEquals(guibutton.displayString)) {
                                     this.selectedBlueprint = bb;
                                     break;
@@ -662,19 +771,19 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC_Now_decorative1"), this.width / 2, 50, 16777130);
                 this.tfSearch.drawTextBox();
             } else if (this.currentPage == 11) {
-                String realCost = " (" + ModSimLoader.displayMoney((float)this.selectedBlueprint.blockCount * 0.02F) + ")";
+                String realCost = " (" + ModSimLoader.displayMoney((float) this.selectedBlueprint.blockCount * 0.02F) + ")";
                 //建筑详情
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC_Building_details") + this.selectedBlueprint.name, this.width / 2, 50, 16777130);
                 //建筑名
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC3")+": " + this.selectedBlueprint.name, this.width / 2, 80, 16777130);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC3") + ": " + this.selectedBlueprint.name, this.width / 2, 80, 16777130);
                 //描述
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC4")+": " + this.selectedBlueprint.desc, this.width / 2, 110, 16777130);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC4") + ": " + this.selectedBlueprint.desc, this.width / 2, 110, 16777130);
                 //作者
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC5")+": " + this.selectedBlueprint.author, this.width / 2, 140, 16777130);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC5") + ": " + this.selectedBlueprint.author, this.width / 2, 140, 16777130);
                 //费用
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC6")+": " + ModSimLoader.displayMoney((float)this.selectedBlueprint.blockCount * 0.02F) + realCost, this.width / 2, 170, 16777130);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC6") + ": " + ModSimLoader.displayMoney((float) this.selectedBlueprint.blockCount * 0.02F) + realCost, this.width / 2, 170, 16777130);
                 //规格尺寸
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC7")+": " + this.selectedBlueprint.getDimensions(), this.width / 2, 200, 16777130);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.sim_gui_BC7") + ": " + this.selectedBlueprint.getDimensions(), this.width / 2, 200, 16777130);
             } else if (this.currentPage == 12) {
                 //建筑需求
                 int y = 70;
@@ -682,12 +791,12 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 if (reqs.length > 0) {
                     this.drawCenteredString(this.fontRendererObj, reqs[0], this.width / 2, 50, 16777130);
 
-                    for(int req = 1; req < reqs.length; ++req) {
+                    for (int req = 1; req < reqs.length; ++req) {
                         this.drawString(this.fontRendererObj, reqs[req], this.width / 3, y, 16777215);
                         y += 15;
                     }
                 }
-            }else if (this.currentPage == 13) {
+            } else if (this.currentPage == 13) {
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform11"), this.width / 2, 25, 16777215);
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform12"), this.width / 2, 30, 16777215);
 //                this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 80, 16744576);
@@ -699,26 +808,28 @@ public class GuiBlockConstructorBlock extends GuiScreen {
         }
 
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 获取可雇佣的人名
      * @Date 16:20 2022/11/1
      * @Param []
-     * @return void
      **/
     public void getHireableFolkNames() {
         NetWorkLoader.net.sendToServer(new PacketGetHireableFolks(true));
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 搜索框
      * @Date 16:36 2022/11/1
      * @Param [c, i]
-     * @return void
      **/
     public void keyTyped(char c, int i) {
         if (i == 1) {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
         } else {
             if (this.tfSearch != null) {

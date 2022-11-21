@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * @ClassName PacketSendBlueprint
- * @Description todo
+ * @Description todo 发送蓝图
  * @Author TRHSY
  * @Date 2022/10/2118:02
  **/

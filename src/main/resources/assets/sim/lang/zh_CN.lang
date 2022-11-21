@@ -825,6 +825,16 @@ container.sim.Terraform11=规划区域-请选择一个规划项目
 container.sim.Terraform12=半径（1到60）
 container.sim.Terraform13=错误：你必须雇佣一名规划师,而不是建筑工
 container.sim.Terraform14=错误：半径必须小于等于60
+container.sim.packetTerra1=填海
+container.sim.packetTerra2=绿化
+container.sim.packetTerra3=除草
+container.sim.packetTerra4=平整化
+container.sim.packetTerra5=超值套装
+container.sim.packetTerra6=冰川
+container.sim.packetTerra7=湿润化
+container.sim.packetTerra8=炎热化
+container.sim.packetTerra9=除雪
+
 
 container.sim.Facsimile1=请面向主标志站立,后标志在远处。
 container.sim.Facsimile2=无法复制建筑,技术信息：cx=

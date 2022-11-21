@@ -822,6 +822,16 @@ container.sim.Terraform12=Radius (1 to 60)
 container.sim.Terraform13=Error: You must hire a terraformer, not a builder
 container.sim.Terraform14=ERROR: the radius must be 60 or less
 
+container.sim.packetTerra1=Sealand
+container.sim.packetTerra2=Nature
+container.sim.packetTerra3=Lawnmower
+container.sim.packetTerra4=Flattenizer
+container.sim.packetTerra5=Value Pack
+container.sim.packetTerra6=Glacial
+container.sim.packetTerra7=Moisturizer
+container.sim.packetTerra8=Thermalizer
+container.sim.packetTerra9=De-icer
+
 container.sim.Facsimile1=Please stand facing the primary marker with the rear marker in the distance.
 container.sim.Facsimile2=Could not copy building, Technical info:cx=
 container.sim.Facsimile3=Error, could not capture all blocks, try standing closer to marker and try again

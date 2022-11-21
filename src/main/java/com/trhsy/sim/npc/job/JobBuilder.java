@@ -794,7 +794,7 @@ public class JobBuilder extends Job {
     void createConBox() {
         this.conBox = new EntityConBox(this.jobWorld, this);
         this.conBox.folk = this.folk;
-        this.conBox.job = this;
+        this.conBox.builderJob = this;
         this.conBox.setLocationAndAngles(this.workPlace.x + 2.0D, this.workPlace.y, this.workPlace.z, 0.0F, 0.0F);
         if (!this.jobWorld.isRemote) {
             this.jobWorld.spawnEntityInWorld(this.conBox);

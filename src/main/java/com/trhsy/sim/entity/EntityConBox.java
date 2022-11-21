@@ -2,6 +2,7 @@ package com.trhsy.sim.entity;
 
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.job.JobBuilder;
+import com.trhsy.sim.npc.job.JobTerrainFormer;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
@@ -22,7 +23,9 @@ public class EntityConBox extends Entity {
     /**字体颜色**/
     public int textColor = 11534255;
     /**建筑工作**/
-    public JobBuilder job;
+    public JobBuilder builderJob;
+    /**规划工作**/
+    public JobTerrainFormer terrainFormerJob;
     /**NPC数据*/
     public NpcData folk;
     /**上传刷新**/
@@ -50,8 +53,22 @@ public class EntityConBox extends Entity {
         super(world);
         this.noClip = true;
         this.ignoreFrustumCheck = true;
-        this.job = jobBuilder;
-        this.folk = this.job.folk;
+        this.builderJob = jobBuilder;
+        this.folk = this.builderJob.folk;
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 初始化
+     * @Date 16:29 2022/11/1
+     * @Param [world, jobBuilder]
+     * @return
+     **/
+    public EntityConBox(World world, JobTerrainFormer terrainFormerJob) {
+        super(world);
+        this.noClip = true;
+        this.ignoreFrustumCheck = true;
+        this.terrainFormerJob = terrainFormerJob;
+        this.folk = this.builderJob.folk;
     }
     /**
      * @Author fan
@@ -68,7 +85,10 @@ public class EntityConBox extends Entity {
                     //生成爆炸粒子
                     this.spawnExplosionParticle(this);
                     this.setDead();
-                } else if (this.folk.job != this.job) {
+                } else if (this.folk.job != this.builderJob) {
+                    this.spawnExplosionParticle(this);
+                    this.setDead();
+                }else if (this.folk.job != this.terrainFormerJob) {
                     this.spawnExplosionParticle(this);
                     this.setDead();
                 }
