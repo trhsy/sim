@@ -133,6 +133,9 @@ public class GuiBlockConstructorBlock extends GuiScreen {
         this.employee = folk;
         this.hasEmployee = true;
         this.getHireableFolkNames();
+        if(folk.job.contentEquals(I18n.format("container.sim.Vocation16"))){
+            this.hiringTerraformer=true;
+        }
         //
         if (p.equals(ModSimLoader.previewConstructor)) {
             this.selectedBlueprint = ModSimLoader.savedBlueprint;
@@ -205,14 +208,25 @@ public class GuiBlockConstructorBlock extends GuiScreen {
             //雇佣规划师
             this.buttonList.add(new GuiButton(7, this.width / 2 - 180, 170, 120, 20, I18n.format("container.sim.Hire22")));
             if (!this.hasEmployee) {
-                //选择建筑隐藏
-                ((GuiButton) this.buttonList.get(1)).enabled = false;
-                //雇佣建筑工可用
+                if (this.hiringTerraformer) {
+                    //选择建筑不可用
+                    ((GuiButton) this.buttonList.get(1)).enabled = false;
+                    //规划区域可用
+                    ((GuiButton) this.buttonList.get(6)).enabled = true;
+                }else{
+                    //选择建筑可用
+                    ((GuiButton) this.buttonList.get(1)).enabled = false;
+                    //规划区域不可用
+                    ((GuiButton) this.buttonList.get(6)).enabled = false;
+                }
+//                //选择建筑隐藏
+//                ((GuiButton) this.buttonList.get(1)).enabled = false;
+//                //雇佣建筑工可用
                 ((GuiButton) this.buttonList.get(2)).enabled = true;
                 //解雇不可用
                 ((GuiButton) this.buttonList.get(3)).enabled = false;
                 //规划区域不可用
-                ((GuiButton) this.buttonList.get(6)).enabled = false;
+//                ((GuiButton) this.buttonList.get(6)).enabled = false;
                 //雇佣规划师不可用
                 ((GuiButton) this.buttonList.get(7)).enabled = true;
             } else {
@@ -299,25 +313,25 @@ public class GuiBlockConstructorBlock extends GuiScreen {
             } else if (this.currentPage == 13) {
                 //规划区域
                 //返回
-                this.buttonList.add(new GuiButton(1000, this.width / 2 - 150, this.height - 25, 100, 20, I18n.format("container.sim.sim_gui_BC_Go_Back")));
+                this.buttonList.add(new GuiButton(505, 52, 12, 50, 20, I18n.format("container.sim.gui_Folk_Back")));
                 //'填海'(填为陆地)
-                this.buttonList.add(new GuiButton(21, this.width / 2 - 200, 35, 200, 20, I18n.format("container.sim.Terraform2")));
+                this.buttonList.add(new GuiButton(21, this.width / 2 - 200, 65, 200, 20, I18n.format("container.sim.Terraform2")));
                 //'绿化' (铺草坪)
-                this.buttonList.add(new GuiButton(22, this.width / 2 - 200, 55, 200, 20, I18n.format("container.sim.Terraform3")));
+                this.buttonList.add(new GuiButton(22, this.width / 2 - 200, 85, 200, 20, I18n.format("container.sim.Terraform3")));
                 //'除草' (割草)
-                this.buttonList.add(new GuiButton(23, this.width / 2 - 200, 75, 200, 20, I18n.format("container.sim.Terraform4")));
+                this.buttonList.add(new GuiButton(23, this.width / 2 - 200, 105, 200, 20, I18n.format("container.sim.Terraform4")));
                 //'平整化' (整平地面)
-                this.buttonList.add(new GuiButton(24, this.width / 2 - 200, 95, 200, 20, I18n.format("container.sim.Terraform5")));
+                this.buttonList.add(new GuiButton(24, this.width / 2 - 200, 125, 200, 20, I18n.format("container.sim.Terraform5")));
                 //'超值套装' (单层泥土)
-                this.buttonList.add(new GuiButton(25, this.width / 2 - 200, 115, 200, 20, I18n.format("container.sim.Terraform6")));
+                this.buttonList.add(new GuiButton(25, this.width / 2 - 200, 135, 200, 20, I18n.format("container.sim.Terraform6")));
                 //'冰川' (将水冻住或雪地化)
-                this.buttonList.add(new GuiButton(26, this.width / 2, 35, 200, 20, I18n.format("container.sim.Terraform7")));
+                this.buttonList.add(new GuiButton(26, this.width / 2, 65, 200, 20, I18n.format("container.sim.Terraform7")));
                 //'湿润化' (添加水)
-                this.buttonList.add(new GuiButton(27, this.width / 2, 55, 200, 20, I18n.format("container.sim.Terraform8")));
+                this.buttonList.add(new GuiButton(27, this.width / 2, 85, 200, 20, I18n.format("container.sim.Terraform8")));
                 //'炎热化' (添加岩浆)
-                this.buttonList.add(new GuiButton(28, this.width / 2, 75, 200, 20, I18n.format("container.sim.Terraform9")));
+                this.buttonList.add(new GuiButton(28, this.width / 2, 105, 200, 20, I18n.format("container.sim.Terraform9")));
                 //'除雪' (铲雪)
-                this.buttonList.add(new GuiButton(29, this.width / 2, 95, 200, 20, I18n.format("container.sim.Terraform10")));
+                this.buttonList.add(new GuiButton(29, this.width / 2, 125, 200, 20, I18n.format("container.sim.Terraform10")));
             } else if (this.currentPage > 3 && this.currentPage < 12) {
                 //页在3和12页
                 this.buildingsOnPage = 0;
@@ -797,8 +811,8 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                     }
                 }
             } else if (this.currentPage == 13) {
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform11"), this.width / 2, 25, 16777215);
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform12"), this.width / 2, 30, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform11"), this.width / 2, 50, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform12"), this.width / 2, 55, 16777215);
 //                this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 80, 16744576);
             }
 

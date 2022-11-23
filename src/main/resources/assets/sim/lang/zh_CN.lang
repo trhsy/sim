@@ -1205,6 +1205,7 @@ container.sim.npcData_onupdate3= 已搬入
 container.sim.hire_elsewhere=被其他地方雇佣，尝试雇佣其他人
 container.sim.Hire_farmer=农
 container.sim.job.builder_Awaiting_blueprint=等待蓝图
+container.sim.job.builder_Awaiting_terrainType=等待规划工作
 container.sim.gui.block_controller_Occupants=拥有者
 container.sim.job_baker1=打开烘焙工具
 container.sim.job_task_could=找不到任何可收集的建筑物

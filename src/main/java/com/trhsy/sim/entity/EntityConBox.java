@@ -44,7 +44,7 @@ public class EntityConBox extends Entity {
     }
     /**
      * @Author fan
-     * @Description //TODO 初始化
+     * @Description //TODO 建筑师初始化
      * @Date 16:29 2022/11/1
      * @Param [world, jobBuilder]
      * @return
@@ -58,7 +58,7 @@ public class EntityConBox extends Entity {
     }
     /**
      * @Author fan
-     * @Description //TODO 初始化
+     * @Description //TODO 规划师初始化
      * @Date 16:29 2022/11/1
      * @Param [world, jobBuilder]
      * @return
@@ -68,7 +68,7 @@ public class EntityConBox extends Entity {
         this.noClip = true;
         this.ignoreFrustumCheck = true;
         this.terrainFormerJob = terrainFormerJob;
-        this.folk = this.builderJob.folk;
+        this.folk = this.terrainFormerJob.folk;
     }
     /**
      * @Author fan

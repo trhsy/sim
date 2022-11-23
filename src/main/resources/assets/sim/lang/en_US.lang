@@ -821,7 +821,7 @@ container.sim.Terraform11=Terraforming - Please choose a Terraforming theme
 container.sim.Terraform12=Radius (1 to 60)
 container.sim.Terraform13=Error: You must hire a terraformer, not a builder
 container.sim.Terraform14=ERROR: the radius must be 60 or less
-
+container.sim.job.builder_Awaiting_terrainType=Waiting for planning
 container.sim.packetTerra1=Sealand
 container.sim.packetTerra2=Nature
 container.sim.packetTerra3=Lawnmower

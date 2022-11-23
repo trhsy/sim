@@ -247,7 +247,7 @@ public class JobBuilder extends Job {
                             //如果允许 NPC 说话
                             if (ConfigLoader.configFolkTalking) {
                                 World world = FMLClientHandler.instance().getServer().getEntityWorld();
-                                //播放 天亮了鸡叫
+                                //播放 我准备好了
                                 SoundEvent soundEvent = null;
                                 //判断性别，发出不一样的声音
                                 if (this.folk.gender == 0) {

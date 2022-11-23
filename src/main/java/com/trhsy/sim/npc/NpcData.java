@@ -1696,7 +1696,7 @@ public class NpcData {
             this.job = new JobBaker(this, pos.toBlockPos(), world);
             //地形规划师
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation16"))) {
-            this.job = new JobTerrainFormer(this, pos.toBlockPos(), world);
+            this.job = new JobTerrainFormer(this, pos, world);
             //屠夫
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
             //this.job = new JobButcher(this, pos.toBlockPos(), world);

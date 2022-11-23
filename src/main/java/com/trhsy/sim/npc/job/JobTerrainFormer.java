@@ -25,8 +25,15 @@ import net.minecraftforge.fml.client.FMLClientHandler;
  * @Author TRHSY
  * @Date 2022/11/1622:23
  **/
-public class JobTerrainFormer extends Job{
-    public TerrainType terrainType ;
+public class JobTerrainFormer extends Job {
+    /**
+     * @Author fan
+     * @Description //TODO 规划类型
+     * @Date 21:03 2022/11/23
+     * @Param
+     * @return
+     **/
+    public TerrainType terrainType;
     /**
      * 开始位置
      **/
@@ -51,11 +58,18 @@ public class JobTerrainFormer extends Job{
      * 建造位置
      **/
     BlockPos constructorPos;
+    /**
+     * 已重新指派员工
+     **/
+    boolean hasReassignedEmployee;
+
     public JobTerrainFormer(NpcData folk, TerrainType terrainType, BlockPos pos, World world) {
         super(folk, pos, world);
-        this.startPos=pos;
-        this.constructorPos=pos;
-        this.terrainType=terrainType;
+        this.startPos = pos;
+        this.constructorPos = pos;
+        this.terrainType = terrainType;
+        //建筑工
+        this.jobName = I18n.format("container.sim.Vocation16");
         if (folk.entity != null) {
             IBlockState s = folk.entity.worldObj.getBlockState(pos);
             if (s != null) {
@@ -69,41 +83,64 @@ public class JobTerrainFormer extends Job{
         }
         this.createConBox();
     }
+
     public JobTerrainFormer(NpcData folk, V3 pos, World world) {
         super(folk, pos, world);
         this.constructorPos = pos.toBlockPos();
         //建筑箱
-        this.constructorBlock = (BlockConstructorBox) folk.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();;
+        this.constructorBlock = (BlockConstructorBox) folk.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
+        //建筑工
+        this.jobName = I18n.format("container.sim.Vocation16");
         this.constructorBlock.employee = folk;
         this.createConBox();
     }
+
     public void onUpdate() {
         super.onUpdate();
         if (this.folk != null) {
             if (this.folk.entity != null) {
                 if (this.folk.entity.worldObj != null) {
                     if (!this.folk.entity.worldObj.isRemote) {
-//获取建筑箱的
-                        BlockConstructorBox cons = (BlockConstructorBox) this.folk.entity.worldObj.getBlockState(this.constructorPos).getBlock();
-                        //当前建筑箱的工作人员是
-                        cons.employee = this.folk;
-//如果允许 NPC 说话
-                        if (ConfigLoader.configFolkTalking) {
-                            World world = FMLClientHandler.instance().getServer().getEntityWorld();
-                            //播放 天亮了鸡叫
-                            SoundEvent soundEvent = null;
-                            //判断性别，发出不一样的声音
-                            if (this.folk.gender == 0) {
-                                soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
-                            } else {
-                                soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
+                        //NPC数据为空，并且没有指派员工
+                        if (this.folk.entity != null && !this.hasReassignedEmployee) {
+                            //建造位置为空
+                            if (this.folk.entity.worldObj.getBlockState(this.constructorPos) == null) {
+                                return;
                             }
-                            for (int i = 0; i < world.playerEntities.size(); i++) {
-                                EntityPlayer entityPlayer = world.playerEntities.get(i);
-                                BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                                world.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
+                            //获取建筑箱的
+                            BlockConstructorBox cons = (BlockConstructorBox) this.folk.entity.worldObj.getBlockState(this.constructorPos).getBlock();
+                            //当前建筑箱的工作人员是
+                            cons.employee = this.folk;
+                            //已经指派
+                            this.hasReassignedEmployee = true;
+                            //如果允许 NPC 说话
+                            if (ConfigLoader.configFolkTalking) {
+                                World world = FMLClientHandler.instance().getServer().getEntityWorld();
+                                //播放 我准备好了
+                                SoundEvent soundEvent = null;
+                                //判断性别，发出不一样的声音
+                                if (this.folk.gender == 0) {
+                                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
+                                } else {
+                                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
+                                }
+                                for (int i = 0; i < world.playerEntities.size(); i++) {
+                                    EntityPlayer entityPlayer = world.playerEntities.get(i);
+                                    BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                                    world.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
+                                }
+                            }
+                            if(this.terrainType==null){
+                                //等待蓝图
+                                this.folk.setStatus(I18n.format("container.sim.job.builder_Awaiting_terrainType"));
+                            }else{
+                                //当前时间
+                                Long now = System.currentTimeMillis();
+
                             }
                         }
+
+
                         //当前时间
                         Long now = System.currentTimeMillis();
                         //游戏模式是正常模式
@@ -114,7 +151,7 @@ public class JobTerrainFormer extends Job{
                                 placeBlock();
                             }
 
-                        }else{
+                        } else {
                             //上次时间为当前时间
                             this.timeSinceLastBlockPlace = now;
                         }
@@ -123,14 +160,16 @@ public class JobTerrainFormer extends Job{
             }
         }
     }
+
     public void placeBlock() {
         try {
             //重置缺少的块
             this.missingBlock = null;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public String toString() {
         return I18n.format("container.sim.Vocation16");

@@ -75,7 +75,7 @@ public class BlockConstructorBox extends BlockBase {
             NpcData fd = null;
             for (NpcData f : ModSimLoader.folks) {
                 //建筑师
-                if (f.job != null && f.job.jobName.contentEquals(I18n.format("container.sim.Vocation1")) && f.job.workPlace.toString().contentEquals(V3.fromBlockPos(pos).toString())) {
+                if (f.job != null && (f.job.jobName.contentEquals(I18n.format("container.sim.Vocation1"))||f.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))) && f.job.workPlace.toString().contentEquals(V3.fromBlockPos(pos).toString())) {
                     fd = f;
                     break;
                 }
