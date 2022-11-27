@@ -157,9 +157,8 @@ public class JobButcher extends Job implements Serializable {
             //从农场获取新鲜食物
             this.theFolk.statusText = I18n.format("container.sim.job.butcher.Fetching");
             this.theFolk.action = FolkAction.ATWORK;
+            this.farm = this.getCurrentFarm();
             if (!this.onRoute) {
-                this.farm = this.getCurrentFarm();
-
                 try {
                     if (this.farm != null && this.farm.primaryXYZ != null) {
                         this.onRoute = true;
@@ -215,14 +214,14 @@ public class JobButcher extends Job implements Serializable {
                 }
             } else if (this.step == 2) {
                 //chicken 鸡肉
-                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.chicken, 1, 640), (Block)null);
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.chicken, 64, 0), (Block)null);
                 //porkchop 猪排
-                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.porkchop, 1, 640), (Block)null);
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.porkchop, 64, 0), (Block)null);
                 //牛肉
-                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.beef, 1, 640), (Block)null);
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtFarm, new ItemStack(Items.beef, 64, 0), (Block)null);
                 this.step = 3;
             } else if (this.step == 3) {
-                this.theStage = Stage.GOINGTOMEATFARM;
+                this.theStage = Stage.GOBACKTOSTORE;
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageCollectingMeat出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -296,7 +295,7 @@ public class JobButcher extends Job implements Serializable {
                     var10000.credits -= this.pay;
                     //他收集了肉并得到了报酬 000 金
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.butcher.collected") + ModSimReloaded.displayMoney(this.pay) + I18n.format("container.sim.job.credits"));
-                    //this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                    this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 }
 
                 this.step = 2;
@@ -355,6 +354,7 @@ public class JobButcher extends Job implements Serializable {
     private Building getCurrentFarm() {
         boolean found = false;
         try {
+            this.currentFarmNum=0;
             while(!found) {
                 try {
                     Building farm = (Building) ModSimReloaded.theBuildings.get(this.currentFarmNum);

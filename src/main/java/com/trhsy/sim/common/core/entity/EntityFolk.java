@@ -375,8 +375,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                             }
 
                             if (r.nextBoolean()) {
-                                //ModSim.proxy.getClientWorld().playSoundAtEntity();
-                                //ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1, 1, false);
+                                ModSim.proxy.getClientWorld().playSound(this.posX, this.posY, this.posZ, fn, 1, 1, false);
                             }
                         }
                     }
@@ -403,7 +402,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                                 System.out.println(itemName);
                                 ItemFood food = (ItemFood) item;
                                 if (theData.levelFood < 10 && food != null) {
-                                    //this.worldObj.playSoundAtEntity(this, "random.burp", 1, 1);
+                                    this.worldObj.playSoundAtEntity(this, "random.burp", 1, 1);
                                     entityitem.setDead();
                                     ++theData.levelFood;
                                 }
@@ -640,11 +639,11 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                 mc.displayGuiScreen(ui);
                 if (theData.age < 18) {
-                    //this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":helloc", 1, 1, false);
+                    this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":helloc", 1, 1, false);
                 } else if (theData.gender == 0) {
-                    //this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellom", 1, 1, false);
+                    this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellom", 1, 1, false);
                 } else {
-                    //this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellof", 1, 1, false);
+                    this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSim.MODID + ":hellof", 1, 1, false);
                 }
 
                 falg = true;

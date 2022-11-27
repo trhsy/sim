@@ -514,7 +514,7 @@ public class JobTerraformer extends Job {
         try {
             this.theFolk.isWorking = false;
             ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.terra.farmer.has_completed"));
-            //this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+            this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
             this.theFolk.stayPut = false;
             this.theFolk.terraformerRadius = 1;
             this.theFolk.terraformerType = null;

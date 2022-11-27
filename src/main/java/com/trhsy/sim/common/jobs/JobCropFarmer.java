@@ -232,9 +232,9 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.step = 1;
                 this.theFolk.stayPut = true;
                 if (this.theFolk.gender == 0) {
-                    //this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
+                    this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
                 } else {
-                    //this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
+                    this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
                 }
             }
         } catch (Exception e) {
@@ -593,7 +593,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             if (this.id != Blocks.dirt && this.id != Blocks.grass) {
                                 BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
                                 this.jobWorld.setBlockState(blockPos2, Blocks.dirt.getDefaultState(), 3);
-                                //this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
+                                this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
                                 hasTilled = true;
                                 ModSimReloaded.states.credits -= 0.01F;
                             }
@@ -631,7 +631,7 @@ public class JobCropFarmer extends Job implements Serializable {
                             if ((boolean1 && boolean2) || this.farmingBlock.farmType == FarmType.WHEAT || this.farmingBlock.farmType == FarmType.CARROT || this.farmingBlock.farmType == FarmType.POTATO || this.farmingBlock.farmType == FarmType.CUSTOM) {
                                 BlockPos blockPos2 = new BlockPos(this.xxx, this.yyy - 1, this.zzz);
                                 this.jobWorld.setBlockState(blockPos2, Blocks.farmland.getDefaultState(), 3);
-                                //this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
+                                this.jobWorld.playSound((double) this.xxx, (double) (this.yyy - 1), (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
                                 hasTilled = true;
                                 ModSimReloaded.states.credits -= 0.01F;
                             }
@@ -836,7 +836,7 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
 
                         if (hasSown) {
-                            //this.jobWorld.playSound((double) this.xxx, (double) this.yyy, (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
+                            this.jobWorld.playSound((double) this.xxx, (double) this.yyy, (double) this.zzz, Blocks.grass.stepSound.getStepSound(), 1, 1, false);
                             GameStates var10000 = ModSimReloaded.states;
                             var10000.credits -= 0.01F;
                             this.doneSomeWork = true;

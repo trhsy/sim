@@ -188,8 +188,7 @@ public class ModSimReloaded {
                     theFolks.clear();
                     //从磁盘加载所有建筑并初始化它们
                     //Building.initialiseAllBuildings();
-                    //加载世界上的建筑
-                    Building.loadAllBuildings();
+
                     //所有快递点
                     CourierTask.loadCourierTasksAndPoints();
                     //采矿箱
@@ -206,6 +205,8 @@ public class ModSimReloaded {
                     Building.checkTenants();
                     //模组已运行
                     ModSim.proxy.ranStartup = true;
+                    //加载世界上的建筑
+                    Building.loadAllBuildings();
                 }
             }
             //模组已运行
@@ -348,7 +349,7 @@ public class ModSimReloaded {
                 if (world != null) {
                     EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                     if (p != null) {
-                       // ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":rooster", 1, 1, false);
+                        ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":rooster", 1, 1, false);
                     }
                 }
 
@@ -476,7 +477,7 @@ public class ModSimReloaded {
                             var10000.credits += totalCorpTax;
                             EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                             if (p != null) {
-                                //ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                                ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":cash", 1, 1, false);
                             }
                         } else if (GameMode.getGameMode()!= GameMode.GAMEMODES.CREATIVE) {
                             //今天没有收到房租,你应该雇一个人来盖一栋住宅。

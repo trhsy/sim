@@ -243,7 +243,7 @@ public class JobGlassMaker extends Job implements Serializable {
             this.gotoCount = 0;
             BlockPos blockPos1 = new BlockPos(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord);
             this.jobWorld.setBlockState(blockPos1, Blocks.air.getDefaultState(), 3);
-            //this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
+            this.mc.theWorld.playSound(this.blockOfSand.xCoord, this.blockOfSand.yCoord, this.blockOfSand.zCoord, "step.sand", 1, 1, false);
             this.theFolk.getVillagerInventory().func_174894_a(new ItemStack(Blocks.sand, 1));
             //我得到沙子惹！
             this.theFolk.statusText = I18n.format("container.sim.job.glass.farmer.Diggy") + this.theFolk.getVillagerInventory().getStackInSlot(0).stackSize;

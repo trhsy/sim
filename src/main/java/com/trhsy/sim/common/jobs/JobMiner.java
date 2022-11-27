@@ -245,9 +245,9 @@ public class JobMiner extends Job implements Serializable {
                     if (this.theFolk.theEntity != null) {
                         try {
                             if (this.theFolk.gender == 0) {
-                                //this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
                             } else {
-                                //this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
+                                this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
                             }
                         } catch (Exception e) {
                             //切换维度时，playSound可以进行NPE
@@ -281,9 +281,9 @@ public class JobMiner extends Job implements Serializable {
                             this.theFolk.statusText = I18n.format("container.sim.job.miner.farmer.Beam");
                             if (this.theFolk.theEntity != null) {
                                 if (this.theFolk.gender == 0) {
-                                    //this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":beamm", 1, 1, false);
+                                    this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":beamm", 1, 1, false);
                                 } else {
-                                    //this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":beamf", 1, 1, false);
+                                    this.mc.theWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":beamf", 1, 1, false);
                                 }
                             }
 
@@ -314,7 +314,7 @@ public class JobMiner extends Job implements Serializable {
             this.theFolk.action = FolkAction.WANDER;
             //他们已经完成了挖掘矿井
             ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.miner.farmer.finished"));
-           // this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+            this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("stageBeamingUp出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -594,7 +594,7 @@ public class JobMiner extends Job implements Serializable {
                 public void run() {
                     for (int d = 0; d < 5; ++d) {
                         try {
-                            //JobMiner.this.jobWorld.playSound(vNextMineableBlock.xCoord, vNextMineableBlock.yCoord, vNextMineableBlock.zCoord, "dig.stone", 1, 1, false);
+                            JobMiner.this.jobWorld.playSound(vNextMineableBlock.xCoord, vNextMineableBlock.yCoord, vNextMineableBlock.zCoord, "dig.stone", 1, 1, false);
                         } catch (Exception e) {
                         }
 

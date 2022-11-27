@@ -223,7 +223,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 //挖掉
                 this.jobWorld.setBlockState(blockPos, Blocks.air.getDefaultState(), 3);
                 //播放音乐
-                //this.mc.theWorld.playSound(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord, "step.sand", 1, 1, false);
+                this.mc.theWorld.playSound(this.blockOfClay.xCoord, this.blockOfClay.yCoord, this.blockOfClay.zCoord, "step.sand", 1, 1, false);
                 //放到npc箱子里
                 this.theFolk.getVillagerInventory().func_174894_a(new ItemStack(Items.clay_ball, 4));
                 ItemStack itemStack=this.theFolk.getVillagerInventory().getStackInSlot(0);

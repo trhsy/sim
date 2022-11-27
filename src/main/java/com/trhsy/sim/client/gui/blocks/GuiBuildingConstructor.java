@@ -16,6 +16,7 @@ import com.trhsy.sim.common.loader.ModSimReloaded;
 import com.trhsy.sim.packets.NetWorkLoader;
 import com.trhsy.sim.packets.client.UpdateFolkPositionPacket;
 import com.trhsy.sim.packets.server.LoadBuildingPacket;
+import javafx.util.Builder;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -205,20 +206,23 @@ public class GuiBuildingConstructor extends GuiScreen {
             if (this.theWorkers.size() > 0) {
                 FolkData folkData = this.theWorkers.get(0);
                 //获取工作
-                JobBuilder theirJob = (JobBuilder) folkData.theirJob;
-                if (theirJob != null) {
-                    s = theirJob.theStage.toString();
-                    if (folkData.theBuilding != null) {
-                        //当前名称
-                        t = folkData.theBuilding.displayName;
+                JobBuilder theirJob=null;
+                if(folkData.theirJob.vocation== Vocation.BUILDER) {
+                    //获取工作
+                    theirJob = (JobBuilder) folkData.theirJob;
+                    if (theirJob != null) {
+                        s = theirJob.theStage.toString();
+                        if (folkData.theBuilding != null) {
+                            //当前名称
+                            t = folkData.theBuilding.displayName;
+                        }
+                    } else {
+                        //在路上
+                        String sim_gui_BC_their = I18n.format("container.sim.sim_gui_BC_their");
+                        s = sim_gui_BC_their;
+                        t = "";
                     }
-                } else {
-                    //在路上
-                    String sim_gui_BC_their = I18n.format("container.sim.sim_gui_BC_their");
-                    s = sim_gui_BC_their;
-                    t = "";
                 }
-
             }
             String sim_gui_BC_Current = I18n.format("container.sim.sim_gui_BC_Current");//目前状态
             String sim_gui_BC_Building = I18n.format("container.sim.sim_gui_BC_Building");//建筑类型

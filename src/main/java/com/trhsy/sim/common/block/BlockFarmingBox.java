@@ -53,7 +53,7 @@ public class BlockFarmingBox extends Block {
 
             FarmingBox m = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), world.provider.getDimensionId()));
             ModSimReloaded.theFarmingBoxes.remove(m);
-            //world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1, 1);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":powerdown", 1, 1);
             super.onBlockDestroyedByPlayer(world, blockPos,iBlockState);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onBlockDestroyedByPlayer出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -113,7 +113,7 @@ public class BlockFarmingBox extends Block {
     @SideOnly(Side.CLIENT)
     public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState iBlockState, EntityPlayer entityplayer, EnumFacing enumFacing, float par7, float par8, float par9) {
         try {
-            //world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
 
                 FarmingBox farmingBlock = FarmingBox.getFarmingBlockByBoxXYZ(new V3(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entityplayer.dimension));
                 if(farmingBlock!=null){

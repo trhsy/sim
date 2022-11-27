@@ -283,7 +283,7 @@ public class GuiBankATM extends GuiScreen {
                     GameStates var10000;
                     if (guibutton.id >= 100 && guibutton.id < 200) {
                         ItemStack is = this.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
-                        //ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
+                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
                         String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
 //                        NumberFormat format = NumberFormat.getInstance();
 //                        String number = "";
@@ -299,7 +299,7 @@ public class GuiBankATM extends GuiScreen {
                         this.thePlayer.inventory.setInventorySlotContents(guibutton.id - 100, is);
                         this.initGui();
                     } else if (guibutton.id >= 500 && guibutton.id < 600) {
-                        //ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
+                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
 //                        NumberFormat format = NumberFormat.getInstance();
 //                        String number = "";
                         String number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
@@ -394,7 +394,7 @@ public class GuiBankATM extends GuiScreen {
                             //购买的商品价值
                             String sim_gui_ATMs_worth = I18n.format("container.sim.sim_gui_ATMs_worth");
                             ModSimReloaded.sendChat(sim_gui_ATMs_worth + ModSimReloaded.displayMoney(cost));
-                            //ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                            ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                         }

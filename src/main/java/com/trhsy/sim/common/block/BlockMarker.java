@@ -202,7 +202,7 @@ public class BlockMarker extends Block implements IExtendedEntityProperties {
         try {
             //Building.initialiseAllBuildings();
             this.location = new V3(blockPos.getX(),blockPos.getY(),blockPos.getZ(), thePlayer.dimension);
-            //world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
+            world.playSoundEffect(blockPos.getX(),blockPos.getY(),blockPos.getZ(), ModSim.MODID + ":computer", 1, 1);
             GuiMarker ui = new GuiMarker(this.location, thePlayer);
             Minecraft mc = Minecraft.getMinecraft();
             mc.displayGuiScreen(ui);

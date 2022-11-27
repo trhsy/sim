@@ -888,7 +888,7 @@ public class Building implements Serializable {
                             buildingsFolder.mkdirs();
                         }
                         File[] files = buildingsFolder.listFiles();
-                        if (files != null && files.length > 1) {
+                        if (files != null && files.length > 0) {
                             Building build;
                             ModSimReloaded.theBuildings.clear();
                             for (File f : files) {
@@ -987,6 +987,7 @@ public class Building implements Serializable {
                                         }
                                     }
                                     build.loadStructure();
+                                    ModSimReloaded.log.info("找到世界上的建筑："+build.displayName);
                                     ModSimReloaded.theBuildings.add(build);
                                 } else {
                                     if (f.getName().endsWith(".suk")) {

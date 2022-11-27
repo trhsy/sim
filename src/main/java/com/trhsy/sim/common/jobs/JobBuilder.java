@@ -239,9 +239,9 @@ public class JobBuilder extends Job implements Serializable {
                 if (ConfigLoader.configFolkTalking) {
                     //判断性别，发出不一样的声音
                     if (this.theFolk.gender == 0) {
-                        //this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
+                        this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readym", 1, 1, false);
                     } else {
-                        //this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
+                        this.jobWorld.playSound(this.theFolk.location.xCoord, this.theFolk.location.yCoord, this.theFolk.location.zCoord, ModSim.MODID + ":readyf", 1, 1, false);
                     }
                 }
                 //等待资源
@@ -634,7 +634,7 @@ public class JobBuilder extends Job implements Serializable {
                                         }
                                         //每2秒播放一次音效
                                         if (System.currentTimeMillis() - this.soundLastPlayed >= 2000L) {
-                                            //this.mc.theWorld.playSound((this.bx + this.xo), (this.by + this.l),(this.bz + this.zo), ModSim.MODID + ":construction", 1, 1,true);
+                                            this.mc.theWorld.playSound((this.bx + this.xo), (this.by + this.l),(this.bz + this.zo), ModSim.MODID + ":construction", 1, 1,true);
                                             this.soundLastPlayed = System.currentTimeMillis();
                                         }
                                         //在客户端生成粒子
@@ -715,7 +715,7 @@ public class JobBuilder extends Job implements Serializable {
                     this.theBuilding.buildingComplete = true;
                     //已完成建设
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.builder_constructor_completed") + this.theBuilding.displayNameWithoutPK);
-                    //ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                    ModSim.proxy.getClientWorld().playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     this.theBuilding.saveThisBuilding();
                     this.theFolk.theBuilding = null;
                 } else {

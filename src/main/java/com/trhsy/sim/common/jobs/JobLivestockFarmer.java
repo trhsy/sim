@@ -123,29 +123,31 @@ public class JobLivestockFarmer extends Job implements Serializable {
             this.theFolk.statusText = I18n.format("container.sim.job.livestock.farmer.Starting");
             //int count = false;
             int count;
+            V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+1,this.theFolk.employedAt.zCoord);
             //养牛户
             if (this.vocation == Vocation.CATTLEFARMER) {
                 count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityCow.class);
                 if (count < 2) {
-                    this.spawnAnimals(this.theFolk.employedAt, "Cow", 6 - count);
+
+                    this.spawnAnimals(v3, "Cow", 6 - count);
                 }
                 //养鸡
             } else if (this.vocation == Vocation.CHICKENFARMER) {
                 count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityChicken.class);
                 if (count < 2) {
-                    this.spawnAnimals(this.theFolk.employedAt, "Chicken", 6 - count);
+                    this.spawnAnimals(v3, "Chicken", 6 - count);
                 }
                 //养猪
             } else if (this.vocation == Vocation.PIGFARMER) {
                 count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityPig.class);
                 if (count < 2) {
-                    this.spawnAnimals(this.theFolk.employedAt, "Pig", 6 - count);
+                    this.spawnAnimals(v3, "Pig", 6 - count);
                 }
                 //养兔
             }else if (this.vocation == Vocation.RABBITFARMER) {
                 count = this.getAnimalCountInPen(this.theFolk.employedAt, EntityRabbit.class);
                 if (count < 2) {
-                    this.spawnAnimals(this.theFolk.employedAt, "Rabbit", 6 - count);
+                    this.spawnAnimals(v3, "Rabbit", 6 - count);
                 }
             }
         } catch (Exception e) {

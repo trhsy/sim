@@ -160,7 +160,7 @@ public class JobShepherd extends Job implements Serializable {
             if (this.theFolk.theEntity != null) {
                 this.theFolk.theEntity.faceEntity(this.sheepToShear, 1, 1);
                 this.theFolk.isWorking = true;
-                //this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1, 1, false);
+                this.mc.theWorld.playSound(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, ModSim.MODID + ":shears", 1, 1, false);
                 ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
                 threadPoolExecutor.submit(new Runnable() {
                     @Override

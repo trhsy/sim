@@ -320,7 +320,7 @@ public class GuiMerchant extends GuiScreen {
 
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
-                //this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 ThreadPoolExecutor threadPoolExecutor = ModSimReloaded.threadPoolExecutor;
                 threadPoolExecutor.submit(new Runnable() {
                     @Override
@@ -330,7 +330,7 @@ public class GuiMerchant extends GuiScreen {
                         } catch (Exception e) {
                         }
 
-                        //GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1, 1, false);
+                        GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, ModSim.MODID + ":merchm", 1, 1, false);
                     }
                 });
                 //threadPoolExecutor.shutdown();
@@ -387,7 +387,7 @@ public class GuiMerchant extends GuiScreen {
                 //箱子里没有我想从你那里买的有效堆栈？
                 ModSimReloaded.sendChat(I18n.format("container.sim.Merchant14"));
             } else {
-               //this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+               this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 ModSimReloaded.sendChat(I18n.format("container.sim.Merchant15") + ModSimReloaded.displayMoney(total));
             }
 

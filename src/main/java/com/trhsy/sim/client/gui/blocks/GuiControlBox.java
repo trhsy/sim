@@ -769,7 +769,7 @@ public class GuiControlBox extends GuiScreen {
                                     this.mc.theWorld.spawnParticle(EnumParticleTypes.FLAME, blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord, 0, 0.4000000059604645D, 0);
                                 }
 
-                                //theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1, 1);
+                                theWorld.playSoundAtEntity(this.playerWhoClickedIt, "random.explode", 1, 1);
                                 ModSimReloaded.theBuildings.remove(bindex);
                                 this.mc.displayGuiScreen(null);
                             }
@@ -845,7 +845,7 @@ public class GuiControlBox extends GuiScreen {
     private void rotateStairs() {
         try {
             World theWorld = this.mc.getIntegratedServer().worldServerForDimension(this.theBuilding.primaryXYZ.theDimension);
-            //theWorld.playSoundEffect(this.theBuilding.primaryXYZ.xCoord, this.theBuilding.primaryXYZ.yCoord, this.theBuilding.primaryXYZ.zCoord, ModSim.MODID + ":computer", 1, 2.0F);
+            theWorld.playSoundEffect(this.theBuilding.primaryXYZ.xCoord, this.theBuilding.primaryXYZ.yCoord, this.theBuilding.primaryXYZ.zCoord, ModSim.MODID + ":computer", 1, 2.0F);
             for (V3 blockLoc : this.theBuilding.blockLocations) {
                 //得到方块
                 BlockPos blockPos = new BlockPos(blockLoc.xCoord, blockLoc.yCoord, blockLoc.zCoord);

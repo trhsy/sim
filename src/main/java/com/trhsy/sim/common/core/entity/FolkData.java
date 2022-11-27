@@ -382,7 +382,7 @@ public class FolkData implements Serializable {
             if (world != null) {
                 EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                 if (p != null) {
-                    //ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":birth", 1, 1, false);
+                    ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":birth", 1, 1, false);
                 }
             }
 
@@ -547,7 +547,7 @@ public class FolkData implements Serializable {
                 }
                 //没有家
                 if (getHome() == null && this.timeSinceLastMinute > 0L) {
-                    getHomeForHomeless();
+                     getHomeForHomeless();
                 }
                 //和朋友在一起，并且社交大于1
                 if (!this.statusText.contains(hanging) && this.levelSocial > 1) {
@@ -910,7 +910,7 @@ public class FolkData implements Serializable {
                             if (ConfigLoader.configFolkTalking) {
                                 int chance = rand.nextInt(26) + 97;
                                 String letter = ModSim.MODID + ":blarg" + Character.toString((char) chance);
-                                //ModSim.proxy.getClientWorld().playSound(this.location.xCoord, this.location.yCoord, this.location.zCoord, letter, 1, 1, false);
+                                ModSim.proxy.getClientWorld().playSound(this.location.xCoord, this.location.yCoord, this.location.zCoord, letter, 1, 1, false);
                             }
 
                             this.talkCounter = 0;
@@ -984,7 +984,7 @@ public class FolkData implements Serializable {
                         if (world != null) {
                             EntityPlayer p = Minecraft.getMinecraft().thePlayer;
                             if (p != null) {
-                                //ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":pregnant", 1, 1, false);
+                                ModSim.proxy.getClientWorld().playSound(p.posX, p.posY, p.posZ, ModSim.MODID + ":pregnant", 1, 1, false);
                             }
                         }
                     }
@@ -1091,8 +1091,8 @@ public class FolkData implements Serializable {
      */
     private void getHomeForHomeless() {
         try {
-            //Building.loadAllBuildings();
-            if (this.action== FolkAction.WANDER) {
+//            Building.loadAllBuildings();
+            if (this.action== FolkAction.WANDER&&this.status2.equals(I18n.format("container.sim.folkData3"))) {
                 List<Building> theBuilding = new CopyOnWriteArrayList();
                 boolean falg = false;
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
@@ -1125,7 +1125,7 @@ public class FolkData implements Serializable {
                         }
                     }
                 }
-            } else if (this.action== FolkAction.ATWORK) {
+            } else if (this.action== FolkAction.ATWORK&&this.status2.equals(I18n.format("container.sim.folkData3"))) {
                 boolean falg = true;
                 for (int b = 0; b < ModSimReloaded.theBuildings.size(); b++) {
                     Building building = ModSimReloaded.theBuildings.get(b);
@@ -1676,8 +1676,8 @@ public class FolkData implements Serializable {
 
             if (ModSim.proxy.getClientWorld() != null) {
                 if (!ModSim.proxy.getClientWorld().isRemote) {
-                    //ModSim.proxy.getClientWorld().playSound(this.location.xCoord, this.location.yCoord, this.location.zCoord, ModSim.MODID + ":beamdown", 1, 1,true);
-                    //ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f,true);
+                    ModSim.proxy.getClientWorld().playSound(this.location.xCoord, this.location.yCoord, this.location.zCoord, ModSim.MODID + ":beamdown", 1, 1,true);
+                    ModSim.proxy.getClientWorld().playSound(whereTo.xCoord, whereTo.yCoord, whereTo.zCoord, ModSim.MODID + ":beamdown", 1f, 1f,true);
                 }
             }
             respawnEntity(MinecraftServer.getServer().worldServerForDimension(location.theDimension));

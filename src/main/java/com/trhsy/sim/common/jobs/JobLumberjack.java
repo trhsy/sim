@@ -312,7 +312,7 @@ public class JobLumberjack extends Job implements Serializable {
                             try {
                                 isChopping = true;
                                 for (int d = 0; d < 12; d++) {
-                                    //mc.theWorld.playSound(theFolk.location.xCoord, theFolk.location.yCoord, theFolk.location.zCoord, "step.wood", 1, 1, false);
+                                    mc.theWorld.playSound(theFolk.location.xCoord, theFolk.location.yCoord, theFolk.location.zCoord, "step.wood", 1, 1, false);
                                     if (theFolk.theEntity != null) {
                                         theFolk.theEntity.swingProgress = 0.3F;
 
