@@ -60,11 +60,11 @@ public class GuiRunMod extends GuiScreen {
                 //创造模式
                 String creative = I18n.format("container.sim.creative");
                 //专家模式
-                String hardcore = I18n.format("container.sim.hardcore");
+//                String hardcore = I18n.format("container.sim.hardcore");
                 this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, not_run));
                 this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 90, normal));
                 this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, creative));
-                this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, hardcore));
+//                this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, hardcore));
             }
 
         } catch (Exception e) {
@@ -118,12 +118,12 @@ public class GuiRunMod extends GuiScreen {
                 //不需要钱,一切免费,不需要方块,要有创意！
                 String sim_gui_everything = I18n.format("container.sim.sim_gui_everything");
                 //建设者需要所有的方块,更难玩游戏
-                String sim_gui_Builders = I18n.format("container.sim.sim_gui_Builders");
+//                String sim_gui_Builders = I18n.format("container.sim.sim_gui_Builders");
                 this.drawCenteredString(this.fontRendererObj, sim_gui_game_mode, this.width / 2, 20, 16777215);
                 this.drawCenteredString(this.fontRendererObj, sim_gui_switches, this.width / 2, 60, 16776960);
                 this.drawCenteredString(this.fontRendererObj, sim_gui_beginners, this.width / 2, 110, 16776960);
                 this.drawCenteredString(this.fontRendererObj, sim_gui_everything, this.width / 2, 160, 16776960);
-                this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
+//                this.drawCenteredString(this.fontRendererObj, sim_gui_Builders, this.width / 2, 210, 16776960);
             }
 
             super.drawScreen(i, j, f);
@@ -182,12 +182,11 @@ public class GuiRunMod extends GuiScreen {
 //                    this.initGui();
                     break;
                 case 4:
-
                     ModSimLoader.log.info("接受任命书");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
                     this.page=1;
-                    this.mc.currentScreen=null;
+//                    this.mc.currentScreen=null;
                     if(ModSimLoader.states.gameModeNumber!=999){
                         this.mc.setIngameFocus();
                     }else{

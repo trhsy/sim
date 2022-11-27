@@ -15,6 +15,7 @@ import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.DynamicSkin;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
+import com.trhsy.sim.npc.build.TerrainTypeRequitrements;
 import com.trhsy.sim.util.GameStates;
 import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.entity.util.NpcIdentity;
@@ -75,6 +76,7 @@ public class ModSimLoader {
      */
     public static List<BuildingBlueprint> buildingBlueprints = new CopyOnWriteArrayList();
     public static List<BlueprintRequirements> blueprintReqs = new CopyOnWriteArrayList();
+    public static List<TerrainTypeRequitrements> terrainTypeReqs = new CopyOnWriteArrayList();
     /**
      * 是否加载npc
      **/

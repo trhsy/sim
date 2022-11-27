@@ -7,22 +7,22 @@ You should try SemVer : http://semver.org/
 All projects evaluated.
 Selected primary task 'build' from project :
 Tasks to be executed: [task ':deobfCompileDummyTask', task ':deobfProvidedDummyTask', task ':sourceApiJava', task ':compileApiJava', task ':processApiResources', task ':apiClasses', task ':sourceMainJava', task ':compileJava', task ':processResources', task ':classes', task ':jar', task ':sourceTestJava', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':extractMcpData', task ':extractMcpMappings', task ':getVersionJson', task ':extractUserdev', task ':genSrgs', task ':reobfJar', task ':extractRangemapReplacedMain', task ':retromapReplacedMain', task ':sourceJar', task ':assemble', task ':check', task ':build']
-In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileHashes.bin: Size{1726}, CacheStats{hitCount=2774, missCount=1726, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
+In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileHashes.bin: Size{545}, CacheStats{hitCount=291, missCount=545, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
 In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\treeSnapshots.bin: Size{0}, CacheStats{hitCount=0, missCount=0, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
 In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\treeSnapshotUsage.bin: Size{0}, CacheStats{hitCount=0, missCount=0, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileSnapshotsToTreeSnapshotsIndex.bin: Size{52}, CacheStats{hitCount=0, missCount=52, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileSnapshots.bin: Size{81}, CacheStats{hitCount=0, missCount=29, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\taskArtifacts.bin: Size{12}, CacheStats{hitCount=0, missCount=12, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
+In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileSnapshotsToTreeSnapshotsIndex.bin: Size{6}, CacheStats{hitCount=0, missCount=6, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
+In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\fileSnapshots.bin: Size{15}, CacheStats{hitCount=0, missCount=9, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
+In-memory cache of D:\work\works\sim-u\sim-u-1.9\.gradle\3.0\taskArtifacts\taskArtifacts.bin: Size{3}, CacheStats{hitCount=0, missCount=3, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
 :deobfCompileDummyTask (Thread[Daemon worker Thread 2,5,main]) started.
 :deobfCompileDummyTask
 Executing task ':deobfCompileDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfCompileDummyTask (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.003 secs.
+:deobfCompileDummyTask (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.006 secs.
 :deobfProvidedDummyTask (Thread[Daemon worker Thread 2,5,main]) started.
 :deobfProvidedDummyTask
 Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
   Task has not declared any outputs.
-:deobfProvidedDummyTask (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.003 secs.
+:deobfProvidedDummyTask (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.005 secs.
 :sourceApiJava (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceApiJava
 file or directory 'D:\work\works\sim-u\sim-u-1.9\src\api\java', not found
@@ -39,7 +39,7 @@ Skipping task ':compileApiJava' as it has no source files.
 file or directory 'D:\work\works\sim-u\sim-u-1.9\src\api\resources', not found
 Skipping task ':processApiResources' as it has no source files.
 :processApiResources UP-TO-DATE
-:processApiResources (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.002 secs.
+:processApiResources (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
 :apiClasses (Thread[Daemon worker Thread 2,5,main]) started.
 :apiClasses
 Skipping task ':apiClasses' as it has no actions.
@@ -47,16 +47,17 @@ Skipping task ':apiClasses' as it has no actions.
 :apiClasses (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
 :sourceMainJava (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceMainJava
-Executing task ':sourceMainJava' (up-to-date check took 0.191 secs) due to:
-  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\src\main\java\com\trhsy\sim\network\client\PacketOpenControlGui.java has changed.
-:sourceMainJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 3.264 secs.
+Executing task ':sourceMainJava' (up-to-date check took 0.446 secs) due to:
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\src\main\java\com\trhsy\sim\npc\job\JobTerrainFormer.java has changed.
+:sourceMainJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 4.874 secs.
 :compileJava (Thread[Daemon worker Thread 2,5,main]) started.
 :compileJava
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
-Executing task ':compileJava' (up-to-date check took 0.35 secs) due to:
-  Input property 'classpath' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
-  Input property 'classpath' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
-  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\build\sources\main\java\com\trhsy\sim\network\client\PacketOpenControlGui.java has changed.
+Executing task ':compileJava' (up-to-date check took 3.186 secs) due to:
+  Output property 'destinationDir' file D:\work\works\sim-u\sim-u-1.9\build\classes\main\com\trhsy\sim\npc\FolkRelationship$1.class has changed.
+  Output property 'destinationDir' file D:\work\works\sim-u\sim-u-1.9\build\classes\main\com\trhsy\sim\npc\job\JobBuilder.class has changed.
+  Output property 'destinationDir' file D:\work\works\sim-u\sim-u-1.9\build\classes\main\com\trhsy\sim\npc\build\BuildingBlueprint.class has changed.
+All input files are considered out-of-date for incremental task ':compileJava'.
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
 Compiling with Java command line compiler 'D:\java\jdk1.8.0_271\bin\javac.exe'.
 Starting process 'command 'D:\java\jdk1.8.0_271\bin\javac.exe''. Working directory: D:\work\works\sim-u\sim-u-1.9 Command: D:\java\jdk1.8.0_271\bin\javac.exe @D:\work\works\sim-u\sim-u-1.9\build\tmp\compileJava\java-compiler-args.txt
@@ -65,27 +66,29 @@ Successfully started process 'command 'D:\java\jdk1.8.0_271\bin\javac.exe''
 注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
 注: 某些输入文件使用了未经检查或不安全的操作。
 注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
-:compileJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 5.656 secs.
+:compileJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 13.589 secs.
 :processResources (Thread[Daemon worker Thread 2,5,main]) started.
 :processResources
-Skipping task ':processResources' as it is up-to-date (took 0.086 secs).
-:processResources UP-TO-DATE
-:processResources (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.091 secs.
+Executing task ':processResources' (up-to-date check took 0.921 secs) due to:
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\src\main\resources\assets\minecraft\sounds\sim_u_ddd.ogg has been added.
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\src\main\resources\assets\minecraft\sounds\sim_u_kraft_ddd_mining_constructor_activated.ogg has been added.
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\src\main\resources\assets\sim\sounds.json has changed.
+:processResources (Thread[Daemon worker Thread 2,5,main]) completed. Took 15.438 secs.
 :classes (Thread[Daemon worker Thread 2,5,main]) started.
 :classes
 Skipping task ':classes' as it has no actions.
 :classes (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
 :jar (Thread[Daemon worker Thread 2,5,main]) started.
 :jar
-Executing task ':jar' (up-to-date check took 0.161 secs) due to:
+Executing task ':jar' (up-to-date check took 0.951 secs) due to:
   Output property 'archivePath' file D:\work\works\sim-u\sim-u-1.9\build\libs\simulated-1.9-1.0.0 Beta.jar has changed.
-:jar (Thread[Daemon worker Thread 2,5,main]) completed. Took 6.854 secs.
+:jar (Thread[Daemon worker Thread 2,5,main]) completed. Took 2.91 secs.
 :sourceTestJava (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceTestJava
 file or directory 'D:\work\works\sim-u\sim-u-1.9\src\test\java', not found
-Skipping task ':sourceTestJava' as it is up-to-date (took 0.001 secs).
+Skipping task ':sourceTestJava' as it is up-to-date (took 0.003 secs).
 :sourceTestJava UP-TO-DATE
-:sourceTestJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.002 secs.
+:sourceTestJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.04 secs.
 :compileTestJava (Thread[Daemon worker Thread 2,5,main]) started.
 :compileTestJava
 Skipping task ':compileTestJava' as it has no source files.
@@ -101,66 +104,69 @@ Skipping task ':processTestResources' as it has no source files.
 :testClasses
 Skipping task ':testClasses' as it has no actions.
 :testClasses UP-TO-DATE
-:testClasses (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
+:testClasses (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
 :test (Thread[Daemon worker Thread 2,5,main]) started.
 :test
 file or directory 'D:\work\works\sim-u\sim-u-1.9\build\classes\test', not found
 Skipping task ':test' as it has no source files.
 :test UP-TO-DATE
-:test (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
+:test (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.002 secs.
 :extractMcpData (Thread[Daemon worker Thread 2,5,main]) started.
 :extractMcpData
 Skipping task ':extractMcpData' as task onlyIf is false.
 :extractMcpData SKIPPED
-:extractMcpData (Thread[Daemon worker Thread 2,5,main]) completed. Took 4.567 secs.
+:extractMcpData (Thread[Daemon worker Thread 2,5,main]) completed. Took 8.061 secs.
 :extractMcpMappings (Thread[Daemon worker Thread 2,5,main]) started.
 :extractMcpMappings
 Skipping task ':extractMcpMappings' as task onlyIf is false.
 :extractMcpMappings SKIPPED
-:extractMcpMappings (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.707 secs.
+:extractMcpMappings (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.906 secs.
 :getVersionJson (Thread[Daemon worker Thread 2,5,main]) started.
 :getVersionJson
-Executing task ':getVersionJson' (up-to-date check took 0.0 secs) due to:
+Executing task ':getVersionJson' (up-to-date check took 0.041 secs) due to:
   Task.upToDateWhen is false.
-:getVersionJson (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.3 secs.
+:getVersionJson (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.393 secs.
 :extractUserdev (Thread[Daemon worker Thread 2,5,main]) started.
 :extractUserdev
-Skipping task ':extractUserdev' as it is up-to-date (took 0.004 secs).
+Skipping task ':extractUserdev' as it is up-to-date (took 0.07 secs).
 :extractUserdev UP-TO-DATE
-:extractUserdev (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.005 secs.
+:extractUserdev (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.071 secs.
 :genSrgs (Thread[Daemon worker Thread 2,5,main]) started.
 :genSrgs
 Skipping task ':genSrgs' as task onlyIf is false.
 :genSrgs SKIPPED
-:genSrgs (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.345 secs.
+:genSrgs (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.297 secs.
 :reobfJar (Thread[Daemon worker Thread 2,5,main]) started.
 :reobfJar
 Executing task ':reobfJar' (up-to-date check took 0.0 secs) due to:
   Task.upToDateWhen is false.
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
-:reobfJar (Thread[Daemon worker Thread 2,5,main]) completed. Took 2.046 secs.
+:reobfJar (Thread[Daemon worker Thread 2,5,main]) completed. Took 2.518 secs.
 :extractRangemapReplacedMain (Thread[Daemon worker Thread 2,5,main]) started.
 :extractRangemapReplacedMain
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
-Executing task ':extractRangemapReplacedMain' (up-to-date check took 0.042 secs) due to:
+Executing task ':extractRangemapReplacedMain' (up-to-date check took 0.147 secs) due to:
   Input property 'libs' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
   Input property 'libs' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
-  Input property 'sources' file D:\work\works\sim-u\sim-u-1.9\build\sources\main\java\com\trhsy\sim\network\client\PacketOpenControlGui.java has changed.
+  Input property 'sources' file D:\work\works\sim-u\sim-u-1.9\build\sources\main\java\com\trhsy\sim\block\BlockMiningBox.java has changed.
 D:\work\works\sim-u\sim-u-1.9\build\sources\main\java
 file or directory 'D:\work\works\sim-u\sim-u-1.9\libs', not found
-:extractRangemapReplacedMain (Thread[Daemon worker Thread 2,5,main]) completed. Took 8.429 secs.
+:extractRangemapReplacedMain (Thread[Daemon worker Thread 2,5,main]) completed. Took 15.465 secs.
 :retromapReplacedMain (Thread[Daemon worker Thread 2,5,main]) started.
 :retromapReplacedMain
-Executing task ':retromapReplacedMain' (up-to-date check took 0.031 secs) due to:
+Executing task ':retromapReplacedMain' (up-to-date check took 0.058 secs) due to:
   Input property 'rangeMap' file D:\work\works\sim-u\sim-u-1.9\build\retromapping\replacedMain.rangemap has changed.
-  Input property 'sources' file D:\work\works\sim-u\sim-u-1.9\build\sources\main\java\com\trhsy\sim\network\client\PacketOpenControlGui.java has changed.
+  Input property 'sources' file D:\work\works\sim-u\sim-u-1.9\build\sources\main\java\com\trhsy\sim\block\BlockMiningBox.java has changed.
+  Input property 'sources' file D:\work\works\sim-u\sim-u-1.9\build\sources\main\java\com\trhsy\sim\loader\EventLoader.java has changed.
 remapping source...
-:retromapReplacedMain (Thread[Daemon worker Thread 2,5,main]) completed. Took 1.613 secs.
+:retromapReplacedMain (Thread[Daemon worker Thread 2,5,main]) completed. Took 2.063 secs.
 :sourceJar (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceJar
-Executing task ':sourceJar' (up-to-date check took 0.027 secs) due to:
-  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\build\retromapping\retromappedReplacedMain.jar has changed.
-:sourceJar (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.648 secs.
+Executing task ':sourceJar' (up-to-date check took 0.06 secs) due to:
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\build\resources\main\assets\minecraft\sounds\power_down.ogg has been added.
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\build\resources\main\assets\minecraft\sounds\sim_u_ddd.ogg has been added.
+  Input property 'source' file D:\work\works\sim-u\sim-u-1.9\build\resources\main\assets\minecraft\sounds\im_read_y.ogg has been added.
+:sourceJar (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.826 secs.
 :assemble (Thread[Daemon worker Thread 2,5,main]) started.
 :assemble
 Skipping task ':assemble' as it has no actions.
@@ -177,4 +183,4 @@ Skipping task ':build' as it has no actions.
 
 BUILD SUCCESSFUL
 
-Total time: 1 mins 20.738 secs
+Total time: 1 mins 58.662 secs

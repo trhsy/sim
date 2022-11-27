@@ -806,7 +806,7 @@ container.sim.ShowEmployees6=This mode switches off SimCity for this world
 container.sim.ShowEmployees7=Ideal for beginners and experts. Not too challenging.
 container.sim.ShowEmployees8=No money needed, everything free, no blocks required, be creative!
 container.sim.ShowEmployees9=Builders require ALL blocks, harder gameplay
-
+container.sim.job.builder_constructor_started_who1=who's  plan terrain
 container.sim.Terraform1=Cancel Request
 container.sim.Terraform2='Sealand' (water to land)
 container.sim.Terraform3='Nature' (plants saplings)

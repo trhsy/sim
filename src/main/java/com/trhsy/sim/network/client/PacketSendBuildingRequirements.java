@@ -62,16 +62,12 @@ public class PacketSendBuildingRequirements  implements IMessage {
 
         private void handle(PacketSendBuildingRequirements message, MessageContext ctx) {
             BlueprintRequirements existingBP = null;
-            Iterator var4 = ModSimLoader.blueprintReqs.iterator();
-
-            while(var4.hasNext()) {
-                BlueprintRequirements req = (BlueprintRequirements)var4.next();
-                if (req.entityId == message.cbr.entityId) {
-                    existingBP = req;
+            for (BlueprintRequirements b:ModSimLoader.blueprintReqs){
+                if (b.entityId == message.cbr.entityId) {
+                    existingBP = b;
                     break;
                 }
             }
-
             if (existingBP != null) {
                 existingBP.requirements = message.cbr.requirements;
             } else {

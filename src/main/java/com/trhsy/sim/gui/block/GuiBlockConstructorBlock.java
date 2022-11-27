@@ -122,7 +122,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
 
     /**
      * @return 方块，建筑方向，npc
-     * @Author fan
+     * @Author fan 63521155
      * @Description //TODO 初始化
      * @Date 13:37 2022/10/31
      * @Param [p, bDir, folk]
@@ -323,7 +323,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                 //'平整化' (整平地面)
                 this.buttonList.add(new GuiButton(24, this.width / 2 - 200, 125, 200, 20, I18n.format("container.sim.Terraform5")));
                 //'超值套装' (单层泥土)
-                this.buttonList.add(new GuiButton(25, this.width / 2 - 200, 135, 200, 20, I18n.format("container.sim.Terraform6")));
+                this.buttonList.add(new GuiButton(25, this.width / 2 - 200, 145, 200, 20, I18n.format("container.sim.Terraform6")));
                 //'冰川' (将水冻住或雪地化)
                 this.buttonList.add(new GuiButton(26, this.width / 2, 65, 200, 20, I18n.format("container.sim.Terraform7")));
                 //'湿润化' (添加水)

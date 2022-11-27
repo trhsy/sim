@@ -569,7 +569,7 @@ public class JobBuilder extends Job {
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
                     double d3 = 10.0D;
-                    this.jobWorld.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, newBP.getX() + (double) (rand.nextFloat() * 1 * 2.0F) - (double) 1 - d0 * d3, newBP.getY() + (double) (rand.nextFloat() * 1) - d1 * d3, newBP.getZ() + (double) (rand.nextFloat() * 1 * 2.0F) - (double) 1 - d2 * d3, d0, d1, d2, new int[0]);
+                    this.jobWorld.spawnParticle(null, newBP.getX() + (double) (rand.nextFloat() * 1 * 2.0F) - (double) 1 - d0 * d3, newBP.getY() + (double) (rand.nextFloat() * 1) - d1 * d3, newBP.getZ() + (double) (rand.nextFloat() * 1 * 2.0F) - (double) 1 - d2 * d3, d0, d1, d2, new int[0]);
                 }
             }
             this.placedBlocks.add(V3.fromBlockPos(newBP));
