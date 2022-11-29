@@ -47,7 +47,7 @@ public class ClientProxy extends CommonProxy{
                 worldname = "Server";
             }
             try {
-                if (ModSimLoader.states.gameModeNumber != 10) {
+                if (ModSimLoader.states.gameModeNumber != 999) {
                     if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
                         int HUDoffset = 0;
                         if (mc.thePlayer.dimension == 1) {

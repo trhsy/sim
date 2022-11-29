@@ -10,6 +10,7 @@ import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketSendFolkSkin;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
+import com.trhsy.sim.npc.build.TerrainType;
 import com.trhsy.sim.npc.job.Job;
 import com.trhsy.sim.npc.job.JobBaker;
 import com.trhsy.sim.npc.job.JobBuilder;
@@ -461,6 +462,15 @@ public class NpcData {
                             //面包师
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation6"))) {
                             this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
+                            //规划师
+                        }else if(job.contentEquals(I18n.format("container.sim.Vocation16"))){
+                            String v = value.split(";")[1];
+                            p = V3.fromString(v).toBlockPos();
+                            String terrainName = value.split(";")[2];
+                            String terrainType = value.split(";")[3];
+                            TerrainType terrainTypes=new TerrainType(terrainName,terrainType);
+                            this.job = new JobTerrainFormer(this,terrainTypes,p,world);
+
                         } /*else if (job.contentEquals("dairyfarmer")) {
                             this.job = new JobDairyFarmer(this, this.tempEmployLoc, world);
                         }  else if (job.contentEquals("butcher")) {
@@ -645,6 +655,13 @@ public class NpcData {
                         }
                         writer.write("job|" + this.job.jobName + ";" + jb.workPlace.toString() + ";" + jb.direction + "\n");
 
+                    }else if(this.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))){
+                        JobTerrainFormer jb=(JobTerrainFormer)this.job;
+                        if(jb.terrainType!=null){
+                            writer.write("job|" + this.job.jobName + ";"+ jb.workPlace.toString() +";"+jb.terrainType.terrainName+ ";" +jb.terrainType.terrainType + "\n");
+                        }else{
+                            writer.write("job|" + this.job.jobName + ";");
+                        }
                     } else {
                         writer.write("job|" + this.job.jobName + "\n");
                         writer.write("jobstage|" + this.job.stage + "\n");

@@ -272,7 +272,7 @@ public class JobBuilder extends Job {
                             //当前时间
                             Long now = System.currentTimeMillis();
                             //游戏模式是正常模式
-                            if (ModSimLoader.states.gameModeNumber == 0) {
+                            if (ModSimLoader.states.gameModeNumber != 1) {
                                 if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     ////上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -405,7 +405,7 @@ public class JobBuilder extends Job {
                 //是否是普通的块
                 if (normalBlock) {
                     //模组模式是正常模式
-                    if (ModSimLoader.states.gameModeNumber == 0) {
+                    if (ModSimLoader.states.gameModeNumber != 1) {
                         //是不是蓝图的块
                         boolean hasBlock = false;
                         //是不是必须的方块

@@ -139,7 +139,7 @@ public class ModSimLoader {
      * @Param [amount]
      **/
     public static void addMoney(float amount) {
-        if (ModSimLoader.states.gameModeNumber == 0) {
+        if (ModSimLoader.states.gameModeNumber != 1) {
             ModSimLoader.states.credits += amount;
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
         }

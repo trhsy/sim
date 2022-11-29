@@ -811,7 +811,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                     }
                 }
             } else if (this.currentPage == 13) {
-                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform11"), this.width / 2, 50, 16777215);
+                this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform11"), this.width / 2, 45, 16777215);
                 this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.Terraform12"), this.width / 2, 55, 16777215);
 //                this.drawCenteredString(this.fontRendererObj, this.errorText, this.width / 2, this.height - 80, 16744576);
             }

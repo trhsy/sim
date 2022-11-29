@@ -18,6 +18,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -46,7 +48,7 @@ public class JobTerrainFormer extends Job {
      * @Param
      * @return
      **/
-    private TerrainType terrainType;
+    public TerrainType terrainType;
     /**
      * 开始位置
      **/
@@ -66,7 +68,7 @@ public class JobTerrainFormer extends Job {
     /**
      * 缺失的方块
      **/
-    private Block missingBlock = null;
+    private ItemStack missingBlock = null;
     /**
      * 建造位置
      **/
@@ -150,14 +152,14 @@ public class JobTerrainFormer extends Job {
                                 }
                             }
                             //等待规划类型
-                            if(this.terrainType==null){
+                            if (this.terrainType == null) {
                                 //等待蓝图
                                 this.folk.setStatus(I18n.format("container.sim.job.builder_Awaiting_terrainType"));
-                            }else{
+                            } else {
                                 //当前时间
                                 Long now = System.currentTimeMillis();
                                 //游戏模式是正常模式
-                                if (ModSimLoader.states.gameModeNumber == 0) {
+                                if (ModSimLoader.states.gameModeNumber != 1) {
                                     if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                         ////上次时间为当前时间
                                         this.timeSinceLastBlockPlace = now;
@@ -167,7 +169,7 @@ public class JobTerrainFormer extends Job {
                                         NetWorkLoader.net.sendToAll(new PacketSendTerrainTypeRequitrements(this.terrainType, this));
 
                                     }
-                                }else{
+                                } else {
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
                                     //不是客户端
@@ -183,7 +185,7 @@ public class JobTerrainFormer extends Job {
                         //当前时间
                         Long now = System.currentTimeMillis();
                         //游戏模式是正常模式
-                        if (ModSimLoader.states.gameModeNumber == 0) {
+                        if (ModSimLoader.states.gameModeNumber != 1) {
                             if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                 //上次时间为当前时间
                                 this.timeSinceLastBlockPlace = now;
@@ -204,55 +206,57 @@ public class JobTerrainFormer extends Job {
         try {
             //重置缺少的块
             this.missingBlock = null;
-            Boolean fsMissBlock=true;
+            Boolean fsMissBlock = true;
             if (ModSimLoader.states.credits < 0.02F) {
                 //没有钱付给我！
                 this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
                 return;
             }
             CopyOnWriteArrayList blockIDs;
-            switch (this.terrainType.terrainType){
-                case "1":
-                    //填海
-                    blockIDs = new CopyOnWriteArrayList();
-                    blockIDs.add(Blocks.WATER);
-                    blockIDs.add(Blocks.WATER);
-                    this.closestBlocks = null;
-                    this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
-                    this.totalBlockCount = this.closestBlocks.size();
-                    if(this.totalBlockCount==0){
-                        //没有什么要地球化的！
-                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
-                        //这里没有任何东西能以这种方式被规划
-                        ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
-                        //解雇
-                        this.folk.fire();
-                        return;
-                    }
-                    //开始地形规划
-                    this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
-                    //是否是创造模式
-                    if (ModSimLoader.states.gameModeNumber!= 1) {
-                        //获取周围箱子
-                        List<IInventory> inventoriesFindClosest = this.inventoriesFindClosest(this.workPlace, 5);
-                        //循环箱子
-                        for (IInventory inv : inventoriesFindClosest) {
-                            //循环箱子库存
-                            for (int i = 0; i < inv.getSizeInventory(); i++) {
-                                ItemStack itemStack = inv.getStackInSlot(i);
-                                //拿走当前需要的块 泥土
-                                if (itemStack != null && itemStack.getItem() == Item.getItemFromBlock(Blocks.DIRT)) {
-                                    inv.decrStackSize(i, 1);
-                                    fsMissBlock=false;
-                                    break;
+            if(this.terrainType!=null){
+                switch (this.terrainType.terrainType) {
+                    case "1":
+                        //填海
+                        blockIDs = new CopyOnWriteArrayList();
+                        blockIDs.add(Blocks.WATER);
+                        blockIDs.add(Blocks.WATER);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+                        //开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+                        //是否是创造模式
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            //获取周围箱子
+                            List<IInventory> inventoriesFindClosest = this.inventoriesFindClosest(this.workPlace, 5);
+                            //循环箱子
+                            for (IInventory inv : inventoriesFindClosest) {
+                                //循环箱子库存
+                                for (int i = 0; i < inv.getSizeInventory(); i++) {
+                                    ItemStack itemStack = inv.getStackInSlot(i);
+                                    //拿走当前需要的块 泥土
+                                    if (itemStack != null && itemStack.getItem() == Item.getItemFromBlock(Blocks.DIRT)) {
+                                        inv.decrStackSize(i, 1);
+                                        fsMissBlock = false;
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        if(fsMissBlock){
-                            //我需要更多的泥土！
-                            this.folk.status = I18n.format("container.sim.job.terra.farmer.dirt");
-                            this.missingBlock=Blocks.DIRT;
-                            return;
+                            if (fsMissBlock) {
+                                //我需要更多的泥土！
+                                this.folk.status = I18n.format("container.sim.job.terra.farmer.dirt");
+                                this.missingBlock = new ItemStack(Blocks.DIRT);
+                                return;
+                            }
                         }
                         //计算规划的百分比
                         Double x = (double) this.totalBlockCount;
@@ -264,36 +268,512 @@ public class JobTerrainFormer extends Job {
                         V3 v = (V3) this.closestBlocks.get(0);
                         BlockPos blockPos2 = new BlockPos(v.x, v.y, v.z);
                         this.jobWorld.setBlockState(blockPos2, Blocks.DIRT.getDefaultState(), 3);
-                        if (ModSimLoader.states.gameModeNumber!= 1) {
+                        if (ModSimLoader.states.gameModeNumber != 1) {
                             GameStates var10000 = ModSimLoader.states;
                             ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                         }
-                    }
-                    break;
-                case "2":
-                    //绿化
-                    break;
-                case "3":
-                    //除草
-                    break;
-                case "4":
-                    //平整化
-                    break;
-                case "5":
-                    //单层泥土
-                    break;
-                case "6":
-                    //冰川
-                    break;
-                case "7":
-                    //湿润
-                    break;
-                case "8":
-                    //炎热
-                    break;
-                case "9":
-                    //除雪
-                    break;
+
+                        break;
+                    case "2":
+                        //绿化 泥土变草地
+                        blockIDs = new CopyOnWriteArrayList();
+                        blockIDs.add(Blocks.DIRT);
+                        blockIDs.add(Blocks.GRASS);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, true, true, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+                        //开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+                        int counter = 0;
+                        Boolean hasPlacedTree = false;
+                        counter++;
+                        if (counter % 15 == 0) {
+                            hasPlacedTree = true;
+                            //是否是创造模式
+                            if (ModSimLoader.states.gameModeNumber != 1) {
+                                //获取周围箱子
+                                List<IInventory> inventoriesFindClosest = this.inventoriesFindClosest(this.workPlace, 5);
+                                //循环箱子
+                                for (IInventory inv : inventoriesFindClosest) {
+                                    //循环箱子库存
+                                    for (int i = 0; i < inv.getSizeInventory(); i++) {
+                                        ItemStack itemStack = inv.getStackInSlot(i);
+                                        //拿走当前需要的块 树苗
+                                        if (itemStack != null && itemStack.getItem() == Item.getItemFromBlock(Blocks.SAPLING)) {
+                                            inv.decrStackSize(i, 1);
+                                            fsMissBlock = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (fsMissBlock) {
+                                    //没有更多的树苗，放一些在箱子里
+                                    this.folk.status = I18n.format("container.sim.job.terra.farmer.saplings");
+                                    this.missingBlock = new ItemStack(Blocks.SAPLING);
+                                    return;
+                                }
+                            }
+                        }
+                        //计算规划的百分比
+                        Double x1 = (double) this.totalBlockCount;
+                        Double y1 = (double) this.closestBlocks.size();
+                        Double percent1 = (x1 - y1) / x1;
+                        percent = percent1 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent1 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v1 = (V3) this.closestBlocks.get(0);
+                        if (hasPlacedTree) {
+                            BlockPos blockPos2_1 = new BlockPos(v1.x, v1.y + 0.5, v1.z);
+                            this.jobWorld.setBlockState(blockPos2_1, Blocks.SAPLING.getDefaultState(), 3);
+                            if (ModSimLoader.states.gameModeNumber != 1) {
+                                GameStates var10000 = ModSimLoader.states;
+                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                            }
+                        } else {
+                            int r = new Random().nextInt(10);
+                            BlockPos blockPos2_1 = new BlockPos(v1.x, v1.y + 0.5, v1.z);
+                            if (r == 2) {
+
+                                this.jobWorld.setBlockState(blockPos2_1, Blocks.RED_FLOWER.getDefaultState(), 3);
+//                            this.jobWorld.markBlockForUpdate(blockPos2);
+                            } else if (r == 5) {
+                                this.jobWorld.setBlockState(blockPos2_1, Blocks.YELLOW_FLOWER.getDefaultState(), 3);
+                            }
+                        }
+                        break;
+                    case "3":
+                        //除草
+                        blockIDs = new CopyOnWriteArrayList();
+                        //草
+                        blockIDs.add(Blocks.TALLGRASS);
+                        //花
+                        blockIDs.add(Blocks.RED_FLOWER);
+                        blockIDs.add(Blocks.YELLOW_FLOWER);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+                        //开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+
+                        //计算规划的百分比
+                        Double x3 = (double) this.totalBlockCount;
+                        Double y3 = (double) this.closestBlocks.size();
+                        Double percent3 = (x3 - y3) / x3;
+                        percent3 = percent3 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent3 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v3 = (V3) this.closestBlocks.get(0);
+                        List minedStacks = this.translateBlockWhenMined(this.jobWorld, v3);
+                        if (minedStacks != null) {
+                            for (int s = 0; s < minedStacks.size(); ++s) {
+                                ItemStack stack = (ItemStack) minedStacks.get(s);
+                                if (stack != null) {
+                                    this.placeInJobChest(stack);
+//                                this.inventoriesPut(this.constructorChests, stack, false);
+                                }
+                            }
+                            if (this.jobWorld.isRemote) {
+                                BlockPos blockPos3_1 = new BlockPos(v3.x, v3.y, v3.z);
+                                this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
+                                if (ModSimLoader.states.gameModeNumber != 1) {
+                                    GameStates var10000 = ModSimLoader.states;
+                                    ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                                }
+                            }
+                        }
+                        break;
+                    case "4":
+                        //平整化 铺平
+                        blockIDs = new CopyOnWriteArrayList();
+                        //草地
+                        blockIDs.add(Blocks.GRASS);
+                        //泥土
+                        blockIDs.add(Blocks.DIRT);
+                        //草
+                        blockIDs.add(Blocks.TALLGRASS);
+                        //石头
+                        blockIDs.add(Blocks.STONE);
+                        //沙子
+                        blockIDs.add(Blocks.SAND);
+                        //圆石
+                        blockIDs.add(Blocks.SANDSTONE);
+                        //砂砾
+                        blockIDs.add(Blocks.GRAVEL);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, false, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+//开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+
+                        //计算规划的百分比
+                        Double x4 = (double) this.totalBlockCount;
+                        Double y4 = (double) this.closestBlocks.size();
+                        Double percent4 = (x4 - y4) / x4;
+                        percent4 = percent4 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent4 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v4 = (V3) this.closestBlocks.get(0);
+                        List minedStacks1 = this.translateBlockWhenMined(this.jobWorld, v4);
+                        for (int s = 0; s < minedStacks1.size(); ++s) {
+                            ItemStack stack = (ItemStack) minedStacks1.get(s);
+                            if (stack != null) {
+                                this.placeInJobChest(stack);
+//                                this.inventoriesPut(this.constructorChests, stack, false);
+                            }
+                        }
+                        if (this.jobWorld.isRemote) {
+                            BlockPos blockPos3_1 = new BlockPos(v4.x, v4.y, v4.z);
+                            this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
+                            if (ModSimLoader.states.gameModeNumber != 1) {
+                                GameStates var10000 = ModSimLoader.states;
+                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                            }
+                        }
+                        break;
+                    case "5":
+                        //单层泥土
+                        blockIDs = new CopyOnWriteArrayList();
+                        blockIDs.add(Blocks.AIR);
+                        blockIDs.add(Blocks.TALLGRASS);
+                        blockIDs.add(Blocks.RED_FLOWER);
+                        blockIDs.add(Blocks.YELLOW_FLOWER);
+                        V3 v5 = new V3(constructorPos.getX(), constructorPos.getY() - 1, constructorPos.getZ());
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(v5.toBlockPos(), blockIDs, 30, false, true, true);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+//开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+//是否是创造模式
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            //获取周围箱子
+                            List<IInventory> inventoriesFindClosest = this.inventoriesFindClosest(this.workPlace, 5);
+                            //循环箱子
+                            for (IInventory inv : inventoriesFindClosest) {
+                                //循环箱子库存
+                                for (int i = 0; i < inv.getSizeInventory(); i++) {
+                                    ItemStack itemStack = inv.getStackInSlot(i);
+                                    //拿走当前需要的块 泥土
+                                    if (itemStack != null && itemStack.getItem() == Item.getItemFromBlock(Blocks.DIRT)) {
+                                        inv.decrStackSize(i, 1);
+                                        fsMissBlock = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (fsMissBlock) {
+                                //我需要更多的泥土！
+                                this.folk.status = I18n.format("container.sim.job.terra.farmer.dirt");
+                                this.missingBlock = new ItemStack(Blocks.DIRT);
+                                return;
+                            }
+                        }
+                        //计算规划的百分比
+                        Double x5 = (double) this.totalBlockCount;
+                        Double y5 = (double) this.closestBlocks.size();
+                        Double percent5 = (x5 - y5) / x5;
+                        percent5 = percent5 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent5 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v5_1 = (V3) this.closestBlocks.get(0);
+                        if (this.jobWorld.isRemote) {
+                            BlockPos blockPos5_1 = new BlockPos(v5_1.x, v5_1.y, v5_1.z);
+                            this.jobWorld.setBlockState(blockPos5_1, Blocks.DIRT.getDefaultState(), 3);
+                            if (ModSimLoader.states.gameModeNumber != 1) {
+                                GameStates var10000 = ModSimLoader.states;
+                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                            }
+                        }
+                        break;
+                    case "6":
+                        //冰川
+                        blockIDs = new CopyOnWriteArrayList();
+                        blockIDs.add(Blocks.AIR);
+                        blockIDs.add(Blocks.TALLGRASS);
+                        blockIDs.add(Blocks.WATER);
+                        blockIDs.add(Blocks.WATER);
+//                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, true, true, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+                        //开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+//是否是创造模式
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            //获取周围箱子
+                            List<IInventory> inventoriesFindClosest = this.inventoriesFindClosest(this.workPlace, 5);
+                            //循环箱子
+                            for (IInventory inv : inventoriesFindClosest) {
+                                //循环箱子库存
+                                for (int i = 0; i < inv.getSizeInventory(); i++) {
+                                    ItemStack itemStack = inv.getStackInSlot(i);
+                                    //拿走当前需要的块 泥土
+                                    if (itemStack != null && itemStack.getItem() == Items.WATER_BUCKET) {
+                                        inv.decrStackSize(i, 1);
+                                        fsMissBlock = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (fsMissBlock) {
+                                //我需要更多的泥土！
+                                this.folk.status = I18n.format("container.sim.job.terra.farmer.water");
+                                this.missingBlock = new ItemStack(Items.WATER_BUCKET);
+                                return;
+                            }
+                        }
+                        //计算规划的百分比
+                        Double x6 = (double) this.totalBlockCount;
+                        Double y6 = (double) this.closestBlocks.size();
+                        Double percent6 = (x6 - y6) / x6;
+                        percent6 = percent6 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent6 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v6 = (V3) this.closestBlocks.get(0);
+                        Block blockId = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y, v6.z)).getBlock();
+                        //方块不为空 不是草
+                        if (blockId != null && blockId != Blocks.TALLGRASS) {
+                            if ((blockId == Blocks.WATER || blockId == Blocks.FLOWING_WATER) && this.jobWorld.isRemote) {
+                                BlockPos blockPos6_1 = new BlockPos(v6.x, v6.y, v6.z);
+                                this.jobWorld.setBlockState(blockPos6_1, Blocks.ICE.getDefaultState(), 3);
+                                if (ModSimLoader.states.gameModeNumber != 1) {
+                                    GameStates var10000 = ModSimLoader.states;
+                                    ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                                }
+                            }
+                        }else{
+                            Block idBelow = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y - 1, v6.z)).getBlock();
+                            //方块不是空 不是冰 不是水 不是雪
+                            if (idBelow != null && idBelow != Blocks.ICE && idBelow != Blocks.WATER && idBelow != Blocks.FLOWING_WATER && idBelow != Blocks.SNOW && this.jobWorld.isRemote) {
+                                BlockPos blockPos6_1 = new BlockPos(v6.x, v6.y, v6.z);
+                                this.jobWorld.setBlockState(blockPos6_1, Blocks.SNOW.getDefaultState(), 3);
+                                if (ModSimLoader.states.gameModeNumber != 1) {
+                                    GameStates var10000 = ModSimLoader.states;
+                                    ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                                }
+                            }
+                        }
+
+                        break;
+                    case "7":
+                        //湿润
+                        blockIDs = new CopyOnWriteArrayList();
+                        //熔岩
+                        blockIDs.add(Blocks.LAVA);
+                        blockIDs.add(Blocks.LAVA);
+//                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+//开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+//是否是创造模式
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            //获取周围箱子
+                            List<IInventory> inventoriesFindClosest = this.inventoriesFindClosest(this.workPlace, 5);
+                            //循环箱子
+                            for (IInventory inv : inventoriesFindClosest) {
+                                //循环箱子库存
+                                for (int i = 0; i < inv.getSizeInventory(); i++) {
+                                    ItemStack itemStack = inv.getStackInSlot(i);
+                                    //拿走当前需要的块 泥土
+                                    if (itemStack != null && itemStack.getItem() == Items.WATER_BUCKET) {
+                                        inv.decrStackSize(i, 1);
+                                        fsMissBlock = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (fsMissBlock) {
+                                //我需要更多的泥土！
+                                this.folk.status = I18n.format("container.sim.job.terra.farmer.water");
+                                this.missingBlock =new ItemStack(Items.WATER_BUCKET);
+                                return;
+                            }
+                        }
+                        //计算规划的百分比
+                        Double x7 = (double) this.totalBlockCount;
+                        Double y7 = (double) this.closestBlocks.size();
+                        Double percent7 = (x7 - y7) / x7;
+                        percent7 = percent7 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent7 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v7 = (V3) this.closestBlocks.get(0);
+                        if (this.jobWorld.isRemote) {
+                            BlockPos blockPos = new BlockPos(v7.x, v7.y, v7.z);
+                            //黑曜石
+                            this.jobWorld.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState(), 3);
+//                        this.jobWorld.markBlockForUpdate(blockPos);
+                            if (ModSimLoader.states.gameModeNumber != 1) {
+                                GameStates var10000 = ModSimLoader.states;
+                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                            }
+                        }
+                        break;
+                    case "8":
+                        //炎热
+                        blockIDs = new CopyOnWriteArrayList();
+                        blockIDs.add(Blocks.LAVA);
+//                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+//开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+//是否是创造模式
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            //获取周围箱子
+                            List<IInventory> inventoriesFindClosest = this.inventoriesFindClosest(this.workPlace, 5);
+                            //循环箱子
+                            for (IInventory inv : inventoriesFindClosest) {
+                                //循环箱子库存
+                                for (int i = 0; i < inv.getSizeInventory(); i++) {
+                                    ItemStack itemStack = inv.getStackInSlot(i);
+                                    //拿走当前需要的块 泥土
+                                    if (itemStack != null && itemStack.getItem() == Items.BUCKET) {
+                                        inv.decrStackSize(i, 1);
+                                        fsMissBlock = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (fsMissBlock) {
+                                //我需要一些空桶来装熔岩。
+                                this.folk.status = I18n.format("container.sim.job.terra.farmer.buckets");
+                                this.missingBlock = new ItemStack(Items.BUCKET);
+                                return;
+                            }
+                        }
+                        //计算规划的百分比
+                        Double x8 = (double) this.totalBlockCount;
+                        Double y8 = (double) this.closestBlocks.size();
+                        Double percent8 = (x8 - y8) / x8;
+                        percent8 = percent8 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent8 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v8 = (V3) this.closestBlocks.get(0);
+                        if (this.jobWorld.isRemote) {
+                            BlockPos blockPos8_1 = new BlockPos(v8.x, v8.y, v8.z);
+                            this.jobWorld.setBlockState(blockPos8_1, Blocks.AIR.getDefaultState(), 3);
+//                        this.jobWorld.markBlockForUpdate(blockPos2);
+                            if (ModSimLoader.states.gameModeNumber != 1) {
+                                GameStates var10000 = ModSimLoader.states;
+                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                            }
+                            this.placeInJobChest(new ItemStack(Items.LAVA_BUCKET,1));
+                        }
+                        break;
+                    case "9":
+                        //除雪
+                        blockIDs = new CopyOnWriteArrayList();
+                        blockIDs.add(Blocks.SNOW);
+//                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
+                        this.closestBlocks = null;
+                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                        this.totalBlockCount = this.closestBlocks.size();
+                        if (this.totalBlockCount == 0) {
+                            //没有什么要地球化的！
+                            this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
+                            //这里没有任何东西能以这种方式被规划
+                            ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
+                            //解雇
+                            this.folk.fire();
+                            return;
+                        }
+                        //开始地形规划
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
+                        //计算规划的百分比
+                        Double x9 = (double) this.totalBlockCount;
+                        Double y9 = (double) this.closestBlocks.size();
+                        Double percent9 = (x9 - y9) / x9;
+                        percent = percent9 * 100;
+                        //环境改造 10% 完成
+                        this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + ", " + percent + " % " + I18n.format("container.sim.job.terra.farmer.complete");
+                        V3 v9 = (V3) this.closestBlocks.get(0);
+                        BlockPos blockPo9_1 = new BlockPos(v9.x, v9.y, v9.z);
+                        this.jobWorld.setBlockState(blockPo9_1, Blocks.GRASS.getDefaultState(), 3);
+//                    this.jobWorld.markBlockForUpdate(blockPos2);
+                        int counter1=0;
+                        ++counter1;
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            GameStates var10000 = ModSimLoader.states;
+                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                        }
+
+                        if (counter1 % 4 == 0) {
+                            this.placeInJobChest(new ItemStack(Blocks.SNOW,1));
+                        }
+                        break;
+                }
+                this.closestBlocks.remove(0);
+                if (this.closestBlocks.size() == 0) {
+                    ModSimLoader.sendChat(this.folk.getName() + I18n.format("container.sim.job.terra.farmer.has_completed"));
+//                this.jobWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                    this.folk.fire();
+                    this.folk.stayPut = false;
+                }
             }
 
 
@@ -301,12 +781,13 @@ public class JobTerrainFormer extends Job {
             e.printStackTrace();
         }
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO
      * @Date 19:54 2022/11/27 起始位置，方块 距离限制，向上扫描，向下扫描，仅一层
      * @Param [constructorPos, blockIDs, distanceLimit, b, b1, oneLayerOnly]
-     * @return void
      **/
     private void setClosestBlocksOfType(BlockPos constructorPos, List<Block> blockIDs, int distanceLimit, boolean needsToSeeSky, boolean scanDownwards, boolean oneLayerOnly) {
         try {
@@ -320,11 +801,11 @@ public class JobTerrainFormer extends Job {
                 fsDistanceLimit = 0;
             }
             //循环上下半径 高
-            for (int i = 0; i <fsDistanceLimit; i++) {
+            for (int i = 0; i < fsDistanceLimit; i++) {
                 //循环宽，平面的
                 for (int j = 0; j < distanceLimit; j++) {
                     for (int k = -j; k <= j; k++) {
-                        for (int l = -j; l <=j ; l++) {
+                        for (int l = -j; l <= j; l++) {
                             int sx = (int) (constructorPos.getX() + k);
                             int sy;
                             //是否向下扫描
@@ -338,18 +819,18 @@ public class JobTerrainFormer extends Job {
                             //获取方块
                             for (int m = 0; m < blockIDs.size(); m++) {
                                 Block blockID = (Block) blockIDs.get(m);
-                                if(this.folk.entity.worldObj==null){
+                                if (this.folk.entity.worldObj == null) {
                                     return;
                                 }
-                                BlockPos pos=new BlockPos(sx, sy, sz);
+                                BlockPos pos = new BlockPos(sx, sy, sz);
                                 //获取当前世界的方块
-                                Block blockInWorld =this.folk.entity.worldObj.getBlockState(pos).getBlock();
+                                Block blockInWorld = this.folk.entity.worldObj.getBlockState(pos).getBlock();
                                 if (blockInWorld == blockID) {
                                     //如果向上扫描
                                     if (needsToSeeSky) {
                                         //方块是空的
                                         boolean canSeeSky;
-                                        pos=new BlockPos(sx, sy + 1, sz);
+                                        pos = new BlockPos(sx, sy + 1, sz);
                                         if (this.folk.entity.worldObj.getBlockState(pos).getBlock() == null) {
                                             canSeeSky = true;
                                         } else {
@@ -362,7 +843,7 @@ public class JobTerrainFormer extends Job {
                                             skip = true;
                                         }
                                     }
-                                    if(!skip){
+                                    if (!skip) {
                                         V3 v = new V3((double) sx, (double) sy, (double) sz);
                                         if (!hm.containsKey(v.toString())) {
                                             hm.put(v.toString(), v);
@@ -374,22 +855,51 @@ public class JobTerrainFormer extends Job {
                     }
                 }
             }
-            this.closestBlocks=new CopyOnWriteArrayList<>(hm.values());
-        }catch (Exception e){
+            this.closestBlocks = new CopyOnWriteArrayList<>(hm.values());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    /**
+     * @Author fan
+     * @Description //TODO 开采时平移方块
+     * @Date 21:40 2022/11/29
+     * @Param [world, location]
+     * @return java.util.List<net.minecraft.item.ItemStack>
+     **/
+    public List<ItemStack> translateBlockWhenMined(World world, V3 location) {
+        List<ItemStack> itemStacks = new CopyOnWriteArrayList<ItemStack>();
+        try {
+            int i = (int) location.x;
+            int j = (int) location.y;
+            int k = (int) location.z;
+            BlockPos blockPos = new BlockPos(i, j, k);
+            Block block = world.getBlockState(blockPos).getBlock();
+            if (block == null) {
+                return null;
+            }
+
+            int ma = block.getMetaFromState(world.getBlockState(blockPos));
+            itemStacks = block.getDrops(world, blockPos, block.getStateFromMeta(ma), 0);
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("开采时平移块体出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return itemStacks;
+
+    }
+
     public void onMinute() {
         if (this.missingCheck < 3) {
             ++this.missingCheck;
         } else {
             //谁在规划
             String s1 = I18n.format("container.sim.job.builder_constructor_started_who1");
-            if (this.missingBlock != null && this.missingBlock != Blocks.AIR) {
+            if (this.missingBlock != null && this.missingBlock != new ItemStack(Blocks.AIR)) {
 
                 String s2 = I18n.format("container.sim.job.builder_constructor_started_more");
                 //谁在建“”需要更多的“”
-                ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.terrainType.terrainName + ") " + s2 + this.missingBlock.getLocalizedName());
+                ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.terrainType.terrainName + ") " + s2 + this.missingBlock.getUnlocalizedName());
             }
 
             if (ModSimLoader.states.credits < 0.02F) {
@@ -400,10 +910,12 @@ public class JobTerrainFormer extends Job {
             this.missingCheck = 0;
         }
     }
+
     @Override
     public String toString() {
         return I18n.format("container.sim.Vocation16");
     }
+
     /**
      * @return void
      * @Author fan
