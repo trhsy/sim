@@ -245,34 +245,24 @@ public abstract class Job {
 
     public List<IInventory> findJobChests(int radius) {
         this.jobChests.clear();
-        Iterator var2 = this.inventoriesFindClosest(this.workPlace, 5).iterator();
-
-        while(var2.hasNext()) {
-            IInventory chest = (IInventory)var2.next();
-            this.jobChests.add(chest);
+        List<IInventory> inventoriesFindClosest= this.inventoriesFindClosest(this.workPlace, radius);
+        for (IInventory i:inventoriesFindClosest){
+            jobChests.add(i);
         }
-
         return this.jobChests;
     }
 
     public boolean placeInJobChest(ItemStack item) {
-        Iterator var2;
-        IInventory chest;
         if (this.jobChests.size() > 0) {
-            var2 = this.jobChests.iterator();
-
-            while(var2.hasNext()) {
-                chest = (IInventory)var2.next();
+            for (IInventory chest:this.jobChests){
                 if (this.placeInJobChest(chest, item)) {
                     return true;
                 }
             }
         } else {
-            var2 = this.inventoriesFindClosest(this.workPlace, 5).iterator();
-
-            while(var2.hasNext()) {
-                chest = (IInventory)var2.next();
-                if (this.placeInJobChest(chest, item)) {
+            List<IInventory> inventoriesFindClosest= this.inventoriesFindClosest(this.workPlace, 5);
+            for (IInventory i:inventoriesFindClosest){
+                if (this.placeInJobChest(i, item)) {
                     return true;
                 }
             }
@@ -290,7 +280,7 @@ public abstract class Job {
             for(int itemNumber = 1; itemNumber <= item.stackSize; ++itemNumber) {
                 for(int chestSlot = 0; chestSlot < chest.getSizeInventory(); ++chestSlot) {
                     ItemStack is = chest.getStackInSlot(chestSlot);
-                    if (is.getDisplayName().contentEquals("Air")) {
+                    if (is==null||is.getDisplayName().contentEquals("Air")) {
                         is = item.copy();
                         is.stackSize=1;
                         chest.setInventorySlotContents(chestSlot, is);
