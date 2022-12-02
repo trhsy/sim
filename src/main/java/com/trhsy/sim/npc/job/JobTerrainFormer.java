@@ -102,6 +102,7 @@ public class JobTerrainFormer extends Job {
                 }
             }
         }
+        this.stage=0;
         this.createConBox();
     }
 
@@ -113,6 +114,7 @@ public class JobTerrainFormer extends Job {
         //建筑工
         this.jobName = I18n.format("container.sim.Vocation16");
         this.constructorBlock.employee = folk;
+        this.stage=0;
         this.createConBox();
     }
 
@@ -213,16 +215,20 @@ public class JobTerrainFormer extends Job {
                 return;
             }
             CopyOnWriteArrayList blockIDs;
-            if(this.terrainType!=null){
+            if (this.terrainType != null) {
                 switch (this.terrainType.terrainType) {
                     case "1":
-                        //填海
-                        blockIDs = new CopyOnWriteArrayList();
-                        blockIDs.add(Blocks.WATER);
-                        blockIDs.add(Blocks.WATER);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                        if(this.stage==0){
+                            //填海
+                            blockIDs = new CopyOnWriteArrayList();
+                            blockIDs.add(Blocks.WATER);
+                            blockIDs.add(Blocks.FLOWING_WATER);
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
+
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.setStatus(I18n.format("container.sim.job.terra.farmer.Nothing"));
@@ -275,13 +281,16 @@ public class JobTerrainFormer extends Job {
 
                         break;
                     case "2":
-                        //绿化 泥土变草地
-                        blockIDs = new CopyOnWriteArrayList();
-                        blockIDs.add(Blocks.DIRT);
-                        blockIDs.add(Blocks.GRASS);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, true, true, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                        if(this.stage==0) {
+                            //绿化 泥土变草地
+                            blockIDs = new CopyOnWriteArrayList();
+                            blockIDs.add(Blocks.DIRT);
+                            blockIDs.add(Blocks.GRASS);
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, true, true, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -351,16 +360,19 @@ public class JobTerrainFormer extends Job {
                         }
                         break;
                     case "3":
-                        //除草
-                        blockIDs = new CopyOnWriteArrayList();
-                        //草
-                        blockIDs.add(Blocks.TALLGRASS);
-                        //花
-                        blockIDs.add(Blocks.RED_FLOWER);
-                        blockIDs.add(Blocks.YELLOW_FLOWER);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                        if(this.stage==0) {
+                            //除草
+                            blockIDs = new CopyOnWriteArrayList();
+                            //草
+                            blockIDs.add(Blocks.TALLGRASS);
+                            //花
+                            blockIDs.add(Blocks.RED_FLOWER);
+                            blockIDs.add(Blocks.YELLOW_FLOWER);
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -390,36 +402,37 @@ public class JobTerrainFormer extends Job {
 //                                this.inventoriesPut(this.constructorChests, stack, false);
                                 }
                             }
-                            if (this.jobWorld.isRemote) {
-                                BlockPos blockPos3_1 = new BlockPos(v3.x, v3.y, v3.z);
-                                this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
-                                if (ModSimLoader.states.gameModeNumber != 1) {
-                                    GameStates var10000 = ModSimLoader.states;
-                                    ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
-                                }
+                            BlockPos blockPos3_1 = new BlockPos(v3.x, v3.y, v3.z);
+                            this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
+                            if (ModSimLoader.states.gameModeNumber != 1) {
+                                GameStates var10000 = ModSimLoader.states;
+                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                             }
                         }
                         break;
                     case "4":
-                        //平整化 铺平
-                        blockIDs = new CopyOnWriteArrayList();
-                        //草地
-                        blockIDs.add(Blocks.GRASS);
-                        //泥土
-                        blockIDs.add(Blocks.DIRT);
-                        //草
-                        blockIDs.add(Blocks.TALLGRASS);
-                        //石头
-                        blockIDs.add(Blocks.STONE);
-                        //沙子
-                        blockIDs.add(Blocks.SAND);
-                        //圆石
-                        blockIDs.add(Blocks.SANDSTONE);
-                        //砂砾
-                        blockIDs.add(Blocks.GRAVEL);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, false, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                        if(this.stage==0) {
+                            //平整化 铺平
+                            blockIDs = new CopyOnWriteArrayList();
+                            //草地
+                            blockIDs.add(Blocks.GRASS);
+                            //泥土
+                            blockIDs.add(Blocks.DIRT);
+                            //草
+                            blockIDs.add(Blocks.TALLGRASS);
+                            //石头
+                            blockIDs.add(Blocks.STONE);
+                            //沙子
+                            blockIDs.add(Blocks.SAND);
+                            //圆石
+                            blockIDs.add(Blocks.SANDSTONE);
+                            //砂砾
+                            blockIDs.add(Blocks.GRAVEL);
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, false, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -448,26 +461,27 @@ public class JobTerrainFormer extends Job {
 //                                this.inventoriesPut(this.constructorChests, stack, false);
                             }
                         }
-                        if (this.jobWorld.isRemote) {
-                            BlockPos blockPos3_1 = new BlockPos(v4.x, v4.y, v4.z);
-                            this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
-                            if (ModSimLoader.states.gameModeNumber != 1) {
-                                GameStates var10000 = ModSimLoader.states;
-                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
-                            }
+                        BlockPos blockPos3_1 = new BlockPos(v4.x, v4.y, v4.z);
+                        this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            GameStates var10000 = ModSimLoader.states;
+                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                         }
                         break;
                     case "5":
-                        //单层泥土
-                        blockIDs = new CopyOnWriteArrayList();
-                        blockIDs.add(Blocks.AIR);
-                        blockIDs.add(Blocks.TALLGRASS);
-                        blockIDs.add(Blocks.RED_FLOWER);
-                        blockIDs.add(Blocks.YELLOW_FLOWER);
-                        V3 v5 = new V3(constructorPos.getX(), constructorPos.getY() - 1, constructorPos.getZ());
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(v5.toBlockPos(), blockIDs, 30, false, true, true);
-                        this.totalBlockCount = this.closestBlocks.size();
+                        if(this.stage==0) {
+                            //单层泥土
+                            blockIDs = new CopyOnWriteArrayList();
+                            blockIDs.add(Blocks.AIR);
+                            blockIDs.add(Blocks.TALLGRASS);
+                            blockIDs.add(Blocks.RED_FLOWER);
+                            blockIDs.add(Blocks.YELLOW_FLOWER);
+                            V3 v5 = new V3(constructorPos.getX(), constructorPos.getY() - 1, constructorPos.getZ());
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(v5.toBlockPos(), blockIDs, 30, false, true, true);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -511,26 +525,27 @@ public class JobTerrainFormer extends Job {
                         //环境改造 10% 完成
                         this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + "- " + percent5 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
                         V3 v5_1 = (V3) this.closestBlocks.get(0);
-                        if (this.jobWorld.isRemote) {
-                            BlockPos blockPos5_1 = new BlockPos(v5_1.x, v5_1.y, v5_1.z);
-                            this.jobWorld.setBlockState(blockPos5_1, Blocks.DIRT.getDefaultState(), 3);
-                            if (ModSimLoader.states.gameModeNumber != 1) {
-                                GameStates var10000 = ModSimLoader.states;
-                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
-                            }
+                        BlockPos blockPos5_1 = new BlockPos(v5_1.x, v5_1.y, v5_1.z);
+                        this.jobWorld.setBlockState(blockPos5_1, Blocks.DIRT.getDefaultState(), 3);
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            GameStates var10000 = ModSimLoader.states;
+                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                         }
                         break;
                     case "6":
-                        //冰川
-                        blockIDs = new CopyOnWriteArrayList();
-                        blockIDs.add(Blocks.AIR);
-                        blockIDs.add(Blocks.TALLGRASS);
-                        blockIDs.add(Blocks.WATER);
-                        blockIDs.add(Blocks.WATER);
+                        if(this.stage==0) {
+                            //冰川
+                            blockIDs = new CopyOnWriteArrayList();
+                            blockIDs.add(Blocks.AIR);
+                            blockIDs.add(Blocks.TALLGRASS);
+                            blockIDs.add(Blocks.WATER);
+                            blockIDs.add(Blocks.FLOWING_WATER);
 //                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, true, true, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, true, true, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -585,7 +600,7 @@ public class JobTerrainFormer extends Job {
                                     ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
                             }
-                        }else{
+                        } else {
                             Block idBelow = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y - 1, v6.z)).getBlock();
                             //方块不是空 不是冰 不是水 不是雪
                             if (idBelow != null && idBelow != Blocks.ICE && idBelow != Blocks.WATER && idBelow != Blocks.FLOWING_WATER && idBelow != Blocks.SNOW && this.jobWorld.isRemote) {
@@ -600,15 +615,18 @@ public class JobTerrainFormer extends Job {
 
                         break;
                     case "7":
-                        //湿润
-                        blockIDs = new CopyOnWriteArrayList();
-                        //熔岩
-                        blockIDs.add(Blocks.LAVA);
-                        blockIDs.add(Blocks.LAVA);
+                        if(this.stage==0) {
+                            //湿润
+                            blockIDs = new CopyOnWriteArrayList();
+                            //熔岩
+                            blockIDs.add(Blocks.LAVA);
+                            blockIDs.add(Blocks.LAVA);
 //                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=0;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -640,7 +658,7 @@ public class JobTerrainFormer extends Job {
                             if (fsMissBlock) {
                                 //我需要更多的泥土！
                                 this.folk.status = I18n.format("container.sim.job.terra.farmer.water");
-                                this.missingBlock =new ItemStack(Items.WATER_BUCKET);
+                                this.missingBlock = new ItemStack(Items.WATER_BUCKET);
                                 return;
                             }
                         }
@@ -652,25 +670,26 @@ public class JobTerrainFormer extends Job {
                         //环境改造 10% 完成
                         this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + "- " + percent7 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
                         V3 v7 = (V3) this.closestBlocks.get(0);
-                        if (this.jobWorld.isRemote) {
-                            BlockPos blockPos = new BlockPos(v7.x, v7.y, v7.z);
-                            //黑曜石
-                            this.jobWorld.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState(), 3);
+                        BlockPos blockPos = new BlockPos(v7.x, v7.y, v7.z);
+                        //黑曜石
+                        this.jobWorld.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState(), 3);
 //                        this.jobWorld.markBlockForUpdate(blockPos);
-                            if (ModSimLoader.states.gameModeNumber != 1) {
-                                GameStates var10000 = ModSimLoader.states;
-                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
-                            }
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            GameStates var10000 = ModSimLoader.states;
+                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                         }
                         break;
                     case "8":
-                        //炎热
-                        blockIDs = new CopyOnWriteArrayList();
-                        blockIDs.add(Blocks.LAVA);
+                        if(this.stage==0) {
+                            //炎热
+                            blockIDs = new CopyOnWriteArrayList();
+                            blockIDs.add(Blocks.LAVA);
 //                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -714,25 +733,26 @@ public class JobTerrainFormer extends Job {
                         //环境改造 10% 完成
                         this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + "- " + percent8 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
                         V3 v8 = (V3) this.closestBlocks.get(0);
-                        if (this.jobWorld.isRemote) {
-                            BlockPos blockPos8_1 = new BlockPos(v8.x, v8.y, v8.z);
-                            this.jobWorld.setBlockState(blockPos8_1, Blocks.AIR.getDefaultState(), 3);
+                        BlockPos blockPos8_1 = new BlockPos(v8.x, v8.y, v8.z);
+                        this.jobWorld.setBlockState(blockPos8_1, Blocks.AIR.getDefaultState(), 3);
 //                        this.jobWorld.markBlockForUpdate(blockPos2);
-                            if (ModSimLoader.states.gameModeNumber != 1) {
-                                GameStates var10000 = ModSimLoader.states;
-                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
-                            }
-                            this.placeInJobChest(new ItemStack(Items.LAVA_BUCKET,1));
+                        if (ModSimLoader.states.gameModeNumber != 1) {
+                            GameStates var10000 = ModSimLoader.states;
+                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                         }
+                        this.placeInJobChest(new ItemStack(Items.LAVA_BUCKET, 1));
                         break;
                     case "9":
-                        //除雪
-                        blockIDs = new CopyOnWriteArrayList();
-                        blockIDs.add(Blocks.SNOW);
+                        if(this.stage==0) {
+                            //除雪
+                            blockIDs = new CopyOnWriteArrayList();
+                            blockIDs.add(Blocks.SNOW);
 //                    v = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.theDimension);
-                        this.closestBlocks = null;
-                        this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
-                        this.totalBlockCount = this.closestBlocks.size();
+                            this.closestBlocks = null;
+                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                            this.totalBlockCount = this.closestBlocks.size();
+                            this.stage=1;
+                        }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Nothing");
@@ -755,7 +775,7 @@ public class JobTerrainFormer extends Job {
                         BlockPos blockPo9_1 = new BlockPos(v9.x, v9.y, v9.z);
                         this.jobWorld.setBlockState(blockPo9_1, Blocks.GRASS.getDefaultState(), 3);
 //                    this.jobWorld.markBlockForUpdate(blockPos2);
-                        int counter1=0;
+                        int counter1 = 0;
                         ++counter1;
                         if (ModSimLoader.states.gameModeNumber != 1) {
                             GameStates var10000 = ModSimLoader.states;
@@ -763,7 +783,7 @@ public class JobTerrainFormer extends Job {
                         }
 
                         if (counter1 % 4 == 0) {
-                            this.placeInJobChest(new ItemStack(Blocks.SNOW,1));
+                            this.placeInJobChest(new ItemStack(Blocks.SNOW, 1));
                         }
                         break;
                 }
@@ -783,7 +803,8 @@ public class JobTerrainFormer extends Job {
                     ModSimLoader.sendChat(this.folk.getName() + I18n.format("container.sim.job.terra.farmer.has_completed"));
 //                this.jobWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     //播放 我准备好了
-                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));;
+                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
+                    ;
                     for (int i = 0; i < this.jobWorld.playerEntities.size(); i++) {
                         EntityPlayer entityPlayer = this.jobWorld.playerEntities.get(i);
                         BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
@@ -816,15 +837,15 @@ public class JobTerrainFormer extends Job {
             //赋值距离限制，半径
             int fsDistanceLimit = distanceLimit;
             if (oneLayerOnly) {
-                fsDistanceLimit = 0;
+                fsDistanceLimit = 1;
             }
             //循环上下半径 高
             for (int i = 0; i < fsDistanceLimit; i++) {
                 //循环宽，平面的
-                for (int j = 0; j < distanceLimit; j++) {
-                    for (int k = -j; k <= j; k++) {
-                        for (int l = -j; l <= j; l++) {
-                            int sx = (int) (constructorPos.getX() + k);
+                for (int j = 1; j < distanceLimit; j++) {
+                    for (int xo = -j; xo <= j; xo++) {
+                        for (int zo = -j; zo <= j; zo++) {
+                            int sx = (int) (constructorPos.getX() + xo);
                             int sy;
                             //是否向下扫描
                             if (scanDownwards) {
@@ -832,7 +853,7 @@ public class JobTerrainFormer extends Job {
                             } else {
                                 sy = (int) (constructorPos.getY() + i);
                             }
-                            int sz = (int) (constructorPos.getZ() + l);
+                            int sz = (int) (constructorPos.getZ() + zo);
                             skip = false;
                             //获取方块
                             for (int m = 0; m < blockIDs.size(); m++) {
@@ -849,7 +870,8 @@ public class JobTerrainFormer extends Job {
                                         //方块是空的
                                         boolean canSeeSky;
                                         pos = new BlockPos(sx, sy + 1, sz);
-                                        if (this.folk.entity.worldObj.getBlockState(pos).getBlock() == null) {
+                                        Block block=this.folk.entity.worldObj.getBlockState(pos).getBlock();
+                                        if (block == null||Blocks.AIR==block) {
                                             canSeeSky = true;
                                         } else {
                                             canSeeSky = false;
@@ -878,12 +900,13 @@ public class JobTerrainFormer extends Job {
             e.printStackTrace();
         }
     }
+
     /**
+     * @return java.util.List<net.minecraft.item.ItemStack>
      * @Author fan
      * @Description //TODO 开采时平移方块
      * @Date 21:40 2022/11/29
      * @Param [world, location]
-     * @return java.util.List<net.minecraft.item.ItemStack>
      **/
     public List<ItemStack> translateBlockWhenMined(World world, V3 location) {
         List<ItemStack> itemStacks = new CopyOnWriteArrayList<ItemStack>();
@@ -917,7 +940,7 @@ public class JobTerrainFormer extends Job {
 
                 String s2 = I18n.format("container.sim.job.builder_constructor_started_more");
                 //谁在建“”需要更多的“”
-                ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.terrainType.terrainName + ") " + s2 + this.missingBlock.getUnlocalizedName());
+                ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.terrainType.terrainName + ") " + s2 + this.missingBlock.getDisplayName());
             }
 
             if (ModSimLoader.states.credits < 0.02F) {

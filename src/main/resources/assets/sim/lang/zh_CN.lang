@@ -820,7 +820,7 @@ container.sim.Terraform5='平整化' (整平地面)
 container.sim.Terraform6='超值套装' (单层泥土)
 container.sim.Terraform7='冰川' (将水冻住或雪地化)
 container.sim.Terraform8='放置水' (添加水)
-container.sim.Terraform9='放置岩浆' (添加岩浆)
+container.sim.Terraform9='收集岩浆' (用桶装岩浆)
 container.sim.Terraform10='除雪' (铲雪)
 container.sim.Terraform11=规划区域-请选择一个规划项目
 container.sim.Terraform12=半径（1到60）
@@ -833,7 +833,7 @@ container.sim.packetTerra4=平整化
 container.sim.packetTerra5=超值套装
 container.sim.packetTerra6=冰川
 container.sim.packetTerra7=湿润化
-container.sim.packetTerra8=炎热化
+container.sim.packetTerra8=收集岩浆
 container.sim.packetTerra9=除雪
 
 
