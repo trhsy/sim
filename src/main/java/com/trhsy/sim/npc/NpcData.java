@@ -648,19 +648,20 @@ public class NpcData {
                 boolean isBuilding = false;
                 if (this.job != null) {
                     writer.write("employedat|" + this.job.workPlace.toString() + "\n");
+                    //建筑师
                     if (this.job.jobName.contentEquals(I18n.format("container.sim.Vocation1"))) {
                         JobBuilder jb = (JobBuilder) this.job;
                         if (jb.blueprint != null) {
                             writer.write("building|" + jb.blueprint.name + "\n");
                         }
                         writer.write("job|" + this.job.jobName + ";" + jb.workPlace.toString() + ";" + jb.direction + "\n");
-
+                    //规划师
                     }else if(this.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))){
                         JobTerrainFormer jb=(JobTerrainFormer)this.job;
                         if(jb.terrainType!=null){
                             writer.write("job|" + this.job.jobName + ";"+ jb.workPlace.toString() +";"+jb.terrainType.terrainName+ ";" +jb.terrainType.terrainType + "\n");
                         }else{
-                            writer.write("job|" + this.job.jobName + ";");
+                            writer.write("job|" + this.job.jobName + ";\n");
                         }
                     } else {
                         writer.write("job|" + this.job.jobName + "\n");
