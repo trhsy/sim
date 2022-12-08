@@ -459,21 +459,21 @@ public class EventLoader {
             String welcome = "【" + player.getName() + "】" + I18n.format("container.sim.welcome");
             String welcomes = I18n.format("container.sim.welcomes");
             ModSimLoader.sendChat(welcome + ModSim.VERSION + welcomes);
-            try {
-                //检查模组更新提醒
-                String baseURL = "https://trhsy.github.io/sim/1.9/version.txt";
-                String ver = ModSimLoader.downloadFile(baseURL, ModSimLoader.getSimFolder() + File.separator + "version.txt");
-                if (ver != null) {
-                    ver = ver.trim();
-                    if (!ver.contentEquals("")&&!"1.0.0 Beta".contentEquals(ver)) {
-                        if (!ModSim.VERSION.contentEquals(ver)) {
-                            ModSimLoader.sendChat(I18n.format("container.sim.update_checker1") + ver + I18n.format("container.sim.update_checker2") );
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                //检查模组更新提醒
+//                String baseURL = "https://trhsy.github.io/sim/1.9/version.txt";
+//                String ver = ModSimLoader.downloadFile(baseURL, ModSimLoader.getSimFolder() + File.separator + "version.txt");
+//                if (ver != null) {
+//                    ver = ver.trim();
+//                    if (!ver.contentEquals("")&&!"1.0.0 Beta".contentEquals(ver)) {
+//                        if (!ModSim.VERSION.contentEquals(ver)) {
+//                            ModSimLoader.sendChat(I18n.format("container.sim.update_checker1") + ver + I18n.format("container.sim.update_checker2") );
+//                        }
+//                    }
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             boolean shouldGive = ItemLoader.itemSimULoader != null && ModSimLoader.states.gameModeNumber == 999;
             if (shouldGive) {
                 ItemStack starter = new ItemStack(ItemLoader.itemSimULoader);

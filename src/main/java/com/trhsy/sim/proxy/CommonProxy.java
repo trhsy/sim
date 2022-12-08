@@ -4,11 +4,14 @@ import com.trhsy.sim.loader.*;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
 import com.trhsy.sim.npc.race.Race;
 import com.trhsy.sim.npc.traits.Traits;
+import com.trhsy.sim.util.BuildingsExtractor;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+import java.io.File;
 
 /**
  *公共代理
@@ -17,6 +20,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         ModSimLoader.log = event.getModLog();
+        BuildingsExtractor.extractBuildings(new File(ModSimLoader.getSimFolder()));
         /**配置**/
         ConfigLoader.load(event);
         /**创造模式物品栏**/

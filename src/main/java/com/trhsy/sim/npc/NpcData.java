@@ -239,12 +239,14 @@ public class NpcData {
         this.pos = V3.fromBlockPos(thePlayer.getPosition());
         if (!fromCommand) {
             Vec3d newPos;
+            //在par1（x，z）和par2（y）块中查找随机目标
             newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             if (newPos == null) {
+                //在par1（x，z）和par2（y）块中查找随机目标
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }
-
-            while (!world.isAirBlock((new BlockPos(newPos)).up())) {
+            BlockPos pos=new BlockPos(newPos);
+            while (pos!=null&&!world.isAirBlock(pos.up())) {
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }
 

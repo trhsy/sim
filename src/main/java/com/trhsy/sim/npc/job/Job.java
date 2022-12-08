@@ -242,7 +242,13 @@ public abstract class Job {
 
     public void onMinute() {
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 查找工作箱子
+     * @Date 21:21 2022/12/8
+     * @Param [radius]
+     * @return java.util.List<net.minecraft.inventory.IInventory>
+     **/
     public List<IInventory> findJobChests(int radius) {
         this.jobChests.clear();
         List<IInventory> inventoriesFindClosest= this.inventoriesFindClosest(this.workPlace, radius);

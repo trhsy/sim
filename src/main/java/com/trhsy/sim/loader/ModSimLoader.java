@@ -1,5 +1,6 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockMarker;
 import com.trhsy.sim.gui.block.GuiBlockControllerBlock;
 import com.trhsy.sim.gui.npc.GuiFolk;
@@ -22,6 +23,7 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
@@ -120,9 +122,9 @@ public class ModSimLoader {
         try {
             String strmc = (new File(".")).getAbsolutePath();
             strmc = strmc.substring(0, strmc.length() - 1);
-            File checks = new File(strmc + File.separator + "mods" + File.separator + "sim");
+            File checks = new File(strmc + File.separator + "resources" + File.separator + "sim");
             if (!checks.exists() && !checks.isDirectory()) {
-                ModSimLoader.log.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/ 文件夹丢失了 - 重新创建此文件夹");
+                ModSimLoader.log.warn("SimCity error - Mod未正确安装, ./minecraft/resources/sim/ 文件夹丢失了 - 重新创建此文件夹");
                 checks.mkdir();
             }
             return (checks).getAbsolutePath();

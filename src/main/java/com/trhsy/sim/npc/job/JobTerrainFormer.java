@@ -579,9 +579,9 @@ public class JobTerrainFormer extends Job {
                         V3 v6 = (V3) this.closestBlocks.get(0);
                         Block blockId = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y, v6.z)).getBlock();
                         //方块不为空 不是草
-                        if (blockId != null && blockId != Blocks.TALLGRASS) {
+                        if (blockId != null&&blockId!=Blocks.AIR && blockId != Blocks.TALLGRASS) {
                             if (blockId == Blocks.WATER || blockId == Blocks.FLOWING_WATER) {
-                                //获取周围箱子
+                               /* //获取周围箱子
                                 List<IInventory> inventoriesFindClosest = this.findJobChests(5);
                                 //循环箱子
                                 for (IInventory inv : inventoriesFindClosest) {
@@ -601,7 +601,7 @@ public class JobTerrainFormer extends Job {
                                     this.folk.status = I18n.format("container.sim.job.terra.farmer.water");
                                     this.missingBlock = new ItemStack(Items.WATER_BUCKET);
                                     return;
-                                }
+                                }*/
                                 BlockPos blockPos6_1 = new BlockPos(v6.x, v6.y, v6.z);
                                 this.jobWorld.setBlockState(blockPos6_1, Blocks.ICE.getDefaultState(), 3);
                                 if (ModSimLoader.states.gameModeNumber != 1) {
@@ -613,8 +613,9 @@ public class JobTerrainFormer extends Job {
                         } else {
                             Block idBelow = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y - 1, v6.z)).getBlock();
                             //方块不是空 不是冰 不是水 不是雪
-                            if (idBelow != null && idBelow != Blocks.ICE && idBelow != Blocks.WATER && idBelow != Blocks.FLOWING_WATER && idBelow != Blocks.SNOW && this.jobWorld.isRemote) {
+                            if (idBelow != null &&idBelow!=Blocks.AIR && idBelow != Blocks.ICE && idBelow != Blocks.WATER && idBelow != Blocks.FLOWING_WATER && idBelow != Blocks.SNOW && this.jobWorld.isRemote) {
                                 BlockPos blockPos6_1 = new BlockPos(v6.x, v6.y, v6.z);
+                                //雪
                                 this.jobWorld.setBlockState(blockPos6_1, Blocks.SNOW.getDefaultState(), 3);
                                 if (ModSimLoader.states.gameModeNumber != 1) {
                                     GameStates var10000 = ModSimLoader.states;
