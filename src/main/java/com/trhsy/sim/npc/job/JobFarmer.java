@@ -12,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -35,7 +36,8 @@ public class JobFarmer extends Job {
     public FarmBox farm;
     //收获检查
     long harvestCheck = 0L;
-
+    long qsCheck = 0L;
+    private ItemStack missingBlock = null;
     public JobFarmer(NpcData folk, BlockPos pos, World world, FarmBox fb) {
         super(folk, pos, world);
         this.jobName = I18n.format("container.sim.Vocation5");
@@ -83,6 +85,7 @@ public class JobFarmer extends Job {
                     if (r == 0) {
                         //在公众号'dasha500'找作者玩
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
+                        grow();
                     } else if (r == 1) {
                         //照料作物
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending"));
@@ -161,25 +164,25 @@ public class JobFarmer extends Job {
             for (int x = 0; x < this.farm.x; ++x) {
 
                 BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                Block b = this.jobWorld.getBlockState(bp).getBlock();
-                IBlockState soil = this.jobWorld.getBlockState(bp.down());
+                Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
                 //包含灌木 不是庄家
-                if (this.jobWorld.getBlockState(bp).getBlock() instanceof BlockBush && !(this.jobWorld.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
                     //设置为空气
-                    this.jobWorld.setBlockToAir(bp);
+                    this.folk.entity.worldObj.setBlockToAir(bp);
                 }
                 //如果当前为空气
-                if (this.jobWorld.isAirBlock(bp)) {
+                if (this.folk.entity.worldObj.isAirBlock(bp)) {
 
                     if (z % 5 == 0 && x % 5 == 0) {
                         //不是水 或流动的水
-                        if (this.jobWorld.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.jobWorld.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                        if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
                             //锄地
                             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                             //设置为耕地
-                            this.jobWorld.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
                             //播放声音
-                            this.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
                             //摇摆手臂
                             this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                             //提升农民等级
@@ -193,9 +196,9 @@ public class JobFarmer extends Job {
                         //锄地
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                         //设置为耕地
-                        this.jobWorld.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                        this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
                         //播放声音
-                        this.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                        this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
                         //设置手持无
                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                         //摇摆手臂
@@ -227,7 +230,7 @@ public class JobFarmer extends Job {
                 boolean hasBlock = false;
                 //获得角落
                 BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                Block b = this.jobWorld.getBlockState(bp).getBlock();
+                Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
 //                ItemStack seed = ItemStack.EMPTY;
                 ItemStack seed = null;
                 List<IInventory> iterator = this.inventoriesFindClosest(this.workPlace, 5);
@@ -256,14 +259,14 @@ public class JobFarmer extends Job {
                     //获取作物方块
                     Block crop = (Block) cropsField.get(plantable);
                     //获取种植位置
-                    IBlockState soil = this.jobWorld.getBlockState(bp.down());
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
                     //东西南北都有根茎 可持续生长
-                    if (!(this.jobWorld.getBlockState(bp.north()).getBlock() instanceof BlockStem) && !(this.jobWorld.getBlockState(bp.east()).getBlock() instanceof BlockStem) && !(this.jobWorld.getBlockState(bp.south()).getBlock() instanceof BlockStem) && !(this.jobWorld.getBlockState(bp.west()).getBlock() instanceof BlockStem) && soil.getBlock().canSustainPlant(soil, this.jobWorld, bp.down(), EnumFacing.UP, (IPlantable) seed.getItem()) && this.jobWorld.isAirBlock(bp)) {
+                    if (!(this.folk.entity.worldObj.getBlockState(bp.north()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.east()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.south()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.west()).getBlock() instanceof BlockStem) && soil.getBlock().canSustainPlant(soil, this.folk.entity.worldObj, bp.down(), EnumFacing.UP, (IPlantable) seed.getItem()) && this.folk.entity.worldObj.isAirBlock(bp)) {
                         for (IInventory inv : iterator) {
                             for (int i = 0; i < inv.getSizeInventory(); ++i) {
                                 ItemStack slot = inv.getStackInSlot(i);
                                 //可种植
-                                if (slot != null && slot == seed) {
+                                if (slot != null && slot.isItemEqual(seed) ) {
                                     hasBlock = true;
                                     inv.decrStackSize(i, 1);
                                     break;
@@ -276,7 +279,7 @@ public class JobFarmer extends Job {
                         //设置状态 种植 作物
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Planting") + " " + seed.getDisplayName());
                         //种植 作物
-                        this.jobWorld.setBlockState(bp, crop.getDefaultState());
+                        this.folk.entity.worldObj.setBlockState(bp, crop.getDefaultState());
                         //摇摆手臂
                         this.folk.entity.swingArm(EnumHand.MAIN_HAND);
 //                        seed.shrink(1);
@@ -302,21 +305,22 @@ public class JobFarmer extends Job {
                 //获得位置
                 BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
 
-                IBlockState iblockstate = this.jobWorld.getBlockState(bp);
+                IBlockState iblockstate = this.folk.entity.worldObj.getBlockState(bp);
                 //是否可以生长
                 if (iblockstate.getBlock() instanceof IGrowable) {
                     IGrowable igrowable = (IGrowable) iblockstate.getBlock();
-                    if (igrowable.canGrow(this.jobWorld, bp, iblockstate, this.jobWorld.isRemote)) {
-                        if (!this.jobWorld.isRemote) {
-                            if (igrowable.canUseBonemeal(this.jobWorld, this.jobWorld.rand, bp, iblockstate)) {
+                    if (igrowable.canGrow(this.folk.entity.worldObj, bp, iblockstate, this.folk.entity.worldObj.isRemote)) {
+                        if (!this.folk.entity.worldObj.isRemote) {
+                            if (igrowable.canUseBonemeal(this.folk.entity.worldObj, this.folk.entity.worldObj.rand, bp, iblockstate)) {
                                 List<IInventory> iterator = this.inventoriesFindClosest(this.workPlace, 5);
                                 boolean hasBlock=false;
                                 ItemStack dye = null;
                                 for (IInventory inv : iterator) {
                                     for (int i = 0; i < inv.getSizeInventory(); ++i) {
                                         ItemStack slot = inv.getStackInSlot(i);
+                                        ItemStack itemStack=new ItemStack(Items.DYE,1,15);
                                         //可种植
-                                        if (slot != null && slot == new ItemStack(Items.DYE)) {
+                                        if (slot != null && slot.isItemEqual(itemStack) ) {
                                             hasBlock = true;
                                             dye=slot;
                                             inv.decrStackSize(i, 1);
@@ -328,9 +332,12 @@ public class JobFarmer extends Job {
                                     }
                                 }
                                 if(dye!=null){
-                                    igrowable.grow(this.jobWorld, this.jobWorld.rand, bp, iblockstate);
+                                    igrowable.grow(this.folk.entity.worldObj, this.folk.entity.worldObj.rand, bp, iblockstate);
                                 }else{
-                                    ModSimLoader.sendChat(I18n.format("container.sim.job.crop.farmer.dye"));
+                                    if((System.currentTimeMillis() - this.qsCheck)>3000*60){
+                                        this.qsCheck=System.currentTimeMillis();
+                                        ModSimLoader.sendChat(I18n.format("container.sim.job.crop.farmer.dye"));
+                                    }
                                 }
                             }
                         }
@@ -356,8 +363,9 @@ public class JobFarmer extends Job {
                 List<ItemStack> drops = new CopyOnWriteArrayList<>();
                 //获取当前位置的物品
                 BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                IBlockState iBlockState=this.folk.entity.worldObj.getBlockState(bp);
                 //获得方块
-                Block b = this.jobWorld.getBlockState(bp).getBlock();
+                Block b = iBlockState.getBlock();
                 //有根茎 不是作物 不是可种植 不是可生长
                 if (b instanceof BlockStem || !(b instanceof BlockCrops) && !(b instanceof IPlantable) && !(b instanceof IGrowable)) {
                     //包含根茎
@@ -371,14 +379,14 @@ public class JobFarmer extends Job {
                             Block crop = (Block) cropField.get(stem);
                             Block bCrop;
                             //北
-                            if (this.jobWorld.getBlockState(bp.north()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.north()).getBlock() == crop) {
                                 //收获
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
                                 //获得方块
-                                bCrop = this.jobWorld.getBlockState(bp.north()).getBlock();
+                                bCrop = this.folk.entity.worldObj.getBlockState(bp.north()).getBlock();
                                 //摧毁方块
-                                drops = bCrop.getDrops(this.jobWorld, bp.north(), this.jobWorld.getBlockState(bp.north()), 0);
-//                                bCrop.getDrops(drops, this.jobWorld, bp.north(), this.jobWorld.getBlockState(bp.north()), 0);
+                                drops = bCrop.getDrops(this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
+//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
                                 drops.forEach((drop) -> {
                                     //放到工作箱
                                     this.placeInJobChest(drop);
@@ -388,7 +396,7 @@ public class JobFarmer extends Job {
                                 //摇摆手臂
                                 this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                                 //设置为空
-                                this.jobWorld.setBlockToAir(bp.north());
+                                this.folk.entity.worldObj.setBlockToAir(bp.north());
                                 //增加农民等级
                                 this.addFarmingLevel();
                                 //设置收获时间
@@ -396,46 +404,46 @@ public class JobFarmer extends Job {
                                 return;
                             }
                             //东
-                            if (this.jobWorld.getBlockState(bp.east()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.east()).getBlock() == crop) {
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
-                                bCrop = this.jobWorld.getBlockState(bp.east()).getBlock();
-                                drops = bCrop.getDrops(this.jobWorld, bp.east(), this.jobWorld.getBlockState(bp.east()), 0);
-//                                bCrop.getDrops(drops, this.jobWorld, bp.east(), this.jobWorld.getBlockState(bp.east()), 0);
+                                bCrop = this.folk.entity.worldObj.getBlockState(bp.east()).getBlock();
+                                drops = bCrop.getDrops(this.folk.entity.worldObj, bp.east(), this.folk.entity.worldObj.getBlockState(bp.east()), 0);
+//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.east(), this.folk.entity.worldObj.getBlockState(bp.east()), 0);
                                 drops.forEach((drop) -> {
                                     this.placeInJobChest(drop);
                                 });
                                 this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                                this.jobWorld.setBlockToAir(bp.east());
+                                this.folk.entity.worldObj.setBlockToAir(bp.east());
                                 this.addFarmingLevel();
                                 this.harvestCheck = System.currentTimeMillis();
                                 return;
                             }
                             //南
-                            if (this.jobWorld.getBlockState(bp.south()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.south()).getBlock() == crop) {
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
-                                bCrop = this.jobWorld.getBlockState(bp.south()).getBlock();
-                                drops = bCrop.getDrops(this.jobWorld, bp.south(), this.jobWorld.getBlockState(bp.south()), 0);
-//                                bCrop.getDrops(drops, this.jobWorld, bp.south(), this.jobWorld.getBlockState(bp.south()), 0);
+                                bCrop = this.folk.entity.worldObj.getBlockState(bp.south()).getBlock();
+                                drops = bCrop.getDrops(this.folk.entity.worldObj, bp.south(), this.folk.entity.worldObj.getBlockState(bp.south()), 0);
+//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.south(), this.folk.entity.worldObj.getBlockState(bp.south()), 0);
                                 drops.forEach((drop) -> {
                                     this.placeInJobChest(drop);
                                 });
                                 this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                                this.jobWorld.setBlockToAir(bp.south());
+                                this.folk.entity.worldObj.setBlockToAir(bp.south());
                                 this.addFarmingLevel();
                                 this.harvestCheck = System.currentTimeMillis();
                                 return;
                             }
                             //西
-                            if (this.jobWorld.getBlockState(bp.west()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.west()).getBlock() == crop) {
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
-                                bCrop = this.jobWorld.getBlockState(bp.west()).getBlock();
-                                drops = b.getDrops(this.jobWorld, bp.west(), this.jobWorld.getBlockState(bp.west()), 0);
-//                                bCrop.getDrops(drops, this.jobWorld, bp.west(), this.jobWorld.getBlockState(bp.west()), 0);
+                                bCrop = this.folk.entity.worldObj.getBlockState(bp.west()).getBlock();
+                                drops = b.getDrops(this.folk.entity.worldObj, bp.west(), this.folk.entity.worldObj.getBlockState(bp.west()), 0);
+//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.west(), this.folk.entity.worldObj.getBlockState(bp.west()), 0);
                                 drops.forEach((drop) -> {
                                     this.placeInJobChest(drop);
                                 });
                                 this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                                this.jobWorld.setBlockToAir(bp.west());
+                                this.folk.entity.worldObj.setBlockToAir(bp.west());
                                 this.addFarmingLevel();
                                 this.harvestCheck = System.currentTimeMillis();
                                 return;
@@ -450,17 +458,17 @@ public class JobFarmer extends Job {
                 } else {
                     BlockCrops crop = (BlockCrops) b;
                     //作物已成熟
-                    if (crop.isMaxAge(this.jobWorld.getBlockState(bp))) {
+                    if (crop.isMaxAge(this.folk.entity.worldObj.getBlockState(bp))) {
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
-                        drops = b.getDrops(this.jobWorld, bp, this.jobWorld.getBlockState(bp), 0);
-//                        b.getDrops(drops, this.jobWorld, bp, this.jobWorld.getBlockState(bp), 0);
+                        drops = b.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+//                        b.getDrops(drops, this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
                         drops.forEach((drop) -> {
                             this.placeInJobChest(drop);
                         });
                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                         this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                         this.folk.entity.swing();
-                        this.jobWorld.setBlockToAir(bp);
+                        this.folk.entity.worldObj.setBlockToAir(bp);
                         this.addFarmingLevel();
                         this.harvestCheck = System.currentTimeMillis();
                         return;
