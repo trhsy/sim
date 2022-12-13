@@ -3,6 +3,7 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockMarker;
 import com.trhsy.sim.gui.block.GuiBlockControllerBlock;
+import com.trhsy.sim.gui.block.GuiBlockFarmBlock;
 import com.trhsy.sim.gui.npc.GuiFolk;
 import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.gui.block.GuiBlockConstructorBlock;
@@ -23,6 +24,7 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -1015,4 +1017,21 @@ public class ModSimLoader {
     public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential,String buildingName,String jobName,String bType,String author) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,isResidential,buildingName,jobName,bType,author));
     }
+
+    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing, x, z));
+    }
+
+    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing, x, z, folk));
+    }
+/*
+    public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z));
+    }
+
+    public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z, folk));
+    }*/
+
 }

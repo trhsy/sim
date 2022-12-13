@@ -144,13 +144,17 @@ public class JobTaskCollectItems extends JobTask {
                     for (IInventory inv:chests){
                         for (int i = 0; i < inv.getSizeInventory(); i++) {
                             for(int k = 0; k < this.collectionItems.size(); ++k) {
-                                if (inv.getStackInSlot(i).isItemEqual((ItemStack)this.collectionItems.get(k))) {
-                                    if (inv.getStackInSlot(i).stackSize < ((ItemStack)this.collectionItems.get(k)).stackSize) {
-                                        this.job.folk.inventory.add(inv.getStackInSlot(i));
-                                        inv.removeStackFromSlot(i);
-                                    } else {
-                                        this.job.folk.inventory.add(this.collectionItems.get(k));
-                                        inv.decrStackSize(i, ((ItemStack)this.collectionItems.get(k)).stackSize);
+                                ItemStack itemStack=this.collectionItems.get(k);
+                                ItemStack invItemStack=inv.getStackInSlot(i);
+                                if(itemStack!=null&&invItemStack!=null){
+                                    if (invItemStack.isItemEqual(itemStack)) {
+                                        if (invItemStack.stackSize < ((ItemStack)this.collectionItems.get(k)).stackSize) {
+                                            this.job.folk.inventory.add(invItemStack);
+                                            inv.removeStackFromSlot(i);
+                                        } else {
+                                            this.job.folk.inventory.add(this.collectionItems.get(k));
+                                            inv.decrStackSize(i, ((ItemStack)this.collectionItems.get(k)).stackSize);
+                                        }
                                     }
                                 }
                             }

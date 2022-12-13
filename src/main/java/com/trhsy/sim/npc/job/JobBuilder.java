@@ -565,11 +565,13 @@ public class JobBuilder extends Job {
             if (this.jobWorld.isRemote) {
                 Random rand = new Random();
                 for (int i = 0; i < 20; ++i) {
-                    double d0 = rand.nextGaussian() * 0.02D;
-                    double d1 = rand.nextGaussian() * 0.02D;
-                    double d2 = rand.nextGaussian() * 0.02D;
-                    double d3 = 10.0D;
-                    this.jobWorld.spawnParticle(null, newBP.getX() + (double) (rand.nextFloat() * 1 * 2.0F) - (double) 1 - d0 * d3, newBP.getY() + (double) (rand.nextFloat() * 1) - d1 * d3, newBP.getZ() + (double) (rand.nextFloat() * 1 * 2.0F) - (double) 1 - d2 * d3, d0, d1, d2, new int[0]);
+                    double d0 = (double)((float)newBP.getX() + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
+                    double d1 = (double)((float)newBP.getY() + 0.8125F);
+                    double d2 = (double)((float)newBP.getZ() + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
+                    double d3 = 0.0D;
+                    double d4 = 0.0D;
+                    double d5 = 0.0D;
+                    this.jobWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,d0 , d1, d2, d3, d4, d5, new int[0]);
                 }
             }
             this.placedBlocks.add(V3.fromBlockPos(newBP));

@@ -8,13 +8,11 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketSendFolkSkin;
+import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.build.TerrainType;
-import com.trhsy.sim.npc.job.Job;
-import com.trhsy.sim.npc.job.JobBaker;
-import com.trhsy.sim.npc.job.JobBuilder;
-import com.trhsy.sim.npc.job.JobTerrainFormer;
+import com.trhsy.sim.npc.job.*;
 import com.trhsy.sim.npc.moodbuff.MoodBuff;
 import com.trhsy.sim.npc.race.Race;
 import com.trhsy.sim.npc.race.Races;
@@ -472,7 +470,11 @@ public class NpcData {
                             String terrainType = value.split(";")[3];
                             TerrainType terrainTypes=new TerrainType(terrainName,terrainType);
                             this.job = new JobTerrainFormer(this,terrainTypes,p,world);
-
+                            //农民
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation5"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            FarmBox fb = ModSimLoader.getFarm(V3.fromBlockPos(p));
+                            this.job = new JobFarmer(this, p, world, fb);
                         } /*else if (job.contentEquals("dairyfarmer")) {
                             this.job = new JobDairyFarmer(this, this.tempEmployLoc, world);
                         }  else if (job.contentEquals("butcher")) {
@@ -486,11 +488,7 @@ public class NpcData {
                         } else if (job.contentEquals("chicken farmer")) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobLivestockFarmer(this, p, "chicken", world);
-                        } else if (job.contentEquals("farmer")) {
-                            p = this.tempEmployLoc.toBlockPos();
-                            FarmBox fb = WorldData.getFarm(V3.fromBlockPos(p));
-                            this.job = new JobFarmer(this, p, world, fb);
-                        } else if (job.contentEquals("miner")) {
+                        }  else if (job.contentEquals("miner")) {
                             p = this.tempEmployLoc.toBlockPos();
                             MineBox mb = WorldData.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);

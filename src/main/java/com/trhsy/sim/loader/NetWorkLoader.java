@@ -47,7 +47,8 @@ public class NetWorkLoader {
         registerMessage(PacketGetHireableFolks.Handler.class,PacketGetHireableFolks.class,Side.SERVER);
         //拆除建筑
         registerMessage(PacketDemolishBuilding.Handler.class,PacketDemolishBuilding.class,Side.SERVER);
-
+        //更新养殖箱
+        registerMessage(PacketUpdateFarmBox.Handler.class,PacketUpdateFarmBox.class,Side.SERVER);
     }
 
     /**
@@ -75,7 +76,8 @@ public class NetWorkLoader {
 
         //打开控制箱
         registerMessage(PacketOpenControlGui.Handler.class,PacketOpenControlGui.class,Side.CLIENT);
-
+        //打开养殖箱
+        registerMessage(PacketOpenFarmGui.Handler.class,PacketOpenFarmGui.class,Side.CLIENT);
 
     }
     /**

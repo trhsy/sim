@@ -320,10 +320,32 @@ public abstract class Job {
             return placedOK;
         }
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 喂养npc
+     * @Date 17:44 2022/12/10
+     * @Param []
+     * @return int
+     **/
     public int feedFolks() {
         int fedFolks = 0;
-        Iterator var2 = ModSimLoader.folks.iterator();
+        for (NpcData fd:ModSimLoader.folks){
+            if(fd.hunger < 10){
+                List<IInventory> list=this.inventoriesFindClosest(this.workPlace, 5);
+                for (IInventory chest:list){
+                    for(int i = 0; i < chest.getSizeInventory(); ++i) {
+                        ItemStack is = chest.getStackInSlot(i);
+                        if (is!=null&&is.getItem() instanceof ItemFood) {
+                            ++fedFolks;
+                            fd.hunger = 10;
+                            chest.decrStackSize(i, 1);
+                        }
+                    }
+                }
+            }
+        }
+        return fedFolks;
+        /*Iterator var2 = ModSimLoader.folks.iterator();
 
         while(true) {
             label35:
@@ -353,7 +375,7 @@ public abstract class Job {
                     }
                 }
             }
-        }
+        }*/
     }
 
     public boolean isNearBlock(Block block) {

@@ -21,6 +21,7 @@ public class FarmBox {
     public V3 loc;
     public NpcData employee;
     public int level;
+    //方向
     public EnumFacing facing;
     public int x;
     public int z;
@@ -46,7 +47,13 @@ public class FarmBox {
         this.facing = EnumFacing.EAST;
         this.loadFarm(uuid);
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 获取角落
+     * @Date 10:03 2022/12/10
+     * @Param []
+     * @return net.minecraft.util.math.BlockPos
+     **/
     public BlockPos getCorner() {
         return this.loc.toBlockPos().offset(this.facing);
     }

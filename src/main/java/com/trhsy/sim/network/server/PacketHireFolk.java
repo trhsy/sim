@@ -9,6 +9,7 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.block.MineBox;
 import com.trhsy.sim.npc.job.JobBuilder;
+import com.trhsy.sim.npc.job.JobFarmer;
 import com.trhsy.sim.npc.job.JobTerrainFormer;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.resources.I18n;
@@ -95,7 +96,7 @@ public class PacketHireFolk implements IMessage {
                     //农田箱
                     FarmBox farmBox = ModSimLoader.getFarm(message.pos);
                     if (farmBox != null) {
-                        //fd.job = new JobFarmer(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, farmBox);
+                        fd.job = new JobFarmer(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, farmBox);
                         farmBox.employee = fd;
                     }
                 } else if (message.job.contentEquals(I18n.format("container.sim.Vocation4"))) {
