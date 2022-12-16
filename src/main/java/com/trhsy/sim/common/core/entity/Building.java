@@ -1287,7 +1287,7 @@ public class Building implements Serializable {
 
     private static void initBuildingsOfType(String type) {
         try {
-            File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + type);
+            File f = new File(ModSimReloaded.getSimFolder() + File.separator + "buildings" + File.separator  + type);
 
             for (int i = 0; i < f.list().length; i++) {
                 String name = f.list()[i];

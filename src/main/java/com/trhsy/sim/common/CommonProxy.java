@@ -8,6 +8,7 @@ import com.trhsy.sim.common.core.entity.Building;
 import com.trhsy.sim.common.core.entity.folk.genetics.Race;
 import com.trhsy.sim.common.core.entity.folk.traits.Traits;
 import com.trhsy.sim.common.loader.*;
+import com.trhsy.sim.common.util.BuildingsExtractor;
 import com.trhsy.sim.common.util.UpdateChecker;
 import com.trhsy.sim.packets.NetWorkLoader;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.io.File;
 
 
 /**
@@ -42,8 +45,8 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         try {
             ModSimReloaded.log = event.getModLog();
-
-            new UpdateChecker(event);
+            BuildingsExtractor.extractBuildings(new File(ModSimReloaded.getSimFolder()));
+            //new UpdateChecker(event);
             /**配置**/
             ConfigLoader.load(event);
             /**创造模式物品栏**/

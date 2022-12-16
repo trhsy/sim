@@ -212,12 +212,19 @@ public class JobTerraformer extends Job {
                     //铺平
                 } else if (this.theType == TerraformerType.FLATTENIZER) {
                     blockIDs = new CopyOnWriteArrayList();
+                    //草方块
                     blockIDs.add(Blocks.grass);
+                    //泥土
                     blockIDs.add(Blocks.dirt);
+                    //高甘草
                     blockIDs.add(Blocks.tallgrass);
+                    //石头
                     blockIDs.add(Blocks.stone);
+                    //沙子
                     blockIDs.add(Blocks.sand);
+                    //圆石
                     blockIDs.add(Blocks.sandstone);
+                    //砂砾
                     blockIDs.add(Blocks.gravel);
                     this.closestBlocks = null;
                     this.setClosestBlocksOfType(this.theFolk.employedAt, blockIDs, this.radius, false, false, false);
