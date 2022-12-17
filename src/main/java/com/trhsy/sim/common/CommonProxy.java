@@ -5,6 +5,7 @@ import com.trhsy.sim.client.ClientTickHandler;
 import com.trhsy.sim.client.event.EventSounds;
 import com.trhsy.sim.common.creativetab.CreativeTabsLoader;
 import com.trhsy.sim.common.loader.*;
+import com.trhsy.sim.util.BuildingsExtractor;
 import com.trhsy.sim.util.UpdateChecker;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
@@ -42,6 +44,7 @@ public class CommonProxy {
      * @Param [event]
      **/
     public void preInit(FMLPreInitializationEvent event) {
+        BuildingsExtractor.extractBuildings(new File(ModSimReloaded.getSimFolder()));
         //加载配置
         new ConfigLoader(event);
         //加载物品栏
@@ -53,7 +56,7 @@ public class CommonProxy {
         //加载所以方块
         new BlockLoader(event);
 
-        new UpdateChecker(event);
+        //new UpdateChecker(event);
         MinecraftForge.EVENT_BUS.register(new EventSounds());
     }
     /**

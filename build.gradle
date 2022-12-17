@@ -10,14 +10,6 @@ buildscript {
             url = "https://files.minecraftforge.net/maven"
         }
 		maven {
-            name = "repo1"
-            url = "https://repo1.maven.org/maven2"
-        }
-		maven {
-            name = "repo"
-            url = "https://repo.maven.org/maven2"
-        }
-		maven {
             name = "jcenter"
             url = "https://maven.aliyun.com/repository/jcenter"
         }
@@ -46,7 +38,7 @@ idea{
         inheritOutputDirs = true
     }
 }
-version = "1.7.10-1.0.5 Beta"
+version = "1.7.10-1.0.6 Beta"
 group= "com.trhsy.sim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "simulated"
 
@@ -92,3 +84,4 @@ processResources
         exclude 'mcmod.info'
     }
 }
+[compileJava,compileTestJava]*.options*.encoding = 'UTF-8'
