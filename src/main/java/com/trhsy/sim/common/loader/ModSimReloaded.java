@@ -298,11 +298,19 @@ public class ModSimReloaded {
      */
     public static String getSimukraftFolder() {
         try {
-            String strmc = (new File(".")).getAbsolutePath();
+            /*String strmc = (new File(".")).getAbsolutePath();
             strmc = strmc.substring(0, strmc.length() - 1);
             File checks = new File(strmc + File.separator + "mods" + File.separator + "sim");
             if (!checks.exists() && !checks.isDirectory()) {
                 ModSimReloaded.log.warn("SimCity error - Mod未正确安装, ./minecraft/mods/sim/ 文件夹丢失了 - 重新创建此文件夹");
+                checks.mkdir();
+            }
+            return (checks).getAbsolutePath();*/
+            String strmc = (new File(".")).getAbsolutePath();
+            strmc = strmc.substring(0, strmc.length() - 1);
+            File checks = new File(strmc + File.separator + "resources" + File.separator + "sim");
+            if (!checks.exists() && !checks.isDirectory()) {
+                ModSimReloaded.log.warn("SimCity error - Mod未正确安装, ./minecraft/resources/sim/ 文件夹丢失了 - 重新创建此文件夹");
                 checks.mkdir();
             }
             return (checks).getAbsolutePath();

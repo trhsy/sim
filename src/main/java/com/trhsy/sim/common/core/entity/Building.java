@@ -1271,7 +1271,7 @@ public class Building implements Serializable {
     public static Building getBuildingForFolk(String partialFilename, String type) {
         Building build = null;
         try {
-            File f = new File(ModSimReloaded.getSimukraftFolder() + "/buildings/" + type + "/" + partialFilename);
+            File f = new File(ModSimReloaded.getSimFolder() + File.separator + "buildings" + File.separator  + type + "/" + partialFilename);
             if (f.exists()) {
                 String name = f.getName().substring(0, f.getName().length() - 4);
                 build = new Building(name, type);
