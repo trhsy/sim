@@ -255,11 +255,8 @@ public class JobBuilder extends Job {
                                 } else {
                                     soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                 }
-                                for (int i = 0; i < world.playerEntities.size(); i++) {
-                                    EntityPlayer entityPlayer = world.playerEntities.get(i);
-                                    BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                                    world.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
-                                }
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+
                             }
                         }
                         //建筑蓝图为空
@@ -552,17 +549,14 @@ public class JobBuilder extends Job {
                     this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                         //建造的音效
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
-                        for (int i = 0; i < this.jobWorld.playerEntities.size(); i++) {
-                            EntityPlayer entityPlayer = this.jobWorld.playerEntities.get(i);
-                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                        this.jobWorld.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
-                        }
+                        this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY,this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+
                 }
                 //放置方块
                 this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
             }
             //在客户端生成粒子
-            if (this.jobWorld.isRemote) {
+            if (this.folk.entity.worldObj.isRemote) {
                 Random rand = new Random();
                 for (int i = 0; i < 20; ++i) {
                     double d0 = (double)((float)newBP.getX() + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
@@ -571,7 +565,7 @@ public class JobBuilder extends Job {
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
-                    this.jobWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,d0 , d1, d2, d3, d4, d5, new int[0]);
+                    this.folk.entity.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,d0 , d1, d2, d3, d4, d5, new int[0]);
                 }
             }
             this.placedBlocks.add(V3.fromBlockPos(newBP));
@@ -624,8 +618,8 @@ public class JobBuilder extends Job {
                         tempBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
                     }
 
-                    if (this.jobWorld.getBlockState(tempBP).getBlock() != Blocks.AIR) {
-                        this.jobWorld.setBlockToAir(tempBP);
+                    if (this.folk.entity.worldObj.getBlockState(tempBP).getBlock() != Blocks.AIR) {
+                        this.folk.entity.worldObj.setBlockToAir(tempBP);
                         return;
                     }
 
@@ -779,11 +773,7 @@ public class JobBuilder extends Job {
         ModSimLoader.sendChat(text);
         //播放声音
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-        for (int i = 0; i < this.jobWorld.playerEntities.size(); i++) {
-            EntityPlayer entityPlayer = this.jobWorld.playerEntities.get(i);
-            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-            this.jobWorld.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
-        }
+        this.folk.entity.worldObj.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
     }
 
     /**
@@ -794,12 +784,12 @@ public class JobBuilder extends Job {
      * @Param []
      **/
     void createConBox() {
-        this.conBox = new EntityConBox(this.jobWorld, this);
+        this.conBox = new EntityConBox(this.folk.entity.worldObj, this);
         this.conBox.folk = this.folk;
         this.conBox.builderJob = this;
         this.conBox.setLocationAndAngles(this.workPlace.x + 2.0D, this.workPlace.y, this.workPlace.z, 0.0F, 0.0F);
-        if (!this.jobWorld.isRemote) {
-            this.jobWorld.spawnEntityInWorld(this.conBox);
+        if (!this.folk.entity.worldObj.isRemote) {
+            this.folk.entity.worldObj.spawnEntityInWorld(this.conBox);
         }
 
     }

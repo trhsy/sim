@@ -322,11 +322,9 @@ public class EventLoader {
                     ModSimLoader.log.info("天亮了");
                     //播放 天亮了鸡叫
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                    for (int i = 0; i < event.world.playerEntities.size(); i++) {
-                        EntityPlayer entityPlayer = event.world.playerEntities.get(i);
-                        BlockPos pos = new BlockPos(entityPlayer.posX+1, entityPlayer.posY+1, entityPlayer.posZ+1);
-                        event.world.playSound(null,pos, soundEvent, SoundCategory.AMBIENT,1,1);
-                    }
+                    EntityPlayer entityPlayer = event.world.playerEntities.get(0);
+                    BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                    event.world.playSound(null,pos, soundEvent, SoundCategory.BLOCKS,1,1);
                     this.newDay = true;
                     if (ModSimLoader.states.dayOfWeek >= 6) {
                         ModSimLoader.states.dayOfWeek = 0;
@@ -347,11 +345,7 @@ public class EventLoader {
                         ModSimLoader.addMoney(rent);
                         //播放钱到账
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                        for (int i = 0; i < event.world.playerEntities.size(); i++) {
-                            EntityPlayer entityPlayer = event.world.playerEntities.get(i);
-                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                            event.world.playSound(null,pos, soundEvent, SoundCategory.AMBIENT,1,1);
-                        }
+                        event.world.playSound(null,pos, soundEvent, SoundCategory.BLOCKS,1,1);
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
                     }

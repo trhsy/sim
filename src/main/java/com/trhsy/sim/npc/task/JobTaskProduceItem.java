@@ -48,8 +48,11 @@ public class JobTaskProduceItem extends JobTask {
     }
 
     public void onUpdate() {
+        //在工作期间
         if (this.job.folk.isAtLocation(this.job.workPlace)) {
+            //设置状态
             this.folk.setStatus(this.status);
+
             if (this.timeToPlace == 0L) {
                 this.timeToPlace = System.currentTimeMillis();
                 return;
@@ -58,7 +61,7 @@ public class JobTaskProduceItem extends JobTask {
             if (System.currentTimeMillis() - this.timeToPlace < 10000L) {
                 return;
             }
-
+            //箱子
             List<IInventory> invs = this.job.inventoriesFindClosest(this.job.workPlace, 5);
 
             int maxProd;

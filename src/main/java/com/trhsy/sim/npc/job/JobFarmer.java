@@ -37,7 +37,7 @@ public class JobFarmer extends Job {
     //收获检查
     long harvestCheck = 0L;
     long qsCheck = 0L;
-    private ItemStack missingBlock = null;
+    long growCheck = 0L;
     public JobFarmer(NpcData folk, BlockPos pos, World world, FarmBox fb) {
         super(folk, pos, world);
         this.jobName = I18n.format("container.sim.Vocation5");
@@ -85,13 +85,18 @@ public class JobFarmer extends Job {
                     if (r == 0) {
                         //在公众号'dasha500'找作者玩
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
-                        grow();
+                        if((System.currentTimeMillis() - this.growCheck)>1000*60){
+                            this.growCheck=System.currentTimeMillis();
+                            grow();
+                        }
                     } else if (r == 1) {
                         //照料作物
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending"));
                         //用骨粉快速生长作物
-                        grow();
-
+                        if((System.currentTimeMillis() - this.growCheck)>1000*60){
+                            this.growCheck=System.currentTimeMillis();
+                            grow();
+                        }
                     } /*else if (r == 2) {
                         //但愿我有一辆拖拉机
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Wishing"));
@@ -253,13 +258,14 @@ public class JobFarmer extends Job {
                     //种子为可种植
                     IPlantable plantable = (IPlantable) seed.getItem();
                     //作物
-                    Field cropsField = plantable.getClass().getDeclaredField("crops");
-                    //设置成可访问
-                    cropsField.setAccessible(true);
-                    //获取作物方块
-                    Block crop = (Block) cropsField.get(plantable);
-                    //获取种植位置
+//                    Field cropsField = plantable.getClass().getDeclaredField("crops");
+//                    //设置成可访问
+//                    cropsField.setAccessible(true);
+//                    //获取作物方块
+//                    Block crop = (Block) cropsField.get(plantable);
+//                    //获取种植位置
                     IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    Block crop=plantable.getPlant(this.folk.entity.worldObj,bp.down()).getBlock();
                     //东西南北都有根茎 可持续生长
                     if (!(this.folk.entity.worldObj.getBlockState(bp.north()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.east()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.south()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.west()).getBlock() instanceof BlockStem) && soil.getBlock().canSustainPlant(soil, this.folk.entity.worldObj, bp.down(), EnumFacing.UP, (IPlantable) seed.getItem()) && this.folk.entity.worldObj.isAirBlock(bp)) {
                         for (IInventory inv : iterator) {
@@ -290,7 +296,9 @@ public class JobFarmer extends Job {
                         return;
                     }
                 } catch (Exception var10) {
-                    ModSimLoader.log.error("种植发生了错误");
+                    var10.printStackTrace();
+                    StackTraceElement element=var10.getStackTrace()[0];
+                    ModSimLoader.log.error("种植发生了错误：" + var10.getMessage()+"行数："+element.getLineNumber());
                 }
             }
         }
@@ -370,16 +378,16 @@ public class JobFarmer extends Job {
                 if (b instanceof BlockStem || !(b instanceof BlockCrops) && !(b instanceof IPlantable) && !(b instanceof IGrowable)) {
                     //包含根茎
                     if (b instanceof BlockStem) {
-                        BlockStem stem = (BlockStem) b;
-                        Field cropField = null;
+//                        BlockStem stem = (BlockStem) b;
+//                        Field cropField = null;
 
                         try {
-                            cropField = stem.getClass().getDeclaredField("crop");
-                            cropField.setAccessible(true);
-                            Block crop = (Block) cropField.get(stem);
+//                            cropField = stem.getClass().getDeclaredField("crop");
+//                            cropField.setAccessible(true);
+//                            Block crop = (Block) cropField.get(stem);
                             Block bCrop;
                             //北
-                            if (this.folk.entity.worldObj.getBlockState(bp.north()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.north()).getBlock() == b) {
                                 //收获
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
                                 //获得方块
@@ -404,7 +412,7 @@ public class JobFarmer extends Job {
                                 return;
                             }
                             //东
-                            if (this.folk.entity.worldObj.getBlockState(bp.east()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.east()).getBlock() == b) {
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
                                 bCrop = this.folk.entity.worldObj.getBlockState(bp.east()).getBlock();
                                 drops = bCrop.getDrops(this.folk.entity.worldObj, bp.east(), this.folk.entity.worldObj.getBlockState(bp.east()), 0);
@@ -419,7 +427,7 @@ public class JobFarmer extends Job {
                                 return;
                             }
                             //南
-                            if (this.folk.entity.worldObj.getBlockState(bp.south()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.south()).getBlock() == b) {
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
                                 bCrop = this.folk.entity.worldObj.getBlockState(bp.south()).getBlock();
                                 drops = bCrop.getDrops(this.folk.entity.worldObj, bp.south(), this.folk.entity.worldObj.getBlockState(bp.south()), 0);
@@ -434,7 +442,7 @@ public class JobFarmer extends Job {
                                 return;
                             }
                             //西
-                            if (this.folk.entity.worldObj.getBlockState(bp.west()).getBlock() == crop) {
+                            if (this.folk.entity.worldObj.getBlockState(bp.west()).getBlock() == b) {
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
                                 bCrop = this.folk.entity.worldObj.getBlockState(bp.west()).getBlock();
                                 drops = b.getDrops(this.folk.entity.worldObj, bp.west(), this.folk.entity.worldObj.getBlockState(bp.west()), 0);

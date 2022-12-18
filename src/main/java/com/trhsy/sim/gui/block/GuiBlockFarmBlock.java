@@ -130,7 +130,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                     fs_facing=I18n.format("container.sim.gui_north");
                     //南
                 } else if (this.facing.toString().equals("south")) {
-                    fs_facing=I18n.format("container.sim.gui_southt");
+                    fs_facing=I18n.format("container.sim.gui_south");
                 }
                 this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, fs_facing));
             } catch (Exception var7) {
@@ -255,7 +255,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                         fs_facing=I18n.format("container.sim.gui_north");
                         //南
                     } else if (this.facing.toString().equals("south")) {
-                        fs_facing=I18n.format("container.sim.gui_southt");
+                        fs_facing=I18n.format("container.sim.gui_south");
                     }
                     guibutton.displayString = fs_facing;
                     this.updateFarm();

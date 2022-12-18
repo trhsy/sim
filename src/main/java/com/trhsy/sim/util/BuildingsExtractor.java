@@ -2,6 +2,7 @@ package com.trhsy.sim.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +21,9 @@ public class BuildingsExtractor {
     }
     public static void extractBuildings(File targetDir) {
         try {
-            InputStream inputStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("sim", "buildings/buildings.zip")).getInputStream();
+            String lang = FMLCommonHandler.instance().getCurrentLanguage();
+            String bName="buildings_"+lang;
+            InputStream inputStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("sim", "buildings/"+bName+".zip")).getInputStream();
             byte[] buffer = new byte[1024];
             ZipInputStream zis = new ZipInputStream(inputStream);
 

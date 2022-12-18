@@ -148,11 +148,7 @@ public class JobTerrainFormer extends Job {
                                 } else {
                                     soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                 }
-                                for (int i = 0; i < world.playerEntities.size(); i++) {
-                                    EntityPlayer entityPlayer = world.playerEntities.get(i);
-                                    BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                                    world.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
-                                }
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
                             }
                             //等待规划类型
                             if (this.terrainType == null) {
@@ -608,7 +604,7 @@ public class JobTerrainFormer extends Job {
                                     GameStates var10000 = ModSimLoader.states;
                                     ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
-                                this.placeInJobChest(new ItemStack(Items.BUCKET, 1));
+//                                this.placeInJobChest(new ItemStack(Items.BUCKET, 1));
                             }
                         } else {
                             Block idBelow = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y - 1, v6.z)).getBlock();
@@ -815,12 +811,7 @@ public class JobTerrainFormer extends Job {
 //                this.jobWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     //播放 我准备好了
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                    ;
-                    for (int i = 0; i < this.jobWorld.playerEntities.size(); i++) {
-                        EntityPlayer entityPlayer = this.jobWorld.playerEntities.get(i);
-                        BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                        this.jobWorld.playSound(null, pos, soundEvent, SoundCategory.PLAYERS, 1, 1);
-                    }
+                    this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY,this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1,false);
                     this.folk.fire();
                     this.folk.stayPut = false;
                 }
