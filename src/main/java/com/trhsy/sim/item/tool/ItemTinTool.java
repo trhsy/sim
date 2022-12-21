@@ -59,15 +59,18 @@ public class ItemTinTool {
         }
 
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean isFull3D() {
             return true;
         }
 
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
 
+        @Override
         public float getStrVsBlock(ItemStack stack, IBlockState state) {
             Material material = state.getMaterial();
             return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
@@ -83,11 +86,13 @@ public class ItemTinTool {
         }
 
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean isFull3D() {
             return true;
         }
 
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
@@ -103,11 +108,13 @@ public class ItemTinTool {
         }
 
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean isFull3D() {
             return true;
         }
 
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
@@ -115,6 +122,7 @@ public class ItemTinTool {
         /**
          * 检查此项是否可以获取给定块
          */
+        @Override
         public boolean canHarvestBlock(IBlockState blockIn) {
             Block block = blockIn.getBlock();
 
@@ -148,6 +156,7 @@ public class ItemTinTool {
             }
         }
 
+        @Override
         public float getStrVsBlock(ItemStack stack, IBlockState state) {
             Material material = state.getMaterial();
             return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
@@ -163,49 +172,46 @@ public class ItemTinTool {
             this.setCreativeTab(CreativeTabsLoader.tabSimU);
         }
 
+        @Override
         @SideOnly(Side.CLIENT)
         public boolean isFull3D() {
             return true;
         }
 
+        @Override
         @SideOnly(Side.CLIENT)
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
+
         /**
          * Check whether this Item can harvest the given Block
          */
-        public boolean canHarvestBlock(IBlockState blockIn)
-        {
+        @Override
+        public boolean canHarvestBlock(IBlockState blockIn) {
             Block block = blockIn.getBlock();
             return block == Blocks.SNOW_LAYER ? true : block == Blocks.SNOW;
         }
-        public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-        {
-            if (!playerIn.canPlayerEdit(pos.offset(facing), facing, stack))
-            {
+
+        @Override
+        public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+            if (!playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
                 return EnumActionResult.FAIL;
-            }
-            else
-            {
+            } else {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
                 Block block = iblockstate.getBlock();
 
-                if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS)
-                {
+                if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS) {
                     IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
                     worldIn.playSound(playerIn, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-                    if (!worldIn.isRemote)
-                    {
+                    if (!worldIn.isRemote) {
                         worldIn.setBlockState(pos, iblockstate1, 11);
                         stack.damageItem(1, playerIn);
                     }
 
                     return EnumActionResult.SUCCESS;
-                }
-                else
-                {
+                } else {
                     return EnumActionResult.PASS;
                 }
             }
@@ -220,12 +226,12 @@ public class ItemTinTool {
             this.setUnlocalizedName("tinSword");
             this.setCreativeTab(CreativeTabsLoader.tabSimU);
         }
-
+        @Override
         @SideOnly(Side.CLIENT)
         public boolean isFull3D() {
             return true;
         }
-
+        @Override
         @SideOnly(Side.CLIENT)
         public boolean shouldRotateAroundWhenRendering() {
             return true;

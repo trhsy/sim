@@ -564,6 +564,7 @@ public class ModSimLoader {
             fs.add(f);
         }
         Collections.sort(fs, new Comparator<FarmBox>() {
+            @Override
             public int compare(FarmBox f1, FarmBox f2) {
                 if (f1.loc.getDistanceTo(pos) > f2.loc.getDistanceTo(pos)) {
                     return 1;
@@ -633,6 +634,7 @@ public class ModSimLoader {
         }
 
         Collections.sort(bs, new Comparator<Building>() {
+            @Override
             public int compare(Building b1, Building b2) {
                 if (b1.controlXYZ.getDistanceTo(pos) > b2.controlXYZ.getDistanceTo(pos)) {
                     return 1;
@@ -662,6 +664,7 @@ public class ModSimLoader {
         }
 
         Collections.sort(bs, new Comparator<Building>() {
+            @Override
             public int compare(Building b1, Building b2) {
                 if (b1.controlXYZ.getDistanceTo(pos) > b2.controlXYZ.getDistanceTo(pos)) {
                     return 1;

@@ -4,6 +4,9 @@ import com.trhsy.sim.loader.CreativeTabsLoader;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.SoundType;
 
+/**
+ *
+ */
 public class BlockTinOre extends BlockOre {
     public BlockTinOre(){
         //用于设定走在方块上的响声。

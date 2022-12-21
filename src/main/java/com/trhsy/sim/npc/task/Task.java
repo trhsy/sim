@@ -94,10 +94,7 @@ public abstract class Task {
             }
         }
     }
-
     public abstract void onTaskBegin();
-
     public abstract void onUpdate();
-
     public abstract void onTaskComplete();
 }

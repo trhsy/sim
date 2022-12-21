@@ -43,6 +43,7 @@ public class BlockFarmingBox extends BlockBase{
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      * @return boolean
      **/
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_kraft_ddd_farming_constructor_activated"));
@@ -78,6 +79,7 @@ public class BlockFarmingBox extends BlockBase{
      * @Param [world, pos, state, placer, stack]
      * @return void
      **/
+    @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if (!world.isRemote) {
             V3 markerPos = null;
@@ -117,6 +119,7 @@ public class BlockFarmingBox extends BlockBase{
      * @Param [worldIn, pos, state]
      * @return void
      **/
+    @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));

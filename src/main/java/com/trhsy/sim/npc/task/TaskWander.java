@@ -13,13 +13,16 @@ public class TaskWander extends Task {
 		super(folk, ms);
 	}
 
-	public void onTaskBegin() {
+	@Override
+    public void onTaskBegin() {
 		this.folk.setStatus(I18n.format("container.sim.folk_data.Wandering"));
 	}
 
+	@Override
 	public void onUpdate() {
 	}
 
+	@Override
 	public void onTaskComplete() {
 	}
 }

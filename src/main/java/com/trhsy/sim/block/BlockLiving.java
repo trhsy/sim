@@ -32,6 +32,7 @@ import java.util.List;
 public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     public static final PropertyEnum<EnumBlockLiving> TYPE = PropertyEnum.create("type", EnumBlockLiving.class);
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
+
     public BlockLiving() {
         super(Material.CARPET, TYPE, EnumBlockLiving.class);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLiving.WHITE));
@@ -41,32 +42,34 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
         this.setUnlocalizedName("livingBlock");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return CARPET_AABB;
     }
+
     /**
      * Get the MapColor for this Block and the given BlockState
      */
     @Override
     public MapColor getMapColor(IBlockState state) {
-        return ( state.getValue(TYPE)).getMapColor();
+        return (state.getValue(TYPE)).getMapColor();
     }
 
     @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
+
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
-    public boolean isOpaqueCube(IBlockState state)
-    {
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
-
-    public boolean isFullCube(IBlockState state)
-    {
+    @Override
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
 
@@ -91,11 +94,13 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     private boolean canBlockStay(World worldIn, BlockPos pos) {
         return !worldIn.isAirBlock(pos.down());
     }
+
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
+    @Override
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         return side == EnumFacing.UP ? true : (blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? true : super.shouldSideBeRendered(blockState, blockAccess, pos, side));
     }
+
     /**
      * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
      * returns the metadata of the dropped item based on the old metadata of the block.
@@ -129,7 +134,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
      */
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ( state.getValue(TYPE)).getMetadata();
+        return (state.getValue(TYPE)).getMetadata();
     }
 
     @Override

@@ -28,7 +28,7 @@ public class GuiEmployees extends GuiScreen {
 
     public GuiEmployees() {
     }
-
+    @Override
     public void initGui() {
         this.folks = new CopyOnWriteArrayList<>(ModSimLoader.tempHireableNpcNames);
         this.showPage();
@@ -77,7 +77,7 @@ public class GuiEmployees extends GuiScreen {
         }
 
     }
-
+    @Override
     public void drawScreen(int i, int j, float f) {
         if (this.mouseCount < 10) {
             ++this.mouseCount;
@@ -123,7 +123,7 @@ public class GuiEmployees extends GuiScreen {
 
         super.drawScreen(i, j, f);
     }
-
+    @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 1000) {
             this.folkOffset -= this.folksOnAPage;
@@ -138,15 +138,15 @@ public class GuiEmployees extends GuiScreen {
         }
 
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
-
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
-
+    @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.displayGuiScreen((GuiScreen)null);

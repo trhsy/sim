@@ -160,6 +160,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
      * @Date 13:44 2022/10/31
      * @Param []
      **/
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
@@ -171,6 +172,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
      * @Date 13:46 2022/10/31
      * @Param []
      **/
+    @Override
     public void initGui() {
         super.initGui();
         //显示分页
@@ -454,6 +456,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
     @SubscribeEvent(
             priority = EventPriority.NORMAL
     )
+    @Override
     public void actionPerformed(GuiButton guibutton) {
         //时间限制
         if (System.currentTimeMillis() - this.fingBodge >= 100L) {
@@ -739,7 +742,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
             }
         }
     }
-
+    @Override
     public void drawScreen(int i, int j, float f) {
         try {
             this.drawDefaultBackground();
@@ -841,6 +844,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
      * @Date 16:36 2022/11/1
      * @Param [c, i]
      **/
+    @Override
     public void keyTyped(char c, int i) {
         if (i == 1) {
             this.mc.displayGuiScreen((GuiScreen) null);

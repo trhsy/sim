@@ -78,6 +78,7 @@ public class EntityConBox extends Entity {
      * @Param []
      * @return void
      **/
+    @Override
     public void onUpdate() {
         if (System.currentTimeMillis() - this.lastCheck > 10000L) {
             //不是客户端
@@ -126,7 +127,7 @@ public class EntityConBox extends Entity {
         }
 
     }
-
+    @Override
     public AxisAlignedBB getCollisionBox(Entity par1Entity) {
         return null;
     }
@@ -134,21 +135,21 @@ public class EntityConBox extends Entity {
     public AxisAlignedBB getBoundingBox() {
         return null;
     }
-
+    @Override
     public boolean canBePushed() {
         return false;
     }
-
+    @Override
     public boolean canBeCollidedWith() {
         return false;
     }
-
+    @Override
     protected void entityInit() {
     }
-
+    @Override
     protected void readEntityFromNBT(NBTTagCompound compound) {
     }
-
+    @Override
     protected void writeEntityToNBT(NBTTagCompound compound) {
     }
 }

@@ -32,7 +32,7 @@ public class RenderConBox extends Render {
         super(renderManager);
         this.modelBox = modelBox;
     }
-
+    @Override
     public void doRender(Entity var1, double x, double y, double z, float boxYaw, float TextYaw) {
         this.entity = (EntityConBox)var1;
         this.renderManager.renderEngine.bindTexture(myTexture);
@@ -93,7 +93,7 @@ public class RenderConBox extends Render {
         GL11.glDisable(3042);
         GL11.glPopMatrix();
     }
-
+    @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
         return myTexture;
     }
@@ -101,7 +101,7 @@ public class RenderConBox extends Render {
     public static class Factory implements IRenderFactory<EntityConBox> {
         public Factory() {
         }
-
+        @Override
         public Render<? super EntityConBox> createRenderFor(RenderManager manager) {
             return new RenderConBox(manager, new ModelConBox());
         }

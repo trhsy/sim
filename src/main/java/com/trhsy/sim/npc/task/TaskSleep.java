@@ -30,6 +30,7 @@ public class TaskSleep extends Task {
      * @Param []
      * @return void
      **/
+    @Override
     public void onTaskBegin() {
         //有家
         if (this.folk.home != null) {
@@ -52,6 +53,7 @@ public class TaskSleep extends Task {
      * @Param []
      * @return void
      **/
+    @Override
     public void onUpdate() {
         if (this.folk.home != null) {
             //不在建筑内
@@ -70,6 +72,7 @@ public class TaskSleep extends Task {
 
     }
 
+    @Override
     public void onTaskComplete() {
         this.folk.stayPut = false;
     }

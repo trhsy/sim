@@ -118,7 +118,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
         //面包师
         this.jobNames.add(I18n.format("container.sim.Vocation6"));
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
@@ -129,6 +129,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
      * @Param []
      * @return void
      **/
+    @Override
     public void initGui() {
         super.initGui();
         this.showPage();
@@ -207,7 +208,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
         }
 
     }
-
+    @Override
     public void drawScreen(int i, int j, float f) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int posX = (this.width - 256) / 2;
@@ -248,6 +249,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
     @SubscribeEvent(
             priority = EventPriority.NORMAL
     )
+    @Override
     public void actionPerformed(GuiButton guibutton) {
         ModSimLoader.log.info("点击按钮：" + guibutton.id);
 //        ModSimLoader.log.info("建筑工作类型：" + this.buildings.jobType);

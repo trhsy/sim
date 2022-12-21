@@ -18,14 +18,14 @@ public class JobTaskIdle extends JobTask {
         this.delayTime = ms;
         this.status = status;
     }
-
+    @Override
     public void onTaskComplete() {
     }
-
+    @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
     }
-
+    @Override
     public void onUpdate() {
     }
 }

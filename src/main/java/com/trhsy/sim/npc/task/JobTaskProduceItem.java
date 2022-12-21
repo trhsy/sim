@@ -43,10 +43,10 @@ public class JobTaskProduceItem extends JobTask {
         this.requirements.add(req);
         this.status = status;
     }
-
+    @Override
     public void onTaskBegin() {
     }
-
+    @Override
     public void onUpdate() {
         //在工作期间
         if (this.job.folk.isAtLocation(this.job.workPlace)) {
@@ -113,7 +113,7 @@ public class JobTaskProduceItem extends JobTask {
         }
 
     }
-
+    @Override
     public void onTaskComplete() {
     }
 }

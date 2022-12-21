@@ -51,7 +51,7 @@ public class PacketOpenControlGui implements IMessage {
         this.buildingType=buildingType;
         this.isResidential = isResidential;
     }
-
+    @Override
     public void fromBytes(ByteBuf buf) {
         this.v3 = V3.fromString(ByteBufUtils.readUTF8String(buf));
         this.buildingId = ByteBufUtils.readUTF8String(buf);
@@ -67,7 +67,7 @@ public class PacketOpenControlGui implements IMessage {
         }
 
     }
-
+    @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.v3.toString());
         ByteBufUtils.writeUTF8String(buf, this.buildingId);
@@ -85,7 +85,7 @@ public class PacketOpenControlGui implements IMessage {
     public static class Handler implements IMessageHandler<PacketOpenControlGui, IMessage> {
         public Handler() {
         }
-
+        @Override
         public IMessage onMessage(PacketOpenControlGui message, MessageContext ctx) {
             try {
                 FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {

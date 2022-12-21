@@ -25,6 +25,7 @@ public class TaskProcreate extends Task {
         this.interruptSleep = true;
     }
 
+    @Override
     public void onTaskBegin() {
         //想要个宝宝
         this.folk.setStatus(I18n.format("container.sim.folk_data_Trying_baby"));
@@ -37,9 +38,11 @@ public class TaskProcreate extends Task {
 
     }
 
+    @Override
     public void onUpdate() {
     }
 
+    @Override
     public void onTaskComplete() {
         if (this.folk.gender == 0 && this.rand.nextInt(7) == 6 && this.spouse.age < this.spouse.race.maturity + 27) {
             NpcData var10000 = this.spouse;

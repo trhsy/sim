@@ -52,11 +52,11 @@ public class GuiFolk extends GuiScreen {
         this.farming = message.farming;
         this.hungerStatus = message.hungerStatus ;
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
-
+    @Override
     public void initGui() {
         super.initGui();
         this.showPage();
@@ -95,7 +95,7 @@ public class GuiFolk extends GuiScreen {
         }
 
     }
-
+    @Override
     public void drawScreen(int i, int j, float f) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(new ResourceLocation(ModSim.MODID, "textures/gui/guifolk.png"));
@@ -171,7 +171,7 @@ public class GuiFolk extends GuiScreen {
 
         super.drawScreen(i, j, f);
     }
-
+    @Override
     public void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 0) {

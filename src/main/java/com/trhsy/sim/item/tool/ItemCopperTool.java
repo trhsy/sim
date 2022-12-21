@@ -57,8 +57,8 @@ public class ItemCopperTool {
      * @Author fan
      * @Description //TODO 铜斧子
      * @Date 18:19 2022/11/2
-     * @Param 
-     * @return 
+     * @Param
+     * @return
      **/
     public static class Axe extends ItemTool {
         //木板 书架 原木 箱子 南瓜 南瓜灯 西瓜 梯子 木质按钮 木质压力板
@@ -71,25 +71,30 @@ public class ItemCopperTool {
         }
 
         @SideOnly(Side.CLIENT)
-        public boolean isFull3D()
-        {
+        @Override
+        public boolean isFull3D() {
             return true;
         }
+
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
+
+        @Override
         public float getStrVsBlock(ItemStack stack, IBlockState state) {
             Material material = state.getMaterial();
             return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
         }
     }
+
     /**
      * @Author fan
      * @Description //TODO 锄头
      * @Date 18:19 2022/11/2
-     * @Param 
-     * @return 
+     * @Param
+     * @return
      **/
     public static class Hoe extends ItemHoe {
 
@@ -98,23 +103,27 @@ public class ItemCopperTool {
             this.setUnlocalizedName("copperHoe");
             this.setCreativeTab(CreativeTabsLoader.tabSimU);
         }
+
         @SideOnly(Side.CLIENT)
-        public boolean isFull3D()
-        {
+        @Override
+        public boolean isFull3D() {
             return true;
         }
+
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
 
     }
+
     /**
      * @Author fan
      * @Description //TODO 镐子
      * @Date 18:19 2022/11/2
-     * @Param 
-     * @return 
+     * @Param
+     * @return
      **/
     public static class Pickaxe extends ItemTool {
         //铁轨 煤矿 圆石 探测轨道 钻石块 钻石矿 石板 金 金块 金矿 铁 铁块 铁矿
@@ -125,18 +134,23 @@ public class ItemCopperTool {
             this.setUnlocalizedName("copperPickaxe");
             this.setCreativeTab(CreativeTabsLoader.tabSimU);
         }
+
         @SideOnly(Side.CLIENT)
-        public boolean isFull3D()
-        {
+        @Override
+        public boolean isFull3D() {
             return true;
         }
+
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
+
         /**
          * 检查此项是否可以获取给定块
          */
+        @Override
         public boolean canHarvestBlock(IBlockState blockIn) {
             Block block = blockIn.getBlock();
 
@@ -170,11 +184,13 @@ public class ItemCopperTool {
             }
         }
 
+        @Override
         public float getStrVsBlock(ItemStack stack, IBlockState state) {
             Material material = state.getMaterial();
             return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
         }
     }
+
     /**
      * @Author fan
      * @Description //TODO 铜锹
@@ -190,54 +206,53 @@ public class ItemCopperTool {
             this.setUnlocalizedName("copperSpade");
             this.setCreativeTab(CreativeTabsLoader.tabSimU);
         }
+
         @SideOnly(Side.CLIENT)
-        public boolean isFull3D()
-        {
+        @Override
+        public boolean isFull3D() {
             return true;
         }
+
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }
+
         /**
          * Check whether this Item can harvest the given Block
          */
-        public boolean canHarvestBlock(IBlockState blockIn)
-        {
+        @Override
+        public boolean canHarvestBlock(IBlockState blockIn) {
             Block block = blockIn.getBlock();
             return block == Blocks.SNOW_LAYER ? true : block == Blocks.SNOW;
         }
-        public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-        {
-            if (!playerIn.canPlayerEdit(pos.offset(facing), facing, stack))
-            {
+
+        @Override
+        public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+            if (!playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
                 return EnumActionResult.FAIL;
-            }
-            else
-            {
+            } else {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
                 Block block = iblockstate.getBlock();
 
-                if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS)
-                {
+                if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS) {
                     IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
                     worldIn.playSound(playerIn, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-                    if (!worldIn.isRemote)
-                    {
+                    if (!worldIn.isRemote) {
                         worldIn.setBlockState(pos, iblockstate1, 11);
                         stack.damageItem(1, playerIn);
                     }
 
                     return EnumActionResult.SUCCESS;
-                }
-                else
-                {
+                } else {
                     return EnumActionResult.PASS;
                 }
             }
         }
     }
+
     /**
      * @Author fan
      * @Description //TODO 剑
@@ -253,13 +268,15 @@ public class ItemCopperTool {
             this.setUnlocalizedName("copperSword");
             this.setCreativeTab(CreativeTabsLoader.tabSimU);
         }
+
         @SideOnly(Side.CLIENT)
-        public boolean isFull3D()
-        {
+        @Override
+        public boolean isFull3D() {
             return true;
         }
 
         @SideOnly(Side.CLIENT)
+        @Override
         public boolean shouldRotateAroundWhenRendering() {
             return true;
         }

@@ -137,6 +137,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
      * @Date 11:39 2022/11/7
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      **/
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 computer 控制箱激活
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
@@ -188,6 +189,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
      * @Date 10:50 2022/11/7
      * @Param [worldIn, pos, state]
      **/
+    @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         //控制箱销毁，解除所有NPC
         for (NpcData fd : ModSimLoader.folks) {

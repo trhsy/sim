@@ -77,17 +77,17 @@ public class GuiBlockFarmBlock extends GuiScreen {
         this.getHireableFolkNames();
         this.setDimensions();
     }
-
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
-
+    @Override
     public void onGuiClosed() {
         //预览
         ModSimLoader.previewPos1 = null;
         ModSimLoader.previewPos2 = null;
     }
-
+    @Override
     public void initGui() {
         //显示分页
         this.showPage();
@@ -195,6 +195,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
      * @Date 14:25 2022/12/10
      * @Param [i, j, f]
      **/
+    @Override
     public void drawScreen(int i, int j, float f) {
         if (this.mouseCount < 10) {
             ++this.mouseCount;
@@ -222,6 +223,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
      * @Date 14:50 2022/12/10
      * @Param [guibutton]
      **/
+    @Override
     public void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
             if (guibutton.id == 0) {

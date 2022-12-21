@@ -29,7 +29,8 @@ public class TaskSocialise extends Task {
 		this.host = host;
 	}
 
-	public void onTaskBegin() {
+	@Override
+    public void onTaskBegin() {
 		this.folk.stayPut = true;
 		//
 		this.folk.setStatus(I18n.format("container.sim.folk_data_Hanging") + this.other.forename);
@@ -40,6 +41,7 @@ public class TaskSocialise extends Task {
 
 	}
 
+	@Override
 	public void onUpdate() {
 		if (!this.folk.isAtBuilding(this.building)) {
 			this.folk.forceMoveToXYZ(this.building.livingXYZ);
@@ -50,6 +52,7 @@ public class TaskSocialise extends Task {
 
 	}
 
+	@Override
 	public void onTaskComplete() {
 		this.folk.stayPut = false;
 	}

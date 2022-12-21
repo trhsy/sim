@@ -226,6 +226,7 @@ public class JobBuilder extends Job {
      * @Date 10:13 2022/11/4
      * @Param []
      **/
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.folk != null) {
@@ -295,7 +296,7 @@ public class JobBuilder extends Job {
             }
         }
     }
-
+    @Override
     public void onMinute() {
         if (this.missingCheck < 3) {
             ++this.missingCheck;
@@ -801,9 +802,10 @@ public class JobBuilder extends Job {
      * @Date 16:31 2022/11/1
      * @Param []
      **/
+    @Override
     public void onArrive() {
     }
-
+    @Override
     public String toString() {
         return I18n.format("container.sim.Vocation1");
     }

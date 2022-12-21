@@ -145,6 +145,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param []
      * @return boolean
      **/
+    @Override
     protected boolean canDespawn() {
         return false;
     }
@@ -158,40 +159,45 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public void onUpdate() {
         long i=System.currentTimeMillis() - this.secondTimer;
-        if (i > 1000L) {
-            this.secondTimer = System.currentTimeMillis();
-            List<Entity> list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).expand(2.0D, 4.0D, 2.0D));
-            for (Entity entity1:list1){
-                if (entity1 instanceof EntityItem) {
-                    EntityItem entityitem = (EntityItem)entity1;
-                    ItemStack is = ((EntityItem)entity1).getEntityItem();
+        try {
+            if (i > 1000L) {
+                this.secondTimer = System.currentTimeMillis();
+                List<Entity> list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).expand(2.0D, 4.0D, 2.0D));
+                for (Entity entity1:list1){
+                    if (entity1 instanceof EntityItem) {
+                        EntityItem entityitem = (EntityItem)entity1;
+                        ItemStack is = ((EntityItem)entity1).getEntityItem();
 
-                    try {
-                        Item item=is.getItem();
-                        if(item instanceof ItemFood){
-                            //如果手里拿的是食物就，并且饿了就吃了
-                            ItemFood food = (ItemFood)item;
-                            if (this.theData!=null&&this.theData.hunger < 10 && food != null) {
-                                entityitem.setDead();
-                                ++this.theData.hunger;
+                        try {
+                            Item item=is.getItem();
+                            if(item instanceof ItemFood){
+                                //如果手里拿的是食物就，并且饿了就吃了
+                                ItemFood food = (ItemFood)item;
+                                if (this.theData!=null&&this.theData.hunger < 10 && food != null) {
+                                    entityitem.setDead();
+                                    ++this.theData.hunger;
+                                }
                             }
+                        } catch (Exception var8) {
+                            ModSimLoader.log.error("Npc 吃东西出错了："+var8.getMessage());
                         }
-                    } catch (Exception var8) {
-                        ModSimLoader.log.error("Npc 吃东西出错了："+var8.getMessage());
-                    }
-                } else if (entity1 instanceof EntityFolk && (int)this.posX == (int)entity1.posX && (int)this.posZ == (int)entity1.posZ) {
-                    this.motionX += 0.10000000149011612D;
+                    } else if (entity1 instanceof EntityFolk && (int)this.posX == (int)entity1.posX && (int)this.posZ == (int)entity1.posZ) {
+                        this.motionX += 0.10000000149011612D;
 
-                    try {
-                        this.theData.stayPut = false;
-                    } catch (Exception var7) {
+                        try {
+                            this.theData.stayPut = false;
+                        } catch (Exception var7) {
+                        }
                     }
                 }
+                if (this.theData != null && !this.worldObj.isRemote && !ModSimLoader.folks.contains(this.theData)) {
+                    ModSimLoader.folks.add(this.theData);
+                }
             }
-            if (this.theData != null && !this.worldObj.isRemote && !ModSimLoader.folks.contains(this.theData)) {
-                ModSimLoader.folks.add(this.theData);
-            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
         super.onUpdate();
     }
     /**
@@ -228,6 +234,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param [cause]
      * @return void
      **/
+    @Override
     public void onDeath(DamageSource cause) {
         if (this.theData != null) {
             this.theData.onDeath(cause);
@@ -242,6 +249,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param [player, hand]
      * @return boolean
      **/
+    @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
         if (!player.worldObj.isRemote) {
             NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP)player);
@@ -257,6 +265,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     public void swing() {
         Thread t = new Thread(new Runnable() {
+            @Override
             public void run() {
                 for(int d = 0; d < 12; ++d) {
                     EntityFolk.this.swingProgress = 0.3F;
@@ -295,6 +304,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param []
      * @return boolean
      **/
+    @Override
     public boolean isChild() {
         NpcIdentity cfi = ModSimLoader.getFolkByUUID(this.getUniqueID());
         if (cfi != null) {

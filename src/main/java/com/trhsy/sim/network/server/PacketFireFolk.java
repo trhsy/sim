@@ -24,11 +24,11 @@ public class PacketFireFolk implements IMessage {
     public PacketFireFolk(String uuid) {
         this.uuid = uuid;
     }
-
+    @Override
     public void fromBytes(ByteBuf buf) {
         this.uuid = ByteBufUtils.readUTF8String(buf);
     }
-
+    @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.uuid);
     }
@@ -36,7 +36,7 @@ public class PacketFireFolk implements IMessage {
     public static class Handler implements IMessageHandler<PacketFireFolk, IMessage> {
         public Handler() {
         }
-
+        @Override
         public IMessage onMessage(PacketFireFolk message, MessageContext ctx) {
             try {
                 FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {

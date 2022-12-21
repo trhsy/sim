@@ -19,10 +19,10 @@ public class JobTaskShopkeep extends JobTask {
         super(j, ms);
         this.product = product;
     }
-
+    @Override
     public void onTaskBegin() {
     }
-
+    @Override
     public void onUpdate() {
         if (this.job.jobWorld.getWorldTime() % 24000L < 11600L) {
             //售卖
@@ -44,7 +44,7 @@ public class JobTaskShopkeep extends JobTask {
         }
 
     }
-
+    @Override
     public void onTaskComplete() {
     }
 }

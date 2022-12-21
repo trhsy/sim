@@ -38,6 +38,7 @@ public class JobTaskCollectItems extends JobTask {
         super(j, (long)ms);
         this.collectionItems = collectionItems;
     }
+    @Override
     public void onTaskBegin() {
         if (this.collectionItems.size() < 1) {
             this.failTask(this.job.folk.getName() + " (" + this.job.jobName + ") "+ I18n.format("container.sim.job_task_could"));
@@ -120,7 +121,7 @@ public class JobTaskCollectItems extends JobTask {
 
         }
     }
-
+    @Override
     public void onUpdate() {
         if (this.currentDestination != null) {
             //如果在建筑内
@@ -175,7 +176,7 @@ public class JobTaskCollectItems extends JobTask {
         }
 
     }
-
+    @Override
     public void onTaskComplete() {
     }
 }

@@ -25,10 +25,11 @@ public class PacketDemolishBuilding implements IMessage {
         this.uuid = uuid;
     }
 
+    @Override
     public void fromBytes(ByteBuf buf) {
         this.uuid = ByteBufUtils.readUTF8String(buf);
     }
-
+    @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.uuid);
     }
@@ -36,7 +37,7 @@ public class PacketDemolishBuilding implements IMessage {
     public static class Handler implements IMessageHandler<PacketDemolishBuilding, IMessage> {
         public Handler() {
         }
-
+        @Override
         public IMessage onMessage(PacketDemolishBuilding message, MessageContext ctx) {
             try {
                 FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {

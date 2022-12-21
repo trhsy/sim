@@ -34,16 +34,21 @@ public class PacketGetHireableFolks implements IMessage {
     public PacketGetHireableFolks(boolean isFromClient) {
     }
 
+    @Override
     public void fromBytes(ByteBuf buf) {
+        // TODO document why this method is empty
     }
 
+    @Override
     public void toBytes(ByteBuf buf) {
+        // TODO document why this method is empty
     }
 
     public static class Handler implements IMessageHandler<PacketGetHireableFolks, IMessage> {
         public Handler() {
         }
 
+        @Override
         public IMessage onMessage(PacketGetHireableFolks message, MessageContext ctx) {
             try {
                 FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {

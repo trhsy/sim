@@ -47,14 +47,14 @@ public class PacketHireFolk implements IMessage {
         this.pos = pos;
         this.buildDirection = bd;
     }
-
+    @Override
     public void fromBytes(ByteBuf buf) {
         this.uuid = ByteBufUtils.readUTF8String(buf);
         this.job = ByteBufUtils.readUTF8String(buf);
         this.pos = V3.fromString(ByteBufUtils.readUTF8String(buf));
         this.buildDirection = buf.readInt();
     }
-
+    @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.uuid);
         ByteBufUtils.writeUTF8String(buf, this.job);
@@ -65,7 +65,7 @@ public class PacketHireFolk implements IMessage {
     public static class Handler implements IMessageHandler<PacketHireFolk, IMessage> {
         public Handler() {
         }
-
+        @Override
         public IMessage onMessage(PacketHireFolk message, MessageContext ctx) {
             try {
                 FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> {

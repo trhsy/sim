@@ -118,7 +118,7 @@ public class JobTerrainFormer extends Job {
         this.stage=0;
         this.createConBox();
     }
-
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.folk != null) {
@@ -931,7 +931,7 @@ public class JobTerrainFormer extends Job {
         return itemStacks;
 
     }
-
+    @Override
     public void onMinute() {
         if (this.missingCheck < 3) {
             ++this.missingCheck;

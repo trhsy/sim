@@ -23,7 +23,7 @@ public class JobTaskUnloadItems extends JobTask {
         super(j, ms);
         this.collectionItems = collectionItems;
     }
-
+    @Override
     public void onTaskBegin() {
         if (this.collectionItems.size() < 1) {
             this.completeTask();
@@ -31,7 +31,7 @@ public class JobTaskUnloadItems extends JobTask {
             this.job.folk.forceMoveToXYZ(this.job.workPlace);
         }
     }
-
+    @Override
     public void onUpdate() {
         List<ItemStack> toDelete = new ArrayList();
         if (this.job.folk.isAtLocation(this.job.workPlace)) {
@@ -73,7 +73,7 @@ public class JobTaskUnloadItems extends JobTask {
         }
 
     }
-
+    @Override
     public void onTaskComplete() {
     }
 }
