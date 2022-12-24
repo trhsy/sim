@@ -44,7 +44,7 @@ public class GameStates {
      * @Param []
      * @return java.lang.String
      **/
-    public static String getDayOfWeek() {
+    public String getDayOfWeek() {
         return dow[dayOfWeek];
     }
     /**

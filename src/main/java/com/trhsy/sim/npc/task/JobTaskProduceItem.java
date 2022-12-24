@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @ClassName JobTaskProduceItem
- * @Description todo
+ * @Description todo 制作任务
  * @Author TRHSY
  * @Date 2022/11/1521:15
  **/
@@ -63,17 +63,22 @@ public class JobTaskProduceItem extends JobTask {
             }
             //箱子
             List<IInventory> invs = this.job.inventoriesFindClosest(this.job.workPlace, 5);
-
+            //最大产量
             int maxProd;
             int i;
             int j;
             for(maxProd = 0; maxProd < invs.size(); ++maxProd) {
+                //获取箱子
                 IInventory iInventory=invs.get(maxProd);
                 for(i = 0; i < iInventory.getSizeInventory(); ++i) {
+                    //当前格子的物品
                     ItemStack itemStack= iInventory.getStackInSlot(i);
+
                     for(j = 0; j < this.requirements.size(); ++j) {
+                        //需求的物品
                         ItemStack itemStacks=this.requirements.get(j);
-                        if (itemStack!=null&&itemStack.isItemEqual(itemStacks)) {
+                        if (itemStack!=null && itemStack.isItemEqual(itemStacks)) {
+                            //NPC拿走所需物品
                             this.folk.addToInventory(itemStack);
                             iInventory.removeStackFromSlot(i);
                             break;
@@ -83,12 +88,16 @@ public class JobTaskProduceItem extends JobTask {
             }
 
             maxProd = -1;
-
+            //循环NPC的物品
             for(i = 0; i < this.folk.inventory.size(); ++i) {
+                //当前NPC的物品
                 ItemStack itemStack=this.folk.inventory.get(i);
+                //需求物品循环
                 for(j = 0; j < this.requirements.size(); ++j) {
+                    //需求物品
                     ItemStack requirementsStack=this.requirements.get(j);
-                    if (itemStack.isItemEqual(this.requirements.get(j))) {
+                    if (itemStack.isItemEqual(requirementsStack)) {
+
                         int div = Math.floorDiv(itemStack.stackSize, requirementsStack.stackSize);
                         if (maxProd == -1 || maxProd > div) {
                             maxProd = div;
@@ -99,10 +108,11 @@ public class JobTaskProduceItem extends JobTask {
 
             ModSimLoader.log.info("制作 " + maxProd + " " + this.produce.getUnlocalizedName());
             if (maxProd > 0) {
+                //箱子里放入制作的物品
                 this.job.placeInJobChest(new ItemStack(this.produce, maxProd));
                 ModSimLoader.addMoney(-0.2F * (float)maxProd);
             }
-
+            //完成任务
             this.completeTask();
         } else {
             //返回工作岗位

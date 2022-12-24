@@ -44,6 +44,7 @@ public class JobFarmer extends Job {
         this.farm = fb;
     }
 
+    @Override
     public void onArrive() {
         //收获检查
         this.harvestCheck = System.currentTimeMillis();
@@ -58,6 +59,7 @@ public class JobFarmer extends Job {
      * @Date 21:04 2022/12/8
      * @Param []
      **/
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.atWork) {
@@ -486,7 +488,7 @@ public class JobFarmer extends Job {
         }
 
     }
-
+    @Override
     public String toString() {
         //农民
         return I18n.format("container.sim.Vocation5");
