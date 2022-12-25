@@ -796,7 +796,9 @@ container.sim.Mining13=和
 container.sim.Mining14= 其他人
 container.sim.Mining15=水平井的规模
 container.sim.married=正在结婚！
-container.sim.moving=正在搬进{}家
+container.sim.moving=正在搬进
+container.sim.moving1=的家
+
 container.sim.PathBox1=选择路径类型
 container.sim.girlFriend=女朋友
 container.sim.boyFriend=男朋友

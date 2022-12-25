@@ -19,6 +19,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.IPlantable;
 
 import java.lang.reflect.Field;
@@ -71,7 +72,7 @@ public class JobFarmer extends Job {
                     return;
                 }
                 //改收获了 锄地
-                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1500.0F - 100.0F * this.folk.skillFarming) {
+                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
                     this.hoe();
                 }
                 // 种植
@@ -79,7 +80,7 @@ public class JobFarmer extends Job {
                     this.plant();
                 }
                 //收割
-                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1500.0F - 100.0F * this.folk.skillFarming) {
+                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 2000.0F - 100.0F * this.folk.skillFarming) {
                     this.harvest();
                 } else {
                     Random ra = new Random();
@@ -244,10 +245,18 @@ public class JobFarmer extends Job {
                 for (IInventory inv : iterator) {
                     for (int i = 0; i < inv.getSizeInventory(); ++i) {
                         ItemStack slot = inv.getStackInSlot(i);
-                        //可种植
-                        if (slot != null && slot.getItem() instanceof IPlantable) {
-                            seed = slot;
+                        if (slot != null){
+                            //可种植 是仙人掌 或者 是甘蔗
+                            Item item=slot.getItem();
+                            String unlocalizedName=item.getUnlocalizedName();
+                            if(item instanceof IPlantable || unlocalizedName.contains("reeds") || unlocalizedName.contains("cactus")) {
+                                seed = slot;
+                                break;
+                            }  
                         }
+                    }
+                    if (seed != null){
+                        break;
                     }
                 }
                 //可种植的种子为空
@@ -257,19 +266,50 @@ public class JobFarmer extends Job {
                     return;
                 }
                 try {
+                    IPlantable plantable = null;
                     //种子为可种植
-                    IPlantable plantable = (IPlantable) seed.getItem();
+                    Item item=seed.getItem();
+                    String uName=item.getUnlocalizedName();
+                    if(uName.contains("reeds")){
+                        plantable=Blocks.REEDS;
+                    }else{
+                        plantable= (IPlantable) item;
+                    }
+
                     //作物
 //                    Field cropsField = plantable.getClass().getDeclaredField("crops");
 //                    //设置成可访问
 //                    cropsField.setAccessible(true);
 //                    //获取作物方块
 //                    Block crop = (Block) cropsField.get(plantable);
-//                    //获取种植位置
+//                    //获取种植下方的物品是否是 农田等可种植区域
                     IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
                     Block crop=plantable.getPlant(this.folk.entity.worldObj,bp.down()).getBlock();
                     //东西南北都有根茎 可持续生长
-                    if (!(this.folk.entity.worldObj.getBlockState(bp.north()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.east()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.south()).getBlock() instanceof BlockStem) && !(this.folk.entity.worldObj.getBlockState(bp.west()).getBlock() instanceof BlockStem) && soil.getBlock().canSustainPlant(soil, this.folk.entity.worldObj, bp.down(), EnumFacing.UP, (IPlantable) seed.getItem()) && this.folk.entity.worldObj.isAirBlock(bp)) {
+                    boolean fs_canSustainPlant=soil.getBlock().canSustainPlant(soil, this.folk.entity.worldObj, bp.down(), EnumFacing.UP, plantable);
+                    //北
+                    Chunk chunk =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.north().getX(),bp.west().getZ());
+                    Block north=chunk.getBlockState(bp.north()).getBlock();
+                    boolean f1=north instanceof BlockStem;
+                    //东
+                    Chunk chunk1 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.east().getX(),bp.west().getZ());
+                    Block east=chunk1.getBlockState(bp.east()).getBlock();
+                    boolean f2=east instanceof BlockStem;
+                    //南
+                    Chunk chunk2 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.south().getX(),bp.west().getZ());
+                    Block south=chunk2.getBlockState(bp.south()).getBlock();
+                    boolean f3=south instanceof BlockStem;
+                    //西
+                    Chunk chunk3 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.west().getX(),bp.west().getZ());
+                    Block west=chunk3.getBlockState(bp.west()).getBlock();
+                    boolean f4=west instanceof BlockStem;
+                    Chunk chunk4 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.getX(),bp.getZ());
+                    Block block=chunk4.getBlockState(bp).getBlock();
+                    boolean f7=block instanceof BlockStem;
+                    //是否是空气方块
+                    boolean f5=this.folk.entity.worldObj.isAirBlock(bp);
+                    String b_u_name =block.getUnlocalizedName();
+                    if (!(f1) && !(f2) && !(f3) && !(f4) && fs_canSustainPlant && f5) {
                         for (IInventory inv : iterator) {
                             for (int i = 0; i < inv.getSizeInventory(); ++i) {
                                 ItemStack slot = inv.getStackInSlot(i);

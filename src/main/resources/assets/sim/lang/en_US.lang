@@ -775,6 +775,7 @@ container.sim.Merchant14=Merchant: There were no valid stacks I want to buy from
 container.sim.Merchant15=Sold all valid stacks for a total of
 container.sim.married= are getting married!
 container.sim.moving= is moving in with
+container.sim.moving1=Home
 container.sim.Mining3=Keep all block types
 container.sim.Mining4=Discard Dirt blocks
 container.sim.Mining5=Discard Dirt and Stone

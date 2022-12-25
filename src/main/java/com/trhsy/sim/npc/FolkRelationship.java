@@ -68,8 +68,10 @@ public class FolkRelationship {
                String and=I18n.format("container.sim.Mining13");
                 String married=I18n.format("container.sim.married");
                 String moving=I18n.format("container.sim.moving");
+                String moving1=I18n.format("container.sim.moving1");
 
-                String marriageMessage = this.folk1.getName() +and + folk2.getName() + married + this.folk1.forename +moving + folk2.forename + ".";
+                //仲孙锐翰和栾平怡正在结婚！仲孙锐翰 正在搬进 栾平怡的家.
+                String marriageMessage = this.folk1.getName() +and + folk2.getName() + married + this.folk1.getName() +moving + folk2.getName() + moving1+".";
                 ModSimLoader.sendChat(marriageMessage);
                 if (this.folk1.gender == 1) {
                     this.folk1.surname = folk2.surname;
