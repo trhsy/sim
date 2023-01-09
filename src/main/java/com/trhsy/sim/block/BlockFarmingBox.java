@@ -65,9 +65,9 @@ public class BlockFarmingBox extends BlockBase{
             }
 
             if (fd == null) {
-                NetWorkLoader.net.sendTo(new PacketOpenFarmGui(fBox.ID, vPos, fBox.facing, fBox.x, fBox.z), (EntityPlayerMP)playerIn);
+                NetWorkLoader.net.sendTo(new PacketOpenFarmGui(fBox.ID, vPos, fBox.facing,fBox.farmType, fBox.x, fBox.z), (EntityPlayerMP)playerIn);
             } else {
-                NetWorkLoader.net.sendTo(new PacketOpenFarmGui(fBox.ID, vPos, fBox.facing, fBox.x, fBox.z, fd.getClientIdentity()), (EntityPlayerMP)playerIn);
+                NetWorkLoader.net.sendTo(new PacketOpenFarmGui(fBox.ID, vPos, fBox.facing,fBox.farmType, fBox.x, fBox.z, fd.getClientIdentity()), (EntityPlayerMP)playerIn);
             }
         }
         return true;

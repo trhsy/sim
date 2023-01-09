@@ -246,10 +246,10 @@ public class JobFarmer extends Job {
                     for (int i = 0; i < inv.getSizeInventory(); ++i) {
                         ItemStack slot = inv.getStackInSlot(i);
                         if (slot != null){
-                            //可种植 是仙人掌 或者 是甘蔗
+                            //可种植 / 是甘蔗
                             Item item=slot.getItem();
                             String unlocalizedName=item.getUnlocalizedName();
-                            if(item instanceof IPlantable || unlocalizedName.contains("reeds") || unlocalizedName.contains("cactus")) {
+                            if(item instanceof IPlantable || unlocalizedName.contains("reeds")) {
                                 seed = slot;
                                 break;
                             }  
@@ -277,39 +277,41 @@ public class JobFarmer extends Job {
                     }
 
                     //作物
-//                    Field cropsField = plantable.getClass().getDeclaredField("crops");
+                    Field cropsField = plantable.getClass().getDeclaredField("crops");
 //                    //设置成可访问
-//                    cropsField.setAccessible(true);
+                    cropsField.setAccessible(true);
 //                    //获取作物方块
-//                    Block crop = (Block) cropsField.get(plantable);
+                    Block crop = (Block) cropsField.get(plantable);
 //                    //获取种植下方的物品是否是 农田等可种植区域
                     IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
-                    Block crop=plantable.getPlant(this.folk.entity.worldObj,bp.down()).getBlock();
-                    //东西南北都有根茎 可持续生长
+                    //Block crop=plantable.getPlant(this.folk.entity.worldObj,bp.down()).getBlock();
+                    //确定此块是否可以支持传入的植物，允许其种植和生长。一些例子：芦苇检查它是否是芦苇，或者它的沙子/泥土/草和水附近的仙人掌检查它是否为仙人掌，或者如果它的沙子Nether类型检查灵魂沙子作物检查耕土洞穴检查它是否坚硬地面平原检查它的草或泥土水检查它是否静止
                     boolean fs_canSustainPlant=soil.getBlock().canSustainPlant(soil, this.folk.entity.worldObj, bp.down(), EnumFacing.UP, plantable);
                     //北
-                    Chunk chunk =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.north().getX(),bp.west().getZ());
-                    Block north=chunk.getBlockState(bp.north()).getBlock();
+
+                   /* Chunk chunk =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.north().getX(),bp.west().getZ());*/
+                    Block north=this.folk.entity.worldObj.getBlockState(bp.north()).getBlock();
                     boolean f1=north instanceof BlockStem;
                     //东
-                    Chunk chunk1 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.east().getX(),bp.west().getZ());
-                    Block east=chunk1.getBlockState(bp.east()).getBlock();
+                    /*Chunk chunk1 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.east().getX(),bp.west().getZ());*/
+                    Block east=this.folk.entity.worldObj.getBlockState(bp.east()).getBlock();
                     boolean f2=east instanceof BlockStem;
                     //南
-                    Chunk chunk2 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.south().getX(),bp.west().getZ());
-                    Block south=chunk2.getBlockState(bp.south()).getBlock();
+                    //Chunk chunk2 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.south().getX(),bp.west().getZ());
+                    Block south=this.folk.entity.worldObj.getBlockState(bp.south()).getBlock();
                     boolean f3=south instanceof BlockStem;
                     //西
-                    Chunk chunk3 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.west().getX(),bp.west().getZ());
-                    Block west=chunk3.getBlockState(bp.west()).getBlock();
+                    //Chunk chunk3 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.west().getX(),bp.west().getZ());
+                    Block west=this.folk.entity.worldObj.getBlockState(bp.west()).getBlock();
                     boolean f4=west instanceof BlockStem;
-                    Chunk chunk4 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.getX(),bp.getZ());
-                    Block block=chunk4.getBlockState(bp).getBlock();
+                    IBlockState iBlockState=this.folk.entity.worldObj.getBlockState(bp);
+                    Block block=iBlockState.getBlock();
                     boolean f7=block instanceof BlockStem;
                     //是否是空气方块
                     boolean f5=this.folk.entity.worldObj.isAirBlock(bp);
                     String b_u_name =block.getUnlocalizedName();
-                    if (!(f1) && !(f2) && !(f3) && !(f4) && fs_canSustainPlant && f5) {
+                    System.out.println("当前种植的作物是："+b_u_name);
+                    if (!f1 && !f2 && !f3 && !f4 && fs_canSustainPlant && f5) {
                         for (IInventory inv : iterator) {
                             for (int i = 0; i < inv.getSizeInventory(); ++i) {
                                 ItemStack slot = inv.getStackInSlot(i);

@@ -18,6 +18,7 @@ import com.trhsy.sim.npc.DynamicSkin;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.build.TerrainTypeRequitrements;
+import com.trhsy.sim.util.FarmType;
 import com.trhsy.sim.util.GameStates;
 import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.entity.util.NpcIdentity;
@@ -1021,12 +1022,12 @@ public class ModSimLoader {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,isResidential,buildingName,jobName,bType,author));
     }
 
-    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing, x, z));
+    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, FarmType farmType, int x, int z) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing,farmType, x, z));
     }
 
-    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing, x, z, folk));
+    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing,FarmType farmType, int x, int z, NpcIdentity folk) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing,farmType, x, z, folk));
     }
 /*
     public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {

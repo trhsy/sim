@@ -3,6 +3,7 @@ package com.trhsy.sim.npc.block;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
+import com.trhsy.sim.util.FarmType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.DimensionManager;
@@ -18,16 +19,22 @@ import java.util.UUID;
  **/
 public class FarmBox {
     public UUID ID;
+    /**所在位置**/
     public V3 loc;
+    /**雇佣的员工**/
     public NpcData employee;
+    /**等级**/
     public int level;
-    //方向
+    /**方向**/
     public EnumFacing facing;
+    /**农场类型**/
+    public FarmType farmType;
     public int x;
     public int z;
 
     public FarmBox(V3 pos, V3 start, int x, int z) {
         this.facing = EnumFacing.EAST;
+        this.farmType=FarmType.WHEAT;
         this.ID = UUID.randomUUID();
         this.loc = pos;
         this.x = x;
@@ -36,6 +43,7 @@ public class FarmBox {
 
     public FarmBox(V3 pos, NpcData f, V3 start, int x, int z) {
         this.facing = EnumFacing.EAST;
+        this.farmType=FarmType.WHEAT;
         this.ID = UUID.randomUUID();
         this.loc = pos;
         this.employee = f;

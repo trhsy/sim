@@ -8,6 +8,7 @@ import com.trhsy.sim.network.server.PacketGetHireableFolks;
 import com.trhsy.sim.network.server.PacketHireFolk;
 import com.trhsy.sim.network.server.PacketUpdateFarmBox;
 import com.trhsy.sim.npc.V3;
+import com.trhsy.sim.util.FarmType;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -28,6 +29,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
     public UUID id;
     //方向
     public EnumFacing facing;
+    /**农场类型**/
+    public FarmType farmType;
     //长
     public int x;
     //宽
@@ -47,8 +50,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
     //选中的NPC
     GuiButton selectedEmployee;
 
-    public GuiBlockFarmBlock(UUID id, V3 loc, EnumFacing facing, int x, int z) {
-        this.facing = EnumFacing.EAST;
+    public GuiBlockFarmBlock(UUID id, V3 loc, EnumFacing facing, FarmType farmType, int x, int z) {
         this.mouseCount = 0;
         this.hasEmployee = false;
         this.hireableFolkNames = new NpcIdentity[1000];
@@ -56,14 +58,14 @@ public class GuiBlockFarmBlock extends GuiScreen {
         this.id = id;
         this.loc = loc;
         this.facing = facing;
+        this.farmType=farmType;
         this.x = x;
         this.z = z;
         this.getHireableFolkNames();
         this.setDimensions();
     }
 
-    public GuiBlockFarmBlock(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
-        this.facing = EnumFacing.EAST;
+    public GuiBlockFarmBlock(UUID id, V3 loc, EnumFacing facing, FarmType farmType, int x, int z, NpcIdentity folk) {
         this.mouseCount = 0;
         this.hasEmployee = false;
         this.hireableFolkNames = new NpcIdentity[1000];
@@ -71,6 +73,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
         this.id = id;
         this.loc = loc;
         this.facing = facing;
+        this.farmType=farmType;
         this.x = x;
         this.z = z;
         this.employee = folk;
@@ -133,6 +136,11 @@ public class GuiBlockFarmBlock extends GuiScreen {
                     fs_facing=I18n.format("container.sim.gui_south");
                 }
                 this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, fs_facing));
+
+                String fs_type = FarmType.WHEAT.toString();
+
+
+                this.buttonList.add(new GuiButton(4, this.width / 2 - 100, 100, fs_facing));
             } catch (Exception var7) {
                 var7.printStackTrace();
             }
@@ -278,6 +286,9 @@ public class GuiBlockFarmBlock extends GuiScreen {
                         guibutton.displayString = I18n.format("container.sim.gui_Farming_text_TOO_SMALL");
                         guibutton.enabled = false;
                     }
+                }else if(guibutton.id==4){
+                    //农场类型
+                    this.farmType = this.farmType.rotateY();
                 }
 
                 if (this.currentPage == 0) {

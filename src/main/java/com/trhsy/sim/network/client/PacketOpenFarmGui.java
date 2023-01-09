@@ -3,6 +3,7 @@ package com.trhsy.sim.network.client;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.V3;
+import com.trhsy.sim.util.FarmType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -23,6 +24,8 @@ public class PacketOpenFarmGui implements IMessage {
     private UUID id;
     private V3 loc;
     private EnumFacing facing;
+    /**农场类型**/
+    private FarmType farmType;
     private int x;
     private int z;
     private NpcIdentity folk;
@@ -30,18 +33,20 @@ public class PacketOpenFarmGui implements IMessage {
     public PacketOpenFarmGui() {
     }
 
-    public PacketOpenFarmGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
+    public PacketOpenFarmGui(UUID id, V3 loc, EnumFacing facing,FarmType farmType, int x, int z) {
         this.id = id;
         this.loc = loc;
         this.facing = facing;
+        this.farmType=farmType;
         this.x = x;
         this.z = z;
     }
 
-    public PacketOpenFarmGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
+    public PacketOpenFarmGui(UUID id, V3 loc, EnumFacing facing,FarmType farmType, int x, int z, NpcIdentity folk) {
         this.id = id;
         this.loc = loc;
         this.facing = facing;
+        this.farmType=farmType;
         this.x = x;
         this.z = z;
         this.folk = folk;
@@ -51,6 +56,7 @@ public class PacketOpenFarmGui implements IMessage {
         this.id = UUID.fromString(ByteBufUtils.readUTF8String(buf));
         this.loc = V3.fromString(ByteBufUtils.readUTF8String(buf));
         this.facing = EnumFacing.byName(ByteBufUtils.readUTF8String(buf));
+        this.farmType = FarmType.byName(ByteBufUtils.readUTF8String(buf));
         this.x = buf.readInt();
         this.z = buf.readInt();
 
@@ -65,6 +71,7 @@ public class PacketOpenFarmGui implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.id.toString());
         ByteBufUtils.writeUTF8String(buf, this.loc.toString());
         ByteBufUtils.writeUTF8String(buf, this.facing.toString());
+        ByteBufUtils.writeUTF8String(buf, this.farmType.toString());
         buf.writeInt(this.x);
         buf.writeInt(this.z);
         if (this.folk != null) {
@@ -91,9 +98,9 @@ public class PacketOpenFarmGui implements IMessage {
 
         private void handle(PacketOpenFarmGui message, MessageContext ctx) {
             if (message.folk == null) {
-                ModSimLoader.openFarmGui(message.id, message.loc, message.facing, message.x, message.z);
+                ModSimLoader.openFarmGui(message.id, message.loc, message.facing,message.farmType, message.x, message.z);
             } else {
-                ModSimLoader.openFarmGui(message.id, message.loc, message.facing, message.x, message.z, message.folk);
+                ModSimLoader.openFarmGui(message.id, message.loc, message.facing,message.farmType, message.x, message.z, message.folk);
             }
 
         }
