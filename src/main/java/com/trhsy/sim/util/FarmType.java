@@ -68,6 +68,10 @@ public enum FarmType {
         }
     }
 
+    /**
+     * 转
+     * @return
+     */
     public FarmType rotateY() {
         switch (this) {
             case WHEAT:

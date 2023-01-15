@@ -3,7 +3,9 @@ package com.trhsy.sim.npc.job;
 import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
+import com.trhsy.sim.npc.build.Building;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -64,6 +66,7 @@ public class JobFarmer extends Job {
     public void onUpdate() {
         super.onUpdate();
         if (this.atWork) {
+
             if (ModSimLoader.states.credits > 0.02F) {
                 //周围五格内查找箱子
                 if (this.findJobChests(5).size() == 0) {

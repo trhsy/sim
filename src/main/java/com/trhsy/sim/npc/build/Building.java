@@ -234,7 +234,7 @@ public class Building {
     }
     /**
      * @Author fan
-     * @Description //TODO 建筑才吃
+     * @Description //TODO 建筑拆除
      * @Date 10:23 2022/11/8
      * @Param [world, removeStructure]
      * @return void

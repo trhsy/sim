@@ -137,10 +137,26 @@ public class GuiBlockFarmBlock extends GuiScreen {
                 }
                 this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, fs_facing));
 
-                String fs_type = FarmType.WHEAT.toString();
+                String fs_type =I18n.format("container.sim.FarmType1");
+                if(FarmType.WHEAT==farmType){
+                    fs_type =I18n.format("container.sim.FarmType1");
+                }else if(FarmType.MELON==farmType){
+                    fs_type =I18n.format("container.sim.FarmType2");
+                }else if(FarmType.PUMPKIN==farmType){
+                    fs_type =I18n.format("container.sim.FarmType3");
+                }else if(FarmType.POTATO==farmType){
+                    fs_type =I18n.format("container.sim.FarmType4");
+                }else if(FarmType.CARROT==farmType){
+                    fs_type =I18n.format("container.sim.FarmType5");
+                }else if(FarmType.BEETROOTS==farmType){
+                    fs_type =I18n.format("container.sim.FarmType6");
+                }else if(FarmType.SUGAR==farmType){
+                    fs_type =I18n.format("container.sim.FarmType7");
+                }else if(FarmType.CACTUS==farmType){
+                    fs_type =I18n.format("container.sim.FarmType8");
+                }
 
-
-                this.buttonList.add(new GuiButton(4, this.width / 2 - 100, 100, fs_facing));
+                this.buttonList.add(new GuiButton(4, this.width / 2 - 100, 100, fs_type));
             } catch (Exception var7) {
                 var7.printStackTrace();
             }
@@ -289,6 +305,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                 }else if(guibutton.id==4){
                     //农场类型
                     this.farmType = this.farmType.rotateY();
+                    this.updateFarm();
                 }
 
                 if (this.currentPage == 0) {

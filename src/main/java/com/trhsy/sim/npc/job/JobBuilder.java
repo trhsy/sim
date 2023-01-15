@@ -11,6 +11,7 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.properties.IProperty;
@@ -247,7 +248,7 @@ public class JobBuilder extends Job {
                             this.hasReassignedEmployee = true;
                             //如果允许 NPC 说话
                             if (ConfigLoader.configFolkTalking) {
-                                World world = FMLClientHandler.instance().getServer().getEntityWorld();
+                                //World world = FMLClientHandler.instance().getServer().getEntityWorld();
                                 //播放 我准备好了
                                 SoundEvent soundEvent = null;
                                 //判断性别，发出不一样的声音
@@ -385,12 +386,12 @@ public class JobBuilder extends Job {
                     ModSimLoader.addMoney(-0.02F);
                 }
                 //床
-                if (fs_st_block == Blocks.BED) {
-                    String name = fs_block.getUnlocalizedName();
-                    System.out.println(name);
-                    if (name.contains("bed")) {
-                        //                    normalBlock = false;//床不是普通的块
-                    }
+                if (fs_st_block instanceof BlockBed) {
+                    normalBlock = false;//床不是普通的块
+                    BlockPos blockpos2 = newBP.up();
+                    this.folk.entity.worldObj.notifyNeighborsOfStateChange(newBP, fs_st_block);
+                    this.folk.entity.worldObj.notifyNeighborsOfStateChange(blockpos2, fs_st_block);
+                    ModSimLoader.addMoney(-0.02F);
                 }
                 //控制箱
                 if (fs_st_block == BlockLoader.blockControlBox) {

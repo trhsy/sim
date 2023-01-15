@@ -104,7 +104,11 @@ public class BlockFarmingBox extends BlockBase{
                     facing = EnumFacing.NORTH;
                 }
             }
-
+            for (FarmBox farmBox : ModSimLoader.farms) {
+                if (farmBox.loc.equals(markerPos)) {
+                    farmBox.removeFarm(farmBox.ID);
+                }
+            }
             FarmBox fb = new FarmBox(V3.fromBlockPos(pos), (V3)markerPos, 6, 6);
             ModSimLoader.farms.add(fb);
             fb.facing = facing;
@@ -124,6 +128,11 @@ public class BlockFarmingBox extends BlockBase{
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
         worldIn.playSound(worldIn.playerEntities.get(0),pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+        for (FarmBox farmBox : ModSimLoader.farms) {
+            if (farmBox.loc.equals(pos)) {
+                farmBox.removeFarm(farmBox.ID);
+            }
+        }
         for (NpcData fd : ModSimLoader.folks) {
             if (fd.job != null && fd.job.workPlace.equals(V3.fromBlockPos(pos))) {
                 fd.fire();

@@ -53,6 +53,7 @@ public class FarmBox {
 
     public FarmBox(UUID uuid) {
         this.facing = EnumFacing.EAST;
+        this.farmType=FarmType.WHEAT;
         this.loadFarm(uuid);
     }
     /**
@@ -82,6 +83,7 @@ public class FarmBox {
             writer.write("loc|" + this.loc.toString() + "\n");
             writer.write("dimension|" + this.loc.dimension + "\n");
             writer.write("facing|" + this.facing.toString() + "\n");
+            writer.write("farmType|" + this.farmType.toString() + "\n");
             writer.write("x|" + this.x + "\n");
             writer.write("z|" + this.z + "\n");
             writer.write("level|" + this.level + "\n");
@@ -121,6 +123,8 @@ public class FarmBox {
                     this.loc.dimension = Integer.valueOf(value);
                 } else if (line.contains("facing")) {
                     this.facing = EnumFacing.byName(value);
+                } else if (line.contains("farmType")) {
+                    this.farmType = FarmType.byName(value);
                 } else if (line.contains("x|")) {
                     this.x = Integer.valueOf(value);
                 } else if (line.contains("z|")) {
@@ -135,5 +139,12 @@ public class FarmBox {
             var8.printStackTrace();
         }
 
+    }
+
+    public void removeFarm (UUID uid){
+        File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms");
+        ModSimLoader.buildings.remove(this);
+        File logFile = new File(buildingFolder + File.separator + uid + ".sk2");
+        logFile.delete();
     }
 }
