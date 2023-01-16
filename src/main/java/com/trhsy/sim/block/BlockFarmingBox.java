@@ -104,11 +104,11 @@ public class BlockFarmingBox extends BlockBase{
                     facing = EnumFacing.NORTH;
                 }
             }
-            for (FarmBox farmBox : ModSimLoader.farms) {
-                if (farmBox.loc.equals(markerPos)) {
-                    farmBox.removeFarm(farmBox.ID);
-                }
-            }
+            //for (FarmBox farmBox : ModSimLoader.farms) {
+            //    if (farmBox.loc.equals(markerPos)) {
+            //        farmBox.removeFarm(farmBox.ID);
+            //    }
+            //}
             FarmBox fb = new FarmBox(V3.fromBlockPos(pos), (V3)markerPos, 6, 6);
             ModSimLoader.farms.add(fb);
             fb.facing = facing;

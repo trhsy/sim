@@ -156,7 +156,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                     fs_type =I18n.format("container.sim.FarmType8");
                 }
 
-                this.buttonList.add(new GuiButton(4, this.width / 2 - 100, 100, fs_type));
+                this.buttonList.add(new GuiButton(4, this.width / 2 - 100, 80, fs_type));
             } catch (Exception var7) {
                 var7.printStackTrace();
             }
