@@ -2,6 +2,7 @@ package com.trhsy.sim.network.server;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.block.FarmBox;
+import com.trhsy.sim.util.FarmType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -24,15 +25,18 @@ public class PacketUpdateFarmBox implements IMessage {
     public int x;
     public int z;
     public EnumFacing facing;
+    public FarmType farmType;
+
 
     public PacketUpdateFarmBox() {
     }
 
-    public PacketUpdateFarmBox(UUID id, int x, int z, EnumFacing facing) {
+    public PacketUpdateFarmBox(UUID id, int x, int z, EnumFacing facing,FarmType farmType) {
         this.id = id;
         this.x = x;
         this.z = z;
         this.facing = facing;
+        this.farmType = farmType;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -40,6 +44,7 @@ public class PacketUpdateFarmBox implements IMessage {
         this.x = buf.readInt();
         this.z = buf.readInt();
         this.facing = EnumFacing.byName(ByteBufUtils.readUTF8String(buf));
+        this.farmType = FarmType.byName(ByteBufUtils.readUTF8String(buf));
     }
     @Override
     public void toBytes(ByteBuf buf) {
@@ -47,6 +52,7 @@ public class PacketUpdateFarmBox implements IMessage {
         buf.writeInt(this.x);
         buf.writeInt(this.z);
         ByteBufUtils.writeUTF8String(buf, this.facing.toString());
+        ByteBufUtils.writeUTF8String(buf, this.farmType.toString());
     }
 
     public static class Handler implements IMessageHandler<PacketUpdateFarmBox, IMessage> {
@@ -71,6 +77,7 @@ public class PacketUpdateFarmBox implements IMessage {
                     farm.x = message.x;
                     farm.z = message.z;
                     farm.facing = message.facing;
+                    farm.farmType = message.farmType;
                     break;
                 }
             }

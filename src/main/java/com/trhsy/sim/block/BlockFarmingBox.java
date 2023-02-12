@@ -8,6 +8,7 @@ import com.trhsy.sim.network.client.PacketOpenFarmGui;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
+import com.trhsy.sim.util.FarmType;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -112,6 +113,7 @@ public class BlockFarmingBox extends BlockBase{
             FarmBox fb = new FarmBox(V3.fromBlockPos(pos), (V3)markerPos, 6, 6);
             ModSimLoader.farms.add(fb);
             fb.facing = facing;
+            fb.farmType= FarmType.WHEAT;
             fb.saveFarm();
         }
 

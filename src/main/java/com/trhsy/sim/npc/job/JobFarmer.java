@@ -6,6 +6,7 @@ import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.build.Building;
+import com.trhsy.sim.util.FarmType;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -36,10 +37,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @Date 2022/12/622:48
  **/
 public class JobFarmer extends Job {
+    //农田箱
     public FarmBox farm;
     //收获检查
     long harvestCheck = 0L;
+    //
     long qsCheck = 0L;
+    //0锄地 1种植 2收获 3等待
+    private int theStage=-1;
     long growCheck = 0L;
     public JobFarmer(NpcData folk, BlockPos pos, World world, FarmBox fb) {
         super(folk, pos, world);
@@ -74,62 +79,40 @@ public class JobFarmer extends Job {
                     this.folk.setStatus(I18n.format("container.sim.WAITINGFORCHEST"));
                     return;
                 }
-                //改收获了 锄地
+                // 等级 时间计算 工作效率
                 if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
-                    this.hoe();
-                }
-                // 种植
-                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1500.0F - 100.0F * this.folk.skillFarming) {
-                    this.plant();
-                }
-                //收割
-                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 2000.0F - 100.0F * this.folk.skillFarming) {
-                    this.harvest();
-                } else {
-                    Random ra = new Random();
-                    int r = ra.nextInt(2);
-                    if (r == 0) {
-                        //在公众号'dasha500'找作者玩
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
-                        if((System.currentTimeMillis() - this.growCheck)>1000*60){
-                            this.growCheck=System.currentTimeMillis();
-                            grow();
+//锄地
+                    if(this.theStage==-1){
+                        this.hoe();
+                        //种植
+                    }else if(this.theStage==0){
+                        this.plant();
+                        //收获
+                    }else if(this.theStage==1){
+                        this.harvest();
+                        //等待
+                    }else if(this.theStage==2){
+                        Random ra = new Random();
+                        int r = ra.nextInt(2);
+                        if (r == 0) {
+                            //在公众号'dasha500'找作者玩
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
+                            if((System.currentTimeMillis() - this.growCheck)>1000*60){
+                                this.growCheck=System.currentTimeMillis();
+                                grow();
+                            }
+                        } else if (r == 1) {
+                            //照料作物
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending"));
+                            //用骨粉快速生长作物
+                            if((System.currentTimeMillis() - this.growCheck)>1000*60){
+                                this.growCheck=System.currentTimeMillis();
+                                grow();
+                            }
                         }
-                    } else if (r == 1) {
-                        //照料作物
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending"));
-                        //用骨粉快速生长作物
-                        if((System.currentTimeMillis() - this.growCheck)>1000*60){
-                            this.growCheck=System.currentTimeMillis();
-                            grow();
-                        }
-                    } /*else if (r == 2) {
-                        //但愿我有一辆拖拉机
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Wishing"));
-                    } else if (r == 3) {
-                        //休息一下
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Having"));
-                    } else if (r == 4) {
-                        //清理锄头上的污垢
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Cleaning"));
-                    } else if (r == 5) {
-                        //磨锄头
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Sharpening"));
-                    } else if (r == 6) {
-                        //吃我的午餐
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Eating"));
-                    } else if (r == 7) {
-                        //网格化我的样条曲线
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Reticulating"));
-                    } else if (r == 8) {
-                        //放松一下
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Relaxing"));
-                    } else if (r == 9) {
-                        //查看天气预报
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Checking"));
-                    }*/
+                    }
+                }
 
-                }
             } else {
                 //没有钱付给我
                 this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
@@ -169,31 +152,53 @@ public class JobFarmer extends Job {
      * @Param []
      **/
     public void hoe() {
-        //循环农场的宽
-        for (int z = 0; z < this.farm.z; ++z) {
-            //循环长
-            for (int x = 0; x < this.farm.x; ++x) {
+        //先获取农田箱的 类型
+        FarmType farmType=this.farm.farmType;
+        //胡萝卜
+        if (farmType == FarmType.CARROT) {
+//循环农场的宽
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
 
-                BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
-                //包含灌木 不是庄家
-                if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
-                    //设置为空气
-                    this.folk.entity.worldObj.setBlockToAir(bp);
-                }
-                //如果当前为空气
-                if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
 
-                    if (z % 5 == 0 && x % 5 == 0) {
-                        //不是水 或流动的水
-                        if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                        if (z % 5 == 0 && x % 5 == 0) {
+                            //不是水 或流动的水
+                            if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                            //草地 草 泥土
+                        } else if (soil.getBlock() == Blocks.GRASS_PATH || soil.getBlock() == Blocks.GRASS || soil.getBlock() == Blocks.DIRT) {
                             //锄地
                             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                             //设置为耕地
-                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
                             //播放声音
                             this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            //设置手持无
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             //摇摆手臂
                             this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                             //提升农民等级
@@ -202,28 +207,406 @@ public class JobFarmer extends Job {
                             this.harvestCheck = System.currentTimeMillis();
                             return;
                         }
-                        //草地 草 泥土
-                    } else if (soil.getBlock() == Blocks.GRASS_PATH || soil.getBlock() == Blocks.GRASS || soil.getBlock() == Blocks.DIRT) {
-                        //锄地
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
-                        //设置为耕地
-                        this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
-                        //播放声音
-                        this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
-                        //设置手持无
-                        this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
-                        //摇摆手臂
-                        this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                        //提升农民等级
-                        this.addFarmingLevel();
-                        //收获检查
-                        this.harvestCheck = System.currentTimeMillis();
-                        return;
+                    }
+                }
+            }
+            //西瓜
+        } else if (farmType == FarmType.MELON) {
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (z % 4 == 0 || z % 4 == 1) {
+                            //锄地
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                            //设置为耕地
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                            //播放声音
+                            this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            //设置手持无
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            //摇摆手臂
+                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            //提升农民等级
+                            this.addFarmingLevel();
+                            //收获检查
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
+                    }
+                }
+            }
+            //土豆
+        } else if (farmType == FarmType.POTATO) {
+            //循环农场的宽
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+
+                        if (z % 5 == 0 && x % 5 == 0) {
+                            //不是水 或流动的水
+                            if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                            //草地 草 泥土
+                        } else if (soil.getBlock() == Blocks.GRASS_PATH || soil.getBlock() == Blocks.GRASS || soil.getBlock() == Blocks.DIRT) {
+                            //锄地
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                            //设置为耕地
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                            //播放声音
+                            this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            //设置手持无
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            //摇摆手臂
+                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            //提升农民等级
+                            this.addFarmingLevel();
+                            //收获检查
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
+                    }
+                }
+            }
+            //南瓜
+        } else if (farmType ==FarmType.PUMPKIN) {
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (z % 4 == 0 || z % 4 == 1) {
+                            //锄地
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                            //设置为耕地
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                            //播放声音
+                            this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            //设置手持无
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            //摇摆手臂
+                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            //提升农民等级
+                            this.addFarmingLevel();
+                            //收获检查
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
+                    }
+                }
+            }
+            //小麦
+        } else if (farmType == FarmType.WHEAT) {
+            //循环农场的宽
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+
+                        if (z % 5 == 0 && x % 5 == 0) {
+                            //不是水 或流动的水
+                            if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                            //草地 草 泥土
+                        } else if (soil.getBlock() == Blocks.GRASS_PATH || soil.getBlock() == Blocks.GRASS || soil.getBlock() == Blocks.DIRT) {
+                            //锄地
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                            //设置为耕地
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                            //播放声音
+                            this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            //设置手持无
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            //摇摆手臂
+                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            //提升农民等级
+                            this.addFarmingLevel();
+                            //收获检查
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
+                    }
+                }
+            }
+            //甜菜根
+        } else if (farmType == FarmType.BEETROOTS) {
+            //循环农场的宽
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+
+                        if (z % 5 == 0 && x % 5 == 0) {
+                            //不是水 或流动的水
+                            if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                            //草地 草 泥土
+                        } else if (soil.getBlock() == Blocks.GRASS_PATH || soil.getBlock() == Blocks.GRASS || soil.getBlock() == Blocks.DIRT) {
+                            //锄地
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                            //设置为耕地
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                            //播放声音
+                            this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            //设置手持无
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            //摇摆手臂
+                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            //提升农民等级
+                            this.addFarmingLevel();
+                            //收获检查
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
+                    }
+                }
+            }
+            //甘蔗
+        } else if (farmType == FarmType.SUGAR) {
+            //循环农场的宽
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (x % 3 == 0 && (x + 1) % 3 == 0) {
+                            //包含灌木 不是庄家
+                            if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                                //设置为空气
+                                this.folk.entity.worldObj.setBlockToAir(bp);
+                            }
+                            //如果当前为空气
+                            if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 11);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //设置手持无
+                                this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                        } else if ((x + 2) % 3 == 0) {
+                            if (this.folk.entity.worldObj.getBlockState(bp).getBlock() != Blocks.WATER) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 3);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //设置手持无
+                                this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                        }
+                    }
+
+                }
+            }
+            //仙人掌
+        } else if(farmType == FarmType.CACTUS ){
+            //循环农场的宽
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if ((x + z) % 2 == 0) {
+                            if (this.folk.entity.worldObj.getBlockState(bp).getBlock() != Blocks.SAND) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.SAND.getDefaultState(), 3);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //设置手持无
+                                this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            //未知的
+        }else{
+            //循环农场的宽
+            for (int z = 0; z < this.farm.z; ++z) {
+                //循环长
+                for (int x = 0; x < this.farm.x; ++x) {
+
+                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                    IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
+                    //包含灌木 不是庄家
+                    if (this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockBush && !(this.folk.entity.worldObj.getBlockState(bp).getBlock() instanceof BlockCrops)) {
+                        //设置为空气
+                        this.folk.entity.worldObj.setBlockToAir(bp);
+                    }
+                    //如果当前为空气
+                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+
+                        if (z % 5 == 0 && x % 5 == 0) {
+                            //不是水 或流动的水
+                            if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                                //锄地
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                                //设置为耕地
+                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                                //播放声音
+                                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                //提升农民等级
+                                this.addFarmingLevel();
+                                //收获检查
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                            //草地 草 泥土
+                        } else if (soil.getBlock() == Blocks.GRASS_PATH || soil.getBlock() == Blocks.GRASS || soil.getBlock() == Blocks.DIRT) {
+                            //锄地
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
+                            //设置为耕地
+                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                            //播放声音
+                            this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                            //设置手持无
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            //摇摆手臂
+                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            //提升农民等级
+                            this.addFarmingLevel();
+                            //收获检查
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
                     }
                 }
             }
         }
-
+        this.theStage=0;
     }
 
     /**
@@ -349,9 +732,15 @@ public class JobFarmer extends Job {
                 }
             }
         }
-
+        this.theStage=2;
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 使用骨粉快速生长
+     * @Date 11:33 2023/2/12
+     * @Param []
+     * @return void
+     **/
     public void grow() {
         //循环宽
         for (int z = 0; z < this.farm.z; ++z) {
@@ -400,6 +789,7 @@ public class JobFarmer extends Job {
                 }
             }
         }
+        this.theStage=1;
     }
 
     /**
@@ -531,7 +921,7 @@ public class JobFarmer extends Job {
                 }
             }
         }
-
+        this.theStage=-1;
     }
     @Override
     public String toString() {

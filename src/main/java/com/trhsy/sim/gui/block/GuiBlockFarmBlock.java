@@ -136,23 +136,27 @@ public class GuiBlockFarmBlock extends GuiScreen {
                     fs_facing=I18n.format("container.sim.gui_south");
                 }
                 this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, fs_facing));
+                //小麦
+                String fs_type =I18n.format("container.sim.FarmType5");
+                String fs_farmType=this.farmType.toString();
+                //小麦
+                if(fs_farmType.equals(I18n.format("container.sim.FarmType5"))){
 
-                String fs_type =I18n.format("container.sim.FarmType1");
-                if(FarmType.WHEAT==farmType){
-                    fs_type =I18n.format("container.sim.FarmType1");
-                }else if(FarmType.MELON==farmType){
-                    fs_type =I18n.format("container.sim.FarmType2");
-                }else if(FarmType.PUMPKIN==farmType){
-                    fs_type =I18n.format("container.sim.FarmType3");
-                }else if(FarmType.POTATO==farmType){
-                    fs_type =I18n.format("container.sim.FarmType4");
-                }else if(FarmType.CARROT==farmType){
                     fs_type =I18n.format("container.sim.FarmType5");
-                }else if(FarmType.BEETROOTS==farmType){
+                    //西瓜
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType2"))){
+                    fs_type =I18n.format("container.sim.FarmType2");
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType4"))){
+                    fs_type =I18n.format("container.sim.FarmType4");
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType3"))){
+                    fs_type =I18n.format("container.sim.FarmType3");
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType1"))){
+                    fs_type =I18n.format("container.sim.FarmType1");
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType6"))){
                     fs_type =I18n.format("container.sim.FarmType6");
-                }else if(FarmType.SUGAR==farmType){
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType7"))){
                     fs_type =I18n.format("container.sim.FarmType7");
-                }else if(FarmType.CACTUS==farmType){
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType8"))){
                     fs_type =I18n.format("container.sim.FarmType8");
                 }
 
@@ -305,6 +309,27 @@ public class GuiBlockFarmBlock extends GuiScreen {
                 }else if(guibutton.id==4){
                     //农场类型
                     this.farmType = this.farmType.rotateY();
+                    //小麦
+                    String fs_type =I18n.format("container.sim.FarmType5");
+                    String fs_farmType=this.farmType.toString();
+                    if(fs_farmType.equals(I18n.format("container.sim.FarmType1"))){
+                        fs_type =I18n.format("container.sim.FarmType1");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType2"))){
+                        fs_type =I18n.format("container.sim.FarmType2");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType3"))){
+                        fs_type =I18n.format("container.sim.FarmType3");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType4"))){
+                        fs_type =I18n.format("container.sim.FarmType4");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType5"))){
+                        fs_type =I18n.format("container.sim.FarmType5");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType6"))){
+                        fs_type =I18n.format("container.sim.FarmType6");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType7"))){
+                        fs_type =I18n.format("container.sim.FarmType7");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType8"))){
+                        fs_type =I18n.format("container.sim.FarmType8");
+                    }
+                    guibutton.displayString = fs_type;
                     this.updateFarm();
                 }
 
@@ -365,7 +390,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
      **/
     private void updateFarm() {
         this.setDimensions();
-        NetWorkLoader.net.sendToServer(new PacketUpdateFarmBox(this.id, this.x, this.z, this.facing));
+        NetWorkLoader.net.sendToServer(new PacketUpdateFarmBox(this.id, this.x, this.z, this.facing,this.farmType));
     }
 
     private Float getUpgradeCost() {

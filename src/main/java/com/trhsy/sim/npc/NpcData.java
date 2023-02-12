@@ -284,7 +284,13 @@ public class NpcData {
         }
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 孩子降世
+     * @Date 17:38 2023/2/12
+     * @Param [world, mother, father]
+     * @return 
+     **/
     public NpcData(World world, NpcData mother, NpcData father) {
         this.holding = null;
         this.matingStage = -1.0F;
