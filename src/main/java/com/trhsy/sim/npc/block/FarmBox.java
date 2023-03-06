@@ -88,12 +88,14 @@ public class FarmBox {
             writer.write("z|" + this.z + "\n");
             writer.write("level|" + this.level + "\n");
         } catch (Exception var12) {
-            var12.printStackTrace();
+            StackTraceElement element = var12.getStackTrace()[0];
+            ModSimLoader.log.error("saveFarm出错了：" + var12.getMessage() + "行数：" + element.getLineNumber());
         } finally {
             try {
                 writer.close();
             } catch (Exception var11) {
-                var11.printStackTrace();
+                StackTraceElement element = var11.getStackTrace()[0];
+                ModSimLoader.log.error("saveFarm-writer出错了：" + var11.getMessage() + "行数：" + element.getLineNumber());
             }
 
         }
@@ -136,7 +138,8 @@ public class FarmBox {
 
             reader.close();
         } catch (Exception var8) {
-            var8.printStackTrace();
+            StackTraceElement element = var8.getStackTrace()[0];
+            ModSimLoader.log.error("loadFarm出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }

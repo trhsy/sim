@@ -49,7 +49,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                 if(cfi!=null){
                 if (!var8.hasNext()) {
                         ResourceLocation myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
-                        ModSimLoader.log.info("实体人："+cfi.id+"，皮肤："+myTexture.toString());
+                        //ModSimLoader.log.info("实体人："+cfi.id+"，皮肤："+myTexture.toString());
                         ModSimLoader.skins.add(new DynamicSkin(myTexture, cfi.skinPath));
                         return myTexture;
                 }
@@ -62,7 +62,8 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             }
 
         }catch (Exception e){
-            e.printStackTrace();
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("渲染实体出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return  null;
     }

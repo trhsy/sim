@@ -820,8 +820,9 @@ public class GuiBlockConstructorBlock extends GuiScreen {
             }
 
             super.drawScreen(i, j, f);
-        } catch (Exception var7) {
-            var7.printStackTrace();
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("建筑箱GUI drawScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }

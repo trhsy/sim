@@ -77,7 +77,7 @@ public class ModSim {
             MinecraftForge.EVENT_BUS.register(new SimConfigSync());
             proxy.postInit(event);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ModSim-postInit出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            ModSimLoader.log.error("ModSim-postInit出错了：" + e.getMessage());
         }
 
     }

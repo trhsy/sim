@@ -123,11 +123,14 @@ public class Building {
                     }
                 }
             } catch (Exception var14) {
-                var14.printStackTrace();
+                StackTraceElement element = var14.getStackTrace()[0];
+                ModSimLoader.log.error("建筑保存，出错了：" + var14.getMessage() + "行数：" + element.getLineNumber());
             } finally {
                 try {
                     writer.close();
                 } catch (Exception var13) {
+                    StackTraceElement element = var13.getStackTrace()[0];
+                    ModSimLoader.log.error("建筑保存，关闭BufferedWriter出错了：" + var13.getMessage() + "行数：" + element.getLineNumber());
                 }
 
             }
@@ -216,7 +219,7 @@ public class Building {
                                 NpcData fd = ModSimLoader.getFolkDataByUID(f);
                                 this.occupants.add(fd);
                                 fd.home = this;
-                                ModSimLoader.log.info("找到居住者: " + ModSimLoader.getFolkDataByUID(f).getName());
+                                //ModSimLoader.log.info("找到居住者: " + ModSimLoader.getFolkDataByUID(f).getName());
                             }
                         }
                     }
@@ -228,7 +231,8 @@ public class Building {
                 break;
             }
         } catch (Exception var15) {
-            var15.printStackTrace();
+            StackTraceElement element = var15.getStackTrace()[0];
+            ModSimLoader.log.error("loadBuilding出错了：" + var15.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }

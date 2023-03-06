@@ -25,6 +25,7 @@ public class PacketReturnHireableFolks implements IMessage {
     public List<NpcIdentity> folkNames = new CopyOnWriteArrayList<>();
     public PacketReturnHireableFolks() {
         this.folkNames= new CopyOnWriteArrayList<>();
+        //ModSimLoader.log.info("开始读取可雇佣的人");
         for (NpcData folk:ModSimLoader.folks){
             NpcIdentity identity = folk.getClientIdentity();
             if(identity!=null &&!folk.isDead){
@@ -35,7 +36,6 @@ public class PacketReturnHireableFolks implements IMessage {
     @Override
     public void fromBytes(ByteBuf buf) {
         this.folkNames.clear();
-
         try {
             String rawFolkData = ByteBufUtils.readUTF8String(buf);
             String[] rawFolks = rawFolkData.split(";");
@@ -44,12 +44,13 @@ public class PacketReturnHireableFolks implements IMessage {
 
             for(int var6 = 0; var6 < var5; ++var6) {
                 String cFolk = var4[var6];
-                if (cFolk.length() > 0 && cFolk.contains(",")) {
+                if (cFolk.length() > 0 && cFolk.contains(",_,")) {
                 }
 
                 this.folkNames.add(new NpcIdentity(cFolk));
             }
         } catch (Exception var8) {
+
         }
 
     }
@@ -58,7 +59,7 @@ public class PacketReturnHireableFolks implements IMessage {
     public void toBytes(ByteBuf buf) {
         String s="";
         for (NpcIdentity fName :this.folkNames){
-            s+=fName.id + "," + fName.name + "," + fName.age + "," + fName.status + "," + fName.job + "," + fName.house + "," + fName.relationship + "," + fName.hunger + "," + fName.maturityAge + "," + fName.skinPath + ";";
+            s+=fName.id + ",_," + fName.name + ",_," + fName.age + ",_," + fName.status + ",_," + fName.job + ",_," + fName.house + ",_," + fName.relationship + ",_," + fName.hunger + ",_," + fName.maturityAge + ",_," + fName.skinPath + ";";
         }
             ByteBufUtils.writeUTF8String(buf, s);
 
@@ -75,7 +76,8 @@ public class PacketReturnHireableFolks implements IMessage {
                     this.handle(message, ctx);
                 });
             } catch (Exception var4) {
-                var4.printStackTrace();
+                StackTraceElement element = var4.getStackTrace()[0];
+                ModSimLoader.log.error("PacketReturnHireableFolks出错了：" + var4.getMessage() + "行数：" + element.getLineNumber());
             }
 
             return null;

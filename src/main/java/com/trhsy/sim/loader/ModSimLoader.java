@@ -340,7 +340,8 @@ public class ModSimLoader {
             in.close();
         } catch (Exception e) {
             ret = "";
-            e.printStackTrace();
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("下载version文件并返回内容出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
         return ret;
@@ -370,8 +371,6 @@ public class ModSimLoader {
             bout.close();
             in.close();
         } catch (Exception e) {
-            //ret = "";
-            //var9.printStackTrace();
         }
 
         return localFile;
@@ -420,7 +419,6 @@ public class ModSimLoader {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("saveSK2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-            //var5.printStackTrace();
         }
 
     }
@@ -967,7 +965,6 @@ public class ModSimLoader {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("检查sim建筑包出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-            //e.printStackTrace();
         }
 
 

@@ -162,7 +162,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
 
                 this.buttonList.add(new GuiButton(4, this.width / 2 - 100, 80, fs_type));
             } catch (Exception var7) {
-                var7.printStackTrace();
+                StackTraceElement element = var7.getStackTrace()[0];
+                ModSimLoader.log.error("农田箱GUI showPage出错了：" + var7.getMessage() + "行数：" + element.getLineNumber());
             }
 
             try {
@@ -180,7 +181,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
                 this.buttonList.add(new GuiButton(6, this.width / 2 - 70, 165, 20, 20, "-"));
                 this.buttonList.add(new GuiButton(7, this.width / 2 + 50, 165, 20, 20, "+"));
             } catch (Exception var6) {
-                var6.printStackTrace();
+                StackTraceElement element = var6.getStackTrace()[0];
+                ModSimLoader.log.error("农田箱GUI showPage 按钮  出错了：" + var6.getMessage() + "行数：" + element.getLineNumber());
             }
         } else if (this.currentPage == 1) {
             this.buttonList.clear();

@@ -63,8 +63,9 @@ public class ClientProxy extends CommonProxy{
                 } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
                     hud.drawString(mc.fontRendererObj, I18n.format("container.sim.trhsy5"), hud.width / 2, 2, 16777215);
                 }
-            } catch (Exception var6) {
-                var6.printStackTrace();
+            } catch (Exception e) {
+                StackTraceElement element = e.getStackTrace()[0];
+                ModSimLoader.log.error("renderTick出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             }
         }
     }

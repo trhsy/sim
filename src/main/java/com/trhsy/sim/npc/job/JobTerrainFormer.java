@@ -819,7 +819,8 @@ public class JobTerrainFormer extends Job {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("placeBlock出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -899,7 +900,8 @@ public class JobTerrainFormer extends Job {
             }
             this.closestBlocks = new CopyOnWriteArrayList<>(hm.values());
         } catch (Exception e) {
-            e.printStackTrace();
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("setClosestBlocksOfType出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

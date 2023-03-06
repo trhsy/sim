@@ -73,7 +73,8 @@ public class GuiEmployees extends GuiScreen {
                 this.buttonList.add(new GuiButton(1001, this.width - 50, 0, 50, 20, ">"));
             }
         } catch (Exception var5) {
-            var5.printStackTrace();
+            StackTraceElement element = var5.getStackTrace()[0];
+            ModSimLoader.log.error("员工信息 GUI showPage 出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }

@@ -109,7 +109,7 @@ public class JobFarmer extends Job {
                             }
                         } else if (r == 1) {
                             //照料作物
-                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending"));
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending")+","+this.farm.farmType);
                             //用骨粉快速生长作物
                             if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
                                 this.growCheck = System.currentTimeMillis();
@@ -496,7 +496,6 @@ public class JobFarmer extends Job {
                                 this.harvestCheck = System.currentTimeMillis();
                                 return;
                             } catch (Exception e) {
-                                e.printStackTrace();
                                 StackTraceElement element = e.getStackTrace()[0];
                                 ModSimLoader.log.error("种植甘蔗发生了错误：" + e.getMessage() + "行数：" + element.getLineNumber());
                             }
@@ -517,12 +516,14 @@ public class JobFarmer extends Job {
                     Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
                     Block b1 = this.folk.entity.worldObj.getBlockState(bp.down()).getBlock();
                     //包含灌木 不是庄家
-                    if (b instanceof BlockBush && !(b instanceof BlockCrops)) {
+                    if (b !=Blocks.CACTUS) {
                         //设置为空气
                         this.folk.entity.worldObj.setBlockToAir(bp);
                     }
                     //如果当前为空气
                     if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (b1 == Blocks.SAND) {
+
                         ItemStack seed = null;
                         List<IInventory> iterator = this.inventoriesFindClosest(this.workPlace, 5);
                         for (IInventory inv : iterator) {
@@ -583,9 +584,10 @@ public class JobFarmer extends Job {
                             this.harvestCheck = System.currentTimeMillis();
                             return;
                         } catch (Exception e) {
-                            e.printStackTrace();
                             StackTraceElement element = e.getStackTrace()[0];
                             ModSimLoader.log.error("种植仙人掌发生了错误：" + e.getMessage() + "行数：" + element.getLineNumber());
+                        }
+
                         }
                     }
                 }
@@ -722,7 +724,6 @@ public class JobFarmer extends Job {
                         return;
                     }
                 } catch (Exception var10) {
-                    var10.printStackTrace();
                     StackTraceElement element = var10.getStackTrace()[0];
                     ModSimLoader.log.error("种植发生了错误：" + var10.getMessage() + "行数：" + element.getLineNumber());
                 }
@@ -777,7 +778,7 @@ public class JobFarmer extends Job {
                                 } else {
                                     if ((System.currentTimeMillis() - this.qsCheck) > 3000 * 60) {
                                         this.qsCheck = System.currentTimeMillis();
-                                        ModSimLoader.sendChat(I18n.format("container.sim.job.crop.farmer.dye"));
+                                        ModSimLoader.sendChat(this.farm.farmType+I18n.format("container.sim.job.crop.farmer.dye"));
                                     }
                                 }
                             }
@@ -1015,12 +1016,14 @@ public class JobFarmer extends Job {
                                 return;
                             }
                         } catch (Exception var10) {
-                            var10.printStackTrace();
+                            StackTraceElement element = var10.getStackTrace()[0];
+                            ModSimLoader.log.error("harvest1出错了：" + var10.getMessage() + "行数：" + element.getLineNumber());
                         }
 
                     } else if (!(b instanceof BlockPumpkin) && !(b instanceof BlockMelon) && !(b instanceof BlockCocoa) && b instanceof BlockCactus) {
                         //设想，撒骨粉
                     }
+                    //甘蔗
                 } else if (b == Blocks.REEDS) {
                     if (this.folk.entity.worldObj.getBlockState(bp.up()).getBlock() == b) {
                         //收获
@@ -1028,7 +1031,32 @@ public class JobFarmer extends Job {
                         //获得方块
                         Block bCrop = this.folk.entity.worldObj.getBlockState(bp.up()).getBlock();
                         //摧毁方块
-                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp.up(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
+                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp.up(), this.folk.entity.worldObj.getBlockState(bp.up()), 0);
+//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
+                        drops.forEach((drop) -> {
+                            //放到工作箱
+                            this.placeInJobChest(drop);
+                        });
+                        //设置手持物
+                        this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                        //摇摆手臂
+                        this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                        //设置为空
+                        this.folk.entity.worldObj.setBlockToAir(bp.up());
+                        //增加农民等级
+                        this.addFarmingLevel();
+                        //设置收获时间
+                        this.harvestCheck = System.currentTimeMillis();
+                        return;
+                    }
+                }else if (b == Blocks.CACTUS) {
+                    if (this.folk.entity.worldObj.getBlockState(bp.up()).getBlock() == b) {
+                        //收获
+                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
+                        //获得方块
+                        Block bCrop = this.folk.entity.worldObj.getBlockState(bp.up()).getBlock();
+                        //摧毁方块
+                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp.up(), this.folk.entity.worldObj.getBlockState(bp.up()), 0);
 //                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
                         drops.forEach((drop) -> {
                             //放到工作箱

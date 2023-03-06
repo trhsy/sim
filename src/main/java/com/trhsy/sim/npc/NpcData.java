@@ -271,8 +271,6 @@ public class NpcData {
         this.holding = null;
         this.matingStage = -1.0F;
         this.rand = new Random();
-        /**皮肤随机*/
-        this.skinnumber = rand.nextInt(64);
         this.tempStage = -1;
         this.timeSinceLastStatusUpdate = 0L;
         this.minuteUpdate = 0L;
@@ -546,7 +544,8 @@ public class NpcData {
 
             this.respawn(world, this.pos.toBlockPos());
         } catch (Exception var17) {
-            var17.printStackTrace();
+            StackTraceElement element = var17.getStackTrace()[0];
+            ModSimLoader.log.error("loadFolk出错了：" + var17.getMessage() + "行数：" + element.getLineNumber());
         }
 
         this.isLoaded = true;
@@ -582,7 +581,8 @@ public class NpcData {
             this.race = Races.raceList.get(rand.nextInt(Races.raceList.size()));
             this.race.skinName = this.getTexture();
         } catch (Exception var8) {
-            var8.printStackTrace();
+            StackTraceElement element = var8.getStackTrace()[0];
+            ModSimLoader.log.error("assignRace出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -604,7 +604,8 @@ public class NpcData {
             }
 
         } catch (Exception var9) {
-            var9.printStackTrace();
+            StackTraceElement element = var9.getStackTrace()[0];
+            ModSimLoader.log.error("assignRace出错了：" + var9.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -621,7 +622,7 @@ public class NpcData {
      * 保存NPC
      */
     public void saveFolk() {
-        ModSimLoader.log.info("开始保存NPC数据");
+        //ModSimLoader.log.info("开始保存NPC数据");
         if (this.entity != null && !this.isDead) {
             BufferedWriter writer = null;
             try {
@@ -683,11 +684,14 @@ public class NpcData {
                     writer.write(((FolkRelationship) this.relationships.get(i)).toString() + (i < this.relationships.size() - 1 ? ";" : ""));
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                StackTraceElement element = e.getStackTrace()[0];
+                ModSimLoader.log.error("saveFolk出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             } finally {
                 try {
                     writer.close();
                 } catch (Exception var15) {
+                    StackTraceElement element = var15.getStackTrace()[0];
+                    ModSimLoader.log.error("saveFolk-writer出错了：" + var15.getMessage() + "行数：" + element.getLineNumber());
                 }
 
             }
@@ -1570,7 +1574,8 @@ public class NpcData {
                 try {
                     Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
                 } catch (Exception var5) {
-                    var5.printStackTrace();
+                    StackTraceElement element = var5.getStackTrace()[0];
+                    ModSimLoader.log.error("onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
                 }
             } else {
                 for (FolkRelationship folkRelationship : npcData.relationships) {

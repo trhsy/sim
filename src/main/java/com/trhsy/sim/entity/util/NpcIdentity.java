@@ -43,20 +43,20 @@ public class NpcIdentity {
     }
 
     public NpcIdentity(String combinedInfo) {
-        this.id = combinedInfo.split(",")[0];
-        this.name = combinedInfo.split(",")[1];
-        this.age = combinedInfo.split(",")[2];
-        this.status = combinedInfo.split(",")[3];
-        this.job = combinedInfo.split(",")[4];
-        this.house = combinedInfo.split(",")[5];
-        this.relationship = combinedInfo.split(",")[6];
-        this.hunger = combinedInfo.split(",")[7];
-        this.maturityAge = combinedInfo.split(",")[8];
-        this.skinPath = combinedInfo.split(",")[9];
+        this.id = combinedInfo.split(",_,")[0];
+        this.name = combinedInfo.split(",_,")[1];
+        this.age = combinedInfo.split(",_,")[2];
+        this.status = combinedInfo.split(",_,")[3];
+        this.job = combinedInfo.split(",_,")[4];
+        this.house = combinedInfo.split(",_,")[5];
+        this.relationship = combinedInfo.split(",_,")[6];
+        this.hunger = combinedInfo.split(",_,")[7];
+        this.maturityAge = combinedInfo.split(",_,")[8];
+        this.skinPath = combinedInfo.split(",_,")[9];
     }
 
     @Override
     public String toString() {
-        return this.id + "," + this.name + "," + this.age + "," + this.status + "," + this.job + "," + this.house + "," + this.relationship + "," + this.hunger + "," + this.maturityAge + "," + this.skinPath;
+        return this.id + ",_," + this.name + ",_," + this.age + ",_," + this.status + ",_," + this.job + ",_," + this.house + ",_," + this.relationship + ",_," + this.hunger + ",_," + this.maturityAge + ",_," + this.skinPath;
     }
 }

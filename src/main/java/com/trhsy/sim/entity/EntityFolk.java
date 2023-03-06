@@ -195,7 +195,8 @@ public class EntityFolk extends EntityCreature implements INpc {
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("实体更新出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
         super.onUpdate();
@@ -252,7 +253,9 @@ public class EntityFolk extends EntityCreature implements INpc {
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
         if (!player.worldObj.isRemote) {
-            NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP)player);
+            if(this.theData!=null){
+                NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP)player);
+            }
         }
         return true;
     }

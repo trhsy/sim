@@ -52,7 +52,8 @@ public class PacketSendFolkSkin implements IMessage {
                     this.handle(message, ctx);
                 });
             } catch (Exception var4) {
-                var4.printStackTrace();
+                StackTraceElement element = var4.getStackTrace()[0];
+                ModSimLoader.log.error("PacketSendFolkSkin出错了：" + var4.getMessage() + "行数：" + element.getLineNumber());
             }
 
             return null;

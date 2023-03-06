@@ -711,7 +711,6 @@ public class JobBuilder extends Job {
                 return;
             }
         } catch (Exception var12) {
-            var12.printStackTrace();
             StackTraceElement element = var12.getStackTrace()[0];
             ModSimLoader.log.error("因错误而解雇的员工：" + var12.getMessage() + "行数：" + element.getLineNumber());
             this.folk.fire();

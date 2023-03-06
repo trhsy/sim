@@ -424,16 +424,18 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                                 if (bs.symbol.contentEquals(symbol)) {
                                     block = (Block)Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
                                     IBlockState blockstate = block.getStateFromMeta(bs.meta);
-                                    this.structure[charNumber] = blockstate;
-                                    ++charNumber;
-                                    break;
+                                    if(blockstate!=null){
+                                        this.structure[charNumber] = blockstate;
+                                        ++charNumber;
+                                        break;
+                                    }
                                 }
                             }
                         }
                         ++this.blockCount;
                     }
                 }
-                ModSimLoader.log.info("读取建筑物 " + file.getName());
+                //ModSimLoader.log.info("读取建筑物 " + file.getName());
                 br.close();
 //                bw.close();
             } catch (Throwable var26) {
@@ -446,7 +448,8 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                             br.close();
 //                            bw.close();
                         } catch (Throwable var25) {
-                            var3.addSuppressed(var25);
+                            StackTraceElement element = var25.getStackTrace()[0];
+                            ModSimLoader.log.error("addBuildingBlueprint-br出错了：" + var25.getMessage() + "行数：" + element.getLineNumber());
                         }
                     } else {
                         br.close();
@@ -457,7 +460,8 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
             }
 //            }
         } catch (Exception var28) {
-            var28.printStackTrace();
+            StackTraceElement element = var28.getStackTrace()[0];
+            ModSimLoader.log.error("addBuildingBlueprint出错了：" + var28.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -560,7 +564,8 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                             }
                         }
                     } catch (Exception var14) {
-                        var14.printStackTrace();
+                        StackTraceElement element = var14.getStackTrace()[0];
+                        ModSimLoader.log.error("getBuildingRequirementsString出错了：" + var14.getMessage() + "行数：" + element.getLineNumber());
                     }
                 }
             } catch (Exception var15) {
