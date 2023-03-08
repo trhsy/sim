@@ -86,6 +86,7 @@ public class GuiEmployees extends GuiScreen {
         }
 
         this.drawDefaultBackground();
+        //员工
         this.drawCenteredString(this.fontRendererObj, I18n.format("container.sim.employees"), this.width / 2, 17, 16777215);
         int y = 35;
         if (this.folkOffset < 0) {
@@ -96,6 +97,7 @@ public class GuiEmployees extends GuiScreen {
             NpcIdentity folk = (NpcIdentity)this.folks.get(ff);
             this.drawString(this.fontRendererObj, folk.name, 2, y, 10551295);
             String status;
+            //失业的
             if (folk.job.contentEquals(I18n.format("container.sim.gui_Folk_unemployed"))) {
                 this.drawString(this.fontRendererObj, I18n.format("container.sim.gui_Folk_unemployed"), 110, y, 16715792);
             } else {

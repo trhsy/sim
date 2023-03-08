@@ -34,15 +34,27 @@ public class JobTaskCollectItems extends JobTask {
     /**到达后的时间**/
     transient long timeSinceArrival;
 
+    /**
+     * 要收集的物品
+     * @param j
+     * @param ms
+     * @param collectionItems
+     */
     public JobTaskCollectItems(Job j, int ms, List<ItemStack> collectionItems) {
         super(j, (long)ms);
         this.collectionItems = collectionItems;
     }
+
+    /**
+     * 开始任务，任务分配
+     */
     @Override
     public void onTaskBegin() {
+        //找不到任何可收集的建筑物
         if (this.collectionItems.size() < 1) {
             this.failTask(this.job.folk.getName() + " (" + this.job.jobName + ") "+ I18n.format("container.sim.job_task_could"));
         } else {
+
             for(int i = 0; i < this.collectionItems.size(); ++i) {
                 Item colItem = ((ItemStack)this.collectionItems.get(i)).getItem();
                 //猪排
@@ -75,7 +87,6 @@ public class JobTaskCollectItems extends JobTask {
                     this.addDestination(I18n.format("container.sim.Vocation18"));
                     //胡萝卜
                 } else if (colItem == Items.CARROT) {
-                    //
                     this.addDestination("farmer:"+I18n.format("container.sim.FarmType1"));
                     //马铃薯
                 } else if (colItem == Items.POTATO) {
@@ -108,10 +119,17 @@ public class JobTaskCollectItems extends JobTask {
         }
     }
 
+    /**
+     * 添加目的地
+     * @param jobt
+     */
     private void addDestination(String jobt) {
         //如果是农场作物
         if (jobt.contains("farmer:")) {
-            ModSimLoader.getClosestFarm(this.job.workPlace).forEach((f) -> {
+            String fType=jobt.substring(jobt.indexOf("farmer:"));
+            //获取最近的农场
+            ModSimLoader.getClosestFarm(this.job.workPlace,fType).forEach((f) -> {
+                System.out.println("最近的农场："+f.farmType);
                 this.destinations.add(f.loc);
             });
         } else {
@@ -134,6 +152,7 @@ public class JobTaskCollectItems extends JobTask {
 
                 this.isGoingToDestination = true;
             } else {
+                //到达后的时间
                 if (this.timeSinceArrival == 0L) {
                     this.timeSinceArrival = System.currentTimeMillis();
                 }

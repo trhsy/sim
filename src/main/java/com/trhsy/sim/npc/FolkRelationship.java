@@ -166,6 +166,7 @@ public class FolkRelationship {
     }
 
     public NpcData getOther() {
+        //System.out.println(this.folk2);
         NpcData npcData=ModSimLoader.getFolkDataByUID(this.folk2);
         return npcData;
     }

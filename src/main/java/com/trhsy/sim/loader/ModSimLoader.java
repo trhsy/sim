@@ -557,10 +557,12 @@ public class ModSimLoader {
      * @Param [pos]
      * @return java.util.List<com.trhsy.sim.block.FarmBox>
      **/
-    public static List<FarmBox> getClosestFarm(final V3 pos) {
+    public static List<FarmBox> getClosestFarm(final V3 pos,String fType) {
         List<FarmBox> fs = new CopyOnWriteArrayList<>();
         for (FarmBox f:farms){
-            fs.add(f);
+            if(f.farmType.equals(fType)){
+                fs.add(f);
+            }
         }
         Collections.sort(fs, new Comparator<FarmBox>() {
             @Override

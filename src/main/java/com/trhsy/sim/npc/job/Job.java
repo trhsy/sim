@@ -121,43 +121,61 @@ public abstract class Job {
      * @return void
      **/
     public void onUpdate() {
+        //NPC数据不为空
         if (this.folk != null) {
+            //实体不为空
             if (this.folk.entity != null) {
+                //是否应该工作
                 if (this.folk.shouldWork()) {
+                    //固定不动
                     this.folk.stayPut = true;
                 }
-
+                //不应该工作，但在工作
                 if (!this.folk.shouldWork() && this.atWork) {
+                    //清楚状态
                     this.folk.clearStatus();
+                    //可以行动
                     this.folk.stayPut = false;
+                    //清除工作状态
                     this.atWork = false;
+                    //在工作途中
                     this.onWayToWork = false;
+                    //当前任务为空
                     this.currentTask = null;
                 } else {
+                    //如果当前任务不为空，则更新任务
                     if (this.currentTask != null) {
                         this.currentTask.update();
                     }
-
+                    //应该工作，但是没有在工作，并且不是服务器端
                     if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.worldObj.isRemote) {
+                        //设置去工作途中
                         this.onWayToWork = true;
+                        //获取距离，并且小于20
                         if (this.folk.entity.getDistance(this.workPlace.x, this.workPlace.y, this.workPlace.z) < 20.0D) {
+                            //去工作
                             this.folk.setStatus(I18n.format("container.sim.folk_data_Going_work"));
+                            //强制瞬移过去
                             this.folk.forceMoveToXYZ(this.workPlace);
                         } else {
+                            //去工作 走过去
                             this.folk.setStatus(I18n.format("container.sim.folk_data_Going_work"));
                             this.folk.entity.setPositionAndUpdate(this.workPlace.x + 0.5D, this.workPlace.y + 1.0D, this.workPlace.z + 0.5D);
                             this.folk.entity.getNavigator().clearPathEntity();
                         }
-
+                        //设置固定不动
                         this.folk.stayPut = true;
                     }
-
+                    //在去工作途中，并且已经到了工作位置则更新状态
                     if (this.onWayToWork && this.folk.isAtLocation(this.workPlace)) {
+                        //工作中
                         this.atWork = true;
+                        //没有在工作途中
                         this.onWayToWork = false;
+                        //到达指定地址
                         this.onArrive();
                     }
-
+                    //从建筑中抓取项目
                     if (this.grabItemsFromBuilding(this.collectionBuilding)) {
                         if (this.itemGrabTimer == 0L) {
                             this.itemGrabTimer = System.currentTimeMillis();
@@ -186,6 +204,12 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 查找最近的箱子
+     * @param startXYZ
+     * @param searchDistance
+     * @return
+     */
     public List<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
         List ret = new CopyOnWriteArrayList();
 
@@ -218,6 +242,12 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 已经获得箱子
+     * @param chests
+     * @param chest
+     * @return
+     */
     private boolean alreadyGotChest(List<IInventory> chests, IInventory chest) {
         boolean ret = false;
         Iterator var4 = chests.iterator();
@@ -233,6 +263,9 @@ public abstract class Job {
         return ret;
     }
 
+    /**
+     * 每秒
+     */
     public void onSecond() {
         if (this.currentTask != null) {
             this.currentTask.onSecond();
@@ -240,6 +273,9 @@ public abstract class Job {
 
     }
 
+    /**
+     * 每分钟
+     */
     public void onMinute() {
     }
     /**
@@ -258,6 +294,11 @@ public abstract class Job {
         return this.jobChests;
     }
 
+    /**
+     * 将物品放置到箱子里
+     * @param item
+     * @return
+     */
     public boolean placeInJobChest(ItemStack item) {
         if (this.jobChests.size() > 0) {
             for (IInventory chest:this.jobChests){
@@ -277,6 +318,12 @@ public abstract class Job {
         return false;
     }
 
+    /**
+     * 将物品放置到箱子里
+     * @param chest
+     * @param item
+     * @return
+     */
     public boolean placeInJobChest(IInventory chest, ItemStack item) {
         boolean placedOK = false;
         if (item == null) {
@@ -382,11 +429,20 @@ public abstract class Job {
         return false;
     }
 
+    /**
+     * 来自建筑的集合
+     * @param buildingName
+     * @param is
+     */
     public void collectFromBuilding(String buildingName, ItemStack is) {
         List<Building> potentialBuildings = ModSimLoader.getClosestBuilding(buildingName, this.workPlace);
         this.folk.moveToXYZ(((Building)potentialBuildings.get(0)).controlXYZ);
     }
 
+    /**
+     * 来自建筑的集合
+     * @param col
+     */
     public void collectFromBuilding(LinkedHashMap<Building, ItemStack> col) {
         if (this.collectionBuilding == null) {
             this.colBs = col;
@@ -394,6 +450,9 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 来自建筑的集合
+     */
     public void collectFromBuilding() {
         if (this.collectionBuilding == null) {
             if (this.colCount >= this.colBs.size() - 1) {
@@ -407,12 +466,22 @@ public abstract class Job {
         }
     }
 
+    /**
+     * 来自建筑的集合
+     * @param building
+     * @param ms
+     */
     public void collectFromBuilding(Building building, float ms) {
         this.folk.moveToXYZ(building.controlXYZ);
         this.collectionBuilding = building;
         this.hasCollected = false;
     }
 
+    /**
+     * 从建筑中抓取项目
+     * @param building
+     * @return
+     */
     boolean grabItemsFromBuilding(Building building) {
         if (building == null) {
             return false;
@@ -447,7 +516,9 @@ public abstract class Job {
     }
 
 
-
+    /**
+     * 到底工作地点时
+     */
     public void onArrive() {
         this.folk.stayPut = true;
         if (this.stage == -1) {

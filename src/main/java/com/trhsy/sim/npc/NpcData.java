@@ -1136,7 +1136,7 @@ public class NpcData {
                             ModSimLoader.sendChat(this.getName() + s1 + this.home.buildingName + s2);
                         }
                     } else {
-                        //成年后搬出
+                        //找到空房子
                         Building empty = ModSimLoader.getEmptyHome();
                         if (empty != null) {
                             empty.occupants.add(this);
@@ -1144,6 +1144,7 @@ public class NpcData {
                             // 已搬入
                             String sText = this.getName() + I18n.format("container.sim.npcData_onupdate3") + empty.buildingName;
                             ModSimLoader.sendChat(sText);
+                            System.out.println("开始传送");
                             this.moveToXYZ(this.home.livingXYZ);
                         }
                     }
@@ -1280,11 +1281,7 @@ public class NpcData {
      **/
     public void addRelationship(NpcData folk2) {
         boolean relExists = false;
-
-        Iterator var3 = this.relationships.iterator();
-
-        while (var3.hasNext()) {
-            FolkRelationship rel = (FolkRelationship) var3.next();
+        for (FolkRelationship rel:this.relationships) {
             if (rel.getOther() == folk2) {
                 relExists = true;
             }
@@ -1305,18 +1302,20 @@ public class NpcData {
      * @Param [relCheck]
      **/
     public NpcData getRelation(EnumFamilyType relCheck) {
-        Iterator var2 = this.relationships.iterator();
-
-        FolkRelationship rel;
-        do {
+        NpcData npcData=null;
+        for (FolkRelationship r:this.relationships){
+            if(r.familyType != relCheck){
+                npcData=r.getOther();
+            }
+        }
+        /*do {
             if (!var2.hasNext()) {
                 return null;
             }
 
             rel = (FolkRelationship) var2.next();
-        } while (rel.familyType != relCheck);
-
-        return rel.getOther();
+        } while (rel.familyType != relCheck);*/
+        return npcData;
     }
 
     /**

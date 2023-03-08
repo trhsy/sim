@@ -56,6 +56,9 @@ public abstract class JobTask {
         }
     }
 
+    /**
+     * 任务的每秒回调
+     */
     public void onSecond() {
     }
 

@@ -13,6 +13,12 @@ public class JobTaskIdle extends JobTask {
     public transient long delayTime;
     String status;
 
+    /**
+     * 工作，等待时间，状态
+     * @param j
+     * @param ms
+     * @param status
+     */
     public JobTaskIdle(Job j, long ms, String status) {
         super(j, ms);
         this.delayTime = ms;
