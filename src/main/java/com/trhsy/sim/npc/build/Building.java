@@ -217,8 +217,10 @@ public class Building {
                             for(var12 = 0; var12 < var11; ++var12) {
                                 f = var10[var12];
                                 NpcData fd = ModSimLoader.getFolkDataByUID(f);
-                                this.occupants.add(fd);
-                                fd.home = this;
+                                if(fd!=null){
+                                    this.occupants.add(fd);
+                                    fd.home = this;
+                                }
                                 //ModSimLoader.log.info("找到居住者: " + ModSimLoader.getFolkDataByUID(f).getName());
                             }
                         }

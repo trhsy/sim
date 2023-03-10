@@ -155,6 +155,16 @@ public class JobBaker extends Job {
                 //售卖/关店
                 this.addJobTask(new JobTaskShopkeep(this, -1L, I18n.format("container.sim.job.Baker_bread")));
                 this.theStage = 4;
+            }else if(this.theStage == 4){
+                //在去工作途中，并且已经到了工作位置则更新状态
+                if (this.atWork && this.folk.isAtLocation(this.workPlace)&&this.currentTask==null&&this.jobTasks.size() > 0) {
+                    //工作中
+                    this.atWork = true;
+                    //没有在工作途中
+                    this.onWayToWork = false;
+                    //到达指定地址
+                    this.onArrive();
+                }
             }
         }
     }

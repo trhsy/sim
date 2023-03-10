@@ -166,14 +166,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                 for (Entity entity1:list1){
                     if (entity1 instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem)entity1;
-                        ItemStack is = ((EntityItem)entity1).getEntityItem();
+                        ItemStack is = entityitem.getEntityItem();
 
                         try {
                             Item item=is.getItem();
                             if(item instanceof ItemFood){
                                 //如果手里拿的是食物就，并且饿了就吃了
-                                ItemFood food = (ItemFood)item;
-                                if (this.theData!=null&&this.theData.hunger < 10 && food != null) {
+                                if (this.theData!=null&&this.theData.hunger < 10 && item != null) {
                                     entityitem.setDead();
                                     ++this.theData.hunger;
                                 }
@@ -198,8 +197,8 @@ public class EntityFolk extends EntityCreature implements INpc {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("实体更新出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-
         super.onUpdate();
+
     }
     /**
      * @Author fan

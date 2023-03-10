@@ -302,16 +302,21 @@ public class EventLoader {
             if (ModSimLoader.isDayTime(event.world)) {
 
                 NpcData starves = null;
+                //60秒循环
                 if (System.currentTimeMillis() - this.minuteTimer > 60000L) {
+                    //已重生
                     boolean spawnNew = true;
                     for (NpcData starve : ModSimLoader.folks) {
                         starves = starve;
+                        //判断是否已死亡
                         if (starves.isDead) {
+                            //若有房子异常房子
                             if (starves.home != null) {
                                 starves.home.occupants.remove(starves);
                                 starves.home = null;
                             }
                         } else if (starves.home == null) {
+                            //只要有一个人没有住到房子里就不生成新的人
                             spawnNew = false;
                         }
                     }
@@ -325,7 +330,7 @@ public class EventLoader {
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
                     EntityPlayer entityPlayer = event.world.playerEntities.get(0);
                     BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                    event.world.playSound(null,pos, soundEvent, SoundCategory.BLOCKS,1,1);
+                    entityPlayer.worldObj.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
                     this.newDay = true;
                     if (ModSimLoader.states.dayOfWeek >= 6) {
                         ModSimLoader.states.dayOfWeek = 0;
@@ -346,69 +351,74 @@ public class EventLoader {
                         ModSimLoader.addMoney(rent);
                         //播放钱到账
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                        event.world.playSound(null,pos, soundEvent, SoundCategory.BLOCKS,1,1);
+                        entityPlayer.worldObj.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
                     }
 
-                    label130:
-                    while (true) {
-                        for (NpcData f : ModSimLoader.folks) {
-                            if (f.entity != null) {
-                                String hungerName = "";
-                                int hungerCount = 0;
-                                NpcData starve = null;
-                                for (NpcData f1 : ModSimLoader.folks) {
-                                    if (f1.hunger > 0) {
-                                        --f1.hunger;
-                                    } else if (this.rand.nextInt(4) == 3) {
-                                        starve = f1;
-                                    } else {
-                                        hungerName = f1.getName();
-                                        ++hungerCount;
-                                    }
-                                    if (hungerName != "") {
-                                        String starving = I18n.format("container.sim.main_is_VERY");
-                                        String others_starving = I18n.format("container.sim.others_starving");
-                                        String message = hungerCount > 1 ? hungerName + starving : hungerName + I18n.format("container.sim.Mining13") + hungerCount + others_starving;
-                                        ModSimLoader.sendChat(message);
-                                    }
+                    //label130:
+                    //while (true) {
+                    for (NpcData f : ModSimLoader.folks) {
+                        if (f.entity != null) {
+                            String hungerName = "";
+                            int hungerCount = 0;
+                            NpcData starve = null;
+                            for (NpcData f1 : ModSimLoader.folks) {
+                                if (f1.hunger > 0) {
+                                    --f1.hunger;
+                                } else if (this.rand.nextInt(4) == 3) {
+                                    starve = f1;
+                                } else {
+                                    hungerName = f1.getName();
+                                    ++hungerCount;
                                 }
-                                if (starve != null) {
-                                    starve.entity.attackEntityFrom(DamageSource.starve, 999.0F);
+                                if (hungerName != "") {
+                                    String starving = I18n.format("container.sim.main_is_VERY");
+                                    String others_starving = I18n.format("container.sim.others_starving");
+                                    String message = hungerCount > 1 ? hungerName + starving : hungerName + I18n.format("container.sim.Mining13") + hungerCount + others_starving;
+                                    ModSimLoader.sendChat(message);
                                 }
-                                break label130;
                             }
-                            f.matingStage = -1.0F;
-                            if (f.pregnancyStage > 0.0F) {
-                                f.pregnancyStage += 0.1F;
+                            if (starve != null) {
+                                //设置死亡
+                                starve.entity.attackEntityFrom(DamageSource.starve, 999.0F);
                             }
-
-                            int currentAge = f.age;
-                            if (f.age >= f.race.maturity) {
-                                if (ModSimLoader.states.dayOfWeek == 6) {
-                                    ++f.age;
-                                }
-                            } else if (ModSimLoader.states.dayOfWeek == 3 || ModSimLoader.states.dayOfWeek == 6) {
+                            break;
+                        }
+                        //交配欲望重置
+                        f.matingStage = -1.0F;
+                        //妊娠期
+                        if (f.pregnancyStage > 0.0F) {
+                            f.pregnancyStage += 0.1F;
+                        }
+                        //当前年龄
+                        int currentAge = f.age;
+                        //年龄增长
+                        if (f.age >= f.race.getMaturity()) {
+                            if (ModSimLoader.states.dayOfWeek == 6) {
                                 ++f.age;
                             }
+                        } else if (ModSimLoader.states.dayOfWeek == 3 || ModSimLoader.states.dayOfWeek == 6) {
+                            ++f.age;
+                        }
 
-                            if (currentAge < f.race.maturity && f.age >= f.race.maturity) {
-                                f.evict();
-                                //现在18岁了,他们会开始找房子,你现在也可以雇佣他们了。
-                                String s = I18n.format("container.sim.main_is_now");
-                                ModSimLoader.sendChat(f.getName() + s);
-                            }
-
-                            if (f.age >= f.race.lifespan && this.rand.nextInt(10) == 5) {
-                                //年纪大了,感觉不太好。。。哦不！
-                                String s = I18n.format("container.sim.main_is_old");
-                                ModSimLoader.sendChat(f.getName() + s);
-                                f.entity.attackEntityFrom(DamageSource.starve, 999.0F);
-                            }
+                        if (currentAge < f.race.getMaturity() && f.age >= f.race.getMaturity()) {
+                            f.evict();
+                            //现在18岁了,他们会开始找房子,你现在也可以雇佣他们了。
+                            String s = I18n.format("container.sim.main_is_now");
+                            ModSimLoader.sendChat(f.getName() + s);
+                        }
+                        //超越寿命
+                        if (f.age >= f.race.lifespan && this.rand.nextInt(10) == 5) {
+                            //年纪大了,感觉不太好。。。哦不！
+                            String s = I18n.format("container.sim.main_is_old");
+                            ModSimLoader.sendChat(f.getName() + s);
+                            //来自伤害999，死亡
+                            f.entity.attackEntityFrom(DamageSource.starve, 999.0F);
                         }
                     }
                 }
+                //}
             } else if (this.newDay) {
                 this.newDay = false;
             }

@@ -36,44 +36,76 @@ public class Race implements Serializable {
         }
 
     }
+
     public String getRaceName() {
         return raceName;
     }
-    public void setRaceName(String name) {
-        raceName = name;
-    }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public void setSkinName(String skinName) {
-        this.skinName = skinName;
-    }
-
-    public void setLifespan(int lifespan) {
-        this.lifespan = lifespan;
-    }
-
-    public void setMaturity(int maturity) {
-        this.maturity = maturity;
+    public void setRaceName(String raceName) {
+        this.raceName = raceName;
     }
 
     public String getDesc() {
         return desc;
     }
 
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public String getSkinName() {
         return skinName;
+    }
+
+    public void setSkinName(String skinName) {
+        this.skinName = skinName;
     }
 
     public int getLifespan() {
         return lifespan;
     }
 
+    public void setLifespan(int lifespan) {
+        this.lifespan = lifespan;
+    }
+
     public int getMaturity() {
         return maturity;
     }
 
+    public void setMaturity(int maturity) {
+        this.maturity = maturity;
+    }
 
+    public static File getSimfolder() {
+        return simfolder;
+    }
+
+    public static void setSimfolder(File simfolder) {
+        Race.simfolder = simfolder;
+    }
+
+    public static String getHumanFolder() {
+        return humanFolder;
+    }
+
+    public static void setHumanFolder(String humanFolder) {
+        Race.humanFolder = humanFolder;
+    }
+
+    public static String getElfFolder() {
+        return elfFolder;
+    }
+
+    public static void setElfFolder(String elfFolder) {
+        Race.elfFolder = elfFolder;
+    }
+
+    public static String getDarkElfFolder() {
+        return darkElfFolder;
+    }
+
+    public static void setDarkElfFolder(String darkElfFolder) {
+        Race.darkElfFolder = darkElfFolder;
+    }
 }

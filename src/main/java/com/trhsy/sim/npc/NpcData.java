@@ -205,7 +205,7 @@ public class NpcData {
 
     public NpcData(World world, boolean fromCommand) {
         //手持空
-        this.holding = null;
+        this.holding = new ItemStack(Blocks.AIR);;
         //交配阶段 没有需求
         this.matingStage = -1.0F;
         this.rand = new Random();
@@ -226,10 +226,10 @@ public class NpcData {
         //种族分配
         this.assignRace();
         /**年龄**/
-        this.age = this.race.maturity;
+        this.age = this.race.getMaturity();
         //特征
         generateTraits();
-        ModSimLoader.folks.add(this);
+
         EntityFolk e = new EntityFolk(world, true);
         e.isBeingCreated = true;
         EntityPlayer thePlayer = world.playerEntities.get(0);
@@ -238,12 +238,14 @@ public class NpcData {
         if (!fromCommand) {
             Vec3d newPos;
             //在par1（x，z）和par2（y）块中查找随机目标
-            newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
+           /* newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             if (newPos == null) {
                 //在par1（x，z）和par2（y）块中查找随机目标
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
-            }
+            }*/
+            for (newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);newPos == null;newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7)){}
             BlockPos pos=new BlockPos(newPos);
+            //
             while (pos!=null&&!world.isAirBlock(pos.up())) {
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }
@@ -251,11 +253,11 @@ public class NpcData {
             e.setPositionAndUpdate(newPos.xCoord, newPos.yCoord + 1.0D, newPos.zCoord);
             this.pos = V3.fromVec3d(newPos);
         }
-
         e.theData = this;
-        this.ID = e.getUniqueID().toString();
         this.entity = e;
         world.spawnEntityInWorld(e);
+        this.ID = this.entity.getUniqueID().toString();
+        //刚刚进入该地区
         String fs_ldzl = I18n.format("container.sim.folk_data_just");
         ModSimLoader.sendChat(this.getName() + fs_ldzl);
         //返回可雇佣的人
@@ -265,19 +267,34 @@ public class NpcData {
         //保存NPC
         this.saveFolk();
         this.isLoaded = true;
+        ModSimLoader.folks.add(this);
     }
 
+    /**
+     * 首次进入世界加载已存在的
+     * @param world
+     * @param uuid
+     */
     public NpcData(World world, UUID uuid) {
-        this.holding = null;
+        //初始化手持物品
+        this.holding = new ItemStack(Blocks.AIR);
+        //交配阶段
         this.matingStage = -1.0F;
+        //随机声明
         this.rand = new Random();
+        //临时雇员状态
         this.tempStage = -1;
+        //自上次状态更新以来的时间
         this.timeSinceLastStatusUpdate = 0L;
+        //分钟更新
         this.minuteUpdate = 0L;
+        //tempEmployLoc
         this.tempEmployLoc = null;
+        //上次路径尝试
         this.lastPathAttempt = 0L;
-
+        //是服务器端
         if (!world.isRemote) {
+            //加载NPC到世界上
             this.loadFolk(world, uuid);
         }
 
@@ -290,7 +307,7 @@ public class NpcData {
      * @return 
      **/
     public NpcData(World world, NpcData mother, NpcData father) {
-        this.holding = null;
+        this.holding = new ItemStack(Blocks.AIR);;
         this.matingStage = -1.0F;
         this.rand = new Random();
         this.tempStage = -1;
@@ -302,9 +319,9 @@ public class NpcData {
         this.lastPathAttempt = 0L;
         this.gender = this.rand.nextInt(2);
         if (this.rand.nextInt(2) == 0) {
-            this.assignRace(mother.race.raceName, true);
+            this.assignRace(mother.race.getRaceName(), true);
         } else {
-            this.assignRace(father.race.raceName, true);
+            this.assignRace(father.race.getRaceName(), true);
         }
 
         this.surname = father.surname;
@@ -422,7 +439,7 @@ public class NpcData {
                 } else if (line.contains("race|")) {
                     this.assignRace(value, false);
                 } else if (line.contains("skin|")) {
-                    this.race.skinName = value;
+                    this.race.setSkinName(value);
                 } else if (line.contains("pos|")) {
                     this.pos = V3.fromString(value);
                 } else if (line.contains("trait1|")) {
@@ -561,7 +578,7 @@ public class NpcData {
     public void fire() {
         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
         this.job = null;
-        this.holding = null;
+        this.holding = new ItemStack(Blocks.AIR);;
         if (this.entity != null) {
             this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
         }
@@ -579,7 +596,7 @@ public class NpcData {
     public void assignRace() {
         try {
             this.race = Races.raceList.get(rand.nextInt(Races.raceList.size()));
-            this.race.skinName = this.getTexture();
+            this.race.setSkinName(this.getTexture());
         } catch (Exception var8) {
             StackTraceElement element = var8.getStackTrace()[0];
             ModSimLoader.log.error("assignRace出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
@@ -597,7 +614,7 @@ public class NpcData {
         try {
             for (int i = 0; i < Races.raceList.size(); i++) {
                 Race race = Races.raceList.get(i);
-                if (existingRaceName.equals(race.raceName)) {
+                if (existingRaceName.equals(race.getRaceName())) {
                     this.race = race;
                     break;
                 }
@@ -614,7 +631,8 @@ public class NpcData {
      */
     public void sendSkinPathToClient() {
         if (this.entity != null) {
-            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), this.race.skinName));
+
+            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), this.race.getSkinName()));
         }
     }
 
@@ -637,8 +655,8 @@ public class NpcData {
                 writer.write("sname|" + this.surname + "\n");
                 writer.write("gender|" + this.gender + "\n");
                 writer.write("age|" + String.valueOf(this.age) + "\n");
-                writer.write("race|" + this.race.raceName + "\n");
-                writer.write("skin|" + this.race.skinName + "\n");
+                writer.write("race|" + this.race.getRaceName() + "\n");
+                writer.write("skin|" + this.race.getSkinName() + "\n");
                 writer.write("pos|" + this.pos.toString() + "\n");
                 writer.write("trait1|" + this.trait1.traitName + "\n");
                 writer.write("trait2|" + this.trait2.traitName + "\n");
@@ -746,8 +764,8 @@ public class NpcData {
     public NpcIdentity getClientIdentity() {
         NpcIdentity npcIdentity = null;
         if (this.entity != null) {
-            String skin = this.race.skinName;
-            npcIdentity = new NpcIdentity(this.ID, this.getName(), String.valueOf(this.age), this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.maturity), skin);
+            String skin = this.race.getSkinName();
+            npcIdentity = new NpcIdentity(this.ID, this.getName(), String.valueOf(this.age), this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.getMaturity()), skin);
         }
         return npcIdentity;
     }
@@ -933,16 +951,55 @@ public class NpcData {
             this.onMinute();
             this.minuteUpdate = now;
         }
+        //如果当前NPC为空
+        if(this.entity == null){
+            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+            for (EntityPlayerMP player:players.getPlayerList()){
+                //如果位置不为空并且在人员的50个内，不是服务器端
+                if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 50.0D && !player.worldObj.isRemote) {
+                    //设置当前NPC 已加载
+                    ModSimLoader.hasLoadedFolks = true;
+                    //重生此NPC
+                    this.respawn(player.worldObj, this.pos.toBlockPos());
+                }
+            }
+        }
+        //当前NPC 不为空并且是客户端
+        if (this.entity != null && !this.entity.worldObj.isRemote) {
+            //更新NPC
+            this.entity.onFolkUpdate();
+            //获取NPC位置
+            this.pos = V3.fromVec3d(this.entity.getPositionVector());
+            //获取NPC位面
+            this.pos.dimension = this.entity.dimension;
+            /*
+            //是否应该取消重生
+            boolean shouldDespawn = true;
+            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+            for (EntityPlayerMP player:players.getPlayerList()){
+                //如果位置不为空并且在人员的80个内
+                if (player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 80.0D) {
+                    //设置false
+                    shouldDespawn = false;
+                }
+            }
 
-        if (this.job != null && this.shouldWork()) {
-            /*if (!this.job.atWork) {
+            if (shouldDespawn) {
+                //设置NPC死亡（假死） 摧毁
+                this.entity.setDead();
+                this.entity.theData = null;
+                this.entity = null;
             }*/
+        }
+        if (this.job != null && this.shouldWork()) {
+            if (!this.job.atWork) {
+            }
             this.job.onUpdate();
             //有工作，不该工作的时候 实体不是空
         } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
             try {
-                //清除实体手中物品
-                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
+                //清除实体手中物品 手持空气
+                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Blocks.AIR));
             } catch (Exception var6) {
             }
             //等待
@@ -1114,7 +1171,7 @@ public class NpcData {
                 //没有工作
                 if (this.job == null || this.job != null && !this.shouldWork()) {
                     //未成年成年
-                    if (this.age < this.race.maturity) {
+                    if (this.age < this.race.getMaturity()) {
                         father = this.getParent(0);
                         NpcData mother = this.getParent(1);
                         Building newHome = null;
@@ -1144,7 +1201,7 @@ public class NpcData {
                             // 已搬入
                             String sText = this.getName() + I18n.format("container.sim.npcData_onupdate3") + empty.buildingName;
                             ModSimLoader.sendChat(sText);
-                            System.out.println("开始传送");
+                            //System.out.println("开始传送");
                             this.moveToXYZ(this.home.livingXYZ);
                         }
                     }
@@ -1362,10 +1419,10 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean moveToXYZ(V3 v3) {
-        if (!this.stayPut && this.entity != null) {
-            //double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            //double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-            return this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D);
+        if (!this.stayPut && this.entity != null&&this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
+                double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+                double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+                return true;
         } else {
             return false;
         }
@@ -1516,7 +1573,7 @@ public class NpcData {
      * @Param []
      **/
     public boolean isAdult() {
-        return this.age >= this.race.maturity;
+        return this.age >= this.race.getMaturity();
     }
 
     /**
@@ -1560,7 +1617,7 @@ public class NpcData {
 
         this.isDead = true;
         for (NpcData npcData : ModSimLoader.folks) {
-            ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
+            //ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
             if (npcData.ID.contentEquals(this.ID) && !npcData.entity.worldObj.isRemote) {
                 ModSimLoader.log.info("找到匹配ID");
                 ModSimLoader.sendChat(deathMessage);

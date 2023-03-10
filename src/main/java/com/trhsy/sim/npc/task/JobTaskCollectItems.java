@@ -114,7 +114,7 @@ public class JobTaskCollectItems extends JobTask {
                 //找不到任何可收集的建筑物
                 this.failTask(this.job.folk.getName() + " (" + this.job.jobName + ") "+I18n.format("container.sim.job_task_could"));
             } else {
-                this.currentDestination = (V3)this.destinations.get(0);
+                this.currentDestination = this.destinations.get(0);
             }
         }
     }
