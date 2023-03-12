@@ -26,7 +26,7 @@ public class JobBaker extends Job {
     //小麦，鸡蛋，南瓜，牛奶,糖,可可豆
     private int wheat,egg,pumpkin,milk_bucket,sugar,dye;
 
-    private int theStage = -1;
+    public int theStage = -1;
     private int stage = -1;
     public JobBaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);

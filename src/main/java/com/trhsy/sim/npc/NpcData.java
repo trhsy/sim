@@ -205,7 +205,7 @@ public class NpcData {
 
     public NpcData(World world, boolean fromCommand) {
         //手持空
-        this.holding = new ItemStack(Blocks.AIR);;
+        this.holding = new ItemStack((Item) null);
         //交配阶段 没有需求
         this.matingStage = -1.0F;
         this.rand = new Random();
@@ -243,10 +243,11 @@ public class NpcData {
                 //在par1（x，z）和par2（y）块中查找随机目标
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }*/
-            for (newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);newPos == null;newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7)){}
-            BlockPos pos=new BlockPos(newPos);
+            for (newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7); newPos == null; newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7)) {
+            }
+            BlockPos pos = new BlockPos(newPos);
             //
-            while (pos!=null&&!world.isAirBlock(pos.up())) {
+            while (pos != null && !world.isAirBlock(pos.up())) {
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }
 
@@ -272,12 +273,13 @@ public class NpcData {
 
     /**
      * 首次进入世界加载已存在的
+     *
      * @param world
      * @param uuid
      */
     public NpcData(World world, UUID uuid) {
         //初始化手持物品
-        this.holding = new ItemStack(Blocks.AIR);
+        this.holding = new ItemStack((Item) null);
         //交配阶段
         this.matingStage = -1.0F;
         //随机声明
@@ -299,15 +301,17 @@ public class NpcData {
         }
 
     }
+
     /**
+     * @return
      * @Author fan
      * @Description //TODO 孩子降世
      * @Date 19:08 2023/2/12
      * @Param [world, mother, father]
-     * @return 
      **/
     public NpcData(World world, NpcData mother, NpcData father) {
-        this.holding = new ItemStack(Blocks.AIR);;
+        this.holding = new ItemStack((Item) null);
+        ;
         this.matingStage = -1.0F;
         this.rand = new Random();
         this.tempStage = -1;
@@ -484,15 +488,15 @@ public class NpcData {
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation6"))) {
                             this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
                             //规划师
-                        }else if(job.contentEquals(I18n.format("container.sim.Vocation16"))){
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation16"))) {
                             String v = value.split(";")[1];
                             p = V3.fromString(v).toBlockPos();
                             String terrainName = value.split(";")[2];
                             String terrainType = value.split(";")[3];
-                            TerrainType terrainTypes=new TerrainType(terrainName,terrainType);
-                            this.job = new JobTerrainFormer(this,terrainTypes,p,world);
+                            TerrainType terrainTypes = new TerrainType(terrainName, terrainType);
+                            this.job = new JobTerrainFormer(this, terrainTypes, p, world);
                             //农民
-                        }else if (job.contentEquals(I18n.format("container.sim.Vocation5"))) {
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation5"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             FarmBox fb = ModSimLoader.getFarm(V3.fromBlockPos(p));
                             this.job = new JobFarmer(this, p, world, fb);
@@ -578,7 +582,7 @@ public class NpcData {
     public void fire() {
         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
         this.job = null;
-        this.holding = new ItemStack(Blocks.AIR);;
+        this.holding = new ItemStack((Item) null);
         if (this.entity != null) {
             this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
         }
@@ -680,12 +684,12 @@ public class NpcData {
                             writer.write("building|" + jb.blueprint.name + "\n");
                         }
                         writer.write("job|" + this.job.jobName + ";" + jb.workPlace.toString() + ";" + jb.direction + "\n");
-                    //规划师
-                    }else if(this.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))){
-                        JobTerrainFormer jb=(JobTerrainFormer)this.job;
-                        if(jb.terrainType!=null){
-                            writer.write("job|" + this.job.jobName + ";"+ jb.workPlace.toString() +";"+jb.terrainType.terrainName+ ";" +jb.terrainType.terrainType + "\n");
-                        }else{
+                        //规划师
+                    } else if (this.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))) {
+                        JobTerrainFormer jb = (JobTerrainFormer) this.job;
+                        if (jb.terrainType != null) {
+                            writer.write("job|" + this.job.jobName + ";" + jb.workPlace.toString() + ";" + jb.terrainType.terrainName + ";" + jb.terrainType.terrainType + "\n");
+                        } else {
                             writer.write("job|" + this.job.jobName + ";\n");
                         }
                     } else {
@@ -952,7 +956,7 @@ public class NpcData {
             this.minuteUpdate = now;
         }
         //如果当前NPC为空
-        if(this.entity == null){
+        /*if(this.entity == null){
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
             for (EntityPlayerMP player:players.getPlayerList()){
                 //如果位置不为空并且在人员的50个内，不是服务器端
@@ -963,16 +967,16 @@ public class NpcData {
                     this.respawn(player.worldObj, this.pos.toBlockPos());
                 }
             }
-        }
+        }*/
         //当前NPC 不为空并且是客户端
-        if (this.entity != null && !this.entity.worldObj.isRemote) {
+       /* if (this.entity != null && !this.entity.worldObj.isRemote) {
             //更新NPC
             this.entity.onFolkUpdate();
             //获取NPC位置
             this.pos = V3.fromVec3d(this.entity.getPositionVector());
             //获取NPC位面
             this.pos.dimension = this.entity.dimension;
-            /*
+
             //是否应该取消重生
             boolean shouldDespawn = true;
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
@@ -989,10 +993,15 @@ public class NpcData {
                 this.entity.setDead();
                 this.entity.theData = null;
                 this.entity = null;
-            }*/
-        }
+            }
+        }*/
         if (this.job != null && this.shouldWork()) {
             if (!this.job.atWork) {
+                //如果没有在工作的时候，并且工作是面包师，工作阶段设置为-1
+                if (this.job.jobName.equals(I18n.format("container.sim.Vocation6"))) {
+                    JobBaker jobBaker = (JobBaker) this.job;
+                    boolean b = jobBaker.theStage == -1;
+                }
             }
             this.job.onUpdate();
             //有工作，不该工作的时候 实体不是空
@@ -1092,9 +1101,7 @@ public class NpcData {
             }
 
             if (this.entity != null) {
-                List<EntityFolk> nearbyFolks = this.entity.worldObj.getEntitiesWithinAABB(EntityFolk.class, new AxisAlignedBB(this.entity.posX - 3.0D, this.entity.posY - 1.0D, this.entity.posZ - 3.0D, this.entity.posX + 3.0D, this.entity.posY + 1.0D, this.entity.posZ + 3.0D));
-                for (EntityFolk f : nearbyFolks) {
-                    NpcData fd = f.theData;
+                for (NpcData fd : ModSimLoader.folks) {
                     if (fd != null && fd.ID != this.ID) {
                         //与某人的关系
                         FolkRelationship rel = this.getRelationshipWith(fd);
@@ -1111,7 +1118,6 @@ public class NpcData {
                         }
                     }
                 }
-
             }
 
         } else {
@@ -1169,7 +1175,7 @@ public class NpcData {
             //没有家
             if (this.home == null) {
                 //没有工作
-                if (this.job == null || this.job != null && !this.shouldWork()) {
+                if (this.job == null || (this.job != null && !this.shouldWork())) {
                     //未成年成年
                     if (this.age < this.race.getMaturity()) {
                         father = this.getParent(0);
@@ -1277,35 +1283,23 @@ public class NpcData {
                 if (b.controlXYZ.getDistanceTo(this.pos) < 40 && this.rand.nextInt(4) == 3) {
                     //住宅
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
-                        Iterator var3 = b.occupants.iterator();
-
-                        label61:
-                        while (true) {
-                            NpcData fd;
-                            do {
-                                do {
-                                    do {
-                                        do {
-                                            if (!var3.hasNext()) {
-                                                break label61;
-                                            }
-
-                                            fd = (NpcData) var3.next();
-                                            //当前NPC
-                                        } while (fd.ID == this.ID);
-                                        //成年
-                                    } while (this.isAdult() != fd.isAdult());
-                                    //应该工作
-                                } while (fd.shouldWork());
-                                //闲逛 不等于空
-                            } while (!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null);
-                            //社交任务
-                            this.addTask(new TaskSocialise(this, (long) (this.rand.nextInt(15000) + 15000), fd, b, false));
-                            fd.currentTask = null;
-                            fd.tasks.clear();
-                            fd.addTask(new TaskSocialise(fd, (long) (this.rand.nextInt(15000) + 15000), this, b, true));
+                        for (NpcData fd : b.occupants) {
+                            if (!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null) {
+                                if (fd.shouldWork()) {
+                                    if (this.isAdult() != fd.isAdult()) {
+                                        if (fd.ID == this.ID) {
+                                            //社交任务
+                                            this.addTask(new TaskSocialise(this, (long) (this.rand.nextInt(15000) + 15000), fd, b, false));
+                                            fd.currentTask = null;
+                                            fd.tasks.clear();
+                                            fd.addTask(new TaskSocialise(fd, (long) (this.rand.nextInt(15000) + 15000), this, b, true));
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+
                     //商业
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Commercial"))) {
 
@@ -1338,7 +1332,7 @@ public class NpcData {
      **/
     public void addRelationship(NpcData folk2) {
         boolean relExists = false;
-        for (FolkRelationship rel:this.relationships) {
+        for (FolkRelationship rel : this.relationships) {
             if (rel.getOther() == folk2) {
                 relExists = true;
             }
@@ -1359,10 +1353,10 @@ public class NpcData {
      * @Param [relCheck]
      **/
     public NpcData getRelation(EnumFamilyType relCheck) {
-        NpcData npcData=null;
-        for (FolkRelationship r:this.relationships){
-            if(r.familyType != relCheck){
-                npcData=r.getOther();
+        NpcData npcData = null;
+        for (FolkRelationship r : this.relationships) {
+            if (r.familyType != relCheck) {
+                npcData = r.getOther();
             }
         }
         /*do {
@@ -1419,10 +1413,10 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean moveToXYZ(V3 v3) {
-        if (!this.stayPut && this.entity != null&&this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
-                double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-                double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-                return true;
+        if (!this.stayPut && this.entity != null && this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
+            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+            return true;
         } else {
             return false;
         }
