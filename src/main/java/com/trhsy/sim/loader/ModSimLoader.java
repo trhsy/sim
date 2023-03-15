@@ -24,13 +24,16 @@ import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -289,17 +292,9 @@ public class ModSimLoader {
      */
     public static void sendChat(String theText) {
         try {
+//            MinecraftServer.getServer().playerList.getPlayerList().sendChatMsg(new TextComponentString(theText));
             FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString(theText));
-           /* WorldServer[] worldServers = MinecraftServer.getServer().worldServers;
-            int length = worldServers.length;
-            for (World w : MinecraftServer.getServer().worldServers) {
-                if (!w.isRemote) {
-                    for (int k = 0; k < w.playerEntities.size(); ++k) {
-                        EntityPlayer p = (EntityPlayer) w.playerEntities.get(k);
-                        p.addChatComponentMessage(new ChatComponentText(theText));
-                    }
-                }
-            }*/
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("sendChat出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

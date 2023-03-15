@@ -159,7 +159,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     protected boolean canDespawn() {
-        return true;
+        return false;
     }
 
     /**
@@ -171,10 +171,9 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     public void onUpdate() {
-
-        long i = System.currentTimeMillis() - this.secondTimer;
+        super.onUpdate();
         try {
-            if (i > 1000L) {
+            if (System.currentTimeMillis() - this.secondTimer > 1000L) {
                 this.secondTimer = System.currentTimeMillis();
                 List<Entity> list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).expand(2.0D, 4.0D, 2.0D));
                 for (Entity entity1 : list1) {
@@ -212,7 +211,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("实体更新出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-        super.onUpdate();
+
     }
 
     /**

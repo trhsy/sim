@@ -72,14 +72,14 @@ public abstract class Job {
 
     public Job(NpcData folk, BlockPos pos, World world) {
         this.folk = folk;
-        folk.respawn(world, pos);
+//        folk.respawn(world, pos);
         this.workPlace = V3.fromBlockPos(pos);
         this.jobWorld = world;
     }
 
     public Job(NpcData folk, V3 pos, World world) {
         this.folk = folk;
-        folk.respawn(world, pos.toBlockPos());
+//        folk.respawn(world, pos.toBlockPos());
         this.workPlace = pos;
         this.jobWorld = world;
     }

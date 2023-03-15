@@ -105,17 +105,18 @@ public class EventLoader {
         Thread skinThread = new Thread(() -> {
             try {
                 if (event.player != null) {
-                    System.out.println("*********************玩家加入*****************");
-                    for (NpcData fd : ModSimLoader.folks) {
+                    ModSimLoader.log.info("*********************玩家加入*****************");
+                    /*for (NpcData fd : ModSimLoader.folks) {
                         while (fd.entity == null && FMLCommonHandler.instance() != null) {
                             try {
                                 fd.entity = (EntityFolk) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(UUID.fromString(fd.ID));
                             } catch (Exception var4) {
+                                ModSimLoader.log.error("玩家加入加载数据失败了"+var4.getMessage());
                             }
                         }
 
                         fd.sendSkinPathToClient();
-                    }
+                    }*/
                 }
             } catch (Exception e) {
                 e.getMessage();
@@ -283,7 +284,7 @@ public class EventLoader {
             //更新资金
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
             //检查建筑物
-            for (int i = ModSimLoader.buildings.size(); i > 0; --i) {
+            /*for (int i = ModSimLoader.buildings.size(); i > 0; --i) {
 //                if(i!=0){
                 Building b = ModSimLoader.buildings.get(i - 1);
                 BlockPos pos = new BlockPos(b.controlXYZ.x, b.controlXYZ.y, b.controlXYZ.z);
@@ -294,10 +295,10 @@ public class EventLoader {
                     //b.demolish(event.world, false);
                 }
 //                }
-            }
+            }*/
         }
-        //检查游戏状态
-        if (ModSimLoader.states.gameModeNumber != 999 && !event.world.isRemote && event.world.playerEntities.size() > 0) {
+        //检查游戏状态 && event.world.playerEntities.size() > 0
+        if (ModSimLoader.states.gameModeNumber != 999 && !event.world.isRemote ) {
             //是白天
             if (ModSimLoader.isDayTime(event.world)) {
 
@@ -328,9 +329,11 @@ public class EventLoader {
                     ModSimLoader.log.info("天亮了");
                     //播放 天亮了鸡叫
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                    EntityPlayer entityPlayer = event.world.playerEntities.get(0);
-                    BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                    entityPlayer.worldObj.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+                    for (EntityPlayer entityPlayer : event.world.playerEntities){
+                        BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                        entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+                    }
+
                     this.newDay = true;
                     if (ModSimLoader.states.dayOfWeek >= 6) {
                         ModSimLoader.states.dayOfWeek = 0;
@@ -351,7 +354,10 @@ public class EventLoader {
                         ModSimLoader.addMoney(rent);
                         //播放钱到账
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                        entityPlayer.worldObj.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+                        for (EntityPlayer entityPlayer : event.world.playerEntities) {
+                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                            entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+                        }
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
                     }
@@ -383,7 +389,6 @@ public class EventLoader {
                                 //设置死亡
                                 starve.entity.attackEntityFrom(DamageSource.starve, 999.0F);
                             }
-                            break;
                         }
                         //交配欲望重置
                         f.matingStage = -1.0F;

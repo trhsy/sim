@@ -232,9 +232,14 @@ public class NpcData {
 
         EntityFolk e = new EntityFolk(world, true);
         e.isBeingCreated = true;
-        EntityPlayer thePlayer = world.playerEntities.get(0);
-        e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
-        this.pos = V3.fromBlockPos(thePlayer.getPosition());
+        if(world.playerEntities.size()>0){
+            EntityPlayer thePlayer = world.playerEntities.get(0);
+            e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
+            this.pos = V3.fromBlockPos(thePlayer.getPosition());
+        }else{
+            fromCommand=true;
+        }
+
         if (!fromCommand) {
             Vec3d newPos;
             //在par1（x，z）和par2（y）块中查找随机目标
@@ -424,7 +429,7 @@ public class NpcData {
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
-                ModSimLoader.log.info(line);
+//                ModSimLoader.log.info(line);
                 if (line.contains("id|")) {
                     this.ID = value;
                     if (this.entity == null) {
@@ -568,8 +573,8 @@ public class NpcData {
             StackTraceElement element = var17.getStackTrace()[0];
             ModSimLoader.log.error("loadFolk出错了：" + var17.getMessage() + "行数：" + element.getLineNumber());
         }
-
         this.isLoaded = true;
+
     }
 
     /**
@@ -821,24 +826,28 @@ public class NpcData {
      * @Param [world, bp]
      **/
     public void respawn(World world, BlockPos bp) {
-        if (this.entity == null && this.isLoaded) {
-            //重生实体
-            EntityFolk ef = new EntityFolk(world, this.ID);
-            //设置手持物品
-            ef.setHeldItem(EnumHand.MAIN_HAND, this.holding);
-            //坐标
-            this.pos = new V3(bp);
-            //更新坐标
-            ef.setPositionAndUpdate((double) bp.getX() + 0.5D, (double) bp.getY() + 1.0D, (double) bp.getZ() + 0.5D);
-            this.entity = ef;
-            ef.theData = this;
-            ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
-            boolean flag = world.spawnEntityInWorld(ef);
-            if (!flag) {
-                this.isLoaded = false;
-                ModSimLoader.log.warn("Npc重生失败，再次尝试");
-                this.respawn(world, bp);
+        try {
+            if (this.entity == null && this.isLoaded) {
+                //重生实体
+                EntityFolk ef = new EntityFolk(world, this.ID);
+                //设置手持物品
+                ef.setHeldItem(EnumHand.MAIN_HAND, this.holding);
+                //坐标
+                this.pos = new V3(bp);
+                //更新坐标
+                ef.setPositionAndUpdate((double) bp.getX() + 0.5D, (double) bp.getY() + 1.0D, (double) bp.getZ() + 0.5D);
+                this.entity = ef;
+                ef.theData = this;
+                ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
+                Boolean falg=world.spawnEntityInWorld(ef);
+                if(!falg){
+                    ModSimLoader.log.info("重生失败，再次尝试");
+                    this.entity = null;
+                    this.isLoaded=true;
+                }
             }
+        }catch (Exception e){
+            ModSimLoader.log.error("重生出错了");
         }
     }
 
@@ -1008,7 +1017,7 @@ public class NpcData {
         } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
             try {
                 //清除实体手中物品 手持空气
-                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Blocks.AIR));
+                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack((Item) null));
             } catch (Exception var6) {
             }
             //等待
@@ -1125,7 +1134,7 @@ public class NpcData {
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
             for (EntityPlayerMP player : players.getPlayerList()) {
                 double dist = player.getDistance(this.pos.x, this.pos.y, this.pos.z);
-                if (this.pos != null && dist < 50.0D && !player.worldObj.isRemote) {
+                if (this.pos != null && dist < 80.0D && !player.worldObj.isRemote) {
                     ModSimLoader.hasLoadedFolks = true;
                     //重生
                     this.respawn(player.worldObj, this.pos.toBlockPos());
@@ -1136,7 +1145,7 @@ public class NpcData {
             this.entity.onFolkUpdate();
             this.pos = V3.fromVec3d(this.entity.getPositionVector());
             this.pos.dimension = this.entity.dimension;
-            /*
+
             //是否取消
             boolean shouldDespawn = false;
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
@@ -1153,7 +1162,7 @@ public class NpcData {
                 this.entity.setDead();
                 this.entity.theData = null;
                 this.entity = null;
-            }*/
+            }
         }
     }
 
@@ -1174,9 +1183,9 @@ public class NpcData {
             NpcData father;
             //没有家
             if (this.home == null) {
-                //没有工作
+                //没有工作 或者有工作但没再工作的
                 if (this.job == null || (this.job != null && !this.shouldWork())) {
-                    //未成年成年
+                    //未成年成年，跟随父母
                     if (this.age < this.race.getMaturity()) {
                         father = this.getParent(0);
                         NpcData mother = this.getParent(1);
@@ -1274,6 +1283,7 @@ public class NpcData {
      * @Param []
      **/
     public void pickRandomTask() {
+        this.rand=new Random();
         //有家并且随机任务是3
         if (this.home != null && this.rand.nextInt(4) == 3) {
             //回家在家放松
