@@ -106,7 +106,7 @@ public class EventLoader {
             try {
                 if (event.player != null) {
                     ModSimLoader.log.info("*********************玩家加入*****************");
-                    /*for (NpcData fd : ModSimLoader.folks) {
+                    for (NpcData fd : ModSimLoader.folks) {
                         while (fd.entity == null && FMLCommonHandler.instance() != null) {
                             try {
                                 fd.entity = (EntityFolk) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(UUID.fromString(fd.ID));
@@ -116,7 +116,7 @@ public class EventLoader {
                         }
 
                         fd.sendSkinPathToClient();
-                    }*/
+                    }
                 }
             } catch (Exception e) {
                 e.getMessage();
@@ -322,7 +322,9 @@ public class EventLoader {
                         }
                     }
                     if (spawnNew) {
-                        new NpcData(event.world, false);
+                        if(event.world.playerEntities.size()>0){
+                            new NpcData(event.world, false);
+                        }
                     }
                 }
                 if (!this.newDay) {

@@ -236,8 +236,6 @@ public class NpcData {
             EntityPlayer thePlayer = world.playerEntities.get(0);
             e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
             this.pos = V3.fromBlockPos(thePlayer.getPosition());
-        }else{
-            fromCommand=true;
         }
 
         if (!fromCommand) {
@@ -567,7 +565,7 @@ public class NpcData {
             if (this.entity != null) {
                 this.entity.setDead();
             }
-
+            ModSimLoader.log.info("loadFolk 开始重生实体");
             this.respawn(world, this.pos.toBlockPos());
         } catch (Exception var17) {
             StackTraceElement element = var17.getStackTrace()[0];
@@ -840,11 +838,11 @@ public class NpcData {
                 ef.theData = this;
                 ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
                 Boolean falg=world.spawnEntityInWorld(ef);
-                if(!falg){
+                /*if(!falg){
                     ModSimLoader.log.info("重生失败，再次尝试");
                     this.entity = null;
                     this.isLoaded=true;
-                }
+                }*/
             }
         }catch (Exception e){
             ModSimLoader.log.error("重生出错了");
@@ -1137,6 +1135,7 @@ public class NpcData {
                 if (this.pos != null && dist < 80.0D && !player.worldObj.isRemote) {
                     ModSimLoader.hasLoadedFolks = true;
                     //重生
+                    ModSimLoader.log.info("onSecond 新人生产");
                     this.respawn(player.worldObj, this.pos.toBlockPos());
                 }
             }
