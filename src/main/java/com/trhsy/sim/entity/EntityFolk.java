@@ -48,8 +48,8 @@ public class EntityFolk extends EntityCreature implements INpc {
     /**
      * NPC数据
      **/
-    public NpcData theData;
-    public RenderEntityFolk renderEntityFolk;
+    public NpcData theData=null;
+    public RenderEntityFolk renderEntityFolk=null;
     /**
      * 正在创建
      **/
@@ -63,7 +63,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             this.setDead();
         }
         //会捡起地上的东西
-        this.setCanPickUpLoot(true);
+//        this.setCanPickUpLoot(true);
         //会进门
         ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
         //破门而入
@@ -78,7 +78,7 @@ public class EntityFolk extends EntityCreature implements INpc {
     public EntityFolk(World world, boolean isCreating) {
         super(world);
         //会捡起地上的东西
-        this.setCanPickUpLoot(true);
+//        this.setCanPickUpLoot(true);
         //会进门
         ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
         //破门而入
@@ -94,7 +94,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         super(world);
         this.setUniqueId(UUID.fromString(id));
         //会捡起地上的东西
-        this.setCanPickUpLoot(true);
+//        this.setCanPickUpLoot(true);
         //会进门
         ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
         //破门而入
@@ -224,7 +224,8 @@ public class EntityFolk extends EntityCreature implements INpc {
     public void onFolkUpdate() {
         if (!this.worldObj.isRemote) {
             EntityFolk e = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString()).entity;
-            if (e != null && this.theData != null && this.addedToChunk) {
+
+            if (e != null && this.theData != null) {
                 if (this.theData.entity != null && !this.theData.entity.equals(this)) {
                     ModSimLoader.log.info("获得重复的民间实体");
                     this.setDead();

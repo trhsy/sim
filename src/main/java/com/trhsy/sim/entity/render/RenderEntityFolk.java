@@ -55,9 +55,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                     return myTexture;
                 }
             }
-            if(skin!=null){
-                return new ResourceLocation(ModSim.MODID, "skins/" + skin.skinPath);
-            }
+            myTexture=new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
 
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];

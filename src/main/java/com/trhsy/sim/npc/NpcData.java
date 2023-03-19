@@ -205,7 +205,7 @@ public class NpcData {
 
     public NpcData(World world, boolean fromCommand) {
         //手持空
-        this.holding = new ItemStack((Item) null);
+        this.holding = null;
         //交配阶段 没有需求
         this.matingStage = -1.0F;
         this.rand = new Random();
@@ -222,7 +222,7 @@ public class NpcData {
         //性别随机
         this.gender = this.rand.nextInt(2);
         /**皮肤随机*/
-        this.skinnumber = rand.nextInt(64);
+        this.skinnumber = this.rand.nextInt(64);
         //种族分配
         this.assignRace();
         /**年龄**/
@@ -252,6 +252,9 @@ public class NpcData {
             //
             while (pos != null && !world.isAirBlock(pos.up())) {
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
+                if (newPos != null) {
+                    pos = new BlockPos(newPos);
+                }
             }
 
             e.setPositionAndUpdate(newPos.xCoord, newPos.yCoord + 1.0D, newPos.zCoord);
@@ -282,7 +285,8 @@ public class NpcData {
      */
     public NpcData(World world, UUID uuid) {
         //初始化手持物品
-        this.holding = new ItemStack((Item) null);
+        this.holding = null;
+
         //交配阶段
         this.matingStage = -1.0F;
         //随机声明
@@ -313,8 +317,8 @@ public class NpcData {
      * @Param [world, mother, father]
      **/
     public NpcData(World world, NpcData mother, NpcData father) {
-        this.holding = new ItemStack((Item) null);
-        ;
+        this.holding = null;
+
         this.matingStage = -1.0F;
         this.rand = new Random();
         this.tempStage = -1;
@@ -463,8 +467,12 @@ public class NpcData {
                     this.skillFarming = Float.valueOf(value);
                 } else if (line.contains("holding|")) {
                     try {
-                        this.holding = new ItemStack(Item.getByNameOrId(value));
-                        this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
+                        if("".equals(value)||value==null){
+                            this.holding =null;
+                        }else{
+                            this.holding = new ItemStack(Item.getByNameOrId(value));
+                        }
+
                     } catch (Exception var16) {
                     }
                 } else if (line.contains("employedat|")) {
@@ -564,6 +572,8 @@ public class NpcData {
             reader.close();
             if (this.entity != null) {
                 this.entity.setDead();
+                this.entity.theData = null;
+                this.entity = null;
             }
             ModSimLoader.log.info("loadFolk 开始重生实体");
             this.respawn(world, this.pos.toBlockPos());
@@ -585,7 +595,7 @@ public class NpcData {
     public void fire() {
         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
         this.job = null;
-        this.holding = new ItemStack((Item) null);
+        this.holding = null;
         if (this.entity != null) {
             this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
         }
@@ -637,9 +647,9 @@ public class NpcData {
      * 向客户端发送皮肤地址
      */
     public void sendSkinPathToClient() {
-        if (this.entity != null) {
-
-            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), this.race.getSkinName()));
+        if (this.entity != null&&this.race!=null) {
+            String skinName=this.race.getSkinName();
+            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(),skinName));
         }
     }
 
@@ -819,7 +829,8 @@ public class NpcData {
     /**
      * @return void
      * @Author fan
-     * @Description //TODO 重生
+     * @Description //TODO 重生 当实体在世界中生成时调用。这包括玩家。
+     * 恢复块快照时不要删除任何项目。防止重复
      * @Date 13:29 2022/10/17
      * @Param [world, bp]
      **/
@@ -829,7 +840,11 @@ public class NpcData {
                 //重生实体
                 EntityFolk ef = new EntityFolk(world, this.ID);
                 //设置手持物品
-                ef.setHeldItem(EnumHand.MAIN_HAND, this.holding);
+                if(this.holding!=null){
+                    ef.setHeldItem(EnumHand.MAIN_HAND, this.holding);
+                }else{
+                    ef.setHeldItem(EnumHand.MAIN_HAND, null);
+                }
                 //坐标
                 this.pos = new V3(bp);
                 //更新坐标
@@ -843,6 +858,9 @@ public class NpcData {
                     this.entity = null;
                     this.isLoaded=true;
                 }*/
+            }else{
+                ModSimLoader.log.info("已重生，更新皮肤");
+                this.sendSkinPathToClient();
             }
         }catch (Exception e){
             ModSimLoader.log.error("重生出错了");
@@ -963,29 +981,31 @@ public class NpcData {
             this.minuteUpdate = now;
         }
         //如果当前NPC为空
-        /*if(this.entity == null){
+        if(this.entity == null){
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
             for (EntityPlayerMP player:players.getPlayerList()){
                 //如果位置不为空并且在人员的50个内，不是服务器端
-                if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 50.0D && !player.worldObj.isRemote) {
+                if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 80.0D && !player.worldObj.isRemote) {
                     //设置当前NPC 已加载
                     ModSimLoader.hasLoadedFolks = true;
                     //重生此NPC
+                    ModSimLoader.log.info("onSecond 新人生产");
                     this.respawn(player.worldObj, this.pos.toBlockPos());
                 }
             }
-        }*/
+        }
         //当前NPC 不为空并且是客户端
-       /* if (this.entity != null && !this.entity.worldObj.isRemote) {
+        if (this.entity != null && !this.entity.worldObj.isRemote) {
             //更新NPC
             this.entity.onFolkUpdate();
+            this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
             //获取NPC位置
             this.pos = V3.fromVec3d(this.entity.getPositionVector());
             //获取NPC位面
             this.pos.dimension = this.entity.dimension;
 
             //是否应该取消重生
-            boolean shouldDespawn = true;
+           /*boolean shouldDespawn = true;
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
             for (EntityPlayerMP player:players.getPlayerList()){
                 //如果位置不为空并且在人员的80个内
@@ -1000,8 +1020,8 @@ public class NpcData {
                 this.entity.setDead();
                 this.entity.theData = null;
                 this.entity = null;
-            }
-        }*/
+            }*/
+        }
         if (this.job != null && this.shouldWork()) {
             if (!this.job.atWork) {
                 //如果没有在工作的时候，并且工作是面包师，工作阶段设置为-1
@@ -1015,7 +1035,7 @@ public class NpcData {
         } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
             try {
                 //清除实体手中物品 手持空气
-                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack((Item) null));
+                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
             } catch (Exception var6) {
             }
             //等待
@@ -1127,41 +1147,6 @@ public class NpcData {
                 }
             }
 
-        } else {
-            //实体是空的
-            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-            for (EntityPlayerMP player : players.getPlayerList()) {
-                double dist = player.getDistance(this.pos.x, this.pos.y, this.pos.z);
-                if (this.pos != null && dist < 80.0D && !player.worldObj.isRemote) {
-                    ModSimLoader.hasLoadedFolks = true;
-                    //重生
-                    ModSimLoader.log.info("onSecond 新人生产");
-                    this.respawn(player.worldObj, this.pos.toBlockPos());
-                }
-            }
-        }
-        if (this.entity != null && !this.entity.worldObj.isRemote) {
-            this.entity.onFolkUpdate();
-            this.pos = V3.fromVec3d(this.entity.getPositionVector());
-            this.pos.dimension = this.entity.dimension;
-
-            //是否取消
-            boolean shouldDespawn = false;
-            PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-            for(EntityPlayerMP player :players.getPlayerList()){
-                //NPC距离玩家80步之外消失
-                double dist=player.getDistance(this.entity.posX,this.entity.posY,this.entity.posZ);
-                if ( dist> 80.0F) {
-                    shouldDespawn = true;
-                }
-            }
-
-            if (shouldDespawn) {
-//                goHome();
-                this.entity.setDead();
-                this.entity.theData = null;
-                this.entity = null;
-            }
         }
     }
 

@@ -80,7 +80,9 @@ public class FolkRelationship {
                 }
 
                 this.familyType = EnumFamilyType.SPOUSE;
-                this.getInverse().familyType = EnumFamilyType.SPOUSE;
+                if(this.getInverse()!=null){
+                    this.getInverse().familyType = EnumFamilyType.SPOUSE;
+                }
                 this.folk1.evict();
                 this.folk1.home = folk2.home;
                 folk2.home.occupants.add(this.folk1);
