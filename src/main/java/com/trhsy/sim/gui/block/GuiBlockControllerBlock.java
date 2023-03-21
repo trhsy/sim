@@ -71,6 +71,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
         this.hasEmployee = false;
         this.employee = null;
         this.buildingId = bId;
+
         ModSimLoader.log.info("控制箱ID:"+bId);
         this.buildingName = bName;
         this.jobName = jName;

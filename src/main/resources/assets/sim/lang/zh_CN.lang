@@ -337,7 +337,7 @@ container.sim.job.Baker_Arrived=到达面包店
 container.sim.job.builder_Arrived=去上班
 container.sim.job.builder_building=请选择我应该建造的建筑物
 container.sim.job.builder_blueprints=翻阅蓝图...
-
+container.sim.job.crop.farmer.Tending1=照料
 container.sim.job.builder_Checking=正在检查建筑资源...
 container.sim.job.builder_constructor_block=请在构造箱附近放置至少一个箱子。
 container.sim.job.builder_constructor_direction=无法确定构建方向,请站在构造器的四个边之一上右击
@@ -619,6 +619,7 @@ container.sim.gui_contains_Egg_Farm=鸡蛋农场
 container.sim.gui_contains_Cattle_Farm=养牛场
 container.sim.gui_contains_Pig_Farm=养猪场
 container.sim.gui_contains_Chicken_Farm=养鸡场
+container.sim.gui_contains_rabbit_Farm=养兔场
 container.sim.gui_contains_Depot=仓库
 container.sim.gui_contains_Glass_Factory=玻璃工厂
 container.sim.gui_contains_Fishing_Dock=渔场
@@ -895,6 +896,7 @@ container.sim.Vocation24=服务员
 container.sim.Vocation25=板砖工匠
 container.sim.Vocation26=食品商
 container.sim.Vocation28=养羊户
+container.sim.Vocation29=养兔户
 container.sim.FolkData.florist=花店
 container.sim.Hire1=雇佣建筑工
 container.sim.Hire2=雇佣服务员
@@ -1231,3 +1233,11 @@ container.sim.job_farmer_has=的农民等级刚刚达到了
 
 container.sim.job_farmer_Length=长
 container.sim.job_farmer_Width=宽
+container.sim.job_Livestock_pig=猪
+container.sim.job_Livestock_cow=牛
+container.sim.job_Livestock_sheep=羊
+container.sim.job_Livestock_chicken=鸡
+container.sim.job_Livestock_rabbit=兔
+
+container.sim.job_task_Spawn1=繁殖牲畜
+container.sim.job_task_Butcher1=屠宰牲畜

@@ -714,30 +714,6 @@ public class ModSimLoader {
         int var9;
         File buildingFolder;
         BuildingBlueprint b;
-        /*if (admBuildings != null) {
-            var7 = admBuildings;
-            var8 = admBuildings.length;
-
-            for(var9 = 0; var9 < var8; ++var9) {
-                buildingFolder = var7[var9];
-                building = new File(buildingFolder.getAbsolutePath() + File.separator + buildingFolder.getName() + ".txt");
-                b = new BuildingBlueprint(building);
-                if ((new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).exists()) {
-                    styles = (new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).listFiles();
-                    var14 = styles;
-                    var15 = styles.length;
-
-                    for(var16 = 0; var16 < var15; ++var16) {
-                        style = var14[var16];
-                        if (style.getName().toLowerCase().endsWith(".txt")) {
-                            b.styles.add(new BuildingBlueprint(style));
-                        }
-                    }
-                }
-
-                ModSimLoader.buildingBlueprints.add(b);
-            }
-        }*/
 
         if (comBuildings != null) {
             var7 = comBuildings;
@@ -745,21 +721,7 @@ public class ModSimLoader {
 
             for(var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
-                //building = new File(buildingFolder.getAbsolutePath() + File.separator + buildingFolder.getName() + ".txt");
                 b = new BuildingBlueprint(buildingFolder);
-                /*if ((new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).exists()) {
-                    styles = (new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).listFiles();
-                    var14 = styles;
-                    var15 = styles.length;
-
-                    for(var16 = 0; var16 < var15; ++var16) {
-                        style = var14[var16];
-                        if (style.getName().toLowerCase().endsWith(".txt")) {
-                            b.styles.add(new BuildingBlueprint(style));
-                        }
-                    }
-                }*/
-
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
@@ -770,21 +732,7 @@ public class ModSimLoader {
 
             for(var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
-                //building = new File(buildingFolder.getAbsolutePath() + File.separator + buildingFolder.getName() + ".txt");
                 b = new BuildingBlueprint(buildingFolder);
-                /*if ((new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).exists()) {
-                    styles = (new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).listFiles();
-                    var14 = styles;
-                    var15 = styles.length;
-
-                    for(var16 = 0; var16 < var15; ++var16) {
-                        style = var14[var16];
-                        if (style.getName().toLowerCase().endsWith(".txt")) {
-                            b.styles.add(new BuildingBlueprint(style));
-                        }
-                    }
-                }*/
-
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
@@ -795,21 +743,7 @@ public class ModSimLoader {
 
             for(var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
-                //building = new File(buildingFolder.getAbsolutePath() + File.separator + buildingFolder.getName() + ".txt");
                 b = new BuildingBlueprint(buildingFolder);
-                /*if ((new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).exists()) {
-                    styles = (new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).listFiles();
-                    var14 = styles;
-                    var15 = styles.length;
-
-                    for(var16 = 0; var16 < var15; ++var16) {
-                        style = var14[var16];
-                        if (style.getName().toLowerCase().endsWith(".txt")) {
-                            b.styles.add(new BuildingBlueprint(style));
-                        }
-                    }
-                }*/
-
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
@@ -820,21 +754,7 @@ public class ModSimLoader {
 
             for(var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
-                //building = new File(buildingFolder.getAbsolutePath() + File.separator + buildingFolder.getName() + ".txt");
                 b = new BuildingBlueprint(buildingFolder);
-                /*if ((new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).exists()) {
-                    styles = (new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).listFiles();
-                    var14 = styles;
-                    var15 = styles.length;
-
-                    for(var16 = 0; var16 < var15; ++var16) {
-                        style = var14[var16];
-                        if (style.getName().toLowerCase().endsWith(".txt")) {
-                            b.styles.add(new BuildingBlueprint(style));
-                        }
-                    }
-                }*/
-
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
@@ -845,21 +765,7 @@ public class ModSimLoader {
 
             for(var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
-                //building = new File(buildingFolder.getAbsolutePath() + File.separator + buildingFolder.getName() + ".txt");
                 b = new BuildingBlueprint(buildingFolder);
-                /*if ((new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).exists()) {
-                    styles = (new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).listFiles();
-                    var14 = styles;
-                    var15 = styles.length;
-
-                    for(var16 = 0; var16 < var15; ++var16) {
-                        style = var14[var16];
-                        if (style.getName().toLowerCase().endsWith(".txt")) {
-                            b.styles.add(new BuildingBlueprint(style));
-                        }
-                    }
-                }*/
-
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
@@ -870,21 +776,7 @@ public class ModSimLoader {
 
             for(var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
-                //building = new File(buildingFolder.getAbsolutePath() + File.separator + buildingFolder.getName() + ".txt");
                 b = new BuildingBlueprint(buildingFolder);
-                /*if ((new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).exists()) {
-                    styles = (new File(buildingFolder.getAbsolutePath() + File.separator + "Styles")).listFiles();
-                    var14 = styles;
-                    var15 = styles.length;
-
-                    for(var16 = 0; var16 < var15; ++var16) {
-                        style = var14[var16];
-                        if (style.getName().toLowerCase().endsWith(".txt")) {
-                            b.styles.add(new BuildingBlueprint(style));
-                        }
-                    }
-                }*/
-
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
@@ -1008,10 +900,11 @@ public class ModSimLoader {
     public static void openControlGui(V3 v3, String buildingId,String buildingName,String jobName,String bType,String author) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, buildingId,buildingName,jobName,bType,author));
     }
+    /**打开控制箱*/
     public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk,String buildingName,String jobName,String bType,String author) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,buildingName,jobName,bType,author));
     }
-
+    /**打开控制箱*/
     public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential,String buildingName,String jobName,String bType,String author) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,isResidential,buildingName,jobName,bType,author));
     }

@@ -40,13 +40,28 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
         super(renderManagerIn, new ModelBiped(), 1.0F);
         this.addLayer(new LayerHeldItem(this));
     }
+
+    @Override
     @Nonnull
     protected ResourceLocation getEntityTexture(@Nonnull EntityFolk entity) {
         ResourceLocation myTexture=null;
         try{
             NpcIdentity cfi = ModSimLoader.getFolkByUUID(entity.getUniqueID());
-            DynamicSkin skin=null;
-            for (DynamicSkin sk:ModSimLoader.skins){
+            if(cfi!=null){
+                Iterator var8 = ModSimLoader.skins.iterator();
+                DynamicSkin skin=null;
+                do {
+                    if (!var8.hasNext()) {
+                        myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
+                        ModSimLoader.skins.add(new DynamicSkin(myTexture, cfi.skinPath));
+                        return myTexture;
+                    }
+                    skin= (DynamicSkin)var8.next();
+                }while(!skin.skinPath.contentEquals(cfi.skinPath));
+                return new ResourceLocation(ModSim.MODID, "skins/" + skin.skinPath);
+            }
+
+            /*for (DynamicSkin sk:ModSimLoader.skins){
                 skin=sk;
                 if(skin!=null&&!skin.skinPath.contentEquals(cfi.skinPath)){
                      myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
@@ -54,8 +69,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                     ModSimLoader.skins.add(new DynamicSkin(myTexture, cfi.skinPath));
                     return myTexture;
                 }
-            }
-            myTexture=new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
+            }*/
 
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
@@ -63,9 +77,9 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             try {
                 String gend = "";
                 if (entity.theData.gender == 0) {
-                    gend = "male0";
+                    gend = "male0.png";
                 } else {
-                    gend = "female0";
+                    gend = "female0.png";
                 }
 
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/" + gend);

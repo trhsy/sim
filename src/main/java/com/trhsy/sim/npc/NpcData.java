@@ -165,7 +165,7 @@ public class NpcData {
     /**
      * 随机
      **/
-    Random rand;
+    public Random rand= new Random();
     /**
      * 留在原地
      **/
@@ -511,20 +511,31 @@ public class NpcData {
                             p = this.tempEmployLoc.toBlockPos();
                             FarmBox fb = ModSimLoader.getFarm(V3.fromBlockPos(p));
                             this.job = new JobFarmer(this, p, world, fb);
+                            //养猪户
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation13"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_pig"), world);
+                            //养牛户
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation12"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_cow"), world);
+                            //养鸡户
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation14"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_chicken"), world);
+                            //养羊户
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation27"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_sheep"), world);
+                            //养兔户
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation29"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_rabbit"), world);
                         } /*else if (job.contentEquals("dairyfarmer")) {
                             this.job = new JobDairyFarmer(this, this.tempEmployLoc, world);
                         }  else if (job.contentEquals("butcher")) {
                             this.job = new JobButcher(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("pig farmer")) {
-                            p = this.tempEmployLoc.toBlockPos();
-                            this.job = new JobLivestockFarmer(this, p, "pig", world);
-                        } else if (job.contentEquals("cow farmer")) {
-                            p = this.tempEmployLoc.toBlockPos();
-                            this.job = new JobLivestockFarmer(this, p, "cow", world);
-                        } else if (job.contentEquals("chicken farmer")) {
-                            p = this.tempEmployLoc.toBlockPos();
-                            this.job = new JobLivestockFarmer(this, p, "chicken", world);
-                        }  else if (job.contentEquals("miner")) {
+                        }   else if (job.contentEquals("miner")) {
                             p = this.tempEmployLoc.toBlockPos();
                             MineBox mb = WorldData.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);
@@ -1778,16 +1789,19 @@ public class NpcData {
             //this.job = new JobGrocer(this, pos.toBlockPos(), world);
             //养牛户
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation12"))) {
-            //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "cow", world);
+            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_cow"), world);
             //养猪户
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation13"))) {
-            //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "pig", world);
+            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_pig"), world);
             //养鸡户
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation14"))) {
-            //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "chicken", world);
+            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_chicken"), world);
             //养羊户
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
-            //this.job = new JobLivestockFarmer(this, pos.toBlockPos(), "sheep", world);
+            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_sheep"), world);
+            //养兔户
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation29"))) {
+            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_rabbit"), world);
             //牧羊人
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation8"))) {
             //this.job = new JobShepherd(this, pos.toBlockPos(), world);
