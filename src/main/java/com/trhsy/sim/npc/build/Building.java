@@ -1,14 +1,12 @@
 package com.trhsy.sim.npc.build;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
-import jdk.nashorn.internal.ir.Block;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.block.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
@@ -266,6 +264,136 @@ public class Building {
         }
 
         removeBuilding(this.ID);
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 旋转楼梯
+     * @Date 21:11 2023/3/21
+     * @Param []
+     * @return void
+     **/
+    public void rotateStairs(World world) {
+        for (V3 v3:this.structure){
+            BlockPos blockPos=v3.toBlockPos();
+            Block id = world.getBlockState(blockPos).getBlock();
+            ItemStack is = new ItemStack(world.getBlockState(blockPos).getBlock(), 1, id.getMetaFromState(world.getBlockState(blockPos)));
+            if (is != null && is.getItem() != null) {
+                EnumFacing facing=EnumFacing.UP;
+                int newmeta =0;
+                //楼梯
+                if(Block.getBlockFromItem(is.getItem()) instanceof BlockStairs){
+                    newmeta = is.getMetadata();
+                    if (newmeta == 0) {
+                        newmeta = 2;
+                        facing=EnumFacing.NORTH;
+                    } else if (newmeta == 1) {
+                        newmeta = 3;
+                        facing=EnumFacing.SOUTH;
+                    } else if (newmeta == 2) {
+                        newmeta = 1;
+                        facing=EnumFacing.UP;
+                    } else if (newmeta == 3) {
+                        newmeta = 0;
+                        facing=EnumFacing.DOWN;
+                    }
+                    world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
+//                    world.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
+                }
+                //火把
+                if(Block.getBlockFromItem(is.getItem()) instanceof BlockTorch){
+                    newmeta = is.getMetadata();
+                    if (newmeta == 1) {
+                        newmeta = 3;
+                        facing=EnumFacing.SOUTH;
+                    } else if (newmeta == 3) {
+                        newmeta = 2;
+                        facing=EnumFacing.NORTH;
+                    } else if (newmeta == 2) {
+                        newmeta = 4;
+                        facing=EnumFacing.WEST;
+                    } else if (newmeta == 4) {
+                        newmeta = 1;
+                        facing=EnumFacing.UP;
+                    }
+                    world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
+                }
+                //床
+                if(Block.getBlockFromItem(is.getItem()) instanceof BlockBed){
+                    newmeta = is.getMetadata();
+                    ++newmeta;
+                    if (newmeta == 4) {
+                        newmeta = 0;
+                        facing= EnumFacing.DOWN;
+                    }
+                    world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),2);
+                }
+                //活塞
+                if(Block.getBlockFromItem(is.getItem()) instanceof BlockPistonBase && Block.getBlockFromItem(is.getItem()) instanceof BlockPistonExtension){
+                    newmeta = is.getMetadata();
+                    if (newmeta == 2) {
+                        newmeta = 5;
+                        facing= EnumFacing.EAST;
+                    } else if (newmeta == 5) {
+                        newmeta = 3;
+                        facing= EnumFacing.SOUTH;
+                    } else if (newmeta == 3) {
+                        newmeta = 4;
+                        facing= EnumFacing.WEST;
+                    } else if (newmeta == 4) {
+                        newmeta = 2;
+                        facing= EnumFacing.NORTH;
+                    }
+                    world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
+                }
+                //墙壁标志
+                if (Block.getBlockFromItem(is.getItem()) instanceof BlockWallSign) {
+                    newmeta = is.getMetadata();
+                    if (newmeta == 0) {
+                        newmeta = 4;
+                        facing= EnumFacing.NORTH;
+                    } else if (newmeta == 4) {
+                        newmeta = 8;
+                        facing= EnumFacing.SOUTH;
+                    } else if (newmeta == 8) {
+                        newmeta = 12;
+                        facing= EnumFacing.WEST;
+                    } else if (newmeta == 12) {
+                        newmeta = 0;
+                        facing= EnumFacing.DOWN;
+                    }
+
+                    world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),2);
+                }
+                //按钮
+                if (Block.getBlockFromItem(is.getItem()) instanceof BlockButton) {
+                    newmeta = is.getMetadata();
+                    if (newmeta == 1) {
+                        newmeta = 3;
+                        facing= EnumFacing.SOUTH;
+                    } else if (newmeta == 3) {
+                        newmeta = 2;
+                        facing= EnumFacing.NORTH;
+                    } else if (newmeta == 2) {
+                        newmeta = 4;
+                        facing= EnumFacing.WEST;
+                    } else if (newmeta == 4) {
+                        newmeta = 1;
+                        facing= EnumFacing.UP;
+                    }
+                    world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
+                }
+                //栅栏门
+                if (Block.getBlockFromItem(is.getItem()) instanceof BlockFenceGate) {
+                    newmeta = is.getMetadata();
+                    ++newmeta;
+                    if (newmeta > 3) {
+                        newmeta = 0;
+                        facing= EnumFacing.DOWN;
+                    }
+                    world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
+                }
+            }
+        }
     }
     /**
      * @Author fan

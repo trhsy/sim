@@ -4,10 +4,7 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.gui.npc.GuiEmployees;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
-import com.trhsy.sim.network.server.PacketDemolishBuilding;
-import com.trhsy.sim.network.server.PacketFireFolk;
-import com.trhsy.sim.network.server.PacketGetHireableFolks;
-import com.trhsy.sim.network.server.PacketHireFolk;
+import com.trhsy.sim.network.server.*;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import net.minecraft.client.Minecraft;
@@ -270,8 +267,10 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             this.mc.setIngameFocus();
                         }else if (guibutton.id == 1001) {
                             //旋转楼梯
-
-                            return;
+//                            this.rotateStairs();
+                            NetWorkLoader.net.sendToServer(new PacketrotateStairs(this.buildingId));
+                            this.mc.currentScreen = null;
+                            this.mc.setIngameFocus();
                         }else if (guibutton.id == 21) {
                             //显示员工
                             Minecraft.getMinecraft().displayGuiScreen(new GuiEmployees());
@@ -344,6 +343,8 @@ public class GuiBlockControllerBlock extends GuiScreen {
             }
         }
     }
+
+
     /**
      * @Author fan
      * @Description //TODO 获取可以受雇佣的人
