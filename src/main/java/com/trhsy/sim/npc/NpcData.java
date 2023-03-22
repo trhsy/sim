@@ -470,7 +470,12 @@ public class NpcData {
                         if("".equals(value)||value==null){
                             this.holding =null;
                         }else{
-                            this.holding = new ItemStack(Item.getByNameOrId(value));
+                            Item item=Item.getByNameOrId(value);
+                            if(item!=null){
+                                this.holding = new ItemStack(item);
+                            }else{
+                                this.holding =null;
+                            }
                         }
 
                     } catch (Exception var16) {

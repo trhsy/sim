@@ -78,7 +78,7 @@ public class JobTaskButcherAnimal extends JobTask {
      * @return
      */
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
-        List<EntityAnimal> list = this.folk.entity.worldObj.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
+        List<EntityAnimal> list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
         return list;
     }
 

@@ -52,7 +52,7 @@ public class JobTaskSpawnLivestock extends JobTask {
      * @return
      */
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
-        List<EntityAnimal> list = this.folk.entity.worldObj.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x - 5.0D, controlBox.y, controlBox.z - 5.0D, controlBox.x + 5.0D, controlBox.y + 2.0D, controlBox.z + 5.0D));
+        List<EntityAnimal> list = this.job.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x - 5.0D, controlBox.y, controlBox.z - 5.0D, controlBox.x + 5.0D, controlBox.y + 2.0D, controlBox.z + 5.0D));
         return list;
     }
 

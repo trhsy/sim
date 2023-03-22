@@ -166,11 +166,11 @@ public class GuiBlockControllerBlock extends GuiScreen {
                     if (!this.hasEmployee) {
                         //雇佣
                         this.buttonList.add(new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire0") + WordUtils.capitalize(this.jobName)));
-                        ((GuiButton)this.buttonList.get(2)).enabled = false;
+                        //((GuiButton)this.buttonList.get(2)).enabled = false;
                     } else {
                         //解雇
                         this.buttonList.add(new GuiButton(2, 10, this.height - 30, 100, 20, I18n.format("container.sim.Fire") + WordUtils.capitalize(this.employee.name)));
-                        ((GuiButton)this.buttonList.get(2)).enabled = true;
+                        //((GuiButton)this.buttonList.get(2)).enabled = true;
                     }
                 }
             }
@@ -179,7 +179,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
             //取消
             this.buttonList.add(new GuiButton(1010, this.width / 2 - 200, this.height - 30, I18n.format("container.sim.sim_gui_player_to_Cancel")));
             //好的
-            this.buttonList.add(new GuiButton(1001, this.width / 2, this.height - 30, I18n.format("container.sim.gui_btn_name_OK")));
+            this.buttonList.add(new GuiButton(1002, this.width / 2, this.height - 30, I18n.format("container.sim.gui_btn_name_OK")));
 
             try {
                 int x = 10;
@@ -291,7 +291,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             this.showPage();
                         }
                         //好的
-                        if (guibutton.id == 1001 && this.selectedEmployee != null) {
+                        if (guibutton.id == 1002 && this.selectedEmployee != null) {
                             this.hasEmployee = true;
                             this.employee = this.hireableFolkNames[this.selectedEmployee.id];
                             this.previousPage = this.currentPage;

@@ -195,7 +195,7 @@ public class JobBuilder extends Job {
             this.startPos = this.startPos.add(-1, 0, 0);
         }
 
-//        this.createConBox();
+        this.createConBox();
     }
 
     public JobBuilder(NpcData folk, V3 pos, int direction, World world) {
@@ -217,7 +217,7 @@ public class JobBuilder extends Job {
             this.startPos = this.startPos.add(-1, 0, 0);
         }
 
-//        this.createConBox();
+        this.createConBox();
     }
 
     /**
@@ -774,7 +774,7 @@ public class JobBuilder extends Job {
         ModSimLoader.sendChat(text);
         //播放声音
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-        this.folk.entity.worldObj.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+        this.jobWorld.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
     }
 
     /**
@@ -789,8 +789,8 @@ public class JobBuilder extends Job {
         this.conBox.folk = this.folk;
         this.conBox.builderJob = this;
         this.conBox.setLocationAndAngles(this.workPlace.x + 2.0D, this.workPlace.y, this.workPlace.z, 0.0F, 0.0F);
-        if (!this.folk.entity.worldObj.isRemote) {
-            this.folk.entity.worldObj.spawnEntityInWorld(this.conBox);
+        if (!this.jobWorld.isRemote) {
+            this.jobWorld.spawnEntityInWorld(this.conBox);
         }
 
     }
