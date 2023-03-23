@@ -61,9 +61,9 @@ public class JobLivestockFarmer extends Job{
 
         this.addJobTask(new JobTaskSpawnLivestock(this, this.livestockName, this.livestockClass, 5000L));
         //照料
-        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName));
+        this.addJobTask(new JobTaskIdle(this, 120000L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName));
         //屠戮畜生
-        this.addJobTask(new JobTaskButcherAnimal(this, 10000L));
+        this.addJobTask(new JobTaskButcherAnimal(this, 12000L));
         this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName ));
     }
 

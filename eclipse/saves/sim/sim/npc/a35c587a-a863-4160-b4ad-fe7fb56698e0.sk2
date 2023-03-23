@@ -2,10 +2,10 @@ id|a35c587a-a863-4160-b4ad-fe7fb56698e0
 fname|澜烟
 sname|呼延
 gender|1
-age|27
+age|28
 race|精灵
 skin|male56.png
-pos|-409.5016290369587,4.0,328.55089095840907,0
+pos|-407.49403628674696,6.0,358.21249965768385,0
 trait1|勇敢的
 trait2|喜欢户外活动
 trait3|夜猫子
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|锡锹
 employedat|-408.0,4.0,358.0,0
 job|面包师
-jobstage|1
-relationship|5EC1F743-5552-4746-9955-67DAFAF65FAB,UNRELATED,AQUAINTANCE,9
+jobstage|3
+relationship|5EC1F743-5552-4746-9955-67DAFAF65FAB,UNRELATED,ENEMY,9

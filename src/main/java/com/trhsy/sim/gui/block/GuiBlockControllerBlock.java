@@ -319,6 +319,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
                     } else if (guibutton.id == 2) {
                         //解雇
                         NetWorkLoader.net.sendToServer(new PacketFireFolk(this.employee.id));
+                        this.currentPage = 1;
                         this.showPage();
                     }else if (guibutton.id == 3) {
                         //修理房子

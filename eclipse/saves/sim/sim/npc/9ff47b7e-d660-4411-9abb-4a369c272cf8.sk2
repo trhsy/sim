@@ -2,10 +2,10 @@ id|9ff47b7e-d660-4411-9abb-4a369c272cf8
 fname|苇雁
 sname|唐
 gender|1
-age|27
+age|28
 race|暗夜精灵
 skin|female31.png
-pos|-504.30657422663086,4.0,270.60135334213334,0
+pos|-514.5257633113708,4.0,306.313729522317,0
 trait1|喜欢户外活动
 trait2|夜猫子
 trait3|友善的
@@ -16,4 +16,4 @@ holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|D9E450F7-5983-4D66-90E8-352A3DA0B8E7,UNRELATED,GOODFRIEND,9
+relationship|D9E450F7-5983-4D66-90E8-352A3DA0B8E7,UNRELATED,BESTFRIENDS,4
