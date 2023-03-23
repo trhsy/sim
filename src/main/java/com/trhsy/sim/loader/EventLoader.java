@@ -364,6 +364,7 @@ public class EventLoader {
                         do {
                             if (!iterator.hasNext()) {
                                 String hungerName = "";
+                                //饥饿计数
                                 int hungerCount = 0;
                                 NpcData starve = null;
                                 Iterator iterator1 = ModSimLoader.folks.iterator();
@@ -378,7 +379,9 @@ public class EventLoader {
                                         ++hungerCount;
                                     }
                                     if (hungerName != "") {
+                                        //快饿死了！你应该建立一个农场，杂货店，面包店或向他们扔一些食物。
                                         String starving = I18n.format("container.sim.main_is_VERY");
+                                        //其他人正在挨饿！你应该建立一个农场，杂货店，面包店或向他们扔一些食物。
                                         String others_starving = I18n.format("container.sim.others_starving");
                                         String message = hungerCount > 1 ? hungerName + starving : hungerName + I18n.format("container.sim.Mining13") + hungerCount + others_starving;
                                         ModSimLoader.sendChat(message);

@@ -29,33 +29,42 @@ public class JobLivestockFarmer extends Job{
     public JobLivestockFarmer(NpcData folk, BlockPos pos, String livestock, World world) {
         super(folk,pos,world);
         this.livestockName = livestock;
-        //农
-        this.jobName = livestock + I18n.format("container.sim.Hire_farmer");
+
         //猪
-        if (this.livestockName == I18n.format("container.sim.job_Livestock_pig")) {
+        if (this.livestockName.equals(I18n.format("container.sim.job_Livestock_pig"))) {
             this.livestockClass = EntityPig.class;
+            //养猪户
+            this.jobName = I18n.format("container.sim.Vocation13");
             //牛
-        } else if (this.livestockName == I18n.format("container.sim.job_Livestock_cow")) {
+        } else if (this.livestockName.equals(I18n.format("container.sim.job_Livestock_cow"))) {
             this.livestockClass = EntityCow.class;
+            //养牛户
+            this.jobName =I18n.format("container.sim.Vocation12");
             //羊
-        } else if (this.livestockName == I18n.format("container.sim.job_Livestock_sheep")) {
+        } else if (this.livestockName.equals(I18n.format("container.sim.job_Livestock_sheep"))) {
             this.livestockClass = EntitySheep.class;
+            //养羊户
+            this.jobName = I18n.format("container.sim.Vocation28");
             //鸡
-        } else if (this.livestockName == I18n.format("container.sim.job_Livestock_chicken")) {
+        } else if (this.livestockName.equals(I18n.format("container.sim.job_Livestock_chicken"))) {
             this.livestockClass = EntityChicken.class;
+            //养鸡户
+            this.jobName = I18n.format("container.sim.Vocation14");
             //兔
-        }else if (this.livestockName == I18n.format("container.sim.job_Livestock_rabbit")) {
+        }else if (this.livestockName.equals(I18n.format("container.sim.job_Livestock_rabbit"))) {
             this.livestockClass = EntityRabbit.class;
+            //养兔户
+            this.jobName =  I18n.format("container.sim.Vocation29");
         }
         //去上班
         this.addJobTask(new JobTaskIdle(this, 5000L, I18n.format("container.sim.job.builder_Arrived")));
 
         this.addJobTask(new JobTaskSpawnLivestock(this, this.livestockName, this.livestockClass, 5000L));
         //照料
-        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName + (this.livestockName == "sheep" ? "" : "s")));
+        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName));
         //屠戮畜生
         this.addJobTask(new JobTaskButcherAnimal(this, 10000L));
-        this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName + (this.livestockName == "sheep" ? "" : "s")));
+        this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName ));
     }
 
     @Override

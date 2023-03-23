@@ -2,10 +2,10 @@ id|9b4a5c80-18f4-4723-aa51-e1d035484a50
 fname|浩栋
 sname|太叔
 gender|0
-age|26
+age|27
 race|精灵
 skin|male56.png
-pos|-402.7326642036011,5.0625,286.49523511771923,0
+pos|-403.7333956595781,5.0,285.4741066954448,0
 trait1|强壮的
 trait2|勇敢的
 trait3|夜猫子
@@ -16,4 +16,4 @@ holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|40F68E65-56A7-4EDE-A55F-AF8461F6CDC1,UNRELATED,HATE,3
+relationship|40F68E65-56A7-4EDE-A55F-AF8461F6CDC1,UNRELATED,BESTFRIENDS,0

@@ -4,6 +4,7 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.task.*;
+import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -24,10 +25,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 public class JobBaker extends Job {
     //小麦，鸡蛋，南瓜，牛奶,糖,可可豆
-    private int wheat,egg,pumpkin,milk_bucket,sugar,dye;
+    private int wheat, egg, pumpkin, milk_bucket, sugar, dye;
 
     public int theStage = -1;
     private int stage = -1;
+
     public JobBaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
@@ -38,7 +40,7 @@ public class JobBaker extends Job {
     }
 
     @Override
-    public void onUpdate(){
+    public void onUpdate() {
         super.onUpdate();
         if (this.atWork) {
             if (this.theStage == -1) {
@@ -79,27 +81,7 @@ public class JobBaker extends Job {
                 this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
                 this.theStage = 2;
             } else if (this.theStage == 2) {
-                List<IInventory> iterator = this.findJobChests(5);
-                for (IInventory inv : iterator) {
-                    for (int i = 0; i < inv.getSizeInventory(); ++i) {
-                        ItemStack slot = inv.getStackInSlot(i);
-                        if (slot != null) {
-                            if (slot.isItemEqual(new ItemStack(Items.WHEAT))) {
-                                this.wheat += slot.stackSize;
-                            } else if (slot.isItemEqual(new ItemStack(Items.EGG))) {
-                                this.egg += slot.stackSize;
-                            } else if (slot.isItemEqual(new ItemStack(Blocks.PUMPKIN))) {
-                                this.pumpkin += slot.stackSize;
-                            } else if (slot.isItemEqual(new ItemStack(Items.MILK_BUCKET))) {
-                                this.milk_bucket += slot.stackSize;
-                            } else if (slot.isItemEqual(new ItemStack(Items.SUGAR))) {
-                                this.sugar += slot.stackSize;
-                            } else if (slot.isItemEqual(new ItemStack(Items.DYE))) {
-                                this.dye += slot.stackSize;
-                            }
-                        }
-                    }
-                }
+
                 if (this.stage == -1) {
                     if (this.wheat > 3) {
                         //烘烤 面包 食材 小麦三个
@@ -155,19 +137,55 @@ public class JobBaker extends Job {
                 //售卖/关店
                 this.addJobTask(new JobTaskShopkeep(this, -1L, I18n.format("container.sim.job.Baker_bread")));
                 this.theStage = 4;
-            }else if(this.theStage == 4){
+            } else if (this.theStage == 4) {
                 //在去工作途中，并且已经到了工作位置则更新状态
-                if (this.atWork && this.folk.isAtLocation(this.workPlace)&&this.currentTask==null&&this.jobTasks.size() > 0) {
-                    //工作中
-                    this.atWork = true;
-                    //没有在工作途中
-                    this.onWayToWork = false;
-                    //到达指定地址
-                    this.onArrive();
+                if (this.atWork && this.folk.isAtLocation(this.workPlace) && this.currentTask == null && this.jobTasks.size() > 0) {
+                    if (this.jobTasks.size() > 0) {
+                        this.currentTask = (JobTask) this.jobTasks.get(0);
+                        this.currentTask.begin();
+                    }
+                } else if ((this.wheat > 3 || this.egg > 1 || this.pumpkin > 1 || this.milk_bucket > 1 || this.sugar > 1 || this.dye > 1) && this.folk.getStatusText().contains(I18n.format("container.sim.job_task_Selling"))) {
+                    this.theStage = 2;
+                    if (this.jobTasks.size() > 0) {
+                        this.currentTask = (JobTask) this.jobTasks.get(0);
+                        this.currentTask.begin();
+                    }
+                }
+            }
+            this.wheat = 0;
+            this.egg = 0;
+            this.pumpkin = 0;
+            this.milk_bucket = 0;
+            this.sugar = 0;
+            this.dye = 0;
+            List<IInventory> iterator = this.findJobChests(5);
+            for (IInventory inv : iterator) {
+                for (int i = 0; i < inv.getSizeInventory(); ++i) {
+                    ItemStack slot = inv.getStackInSlot(i);
+                    if (slot != null) {
+                        if (slot.isItemEqual(new ItemStack(Items.WHEAT))) {
+                            this.wheat += slot.stackSize;
+                        } else if (slot.isItemEqual(new ItemStack(Items.EGG))) {
+                            this.egg += slot.stackSize;
+                        } else if (slot.isItemEqual(new ItemStack(Blocks.PUMPKIN))) {
+                            this.pumpkin += slot.stackSize;
+                        } else if (slot.isItemEqual(new ItemStack(Items.MILK_BUCKET))) {
+                            this.milk_bucket += slot.stackSize;
+                        } else if (slot.isItemEqual(new ItemStack(Items.SUGAR))) {
+                            this.sugar += slot.stackSize;
+                        } else if (slot.isItemEqual(new ItemStack(Items.DYE))) {
+                            this.dye += slot.stackSize;
+                        }
+                    }
                 }
             }
         }
     }
+
+    @Override
+    public void onArrive() {
+    }
+
     @Override
     public String toString() {
         return I18n.format("container.sim.Vocation6");

@@ -54,7 +54,7 @@ public class PacketrotateStairs implements IMessage {
         private void handle(PacketrotateStairs message, MessageContext ctx) {
             Building b = ModSimLoader.getBuildingByUUID(message.uuid);
             if (b != null) {
-                ModSimLoader.log.info("拆除建筑："+b.buildingName);
+                ModSimLoader.log.info("旋转建筑："+b.buildingName);
                 b.rotateStairs(ctx.getServerHandler().playerEntity.worldObj);
             }
 

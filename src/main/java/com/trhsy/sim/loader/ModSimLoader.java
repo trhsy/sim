@@ -555,7 +555,7 @@ public class ModSimLoader {
     public static List<FarmBox> getClosestFarm(final V3 pos,String fType) {
         List<FarmBox> fs = new CopyOnWriteArrayList<>();
         for (FarmBox f:farms){
-            if(f.farmType.equals(fType)){
+            if(f.farmType.toString().equals(fType)){
                 fs.add(f);
             }
         }

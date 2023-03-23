@@ -5,6 +5,7 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.job.Job;
 import com.trhsy.sim.npc.job.JobLivestockFarmer;
 import com.trhsy.sim.task.JobTask;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Items;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Trhsy
@@ -29,6 +31,7 @@ public class JobTaskButcherAnimal extends JobTask {
      * 任务
      */
     public JobLivestockFarmer farmJob = null;
+    public Class livestockClass;
     /**
      * 屠戮目标
      */
@@ -40,7 +43,8 @@ public class JobTaskButcherAnimal extends JobTask {
 
     @Override
     public void onTaskBegin() {
-        this.job.folk.setStatus("Butchering animal");
+        //屠宰动物
+        this.job.folk.setStatus(I18n.format("container.sim.job_task_Butcher1"));
         this.selectTarget();
     }
 
@@ -58,7 +62,22 @@ public class JobTaskButcherAnimal extends JobTask {
         }
     }
     public void selectTarget() {
-        List<EntityAnimal> farmAnimals = this.getAnimalsInPen(this.farmJob.workPlace, (ForgeRegistries.BIOMES.getValue(new ResourceLocation(this.farmJob.livestockName))).getBiomeClass());
+        if (this.farmJob.livestockName.equals(I18n.format("container.sim.job_Livestock_pig"))) {
+            this.livestockClass = EntityPig.class;
+            //牛
+        } else if (this.farmJob.livestockName.equals(I18n.format("container.sim.job_Livestock_cow"))) {
+            this.livestockClass = EntityCow.class;
+            //羊
+        } else if (this.farmJob.livestockName.equals(I18n.format("container.sim.job_Livestock_sheep"))) {
+            this.livestockClass = EntitySheep.class;
+            //鸡
+        } else if (this.farmJob.livestockName.equals(I18n.format("container.sim.job_Livestock_chicken"))) {
+            this.livestockClass = EntityChicken.class;
+            //兔子
+        }else if (this.farmJob.livestockName.equals(I18n.format("container.sim.job_Livestock_rabbit"))) {
+            this.livestockClass = EntityRabbit.class;
+        }
+        List<EntityAnimal> farmAnimals = this.getAnimalsInPen(this.farmJob.workPlace, this.livestockClass);
         List<EntityAnimal> grownAnimals = new ArrayList();
         if (farmAnimals.size() >= 1) {
             for(int i = 0; i < farmAnimals.size(); ++i) {
@@ -78,7 +97,13 @@ public class JobTaskButcherAnimal extends JobTask {
      * @return
      */
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
-        List<EntityAnimal> list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
+        List<EntityAnimal> list=new CopyOnWriteArrayList<>();
+        try {
+            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
+            //list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x-5.0D, controlBox.y, controlBox.z-5.0D, controlBox.x + 5.0D, controlBox.y + 2.0D, controlBox.z + 5.0D)));
+        }catch (Exception e){
+            ModSimLoader.log.error("getAnimalsInPen出错了：" + e.getMessage() );
+        }
         return list;
     }
 

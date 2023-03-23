@@ -278,7 +278,7 @@ public class Building {
             Block id = world.getBlockState(blockPos).getBlock();
             ItemStack is = new ItemStack(world.getBlockState(blockPos).getBlock(), 1, id.getMetaFromState(world.getBlockState(blockPos)));
             if (is != null && is.getItem() != null) {
-                EnumFacing facing=EnumFacing.UP;
+                EnumFacing facing=EnumFacing.NORTH;
                 int newmeta =0;
                 //楼梯
                 if(Block.getBlockFromItem(is.getItem()) instanceof BlockStairs){
@@ -302,18 +302,19 @@ public class Building {
                 //火把
                 if(Block.getBlockFromItem(is.getItem()) instanceof BlockTorch){
                     newmeta = is.getMetadata();
+                    facing= EnumFacing.UP;
                     if (newmeta == 1) {
                         newmeta = 3;
-                        facing=EnumFacing.SOUTH;
+                        facing=EnumFacing.NORTH;
                     } else if (newmeta == 3) {
                         newmeta = 2;
-                        facing=EnumFacing.NORTH;
+                        facing=EnumFacing.SOUTH;
                     } else if (newmeta == 2) {
                         newmeta = 4;
                         facing=EnumFacing.WEST;
                     } else if (newmeta == 4) {
                         newmeta = 1;
-                        facing=EnumFacing.UP;
+                        facing=EnumFacing.EAST;
                     }
                     world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
                 }
@@ -386,9 +387,10 @@ public class Building {
                 if (Block.getBlockFromItem(is.getItem()) instanceof BlockFenceGate) {
                     newmeta = is.getMetadata();
                     ++newmeta;
+                    facing= EnumFacing.WEST;
                     if (newmeta > 3) {
                         newmeta = 0;
-                        facing= EnumFacing.DOWN;
+                        facing= EnumFacing.NORTH;
                     }
                     world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
                 }

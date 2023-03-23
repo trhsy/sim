@@ -60,23 +60,23 @@ public class JobTaskCollectItems extends JobTask {
                 //猪排
                 if (colItem == Items.PORKCHOP) {
                     //养猪场
-                    this.addDestination(I18n.format("container.sim.Vocation13"));
+                    this.addDestination(I18n.format("container.sim.gui_contains_Pig_Farm"));
                     //牛肉
                 } else if (colItem == Items.BEEF) {
                     //养牛场
-                    this.addDestination(I18n.format("container.sim.Vocation12"));
+                    this.addDestination(I18n.format("container.sim.gui_contains_Cattle_Farm"));
                     //鸡肉
                 } else if (colItem == Items.CHICKEN) {
                     //养鸡场
-                    this.addDestination(I18n.format("container.sim.Vocation14"));
+                    this.addDestination(I18n.format("container.sim.gui_contains_Chicken_Farm"));
                     //羊肉
                 } else if (colItem == Items.MUTTON) {
                     //养羊场
-                    this.addDestination(I18n.format("container.sim.Vocation27"));
+                    this.addDestination(I18n.format("container.sim.gui_contains_Sheep_Farm1"));
                     //鸡蛋
                 } else if (colItem == Items.EGG) {
                     //鸡蛋农场
-                    this.addDestination(I18n.format("container.sim.Vocation3"));
+                    this.addDestination(I18n.format("container.sim.gui_contains_Egg_Farm"));
                     //牛奶
                 }else if (colItem == Items.MILK_BUCKET) {
                     //奶牛场
@@ -84,7 +84,7 @@ public class JobTaskCollectItems extends JobTask {
                     //鱼
                 } else if (colItem == Items.FISH) {
                     //渔场
-                    this.addDestination(I18n.format("container.sim.Vocation18"));
+                    this.addDestination(I18n.format("container.sim.gui_contains_Fishing_Dock"));
                     //胡萝卜
                 } else if (colItem == Items.CARROT) {
                     this.addDestination("farmer:"+I18n.format("container.sim.FarmType1"));
@@ -104,7 +104,7 @@ public class JobTaskCollectItems extends JobTask {
                 } else if (colItem == Items.REEDS) {
                     this.addDestination("farmer:"+I18n.format("container.sim.FarmType7"));
                     //南瓜
-                }else if (Objects.equals(colItem, new ItemStack(Blocks.PUMPKIN))) {
+                }else if (colItem==new ItemStack(Blocks.PUMPKIN).getItem()) {
                     this.addDestination("farmer:"+I18n.format("container.sim.FarmType4"));
                 }
 
@@ -126,7 +126,7 @@ public class JobTaskCollectItems extends JobTask {
     private void addDestination(String jobt) {
         //如果是农场作物
         if (jobt.contains("farmer:")) {
-            String fType=jobt.substring(jobt.indexOf("farmer:"));
+            String fType=jobt.split(":")[1];
             //获取最近的农场
             ModSimLoader.getClosestFarm(this.job.workPlace,fType).forEach((f) -> {
                 System.out.println("最近的农场："+f.farmType);
@@ -141,6 +141,7 @@ public class JobTaskCollectItems extends JobTask {
     }
     @Override
     public void onUpdate() {
+        //目的地不为空
         if (this.currentDestination != null) {
             //如果在建筑内
             if (!this.job.folk.isAtLocation(this.currentDestination)) {
@@ -181,9 +182,15 @@ public class JobTaskCollectItems extends JobTask {
                         }
                     }
 
-                    if (this.destinations.size() < this.destinations.indexOf(this.currentDestination) + 1) {
+                    if (this.destinations.size() >1) {
                         ModSimLoader.log.info("找到下一个目的地");
-                        this.currentDestination = (V3)this.destinations.get(this.destinations.indexOf(this.currentDestination) + 1);
+                        int fsi=this.destinations.indexOf(this.currentDestination);
+                        if(fsi<this.destinations.size()){
+                            this.currentDestination = (V3)this.destinations.get( + 1);
+                            this.destinations.remove(this.destinations.indexOf(this.currentDestination));
+                        }else{
+                            this.completeTask();
+                        }
                     } else {
                         ModSimLoader.log.info("从所有目的地收集");
                         this.completeTask();
@@ -197,5 +204,6 @@ public class JobTaskCollectItems extends JobTask {
     }
     @Override
     public void onTaskComplete() {
+        this.destinations.clear();
     }
 }
