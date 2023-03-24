@@ -9,11 +9,11 @@ pos|-410.70596518623165,5.0,293.98375275623107,0
 trait1|强壮的
 trait2|擅长园艺
 trait3|喜欢户外活动
-hunger|9
+hunger|8
 buildingskill|11.0
-farmingskill|1.1120052
+farmingskill|1.1380064
 holding|
 employedat|-411.0,4.0,293.0,0
 job|农民
 jobstage|0
-relationship|03C73105-0E63-4994-8D27-48062273FA2D,UNRELATED,GOODFRIEND,0
+relationship|03C73105-0E63-4994-8D27-48062273FA2D,UNRELATED,AQUAINTANCE,3
