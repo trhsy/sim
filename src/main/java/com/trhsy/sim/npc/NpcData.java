@@ -876,7 +876,7 @@ public class NpcData {
                 }*/
             }else{
                 ModSimLoader.log.info("已重生，更新皮肤");
-                this.sendSkinPathToClient();
+//                this.sendSkinPathToClient();
             }
         }catch (Exception e){
             ModSimLoader.log.error("重生出错了");

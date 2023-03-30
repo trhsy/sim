@@ -2,10 +2,10 @@ id|06aa8ea1-632a-4733-9f14-a9226aad4647
 fname|娅丹
 sname|窦
 gender|1
-age|20
+age|21
 race|人族
-skin|female49.png
-pos|-400.20155895607957,4.0,296.26192292780314,0
+skin|female13.png
+pos|-405.96700157439767,4.0,278.04008663582835,0
 trait1|矮人血脉
 trait2|讨厌户外活动
 trait3|勇敢的
@@ -16,4 +16,4 @@ holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|03C73105-0E63-4994-8D27-48062273FA2D,UNRELATED,HATE,2
+relationship|03C73105-0E63-4994-8D27-48062273FA2D,UNRELATED,DISLIKE,5
