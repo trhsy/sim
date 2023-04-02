@@ -184,7 +184,6 @@ public class EventLoader {
             ModSimLoader.states.credits = 10.0F;
             this.timeSinceLastClientUpdate = 0L;
             File[] buildingSaves;
-            File buildingFile;
 
             ModSimLoader.log.info("加载世界...");
             ModSimLoader.states.loadStates();
@@ -198,7 +197,7 @@ public class EventLoader {
                 }
                 buildingSaves = farmsFolder.listFiles();
                 for (int i = 0; i < buildingSaves.length; i++) {
-                    buildingFile = buildingSaves[i];
+                    File buildingFile = buildingSaves[i];
                     //ModSimLoader.log.info("打开农场文件: " + buildingFile.getName());
                     ModSimLoader.farms.add(new FarmBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
                 }
@@ -216,7 +215,7 @@ public class EventLoader {
                 }
                 buildingSaves = minesFolder.listFiles();
                 for (int i = 0; i < buildingSaves.length; i++) {
-                    buildingFile = buildingSaves[i];
+                    File buildingFile = buildingSaves[i];
                     ModSimLoader.log.info("打开矿场文件: " + buildingFile.getName());
                     ModSimLoader.mines.add(new MineBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
                 }
@@ -234,9 +233,11 @@ public class EventLoader {
                 }
                 buildingSaves = npcFolder.listFiles();
                 for (int i = 0; i < buildingSaves.length; i++) {
-                    buildingFile = buildingSaves[i];
+                    File buildingFile = buildingSaves[i];
                     //ModSimLoader.log.info("得到Npc " + buildingFile.getName());
-                    ModSimLoader.folks.add(new NpcData(event.getWorld(), UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                    NpcData npcData=new NpcData(event.getWorld(), UUID.fromString(buildingFile.getName().split(".sk2")[0]));
+                    ModSimLoader.folks.add(npcData);
+                    ModSimLoader.log.info(npcData.race.skinName);
                 }
             } catch (Exception e) {
                 StackTraceElement element = e.getStackTrace()[0];
@@ -251,7 +252,7 @@ public class EventLoader {
                 }
                 buildingSaves = buildingFolder.listFiles();
                 for (int i = 0; i < buildingSaves.length; i++) {
-                    buildingFile = buildingSaves[i];
+                    File buildingFile = buildingSaves[i];
                     //ModSimLoader.log.info("打开建筑文件: " + buildingFile.getName());
                     ModSimLoader.buildings.add(new Building(event.getWorld(), UUID.fromString(buildingFile.getName().split(".sk2")[0])));
                 }
@@ -404,7 +405,7 @@ public class EventLoader {
                         //当前年龄
                         int currentAge = f.age;
                         //年龄增长
-                        if (f.age >= f.race.getMaturity()) {
+                        if (f.age >= f.race.maturity) {
                             if (ModSimLoader.states.dayOfWeek == 6) {
                                 ++f.age;
                             }
@@ -412,7 +413,7 @@ public class EventLoader {
                             ++f.age;
                         }
 
-                        if (currentAge < f.race.getMaturity() && f.age >= f.race.getMaturity()) {
+                        if (currentAge < f.race.maturity && f.age >= f.race.maturity) {
                             f.evict();
                             //现在18岁了,他们会开始找房子,你现在也可以雇佣他们了。
                             String s = I18n.format("container.sim.main_is_now");

@@ -12,12 +12,12 @@ public class RaceOrc extends Race{
     public RaceOrc() {
         super();
         //兽人族族
-        setRaceName(I18n.format("container.sim.race_Orc"));
+        this.raceName=I18n.format("container.sim.race_Orc");
         //描述
-        setDesc(I18n.format("container.sim.race_Orc_Desc"));
+        this.desc=I18n.format("container.sim.race_Orc_Desc");
         //寿命
-        setLifespan(110);
+        this.lifespan=110;
         // 成年期
-        setMaturity(18);
+        this.maturity=18;
     }
 }

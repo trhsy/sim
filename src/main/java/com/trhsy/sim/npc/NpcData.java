@@ -163,10 +163,6 @@ public class NpcData {
      **/
     public float pregnancyStage;
     /**
-     * 随机
-     **/
-    public Random rand= new Random();
-    /**
      * 留在原地
      **/
     public boolean stayPut;
@@ -208,7 +204,6 @@ public class NpcData {
         this.holding = null;
         //交配阶段 没有需求
         this.matingStage = -1.0F;
-        this.rand = new Random();
         //雇佣信息无
         this.tempStage = -1;
         //更新时间0
@@ -220,13 +215,13 @@ public class NpcData {
         //路径尝试无
         this.lastPathAttempt = 0L;
         //性别随机
-        this.gender = this.rand.nextInt(2);
+        this.gender = new Random().nextInt(2);
         /**皮肤随机*/
-        this.skinnumber = this.rand.nextInt(64);
+        this.skinnumber = new Random().nextInt(64);
         //种族分配
         this.assignRace();
         /**年龄**/
-        this.age = this.race.getMaturity();
+        this.age = this.race.maturity;
         //特征
         generateTraits();
 
@@ -286,11 +281,8 @@ public class NpcData {
     public NpcData(World world, UUID uuid) {
         //初始化手持物品
         this.holding = null;
-
         //交配阶段
         this.matingStage = -1.0F;
-        //随机声明
-        this.rand = new Random();
         //临时雇员状态
         this.tempStage = -1;
         //自上次状态更新以来的时间
@@ -320,19 +312,18 @@ public class NpcData {
         this.holding = null;
 
         this.matingStage = -1.0F;
-        this.rand = new Random();
         this.tempStage = -1;
         this.timeSinceLastStatusUpdate = 0L;
         /**皮肤随机*/
-        this.skinnumber = rand.nextInt(64);
+        this.skinnumber = new Random().nextInt(64);
         this.minuteUpdate = 0L;
         this.tempEmployLoc = null;
         this.lastPathAttempt = 0L;
-        this.gender = this.rand.nextInt(2);
-        if (this.rand.nextInt(2) == 0) {
-            this.assignRace(mother.race.getRaceName(), true);
+        this.gender = new Random().nextInt(2);
+        if (new Random().nextInt(2) == 0) {
+            this.assignRace(mother.race.raceName, true);
         } else {
-            this.assignRace(father.race.getRaceName(), true);
+            this.assignRace(father.race.raceName, true);
         }
 
         this.surname = father.surname;
@@ -450,7 +441,7 @@ public class NpcData {
                 } else if (line.contains("race|")) {
                     this.assignRace(value, false);
                 } else if (line.contains("skin|")) {
-                    this.race.setSkinName(value);
+                    this.race.skinName=value;
                 } else if (line.contains("pos|")) {
                     this.pos = V3.fromString(value);
                 } else if (line.contains("trait1|")) {
@@ -628,8 +619,8 @@ public class NpcData {
      **/
     public void assignRace() {
         try {
-            this.race = Races.raceList.get(rand.nextInt(Races.raceList.size()));
-            this.race.setSkinName(this.getTexture());
+            this.race = Races.raceList.get(new Random().nextInt(Races.raceList.size()));
+            this.race.skinName=this.getTexture();
         } catch (Exception var8) {
             StackTraceElement element = var8.getStackTrace()[0];
             ModSimLoader.log.error("assignRace出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
@@ -647,7 +638,7 @@ public class NpcData {
         try {
             for (int i = 0; i < Races.raceList.size(); i++) {
                 Race race = Races.raceList.get(i);
-                if (existingRaceName.equals(race.getRaceName())) {
+                if (existingRaceName.equals(race.raceName)) {
                     this.race = race;
                     break;
                 }
@@ -664,7 +655,7 @@ public class NpcData {
      */
     public void sendSkinPathToClient() {
         if (this.entity != null&&this.race!=null) {
-            String skinName=this.race.getSkinName();
+            String skinName=this.race.skinName;
             NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(),skinName));
         }
     }
@@ -688,8 +679,8 @@ public class NpcData {
                 writer.write("sname|" + this.surname + "\n");
                 writer.write("gender|" + this.gender + "\n");
                 writer.write("age|" + String.valueOf(this.age) + "\n");
-                writer.write("race|" + this.race.getRaceName() + "\n");
-                writer.write("skin|" + this.race.getSkinName() + "\n");
+                writer.write("race|" + this.race.raceName + "\n");
+                writer.write("skin|" + this.race.skinName + "\n");
                 writer.write("pos|" + this.pos.toString() + "\n");
                 writer.write("trait1|" + this.trait1.traitName + "\n");
                 writer.write("trait2|" + this.trait2.traitName + "\n");
@@ -762,18 +753,18 @@ public class NpcData {
 
         if (this.gender == 0) {
             if (this.forename == null || this.forename == "") {
-                int i = rand.nextInt(ConfigLoader.configMaleNames.length);
+                int i = new Random().nextInt(ConfigLoader.configMaleNames.length);
                 this.forename = ConfigLoader.configMaleNames[i].trim();
             }
 
         } else {
             if (this.forename == null || this.forename == "") {
-                int i = rand.nextInt(ConfigLoader.configFemaleNames.length);
+                int i = new Random().nextInt(ConfigLoader.configFemaleNames.length);
                 this.forename = ConfigLoader.configFemaleNames[i].trim();
             }
         }
         if (this.surname == null || this.surname == "") {
-            int i = rand.nextInt(ConfigLoader.configSurnames.length);
+            int i = new Random().nextInt(ConfigLoader.configSurnames.length);
             this.surname = ConfigLoader.configSurnames[i].trim();
         }
         if (this.surname != null && this.forename != null) {
@@ -797,8 +788,8 @@ public class NpcData {
     public NpcIdentity getClientIdentity() {
         NpcIdentity npcIdentity = null;
         if (this.entity != null) {
-            String skin = this.race.getSkinName();
-            npcIdentity = new NpcIdentity(this.ID, this.getName(), String.valueOf(this.age), this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.getMaturity()), skin);
+            String skin = this.race.skinName;
+            npcIdentity = new NpcIdentity(this.ID, this.getName(), String.valueOf(this.age), this.getStatusText(), this.getJobTitle(), this.getHousingStatus(), this.getRelationshipStatus(), this.getHunger(), String.valueOf(this.race.maturity), skin);
         }
         return npcIdentity;
     }
@@ -1149,14 +1140,14 @@ public class NpcData {
                         //与某人的关系
                         FolkRelationship rel = this.getRelationshipWith(fd);
                         if (rel != null) {
-                            if (this.rand.nextInt(20) > 18) {
-                                if (this.rand.nextInt(2) > 0) {
+                            if (new Random().nextInt(20) > 18) {
+                                if (new Random().nextInt(2) > 0) {
                                     rel.addLevel(1);
                                 } else {
                                     rel.addLevel(-1);
                                 }
                             }
-                        } else if (this.rand.nextInt(10) > 8) {
+                        } else if (new Random().nextInt(10) > 8) {
                             this.addRelationship(fd);
                         }
                     }
@@ -1186,7 +1177,7 @@ public class NpcData {
                 //没有工作 或者有工作但没再工作的
                 if (this.job == null || (this.job != null && !this.shouldWork())) {
                     //未成年成年，跟随父母
-                    if (this.age < this.race.getMaturity()) {
+                    if (this.age < this.race.maturity) {
                         father = this.getParent(0);
                         NpcData mother = this.getParent(1);
                         Building newHome = null;
@@ -1224,7 +1215,7 @@ public class NpcData {
             } else {
                 if (this.currentTask instanceof TaskSleep && this.isAtBuilding(this.home) && this.gender == 0 && this.getSpouse() != null) {
                     father = this.getSpouse();
-                    if (father.isAtBuilding(this.home) && father.pregnancyStage < 0.1F && this.rand.nextInt(6) == 5) {
+                    if (father.isAtBuilding(this.home) && father.pregnancyStage < 0.1F && new Random().nextInt(6) == 5) {
                         this.addTask(new TaskProcreate(this, 10000L, father));
                         father.addTask(new TaskProcreate(father, 10000L, this));
                         this.currentTask.completeTask();
@@ -1283,14 +1274,13 @@ public class NpcData {
      * @Param []
      **/
     public void pickRandomTask() {
-        this.rand=new Random();
         //有家并且随机任务是3
-        if (this.home != null && this.rand.nextInt(4) == 3) {
+        if (this.home != null && new Random().nextInt(4) == 3) {
             //回家在家放松
-            this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), this.home, I18n.format("container.sim.FolkAction5")));
-        } else if (this.rand.nextInt(4) == 3) {
+            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, I18n.format("container.sim.FolkAction5")));
+        } else if (new Random().nextInt(4) == 3) {
             for (Building b : ModSimLoader.buildings) {
-                if (b.controlXYZ.getDistanceTo(this.pos) < 40 && this.rand.nextInt(4) == 3) {
+                if (b.controlXYZ.getDistanceTo(this.pos) < 40 && new Random().nextInt(4) == 3) {
                     //住宅
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
                         for (NpcData fd : b.occupants) {
@@ -1299,10 +1289,10 @@ public class NpcData {
                                     if (this.isAdult() != fd.isAdult()) {
                                         if (fd.ID == this.ID) {
                                             //社交任务
-                                            this.addTask(new TaskSocialise(this, (long) (this.rand.nextInt(15000) + 15000), fd, b, false));
+                                            this.addTask(new TaskSocialise(this, (long) (new Random().nextInt(15000) + 15000), fd, b, false));
                                             fd.currentTask = null;
                                             fd.tasks.clear();
-                                            fd.addTask(new TaskSocialise(fd, (long) (this.rand.nextInt(15000) + 15000), this, b, true));
+                                            fd.addTask(new TaskSocialise(fd, (long) (new Random().nextInt(15000) + 15000), this, b, true));
                                         }
                                     }
                                 }
@@ -1313,22 +1303,22 @@ public class NpcData {
                     //商业
                     if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Commercial"))) {
 
-                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Shopping") + b.buildingName));
+                        this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Shopping") + b.buildingName));
                         //工业
                     } else if (b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Industrial"))) {
-                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                        this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
                         //装饰
                     } else if (!b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Decorative"))) {
-                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                        this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
                         //其他
                     } else if (!b.buildingType.contentEquals(I18n.format("container.sim.sim_gui_BC_Other"))) {
-                        this.addTask(new TaskGoTo(this, (long) (this.rand.nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
+                        this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, I18n.format("container.sim.folk_data_Visiting") + b.buildingName));
                     }
                     break;
                 }
             }
         } else {
-            this.addTask(new TaskWander(this, (long) (this.rand.nextInt(30000) + 30000)));
+            this.addTask(new TaskWander(this, (long) (new Random().nextInt(30000) + 30000)));
         }
 
     }
@@ -1577,7 +1567,7 @@ public class NpcData {
      * @Param []
      **/
     public boolean isAdult() {
-        return this.age >= this.race.getMaturity();
+        return this.age >= this.race.maturity;
     }
 
     /**
@@ -1629,7 +1619,9 @@ public class NpcData {
                     this.home.occupants.remove(this);
                     this.home.saveBuilding();
                 }
-
+                if(this.job != null){
+                    this.fire();
+                }
                 ModSimLoader.folks.remove(this);
                 try {
                     Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());

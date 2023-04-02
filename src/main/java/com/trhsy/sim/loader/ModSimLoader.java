@@ -72,7 +72,9 @@ public class ModSimLoader {
      * 建筑
      **/
     public static List<Building> buildings = new CopyOnWriteArrayList();
+    /*养殖箱*/
     public static List<FarmBox> farms = new CopyOnWriteArrayList();
+    /*挖矿箱*/
     public static List<MineBox> mines = new CopyOnWriteArrayList();
     public static List<BlockMarker> markers = new CopyOnWriteArrayList();
     /**
@@ -427,7 +429,7 @@ public class ModSimLoader {
      **/
     public static NpcData getFolkDataByUID(String uid) {
         NpcData npcDatas = null;
-        for (NpcData npcData : folks) {
+        for (NpcData npcData : ModSimLoader.folks) {
             if (npcData.ID.contentEquals(uid.toLowerCase())) {
                 npcDatas = npcData;
             }

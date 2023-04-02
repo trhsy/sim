@@ -48,17 +48,18 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
         try{
             NpcIdentity cfi = ModSimLoader.getFolkByUUID(entity.getUniqueID());
             if(cfi!=null){
-                Iterator var8 = ModSimLoader.skins.iterator();
+                /*Iterator var8 = ModSimLoader.skins.iterator();
                 DynamicSkin skin=null;
                 do {
                     if (!var8.hasNext()) {
                         myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
                         ModSimLoader.skins.add(new DynamicSkin(myTexture, cfi.skinPath));
-                        return myTexture;
+
+                        //return myTexture;
                     }
                     skin= (DynamicSkin)var8.next();
-                }while(!skin.skinPath.contentEquals(cfi.skinPath));
-                return new ResourceLocation(ModSim.MODID, "skins/" + skin.skinPath);
+                }while(!skin.skinPath.contentEquals(cfi.skinPath));*/
+                return new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
             }
 
             /*for (DynamicSkin sk:ModSimLoader.skins){
@@ -83,7 +84,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                 }
 
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/" + gend);
-                ModSimLoader.skins.add(new DynamicSkin(myTexture,gend));
+//                ModSimLoader.skins.add(new DynamicSkin(myTexture,gend));
                 return myTexture;
             } catch (Exception var6) {
                 return new ResourceLocation("minecraft:steve");

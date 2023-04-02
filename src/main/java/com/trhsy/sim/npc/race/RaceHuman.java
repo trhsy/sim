@@ -13,12 +13,12 @@ public class RaceHuman extends Race {
     public RaceHuman() {
         super();
         //人族
-        setRaceName(I18n.format("container.sim.race_Human"));
+        this.raceName=I18n.format("container.sim.race_Human");
         //描述
-        setDesc(I18n.format("container.sim.race_Human_Desc"));
+        this.desc=I18n.format("container.sim.race_Human_Desc");
         //寿命
-        setLifespan(110);
+        this.lifespan=110;
         // 成年期
-        setMaturity(18);
+        this.maturity=18;
     }
 }

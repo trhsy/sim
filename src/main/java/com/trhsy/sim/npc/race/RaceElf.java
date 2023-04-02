@@ -13,12 +13,12 @@ public class RaceElf extends Race {
     public RaceElf() {
         super();
         //名字 黑暗精灵
-        setRaceName(I18n.format("container.sim.race_elf"));
+        this.raceName=I18n.format("container.sim.race_elf");
         //描述
-        setDesc(I18n.format("container.sim.race_elf_Desc"));
+        this.desc=I18n.format("container.sim.race_elf_Desc");
         //寿命
-        setLifespan(250);
+        this.lifespan=250;
         // 成年期
-        setMaturity(26);
+        this.maturity=26;
     }
 }
