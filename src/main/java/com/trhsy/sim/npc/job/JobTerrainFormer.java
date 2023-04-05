@@ -93,7 +93,7 @@ public class JobTerrainFormer extends Job {
         //建筑工
         this.jobName = I18n.format("container.sim.Vocation16");
         if (folk.entity != null) {
-            IBlockState s = folk.entity.worldObj.getBlockState(pos);
+            IBlockState s = this.jobWorld.getBlockState(pos);
             if (s != null) {
                 Block block = s.getBlock();
                 if (block != null) {
@@ -111,7 +111,7 @@ public class JobTerrainFormer extends Job {
         super(folk, pos, world);
         this.constructorPos = pos.toBlockPos();
         //建筑箱
-        this.constructorBlock = (BlockConstructorBox) folk.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
+        this.constructorBlock = (BlockConstructorBox) world.getBlockState(pos.toBlockPos()).getBlock();
         //建筑工
         this.jobName = I18n.format("container.sim.Vocation16");
         this.constructorBlock.employee = folk;
@@ -123,16 +123,16 @@ public class JobTerrainFormer extends Job {
         super.onUpdate();
         if (this.folk != null) {
             if (this.folk.entity != null) {
-                if (this.folk.entity.worldObj != null) {
-                    if (!this.folk.entity.worldObj.isRemote) {
+                if (this.jobWorld != null) {
+                    if (!this.jobWorld.isRemote) {
                         //NPC数据为空，并且没有指派员工
                         if (this.folk.entity != null && !this.hasReassignedEmployee) {
                             //建造位置为空
-                            if (this.folk.entity.worldObj.getBlockState(this.constructorPos) == null) {
+                            if (this.jobWorld.getBlockState(this.constructorPos) == null) {
                                 return;
                             }
                             //获取建筑箱的
-                            BlockConstructorBox cons = (BlockConstructorBox) this.folk.entity.worldObj.getBlockState(this.constructorPos).getBlock();
+                            BlockConstructorBox cons = (BlockConstructorBox) this.jobWorld.getBlockState(this.constructorPos).getBlock();
                             //当前建筑箱的工作人员是
                             cons.employee = this.folk;
                             //已经指派
@@ -148,7 +148,7 @@ public class JobTerrainFormer extends Job {
                                 } else {
                                     soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                 }
-                                this.folk.entity.worldObj.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+                                this.jobWorld.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
                             }
                             //等待规划类型
                             if (this.terrainType == null) {
@@ -172,7 +172,7 @@ public class JobTerrainFormer extends Job {
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
                                     //不是客户端
-                                    if (!this.folk.entity.worldObj.isRemote) {
+                                    if (!this.jobWorld.isRemote) {
                                         //直接放置方块
                                         this.placeBlock();
                                     }
@@ -811,7 +811,7 @@ public class JobTerrainFormer extends Job {
 //                this.jobWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     //播放 我准备好了
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                    this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY,this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+                    this.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY,this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1,false);
                     this.folk.fire();
                     this.folk.stayPut = false;
                 }
@@ -861,19 +861,19 @@ public class JobTerrainFormer extends Job {
                             //获取方块
                             for (int m = 0; m < blockIDs.size(); m++) {
                                 Block blockID = (Block) blockIDs.get(m);
-                                if (this.folk.entity.worldObj == null) {
+                                if (this.jobWorld == null) {
                                     return;
                                 }
                                 BlockPos pos = new BlockPos(sx, sy, sz);
                                 //获取当前世界的方块
-                                Block blockInWorld = this.folk.entity.worldObj.getBlockState(pos).getBlock();
+                                Block blockInWorld = this.jobWorld.getBlockState(pos).getBlock();
                                 if (blockInWorld == blockID) {
                                     //如果向上扫描
                                     if (needsToSeeSky) {
                                         //方块是空的
                                         boolean canSeeSky;
                                         pos = new BlockPos(sx, sy + 1, sz);
-                                        Block block=this.folk.entity.worldObj.getBlockState(pos).getBlock();
+                                        Block block=this.jobWorld.getBlockState(pos).getBlock();
                                         if (block == null||Blocks.AIR==block) {
                                             canSeeSky = true;
                                         } else {

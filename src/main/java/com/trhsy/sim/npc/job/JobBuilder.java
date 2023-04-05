@@ -146,7 +146,7 @@ public class JobBuilder extends Job {
             this.blueprint.structure[0] = BlockLoader.blockControlBox.getDefaultState();
         }
         if (folk.entity != null) {
-            IBlockState s = folk.entity.worldObj.getBlockState(pos);
+            IBlockState s = this.jobWorld.getBlockState(pos);
             if (s != null) {
                 Block block = s.getBlock();
                 if (block != null) {
@@ -205,7 +205,7 @@ public class JobBuilder extends Job {
         this.constructorPos = pos.toBlockPos();
         this.startPos = pos.toBlockPos();
         this.direction = direction;
-        BlockConstructorBox cons = (BlockConstructorBox) folk.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
+        BlockConstructorBox cons = (BlockConstructorBox) this.jobWorld.getBlockState(pos.toBlockPos()).getBlock();
         cons.employee = folk;
         if (direction == 0) {
             this.startPos = this.startPos.add(0, 0, -1);
@@ -232,16 +232,16 @@ public class JobBuilder extends Job {
         super.onUpdate();
         if (this.folk != null) {
             if (this.folk.entity != null) {
-                if (this.folk.entity.worldObj != null) {
-                    if (!this.folk.entity.worldObj.isRemote) {
+                if (this.jobWorld != null) {
+                    if (!this.jobWorld.isRemote) {
                         //NPC数据为空，并且没有指派元
                         if (this.folk.entity != null && !this.hasReassignedEmployee) {
                             //建造位置为空
-                            if (this.folk.entity.worldObj.getBlockState(this.constructorPos) == null) {
+                            if (this.jobWorld.getBlockState(this.constructorPos) == null) {
                                 return;
                             }
                             //获取建筑箱的
-                            BlockConstructorBox cons = (BlockConstructorBox) this.folk.entity.worldObj.getBlockState(this.constructorPos).getBlock();
+                            BlockConstructorBox cons = (BlockConstructorBox) this.jobWorld.getBlockState(this.constructorPos).getBlock();
                             //当前建筑箱的工作人员是
                             cons.employee = this.folk;
                             //已经
@@ -257,7 +257,7 @@ public class JobBuilder extends Job {
                                 } else {
                                     soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                 }
-                                this.folk.entity.worldObj.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+                                this.jobWorld.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
 
                             }
                         }
@@ -285,7 +285,7 @@ public class JobBuilder extends Job {
                                 //上次时间为当前时间
                                 this.timeSinceLastBlockPlace = now;
                                 //不是客户端
-                                if (!this.folk.entity.worldObj.isRemote) {
+                                if (!this.jobWorld.isRemote) {
                                     //直接放置方块
                                     this.placeBlock();
                                 }
@@ -360,7 +360,7 @@ public class JobBuilder extends Job {
                 newBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
                 st = this.blueprint.structure[this.blockNumber];
             }
-            Block fs_block = this.folk.entity.worldObj.getBlockState(newBP).getBlock();
+            Block fs_block = this.jobWorld.getBlockState(newBP).getBlock();
             Block fs_st_block = st.getBlock();
             //控制箱
             if (fs_st_block == BlockLoader.blockControlBox) {
@@ -377,20 +377,20 @@ public class JobBuilder extends Job {
                     this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
                     return;
                 }
-                Block newBlock = this.folk.entity.worldObj.getBlockState(newBP.down()).getBlock();
+                Block newBlock = this.jobWorld.getBlockState(newBP.down()).getBlock();
                 //门
                 if (fs_st_block instanceof BlockDoor && newBlock != fs_st_block) {
                     normalBlock = false;
                     //放置门
-                    ItemDoor.placeDoor(this.folk.entity.worldObj, newBP, EnumFacing.NORTH, fs_st_block, false);
+                    ItemDoor.placeDoor(this.jobWorld, newBP, EnumFacing.NORTH, fs_st_block, false);
                     ModSimLoader.addMoney(-0.02F);
                 }
                 //床
                 if (fs_st_block instanceof BlockBed) {
                     normalBlock = false;//床不是普通的块
                     BlockPos blockpos2 = newBP.up();
-                    this.folk.entity.worldObj.notifyNeighborsOfStateChange(newBP, fs_st_block);
-                    this.folk.entity.worldObj.notifyNeighborsOfStateChange(blockpos2, fs_st_block);
+                    this.jobWorld.notifyNeighborsOfStateChange(newBP, fs_st_block);
+                    this.jobWorld.notifyNeighborsOfStateChange(blockpos2, fs_st_block);
                     ModSimLoader.addMoney(-0.02F);
                 }
                 //控制箱
@@ -415,7 +415,7 @@ public class JobBuilder extends Job {
                             hasBlock = true;
                         } else {
                             Block b = fs_st_block;
-                            newBlock = this.folk.entity.worldObj.getBlockState(newBP).getBlock();
+                            newBlock = this.jobWorld.getBlockState(newBP).getBlock();
                             //是否是同一个块，是否已放置
                             if (this.isSameBlock(newBlock, fs_st_block)) {
                                 hasBlock = true;
@@ -464,13 +464,13 @@ public class JobBuilder extends Job {
                             //放置方块
                             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
 
-                            this.folk.entity.worldObj.setBlockState(newBP, st);
+                            this.jobWorld.setBlockState(newBP, st);
                             ModSimLoader.addMoney(-0.02F);
                             //栅栏
                         } else if (fs_st_block instanceof BlockFence) {
                             //放置方块
                             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
-                            this.folk.entity.worldObj.setBlockState(newBP, st);
+                            this.jobWorld.setBlockState(newBP, st);
                             ModSimLoader.addMoney(-0.02F);
                         } else {
                             EnumFacing facing = null;
@@ -492,7 +492,7 @@ public class JobBuilder extends Job {
                                     }
                                     //放置方块
                                     this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
-                                    this.folk.entity.worldObj.setBlockState(newBP, st);
+                                    this.jobWorld.setBlockState(newBP, st);
                                     ModSimLoader.addMoney(-0.02F);
                                 }
                             } while (validFacings != null && validFacings.size() < 4);
@@ -502,8 +502,8 @@ public class JobBuilder extends Job {
                                 if (this.direction == 0 && this.blueprint.direction == 3 || this.direction == 1 && this.blueprint.direction == 0 || this.direction == 2 && this.blueprint.direction == 1 || this.direction == 3 && this.blueprint.direction == 2) {
                                     newState = st.withProperty(prop, facing.rotateY());
                                     st = st.withRotation(Rotation.CLOCKWISE_90);
-                                    if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
-                                        this.folk.entity.worldObj.setBlockState(newBP, st);
+                                    if (!this.isSameBlock(this.jobWorld.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                        this.jobWorld.setBlockState(newBP, st);
                                         ModSimLoader.addMoney(-0.02F);
                                     }
                                     ModSimLoader.log.info("方块应该面向 " + facing.rotateY().toString() + " (顺时针方向的)");
@@ -512,15 +512,15 @@ public class JobBuilder extends Job {
                                     if (this.direction == 0 && this.blueprint.direction == 1 || this.direction == 1 && this.blueprint.direction == 2 || this.direction == 2 && this.blueprint.direction == 3 || this.direction == 3 && this.blueprint.direction == 0) {
                                         newState = st.withProperty(prop, facing.rotateYCCW());
                                         st = st.withRotation(Rotation.COUNTERCLOCKWISE_90);
-                                        if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
-                                            this.folk.entity.worldObj.setBlockState(newBP, st);
+                                        if (!this.isSameBlock(this.jobWorld.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                            this.jobWorld.setBlockState(newBP, st);
                                             ModSimLoader.addMoney(-0.02F);
                                         }
                                         ModSimLoader.log.info("方块应该面向 " + facing.rotateYCCW().toString() + " (逆时针方向)");
                                         ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) newState.getValue(prop)).toString());
                                     } else if (this.direction == this.blueprint.direction) {
-                                        if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
-                                            this.folk.entity.worldObj.setBlockState(newBP, st);
+                                        if (!this.isSameBlock(this.jobWorld.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                            this.jobWorld.setBlockState(newBP, st);
                                             ModSimLoader.addMoney(-0.02F);
                                         }
                                         ModSimLoader.log.info("方块应该面向 " + facing.toString() + " (无旋转)");
@@ -530,15 +530,15 @@ public class JobBuilder extends Job {
                                     }
                                 } else {
                                     st = st.withRotation(Rotation.CLOCKWISE_180);
-                                    if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
-                                        this.folk.entity.worldObj.setBlockState(newBP, st);
+                                    if (!this.isSameBlock(this.jobWorld.getBlockState(newBP).getBlock(), fs_st_block)) {
+                                        this.jobWorld.setBlockState(newBP, st);
                                         ModSimLoader.addMoney(-0.02F);
                                     }
                                     ModSimLoader.log.info("方块应该面向 " + facing.rotateY().rotateY().toString() + " (快速翻转)");
                                     ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) st.getValue(prop)).toString());
                                 }
                             } else {
-                                this.folk.entity.worldObj.setBlockState(newBP, st);
+                                this.jobWorld.setBlockState(newBP, st);
                             }
 
                         }
@@ -551,14 +551,14 @@ public class JobBuilder extends Job {
                     this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                         //建造的音效
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
-                        this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY,this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+                        this.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY,this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1,false);
 
                 }
                 //放置方块
                 this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
             }
             //在客户端生成粒子
-            if (this.folk.entity.worldObj.isRemote) {
+            if (this.jobWorld.isRemote) {
                 Random rand = new Random();
                 for (int i = 0; i < 20; ++i) {
                     double d0 = (double)((float)newBP.getX() + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
@@ -567,7 +567,7 @@ public class JobBuilder extends Job {
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
-                    this.folk.entity.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,d0 , d1, d2, d3, d4, d5, new int[0]);
+                    this.jobWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,d0 , d1, d2, d3, d4, d5, new int[0]);
                 }
             }
             this.placedBlocks.add(V3.fromBlockPos(newBP));
@@ -620,8 +620,8 @@ public class JobBuilder extends Job {
                         tempBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
                     }
 
-                    if (this.folk.entity.worldObj.getBlockState(tempBP).getBlock() != Blocks.AIR) {
-                        this.folk.entity.worldObj.setBlockToAir(tempBP);
+                    if (this.jobWorld.getBlockState(tempBP).getBlock() != Blocks.AIR) {
+                        this.jobWorld.setBlockToAir(tempBP);
                         return;
                     }
 
@@ -649,7 +649,7 @@ public class JobBuilder extends Job {
                     tempBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
                     newNumberBP=this.blueprint.structure[this.blockNumber].getBlock();
                 }
-                Block newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();//已放置的
+                Block newTempBP = this.jobWorld.getBlockState(tempBP).getBlock();//已放置的
                 String s = newNumberBP.getUnlocalizedName();
                 boolean flag1 = newTempBP.getUnlocalizedName().contentEquals(s);
                 boolean flag2 = s != "tile.air";
@@ -677,19 +677,19 @@ public class JobBuilder extends Job {
                     }
                     if (this.direction == 0) {
                         tempBP = new BlockPos(this.startPos.getX() + this.x, this.startPos.getY() + this.y, this.startPos.getZ() - this.z);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
+                        newTempBP = this.jobWorld.getBlockState(tempBP).getBlock();
                         newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
                     } else if (this.direction == 1) {
                         tempBP = new BlockPos(this.startPos.getX() + this.z, this.startPos.getY() + this.y, this.startPos.getZ() + this.x);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
+                        newTempBP = this.jobWorld.getBlockState(tempBP).getBlock();
                         newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
                     } else if (this.direction == 2) {
                         tempBP = new BlockPos(this.startPos.getX() - this.x, this.startPos.getY() + this.y, this.startPos.getZ() + this.z);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
+                        newTempBP = this.jobWorld.getBlockState(tempBP).getBlock();
                         newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
                     } else {
                         tempBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
+                        newTempBP = this.jobWorld.getBlockState(tempBP).getBlock();
                         newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
                     }
 
@@ -785,7 +785,7 @@ public class JobBuilder extends Job {
      * @Param []
      **/
     void createConBox() {
-        this.conBox = new EntityConBox(this.folk.entity.worldObj, this);
+        this.conBox = new EntityConBox(this.jobWorld, this);
         this.conBox.folk = this.folk;
         this.conBox.builderJob = this;
         this.conBox.setLocationAndAngles(this.workPlace.x + 2.0D, this.workPlace.y, this.workPlace.z, 0.0F, 0.0F);

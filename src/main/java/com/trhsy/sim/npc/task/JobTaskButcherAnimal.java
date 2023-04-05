@@ -8,6 +8,7 @@ import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -143,6 +144,8 @@ public class JobTaskButcherAnimal extends JobTask {
         } else if (this.butcherTarget instanceof EntitySheep) {
             //羊肉
             this.farmJob.placeInJobChest(new ItemStack(Items.MUTTON, quant));
+            //羊毛
+            this.farmJob.placeInJobChest(new ItemStack(Blocks.WOOL, 1));
             ModSimLoader.addMoney(-0.02F * (float)quant);
             //兔子
         }else if (this.butcherTarget instanceof EntityRabbit) {

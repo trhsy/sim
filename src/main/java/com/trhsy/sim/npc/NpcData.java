@@ -527,9 +527,15 @@ public class NpcData {
                         }else if (job.contentEquals(I18n.format("container.sim.Vocation29"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_rabbit"), world);
-                        } /*else if (job.contentEquals("dairyfarmer")) {
-                            this.job = new JobDairyFarmer(this, this.tempEmployLoc, world);
-                        }  else if (job.contentEquals("butcher")) {
+                            //牛奶农
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation20"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobDairyFarmer(this, p, world);
+                            //牧羊人
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation8"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobShepherd(this, p, world);
+                        }  /*else if (job.contentEquals("butcher")) {
                             this.job = new JobButcher(this, this.tempEmployLoc.toBlockPos(), world);
                         }   else if (job.contentEquals("miner")) {
                             p = this.tempEmployLoc.toBlockPos();
@@ -543,9 +549,7 @@ public class NpcData {
                             this.job = new JobGrocer(this, this.tempEmployLoc.toBlockPos(), world);
                         } else if (job.contentEquals("lumberjack")) {
                             this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("shepherd")) {
-                            this.job = new JobShepherd(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("soldier")) {
+                        }  else if (job.contentEquals("soldier")) {
                             this.job = new JobSoldier(this, this.tempEmployLoc.toBlockPos(), world);
                         } else if (job.contentEquals("")) {
                         }*/
@@ -1801,9 +1805,12 @@ public class NpcData {
             this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_rabbit"), world);
             //牧羊人
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation8"))) {
-            //this.job = new JobShepherd(this, pos.toBlockPos(), world);
+            this.job = new JobShepherd(this, pos.toBlockPos(), world);
+            //牛奶农
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation20"))) {
+            this.job = new JobDairyFarmer(this, pos.toBlockPos(), world);
             //伐木工
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
+        }  else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
             //this.job = new JobLumberjack(this, pos.toBlockPos(), world);
             //士兵
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation7"))) {
