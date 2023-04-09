@@ -144,14 +144,14 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         //客户端
         if (!worldIn.isRemote) {
-            V3 vPos = V3.fromBlockPos(pos);
+            V3 vPos = new V3(pos,playerIn.dimension);
             Building b = ModSimLoader.getBuildingByV3(vPos);
             //ModSimLoader.log.info("建筑: " + b.buildingName + ", " + b.jobType);
             NpcData fd = null;
             for (NpcData f : ModSimLoader.folks) {
                 if (f.job != null) {
-                    ModSimLoader.log.info(f.job.workPlace.toString() + " vs " + V3.fromBlockPos(pos).toString());
-                    if (f.job.workPlace.toString().equals(V3.fromBlockPos(pos).toString())) {
+                    ModSimLoader.log.info(f.job.workPlace.toString() + " vs " + vPos.toString());
+                    if (f.job.workPlace.toString().equals(vPos.toString())) {
                         ModSimLoader.log.info("他们是相同的");
                         if ("1528.0,3.0,246.0,0".contentEquals("1524.0,3.0,218.0,0")) {
                             ModSimLoader.log.info("这里也是一样的");
@@ -193,7 +193,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         //控制箱销毁，解除所有NPC
         for (NpcData fd : ModSimLoader.folks) {
-            if (fd.job != null && fd.job.workPlace.equals(V3.fromBlockPos(pos))) {
+            if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
             }
         }

@@ -230,7 +230,7 @@ public class NpcData {
         if(world.playerEntities.size()>0){
             EntityPlayer thePlayer = world.playerEntities.get(0);
             e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
-            this.pos = V3.fromBlockPos(thePlayer.getPosition());
+            this.pos = new V3(thePlayer.getPosition(),thePlayer.dimension);
         }
 
         if (!fromCommand) {
@@ -505,7 +505,7 @@ public class NpcData {
                             //农民
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation5"))) {
                             p = this.tempEmployLoc.toBlockPos();
-                            FarmBox fb = ModSimLoader.getFarm(V3.fromBlockPos(p));
+                            FarmBox fb = ModSimLoader.getFarm(new V3(p));
                             this.job = new JobFarmer(this, p, world, fb);
                             //养猪户
                         }else if (job.contentEquals(I18n.format("container.sim.Vocation13"))) {
@@ -535,17 +535,22 @@ public class NpcData {
                         }else if (job.contentEquals(I18n.format("container.sim.Vocation8"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobShepherd(this, p, world);
-                        }  /*else if (job.contentEquals("butcher")) {
+                            //鸡蛋农
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation3"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobEggFarmer(this, p, world);
+                            //屠夫
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation15"))) {
                             this.job = new JobButcher(this, this.tempEmployLoc.toBlockPos(), world);
-                        }   else if (job.contentEquals("miner")) {
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation18"))) {
+                            this.job = new JobFisherman(this, this.tempEmployLoc.toBlockPos(), world);
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation26"))) {
+                            this.job = new JobGrocer(this, this.tempEmployLoc.toBlockPos(), world);
+                        }/*  else if (job.contentEquals("miner")) {
                             p = this.tempEmployLoc.toBlockPos();
                             MineBox mb = WorldData.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);
-                        } else if (job.contentEquals("egg farmer")) {
-                            this.job = new JobEggFarmer(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("fisherman")) {
-                            this.job = new JobFisherman(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("grocer")) {
+                        }   else if (job.contentEquals("grocer")) {
                             this.job = new JobGrocer(this, this.tempEmployLoc.toBlockPos(), world);
                         } else if (job.contentEquals("lumberjack")) {
                             this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
@@ -1079,10 +1084,11 @@ public class NpcData {
                 //白天的话随机运行任务
             } else if (ModSimLoader.isDayTime(this.entity.worldObj)) {
                 this.pickRandomTask();
-            } else {
+            } else if(!ModSimLoader.isDayTime(this.entity.worldObj)){
                 //晚上就睡觉
                 //睡觉
                 this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));
+//                this.currentTask.completeTask();
             }
         }
     }
@@ -1217,6 +1223,7 @@ public class NpcData {
                     }
                 }
             } else {
+                //回家 在家 配偶不为空
                 if (this.currentTask instanceof TaskSleep && this.isAtBuilding(this.home) && this.gender == 0 && this.getSpouse() != null) {
                     father = this.getSpouse();
                     if (father.isAtBuilding(this.home) && father.pregnancyStage < 0.1F && new Random().nextInt(6) == 5) {
@@ -1434,8 +1441,13 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean forceMoveToXYZ(V3 v3) {
+       // System.out.println("要去的维度："+v3.dimension+",NPC的维度:"+this.entity.dimension);
         this.entity.getNavigator().clearPathEntity();
         v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
+        if(v3.dimension!=this.entity.dimension){
+            this.entity.changeDimension(v3.dimension);
+            this.entity.dimension=v3.dimension;
+        }
         if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
             double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
@@ -1451,7 +1463,6 @@ public class NpcData {
             } else {
                 this.lastPathAttempt = System.currentTimeMillis();
             }
-
             return false;
         }
     }
@@ -1784,10 +1795,10 @@ public class NpcData {
             this.job = new JobTerrainFormer(this, pos, world);
             //屠夫
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
-            //this.job = new JobButcher(this, pos.toBlockPos(), world);
-            //杂货商
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation9"))) {
-            //this.job = new JobGrocer(this, pos.toBlockPos(), world);
+            this.job = new JobButcher(this, pos.toBlockPos(), world);
+            //食品商
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation26"))) {
+            this.job = new JobGrocer(this, pos.toBlockPos(), world);
             //养牛户
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation12"))) {
             this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_cow"), world);
@@ -1817,10 +1828,10 @@ public class NpcData {
             //this.job = new JobSoldier(this, pos.toBlockPos(), world);
             //渔夫
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation18"))) {
-            //this.job = new JobFisherman(this, pos.toBlockPos(), world);
+            this.job = new JobFisherman(this, pos.toBlockPos(), world);
             //蛋农
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation3"))) {
-            //this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
+            this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
         }
 
         BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
@@ -1835,7 +1846,7 @@ public class NpcData {
      * @Param []
      **/
     public V3 getV3() {
-        return V3.fromBlockPos(new BlockPos(this.entity));
+        return new V3(new BlockPos(this.entity),this.entity.dimension);
     }
 
 }

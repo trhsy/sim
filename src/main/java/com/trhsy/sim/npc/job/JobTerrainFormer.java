@@ -3,6 +3,7 @@ package com.trhsy.sim.npc.job;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockConstructorBox;
 import com.trhsy.sim.entity.EntityConBox;
+import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ConfigLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
@@ -14,6 +15,7 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.TerrainType;
 import com.trhsy.sim.util.GameStates;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -90,7 +92,7 @@ public class JobTerrainFormer extends Job {
         this.startPos = pos;
         this.constructorPos = pos;
         this.terrainType = terrainType;
-        //建筑工
+        //规划师
         this.jobName = I18n.format("container.sim.Vocation16");
         if (folk.entity != null) {
             IBlockState s = this.jobWorld.getBlockState(pos);
@@ -103,7 +105,7 @@ public class JobTerrainFormer extends Job {
                 }
             }
         }
-        this.stage=0;
+        this.stage = 0;
         this.createConBox();
     }
 
@@ -115,9 +117,10 @@ public class JobTerrainFormer extends Job {
         //建筑工
         this.jobName = I18n.format("container.sim.Vocation16");
         this.constructorBlock.employee = folk;
-        this.stage=0;
+        this.stage = 0;
         this.createConBox();
     }
+
     @Override
     public void onUpdate() {
         super.onUpdate();
@@ -131,50 +134,58 @@ public class JobTerrainFormer extends Job {
                             if (this.jobWorld.getBlockState(this.constructorPos) == null) {
                                 return;
                             }
-                            //获取建筑箱的
-                            BlockConstructorBox cons = (BlockConstructorBox) this.jobWorld.getBlockState(this.constructorPos).getBlock();
-                            //当前建筑箱的工作人员是
-                            cons.employee = this.folk;
-                            //已经指派
-                            this.hasReassignedEmployee = true;
-                            //如果允许 NPC 说话
-                            if (ConfigLoader.configFolkTalking) {
-                                World world = FMLClientHandler.instance().getServer().getEntityWorld();
-                                //播放 我准备好了
-                                SoundEvent soundEvent = null;
-                                //判断性别，发出不一样的声音
-                                if (this.folk.gender == 0) {
-                                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
-                                } else {
-                                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
-                                }
-                                this.jobWorld.playSound(this.folk.entity.posX,this.folk.entity.posY,this.folk.entity.posZ,soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+                            Block block = this.jobWorld.getBlockState(this.constructorPos).getBlock();
+                            BlockConstructorBox cons = null;
+                            if (block == BlockLoader.blockConstructorBox) {
+                                //获取建筑箱的
+                                cons = (BlockConstructorBox) block;
                             }
-                            //等待规划类型
-                            if (this.terrainType == null) {
-                                //等待蓝图
-                                this.folk.setStatus(I18n.format("container.sim.job.builder_Awaiting_terrainType"));
-                            } else {
-                                //当前时间
-                                Long now = System.currentTimeMillis();
-                                //游戏模式是正常模式
-                                if (ModSimLoader.states.gameModeNumber != 1) {
-                                    if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
-                                        ////上次时间为当前时间
-                                        this.timeSinceLastBlockPlace = now;
-                                        //放置方块
-                                        this.placeBlock();
-                                        //发送建筑蓝图
-                                        NetWorkLoader.net.sendToAll(new PacketSendTerrainTypeRequitrements(this.terrainType, this));
+                            if (cons != null) {
 
+
+                                //当前建筑箱的工作人员是
+                                cons.employee = this.folk;
+                                //已经指派
+                                this.hasReassignedEmployee = true;
+                                //如果允许 NPC 说话
+                                if (ConfigLoader.configFolkTalking) {
+                                    World world = FMLClientHandler.instance().getServer().getEntityWorld();
+                                    //播放 我准备好了
+                                    SoundEvent soundEvent = null;
+                                    //判断性别，发出不一样的声音
+                                    if (this.folk.gender == 0) {
+                                        soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
+                                    } else {
+                                        soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                     }
+                                    this.jobWorld.playSound(this.constructorPos.getX(), this.constructorPos.getY(), this.constructorPos.getZ(), soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+                                }
+                                //等待规划类型
+                                if (this.terrainType == null) {
+                                    //等待蓝图
+                                    this.folk.setStatus(I18n.format("container.sim.job.builder_Awaiting_terrainType"));
                                 } else {
-                                    //上次时间为当前时间
-                                    this.timeSinceLastBlockPlace = now;
-                                    //不是客户端
-                                    if (!this.jobWorld.isRemote) {
-                                        //直接放置方块
-                                        this.placeBlock();
+                                    //当前时间
+                                    Long now = System.currentTimeMillis();
+                                    //游戏模式是正常模式
+                                    if (ModSimLoader.states.gameModeNumber != 1) {
+                                        if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
+                                            ////上次时间为当前时间
+                                            this.timeSinceLastBlockPlace = now;
+                                            //放置方块
+                                            this.placeBlock();
+                                            //发送建筑蓝图
+                                            NetWorkLoader.net.sendToAll(new PacketSendTerrainTypeRequitrements(this.terrainType, this));
+
+                                        }
+                                    } else {
+                                        //上次时间为当前时间
+                                        this.timeSinceLastBlockPlace = now;
+                                        //不是客户端
+                                        if (!this.jobWorld.isRemote) {
+                                            //直接放置方块
+                                            this.placeBlock();
+                                        }
                                     }
                                 }
                             }
@@ -215,7 +226,7 @@ public class JobTerrainFormer extends Job {
             if (this.terrainType != null) {
                 switch (this.terrainType.terrainType) {
                     case "1":
-                        if(this.stage==0){
+                        if (this.stage == 0) {
                             //填海
                             blockIDs = new CopyOnWriteArrayList();
                             blockIDs.add(Blocks.WATER);
@@ -223,7 +234,7 @@ public class JobTerrainFormer extends Job {
                             this.closestBlocks = null;
                             this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
 
                         if (this.totalBlockCount == 0) {
@@ -278,7 +289,7 @@ public class JobTerrainFormer extends Job {
 
                         break;
                     case "2":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //绿化 泥土变草地
                             blockIDs = new CopyOnWriteArrayList();
                             //泥土
@@ -289,7 +300,7 @@ public class JobTerrainFormer extends Job {
                             V3 v2 = new V3(constructorPos.getX(), constructorPos.getY() + 1, constructorPos.getZ());
                             this.setClosestBlocksOfType(v2.toBlockPos(), blockIDs, 30, true, true, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -324,7 +335,7 @@ public class JobTerrainFormer extends Job {
                                     }
                                 }
                                 if (fsMissBlock) {
-                                    this.counter=4;
+                                    this.counter = 4;
                                     //没有更多的树苗，放一些在箱子里
                                     this.folk.status = I18n.format("container.sim.job.terra.farmer.saplings");
                                     this.missingBlock = new ItemStack(Blocks.SAPLING);
@@ -340,14 +351,14 @@ public class JobTerrainFormer extends Job {
                             this.folk.status = I18n.format("container.sim.job.terra.farmer.Terraforming") + "-" + percent1 + " % " + I18n.format("container.sim.job.terra.farmer.complete");
                             V3 v1 = (V3) this.closestBlocks.get(0);
                             if (hasPlacedTree) {
-                                BlockPos blockPos2_1 = new BlockPos(v1.x, v1.y+1, v1.z);
+                                BlockPos blockPos2_1 = new BlockPos(v1.x, v1.y + 1, v1.z);
                                 this.jobWorld.setBlockState(blockPos2_1, Blocks.SAPLING.getDefaultState(), 3);
                                 if (ModSimLoader.states.gameModeNumber != 1) {
                                     GameStates var10000 = ModSimLoader.states;
                                     ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
                                 }
                                 int r = new Random().nextInt(10);
-                                BlockPos blockPos2_2 = new BlockPos(v1.x+1, v1.y+1, v1.z);
+                                BlockPos blockPos2_2 = new BlockPos(v1.x + 1, v1.y + 1, v1.z);
                                 if (r == 2) {
                                     this.jobWorld.setBlockState(blockPos2_2, Blocks.RED_FLOWER.getDefaultState(), 3);
 //                            this.jobWorld.markBlockForUpdate(blockPos2);
@@ -358,7 +369,7 @@ public class JobTerrainFormer extends Job {
                         }
                         break;
                     case "3":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //除草
                             blockIDs = new CopyOnWriteArrayList();
                             //草
@@ -370,7 +381,7 @@ public class JobTerrainFormer extends Job {
                             V3 v3 = new V3(constructorPos.getX(), constructorPos.getY() + 1, constructorPos.getZ());
                             this.setClosestBlocksOfType(v3.toBlockPos(), blockIDs, 30, false, true, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -410,11 +421,11 @@ public class JobTerrainFormer extends Job {
                         }
                         break;
                     case "4":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //平整化 铺平
                             blockIDs = new CopyOnWriteArrayList();
                             //草地
-                            blockIDs.add(Blocks.GRASS);
+                            /*blockIDs.add(Blocks.GRASS);
                             //泥土
                             blockIDs.add(Blocks.DIRT);
                             //草
@@ -426,11 +437,19 @@ public class JobTerrainFormer extends Job {
                             //圆石
                             blockIDs.add(Blocks.SANDSTONE);
                             //砂砾
-                            blockIDs.add(Blocks.GRAVEL);
+                            blockIDs.add(Blocks.GRAVEL);*/
+                            //空气
+                            blockIDs.add(Blocks.AIR);
+                            //基岩
+                            blockIDs.add(Blocks.BEDROCK);
+                            //灯箱
+                            blockIDs.add(BlockLoader.blockLightBox);
+                            //建筑箱
+                            blockIDs.add(BlockLoader.blockConstructorBox);
                             this.closestBlocks = null;
-                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, false, false);
+                            this.getBlocksNoOfType(constructorPos, blockIDs, 30, false, false, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -468,7 +487,7 @@ public class JobTerrainFormer extends Job {
                         }
                         break;
                     case "5":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //单层泥土
                             blockIDs = new CopyOnWriteArrayList();
                             //空气
@@ -483,7 +502,7 @@ public class JobTerrainFormer extends Job {
                             this.closestBlocks = null;
                             this.setClosestBlocksOfType(v5.toBlockPos(), blockIDs, 30, false, true, true);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -506,7 +525,7 @@ public class JobTerrainFormer extends Job {
                                 for (int i = 0; i < inv.getSizeInventory(); i++) {
                                     ItemStack itemStack = inv.getStackInSlot(i);
                                     //拿走当前需要的块 泥土
-                                    if (itemStack != null && itemStack.getItem() == Item.getItemFromBlock(Blocks.DIRT)) {
+                                    if (itemStack != null /*&& itemStack.getItem() == Item.getItemFromBlock(Blocks.DIRT)*/) {
                                         inv.decrStackSize(i, 1);
                                         fsMissBlock = false;
                                         break;
@@ -536,7 +555,7 @@ public class JobTerrainFormer extends Job {
                         }
                         break;
                     case "6":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //冰川
                             blockIDs = new CopyOnWriteArrayList();
                             //空气
@@ -551,7 +570,7 @@ public class JobTerrainFormer extends Job {
                             this.closestBlocks = null;
                             this.setClosestBlocksOfType(constructorPos, blockIDs, 30, true, true, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -575,7 +594,7 @@ public class JobTerrainFormer extends Job {
                         V3 v6 = (V3) this.closestBlocks.get(0);
                         Block blockId = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y, v6.z)).getBlock();
                         //方块不为空 不是草
-                        if (blockId != null&&blockId!=Blocks.AIR && blockId != Blocks.TALLGRASS) {
+                        if (blockId != null && blockId != Blocks.AIR && blockId != Blocks.TALLGRASS) {
                             if (blockId == Blocks.WATER || blockId == Blocks.FLOWING_WATER) {
                                /* //获取周围箱子
                                 List<IInventory> inventoriesFindClosest = this.findJobChests(5);
@@ -609,7 +628,7 @@ public class JobTerrainFormer extends Job {
                         } else {
                             Block idBelow = this.jobWorld.getBlockState(new BlockPos(v6.x, v6.y - 1, v6.z)).getBlock();
                             //方块不是空 不是冰 不是水 不是雪
-                            if (idBelow != null &&idBelow!=Blocks.AIR && idBelow != Blocks.ICE && idBelow != Blocks.WATER && idBelow != Blocks.FLOWING_WATER && idBelow != Blocks.SNOW && this.jobWorld.isRemote) {
+                            if (idBelow != null && idBelow != Blocks.AIR && idBelow != Blocks.ICE && idBelow != Blocks.WATER && idBelow != Blocks.FLOWING_WATER && idBelow != Blocks.SNOW && this.jobWorld.isRemote) {
                                 BlockPos blockPos6_1 = new BlockPos(v6.x, v6.y, v6.z);
                                 //雪
                                 this.jobWorld.setBlockState(blockPos6_1, Blocks.SNOW.getDefaultState(), 3);
@@ -622,7 +641,7 @@ public class JobTerrainFormer extends Job {
 
                         break;
                     case "7":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //湿润
                             blockIDs = new CopyOnWriteArrayList();
                             //熔岩
@@ -632,7 +651,7 @@ public class JobTerrainFormer extends Job {
                             this.closestBlocks = null;
                             this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=0;
+                            this.stage = 0;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -687,7 +706,7 @@ public class JobTerrainFormer extends Job {
                         }
                         break;
                     case "8":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //炎热
                             blockIDs = new CopyOnWriteArrayList();
                             blockIDs.add(Blocks.LAVA);
@@ -695,7 +714,7 @@ public class JobTerrainFormer extends Job {
                             this.closestBlocks = null;
                             this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -750,7 +769,7 @@ public class JobTerrainFormer extends Job {
                         this.placeInJobChest(new ItemStack(Items.LAVA_BUCKET, 1));
                         break;
                     case "9":
-                        if(this.stage==0) {
+                        if (this.stage == 0) {
                             //除雪
                             blockIDs = new CopyOnWriteArrayList();
                             blockIDs.add(Blocks.SNOW);
@@ -758,7 +777,7 @@ public class JobTerrainFormer extends Job {
                             this.closestBlocks = null;
                             this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
                             this.totalBlockCount = this.closestBlocks.size();
-                            this.stage=1;
+                            this.stage = 1;
                         }
                         if (this.totalBlockCount == 0) {
                             //没有什么要地球化的！
@@ -811,7 +830,7 @@ public class JobTerrainFormer extends Job {
 //                this.jobWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     //播放 我准备好了
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                    this.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY,this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1,false);
+                    this.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
                     this.folk.fire();
                     this.folk.stayPut = false;
                 }
@@ -873,8 +892,82 @@ public class JobTerrainFormer extends Job {
                                         //方块是空的
                                         boolean canSeeSky;
                                         pos = new BlockPos(sx, sy + 1, sz);
-                                        Block block=this.jobWorld.getBlockState(pos).getBlock();
-                                        if (block == null||Blocks.AIR==block) {
+                                        Block block = this.jobWorld.getBlockState(pos).getBlock();
+                                        if (block == null || Blocks.AIR == block) {
+                                            canSeeSky = true;
+                                        } else {
+                                            canSeeSky = false;
+                                        }
+
+                                        if (canSeeSky) {
+                                            skip = false;
+                                        } else {
+                                            skip = true;
+                                        }
+                                    }
+                                    if (!skip) {
+                                        V3 v = new V3((double) sx, (double) sy, (double) sz);
+                                        if (!hm.containsKey(v.toString())) {
+                                            hm.put(v.toString(), v);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            this.closestBlocks = new CopyOnWriteArrayList<>(hm.values());
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("setClosestBlocksOfType出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+    }
+
+    private void getBlocksNoOfType(BlockPos constructorPos, List<Block> blockIDs, int distanceLimit, boolean needsToSeeSky, boolean scanDownwards, boolean oneLayerOnly) {
+        try {
+            //创建集合
+            HashMap hm = new HashMap();
+            //是否跳过
+            boolean skip = false;
+            //赋值距离限制，半径
+            int fsDistanceLimit = distanceLimit;
+            if (oneLayerOnly) {
+                fsDistanceLimit = 1;
+            }
+            //循环上下半径 高
+            for (int i = 0; i < fsDistanceLimit; i++) {
+                //循环宽，平面的
+                for (int j = 1; j < distanceLimit; j++) {
+                    for (int xo = -j; xo <= j; xo++) {
+                        for (int zo = -j; zo <= j; zo++) {
+                            int sx = (int) (constructorPos.getX() + xo);
+                            int sy;
+                            //是否向下扫描
+                            if (scanDownwards) {
+                                sy = (int) (constructorPos.getY() - i);
+                            } else {
+                                sy = (int) (constructorPos.getY() + i);
+                            }
+                            int sz = (int) (constructorPos.getZ() + zo);
+                            skip = false;
+                            //获取方块
+                            for (int m = 0; m < blockIDs.size(); m++) {
+                                Block blockID = (Block) blockIDs.get(m);
+                                if (this.jobWorld == null) {
+                                    return;
+                                }
+                                BlockPos pos = new BlockPos(sx, sy, sz);
+                                //获取当前世界的方块
+                                Block blockInWorld = this.jobWorld.getBlockState(pos).getBlock();
+                                if (blockInWorld != blockID && !(blockInWorld instanceof BlockChest)) {
+                                    //如果向上扫描
+                                    if (needsToSeeSky) {
+                                        //方块是空的
+                                        boolean canSeeSky;
+                                        pos = new BlockPos(sx, sy + 1, sz);
+                                        Block block = this.jobWorld.getBlockState(pos).getBlock();
+                                        if (block == null || Blocks.AIR == block) {
                                             canSeeSky = true;
                                         } else {
                                             canSeeSky = false;
@@ -933,6 +1026,7 @@ public class JobTerrainFormer extends Job {
         return itemStacks;
 
     }
+
     @Override
     public void onMinute() {
         if (this.missingCheck < 3) {

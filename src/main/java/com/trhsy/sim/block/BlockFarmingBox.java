@@ -50,10 +50,10 @@ public class BlockFarmingBox extends BlockBase{
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_kraft_ddd_farming_constructor_activated"));
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         if (!worldIn.isRemote) {
-            V3 vPos = V3.fromBlockPos(pos);
+            V3 vPos = new V3(pos,playerIn.dimension);
             NpcData fd = null;
             for (NpcData f:ModSimLoader.folks){
-                if (f.job != null && f.job.workPlace.toString().equals(V3.fromBlockPos(pos).toString())) {
+                if (f.job != null && f.job.workPlace.toString().equals(new V3(pos,playerIn.dimension).toString())) {
                     fd = f;
                 }
             }
@@ -110,7 +110,7 @@ public class BlockFarmingBox extends BlockBase{
             //        farmBox.removeFarm(farmBox.ID);
             //    }
             //}
-            FarmBox fb = new FarmBox(V3.fromBlockPos(pos), (V3)markerPos, 6, 6);
+            FarmBox fb = new FarmBox(new V3(pos,placer.dimension), (V3)markerPos, 6, 6);
             ModSimLoader.farms.add(fb);
             fb.facing = facing;
             fb.farmType= FarmType.WHEAT;
@@ -129,14 +129,14 @@ public class BlockFarmingBox extends BlockBase{
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-        worldIn.playSound(worldIn.playerEntities.get(0),pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+        worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1, 1,false);
         for (FarmBox farmBox : ModSimLoader.farms) {
             if (farmBox.loc.equals(pos)) {
                 farmBox.removeFarm(farmBox.ID);
             }
         }
         for (NpcData fd : ModSimLoader.folks) {
-            if (fd.job != null && fd.job.workPlace.equals(V3.fromBlockPos(pos))) {
+            if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
             }
         }

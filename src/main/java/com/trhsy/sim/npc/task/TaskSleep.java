@@ -57,11 +57,12 @@ public class TaskSleep extends Task {
     public void onUpdate() {
         if (this.folk.home != null) {
             //不在建筑内
-            if (!this.folk.isAtBuilding(this.folk.home)) {
+            if (!this.folk.isAtBuilding(this.folk.home)&&this.folk.status!=I18n.format("container.sim.FolkAction6")) {
                 //强制移动到建筑内
                 this.folk.forceMoveToXYZ(this.folk.home.livingXYZ);
             } else {
                 //
+                this.folk.stayPut = true;
                 this.folk.setStatus(this.statusText);
             }
         }

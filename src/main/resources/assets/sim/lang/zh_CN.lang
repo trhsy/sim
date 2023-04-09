@@ -1156,7 +1156,7 @@ container.sim.GOINGTOTANK=去储藏室
 container.sim.COLLECTINGMILK=收集牛奶
 container.sim.GOINGTODAIRYFARM=去牛奶厂
 container.sim.ARRIVEDATFACTORY=到达工厂
-container.sim.SELLINGMEAT=卖肉
+container.sim.SELLINGMEAT=肉
 container.sim.GOBACKTOSTORE=返回店里
 container.sim.COLLECTINGMEAT=收集肉类
 container.sim.GOINGTOMEATFARM=去肉类农场
@@ -1242,3 +1242,7 @@ container.sim.job_Livestock_rabbit=兔
 
 container.sim.job_task_Spawn1=繁殖牲畜
 container.sim.job_task_Butcher1=屠宰牲畜
+container.sim.job_task_PlaceInChest1=把收获的物品放入箱子
+container.sim.job_task_Fisherman=没有找到水
+container.sim.job_task_Fisherman1=找不到可以钓鱼的水。试着在离水更近的地方重建鱼场
+container.sim.job.Grocer1=食品

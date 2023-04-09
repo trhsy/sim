@@ -1154,7 +1154,7 @@ container.sim.GOINGTOTANK=going to tank
 container.sim.COLLECTINGMILK=collecting milk
 container.sim.GOINGTODAIRYFARM=going to dairy farm
 container.sim.ARRIVEDATFACTORY=arrived at factory
-container.sim.SELLINGMEAT=selling meat
+container.sim.SELLINGMEAT=meat
 container.sim.GOBACKTOSTORE=go back to store
 container.sim.COLLECTINGMEAT=collecting meat
 container.sim.GOINGTOMEATFARM=going to meat farm
@@ -1241,3 +1241,9 @@ container.sim.job_Livestock_rabbit=rabbit
 
 container.sim.job_task_Spawn1=Spawning livestock
 container.sim.job_task_Butcher1=Butchering animal
+container.sim.job_task_PlaceInChest1=Put the harvested items into the box
+
+container.sim.job_task_Fisherman=Can't find water
+container.sim.job_task_Fisherman1=cannot find any water to fish in. Try rebuilding the dock closer to water
+
+container.sim.job.Grocer1=groceries

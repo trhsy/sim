@@ -60,31 +60,35 @@ public class JobTaskCollectItems extends JobTask {
                 //猪排
                 if (colItem == Items.PORKCHOP) {
                     //养猪场
-                    this.addDestination(I18n.format("container.sim.gui_contains_Pig_Farm"));
+                    this.addDestination(I18n.format("container.sim.Vocation13"));
+                    //兔肉
+                }else if (colItem == Items.RABBIT) {
+                    //养兔场
+                    this.addDestination(I18n.format("container.sim.Vocation29"));
                     //牛肉
                 } else if (colItem == Items.BEEF) {
                     //养牛场
-                    this.addDestination(I18n.format("container.sim.gui_contains_Cattle_Farm"));
+                    this.addDestination(I18n.format("container.sim.Vocation12"));
                     //鸡肉
                 } else if (colItem == Items.CHICKEN) {
                     //养鸡场
-                    this.addDestination(I18n.format("container.sim.gui_contains_Chicken_Farm"));
+                    this.addDestination(I18n.format("container.sim.Vocation14"));
                     //羊肉
                 } else if (colItem == Items.MUTTON) {
                     //养羊场
-                    this.addDestination(I18n.format("container.sim.gui_contains_Sheep_Farm1"));
+                    this.addDestination(I18n.format("container.sim.Vocation28"));
                     //鸡蛋
                 } else if (colItem == Items.EGG) {
                     //鸡蛋农场
-                    this.addDestination(I18n.format("container.sim.gui_contains_Egg_Farm"));
+                    this.addDestination(I18n.format("container.sim.Vocation3"));
                     //牛奶
                 }else if (colItem == Items.MILK_BUCKET) {
                     //奶牛场
-                    this.addDestination(I18n.format("container.sim.gui_contains_Dairy_Farm"));
+                    this.addDestination(I18n.format("container.sim.Vocation20"));
                     //鱼
                 } else if (colItem == Items.FISH) {
                     //渔场
-                    this.addDestination(I18n.format("container.sim.gui_contains_Fishing_Dock"));
+                    this.addDestination(I18n.format("container.sim.Vocation18"));
                     //胡萝卜
                 } else if (colItem == Items.CARROT) {
                     this.addDestination("farmer:"+I18n.format("container.sim.FarmType1"));

@@ -85,6 +85,7 @@ public class JobTaskProduceItem extends JobTask {
                         }
                     }
                 }
+
             }
 
             maxProd = -1;

@@ -87,11 +87,11 @@ public class PacketHireFolk implements IMessage {
                 //建筑工
                 if (message.job.contentEquals(I18n.format("container.sim.Vocation1"))) {
                     fd.job = new JobBuilder(fd, message.pos, message.buildDirection, ctx.getServerHandler().playerEntity.worldObj);
-                    BlockConstructorBox cons = (BlockConstructorBox) fd.entity.worldObj.getBlockState(message.pos.toBlockPos()).getBlock();
+                    BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(message.pos.toBlockPos()).getBlock();
                     cons.employee = fd;
                 }else if(message.job.contentEquals(I18n.format("container.sim.Vocation16"))){
                     fd.job = new JobTerrainFormer(fd,message.pos,ctx.getServerHandler().playerEntity.worldObj);
-                    BlockConstructorBox cons = (BlockConstructorBox) fd.entity.worldObj.getBlockState(message.pos.toBlockPos()).getBlock();
+                    BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(message.pos.toBlockPos()).getBlock();
                     cons.employee = fd;
                 } else if (message.job.contentEquals(I18n.format("container.sim.Hire_farmer"))) {
                     //农田箱

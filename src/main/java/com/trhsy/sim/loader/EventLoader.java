@@ -134,25 +134,25 @@ public class EventLoader {
         if (!event.getWorld().isRemote) {
             if (hasLoadedWorld) {
                 //配置文件保存
-                ModSimLoader.log.info("时间数据保存，准备保存模组信息");
+//                ModSimLoader.log.info("时间数据保存，准备保存模组信息");
                 ModSimLoader.states.saveStates();
                 //农场保存
-                ModSimLoader.log.info("农场保存，准备保存模组信息");
+//                ModSimLoader.log.info("农场保存，准备保存模组信息");
                 for (FarmBox farmBox : ModSimLoader.farms) {
                     farmBox.saveFarm();
                 }
                 //矿场保存
-                ModSimLoader.log.info("农场保存，准备保存模组信息");
+//                ModSimLoader.log.info("农场保存，准备保存模组信息");
                 for (MineBox mineBox : ModSimLoader.mines) {
                     mineBox.saveMine();
                 }
                 //NPC保存
-                ModSimLoader.log.info("NPC保存，准备保存模组信息");
+//                ModSimLoader.log.info("NPC保存，准备保存模组信息");
                 for (NpcData folks : ModSimLoader.folks) {
                     folks.saveFolk();
                 }
                 //建筑保存
-                ModSimLoader.log.info("建筑保存，准备保存模组信息");
+//                ModSimLoader.log.info("建筑保存，准备保存模组信息");
                 for (Building b : ModSimLoader.buildings) {
                     b.saveBuilding();
                 }
@@ -282,18 +282,16 @@ public class EventLoader {
             //更新资金
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
             //检查建筑物
-            for (int i = ModSimLoader.buildings.size(); i > 0; --i) {
-//                if(i!=0){
+            /*for (int i = ModSimLoader.buildings.size(); i > 0; --i) {
                 Building b = ModSimLoader.buildings.get(i - 1);
                 BlockPos pos = new BlockPos(b.controlXYZ.x, b.controlXYZ.y, b.controlXYZ.z);
                 Block block = event.world.getBlockState(pos).getBlock();
                 //ModSimLoader.log.info("建筑物："+b.buildingName + "的控制箱在"+pos.toString()+"，识别到的方块名字："+block.getUnlocalizedName());
                 if (block != BlockLoader.blockControlBox) {
-                    ModSimLoader.log.info(b.buildingName + " 没有控制块-正在销毁");
+//                    ModSimLoader.log.info(b.buildingName + " 没有控制块-正在销毁");
                     //b.demolish(event.world, false);
                 }
-//                }
-            }
+            }*/
         }
         //检查游戏状态 && event.world.playerEntities.size() > 0
         if (ModSimLoader.states.gameModeNumber != 999 && !event.world.isRemote) {
@@ -327,10 +325,11 @@ public class EventLoader {
                     ModSimLoader.log.info("天亮了");
                     //播放 天亮了鸡叫
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                    for (EntityPlayer entityPlayer : event.world.playerEntities) {
-                        BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                        entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 0.3F, 0.6F);
-                    }
+                    event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
+//                    for (EntityPlayer entityPlayer : event.world.playerEntities) {
+//                        BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+//                        entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 0.3F, 0.6F);
+//                    }
 
                     this.newDay = true;
                     if (ModSimLoader.states.dayOfWeek >= 6) {
@@ -352,10 +351,11 @@ public class EventLoader {
                         ModSimLoader.addMoney(rent);
                         //播放钱到账
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                        for (EntityPlayer entityPlayer : event.world.playerEntities) {
-                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-                            entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 0.3F, 0.6F);
-                        }
+                        event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
+//                        for (EntityPlayer entityPlayer : event.world.playerEntities) {
+//                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+//                            entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 0.3F, 0.6F);
+//                        }
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
                     }

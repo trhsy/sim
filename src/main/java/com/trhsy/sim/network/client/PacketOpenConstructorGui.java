@@ -21,39 +21,50 @@ public class PacketOpenConstructorGui implements IMessage {
     private int bDir = 0;
     private BlockPos pos;
     private NpcIdentity folk;
+    /**
+     * @Author fan
+     * @Description //TODO 所在维度
+     * @Date 10:13 2023/4/8
+     * @Param
+     * @return
+     **/
+    private int dimension;
 
     public PacketOpenConstructorGui() {
     }
 
-    public PacketOpenConstructorGui(BlockPos p, int buildDirection) {
+    public PacketOpenConstructorGui(BlockPos p, int buildDirection,int dimension) {
         this.pos = p;
         this.bDir = buildDirection;
+        this.dimension=dimension;
     }
 
-    public PacketOpenConstructorGui(BlockPos p, int buildDirection, NpcIdentity cfi) {
+    public PacketOpenConstructorGui(BlockPos p, int buildDirection, NpcIdentity cfi,int dimension) {
         this.pos = p;
         this.bDir = buildDirection;
         this.folk = cfi;
+        this.dimension=dimension;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
+        this.dimension=buf.readInt();
         this.bDir = buf.readInt();
         this.pos = V3.fromString(ByteBufUtils.readUTF8String(buf)).toBlockPos();
-
         try {
             this.folk = new NpcIdentity(ByteBufUtils.readUTF8String(buf));
         } catch (Exception var3) {
         }
-
+        
     }
     @Override
     public void toBytes(ByteBuf buf) {
+        buf.writeInt(this.dimension);
         buf.writeInt(this.bDir);
-        ByteBufUtils.writeUTF8String(buf, V3.fromBlockPos(this.pos).toString());
+        ByteBufUtils.writeUTF8String(buf, this.pos.getX()+","+this.pos.getY()+","+this.pos.getZ()+","+this.dimension);
         if (this.folk != null) {
             ByteBufUtils.writeUTF8String(buf, this.folk.toString());
         }
-
+        
     }
 
     public static class Handler implements IMessageHandler<PacketOpenConstructorGui, IMessage> {
@@ -75,9 +86,9 @@ public class PacketOpenConstructorGui implements IMessage {
 
         private void handle(PacketOpenConstructorGui message, MessageContext ctx) {
             if (message.folk == null) {
-                ModSimLoader.openConstructorGui(message.pos, message.bDir);
+                ModSimLoader.openConstructorGui(message.pos, message.bDir,message.dimension);
             } else {
-                ModSimLoader.openConstructorGui(message.pos, message.bDir, message.folk);
+                ModSimLoader.openConstructorGui(message.pos, message.bDir, message.folk,message.dimension);
             }
 
         }

@@ -455,12 +455,12 @@ public class ModSimLoader {
      * @Date 16:23 2022/10/19
      * @Param [pos, bDir]
      **/
-    public static void openConstructorGui(BlockPos pos, int bDir) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir));
+    public static void openConstructorGui(BlockPos pos, int bDir,int dimension) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir,dimension));
     }
 
-    public static void openConstructorGui(BlockPos pos, int bDir, NpcIdentity folk) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir, folk));
+    public static void openConstructorGui(BlockPos pos, int bDir, NpcIdentity folk,int dimension) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir, folk,dimension));
     }
 
     /**

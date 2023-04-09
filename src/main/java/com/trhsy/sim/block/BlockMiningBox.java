@@ -46,9 +46,9 @@ public class BlockMiningBox extends BlockBase{
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-        worldIn.playSound(worldIn.playerEntities.get(0),pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+        worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(), soundEvent, SoundCategory.RECORDS, 1, 1,false);
         for (NpcData fd : ModSimLoader.folks) {
-            if (fd.job != null && fd.job.workPlace.equals(V3.fromBlockPos(pos))) {
+            if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
             }
         }

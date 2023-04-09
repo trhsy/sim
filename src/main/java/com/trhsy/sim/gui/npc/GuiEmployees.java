@@ -119,7 +119,7 @@ public class GuiEmployees extends GuiScreen {
 
             this.drawString(this.fontRendererObj, status, 250, y, 10551295);
             y += 20;
-            if (y + 20 > this.height - 50) {
+            if (y + 20 > this.height - 20) {
                 break;
             }
         }

@@ -289,16 +289,17 @@ public class EntityFolk extends EntityCreature implements INpc {
             public void run() {
                 for (int d = 0; d < 12; ++d) {
                     EntityFolk.this.swingProgress = 0.3F;
-
+//                    ModSimLoader.log.info("摆动手臂");
                     try {
-                        Thread.sleep(1000L);
+                        Thread.sleep(100L);
                     } catch (Exception var4) {
+
                     }
 
                     EntityFolk.this.swingProgress = 0.7F;
 
                     try {
-                        Thread.sleep(1000L);
+                        Thread.sleep(100L);
                     } catch (Exception var3) {
                     }
                 }

@@ -42,6 +42,7 @@ public class JobBaker extends Job {
     @Override
     public void onUpdate() {
         super.onUpdate();
+        try {
         if (this.atWork) {
             if (this.theStage == -1) {
                 //打开烘焙工具
@@ -50,17 +51,17 @@ public class JobBaker extends Job {
             } else if (this.theStage == 0) {
                 List<ItemStack> colItems = new ArrayList();
                 //小麦
-                colItems.add(new ItemStack(Items.WHEAT, 24));
+                colItems.add(new ItemStack(Items.WHEAT, 16));
                 //鸡蛋
-                colItems.add(new ItemStack(Items.EGG, 24));
+                colItems.add(new ItemStack(Items.EGG, 16));
                 //南瓜
-                colItems.add(new ItemStack(Blocks.PUMPKIN, 24));
+                colItems.add(new ItemStack(Blocks.PUMPKIN, 16));
                 //牛奶
-                colItems.add(new ItemStack(Items.MILK_BUCKET, 24));
+                colItems.add(new ItemStack(Items.MILK_BUCKET, 3));
                 //糖
-                colItems.add(new ItemStack(Items.SUGAR, 24));
+                colItems.add(new ItemStack(Items.SUGAR, 16));
                 //可可豆
-                colItems.add(new ItemStack(Items.DYE, 24));
+                colItems.add(new ItemStack(Items.DYE, 16));
                 //收集
                 this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
                 this.theStage = 1;
@@ -83,7 +84,7 @@ public class JobBaker extends Job {
             } else if (this.theStage == 2) {
 
                 if (this.stage == -1) {
-                    if (this.milk_bucket > 3 && this.sugar > 2 && this.egg > 1 && this.wheat > 3) {
+                    if (this.milk_bucket >= 3 && this.sugar >= 2 && this.egg >= 1 && this.wheat > 3) {
                         //蛋糕需要的食材
                         List<ItemStack> cakes = new CopyOnWriteArrayList<>();
                         //牛奶
@@ -114,7 +115,7 @@ public class JobBaker extends Job {
                     }
                     this.stage = 1;
                 } else if (this.stage == 1) {
-                    if (this.dye > 1 && this.wheat > 2) {
+                    if (this.dye >= 1 && this.wheat >= 2) {
                         //曲奇饼需要的食材
                         List<ItemStack> cookies = new CopyOnWriteArrayList<>();
                         //可可豆
@@ -178,6 +179,9 @@ public class JobBaker extends Job {
                     }
                 }
             }
+        }
+        }catch (Exception e){
+
         }
     }
 

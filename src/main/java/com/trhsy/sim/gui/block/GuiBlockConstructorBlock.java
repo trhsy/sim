@@ -92,7 +92,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
      * 建筑的时间
      */
     long fingBodge = 0L;
-
+    int dimension;
     /**
      * @return 块，方向
      * @Author fan
@@ -100,11 +100,12 @@ public class GuiBlockConstructorBlock extends GuiScreen {
      * @Date 13:33 2022/10/31
      * @Param [p, bDir]
      **/
-    public GuiBlockConstructorBlock(BlockPos p, int bDir) {
+    public GuiBlockConstructorBlock(BlockPos p, int bDir,int dimension) {
         this.pos = p;
         this.buildDirection = bDir;
         this.hasEmployee = false;
         this.employee = null;
+        this.dimension=dimension;
         this.getHireableFolkNames();
         if (ModSimLoader.previewConstructor == p) {
             //constructorPreviousPage
@@ -127,12 +128,13 @@ public class GuiBlockConstructorBlock extends GuiScreen {
      * @Date 13:37 2022/10/31
      * @Param [p, bDir, folk]
      **/
-    public GuiBlockConstructorBlock(BlockPos p, int bDir, NpcIdentity folk) {
+    public GuiBlockConstructorBlock(BlockPos p, int bDir, NpcIdentity folk,int dimension) {
         this.pos = p;
         this.buildDirection = bDir;
         this.employee = folk;
         this.hasEmployee = true;
         this.getHireableFolkNames();
+        this.dimension=dimension;
         if(folk.job.contentEquals(I18n.format("container.sim.Vocation16"))){
             this.hiringTerraformer=true;
         }
@@ -499,10 +501,10 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                             this.showPage();
                             if (this.hiringTerraformer) {
                                 //雇佣NPC 规划师
-                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, I18n.format("container.sim.Vocation16"), V3.fromBlockPos(this.pos), this.buildDirection));
+                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, I18n.format("container.sim.Vocation16"), new V3(this.pos,this.dimension), this.buildDirection));
                             } else {
                                 //雇佣建筑师
-                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, I18n.format("container.sim.Vocation1"), V3.fromBlockPos(this.pos), this.buildDirection));
+                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, I18n.format("container.sim.Vocation1"), new V3(this.pos,this.dimension), this.buildDirection));
                             }
                         }
                         //雇佣的人
@@ -564,7 +566,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                         //建造它
                         if (guibutton.id == 970) {
                             //发送蓝图
-                            NetWorkLoader.net.sendToServer(new PacketSendBlueprint(this.selectedBlueprint, this.employee.id, V3.fromBlockPos(this.pos).toString(), this.buildDirection));
+                            NetWorkLoader.net.sendToServer(new PacketSendBlueprint(this.selectedBlueprint, this.employee.id, new V3(this.pos,this.dimension).toString(), this.buildDirection));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
@@ -579,63 +581,63 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                         if (guibutton.id == 21) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra1"),"1");
                             //填海
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 22) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra2"),"2");
                             //绿化
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 23) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra3"),"3");
                             //除草
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 24) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra4"),"4");
                             //平整化
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 25) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra5"),"5");
                             //超值套装
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 26) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra6"),"6");
                             //冰川
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 27) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra7"),"7");
                             //湿润化
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 28) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra8"),"8");
                             //炎热化
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;
                         } else if (guibutton.id == 29) {
                             terrainType=new TerrainType(I18n.format("container.sim.packetTerra9"),"9");
                             //除雪
-                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, V3.fromBlockPos(this.pos).toString()));
+                            NetWorkLoader.net.sendToServer(new PacketSendTerrainType(terrainType, this.employee.id, new V3(this.pos,this.dimension).toString()));
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;

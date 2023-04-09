@@ -76,20 +76,20 @@ public class BlockConstructorBox extends BlockBase {
             NpcData fd = null;
             for (NpcData f : ModSimLoader.folks) {
                 //建筑师
-                if (f.job != null && (f.job.jobName.contentEquals(I18n.format("container.sim.Vocation1"))||f.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))) && f.job.workPlace.toString().contentEquals(V3.fromBlockPos(pos).toString())) {
+                if (f.job != null && (f.job.jobName.contentEquals(I18n.format("container.sim.Vocation1"))||f.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))) && f.job.workPlace.toString().contentEquals(new V3(pos,playerIn.dimension).toString())) {
                     fd = f;
                     break;
                 }
             }
 
             if (fd != null) {
-                if (!fd.job.workPlace.toString().contentEquals(V3.fromBlockPos(pos).toString())) {
-                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection), (EntityPlayerMP) playerIn);
+                if (!fd.job.workPlace.toString().contentEquals(new V3(pos,playerIn.dimension).toString())) {
+                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection,playerIn.dimension), (EntityPlayerMP) playerIn);
                 } else {
-                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, fd.getClientIdentity()), (EntityPlayerMP) playerIn);
+                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, fd.getClientIdentity(),playerIn.dimension), (EntityPlayerMP) playerIn);
                 }
             } else {
-                NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection), (EntityPlayerMP) playerIn);
+                NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection,playerIn.dimension), (EntityPlayerMP) playerIn);
             }
         }
 
@@ -107,9 +107,9 @@ public class BlockConstructorBox extends BlockBase {
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
             //在给定块位置的中心为播放器播放指定的声音 断电 power down
             SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-            worldIn.playSound(worldIn.playerEntities.get(0),pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+            worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1, 1,false);
         for (NpcData fd : ModSimLoader.folks) {
-            if (fd.job != null && fd.job.workPlace.equals(V3.fromBlockPos(pos))) {
+            if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
             }
         }

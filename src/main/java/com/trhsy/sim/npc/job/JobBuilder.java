@@ -570,7 +570,7 @@ public class JobBuilder extends Job {
                     this.jobWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,d0 , d1, d2, d3, d4, d5, new int[0]);
                 }
             }
-            this.placedBlocks.add(V3.fromBlockPos(newBP));
+            this.placedBlocks.add(new V3(newBP));
             int b4 = (int) Math.floor(this.folk.skillBuilding);
             //建筑等级
             if (this.folk.skillBuilding < 10.0F) {
@@ -748,14 +748,14 @@ public class JobBuilder extends Job {
         if (this.livingPos == null) {
             this.livingPos = this.controllerPos;
         }
-        V3 v3 = V3.fromBlockPos(this.controllerPos);
+        V3 v3 = new V3(this.controllerPos);
         for (Building building : ModSimLoader.buildings) {
             if (building.controlXYZ.equals(v3)) {
                 building.removeBuilding(building.ID);
             }
         }
         //创建建筑物
-        Building build = new Building(this.blueprint.name, 10.0F, V3.fromBlockPos(this.controllerPos), V3.fromBlockPos(this.livingPos));
+        Building build = new Building(this.blueprint.name, 10.0F, new V3(this.controllerPos), new V3(this.livingPos));
         //建筑物类型
         build.buildingType = this.blueprint.buildingType;
         //建筑物的结构
