@@ -22,15 +22,15 @@ import java.util.UUID;
  **/
 public class PacketSendBuildingRequirements  implements IMessage {
     BuildingBlueprint bp;
-    JobBuilder job;
+    UUID conBoxId;
     BlueprintRequirements cbr = null;
 
     public PacketSendBuildingRequirements() {
     }
 
-    public PacketSendBuildingRequirements(BuildingBlueprint bp, JobBuilder job) {
+    public PacketSendBuildingRequirements(BuildingBlueprint bp, UUID conBoxId) {
         this.bp = bp;
-        this.job = job;
+        this.conBoxId = conBoxId;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -40,7 +40,7 @@ public class PacketSendBuildingRequirements  implements IMessage {
     }
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.job.conBox.getUniqueID().toString());
+        ByteBufUtils.writeUTF8String(buf, this.conBoxId.toString());
         ByteBufUtils.writeUTF8String(buf, this.bp.getBuildingRequirementsString());
     }
 

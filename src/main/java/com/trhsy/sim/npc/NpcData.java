@@ -227,10 +227,10 @@ public class NpcData {
 
         EntityFolk e = new EntityFolk(world, true);
         e.isBeingCreated = true;
-        if(world.playerEntities.size()>0){
+        if (world.playerEntities.size() > 0) {
             EntityPlayer thePlayer = world.playerEntities.get(0);
             e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
-            this.pos = new V3(thePlayer.getPosition(),thePlayer.dimension);
+            this.pos = new V3(thePlayer.getPosition(), thePlayer.dimension);
         }
 
         if (!fromCommand) {
@@ -441,7 +441,7 @@ public class NpcData {
                 } else if (line.contains("race|")) {
                     this.assignRace(value, false);
                 } else if (line.contains("skin|")) {
-                    this.race.skinName=value;
+                    this.race.skinName = value;
                 } else if (line.contains("pos|")) {
                     this.pos = V3.fromString(value);
                 } else if (line.contains("trait1|")) {
@@ -458,14 +458,14 @@ public class NpcData {
                     this.skillFarming = Float.valueOf(value);
                 } else if (line.contains("holding|")) {
                     try {
-                        if("".equals(value)||value==null){
-                            this.holding =null;
-                        }else{
-                            Item item=Item.getByNameOrId(value);
-                            if(item!=null){
+                        if ("".equals(value) || value == null) {
+                            this.holding = null;
+                        } else {
+                            Item item = Item.getByNameOrId(value);
+                            if (item != null) {
                                 this.holding = new ItemStack(item);
-                            }else{
-                                this.holding =null;
+                            } else {
+                                this.holding = null;
                             }
                         }
 
@@ -508,7 +508,7 @@ public class NpcData {
                             FarmBox fb = ModSimLoader.getFarm(new V3(p));
                             this.job = new JobFarmer(this, p, world, fb);
                             //养猪户
-                        }else if (job.contentEquals(I18n.format("container.sim.Vocation13"))) {
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation13"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_pig"), world);
                             //养牛户
@@ -520,11 +520,11 @@ public class NpcData {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_chicken"), world);
                             //养羊户
-                        }else if (job.contentEquals(I18n.format("container.sim.Vocation27"))) {
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation27"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_sheep"), world);
                             //养兔户
-                        }else if (job.contentEquals(I18n.format("container.sim.Vocation29"))) {
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation29"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobLivestockFarmer(this, p, I18n.format("container.sim.job_Livestock_rabbit"), world);
                             //牛奶农
@@ -532,7 +532,7 @@ public class NpcData {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobDairyFarmer(this, p, world);
                             //牧羊人
-                        }else if (job.contentEquals(I18n.format("container.sim.Vocation8"))) {
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation8"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobShepherd(this, p, world);
                             //鸡蛋农
@@ -542,21 +542,25 @@ public class NpcData {
                             //屠夫
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation15"))) {
                             this.job = new JobButcher(this, this.tempEmployLoc.toBlockPos(), world);
+                            //渔夫
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation18"))) {
                             this.job = new JobFisherman(this, this.tempEmployLoc.toBlockPos(), world);
+                            //食品商
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation26"))) {
                             this.job = new JobGrocer(this, this.tempEmployLoc.toBlockPos(), world);
+                            //士兵
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation7"))) {
+                            this.job = new JobSoldier(this, this.tempEmployLoc.toBlockPos(), world);
+//伐木工
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation2"))) {
+                            this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
+//矿工
                         }/*  else if (job.contentEquals("miner")) {
                             p = this.tempEmployLoc.toBlockPos();
                             MineBox mb = WorldData.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);
-                        }   else if (job.contentEquals("grocer")) {
-                            this.job = new JobGrocer(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("lumberjack")) {
-                            this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
-                        }  else if (job.contentEquals("soldier")) {
-                            this.job = new JobSoldier(this, this.tempEmployLoc.toBlockPos(), world);
-                        } else if (job.contentEquals("")) {
+                            //
+                        }  else if (job.contentEquals("")) {
                         }*/
                     }
 
@@ -629,7 +633,7 @@ public class NpcData {
     public void assignRace() {
         try {
             this.race = Races.raceList.get(new Random().nextInt(Races.raceList.size()));
-            this.race.skinName=this.getTexture();
+            this.race.skinName = this.getTexture();
         } catch (Exception var8) {
             StackTraceElement element = var8.getStackTrace()[0];
             ModSimLoader.log.error("assignRace出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
@@ -663,9 +667,9 @@ public class NpcData {
      * 向客户端发送皮肤地址
      */
     public void sendSkinPathToClient() {
-        if (this.entity != null&&this.race!=null) {
-            String skinName=this.race.skinName;
-            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(),skinName));
+        if (this.entity != null && this.race != null) {
+            String skinName = this.race.skinName;
+            NetWorkLoader.net.sendToAll(new PacketSendFolkSkin(this.entity.getUniqueID().toString(), skinName));
         }
     }
 
@@ -856,9 +860,9 @@ public class NpcData {
                 //重生实体
                 EntityFolk ef = new EntityFolk(world, this.ID);
                 //设置手持物品
-                if(this.holding!=null){
+                if (this.holding != null) {
                     ef.setHeldItem(EnumHand.MAIN_HAND, this.holding);
-                }else{
+                } else {
                     ef.setHeldItem(EnumHand.MAIN_HAND, null);
                 }
                 //坐标
@@ -868,17 +872,17 @@ public class NpcData {
                 this.entity = ef;
                 ef.theData = this;
                 ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
-                Boolean falg=world.spawnEntityInWorld(ef);
+                Boolean falg = world.spawnEntityInWorld(ef);
                 /*if(!falg){
                     ModSimLoader.log.info("重生失败，再次尝试");
                     this.entity = null;
                     this.isLoaded=true;
                 }*/
-            }else{
-                ModSimLoader.log.info("已重生，更新皮肤");
+            } else {
+//                ModSimLoader.log.info("已重生，更新皮肤");
 //                this.sendSkinPathToClient();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             ModSimLoader.log.error("重生出错了");
         }
     }
@@ -997,9 +1001,9 @@ public class NpcData {
             this.minuteUpdate = now;
         }
         //如果当前NPC为空
-        if(this.entity == null){
+        if (this.entity == null) {
             PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-            for (EntityPlayerMP player:players.getPlayerList()){
+            for (EntityPlayerMP player : players.getPlayerList()) {
                 //如果位置不为空并且在人员的50个内，不是服务器端
                 if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 80.0D && !player.worldObj.isRemote) {
                     //设置当前NPC 已加载
@@ -1041,10 +1045,10 @@ public class NpcData {
         if (this.job != null && this.shouldWork()) {
             if (!this.job.atWork) {
                 //如果没有在工作的时候，并且工作是面包师，工作阶段设置为-1
-                if (this.job.jobName.equals(I18n.format("container.sim.Vocation6"))) {
+                /*if (this.job.jobName.equals(I18n.format("container.sim.Vocation6"))) {
                     JobBaker jobBaker = (JobBaker) this.job;
                     boolean b = jobBaker.theStage == -1;
-                }
+                }*/
             }
             this.job.onUpdate();
             //有工作，不该工作的时候 实体不是空
@@ -1084,11 +1088,19 @@ public class NpcData {
                 //白天的话随机运行任务
             } else if (ModSimLoader.isDayTime(this.entity.worldObj)) {
                 this.pickRandomTask();
-            } else if(!ModSimLoader.isDayTime(this.entity.worldObj)){
-                //晚上就睡觉
-                //睡觉
-                this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));
-//                this.currentTask.completeTask();
+            } else {
+                if (this.home != null) {
+                    this.stayPut = true;
+                    if (!this.isAtBuilding(this.home)) {
+                        //回家
+                        this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, I18n.format("container.sim.folk_data_Going_home")));
+                    }
+                    //睡觉
+                    this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));
+                }else{
+                    //睡觉
+                    this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));
+                }
             }
         }
     }
@@ -1109,7 +1121,7 @@ public class NpcData {
         } else if (this.pregnancyStage > 0.0F) {
             return false;
             //士兵
-        } else if (this.job != null && this.job.jobName == I18n.format("container.sim.Vocation7")) {
+        } else if (this.job != null && this.job.jobName.equals(I18n.format("container.sim.Vocation7"))) {
             return !ModSimLoader.isDayTime(this.entity.worldObj);
         } else {
             return ModSimLoader.isDayTime(this.entity.worldObj);
@@ -1441,12 +1453,12 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean forceMoveToXYZ(V3 v3) {
-       // System.out.println("要去的维度："+v3.dimension+",NPC的维度:"+this.entity.dimension);
+        // System.out.println("要去的维度："+v3.dimension+",NPC的维度:"+this.entity.dimension);
         this.entity.getNavigator().clearPathEntity();
         v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
-        if(v3.dimension!=this.entity.dimension){
+        if (v3.dimension != this.entity.dimension) {
             this.entity.changeDimension(v3.dimension);
-            this.entity.dimension=v3.dimension;
+            this.entity.dimension = v3.dimension;
         }
         if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
@@ -1634,7 +1646,7 @@ public class NpcData {
                     this.home.occupants.remove(this);
                     this.home.saveBuilding();
                 }
-                if(this.job != null){
+                if (this.job != null) {
                     this.fire();
                 }
                 ModSimLoader.folks.remove(this);
@@ -1821,11 +1833,11 @@ public class NpcData {
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation20"))) {
             this.job = new JobDairyFarmer(this, pos.toBlockPos(), world);
             //伐木工
-        }  else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
-            //this.job = new JobLumberjack(this, pos.toBlockPos(), world);
+        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
+            this.job = new JobLumberjack(this, pos.toBlockPos(), world);
             //士兵
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation7"))) {
-            //this.job = new JobSoldier(this, pos.toBlockPos(), world);
+            this.job = new JobSoldier(this, pos.toBlockPos(), world);
             //渔夫
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation18"))) {
             this.job = new JobFisherman(this, pos.toBlockPos(), world);
@@ -1846,7 +1858,7 @@ public class NpcData {
      * @Param []
      **/
     public V3 getV3() {
-        return new V3(new BlockPos(this.entity),this.entity.dimension);
+        return new V3(new BlockPos(this.entity), this.entity.dimension);
     }
 
 }

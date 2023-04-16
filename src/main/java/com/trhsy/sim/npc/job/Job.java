@@ -376,7 +376,36 @@ public abstract class Job {
      **/
     public int feedFolks() {
         int fedFolks = 0;
-        for (NpcData fd:ModSimLoader.folks){
+        Iterator var2 = ModSimLoader.folks.iterator();
+        while(true) {
+            label35:while(true) {
+                NpcData fd;
+                do {
+                    if (!var2.hasNext()) {
+                        return fedFolks;
+                    }
+
+                    fd = (NpcData)var2.next();
+                } while(fd.hunger >= 10);
+                Iterator var4 = this.inventoriesFindClosest(this.workPlace, 5).iterator();
+                while(var4.hasNext()) {
+                    IInventory chest = (IInventory)var4.next();
+
+                    for(int i = 0; i < chest.getSizeInventory(); ++i) {
+                        ItemStack is = chest.getStackInSlot(i);
+                        if(is!=null&&is.getItem()!=null){
+                            if (is.getItem() instanceof ItemFood) {
+                                ++fedFolks;
+                                fd.hunger = 10;
+                                chest.decrStackSize(i, 1);
+                                continue label35;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /*for (NpcData fd:ModSimLoader.folks){
             if(fd.hunger < 10){
                 List<IInventory> list=this.inventoriesFindClosest(this.workPlace, 5);
                 for (IInventory chest:list){
@@ -386,38 +415,6 @@ public abstract class Job {
                             ++fedFolks;
                             fd.hunger = 10;
                             chest.decrStackSize(i, 1);
-                        }
-                    }
-                }
-            }
-        }
-        return fedFolks;
-        /*Iterator var2 = ModSimLoader.folks.iterator();
-
-        while(true) {
-            label35:
-            while(true) {
-                NpcData fd;
-                do {
-                    if (!var2.hasNext()) {
-                        return fedFolks;
-                    }
-
-                    fd = (NpcData)var2.next();
-                } while(fd.hunger >= 10);
-
-                Iterator var4 = this.inventoriesFindClosest(this.workPlace, 5).iterator();
-
-                while(var4.hasNext()) {
-                    IInventory chest = (IInventory)var4.next();
-
-                    for(int i = 0; i < chest.getSizeInventory(); ++i) {
-                        ItemStack is = chest.getStackInSlot(i);
-                        if (is.getItem() instanceof ItemFood) {
-                            ++fedFolks;
-                            fd.hunger = 10;
-                            chest.decrStackSize(i, 1);
-                            continue label35;
                         }
                     }
                 }

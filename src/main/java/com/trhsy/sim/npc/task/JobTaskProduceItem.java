@@ -80,7 +80,7 @@ public class JobTaskProduceItem extends JobTask {
                         if (itemStack!=null && itemStack.isItemEqual(itemStacks)) {
                             //NPC拿走所需物品
                             this.folk.addToInventory(itemStack);
-                            iInventory.removeStackFromSlot(i);
+                            iInventory.removeStackFromSlot(itemStacks.stackSize);
                             break;
                         }
                     }

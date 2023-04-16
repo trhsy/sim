@@ -18,6 +18,7 @@ public class JobTaskShopkeep extends JobTask {
     public JobTaskShopkeep(Job j, long ms, String product) {
         super(j, ms);
         this.product = product;
+        this.hasFed = false;
     }
     @Override
     public void onTaskBegin() {
@@ -27,6 +28,7 @@ public class JobTaskShopkeep extends JobTask {
         if (this.job.jobWorld.getWorldTime() % 24000L < 11600L) {
             //售卖
             this.folk.setStatus(I18n.format("container.sim.job_task_Selling")+" " + this.product);
+            this.hasFed = false;
         } else {
             //关闭店铺
             this.folk.setStatus(I18n.format("container.sim.job.Baker_Closing"));

@@ -2,6 +2,7 @@ package com.trhsy.sim.entity;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.job.JobBuilder;
 import com.trhsy.sim.npc.job.JobTerrainFormer;
 import net.minecraft.entity.Entity;
@@ -83,15 +84,13 @@ public class EntityConBox extends Entity {
         if (System.currentTimeMillis() - this.lastCheck > 10000L) {
             //不是客户端
             if (!this.worldObj.isRemote) {
+                V3 v3=new V3(this.posX,this.posY,this.posZ);
                 if (this.folk == null) {
                     //生成爆炸粒子
-                    this.spawnExplosionParticle(this);
+                    this.spawnExplosionParticle(v3,this.worldObj);
                     this.setDead();
-                } else if (this.folk.job != this.builderJob) {
-                    this.spawnExplosionParticle(this);
-                    this.setDead();
-                }else if (this.folk.job != this.terrainFormerJob) {
-                    this.spawnExplosionParticle(this);
+                } else if (this.folk.job != this.builderJob&&this.folk.job != this.terrainFormerJob) {
+                    this.spawnExplosionParticle(v3,this.worldObj);
                     this.setDead();
                 }
             }
@@ -109,18 +108,18 @@ public class EntityConBox extends Entity {
      * @Param [ent]
      * @return void
      **/
-    private void spawnExplosionParticle(Entity ent) {
+    private void spawnExplosionParticle(V3 v3,World world) {
         Random rand = new Random();
 
         for(int var1 = 0; var1 < 20; ++var1) {
-            double d0 = (double)((float)ent.posX + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
-            double d1 = (double)((float)ent.posY + 0.8125F);
-            double d2 = (double)((float)ent.posZ + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
+            double d0 = (double)((float)v3.x + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
+            double d1 = (double)((float)v3.y + 0.8125F);
+            double d2 = (double)((float)v3.z + (5.0F + rand.nextFloat() * 6.0F) / 16.0F);
             double d3 = 0.0D;
             double d4 = 0.0D;
             double d5 = 0.0D;
             try {
-                ent.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
+                world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
             } catch (Exception var13) {
                 ModSimLoader.log.error("悬浮构建箱生成爆炸粒子出错了");
             }

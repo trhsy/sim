@@ -44,8 +44,6 @@ public class JobFarmer extends Job {
     long harvestCheck = 0L;
     //
     long qsCheck = 0L;
-    //-1锄地 0种植 1收获 2等待
-    private int theStage = -1;
     long growCheck = 0L;
     //没有种子等待时间，
     private int noNeed;
@@ -88,16 +86,16 @@ public class JobFarmer extends Job {
                 // 等级 时间计算 工作效率
                 if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
                     //锄地
-                    if (this.theStage == -1) {
+                    if (this.stage == 1) {
                         this.hoe();
                         //种植
-                    } else if (this.theStage == 0) {
+                    } else if (this.stage == 2) {
                         this.plant();
                         //收获
-                    } else if (this.theStage == 1) {
+                    } else if (this.stage == 3) {
                         this.harvest();
                         //等待
-                    } else if (this.theStage == 2) {
+                    } else if (this.stage == 4) {
                         Random ra = new Random();
                         int r = ra.nextInt(2);
                         if (r == 0) {
@@ -116,6 +114,10 @@ public class JobFarmer extends Job {
                                 grow();
                             }
                         }
+                    }else if (this.stage == 0) {
+                        this.stage = 3;
+                    }else if (this.stage == -1&&this.atWork) {
+                        this.stage =0;
                     }
                 }
 
@@ -267,7 +269,7 @@ public class JobFarmer extends Job {
                     }
                 }
             }
-            this.theStage = 0;
+            this.stage = 2;
             //仙人掌
         } else if (farmType == FarmType.CACTUS) {
             //循环农场的宽
@@ -308,7 +310,7 @@ public class JobFarmer extends Job {
                     }
                 }
             }
-            this.theStage = 0;
+            this.stage = 2;
             //未知的
         } else {
             //循环农场的宽
@@ -385,7 +387,7 @@ public class JobFarmer extends Job {
                 }
             }
         }
-        this.theStage = 0;
+        this.stage = 2;
     }
 
     /**
@@ -457,10 +459,10 @@ public class JobFarmer extends Job {
                             if (seed == null) {
                                 //没有种子
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.no_seeds"));
-                                this.theStage = 1;
+                                this.stage = 2;
                                 this.noNeed++;
                                 if (this.noNeed / 10 == 1) {
-                                    this.theStage = 2;
+                                    this.stage = 3;
                                 }
                                 return;
                             }
@@ -504,7 +506,7 @@ public class JobFarmer extends Job {
                     }
                 }
             }
-            this.theStage = 2;
+            this.stage = 4;
             //仙人掌
         } else if (farmType == FarmType.CACTUS) {
             //循环农场的宽
@@ -546,10 +548,10 @@ public class JobFarmer extends Job {
                         if (seed == null) {
                             //没有种子
                             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.no_seeds"));
-                            this.theStage = 1;
+                            this.stage = 2;
                             this.noNeed++;
                             if (this.noNeed / 10 == 1) {
-                                this.theStage = 2;
+                                this.stage = 3;
                             }
                             return;
                         }
@@ -592,7 +594,7 @@ public class JobFarmer extends Job {
                     }
                 }
             }
-            this.theStage = 2;
+            this.stage = 4;
             //未知的
         } else {
             plant1(null);
@@ -640,10 +642,10 @@ public class JobFarmer extends Job {
                 if (seed == null) {
                     //没有种子
                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.no_seeds"));
-                    this.theStage = 1;
+                    this.stage = 2;
                     this.noNeed++;
                     if (this.noNeed / 10 == 1) {
-                        this.theStage = 2;
+                        this.stage = 3;
                     }
                     return;
                 }
@@ -729,7 +731,7 @@ public class JobFarmer extends Job {
                 }
             }
         }
-        this.theStage = 2;
+        this.stage = 4;
     }
 
     /**
@@ -787,7 +789,7 @@ public class JobFarmer extends Job {
                 }
             }
         }
-        this.theStage = 1;
+        this.stage = 3;
     }
 
     /**
@@ -846,9 +848,7 @@ public class JobFarmer extends Job {
 
                 }
             }
-            this.theStage = -1;
-
-
+            this.stage = 1;
 //            harvest1();
             //土豆
         } else if (farmType == FarmType.POTATO) {
@@ -875,7 +875,6 @@ public class JobFarmer extends Job {
                         Block bCrop = this.folk.job.jobWorld.getBlockState(bp).getBlock();
                         //摧毁方块
                         drops = bCrop.getDrops(this.folk.job.jobWorld, bp, this.folk.job.jobWorld.getBlockState(bp), 0);
-//                                bCrop.getDrops(drops, this.folk.job.jobWorld, bp.north(), this.folk.job.jobWorld.getBlockState(bp.north()), 0);
                         drops.forEach((drop) -> {
                             //放到工作箱
                             this.placeInJobChest(drop);
@@ -897,7 +896,7 @@ public class JobFarmer extends Job {
 
                 }
             }
-            this.theStage = -1;
+            this.stage = 1;
             //小麦
         } else if (farmType == FarmType.WHEAT) {
             harvest1();
@@ -933,13 +932,7 @@ public class JobFarmer extends Job {
                 if (b instanceof BlockStem || !(b instanceof BlockCrops) && !(b instanceof IPlantable) && !(b instanceof IGrowable)) {
                     //包含根茎
                     if (b instanceof BlockStem) {
-//                        BlockStem stem = (BlockStem) b;
-//                        Field cropField = null;
-
                         try {
-//                            cropField = stem.getClass().getDeclaredField("crop");
-//                            cropField.setAccessible(true);
-//                            Block crop = (Block) cropField.get(stem);
                             Block bCrop;
                             //北
                             if (this.folk.job.jobWorld.getBlockState(bp.north()).getBlock() == b) {
@@ -949,7 +942,6 @@ public class JobFarmer extends Job {
                                 bCrop = this.folk.job.jobWorld.getBlockState(bp.north()).getBlock();
                                 //摧毁方块
                                 drops = bCrop.getDrops(this.folk.job.jobWorld, bp.north(), this.folk.job.jobWorld.getBlockState(bp.north()), 0);
-//                                bCrop.getDrops(drops, this.folk.job.jobWorld, bp.north(), this.folk.job.jobWorld.getBlockState(bp.north()), 0);
                                 drops.forEach((drop) -> {
                                     //放到工作箱
                                     this.placeInJobChest(drop);
@@ -1095,7 +1087,7 @@ public class JobFarmer extends Job {
                 }
             }
         }
-        this.theStage = -1;
+        this.stage = 1;
     }
 
     @Override

@@ -26,17 +26,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobBaker extends Job {
     //小麦，鸡蛋，南瓜，牛奶,糖,可可豆
     private int wheat, egg, pumpkin, milk_bucket, sugar, dye;
-
-    public int theStage = -1;
-    private int stage = -1;
-
     public JobBaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
         //面包师
         this.jobName = I18n.format("container.sim.Vocation6");
-        this.theStage = -1;
-        this.stage = -1;
     }
 
     @Override
@@ -44,11 +38,11 @@ public class JobBaker extends Job {
         super.onUpdate();
         try {
         if (this.atWork) {
-            if (this.theStage == -1) {
+            if (this.stage == 1) {
                 //打开烘焙工具
                 this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job_baker1")));
-                this.theStage = 0;
-            } else if (this.theStage == 0) {
+                this.stage = 2;
+            } else if (this.stage == 2) {
                 List<ItemStack> colItems = new ArrayList();
                 //小麦
                 colItems.add(new ItemStack(Items.WHEAT, 16));
@@ -64,8 +58,8 @@ public class JobBaker extends Job {
                 colItems.add(new ItemStack(Items.DYE, 16));
                 //收集
                 this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
-                this.theStage = 1;
-            } else if (this.theStage == 1) {
+                this.stage = 3;
+            } else if (this.stage == 3) {
                 List<ItemStack> colItems = new ArrayList();
                 //小麦
                 colItems.add(new ItemStack(Items.WHEAT, 24));
@@ -80,10 +74,9 @@ public class JobBaker extends Job {
                 //可可豆
                 colItems.add(new ItemStack(Items.DYE, 24));
                 this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
-                this.theStage = 2;
-            } else if (this.theStage == 2) {
+                this.stage = 4;
+            } else if (this.stage == 4) {
 
-                if (this.stage == -1) {
                     if (this.milk_bucket >= 3 && this.sugar >= 2 && this.egg >= 1 && this.wheat > 3) {
                         //蛋糕需要的食材
                         List<ItemStack> cakes = new CopyOnWriteArrayList<>();
@@ -98,9 +91,6 @@ public class JobBaker extends Job {
                         //蛋糕
                         this.addJobTask(new JobTaskProduceItem(this, 60000L, Items.CAKE, cakes, I18n.format("container.sim.job.Baker_Baking")));
                     }
-
-                    this.stage = 0;
-                } else if (this.stage == 0) {
                     if (this.pumpkin > 1 && this.sugar > 1 && this.egg > 1) {
                         //需要的食材
                         List<ItemStack> pumpkinPies = new CopyOnWriteArrayList<>();
@@ -113,8 +103,6 @@ public class JobBaker extends Job {
                         //南瓜派
                         this.addJobTask(new JobTaskProduceItem(this, 60000L, Items.PUMPKIN_PIE, pumpkinPies, I18n.format("container.sim.job.Baker_Baking")));
                     }
-                    this.stage = 1;
-                } else if (this.stage == 1) {
                     if (this.dye >= 1 && this.wheat >= 2) {
                         //曲奇饼需要的食材
                         List<ItemStack> cookies = new CopyOnWriteArrayList<>();
@@ -125,21 +113,16 @@ public class JobBaker extends Job {
                         //曲奇
                         this.addJobTask(new JobTaskProduceItem(this, 60000L, Items.COOKIE, cookies, I18n.format("container.sim.job.Baker_Baking")));
                     }
-                    this.stage = 2;
-                } else if (this.stage == 2) {
                     if (this.wheat > 3) {
                         //烘烤 面包 食材 小麦三个
                         this.addJobTask(new JobTaskProduceItem(this, 60000L, Items.BREAD, new ItemStack(Items.WHEAT, 3), I18n.format("container.sim.job.Baker_Baking")));
                     }
-                    this.stage = 3;
-                } else {
-                    this.theStage = 3;
-                }
-            } else if (this.theStage == 3) {
+                    this.stage = 5;
+            } else if (this.stage == 5) {
                 //售卖/关店
                 this.addJobTask(new JobTaskShopkeep(this, -1L, I18n.format("container.sim.job.Baker_bread")));
-                this.theStage = 4;
-            } else if (this.theStage == 4) {
+                this.stage = 6;
+            } else if (this.stage == 6) {
                 //在去工作途中，并且已经到了工作位置则更新状态
                 if (this.atWork && this.folk.isAtLocation(this.workPlace) && this.currentTask == null && this.jobTasks.size() > 0) {
                     if (this.jobTasks.size() > 0) {
@@ -147,8 +130,7 @@ public class JobBaker extends Job {
                         this.currentTask.begin();
                     }
                 } else if ((this.wheat > 32 ||(this.pumpkin > 1 && this.sugar > 1 && this.egg > 1)||(this.dye > 1 && this.wheat > 2)||(this.milk_bucket > 3 && this.sugar > 2 && this.egg > 1 && this.wheat > 3)) && this.folk.getStatusText().contains(I18n.format("container.sim.job_task_Selling"))) {
-                    this.theStage = 2;
-                    this.stage = -1;
+                    this.stage = 4;
                     this.currentTask.completeTask();
                 }
             }
