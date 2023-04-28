@@ -422,7 +422,7 @@ public class NpcData {
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
-//                ModSimLoader.log.info(line);
+                ModSimLoader.log.info(line);
                 if (line.contains("id|")) {
                     this.ID = value;
                     if (this.entity == null) {

@@ -38,7 +38,9 @@ public class JobBaker extends Job {
         super.onUpdate();
         try {
         if (this.atWork) {
-            if (this.stage == 1) {
+            if (this.stage == 0) {
+                this.stage = 1;
+            }else if (this.stage == 1) {
                 //打开烘焙工具
                 this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job_baker1")));
                 this.stage = 2;

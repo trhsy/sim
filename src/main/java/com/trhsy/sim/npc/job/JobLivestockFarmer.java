@@ -29,7 +29,6 @@ public class JobLivestockFarmer extends Job{
     public JobLivestockFarmer(NpcData folk, BlockPos pos, String livestock, World world) {
         super(folk,pos,world);
         this.livestockName = livestock;
-
         //猪
         if (this.livestockName.equals(I18n.format("container.sim.job_Livestock_pig"))) {
             this.livestockClass = EntityPig.class;
