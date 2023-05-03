@@ -4,10 +4,12 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenControlGui;
 import com.trhsy.sim.network.client.PacketOpenFarmGui;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
+import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.util.FarmType;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -83,7 +85,7 @@ public class BlockFarmingBox extends BlockBase{
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if (!world.isRemote) {
-            V3 markerPos = null;
+            V3 markerPos = new V3(pos.getX(),pos.getY(),pos.getZ(),placer.dimension);
             //东
             EnumFacing facing = EnumFacing.EAST;
             int px = (int)Math.floor(placer.posX);
@@ -105,11 +107,11 @@ public class BlockFarmingBox extends BlockBase{
                     facing = EnumFacing.NORTH;
                 }
             }
-            //for (FarmBox farmBox : ModSimLoader.farms) {
-            //    if (farmBox.loc.equals(markerPos)) {
-            //        farmBox.removeFarm(farmBox.ID);
-            //    }
-            //}
+            for (FarmBox farmBox : ModSimLoader.farms) {
+                if (farmBox.loc.equals(markerPos)) {
+                    farmBox.removeFarm(farmBox.ID);
+                }
+            }
             FarmBox fb = new FarmBox(new V3(pos,placer.dimension), (V3)markerPos, 6, 6);
             ModSimLoader.farms.add(fb);
             fb.facing = facing;
@@ -130,8 +132,9 @@ public class BlockFarmingBox extends BlockBase{
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
         worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1, 1,false);
+        V3 markerPos = new V3(pos.getX(),pos.getY(),pos.getZ());
         for (FarmBox farmBox : ModSimLoader.farms) {
-            if (farmBox.loc.equals(pos)) {
+            if (farmBox.loc.equals(markerPos)) {
                 farmBox.removeFarm(farmBox.ID);
             }
         }
@@ -142,4 +145,18 @@ public class BlockFarmingBox extends BlockBase{
         }
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
+
+    /**
+     * @return int
+     * @Author fan
+     * @Description //TODO 获取此块可以删除的项的元数据。当块被破坏时调用此方法。它基于块的旧元数据返回被删除项的元数据。
+     * @Date 10:04 2022/11/7
+     * @Param [state]
+     **/
+    @Override
+    public int damageDropped(IBlockState state) {
+        return this.getMetaFromState(state);
+    }
+
+
 }

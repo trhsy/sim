@@ -145,9 +145,10 @@ public class FarmBox {
     }
 
     public void removeFarm (UUID uid){
-        File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms");
         ModSimLoader.buildings.remove(this);
-        File logFile = new File(buildingFolder + File.separator + uid + ".sk2");
-        logFile.delete();
+        File logFile = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms" + File.separator + uid + ".sk2");
+        if(logFile.delete()){
+            logFile.deleteOnExit();
+        }
     }
 }

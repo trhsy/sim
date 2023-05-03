@@ -49,7 +49,7 @@ public class PacketSetupMod implements IMessage {
         }
 
         private void handle(PacketSetupMod message, MessageContext ctx) {
-            ModSimLoader.states.gameModeNumber = message.gamemode;
+            ModSimLoader.gamemode = message.gamemode;
         }
     }
 }

@@ -2,6 +2,7 @@ package com.trhsy.sim.gui.block;
 
 import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.gui.npc.GuiEmployees;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.server.*;
@@ -107,16 +108,16 @@ public class GuiBlockConstructorBlock extends GuiScreen {
         this.employee = null;
         this.dimension=dimension;
         this.getHireableFolkNames();
-        if (ModSimLoader.previewConstructor == p) {
+        if (ModSimClientLoader.previewConstructor == p) {
             //constructorPreviousPage
-            ModSimLoader.constructorPreviousPage = 0;
+            ModSimClientLoader.constructorPreviousPage = 0;
             //savedBlueprint
-            ModSimLoader.savedBlueprint = null;
+            ModSimClientLoader.savedBlueprint = null;
             //要构建的
-            ModSimLoader.previewConstructor = null;
+            ModSimClientLoader.previewConstructor = null;
             //预览位置
-            ModSimLoader.previewPos1 = null;
-            ModSimLoader.previewPos2 = null;
+            ModSimClientLoader.previewPos1 = null;
+            ModSimClientLoader.previewPos2 = null;
         }
 
     }
@@ -139,18 +140,18 @@ public class GuiBlockConstructorBlock extends GuiScreen {
             this.hiringTerraformer=true;
         }
         //
-        if (p.equals(ModSimLoader.previewConstructor)) {
-            this.selectedBlueprint = ModSimLoader.savedBlueprint;
+        if (p.equals(ModSimClientLoader.previewConstructor)) {
+            this.selectedBlueprint = ModSimClientLoader.savedBlueprint;
             if (this.selectedBlueprint != null) {
-                this.previousPage = ModSimLoader.constructorPreviousPage;
+                this.previousPage = ModSimClientLoader.constructorPreviousPage;
                 this.currentPage = 11;
             }
 
-            ModSimLoader.constructorPreviousPage = 0;
-            ModSimLoader.savedBlueprint = null;
-            ModSimLoader.previewConstructor = null;
-            ModSimLoader.previewPos1 = null;
-            ModSimLoader.previewPos2 = null;
+            ModSimClientLoader.constructorPreviousPage = 0;
+            ModSimClientLoader.savedBlueprint = null;
+            ModSimClientLoader.previewConstructor = null;
+            ModSimClientLoader.previewPos1 = null;
+            ModSimClientLoader.previewPos2 = null;
         }
 
     }
@@ -285,8 +286,8 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                     y = 80;
                     idx = 100;
                     //显示所有失业人员
-                    for (int f = 0; f < ModSimLoader.getUnemployedFolks().size(); ++f) {
-                        NpcIdentity folk = (NpcIdentity) ModSimLoader.getUnemployedFolks().get(f);
+                    for (int f = 0; f < ModSimClientLoader.getUnemployedFolks().size(); ++f) {
+                        NpcIdentity folk = (NpcIdentity) ModSimClientLoader.getUnemployedFolks().get(f);
                         this.buttonList.add(new GuiButton(idx, x, y, 110, 20, folk.name));
                         this.hireableFolkNames[idx] = folk;
                         ++idx;
@@ -539,14 +540,14 @@ public class GuiBlockConstructorBlock extends GuiScreen {
 
                         if (guibutton.id == 1001) {
                             //建筑位置
-                            ModSimLoader.previewConstructor = this.pos;
+                            ModSimClientLoader.previewConstructor = this.pos;
                             //蓝图
-                            ModSimLoader.savedBlueprint = this.selectedBlueprint;
+                            ModSimClientLoader.savedBlueprint = this.selectedBlueprint;
                             //预览1
-                            ModSimLoader.previewPos1 = this.selectedBlueprint.getFirstPoint(this.pos, this.buildDirection);
+                            ModSimClientLoader.previewPos1 = this.selectedBlueprint.getFirstPoint(this.pos, this.buildDirection);
                             //预览2
-                            ModSimLoader.previewPos2 = this.selectedBlueprint.getSecondPoint(this.pos, this.buildDirection);
-                            ModSimLoader.constructorPreviousPage = this.previousPage;
+                            ModSimClientLoader.previewPos2 = this.selectedBlueprint.getSecondPoint(this.pos, this.buildDirection);
+                            ModSimClientLoader.constructorPreviousPage = this.previousPage;
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                             return;

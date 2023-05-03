@@ -1,7 +1,5 @@
 package com.trhsy.sim.loader;
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.block.BlockMarker;
 import com.trhsy.sim.gui.block.GuiBlockControllerBlock;
 import com.trhsy.sim.gui.block.GuiBlockFarmBlock;
 import com.trhsy.sim.gui.npc.GuiFolk;
@@ -12,30 +10,20 @@ import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.block.MineBox;
-import com.trhsy.sim.npc.build.BlueprintRequirements;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.DynamicSkin;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.build.TerrainTypeRequitrements;
 import com.trhsy.sim.util.FarmType;
-import com.trhsy.sim.util.GameStates;
-import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.logging.log4j.Logger;
 
@@ -48,7 +36,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- * sim 加载信息
+ * sim 服务器加载信息
  *
  * @author Administrator
  */
@@ -57,12 +45,6 @@ public class ModSimLoader {
      * 全局日志调用
      */
     public static Logger log;
-
-
-    /**
-     * 包含他们正在玩的这个关卡的所有游戏状态和设置
-     **/
-    public static GameStates states = new GameStates();
 
     /**
      * npc 数据
@@ -76,16 +58,12 @@ public class ModSimLoader {
     public static List<FarmBox> farms = new CopyOnWriteArrayList();
     /*挖矿箱*/
     public static List<MineBox> mines = new CopyOnWriteArrayList();
-    public static List<BlockMarker> markers = new CopyOnWriteArrayList();
-    /**
-     * 临时可雇佣Npc姓名
-     **/
-    public static List<NpcIdentity> tempHireableNpcNames = new CopyOnWriteArrayList();
+
     /**
      * 建筑蓝图
      */
     public static List<BuildingBlueprint> buildingBlueprints = new CopyOnWriteArrayList();
-    public static List<BlueprintRequirements> blueprintReqs = new CopyOnWriteArrayList();
+
     public static List<TerrainTypeRequitrements> terrainTypeReqs = new CopyOnWriteArrayList();
     /**
      * 是否加载npc
@@ -94,25 +72,22 @@ public class ModSimLoader {
     /**
      * npc 皮肤
      **/
-    public static List<NpcSkin> folkSkins = new CopyOnWriteArrayList();
     public static List<DynamicSkin> skins = new CopyOnWriteArrayList();
+
     /**
-     * 要构建的
+     * 游戏模式编号
      **/
-    public static BlockPos previewConstructor;
+    public static int gamemode = 999;
+    //金钱
+    public static float money = 10.0F;
     /**
-     * 构建上一页
+     * @Author fan
+     * @Description //TODO 周的某天
+     * @Date 11:15 2023/4/29
+     * @Param
+     * @return
      **/
-    public static int constructorPreviousPage;
-    /**
-     * 蓝图
-     */
-    public static BuildingBlueprint savedBlueprint;
-    /**
-     * 预览位置
-     */
-    public static Vec3d previewPos1;
-    public static Vec3d previewPos2;
+    public static int dayOfWeek = 0;
 
     /**
      * 运行模组
@@ -149,8 +124,8 @@ public class ModSimLoader {
      * @Param [amount]
      **/
     public static void addMoney(float amount) {
-        if (ModSimLoader.states.gameModeNumber != 1) {
-            ModSimLoader.states.credits += amount;
+        if (gamemode != 1) {
+            money += amount;
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
         }
 
@@ -171,22 +146,6 @@ public class ModSimLoader {
         return output;
     }
 
-    /**
-     * @return com.trhsy.sim.entity.util.NpcIdentity
-     * @Author fan
-     * @Description //TODO 根据uid 获取NPC信息
-     * @Date 14:05 2022/10/18
-     * @Param [uuid]
-     **/
-    public static NpcIdentity getFolkByUUID(UUID uuid) {
-        NpcIdentity npcIdentity = null;
-        for (NpcIdentity npcIdentity1 : tempHireableNpcNames) {
-            if (npcIdentity1.id.equals(uuid.toString())) {
-                return npcIdentity1;
-            }
-        }
-        return npcIdentity;
-    }
 
     /**
      * 以字符串形式获取“.minecraft/saves/游戏世界名称/sim/”文件夹 保存数据文件夹
@@ -343,6 +302,7 @@ public class ModSimLoader {
 
         return ret;
     }
+
     public static String downloadSimFile(String url, String localFile) {
         File f = new File(localFile);
         if (f.exists()) {
@@ -455,50 +415,33 @@ public class ModSimLoader {
      * @Date 16:23 2022/10/19
      * @Param [pos, bDir]
      **/
-    public static void openConstructorGui(BlockPos pos, int bDir,int dimension) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir,dimension));
+    public static void openConstructorGui(BlockPos pos, int bDir, int dimension) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir, dimension));
     }
 
-    public static void openConstructorGui(BlockPos pos, int bDir, NpcIdentity folk,int dimension) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir, folk,dimension));
+    public static void openConstructorGui(BlockPos pos, int bDir, NpcIdentity folk, int dimension) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir, folk, dimension));
     }
+
 
     /**
-     * @return java.util.List<com.trhsy.sim.entity.util.NpcIdentity>
-     * @Author fan
-     * @Description //TODO 失业人员
-     * @Date 17:59 2022/10/19
-     * @Param []
-     **/
-    public static List<NpcIdentity> getUnemployedFolks() {
-        List<NpcIdentity> hireables = new CopyOnWriteArrayList<>();
-        for (NpcIdentity cfi : tempHireableNpcNames) {
-
-            if (cfi.job.contentEquals(I18n.format("container.sim.folkData1")) && Integer.parseInt(cfi.age) >= Integer.parseInt(cfi.maturityAge)) {
-                hireables.add(cfi);
-            }
-        }
-
-        return hireables;
-    }
-    /**
+     * @return java.util.List<com.trhsy.sim.npc.build.BuildingBlueprint>
      * @Author fan
      * @Description //TODO 得到建筑蓝图
      * @Date 14:41 2022/10/21
      * @Param [type, searchText]
-     * @return java.util.List<com.trhsy.sim.npc.build.BuildingBlueprint>
      **/
     public static List<BuildingBlueprint> getBlueprintsByType(String type, String searchText) {
         List<BuildingBlueprint> typedBlues = new CopyOnWriteArrayList<>();
         for (BuildingBlueprint bb : buildingBlueprints) {
 
-            if (searchText != "" &&searchText != null) {
-                if(bb.name.contains(searchText)){
+            if (searchText != "" && searchText != null) {
+                if (bb.name.contains(searchText)) {
                     if (bb.buildingType.contentEquals(type)) {
                         typedBlues.add(bb);
                     }
                 }
-            }else{
+            } else {
                 if (bb.buildingType.contentEquals(type)) {
                     typedBlues.add(bb);
                 }
@@ -507,38 +450,40 @@ public class ModSimLoader {
         return typedBlues;
 
     }
+
     /**
+     * @return com.trhsy.sim.npc.build.BuildingBlueprint
      * @Author fan
      * @Description //TODO 根据名字获取蓝图
      * @Date 20:04 2022/11/4
      * @Param [name]
-     * @return com.trhsy.sim.npc.build.BuildingBlueprint
      **/
     public static BuildingBlueprint getBlueprintsByName(String name) {
-        BuildingBlueprint buildingBlueprint=null;
+        BuildingBlueprint buildingBlueprint = null;
         for (BuildingBlueprint bb : buildingBlueprints) {
-            if(name.equals(bb.name)){
-                buildingBlueprint=bb;
+            if (name.equals(bb.name)) {
+                buildingBlueprint = bb;
             }
         }
         return buildingBlueprint;
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 是建筑中的块
      * @Date 14:46 2022/10/21
      * @Param [v3]
-     * @return boolean
      **/
     public static boolean isBlockInBuilding(V3 v3) {
         Iterator var1 = buildings.iterator();
 
-        while(var1.hasNext()) {
-            Building b = (Building)var1.next();
+        while (var1.hasNext()) {
+            Building b = (Building) var1.next();
             Iterator var3 = b.structure.iterator();
 
-            while(var3.hasNext()) {
-                V3 bv3 = (V3)var3.next();
+            while (var3.hasNext()) {
+                V3 bv3 = (V3) var3.next();
                 if (v3.equals(bv3)) {
                     return true;
                 }
@@ -547,17 +492,18 @@ public class ModSimLoader {
 
         return false;
     }
+
     /**
+     * @return java.util.List<com.trhsy.sim.block.FarmBox>
      * @Author fan
      * @Description //TODO 获得最近的农场
      * @Date 14:46 2022/10/21
      * @Param [pos]
-     * @return java.util.List<com.trhsy.sim.block.FarmBox>
      **/
-    public static List<FarmBox> getClosestFarm(final V3 pos,String fType) {
+    public static List<FarmBox> getClosestFarm(final V3 pos, String fType) {
         List<FarmBox> fs = new CopyOnWriteArrayList<>();
-        for (FarmBox f:farms){
-            if(f.farmType.toString().equals(fType)){
+        for (FarmBox f : farms) {
+            if (f.farmType.toString().equals(fType)&&f.employee!=null) {
                 fs.add(f);
             }
         }
@@ -571,32 +517,34 @@ public class ModSimLoader {
                 }
             }
         });
-        return (List)(fs.size() > 3 ? fs.subList(0, 2) : fs);
+        return (List) (fs.size() > 3 ? fs.subList(0, 2) : fs);
     }
+
     /**
+     * @return com.trhsy.sim.block.MineBox
      * @Author fan
      * @Description //TODO 矿场
      * @Date 14:46 2022/10/21
      * @Param [pos]
-     * @return com.trhsy.sim.block.MineBox
      **/
     public static MineBox getMine(V3 pos) {
-        MineBox m1=null;
-        for (MineBox m:mines){
-            if(!m.loc.equals(pos)){
-                m1=m;
+        MineBox m1 = null;
+        for (MineBox m : mines) {
+            if (!m.loc.equals(pos)) {
+                m1 = m;
                 return m1;
             }
         }
 
         return m1;
     }
+
     /**
+     * @return com.trhsy.sim.block.FarmBox
      * @Author fan
      * @Description //TODO 农场
      * @Date 14:46 2022/10/21
      * @Param [pos]
-     * @return com.trhsy.sim.block.FarmBox
      **/
     public static FarmBox getFarm(V3 pos) {
         Iterator var1 = farms.iterator();
@@ -607,25 +555,26 @@ public class ModSimLoader {
                 return null;
             }
 
-            f = (FarmBox)var1.next();
-        } while(!f.loc.equals(pos));
+            f = (FarmBox) var1.next();
+        } while (!f.loc.equals(pos));
 
         return f;
     }
+
     /**
+     * @return java.util.List<com.trhsy.sim.npc.build.Building>
      * @Author fan
      * @Description //TODO 根据工作获取最近的建筑
      * @Date 15:53 2022/10/21
      * @Param [jobType, pos]
-     * @return java.util.List<com.trhsy.sim.npc.build.Building>
      **/
     public static List<Building> getClosestBuildingByJob(String jobType, final V3 pos) {
         List<Building> bs = new CopyOnWriteArrayList<>();
         Iterator var3 = buildings.iterator();
 
-        while(var3.hasNext()) {
-            Building b = (Building)var3.next();
-            if (b.jobType.contentEquals(jobType)) {
+        while (var3.hasNext()) {
+            Building b = (Building) var3.next();
+            if (b.jobType.contentEquals(jobType)&&b.occupants!=null&&b.occupants.size()>0) {
                 bs.add(b);
                 ModSimLoader.log.info("找到建筑： " + b.buildingName);
             }
@@ -643,19 +592,20 @@ public class ModSimLoader {
         });
         return bs;
     }
+
     /**
+     * @return java.util.List<com.trhsy.sim.npc.build.Building>
      * @Author fan
      * @Description //TODO 获取最近的建筑
      * @Date 15:53 2022/10/21
      * @Param [buildIn, pos]
-     * @return java.util.List<com.trhsy.sim.npc.build.Building>
      **/
     public static List<Building> getClosestBuilding(String buildIn, final V3 pos) {
         List<Building> bs = new CopyOnWriteArrayList();
         Iterator var3 = buildings.iterator();
 
-        while(var3.hasNext()) {
-            Building b = (Building)var3.next();
+        while (var3.hasNext()) {
+            Building b = (Building) var3.next();
             if (b.buildingName == buildIn) {
                 bs.add(b);
             }
@@ -673,28 +623,30 @@ public class ModSimLoader {
         });
         return bs;
     }
+
     /**
+     * @return com.trhsy.sim.npc.build.Building
      * @Author fan
      * @Description //TODO 建筑位置
      * @Date 15:53 2022/10/21
      * @Param [pos]
-     * @return com.trhsy.sim.npc.build.Building
      **/
     public static Building getBuildingByV3(V3 pos) {
-        for(int i = 0; i < buildings.size(); ++i) {
-            if (((Building)buildings.get(i)).controlXYZ.toString().contentEquals(pos.toString())) {
-                return (Building)buildings.get(i);
+        for (int i = 0; i < buildings.size(); ++i) {
+            if (((Building) buildings.get(i)).controlXYZ.toString().contentEquals(pos.toString())) {
+                return (Building) buildings.get(i);
             }
         }
 
         return null;
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 加载建筑
      * @Date 15:53 2022/10/21
      * @Param []
-     * @return void
      **/
     public static void loadAllBuildings() {
         //建筑文件检查
@@ -721,7 +673,7 @@ public class ModSimLoader {
             var7 = comBuildings;
             var8 = comBuildings.length;
 
-            for(var9 = 0; var9 < var8; ++var9) {
+            for (var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
                 b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
@@ -732,7 +684,7 @@ public class ModSimLoader {
             var7 = decBuildings;
             var8 = decBuildings.length;
 
-            for(var9 = 0; var9 < var8; ++var9) {
+            for (var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
                 b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
@@ -743,7 +695,7 @@ public class ModSimLoader {
             var7 = indBuildings;
             var8 = indBuildings.length;
 
-            for(var9 = 0; var9 < var8; ++var9) {
+            for (var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
                 b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
@@ -754,7 +706,7 @@ public class ModSimLoader {
             var7 = othBuildings;
             var8 = othBuildings.length;
 
-            for(var9 = 0; var9 < var8; ++var9) {
+            for (var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
                 b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
@@ -765,7 +717,7 @@ public class ModSimLoader {
             var7 = resBuildings;
             var8 = resBuildings.length;
 
-            for(var9 = 0; var9 < var8; ++var9) {
+            for (var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
                 b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
@@ -776,7 +728,7 @@ public class ModSimLoader {
             var7 = speBuildings;
             var8 = speBuildings.length;
 
-            for(var9 = 0; var9 < var8; ++var9) {
+            for (var9 = 0; var9 < var8; ++var9) {
                 buildingFolder = var7[var9];
                 b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
@@ -785,6 +737,7 @@ public class ModSimLoader {
         Collections.sort(ModSimLoader.buildingBlueprints);
 
     }
+
     public static void onUpdate() {
         try {
 //"https://www.dropbox.com/s/i51v1lsq0u89elw/";
@@ -860,71 +813,120 @@ public class ModSimLoader {
 
 
     }
+
     /**
+     * @return com.trhsy.sim.npc.build.Building
      * @Author fan
      * @Description //TODO 根据uid获取建筑
      * @Date 15:54 2022/10/21
      * @Param [uuid]
-     * @return com.trhsy.sim.npc.build.Building
      **/
     public static Building getBuildingByUUID(String uuid) {
-        Building b1=null;
-        for (Building b:buildings){
-            if(b.ID.toString().contentEquals(uuid)){
-                b1=b;
+        Building b1 = null;
+        for (Building b : buildings) {
+            if (b.ID.toString().contentEquals(uuid)) {
+                b1 = b;
                 return b1;
             }
         }
         return b1;
     }
 
-    public static String getPathFromUUID(String UUID) {
-        for(int i = 0; i < folkSkins.size(); ++i) {
-            if ((folkSkins.get(i)).UUID.contentEquals(UUID)) {
-                return (folkSkins.get(i)).skinPath;
-            }
-        }
+    /**
+     * 打开控制箱
+     */
+    public static void openControlGui(V3 v3, String buildingId, String buildingName, String jobName, String bType, String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, buildingId, buildingName, jobName, bType, author));
+    }
 
-        return "";
+    /**
+     * 打开控制箱
+     */
+    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, String buildingName, String jobName, String bType, String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId, buildingName, jobName, bType, author));
     }
-    /**根据蓝图id找到蓝图*/
-    public static BlueprintRequirements getRequirementsByUUID(UUID uuid) {
-        BlueprintRequirements cbr=null;
-        for (BlueprintRequirements cbr1:blueprintReqs){
-           if(!cbr1.entityId.equals(uuid)){
-               cbr=cbr1;
-               return cbr;
-           }
-        }
-        return cbr;
-    }
-    /**打开控制箱*/
-    public static void openControlGui(V3 v3, String buildingId,String buildingName,String jobName,String bType,String author) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, buildingId,buildingName,jobName,bType,author));
-    }
-    /**打开控制箱*/
-    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk,String buildingName,String jobName,String bType,String author) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,buildingName,jobName,bType,author));
-    }
-    /**打开控制箱*/
-    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential,String buildingName,String jobName,String bType,String author) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId,isResidential,buildingName,jobName,bType,author));
+
+    /**
+     * 打开控制箱
+     */
+    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential, String buildingName, String jobName, String bType, String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId, isResidential, buildingName, jobName, bType, author));
     }
 
     public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, FarmType farmType, int x, int z) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing,farmType, x, z));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing, farmType, x, z));
     }
 
-    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing,FarmType farmType, int x, int z, NpcIdentity folk) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing,farmType, x, z, folk));
-    }
-/*
-    public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z));
+    public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, FarmType farmType, int x, int z, NpcIdentity folk) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing, farmType, x, z, folk));
     }
 
-    public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z, folk));
-    }*/
+    /*
+        public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
+            Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z));
+        }
 
+        public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
+            Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z, folk));
+        }*/
+    public static void saveStates() {
+        try {
+            String folder = ModSimLoader.getSavesDataFolder();
+            List<String> strings = new CopyOnWriteArrayList();
+            //金额
+            strings.add("credits|" + money);
+            //游戏状态
+            strings.add("gamemode|" + gamemode);
+            //星期几
+            strings.add("dayofweek|" + dayOfWeek);
+
+            ModSimLoader.saveSK2(folder + "settings.sk2", strings);
+            ModSimLoader.log.info("游戏状态: saveStates() called BOTH sides, 金额存储为 " + money);
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("saveStates出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
+    }
+    /**
+     * 加载配置文件
+     */
+    public static void loadStates() {
+        try {
+            File f = new File(ModSimLoader.getSavesDataFolder() + "settings.sk2");
+            if (!f.exists()) {
+                saveStates();
+            } else {
+                loadStates2();
+            }
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("loadStates出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+    }
+    /**
+     * 从配置文件读取并写入
+     */
+    private static void loadStates2() {
+        try {
+            List<String> strings = ModSimLoader.loadSK2(ModSimLoader.getSavesDataFolder() + "settings.sk2");
+            for (String line:strings){
+                if (line.contains("|")) {
+                    int m1 = line.indexOf("|");
+                    String name = line.substring(0, m1);
+                    String value = line.substring(m1 + 1);
+                    if ("credits".equals(name)) {
+                        money = Float.parseFloat(value);
+                    } else if ("gamemode".equals(name)) {
+                        gamemode = Integer.parseInt(value);
+                    } else if ("dayofweek".equals(name)) {
+                        dayOfWeek = Integer.parseInt(value);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("loadStates2出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+
+
+    }
 }

@@ -2,6 +2,7 @@ package com.trhsy.sim.entity.render;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityConBox;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.build.BlueprintRequirements;
 import net.minecraft.client.gui.FontRenderer;
@@ -46,7 +47,7 @@ public class RenderConBox extends Render {
         this.modelBox.render(this.entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         GL11.glPopMatrix();
         if (this.entity != null && this.displayBox) {
-            BlueprintRequirements requirements = ModSimLoader.getRequirementsByUUID(this.entity.getUniqueID());
+            BlueprintRequirements requirements = ModSimClientLoader.getRequirementsByUUID(this.entity.getUniqueID());
             float offset = 2.5F;
             if (requirements != null) {
                 String[] var12 = requirements.getRequirements();

@@ -1,6 +1,7 @@
 package com.trhsy.sim.gui.block;
 
 import com.trhsy.sim.entity.util.NpcIdentity;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.server.PacketFireFolk;
@@ -87,8 +88,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
     @Override
     public void onGuiClosed() {
         //预览
-        ModSimLoader.previewPos1 = null;
-        ModSimLoader.previewPos2 = null;
+        ModSimClientLoader.previewPos1 = null;
+        ModSimClientLoader.previewPos2 = null;
     }
     @Override
     public void initGui() {
@@ -158,6 +159,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
                     fs_type =I18n.format("container.sim.FarmType7");
                 }else if(fs_farmType.equals(I18n.format("container.sim.FarmType8"))){
                     fs_type =I18n.format("container.sim.FarmType8");
+                }else if(fs_farmType.equals(I18n.format("container.sim.FarmType10"))){
+                    fs_type =I18n.format("container.sim.FarmType10");
                 }
 
                 this.buttonList.add(new GuiButton(4, this.width / 2 - 100, 80, fs_type));
@@ -196,8 +199,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
                 int y = 80;
                 int idx = 100;
                 //获取失业人员
-                for (int f = 0; f < ModSimLoader.getUnemployedFolks().size(); ++f) {
-                    NpcIdentity folk = (NpcIdentity) ModSimLoader.getUnemployedFolks().get(f);
+                for (int f = 0; f < ModSimClientLoader.getUnemployedFolks().size(); ++f) {
+                    NpcIdentity folk = (NpcIdentity) ModSimClientLoader.getUnemployedFolks().get(f);
                     this.buttonList.add(new GuiButton(idx, x, y, 110, 20, folk.name));
                     this.hireableFolkNames[idx] = folk;
                     ++idx;
@@ -330,6 +333,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
                         fs_type =I18n.format("container.sim.FarmType7");
                     }else if(fs_farmType.equals(I18n.format("container.sim.FarmType8"))){
                         fs_type =I18n.format("container.sim.FarmType8");
+                    }else if(fs_farmType.equals(I18n.format("container.sim.FarmType10"))){
+                        fs_type =I18n.format("container.sim.FarmType10");//可可豆
                     }
                     guibutton.displayString = fs_type;
                     this.updateFarm();
@@ -409,8 +414,8 @@ public class GuiBlockFarmBlock extends GuiScreen {
      * @Param []
      **/
     public void setDimensions() {
-        ModSimLoader.previewPos1 = new Vec3d(this.loc.toBlockPos().offset(this.facing));
-        ModSimLoader.previewPos2 = (new Vec3d(this.loc.toBlockPos().offset(this.facing, this.x + 1).offset(this.facing.rotateY(), this.z))).add(new Vec3d(0.0D, 2.0D, 0.0D));
+        ModSimClientLoader.previewPos1 = new Vec3d(this.loc.toBlockPos().offset(this.facing));
+        ModSimClientLoader.previewPos2 = (new Vec3d(this.loc.toBlockPos().offset(this.facing, this.x + 1).offset(this.facing.rotateY(), this.z))).add(new Vec3d(0.0D, 2.0D, 0.0D));
     }
 
     public void getHireableFolkNames() {

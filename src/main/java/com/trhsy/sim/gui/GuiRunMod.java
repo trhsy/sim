@@ -1,5 +1,6 @@
 package com.trhsy.sim.gui;
 
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenSetupGui;
@@ -151,6 +152,7 @@ public class GuiRunMod extends GuiScreen {
                 case 1:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(0));
                     this.page=0;
+                    ModSimClientLoader.gamemode = 0;
                     ModSimLoader.log.info("在正常模式下重新加载模拟城市");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
@@ -162,6 +164,7 @@ public class GuiRunMod extends GuiScreen {
                 case 2:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(1));
                     this.page=0;
+                    ModSimClientLoader.gamemode = 1;
                     ModSimLoader.log.info("在创造模式下重新加载模拟城市");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
@@ -172,6 +175,7 @@ public class GuiRunMod extends GuiScreen {
                 case 3:
                     NetWorkLoader.net.sendToServer(new PacketSetupMod(2));
                     this.page=0;
+                    ModSimClientLoader.gamemode = 2;
                     ModSimLoader.log.info("在专业模式下重新加载模拟城市");
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
@@ -187,7 +191,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.page=1;
 //                    this.mc.currentScreen=null;
-                    if(ModSimLoader.states.gameModeNumber!=999){
+                    if(ModSimClientLoader.gamemode!=999){
                         this.mc.setIngameFocus();
                     }else{
                         this.updateScreen();

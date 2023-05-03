@@ -3,6 +3,7 @@ package com.trhsy.sim.loader;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -238,6 +239,8 @@ public class CraftingLoader {
                     {
                             "# #", "# #", '#', ItemLoader.itemTinIngot
                     });
+
+            //CraftingManager.getInstance().addRecipe();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerRecipe出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

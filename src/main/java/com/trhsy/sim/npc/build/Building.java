@@ -406,10 +406,11 @@ public class Building {
      **/
     public void removeBuilding(UUID uid){
         new DimensionManager();
-        File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "buildings");
         ModSimLoader.buildings.remove(this);
-        File logFile = new File(buildingFolder + File.separator + uid + ".sk2");
-        logFile.delete();
+        File logFile = new File(ModSimLoader.getSavesDataFolder() + File.separator + "buildings" + File.separator + uid + ".sk2");
+        if(logFile.delete()){
+            logFile.deleteOnExit();
+        }
     }
 
 }

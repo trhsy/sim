@@ -2,6 +2,7 @@ package com.trhsy.sim.proxy;
 
 import com.trhsy.sim.gui.GuiHud;
 import com.trhsy.sim.loader.EntityLoader;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -39,7 +40,7 @@ public class ClientProxy extends CommonProxy{
         if (mc.currentScreen == null) {
             String worldname = "unknown";
             try {
-                if (ModSimLoader.states.gameModeNumber== 999) {
+                if (ModSimLoader.gamemode== 999) {
                     return;
                 }
                 worldname = mc.getIntegratedServer().getFolderName();
@@ -47,17 +48,17 @@ public class ClientProxy extends CommonProxy{
                 worldname = "Server";
             }
             try {
-                if (ModSimLoader.states.gameModeNumber != 999) {
+                if (ModSimLoader.gamemode != 999) {
                     if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
                         int HUDoffset = 0;
                         if (mc.thePlayer.dimension == 1) {
                             HUDoffset = 20;
                         }
 
-                        if (ModSimLoader.states.gameModeNumber == 1) {
-                            hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimLoader.states.getDayOfWeek() + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
+                        if (ModSimLoader.gamemode == 1) {
+                            hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
                         } else {
-                            hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimLoader.states.getDayOfWeek() + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimLoader.tempHireableNpcNames.size() + "   "+ I18n.format("container.sim.trhsy4") +": " + ModSimLoader.displayMoney(ModSimLoader.states.credits), hud.width / 2, 2 + HUDoffset, 16777215);
+                            hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ I18n.format("container.sim.trhsy4") +": " + ModSimLoader.displayMoney(ModSimLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
                         }
                     }
                 } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {

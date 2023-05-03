@@ -2,6 +2,7 @@ package com.trhsy.sim.entity.render;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityFolk;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.npc.DynamicSkin;
@@ -46,7 +47,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
     protected ResourceLocation getEntityTexture(@Nonnull EntityFolk entity) {
         ResourceLocation myTexture=null;
         try{
-            NpcIdentity cfi = ModSimLoader.getFolkByUUID(entity.getUniqueID());
+            NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(entity.getUniqueID());
             if(cfi!=null){
                 /*Iterator var8 = ModSimLoader.skins.iterator();
                 DynamicSkin skin=null;
@@ -126,7 +127,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             float f6 = 0.2F;
             if (entityFolk != null) {
                 double dist = (double) entityFolk.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
-                NpcIdentity data=ModSimLoader.getFolkByUUID(entityFolk.getUniqueID());
+                NpcIdentity data=ModSimClientLoader.getFolkByUUID(entityFolk.getUniqueID());
                 if (dist < 20.0D && data != null) {
                     if (Integer.parseInt(data.age) <  Integer.parseInt(data.maturityAge)) {
                         this.displayText(data.name + " (" + data.age + ")", 0.03F, -1, (float) x, (float) y + f3 + f6 - 0.4F, (float) z, entityFolk);

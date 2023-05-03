@@ -2,6 +2,7 @@ package com.trhsy.sim.gui.block;
 
 import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.gui.npc.GuiEmployees;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.server.*;
@@ -186,8 +187,8 @@ public class GuiBlockControllerBlock extends GuiScreen {
                 int y = 80;
                 int idx = 100;
 
-                for(int f = 0; f < ModSimLoader.getUnemployedFolks().size(); ++f) {
-                    NpcIdentity folk = (NpcIdentity)ModSimLoader.getUnemployedFolks().get(f);
+                for(int f = 0; f < ModSimClientLoader.getUnemployedFolks().size(); ++f) {
+                    NpcIdentity folk = ModSimClientLoader.getUnemployedFolks().get(f);
                     this.buttonList.add(new GuiButton(idx, x, y, 110, 20, folk.name));
                     this.hireableFolkNames[idx] = folk;
                     ++idx;

@@ -91,7 +91,7 @@ public abstract class Job {
      * @return void
      **/
     public void nextTask() {
-        ModSimLoader.log.info("移动到下一个任务");
+//        ModSimLoader.log.info("移动到下一个任务");
         int curTask = 0;
 
         for(int i = 0; i < this.jobTasks.size(); ++i) {
@@ -518,12 +518,12 @@ public abstract class Job {
      */
     public void onArrive() {
         this.folk.stayPut = true;
-        if (this.stage == -1) {
+        if (this.stage != 0) {
             this.stage = 0;
         }
 
         if (this.jobTasks.size() > 0) {
-            this.currentTask = (JobTask)this.jobTasks.get(this.stage);
+            this.currentTask = this.jobTasks.get(this.stage);
             this.currentTask.begin();
         }
 

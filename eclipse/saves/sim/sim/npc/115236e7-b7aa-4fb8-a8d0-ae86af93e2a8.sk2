@@ -2,10 +2,10 @@ id|115236e7-b7aa-4fb8-a8d0-ae86af93e2a8
 fname|宇辰
 sname|宋
 gender|0
-age|20
+age|22
 race|人族
-skin|female59.png
-pos|-384.46871963991356,4.0,320.7071013378436,0
+skin|female50.png
+pos|-384.49429835292966,4.0,320.7329424058638,0
 trait1|强壮的
 trait2|工作狂
 trait3|友善的
@@ -16,4 +16,4 @@ holding|
 employedat|-385.0,3.0,320.0,0
 job|养羊户
 jobstage|3
-relationship|CF6774F2-59EE-4504-9B2C-2D8E31989AA2,SPOUSE,DISLIKE,4
+relationship|CF6774F2-59EE-4504-9B2C-2D8E31989AA2,SPOUSE,ENEMY,8

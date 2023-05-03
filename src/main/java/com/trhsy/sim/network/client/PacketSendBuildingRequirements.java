@@ -1,5 +1,6 @@
 package com.trhsy.sim.network.client;
 
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.build.BlueprintRequirements;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
@@ -63,7 +64,7 @@ public class PacketSendBuildingRequirements  implements IMessage {
 
         private void handle(PacketSendBuildingRequirements message, MessageContext ctx) {
             BlueprintRequirements existingBP = null;
-            for (BlueprintRequirements b:ModSimLoader.blueprintReqs){
+            for (BlueprintRequirements b: ModSimClientLoader.blueprintReqs){
                 if (b.entityId == message.cbr.entityId) {
                     existingBP = b;
                     break;
@@ -72,7 +73,7 @@ public class PacketSendBuildingRequirements  implements IMessage {
             if (existingBP != null) {
                 existingBP.requirements = message.cbr.requirements;
             } else {
-                ModSimLoader.blueprintReqs.add(message.cbr);
+                ModSimClientLoader.blueprintReqs.add(message.cbr);
             }
 
         }

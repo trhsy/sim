@@ -21,7 +21,9 @@ public enum FarmType {
     //甘蔗
     SUGAR,
     //仙人掌
-    CACTUS;
+    CACTUS,
+    //可可豆
+    COCOA;
 
     private FarmType() {
     }
@@ -43,6 +45,8 @@ public enum FarmType {
             return SUGAR;
         } else if (readUTF8String.equals(I18n.format("container.sim.FarmType8"))) {
             return CACTUS;
+        }else if (readUTF8String.equals(I18n.format("container.sim.FarmType10"))) {
+            return COCOA;
         }
         return WHEAT;
     }
@@ -63,8 +67,12 @@ public enum FarmType {
             return I18n.format("container.sim.FarmType6");
         } else if (this == SUGAR) {
             return I18n.format("container.sim.FarmType7");
-        } else {
-            return this == CACTUS ? I18n.format("container.sim.FarmType8") : I18n.format("container.sim.FarmType9");
+        } else if (this == CACTUS){
+            return I18n.format("container.sim.FarmType8");
+        }else if(this == COCOA){
+            return I18n.format("container.sim.FarmType10");
+        }else{
+            return I18n.format("container.sim.FarmType9");
         }
     }
 
@@ -89,6 +97,8 @@ public enum FarmType {
             case SUGAR:
                 return CACTUS;
             case CACTUS:
+                return COCOA;
+            case COCOA:
                 return WHEAT;
             default:
                 return WHEAT;

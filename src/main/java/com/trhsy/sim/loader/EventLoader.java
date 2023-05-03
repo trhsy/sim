@@ -135,7 +135,7 @@ public class EventLoader {
             if (hasLoadedWorld) {
                 //配置文件保存
 //                ModSimLoader.log.info("时间数据保存，准备保存模组信息");
-                ModSimLoader.states.saveStates();
+                ModSimLoader.saveStates();
                 //农场保存
 //                ModSimLoader.log.info("农场保存，准备保存模组信息");
                 for (FarmBox farmBox : ModSimLoader.farms) {
@@ -179,14 +179,15 @@ public class EventLoader {
             ModSimLoader.farms.clear();
             ModSimLoader.mines.clear();
             ModSimLoader.buildings.clear();
-            ModSimLoader.states.dayOfWeek = 0;
-            ModSimLoader.states.gameModeNumber = 999;
-            ModSimLoader.states.credits = 10.0F;
+            ModSimLoader.dayOfWeek = 0;
+            ModSimLoader.gamemode = 999;
+            ModSimLoader.money = 10.0F;
+            this.newDay = true;
             this.timeSinceLastClientUpdate = 0L;
             File[] buildingSaves;
 
             ModSimLoader.log.info("加载世界...");
-            ModSimLoader.states.loadStates();
+            ModSimLoader.loadStates();
 
             try {
                 ModSimLoader.log.info("加载农场");
@@ -294,7 +295,7 @@ public class EventLoader {
             }*/
         }
         //检查游戏状态 && event.world.playerEntities.size() > 0
-        if (ModSimLoader.states.gameModeNumber != 999 && !event.world.isRemote) {
+        if (ModSimLoader.gamemode != 999 && !event.world.isRemote) {
             //是白天
             if (ModSimLoader.isDayTime(event.world)) {
                 //60秒循环
@@ -332,13 +333,13 @@ public class EventLoader {
 //                    }
 
                     this.newDay = true;
-                    if (ModSimLoader.states.dayOfWeek >= 6) {
-                        ModSimLoader.states.dayOfWeek = 0;
+                    if (ModSimLoader.dayOfWeek >= 6) {
+                        ModSimLoader.dayOfWeek = 0;
                     } else {
-                        ++ModSimLoader.states.dayOfWeek;
+                        ++ModSimLoader.dayOfWeek;
                     }
                     ModSimLoader.log.info("收租了");
-                    if (ModSimLoader.states.gameModeNumber != 0) {
+                    if (ModSimLoader.gamemode != 0) {
                         NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
                     } else {
                         float rent = 0.0F;
@@ -406,10 +407,10 @@ public class EventLoader {
                         int currentAge = f.age;
                         //年龄增长
                         if (f.age >= f.race.maturity) {
-                            if (ModSimLoader.states.dayOfWeek == 6) {
+                            if (ModSimLoader.dayOfWeek == 6) {
                                 ++f.age;
                             }
-                        } else if (ModSimLoader.states.dayOfWeek == 3 || ModSimLoader.states.dayOfWeek == 6) {
+                        } else if (ModSimLoader.dayOfWeek == 3 || ModSimLoader.dayOfWeek == 6) {
                             ++f.age;
                         }
 
@@ -489,7 +490,7 @@ public class EventLoader {
 //                }
 //            } catch (Exception e) {
 //            }
-            boolean shouldGive = ItemLoader.itemSimULoader != null && ModSimLoader.states.gameModeNumber == 999;
+            boolean shouldGive = ItemLoader.itemSimULoader != null && ModSimLoader.gamemode == 999;
             if (shouldGive) {
                 ItemStack starter = new ItemStack(ItemLoader.itemSimULoader);
                 if (!player.inventory.addItemStackToInventory(starter)) {
@@ -527,8 +528,8 @@ public class EventLoader {
     public void onWorldRenderLast(RenderWorldLastEvent event) {
         World world = Minecraft.getMinecraft().theWorld;
         for (EntityPlayer player : world.playerEntities) {
-            if (ModSimLoader.previewPos1 != null && ModSimLoader.previewPos2 != null) {
-                drawBoundingBox(player, ModSimLoader.previewPos1, ModSimLoader.previewPos2, true, 4.0F, event);
+            if (ModSimClientLoader.previewPos1 != null && ModSimClientLoader.previewPos2 != null) {
+                drawBoundingBox(player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, true, 4.0F, event);
             }
         }
     }

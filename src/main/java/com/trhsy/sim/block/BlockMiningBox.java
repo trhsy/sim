@@ -3,12 +3,16 @@ package com.trhsy.sim.block;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenControlGui;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
+import com.trhsy.sim.npc.build.Building;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -54,4 +58,18 @@ public class BlockMiningBox extends BlockBase{
         }
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
+
+    /**
+     * @return int
+     * @Author fan
+     * @Description //TODO 获取此块可以删除的项的元数据。当块被破坏时调用此方法。它基于块的旧元数据返回被删除项的元数据。
+     * @Date 10:04 2022/11/7
+     * @Param [state]
+     **/
+    @Override
+    public int damageDropped(IBlockState state) {
+        return this.getMetaFromState(state);
+    }
+
+
 }

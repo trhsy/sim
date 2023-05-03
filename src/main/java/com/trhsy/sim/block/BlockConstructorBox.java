@@ -27,6 +27,7 @@ import java.util.Iterator;
  */
 public class BlockConstructorBox extends BlockBase {
     public NpcData employee;
+
     public BlockConstructorBox(Material materialIn) {
         super(materialIn, "constructorBox");
         //用于设定走在方块上的响声。
@@ -46,11 +47,11 @@ public class BlockConstructorBox extends BlockBase {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_building_constructor_activated"));
-        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_building_constructor_activated"));
+        worldIn.playSound(playerIn, pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         int buildDirection = 0;
         if (!worldIn.isRemote) {
-            if (ModSimLoader.states.gameModeNumber == 999) {
+            if (ModSimLoader.gamemode == 999) {
                 NetWorkLoader.net.sendTo(new PacketOpenSetupGui(), (EntityPlayerMP) playerIn);
                 return true;
             }
@@ -76,20 +77,20 @@ public class BlockConstructorBox extends BlockBase {
             NpcData fd = null;
             for (NpcData f : ModSimLoader.folks) {
                 //建筑师
-                if (f.job != null && (f.job.jobName.contentEquals(I18n.format("container.sim.Vocation1"))||f.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))) && f.job.workPlace.toString().contentEquals(new V3(pos,playerIn.dimension).toString())) {
+                if (f.job != null && (f.job.jobName.contentEquals(I18n.format("container.sim.Vocation1")) || f.job.jobName.contentEquals(I18n.format("container.sim.Vocation16"))) && f.job.workPlace.toString().contentEquals(new V3(pos, playerIn.dimension).toString())) {
                     fd = f;
                     break;
                 }
             }
 
             if (fd != null) {
-                if (!fd.job.workPlace.toString().contentEquals(new V3(pos,playerIn.dimension).toString())) {
-                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection,playerIn.dimension), (EntityPlayerMP) playerIn);
+                if (!fd.job.workPlace.toString().contentEquals(new V3(pos, playerIn.dimension).toString())) {
+                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, playerIn.dimension), (EntityPlayerMP) playerIn);
                 } else {
-                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, fd.getClientIdentity(),playerIn.dimension), (EntityPlayerMP) playerIn);
+                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, fd.getClientIdentity(), playerIn.dimension), (EntityPlayerMP) playerIn);
                 }
             } else {
-                NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection,playerIn.dimension), (EntityPlayerMP) playerIn);
+                NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, playerIn.dimension), (EntityPlayerMP) playerIn);
             }
         }
 
@@ -97,17 +98,17 @@ public class BlockConstructorBox extends BlockBase {
     }
 
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 玩家摧毁方块
      * @Date 17:34 2022/11/1
      * @Param [worldIn, pos, state]
-     * @return void
      **/
     @Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
-            //在给定块位置的中心为播放器播放指定的声音 断电 power down
-            SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-            worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1, 1,false);
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+        //在给定块位置的中心为播放器播放指定的声音 断电 power down
+        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
+        worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1, 1, false);
         for (NpcData fd : ModSimLoader.folks) {
             if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();

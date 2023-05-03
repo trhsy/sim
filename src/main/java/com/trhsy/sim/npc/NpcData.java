@@ -551,10 +551,10 @@ public class NpcData {
                             //士兵
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation7"))) {
                             this.job = new JobSoldier(this, this.tempEmployLoc.toBlockPos(), world);
-//伐木工
+                            //伐木工
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation2"))) {
                             this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
-//矿工
+                            //矿工
                         }/*  else if (job.contentEquals("miner")) {
                             p = this.tempEmployLoc.toBlockPos();
                             MineBox mb = WorldData.getMine(V3.fromBlockPos(p));
@@ -565,13 +565,13 @@ public class NpcData {
                     }
 
                     if (this.job != null) {
-                        this.job.stage = this.tempStage;
+                        this.job.stage = 0;
                     }
                 } else if (line.contains("jobstage|")) {
                     if (this.job != null) {
-                        this.job.stage = Integer.parseInt(value);
+                        this.job.stage = 0;
                     } else {
-                        this.tempStage = Integer.parseInt(value);
+                        this.tempStage = 0;
                     }
                 } else if (line.contains("relationship|")) {
                     String[] rels = value.split(";");

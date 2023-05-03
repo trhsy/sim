@@ -1,6 +1,5 @@
 package com.trhsy.sim.npc.job;
 
-import com.google.common.collect.UnmodifiableIterator;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockConstructorBox;
 import com.trhsy.sim.entity.EntityConBox;
@@ -14,22 +13,14 @@ import net.minecraft.block.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBed;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -51,7 +42,7 @@ public class JobBuilder extends Job {
     /**
      * 放置的块
      **/
-    List<V3> placedBlocks = new CopyOnWriteArrayList<>();
+    CopyOnWriteArrayList<V3> placedBlocks;
     /**
      * 缺失的方块
      **/
@@ -75,13 +66,11 @@ public class JobBuilder extends Job {
     /**
      * 建筑箱
      **/
-    public BlockConstructorBox constructorBlock = null;
+    public BlockConstructorBox constructorBlock;
     /**
      * 方向
      */
     public int direction;
-    //默认方向
-    public int defaultDirection;
     int x = 0;
     int y = 0;
     int z = 0;
@@ -126,8 +115,7 @@ public class JobBuilder extends Job {
         boolean hasControlBox = false;
         //建筑蓝图的所有方块
         IBlockState[] var8 = this.blueprint.structure;
-        for (int j = 0; j < var8.length; j++) {
-            IBlockState st = var8[j];
+        for (IBlockState st : var8) {
             if (st != null) {
                 Block block = st.getBlock();
                 if (block == BlockLoader.blockControlBox) {
@@ -142,6 +130,7 @@ public class JobBuilder extends Job {
             //如果没有找到控制箱，则第一个方块就是建筑箱
             this.blueprint.structure[0] = BlockLoader.blockControlBox.getDefaultState();
         }
+        constructorBlock = null;
         if (folk.entity != null) {
             IBlockState s = this.folk.entity.worldObj.getBlockState(pos);
             if (s != null) {
@@ -165,7 +154,8 @@ public class JobBuilder extends Job {
             this.startPos = this.startPos.add(-1, 0, 0);
         }
 
-        this.createConBox();
+//        this.createConBox();
+        placedBlocks = new CopyOnWriteArrayList<>();
     }
 
     /**
@@ -193,6 +183,8 @@ public class JobBuilder extends Job {
         }
 
         this.createConBox();
+        placedBlocks = new CopyOnWriteArrayList<>();
+        constructorBlock = null;
     }
 
     public JobBuilder(NpcData folk, V3 pos, int direction, World world) {
@@ -215,6 +207,8 @@ public class JobBuilder extends Job {
         }
 
         this.createConBox();
+        placedBlocks = new CopyOnWriteArrayList<>();
+        constructorBlock = null;
     }
 
     /**
@@ -232,7 +226,7 @@ public class JobBuilder extends Job {
                 if (this.folk.entity.worldObj != null) {
                     if (!this.folk.entity.worldObj.isRemote) {
                         //NPC数据为空，并且没有指派元
-                        if (this.folk.entity != null && !this.hasReassignedEmployee) {
+                        if (!this.hasReassignedEmployee) {
                             //建造位置为空
                             IBlockState iBlockState = this.folk.entity.worldObj.getBlockState(this.constructorPos);
                             if (iBlockState == null) {
@@ -271,9 +265,9 @@ public class JobBuilder extends Job {
                             //随机
 //                            new Random();
                             //当前时间
-                            Long now = System.currentTimeMillis();
+                            long now = System.currentTimeMillis();
                             //游戏模式是正常模式
-                            if (ModSimLoader.states.gameModeNumber != 1) {
+                            if (ModSimLoader.gamemode != 1) {
                                 if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     ////上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -317,7 +311,7 @@ public class JobBuilder extends Job {
                 ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.blueprint.name + ") " + s2 + this.missingBlock.getLocalizedName());
             }
 
-            if (ModSimLoader.states.credits < 0.02F) {
+            if (ModSimLoader.money < 0.02F) {
                 //没有足够的资金支付给
                 ModSimLoader.sendChat(I18n.format("container.sim.JobBuilder1") + this.folk.getName() + s1 + "( " + this.blueprint.name + ")!");
             }
@@ -378,7 +372,7 @@ public class JobBuilder extends Job {
             }
             if (fs_block != fs_st_block) {
 
-                if (ModSimLoader.states.credits < 0.02F) {
+                if (ModSimLoader.money < 0.02F) {
                     //没有钱付给我！
                     this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
                     return;
@@ -395,7 +389,7 @@ public class JobBuilder extends Job {
                 if (fs_st_block instanceof BlockBed) {
                     BlockPos pos = newBP.west();
                     normalBlock = false;//床不是普通的块
-                    IBlockState iblockstate1 = Blocks.BED.getDefaultState().withProperty(BlockBed.OCCUPIED, Boolean.valueOf(false)).withProperty(BlockBed.FACING, EnumFacing.WEST).withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
+                    IBlockState iblockstate1 = Blocks.BED.getDefaultState().withProperty(BlockBed.OCCUPIED, false).withProperty(BlockBed.FACING, EnumFacing.WEST).withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
                     if (this.folk.entity.worldObj.setBlockState(newBP, iblockstate1, 11)) {
                         IBlockState iblockstate2 = iblockstate1.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD);
                         this.folk.entity.worldObj.setBlockState(pos, iblockstate2, 11);
@@ -413,7 +407,7 @@ public class JobBuilder extends Job {
                 //是否是普通的块
                 if (normalBlock) {
                     //模组模式是正常模式
-                    if (ModSimLoader.states.gameModeNumber != 1) {
+                    if (ModSimLoader.gamemode != 1) {
                         //是不是蓝图的块
                         boolean hasBlock = false;
                         //是不是必须的方块
@@ -423,7 +417,6 @@ public class JobBuilder extends Job {
                             //已放置
                             hasBlock = true;
                         } else {
-                            Block b = fs_st_block;
                             newBlock = this.folk.entity.worldObj.getBlockState(newBP).getBlock();
                             //是否是同一个块，是否已放置
                             if (this.isSameBlock(newBlock, fs_st_block)) {
@@ -438,7 +431,7 @@ public class JobBuilder extends Job {
                                     for (int i = 0; i < inv.getSizeInventory(); i++) {
                                         ItemStack itemStack = inv.getStackInSlot(i);
                                         //拿走当前需要的块
-                                        if (itemStack != null && itemStack.getItem() == Item.getItemFromBlock(b)) {
+                                        if (itemStack != null && itemStack.getItem() == Item.getItemFromBlock(fs_st_block)) {
                                             hasBlock = true;
                                             inv.decrStackSize(i, 1);
                                             break;
@@ -460,10 +453,11 @@ public class JobBuilder extends Job {
                         }
                         //重置缺少的块
                         this.missingBlock = null;
-                        Long now = System.currentTimeMillis();
+                        long now = System.currentTimeMillis();
                         if (now - this.timeSwingArm > 2000) {
                             this.timeSwingArm = now;
                             this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+//                            this.folk.entity.swing();
                         }
                         //放置方块
                         this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
@@ -554,10 +548,11 @@ public class JobBuilder extends Job {
                     }
                 }
             } else {
-                Long now = System.currentTimeMillis();
+                long now = System.currentTimeMillis();
                 if (now - this.timeSwingArm > 3000) {
                     this.timeSwingArm = now;
                     this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+//                    this.folk.entity.swing();
                     //建造的音效
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
                     this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
@@ -568,7 +563,6 @@ public class JobBuilder extends Job {
             }
             //在客户端生成粒子
             if (this.folk.entity.worldObj.isRemote) {
-                Random rand = new Random();
                 for (int i = 0; i < 7; ++i) {
                     double d0 = new Random().nextGaussian() * 0.02D;
                     double d1 = new Random().nextGaussian() * 0.02D;
@@ -576,7 +570,7 @@ public class JobBuilder extends Job {
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
-                    this.folk.entity.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, newBP.getX() + d3, newBP.getX() + d4, newBP.getX() + d5, d0, d1, d2, new int[0]);
+                    this.folk.entity.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, newBP.getX() + d0, newBP.getX() + d1, newBP.getX() + d2, d3, d4, d5, new int[0]);
                 }
             }
             this.placedBlocks.add(new V3(newBP));

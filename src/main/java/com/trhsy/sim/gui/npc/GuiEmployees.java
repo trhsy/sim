@@ -1,6 +1,7 @@
 package com.trhsy.sim.gui.npc;
 
 import com.trhsy.sim.entity.util.NpcIdentity;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.server.PacketFireFolk;
@@ -30,7 +31,7 @@ public class GuiEmployees extends GuiScreen {
     }
     @Override
     public void initGui() {
-        this.folks = new CopyOnWriteArrayList<>(ModSimLoader.tempHireableNpcNames);
+        this.folks = new CopyOnWriteArrayList<>(ModSimClientLoader.tempHireableNpcNames);
         this.showPage();
         super.initGui();
     }

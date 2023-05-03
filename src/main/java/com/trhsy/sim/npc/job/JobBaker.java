@@ -31,6 +31,7 @@ public class JobBaker extends Job {
         folk.holding = new ItemStack(ItemLoader.tinSpade);
         //面包师
         this.jobName = I18n.format("container.sim.Vocation6");
+        this.stage = -1;
     }
 
     @Override
@@ -38,7 +39,9 @@ public class JobBaker extends Job {
         super.onUpdate();
         try {
         if (this.atWork) {
-            if (this.stage == 0) {
+            if (this.stage == -1) {
+                this.stage = 0;
+            }else if (this.stage == 0) {
                 this.stage = 1;
             }else if (this.stage == 1) {
                 //打开烘焙工具
@@ -53,7 +56,7 @@ public class JobBaker extends Job {
                 //南瓜
                 colItems.add(new ItemStack(Blocks.PUMPKIN, 16));
                 //牛奶
-                colItems.add(new ItemStack(Items.MILK_BUCKET, 3));
+                colItems.add(new ItemStack(Items.MILK_BUCKET, 1));
                 //糖
                 colItems.add(new ItemStack(Items.SUGAR, 16));
                 //可可豆
@@ -131,10 +134,14 @@ public class JobBaker extends Job {
                         this.currentTask = (JobTask) this.jobTasks.get(0);
                         this.currentTask.begin();
                     }
-                } else if ((this.wheat > 32 ||(this.pumpkin > 1 && this.sugar > 1 && this.egg > 1)||(this.dye > 1 && this.wheat > 2)||(this.milk_bucket > 3 && this.sugar > 2 && this.egg > 1 && this.wheat > 3)) && this.folk.getStatusText().contains(I18n.format("container.sim.job_task_Selling"))) {
+                } else if (((this.wheat > 3) ||(this.pumpkin > 1 && this.sugar > 1 && this.egg > 1)||(this.dye > 1 && this.wheat > 2)||(this.milk_bucket > 3 && this.sugar > 2 && this.egg > 1 && this.wheat > 3)) && this.folk.getStatusText().contains(I18n.format("container.sim.job_task_Selling"))) {
                     this.stage = 4;
                     this.currentTask.completeTask();
+                    this.jobTasks.clear();
                 }
+            }else{
+                this.stage = 0;
+                this.jobTasks.clear();
             }
             this.wheat = 0;
             this.egg = 0;

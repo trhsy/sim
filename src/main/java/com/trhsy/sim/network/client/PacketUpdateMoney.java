@@ -1,5 +1,6 @@
 package com.trhsy.sim.network.client;
 
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -19,9 +20,9 @@ public class PacketUpdateMoney implements IMessage {
     public int dayOfWeek;
     public float money;
     public PacketUpdateMoney() {
-        this.gamemode = ModSimLoader.states.gameModeNumber;
-        this.dayOfWeek = ModSimLoader.states.dayOfWeek;
-        this.money = ModSimLoader.states.credits;
+        this.gamemode = ModSimLoader.gamemode;
+        this.dayOfWeek = ModSimLoader.dayOfWeek;
+        this.money = ModSimLoader.money;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -53,9 +54,9 @@ public class PacketUpdateMoney implements IMessage {
             return null;
         }
         private void handle(PacketUpdateMoney message, MessageContext ctx) {
-            ModSimLoader.states.gameModeNumber = message.gamemode;
-            ModSimLoader.states.dayOfWeek = message.dayOfWeek;
-            ModSimLoader.states.credits = message.money;
+            ModSimClientLoader.gamemode = message.gamemode;
+            ModSimClientLoader.dayOfWeek = message.dayOfWeek;
+            ModSimClientLoader.money = message.money;
         }
     }
     }

@@ -2,10 +2,10 @@ id|7a0c84d4-c754-478f-b0d9-469de745de5a
 fname|颖春
 sname|贾
 gender|1
-age|27
+age|29
 race|人族
-skin|female59.png
-pos|-407.5,5.0,377.5,0
+skin|female50.png
+pos|-407.5,5.0,377.25716972973345,0
 trait1|讨厌户外活动
 trait2|擅长园艺
 trait3|夜猫子
@@ -16,4 +16,4 @@ holding|
 employedat|-408.0,4.0,377.0,0
 job|屠夫
 jobstage|3
-relationship|A50059DB-91D0-401F-9ABB-FFE702BD6BAC,UNRELATED,HATE,8;78695C8D-8602-4A38-B8F9-D777C532DE15,UNRELATED,AQUAINTANCE,5
+relationship|A50059DB-91D0-401F-9ABB-FFE702BD6BAC,UNRELATED,AQUAINTANCE,6;78695C8D-8602-4A38-B8F9-D777C532DE15,UNRELATED,AQUAINTANCE,5

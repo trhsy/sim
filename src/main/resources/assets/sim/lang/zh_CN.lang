@@ -970,6 +970,7 @@ container.sim.FarmType6=甜菜根
 container.sim.FarmType7=甘蔗
 container.sim.FarmType8=仙人掌
 container.sim.FarmType9=未知
+container.sim.FarmType10=可可豆
 
 container.sim.Overworld=主世界
 container.sim.end=末地
@@ -1225,7 +1226,6 @@ container.sim.gui.block_controller_Occupants=拥有者
 container.sim.job_baker1=打开烘焙工具
 container.sim.job_task_could=找不到任何可收集的建筑物
 container.sim.Vocation27=养羊户
-container.sim.FarmType10=甜菜根
 container.sim.job_task_Collecting_materials=收集材料
 container.sim.job_task_Unloading_inventory=正在卸载货物
 container.sim.job_task_Returning_to_work=返回工作岗位

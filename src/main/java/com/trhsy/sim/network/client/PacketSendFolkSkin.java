@@ -1,5 +1,6 @@
 package com.trhsy.sim.network.client;
 
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.entity.util.NpcSkin;
 import io.netty.buffer.ByteBuf;
@@ -60,7 +61,7 @@ public class PacketSendFolkSkin implements IMessage {
         }
 
         private void handle(PacketSendFolkSkin message, MessageContext ctx) {
-            ModSimLoader.folkSkins.add(new NpcSkin(message.uuid, message.path));
+            ModSimClientLoader.folkSkins.add(new NpcSkin(message.uuid, message.path));
         }
     }
 }

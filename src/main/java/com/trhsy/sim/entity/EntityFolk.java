@@ -4,6 +4,7 @@ import com.trhsy.sim.entity.ai.FolkAIOpenFenceGate;
 import com.trhsy.sim.entity.ai.FolkAIWander;
 import com.trhsy.sim.entity.render.RenderEntityFolk;
 import com.trhsy.sim.entity.util.NpcIdentity;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
@@ -48,8 +49,8 @@ public class EntityFolk extends EntityCreature implements INpc {
     /**
      * NPC数据
      **/
-    public NpcData theData=null;
-    public RenderEntityFolk renderEntityFolk=null;
+    public NpcData theData = null;
+    public RenderEntityFolk renderEntityFolk = null;
     /**
      * 正在创建
      **/
@@ -284,29 +285,20 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param []
      **/
     public void swing() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int d = 0; d < 12; ++d) {
-                    EntityFolk.this.swingProgress = 0.3F;
-//                    ModSimLoader.log.info("摆动手臂");
-                    try {
-                        Thread.sleep(100L);
-                    } catch (Exception var4) {
-
-                    }
-
-                    EntityFolk.this.swingProgress = 0.7F;
-
-                    try {
-                        Thread.sleep(100L);
-                    } catch (Exception var3) {
-                    }
-                }
-
+        for (int d = 0; d < 12; ++d) {
+            EntityFolk.this.swingProgress = 0.3F;
+                    ModSimLoader.log.info("摆动手臂");
+            try {
+                Thread.sleep(100L);
+            } catch (Exception var4) {
             }
-        });
-        t.start();
+            EntityFolk.this.swingProgress = 0.7F;
+
+            try {
+                Thread.sleep(100L);
+            } catch (Exception var3) {
+            }
+        }
     }
 
     /**
@@ -329,7 +321,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     public boolean isChild() {
-        NpcIdentity cfi = ModSimLoader.getFolkByUUID(this.getUniqueID());
+        NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(this.getUniqueID());
         if (cfi != null) {
             return Integer.parseInt(cfi.age) < Integer.parseInt(cfi.maturityAge);
         } else {

@@ -1,6 +1,7 @@
 package com.trhsy.sim.network.client;
 
 import com.trhsy.sim.entity.util.NpcIdentity;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import io.netty.buffer.ByteBuf;
@@ -84,8 +85,8 @@ public class PacketReturnHireableFolks implements IMessage {
         }
 
         private void handle(PacketReturnHireableFolks message, MessageContext ctx) {
-            ModSimLoader.tempHireableNpcNames.clear();
-            ModSimLoader.tempHireableNpcNames = message.folkNames;
+            ModSimClientLoader.tempHireableNpcNames.clear();
+            ModSimClientLoader.tempHireableNpcNames = message.folkNames;
         }
     }
 }

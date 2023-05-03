@@ -106,7 +106,7 @@ public class JobTerrainFormer extends Job {
             }
         }
         this.stage = 0;
-        this.createConBox();
+//        this.createConBox();
     }
 
     public JobTerrainFormer(NpcData folk, V3 pos, World world) {
@@ -168,7 +168,7 @@ public class JobTerrainFormer extends Job {
                                     //当前时间
                                     Long now = System.currentTimeMillis();
                                     //游戏模式是正常模式
-                                    if (ModSimLoader.states.gameModeNumber != 1) {
+                                    if (ModSimLoader.gamemode != 1) {
                                         if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                             ////上次时间为当前时间
                                             this.timeSinceLastBlockPlace = now;
@@ -195,7 +195,7 @@ public class JobTerrainFormer extends Job {
                         //当前时间
                         Long now = System.currentTimeMillis();
                         //游戏模式是正常模式
-                        if (ModSimLoader.states.gameModeNumber != 1) {
+                        if (ModSimLoader.gamemode != 1) {
                             if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                 //上次时间为当前时间
                                 this.timeSinceLastBlockPlace = now;
@@ -205,6 +205,7 @@ public class JobTerrainFormer extends Job {
                         } else {
                             //上次时间为当前时间
                             this.timeSinceLastBlockPlace = now;
+                            placeBlock();
                         }
                     }
                 }
@@ -217,7 +218,7 @@ public class JobTerrainFormer extends Job {
             //重置缺少的块
             this.missingBlock = null;
             Boolean fsMissBlock = true;
-            if (ModSimLoader.states.credits < 0.02F) {
+            if (ModSimLoader.money < 0.02F) {
                 //没有钱付给我！
                 this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
                 return;
@@ -249,7 +250,7 @@ public class JobTerrainFormer extends Job {
                         //开始地形规划
                         this.folk.setStatus(I18n.format("container.sim.job.terra.farmer.process"));
                         //是否是创造模式
-                        if (ModSimLoader.states.gameModeNumber != 1) {
+                        if (ModSimLoader.gamemode != 1) {
                             //获取周围箱子
                             List<IInventory> inventoriesFindClosest = this.findJobChests(5);
                             //循环箱子
@@ -282,9 +283,8 @@ public class JobTerrainFormer extends Job {
                         V3 v = (V3) this.closestBlocks.get(0);
                         BlockPos blockPos2 = new BlockPos(v.x, v.y, v.z);
                         this.jobWorld.setBlockState(blockPos2, Blocks.DIRT.getDefaultState(), 3);
-                        if (ModSimLoader.states.gameModeNumber != 1) {
-                            GameStates var10000 = ModSimLoader.states;
-                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                        if (ModSimLoader.gamemode != 1) {
+                            ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                         }
 
                         break;
@@ -318,7 +318,7 @@ public class JobTerrainFormer extends Job {
                         if (this.counter % 5 == 0) {
                             hasPlacedTree = true;
                             //是否是创造模式
-                            if (ModSimLoader.states.gameModeNumber != 1) {
+                            if (ModSimLoader.gamemode != 1) {
                                 //获取周围箱子
                                 List<IInventory> inventoriesFindClosest = this.findJobChests(5);
                                 //循环箱子
@@ -353,9 +353,8 @@ public class JobTerrainFormer extends Job {
                             if (hasPlacedTree) {
                                 BlockPos blockPos2_1 = new BlockPos(v1.x, v1.y + 1, v1.z);
                                 this.jobWorld.setBlockState(blockPos2_1, Blocks.SAPLING.getDefaultState(), 3);
-                                if (ModSimLoader.states.gameModeNumber != 1) {
-                                    GameStates var10000 = ModSimLoader.states;
-                                    ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                                if (ModSimLoader.gamemode != 1) {
+                                    ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                                 }
                                 int r = new Random().nextInt(10);
                                 BlockPos blockPos2_2 = new BlockPos(v1.x + 1, v1.y + 1, v1.z);
@@ -414,9 +413,8 @@ public class JobTerrainFormer extends Job {
                             }
                             BlockPos blockPos3_1 = new BlockPos(v3.x, v3.y, v3.z);
                             this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
-                            if (ModSimLoader.states.gameModeNumber != 1) {
-                                GameStates var10000 = ModSimLoader.states;
-                                ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                            if (ModSimLoader.gamemode != 1) {
+                                ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                             }
                         }
                         break;
@@ -442,10 +440,10 @@ public class JobTerrainFormer extends Job {
                             blockIDs.add(Blocks.AIR);
                             //基岩
                             blockIDs.add(Blocks.BEDROCK);
-                            //灯箱
-                            blockIDs.add(BlockLoader.blockLightBox);
                             //建筑箱
                             blockIDs.add(BlockLoader.blockConstructorBox);
+                            //箱子
+                            blockIDs.add(Blocks.CHEST);
                             this.closestBlocks = null;
                             this.getBlocksNoOfType(constructorPos, blockIDs, 30, false, false, false);
                             this.totalBlockCount = this.closestBlocks.size();
@@ -481,9 +479,8 @@ public class JobTerrainFormer extends Job {
                         }
                         BlockPos blockPos3_1 = new BlockPos(v4.x, v4.y, v4.z);
                         this.jobWorld.setBlockState(blockPos3_1, Blocks.AIR.getDefaultState(), 3);
-                        if (ModSimLoader.states.gameModeNumber != 1) {
-                            GameStates var10000 = ModSimLoader.states;
-                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                        if (ModSimLoader.gamemode != 1) {
+                            ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                         }
                         break;
                     case "5":
@@ -516,7 +513,7 @@ public class JobTerrainFormer extends Job {
 //开始地形规划
                         this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
 //是否是创造模式
-                        if (ModSimLoader.states.gameModeNumber != 1) {
+                        if (ModSimLoader.gamemode != 1) {
                             //获取周围箱子
                             List<IInventory> inventoriesFindClosest = this.findJobChests(5);
                             //循环箱子
@@ -549,9 +546,8 @@ public class JobTerrainFormer extends Job {
                         V3 v5_1 = (V3) this.closestBlocks.get(0);
                         BlockPos blockPos5_1 = new BlockPos(v5_1.x, v5_1.y, v5_1.z);
                         this.jobWorld.setBlockState(blockPos5_1, Blocks.DIRT.getDefaultState(), 3);
-                        if (ModSimLoader.states.gameModeNumber != 1) {
-                            GameStates var10000 = ModSimLoader.states;
-                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                        if (ModSimLoader.gamemode != 1) {
+                            ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                         }
                         break;
                     case "6":
@@ -619,9 +615,8 @@ public class JobTerrainFormer extends Job {
                                 }*/
                                 BlockPos blockPos6_1 = new BlockPos(v6.x, v6.y, v6.z);
                                 this.jobWorld.setBlockState(blockPos6_1, Blocks.ICE.getDefaultState(), 3);
-                                if (ModSimLoader.states.gameModeNumber != 1) {
-                                    GameStates var10000 = ModSimLoader.states;
-                                    ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                                if (ModSimLoader.gamemode != 1) {
+                                    ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                                 }
 //                                this.placeInJobChest(new ItemStack(Items.BUCKET, 1));
                             }
@@ -632,9 +627,8 @@ public class JobTerrainFormer extends Job {
                                 BlockPos blockPos6_1 = new BlockPos(v6.x, v6.y, v6.z);
                                 //雪
                                 this.jobWorld.setBlockState(blockPos6_1, Blocks.SNOW.getDefaultState(), 3);
-                                if (ModSimLoader.states.gameModeNumber != 1) {
-                                    GameStates var10000 = ModSimLoader.states;
-                                    ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                                if (ModSimLoader.gamemode != 1) {
+                                    ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                                 }
                             }
                         }
@@ -665,7 +659,7 @@ public class JobTerrainFormer extends Job {
 //开始地形规划
                         this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
 //是否是创造模式
-                        if (ModSimLoader.states.gameModeNumber != 1) {
+                        if (ModSimLoader.gamemode != 1) {
                             //获取周围箱子
                             List<IInventory> inventoriesFindClosest = this.findJobChests(5);
                             //循环箱子
@@ -700,9 +694,8 @@ public class JobTerrainFormer extends Job {
                         //黑曜石
                         this.jobWorld.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState(), 3);
 //                        this.jobWorld.markBlockForUpdate(blockPos);
-                        if (ModSimLoader.states.gameModeNumber != 1) {
-                            GameStates var10000 = ModSimLoader.states;
-                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                        if (ModSimLoader.gamemode != 1) {
+                            ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                         }
                         break;
                     case "8":
@@ -728,7 +721,7 @@ public class JobTerrainFormer extends Job {
 //开始地形规划
                         this.folk.status = I18n.format("container.sim.job.terra.farmer.process");
 //是否是创造模式
-                        if (ModSimLoader.states.gameModeNumber != 1) {
+                        if (ModSimLoader.gamemode != 1) {
                             //获取周围箱子
                             List<IInventory> inventoriesFindClosest = this.findJobChests(5);
                             //循环箱子
@@ -762,9 +755,8 @@ public class JobTerrainFormer extends Job {
                         BlockPos blockPos8_1 = new BlockPos(v8.x, v8.y, v8.z);
                         this.jobWorld.setBlockState(blockPos8_1, Blocks.AIR.getDefaultState(), 3);
 //                        this.jobWorld.markBlockForUpdate(blockPos2);
-                        if (ModSimLoader.states.gameModeNumber != 1) {
-                            GameStates var10000 = ModSimLoader.states;
-                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                        if (ModSimLoader.gamemode != 1) {
+                            ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                         }
                         this.placeInJobChest(new ItemStack(Items.LAVA_BUCKET, 1));
                         break;
@@ -803,9 +795,8 @@ public class JobTerrainFormer extends Job {
 //                    this.jobWorld.markBlockForUpdate(blockPos2);
                         int counter1 = 0;
                         ++counter1;
-                        if (ModSimLoader.states.gameModeNumber != 1) {
-                            GameStates var10000 = ModSimLoader.states;
-                            ModSimLoader.states.credits = (float) ((double) var10000.credits - 0.009D);
+                        if (ModSimLoader.gamemode != 1) {
+                            ModSimLoader.money = (float) ((double) ModSimLoader.money - 0.009D);
                         }
 
                         if (counter1 % 4 == 0) {
@@ -833,6 +824,7 @@ public class JobTerrainFormer extends Job {
                     this.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
                     this.folk.fire();
                     this.folk.stayPut = false;
+                    this.conBox.folk = null;
                 }
             }
 
@@ -951,16 +943,15 @@ public class JobTerrainFormer extends Job {
                             }
                             int sz = (int) (constructorPos.getZ() + zo);
                             skip = false;
+                            if (this.jobWorld == null) {
+                                return;
+                            }
+                            BlockPos pos = new BlockPos(sx, sy, sz);
+                            //获取当前世界的方块
+                            Block blockInWorld = this.jobWorld.getBlockState(pos).getBlock();
                             //获取方块
-                            for (int m = 0; m < blockIDs.size(); m++) {
-                                Block blockID = (Block) blockIDs.get(m);
-                                if (this.jobWorld == null) {
-                                    return;
-                                }
-                                BlockPos pos = new BlockPos(sx, sy, sz);
-                                //获取当前世界的方块
-                                Block blockInWorld = this.jobWorld.getBlockState(pos).getBlock();
-                                if (blockInWorld != blockID && !(blockInWorld instanceof BlockChest)) {
+
+                                if (!blockIDs.contains(blockInWorld)) {
                                     //如果向上扫描
                                     if (needsToSeeSky) {
                                         //方块是空的
@@ -972,7 +963,6 @@ public class JobTerrainFormer extends Job {
                                         } else {
                                             canSeeSky = false;
                                         }
-
                                         if (canSeeSky) {
                                             skip = false;
                                         } else {
@@ -980,13 +970,12 @@ public class JobTerrainFormer extends Job {
                                         }
                                     }
                                     if (!skip) {
-                                        V3 v = new V3((double) sx, (double) sy, (double) sz);
+                                        V3 v = new V3(sx,sy,sz);
                                         if (!hm.containsKey(v.toString())) {
                                             hm.put(v.toString(), v);
                                         }
                                     }
                                 }
-                            }
                         }
                     }
                 }
@@ -1041,7 +1030,7 @@ public class JobTerrainFormer extends Job {
                 ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.terrainType.terrainName + ") " + s2 + this.missingBlock.getDisplayName());
             }
 
-            if (ModSimLoader.states.credits < 0.02F) {
+            if (ModSimLoader.money < 0.02F) {
                 //没有足够的资金支付给
                 ModSimLoader.sendChat(I18n.format("container.sim.JobBuilder1") + this.folk.getName() + s1 + "( " + this.terrainType.terrainName + ")!");
             }

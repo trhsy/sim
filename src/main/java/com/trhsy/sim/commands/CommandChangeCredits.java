@@ -49,8 +49,8 @@ public class CommandChangeCredits implements ICommand {
     public void execute(MinecraftServer server, ICommandSender sender, String[] argString) throws CommandException {
         try {
             if(argString.length>0){
-                ModSimLoader.states.credits = Float.parseFloat(argString[0]);
-                ModSimLoader.states.saveStates();
+                ModSimLoader.money = Float.parseFloat(argString[0]);
+                ModSimLoader.saveStates();
             }else{
                 //无效的参数，应该是：/credits <amount>
                 ModSimLoader.sendChat(I18n.format("container.sim.commands1"));
