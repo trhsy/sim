@@ -4,8 +4,8 @@ sname|滕
 gender|1
 age|31
 race|暗夜精灵
-skin|female28.png
-pos|-425.29610307828324,4.0625,289.4827509566021,0
+skin|male36.png
+pos|-425.2607650654311,4.0625,331.52109076624515,0
 trait1|勇敢的
 trait2|强壮的
 trait3|讨厌户外活动
@@ -16,4 +16,4 @@ holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|0BBB2551-6677-4FB4-812B-52D325625FFB,UNRELATED,FRIEND,7
+relationship|0BBB2551-6677-4FB4-812B-52D325625FFB,UNRELATED,AQUAINTANCE,3

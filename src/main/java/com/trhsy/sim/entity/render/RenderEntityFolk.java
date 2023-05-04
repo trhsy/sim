@@ -47,31 +47,10 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
     protected ResourceLocation getEntityTexture(@Nonnull EntityFolk entity) {
         ResourceLocation myTexture=null;
         try{
-            NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(entity.getUniqueID());
+            String cfi = ModSimClientLoader.getPathFromUUID(entity.getUniqueID());
             if(cfi!=null){
-                /*Iterator var8 = ModSimLoader.skins.iterator();
-                DynamicSkin skin=null;
-                do {
-                    if (!var8.hasNext()) {
-                        myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
-                        ModSimLoader.skins.add(new DynamicSkin(myTexture, cfi.skinPath));
-
-                        //return myTexture;
-                    }
-                    skin= (DynamicSkin)var8.next();
-                }while(!skin.skinPath.contentEquals(cfi.skinPath));*/
-                return new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
+                return new ResourceLocation(ModSim.MODID, "skins/" + cfi);
             }
-
-            /*for (DynamicSkin sk:ModSimLoader.skins){
-                skin=sk;
-                if(skin!=null&&!skin.skinPath.contentEquals(cfi.skinPath)){
-                     myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
-                    //ModSimLoader.log.info("实体人："+cfi.id+"，皮肤："+myTexture.toString());
-                    ModSimLoader.skins.add(new DynamicSkin(myTexture, cfi.skinPath));
-                    return myTexture;
-                }
-            }*/
 
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];

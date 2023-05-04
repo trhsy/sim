@@ -2,6 +2,7 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.gui.block.GuiBlockControllerBlock;
 import com.trhsy.sim.gui.block.GuiBlockFarmBlock;
+import com.trhsy.sim.gui.block.GuiBlockMarker;
 import com.trhsy.sim.gui.npc.GuiFolk;
 import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.gui.block.GuiBlockConstructorBlock;
@@ -928,5 +929,9 @@ public class ModSimLoader {
         }
 
 
+    }
+
+    public static void openMarkerGui(V3 v3,int dimension) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMarker(v3,dimension));
     }
 }

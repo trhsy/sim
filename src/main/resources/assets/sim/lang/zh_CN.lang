@@ -740,7 +740,7 @@ container.sim.FolkAction8=生宝宝
 container.sim.sim_gui_Copy_structure=复制结构/建造
 container.sim.sim_gui_Set_new=设置新的快递点/传送点
 container.sim.Markers=标记棒
-container.sim.Markers1=标记棒可以用来复制建筑,也可以用来
+container.sim.Markers1=标记棒可以用来复制建筑
 container.sim.Markers2=标出一个采矿或以食物为主的农业区。
 container.sim.Markers3=一个标记可以用来指定一个新的伐木区域和更多！
 container.sim.Markers4=提示：使用后,在标记新区域之前,移除旧标记。
@@ -1246,3 +1246,6 @@ container.sim.job_task_PlaceInChest1=把收获的物品放入箱子
 container.sim.job_task_Fisherman=没有找到水
 container.sim.job_task_Fisherman1=找不到可以钓鱼的水。试着在离水更近的地方重建鱼场
 container.sim.job.Grocer1=食品
+
+container.sim.Command1=模拟城市已经启动，您当前无法更改游戏模式
+container.sim.Command2=无效参数，应为：/simmode

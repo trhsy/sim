@@ -963,132 +963,77 @@ public class JobFarmer extends Job {
      * @Param []
      **/
     public void harvest() {
-        //先获取农田箱的 类型
-        FarmType farmType = this.farm.farmType;
-        //胡萝卜
-        if (farmType == FarmType.CARROT) {
-            harvest1();
-            //西瓜
-        } else if (farmType == FarmType.MELON) {
-            //循环宽
-            for (int z = 0; z < this.farm.z; ++z) {
-                //循环长
-                for (int x = 0; x < this.farm.x; ++x) {
-                    //声明作物
-                    List<ItemStack> drops = new CopyOnWriteArrayList<>();
-                    //获取当前位置的物品
-                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                    IBlockState iBlockState = this.folk.entity.worldObj.getBlockState(bp);
-                    //获得方块
-                    Block b = iBlockState.getBlock();
-                    //是西瓜
-                    if (b == Blocks.MELON_BLOCK) {
-                        //收获
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
-                        //获得方块
-                        Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                        //摧毁方块
-                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
-//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
-                        drops.forEach((drop) -> {
-                            //放到工作箱
-                            this.placeInJobChest(drop);
-                        });
-                        //设置手持物
-                        this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
-                        if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
-                            //摇摆手臂
-                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                        }
-                        //设置为空
-                        this.folk.entity.worldObj.setBlockToAir(bp);
-                        //增加农民等级
-                        this.addFarmingLevel();
-                        //设置收获时间
-                        this.harvestCheck = System.currentTimeMillis();
-                        return;
-                    }
+        if (this.farm != null) {
 
-                }
-            }
-            this.stage = 1;
-//            harvest1();
-            //土豆
-        } else if (farmType == FarmType.POTATO) {
-            harvest1();
-            //南瓜
-        } else if (farmType == FarmType.PUMPKIN) {
-//            harvest1();
-            //循环宽
-            for (int z = 0; z < this.farm.z; ++z) {
-                //循环长
-                for (int x = 0; x < this.farm.x; ++x) {
-                    //声明作物
-                    List<ItemStack> drops = new CopyOnWriteArrayList<>();
-                    //获取当前位置的物品
-                    BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                    IBlockState iBlockState = this.folk.entity.worldObj.getBlockState(bp);
-                    //获得方块
-                    Block b = iBlockState.getBlock();
-                    //是南瓜
-                    if (b == Blocks.PUMPKIN) {
-                        //收获
-                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
-                        //获得方块
-                        Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                        //摧毁方块
-                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
-                        drops.forEach((drop) -> {
-                            //放到工作箱
-                            this.placeInJobChest(drop);
-                        });
-                        //设置手持物
-                        this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
-                        if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
-                            //摇摆手臂
-                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                        }
-                        //设置为空
-                        this.folk.entity.worldObj.setBlockToAir(bp);
-                        //增加农民等级
-                        this.addFarmingLevel();
-                        //设置收获时间
-                        this.harvestCheck = System.currentTimeMillis();
-                        return;
-                    }
-
-                }
-            }
-            this.stage = 1;
-            //小麦
-        } else if (farmType == FarmType.WHEAT) {
-            harvest1();
-            //甜菜根
-        } else if (farmType == FarmType.BEETROOTS) {
-            harvest1();
-            //甘蔗
-        } else if (farmType == FarmType.SUGAR) {
-            //循环农场的宽
-            harvest1();
-            //仙人掌
-        } else if (farmType == FarmType.CACTUS) {
-            harvest1();
-            //未知的 可可豆
-        } else if (farmType == FarmType.COCOA) {
-            for (int z = 0; z < this.farm.z; ++z) {
-                //循环长
-                for (int x = 0; x < this.farm.x; ++x) {
-                    for (int y = 0; y < 2; ++y) {
+            //先获取农田箱的 类型
+            FarmType farmType = this.farm.farmType;
+            //胡萝卜
+            if (farmType == FarmType.CARROT) {
+                harvest1();
+                //西瓜
+            } else if (farmType == FarmType.MELON) {
+                //循环宽
+                for (int z = 0; z < this.farm.z; ++z) {
+                    //循环长
+                    for (int x = 0; x < this.farm.x; ++x) {
                         //声明作物
                         List<ItemStack> drops = new CopyOnWriteArrayList<>();
                         //获取当前位置的物品
                         BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                        bp = new BlockPos(bp.getX(), bp.getY() + y, bp.getZ());
                         IBlockState iBlockState = this.folk.entity.worldObj.getBlockState(bp);
                         //获得方块
                         Block b = iBlockState.getBlock();
-                        //是可可豆
-                        if (b == Blocks.COCOA && b.getMetaFromState(iBlockState) == 9) {
+                        //是西瓜
+                        if (b == Blocks.MELON_BLOCK) {
+                            //收获
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
+                            //获得方块
+                            Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                            //摧毁方块
+                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
+                            drops.forEach((drop) -> {
+                                //放到工作箱
+                                this.placeInJobChest(drop);
+                            });
+                            //设置手持物
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                                //摇摆手臂
+                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            }
+                            //设置为空
+                            this.folk.entity.worldObj.setBlockToAir(bp);
+                            //增加农民等级
+                            this.addFarmingLevel();
+                            //设置收获时间
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
+
+                    }
+                }
+                this.stage = 1;
+//            harvest1();
+                //土豆
+            } else if (farmType == FarmType.POTATO) {
+                harvest1();
+                //南瓜
+            } else if (farmType == FarmType.PUMPKIN) {
+//            harvest1();
+                //循环宽
+                for (int z = 0; z < this.farm.z; ++z) {
+                    //循环长
+                    for (int x = 0; x < this.farm.x; ++x) {
+                        //声明作物
+                        List<ItemStack> drops = new CopyOnWriteArrayList<>();
+                        //获取当前位置的物品
+                        BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                        IBlockState iBlockState = this.folk.entity.worldObj.getBlockState(bp);
+                        //获得方块
+                        Block b = iBlockState.getBlock();
+                        //是南瓜
+                        if (b == Blocks.PUMPKIN) {
                             //收获
                             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
                             //获得方块
@@ -1113,13 +1058,71 @@ public class JobFarmer extends Job {
                             this.harvestCheck = System.currentTimeMillis();
                             return;
                         }
+
                     }
                 }
+                this.stage = 1;
+                //小麦
+            } else if (farmType == FarmType.WHEAT) {
+                harvest1();
+                //甜菜根
+            } else if (farmType == FarmType.BEETROOTS) {
+                harvest1();
+                //甘蔗
+            } else if (farmType == FarmType.SUGAR) {
+                //循环农场的宽
+                harvest1();
+                //仙人掌
+            } else if (farmType == FarmType.CACTUS) {
+                harvest1();
+                //未知的 可可豆
+            } else if (farmType == FarmType.COCOA) {
+                for (int z = 0; z < this.farm.z; ++z) {
+                    //循环长
+                    for (int x = 0; x < this.farm.x; ++x) {
+                        for (int y = 0; y < 2; ++y) {
+                            //声明作物
+                            List<ItemStack> drops = new CopyOnWriteArrayList<>();
+                            //获取当前位置的物品
+                            BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
+                            bp = new BlockPos(bp.getX(), bp.getY() + y, bp.getZ());
+                            IBlockState iBlockState = this.folk.entity.worldObj.getBlockState(bp);
+                            //获得方块
+                            Block b = iBlockState.getBlock();
+                            //是可可豆
+                            if (b == Blocks.COCOA && b.getMetaFromState(iBlockState) == 9) {
+                                //收获
+                                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
+                                //获得方块
+                                Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                                //摧毁方块
+                                drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+                                drops.forEach((drop) -> {
+                                    //放到工作箱
+                                    this.placeInJobChest(drop);
+                                });
+                                //设置手持物
+                                this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                                if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                                    //摇摆手臂
+                                    this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                                }
+                                //设置为空
+                                this.folk.entity.worldObj.setBlockToAir(bp);
+                                //增加农民等级
+                                this.addFarmingLevel();
+                                //设置收获时间
+                                this.harvestCheck = System.currentTimeMillis();
+                                return;
+                            }
+                        }
+                    }
+                }
+                this.stage = 1;
+                //未知的
+            } else {
+                harvest1();
             }
-            this.stage = 1;
-            //未知的
-        } else {
-            harvest1();
         }
     }
 

@@ -4,8 +4,8 @@ sname|凤
 gender|0
 age|30
 race|暗夜精灵
-skin|female28.png
-pos|-381.98059101403715,4.0,308.64573731377453,0
+skin|male36.png
+pos|-383.57145772766705,4.0,309.0714176931026,0
 trait1|工作狂
 trait2|强壮的
 trait3|喜欢户外活动
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|
 employedat|-385.0,3.0,308.0,0
 job|养猪户
-jobstage|3
-relationship|1886833D-16AF-4C9C-BF51-41E86D845C8D,SPOUSE,ENEMY,7
+jobstage|2
+relationship|1886833D-16AF-4C9C-BF51-41E86D845C8D,SPOUSE,AQUAINTANCE,3

@@ -3,6 +3,7 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.block.BlockMarker;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.entity.util.NpcSkin;
+import com.trhsy.sim.npc.block.Marker;
 import com.trhsy.sim.npc.build.BlueprintRequirements;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.util.GameStates;
@@ -10,6 +11,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -42,7 +44,7 @@ public class ModSimClientLoader {
      * @Param 
      * @return 
      **/
-    public static List<BlockMarker> markers = new CopyOnWriteArrayList();
+    public static List<Marker> markers = new CopyOnWriteArrayList();
 
     /**
      * 构建上一页
@@ -94,13 +96,12 @@ public class ModSimClientLoader {
      * @Param [UUID]
      * @return java.lang.String
      **/
-    public static String getPathFromUUID(String UUID) {
+    public static String getPathFromUUID(UUID UUID) {
         for(int i = 0; i < folkSkins.size(); ++i) {
-            if ((folkSkins.get(i)).UUID.contentEquals(UUID)) {
+            if ((folkSkins.get(i)).UUID.contentEquals(UUID.toString())) {
                 return (folkSkins.get(i)).skinPath;
             }
         }
-
         return "";
     }
 

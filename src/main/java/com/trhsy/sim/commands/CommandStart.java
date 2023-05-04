@@ -2,41 +2,41 @@ package com.trhsy.sim.commands;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
-import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.network.client.PacketOpenSetupGui;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Trhsy
  * @Package: com.trhsy.sim.commands
- * @ClassName: CommandGenerateFolk
- * @Description: 生成NPC
- * @date 2022/10/9 14:08
+ * @ClassName: CommandStart
+ * @Description:
+ * @date 2023/5/4 10:14
  */
-public class CommandGenerateFolk implements ICommand {
-    private final List aliases;
-    NpcData theFolk;
-    public CommandGenerateFolk() {
-        aliases = new CopyOnWriteArrayList();
-        aliases.add("generateNPC");
+public class CommandStart implements ICommand {
+    private final List aliases = new ArrayList();
+
+    public CommandStart() {
+        this.aliases.add("simmode");
     }
+
     @Override
     public String getCommandName() {
-        return "generateNPC";
+        return "simmode";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "generateNPC <name>";
+        return "simmode <amount>";
     }
 
     @Override
@@ -46,18 +46,21 @@ public class CommandGenerateFolk implements ICommand {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        try {
-            if (args.length == 0) {
-                ModSimLoader.log.info("获得重生NPC命令");
-                this.theFolk = new NpcData(sender.getEntityWorld(), true);
-                //GenerateFolkPacket generateFolkPacket=new GenerateFolkPacket();
-                //generateFolkPacket.nbt = new NBTTagCompound();
-                //generateFolkPacket.nbt.setBoolean("NPC_Packet",true);
-                //NetWorkLoader.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld()));
+        if (args.length == 0 && sender instanceof EntityPlayer) {
+            try {
+                /*if (ModSimLoader.gamemode != 999) {
+                    //模拟城市已经启动，您当前无法更改游戏模式
+                    ModSimLoader.sendChat(I18n.format("container.sim.Command1"));
+                } else {*/
+                    NetWorkLoader.net.sendTo(new PacketOpenSetupGui(), (EntityPlayerMP)sender);
+                //}
+            } catch (Exception var5) {
+                ModSimLoader.sendChat(I18n.format("container.sim.Command2"));
             }
-        } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("processCommand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        } else {
+            ModSimLoader.sendChat(I18n.format("container.sim.Command2"));
         }
+
     }
 
     @Override

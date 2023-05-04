@@ -49,9 +49,9 @@ public class GuiRunMod extends GuiScreen {
                 //接受
                 String accept = I18n.format("container.sim.accept");
                 //接受
-                this.buttonList.add(new GuiButton(4, 160, 130,50,20, accept));
+                this.buttonList.add(new GuiButton(4, 160, 140,50,20, accept));
                 //不接受
-                this.buttonList.add(new GuiButton(5, 240, 130,50,20, not_accept));
+                this.buttonList.add(new GuiButton(5, 240, 140,50,20, not_accept));
             }else{
                 this.buttonList.clear();
                 //不运行模拟城镇
@@ -63,8 +63,8 @@ public class GuiRunMod extends GuiScreen {
                 //专家模式
 //                String hardcore = I18n.format("container.sim.hardcore");
                 this.buttonList.add(new GuiButton(0, this.width / 2 - 75, 40, not_run));
-                this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 90, normal));
-                this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 140, creative));
+                this.buttonList.add(new GuiButton(1, this.width / 2 - 75, 80, normal));
+                this.buttonList.add(new GuiButton(2, this.width / 2 - 75, 120, creative));
 //                this.buttonList.add(new GuiButton(3, this.width / 2 - 75, 190, hardcore));
             }
 
@@ -191,12 +191,12 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.page=1;
 //                    this.mc.currentScreen=null;
-                    if(ModSimClientLoader.gamemode!=999){
-                        this.mc.setIngameFocus();
-                    }else{
+//                    if(ModSimClientLoader.gamemode!=999){
+//                        this.mc.setIngameFocus();
+//                    }else{
                         this.updateScreen();
                         this.initGui();
-                    }
+                    //}
                     break;
                 case 5:
                     ModSimLoader.log.info("不接受任命书");

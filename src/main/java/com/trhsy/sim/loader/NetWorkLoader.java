@@ -75,11 +75,14 @@ public class NetWorkLoader {
         registerMessage(PacketSendBuildingRequirements.Handler.class,PacketSendBuildingRequirements.class,Side.CLIENT);
         //请求规划
         registerMessage(PacketSendTerrainType.Handler.class,PacketSendTerrainType.class,Side.CLIENT);
-
         //打开控制箱
         registerMessage(PacketOpenControlGui.Handler.class,PacketOpenControlGui.class,Side.CLIENT);
         //打开养殖箱
         registerMessage(PacketOpenFarmGui.Handler.class,PacketOpenFarmGui.class,Side.CLIENT);
+        //添加标记点
+        registerMessage(PacketAddNewMarker.Handler.class,PacketAddNewMarker.class,Side.CLIENT);
+        //打开标记点gui
+        registerMessage(PacketOpenMarkerGui.Handler.class,PacketOpenMarkerGui.class,Side.CLIENT);
 
     }
     /**
