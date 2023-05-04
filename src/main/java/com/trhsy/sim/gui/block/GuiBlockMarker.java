@@ -36,14 +36,17 @@ public class GuiBlockMarker extends GuiScreen {
     //错误提示
     public String errorText = "";
     private int dimension;
-    public GuiBlockMarker(V3 location,int dimension) {
+
+    public GuiBlockMarker(V3 location, int dimension) {
         this.location = location;
         this.dimension = dimension;
     }
+
     @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
+
     @Override
     public void updateScreen() {
 
@@ -56,7 +59,7 @@ public class GuiBlockMarker extends GuiScreen {
             //完成
             this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, I18n.format("container.sim.sim_gui_BC_Done")));
             //复制结构/建造
-            GuiButton b=new GuiButton(1, this.width / 2 - 100, 100, I18n.format("container.sim.sim_gui_Copy_structure"));
+            GuiButton b = new GuiButton(1, this.width / 2 - 100, 100, I18n.format("container.sim.sim_gui_Copy_structure"));
             //复制结构/建造
             this.buttonList.add(b);
             b.enabled = false;
@@ -68,7 +71,8 @@ public class GuiBlockMarker extends GuiScreen {
 
             }*/
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("GuiMarker-initGui出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("GuiMarker-initGui出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -86,9 +90,11 @@ public class GuiBlockMarker extends GuiScreen {
 
             super.drawScreen(i, j, f);
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("GuiMarker-drawScreen出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("GuiMarker-drawScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+
     @Override
     public void actionPerformed(GuiButton guibutton) {
         try {
@@ -106,7 +112,8 @@ public class GuiBlockMarker extends GuiScreen {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("GUIMARKER-actionPerformed出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("GUIMARKER-actionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -114,6 +121,7 @@ public class GuiBlockMarker extends GuiScreen {
         public ThreadFacsimile() {
             this.start();
         }
+
         @Override
         public void run() {
 
@@ -138,12 +146,12 @@ public class GuiBlockMarker extends GuiScreen {
                 }
 
                 if (ftbCountx != 0 && ltrCountx != 0) {
-                    int cx = (int)cxyz.x;
-                    int cy = (int)cxyz.y;
-                    int cz = (int)cxyz.z;
-                    int ex = (int)exyz.x;
-                    int ey = (int)exyz.y;
-                    int ez = (int)exyz.z;
+                    int cx = (int) cxyz.x;
+                    int cy = (int) cxyz.y;
+                    int cz = (int) cxyz.z;
+                    int ex = (int) exyz.x;
+                    int ey = (int) exyz.y;
+                    int ez = (int) exyz.z;
                     int bxx = ex;
                     int byx = ey;
                     int bzx = ez;
@@ -172,18 +180,17 @@ public class GuiBlockMarker extends GuiScreen {
                     int xo = 0;
                     int zo = 0;
                     HashMap key = new HashMap();
-                    key.put("0:0", "A");
                     CopyOnWriteArrayList layerLines = new CopyOnWriteArrayList();
                     int ch = 66;
                     boolean allAirBlocks = true;
-                    String keyString = "A=0:0;";
+                    String keyString = "";
                     int ltr;
                     int zzz;
-                    for(int l = 0; l < 200; ++l) {
+                    for (int l = 0; l < 200; ++l) {
                         String layerLine = "";
 
-                        for(int ftb = 0; ftb < ftbCountx; ++ftb) {
-                            for(ltr = 1; ltr <= ltrCountx; ++ltr) {
+                        for (int ftb = 0; ftb < ftbCountx; ++ftb) {
+                            for (ltr = 1; ltr <= ltrCountx; ++ltr) {
                                 if (cz == ez) {
                                     if (cx > ex) {
                                         xo = ftb;
@@ -205,41 +212,23 @@ public class GuiBlockMarker extends GuiScreen {
                                 int xxx = bxx + xo;
                                 int yyy = byx + l - 1;
                                 zzz = bzx + zo;
-                                BlockPos blockPos =new BlockPos(xxx, yyy, zzz);
-                                IBlockState blocks=GuiBlockMarker.this.mc.getIntegratedServer().worldServerForDimension(dimension).getBlockState(blockPos);
-                                int iD = Block.getIdFromBlock(blocks.getBlock());
-                                int meta = blocks.getBlock().getMetaFromState(blocks);
+                                BlockPos blockPos = new BlockPos(xxx, yyy, zzz);
+                                IBlockState blocks = GuiBlockMarker.this.mc.getIntegratedServer().worldServerForDimension(dimension).getBlockState(blockPos);
+//                                int id = Block.getiDFromBlock(blocks.getBlock());
+                                Block block= blocks.getBlock();
+                                String id=block.toString();
+                                id=id.substring(id.indexOf("{"),id.indexOf("}"));
+                                int meta = block.getMetaFromState(blocks);
                                 String letter = "";
-                                if (iD == Block.getIdFromBlock(BlockLoader.blockControlBox)) {
-                                    letter = "$";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 0) {
-                                    letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 1) {
-                                    letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 2) {
-                                    letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 3) {
-                                    letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 4) {
-                                    letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 5) {
-                                    letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 6) {
-                                    letter = "ï¿½";
-                                } else if (iD == Block.getIdFromBlock(BlockLoader.blockLightBox) && meta == 7) {
-                                    letter = "ï¿½";
-                                } else {
-                                    letter = (String) key.get(iD + ":" + meta);
-                                    if (key.get(iD + ":" + meta) == null) {
-                                        ++ch;
-                                        key.put(iD + ":" + meta, (new Character((char) ch)).toString());
-                                        keyString = keyString + (new Character((char) ch)).toString() + "=" + iD + ":" + meta + ";";
-                                        letter = (new Character((char) ch)).toString();
-                                    }
+                                letter = (String) key.get(id + "," + meta);
+                                if (key.get(id + "," + meta) == null) {
+                                    ++ch;
+                                    key.put(id + "," + meta, (new Character((char) ch)).toString());
+                                    keyString = keyString + (new Character((char) ch)).toString() + "=" + id + "," + meta + ";";
+                                    letter = (new Character((char) ch)).toString();
                                 }
-
                                 layerLine = layerLine + letter;
-                                if (iD != 0) {
+                                if ("minecraft:air".equals(id)) {
                                     allAirBlocks = false;
                                 }
                             }
@@ -254,7 +243,7 @@ public class GuiBlockMarker extends GuiScreen {
                     }
 
                     if (layerLines.size() == 0) {
-                        GuiBlockMarker.this.errorText = I18n.format("container.sim.Markers13");
+                        GuiBlockMarker.this.errorText = I18n.format("container.sim.Markers13");//错误,无法捕获所有方块,请尝试靠近标记站并重试
                         return;
                     }
 
@@ -272,19 +261,20 @@ public class GuiBlockMarker extends GuiScreen {
                     out.write(ltrCountx + "x" + ftbCountx + "x" + layerLines.size() + "\r\n");
                     out.write(keyString + "\r\n");
 
-                    for(zzz = 0; zzz < layerLines.size(); ++zzz) {
+                    for (zzz = 0; zzz < layerLines.size(); ++zzz) {
                         out.write(layerLines.get(zzz).toString() + "\r\n");
                     }
                     out.close();
                     Thread.sleep(500L);
-                    GuiBlockMarker.this.errorText = I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16");
+                    ModSimLoader.sendChat(I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16"));
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
-                    GuiBlockMarker.this.mc.theWorld.playSound(GuiBlockMarker.this.location.x, GuiBlockMarker.this.location.y, GuiBlockMarker.this.location.z, soundEvent, SoundCategory.BLOCKS, 1, 1,false);
+                    GuiBlockMarker.this.mc.theWorld.playSound(GuiBlockMarker.this.location.x, GuiBlockMarker.this.location.y, GuiBlockMarker.this.location.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
                 } else {
                     GuiBlockMarker.this.errorText = I18n.format("container.sim.Markers17");
                 }
             } catch (Exception e) {
-                StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ThreadFacsimile出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+                StackTraceElement element = e.getStackTrace()[0];
+                ModSimLoader.log.error("ThreadFacsimile出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             }
         }
     }

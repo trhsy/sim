@@ -755,8 +755,8 @@ container.sim.Markers11=请面向主标记站立,后方标记在远处。
 container.sim.Markers12=无法复制建筑,技术信息cx:
 container.sim.Markers13=错误,无法捕获所有方块,请尝试靠近标记站并重试
 container.sim.Markers14=文件夹丢失,模组未正确安装,请复制 simukraft 文件夹和 zip 文件。
-container.sim.Markers15=建筑复制并存储为其他建筑中的'我的建筑
-container.sim.Markers16='
+container.sim.Markers15=建筑复制并存储为 其他 建筑中的'My Build
+container.sim.Markers16='关闭游戏后去蓝图文件夹查看。
 container.sim.Markers17=错误：标记未正确放置,请重试。
 
 container.sim.Merchant0=您好,请问今天有什么可以帮到您的吗？
