@@ -625,6 +625,7 @@ public class JobCropFarmer extends Job implements Serializable {
                         }
                         //所有其他农场
                     } else {
+
                         if (this.id == Blocks.grass || this.id == Blocks.dirt) {
                             Boolean boolean1 = (this.farmingBlock.farmType == FarmType.MELON || this.farmingBlock.farmType == FarmType.PUMPKIN);
                             Boolean boolean2 = (this.ftb % 4 == 0 || this.ftb % 4 == 1);
