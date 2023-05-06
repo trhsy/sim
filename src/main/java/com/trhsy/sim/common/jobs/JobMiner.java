@@ -86,8 +86,8 @@ public class JobMiner extends Job implements Serializable {
             this.theMiningBox = MiningBox.getMiningBlockByBoxXYZ(folk.employedAt);
             if (this.theFolk.destination == null) {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
             /**
              * 看看我们是不是在水平挖掘
@@ -200,8 +200,8 @@ public class JobMiner extends Job implements Serializable {
                 this.theStage = Stage.WAITINGFORCHEST;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -570,7 +570,7 @@ public class JobMiner extends Job implements Serializable {
                 if (this.theFolk.location.yCoord - this.vNextMineableBlock.yCoord > 4) {
                     this.vNextMineableBlock.doNotTimeout = false;
                     if (this.vNextMineableBlock.yCoord > 20) {
-                        this.theFolk.gotoXYZ(this.vNextMineableBlock, null);
+                        this.theFolk.forceMoveToXYZNoWarp(this.vNextMineableBlock);
                     } else {
                         this.theFolk.stayPut = true;
                     }
@@ -578,7 +578,7 @@ public class JobMiner extends Job implements Serializable {
                     this.vNextMineableBlock.doNotTimeout = true;
                     if (this.vNextMineableBlock.yCoord > 20) {
                         this.theFolk.stayPut = false;
-                        this.theFolk.gotoXYZ(this.vNextMineableBlock, null);//行走
+                        this.theFolk.forceMoveToXYZNoWarp(this.vNextMineableBlock);//行走
                     } else {
                         this.theFolk.stayPut = true;
                     }

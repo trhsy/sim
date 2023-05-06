@@ -70,8 +70,8 @@ public class JobLumberjack extends Job implements Serializable {
                 if (this.theFolk.destination == null) {
                     //去其雇佣地
                     V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
 
             }
@@ -182,7 +182,7 @@ public class JobLumberjack extends Job implements Serializable {
                 }
 
                 //将树苗从箱子转移到NPC
-                boolean flg=this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.millChests, new ItemStack(Blocks.sapling),Blocks.sapling);
+                /*boolean flg=this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.millChests, new ItemStack(Blocks.sapling),Blocks.sapling);
                 if(flg){
                     this.step =4;
                     this.foundWoodAt = findClosestBlockType(ts, Blocks.sapling, ConfigLoader.configLumberArea, false);
@@ -196,7 +196,7 @@ public class JobLumberjack extends Job implements Serializable {
                     /*int count = this.getInventoryCount(this.theFolk, Blocks.sapling);
                     if (count > 0) {
                         for (int i = 0; i < this.theFolk.getVillagerInventory().getSizeInventory(); i++) {
-                            this.theFolk.gotoXYZ(v, null);
+                            this.theFolk.forceMoveToXYZNoWarp(v, null);
                             ItemStack fis = this.theFolk.getVillagerInventory().getStackInSlot(i);
                             if (fis != null && Block.getBlockFromItem(fis.getItem()) == Blocks.sapling) {
                                 this.theFolk.getVillagerInventory().removeStackFromSlot(i);
@@ -204,14 +204,14 @@ public class JobLumberjack extends Job implements Serializable {
                                 break;
                             }
                         }
-                    }*/
+                    }
                     return;
-                }else{
+                }else{*/
                     //在该地区找不到任何木材,你能放一些树苗到箱子里吗？
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.lumberjack.farmer.wood"));
-                    this.theFolk.selfFire();
+                    //this.theFolk.selfFire();
 //                    return;
-                }
+//                }
             }else{
                 this.theStage = Stage.RETURNWOOD;
                 this.step = 1;
@@ -235,7 +235,7 @@ public class JobLumberjack extends Job implements Serializable {
             if (!this.onRoute) {
                 //去砍树...
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Going");
-                this.theFolk.gotoXYZ(this.foundWoodAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(this.foundWoodAt);
                 this.startedGoing = System.currentTimeMillis();
                 this.onRoute = true;
             } else {
@@ -254,7 +254,7 @@ public class JobLumberjack extends Job implements Serializable {
                     if (this.theFolk.destination == null && this.theFolk.theEntity != null) {
                         //去砍树...
                         this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Going");
-                        this.theFolk.gotoXYZ(this.foundWoodAt, null);
+                        this.theFolk.forceMoveToXYZNoWarp(this.foundWoodAt);
                         this.startedGoing = System.currentTimeMillis();
                         this.onRoute = true;
                     }
@@ -365,7 +365,7 @@ public class JobLumberjack extends Job implements Serializable {
                     //this.foundWoodAt.yCoord = this.foundWoodAt.yCoord+0.5;
                     this.step = 2;
                 } else if (this.step == 4) {
-                    if (this.theFolk.isSpawned()) {
+                    /*if (this.theFolk.isSpawned()) {
                         //树苗
                         count = this.getInventoryCount(this.theFolk, Blocks.sapling);
                         if (count > 0) {
@@ -388,7 +388,9 @@ public class JobLumberjack extends Job implements Serializable {
                     } else {
                         this.theStage = Stage.RETURNWOOD;
                         this.step = 1;
-                    }
+                    }*/
+                    this.theStage = Stage.RETURNWOOD;
+                    this.step = 1;
                 }
             }
         } catch (Exception e) {
@@ -407,8 +409,8 @@ public class JobLumberjack extends Job implements Serializable {
                 //将木材送回伐木场箱子
                 this.theFolk.statusText = I18n.format("container.sim.job.lumberjack.farmer.Delivering");
                 V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 this.step = 2;
             } else {
                 if (this.step == 2) {
@@ -461,8 +463,8 @@ public class JobLumberjack extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATMILL;
             } else {
                 V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

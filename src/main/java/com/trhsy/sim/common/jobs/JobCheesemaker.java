@@ -17,6 +17,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
@@ -59,8 +60,8 @@ public class JobCheesemaker extends Job {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
 
             }
@@ -80,16 +81,15 @@ public class JobCheesemaker extends Job {
                 //Building.loadAllBuildings();
                 this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
             }
-
-            if (this.theCheeseFactory == null) {
+            if (this.theCheeseFactory != null) {
                 //Building.loadAllBuildings();
                 this.theCheeseFactory = Building.getBuilding(this.theFolk.employedAt);
             }
 
             if (this.theCheeseFactory == null) {
-                this.theFolk.selfFire();
+                //this.theFolk.selfFire();
                 //奶酪工厂出了问题，试着重新启动Minecraft
-                ModSimReloaded.sendChat(I18n.format("container.sim.job.cheese_maker.There"));
+                //ModSimReloaded.sendChat(I18n.format("container.sim.job.cheese_maker.There"));
             } else {
                 //是晚上，状态设置为闲置
                 if (!ModSimReloaded.isDayTime()) {
@@ -169,9 +169,10 @@ public class JobCheesemaker extends Job {
         try {
             //特殊方块 5
             List<V3> cheesechest = this.theCheeseFactory.getSpecialBlocks(5);
-
-            List<IInventory> chests = inventoriesFindClosest((V3) cheesechest.get(0), 4);
-            this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), chests, new ItemStack(Items.milk_bucket, 64), (Block) null);
+            if(cheesechest.size()>0){
+                List<IInventory> chests = inventoriesFindClosest((V3) cheesechest.get(0), 4);
+                this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), chests, new ItemStack(Items.milk_bucket, 64), (Block) null);
+            }
             this.theStage = Stage.GOINGTODAIRYFARM;
             this.currentFarmNum = -1;
         } catch (Exception e) {
@@ -195,14 +196,14 @@ public class JobCheesemaker extends Job {
             if (!dairyFarms.isEmpty() && dairyFarms.size() - 1 <= this.currentFarmNum) {
                 this.farm = (Building) dairyFarms.get(this.currentFarmNum);
                 //去农场
-                this.theFolk.gotoXYZ(this.farm.primaryXYZ, null);
+                this.theFolk.forceMoveToXYZNoWarp(this.farm.primaryXYZ);
                 //切换状态为 收集牛奶
                 this.theStage = Stage.COLLECTINGMILK;
                 this.step = 1;
             } else if (dairyFarms.isEmpty()) { //如果等于空
                 //否则 没有检测到奶牛场，员工自动退休
                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.has_retired"));
-                this.theFolk.selfFire();//自动辞职
+                //this.theFolk.selfFire();//自动辞职
             } else {
                 //否则去蓄水池
                 this.theStage = Stage.GOINGTOTANK;
@@ -228,6 +229,7 @@ public class JobCheesemaker extends Job {
                     this.theFolk.isWorking = true;
                 } else {
                     ModSimReloaded.log.info("JobCheeseMaker: 还没到农场");
+                    this.theFolk.forceMoveToXYZNoWarps(this.farm.primaryXYZ);
                 }
             } else if (this.step == 2) {
                 //库存最接近
@@ -236,7 +238,7 @@ public class JobCheesemaker extends Job {
                 if (this.chestsAtDairy.isEmpty()) {
                     //当前位置在奶牛场找不到箱子，我辞职了！
                     ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.I_quit"));
-                    this.theFolk.selfFire();
+                    //this.theFolk.selfFire();
                     return;
                 }
                 //库存转移到民间 牛奶场的箱子                                                       牛奶桶
@@ -257,14 +259,14 @@ public class JobCheesemaker extends Job {
                 List<V3> tanktop = this.theCheeseFactory.getSpecialBlocks(3);
                 if (!tanktop.isEmpty()) {
                     //对齐光波
-                    this.theFolk.gotoXYZ((V3) tanktop.get(0), null);
+                    this.theFolk.forceMoveToXYZNoWarps((V3) tanktop.get(0));
                     //去蓄水池
                     this.theStage = Stage.GOINGTOTANK;
                     this.step = 1;
                     this.theFolk.isWorking = false;
                 } else {
                     ModSimReloaded.log.warn("JobCheesemaker: 没有蓄水池");
-                    this.theFolk.selfFire();
+                    //this.theFolk.selfFire();
                 }
             }
         } catch (Exception e) {
@@ -313,11 +315,13 @@ public class JobCheesemaker extends Job {
         try {
             if (this.step == 1) {
                 //如果NPC库存不等于空
-                if (this.theFolk.getVillagerInventory() != null) {
+                InventoryBasic inventoryBasic=this.theFolk.getVillagerInventory();
+                if (inventoryBasic != null) {
                     //库存大于1
-                    if (this.theFolk.getVillagerInventory().getSizeInventory() > 1) {
+                    ItemStack itemStack=inventoryBasic.getStackInSlot(0);
+                    if (itemStack!=null&&itemStack.stackSize > 0) {
                         //倒了 N 桶牛奶
-                        this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptying") + this.theFolk.getVillagerInventory().getSizeInventory() + I18n.format("container.sim.job.cheese_maker.buckets");
+                        this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptying") + itemStack.stackSize + I18n.format("container.sim.job.cheese_maker.buckets");
                     } else {
                         //倒了所有的牛奶
                         this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Emptied");
@@ -338,17 +342,17 @@ public class JobCheesemaker extends Job {
                     //牛奶
                     BlockPos blockPos = new BlockPos(milkBlock.xCoord, milkBlock.yCoord, milkBlock.zCoord);
                     Block id = this.jobWorld.getBlockState(blockPos).getBlock();
-                    int meta = id.getMetaFromState(this.jobWorld.getBlockState(blockPos));
-                    if (id != Blocks.air && (id != BlockLoader.blockFluidMilk || meta != 1)) {
+                    if (id != Blocks.air && id != BlockLoader.blockFluidMilk) {
                         this.jobWorld.setBlockState(blockPos, BlockLoader.blockFluidMilk.getDefaultState(), 3);
+                        filledOk = true;
                     }
 
                     try {
-                        this.theFolk.getVillagerInventory().removeStackFromSlot(0);
+                        this.theFolk.getVillagerInventory().decrStackSize(0,64);
                     } catch (Exception e) {
                     }
 
-                    filledOk = true;
+
                 }
 
                 if (filledOk) {
@@ -391,9 +395,9 @@ public class JobCheesemaker extends Job {
                 this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.viscosity");
                 if (!stirPositions.isEmpty()) {
                     if (this.tubToggle) {
-                        this.theFolk.gotoXYZ(this.currentStirPos =  stirPositions.get(0), null);
+                        this.theFolk.forceMoveToXYZNoWarp(this.currentStirPos =  stirPositions.get(0));
                     } else {
-                        this.theFolk.gotoXYZ(this.currentStirPos =  stirPositions.get(1), null);
+                        this.theFolk.forceMoveToXYZNoWarp(this.currentStirPos =  stirPositions.get(1));
                     }
 
                     this.tubToggle = !this.tubToggle;
@@ -402,7 +406,7 @@ public class JobCheesemaker extends Job {
                 } else {
                     //有的奶酪厂出了问题，把建筑构造下来，重新构建它
                     ModSimReloaded.sendChat(I18n.format("container.sim.job.cheese_maker.constructor"));
-                    this.theFolk.selfFire();
+                    //this.theFolk.selfFire();
                 }
             } else if (this.step == 2) {
                 if (this.theFolk.destination == null) {
@@ -520,7 +524,7 @@ public class JobCheesemaker extends Job {
                 }
 
             } else {
-                this.theFolk.selfFire();
+                //this.theFolk.selfFire();
                 //有一个与奶酪工厂问题，请尝试重新建立它 - 没有奶块
                 ModSimReloaded.sendChat(I18n.format("container.sim.job.cheese_maker.Cheese_factory"));
             }
@@ -545,7 +549,7 @@ public class JobCheesemaker extends Job {
             //提取奶酪块
             this.theFolk.statusText = I18n.format("container.sim.job.cheese_maker.Extracting");
             if (this.step == 1) {
-                this.theFolk.gotoXYZ((V3) stirPositions.get(0), null);
+                this.theFolk.forceMoveToXYZNoWarp((V3) stirPositions.get(0));
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.destination == null) {
@@ -577,7 +581,7 @@ public class JobCheesemaker extends Job {
                     if (!gotBlock) {
                         this.theFolk.isWorking = false;
                         this.step = 4;
-                        this.theFolk.gotoXYZ((V3) stirPositions.get(1), null);
+                        this.theFolk.forceMoveToXYZNoWarp((V3) stirPositions.get(1));
                     }
                 } else if (this.step == 4) {
                     if (this.theFolk.destination == null) {
@@ -621,12 +625,12 @@ public class JobCheesemaker extends Job {
         try {
             List<V3> slicewaypoint = this.theCheeseFactory.getSpecialBlocks(5);
             if (slicewaypoint.isEmpty()) {
-                this.theFolk.selfFire();
+                //this.theFolk.selfFire();
                 //有一个与奶酪厂的问题，尝试重新建立它的航点问题
                 ModSimReloaded.sendChat(I18n.format("container.sim.job.cheese_maker.problem"));
             } else {
                 if (this.step == 1) {
-                    this.theFolk.gotoXYZ((V3) slicewaypoint.get(0), null);
+                    this.theFolk.forceMoveToXYZNoWarp((V3) slicewaypoint.get(0));
                     this.step = 2;
                 } else if (this.step == 2) {
                     if (this.theFolk.destination == null) {
@@ -640,7 +644,7 @@ public class JobCheesemaker extends Job {
                         if (chests.isEmpty()) {
                             //有人在奶酪工厂箱子里偷奶酪，我不干了！
                             ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.Someone"));
-                            this.theFolk.selfFire();
+                            //this.theFolk.selfFire();
                         }
 
                         this.inventoriesTransferFromFolk(this.theFolk.getVillagerInventory(), chests, (ItemStack) null);
@@ -654,7 +658,7 @@ public class JobCheesemaker extends Job {
                             boolean placedOK = this.inventoriesPut(chests, new ItemStack(ItemLoader.itemCheese, 9, 0), true);
                             if (!placedOK) {
                                 ModSimReloaded.sendChat(this.theFolk.name + I18n.format("container.sim.job.cheese_maker.factory"));
-                                this.theFolk.selfFire();
+                                //this.theFolk.selfFire();
                             }
                         } else {
                             this.step = 5;
@@ -693,8 +697,8 @@ public class JobCheesemaker extends Job {
                 this.currentFarmNum = 0;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

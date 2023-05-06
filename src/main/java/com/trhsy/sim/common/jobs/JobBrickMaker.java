@@ -49,7 +49,7 @@ public class JobBrickMaker extends Job implements Serializable {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
                 }
 
             }
@@ -179,7 +179,7 @@ public class JobBrickMaker extends Job implements Serializable {
             double dist = this.theFolk.location.getDistanceTo(this.blockOfClay);
             if (dist > 4.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.blockOfClay, null);
+                this.theFolk.forceMoveToXYZNoWarp(this.blockOfClay);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
             }
@@ -205,7 +205,7 @@ public class JobBrickMaker extends Job implements Serializable {
         //距离黏土多远
         double dist = this.theFolk.location.getDistanceTo(this.blockOfClay);
         if (dist > 6.0 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
-            this.theFolk.gotoXYZ(this.blockOfClay, null);
+            this.theFolk.forceMoveToXYZNoWarp(this.blockOfClay);
             this.theFolk.stayPut = false;
             this.lastGotocmd = System.currentTimeMillis();
             ++this.gotoCount;
@@ -261,7 +261,7 @@ public class JobBrickMaker extends Job implements Serializable {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
                 adj = new V3(adj.xCoord - 1.0, adj.yCoord+0.5, adj.zCoord, adj.theDimension);
-                this.theFolk.gotoXYZ(adj, null);
+                this.theFolk.forceMoveToXYZNoWarp(adj);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -274,7 +274,7 @@ public class JobBrickMaker extends Job implements Serializable {
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -393,7 +393,7 @@ public class JobBrickMaker extends Job implements Serializable {
                 this.theStage = Stage.USEFURNACE;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

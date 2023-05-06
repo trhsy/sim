@@ -57,7 +57,7 @@ public class JobButcher extends Job implements Serializable {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
                 }
 
             }
@@ -162,7 +162,7 @@ public class JobButcher extends Job implements Serializable {
                 try {
                     if (this.farm != null && this.farm.primaryXYZ != null) {
                         this.onRoute = true;
-                        this.theFolk.gotoXYZ(this.farm.primaryXYZ, null);
+                        this.theFolk.forceMoveToXYZNoWarp(this.farm.primaryXYZ);
                     } else {
                         this.theStage = Stage.GOBACKTOSTORE;
                     }
@@ -243,8 +243,8 @@ public class JobButcher extends Job implements Serializable {
             if (!this.onRoute) {
                 this.onRoute = true;
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             } else {
                 double dist = (double)this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist < 2) {
@@ -398,8 +398,8 @@ public class JobButcher extends Job implements Serializable {
                 this.currentFarmNum = 0;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

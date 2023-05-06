@@ -659,13 +659,10 @@ public class Building implements Serializable {
     public static Building getBuilding(V3 primaryXYZ) {
         Building b = null;
         try {
-//            if (ModSimReloaded.theBuildings.size() == 0) {
-//                loadAllBuildings();
-//            }
             if (primaryXYZ != null) {
                 for (int x = 0; x < ModSimReloaded.theBuildings.size(); ++x) {
                     b = ModSimReloaded.theBuildings.get(x);
-                    if (b.primaryXYZ.isSameCoordsAs(primaryXYZ)) {
+                    if (b.primaryXYZ.toString().equals(primaryXYZ.toString())) {
                         return b;
                     }
                 }
@@ -676,7 +673,7 @@ public class Building implements Serializable {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("建筑getBuilding出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-        return b;
+        return null;
     }
 
     public static Building getBuildingBySearch(String searchWord) {

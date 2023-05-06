@@ -58,8 +58,8 @@ public class JobGlassMaker extends Job implements Serializable {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
             }
         } catch (Exception e) {
@@ -192,7 +192,7 @@ public class JobGlassMaker extends Job implements Serializable {
             double dist = (double) this.theFolk.location.getDistanceTo(this.blockOfSand);
             if (dist > 4 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
                 this.theFolk.stayPut = false;
-                this.theFolk.gotoXYZ(this.blockOfSand, null);
+                this.theFolk.forceMoveToXYZNoWarp(this.blockOfSand);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
             }
@@ -224,7 +224,7 @@ public class JobGlassMaker extends Job implements Serializable {
             double dist = this.theFolk.location.getDistanceTo(this.blockOfSand);
             //大于6 去到沙子旁边
             if (dist > 6 && System.currentTimeMillis() - this.lastGotocmd > 10000L) {
-                this.theFolk.gotoXYZ(this.blockOfSand, null);
+                this.theFolk.forceMoveToXYZNoWarp(this.blockOfSand);
                 this.theFolk.stayPut = false;
                 this.lastGotocmd = System.currentTimeMillis();
                 ++this.gotoCount;
@@ -275,7 +275,7 @@ public class JobGlassMaker extends Job implements Serializable {
             if (this.step == 1) {
                 V3 adj = this.theFolk.employedAt.clone();
                 adj = new V3(adj.xCoord, adj.yCoord+0.5, adj.zCoord, adj.theDimension);
-                this.theFolk.gotoXYZ(adj, null);
+                this.theFolk.forceMoveToXYZNoWarp(adj);
                 this.step = 2;
             } else if (this.step == 2) {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -288,8 +288,8 @@ public class JobGlassMaker extends Job implements Serializable {
                     this.step = 3;
                 } else if (this.theFolk.destination == null) {
                     V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
             } else if (this.step == 3) {
                 this.factoryChests = inventoriesFindClosest(this.theFolk.employedAt, 5);
@@ -417,8 +417,8 @@ public class JobGlassMaker extends Job implements Serializable {
                 this.theStage = Stage.USEFURNACE;
             } else {
                 V3 v3 = new V3(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

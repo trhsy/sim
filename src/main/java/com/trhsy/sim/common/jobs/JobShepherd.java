@@ -58,8 +58,8 @@ public class JobShepherd extends Job implements Serializable {
         if (this.theFolk != null) {
             if (this.theFolk.destination == null) {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
 
         }
@@ -145,7 +145,7 @@ public class JobShepherd extends Job implements Serializable {
         this.theFolk.stayPut = false;
         if (this.step == 1) {
             if (this.theFolk.getDistanceToPlayer() < 50) {
-                this.theFolk.gotoXYZ(new V3(this.sheepToShear.posX, this.sheepToShear.posY, this.sheepToShear.posZ, this.theFolk.employedAt.theDimension), null);
+                this.theFolk.forceMoveToXYZNoWarp(new V3(this.sheepToShear.posX, this.sheepToShear.posY, this.sheepToShear.posZ, this.theFolk.employedAt.theDimension));
             }
 
             this.step = 2;
@@ -276,8 +276,8 @@ public class JobShepherd extends Job implements Serializable {
             this.spawnSheepIfNeeded(this.theFolk.employedAt);
         } else {
             V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-            this.theFolk.gotoXYZ(v3, null);
-            //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+            this.theFolk.forceMoveToXYZNoWarp(v3);
+            //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
         }
 
     }

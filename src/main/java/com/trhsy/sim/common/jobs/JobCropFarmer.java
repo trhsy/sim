@@ -104,8 +104,8 @@ public class JobCropFarmer extends Job implements Serializable {
             if (this.theFolk.destination == null) {
                 //目的地为空重新设置 为雇佣地
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
 
             }
             //设置养殖箱位置
@@ -220,8 +220,8 @@ public class JobCropFarmer extends Job implements Serializable {
             int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
             if (dist > 3) {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
 
             if (this.farmingChests.isEmpty()) {
@@ -364,8 +364,8 @@ public class JobCropFarmer extends Job implements Serializable {
                 int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 3) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
 
                 this.step = 2;
@@ -534,7 +534,7 @@ public class JobCropFarmer extends Job implements Serializable {
     private void pickUpDroppedCrops(V3 v3center) {
         try {
             if (this.theFolk.theEntity != null) {
-                this.theFolk.gotoXYZ(v3center, GotoMethod.WALK);
+                this.theFolk.forceMoveToXYZNoWarp(v3center);
                 //获取AABB中的实体，排除实体
                 List<Entity> list1 = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.theFolk.theEntity, new AxisAlignedBB(v3center.xCoord, v3center.yCoord, v3center.zCoord, v3center.xCoord + 1.0, v3center.yCoord+0.5, v3center.zCoord + 1.0).expand(3.0, 2.0, 3.0));
                 for(Entity entity:list1){
@@ -873,8 +873,8 @@ public class JobCropFarmer extends Job implements Serializable {
                 int dist = this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                 if (dist > 3) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
 
                 int r = ra.nextInt(10);
@@ -940,8 +940,8 @@ public class JobCropFarmer extends Job implements Serializable {
                 this.theStage = Stage.ARRIVEDATFARM;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("农民去上班出错了:" + e.getMessage()+"行数："+element.getLineNumber());

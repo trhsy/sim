@@ -102,7 +102,7 @@ public class GuiControlBox extends GuiScreen {
             this.theFolk = folk;
             //是否白天
             if (ModSimReloaded.isDayTime()) {
-                this.theFolk.gotoXYZ(location, null);
+                this.theFolk.forceMoveToXYZNoWarp(location);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

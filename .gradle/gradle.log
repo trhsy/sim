@@ -1,217 +1,273 @@
+javax.net.ssl.SSLException: java.net.SocketException: Connection resetjavax.net.ssl.SSLException: java.net.SocketException: Connection reset
+
+	at sun.security.ssl.Alert.createSSLException(Alert.java:127)	at sun.security.ssl.Alert.createSSLException(Alert.java:127)
+
+	at sun.security.ssl.TransportContext.fatal(TransportContext.java:353)	at sun.security.ssl.TransportContext.fatal(TransportContext.java:353)
+
+	at sun.security.ssl.TransportContext.fatal(TransportContext.java:296)	at sun.security.ssl.TransportContext.fatal(TransportContext.java:296)
+
+	at sun.security.ssl.TransportContext.fatal(TransportContext.java:291)	at sun.security.ssl.TransportContext.fatal(TransportContext.java:291)
+
+	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:141)	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:141)
+
+	at sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1279)	at sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1279)
+
+	at sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1188)	at sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1188)
+
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:401)	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:401)
+
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:373)	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:373)
+
+	at sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:587)	at sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:587)
+
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:185)	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:185)
+
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:167)	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:167)
+
+	at net.minecraftforge.gradle.common.BasePlugin.getWithEtag(BasePlugin.java:651)	at net.minecraftforge.gradle.common.BasePlugin.getWithEtag(BasePlugin.java:651)
+
+	at net.minecraftforge.gradle.common.BasePlugin.getRemoteJsons(BasePlugin.java:218)	at net.minecraftforge.gradle.common.BasePlugin.getRemoteJsons(BasePlugin.java:218)
+
+	at net.minecraftforge.gradle.common.BasePlugin.apply(BasePlugin.java:172)	at net.minecraftforge.gradle.common.BasePlugin.apply(BasePlugin.java:172)
+
+	at net.minecraftforge.gradle.common.BasePlugin.apply(BasePlugin.java:89)	at net.minecraftforge.gradle.common.BasePlugin.apply(BasePlugin.java:89)
+
+	at org.gradle.api.internal.plugins.ImperativeOnlyPluginApplicator.applyImperative(ImperativeOnlyPluginApplicator.java:35)	at org.gradle.api.internal.plugins.ImperativeOnlyPluginApplicator.applyImperative(ImperativeOnlyPluginApplicator.java:35)
+
+	at org.gradle.api.internal.plugins.RuleBasedPluginApplicator.applyImperative(RuleBasedPluginApplicator.java:43)	at org.gradle.api.internal.plugins.RuleBasedPluginApplicator.applyImperative(RuleBasedPluginApplicator.java:43)
+
+	at org.gradle.api.internal.plugins.DefaultPluginManager.doApply(DefaultPluginManager.java:139)	at org.gradle.api.internal.plugins.DefaultPluginManager.doApply(DefaultPluginManager.java:139)
+
+	at org.gradle.api.internal.plugins.DefaultPluginManager.apply(DefaultPluginManager.java:112)	at org.gradle.api.internal.plugins.DefaultPluginManager.apply(DefaultPluginManager.java:112)
+
+	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction.applyType(DefaultObjectConfigurationAction.java:113)	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction.applyType(DefaultObjectConfigurationAction.java:113)
+
+	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction.access$200(DefaultObjectConfigurationAction.java:36)	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction.access$200(DefaultObjectConfigurationAction.java:36)
+
+	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction$3.run(DefaultObjectConfigurationAction.java:80)	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction$3.run(DefaultObjectConfigurationAction.java:80)
+
+	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction.execute(DefaultObjectConfigurationAction.java:136)	at org.gradle.api.internal.plugins.DefaultObjectConfigurationAction.execute(DefaultObjectConfigurationAction.java:136)
+
+	at org.gradle.api.internal.project.AbstractPluginAware.apply(AbstractPluginAware.java:44)	at org.gradle.api.internal.project.AbstractPluginAware.apply(AbstractPluginAware.java:44)
+
+	at org.gradle.api.internal.project.ProjectScript.apply(ProjectScript.java:34)	at org.gradle.api.internal.project.ProjectScript.apply(ProjectScript.java:34)
+
+	at org.gradle.api.Script$apply$0.callCurrent(Unknown Source)	at org.gradle.api.Script$apply$0.callCurrent(Unknown Source)
+
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:52)	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:52)
+
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:154)	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:154)
+
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:166)	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:166)
+
+	at build_b7es9t03372n3pz6o1q043gvg.run(G:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build.gradle:52)	at build_b7es9t03372n3pz6o1q043gvg.run(G:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build.gradle:52)
+
+	at org.gradle.groovy.scripts.internal.DefaultScriptRunnerFactory$ScriptRunnerImpl.run(DefaultScriptRunnerFactory.java:90)	at org.gradle.groovy.scripts.internal.DefaultScriptRunnerFactory$ScriptRunnerImpl.run(DefaultScriptRunnerFactory.java:90)
+
+	at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl$2.run(DefaultScriptPluginFactory.java:177)	at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl$2.run(DefaultScriptPluginFactory.java:177)
+
+	at org.gradle.configuration.ProjectScriptTarget.addConfiguration(ProjectScriptTarget.java:77)	at org.gradle.configuration.ProjectScriptTarget.addConfiguration(ProjectScriptTarget.java:77)
+
+	at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl.apply(DefaultScriptPluginFactory.java:182)	at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl.apply(DefaultScriptPluginFactory.java:182)
+
+	at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:38)	at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:38)
+
+	at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:25)	at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:25)
+
+	at org.gradle.configuration.project.ConfigureActionsProjectEvaluator.evaluate(ConfigureActionsProjectEvaluator.java:34)	at org.gradle.configuration.project.ConfigureActionsProjectEvaluator.evaluate(ConfigureActionsProjectEvaluator.java:34)
+
+	at org.gradle.configuration.project.LifecycleProjectEvaluator.evaluate(LifecycleProjectEvaluator.java:55)	at org.gradle.configuration.project.LifecycleProjectEvaluator.evaluate(LifecycleProjectEvaluator.java:55)
+
+	at org.gradle.api.internal.project.DefaultProject.evaluate(DefaultProject.java:573)	at org.gradle.api.internal.project.DefaultProject.evaluate(DefaultProject.java:573)
+
+	at org.gradle.api.internal.project.DefaultProject.evaluate(DefaultProject.java:125)	at org.gradle.api.internal.project.DefaultProject.evaluate(DefaultProject.java:125)
+
+	at org.gradle.execution.TaskPathProjectEvaluator.configureHierarchy(TaskPathProjectEvaluator.java:42)	at org.gradle.execution.TaskPathProjectEvaluator.configureHierarchy(TaskPathProjectEvaluator.java:42)
+
+	at org.gradle.configuration.DefaultBuildConfigurer.configure(DefaultBuildConfigurer.java:38)	at org.gradle.configuration.DefaultBuildConfigurer.configure(DefaultBuildConfigurer.java:38)
+
+	at org.gradle.initialization.DefaultGradleLauncher$2.run(DefaultGradleLauncher.java:124)	at org.gradle.initialization.DefaultGradleLauncher$2.run(DefaultGradleLauncher.java:124)
+
+	at org.gradle.internal.Factories$1.create(Factories.java:22)	at org.gradle.internal.Factories$1.create(Factories.java:22)
+
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:91)	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:91)
+
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:53)	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:53)
+
+	at org.gradle.initialization.DefaultGradleLauncher.doBuildStages(DefaultGradleLauncher.java:121)	at org.gradle.initialization.DefaultGradleLauncher.doBuildStages(DefaultGradleLauncher.java:121)
+
+	at org.gradle.initialization.DefaultGradleLauncher.access$200(DefaultGradleLauncher.java:32)	at org.gradle.initialization.DefaultGradleLauncher.access$200(DefaultGradleLauncher.java:32)
+
+	at org.gradle.initialization.DefaultGradleLauncher$1.create(DefaultGradleLauncher.java:98)	at org.gradle.initialization.DefaultGradleLauncher$1.create(DefaultGradleLauncher.java:98)
+
+	at org.gradle.initialization.DefaultGradleLauncher$1.create(DefaultGradleLauncher.java:92)	at org.gradle.initialization.DefaultGradleLauncher$1.create(DefaultGradleLauncher.java:92)
+
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:91)	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:91)
+
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:63)	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:63)
+
+	at org.gradle.initialization.DefaultGradleLauncher.doBuild(DefaultGradleLauncher.java:92)	at org.gradle.initialization.DefaultGradleLauncher.doBuild(DefaultGradleLauncher.java:92)
+
+	at org.gradle.initialization.DefaultGradleLauncher.run(DefaultGradleLauncher.java:83)	at org.gradle.initialization.DefaultGradleLauncher.run(DefaultGradleLauncher.java:83)
+
+	at org.gradle.launcher.exec.InProcessBuildActionExecuter$DefaultBuildController.run(InProcessBuildActionExecuter.java:94)	at org.gradle.launcher.exec.InProcessBuildActionExecuter$DefaultBuildController.run(InProcessBuildActionExecuter.java:94)
+
+	at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:28)	at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:28)
+
+	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
+
+	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:43)	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:43)
+
+	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:28)	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:28)
+
+	at org.gradle.launcher.exec.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:82)	at org.gradle.launcher.exec.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:82)
+
+	at org.gradle.launcher.exec.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:49)	at org.gradle.launcher.exec.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:49)
+
+	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:59)	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:59)
+
+	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:49)	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:49)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:26)	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:26)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:34)	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:34)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.call(ForwardClientInput.java:74)	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.call(ForwardClientInput.java:74)
+
+	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.call(ForwardClientInput.java:72)	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.call(ForwardClientInput.java:72)
+
+	at org.gradle.util.Swapper.swap(Swapper.java:38)	at org.gradle.util.Swapper.swap(Swapper.java:38)
+
+	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:72)	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:72)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:55)	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:55)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:60)	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:60)
+
+	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:72)	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:72)
+
+	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.HintGCAfterBuild.execute(HintGCAfterBuild.java:44)	at org.gradle.launcher.daemon.server.exec.HintGCAfterBuild.execute(HintGCAfterBuild.java:44)
+
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+
+	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:50)	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:50)
+
+	at org.gradle.launcher.daemon.server.DaemonStateCoordinator$1.run(DaemonStateCoordinator.java:240)	at org.gradle.launcher.daemon.server.DaemonStateCoordinator$1.run(DaemonStateCoordinator.java:240)
+
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:54)	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:54)
+
+	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)
+
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+
+	at java.lang.Thread.run(Thread.java:748)	at java.lang.Thread.run(Thread.java:748)
+
+	Suppressed: java.net.SocketException: Connection reset by peer: socket write error	Suppressed: java.net.SocketException: Connection reset by peer: socket write error
+
+		at java.net.SocketOutputStream.socketWrite0(Native Method)		at java.net.SocketOutputStream.socketWrite0(Native Method)
+
+		at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)		at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+
+		at java.net.SocketOutputStream.write(SocketOutputStream.java:155)		at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+
+		at sun.security.ssl.SSLSocketOutputRecord.encodeAlert(SSLSocketOutputRecord.java:83)		at sun.security.ssl.SSLSocketOutputRecord.encodeAlert(SSLSocketOutputRecord.java:83)
+
+		at sun.security.ssl.TransportContext.fatal(TransportContext.java:384)		at sun.security.ssl.TransportContext.fatal(TransportContext.java:384)
+
+		... 91 more		... 91 more
+
+Caused by: java.net.SocketException: Connection resetCaused by: java.net.SocketException: Connection reset
+
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+
+	at sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:475)	at sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:475)
+
+	at sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:469)	at sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:469)
+
+	at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:159)	at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:159)
+
+	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:110)	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:110)
+
+	... 88 more	... 88 more
+
 WARNING: You are using an unsupported version of ForgeGradle.
 Please consider upgrading to ForgeGradle 5 and helping in the efforts to get old versions working on the modern toolchain.
 See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more info on contributing.
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
-Version string '1.8.9-1.0.5 Beta' does not match SemVer specification 
+#################################################
+         ForgeGradle 2.1.3-g6a7c715        
+  https://github.com/MinecraftForge/ForgeGradle  
+#################################################
+               Powered by MCP unknown               
+             http://modcoderpack.com             
+         by: Searge, ProfMobius, Fesh0r,         
+         R4wk, ZeuX, IngisKahn, bspkrs           
+#################################################
+Version string '1.8.9-1.0.6 Beta' does not match SemVer specification 
 You should try SemVer : http://semver.org/
-All projects evaluated.
-Selected primary task 'build' from project :
-Tasks to be executed: [task ':deobfCompileDummyTask', task ':getVersionJson', task ':extractUserdev', task ':downloadClient', task ':downloadServer', task ':splitServerJar', task ':mergeJars', task ':applyBinaryPatches', task ':deobfProvidedDummyTask', task ':extractDependencyATs', task ':extractMcpData', task ':extractMcpMappings', task ':genSrgs', task ':deobfMcMCP', task ':sourceApiJava', task ':compileApiJava', task ':processApiResources', task ':apiClasses', task ':sourceMainJava', task ':compileJava', task ':processResources', task ':classes', task ':jar', task ':sourceTestJava', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':reobfJar', task ':extractRangemapReplacedMain', task ':retromapReplacedMain', task ':sourceJar', task ':assemble', task ':check', task ':build']
-In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileHashes.bin: Size{1954}, CacheStats{hitCount=3221, missCount=1954, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\treeSnapshots.bin: Size{0}, CacheStats{hitCount=0, missCount=0, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\treeSnapshotUsage.bin: Size{0}, CacheStats{hitCount=0, missCount=0, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileSnapshotsToTreeSnapshotsIndex.bin: Size{52}, CacheStats{hitCount=0, missCount=52, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\fileSnapshots.bin: Size{81}, CacheStats{hitCount=0, missCount=29, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-In-memory cache of D:\work\works\sim-u\sim-u-1.8.9\.gradle\3.0\taskArtifacts\taskArtifacts.bin: Size{12}, CacheStats{hitCount=0, missCount=12, loadSuccessCount=0, loadExceptionCount=0, totalLoadTime=0, evictionCount=0}
-:deobfCompileDummyTask (Thread[Daemon worker Thread 2,5,main]) started.
 :deobfCompileDummyTask
-Executing task ':deobfCompileDummyTask' (up-to-date check took 0.0 secs) due to:
-  Task has not declared any outputs.
-:deobfCompileDummyTask (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.004 secs.
-:getVersionJson (Thread[Daemon worker Thread 2,5,main]) started.
-:getVersionJson
-Executing task ':getVersionJson' (up-to-date check took 0.002 secs) due to:
-  Task.upToDateWhen is false.
-:getVersionJson (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.082 secs.
-:extractUserdev (Thread[Daemon worker Thread 2,5,main]) started.
-:extractUserdev
-Skipping task ':extractUserdev' as it is up-to-date (took 0.005 secs).
-:extractUserdev UP-TO-DATE
-:extractUserdev (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.006 secs.
-:downloadClient (Thread[Daemon worker Thread 2,5,main]) started.
-:downloadClient
-Skipping task ':downloadClient' as task onlyIf is false.
-:downloadClient SKIPPED
-:downloadClient (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.151 secs.
-:downloadServer (Thread[Daemon worker Thread 2,5,main]) started.
-:downloadServer
-Skipping task ':downloadServer' as task onlyIf is false.
-:downloadServer SKIPPED
-:downloadServer (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.203 secs.
-:splitServerJar (Thread[Daemon worker Thread 2,5,main]) started.
-:splitServerJar
-Skipping task ':splitServerJar' as task onlyIf is false.
-:splitServerJar SKIPPED
-:splitServerJar (Thread[Daemon worker Thread 2,5,main]) completed. Took 1.003 secs.
-:mergeJars (Thread[Daemon worker Thread 2,5,main]) started.
-:mergeJars
-Skipping task ':mergeJars' as task onlyIf is false.
-:mergeJars SKIPPED
-:mergeJars (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.57 secs.
-:applyBinaryPatches (Thread[Daemon worker Thread 2,5,main]) started.
-:applyBinaryPatches
-Skipping task ':applyBinaryPatches' as task onlyIf is false.
-:applyBinaryPatches SKIPPED
-:applyBinaryPatches (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.582 secs.
-:deobfProvidedDummyTask (Thread[Daemon worker Thread 2,5,main]) started.
 :deobfProvidedDummyTask
-Executing task ':deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
-  Task has not declared any outputs.
-:deobfProvidedDummyTask (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.003 secs.
-:extractDependencyATs (Thread[Daemon worker Thread 2,5,main]) started.
-:extractDependencyATs
-Skipping task ':extractDependencyATs' as task onlyIf is false.
-:extractDependencyATs SKIPPED
-:extractDependencyATs (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
-:extractMcpData (Thread[Daemon worker Thread 2,5,main]) started.
-:extractMcpData
-Skipping task ':extractMcpData' as task onlyIf is false.
-:extractMcpData SKIPPED
-:extractMcpData (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.056 secs.
-:extractMcpMappings (Thread[Daemon worker Thread 2,5,main]) started.
-:extractMcpMappings
-Skipping task ':extractMcpMappings' as task onlyIf is false.
-:extractMcpMappings SKIPPED
-:extractMcpMappings (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.08 secs.
-:genSrgs (Thread[Daemon worker Thread 2,5,main]) started.
-:genSrgs
-Skipping task ':genSrgs' as task onlyIf is false.
-:genSrgs SKIPPED
-:genSrgs (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.251 secs.
-:deobfMcMCP (Thread[Daemon worker Thread 2,5,main]) started.
-:deobfMcMCP
-Skipping task ':deobfMcMCP' as task onlyIf is false.
-:deobfMcMCP SKIPPED
-:deobfMcMCP (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.634 secs.
-:sourceApiJava (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceApiJava
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\java', not found
-Skipping task ':sourceApiJava' as it is up-to-date (took 0.0 secs).
-:sourceApiJava UP-TO-DATE
-:sourceApiJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.002 secs.
-:compileApiJava (Thread[Daemon worker Thread 2,5,main]) started.
-:compileApiJava
-Skipping task ':compileApiJava' as it has no source files.
 :compileApiJava UP-TO-DATE
-:compileApiJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
-:processApiResources (Thread[Daemon worker Thread 2,5,main]) started.
-:processApiResources
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\api\resources', not found
-Skipping task ':processApiResources' as it has no source files.
 :processApiResources UP-TO-DATE
-:processApiResources (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
-:apiClasses (Thread[Daemon worker Thread 2,5,main]) started.
-:apiClasses
-Skipping task ':apiClasses' as it has no actions.
 :apiClasses UP-TO-DATE
-:apiClasses (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
-:sourceMainJava (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceMainJava
-Executing task ':sourceMainJava' (up-to-date check took 0.083 secs) due to:
-  Input property 'source' file D:\work\works\sim-u\sim-u-1.8.9\src\main\java\com\trhsy\sim\common\loader\ModSimReloaded.java has changed.
-:sourceMainJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.745 secs.
-:compileJava (Thread[Daemon worker Thread 2,5,main]) started.
-:compileJava
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-Executing task ':compileJava' (up-to-date check took 0.2 secs) due to:
-  Input property 'classpath' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
-  Input property 'classpath' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
-  Input property 'source' file D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\common\loader\ModSimReloaded.java has changed.
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-Compiling with Java command line compiler 'D:\java\jdk1.8.0_271\bin\javac.exe'.
-Starting process 'command 'D:\java\jdk1.8.0_271\bin\javac.exe''. Working directory: D:\work\works\sim-u\sim-u-1.8.9 Command: D:\java\jdk1.8.0_271\bin\javac.exe @D:\work\works\sim-u\sim-u-1.8.9\build\tmp\compileJava\java-compiler-args.txt
-Successfully started process 'command 'D:\java\jdk1.8.0_271\bin\javac.exe''
-警告: [options] 未与 -source 1.6 一起设置引导类路径
+:compileJava警告: [options] 未与 -source 1.6 一起设置引导类路径
 注: 某些输入文件使用或覆盖了已过时的 API。
 注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
 注: 某些输入文件使用了未经检查或不安全的操作。
 注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
 1 个警告
-:compileJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 4.44 secs.
-:processResources (Thread[Daemon worker Thread 2,5,main]) started.
+
 :processResources
-Skipping task ':processResources' as it is up-to-date (took 0.086 secs).
-:processResources UP-TO-DATE
-:processResources (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.093 secs.
-:classes (Thread[Daemon worker Thread 2,5,main]) started.
 :classes
-Skipping task ':classes' as it has no actions.
-:classes (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
-:jar (Thread[Daemon worker Thread 2,5,main]) started.
 :jar
-Executing task ':jar' (up-to-date check took 0.098 secs) due to:
-  Output property 'archivePath' file D:\work\works\sim-u\sim-u-1.8.9\build\libs\simulated-1.8.9-1.0.5 Beta.jar has changed.
-:jar (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.905 secs.
-:sourceTestJava (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceTestJava
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\test\java', not found
-Skipping task ':sourceTestJava' as it is up-to-date (took 0.001 secs).
-:sourceTestJava UP-TO-DATE
-:sourceTestJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.003 secs.
-:compileTestJava (Thread[Daemon worker Thread 2,5,main]) started.
-:compileTestJava
-Skipping task ':compileTestJava' as it has no source files.
 :compileTestJava UP-TO-DATE
-:compileTestJava (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
-:processTestResources (Thread[Daemon worker Thread 2,5,main]) started.
-:processTestResources
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\src\test\resources', not found
-Skipping task ':processTestResources' as it has no source files.
 :processTestResources UP-TO-DATE
-:processTestResources (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
-:testClasses (Thread[Daemon worker Thread 2,5,main]) started.
-:testClasses
-Skipping task ':testClasses' as it has no actions.
 :testClasses UP-TO-DATE
-:testClasses (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
-:test (Thread[Daemon worker Thread 2,5,main]) started.
-:test
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\build\classes\test', not found
-Skipping task ':test' as it has no source files.
 :test UP-TO-DATE
-:test (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
-:reobfJar (Thread[Daemon worker Thread 2,5,main]) started.
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
+:getVersionJsonjava.net.SocketException: Connection reset
+
+:extractUserdev UP-TO-DATE
+:genSrgs SKIPPED
 :reobfJar
-Executing task ':reobfJar' (up-to-date check took 0.0 secs) due to:
-  Task.upToDateWhen is false.
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-:reobfJar (Thread[Daemon worker Thread 2,5,main]) completed. Took 2.459 secs.
-:extractRangemapReplacedMain (Thread[Daemon worker Thread 2,5,main]) started.
 :extractRangemapReplacedMain
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-Executing task ':extractRangemapReplacedMain' (up-to-date check took 0.056 secs) due to:
-  Input property 'libs' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
-  Input property 'libs' file D:\maven\gradle\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
-  Input property 'sources' file D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\common\loader\ModSimReloaded.java has changed.
-D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java
-file or directory 'D:\work\works\sim-u\sim-u-1.8.9\libs', not found
-:extractRangemapReplacedMain (Thread[Daemon worker Thread 2,5,main]) completed. Took 11.696 secs.
-:retromapReplacedMain (Thread[Daemon worker Thread 2,5,main]) started.
+G:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java
 :retromapReplacedMain
-Executing task ':retromapReplacedMain' (up-to-date check took 0.04 secs) due to:
-  Input property 'rangeMap' file D:\work\works\sim-u\sim-u-1.8.9\build\retromapping\replacedMain.rangemap has changed.
-  Input property 'sources' file D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java\com\trhsy\sim\common\loader\ModSimReloaded.java has changed.
 remapping source...
-:retromapReplacedMain (Thread[Daemon worker Thread 2,5,main]) completed. Took 2.234 secs.
-:sourceJar (Thread[Daemon worker Thread 2,5,main]) started.
 :sourceJar
-Executing task ':sourceJar' (up-to-date check took 0.026 secs) due to:
-  Input property 'source' file D:\work\works\sim-u\sim-u-1.8.9\build\retromapping\retromappedReplacedMain.jar has changed.
-:sourceJar (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.712 secs.
-:assemble (Thread[Daemon worker Thread 2,5,main]) started.
 :assemble
-Skipping task ':assemble' as it has no actions.
-:assemble (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
-:check (Thread[Daemon worker Thread 2,5,main]) started.
-:check
-Skipping task ':check' as it has no actions.
 :check UP-TO-DATE
-:check (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.001 secs.
-:build (Thread[Daemon worker Thread 2,5,main]) started.
 :build
-Skipping task ':build' as it has no actions.
-:build (Thread[Daemon worker Thread 2,5,main]) completed. Took 0.0 secs.
 
 BUILD SUCCESSFUL
 
-Total time: 1 mins 11.723 secs
+Total time: 50.979 secs

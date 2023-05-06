@@ -4,6 +4,7 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.common.core.entity.ai.EntityAIWanderSUK;
 import com.trhsy.sim.client.gui.folk.GuiEntityFolk;
 import com.trhsy.sim.client.gui.folk.GuiMerchant;
+import com.trhsy.sim.common.core.entity.ai.FolkAIOpenFenceGate;
 import com.trhsy.sim.common.core.entity.enums.GotoMethod;
 import com.trhsy.sim.common.jobs.JobFisherman;
 import com.trhsy.sim.common.jobs.Stage;
@@ -72,20 +73,22 @@ public class EntityFolk extends EntityCreature implements INpc {
 
             //会捡起地上的东西
             this.setCanPickUpLoot(true);
-
+            //智能游泳
+            this.tasks.addTask(0, new EntityAISwimming(this));
             //闲置任务
             this.tasks.addTask(1, new EntityAILookIdle(this));
 
             //住进屋子
             this.tasks.addTask(2, new EntityAIMoveIndoors(this));
             //限制开门
-            this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
+            //this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
             //实体AI监视最近2
             this.tasks.addTask(10, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0F, 1));
             //实体AI监视最近
             this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-//开门
+            //开门
             this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
+            this.tasks.addTask(5, new FolkAIOpenFenceGate(this, true));
             //闲逛
             //this.tasks.addTask(9, new EntityAIWander(this, 0.6D));
             this.tasks.addTask(9, new EntityAIWanderSUK(this, 0.5D));
@@ -116,7 +119,6 @@ public class EntityFolk extends EntityCreature implements INpc {
         }
 
     }
-
     /**
      * @return void
      * @Author fan
@@ -168,8 +170,12 @@ public class EntityFolk extends EntityCreature implements INpc {
     protected void applyEntityAttributes() {
         try {
             super.applyEntityAttributes();
+            //最大生命 40
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
             //共享怪物属性 移动速度
-            this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.0);
+            this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
+            //跟随范围
+            this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(256.0D);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimReloaded.log.error("applyEntityAttributes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -720,14 +726,14 @@ public class EntityFolk extends EntityCreature implements INpc {
                         this.motionZ = theData.location.zCoord + 1;
                     } else if (idZ2 != null && idZ2 == Blocks.air) {
                         this.motionZ = theData.location.zCoord - 1;
-                    }*/
+                    }
                     if (theData.location != null) {
                         this.motionY = theData.location.yCoord+0.5;
                         this.motionX = theData.location.xCoord;
                         this.motionZ = theData.location.zCoord;
-                    }
+                    }*/
                     //受伤要跑出受伤范围
-                    //theData.gotoXYZ(new V3(this.motionX+1, this.motionY, this.motionZ, 0), GotoMethod.SHIFT);
+                    //theData.forceMoveToXYZNoWarp(new V3(this.motionX+1, this.motionY, this.motionZ, 0), GotoMethod.SHIFT);
                 }
 
                 if (theData == null) {

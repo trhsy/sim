@@ -99,7 +99,7 @@ public class JobBuilder extends Job implements Serializable {
             }
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
                 }
 
                 this.theBuilding = this.theFolk.theBuilding;
@@ -332,7 +332,7 @@ public class JobBuilder extends Job implements Serializable {
                 } else {
                     //否则传输到目的地
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
                 }
             }
         } catch (Exception e) {
@@ -359,8 +359,7 @@ public class JobBuilder extends Job implements Serializable {
             //距离大于5并且NPC目的地为空
             if (dist > 5 && this.theFolk.destination == null) {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, GotoMethod.SHIFT);
-                this.theFolk.gotoXYZ(v3, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
                 return;
             } else {
                 //如果步骤1
@@ -771,7 +770,7 @@ public class JobBuilder extends Job implements Serializable {
                 this.theStage = Stage.BLUEPRINT;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
