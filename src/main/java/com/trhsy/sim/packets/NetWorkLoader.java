@@ -23,11 +23,11 @@ public class NetWorkLoader {
         try {
             //更新NPC位置数据包
             registerMessage(UpdateFolkPositionPacket.Handler.class, UpdateFolkPositionPacket.class, Side.CLIENT);
-            //加载建筑数据包
+            ////加载建筑数据包
             registerMessage(LoadBuildingPacket.Handler.class, LoadBuildingPacket.class, Side.CLIENT);
-            //拆除建筑包
+            ////拆除建筑包
             registerMessage(DemolishBuildingPacket.Handler.class, DemolishBuildingPacket.class, Side.CLIENT);
-            //生成NPC数据包
+            ////生成NPC数据包
             registerMessage(GenerateFolkPacket.Handler.class, GenerateFolkPacket.class, Side.CLIENT);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("NetWorkLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());

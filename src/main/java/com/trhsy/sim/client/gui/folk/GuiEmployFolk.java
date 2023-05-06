@@ -265,20 +265,9 @@ public class GuiEmployFolk extends GuiScreen {
                 efolk.setTheirJob(this.vocation);
                 //白天//此人是夜猫子
                 if (ModSimReloaded.isDayTime()||efolk.isNightOwl()) {
-                    double iX=0;
-                    if(efolk.employedAt.xCoord<0){
-                        iX=efolk.employedAt.xCoord+1;
-                    }else{
-                        iX= efolk.employedAt.xCoord-1;
-                    }
-                    V3 v3=new V3(iX,efolk.employedAt.yCoord+1,efolk.employedAt.zCoord);
-                    //efolk.employedAt=v3.clone();
-                    int dist = efolk.location.getDistanceTo(v3);
-                    if(dist>10){
-                        efolk.gotoXYZ(v3, GotoMethod.SHIFT);
-                    }
+                    V3 v3=new V3(efolk.employedAt.xCoord,efolk.employedAt.yCoord+2,efolk.employedAt.zCoord);
                     //去雇佣地点
-                    efolk.gotoXYZ(v3, null);
+                    efolk.forceMoveToXYZNoWarp(v3);
                 }
             }
             this.mc.currentScreen = null;

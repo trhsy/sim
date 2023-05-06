@@ -21,6 +21,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
@@ -267,7 +268,11 @@ public class ModSimReloaded {
     public static String getSavesDataFolder() {
         String ret = "";
         try {
-            String worldname = MinecraftServer.getServer().getFolderName();
+
+            File worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsoluteFile();
+            File mainFolder = new File(worldPath.getAbsolutePath() + File.separator + "sim");
+            ret = mainFolder.getAbsolutePath()+"\\";
+            /*String worldname = MinecraftServer.getServer().getFolderName();
             String strmc = (new File(".")).getAbsolutePath();
             strmc = strmc.substring(0, strmc.length() - 1);
             File test = new File(strmc + "saves");
@@ -280,9 +285,9 @@ public class ModSimReloaded {
                 ret = (new File(strmc)).getAbsolutePath();
             }
 
-            File f = new File(ret);
-            if (!f.exists()) {
-                f.mkdirs();
+            File f = new File(ret);*/
+            if (!mainFolder.exists()) {
+                mainFolder.mkdirs();
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

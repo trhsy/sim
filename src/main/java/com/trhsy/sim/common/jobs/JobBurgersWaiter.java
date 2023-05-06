@@ -47,7 +47,7 @@ public class JobBurgersWaiter extends Job {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
                 }
 
             }
@@ -117,7 +117,7 @@ public class JobBurgersWaiter extends Job {
             if (!serve.isEmpty()) {
                 List<IInventory> theChests = inventoriesFindClosest((V3)serve.get(0), 3);
                 if (!theChests.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)serve.get(0), null);
+                    this.theFolk.forceMoveToXYZNoWarp((V3)serve.get(0));
 
                     try {
                         this.theFolk.destination.destinationAcc = 0.3D;
@@ -165,11 +165,11 @@ public class JobBurgersWaiter extends Job {
                 this.theStage = Stage.ARRIVEDATSTORE;
                 List<V3> back = this.theStore.getSpecialBlocks(2);
                 if (!back.isEmpty()) {
-                    this.theFolk.gotoXYZ((V3)back.get(0), null);
+                    this.theFolk.forceMoveToXYZNoWarp((V3)back.get(0));
                 }
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

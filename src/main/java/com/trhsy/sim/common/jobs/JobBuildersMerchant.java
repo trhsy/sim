@@ -42,7 +42,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
                 }
 
             }
@@ -82,7 +82,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
                     double dist = (double) this.theFolk.location.getDistanceTo(this.theFolk.employedAt);
                     if (dist > 5 && this.theFolk.destination == null) {
                         V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                        this.theFolk.gotoXYZ(v3, null);
+                        this.theFolk.forceMoveToXYZNoWarp(v3);
                     }
 
                     if (dist <= 5) {
@@ -113,7 +113,7 @@ public class JobBuildersMerchant extends Job implements Serializable {
                 this.theStage = Stage.INSTORE;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

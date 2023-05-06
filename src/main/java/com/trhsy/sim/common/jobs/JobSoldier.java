@@ -60,8 +60,8 @@ public class JobSoldier extends Job implements Serializable {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
 
             }
@@ -91,8 +91,8 @@ public class JobSoldier extends Job implements Serializable {
                     this.theStage = Stage.ONPATROL;
                     if (this.theFolk.destination == null) {
                         V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                        this.theFolk.gotoXYZ(v3, null);
-                        //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                        this.theFolk.forceMoveToXYZNoWarp(v3);
+                        //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                     }
                 } else if (this.theStage == Stage.ONPATROL) {
                     this.stageOnPatrol();
@@ -128,7 +128,7 @@ public class JobSoldier extends Job implements Serializable {
             if (this.theFolk.isSpawned()) {
                 EntityPlayer player = this.jobWorld.getClosestPlayer(this.theFolk.theEntity.posX, this.theFolk.theEntity.posY, this.theFolk.theEntity.posZ, 50);
                 if (player != null) {
-                    this.theFolk.gotoXYZ(new V3(player.posX, player.posY, player.posZ, player.dimension), null);
+                    this.theFolk.forceMoveToXYZNoWarp(new V3(player.posX, player.posY, player.posZ, player.dimension));
                 }
             }
 
@@ -142,7 +142,7 @@ public class JobSoldier extends Job implements Serializable {
             if( this.jobWorld.getBlockState(new BlockPos(wanderTo.xCoord, wanderTo.yCoord, wanderTo.zCoord)).getBlock() != null && wanderTo.yCoord < 255) {
                 wanderTo=new V3(wanderTo.xCoord,wanderTo.yCoord,wanderTo.zCoord);
             }
-            this.theFolk.gotoXYZ(wanderTo, null);
+            this.theFolk.forceMoveToXYZNoWarp(wanderTo);
         }
 
         List list = this.jobWorld.getEntitiesWithinAABBExcludingEntity(this.mc.thePlayer, new AxisAlignedBB(this.theFolk.employedAt.xCoord, this.theFolk.employedAt.yCoord, this.theFolk.employedAt.zCoord, this.theFolk.employedAt.xCoord + 1.0, this.theFolk.employedAt.yCoord+0.5, this.theFolk.employedAt.zCoord + 1.0).expand(100, 5.0, 100));
@@ -156,9 +156,9 @@ public class JobSoldier extends Job implements Serializable {
                 //要攻击一个
                 this.theFolk.statusText = I18n.format("container.sim.job.soldier.farmer.Going") + this.badGuy.getEntityData();
                 if (this.theFolk.isSpawned()) {
-                    this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), null);
+                    this.theFolk.forceMoveToXYZNoWarp(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension));
                 } else {
-                    this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), GotoMethod.SHIFT);
+                    this.theFolk.forceMoveToXYZNoWarp(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension));
                 }
 
                 return;
@@ -179,9 +179,9 @@ public class JobSoldier extends Job implements Serializable {
                 int distance = (int)this.theFolk.theEntity.getDistanceToEntity(this.badGuy);
                 if (this.theFolk.destination == null) {
                     if (this.theFolk.isSpawned()) {
-                        this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), null);
+                        this.theFolk.forceMoveToXYZNoWarp(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension));
                     } else {
-                        this.theFolk.gotoXYZ(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension), GotoMethod.SHIFT);
+                        this.theFolk.forceMoveToXYZNoWarp(new V3(this.badGuy.posX, this.badGuy.posY, this.badGuy.posZ, this.theFolk.theEntity.dimension));
                     }
                 }
 
@@ -265,8 +265,8 @@ public class JobSoldier extends Job implements Serializable {
                 this.theStage = Stage.ONPATROL;
             } else {
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimReloaded.log.error("onArrivedAtWork出错了：" + e.getMessage()+"行数："+element.getLineNumber());

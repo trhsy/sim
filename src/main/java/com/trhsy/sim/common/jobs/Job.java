@@ -140,7 +140,7 @@ public abstract class Job {
                         V3 work = theFolk.employedAt.clone();
                         work=new V3(work.xCoord,work.yCoord+0.5,work.zCoord);
                         //去位置
-                        theFolk.gotoXYZ(work, GotoMethod.SHIFT);
+                        theFolk.forceMoveToXYZNoWarp(work);
                         theFolk.location = work;
                     }
                 }
@@ -157,8 +157,7 @@ public abstract class Job {
                             //设置目的地
                             V3 v=new V3(theFolk.employedAt.xCoord,theFolk.employedAt.yCoord+0.5,theFolk.employedAt.zCoord);
                             //去位置
-                            theFolk.gotoXYZ(v, GotoMethod.SHIFT);
-                            theFolk.gotoXYZ(v, null);
+                            theFolk.forceMoveToXYZNoWarp(v);
                         }
                     }
                 }

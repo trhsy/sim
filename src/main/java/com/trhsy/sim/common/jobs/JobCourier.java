@@ -58,8 +58,8 @@ public class JobCourier extends Job implements Serializable {
             if (this.theFolk != null) {
                 if (this.theFolk.destination == null) {
                     V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                    this.theFolk.gotoXYZ(v3, null);
-                    //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                    this.theFolk.forceMoveToXYZNoWarp(v3);
+                    //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 }
 
             }
@@ -161,7 +161,7 @@ public class JobCourier extends Job implements Serializable {
                     //Double var4 = d.y;
                     //Double var5 = d.y = d.y + 1;
                     d=new V3(d.xCoord,d.yCoord+0.5,d.zCoord,d.theDimension);
-                    this.theFolk.gotoXYZ(d, null);
+                    this.theFolk.forceMoveToXYZNoWarp(d);
                     this.onRoute = true;
                 } else {
                     this.theStage = Stage.IDLE;
@@ -248,8 +248,8 @@ public class JobCourier extends Job implements Serializable {
             } else {
                 this.theStage = Stage.ATDEPOT;
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 if (task != null) {
                     this.courierTasks.remove(task);
                 }
@@ -268,7 +268,7 @@ public class JobCourier extends Job implements Serializable {
                     d = this.theFolk.employedAt.clone();
                 }
                 this.theFolk.beamMeTo(d);
-                this.theFolk.gotoXYZ(d, null);
+                this.theFolk.forceMoveToXYZNoWarp(d);
                 this.onRoute = true;
             } else {
                 if (this.theFolk.gotoMethod == GotoMethod.WALK) {
@@ -353,8 +353,8 @@ public class JobCourier extends Job implements Serializable {
                 this.timeSinceLastCycle = System.currentTimeMillis();
                 this.theFolk.stayPut = false;
                 V3 v3=new V3(this.theFolk.employedAt.xCoord,this.theFolk.employedAt.yCoord+0.5,this.theFolk.employedAt.zCoord);
-                this.theFolk.gotoXYZ(v3, null);
-                //this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(v3);
+                //this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt, null);
                 this.theStage = Stage.IDLE;
             } else {
                 this.theStage = Stage.GOINGTOPICKUP;
@@ -382,7 +382,7 @@ public class JobCourier extends Job implements Serializable {
                 this.theFolk.statusText = I18n.format("container.sim.job.courier.Arrived");
                 this.theStage = Stage.ATDEPOT;
             } else {
-                this.theFolk.gotoXYZ(this.theFolk.employedAt, null);
+                this.theFolk.forceMoveToXYZNoWarp(this.theFolk.employedAt);
             }
 
         } catch (Exception e) {
