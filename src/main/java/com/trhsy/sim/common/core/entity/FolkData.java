@@ -21,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
@@ -1507,122 +1508,39 @@ public class FolkData implements Serializable {
 
     /**
      * 告诉人们去一个地方，方法将决定如何让他们去那里如果你给方法传递NULL，到达可以是NULL
-     *
-     * @param methodOfTravel
      */
     public boolean forceMoveToXYZNoWarp(V3 v3) {
         try {
-            /*if (whereTo == null) {
-                return;
-            }
-            this.stayPut = false;
-            this.destination = whereTo.clone();
-            if (this.destination == null) {
-                return;
-            }
-            this.destination.doNotTimeout = false;
-            int dist = location.getDistanceTo(whereTo);
-            if (!isSpawned()) {
-                methodOfTravel = null;
-            }
-            if (methodOfTravel == null) {
-                V3 playpos = null;
-                EntityPlayer pl = getClosestPlayer(this.location);
-                if (pl == null || (this.location.theDimension != this.destination.theDimension)) {
-                    dist = 999;
-                } else {
-                    playpos = new V3(pl.posX, pl.posY, pl.posZ, pl.dimension);
-                }
-                //小于40则走过去
-                if (dist < 40) {
-                    this.gotoMethod = GotoMethod.WALK;
-                }
-                if (!isSpawned() && dist > 40) {
-                    this.gotoMethod = GotoMethod.BEAM;
-                }
-                //如果玩家处于不同维度或超出范围，则为空
-                if (playpos != null) {
-                    if (location.getDistanceTo(playpos) >= 100 && whereTo.getDistanceTo(playpos) >= 100) {
-                        this.gotoMethod = GotoMethod.SHIFT;
-                    }
-                    try {
-                        if (this.location.theDimension != Minecraft.getMinecraft().thePlayer.dimension && this.destination.theDimension != Minecraft.getMinecraft().thePlayer.dimension) {
-                            this.gotoMethod = GotoMethod.SHIFT;
-                        }
-                    } catch (Exception e) {
-                        this.gotoMethod = GotoMethod.SHIFT;
-                    }
-                }
-
-                if (methodOfTravel == null) {
-                    if (this.gotoMethod == null) {
-                        this.gotoMethod = GotoMethod.BEAM;
-                    }
-                }
-            } else {
-                this.gotoMethod = methodOfTravel;
-            }
-
-            if (this.destination == null) {
-                return;
-            }
-
-            if (this.gotoMethod == GotoMethod.SHIFT) {
-                double ix=0;
-                if(this.destination.xCoord>0){
-                    ix=this.destination.xCoord-1;
-                }else{
-                    ix=this.destination.xCoord+1;
-                }
-                this.destination = new V3(ix, this.destination.yCoord+1, this.destination.zCoord);
-                if (this.theEntity != null) {
-                    if (this.destination != null) {
-                        this.theEntity.setLocationAndAngles(this.destination.xCoord, this.destination.yCoord+0.5, this.destination.zCoord, 0.0F, 0.0F);
-                    }
-                    //如果维度不一样传送到维度
-                    //修改为不管维度一样不一样都要传送
-                    if (this.location.theDimension != this.destination.theDimension) {
-                        this.theEntity.travelToDimension(this.destination.theDimension);
-                        this.theEntity.dimension = this.destination.theDimension;
-                        this.location.theDimension = this.destination.theDimension;
-                    }
-                }
-                this.location = this.destination.clone();
-                this.destination = null;
-            } else if (this.gotoMethod == GotoMethod.BEAM) {
-                this.timeStartedGotoing = System.currentTimeMillis();
-                beamMeTo(whereTo);
-            } else if (this.gotoMethod == GotoMethod.WALK) {
-                this.stayPut = false;
-                this.timeStartedGotoing = System.currentTimeMillis();
-                if (this.theEntity != null) {
-                    this.theEntity.gotPath = false;
-                }
-            }*/
             if(this.theEntity!=null){
-                this.theEntity.getNavigator().clearPathEntity();
-                v3 = new V3(v3.xCoord, v3.yCoord + 1.0D, v3.zCoord);
-                if (v3.theDimension != this.theEntity.dimension) {
-                    this.theEntity.travelToDimension(v3.theDimension);
-                    this.theEntity.dimension = v3.theDimension;
-                }
-
-                if (this.theEntity.getNavigator().tryMoveToXYZ(v3.xCoord, v3.yCoord, v3.zCoord, 1.0D)) {
-                    //double dist = Math.sqrt(Math.pow(v3.xCoord - this.theEntity.posX, 2.0D) + Math.pow(v3.yCoord - this.theEntity.posY, 2.0D) + Math.pow(v3.zCoord - this.theEntity.posZ, 2.0D));
-                    //double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-                    return true;
-                } else if (this.theEntity.getNavigator().setPath(this.theEntity.getNavigator().getPathToPos(new BlockPos(v3.xCoord, v3.yCoord, v3.zCoord)), 1.0D)) {
-                    return true;
-                } else {
-                    if (this.lastPathAttempt!=null&&System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
-                        if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.theEntity.worldObj.getBlockState(new BlockPos(v3.xCoord, v3.yCoord, v3.zCoord).up(2)).getBlock() == Blocks.air) {
-                            this.theEntity.setPositionAndUpdate(v3.xCoord + 0.5D, v3.yCoord, v3.zCoord + 0.5D);
-                            this.theEntity.getNavigator().clearPathEntity();
-                        }
-                    } else {
-                        this.lastPathAttempt = System.currentTimeMillis();
+                if(this.theEntity.getNavigator()!=null) {
+                    this.theEntity.getNavigator().clearPathEntity();
+                    v3 = new V3(v3.xCoord, v3.yCoord + 1.0D, v3.zCoord);
+                    if (v3.theDimension != this.theEntity.dimension) {
+                        this.theEntity.travelToDimension(v3.theDimension);
+                        this.theEntity.dimension = v3.theDimension;
                     }
-                    return false;
+
+                    if (this.theEntity.getNavigator().tryMoveToXYZ(v3.xCoord, v3.yCoord, v3.zCoord, 1.0D)) {
+                        double dist = Math.sqrt(Math.pow(v3.xCoord - this.theEntity.posX, 2.0D) + Math.pow(v3.yCoord - this.theEntity.posY, 2.0D) + Math.pow(v3.zCoord - this.theEntity.posZ, 2.0D));
+//                        double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+                        if(dist>20){
+                            forceMoveToXYZNoWarps(v3);
+                        }
+                        return true;
+                    } else if (this.theEntity.getNavigator().setPath(this.theEntity.getNavigator().getPathToPos(new BlockPos(v3.xCoord, v3.yCoord, v3.zCoord)), 1.0D)) {
+                        forceMoveToXYZNoWarps(v3);
+                        return true;
+                    } else {
+                        if (this.lastPathAttempt != null && System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
+                            if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.theEntity.worldObj.getBlockState(new BlockPos(v3.xCoord, v3.yCoord, v3.zCoord).up(2)).getBlock() == Blocks.air) {
+                                this.theEntity.setPositionAndUpdate(v3.xCoord + 0.5D, v3.yCoord, v3.zCoord + 0.5D);
+                                this.theEntity.getNavigator().clearPathEntity();
+                            }
+                        } else {
+                            this.lastPathAttempt = System.currentTimeMillis();
+                        }
+                        return false;
+                    }
                 }
             }
 
@@ -1634,7 +1552,9 @@ public class FolkData implements Serializable {
     }
     public boolean forceMoveToXYZNoWarps(V3 v3) {
         v3 = new V3(v3.xCoord, v3.yCoord + 1.0D, v3.zCoord);
-        return this.theEntity.getNavigator().setPath(this.theEntity.getNavigator().getPathToPos(new BlockPos(v3.xCoord, v3.yCoord, v3.zCoord)), 1.0D);
+//        PathEntity path=this.theEntity.getNavigator().getPathToPos(new BlockPos(v3.xCoord, v3.yCoord, v3.zCoord));
+        this.theEntity.setLocationAndAngles(v3.xCoord,v3.yCoord,v3.zCoord, 0.0F, 0.0F);
+        return true;
     }
     /**
      * 将NPC传递到指定位置

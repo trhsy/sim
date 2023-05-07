@@ -241,7 +241,7 @@ public class JobCheesemaker extends Job {
                     //this.theFolk.selfFire();
                     return;
                 }
-                //库存转移到民间 牛奶场的箱子                                                       牛奶桶
+                //库存转移到npc 牛奶场的箱子                                                       牛奶桶
                 this.inventoriesTransferToFolk(this.theFolk.getVillagerInventory(), this.chestsAtDairy, new ItemStack(Items.milk_bucket, 1), (Block) null);
                 //如果npc 库存为空
                 if (this.theFolk.getVillagerInventory() == null) {
@@ -259,7 +259,7 @@ public class JobCheesemaker extends Job {
                 List<V3> tanktop = this.theCheeseFactory.getSpecialBlocks(3);
                 if (!tanktop.isEmpty()) {
                     //对齐光波
-                    this.theFolk.forceMoveToXYZNoWarps((V3) tanktop.get(0));
+                    this.theFolk.forceMoveToXYZNoWarps(tanktop.get(0));
                     //去蓄水池
                     this.theStage = Stage.GOINGTOTANK;
                     this.step = 1;

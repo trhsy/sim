@@ -1,28 +1,30 @@
-javax.net.ssl.SSLException: java.net.SocketException: Connection resetjavax.net.ssl.SSLException: java.net.SocketException: Connection reset
+java.net.SocketException: Connection resetjava.net.SocketException: Connection reset
 
-	at sun.security.ssl.Alert.createSSLException(Alert.java:127)	at sun.security.ssl.Alert.createSSLException(Alert.java:127)
+	at java.net.SocketInputStream.read(Unknown Source)	at java.net.SocketInputStream.read(Unknown Source)
 
-	at sun.security.ssl.TransportContext.fatal(TransportContext.java:353)	at sun.security.ssl.TransportContext.fatal(TransportContext.java:353)
+	at java.net.SocketInputStream.read(Unknown Source)	at java.net.SocketInputStream.read(Unknown Source)
 
-	at sun.security.ssl.TransportContext.fatal(TransportContext.java:296)	at sun.security.ssl.TransportContext.fatal(TransportContext.java:296)
+	at sun.security.ssl.SSLSocketInputRecord.read(Unknown Source)	at sun.security.ssl.SSLSocketInputRecord.read(Unknown Source)
 
-	at sun.security.ssl.TransportContext.fatal(TransportContext.java:291)	at sun.security.ssl.TransportContext.fatal(TransportContext.java:291)
+	at sun.security.ssl.SSLSocketInputRecord.readHeader(Unknown Source)	at sun.security.ssl.SSLSocketInputRecord.readHeader(Unknown Source)
 
-	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:141)	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:141)
+	at sun.security.ssl.SSLSocketInputRecord.decode(Unknown Source)	at sun.security.ssl.SSLSocketInputRecord.decode(Unknown Source)
 
-	at sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1279)	at sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1279)
+	at sun.security.ssl.SSLTransport.decode(Unknown Source)	at sun.security.ssl.SSLTransport.decode(Unknown Source)
 
-	at sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1188)	at sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1188)
+	at sun.security.ssl.SSLSocketImpl.decode(Unknown Source)	at sun.security.ssl.SSLSocketImpl.decode(Unknown Source)
 
-	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:401)	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:401)
+	at sun.security.ssl.SSLSocketImpl.readHandshakeRecord(Unknown Source)	at sun.security.ssl.SSLSocketImpl.readHandshakeRecord(Unknown Source)
 
-	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:373)	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:373)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(Unknown Source)	at sun.security.ssl.SSLSocketImpl.startHandshake(Unknown Source)
 
-	at sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:587)	at sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:587)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(Unknown Source)	at sun.security.ssl.SSLSocketImpl.startHandshake(Unknown Source)
 
-	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:185)	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:185)
+	at sun.net.www.protocol.https.HttpsClient.afterConnect(Unknown Source)	at sun.net.www.protocol.https.HttpsClient.afterConnect(Unknown Source)
 
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:167)	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:167)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(Unknown Source)	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(Unknown Source)
+
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(Unknown Source)	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(Unknown Source)
 
 	at net.minecraftforge.gradle.common.BasePlugin.getWithEtag(BasePlugin.java:651)	at net.minecraftforge.gradle.common.BasePlugin.getWithEtag(BasePlugin.java:651)
 
@@ -54,13 +56,7 @@ javax.net.ssl.SSLException: java.net.SocketException: Connection resetjavax.net.
 
 	at org.gradle.api.Script$apply$0.callCurrent(Unknown Source)	at org.gradle.api.Script$apply$0.callCurrent(Unknown Source)
 
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:52)	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:52)
-
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:154)	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:154)
-
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:166)	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:166)
-
-	at build_b7es9t03372n3pz6o1q043gvg.run(G:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build.gradle:52)	at build_b7es9t03372n3pz6o1q043gvg.run(G:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build.gradle:52)
+	at build_4n6twr6tqkif1shhsotwagcki.run(D:\work\works\sim-u\sim-u-1.8.9\build.gradle:52)	at build_4n6twr6tqkif1shhsotwagcki.run(D:\work\works\sim-u\sim-u-1.8.9\build.gradle:52)
 
 	at org.gradle.groovy.scripts.internal.DefaultScriptRunnerFactory$ScriptRunnerImpl.run(DefaultScriptRunnerFactory.java:90)	at org.gradle.groovy.scripts.internal.DefaultScriptRunnerFactory$ScriptRunnerImpl.run(DefaultScriptRunnerFactory.java:90)
 
@@ -180,59 +176,20 @@ javax.net.ssl.SSLException: java.net.SocketException: Connection resetjavax.net.
 
 	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)
 
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
 
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 
-	at java.lang.Thread.run(Thread.java:748)	at java.lang.Thread.run(Thread.java:748)
-
-	Suppressed: java.net.SocketException: Connection reset by peer: socket write error	Suppressed: java.net.SocketException: Connection reset by peer: socket write error
-
-		at java.net.SocketOutputStream.socketWrite0(Native Method)		at java.net.SocketOutputStream.socketWrite0(Native Method)
-
-		at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)		at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
-
-		at java.net.SocketOutputStream.write(SocketOutputStream.java:155)		at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
-
-		at sun.security.ssl.SSLSocketOutputRecord.encodeAlert(SSLSocketOutputRecord.java:83)		at sun.security.ssl.SSLSocketOutputRecord.encodeAlert(SSLSocketOutputRecord.java:83)
-
-		at sun.security.ssl.TransportContext.fatal(TransportContext.java:384)		at sun.security.ssl.TransportContext.fatal(TransportContext.java:384)
-
-		... 91 more		... 91 more
-
-Caused by: java.net.SocketException: Connection resetCaused by: java.net.SocketException: Connection reset
-
-	at java.net.SocketInputStream.read(SocketInputStream.java:210)	at java.net.SocketInputStream.read(SocketInputStream.java:210)
-
-	at java.net.SocketInputStream.read(SocketInputStream.java:141)	at java.net.SocketInputStream.read(SocketInputStream.java:141)
-
-	at sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:475)	at sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:475)
-
-	at sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:469)	at sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:469)
-
-	at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:159)	at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:159)
-
-	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:110)	at sun.security.ssl.SSLTransport.decode(SSLTransport.java:110)
-
-	... 88 more	... 88 more
+	at java.lang.Thread.run(Unknown Source)	at java.lang.Thread.run(Unknown Source)
 
 WARNING: You are using an unsupported version of ForgeGradle.
 Please consider upgrading to ForgeGradle 5 and helping in the efforts to get old versions working on the modern toolchain.
 See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more info on contributing.
-#################################################
-         ForgeGradle 2.1.3-g6a7c715        
-  https://github.com/MinecraftForge/ForgeGradle  
-#################################################
-               Powered by MCP unknown               
-             http://modcoderpack.com             
-         by: Searge, ProfMobius, Fesh0r,         
-         R4wk, ZeuX, IngisKahn, bspkrs           
-#################################################
-Version string '1.8.9-1.0.6 Beta' does not match SemVer specification 
+Version string '1.8.9-1.0.7 Beta' does not match SemVer specification 
 You should try SemVer : http://semver.org/
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
-:sourceApiJava
+:sourceApiJava UP-TO-DATE
 :compileApiJava UP-TO-DATE
 :processApiResources UP-TO-DATE
 :apiClasses UP-TO-DATE
@@ -244,23 +201,23 @@ You should try SemVer : http://semver.org/
 注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
 1 个警告
 
-:processResources
+:processResources UP-TO-DATE
 :classes
 :jar
-:sourceTestJava
+:sourceTestJava UP-TO-DATE
 :compileTestJava UP-TO-DATE
 :processTestResources UP-TO-DATE
 :testClasses UP-TO-DATE
 :test UP-TO-DATE
 :extractMcpData SKIPPED
 :extractMcpMappings SKIPPED
-:getVersionJsonjava.net.SocketException: Connection reset
+:getVersionJsonConnection reset
 
 :extractUserdev UP-TO-DATE
 :genSrgs SKIPPED
 :reobfJar
 :extractRangemapReplacedMain
-G:\Game\work\sim-u\Trhsy-sim-u\sim-u-1.8.9\build\sources\main\java
+D:\work\works\sim-u\sim-u-1.8.9\build\sources\main\java
 :retromapReplacedMain
 remapping source...
 :sourceJar
@@ -270,4 +227,4 @@ remapping source...
 
 BUILD SUCCESSFUL
 
-Total time: 50.979 secs
+Total time: 1 mins 11.403 secs

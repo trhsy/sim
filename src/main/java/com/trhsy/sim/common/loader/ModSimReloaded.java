@@ -199,10 +199,7 @@ public class ModSimReloaded {
             } else {
                 if (states.gameModeNumber >= 0) {
 
-                    //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
-                    String welcome = I18n.format("container.sim.welcome");
-                    String welcomes = I18n.format("container.sim.welcomes");
-                    sendChat(welcome + ModSim.VERSION + welcomes);
+
                     //清空线程池中的所有npc
                     theFolks.clear();
                     //从磁盘加载所有建筑并初始化它们
@@ -227,7 +224,12 @@ public class ModSimReloaded {
                     //加载世界上的建筑
                     Building.loadAllBuildings();
                 }
+                //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
+                String welcome = I18n.format("container.sim.welcome");
+                String welcomes = I18n.format("container.sim.welcomes");
+                sendChat(welcome + ModSim.VERSION + welcomes);
             }
+
             //模组已运行
             ModSim.proxy.ranStartup = true;
             ModSimReloaded.log.info("重载世界结束");

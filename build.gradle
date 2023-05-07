@@ -57,7 +57,7 @@ idea{
     }
 }
 
-version = "1.8.9-1.0.6 Beta"
+version = "1.8.9-1.0.7 Beta"
 group= "com.trhsy.sim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "simulated"
 
