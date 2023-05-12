@@ -180,15 +180,16 @@ public class GuiBlockMarker extends GuiScreen {
                     int xo = 0;
                     int zo = 0;
                     HashMap key = new HashMap();
+                    key.put("minecraft:air,0","A");
                     CopyOnWriteArrayList layerLines = new CopyOnWriteArrayList();
                     int ch = 66;
-                    boolean allAirBlocks = true;
-                    String keyString = "";
+
+                    String keyString = "A=minecraft:air,0;";
                     int ltr;
                     int zzz;
-                    for (int l = 0; l < 200; ++l) {
+                    for (int l = 0; l < 2000; ++l) {
                         String layerLine = "";
-
+                        boolean allAirBlocks = true;
                         for (int ftb = 0; ftb < ftbCountx; ++ftb) {
                             for (ltr = 1; ltr <= ltrCountx; ++ltr) {
                                 if (cz == ez) {
@@ -217,7 +218,7 @@ public class GuiBlockMarker extends GuiScreen {
 //                                int id = Block.getiDFromBlock(blocks.getBlock());
                                 Block block= blocks.getBlock();
                                 String id=block.toString();
-                                id=id.substring(id.indexOf("{"),id.indexOf("}"));
+                                id=id.substring(id.indexOf("{")+1,id.indexOf("}"));
                                 int meta = block.getMetaFromState(blocks);
                                 String letter = "";
                                 letter = (String) key.get(id + "," + meta);
@@ -228,7 +229,7 @@ public class GuiBlockMarker extends GuiScreen {
                                     letter = (new Character((char) ch)).toString();
                                 }
                                 layerLine = layerLine + letter;
-                                if ("minecraft:air".equals(id)) {
+                                if (!"minecraft:air".equals(id)) {
                                     allAirBlocks = false;
                                 }
                             }
@@ -239,11 +240,10 @@ public class GuiBlockMarker extends GuiScreen {
                         }
 
                         layerLines.add(layerLine);
-                        allAirBlocks = true;
                     }
 
                     if (layerLines.size() == 0) {
-                        GuiBlockMarker.this.errorText = I18n.format("container.sim.Markers13");//错误,无法捕获所有方块,请尝试靠近标记站并重试
+                        ModSimLoader.sendChat(I18n.format("container.sim.Markers13"));//错误,无法捕获所有方块,请尝试靠近标记站并重试
                         return;
                     }
 
@@ -270,7 +270,7 @@ public class GuiBlockMarker extends GuiScreen {
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
                     GuiBlockMarker.this.mc.theWorld.playSound(GuiBlockMarker.this.location.x, GuiBlockMarker.this.location.y, GuiBlockMarker.this.location.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
                 } else {
-                    GuiBlockMarker.this.errorText = I18n.format("container.sim.Markers17");
+                    ModSimLoader.sendChat(I18n.format("container.sim.Markers17"));
                 }
             } catch (Exception e) {
                 StackTraceElement element = e.getStackTrace()[0];

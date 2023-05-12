@@ -554,6 +554,9 @@ public class NpcData {
                             //伐木工
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation2"))) {
                             this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
+                            //制糖师
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation30"))) {
+                            this.job = new JobSugar(this, this.tempEmployLoc.toBlockPos(), world);
                             //矿工
                         }/*  else if (job.contentEquals("miner")) {
                             p = this.tempEmployLoc.toBlockPos();
@@ -1844,6 +1847,9 @@ public class NpcData {
             //蛋农
         } else if (jobName.contentEquals(I18n.format("container.sim.Vocation3"))) {
             this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
+            //制糖师
+        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation30"))) {
+            this.job = new JobSugar(this, pos.toBlockPos(), world);
         }
 
         BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();

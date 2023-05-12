@@ -124,6 +124,9 @@ public class JobTaskCollectItems extends JobTask {
                     //南瓜
                 } else if (colItem == new ItemStack(Blocks.PUMPKIN).getItem()) {
                     this.addDestination("farmer:" + I18n.format("container.sim.FarmType4"));
+                    //糖
+                }else if (colItem == Items.SUGAR) {
+                    this.addDestination( I18n.format("container.sim.Vocation30"));
                 }
 
             }
@@ -187,14 +190,18 @@ public class JobTaskCollectItems extends JobTask {
                     for (IInventory inv : chests) {
                         for (int i = 0; i < inv.getSizeInventory(); i++) {
                             ItemStack invItemStack = inv.getStackInSlot(i);
+
                             if (invItemStack != null && this.collectionItems.contains(invItemStack)) {
                                 for (int j = 0; j <this.collectionItems.size() ; j++) {
-                                    if (invItemStack.stackSize < (this.collectionItems.get(j)).stackSize) {
-                                        this.job.folk.inventory.add(invItemStack);
-                                        inv.removeStackFromSlot(i);
-                                    } else {
-                                        this.job.folk.inventory.add(this.collectionItems.get(j));
-                                        inv.decrStackSize(i, (this.collectionItems.get(j)).stackSize);
+                                    ItemStack collectionItemStack=this.collectionItems.get(j);
+                                    if(invItemStack.isItemEqual(collectionItemStack)){
+                                        if (invItemStack.stackSize < collectionItemStack.stackSize) {
+                                            this.job.folk.inventory.add(invItemStack);
+                                            inv.removeStackFromSlot(i);
+                                        } else {
+                                            this.job.folk.inventory.add(collectionItemStack);
+                                            inv.decrStackSize(i, (this.collectionItems.get(j)).stackSize);
+                                        }
                                     }
                                 }
                             }

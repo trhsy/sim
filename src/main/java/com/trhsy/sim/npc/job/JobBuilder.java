@@ -372,7 +372,7 @@ public class JobBuilder extends Job {
             }
             if (fs_block != fs_st_block) {
 
-                if (ModSimLoader.money < 0.02F) {
+                if (ModSimLoader.money < 0.02F && ModSimLoader.gamemode!=1) {
                     //没有钱付给我！
                     this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
                     return;
@@ -383,7 +383,9 @@ public class JobBuilder extends Job {
                     normalBlock = false;
                     //放置门
                     ItemDoor.placeDoor(this.folk.entity.worldObj, newBP, EnumFacing.NORTH, fs_st_block, false);
-                    ModSimLoader.addMoney(-0.02F);
+                    if(ModSimLoader.gamemode!=1){
+                        ModSimLoader.addMoney(-0.02F);
+                    }
                 }
                 //床
                 if (fs_st_block instanceof BlockBed) {
@@ -394,7 +396,9 @@ public class JobBuilder extends Job {
                         IBlockState iblockstate2 = iblockstate1.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD);
                         this.folk.entity.worldObj.setBlockState(pos, iblockstate2, 11);
                     }
-                    ModSimLoader.addMoney(-0.02F);
+                    if(ModSimLoader.gamemode!=1){
+                        ModSimLoader.addMoney(-0.02F);
+                    }
                 }
                 //控制箱
                 if (fs_st_block == BlockLoader.blockControlBox) {
@@ -496,7 +500,9 @@ public class JobBuilder extends Job {
                                     //放置方块
                                     this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
                                     this.folk.entity.worldObj.setBlockState(newBP, st);
-                                    ModSimLoader.addMoney(-0.02F);
+                                    if(ModSimLoader.gamemode!=1){
+                                        ModSimLoader.addMoney(-0.02F);
+                                    }
                                 }
                             } while (validFacings != null && validFacings.size() < 4);
                             //不朝上 不朝下
@@ -507,7 +513,9 @@ public class JobBuilder extends Job {
                                     st = st.withRotation(Rotation.CLOCKWISE_90);
                                     if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                         this.folk.entity.worldObj.setBlockState(newBP, st);
-                                        ModSimLoader.addMoney(-0.02F);
+                                        if(ModSimLoader.gamemode!=1){
+                                            ModSimLoader.addMoney(-0.02F);
+                                        }
                                     }
                                     ModSimLoader.log.info("方块应该面向 " + facing.rotateY().toString() + " (顺时针方向的)");
                                     ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) newState.getValue(prop)).toString());
@@ -517,14 +525,18 @@ public class JobBuilder extends Job {
                                         st = st.withRotation(Rotation.COUNTERCLOCKWISE_90);
                                         if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                             this.folk.entity.worldObj.setBlockState(newBP, st);
-                                            ModSimLoader.addMoney(-0.02F);
+                                            if(ModSimLoader.gamemode!=1){
+                                                ModSimLoader.addMoney(-0.02F);
+                                            }
                                         }
                                         ModSimLoader.log.info("方块应该面向 " + facing.rotateYCCW().toString() + " (逆时针方向)");
                                         ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) newState.getValue(prop)).toString());
                                     } else if (this.direction == this.blueprint.direction) {
                                         if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                             this.folk.entity.worldObj.setBlockState(newBP, st);
-                                            ModSimLoader.addMoney(-0.02F);
+                                            if(ModSimLoader.gamemode!=1){
+                                                ModSimLoader.addMoney(-0.02F);
+                                            }
                                         }
                                         ModSimLoader.log.info("方块应该面向 " + facing.toString() + " (无旋转)");
                                     } else {
@@ -535,7 +547,9 @@ public class JobBuilder extends Job {
                                     st = st.withRotation(Rotation.CLOCKWISE_180);
                                     if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                         this.folk.entity.worldObj.setBlockState(newBP, st);
-                                        ModSimLoader.addMoney(-0.02F);
+                                        if(ModSimLoader.gamemode!=1){
+                                            ModSimLoader.addMoney(-0.02F);
+                                        }
                                     }
                                     ModSimLoader.log.info("方块应该面向 " + facing.rotateY().rotateY().toString() + " (快速翻转)");
                                     ModSimLoader.log.info("方块实际面向 " + ((EnumFacing) st.getValue(prop)).toString());
@@ -609,105 +623,7 @@ public class JobBuilder extends Job {
             }
 
             try {
-                /*BlockPos tempBP;
-                Block newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
-                if (newNumberBP.getUnlocalizedName().contentEquals("tile.air")) {
-                    ++this.blockNumber;
-                    if (this.direction == 0) {
-                        tempBP = new BlockPos(this.startPos.getX() + this.x, this.startPos.getY() + this.y, this.startPos.getZ() - this.z);
-                    } else if (this.direction == 1) {
-                        tempBP = new BlockPos(this.startPos.getX() + this.z, this.startPos.getY() + this.y, this.startPos.getZ() + this.x);
-                    } else if (this.direction == 2) {
-                        tempBP = new BlockPos(this.startPos.getX() - this.x, this.startPos.getY() + this.y, this.startPos.getZ() + this.z);
-                    } else {
-                        tempBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
-                    }
 
-                    if (this.folk.entity.worldObj.getBlockState(tempBP).getBlock() != Blocks.AIR) {
-                        this.folk.entity.worldObj.setBlockToAir(tempBP);
-                        return;
-                    }
-
-                    ++this.x;
-                    if (this.x > this.blueprint.length - 1) {
-                        this.x = 0;
-                        ++this.z;
-                    }
-
-                    if (this.z > this.blueprint.width - 1) {
-                        this.z = 0;
-                        ++this.y;
-                    }
-                }
-                if (this.direction == 0) {
-                    tempBP = new BlockPos(this.startPos.getX() + this.x, this.startPos.getY() + this.y, this.startPos.getZ() - this.z);
-                    newNumberBP=this.blueprint.structure[this.blockNumber].getBlock();
-                } else if (this.direction == 1) {
-                    tempBP = new BlockPos(this.startPos.getX() + this.z, this.startPos.getY() + this.y, this.startPos.getZ() + this.x);
-                    newNumberBP=this.blueprint.structure[this.blockNumber].getBlock();
-                } else if (this.direction == 2) {
-                    tempBP = new BlockPos(this.startPos.getX() - this.x, this.startPos.getY() + this.y, this.startPos.getZ() + this.z);
-                    newNumberBP=this.blueprint.structure[this.blockNumber].getBlock();
-                } else {
-                    tempBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
-                    newNumberBP=this.blueprint.structure[this.blockNumber].getBlock();
-                }
-                Block newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();//已放置的
-                String s = newNumberBP.getUnlocalizedName();
-                boolean flag1 = newTempBP.getUnlocalizedName().contentEquals(s);
-                boolean flag2 = s != "tile.air";
-                boolean flag3 = !s.contentEquals("tile.air");
-                while (flag1&&flag2&&flag3) {
-                    ++this.x;
-                    if (this.x > this.blueprint.length - 1) {
-                        this.x = 0;
-                        ++this.z;
-                    }
-
-                    if (this.z > this.blueprint.width - 1) {
-                        this.z = 0;
-                        ++this.y;
-                    }
-
-                    ++this.blockNumber;
-                    this.placedBlocks.add(V3.fromBlockPos(tempBP));
-                    if (this.blockNumber >= this.blueprint.structure.length) {
-                        this.folk.fire();
-                        this.constructorBlock.employee = null;
-                        ModSimLoader.log.info("从中间功能检查激发");
-                        this.createBuilding();
-                        return;
-                    }
-                    if (this.direction == 0) {
-                        tempBP = new BlockPos(this.startPos.getX() + this.x, this.startPos.getY() + this.y, this.startPos.getZ() - this.z);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
-                        newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
-                    } else if (this.direction == 1) {
-                        tempBP = new BlockPos(this.startPos.getX() + this.z, this.startPos.getY() + this.y, this.startPos.getZ() + this.x);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
-                        newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
-                    } else if (this.direction == 2) {
-                        tempBP = new BlockPos(this.startPos.getX() - this.x, this.startPos.getY() + this.y, this.startPos.getZ() + this.z);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
-                        newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
-                    } else {
-                        tempBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
-                        newTempBP = this.folk.entity.worldObj.getBlockState(tempBP).getBlock();
-                        newNumberBP = this.blueprint.structure[this.blockNumber].getBlock();
-                    }
-
-
-                    if (newTempBP == BlockLoader.blockControlBox) {
-                        this.controllerPos = tempBP;
-                        //生活方块地毯
-                    } else if (newTempBP == BlockLoader.blockLiving) {
-                        this.livingPos = tempBP;
-                    }
-                    s = newNumberBP.getUnlocalizedName();
-                    flag1 = newTempBP.getUnlocalizedName().contentEquals(s);
-                    flag2 = s != "tile.air";
-                    flag3 = !s.contentEquals("tile.air");
-                }*/
             } catch (Exception var11) {
                 ModSimLoader.log.info("建造建筑出错误了" + var11.getMessage());
                 this.folk.fire();
@@ -777,7 +693,7 @@ public class JobBuilder extends Job {
         ModSimLoader.sendChat(text);
         //播放声音
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-        this.folk.entity.worldObj.playSound(this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1, 1, false);
+        this.folk.entity.worldObj.playSound(this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F + + new Random().nextFloat(), new Random().nextFloat() * 0.7F + 0.3F, false);
         this.conBox.folk = null;
     }
 

@@ -310,8 +310,6 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                         String blockName=blockNames.split(",")[0];
                         int meta=Integer.valueOf(blockNames.split(",")[1]);
                         Block block = Block.getBlockFromName(blockName);
-                        //System.out.println(block.getRegistryName());
-//                        bw.write(symbol+"="+block.getRegistryName()+","+meta+";");
                         this.blocks.add(new BuildingSymbol(symbol, block.getRegistryName().toString(), meta));
                     } else {
                         String symbol=k.split("=")[0];
@@ -439,7 +437,6 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                 br.close();
 //                bw.close();
             } catch (Throwable var26) {
-                var3 = var26;
                 throw var26;
             } finally {
                 if (br != null) {
@@ -458,7 +455,6 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                 }
 
             }
-//            }
         } catch (Exception var28) {
             StackTraceElement element = var28.getStackTrace()[0];
             ModSimLoader.log.error("addBuildingBlueprint出错了：" + var28.getMessage() + "行数：" + element.getLineNumber());

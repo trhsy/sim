@@ -320,6 +320,7 @@ container.sim.relation_ship_relationship=有未知的关系
 container.sim.job.Baker_Fetching=从农场取小麦
 container.sim.job.Baker_Collecting=收集小麦
 container.sim.job.Baker_Taking=把小麦带回面包店
+container.sim.job.Baker_Baking_Sugar=制作糖
 container.sim.job.Baker_Baking_bread=烤面包
 container.sim.job.Baker_Baking=烘烤
 container.sim.job.Baker_bread=面包
@@ -627,7 +628,7 @@ container.sim.gui_contains_Fishing_Dock=渔场
 container.sim.gui_contains_Dairy_Farm=奶牛场
 container.sim.gui_contains_Cheese_Factory=奶酪工厂
 container.sim.gui_contains_Brick_factory=板砖厂
-
+container.sim.gui_contains_sugar_factory=制糖厂
 
 
 container.sim.gui_btn_name_Depot=仓库
@@ -668,7 +669,6 @@ container.sim.gui_Folk_child=小孩
 container.sim.gui_Folk_Gender=性别
 container.sim.gui_Folk_unemployed=失业的
 container.sim.gui_Folk_Job=工作
-container.sim.gui_Folk_Homeless=无家可归的
 container.sim.gui_Folk_Tenant=租房
 container.sim.gui_Folk_Living=和父母住在一起
 container.sim.gui_Folk_Housing_status=住房状况
@@ -898,6 +898,7 @@ container.sim.Vocation25=板砖工匠
 container.sim.Vocation26=食品商
 container.sim.Vocation28=养羊户
 container.sim.Vocation29=养兔户
+container.sim.Vocation30=制糖师
 container.sim.FolkData.florist=花店
 container.sim.Hire1=雇佣建筑工
 container.sim.Hire2=雇佣服务员

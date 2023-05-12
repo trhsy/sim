@@ -759,7 +759,7 @@ container.sim.Markers14=folder is missing, The mod is not correctly installed, p
 container.sim.Markers15=Building copied and stored as 'My Build
 container.sim.Markers16=' in Other buildings.
 container.sim.Markers17=ERROR: Markers not placed correctly, try again.
-
+container.sim.gui_contains_sugar_factory=sugar factory
 container.sim.Merchant0=Hello, how can I help you today?
 container.sim.Merchant1=I've got some bargains for you...
 container.sim.Merchant2=Block pack
@@ -891,6 +891,7 @@ container.sim.Vocation26=Food merchant
 container.sim.Vocation27=Sheep farmer
 container.sim.Vocation28=Mutton farmer
 container.sim.Vocation29=Rabbit farmer
+container.sim.Vocation30=Sugar maker
 container.sim.folkData1=Unemployed
 container.sim.folkData2=Homeowner
 container.sim.folkData3=Homeless
@@ -909,7 +910,7 @@ container.sim.gui_contains_Pig_Farm=Pig Farm
 container.sim.GotoMethod1=Beaming
 container.sim.GotoMethod2=Shifting
 container.sim.GotoMethod3=Walking
-
+container.sim.job.Baker_Baking_Sugar=Make Sugar
 container.sim.FarmType1=Carrot
 container.sim.FarmType2=Melon
 container.sim.FarmType3=Potato
