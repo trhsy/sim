@@ -20,7 +20,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         ModSimLoader.log = event.getModLog();
-        //BuildingsExtractor.extractBuildings(new File(ModSimLoader.getSimFolder()));
+        BuildingsExtractor.extractBuildings(new File(ModSimLoader.getSimFolder()));
         /**配置**/
         ConfigLoader.load(event);
         /**创造模式物品栏**/

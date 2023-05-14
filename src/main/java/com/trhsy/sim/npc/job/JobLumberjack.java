@@ -4,6 +4,7 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.JobTaskChopTrees;
 import com.trhsy.sim.npc.task.JobTaskIdle;
+import com.trhsy.sim.task.JobTask;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -30,11 +31,28 @@ public class JobLumberjack extends Job {
         this.jobName = I18n.format("container.sim.Vocation2");
         this.wood.add(Blocks.LOG);
         this.wood.add(Blocks.LOG2);
-        //去上班
-        this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
-        this.addJobTask(new JobTaskChopTrees(this, -1L, this.workPlace, 30));
     }
-
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.atWork) {
+            if (this.stage == -1) {
+                this.stage = 0;
+            } else if (this.stage == 0) {
+                this.stage = 1;
+                //去上班
+                this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
+            } else if (this.stage == 1) {
+                this.addJobTask(new JobTaskChopTrees(this, -1L, this.workPlace, 30));
+                this.stage = 2;
+            }else{
+                if (this.jobTasks.size() > 0&&this.currentTask==null) {
+                    this.currentTask = (JobTask) this.jobTasks.get(0);
+                    this.currentTask.begin();
+                }
+            }
+        }
+    }
     public String toString() {
         return this.jobName;
     }

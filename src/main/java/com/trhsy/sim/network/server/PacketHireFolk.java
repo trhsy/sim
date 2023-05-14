@@ -101,6 +101,7 @@ public class PacketHireFolk implements IMessage {
                     if (farmBox != null) {
                         fd.job = new JobFarmer(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, farmBox);
                         farmBox.employee = fd;
+                        farmBox.saveFarm();
                     }
                     //矿工
                 } else if (message.job.contentEquals(I18n.format("container.sim.Vocation4"))) {
@@ -108,6 +109,7 @@ public class PacketHireFolk implements IMessage {
                     if (mineBox != null) {
                         //fd.job = new JobMiner(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, mineBox);
                         mineBox.employee = fd;
+                        mineBox.saveMine();
                     }
                 } else {
                     fd.hireAt(message.pos, message.job, ctx.getServerHandler().playerEntity.worldObj);

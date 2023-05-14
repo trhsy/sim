@@ -46,19 +46,21 @@ public class JobTaskUnloadItems extends JobTask {
                 return;
             }
 
-            int i;
-            for(i = 0; i < this.job.folk.inventory.size(); ++i) {
+            for(int i = 0; i < this.job.folk.inventory.size(); ++i) {
+                ItemStack is = this.job.folk.inventory.get(i);
                 for(int j = 0; j < this.collectionItems.size(); ++j) {
-                    ItemStack is = (ItemStack)this.job.folk.inventory.get(i);
-                    if (is.isItemEqual((ItemStack)this.collectionItems.get(j))) {
+                    ItemStack collectionItem = this.collectionItems.get(j);
+                    if (is.isItemEqual(collectionItem)) {
                         this.job.placeInJobChest(is);
-                        ModSimLoader.addMoney(-0.02F * (float)is.stackSize);
+                        if(ModSimLoader.gamemode!=1){
+                            ModSimLoader.addMoney(-0.02F * (float)is.stackSize);
+                        }
                         toDelete.add(is);
                     }
                 }
             }
 
-            for(i = 0; i < toDelete.size(); ++i) {
+            for(int i = 0; i < toDelete.size(); ++i) {
                 this.job.folk.inventory.remove(toDelete.get(i));
             }
 

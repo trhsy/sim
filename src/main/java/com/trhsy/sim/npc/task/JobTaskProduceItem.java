@@ -67,6 +67,7 @@ public class JobTaskProduceItem extends JobTask {
             int maxProd;
             int i;
             int j;
+            boolean falg=false;
             for(maxProd = 0; maxProd < invs.size(); ++maxProd) {
                 //获取箱子
                 IInventory iInventory=invs.get(maxProd);
@@ -78,14 +79,26 @@ public class JobTaskProduceItem extends JobTask {
                         //需求的物品
                         ItemStack itemStacks=this.requirements.get(j);
                         if (itemStack!=null && itemStack.isItemEqual(itemStacks)) {
-                            //NPC拿走所需物品
-                            this.folk.addToInventory(itemStack);
-                            iInventory.removeStackFromSlot(itemStacks.stackSize);
-                            break;
+                            if(itemStack.stackSize>=itemStacks.stackSize){
+                                ItemStack newItemStacks=itemStack;
+                                int fs_stackSize=itemStack.stackSize;
+
+                                iInventory.decrStackSize(i,itemStack.stackSize);
+                                newItemStacks.stackSize=fs_stackSize;
+                                //NPC拿走所需物品
+                                this.folk.addToInventory(newItemStacks);
+                                falg=true;
+                                break;
+                            }
                         }
                     }
+                    if(falg){
+                        break;
+                    }
                 }
-
+                if(falg){
+                    break;
+                }
             }
 
             maxProd = -1;
@@ -103,6 +116,7 @@ public class JobTaskProduceItem extends JobTask {
                         if (maxProd == -1 || maxProd > div) {
                             maxProd = div;
                         }
+                        this.folk.inventory.remove(i);
                     }
                 }
             }

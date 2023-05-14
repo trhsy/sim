@@ -39,8 +39,10 @@ public class JobTaskChopTrees extends JobTask {
     }
     @Override
     public void onTaskBegin() {
+        findTree();
+    }
+    public void findTree(){
         double startY = this.startPoint.y;
-
         for(double y = startY; y < this.startPoint.y + (double)this.radius; ++y) {
             for(double x = this.startPoint.x - (double)this.radius; x < this.startPoint.x + (double)this.radius; ++x) {
                 for(double z = this.startPoint.z - (double)this.radius; z < this.startPoint.z + (double)this.radius; ++z) {
@@ -50,20 +52,21 @@ public class JobTaskChopTrees extends JobTask {
                         if (!this.toMine.contains(bp)) {
                             this.toMine.add(bp);
                         }
-
                         this.checkNeighbours(bp, this.toMine);
                     }
                 }
             }
         }
     }
-
     @Override
     public void onUpdate() {
         if (System.currentTimeMillis() - this.timeSinceLastCheck > 5L) {
             this.timeSinceLastCheck = System.currentTimeMillis();
             if (this.toMine.size() < 1) {
                 this.job.folk.forceMoveToXYZNoWarp(this.startPoint);
+                //找树
+                this.job.folk.setStatus(I18n.format("container.sim.GOTOTREE"));
+                findTree();
                 return;
             }
 

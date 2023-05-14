@@ -84,6 +84,9 @@ public class FarmBox {
             writer.write("dimension|" + this.loc.dimension + "\n");
             writer.write("facing|" + this.facing.toString() + "\n");
             writer.write("farmType|" + this.farmType.toString() + "\n");
+            if(this.employee!=null){
+                writer.write("npc|" + this.employee.ID + "\n");
+            }
             writer.write("x|" + this.x + "\n");
             writer.write("z|" + this.z + "\n");
             writer.write("level|" + this.level + "\n");
@@ -127,6 +130,8 @@ public class FarmBox {
                     this.facing = EnumFacing.byName(value);
                 } else if (line.contains("farmType")) {
                     this.farmType = FarmType.byName(value);
+                }else if (line.contains("npc")) {
+                    this.employee = ModSimLoader.getFolkDataByUID(value);
                 } else if (line.contains("x|")) {
                     this.x = Integer.valueOf(value);
                 } else if (line.contains("z|")) {

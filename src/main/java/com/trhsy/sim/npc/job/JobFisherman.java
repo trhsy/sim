@@ -38,7 +38,7 @@ public class JobFisherman extends Job {
         //渔夫
         this.jobName = I18n.format("container.sim.Vocation18");
         //寻找附近水
-        BlockPos corner1 = pos.north(5).east(5);
+        BlockPos corner1 = pos.north(5).east(5).down(2);
         BlockPos corner2 = pos.south(5).west(5).down(2);
 
         Iterator var6 = BlockPos.getAllInBox(corner1, corner2).iterator();

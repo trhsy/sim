@@ -191,7 +191,7 @@ public class JobTaskCollectItems extends JobTask {
                         for (int i = 0; i < inv.getSizeInventory(); i++) {
                             ItemStack invItemStack = inv.getStackInSlot(i);
 
-                            if (invItemStack != null && this.collectionItems.contains(invItemStack)) {
+                            if (invItemStack != null) {
                                 for (int j = 0; j <this.collectionItems.size() ; j++) {
                                     ItemStack collectionItemStack=this.collectionItems.get(j);
                                     if(invItemStack.isItemEqual(collectionItemStack)){

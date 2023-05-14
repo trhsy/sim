@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import org.lwjgl.opengl.GL11;
@@ -48,7 +49,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
         ResourceLocation myTexture=null;
         try{
             String cfi = ModSimClientLoader.getPathFromUUID(entity.getUniqueID());
-            if(cfi!=null){
+            if(!StringUtils.isNullOrEmpty(cfi)){
                 return new ResourceLocation(ModSim.MODID, "skins/" + cfi);
             }
 

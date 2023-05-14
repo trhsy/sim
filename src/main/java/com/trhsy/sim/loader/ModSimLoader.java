@@ -575,7 +575,7 @@ public class ModSimLoader {
 
         while (var3.hasNext()) {
             Building b = (Building) var3.next();
-            if (b.jobType.contentEquals(jobType)&&b.occupants!=null&&b.occupants.size()>0) {
+            if (b.jobType.contentEquals(jobType)&&b.occupants!=null) {
                 bs.add(b);
                 ModSimLoader.log.info("找到建筑： " + b.buildingName);
             }

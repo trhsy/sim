@@ -54,6 +54,7 @@ public class JobFarmer extends Job {
         super(folk, pos, world);
         this.jobName = I18n.format("container.sim.Vocation5");
         this.farm = fb;
+        this.farm.employee=folk;
         this.noNeed = 0;
     }
 
@@ -76,7 +77,6 @@ public class JobFarmer extends Job {
     public void onUpdate() {
         super.onUpdate();
         if (this.atWork) {
-
             if (ModSimLoader.money > 0.02F) {
                 //周围五格内查找箱子
                 if (this.findJobChests(5).size() == 0) {

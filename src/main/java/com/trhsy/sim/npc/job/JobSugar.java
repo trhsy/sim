@@ -55,7 +55,7 @@ public class JobSugar extends Job{
                     this.stage = 3;
                 } else if (this.stage == 3) {
                     List<ItemStack> colItems = new ArrayList();
-                    //小麦
+                    //甘蔗
                     colItems.add(new ItemStack(Items.REEDS, 64));
                     this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
                     this.stage = 4;

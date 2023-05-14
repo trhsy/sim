@@ -9,6 +9,7 @@ import com.trhsy.sim.network.server.PacketGetHireableFolks;
 import com.trhsy.sim.network.server.PacketHireFolk;
 import com.trhsy.sim.network.server.PacketUpdateFarmBox;
 import com.trhsy.sim.npc.V3;
+import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.util.FarmType;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -263,6 +264,16 @@ public class GuiBlockFarmBlock extends GuiScreen {
                 this.mc.currentScreen = null;
                 this.mc.setIngameFocus();
                 this.onGuiClosed();
+                for (FarmBox farmBox : ModSimLoader.farms) {
+                    if (farmBox.loc.equals(loc)) {
+                        farmBox.removeFarm(farmBox.ID);
+                    }
+                }
+                FarmBox fb = new FarmBox(loc, loc, 6, 6);
+                fb.facing = facing;
+                fb.farmType= this.farmType;
+                ModSimLoader.farms.add(fb);
+                fb.saveFarm();
             } else {
                 //雇佣农民
                 if (guibutton.displayString.contentEquals(I18n.format("container.sim.Hire25"))) {
