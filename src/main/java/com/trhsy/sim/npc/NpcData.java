@@ -9,6 +9,7 @@ import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketSendFolkSkin;
 import com.trhsy.sim.npc.block.FarmBox;
+import com.trhsy.sim.npc.block.MineBox;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.build.TerrainType;
@@ -558,13 +559,13 @@ public class NpcData {
                         }else if (job.contentEquals(I18n.format("container.sim.Vocation30"))) {
                             this.job = new JobSugar(this, this.tempEmployLoc.toBlockPos(), world);
                             //矿工
-                        }/*  else if (job.contentEquals("miner")) {
+                        }  else if (job.contentEquals(I18n.format("container.sim.Vocation4"))) {
                             p = this.tempEmployLoc.toBlockPos();
-                            MineBox mb = WorldData.getMine(V3.fromBlockPos(p));
+                            MineBox mb = ModSimLoader.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);
                             //
                         }  else if (job.contentEquals("")) {
-                        }*/
+                        }
                     }
 
                     if (this.job != null) {

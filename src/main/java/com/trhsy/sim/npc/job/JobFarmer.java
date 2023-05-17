@@ -1139,7 +1139,7 @@ public class JobFarmer extends Job {
                 //获得方块
                 Block b = iBlockState.getBlock();
                 //有根茎 不是作物 不是可种植 不是可生长
-                if (b instanceof BlockStem || !(b instanceof BlockCrops) && !(b instanceof IPlantable) && !(b instanceof IGrowable)) {
+                if (!(b instanceof BlockCrops) && !(b instanceof IPlantable) && !(b instanceof IGrowable)) {
                     //包含根茎
                     if (b instanceof BlockStem) {
                         try {
@@ -1223,7 +1223,26 @@ public class JobFarmer extends Job {
                         }
 
                     } else if (!(b instanceof BlockPumpkin) && !(b instanceof BlockMelon) && !(b instanceof BlockCocoa) && b instanceof BlockCactus) {
-                        //设想，撒骨粉
+                        //
+                        BlockCrops crop = (BlockCrops)b;
+                        if (crop.isMaxAge(iBlockState)) {
+                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
+                            //获得方块
+                            Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                            //摧毁方块
+                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+//                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
+                            drops.forEach((drop) -> {
+                                //放到工作箱
+                                this.placeInJobChest(drop);
+                            });
+                            this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                            this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            this.jobWorld.setBlockToAir(bp);
+                            this.addFarmingLevel();
+                            this.harvestCheck = System.currentTimeMillis();
+                            return;
+                        }
                     }
                     //甘蔗
                 } else if (b == Blocks.REEDS) {
@@ -1273,6 +1292,25 @@ public class JobFarmer extends Job {
                         //增加农民等级
                         this.addFarmingLevel();
                         //设置收获时间
+                        this.harvestCheck = System.currentTimeMillis();
+                        return;
+                    }
+                }else{
+                    BlockCrops crop = (BlockCrops)b;
+                    if (crop.isMaxAge(iBlockState)) {
+                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Harvesting"));
+                        //获得方块
+                        Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                        //摧毁方块
+                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+                        drops.forEach((drop) -> {
+                            //放到工作箱
+                            this.placeInJobChest(drop);
+                        });
+                        this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
+                        this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                        this.jobWorld.setBlockToAir(bp);
+                        this.addFarmingLevel();
                         this.harvestCheck = System.currentTimeMillis();
                         return;
                     }

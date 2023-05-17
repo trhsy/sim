@@ -10,6 +10,7 @@ import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.block.MineBox;
 import com.trhsy.sim.npc.job.JobBuilder;
 import com.trhsy.sim.npc.job.JobFarmer;
+import com.trhsy.sim.npc.job.JobMiner;
 import com.trhsy.sim.npc.job.JobTerrainFormer;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.resources.I18n;
@@ -107,7 +108,7 @@ public class PacketHireFolk implements IMessage {
                 } else if (message.job.contentEquals(I18n.format("container.sim.Vocation4"))) {
                     MineBox mineBox = ModSimLoader.getMine(message.pos);
                     if (mineBox != null) {
-                        //fd.job = new JobMiner(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, mineBox);
+                        fd.job = new JobMiner(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, mineBox);
                         mineBox.employee = fd;
                         mineBox.saveMine();
                     }

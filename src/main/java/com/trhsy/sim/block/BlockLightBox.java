@@ -30,7 +30,7 @@ public class BlockLightBox extends EnumBlock<EnumLightColour> {
     public static final PropertyEnum<EnumLightColour> COLOR = PropertyEnum.create("color", EnumLightColour.class);
     public BlockLightBox(){
         super(Material.WOOD,COLOR,EnumLightColour.class);
-        this.setLightLevel(1);
+        this.setLightLevel(1.25F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);

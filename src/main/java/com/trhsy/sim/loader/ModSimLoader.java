@@ -1,11 +1,8 @@
 package com.trhsy.sim.loader;
 
-import com.trhsy.sim.gui.block.GuiBlockControllerBlock;
-import com.trhsy.sim.gui.block.GuiBlockFarmBlock;
-import com.trhsy.sim.gui.block.GuiBlockMarker;
+import com.trhsy.sim.gui.block.*;
 import com.trhsy.sim.gui.npc.GuiFolk;
 import com.trhsy.sim.gui.GuiRunMod;
-import com.trhsy.sim.gui.block.GuiBlockConstructorBlock;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.npc.V3;
@@ -504,7 +501,7 @@ public class ModSimLoader {
     public static List<FarmBox> getClosestFarm(final V3 pos, String fType) {
         List<FarmBox> fs = new CopyOnWriteArrayList<>();
         for (FarmBox f : farms) {
-            if (f.farmType.toString().equals(fType)&&f.employee!=null) {
+            if (f.farmType.toString().equals(fType) && f.employee != null) {
                 fs.add(f);
             }
         }
@@ -575,7 +572,7 @@ public class ModSimLoader {
 
         while (var3.hasNext()) {
             Building b = (Building) var3.next();
-            if (b.jobType.contentEquals(jobType)&&b.occupants!=null) {
+            if (b.jobType.contentEquals(jobType) && b.occupants != null) {
                 bs.add(b);
                 ModSimLoader.log.info("找到建筑： " + b.buildingName);
             }
@@ -862,14 +859,15 @@ public class ModSimLoader {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockFarmBlock(id, loc, facing, farmType, x, z, folk));
     }
 
-    /*
-        public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
-            Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z));
-        }
 
-        public void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
-            Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z, folk));
-        }*/
+    public static void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z));
+    }
+
+    public static void openMineGui(UUID id, V3 loc, EnumFacing facing, int x, int z, NpcIdentity folk) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMineBlock(id, loc, facing, x, z, folk));
+    }
+
     public static void saveStates() {
         try {
             String folder = ModSimLoader.getSavesDataFolder();
@@ -889,6 +887,7 @@ public class ModSimLoader {
         }
 
     }
+
     /**
      * 加载配置文件
      */
@@ -901,16 +900,18 @@ public class ModSimLoader {
                 loadStates2();
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("loadStates出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("loadStates出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+
     /**
      * 从配置文件读取并写入
      */
     private static void loadStates2() {
         try {
             List<String> strings = ModSimLoader.loadSK2(ModSimLoader.getSavesDataFolder() + "settings.sk2");
-            for (String line:strings){
+            for (String line : strings) {
                 if (line.contains("|")) {
                     int m1 = line.indexOf("|");
                     String name = line.substring(0, m1);
@@ -925,13 +926,14 @@ public class ModSimLoader {
                 }
             }
         } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("loadStates2出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("loadStates2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
     }
 
-    public static void openMarkerGui(V3 v3,int dimension) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMarker(v3,dimension));
+    public static void openMarkerGui(V3 v3, int dimension) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMarker(v3, dimension));
     }
 }

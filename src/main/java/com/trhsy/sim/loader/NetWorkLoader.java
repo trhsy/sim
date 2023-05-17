@@ -51,6 +51,8 @@ public class NetWorkLoader {
         registerMessage(PacketrotateStairs.Handler.class,PacketrotateStairs.class,Side.SERVER);
         //更新养殖箱
         registerMessage(PacketUpdateFarmBox.Handler.class,PacketUpdateFarmBox.class,Side.SERVER);
+        //采矿箱更新
+        registerMessage(PacketUpdateMineBox.Handler.class,PacketUpdateMineBox.class,Side.SERVER);
     }
 
     /**
@@ -83,6 +85,8 @@ public class NetWorkLoader {
         registerMessage(PacketAddNewMarker.Handler.class,PacketAddNewMarker.class,Side.CLIENT);
         //打开标记点gui
         registerMessage(PacketOpenMarkerGui.Handler.class,PacketOpenMarkerGui.class,Side.CLIENT);
+        //打开采矿箱GUI
+        registerMessage(PacketOpenMineGui.Handler.class,PacketOpenMineGui.class,Side.CLIENT);
 
     }
     /**
