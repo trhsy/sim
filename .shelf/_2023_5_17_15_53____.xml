@@ -1,0 +1,819 @@
+<changelist name="在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]" date="1684310002930" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/shelved.patch" />
+  <option name="DESCRIPTION" value="在进行更新之前于 2023/5/17 15:53 取消提交了变更 [变更]" />
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakk.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/DIM1/data/villages_end.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/DIM1/data/villages_end.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/villages_end.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/SneezeM.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/sim_u_ddd.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakn.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeaka.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargy.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakh.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/bakerm.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargv.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blarge.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakr.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/level.dat_old" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/level.dat_old" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/level.dat_old" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/dayfone.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerff.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakq.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.-1.0.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.-1.0.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.-1.0.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fnine.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/hellom.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/nightftwo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mseven.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/im_read_y.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mnine.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerme.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeako.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/beamf.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargb.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgermb.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/data/villages.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/data/villages.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/villages.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/sim_u_kraft_ddd_mining_constructor_activated.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargp.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.0.0.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.0.0.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.0.0.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeake.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/pregnant.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargk.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.0.-1.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.0.-1.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.0.-1.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/cspeaka.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/im_read_m.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/LaughF.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/nightmone.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerfa.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/construction.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakd.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakj.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/ftwo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/nightmthree.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargj.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/feight.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakf.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fseven.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargg.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargq.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fone.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.-1.1.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.-1.1.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.-1.1.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakp.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakc.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/cspeakc.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeaks.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/OuchM.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/shears.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargn.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakm.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeaki.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.-2.0.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.-2.0.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.-2.0.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/welcome.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fthree.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargx.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mfive.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/merchm.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mtwo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakb.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgermc.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/bakerf.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargu.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/beamdowntwo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fwxbad.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakj.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakl.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/meight.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/daymtwo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/sim_u_building_constructor_activated.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargs.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/lightone.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerfd.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/dayfthree.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakg.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeako.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargz.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/computer.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargl.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakk.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.-2.-1.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.-2.-1.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.-2.-1.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeaka.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/cash.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakn.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mthree.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/cashshort.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/cheesemachine.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/DIM1/region/r.-1.0.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/DIM1/region/r.-1.0.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.-1.01.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/msix.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakd.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/dayftwo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/LaughM.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/beamm.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargi.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerfe.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/DIM-1/data/villages_nether.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/DIM-1/data/villages_nether.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/villages_nether.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/SneezeF.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/nightfone.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/power_down.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakh.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerfb.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeake.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakg.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/nightfthree.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/birth.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargr.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/session.lock" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/session.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/session.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargc.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/daymthree.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakq.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgermf.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/windmill.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerma.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakr.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/data/Village.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/data/Village.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/Village.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargw.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/nightmtwo.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/sim_u_kraft_ddd_farming_constructor_activated.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargd.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakl.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/beamdown.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/OuchF.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/cspeakb.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgermd.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/CoughF.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakc.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeaks.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mwxbad.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.-1.-1.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.-1.-1.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.-1.-1.mca" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakp.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakf.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/playerdata/1ba3e813-bc3f-3c63-a07a-82ed99656a6d.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/playerdata/1ba3e813-bc3f-3c63-a07a-82ed99656a6d.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/1ba3e813-bc3f-3c63-a07a-82ed99656a6d.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/CoughM.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mone.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/rooster.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mfour.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/burgerfc.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargh.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeakb.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/playerdata/02006724-8599-3350-ba13-0c0625a51a5e.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/playerdata/02006724-8599-3350-ba13-0c0625a51a5e.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/02006724-8599-3350-ba13-0c0625a51a5e.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/hellof.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/level.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/level.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/level.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/daymone.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargf.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/fspeakm.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blarga.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/mspeaki.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/playerdata/bf5f6cc7-27dd-3f51-bf40-66ad2b54becf.dat" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/playerdata/bf5f6cc7-27dd-3f51-bf40-66ad2b54becf.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/bf5f6cc7-27dd-3f51-bf40-66ad2b54becf.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargt.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/minecraft/sounds/blargm.ogg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="eclipse/saves/sim/region/r.-2.1.mca" />
+    <option name="AFTER_PATH" value="eclipse/saves/sim/region/r.-2.1.mca" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/在进行更新之前于_2023_5_17_15_53_取消提交了变更_[变更]/r.-2.1.mca" />
+  </binary>
+</changelist>

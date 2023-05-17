@@ -321,16 +321,17 @@ public class EventLoader {
                             new NpcData(event.world, false);
                         }
                     }
+                    this.minuteTimer=System.currentTimeMillis();
                 }
                 if (!this.newDay) {
                     ModSimLoader.log.info("天亮了");
                     //播放 天亮了鸡叫
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                    event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
-//                    for (EntityPlayer entityPlayer : event.world.playerEntities) {
-//                        BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-//                        entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 0.3F, 0.6F);
-//                    }
+                    //event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
+                    for (EntityPlayer entityPlayer : event.world.playerEntities) {
+                        BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                        entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.AMBIENT, 0.3F, 0.6F);
+                    }
 
                     this.newDay = true;
                     if (ModSimLoader.dayOfWeek >= 6) {
@@ -352,11 +353,11 @@ public class EventLoader {
                         ModSimLoader.addMoney(rent);
                         //播放钱到账
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                        event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
-//                        for (EntityPlayer entityPlayer : event.world.playerEntities) {
-//                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
-//                            entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.BLOCKS, 0.3F, 0.6F);
-//                        }
+                        //event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
+                        for (EntityPlayer entityPlayer : event.world.playerEntities) {
+                            BlockPos pos = new BlockPos(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                            entityPlayer.worldObj.playSound(entityPlayer, pos, soundEvent, SoundCategory.AMBIENT, 0.3F, 0.6F);
+                        }
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
                     }
