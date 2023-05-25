@@ -46,6 +46,9 @@ public class PacketOpenFolkGui implements IMessage {
     public String building = "1";
     /**农耕等级*/
     public String farming = "1";
+    /**挖矿等级*/
+    public String mining = "1";
+
     /**关系数据*/
     public String relationshipData = "";
     public PacketOpenFolkGui() {
@@ -74,6 +77,8 @@ public class PacketOpenFolkGui implements IMessage {
 
         this.building = String.valueOf(Math.floor((double)fd.skillBuilding));
         this.farming = String.valueOf(Math.floor((double)fd.skillFarming));
+        this.mining = String.valueOf(Math.floor((double)fd.skillMining));
+
     }
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -86,6 +91,7 @@ public class PacketOpenFolkGui implements IMessage {
         this.relationshipData = ByteBufUtils.readUTF8String(buf);
         this.building = ByteBufUtils.readUTF8String(buf);
         this.farming=ByteBufUtils.readUTF8String(buf);
+        this.mining=ByteBufUtils.readUTF8String(buf);
         this.folkTrait1 = ByteBufUtils.readUTF8String(buf);
         this.folkTrait2 = ByteBufUtils.readUTF8String(buf);
         this.folkTrait3 = ByteBufUtils.readUTF8String(buf);
@@ -104,6 +110,7 @@ public class PacketOpenFolkGui implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.relationshipData);
         ByteBufUtils.writeUTF8String(buf, this.building);
         ByteBufUtils.writeUTF8String(buf, this.farming);
+        ByteBufUtils.writeUTF8String(buf, this.mining);
         ByteBufUtils.writeUTF8String(buf, this.folkTrait1);
         ByteBufUtils.writeUTF8String(buf, this.folkTrait2);
         ByteBufUtils.writeUTF8String(buf, this.folkTrait3);

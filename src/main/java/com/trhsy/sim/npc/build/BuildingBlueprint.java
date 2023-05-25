@@ -28,28 +28,50 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @Author TRHSY
  * @Date 2022/10/1917:42
  **/
-public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
-    /**蓝图名称*/
+public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
+    /**
+     * 蓝图名称
+     */
     public String name = I18n.format("container.sim.gui_Folk_Unknown");
-    /**描述*/
+    /**
+     * 描述
+     */
     public String desc = "";
-    /**建筑类型*/
+    /**
+     * 建筑类型
+     */
     public String buildingType = "";
-    /**作者*/
+    /**
+     * 作者
+     */
     public String author = "Trhsy";
-    /**工作*/
+    /**
+     * 工作
+     */
     public String jobType = "null";
-    /**文件内容*/
+    /**
+     * 文件内容
+     */
     public String fileContents;
-    /**长*/
+    /**
+     * 长
+     */
     public int length;
-    /**宽*/
+    /**
+     * 宽
+     */
     public int width;
-    /**高*/
+    /**
+     * 高
+     */
     public int height;
-    /**建筑方向*/
+    /**
+     * 建筑方向
+     */
     public int direction = 0;
-    /**计数块*/
+    /**
+     * 计数块
+     */
     public int blockCount = 0;
     public List<BuildingSymbol> blocks = new CopyOnWriteArrayList<>();
     //蓝图建筑结构
@@ -78,7 +100,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                 String[] var8 = keys;
                 int charNumber = keys.length;
 
-                for(int var10 = 0; var10 < charNumber; ++var10) {
+                for (int var10 = 0; var10 < charNumber; ++var10) {
                     String k = var8[var10];
                     if (k.contains("AU")) {
                         this.author = k.split("=")[1];
@@ -87,8 +109,8 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                     if (k.contains("DIR")) {
                         this.direction = Integer.valueOf(k.split("=")[1]);
                     } else if (k.contains("DESC")) {
-                        this.desc =k.split("=")[1];
-                    }else if (k.contains("JOB")) {
+                        this.desc = k.split("=")[1];
+                    } else if (k.contains("JOB")) {
                         this.jobType = k.split("=")[1];
                         ModSimLoader.log.info("Found jobType " + this.jobType + " in " + this.name);
                     } else if (Integer.valueOf(k.split("=")[1].split(",").length) > 1) {
@@ -102,11 +124,11 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                 boolean hasControlBox = false;
 
                 String line;
-                while((line = sc.nextLine()) != null) {
+                while ((line = sc.nextLine()) != null) {
                     char[] var33 = line.toCharArray();
                     int var12 = var33.length;
 
-                    for(int var13 = 0; var13 < var12; ++var13) {
+                    for (int var13 = 0; var13 < var12; ++var13) {
                         char c = var33[var13];
                         //生活块
                         if (String.valueOf(c).contentEquals("!")) {
@@ -194,10 +216,10 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                             Block block = null;
                             Iterator var17 = this.blocks.iterator();
 
-                            while(var17.hasNext()) {
-                                BuildingSymbol bs = (BuildingSymbol)var17.next();
+                            while (var17.hasNext()) {
+                                BuildingSymbol bs = (BuildingSymbol) var17.next();
                                 if (bs.symbol.contentEquals(symbol)) {
-                                    block = (Block)Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
+                                    block = (Block) Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
                                     IBlockState blockstate = block.getStateFromMeta(bs.meta);
                                     this.structure[charNumber] = blockstate;
                                     ++charNumber;
@@ -233,19 +255,21 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
         }
 
     }
+
     /**
+     * @return void
      * @Author fan
      * @Description //TODO 从文件 添加建筑蓝图
      * @Date 15:58 2022/11/1
      * @Param [file]
-     * @return void
      **/
     public void addBuildingBlueprint(File file) {
         try {
 //            if(!file.getName().contains("new")){
 
 
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            InputStream inputStream =new FileInputStream(file);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             /*String newFile=file.getAbsolutePath();
             newFile=newFile.substring(0,newFile.length()-4);
             File file1=new File(newFile+"_new.txt");
@@ -272,7 +296,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                     this.buildingType = I18n.format("container.sim.sim_gui_BC_special");
                 }/* else if (file.getAbsolutePath().contains("administrative")) {
                     this.buildingType = "administrative";
-                } */else if (file.getAbsolutePath().contains("decorative")) {
+                } */ else if (file.getAbsolutePath().contains("decorative")) {
                     this.buildingType = I18n.format("container.sim.sim_gui_BC_Decorative");
                 }
 
@@ -288,38 +312,38 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                 String[] var7 = keys;
                 int charNumber = keys.length;
 
-                for(int var9 = 0; var9 < charNumber; ++var9) {
+                for (int var9 = 0; var9 < charNumber; ++var9) {
                     String k = var7[var9];
                     if (k.contains("AU")) {
                         this.author = k.split("=")[1];
 //                        bw.write(k+";");
                         //描述
-                    }else if (k.contains("DIR")) {
+                    } else if (k.contains("DIR")) {
                         this.direction = Integer.valueOf(k.split("=")[1]);
 //                        bw.write(k+";");
                         //工作
                     } else if (k.contains("DESC")) {
-                        this.desc =k.split("=")[1];
-                    }else if (k.contains("JOB")) {
+                        this.desc = k.split("=")[1];
+                    } else if (k.contains("JOB")) {
                         this.jobType = k.split("=")[1];
 //                        bw.write(k+";");
                         ModSimLoader.log.info("找到工作类型： " + this.jobType + " ，在： " + this.name);
                     } else if (Integer.valueOf(k.split("=")[1].split(":").length) > 1) {
-                        String symbol=k.split("=")[0];
-                        String blockNames=k.split("=")[1];
-                        String blockName=blockNames.split(",")[0];
-                        int meta=Integer.valueOf(blockNames.split(",")[1]);
+                        String symbol = k.split("=")[0];
+                        String blockNames = k.split("=")[1];
+                        String blockName = blockNames.split(",")[0];
+                        int meta = Integer.valueOf(blockNames.split(",")[1]);
                         Block block = Block.getBlockFromName(blockName);
                         this.blocks.add(new BuildingSymbol(symbol, block.getRegistryName().toString(), meta));
                     } else {
-                        String symbol=k.split("=")[0];
-                        String blockNames=k.split("=")[1];
-                        String blockName=blockNames.split(",")[0];
-                        int meta=Integer.valueOf(blockNames.split(",")[1]);
+                        String symbol = k.split("=")[0];
+                        String blockNames = k.split("=")[1];
+                        String blockName = blockNames.split(",")[0];
+                        int meta = Integer.valueOf(blockNames.split(",")[1]);
                         Block block = Block.getBlockFromName(blockName);
-                        System.out.println(block.getUnlocalizedName());
+                        //System.out.println(block.getUnlocalizedName());
 //                        bw.write(symbol+"="+block.getRegistryName()+","+meta+";");
-                        this.blocks.add(new BuildingSymbol(symbol,block.getRegistryName().toString(), 0));
+                        this.blocks.add(new BuildingSymbol(symbol, block.getRegistryName().toString(), 0));
                     }
 
                 }
@@ -328,12 +352,12 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                 charNumber = 0;
 
                 String line;
-                while((line = br.readLine()) != null) {
+                while ((line = br.readLine()) != null) {
 //                    bw.write(line);
 //                    bw.write("\r\n");
                     char[] var30 = line.toCharArray();
 
-                    for(int var11 = 0; var11 < var30.length; ++var11) {
+                    for (int var11 = 0; var11 < var30.length; ++var11) {
                         char c = var30[var11];
                         //生活块
                         if (String.valueOf(c).contentEquals("!")) {
@@ -418,11 +442,11 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                         } else {
                             String symbol = String.valueOf(c);
                             Block block = null;
-                            for(BuildingSymbol bs:this.blocks){
+                            for (BuildingSymbol bs : this.blocks) {
                                 if (bs.symbol.contentEquals(symbol)) {
-                                    block = (Block)Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
+                                    block = (Block) Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
                                     IBlockState blockstate = block.getStateFromMeta(bs.meta);
-                                    if(blockstate!=null){
+                                    if (blockstate != null) {
                                         this.structure[charNumber] = blockstate;
                                         ++charNumber;
                                         break;
@@ -461,19 +485,20 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
         }
 
     }
+
     /**
+     * @return java.util.Hashtable<net.minecraft.item.Item, java.lang.Integer>
      * @Author fan
      * @Description //TODO 获取建筑需求
      * @Date 15:57 2022/11/1
      * @Param []
-     * @return java.util.Hashtable<net.minecraft.item.Item,java.lang.Integer>
      **/
     public Hashtable<Item, Integer> getBuildingRequirements() {
         Hashtable<Item, Integer> ret = new Hashtable();
         IBlockState[] var2 = this.structure;
         int var3 = var2.length;
 
-        for(int var4 = 0; var4 < var3; ++var4) {
+        for (int var4 = 0; var4 < var3; ++var4) {
             IBlockState state = var2[var4];
             if (state != null) {
                 Block blockId = state.getBlock();
@@ -481,7 +506,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
                 if (this.isRequiredBlock(blockId)) {
                     Item item = Item.getItemFromBlock(state.getBlock());
                     if (ret.containsKey(item)) {
-                        ret.put(item, (Integer)ret.get(item) + 1);
+                        ret.put(item, (Integer) ret.get(item) + 1);
                     } else {
                         ret.put(item, 1);
                     }
@@ -491,12 +516,13 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
 
         return ret;
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 获取建筑要求
      * @Date 12:57 2022/11/1
      * @Param []
-     * @return java.lang.String
      **/
     public String getBuildingRequirementsString() {
         //实际计数
@@ -507,40 +533,40 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
             if (actualCount == -1) {
                 Iterator it = this.getBuildingRequirements().entrySet().iterator();
                 actualCount = 0;
-                while(it.hasNext()) {
-                    Map.Entry pairs = (Map.Entry)it.next();
+                while (it.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) it.next();
                     if (pairs.getKey() != null) {
                         ++actualCount;
                     }
                 }
             }
 
-            float offset = (float)actualCount * 0.2F + 2.5F;
+            float offset = (float) actualCount * 0.2F + 2.5F;
             //所需的块
             b.append(I18n.format("container.sim.render_1") + this.name + ";");
 
             try {
                 Iterator it = this.getBuildingRequirements().entrySet().iterator();
 
-                while(it.hasNext()) {
+                while (it.hasNext()) {
                     try {
-                        Map.Entry pairs = (Map.Entry)it.next();
+                        Map.Entry pairs = (Map.Entry) it.next();
                         if (pairs.getValue() != null) {
                             String st = pairs.getValue().toString();
                             double stacks = Math.ceil(Double.parseDouble(st) / 64.0D);
                             String ss = "";
-                            if ((int)stacks == 0) {
+                            if ((int) stacks == 0) {
                                 //小于1堆
                                 ss = I18n.format("container.sim.render_2");
-                            } else if ((int)stacks == 1) {
+                            } else if ((int) stacks == 1) {
                                 //1个堆
                                 ss = I18n.format("container.sim.render_3");
                             } else {
                                 //堆
-                                ss = (int)stacks + I18n.format("container.sim.render_4");
+                                ss = (int) stacks + I18n.format("container.sim.render_4");
                             }
-                            Item is = (Item)pairs.getKey();
-                            int quantity = (Integer)pairs.getValue();
+                            Item is = (Item) pairs.getKey();
+                            int quantity = (Integer) pairs.getValue();
                             if (quantity > 0) {
                                 String itemName = is.getItemStackDisplayName(new ItemStack(is));
                                 //橡木
@@ -572,38 +598,41 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
         }
         return b.toString();
     }
+
     /**
+     * @return boolean
      * @Author fan
      * @Description //TODO 是否是必须的块
      * @Date 15:54 2022/11/1
      * @Param [blockId]
-     * @return boolean
      **/
     public boolean isRequiredBlock(Block blockId) {
         //木板 圆石 玻璃 羊毛 砖块 泥土 石砖 栅栏 墙 石头 原木
         return blockId == Blocks.PLANKS || blockId == Blocks.COBBLESTONE || blockId == Blocks.GLASS || blockId == Blocks.WOOL || blockId == Blocks.BRICK_BLOCK || blockId == Blocks.DIRT || blockId == Blocks.STONEBRICK || blockId instanceof BlockFence || blockId instanceof BlockWall || blockId == Blocks.STONE || blockId == Blocks.LOG || blockId == Blocks.LOG2;
     }
+
     /**
+     * @return java.lang.String
      * @Author fan
      * @Description //TODO 获取维度
      * @Date 15:57 2022/11/1
      * @Param []
-     * @return java.lang.String
      **/
     public String getDimensions() {
         return this.length + " x " + this.height + " x " + this.width;
     }
+
     /**
+     * @return net.minecraft.util.math.Vec3d
      * @Author fan
      * @Description //TODO 获取第一个预览点
      * @Date 16:07 2022/10/31
      * @Param [pos, buildDirection]
-     * @return net.minecraft.util.math.Vec3d
      **/
     public Vec3d getFirstPoint(BlockPos pos, int buildDirection) {
         //北方
         EnumFacing facing = EnumFacing.NORTH;
-        switch(buildDirection) {
+        switch (buildDirection) {
             case 0:
                 facing = EnumFacing.NORTH;
                 break;
@@ -622,16 +651,17 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
 
         return new Vec3d(pos.offset(facing));
     }
+
     /**
+     * @return net.minecraft.util.math.Vec3d
      * @Author fan
      * @Description //TODO 获取第二个预览点
      * @Date 16:12 2022/11/1
      * @Param [pos, buildDirection]
-     * @return net.minecraft.util.math.Vec3d
      **/
     public Vec3d getSecondPoint(BlockPos pos, int buildDirection) {
         EnumFacing facing = EnumFacing.NORTH;
-        switch(buildDirection) {
+        switch (buildDirection) {
             case 0:
                 facing = EnumFacing.NORTH;
                 break;
@@ -650,6 +680,6 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint>{
 
     @Override
     public int compareTo(BuildingBlueprint o) {
-        return this.structure.length-o.structure.length;
+        return this.structure.length - o.structure.length;
     }
 }

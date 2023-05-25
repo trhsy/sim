@@ -625,7 +625,7 @@ container.sim.gui_contains_Lumbermill=Lumbermill
 container.sim.gui_contains_Builders_Merchant=Builders Merchant
 container.sim.building.railing=bars
 container.sim.gui_contains_Barracks=Barracks
-container.sim.gui_contains_Sheep_Farm=woolshed
+container.sim.gui_contains_Sheep_Farm=Sheep Farm
 container.sim.gui_contains_Sheep_Farm1=Sheep Farm
 container.sim.gui_contains_Egg_Farm=Egg Farm
 container.sim.gui_contains_Cattle_Farm=Cattle Farm
@@ -1251,3 +1251,7 @@ container.sim.job.Grocer1=groceries
 
 container.sim.Command1=Simulated City has already started, you cannot currently change gamemode
 container.sim.Command2=Invalid arguments, should be: /simmode
+
+container.sim.jobMiner1=has just levelled up to Mining Level
+container.sim.gui_mine1=TOO SMALL
+container.sim.gui_mine2=Mine

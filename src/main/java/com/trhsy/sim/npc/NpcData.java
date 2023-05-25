@@ -417,9 +417,11 @@ public class NpcData {
         this.entity = (EntityFolk) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(loadID);
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(npcFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            //BufferedReader reader = new BufferedReader(new FileReader(npcFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            InputStream inputStream =new FileInputStream(new File(npcFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             BuildingBlueprint buildingBlueprint = null;
-            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+            for (String line = reader.readLine(); line != null; line =reader.readLine()) {
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
@@ -618,6 +620,14 @@ public class NpcData {
      **/
     public void fire() {
         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
+        if(this.job.jobName.equals(I18n.format("container.sim.Vocation1"))){
+            JobBuilder jobBuilder= (JobBuilder) this.job;
+            jobBuilder.conBox.folk=null;
+        }
+        if(this.job.jobName.equals(I18n.format("container.sim.Vocation16"))){
+            JobTerrainFormer jobTerrainFormer= (JobTerrainFormer) this.job;
+            jobTerrainFormer.conBox.folk=null;
+        }
         this.job = null;
         this.holding = null;
         if (this.entity != null) {

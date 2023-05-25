@@ -33,6 +33,7 @@ public class GuiFolk extends GuiScreen {
     String relationshipData;
     String building;
     String farming;
+    String mining;
     int page = 0;
 
     public GuiFolk(PacketOpenFolkGui message) {
@@ -50,6 +51,7 @@ public class GuiFolk extends GuiScreen {
         this.relationshipData = message.relationshipData;
         this.building = message.building;
         this.farming = message.farming;
+        this.mining = message.mining;
         this.hungerStatus = message.hungerStatus ;
     }
     @Override
@@ -98,7 +100,7 @@ public class GuiFolk extends GuiScreen {
     @Override
     public void drawScreen(int i, int j, float f) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(new ResourceLocation(ModSim.MODID, "textures/gui/guifolk.png"));
+        this.mc.renderEngine.bindTexture(new ResourceLocation(ModSim.MODID, "textures/gui/guiFolk.png"));
         int posX = (this.width - 256) / 2;
         int labelPos = this.width / 2 - 96;
         this.drawDefaultBackground();
@@ -129,6 +131,9 @@ public class GuiFolk extends GuiScreen {
             //农耕等级
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Farming_Skill")+":", labelPos, 97, 0x000000);
             this.fontRendererObj.drawString(this.farming, this.width / 2, 97, 0x000000);
+            //农耕等级
+            this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Mining_skill")+":", labelPos, 107, 0x000000);
+            this.fontRendererObj.drawString(this.mining, this.width / 2, 107, 0x000000);
         } else if(this.page == 1) {
             //的关系
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Relationshipss")+":", this.width / 2, 17, 0x000000);

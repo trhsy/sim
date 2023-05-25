@@ -5,6 +5,7 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.block.MineBox;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -26,9 +27,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **/
 public class JobMiner extends Job{
     public MineBox mine;
+    //矿井检查
     long mineCheck = 0L;
-    int level = 0;
+    int mineCount = 0;
     Random rand;
+
 
     public JobMiner(NpcData folk, BlockPos pos, World world, MineBox mb) {
         super(folk, pos, world);
@@ -40,7 +43,9 @@ public class JobMiner extends Job{
 
     @Override
     public void onArrive() {
+        //矿井检查
         this.mineCheck = System.currentTimeMillis();
+        //手持物
         this.folk.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ItemLoader.tinSword));
     }
 
@@ -48,6 +53,7 @@ public class JobMiner extends Job{
     public void onUpdate() {
         super.onUpdate();
         if (this.atWork) {
+            //检查金额
             if (ModSimLoader.money > 0.02F) {
                 if (this.findJobChests(5).size() == 0) {
                     //附近没有箱子
@@ -68,7 +74,7 @@ public class JobMiner extends Job{
                     }
                 }
 
-                if ((float)(System.currentTimeMillis() - this.mineCheck) > 1500.0F - 100.0F * this.folk.skillMining && this.stuckItem == null) {
+                if ((float)(System.currentTimeMillis() - this.mineCheck) > 1500.0F - (100.0F * this.folk.skillMining) && this.stuckItem == null) {
                     this.mine();
                 }
             } else {
@@ -79,30 +85,40 @@ public class JobMiner extends Job{
 
     }
 
+    /**
+     * 采矿
+     */
     public void mine() {
         for(int y = 3; (double)y > 0.0D - this.mine.loc.y; --y) {
             for(int z = 0; z < this.mine.z; ++z) {
                 for(int x = 0; x < this.mine.x; ++x) {
                     List<ItemStack> drops = new CopyOnWriteArrayList<>();
                     BlockPos bp = new BlockPos(this.mine.getCorner().offset(this.mine.facing, x).offset(this.mine.facing.rotateY(), z).offset(EnumFacing.DOWN, -y));
-                    Block b = this.jobWorld.getBlockState(bp).getBlock();
-                    if (!b.isAir(this.jobWorld.getBlockState(bp), this.jobWorld, bp) && this.jobWorld.getBlockState(bp).getBlock() != Blocks.BEDROCK && !this.jobWorld.getBlockState(bp).getMaterial().isLiquid()) {
+                    IBlockState iBlockState=this.folk.entity.worldObj.getBlockState(bp);
+                    Block b = iBlockState.getBlock();
+                    //不是空 不是基岩 不是液体
+                    if (!(b.isAir(iBlockState, this.folk.entity.worldObj, bp)) && b != Blocks.BEDROCK && !(iBlockState.getMaterial().isLiquid())) {
                         //开采
                         this.folk.setStatus(I18n.format("container.sim.Mining10") +" " + b.getLocalizedName());
-                        b.getDrops(this.jobWorld, bp, this.jobWorld.getBlockState(bp), 0);
+                        drops=b.getDrops(this.folk.entity.worldObj, bp, iBlockState, 0);
                         drops.forEach((drop) -> {
                             this.placeInJobChest(drop);
                         });
-                        this.jobWorld.setBlockToAir(bp);
+                        this.folk.entity.worldObj.setBlockToAir(bp);
                         this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                         this.addMiningLevel();
                         this.mineCheck = System.currentTimeMillis();
                         return;
+                    }else if(b == Blocks.BEDROCK){
+                        this.mineCount++;
                     }
                 }
             }
         }
-
+        if(this.mineCount>=(this.mine.z*this.mine.x)){
+            this.folk.fire();
+            ModSimLoader.sendChat(I18n.format("container.sim.job.miner.farmer.bedrock"));
+        }
     }
 
     public void addMiningLevel() {

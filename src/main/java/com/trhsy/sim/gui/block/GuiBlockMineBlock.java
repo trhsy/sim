@@ -100,7 +100,21 @@ public class GuiBlockMineBlock extends GuiScreen {
             }
 
             try {
-                this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, this.facing.toString()));
+                String fs_facing = I18n.format("container.sim.gui_west");
+                //西
+                if (this.facing.toString().equals("west")) {
+                    fs_facing=I18n.format("container.sim.gui_west");
+                    //东
+                } else if (this.facing.toString().equals("east")) {
+                    fs_facing=I18n.format("container.sim.gui_east");
+                    //北
+                } else if (this.facing.toString().equals("north")) {
+                    fs_facing=I18n.format("container.sim.gui_north");
+                    //南
+                } else if (this.facing.toString().equals("south")) {
+                    fs_facing=I18n.format("container.sim.gui_south");
+                }
+                this.buttonList.add(new GuiButton(2, this.width / 2 - 100, 100, fs_facing));
             } catch (Exception var7) {
                 var7.printStackTrace();
             }
@@ -194,7 +208,21 @@ public class GuiBlockMineBlock extends GuiScreen {
                     this.onGuiClosed();
                 } else if (guibutton.id == 2) {
                     this.facing = this.facing.rotateY();
-                    guibutton.displayString = this.facing.toString();
+                    String fs_facing = I18n.format("container.sim.gui_west");
+                    //西
+                    if (this.facing.toString().equals("west")) {
+                        fs_facing=I18n.format("container.sim.gui_west");
+                        //东
+                    } else if (this.facing.toString().equals("east")) {
+                        fs_facing=I18n.format("container.sim.gui_east");
+                        //北
+                    } else if (this.facing.toString().equals("north")) {
+                        fs_facing=I18n.format("container.sim.gui_north");
+                        //南
+                    } else if (this.facing.toString().equals("south")) {
+                        fs_facing=I18n.format("container.sim.gui_south");
+                    }
+                    guibutton.displayString = fs_facing;
                     this.updateMine();
                 } else if (guibutton.id == 3) {
                     float cash = 5.0F;

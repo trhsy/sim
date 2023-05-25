@@ -990,7 +990,7 @@ public class JobFarmer extends Job {
                             //获得方块
                             Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
                             //摧毁方块
-                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 1);
 //                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
                             drops.forEach((drop) -> {
                                 //放到工作箱
@@ -1039,7 +1039,7 @@ public class JobFarmer extends Job {
                             //获得方块
                             Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
                             //摧毁方块
-                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 1);
                             drops.forEach((drop) -> {
                                 //放到工作箱
                                 this.placeInJobChest(drop);
@@ -1096,7 +1096,7 @@ public class JobFarmer extends Job {
                                 //获得方块
                                 Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
                                 //摧毁方块
-                                drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+                                drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 1);
                                 drops.forEach((drop) -> {
                                     //放到工作箱
                                     this.placeInJobChest(drop);
@@ -1141,7 +1141,7 @@ public class JobFarmer extends Job {
                 //有根茎 不是作物 不是可种植 不是可生长
                 if (!(b instanceof BlockCrops) && !(b instanceof IPlantable) && !(b instanceof IGrowable)) {
                     //包含根茎
-                    if (b instanceof BlockStem) {
+                    /*if (b instanceof BlockStem) {
                         try {
                             Block bCrop;
                             //北
@@ -1222,7 +1222,7 @@ public class JobFarmer extends Job {
                             ModSimLoader.log.error("harvest1出错了：" + var10.getMessage() + "行数：" + element.getLineNumber());
                         }
 
-                    } else if (!(b instanceof BlockPumpkin) && !(b instanceof BlockMelon) && !(b instanceof BlockCocoa) && b instanceof BlockCactus) {
+                    } else */if (!(b instanceof BlockPumpkin) && !(b instanceof BlockMelon) && !(b instanceof BlockCocoa) && !(b instanceof BlockCactus)&&b!=Blocks.AIR) {
                         //
                         BlockCrops crop = (BlockCrops)b;
                         if (crop.isMaxAge(iBlockState)) {
@@ -1230,7 +1230,7 @@ public class JobFarmer extends Job {
                             //获得方块
                             Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
                             //摧毁方块
-                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+                            drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 1);
 //                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
                             drops.forEach((drop) -> {
                                 //放到工作箱
@@ -1238,7 +1238,7 @@ public class JobFarmer extends Job {
                             });
                             this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                            this.jobWorld.setBlockToAir(bp);
+                            this.folk.entity.worldObj.setBlockToAir(bp);
                             this.addFarmingLevel();
                             this.harvestCheck = System.currentTimeMillis();
                             return;
@@ -1252,7 +1252,7 @@ public class JobFarmer extends Job {
                         //获得方块
                         Block bCrop = this.folk.entity.worldObj.getBlockState(bp.up()).getBlock();
                         //摧毁方块
-                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp.up(), this.folk.entity.worldObj.getBlockState(bp.up()), 0);
+                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp.up(), this.folk.entity.worldObj.getBlockState(bp.up()), 1);
 //                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
                         drops.forEach((drop) -> {
                             //放到工作箱
@@ -1277,7 +1277,7 @@ public class JobFarmer extends Job {
                         //获得方块
                         Block bCrop = this.folk.entity.worldObj.getBlockState(bp.up()).getBlock();
                         //摧毁方块
-                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp.up(), this.folk.entity.worldObj.getBlockState(bp.up()), 0);
+                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp.up(), this.folk.entity.worldObj.getBlockState(bp.up()), 1);
 //                                bCrop.getDrops(drops, this.folk.entity.worldObj, bp.north(), this.folk.entity.worldObj.getBlockState(bp.north()), 0);
                         drops.forEach((drop) -> {
                             //放到工作箱
@@ -1302,14 +1302,14 @@ public class JobFarmer extends Job {
                         //获得方块
                         Block bCrop = this.folk.entity.worldObj.getBlockState(bp).getBlock();
                         //摧毁方块
-                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 0);
+                        drops = bCrop.getDrops(this.folk.entity.worldObj, bp, this.folk.entity.worldObj.getBlockState(bp), 1);
                         drops.forEach((drop) -> {
                             //放到工作箱
                             this.placeInJobChest(drop);
                         });
                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                         this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                        this.jobWorld.setBlockToAir(bp);
+                        this.folk.entity.worldObj.setBlockToAir(bp);
                         this.addFarmingLevel();
                         this.harvestCheck = System.currentTimeMillis();
                         return;

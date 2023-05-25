@@ -152,7 +152,9 @@ public class Building {
         }
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(buildingFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            //BufferedReader reader = new BufferedReader(new FileReader(buildingFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            InputStream inputStream =new FileInputStream(new File(buildingFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line = reader.readLine();
 
             while(true) {

@@ -114,8 +114,9 @@ public class FarmBox {
         }
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(farmFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
-
+            //BufferedReader reader = new BufferedReader(new FileReader(farmFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            InputStream inputStream =new FileInputStream(new File(farmFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             for(String line = reader.readLine(); line != null; line = reader.readLine()) {
                 int m1 = line.indexOf("|");
                 line.substring(0, m1);

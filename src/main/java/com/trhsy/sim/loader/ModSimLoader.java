@@ -188,9 +188,9 @@ public class ModSimLoader {
         CopyOnWriteArrayList ret = new CopyOnWriteArrayList();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(fullFilename));
-
-            for (String line = br.readLine(); line != null; line = br.readLine()) {
+            InputStream inputStream =new FileInputStream(new File(fullFilename));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            for (String line = br.readLine(); line != null; line =br.readLine()) {
                 ret.add(line);
             }
 
