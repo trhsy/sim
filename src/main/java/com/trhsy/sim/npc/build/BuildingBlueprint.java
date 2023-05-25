@@ -327,7 +327,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                     } else if (k.contains("JOB")) {
                         this.jobType = k.split("=")[1];
 //                        bw.write(k+";");
-                        ModSimLoader.log.info("找到工作类型： " + this.jobType + " ，在： " + this.name);
+//                        ModSimLoader.log.info("找到工作类型： " + this.jobType + " ，在： " + this.name);
                     } else if (Integer.valueOf(k.split("=")[1].split(":").length) > 1) {
                         String symbol = k.split("=")[0];
                         String blockNames = k.split("=")[1];
