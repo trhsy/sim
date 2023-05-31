@@ -777,7 +777,7 @@ public class NpcData {
      **/
     public String getName() {
         String name = "";
-
+        //男性
         if (this.gender == 0) {
             if (this.forename == null || this.forename == "") {
                 int i = new Random().nextInt(ConfigLoader.configMaleNames.length);
@@ -799,7 +799,7 @@ public class NpcData {
             if ("en_US".equals(lang)) {
                 name = this.forename + " " + this.surname;
             } else {
-                name = this.surname + this.forename;
+                name = this.surname + " " + this.forename;
             }
         }
         return name;
@@ -1023,7 +1023,7 @@ public class NpcData {
                     //设置当前NPC 已加载
                     ModSimLoader.hasLoadedFolks = true;
                     //重生此NPC
-                    ModSimLoader.log.info("onSecond 新人生产");
+                    ModSimLoader.log.info("onSecond 重生");
                     this.respawn(player.worldObj, this.pos.toBlockPos());
                 }
             }

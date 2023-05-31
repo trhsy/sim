@@ -526,15 +526,18 @@ public class ModSimLoader {
      * @Param [pos]
      **/
     public static MineBox getMine(V3 pos) {
-        MineBox m1 = null;
-        for (MineBox m : mines) {
-            if (!m.loc.equals(pos)) {
-                m1 = m;
-                return m1;
-            }
-        }
+        Iterator var1 = mines.iterator();
 
-        return m1;
+        MineBox f;
+        do {
+            if (!var1.hasNext()) {
+                return null;
+            }
+
+            f = (MineBox) var1.next();
+        } while (!f.loc.equals(pos));
+
+        return f;
     }
 
     /**

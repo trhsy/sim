@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -372,7 +373,7 @@ public class JobBuilder extends Job {
             }
             if (fs_block != fs_st_block) {
 
-                if (ModSimLoader.money < 0.02F && ModSimLoader.gamemode!=1) {
+                if (ModSimLoader.money < 0.02F && ModSimLoader.gamemode != 1) {
                     //没有钱付给我！
                     this.folk.setStatus(I18n.format("container.sim.JobBuilder2"));
                     return;
@@ -383,7 +384,7 @@ public class JobBuilder extends Job {
                     normalBlock = false;
                     //放置门
                     ItemDoor.placeDoor(this.folk.entity.worldObj, newBP, EnumFacing.NORTH, fs_st_block, false);
-                    if(ModSimLoader.gamemode!=1){
+                    if (ModSimLoader.gamemode != 1) {
                         ModSimLoader.addMoney(-0.02F);
                     }
                 }
@@ -396,7 +397,7 @@ public class JobBuilder extends Job {
                         IBlockState iblockstate2 = iblockstate1.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD);
                         this.folk.entity.worldObj.setBlockState(pos, iblockstate2, 11);
                     }
-                    if(ModSimLoader.gamemode!=1){
+                    if (ModSimLoader.gamemode != 1) {
                         ModSimLoader.addMoney(-0.02F);
                     }
                 }
@@ -451,7 +452,7 @@ public class JobBuilder extends Job {
 
                         if (!hasBlock) {
                             //等待材料
-                            this.folk.setStatus(I18n.format("container.sim.JobBuilder4"));
+                            this.folk.setStatus(I18n.format("container.sim.JobBuilder4") + fs_st_block.getLocalizedName());
                             this.missingBlock = fs_st_block;
                             return;
                         }
@@ -500,7 +501,7 @@ public class JobBuilder extends Job {
                                     //放置方块
                                     this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
                                     this.folk.entity.worldObj.setBlockState(newBP, st);
-                                    if(ModSimLoader.gamemode!=1){
+                                    if (ModSimLoader.gamemode != 1) {
                                         ModSimLoader.addMoney(-0.02F);
                                     }
                                 }
@@ -513,7 +514,7 @@ public class JobBuilder extends Job {
                                     st = st.withRotation(Rotation.CLOCKWISE_90);
                                     if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                         this.folk.entity.worldObj.setBlockState(newBP, st);
-                                        if(ModSimLoader.gamemode!=1){
+                                        if (ModSimLoader.gamemode != 1) {
                                             ModSimLoader.addMoney(-0.02F);
                                         }
                                     }
@@ -525,7 +526,7 @@ public class JobBuilder extends Job {
                                         st = st.withRotation(Rotation.COUNTERCLOCKWISE_90);
                                         if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                             this.folk.entity.worldObj.setBlockState(newBP, st);
-                                            if(ModSimLoader.gamemode!=1){
+                                            if (ModSimLoader.gamemode != 1) {
                                                 ModSimLoader.addMoney(-0.02F);
                                             }
                                         }
@@ -534,7 +535,7 @@ public class JobBuilder extends Job {
                                     } else if (this.direction == this.blueprint.direction) {
                                         if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                             this.folk.entity.worldObj.setBlockState(newBP, st);
-                                            if(ModSimLoader.gamemode!=1){
+                                            if (ModSimLoader.gamemode != 1) {
                                                 ModSimLoader.addMoney(-0.02F);
                                             }
                                         }
@@ -547,7 +548,7 @@ public class JobBuilder extends Job {
                                     st = st.withRotation(Rotation.CLOCKWISE_180);
                                     if (!this.isSameBlock(this.folk.entity.worldObj.getBlockState(newBP).getBlock(), fs_st_block)) {
                                         this.folk.entity.worldObj.setBlockState(newBP, st);
-                                        if(ModSimLoader.gamemode!=1){
+                                        if (ModSimLoader.gamemode != 1) {
                                             ModSimLoader.addMoney(-0.02F);
                                         }
                                     }
@@ -561,20 +562,20 @@ public class JobBuilder extends Job {
                         }
                     }
                 }
-            } else {
-                long now = System.currentTimeMillis();
-                if (now - this.timeSwingArm > 3000) {
-                    this.timeSwingArm = now;
-                    this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-//                    this.folk.entity.swing();
-                    //建造的音效
-                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
-                    this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
-
-                }
-                //放置方块
-                this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
             }
+
+            long now = System.currentTimeMillis();
+            if (now - this.timeSwingArm > 3000) {
+                this.timeSwingArm = now;
+                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+//                    this.folk.entity.swing();
+                //建造的音效
+                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
+                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+            }
+            //放置方块
+            this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
+
             //在客户端生成粒子
             if (this.folk.entity.worldObj.isRemote) {
                 for (int i = 0; i < 7; ++i) {
@@ -693,7 +694,7 @@ public class JobBuilder extends Job {
         ModSimLoader.sendChat(text);
         //播放声音
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-        this.folk.entity.worldObj.playSound(this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F + + new Random().nextFloat(), new Random().nextFloat() * 0.7F + 0.3F, false);
+        this.folk.entity.worldObj.playSound(this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F + +new Random().nextFloat(), new Random().nextFloat() * 0.7F + 0.3F, false);
         this.conBox.folk = null;
     }
 
