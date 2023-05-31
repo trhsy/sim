@@ -5,7 +5,7 @@ gender|1
 age|36
 race|暗夜精灵
 skin|female39.png
-pos|-433.69999998807907,4.796599998474121,331.6981597512183,0
+pos|-436.23234762543285,4.0625,341.4961137931903,0
 trait1|勇敢的
 trait2|强壮的
 trait3|讨厌户外活动
@@ -16,4 +16,4 @@ holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|0BBB2551-6677-4FB4-812B-52D325625FFB,UNRELATED,DESPISE,4
+relationship|0BBB2551-6677-4FB4-812B-52D325625FFB,UNRELATED,DISLIKE,5
