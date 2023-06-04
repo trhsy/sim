@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.storage.loot.LootTableManager;
@@ -51,8 +52,9 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             String cfi = ModSimClientLoader.getPathFromUUID(entity.getUniqueID());
             if(!StringUtils.isNullOrEmpty(cfi)){
                 return new ResourceLocation(ModSim.MODID, "skins/" + cfi);
+            }else{
+                entity.setDead();
             }
-
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("渲染实体出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

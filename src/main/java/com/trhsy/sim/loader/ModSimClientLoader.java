@@ -97,6 +97,7 @@ public class ModSimClientLoader {
      * @return java.lang.String
      **/
     public static String getPathFromUUID(UUID UUID) {
+
         for(int i = 0; i < folkSkins.size(); ++i) {
             if ((folkSkins.get(i)).UUID.contentEquals(UUID.toString())) {
                 return (folkSkins.get(i)).skinPath;

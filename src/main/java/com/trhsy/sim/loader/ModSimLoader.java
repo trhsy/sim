@@ -527,7 +527,6 @@ public class ModSimLoader {
      **/
     public static MineBox getMine(V3 pos) {
         Iterator var1 = mines.iterator();
-
         MineBox f;
         do {
             if (!var1.hasNext()) {
