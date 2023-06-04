@@ -544,29 +544,42 @@ public class NpcData {
                             this.job = new JobEggFarmer(this, p, world);
                             //屠夫
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation15"))) {
-                            this.job = new JobButcher(this, this.tempEmployLoc.toBlockPos(), world);
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobButcher(this, p, world);
                             //渔夫
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation18"))) {
-                            this.job = new JobFisherman(this, this.tempEmployLoc.toBlockPos(), world);
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobFisherman(this, p, world);
                             //食品商
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation26"))) {
-                            this.job = new JobGrocer(this, this.tempEmployLoc.toBlockPos(), world);
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobGrocer(this, p, world);
                             //士兵
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation7"))) {
-                            this.job = new JobSoldier(this, this.tempEmployLoc.toBlockPos(), world);
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobSoldier(this, p, world);
                             //伐木工
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation2"))) {
-                            this.job = new JobLumberjack(this, this.tempEmployLoc.toBlockPos(), world);
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobLumberjack(this, p, world);
                             //制糖师
                         }else if (job.contentEquals(I18n.format("container.sim.Vocation30"))) {
-                            this.job = new JobSugar(this, this.tempEmployLoc.toBlockPos(), world);
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobSugar(this,p, world);
                             //矿工
                         }  else if (job.contentEquals(I18n.format("container.sim.Vocation4"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             MineBox mb = ModSimLoader.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);
-                            //
-                        }  else if (job.contentEquals("")) {
+                            //板砖工
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation25"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobBrickMaker(this, p, world);
+                            //玻璃制造商
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation17"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobGlassMaker(this, p, world);
+                        } else if (job.contentEquals("")) {
                         }
                     }
 
@@ -622,11 +635,15 @@ public class NpcData {
         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
         if(this.job.jobName.equals(I18n.format("container.sim.Vocation1"))){
             JobBuilder jobBuilder= (JobBuilder) this.job;
-            jobBuilder.conBox.folk=null;
+            if(jobBuilder!=null&&jobBuilder.conBox!=null){
+                jobBuilder.conBox.folk=null;
+            }
         }
         if(this.job.jobName.equals(I18n.format("container.sim.Vocation16"))){
             JobTerrainFormer jobTerrainFormer= (JobTerrainFormer) this.job;
-            jobTerrainFormer.conBox.folk=null;
+            if(jobTerrainFormer!=null&&jobTerrainFormer.conBox!=null){
+                jobTerrainFormer.conBox.folk=null;
+            }
         }
         this.job = null;
         this.holding = null;
@@ -1861,6 +1878,12 @@ public class NpcData {
             //制糖师
         }else if (jobName.contentEquals(I18n.format("container.sim.Vocation30"))) {
             this.job = new JobSugar(this, pos.toBlockPos(), world);
+            //板砖工匠
+        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation25"))) {
+            this.job = new JobBrickMaker(this, pos.toBlockPos(), world);
+            //玻璃制造商
+        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation17"))) {
+            this.job = new JobGlassMaker(this, pos.toBlockPos(), world);
         }
 
         BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
