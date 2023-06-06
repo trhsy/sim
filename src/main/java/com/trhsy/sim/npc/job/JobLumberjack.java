@@ -53,6 +53,7 @@ public class JobLumberjack extends Job {
             }
         }
     }
+    @Override
     public String toString() {
         return this.jobName;
     }

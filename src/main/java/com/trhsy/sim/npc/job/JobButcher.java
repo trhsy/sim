@@ -1,11 +1,10 @@
 package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.npc.NpcData;
-import com.trhsy.sim.npc.task.JobTaskCollectItems;
-import com.trhsy.sim.npc.task.JobTaskIdle;
-import com.trhsy.sim.npc.task.JobTaskShopkeep;
-import com.trhsy.sim.npc.task.JobTaskUnloadItems;
+import com.trhsy.sim.npc.task.*;
+import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -21,38 +20,65 @@ import java.util.List;
  * @Date 2023/4/916:16
  **/
 public class JobButcher extends Job{
+    //要收集的物品
+    public List<ItemStack> colItems = new ArrayList();
     public JobButcher(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
 
         this.jobName = I18n.format("container.sim.Vocation15");
-        //要收集的物品
-        List<ItemStack> colItems = new ArrayList();
-        //牛肉
-        colItems.add(new ItemStack(Items.BEEF, 16));
-        //鸡肉
-        colItems.add(new ItemStack(Items.CHICKEN, 16));
-        //羊肉
-        colItems.add(new ItemStack(Items.MUTTON, 16));
-        //猪排
-        colItems.add(new ItemStack(Items.PORKCHOP, 16));
-        //兔肉
-        colItems.add(new ItemStack(Items.RABBIT, 16));
-        //去上班
-        this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
-        //收集
-        this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
-        //卸货
-        this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
-        /**
-         * @Author fan
-         * @Description //TODO 卖肉
-         * @Date 16:44 2023/4/9
-         * @Param [folk, pos, world]
-         * @return
-         **/
-        this.addJobTask(new JobTaskShopkeep(this, -1L, I18n.format("container.sim.SELLINGMEAT")));
-    }
 
+        //牛肉
+        this.colItems.add(new ItemStack(Items.BEEF, 16));
+        //鸡肉
+        this.colItems.add(new ItemStack(Items.CHICKEN, 16));
+        //羊肉
+        this.colItems.add(new ItemStack(Items.MUTTON, 16));
+        //猪排
+        this.colItems.add(new ItemStack(Items.PORKCHOP, 16));
+        //兔肉
+        this.colItems.add(new ItemStack(Items.RABBIT, 16));
+
+
+
+
+
+    }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.atWork) {
+            if (this.stage == -1) {
+                this.stage = 0;
+            } else if (this.stage == 0) {
+                this.stage = 1;
+                //去上班
+                this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
+            } else if (this.stage == 1) {
+                //收集
+                this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                this.stage = 2;
+            } else if (this.stage == 2) {
+                //卸货
+                this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                this.stage = 3;
+            } else if (this.stage == 3) {
+                /**
+                 * @Author fan
+                 * @Description //TODO 卖肉
+                 * @Date 16:44 2023/4/9
+                 * @Param [folk, pos, world]
+                 * @return
+                 **/
+                this.addJobTask(new JobTaskShopkeep(this, -1L, I18n.format("container.sim.SELLINGMEAT")));
+                this.stage = 4;
+            }else{
+                if (this.jobTasks.size() > 0&&this.currentTask==null) {
+                    this.currentTask = (JobTask) this.jobTasks.get(0);
+                    this.currentTask.begin();
+                }
+            }
+        }
+    }
     @Override
     public String toString() {
         return I18n.format("container.sim.Vocation15");

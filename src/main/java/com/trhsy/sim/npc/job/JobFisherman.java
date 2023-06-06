@@ -2,9 +2,11 @@ package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.npc.task.JobTaskChopTrees;
 import com.trhsy.sim.npc.task.JobTaskIdle;
 import com.trhsy.sim.npc.task.JobTaskPlaceInChest;
 import com.trhsy.sim.npc.task.JobTaskShopkeep;
+import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -50,45 +52,86 @@ public class JobFisherman extends Job {
                 break;
             }
         }
-        /**
-         * @Author fan
-         * @Description //TODO 如果找到水
-         * @Date 20:56 2023/4/9
-         * @Param [folk, pos, world]
-         * @return
-         **/
-        if (this.nearWater) {
-            //去上班
-            this.addJobTask(new JobTaskIdle(this, 5000L, I18n.format("container.sim.job.builder_Arrived")));
-            //钓鱼
-            this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
-//把鱼放到箱子里
-            this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
-//钓鱼
-            this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
-//把鱼放到箱子里
-            this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
-//钓鱼
-            this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
-//把鱼放到箱子里
-            this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
-//钓鱼
-            this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
-//把鱼放到箱子里
-            this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
-//钓鱼
-            this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
-//把鱼放到箱子里
-            this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
-            //卖鱼
-            this.addJobTask(new JobTaskShopkeep(this, -1L, "fish"));
-        } else {
-            //找不到可以钓鱼的水。试着在离水更近的地方重建鱼场
-            ModSimLoader.sendChat(folk.getName() + " " + I18n.format("container.sim.job_task_Fisherman1"));
-            this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job_task_Fisherman")));
+
+    }
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.atWork) {
+            if (this.stage == -1) {
+                this.stage = 0;
+            } else if (this.stage == 0) {
+                this.stage = 1;
+                //去上班
+                this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
+            } else if (this.stage == 1) {
+                /**
+                 * @Author fan
+                 * @Description //TODO 如果找到水
+                 * @Date 20:56 2023/4/9
+                 * @Param [folk, pos, world]
+                 * @return
+                 **/
+                if (this.nearWater) {
+                    if (this.stage == 2) {
+                        this.stage = 3;
+                        //钓鱼
+                        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    }else if (this.stage == 3) {
+                        this.stage = 4;
+                        //把鱼放到箱子里
+                        this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
+                    }else if (this.stage == 4) {
+                        this.stage = 5;
+                        //钓鱼
+                        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    }else if (this.stage == 5) {
+                        this.stage = 6;
+                        //把鱼放到箱子里
+                        this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
+                    }else if (this.stage ==6) {
+                        this.stage = 7;
+                        //钓鱼
+                        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    }else if (this.stage == 7) {
+                        this.stage = 8;
+                        //把鱼放到箱子里
+                        this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
+                    }else if (this.stage == 8) {
+                        this.stage = 9;
+                        //钓鱼
+                        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    }else if (this.stage == 9) {
+                        this.stage = 10;
+                        //把鱼放到箱子里
+                        this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
+                    }else if (this.stage == 10) {
+                        this.stage = 11;
+                        //钓鱼
+                        this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    }else if (this.stage == 11) {
+                        this.stage = 12;
+                        //把鱼放到箱子里
+                        this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
+                    }else if (this.stage == 12) {
+                        this.stage = 13;
+                        //卖鱼
+                        this.addJobTask(new JobTaskShopkeep(this, -1L, "fish"));
+                    }
+                } else {
+                    //找不到可以钓鱼的水。试着在离水更近的地方重建鱼场
+                    ModSimLoader.sendChat(folk.getName() + " " + I18n.format("container.sim.job_task_Fisherman1"));
+                    this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job_task_Fisherman")));
+                }
+                this.stage = 2;
+            }else{
+                if (this.jobTasks.size() > 0&&this.currentTask==null) {
+                    this.currentTask = (JobTask) this.jobTasks.get(0);
+                    this.currentTask.begin();
+                }
+            }
         }
     }
-
     @Override
     public String toString() {
         return I18n.format("container.sim.Vocation18");

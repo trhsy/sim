@@ -2,8 +2,10 @@ package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.JobTaskButcherAnimal;
+import com.trhsy.sim.npc.task.JobTaskChopTrees;
 import com.trhsy.sim.npc.task.JobTaskIdle;
 import com.trhsy.sim.npc.task.JobTaskSpawnLivestock;
+import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.math.BlockPos;
@@ -55,17 +57,40 @@ public class JobLivestockFarmer extends Job{
             //养兔户
             this.jobName =  I18n.format("container.sim.Vocation29");
         }
-        //去上班
-        this.addJobTask(new JobTaskIdle(this, 5000L, I18n.format("container.sim.job.builder_Arrived")));
 
-        this.addJobTask(new JobTaskSpawnLivestock(this, this.livestockName, this.livestockClass, 5000L));
-        //照料
-        this.addJobTask(new JobTaskIdle(this, 120000L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName));
-        //屠戮畜生
-        this.addJobTask(new JobTaskButcherAnimal(this, 180000L));
-        this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName ));
     }
-
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (this.atWork) {
+            if (this.stage == -1) {
+                this.stage = 0;
+            } else if (this.stage == 0) {
+                this.stage = 1;
+                //去上班
+                this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
+            } else if (this.stage == 1) {
+                this.addJobTask(new JobTaskSpawnLivestock(this, this.livestockName, this.livestockClass, 5000L));
+                this.stage = 2;
+            }else if (this.stage == 2) {
+                //照料
+                this.addJobTask(new JobTaskIdle(this, 120000L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName));
+                this.stage = 3;
+            }else if (this.stage == 3) {
+                //屠戮畜生
+                this.addJobTask(new JobTaskButcherAnimal(this, 180000L));
+                this.stage = 4;
+            }else if (this.stage == 4) {
+                this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job.crop.farmer.Tending1")+" " + this.livestockName ));
+                this.stage = 5;
+            }else{
+                if (this.jobTasks.size() > 0&&this.currentTask==null) {
+                    this.currentTask = (JobTask) this.jobTasks.get(0);
+                    this.currentTask.begin();
+                }
+            }
+        }
+    }
     @Override
     public String toString() {
         //农民

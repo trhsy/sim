@@ -247,8 +247,9 @@ public class Building {
      **/
     public void demolish(World world, boolean removeStructure) {
         this.markedForDeletion = true;
-        for (NpcData npcData:this.occupants){
-            npcData.evict();
+        //移除租户
+        while(this.occupants.size() > 0) {
+            ((NpcData)this.occupants.get(0)).evict();
         }
         for (NpcData fd:ModSimLoader.folks){
             if (fd.job != null && fd.job.workPlace == this.controlXYZ) {
