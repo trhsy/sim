@@ -25,10 +25,6 @@ public class JobEggFarmer extends Job{
         super(folk, pos, world);
         //鸡蛋农
         this.jobName = I18n.format("container.sim.Vocation3");
-
-
-
-
     }
     @Override
     public void onUpdate() {

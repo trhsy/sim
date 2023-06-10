@@ -24,9 +24,7 @@ public class JobButcher extends Job{
     public List<ItemStack> colItems = new ArrayList();
     public JobButcher(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
-
         this.jobName = I18n.format("container.sim.Vocation15");
-
         //牛肉
         this.colItems.add(new ItemStack(Items.BEEF, 16));
         //鸡肉
@@ -37,11 +35,6 @@ public class JobButcher extends Job{
         this.colItems.add(new ItemStack(Items.PORKCHOP, 16));
         //兔肉
         this.colItems.add(new ItemStack(Items.RABBIT, 16));
-
-
-
-
-
     }
     @Override
     public void onUpdate() {

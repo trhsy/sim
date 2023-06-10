@@ -24,7 +24,6 @@ public class JobDairyFarmer extends Job{
         super(folk, pos, world);
         //牛奶农
         this.jobName = I18n.format("container.sim.Vocation20");
-        //生成 牛
     }
     @Override
     public void onUpdate() {

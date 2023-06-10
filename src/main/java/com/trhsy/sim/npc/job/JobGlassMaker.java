@@ -43,10 +43,9 @@ public class JobGlassMaker extends Job{
                 List<Block> colItems = new ArrayList();
                 //黏土
                 colItems.add(Blocks.SAND);
-                List<Block> toMineItems = new ArrayList();
                 //去寻找 沙子
                 this.folk.setStatus(I18n.format("container.sim.GOTOCLAYBLOCK"));
-                this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,true,this.v3,30,false,toMineItems));
+                this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,true,this.v3,30,false));
                 this.stage = 2;
             }else{
                 if (this.jobTasks.size() > 0&&this.currentTask==null) {

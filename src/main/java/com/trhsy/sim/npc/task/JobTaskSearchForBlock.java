@@ -29,22 +29,25 @@ public class JobTaskSearchForBlock extends JobTask {
     //是否在地下
     public boolean belowGround;
     //去开采
-    List<Block> toMine;
+    List<BlockPos> toMine;
+    //上次检查后的时间
+    long timeSinceLastCheck = 0L;
 
-    public JobTaskSearchForBlock(Job j, long ms, List<Block> blocks, boolean implementsAlso, V3 startPoint, int radius, boolean belowGround, List<Block> toMine) {
+    public JobTaskSearchForBlock(Job j, long ms, List<Block> blocks, boolean implementsAlso, V3 startPoint, int radius, boolean belowGround) {
         super(j, ms);
         this.blocks = blocks;
         this.implementsAlso = implementsAlso;
         this.startPoint = startPoint;
         this.radius = radius;
         this.belowGround = belowGround;
-        this.toMine = toMine;
     }
     @Override
     public void onTaskBegin() {
+        findBlocks();
+    }
+    public void findBlocks(){
         //是否在底下，在底下就去底下
         double startY = this.belowGround ? this.startPoint.y - (double)this.radius : this.startPoint.y;
-
         for(double x = this.startPoint.x - (double)this.radius; x < this.startPoint.x + (double)this.radius; ++x) {
             for(double y = startY; y < this.startPoint.y + (double)this.radius; ++y) {
                 for(double z = this.startPoint.z - (double)this.radius; z < this.startPoint.z + (double)this.radius; ++z) {
@@ -53,7 +56,6 @@ public class JobTaskSearchForBlock extends JobTask {
                     boolean foundSimilar = false;
                     if (this.implementsAlso) {
                         Iterator var12 = this.blocks.iterator();
-
                         while(var12.hasNext()) {
                             Block bCheck = (Block)var12.next();
                             if (b.getClass().isInstance(bCheck)) {
@@ -62,16 +64,29 @@ public class JobTaskSearchForBlock extends JobTask {
                         }
                     }
                     if ((this.blocks.contains(b) || foundSimilar) && !ModSimLoader.isBlockInBuilding(V3.fromBlockPos(bp))) {
-                        this.toMine.add(b);
+                        this.toMine.add(bp);
                     }
                 }
             }
         }
     }
-
     @Override
     public void onUpdate() {
-
+        if (System.currentTimeMillis() - this.timeSinceLastCheck > 5L) {
+            this.timeSinceLastCheck = System.currentTimeMillis();
+            if (this.toMine.size() < 1) {
+                this.job.folk.forceMoveToXYZNoWarp(this.startPoint);
+                //找树
+                this.job.folk.setStatus(I18n.format("container.sim.GOTOSANDBLOCK1"));
+                findBlocks();
+                return;
+            }
+            //去到要挖的材料边
+            this.job.folk.forceMoveToXYZNoWarp(V3.fromBlockPos((BlockPos)this.toMine.get(0)));
+            if (this.toMine.size() > 0) {
+                
+            }
+        }
     }
 
     @Override

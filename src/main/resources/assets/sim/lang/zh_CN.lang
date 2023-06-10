@@ -1128,6 +1128,7 @@ container.sim.USEFURNACE=使用熔炉
 container.sim.RETURNSAND=返回沙子
 container.sim.COLLECTSAND=收集沙子
 container.sim.GOTOSANDBLOCK=去寻找沙子
+container.sim.GOTOSANDBLOCK1=去寻找材料
 container.sim.SCANFORSAND=扫描沙子
 container.sim.SELLINGFISH=卖鱼
 container.sim.CAUGHTFISH=钓到鱼
