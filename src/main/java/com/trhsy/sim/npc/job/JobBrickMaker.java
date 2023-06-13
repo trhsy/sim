@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.task.JobTaskChopTrees;
@@ -9,6 +10,7 @@ import com.trhsy.sim.task.JobTask;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,6 +27,7 @@ public class JobBrickMaker extends Job{
     public V3 v3;
     public JobBrickMaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(Blocks.CLAY);
         //板砖工匠
         this.jobName = I18n.format("container.sim.Vocation25");
         this.v3=new V3(pos.getX(),pos.getY(),pos.getZ());

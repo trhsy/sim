@@ -28,7 +28,9 @@ public class JobTaskUnloadItems extends JobTask {
         if (this.collectionItems.size() < 1) {
             this.completeTask();
         } else {
-            this.job.folk.forceMoveToXYZ(this.job.workPlace);
+            if(!this.folk.forceMoveToXYZ(this.job.workPlace)){
+                this.folk.forceMoveToXYZNoWarp(this.job.workPlace);
+            }
         }
     }
     @Override
@@ -70,7 +72,9 @@ public class JobTaskUnloadItems extends JobTask {
             //返回工作岗位
             this.folk.setStatus(I18n.format("container.sim.job_task_Returning_to_work"));
             if (!this.job.folk.entity.isMoving()) {
-                this.job.folk.forceMoveToXYZ(this.job.workPlace);
+                if(!this.folk.forceMoveToXYZ(this.job.workPlace)){
+                    this.folk.forceMoveToXYZNoWarp(this.job.workPlace);
+                }
             }
         }
 

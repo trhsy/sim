@@ -1,10 +1,12 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.*;
 import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -24,6 +26,7 @@ public class JobButcher extends Job{
     public List<ItemStack> colItems = new ArrayList();
     public JobButcher(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(ItemLoader.tinAxe);
         this.jobName = I18n.format("container.sim.Vocation15");
         //牛肉
         this.colItems.add(new ItemStack(Items.BEEF, 16));

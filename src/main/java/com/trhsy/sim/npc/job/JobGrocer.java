@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.*;
 import com.trhsy.sim.task.JobTask;
@@ -23,6 +24,8 @@ public class JobGrocer extends Job{
     public List<ItemStack> colItems = new ArrayList();
     public JobGrocer(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        //手持锡锹
+        folk.holding = new ItemStack(ItemLoader.tinSpade);
         this.jobName = I18n.format("container.sim.Vocation26");
 
         //马铃薯

@@ -1485,18 +1485,22 @@ public class NpcData {
      **/
     public boolean forceMoveToXYZ(V3 v3) {
         // System.out.println("要去的维度："+v3.dimension+",NPC的维度:"+this.entity.dimension);
-        this.entity.getNavigator().clearPathEntity();
+//        this.entity.getNavigator().clearPathEntity();
         v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
         if (v3.dimension != this.entity.dimension) {
             this.entity.changeDimension(v3.dimension);
             this.entity.dimension = v3.dimension;
         }
-        if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
-            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-            return true;
-        } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
-            return true;
+
+        if(this.entity.getNavigator().getPath()!=null){
+            if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
+//            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+//            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+//            System.out.println("expectedtime:"+expectedtime);
+                return true;
+            } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
+                return true;
+            }
         } else {
             if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
                 if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.worldObj.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
@@ -1508,6 +1512,7 @@ public class NpcData {
             }
             return false;
         }
+        return true;
     }
 
     /**

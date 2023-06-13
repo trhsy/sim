@@ -52,6 +52,7 @@ public class JobFarmer extends Job {
 
     public JobFarmer(NpcData folk, BlockPos pos, World world, FarmBox fb) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(ItemLoader.tinHoe);
         this.jobName = I18n.format("container.sim.Vocation5");
         this.farm = fb;
         this.farm.employee=folk;
@@ -62,8 +63,6 @@ public class JobFarmer extends Job {
     public void onArrive() {
         //收获检查
         this.harvestCheck = System.currentTimeMillis();
-        //手持锡锄头
-        this.folk.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ItemLoader.tinHoe));
     }
 
     /**

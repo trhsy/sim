@@ -49,7 +49,9 @@ public class TaskSleep extends Task {
     @Override
     public void onUpdate() {
         if (this.folk.home != null&&!this.folk.isAtLocation(this.folk.home.livingXYZ)&&System.currentTimeMillis()-this.fs_t>3000l) {
-            this.folk.forceMoveToXYZ(this.folk.home.livingXYZ);
+            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
+                this.folk.forceMoveToXYZNoWarp(this.folk.home.livingXYZ);
+            }
             this.fs_t=System.currentTimeMillis();
         }else{
             this.folk.stayPut = true;

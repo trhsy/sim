@@ -23,6 +23,7 @@ import scala.util.Random;
 public class JobEggFarmer extends Job{
     public JobEggFarmer(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(Items.EGG);
         //鸡蛋农
         this.jobName = I18n.format("container.sim.Vocation3");
     }

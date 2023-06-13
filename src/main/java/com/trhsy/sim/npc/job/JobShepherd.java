@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.JobTaskHarvestAnimal;
 import com.trhsy.sim.npc.task.JobTaskIdle;
@@ -22,6 +23,8 @@ import net.minecraft.world.World;
 public class JobShepherd extends Job{
     public JobShepherd(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        //手持羊毛
+        folk.holding = new ItemStack(Blocks.WOOL);
         //牧羊人
         this.jobName = I18n.format("container.sim.Vocation8");
     }

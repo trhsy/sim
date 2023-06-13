@@ -3,10 +3,7 @@ package com.trhsy.sim.npc.job;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockConstructorBox;
 import com.trhsy.sim.entity.EntityConBox;
-import com.trhsy.sim.loader.BlockLoader;
-import com.trhsy.sim.loader.ConfigLoader;
-import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketSendBuildingRequirements;
 import com.trhsy.sim.network.client.PacketSendTerrainTypeRequitrements;
 import com.trhsy.sim.network.server.PacketSendTerrainType;
@@ -89,6 +86,8 @@ public class JobTerrainFormer extends Job {
 
     public JobTerrainFormer(NpcData folk, TerrainType terrainType, BlockPos pos, World world) {
         super(folk, pos, world);
+        //手持羊毛
+        folk.holding = new ItemStack(ItemLoader.tinSpade);
         this.startPos = pos;
         this.constructorPos = pos;
         this.terrainType = terrainType;

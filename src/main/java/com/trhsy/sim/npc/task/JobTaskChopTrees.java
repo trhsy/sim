@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName JobTaskChopTrees
@@ -23,7 +24,7 @@ import java.util.List;
  **/
 public class JobTaskChopTrees extends JobTask {
     //要开采的方块
-    List<BlockPos> toMine = new ArrayList();
+    List<BlockPos> toMine = new CopyOnWriteArrayList<>();
     //开始地点
     V3 startPoint;
     //半径

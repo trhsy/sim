@@ -35,6 +35,8 @@ public class JobMiner extends Job{
 
     public JobMiner(NpcData folk, BlockPos pos, World world, MineBox mb) {
         super(folk, pos, world);
+        //手持镐子
+        folk.holding = new ItemStack(ItemLoader.tinPickaxe);
         //矿工
         this.jobName = I18n.format("container.sim.Vocation4");
         this.mine = mb;

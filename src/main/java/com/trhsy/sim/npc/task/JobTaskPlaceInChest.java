@@ -55,7 +55,9 @@ public class JobTaskPlaceInChest extends JobTask {
             ModSimLoader.addMoney(0.02F * (float)this.toPlace.stackSize);
             this.completeTask();
         } else if (!this.job.folk.entity.isMoving() && this.job.folk.entity.getNavigator().getPath() == null) {
-            this.job.folk.forceMoveToXYZ(this.job.workPlace);
+            if(!this.folk.forceMoveToXYZ(this.job.workPlace)){
+                this.folk.forceMoveToXYZNoWarp(this.job.workPlace);
+            }
         }
     }
 

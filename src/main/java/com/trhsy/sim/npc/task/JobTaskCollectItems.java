@@ -173,7 +173,9 @@ public class JobTaskCollectItems extends JobTask {
                 //收集材料
                 this.folk.setStatus(I18n.format("container.sim.job_task_Collecting_materials"));
                 if (!this.job.folk.entity.isMoving()) {
-                    this.job.folk.forceMoveToXYZ(this.currentDestination);
+                    if(!this.folk.forceMoveToXYZ(this.currentDestination)){
+                        this.folk.forceMoveToXYZNoWarp(this.currentDestination);
+                    }
                 }
 
                 this.isGoingToDestination = true;

@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.JobTaskButcherAnimal;
 import com.trhsy.sim.npc.task.JobTaskChopTrees;
@@ -8,6 +9,7 @@ import com.trhsy.sim.npc.task.JobTaskSpawnLivestock;
 import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -30,6 +32,8 @@ public class JobLivestockFarmer extends Job{
 
     public JobLivestockFarmer(NpcData folk, BlockPos pos, String livestock, World world) {
         super(folk,pos,world);
+        //手持斧子
+        folk.holding = new ItemStack(ItemLoader.tinAxe);
         this.livestockName = livestock;
         //猪
         if (this.livestockName.equals(I18n.format("container.sim.job_Livestock_pig"))) {

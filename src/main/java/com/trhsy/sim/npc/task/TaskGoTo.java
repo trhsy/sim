@@ -34,9 +34,13 @@ public class TaskGoTo extends Task{
             if (!this.folk.isAtBuilding(this.building, isRes ? 2.0F : 4.0F)) {
                 //住宅
                 if (this.building.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
-                    this.folk.forceMoveToXYZ(this.building.livingXYZ);
+                    if(!this.folk.forceMoveToXYZ(this.building.livingXYZ)){
+                        this.folk.forceMoveToXYZNoWarp(this.building.livingXYZ);
+                    }
                 } else {
-                    this.folk.forceMoveToXYZ(this.building.controlXYZ);
+                    if(!this.folk.forceMoveToXYZ(this.building.controlXYZ)){
+                        this.folk.forceMoveToXYZNoWarp(this.building.controlXYZ);
+                    }
                 }
             }
         }

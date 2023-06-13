@@ -17,7 +17,7 @@ import java.util.Random;
  * @Description:
  * @date 2022/10/13 10:59
  */
-public class FolkAIWander extends EntityAIWander{
+public class FolkAIWander extends EntityAIWander {
     protected EntityFolk folk;
     protected boolean mustUpdate;
     protected int executionChance;
@@ -25,27 +25,29 @@ public class FolkAIWander extends EntityAIWander{
     protected double yPosition;
     protected double zPosition;
     protected double speed;
+
     public FolkAIWander(EntityFolk entity, double speedIn) {
         super(entity, speedIn);
         this.folk = entity;
-        this.speed=speedIn;
+        this.speed = speedIn;
         this.executionChance = 120;
     }
+
     @Nullable
     protected Vec3d getPosition() {
         return this.folk.theData.stayPut ? this.folk.getPositionVector() : RandomPositionGenerator.findRandomTarget(this.folk, 10, 7);
     }
 
     @Override
-    public boolean shouldExecute(){
+    public boolean shouldExecute() {
         if (this.folk.theData == null) {
             return false;
         } else if (!this.folk.theData.stayPut && !(this.folk.theData.currentTask instanceof TaskSleep)) {
             if (!this.mustUpdate) {
-                /*if (this.folk.getIdleTime() >= 100) {
-                    return false;
-                }*/
-                Random random=this.folk.getRNG();
+//                if (this.folk.getIdleTime() >= 100) {
+//                    return false;
+//                }
+                Random random = this.folk.getRNG();
                 if (random.nextInt(this.executionChance) != 0) {
                     return false;
                 }
@@ -67,8 +69,7 @@ public class FolkAIWander extends EntityAIWander{
     }
 
     @Override
-    public void startExecuting()
-    {
+    public void startExecuting() {
         this.folk.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
     }
 }

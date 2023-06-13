@@ -44,7 +44,9 @@ public class TaskSocialise extends Task {
 	@Override
 	public void onUpdate() {
 		if (!this.folk.isAtBuilding(this.building)) {
-			this.folk.forceMoveToXYZ(this.building.livingXYZ);
+			if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
+				this.folk.forceMoveToXYZNoWarp(this.folk.home.livingXYZ);
+			}
 		} else if (System.currentTimeMillis() - this.socialUpdate > 10000L && this.host) {
 			this.socialUpdate = System.currentTimeMillis();
 			this.folk.adjustRelationship(this.other, 1);

@@ -173,7 +173,6 @@ public class EventLoader {
         } else if (hasLoadedWorld) {
             ModSimLoader.log.info("世界尚未加载，正在取消");
         } else {
-
             ModSimLoader.log.info("清除旧的世界数据");
             ModSimLoader.folks.clear();
             ModSimLoader.farms.clear();

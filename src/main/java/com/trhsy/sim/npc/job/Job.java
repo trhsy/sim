@@ -156,7 +156,9 @@ public abstract class Job {
                             //去工作
                             this.folk.setStatus(I18n.format("container.sim.folk_data_Going_work"));
                             //强制瞬移过去
-                            this.folk.forceMoveToXYZ(this.workPlace);
+                            if(!this.folk.forceMoveToXYZ(this.workPlace)){
+                                this.folk.forceMoveToXYZNoWarp(this.workPlace);
+                            }
                         } else {
                             //去工作 走过去
                             this.folk.setStatus(I18n.format("container.sim.folk_data_Going_work"));

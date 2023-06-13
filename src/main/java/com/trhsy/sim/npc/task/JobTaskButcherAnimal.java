@@ -55,7 +55,10 @@ public class JobTaskButcherAnimal extends JobTask {
         if (this.butcherTarget == null) {
             this.selectTarget();
         } else {
-            this.farmJob.folk.forceMoveToXYZ(new V3(this.butcherTarget.getPosition(),this.farmJob.folk.entity.dimension));
+            V3 v3=new V3(this.butcherTarget.getPosition(),this.farmJob.folk.entity.dimension);
+            if(!this.folk.forceMoveToXYZ(v3)){
+                this.folk.forceMoveToXYZNoWarp(v3);
+            }
             if (new V3(this.butcherTarget.getPosition(),this.farmJob.folk.entity.dimension).getDistanceTo(this.farmJob.folk.getV3()) < 2) {
                 this.killTarget();
             }

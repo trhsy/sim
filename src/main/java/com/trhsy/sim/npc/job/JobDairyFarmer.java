@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.*;
 import com.trhsy.sim.task.JobTask;
@@ -22,6 +23,7 @@ public class JobDairyFarmer extends Job{
 
     public JobDairyFarmer(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        folk.holding = new ItemStack(Items.MILK_BUCKET);
         //牛奶农
         this.jobName = I18n.format("container.sim.Vocation20");
     }

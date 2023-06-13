@@ -8,6 +8,8 @@ import com.trhsy.sim.task.JobTask;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -24,6 +26,8 @@ public class JobGlassMaker extends Job{
     public V3 v3;
     public JobGlassMaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
+        //手持玻璃
+        folk.holding = new ItemStack(Blocks.SAND);
         //玻璃制造商
         this.jobName = I18n.format("container.sim.Vocation17");
         this.v3=new V3(pos.getX(),pos.getY(),pos.getZ());
