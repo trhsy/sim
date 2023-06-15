@@ -50,7 +50,7 @@ public class JobFisherman extends Job {
         //渔夫
         this.jobName = I18n.format("container.sim.Vocation18");
         this.pos=pos;
-        this.world=folk.entity.worldObj;
+        this.world=world;
         findWater();
     }
     @Override
@@ -66,10 +66,12 @@ public class JobFisherman extends Job {
         //找到水
         while (var6.hasNext()) {
             BlockPos p = (BlockPos) var6.next();
-            Block b=this.world.getBlockState(p).getBlock();
-            if ( b== Blocks.WATER || this.world.getBlockState(p).getBlock() == Blocks.FLOWING_WATER) {
-                this.nearWater = true;
-                break;
+            if(this.folk!=null&&this.folk.entity!=null){
+                Block b= this.folk.entity.worldObj.getBlockState(p).getBlock();
+                if ( b== Blocks.WATER ||  this.folk.entity.worldObj.getBlockState(p).getBlock() == Blocks.FLOWING_WATER) {
+                    this.nearWater = true;
+                    break;
+                }
             }
         }
     }
@@ -97,39 +99,39 @@ public class JobFisherman extends Job {
                     this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 2) {
                     this.stage = 3;
-                    //把鱼放到箱子里
+                    //把鱼放到箱子里 生鱼/鳕鱼
                     this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(3) + 1,0)));
                 } else if (this.stage == 3) {
                     this.stage = 4;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 4) {
                     this.stage = 5;
-                    //把生鲑鱼放到箱子里
+                    //把生鲑鱼放到箱子里 鲑鱼
                     this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(3) + 1,1)));
                 } else if (this.stage == 5) {
                     this.stage = 6;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 6) {
                     this.stage = 7;
-                    //把鱼放到箱子里
+                    //把鱼放到箱子里 小丑鱼
                     this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(3) + 1,2)));
                 } else if (this.stage == 7) {
                     this.stage = 8;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 8) {
                     this.stage = 9;
-                    //把鱼放到箱子里
+                    //把鱼放到箱子里 河豚
                     this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1,3)));
                 } else if (this.stage == 9) {
                     this.stage = 10;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 10) {
                     this.stage = 11;
-                    //把鱼放到箱子里
+                    //把鱼放到箱子里 生鱼
                     this.addJobTask(new JobTaskPlaceInChest(this, 11000L, new ItemStack(Items.FISH, new Random().nextInt(2) + 1)));
                 } else if (this.stage == 11) {
                     this.stage = 12;

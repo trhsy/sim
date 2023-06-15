@@ -157,8 +157,11 @@ public class JobTaskCollectItems extends JobTask {
             });
         } else {
             List<Building> buildings = ModSimLoader.getClosestBuildingByJob(jobt, this.job.workPlace);
-            if (buildings.size() > 0) {
-                this.destinations.add((buildings.get(0)).controlXYZ);
+            if (buildings!=null&&buildings.size() > 0) {
+                Building building=buildings.get(0);
+                if(building.occupants.size()>0){
+                    this.destinations.add(building.controlXYZ);
+                }
             }
 
         }

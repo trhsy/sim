@@ -50,7 +50,7 @@ public class JobBrickMaker extends Job{
                 //寻找黏土
                 //去寻找
                 this.folk.setStatus(I18n.format("container.sim.GOTOCLAYBLOCK"));
-                this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,true,this.v3,30,false));
+                this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,this.v3,30,false));
                 this.stage = 2;
             }else{
                 if (this.jobTasks.size() > 0&&this.currentTask==null) {
