@@ -392,11 +392,11 @@ public abstract class Job {
                 Iterator var4 = this.inventoriesFindClosest(this.workPlace, 5).iterator();
                 while(var4.hasNext()) {
                     IInventory chest = (IInventory)var4.next();
-
                     for(int i = 0; i < chest.getSizeInventory(); ++i) {
                         ItemStack is = chest.getStackInSlot(i);
-                        if(is!=null&&is.getItem()!=null){
-                            if (is.getItem() instanceof ItemFood) {
+                        Item item=is.getItem();
+                        if(is!=null&&item!=null){
+                            if (item instanceof ItemFood) {
                                 ++fedFolks;
                                 fd.hunger = 10;
                                 chest.decrStackSize(i, 1);

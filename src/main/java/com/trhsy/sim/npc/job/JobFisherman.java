@@ -58,21 +58,25 @@ public class JobFisherman extends Job {
 
     }
     public void findWater(){
-        //寻找附近水
-        BlockPos corner1 = this.pos.north(5).east(5).down(2);
-        BlockPos corner2 =  this.pos.south(5).west(5).down(2);
+        try {
+            //寻找附近水
+            BlockPos corner1 = this.pos.north(5).east(5).down(2);
+            BlockPos corner2 =  this.pos.south(5).west(5).down(2);
 
-        Iterator var6 = BlockPos.getAllInBox(corner1, corner2).iterator();
-        //找到水
-        while (var6.hasNext()) {
-            BlockPos p = (BlockPos) var6.next();
-            if(this.folk!=null&&this.folk.entity!=null){
-                Block b= this.folk.entity.worldObj.getBlockState(p).getBlock();
-                if ( b== Blocks.WATER ||  this.folk.entity.worldObj.getBlockState(p).getBlock() == Blocks.FLOWING_WATER) {
-                    this.nearWater = true;
-                    break;
+            Iterator var6 = BlockPos.getAllInBox(corner1, corner2).iterator();
+            //找到水
+            while (var6.hasNext()) {
+                BlockPos p = (BlockPos) var6.next();
+                if(this.folk!=null&&this.folk.entity!=null){
+                    Block b= this.folk.entity.worldObj.getBlockState(p).getBlock();
+                    if ( b== Blocks.WATER ||  this.folk.entity.worldObj.getBlockState(p).getBlock() == Blocks.FLOWING_WATER) {
+                        this.nearWater = true;
+                        break;
+                    }
                 }
             }
+        }catch (Exception e){
+            ModSimLoader.log.error("寻找水出错了",e.getMessage());
         }
     }
     @Override
@@ -145,7 +149,7 @@ public class JobFisherman extends Job {
                     this.timeSinceLastBlockPlace = now;
                     //找不到可以钓鱼的水。试着在离水更近的地方重建鱼场
                     ModSimLoader.sendChat(folk.getName() + " " + I18n.format("container.sim.job_task_Fisherman1"));
-                    this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job_task_Fisherman")));
+                    //this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job_task_Fisherman")));
                     findWater();
                 }
             }
