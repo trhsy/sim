@@ -83,6 +83,7 @@ public class PacketHireFolk implements IMessage {
         private void handle(PacketHireFolk message, MessageContext ctx) {
             NpcData fd = ModSimLoader.getFolkDataByUID(message.uuid);
             if (fd.job != null) {
+                //被其他地方雇佣，尝试雇佣其他人
                 ctx.getServerHandler().playerEntity.addChatMessage(new TextComponentString(fd.getName() + I18n.format("container.sim.hire_elsewhere")));
             } else {
                 //建筑工
@@ -113,6 +114,7 @@ public class PacketHireFolk implements IMessage {
                         mineBox.saveMine();
                     }
                 } else {
+                    //去雇佣地点
                     fd.hireAt(message.pos, message.job, ctx.getServerHandler().playerEntity.worldObj);
                 }
 

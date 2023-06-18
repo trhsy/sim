@@ -100,7 +100,7 @@ public class JobFisherman extends Job {
                 if (this.stage == 1) {
                     this.stage = 2;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 2) {
                     this.stage = 3;
                     //把鱼放到箱子里 生鱼/鳕鱼
@@ -108,7 +108,7 @@ public class JobFisherman extends Job {
                 } else if (this.stage == 3) {
                     this.stage = 4;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 4) {
                     this.stage = 5;
                     //把生鲑鱼放到箱子里 鲑鱼
@@ -116,7 +116,7 @@ public class JobFisherman extends Job {
                 } else if (this.stage == 5) {
                     this.stage = 6;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 6) {
                     this.stage = 7;
                     //把鱼放到箱子里 小丑鱼
@@ -124,7 +124,7 @@ public class JobFisherman extends Job {
                 } else if (this.stage == 7) {
                     this.stage = 8;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 8) {
                     this.stage = 9;
                     //把鱼放到箱子里 河豚
@@ -132,7 +132,7 @@ public class JobFisherman extends Job {
                 } else if (this.stage == 9) {
                     this.stage = 10;
                     //钓鱼
-                    this.addJobTask(new JobTaskIdle(this, 160000L, I18n.format("container.sim.FISHING")));
+                    this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.FISHING")));
                 } else if (this.stage == 10) {
                     this.stage = 11;
                     //把鱼放到箱子里 生鱼

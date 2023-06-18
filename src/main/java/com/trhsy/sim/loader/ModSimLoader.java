@@ -842,15 +842,15 @@ public class ModSimLoader {
     /**
      * 打开控制箱
      */
-    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, String buildingName, String jobName, String bType, String author) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId, buildingName, jobName, bType, author));
+    public static void openControlGui(V3 v3, String buildingId, List<NpcData> occupants, String buildingName, String jobName, String bType, String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, occupants, buildingId, buildingName, jobName, bType, author));
     }
 
     /**
      * 打开控制箱
      */
-    public static void openControlGui(V3 v3, String buildingId, NpcIdentity folk, boolean isResidential, String buildingName, String jobName, String bType, String author) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, folk, buildingId, isResidential, buildingName, jobName, bType, author));
+    public static void openControlGui(V3 v3, String buildingId, List<NpcData> occupants, boolean isResidential, String buildingName, String jobName, String bType, String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBlockControllerBlock(v3, occupants, buildingId, isResidential, buildingName, jobName, bType, author));
     }
 
     public static void openFarmGui(UUID id, V3 loc, EnumFacing facing, FarmType farmType, int x, int z) {

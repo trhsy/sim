@@ -645,12 +645,16 @@ public class NpcData {
                 jobTerrainFormer.conBox.folk=null;
             }
         }
+        Building building=ModSimLoader.getBuildingByV3(this.job.workPlace);
+        if(building!=null){
+            building.occupants.remove(this);
+        }
+
         this.job = null;
         this.holding = null;
         if (this.entity != null) {
             this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
         }
-
         this.stayPut = false;
     }
 
@@ -1893,6 +1897,8 @@ public class NpcData {
 
         BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
         cont.employees.add(this);
+        Building building=ModSimLoader.getBuildingByV3(pos);
+        building.occupants.add(this);
     }
 
     /**

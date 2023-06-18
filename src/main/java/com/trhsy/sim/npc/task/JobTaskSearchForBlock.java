@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -110,7 +111,7 @@ public class JobTaskSearchForBlock extends JobTask {
                         this.job.folk.setStatus(I18n.format("container.sim.COLLECTCLAY"));
                         IBlockState woodState = this.job.jobWorld.getBlockState((BlockPos) this.toMine.get(0));
                         //将物品放到箱子
-                        this.job.placeInJobChest(new ItemStack(woodState.getBlock().getItemDropped(woodState, this.rand, 0), woodState.getBlock().quantityDropped(this.rand)));
+                        this.job.placeInJobChest(new ItemStack(woodState.getBlock().getItemDropped(woodState, new Random(), 0), woodState.getBlock().quantityDropped(new Random())));
                         this.job.jobWorld.setBlockToAir((BlockPos) this.toMine.get(0));
                         ModSimLoader.addMoney(-0.02F);
                         this.toMine.remove(0);

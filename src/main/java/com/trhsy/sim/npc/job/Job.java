@@ -394,13 +394,15 @@ public abstract class Job {
                     IInventory chest = (IInventory)var4.next();
                     for(int i = 0; i < chest.getSizeInventory(); ++i) {
                         ItemStack is = chest.getStackInSlot(i);
-                        Item item=is.getItem();
-                        if(is!=null&&item!=null){
-                            if (item instanceof ItemFood) {
-                                ++fedFolks;
-                                fd.hunger = 10;
-                                chest.decrStackSize(i, 1);
-                                continue label35;
+                        if(is!=null){
+                            Item item=is.getItem();
+                            if(item!=null){
+                                if (item instanceof ItemFood) {
+                                    ++fedFolks;
+                                    fd.hunger = 10;
+                                    chest.decrStackSize(i, 1);
+                                    continue label35;
+                                }
                             }
                         }
                     }

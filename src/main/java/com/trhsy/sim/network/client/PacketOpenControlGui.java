@@ -2,6 +2,7 @@ package com.trhsy.sim.network.client;
 
 import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import io.netty.buffer.ByteBuf;
@@ -11,6 +12,9 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName PacketOpenControlGui
@@ -26,14 +30,15 @@ public class PacketOpenControlGui implements IMessage {
     private String buildingName;
     private String buildingType;
     private String author;
-    private NpcIdentity folk;
+//    private NpcIdentity folk;
+    private List<NpcData> occupants;
     private boolean isResidential;
 
     public PacketOpenControlGui() {
     }
     /**初始化**/
-    public PacketOpenControlGui(V3 v3,String buildingId, String buildingName,String buildingType,String jobName,String author, NpcIdentity cfi, boolean isResidential) {
-        this.folk = cfi;
+    public PacketOpenControlGui(V3 v3,String buildingId, String buildingName,String buildingType,String jobName,String author, List<NpcData> occupants, boolean isResidential) {
+        this.occupants = occupants;
         this.v3 = v3;
         this.buildingId = buildingId;
         this.jobName = jobName;
@@ -43,6 +48,7 @@ public class PacketOpenControlGui implements IMessage {
         this.isResidential = isResidential;
     }
     public PacketOpenControlGui(V3 v3,String buildingId,String buildingName,String buildingType,String jobName,String author, boolean isResidential) {
+        this.occupants =new CopyOnWriteArrayList<>();
         this.v3 = v3;
         this.buildingId = buildingId;
         this.jobName = jobName;
@@ -60,9 +66,15 @@ public class PacketOpenControlGui implements IMessage {
         this.author=ByteBufUtils.readUTF8String(buf);
         this.buildingType=ByteBufUtils.readUTF8String(buf);
         this.isResidential = buf.readBoolean();
-
         try {
-            this.folk = new NpcIdentity(ByteBufUtils.readUTF8String(buf));
+            String ids=ByteBufUtils.readUTF8String(buf);
+            String[] id=ids.split(";");
+            List<NpcData> newOccupants=new CopyOnWriteArrayList<>();
+            for (String s:id){
+                NpcData npcData= ModSimLoader.getFolkDataByUID(s);
+                newOccupants.add(npcData);
+            }
+            this.occupants= newOccupants;
         } catch (Exception var3) {
         }
 
@@ -76,8 +88,12 @@ public class PacketOpenControlGui implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.author);
         ByteBufUtils.writeUTF8String(buf, this.buildingType);
         buf.writeBoolean(this.isResidential);
-        if (this.folk != null) {
-            ByteBufUtils.writeUTF8String(buf, this.folk.toString());
+        if (this.occupants != null&&this.occupants.size()>0) {
+            String ids="";
+            for (int i = 0; i < this.occupants.size(); i++) {
+                ids+= this.occupants.get(i).ID+";";
+            }
+            ByteBufUtils.writeUTF8String(buf, ids);
         }
 
     }
@@ -100,12 +116,12 @@ public class PacketOpenControlGui implements IMessage {
         }
 
         private void handle(PacketOpenControlGui message, MessageContext ctx) {
-            if (message.folk == null) {
+            if (message.occupants==null||message.occupants.size()==0) {
                 ModSimLoader.openControlGui(message.v3, message.buildingId,message.buildingName,message.jobName,message.buildingType,message.author);
             } else if (message.isResidential) {
-                ModSimLoader.openControlGui(message.v3, message.buildingId, message.folk,true,message.buildingName,message.jobName,message.buildingType,message.author);
+                ModSimLoader.openControlGui(message.v3, message.buildingId, message.occupants,true,message.buildingName,message.jobName,message.buildingType,message.author);
             } else {
-                ModSimLoader.openControlGui(message.v3, message.buildingId,message.folk,message.buildingName,message.jobName,message.buildingType,message.author);
+                ModSimLoader.openControlGui(message.v3, message.buildingId,message.occupants,message.buildingName,message.jobName,message.buildingType,message.author);
             }
 
         }

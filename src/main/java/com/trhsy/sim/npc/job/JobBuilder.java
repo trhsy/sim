@@ -340,10 +340,8 @@ public class JobBuilder extends Job {
                 if (this.constructorBlock != null) {
                     this.constructorBlock.employee = null;
                 }
-                if (this.conBox != null) {
-                    this.conBox.folk = null;
-                }
                 this.createBuilding();
+
                 ModSimLoader.log.info("从第一次功能检查激发");
                 return;
             }
@@ -623,6 +621,7 @@ public class JobBuilder extends Job {
                 }
                 ModSimLoader.log.info("从中间功能检查中激发");
                 this.createBuilding();
+
                 return;
             }
         } catch (Exception var12) {
@@ -690,7 +689,9 @@ public class JobBuilder extends Job {
         //播放声音
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
         this.folk.entity.worldObj.playSound(this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F + +new Random().nextFloat(), new Random().nextFloat() * 0.7F + 0.3F, false);
-//        this.conBox.folk = null;
+        if (this.conBox != null) {
+            this.conBox.folk = null;
+        }
     }
 
     /**

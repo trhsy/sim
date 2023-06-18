@@ -608,7 +608,7 @@ container.sim.Tasks=Tasks
 
 container.sim.Building_Control_Panel=Building Control Panel
 container.sim.on_this_building=ERROR: lost info on this building
-container.sim.this_Building=only click 'fix house' below if this Building IS a house
+container.sim.this_Building=Please hire a construction worker to rebuild
 container.sim.Under_construction=Under construction
 container.sim.Active_Building=Active Building
 container.sim.sim_Building=Building Name

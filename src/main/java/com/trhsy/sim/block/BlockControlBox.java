@@ -16,6 +16,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -144,38 +145,56 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
         //客户端
         if (!worldIn.isRemote) {
+            //获取控制箱位置
             V3 vPos = new V3(pos,playerIn.dimension);
+            //获取该位置的建筑
             Building b = ModSimLoader.getBuildingByV3(vPos);
+            List<NpcData> occupants=new CopyOnWriteArrayList<>();
             //ModSimLoader.log.info("建筑: " + b.buildingName + ", " + b.jobType);
+            /*
             NpcData fd = null;
             for (NpcData f : ModSimLoader.folks) {
                 if (f.job != null) {
                     ModSimLoader.log.info(f.job.workPlace.toString() + " vs " + vPos.toString());
                     if (f.job.workPlace.toString().equals(vPos.toString())) {
-                        ModSimLoader.log.info("他们是相同的");
-                        if ("1528.0,3.0,246.0,0".contentEquals("1524.0,3.0,218.0,0")) {
-                            ModSimLoader.log.info("这里也是一样的");
-                        }
-
                         fd = f;
                     }
                 }
+            }*/
+            if(b!=null){
+                //存在则查询其下拥有者/员工
+                occupants=b.occupants;
+                if(occupants!=null&&occupants.size()>0){
+                    //建筑是住宅
+                    if(b.buildingType.equals(I18n.format("container.sim.sim_gui_BC_Residential"))){
+                        NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos,b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, occupants,true), (EntityPlayerMP) playerIn);
+                    }else{
+                        NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, occupants,false), (EntityPlayerMP) playerIn);
+                    }
+                }else{
+                    //没有员工
+                    NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, occupants,false), (EntityPlayerMP) playerIn);
+                }
+            }else{
+                //建筑等于空不存在提示错误信息
+                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, "","","","","", false), (EntityPlayerMP) playerIn);
             }
-
-            if (fd == null) {
+            /*if (fd == null) {
                 for (NpcData f : ModSimLoader.folks) {
                     //有房子
                     if (f.home == b) {
                         if(b!=null){
-                            NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos,b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, f.getClientIdentity(),true), (EntityPlayerMP) playerIn);
+
                         }
                         return true;
                     }
                 }
-                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, false), (EntityPlayerMP) playerIn);
+                if(b!=null){
+                    NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, false), (EntityPlayerMP) playerIn);
+                }
             } else {
-                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author, fd.getClientIdentity(),false), (EntityPlayerMP) playerIn);
-            }
+
+            }*/
 
         }
 
