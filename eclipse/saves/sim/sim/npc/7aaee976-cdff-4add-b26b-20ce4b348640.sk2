@@ -2,7 +2,7 @@ id|7aaee976-cdff-4add-b26b-20ce4b348640
 fname|浩熙
 sname|褚
 gender|0
-age|21
+age|22
 race|人族
 skin|female45.png
 pos|-410.5,5.0,283.5,0
@@ -11,9 +11,9 @@ trait2|夜猫子
 trait3|友善的
 hunger|9
 buildingskill|1.0
-farmingskill|1.3010141
+farmingskill|1.4220197
 holding|锡锄
 employedat|-411.0,4.0,283.0,0
 job|农民
 jobstage|4
-relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,ENEMY,6
+relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,HATE,0

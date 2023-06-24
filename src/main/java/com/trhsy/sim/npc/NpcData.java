@@ -633,12 +633,14 @@ public class NpcData {
      **/
     public void fire() {
         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
+        //建筑工
         if(this.job.jobName.equals(I18n.format("container.sim.Vocation1"))){
             JobBuilder jobBuilder= (JobBuilder) this.job;
             if(jobBuilder!=null&&jobBuilder.conBox!=null){
                 jobBuilder.conBox.folk=null;
             }
         }
+        //规划师
         if(this.job.jobName.equals(I18n.format("container.sim.Vocation16"))){
             JobTerrainFormer jobTerrainFormer= (JobTerrainFormer) this.job;
             if(jobTerrainFormer!=null&&jobTerrainFormer.conBox!=null){
@@ -1527,7 +1529,7 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean forceMoveToXYZNoWarp(V3 v3) {
-        v3 = new V3(v3.x, v3.y + 1.0D, v3.z);
+        v3 = new V3(v3.x, v3.y + 0.5D, v3.z);
         if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             return true;
         } else {

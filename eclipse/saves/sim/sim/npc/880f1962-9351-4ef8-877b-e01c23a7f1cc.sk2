@@ -2,10 +2,10 @@ id|880f1962-9351-4ef8-877b-e01c23a7f1cc
 fname|祥麟
 sname|云
 gender|0
-age|27
+age|28
 race|精灵
 skin|male14.png
-pos|-436.41685270200344,4.0,337.1958997748176,0
+pos|-439.8528640329799,5.0,354.49307148955273,0
 trait1|勇敢的
 trait2|讨厌户外活动
 trait3|夜猫子
@@ -16,4 +16,4 @@ holding|锡剑
 employedat|-440.0,4.0,354.0,0
 job|士兵
 jobstage|0
-relationship|594341F5-E5E8-4367-8164-EB85FBEAF58A,SPOUSE,GOODFRIEND,4
+relationship|594341F5-E5E8-4367-8164-EB85FBEAF58A,SPOUSE,BESTFRIENDS,4

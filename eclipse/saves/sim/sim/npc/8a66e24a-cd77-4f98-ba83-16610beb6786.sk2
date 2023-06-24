@@ -2,10 +2,10 @@ id|8a66e24a-cd77-4f98-ba83-16610beb6786
 fname|薇曼
 sname|都
 gender|1
-age|27
+age|28
 race|精灵
 skin|male14.png
-pos|-419.22102601717614,4.0,374.45459619981216,0
+pos|-437.499070092869,7.5,323.3399153277448,0
 trait1|勇敢的
 trait2|强壮的
 trait3|矮人血脉
@@ -16,4 +16,4 @@ holding|锡剑
 employedat|-440.0,4.0,354.0,0
 job|士兵
 jobstage|0
-relationship|3C450C05-4326-4761-9E84-C77E3372562C,SPOUSE,BESTFRIENDS,6
+relationship|3C450C05-4326-4761-9E84-C77E3372562C,SPOUSE,DISLIKE,8

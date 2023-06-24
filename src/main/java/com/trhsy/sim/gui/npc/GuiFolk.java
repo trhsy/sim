@@ -76,7 +76,7 @@ public class GuiFolk extends GuiScreen {
             //特征
             this.buttonList.add(new GuiButton(1, width / 2 - 50, 170, 100, 20, I18n.format("container.sim.guiFolk.Traits")));
             //库存
-            this.buttonList.add(new GuiButton(1, width / 2 - 50, 190, 100, 20, I18n.format("container.sim.guiFolk.Inventory")));
+//            this.buttonList.add(new GuiButton(1, width / 2 - 50, 190, 100, 20, I18n.format("container.sim.guiFolk.Inventory")));
         }else if (this.page == 1) {
             //返回
             this.buttonList.add(new GuiButton(1, 2, this.height - 42, 50, 20, I18n.format("container.sim.gui_Folk_Back")));

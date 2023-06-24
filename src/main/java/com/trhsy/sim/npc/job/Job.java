@@ -106,7 +106,7 @@ public abstract class Job {
             this.stage = -1;
             ModSimLoader.log.info("没有剩余任务");
         } else {
-            ModSimLoader.log.info("将任务更改为 " + this.jobTasks.get(curTask + 1) + "(" + curTask + 1 + ")");
+            ModSimLoader.log.info("将任务["+this.jobName+"]更改为 " + this.jobTasks.get(curTask + 1) + "(" + curTask + 1 + ")");
             this.stage = curTask + 1;
             this.currentTask = (JobTask)this.jobTasks.get(curTask + 1);
             this.currentTask.begin();
@@ -328,44 +328,50 @@ public abstract class Job {
      */
     public boolean placeInJobChest(IInventory chest, ItemStack item) {
         boolean placedOK = false;
-        if (item == null) {
-            ModSimLoader.log.info("试图放置空项");
-            return true;
-        } else {
-            for(int itemNumber = 1; itemNumber <= item.stackSize; ++itemNumber) {
-                for(int chestSlot = 0; chestSlot < chest.getSizeInventory(); ++chestSlot) {
-                    ItemStack is = chest.getStackInSlot(chestSlot);
-                    if (is==null||is.getDisplayName().contentEquals("Air")) {
-                        is = item.copy();
-                        is.stackSize=1;
-                        chest.setInventorySlotContents(chestSlot, is);
-                        ItemStack isTest = chest.getStackInSlot(chestSlot);
-                        if (isTest != null) {
-                            placedOK = true;
-                            break;
-                        }
+        try {
+            if (item == null) {
+                ModSimLoader.log.info("试图放置空项");
+                return true;
+            } else {
+                for(int itemNumber = 1; itemNumber <= item.stackSize; ++itemNumber) {
+                    for(int chestSlot = 0; chestSlot < chest.getSizeInventory(); ++chestSlot) {
+                        ItemStack is = chest.getStackInSlot(chestSlot);
+                        if (is==null||is.getDisplayName().contentEquals("Air")) {
+                            is = item.copy();
+                            is.stackSize=1;
+                            chest.setInventorySlotContents(chestSlot, is);
+                            ItemStack isTest = chest.getStackInSlot(chestSlot);
+                            if (isTest != null) {
+                                placedOK = true;
+                                break;
+                            }
 
-                        placedOK = false;
-                    } else if (is.getItem().getUnlocalizedName().contentEquals(item.getItem().getUnlocalizedName()) && is.stackSize < is.getMaxStackSize()) {
-                        int isBefore = chest.getStackInSlot(chestSlot).stackSize;
-                        is.stackSize=is.stackSize+1;
+                            placedOK = false;
+                        } else if (is.getItem().getUnlocalizedName().contentEquals(item.getItem().getUnlocalizedName()) && is.stackSize < is.getMaxStackSize()) {
+                            int isBefore = chest.getStackInSlot(chestSlot).stackSize;
+                            is.stackSize=is.stackSize+1;
 //                        is.setCount(is.getCount() + 1);
-                        chest.setInventorySlotContents(chestSlot, is);
-                        int isAfter = chest.getStackInSlot(chestSlot).stackSize;
-                        if (isAfter > isBefore) {
-                            placedOK = true;
-                            break;
-                        }
+                            chest.setInventorySlotContents(chestSlot, is);
+                            int isAfter = chest.getStackInSlot(chestSlot).stackSize;
+                            if (isAfter > isBefore) {
+                                placedOK = true;
+                                break;
+                            }
 
-                        placedOK = false;
+                            placedOK = false;
+                        }
                     }
                 }
-            }
 
-            if (!placedOK) {
-                this.stuckItem = item.copy();
-            }
+                if (!placedOK) {
+                    this.stuckItem = item.copy();
+                }
 
+                return placedOK;
+            }
+        }catch (Exception e){
+            placedOK = false;
+            ModSimLoader.log.error("将物品放置到箱子里 出错了"+e.getMessage());
             return placedOK;
         }
     }

@@ -1,9 +1,11 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.loader.ConfigLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.task.JobTaskIdle;
 import com.trhsy.sim.npc.task.JobTaskSearchForBlock;
+import com.trhsy.sim.npc.task.JobTaskUseFurnace;
 import com.trhsy.sim.task.JobTask;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -35,6 +37,7 @@ public class JobGlassMaker extends Job{
     @Override
     public void onUpdate() {
         super.onUpdate();
+
         if (this.atWork) {
             if (this.stage == -1) {
                 this.stage = 0;
@@ -45,12 +48,15 @@ public class JobGlassMaker extends Job{
             } else if (this.stage == 1) {
                 //要收集的物品
                 List<Block> colItems = new ArrayList();
-                //黏土
+                //沙子
                 colItems.add(Blocks.SAND);
                 //去寻找 沙子
                 this.folk.setStatus(I18n.format("container.sim.GOTOCLAYBLOCK"));
-                this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,this.v3,30,false));
+                this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,this.v3, ConfigLoader.configLumberArea,false));
                 this.stage = 2;
+            }else if(this.stage == 2){
+                this.addJobTask(new JobTaskUseFurnace(this, 120000, new ItemStack(Blocks.SAND)));
+                this.stage = 3;
             }else{
                 if (this.jobTasks.size() > 0&&this.currentTask==null) {
                     this.currentTask = (JobTask) this.jobTasks.get(0);

@@ -54,9 +54,10 @@ public class JobTaskSearchForBlock extends JobTask {
 
     public void findBlocks() {
         //是否在底下，在底下就去底下
-        double startY = this.belowGround ? this.startPoint.y - (double) this.radius : this.startPoint.y;
-        for (double x = this.startPoint.x - (double) this.radius; x < this.startPoint.x + (double) this.radius; ++x) {
-            for (double y = startY; y < this.startPoint.y + (double) this.radius; ++y) {
+//        double startY = this.belowGround ? this.startPoint.y - (double) this.radius : this.startPoint.y;
+        double startY = this.startPoint.y;
+        for (double y = startY; y < this.startPoint.y + (double) this.radius; ++y) {
+            for (double x = this.startPoint.x - (double) this.radius; x < this.startPoint.x + (double) this.radius; ++x) {
                 for (double z = this.startPoint.z - (double) this.radius; z < this.startPoint.z + (double) this.radius; ++z) {
                     BlockPos bp = new BlockPos(x, y, z);
                     Block b = this.job.jobWorld.getBlockState(bp).getBlock();
@@ -90,7 +91,11 @@ public class JobTaskSearchForBlock extends JobTask {
                 return;
             }
             //去到要挖的材料边
-            this.job.folk.forceMoveToXYZNoWarp(V3.fromBlockPos((BlockPos) this.toMine.get(0)));
+            BlockPos p = this.toMine.get(0);
+            V3 v3 = new V3(p.getX(), p.getY(), p.getZ());
+            if (!this.job.folk.forceMoveToXYZ(v3)) {
+                this.job.folk.forceMoveToXYZNoWarp(v3);
+            }
             if (this.toMine.size() > 0) {
                 if (this.folk.entity.motionX == 0.0D && this.folk.entity.motionZ == 0.0D) {
                     for (double x = this.folk.entity.posX - 1.0D; x <= this.folk.entity.posX + 1.0D; ++x) {

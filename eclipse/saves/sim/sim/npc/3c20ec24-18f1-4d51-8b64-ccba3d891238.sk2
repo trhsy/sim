@@ -2,7 +2,7 @@ id|3c20ec24-18f1-4d51-8b64-ccba3d891238
 fname|佳俊
 sname|经
 gender|0
-age|27
+age|28
 race|精灵
 skin|male14.png
 pos|-424.5,6.0,359.5,0
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|钓鱼竿
 employedat|-425.0,5.0,359.0,0
 job|渔夫
-jobstage|12
-relationship|5949CD7B-B0F0-43ED-9334-AE86CB3C608A,UNRELATED,FRIEND,8
+jobstage|14
+relationship|5949CD7B-B0F0-43ED-9334-AE86CB3C608A,UNRELATED,HATE,1

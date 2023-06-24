@@ -49,7 +49,7 @@ public abstract class JobTask {
         if (this.completed) {
             this.job.nextTask();
         } else if (this.deadline > 0L && System.currentTimeMillis() - this.timeSinceLastRun > this.deadline) {
-            ModSimLoader.log.info("运行 completeTask() 任务完成在 " + this.deadline + " ms");
+            ModSimLoader.log.info(this.job.jobName+"运行 completeTask() 任务完成在 " + this.deadline + " ms");
             this.completeTask();
         } else {
             this.onUpdate();

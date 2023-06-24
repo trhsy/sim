@@ -212,12 +212,14 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             //雇佣
                             this.buttonList.add(new GuiButton(1, 10, this.height - 30, 100, 20, I18n.format("container.sim.Hire0") + WordUtils.capitalize(this.jobName)));
                         }
-                        int down=67;
-                        for (int k = 0; k < this.occupants.size(); k++) {
-                            NpcData npcData = this.occupants.get(k);
-                            String employeeName= npcData.getName();
-                            this.buttonList.add(new GuiButton(2, this.width - 140, down, 100, 20, I18n.format("container.sim.Fire") +" "+ WordUtils.capitalize(employeeName)));
-                            down +=20;
+                        if(this.occupants!=null){
+                            int down=67;
+                            for (int k = 0; k < this.occupants.size(); k++) {
+                                NpcData npcData = this.occupants.get(k);
+                                String employeeName= npcData.getName();
+                                this.buttonList.add(new GuiButton(2, this.width - 140, down, 100, 20, I18n.format("container.sim.Fire") +" "+ WordUtils.capitalize(employeeName)));
+                                down +=20;
+                            }
                         }
                         /*else{
                             //解雇
@@ -403,9 +405,11 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             String s=npcData.getName();
                             if(text.contains(s)){
                                 uuId=npcData.ID;
+                                this.occupants.remove(i);
                             }
                         }
                         NetWorkLoader.net.sendToServer(new PacketFireFolk(uuId));
+                        this.hasEmployee=false;
                         this.currentPage = 0;
                         this.showPage();
                     } else if (guibutton.id == 3) {

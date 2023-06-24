@@ -71,8 +71,12 @@ public class JobTaskChopTrees extends JobTask {
                 findTree();
                 return;
             }
-
-            this.job.folk.forceMoveToXYZNoWarp(V3.fromBlockPos((BlockPos)this.toMine.get(0)));
+            BlockPos p=this.toMine.get(0);
+            V3 v3=new V3(p.getX(),p.getY(),p.getZ());
+            if(!this.job.folk.forceMoveToXYZ(v3)){
+                this.job.folk.forceMoveToXYZNoWarp(v3);
+            }
+//            this.job.folk.forceMoveToXYZNoWarp(V3.fromBlockPos((BlockPos)this.toMine.get(0)));
             if (this.toMine.size() > 0) {
                 if (this.folk.entity.motionX == 0.0D && this.folk.entity.motionZ == 0.0D) {
                     new ArrayList();

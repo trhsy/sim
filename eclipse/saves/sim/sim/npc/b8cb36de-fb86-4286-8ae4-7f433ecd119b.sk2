@@ -2,10 +2,10 @@ id|b8cb36de-fb86-4286-8ae4-7f433ecd119b
 fname|颍丝
 sname|冀
 gender|1
-age|26
+age|27
 race|暗夜精灵
-skin|female15.png
-pos|-407.06040935516376,4.0,350.06567950106137,0
+skin|female12.png
+pos|-407.5,5.0,358.5,0
 trait1|喜欢户外活动
 trait2|矮人血脉
 trait3|讨厌户外活动
@@ -16,4 +16,4 @@ holding|锡锹
 employedat|-408.0,4.0,358.0,0
 job|面包师
 jobstage|6
-relationship|5AE89BBA-7ABC-4ADB-8517-D21DE7D6C3F1,UNRELATED,AQUAINTANCE,2
+relationship|5AE89BBA-7ABC-4ADB-8517-D21DE7D6C3F1,UNRELATED,ENEMY,8

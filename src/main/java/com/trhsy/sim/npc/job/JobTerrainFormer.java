@@ -244,6 +244,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
                         //开始地形规划
@@ -308,6 +310,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
                         //开始地形规划
@@ -388,6 +392,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
                         //开始地形规划
@@ -455,6 +461,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
 //开始地形规划
@@ -507,6 +515,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
 //开始地形规划
@@ -574,6 +584,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
                         //开始地形规划
@@ -653,6 +665,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
 //开始地形规划
@@ -715,6 +729,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
 //开始地形规划
@@ -777,6 +793,8 @@ public class JobTerrainFormer extends Job {
                             ModSimLoader.sendChat(I18n.format("container.sim.job.terra.farmer.terraformed"));
                             //解雇
                             this.folk.fire();
+                            this.folk.stayPut = false;
+                            this.conBox.folk = null;
                             return;
                         }
                         //开始地形规划
