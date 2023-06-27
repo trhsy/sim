@@ -54,10 +54,9 @@ public class JobTaskUseFurnace extends JobTask {
     public void onUpdate() {
         //寻找熔炉
         this.factoryFurnace = this.findFurnace(this.job.workPlace);
-        //寻找箱子
-        List<IInventory> factoryChests= this.job.inventoriesFindClosest(this.job.workPlace, 5);
+
         if (this.factoryFurnace == null) {
-            if (System.currentTimeMillis() - this.timeSinceLastCheck > 3000L) {
+            if (System.currentTimeMillis() - this.timeSinceLastCheck > 1000L*60) {
                 this.timeSinceLastCheck = System.currentTimeMillis();
                 //我的炉子不见了
                 ModSimLoader.sendChat(this.folk.getName() + I18n.format("container.sim.job.glass.farmer.Where"));
@@ -66,6 +65,8 @@ public class JobTaskUseFurnace extends JobTask {
             ItemStack currentSand;
             //燃料
             ItemStack gotFuel;
+            //寻找箱子
+            List<IInventory> factoryChests= this.job.inventoriesFindClosest(this.job.workPlace, 5);
             if (this.step == 1) {
                 //检查炉子燃料
                 this.folk.status = I18n.format("container.sim.job.glass.farmer.Checking");
@@ -87,7 +88,7 @@ public class JobTaskUseFurnace extends JobTask {
                         gotFuel = inventoriesGet(factoryChests, new ItemStack(Blocks.PLANKS, 64), false, false, new ItemStack(Blocks.PLANKS, 1));
                     }
                     if (gotFuel == null) {
-                        if (System.currentTimeMillis() - this.timeSinceLastCheck > 3000L) {
+                        if (System.currentTimeMillis() - this.timeSinceLastCheck > 1000L*60) {
                             this.timeSinceLastCheck = System.currentTimeMillis();
                             // 我的的炉子没有任何燃料
                             ModSimLoader.sendChat(this.folk.getName() + "(" + this.job.jobName + ")" + I18n.format("container.sim.job.glass.farmer.furnace"));
@@ -163,7 +164,7 @@ public class JobTaskUseFurnace extends JobTask {
             if (vRet != null) {
                 BlockPos blockPos = new BlockPos(vRet.x, vRet.y, vRet.z);
                 //设置熔炉位置 转换为int
-                ret = (TileEntityFurnace) this.job.jobWorld.getTileEntity(blockPos);
+                ret = (TileEntityFurnace) this.folk.entity.worldObj.getTileEntity(blockPos);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];
@@ -284,7 +285,7 @@ public class JobTaskUseFurnace extends JobTask {
     public V3 findClosestBlockType(V3 startXYZ, Block block, int searchDistance, boolean mustSeeSky) {
         V3 ret = null;
         try {
-            Block block1=this.job.jobWorld.getBlockState(new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z)).getBlock();
+            Block block1=this.folk.entity.worldObj.getBlockState(new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z)).getBlock();
             if ( block1 == block) {
                 return startXYZ;
             } else {
@@ -295,7 +296,7 @@ public class JobTaskUseFurnace extends JobTask {
                                 int sx = (int) (startXYZ.x + xo);
                                 int sy = (int) (startXYZ.y + yo);
                                 int sz = (int) (startXYZ.z + zo);
-                                if (this.job.jobWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock().getBlockState() == block.getBlockState()) {
+                                if (this.folk.entity.worldObj.getBlockState(new BlockPos(sx, sy, sz)).getBlock().getBlockState() == block.getBlockState()) {
                                     ret = new V3(sx,sy,sz);
                                     return ret;
                                 }

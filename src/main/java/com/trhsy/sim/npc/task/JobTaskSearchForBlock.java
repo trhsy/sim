@@ -60,7 +60,7 @@ public class JobTaskSearchForBlock extends JobTask {
             for (double x = this.startPoint.x - (double) this.radius; x < this.startPoint.x + (double) this.radius; ++x) {
                 for (double z = this.startPoint.z - (double) this.radius; z < this.startPoint.z + (double) this.radius; ++z) {
                     BlockPos bp = new BlockPos(x, y, z);
-                    Block b = this.job.jobWorld.getBlockState(bp).getBlock();
+                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
                     boolean foundSimilar = false;
 
                     Iterator var12 = this.blocks.iterator();
@@ -102,8 +102,8 @@ public class JobTaskSearchForBlock extends JobTask {
                         for (double y = this.folk.entity.posY; y <= this.folk.entity.posY + 1.0D; ++y) {
                             for (double z = this.folk.entity.posZ - 1.0D; z <= this.folk.entity.posZ + 1.0D; ++z) {
                                 BlockPos bp = new BlockPos(x, y, z);
-                                if (this.job.jobWorld.getBlockState(bp).getBlock().isLeaves(this.job.jobWorld.getBlockState(bp), this.job.jobWorld, bp)) {
-                                    this.job.jobWorld.setBlockToAir(bp);
+                                if (this.folk.entity.worldObj.getBlockState(bp).getBlock().isLeaves(this.folk.entity.worldObj.getBlockState(bp), this.folk.entity.worldObj, bp)) {
+                                    this.folk.entity.worldObj.setBlockToAir(bp);
                                 }
                             }
                         }
@@ -114,10 +114,10 @@ public class JobTaskSearchForBlock extends JobTask {
                     if ((float) (System.currentTimeMillis() - this.timeSinceLastChop) > 1500.0F - 100.0F * this.folk.skillMining) {
                         //采集方块
                         this.job.folk.setStatus(I18n.format("container.sim.COLLECTCLAY"));
-                        IBlockState woodState = this.job.jobWorld.getBlockState((BlockPos) this.toMine.get(0));
+                        IBlockState woodState = this.folk.entity.worldObj.getBlockState((BlockPos) this.toMine.get(0));
                         //将物品放到箱子
                         this.job.placeInJobChest(new ItemStack(woodState.getBlock().getItemDropped(woodState, new Random(), 0), woodState.getBlock().quantityDropped(new Random())));
-                        this.job.jobWorld.setBlockToAir((BlockPos) this.toMine.get(0));
+                        this.folk.entity.worldObj.setBlockToAir((BlockPos) this.toMine.get(0));
                         ModSimLoader.addMoney(-0.02F);
                         this.toMine.remove(0);
                         NpcData var10000 = this.folk;

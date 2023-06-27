@@ -1473,9 +1473,9 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean moveToXYZ(V3 v3) {
-        if (!this.stayPut && this.entity != null && this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
-            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+        if (!this.stayPut && this.entity != null && forceMoveToXYZ(v3)) {
+//            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+//            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
             return true;
         } else {
             return false;

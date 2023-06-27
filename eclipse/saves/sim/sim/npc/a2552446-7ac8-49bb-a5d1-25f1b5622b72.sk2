@@ -5,7 +5,7 @@ gender|0
 age|48
 race|精灵
 skin|male14.png
-pos|-404.86647470759465,4.0,325.06194109320677,0
+pos|-418.5463452527721,4.0,375.61623015672836,0
 trait1|擅长园艺
 trait2|讨厌户外活动
 trait3|夜猫子
@@ -16,4 +16,4 @@ holding|锡剑
 employedat|-440.0,4.0,354.0,0
 job|士兵
 jobstage|0
-relationship|37D1D7A0-6718-42DD-BC11-9DB0EAAB0AD4,UNRELATED,FRIEND,4
+relationship|37D1D7A0-6718-42DD-BC11-9DB0EAAB0AD4,UNRELATED,BESTFRIENDS,2

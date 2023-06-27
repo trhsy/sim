@@ -404,8 +404,11 @@ public abstract class Job {
                             Item item=is.getItem();
                             if(item!=null){
                                 if (item instanceof ItemFood) {
+                                    ItemFood itemFood= (ItemFood) item;
+                                    int healAmount=itemFood.getHealAmount(is);
+                                    ModSimLoader.log.info("食物："+itemFood.getUnlocalizedName()+",增加饱和度："+healAmount);
                                     ++fedFolks;
-                                    fd.hunger = 10;
+                                    fd.hunger += healAmount;
                                     chest.decrStackSize(i, 1);
                                     continue label35;
                                 }

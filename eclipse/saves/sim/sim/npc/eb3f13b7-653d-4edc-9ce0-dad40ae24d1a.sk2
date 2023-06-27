@@ -5,7 +5,7 @@ gender|0
 age|26
 race|人族
 skin|female45.png
-pos|-385.1404921091763,4.0,307.8990401689034,0
+pos|-384.7885677294439,4.0,308.29987324700403,0
 trait1|友善的
 trait2|讨厌户外活动
 trait3|喜欢户外活动
@@ -16,4 +16,4 @@ holding|锡斧
 employedat|-385.0,3.0,308.0,0
 job|养猪户
 jobstage|5
-relationship|FDB292BC-C6B5-46AC-A903-0C8CDA0CE729,UNRELATED,DESPISE,4
+relationship|FDB292BC-C6B5-46AC-A903-0C8CDA0CE729,UNRELATED,BESTFRIENDS,3

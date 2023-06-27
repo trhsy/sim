@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -118,47 +119,50 @@ public class JobTaskButcherAnimal extends JobTask {
         ModSimLoader.log.info("尝试杀死 " + this.butcherTarget.getName() + " " + this.butcherTarget.getEntityId());
         this.butcherTarget.setDropItemsWhenDead(false);
         this.butcherTarget.attackEntityFrom(DamageSource.generic, 500.0F);
-        //随机数
-        int quant = this.rand.nextInt(3) + 1;
         //牛
         if (this.butcherTarget instanceof EntityCow) {
             //牛肉
-            this.farmJob.placeInJobChest(new ItemStack(Items.BEEF, quant));
-            ModSimLoader.addMoney(-0.02F * (float)quant);
+            int q=new Random().nextInt(4) + 1;
+            this.farmJob.placeInJobChest(new ItemStack(Items.BEEF, q));
+            ModSimLoader.addMoney(-0.02F * (float)q);
             //皮革
-            if (this.rand.nextInt(5) > 2) {
-                this.farmJob.placeInJobChest(new ItemStack(Items.LEATHER, 1));
+            if (new Random().nextInt(5) > 2) {
+                this.farmJob.placeInJobChest(new ItemStack(Items.LEATHER, new Random().nextInt(2) + 1));
             }
             //鸡
         } else if (this.butcherTarget instanceof EntityChicken) {
+            int q=new Random().nextInt(2) + 1;
             //鸡肉
-            this.farmJob.placeInJobChest(new ItemStack(Items.CHICKEN, 1));
-            ModSimLoader.addMoney(-0.02F);
-            if (this.rand.nextInt(5) > 2) {
+            this.farmJob.placeInJobChest(new ItemStack(Items.CHICKEN, q));
+            ModSimLoader.addMoney(-0.02F*q);
+            if (new Random().nextInt(5) > 2) {
                 //羽毛
-                this.farmJob.placeInJobChest(new ItemStack(Items.FEATHER, 1));
+                this.farmJob.placeInJobChest(new ItemStack(Items.FEATHER, q));
             }
             //猪
         } else if (this.butcherTarget instanceof EntityPig) {
             //猪排
-            this.farmJob.placeInJobChest(new ItemStack(Items.PORKCHOP, quant));
-            ModSimLoader.addMoney(-0.02F * (float)quant);
+            int q=new Random().nextInt(4) + 1;
+            this.farmJob.placeInJobChest(new ItemStack(Items.PORKCHOP, q));
+            ModSimLoader.addMoney(-0.02F * (float)q);
             //羊
         } else if (this.butcherTarget instanceof EntitySheep) {
+            int q=new Random().nextInt(4) + 1;
             //羊肉
-            this.farmJob.placeInJobChest(new ItemStack(Items.MUTTON, quant));
+            this.farmJob.placeInJobChest(new ItemStack(Items.MUTTON, q));
             //羊毛
-            this.farmJob.placeInJobChest(new ItemStack(Blocks.WOOL, 1));
-            ModSimLoader.addMoney(-0.02F * (float)quant);
+            this.farmJob.placeInJobChest(new ItemStack(Blocks.WOOL, new Random().nextInt(2) + 1));
+            ModSimLoader.addMoney(-0.02F * (float)q);
             //兔子
         }else if (this.butcherTarget instanceof EntityRabbit) {
+            int q=new Random().nextInt(4) + 1;
             //兔肉
-            this.farmJob.placeInJobChest(new ItemStack(Items.RABBIT, quant));
+            this.farmJob.placeInJobChest(new ItemStack(Items.RABBIT, q));
             //兔脚
-            this.farmJob.placeInJobChest(new ItemStack(Items.RABBIT_FOOT, 1));
+            this.farmJob.placeInJobChest(new ItemStack(Items.RABBIT_FOOT, new Random().nextInt(2) + 1));
             //兔皮
-            this.farmJob.placeInJobChest(new ItemStack(Items.RABBIT_HIDE, 1));
-            ModSimLoader.addMoney(-0.02F * (float)quant);
+            this.farmJob.placeInJobChest(new ItemStack(Items.RABBIT_HIDE, new Random().nextInt(2) + 1));
+            ModSimLoader.addMoney(-0.02F * (float)q);
         }
 
         this.completeTask();

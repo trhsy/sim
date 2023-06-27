@@ -47,7 +47,9 @@ public class JobDairyFarmer extends Job{
                 this.stage = 3;
             } else if (this.stage == 3) {
                 // 挤牛奶
-                this.addJobTask(new JobTaskHarvestAnimal(this, 10000L, I18n.format("container.sim.job_Livestock_cow"), new ItemStack(Items.MILK_BUCKET, 1), false, I18n.format("container.sim.MILKING")));
+                this.addJobTask(new JobTaskHarvestAnimal(this, 10000L, I18n.format("container.sim.job_Livestock_cow"), new ItemStack(ItemLoader.itemBucketMilk, new Random().nextInt(5) + 1), false, I18n.format("container.sim.MILKING")));
+                //往工作项放东西
+//                this.addJobTask(new JobTaskPlaceInChest(this, 10000L, new ItemStack(ItemLoader.itemBucketMilk, new Random().nextInt(5) + 1)));
                 this.stage = 4;
             }else if (this.stage == 4) {
                 //照料牛

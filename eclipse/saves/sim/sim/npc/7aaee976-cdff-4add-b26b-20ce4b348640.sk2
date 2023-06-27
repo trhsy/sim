@@ -11,9 +11,9 @@ trait2|夜猫子
 trait3|友善的
 hunger|9
 buildingskill|1.0
-farmingskill|1.4220197
+farmingskill|1.4890229
 holding|锡锄
 employedat|-411.0,4.0,283.0,0
 job|农民
 jobstage|4
-relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,HATE,0
+relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,GOODFRIEND,5

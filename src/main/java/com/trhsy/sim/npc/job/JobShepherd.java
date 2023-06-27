@@ -10,9 +10,12 @@ import com.trhsy.sim.task.JobTask;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  * @ClassName JobShepherd
@@ -23,8 +26,8 @@ import net.minecraft.world.World;
 public class JobShepherd extends Job{
     public JobShepherd(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
-        //手持羊毛
-        folk.holding = new ItemStack(Blocks.WOOL);
+        //手持剪刀
+        folk.holding = new ItemStack(Items.SHEARS);
         //牧羊人
         this.jobName = I18n.format("container.sim.Vocation8");
     }
@@ -44,16 +47,32 @@ public class JobShepherd extends Job{
                 this.stage = 2;
             }else if (this.stage == 2) {
                 //照料羊
-                this.addJobTask(new JobTaskIdle(this, 180000L, I18n.format("container.sim.job.crop.farmer.Tending1")+I18n.format("container.sim.job_Livestock_sheep")));
+                this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.job.crop.farmer.Tending1")+I18n.format("container.sim.job_Livestock_sheep")));
                 this.stage = 3;
             }else if (this.stage == 3) {
-                //生成羊
-                this.addJobTask(new JobTaskHarvestAnimal(this, 10000L, I18n.format("container.sim.job_Livestock_sheep"), new ItemStack(Blocks.WOOL, 3), true, "Shearing sheep"));
+                //剪羊毛
+                this.addJobTask(new JobTaskHarvestAnimal(this, 10000L, I18n.format("container.sim.job_Livestock_sheep"), new ItemStack(Blocks.WOOL, new Random().nextInt(6)+1), true, I18n.format("container.sim.SHEARING")));
                 this.stage = 4;
             }else if (this.stage == 4) {
+                //照料羊
+                this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.job.crop.farmer.Tending1")+I18n.format("container.sim.job_Livestock_sheep")));
+                this.stage = 5;
+            }else if (this.stage == 5) {
+                //剪羊毛
+                this.addJobTask(new JobTaskHarvestAnimal(this, 10000L, I18n.format("container.sim.job_Livestock_sheep"), new ItemStack(Blocks.WOOL, new Random().nextInt(6)+1), true, I18n.format("container.sim.SHEARING")));
+                this.stage = 6;
+            }else if (this.stage == 6) {
+                //照料羊
+                this.addJobTask(new JobTaskIdle(this, 60000L, I18n.format("container.sim.job.crop.farmer.Tending1")+I18n.format("container.sim.job_Livestock_sheep")));
+                this.stage = 7;
+            }else if (this.stage == 7) {
+                //剪羊毛
+                this.addJobTask(new JobTaskHarvestAnimal(this, 10000L, I18n.format("container.sim.job_Livestock_sheep"), new ItemStack(Blocks.WOOL, new Random().nextInt(6)+1), true, I18n.format("container.sim.SHEARING")));
+                this.stage = 8;
+            }else if (this.stage == 8) {
                 //生成羊
                 this.addJobTask(new JobTaskIdle(this, -1L, I18n.format("container.sim.job.crop.farmer.Tending1")+I18n.format("container.sim.job_Livestock_sheep")));
-                this.stage = 5;
+                this.stage = 9;
             }else{
                 if (this.jobTasks.size() > 0&&this.currentTask==null) {
                     this.currentTask = (JobTask) this.jobTasks.get(0);
