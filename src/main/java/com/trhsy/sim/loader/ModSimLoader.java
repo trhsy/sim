@@ -655,87 +655,56 @@ public class ModSimLoader {
             //onUpdate();
         }
         //开始加载所有建筑
-//        File[] admBuildings = (new File(getSimFolder() + File.separator + "Buildings" + File.separator + "Administrative")).listFiles(File::isDirectory);
         //商业
         File[] comBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "commercial")).listFiles();
-        File[] decBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "decorative")).listFiles();
-        File[] indBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "industrial")).listFiles();
-        File[] othBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "other")).listFiles();
-        File[] resBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "residential")).listFiles();
-        File[] speBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "special")).listFiles();
-        File[] var7;
-        int var8;
-        int var9;
-        File buildingFolder;
-        BuildingBlueprint b;
-
         if (comBuildings != null) {
-            var7 = comBuildings;
-            var8 = comBuildings.length;
-
-            for (var9 = 0; var9 < var8; ++var9) {
-                buildingFolder = var7[var9];
-                b = new BuildingBlueprint(buildingFolder);
+            for (int i = 0; i < comBuildings.length; i++) {
+                File buildingFolder = comBuildings[i];
+                BuildingBlueprint b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
-
+        File[] decBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "decorative")).listFiles();
         if (decBuildings != null) {
-            var7 = decBuildings;
-            var8 = decBuildings.length;
-
-            for (var9 = 0; var9 < var8; ++var9) {
-                buildingFolder = var7[var9];
-                b = new BuildingBlueprint(buildingFolder);
+            for (int i = 0; i < decBuildings.length; i++) {
+                File buildingFolder = decBuildings[i];
+                BuildingBlueprint b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
-
+        File[] indBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "industrial")).listFiles();
         if (indBuildings != null) {
-            var7 = indBuildings;
-            var8 = indBuildings.length;
-
-            for (var9 = 0; var9 < var8; ++var9) {
-                buildingFolder = var7[var9];
-                b = new BuildingBlueprint(buildingFolder);
+            for (int i = 0; i < indBuildings.length; i++) {
+                File buildingFolder = indBuildings[i];
+                BuildingBlueprint b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
-
+        File[] othBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "other")).listFiles();
         if (othBuildings != null) {
-            var7 = othBuildings;
-            var8 = othBuildings.length;
-
-            for (var9 = 0; var9 < var8; ++var9) {
-                buildingFolder = var7[var9];
-                b = new BuildingBlueprint(buildingFolder);
+            for (int i = 0; i < othBuildings.length; i++) {
+                File buildingFolder = othBuildings[i];
+                BuildingBlueprint b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
-
+        File[] resBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "residential")).listFiles();
         if (resBuildings != null) {
-            var7 = resBuildings;
-            var8 = resBuildings.length;
-
-            for (var9 = 0; var9 < var8; ++var9) {
-                buildingFolder = var7[var9];
-                b = new BuildingBlueprint(buildingFolder);
+            for (int i = 0; i < resBuildings.length; i++) {
+                File buildingFolder = resBuildings[i];
+                BuildingBlueprint b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
-
+        File[] speBuildings = (new File(getSimFolder() + File.separator + "buildings" + File.separator + "special")).listFiles();
         if (speBuildings != null) {
-            var7 = speBuildings;
-            var8 = speBuildings.length;
-
-            for (var9 = 0; var9 < var8; ++var9) {
-                buildingFolder = var7[var9];
-                b = new BuildingBlueprint(buildingFolder);
+            for (int i = 0; i < speBuildings.length; i++) {
+                File buildingFolder = speBuildings[i];
+                BuildingBlueprint b = new BuildingBlueprint(buildingFolder);
                 ModSimLoader.buildingBlueprints.add(b);
             }
         }
         Collections.sort(ModSimLoader.buildingBlueprints);
-
     }
 
     public static void onUpdate() {

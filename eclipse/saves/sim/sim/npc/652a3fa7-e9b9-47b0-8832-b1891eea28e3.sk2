@@ -5,7 +5,7 @@ gender|0
 age|28
 race|暗夜精灵
 skin|female12.png
-pos|-437.4752341210568,4.0,352.25839458626217,0
+pos|-433.4999977787224,5.166109260938214,344.30000001192093,0
 trait1|工作狂
 trait2|强壮的
 trait3|夜猫子
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|锡剑
 employedat|-440.0,4.0,354.0,0
 job|士兵
-jobstage|0
-relationship|FD282758-D53E-4D67-B0AB-68DE5C8BED73,SPOUSE,HATE,5
+jobstage|2
+relationship|FD282758-D53E-4D67-B0AB-68DE5C8BED73,SPOUSE,HATE,0

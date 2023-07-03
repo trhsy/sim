@@ -43,6 +43,8 @@ public class JobBaker extends Job {
                 this.stage = 0;
             }else if (this.stage == 0) {
                 this.stage = 1;
+                //去上班
+                this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
             }else if (this.stage == 1) {
                 //打开烘焙工具
                 this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job_baker1")));

@@ -5,7 +5,7 @@ gender|0
 age|22
 race|人族
 skin|female45.png
-pos|-410.5,5.0,283.5,0
+pos|-425.2475304860167,4.0625,321.49385050073903,0
 trait1|讨厌户外活动
 trait2|夜猫子
 trait3|友善的
@@ -15,5 +15,5 @@ farmingskill|1.4890229
 holding|锡锄
 employedat|-411.0,4.0,283.0,0
 job|农民
-jobstage|4
-relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,GOODFRIEND,5
+jobstage|0
+relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,GOODFRIEND,0

@@ -5,7 +5,7 @@ gender|0
 age|28
 race|精灵
 skin|male14.png
-pos|-384.4757249656206,4.0,332.85706705350174,0
+pos|-436.43905774850623,4.0625,331.77408881086916,0
 trait1|夜猫子
 trait2|擅长园艺
 trait3|喜欢户外活动
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|锡斧
 employedat|-385.0,3.0,332.0,0
 job|养鸡户
-jobstage|5
-relationship|5949CD7B-B0F0-43ED-9334-AE86CB3C608A,UNRELATED,BESTFRIENDS,3
+jobstage|0
+relationship|5949CD7B-B0F0-43ED-9334-AE86CB3C608A,UNRELATED,BESTFRIENDS,0

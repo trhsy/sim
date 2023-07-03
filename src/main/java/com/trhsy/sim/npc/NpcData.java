@@ -425,7 +425,7 @@ public class NpcData {
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
-                ModSimLoader.log.info(line);
+//                ModSimLoader.log.info(line);
                 if (line.contains("id|")) {
                     this.ID = value;
                     if (this.entity == null) {
@@ -579,7 +579,10 @@ public class NpcData {
                         }else if (job.contentEquals(I18n.format("container.sim.Vocation17"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobGlassMaker(this, p, world);
-                        } else if (job.contentEquals("")) {
+                            //建筑商
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation11"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobBuildersMerchant(this, p, world);
                         }
                     }
 
@@ -1895,7 +1898,11 @@ public class NpcData {
             //玻璃制造商
         }else if (jobName.contentEquals(I18n.format("container.sim.Vocation17"))) {
             this.job = new JobGlassMaker(this, pos.toBlockPos(), world);
+            //建筑商
+        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation11"))) {
+            this.job = new JobBuildersMerchant(this, pos.toBlockPos(), world);
         }
+
 
         BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
         cont.employees.add(this);

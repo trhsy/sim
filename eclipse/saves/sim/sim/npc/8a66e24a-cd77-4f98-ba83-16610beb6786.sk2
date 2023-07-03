@@ -5,7 +5,7 @@ gender|1
 age|28
 race|精灵
 skin|male14.png
-pos|-437.3233099538441,4.0,351.53597426190174,0
+pos|-408.76249998807907,5.495200877005911,354.50000073303175,0
 trait1|勇敢的
 trait2|强壮的
 trait3|矮人血脉
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|锡剑
 employedat|-440.0,4.0,354.0,0
 job|士兵
-jobstage|0
-relationship|3C450C05-4326-4761-9E84-C77E3372562C,SPOUSE,FRIEND,1
+jobstage|2
+relationship|3C450C05-4326-4761-9E84-C77E3372562C,SPOUSE,AQUAINTANCE,7
