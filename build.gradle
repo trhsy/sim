@@ -69,7 +69,7 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.9-1.0.1 Beta"
+version = "1.9-1.0.4 Beta"
 group= "com.trhsy.sim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "simulated"
 
