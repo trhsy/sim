@@ -284,6 +284,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
             try {
                 this.fileContents = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())), StandardCharsets.UTF_8);
                 this.name = file.getName().replace(".txt", "");
+                System.out.println("当前建筑："+this.name);
                 if (file.getAbsolutePath().contains("residential")) {
                     this.buildingType = I18n.format("container.sim.sim_gui_BC_Residential");
                 } else if (file.getAbsolutePath().contains("commercial")) {

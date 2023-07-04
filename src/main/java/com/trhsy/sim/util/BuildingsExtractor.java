@@ -51,7 +51,8 @@ public class BuildingsExtractor {
             zis.closeEntry();
             zis.close();
         }catch (Exception e){
-
+            ModSimLoader.log.error("解压蓝图出错了："+e.getMessage());
+            e.printStackTrace();
         }
     }
 }
