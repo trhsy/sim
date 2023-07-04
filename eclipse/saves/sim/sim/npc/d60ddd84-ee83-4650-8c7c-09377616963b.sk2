@@ -2,10 +2,10 @@ id|d60ddd84-ee83-4650-8c7c-09377616963b
 fname|学海
 sname|巫马
 gender|0
-age|28
+age|29
 race|精灵
-skin|male14.png
-pos|-436.43905774850623,4.0625,331.77408881086916,0
+skin|male6.png
+pos|-384.5,4.0,332.5,0
 trait1|夜猫子
 trait2|擅长园艺
 trait3|喜欢户外活动
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|锡斧
 employedat|-385.0,3.0,332.0,0
 job|养鸡户
-jobstage|0
-relationship|5949CD7B-B0F0-43ED-9334-AE86CB3C608A,UNRELATED,BESTFRIENDS,0
+jobstage|5
+relationship|5949CD7B-B0F0-43ED-9334-AE86CB3C608A,UNRELATED,GOODFRIEND,0

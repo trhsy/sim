@@ -268,7 +268,7 @@ public class GuiBlockMarker extends GuiScreen {
                     Thread.sleep(500L);
                     ModSimLoader.sendChat(I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16"));
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
-                    GuiBlockMarker.this.mc.theWorld.playSound(GuiBlockMarker.this.location.x, GuiBlockMarker.this.location.y, GuiBlockMarker.this.location.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                    GuiBlockMarker.this.mc.theWorld.playSound(GuiBlockMarker.this.mc.thePlayer,GuiBlockMarker.this.location.x, GuiBlockMarker.this.location.y, GuiBlockMarker.this.location.z, soundEvent, SoundCategory.BLOCKS, 1, 1);
                 } else {
                     ModSimLoader.sendChat(I18n.format("container.sim.Markers17"));
                 }

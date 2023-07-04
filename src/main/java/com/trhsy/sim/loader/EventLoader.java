@@ -328,7 +328,7 @@ public class EventLoader {
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
                     //event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
                     for (EntityPlayer entityPlayer : event.world.playerEntities) {
-                        entityPlayer.worldObj.playSound(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 0.7F, 0.8F,false);
+                        event.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 0.7F, 0.8F);
                     }
 
                     this.newDay = true;
@@ -353,7 +353,7 @@ public class EventLoader {
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                         //event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
                         for (EntityPlayer entityPlayer : event.world.playerEntities) {
-                            entityPlayer.worldObj.playSound(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 0.3F, 0.6F,false);
+                            event.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 0.3F, 0.6F);
                         }
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));

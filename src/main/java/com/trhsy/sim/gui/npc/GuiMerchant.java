@@ -2,22 +2,37 @@ package com.trhsy.sim.gui.npc;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenFolkGui;
+import com.trhsy.sim.network.client.PacketOpenMerchantGui;
+import com.trhsy.sim.network.server.PacketBuyStuff;
+import com.trhsy.sim.network.server.PacketSellStuff;
+import com.trhsy.sim.network.server.PacketrotateStairs;
+import com.trhsy.sim.npc.V3;
+import com.trhsy.sim.npc.job.Job;
 import com.trhsy.sim.util.PricesForBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -35,8 +50,9 @@ public class GuiMerchant extends GuiScreen {
     private static List<Integer> sellLimits = new CopyOnWriteArrayList<Integer>();
     private Float totalCost = 0.0F;
     private int mouseCount = 0;
-
-    public GuiMerchant() {
+    private UUID id;
+    public GuiMerchant(PacketOpenMerchantGui message) {
+        this.id=message.id;
     }
 
     @Override
@@ -201,7 +217,10 @@ public class GuiMerchant extends GuiScreen {
                     if (guibutton.id == 1) {
                         this.currentPage = 1;
                     } else if (guibutton.id == 2) {
-                        this.sellStuff();
+//                        this.sellStuff();
+                        NetWorkLoader.net.sendToServer(new PacketSellStuff(this.id));
+                        this.mc.currentScreen = null;
+                        this.mc.setIngameFocus();
                     }
 
                     this.showPage();
@@ -225,7 +244,10 @@ public class GuiMerchant extends GuiScreen {
                                 this.mc.currentScreen = null;
                                 this.mc.setIngameFocus();
                             } else {
-                                this.buyStuff();
+//                                this.buyStuff();
+                                NetWorkLoader.net.sendToServer(new PacketBuyStuff(this.id,quantities));
+                                this.mc.currentScreen = null;
+                                this.mc.setIngameFocus();
                             }
                         }
                     }
@@ -244,7 +266,10 @@ public class GuiMerchant extends GuiScreen {
                             this.quantities.set(guibutton.id - 200, q);
                         }
                     } else if (guibutton.id == 2) {
-                        this.sellStuff();
+//                        this.sellStuff();
+                        NetWorkLoader.net.sendToServer(new PacketSellStuff(this.id));
+                        this.mc.currentScreen = null;
+                        this.mc.setIngameFocus();
                     }
                 }
             }
@@ -256,141 +281,8 @@ public class GuiMerchant extends GuiScreen {
 
     }
 
-    /**
-     * 买东西
-     * 购买当前显示在购买页面上的东西
-     */
-    private void buyStuff() {
-        try {
-            ModSimLoader.log.info("准备买东西");
-            ItemStack stack = null;
-            int quant = 0;
-            Block block = null;
-            boolean ok = false;
-            Float stackPrice = 0.0F;
-            //找到箱子
-            List<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
-            if (chests != null && chests.size() != 0) {
-                for (int i = 0; i < 9; i++) {
-                    quant = this.quantities.get(i);
-                    //ModSimLoader.log.info(String.valueOf(quant));
-                    if (quant > 0) {
-                        if (i == 0) {
-                            block = Blocks.PLANKS;
-                        } else if (i == 1) {
-                            block = Blocks.LOG;
-                        } else if (i == 2) {
-                            block = Blocks.COBBLESTONE;
-                        } else if (i == 3) {
-                            block = Blocks.STONE;
-                        } else if (i == 4) {
-                            block = Blocks.GLASS;
-                        } else if (i == 5) {
-                            block = Blocks.WOOL;
-                        } else if (i == 6) {
-                            block = Blocks.BRICK_BLOCK;
-                        } else if (i == 7) {
-                            block = Blocks.STONEBRICK;
-                        } else if (i == 8) {
-                            block = Blocks.OAK_FENCE;
-                        }
 
-                        for (int c = 1; c <= quant; c++) {
-                            stack = new ItemStack(block, 64);
-                            this.placeIntoChest(chests.get(0), stack, stack.getMetadata(), 64);
-                            stackPrice = PricesForBlocks.getPrice(block, true);
-                            //64 * 基本价格 + 25% 加价
-                            ModSimLoader.money -= stackPrice;
-                        }
 
-                        PricesForBlocks.adjustPrice(block, true);
-                    }
-                }
-
-                this.mc.currentScreen = null;
-                this.mc.setIngameFocus();
-                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, soundEvent,SoundCategory.BLOCKS, 1, 1, false);
-//                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
-                ThreadPoolExecutor threadPoolExecutor = ModSimLoader.threadPoolExecutor;
-                threadPoolExecutor.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000L);
-                        } catch (Exception e) {
-                        }
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":merchm"));
-                        GuiMerchant.this.mc.theWorld.playSound(GuiMerchant.this.mc.thePlayer.posX, GuiMerchant.this.mc.thePlayer.posY, GuiMerchant.this.mc.thePlayer.posZ, soundEvent,SoundCategory.BLOCKS, 1, 1, false);
-                    }
-                });
-                //threadPoolExecutor.shutdown();
-            } else {
-                ModSimLoader.sendChat(I18n.format("container.sim.Merchant12"));
-                this.mc.currentScreen = null;
-                this.mc.setIngameFocus();
-                return;
-            }
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("buyStuff出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
-
-    }
-
-    /**
-     * 将选定的玩家库存出售给商家
-     */
-    private void sellStuff() {
-        try {
-            ItemStack stack = null;
-            int quant = 0;
-            Block block = null;
-            boolean ok = false;
-            Float stackPrice = 0.0F;
-            int stackCount = 0;
-            List<IInventory> chests = Job.inventoriesFindClosest(new V3(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, this.mc.thePlayer.dimension), 5);
-            if (chests == null | chests.size() == 0) {
-                ModSimLoader.sendChat(I18n.format("container.sim.Merchant13"));
-                this.mc.currentScreen = null;
-                this.mc.setIngameFocus();
-                return;
-            }
-            float total = 0.0F;
-
-            for (int g = 0; g < chests.get(0).getSizeInventory(); g++) {
-                ItemStack is = chests.get(0).getStackInSlot(g);
-                if (is != null ) {
-                    if(is.stackSize == 64){
-                        stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
-                        if (stackPrice > 0.0F) {
-                            //64 * 基本价格
-                            ModSimLoader.money += stackPrice;
-                            PricesForBlocks.adjustPrice((Block) block, false);
-                            total += stackPrice;
-                            (chests.get(0)).setInventorySlotContents(g, (ItemStack) null);
-                        }
-                    }
-                }
-            }
-
-            if (total == 0.0F) {
-                //箱子里没有我想从你那里买的有效堆栈？
-                ModSimLoader.sendChat(I18n.format("container.sim.Merchant14"));
-            } else {
-                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, soundEvent,SoundCategory.BLOCKS, 1, 1, false);
-                ModSimLoader.sendChat(I18n.format("container.sim.Merchant15") + ModSimLoader.displayMoney(total));
-            }
-
-            this.mc.currentScreen = null;
-            this.mc.setIngameFocus();
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("sellStuff出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
-
-    }
 
     @Override
     public void onGuiClosed() {
@@ -436,7 +328,6 @@ public class GuiMerchant extends GuiScreen {
      * @return
      */
     public boolean placeIntoChest(IInventory chest, ItemStack stack, int idmeta, int quantity) {
-        //Minecraft mc = Minecraft.getMinecraft();
         Boolean placedOK = false;
         try {
             if (stack == null) {
@@ -467,5 +358,58 @@ public class GuiMerchant extends GuiScreen {
             ModSimLoader.log.error("placeIntoChest出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return placedOK;
+    }
+
+    public List<IInventory> inventoriesFindClosests(V3 startXYZ, int searchDistance){
+        List<IInventory> ret = new CopyOnWriteArrayList();
+
+        try {
+            World world = this.mc.theWorld;
+//            IBlockState blocks =world.getBlockState(startXYZ.toBlockPos());
+
+            TileEntity te = world.getTileEntity(startXYZ.toBlockPos());
+            if (te != null && te instanceof IInventory && !(te instanceof TileEntityFurnace)) {
+                ret.add((IInventory)te);
+            }
+
+            for(int d = 1; d < searchDistance; ++d) {
+                for(int yo = -d; yo <= d; ++yo) {
+                    for(int xo = -d; xo <= d; ++xo) {
+                        for(int zo = -d; zo <= d; ++zo) {
+                            int sx = (int)(Math.round(startXYZ.x) + (long)xo);
+                            int sy = (int)(Math.round(startXYZ.y) + (long)yo);
+                            int sz = (int)(Math.round(startXYZ.z) + (long)zo);
+                            te = world.getTileEntity(new BlockPos(sx, sy, sz));
+                            if (te != null && te instanceof IInventory && !this.alreadyGotChest(ret, (IInventory)te)) {
+                                ret.add((IInventory)te);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ret;
+        } catch (Exception var13) {
+            return ret;
+        }
+    }
+    /**
+     * 已经获得箱子
+     * @param chests
+     * @param chest
+     * @return
+     */
+    private boolean alreadyGotChest(List<IInventory> chests, IInventory chest) {
+        boolean ret = false;
+        Iterator var4 = chests.iterator();
+
+        while(var4.hasNext()) {
+            IInventory ch = (IInventory)var4.next();
+            if (ch.toString().contentEquals(chest.toString())) {
+                ret = true;
+                break;
+            }
+        }
+        return ret;
     }
 }

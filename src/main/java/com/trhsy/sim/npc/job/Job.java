@@ -1,18 +1,25 @@
 package com.trhsy.sim.npc.job;
 
+import com.trhsy.sim.ModSim;
+import com.trhsy.sim.gui.npc.GuiMerchant;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.task.JobTask;
+import com.trhsy.sim.util.PricesForBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -524,7 +531,128 @@ public abstract class Job {
     public void addJobTask(JobTask jtask) {
         this.jobTasks.add(jtask);
     }
+    /**
+     * 将选定的玩家库存出售给商家
+     */
+    public void sellStuff() {
+        try {
+            ItemStack stack = null;
+            int quant = 0;
+            Block block = null;
+            boolean ok = false;
+            Float stackPrice = 0.0F;
+            int stackCount = 0;
+            List<IInventory> chests = inventoriesFindClosest(this.workPlace, 5);
+            if (chests == null | chests.size() == 0) {
+                ModSimLoader.sendChat(I18n.format("container.sim.Merchant13"));//商人：请在这里放一个箱子,然后在里面放64个物品。
+                return;
+            }
+            float total = 0.0F;
+            IInventory iInventory=chests.get(0);
+            for (int g = 0; g < iInventory.getSizeInventory(); g++) {
 
+                ItemStack is = iInventory.getStackInSlot(g);
+                if (is != null ) {
+                    if(is.stackSize == 64){
+                        stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
+                        if (stackPrice > 0.0F) {
+                            //64 * 基本价格
+                            ModSimLoader.money += stackPrice;
+                            PricesForBlocks.adjustPrice((Block) block, false);
+                            total += stackPrice;
+                            (chests.get(0)).setInventorySlotContents(g, (ItemStack) null);
+                        }
+                    }
+                }
+            }
+            if (total == 0.0F) {
+                //箱子里没有我想从你那里买的有效堆栈？
+                ModSimLoader.sendChat(I18n.format("container.sim.Merchant14"));
+            } else {
+                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
+                this.jobWorld.playSound(this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                ModSimLoader.sendChat(I18n.format("container.sim.Merchant15") + ModSimLoader.displayMoney(total));
+            }
+
+
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("sellStuff出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
+    }
+    /**
+     * 买东西
+     * 购买当前显示在购买页面上的东西
+     */
+    public void buyStuff(List<Integer> quantities) {
+        try {
+            ModSimLoader.log.info("准备买东西");
+            ItemStack stack = null;
+            int quant = 0;
+            Block block = null;
+            boolean ok = false;
+            Float stackPrice = 0.0F;
+            //找到箱子
+            List<IInventory> chests = inventoriesFindClosest(this.workPlace, 5);
+            if (chests != null && chests.size() != 0) {
+                for (int i = 0; i < 9; i++) {
+                    quant = quantities.get(i);
+                    //ModSimLoader.log.info(String.valueOf(quant));
+                    if (quant > 0) {
+                        if (i == 0) {
+                            block = Blocks.PLANKS;
+                        } else if (i == 1) {
+                            block = Blocks.LOG;
+                        } else if (i == 2) {
+                            block = Blocks.COBBLESTONE;
+                        } else if (i == 3) {
+                            block = Blocks.STONE;
+                        } else if (i == 4) {
+                            block = Blocks.GLASS;
+                        } else if (i == 5) {
+                            block = Blocks.WOOL;
+                        } else if (i == 6) {
+                            block = Blocks.BRICK_BLOCK;
+                        } else if (i == 7) {
+                            block = Blocks.STONEBRICK;
+                        } else if (i == 8) {
+                            block = Blocks.OAK_FENCE;
+                        }
+
+                        for (int c = 1; c <= quant; c++) {
+                            stack = new ItemStack(block, 64);
+//                            this.placeIntoChest(chests.get(0), stack, stack.getMetadata(), 64);
+                            this.placeInJobChest(stack);
+                            stackPrice = PricesForBlocks.getPrice(block, true);
+                            //64 * 基本价格 + 25% 加价
+                            ModSimLoader.money -= stackPrice;
+                        }
+
+                        PricesForBlocks.adjustPrice(block, true);
+                    }
+                }
+
+                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
+                this.jobWorld.playSound(this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent,SoundCategory.BLOCKS, 1, 1,false);
+//                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                try {
+                    Thread.sleep(1000L);
+                } catch (Exception e) {
+                }
+                SoundEvent soundEvent1 = new SoundEvent(new ResourceLocation(ModSim.MODID + ":merchm"));
+                this.jobWorld.playSound(this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent1,SoundCategory.BLOCKS, 1, 1,false);
+                //threadPoolExecutor.shutdown();
+            } else {
+                ModSimLoader.sendChat(I18n.format("container.sim.Merchant12"));
+                return;
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("buyStuff出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
+    }
 
     /**
      * 到底工作地点时

@@ -3,7 +3,9 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.gui.block.*;
 import com.trhsy.sim.gui.npc.GuiFolk;
 import com.trhsy.sim.gui.GuiRunMod;
+import com.trhsy.sim.gui.npc.GuiMerchant;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
+import com.trhsy.sim.network.client.PacketOpenMerchantGui;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
@@ -903,8 +905,18 @@ public class ModSimLoader {
 
 
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 打开标记棒gui
+     * @Date 21:19 2023/7/4
+     * @Param [v3, dimension]
+     * @return void
+     **/
     public static void openMarkerGui(V3 v3, int dimension) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockMarker(v3, dimension));
+    }
+
+    public static void openMerchantGui(PacketOpenMerchantGui message) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiMerchant(message));
     }
 }

@@ -2,9 +2,9 @@ id|ee40912f-c51a-4921-8b1c-c130719a7dcf
 fname|云慧
 sname|楚
 gender|1
-age|26
+age|27
 race|人族
-skin|female45.png
+skin|female58.png
 pos|-384.6491518947502,4.0,296.2014159693548,0
 trait1|勇敢的
 trait2|讨厌户外活动
@@ -15,5 +15,5 @@ farmingskill|1.0
 holding|锡斧
 employedat|-385.0,3.0,296.0,0
 job|养牛户
-jobstage|0
-relationship|27ADBCB6-C0A7-40E0-9CAE-3CC771F42425,UNRELATED,BESTFRIENDS,2
+jobstage|5
+relationship|27ADBCB6-C0A7-40E0-9CAE-3CC771F42425,UNRELATED,DESPISE,4

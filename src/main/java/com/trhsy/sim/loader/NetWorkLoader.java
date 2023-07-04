@@ -53,6 +53,9 @@ public class NetWorkLoader {
         registerMessage(PacketUpdateFarmBox.Handler.class,PacketUpdateFarmBox.class,Side.SERVER);
         //采矿箱更新
         registerMessage(PacketUpdateMineBox.Handler.class,PacketUpdateMineBox.class,Side.SERVER);
+
+        registerMessage(PacketBuyStuff.Handler.class,PacketBuyStuff.class,Side.SERVER);
+        registerMessage(PacketSellStuff.Handler.class,PacketSellStuff.class,Side.SERVER);
     }
 
     /**
@@ -87,6 +90,8 @@ public class NetWorkLoader {
         registerMessage(PacketOpenMarkerGui.Handler.class,PacketOpenMarkerGui.class,Side.CLIENT);
         //打开采矿箱GUI
         registerMessage(PacketOpenMineGui.Handler.class,PacketOpenMineGui.class,Side.CLIENT);
+        //打开建筑商GUI
+        registerMessage(PacketOpenMerchantGui.Handler.class,PacketOpenMerchantGui.class,Side.CLIENT);
 
     }
     /**

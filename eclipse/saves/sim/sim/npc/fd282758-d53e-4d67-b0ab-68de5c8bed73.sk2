@@ -2,10 +2,10 @@ id|fd282758-d53e-4d67-b0ab-68de5c8bed73
 fname|佩卿
 sname|裴
 gender|1
-age|42
+age|43
 race|暗夜精灵
 skin|female12.png
-pos|-425.9360505220435,4.5625,290.0853075788449,0
+pos|-384.5,4.0,320.5,0
 trait1|勇敢的
 trait2|强壮的
 trait3|讨厌户外活动
@@ -15,5 +15,5 @@ farmingskill|1.2980139
 holding|锡斧
 employedat|-385.0,3.0,320.0,0
 job|养羊户
-jobstage|0
-relationship|0BBB2551-6677-4FB4-812B-52D325625FFB,SPOUSE,DESPISE,8;652A3FA7-E9B9-47B0-8832-B1891EEA28E3,UNRELATED,AQUAINTANCE,5
+jobstage|5
+relationship|0BBB2551-6677-4FB4-812B-52D325625FFB,SPOUSE,DESPISE,2;652A3FA7-E9B9-47B0-8832-B1891EEA28E3,UNRELATED,AQUAINTANCE,5

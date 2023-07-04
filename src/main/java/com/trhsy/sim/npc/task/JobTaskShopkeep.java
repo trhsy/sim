@@ -34,7 +34,7 @@ public class JobTaskShopkeep extends JobTask {
         } else {
             //关闭店铺
             this.folk.setStatus(I18n.format("container.sim.job.Baker_Closing"));
-//            if (!this.hasFed) {
+            if (!this.hasFed) {
             int sell = this.job.feedFolks();
             this.hasFed = true;
             if (sell > 0) {
@@ -44,7 +44,7 @@ public class JobTaskShopkeep extends JobTask {
                 //张三 今天没有产品可以卖给人们。
                 ModSimLoader.sendChat(this.folk.getName() + I18n.format("container.sim.job.grocer.farmer.today"));
             }
-//            }
+            }
         }
 
     }

@@ -1,5 +1,6 @@
 package com.trhsy.sim.entity;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.ai.FolkAIOpenFenceGate;
 import com.trhsy.sim.entity.ai.FolkAIWander;
 import com.trhsy.sim.entity.render.RenderEntityFolk;
@@ -8,7 +9,9 @@ import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
+import com.trhsy.sim.network.client.PacketOpenMerchantGui;
 import com.trhsy.sim.npc.NpcData;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.INpc;
@@ -22,8 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -271,7 +273,33 @@ public class EntityFolk extends EntityCreature implements INpc {
     public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
         if (!player.worldObj.isRemote) {
             if (this.theData != null) {
-                NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
+                if(this.theData.job!=null){
+                    String jobName=this.theData.job.jobName;
+                    //工作是建筑商
+                    if(jobName.equals(I18n.format("container.sim.Vocation11"))){
+                        //打开建筑商gui
+                        NetWorkLoader.net.sendTo(new PacketOpenMerchantGui(this.theData), (EntityPlayerMP) player);
+                    }else{
+                        NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
+                    }
+                }else{
+                    NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
+                }
+
+                if (this.theData.age < 18) {
+                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
+                    this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                } else if (this.theData.gender == 0) {
+                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
+                    this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent,SoundCategory.BLOCKS, 1, 1, false);
+                } else {
+                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
+                    this.worldObj.playSound(this.posX, this.posY, this.posZ,soundEvent,SoundCategory.BLOCKS, 1, 1, false);
+                }
+
+            }else{
+                //等于空死亡
+                this.setDead();
             }
         }
         return true;
