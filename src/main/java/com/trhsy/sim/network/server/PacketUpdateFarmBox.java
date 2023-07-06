@@ -79,6 +79,7 @@ public class PacketUpdateFarmBox implements IMessage {
                     farm.z = message.z;
                     farm.facing = message.facing;
                     farm.farmType = message.farmType;
+                    farm.saveFarm();
                     break;
                 }
             }

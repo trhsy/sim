@@ -356,7 +356,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                         --this.x;
                         this.showPage();
                         this.updateFarm();
-                    } else if (guibutton.id == 5 && this.x < 32) {
+                    } else if (guibutton.id == 5 && this.x < 64) {
                         ++this.x;
                         this.showPage();
                         this.updateFarm();
@@ -364,7 +364,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                         --this.z;
                         this.showPage();
                         this.updateFarm();
-                    } else if (guibutton.id == 7 && this.z < 32) {
+                    } else if (guibutton.id == 7 && this.z < 64) {
                         ++this.z;
                         this.showPage();
                         this.updateFarm();
