@@ -1,6 +1,7 @@
 package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.loader.ItemLoader;
+import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.task.*;
@@ -174,7 +175,8 @@ public class JobBaker extends Job {
             }
         }
         }catch (Exception e){
-
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("jobMaker-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

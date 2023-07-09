@@ -1,6 +1,7 @@
 package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.loader.ItemLoader;
+import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.JobTaskChopTrees;
 import com.trhsy.sim.npc.task.JobTaskIdle;
@@ -27,31 +28,43 @@ public class JobLumberjack extends Job {
 
     public JobLumberjack(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
-        folk.holding=new ItemStack(ItemLoader.tinAxe);
-        this.jobName = I18n.format("container.sim.Vocation2");
-        this.wood.add(Blocks.LOG);
-        this.wood.add(Blocks.LOG2);
+        try {
+            folk.holding=new ItemStack(ItemLoader.tinAxe);
+            this.jobName = I18n.format("container.sim.Vocation2");
+            this.wood.add(Blocks.LOG);
+            this.wood.add(Blocks.LOG2);
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobLumberjack出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
     }
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (this.atWork) {
-            if (this.stage == -1) {
-                this.stage = 0;
-            } else if (this.stage == 0) {
-                this.stage = 1;
-                //去上班
-                this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
-            } else if (this.stage == 1) {
-                this.addJobTask(new JobTaskChopTrees(this, -1L, this.workPlace, 30));
-                this.stage = 2;
-            }else{
-                if (this.jobTasks.size() > 0&&this.currentTask==null) {
-                    this.currentTask = (JobTask) this.jobTasks.get(0);
-                    this.currentTask.begin();
+        try {
+            if (this.atWork) {
+                if (this.stage == -1) {
+                    this.stage = 0;
+                } else if (this.stage == 0) {
+                    this.stage = 1;
+                    //去上班
+                    this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
+                } else if (this.stage == 1) {
+                    this.addJobTask(new JobTaskChopTrees(this, -1L, this.workPlace, 30));
+                    this.stage = 2;
+                }else{
+                    if (this.jobTasks.size() > 0&&this.currentTask==null) {
+                        this.currentTask = (JobTask) this.jobTasks.get(0);
+                        this.currentTask.begin();
+                    }
                 }
             }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobLumberjack-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+
     }
     @Override
     public String toString() {

@@ -61,52 +61,69 @@ public class EntityFolk extends EntityCreature implements INpc {
 
     public EntityFolk(World worldIn) {
         super(worldIn);
-        if (!worldIn.isRemote && ModSimLoader.hasLoadedFolks) {
-            //没加载，毁灭吧
-            this.setDead();
-        }
-        //会捡起地上的东西
+        try {
+            if (!worldIn.isRemote && ModSimLoader.hasLoadedFolks) {
+                //没加载，毁灭吧
+                this.setDead();
+            }
+            //会捡起地上的东西
 //        this.setCanPickUpLoot(true);
-        //会进门
-        ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
-        //破门而入
-        ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
-        //会游泳
-        ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
-        this.setSize(0.6F, 1.8F);
-        this.enablePersistence();
+            //会进门
+            ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
+            //破门而入
+            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
+            //会游泳
+            ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
+            this.setSize(0.6F, 1.8F);
+            this.enablePersistence();
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("EntityFolk1出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
 
     }
 
     public EntityFolk(World world, boolean isCreating) {
         super(world);
-        //会捡起地上的东西
-//        this.setCanPickUpLoot(true);
-        //会进门
-        ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
-        //破门而入
-        ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
-        //会游泳
-        ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
-        this.isBeingCreated = isCreating;
-        this.setSize(0.6F, 1.8F);
-        this.enablePersistence();
+
+        try {
+            //会捡起地上的东西
+        this.setCanPickUpLoot(true);
+            //会进门
+            ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
+            //破门而入
+            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
+            //会游泳
+            ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
+            this.isBeingCreated = isCreating;
+            this.setSize(0.6F, 1.8F);
+            this.enablePersistence();
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("EntityFolk2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 
     public EntityFolk(World world, String id) {
         super(world);
-        this.setUniqueId(UUID.fromString(id));
-        //会捡起地上的东西
-//        this.setCanPickUpLoot(true);
-        //会进门
-        ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
-        //破门而入
-        ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
-        //会游泳
-        ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
-        this.isBeingCreated = false;
-        this.setSize(0.6F, 1.8F);
-        this.enablePersistence();
+
+        try {
+            this.setUniqueId(UUID.fromString(id));
+            //会捡起地上的东西
+        this.setCanPickUpLoot(true);
+            //会进门
+            ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
+            //破门而入
+            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
+            //会游泳
+            ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
+            this.isBeingCreated = false;
+            this.setSize(0.6F, 1.8F);
+            this.enablePersistence();
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("EntityFolk3出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 
     /***
@@ -114,28 +131,32 @@ public class EntityFolk extends EntityCreature implements INpc {
      */
     @Override
     public void initEntityAI() {
-
-        //智能游泳
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        //限制打开门
-        this.tasks.addTask(2, new EntityAIRestrictOpenDoor(this));
-        //开门
-        this.tasks.addTask(4, new EntityAIOpenDoor(this, true));
-        //打开栅栏门
-        this.tasks.addTask(5, new FolkAIOpenFenceGate(this, true));
-        //自由闲逛
-        this.tasks.addTask(6, new FolkAIWander(this, 1.0D));
-        //最近观看
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 8.0F, 1));
-        //看起来很空闲
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        //住进屋子
-        this.tasks.addTask(9, new EntityAIMoveIndoors(this));
-        //限制走向
-        this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
-        //避开实体僵尸
-        this.tasks.addTask(13, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
+        try {
+            //智能游泳
+            this.tasks.addTask(0, new EntityAISwimming(this));
+            //限制打开门
+            this.tasks.addTask(2, new EntityAIRestrictOpenDoor(this));
+            //开门
+            this.tasks.addTask(4, new EntityAIOpenDoor(this, true));
+            //打开栅栏门
+            this.tasks.addTask(5, new FolkAIOpenFenceGate(this, true));
+            //自由闲逛
+            this.tasks.addTask(6, new FolkAIWander(this, 1.0D));
+            //最近观看
+            this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+            this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 8.0F, 1));
+            //看起来很空闲
+            this.tasks.addTask(8, new EntityAILookIdle(this));
+            //住进屋子
+            this.tasks.addTask(9, new EntityAIMoveIndoors(this));
+            //限制走向
+            this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
+            //避开实体僵尸
+            this.tasks.addTask(13, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("initEntityAI出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
 
     }
 
@@ -144,13 +165,18 @@ public class EntityFolk extends EntityCreature implements INpc {
      */
     @Override
     protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        //最大生命 40
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
-        //移动_速度
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        //跟随范围
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(256.0D);
+        try {
+            super.applyEntityAttributes();
+            //最大生命 40
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+            //移动_速度
+            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+            //跟随范围
+            this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(256.0D);
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("applyEntityAttributes出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 
     /**
@@ -212,7 +238,7 @@ public class EntityFolk extends EntityCreature implements INpc {
 //            ModSimLoader.log.info("开始更新实体");
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("实体更新出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("onUpdate实体更新出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -225,25 +251,31 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param []
      **/
     public void onFolkUpdate() {
-        if (!this.worldObj.isRemote) {
-            EntityFolk e = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString()).entity;
+        try {
+            if (!this.worldObj.isRemote) {
+                EntityFolk e = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString()).entity;
 
-            if (e != null && this.theData != null) {
-                if (this.theData.entity != null && !this.theData.entity.equals(this)) {
-                    ModSimLoader.log.info("获得重复的民间实体");
-                    this.setDead();
-                }
+                if (e != null && this.theData != null) {
+                    if (this.theData.entity != null && !this.theData.entity.equals(this)) {
+                        ModSimLoader.log.info("获得重复的民间实体");
+                        this.setDead();
+                    }
 
-                if (!e.equals(this)) {
+                    if (!e.equals(this)) {
+                    }
                 }
             }
+
+            if (this.theData == null && !this.isBeingCreated && !this.worldObj.isRemote) {
+                this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
+                this.theData.entity = this;
+                this.theData.sendSkinPathToClient();
+            }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("onFolkUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
-        if (this.theData == null && !this.isBeingCreated && !this.worldObj.isRemote) {
-            this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
-            this.theData.entity = this;
-            this.theData.sendSkinPathToClient();
-        }
     }
 
     /**
@@ -255,11 +287,16 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     public void onDeath(DamageSource cause) {
-        if (this.theData != null) {
-            this.theData.onDeath(cause);
+        try {
+            if (this.theData != null) {
+                this.theData.onDeath(cause);
+            }
+            super.onDeath(cause);
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("onDeath出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
-        super.onDeath(cause);
     }
 
     /**
@@ -271,38 +308,44 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
-        if (!player.worldObj.isRemote) {
-            if (this.theData != null) {
-                if(this.theData.job!=null){
-                    String jobName=this.theData.job.jobName;
-                    //工作是建筑商
-                    if(jobName.equals(I18n.format("container.sim.Vocation11"))){
-                        //打开建筑商gui
-                        NetWorkLoader.net.sendTo(new PacketOpenMerchantGui(this.theData), (EntityPlayerMP) player);
+        try {
+            if (!player.worldObj.isRemote) {
+                if (this.theData != null) {
+                    if(this.theData.job!=null){
+                        String jobName=this.theData.job.jobName;
+                        //工作是建筑商
+                        if(jobName.equals(I18n.format("container.sim.Vocation11"))){
+                            //打开建筑商gui
+                            NetWorkLoader.net.sendTo(new PacketOpenMerchantGui(this.theData), (EntityPlayerMP) player);
+                        }else{
+                            NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
+                        }
                     }else{
                         NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
                     }
+
+                    if (this.theData.age < 18) {
+                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
+                        this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                    } else if (this.theData.gender == 0) {
+                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
+                        this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent,SoundCategory.BLOCKS, 1, 1, false);
+                    } else {
+                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
+                        this.worldObj.playSound(this.posX, this.posY, this.posZ,soundEvent,SoundCategory.BLOCKS, 1, 1, false);
+                    }
+
                 }else{
-                    NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
+                    //等于空死亡
+                    this.setDead();
                 }
-
-                if (this.theData.age < 18) {
-                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
-                    this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
-                } else if (this.theData.gender == 0) {
-                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
-                    this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent,SoundCategory.BLOCKS, 1, 1, false);
-                } else {
-                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
-                    this.worldObj.playSound(this.posX, this.posY, this.posZ,soundEvent,SoundCategory.BLOCKS, 1, 1, false);
-                }
-
-            }else{
-                //等于空死亡
-                this.setDead();
             }
+            return true;
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("processInteract出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            return false;
         }
-        return true;
     }
 
     /**
@@ -313,19 +356,23 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param []
      **/
     public void swing() {
-        for (int d = 0; d < 12; ++d) {
-            EntityFolk.this.swingProgress = 0.3F;
-                    ModSimLoader.log.info("摆动手臂");
-            try {
-                Thread.sleep(100L);
-            } catch (Exception var4) {
+        try {
+            for (int d = 0; d < 12; ++d) {
+                EntityFolk.this.swingProgress = 0.3F;
+                ModSimLoader.log.info("摆动手臂");
+                try {
+                    Thread.sleep(100L);
+                } catch (Exception var4) {
+                }
+                EntityFolk.this.swingProgress = 0.7F;
+                try {
+                    Thread.sleep(100L);
+                } catch (Exception var3) {
+                }
             }
-            EntityFolk.this.swingProgress = 0.7F;
-
-            try {
-                Thread.sleep(100L);
-            } catch (Exception var3) {
-            }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("swing出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -349,10 +396,16 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     public boolean isChild() {
-        NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(this.getUniqueID());
-        if (cfi != null) {
-            return Integer.parseInt(cfi.age) < Integer.parseInt(cfi.maturityAge);
-        } else {
+        try {
+            NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(this.getUniqueID());
+            if (cfi != null) {
+                return Integer.parseInt(cfi.age) < Integer.parseInt(cfi.maturityAge);
+            } else {
+                return false;
+            }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             return false;
         }
     }

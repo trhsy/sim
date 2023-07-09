@@ -52,11 +52,17 @@ public class JobFarmer extends Job {
 
     public JobFarmer(NpcData folk, BlockPos pos, World world, FarmBox fb) {
         super(folk, pos, world);
-        folk.holding = new ItemStack(ItemLoader.tinHoe);
-        this.jobName = I18n.format("container.sim.Vocation5");
-        this.farm = fb;
-        this.farm.employee = folk;
-        this.noNeed = 0;
+        try {
+            folk.holding = new ItemStack(ItemLoader.tinHoe);
+            this.jobName = I18n.format("container.sim.Vocation5");
+            this.farm = fb;
+            this.farm.employee = folk;
+            this.noNeed = 0;
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobFarmer出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
     }
 
     @Override
@@ -133,7 +139,7 @@ public class JobFarmer extends Job {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("onUpdate出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-onUpdate出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
             this.stage = 4;
         }
     }
@@ -146,19 +152,23 @@ public class JobFarmer extends Job {
      * @Param []
      **/
     public void addFarmingLevel() {
-        int b4 = (int) Math.floor((double) this.folk.skillFarming);
-        ModSimLoader.addMoney(-0.01F);
-        if (this.folk.skillFarming < 10.0F) {
-            NpcData var10000 = this.folk;
-            var10000.skillFarming = (float) ((double) var10000.skillFarming + 0.001D / (double) b4);
-        }
+        try {
+            int b4 = (int) Math.floor((double) this.folk.skillFarming);
+            ModSimLoader.addMoney(-0.01F);
+            if (this.folk.skillFarming < 10.0F) {
+                NpcData var10000 = this.folk;
+                var10000.skillFarming = (float) ((double) var10000.skillFarming + 0.001D / (double) b4);
+            }
 
-        int aft = (int) Math.floor((double) this.folk.skillFarming);
-        if (b4 != aft) {
-            //的农民等级刚刚达到了
-            ModSimLoader.sendChat(this.folk.getName() + " " + I18n.format("container.sim.job_farmer_has") + " " + aft);
+            int aft = (int) Math.floor((double) this.folk.skillFarming);
+            if (b4 != aft) {
+                //的农民等级刚刚达到了
+                ModSimLoader.sendChat(this.folk.getName() + " " + I18n.format("container.sim.job_farmer_has") + " " + aft);
+            }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobFarmer-addFarmingLevel出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-
     }
 
     /**
@@ -372,7 +382,7 @@ public class JobFarmer extends Job {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("hoe出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-hoe出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
             this.stage = 4;
         }
     }
@@ -450,7 +460,7 @@ public class JobFarmer extends Job {
             this.stage = 2;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("hoe1出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-hoe1出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
             this.stage = 4;
         }
     }
@@ -768,7 +778,7 @@ public class JobFarmer extends Job {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("plant出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-plant出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
             this.stage = 4;
         }
 
@@ -930,7 +940,7 @@ public class JobFarmer extends Job {
             this.stage = 4;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("plant1出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-plant1出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
             this.stage = 4;
         }
     }
@@ -994,7 +1004,7 @@ public class JobFarmer extends Job {
             this.stage = 3;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("grow出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-grow出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
             this.stage = 3;
         }
     }
@@ -1175,7 +1185,7 @@ public class JobFarmer extends Job {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("harvest出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-harvest出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
         }
     }
 
@@ -1298,7 +1308,7 @@ public class JobFarmer extends Job {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
 
-            ModSimLoader.log.error("harvest1出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobFarmer-harvest1出错了:" + e.getMessage()+ "行数：" + element.getLineNumber());
             this.stage = 1;
         }
     }

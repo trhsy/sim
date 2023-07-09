@@ -2,6 +2,7 @@ package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ItemLoader;
+import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.JobTaskIdle;
 import com.trhsy.sim.npc.task.JobTaskPatrol;
@@ -35,23 +36,29 @@ public class JobSoldier extends Job{
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (this.atWork) {
-            if (this.stage == -1) {
-                this.stage = 0;
-            } else if (this.stage == 0) {
-                this.stage = 1;
-                //去上班
-                this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
-            } else if (this.stage == 1) {
-                this.addJobTask(new JobTaskPatrol(this, -1L));
-                this.stage = 2;
-            }else{
-                if (this.jobTasks.size() > 0&&this.currentTask==null) {
-                    this.currentTask = (JobTask) this.jobTasks.get(0);
-                    this.currentTask.begin();
+        try {
+            if (this.atWork) {
+                if (this.stage == -1) {
+                    this.stage = 0;
+                } else if (this.stage == 0) {
+                    this.stage = 1;
+                    //去上班
+                    this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
+                } else if (this.stage == 1) {
+                    this.addJobTask(new JobTaskPatrol(this, -1L));
+                    this.stage = 2;
+                }else{
+                    if (this.jobTasks.size() > 0&&this.currentTask==null) {
+                        this.currentTask = (JobTask) this.jobTasks.get(0);
+                        this.currentTask.begin();
+                    }
                 }
             }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobSoldier-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+
     }
     @Override
     public String toString() {

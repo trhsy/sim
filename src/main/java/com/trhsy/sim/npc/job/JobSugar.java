@@ -1,6 +1,7 @@
 package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.loader.ItemLoader;
+import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.*;
 import com.trhsy.sim.task.JobTask;
@@ -104,7 +105,8 @@ public class JobSugar extends Job{
                 }
             }
         }catch (Exception e){
-
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobSugar-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
     @Override

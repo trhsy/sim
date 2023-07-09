@@ -86,130 +86,148 @@ public class JobTerrainFormer extends Job {
 
     public JobTerrainFormer(NpcData folk, TerrainType terrainType, BlockPos pos, World world) {
         super(folk, pos, world);
-        //手持羊毛
-        folk.holding = new ItemStack(ItemLoader.tinSpade);
-        this.startPos = pos;
-        this.constructorPos = pos;
-        this.terrainType = terrainType;
-        //规划师
-        this.jobName = I18n.format("container.sim.Vocation16");
-        if (folk.entity != null) {
-            IBlockState s = this.jobWorld.getBlockState(pos);
-            if (s != null) {
-                Block block = s.getBlock();
-                if (block != null) {
-                    //建筑箱
-                    this.constructorBlock = (BlockConstructorBox) block;
-                    this.constructorBlock.employee = folk;
+        try {
+//手持锡锹
+            folk.holding = new ItemStack(ItemLoader.tinSpade);
+            this.startPos = pos;
+            this.constructorPos = pos;
+            this.terrainType = terrainType;
+            //规划师
+            this.jobName = I18n.format("container.sim.Vocation16");
+            if (folk.entity != null) {
+                IBlockState s = this.jobWorld.getBlockState(pos);
+                if (s != null) {
+                    Block block = s.getBlock();
+                    if (block != null) {
+                        //建筑箱
+                        this.constructorBlock = (BlockConstructorBox) block;
+                        this.constructorBlock.employee = folk;
+                    }
                 }
             }
-        }
-        this.stage = 0;
+            this.stage = 0;
 //        this.createConBox();
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobTerrainFormer1出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
     }
 
     public JobTerrainFormer(NpcData folk, V3 pos, World world) {
         super(folk, pos, world);
-        this.constructorPos = pos.toBlockPos();
-        //建筑箱
-        this.constructorBlock = (BlockConstructorBox) world.getBlockState(pos.toBlockPos()).getBlock();
-        //建筑工
-        this.jobName = I18n.format("container.sim.Vocation16");
-        this.constructorBlock.employee = folk;
-        this.stage = 0;
-        this.createConBox();
+        try {
+            this.constructorPos = pos.toBlockPos();
+            //建筑箱
+            this.constructorBlock = (BlockConstructorBox) world.getBlockState(pos.toBlockPos()).getBlock();
+            //建筑工
+            this.jobName = I18n.format("container.sim.Vocation16");
+            this.constructorBlock.employee = folk;
+            this.stage = 0;
+            this.createConBox();
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobTerrainFormer出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
     }
 
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (this.folk != null) {
-            if (this.folk.entity != null) {
-                if (this.jobWorld != null) {
-                    if (!this.jobWorld.isRemote) {
-                        //NPC数据为空，并且没有指派员工
-                        if (this.folk.entity != null && !this.hasReassignedEmployee) {
-                            //建造位置为空
-                            if (this.jobWorld.getBlockState(this.constructorPos) == null) {
-                                return;
-                            }
-                            Block block = this.jobWorld.getBlockState(this.constructorPos).getBlock();
-                            BlockConstructorBox cons = null;
-                            if (block == BlockLoader.blockConstructorBox) {
-                                //获取建筑箱的
-                                cons = (BlockConstructorBox) block;
-                            }
-                            if (cons != null) {
-
-
-                                //当前建筑箱的工作人员是
-                                cons.employee = this.folk;
-                                //已经指派
-                                this.hasReassignedEmployee = true;
-                                //如果允许 NPC 说话
-                                if (ConfigLoader.configFolkTalking) {
-                                    World world = FMLClientHandler.instance().getServer().getEntityWorld();
-                                    //播放 我准备好了
-                                    SoundEvent soundEvent = null;
-                                    //判断性别，发出不一样的声音
-                                    if (this.folk.gender == 0) {
-                                        soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
-                                    } else {
-                                        soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
-                                    }
-                                    this.jobWorld.playSound(this.constructorPos.getX(), this.constructorPos.getY(), this.constructorPos.getZ(), soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+        try {
+            if (this.folk != null) {
+                if (this.folk.entity != null) {
+                    if (this.jobWorld != null) {
+                        if (!this.jobWorld.isRemote) {
+                            //NPC数据为空，并且没有指派员工
+                            if (this.folk.entity != null && !this.hasReassignedEmployee) {
+                                //建造位置为空
+                                if (this.jobWorld.getBlockState(this.constructorPos) == null) {
+                                    return;
                                 }
-                                //等待规划类型
-                                if (this.terrainType == null) {
-                                    //等待蓝图
-                                    this.folk.setStatus(I18n.format("container.sim.job.builder_Awaiting_terrainType"));
-                                } else {
-                                    //当前时间
-                                    Long now = System.currentTimeMillis();
-                                    //游戏模式是正常模式
-                                    if (ModSimLoader.gamemode != 1) {
-                                        if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
-                                            ////上次时间为当前时间
+                                Block block = this.jobWorld.getBlockState(this.constructorPos).getBlock();
+                                BlockConstructorBox cons = null;
+                                if (block == BlockLoader.blockConstructorBox) {
+                                    //获取建筑箱的
+                                    cons = (BlockConstructorBox) block;
+                                }
+                                if (cons != null) {
+
+
+                                    //当前建筑箱的工作人员是
+                                    cons.employee = this.folk;
+                                    //已经指派
+                                    this.hasReassignedEmployee = true;
+                                    //如果允许 NPC 说话
+                                    if (ConfigLoader.configFolkTalking) {
+                                        World world = FMLClientHandler.instance().getServer().getEntityWorld();
+                                        //播放 我准备好了
+                                        SoundEvent soundEvent = null;
+                                        //判断性别，发出不一样的声音
+                                        if (this.folk.gender == 0) {
+                                            soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
+                                        } else {
+                                            soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
+                                        }
+                                        this.jobWorld.playSound(this.constructorPos.getX(), this.constructorPos.getY(), this.constructorPos.getZ(), soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+                                    }
+                                    //等待规划类型
+                                    if (this.terrainType == null) {
+                                        //等待蓝图
+                                        this.folk.setStatus(I18n.format("container.sim.job.builder_Awaiting_terrainType"));
+                                    } else {
+                                        //当前时间
+                                        Long now = System.currentTimeMillis();
+                                        //游戏模式是正常模式
+                                        if (ModSimLoader.gamemode != 1) {
+                                            if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
+                                                ////上次时间为当前时间
+                                                this.timeSinceLastBlockPlace = now;
+                                                //放置方块
+                                                this.placeBlock();
+                                                //发送建筑蓝图
+                                                NetWorkLoader.net.sendToAll(new PacketSendTerrainTypeRequitrements(this.terrainType, this));
+
+                                            }
+                                        } else {
+                                            //上次时间为当前时间
                                             this.timeSinceLastBlockPlace = now;
-                                            //放置方块
-                                            this.placeBlock();
-                                            //发送建筑蓝图
-                                            NetWorkLoader.net.sendToAll(new PacketSendTerrainTypeRequitrements(this.terrainType, this));
-
-                                        }
-                                    } else {
-                                        //上次时间为当前时间
-                                        this.timeSinceLastBlockPlace = now;
-                                        //不是客户端
-                                        if (!this.jobWorld.isRemote) {
-                                            //直接放置方块
-                                            this.placeBlock();
+                                            //不是客户端
+                                            if (!this.jobWorld.isRemote) {
+                                                //直接放置方块
+                                                this.placeBlock();
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
 
 
-                        //当前时间
-                        Long now = System.currentTimeMillis();
-                        //游戏模式是正常模式
-                        if (ModSimLoader.gamemode != 1) {
-                            if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
+                            //当前时间
+                            Long now = System.currentTimeMillis();
+                            //游戏模式是正常模式
+                            if (ModSimLoader.gamemode != 1) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
+                                    //上次时间为当前时间
+                                    this.timeSinceLastBlockPlace = now;
+                                    placeBlock();
+                                }
+
+                            } else {
                                 //上次时间为当前时间
                                 this.timeSinceLastBlockPlace = now;
                                 placeBlock();
                             }
-
-                        } else {
-                            //上次时间为当前时间
-                            this.timeSinceLastBlockPlace = now;
-                            placeBlock();
                         }
                     }
                 }
             }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobTerrainFormer-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+
     }
 
     public void placeBlock() {
@@ -1035,25 +1053,31 @@ public class JobTerrainFormer extends Job {
 
     @Override
     public void onMinute() {
-        if (this.missingCheck < 3) {
-            ++this.missingCheck;
-        } else {
-            //谁在规划
-            String s1 = I18n.format("container.sim.job.builder_constructor_started_who1");
-            if (this.missingBlock != null && this.missingBlock != new ItemStack(Blocks.AIR)) {
+        try {
+            if (this.missingCheck < 3) {
+                ++this.missingCheck;
+            } else {
+                //谁在规划
+                String s1 = I18n.format("container.sim.job.builder_constructor_started_who1");
+                if (this.missingBlock != null && this.missingBlock != new ItemStack(Blocks.AIR)) {
 
-                String s2 = I18n.format("container.sim.job.builder_constructor_started_more");
-                //谁在建“”需要更多的“”
-                ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.terrainType.terrainName + ") " + s2 + this.missingBlock.getDisplayName());
+                    String s2 = I18n.format("container.sim.job.builder_constructor_started_more");
+                    //谁在建“”需要更多的“”
+                    ModSimLoader.sendChat(this.folk.getName() + s1 + "(" + this.terrainType.terrainName + ") " + s2 + this.missingBlock.getDisplayName());
+                }
+
+                if (ModSimLoader.money < 0.02F) {
+                    //没有足够的资金支付给
+                    ModSimLoader.sendChat(I18n.format("container.sim.JobBuilder1") + this.folk.getName() + s1 + "( " + this.terrainType.terrainName + ")!");
+                }
+
+                this.missingCheck = 0;
             }
-
-            if (ModSimLoader.money < 0.02F) {
-                //没有足够的资金支付给
-                ModSimLoader.sendChat(I18n.format("container.sim.JobBuilder1") + this.folk.getName() + s1 + "( " + this.terrainType.terrainName + ")!");
-            }
-
-            this.missingCheck = 0;
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("onMinute出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+
     }
 
     @Override
