@@ -40,7 +40,7 @@ public class PacketSendTerrainTypeRequitrements implements IMessage {
     }
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.jobTerrainFormer.conBox.getUniqueID().toString());
+        ByteBufUtils.writeUTF8String(buf, this.jobTerrainFormer.folk.ID);
         ByteBufUtils.writeUTF8String(buf, "");
     }
     public static class Handler implements IMessageHandler<PacketSendTerrainTypeRequitrements, IMessage> {

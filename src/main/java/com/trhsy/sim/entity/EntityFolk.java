@@ -326,13 +326,14 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                     if (this.theData.age < 18) {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
-                        this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                        player.worldObj.playSound(player,player.posX, player.posY, player.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     } else if (this.theData.gender == 0) {
+                        //女声
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
-                        this.worldObj.playSound(this.posX, this.posY, this.posZ, soundEvent,SoundCategory.BLOCKS, 1, 1, false);
+                        player.worldObj.playSound(player,player.posX, player.posY, player.posZ, soundEvent,SoundCategory.BLOCKS, 1.0F, 1.0F);
                     } else {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
-                        this.worldObj.playSound(this.posX, this.posY, this.posZ,soundEvent,SoundCategory.BLOCKS, 1, 1, false);
+                        player.worldObj.playSound(player,player.posX, player.posY, player.posZ,soundEvent,SoundCategory.BLOCKS, 1.0F, 1.0F);
                     }
 
                 }else{

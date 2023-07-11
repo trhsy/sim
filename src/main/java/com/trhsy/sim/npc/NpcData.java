@@ -70,7 +70,7 @@ public class NpcData {
      **/
     public int age;
     /**
-     * 性别 0=男性1=女性
+     * 性别 0=女性1=男性
      **/
     public int gender;
     /**
@@ -803,7 +803,7 @@ public class NpcData {
      **/
     public String getName() {
         String name = "";
-        //男性
+        //女性
         if (this.gender == 0) {
             if (this.forename == null || this.forename == "") {
                 int i = new Random().nextInt(ConfigLoader.configMaleNames.length);
@@ -1275,17 +1275,21 @@ public class NpcData {
                     }
                 }
             } else {
-                //回家 在家 配偶不为空
+                //任务回家 在家 女性 配偶不为空
                 if (this.currentTask instanceof TaskSleep && this.isAtBuilding(this.home) && this.gender == 0 && this.getSpouse() != null) {
+                    //父亲
                     father = this.getSpouse();
+                    //父亲在家
                     if (father.isAtBuilding(this.home) && father.pregnancyStage < 0.1F && new Random().nextInt(6) == 5) {
+                        //生育任务
                         this.addTask(new TaskProcreate(this, 10000L, father));
+                        //生育任务
                         father.addTask(new TaskProcreate(father, 10000L, this));
                         this.currentTask.completeTask();
                         father.currentTask.completeTask();
                     }
                 }
-
+                //生孩子
                 if (this.pregnancyStage >= 1.0F) {
                     this.pregnancyStage = 0.0F;
                     new NpcData(this.entity.worldObj, this.getSpouse(), this);

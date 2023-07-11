@@ -33,6 +33,7 @@ public class TaskProcreate extends Task {
         double d1 = this.rand.nextDouble() * 0.5D;
         double d2 = this.rand.nextDouble() * 0.5D;
         if (this.folk.gender == 0) {
+            //爱心
             this.folk.entity.worldObj.spawnParticle(EnumParticleTypes.HEART, this.folk.pos.x, this.folk.pos.y, this.folk.pos.z, d0, d1, d2, new int[0]);
         }
 

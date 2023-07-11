@@ -22,25 +22,37 @@ public class FolkRelationship {
     public int subLevel;
 
     public FolkRelationship(NpcData folk1, NpcData folk2, EnumFamilyType family) {
-        //不相关的
-        this.familyType = EnumFamilyType.UNRELATED;
-        //熟人
-        this.level = EnumLevel.AQUAINTANCE;
-        this.subLevel = 5;
-        this.folk1 = folk1;
-        this.folk2 = folk2.ID;
-        this.familyType = family;
+        try {
+//不相关的
+            this.familyType = EnumFamilyType.UNRELATED;
+            //熟人
+            this.level = EnumLevel.AQUAINTANCE;
+            this.subLevel = 5;
+            this.folk1 = folk1;
+            this.folk2 = folk2.ID;
+            this.familyType = family;
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("FolkRelationship出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
     }
 
     public FolkRelationship(NpcData folk1, String save) {
-        this.familyType = EnumFamilyType.UNRELATED;
-        this.level = EnumLevel.AQUAINTANCE;
-        this.subLevel = 5;
-        this.folk1 = folk1;
-        this.folk2 = save.split(",")[0];
-        this.familyType = EnumFamilyType.valueOf(save.split(",")[1]);
-        this.level = EnumLevel.valueOf(save.split(",")[2]);
-        this.subLevel = Integer.parseInt(save.split(",")[3]);
+        try {
+            this.familyType = EnumFamilyType.UNRELATED;
+            this.level = EnumLevel.AQUAINTANCE;
+            this.subLevel = 5;
+            this.folk1 = folk1;
+            this.folk2 = save.split(",")[0];
+            this.familyType = EnumFamilyType.valueOf(save.split(",")[1]);
+            this.level = EnumLevel.valueOf(save.split(",")[2]);
+            this.subLevel = Integer.parseInt(save.split(",")[3]);
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("FolkRelationship1出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+
     }
 
     /**
@@ -48,10 +60,15 @@ public class FolkRelationship {
      * @return
      */
     public FolkRelationship getInverse() {
-        NpcData npcData= this.getOther();
         FolkRelationship folkRelationship=null;
-        if(this.folk1!=null&&npcData!=null){
-            folkRelationship=npcData.getRelationshipWith(this.folk1);
+        try {
+            NpcData npcData= this.getOther();
+            if(this.folk1!=null&&npcData!=null){
+                folkRelationship=npcData.getRelationshipWith(this.folk1);
+            }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("getInverse出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return folkRelationship;
     }
@@ -60,35 +77,44 @@ public class FolkRelationship {
      * 尝试结婚
      */
     public void tryMarry() {
-        NpcData folk2 = this.getOther();
-        //单身狗
-        String singe= I18n.format("container.sim.folkData4");
-        if (this.folk1!=null&&folk2!=null&&this.folk1.getRelationshipStatus().contentEquals(singe) && folk2.getRelationshipStatus().contentEquals(singe)) {
-            if (this.folk1.gender != folk2.gender && this.folk1.age >= this.folk1.race.maturity && folk2.age >= folk2.race.maturity && this.folk1.home != null && folk2.home != null && this.familyType == EnumFamilyType.UNRELATED) {
-               String and=I18n.format("container.sim.Mining13");
-                String married=I18n.format("container.sim.married");
-                String moving=I18n.format("container.sim.moving");
-                String moving1=I18n.format("container.sim.moving1");
+        try {
+            NpcData folk2 = this.getOther();
+            //单身狗
+            String singe= I18n.format("container.sim.folkData4");
+            if (this.folk1!=null&&folk2!=null&&this.folk1.getRelationshipStatus().contentEquals(singe) && folk2.getRelationshipStatus().contentEquals(singe)) {
+                //双方性别不同 都成年了
+                if (this.folk1.gender != folk2.gender && this.folk1.age >= this.folk1.race.maturity && folk2.age >= folk2.race.maturity && this.folk1.home != null && folk2.home != null && this.familyType == EnumFamilyType.UNRELATED) {
+                    String and=I18n.format("container.sim.Mining13");
+                    String married=I18n.format("container.sim.married");
+                    String moving=I18n.format("container.sim.moving");
+                    String moving1=I18n.format("container.sim.moving1");
 
-                //仲孙锐翰和栾平怡正在结婚！仲孙锐翰 正在搬进 栾平怡的家.
-                String marriageMessage = this.folk1.getName() +and + folk2.getName() + married + this.folk1.getName() +moving + folk2.getName() + moving1+".";
-                ModSimLoader.sendChat(marriageMessage);
-                if (this.folk1.gender == 1) {
+                    //仲孙锐翰和栾平怡正在结婚！仲孙锐翰 正在搬进 栾平怡的家.
+                    String marriageMessage = this.folk1.getName() +and + folk2.getName() + married + this.folk1.getName() +moving + folk2.getName() + moving1+".";
+                    ModSimLoader.sendChat(marriageMessage);
+                    //取消更改妻子姓名
+                /*if (this.folk1.gender == 1) {
                     this.folk1.surname = folk2.surname;
                 } else {
                     folk2.surname = this.folk1.surname;
+                }*/
+                    //配偶
+                    this.familyType = EnumFamilyType.SPOUSE;
+                    FolkRelationship folkRelationship=folk2.getRelationshipWith(this.folk1);
+                    if(folkRelationship!=null){
+                        //配偶
+                        folkRelationship.familyType = EnumFamilyType.SPOUSE;
+                    }
+                    this.folk1.evict();
+                    this.folk1.home = folk2.home;
+                    folk2.home.occupants.add(this.folk1);
+                    folk2.home.saveBuilding();
                 }
 
-                this.familyType = EnumFamilyType.SPOUSE;
-                if(this.getInverse()!=null){
-                    this.getInverse().familyType = EnumFamilyType.SPOUSE;
-                }
-                this.folk1.evict();
-                this.folk1.home = folk2.home;
-                folk2.home.occupants.add(this.folk1);
-                folk2.home.saveBuilding();
             }
-
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("tryMarry出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
     public void addLevel(int amount) {

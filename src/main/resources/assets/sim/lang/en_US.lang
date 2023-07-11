@@ -892,6 +892,7 @@ container.sim.Vocation27=Sheep farmer
 container.sim.Vocation28=Mutton farmer
 container.sim.Vocation29=Rabbit farmer
 container.sim.Vocation30=Sugar maker
+container.sim.Vocation31=Bank President
 container.sim.folkData1=Unemployed
 container.sim.folkData2=Homeowner
 container.sim.folkData3=Homeless

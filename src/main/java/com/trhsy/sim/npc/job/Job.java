@@ -619,7 +619,7 @@ public abstract class Job {
                 ModSimLoader.sendChat(I18n.format("container.sim.Merchant14"));
             } else {
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                this.jobWorld.playSound(this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent, SoundCategory.BLOCKS, 1, 1, false);
+                this.jobWorld.playSound(null,this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent, SoundCategory.RECORDS, 1.0F, 1.0F);
                 ModSimLoader.sendChat(I18n.format("container.sim.Merchant15") + ModSimLoader.displayMoney(total));
             }
 
@@ -683,14 +683,14 @@ public abstract class Job {
                 }
 
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                this.jobWorld.playSound(this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent,SoundCategory.BLOCKS, 1, 1,false);
+                this.jobWorld.playSound(null,this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent,SoundCategory.BLOCKS, 1.0F, 1.0F);
 //                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                 try {
                     Thread.sleep(1000L);
                 } catch (Exception e) {
                 }
                 SoundEvent soundEvent1 = new SoundEvent(new ResourceLocation(ModSim.MODID + ":merchm"));
-                this.jobWorld.playSound(this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent1,SoundCategory.BLOCKS, 1, 1,false);
+                this.jobWorld.playSound(null,this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent1,SoundCategory.BLOCKS, 1.0F, 1.0F);
                 //threadPoolExecutor.shutdown();
             } else {
                 ModSimLoader.sendChat(I18n.format("container.sim.Merchant12"));

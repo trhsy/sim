@@ -9,11 +9,11 @@ pos|-410.5,5.0,283.5,0
 trait1|讨厌户外活动
 trait2|夜猫子
 trait3|友善的
-hunger|11
+hunger|10
 buildingskill|1.0
-farmingskill|2.0000467
+farmingskill|2.0075462
 holding|锡锄
 employedat|-411.0,4.0,283.0,0
 job|农民
 jobstage|4
-relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,ENEMY,8
+relationship|C145859C-422A-4115-BC14-814DAC735BE0,SPOUSE,FRIEND,2;9c88edff-0108-4073-b0cc-8e2e33892376,UNRELATED,DISLIKE,9

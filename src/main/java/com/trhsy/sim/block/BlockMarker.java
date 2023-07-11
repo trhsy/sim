@@ -83,7 +83,7 @@ public class BlockMarker extends BlockBase{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
-        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         if (!worldIn.isRemote) {
             V3 vPos = new V3(pos, playerIn.dimension);
             NetWorkLoader.net.sendTo(new PacketOpenMarkerGui(vPos,playerIn.dimension), (EntityPlayerMP) playerIn);

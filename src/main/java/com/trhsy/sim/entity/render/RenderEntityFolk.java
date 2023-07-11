@@ -60,6 +60,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             ModSimLoader.log.error("渲染实体出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             try {
                 String gend = "";
+                //女
                 if (entity.theData.gender == 0) {
                     gend = "male0.png";
                 } else {

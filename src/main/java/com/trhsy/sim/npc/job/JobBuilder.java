@@ -274,7 +274,7 @@ public class JobBuilder extends Job {
                                     } else {
                                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                     }
-                                    this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+                                    this.folk.entity.worldObj.playSound(null,this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
                                 }
                             }
@@ -615,7 +615,7 @@ public class JobBuilder extends Job {
 //                    this.folk.entity.swing();
                 //建造的音效
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
-                this.folk.entity.worldObj.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1, 1, false);
+                this.folk.entity.worldObj.playSound(null,this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
             }
             //放置方块
             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
@@ -732,7 +732,7 @@ public class JobBuilder extends Job {
             ModSimLoader.sendChat(text);
             //播放声音
             SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-            this.folk.entity.worldObj.playSound(this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F + +new Random().nextFloat(), new Random().nextFloat() * 0.7F + 0.3F, false);
+            this.folk.entity.worldObj.playSound(null,this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
             if (this.conBox != null) {
                 this.conBox.folk = null;
             }

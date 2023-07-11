@@ -72,7 +72,7 @@ public class BlockMiningBox extends BlockBase{
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_kraft_ddd_mining_constructor_activated"));
-        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1, 1);
+        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         if(!worldIn.isRemote){
             V3 vPos = V3.fromBlockPos(pos);
             NpcData fd = null;
@@ -109,7 +109,7 @@ public class BlockMiningBox extends BlockBase{
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-        worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(), soundEvent, SoundCategory.RECORDS, 1, 1,false);
+        worldIn.playSound(null,pos, soundEvent, SoundCategory.RECORDS, 1.0F, 1.0F);
         for (NpcData fd : ModSimLoader.folks) {
             if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
