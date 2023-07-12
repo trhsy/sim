@@ -8,9 +8,11 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenBankATMGui;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
 import com.trhsy.sim.network.client.PacketOpenMerchantGui;
 import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.npc.task.TaskSleep;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -314,9 +316,13 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if(this.theData.job!=null){
                         String jobName=this.theData.job.jobName;
                         //工作是建筑商
-                        if(jobName.equals(I18n.format("container.sim.Vocation11"))){
+                        if(jobName.equals(I18n.format("container.sim.Vocation11"))&&!(this.theData.currentTask instanceof TaskSleep)){
                             //打开建筑商gui
                             NetWorkLoader.net.sendTo(new PacketOpenMerchantGui(this.theData), (EntityPlayerMP) player);
+                            //行长
+                        }else if(jobName.equals(I18n.format("container.sim.Vocation31"))&&!(this.theData.currentTask instanceof TaskSleep)){
+                            //打开建银行gui
+                            NetWorkLoader.net.sendTo(new PacketOpenBankATMGui(this.theData), (EntityPlayerMP) player);
                         }else{
                             NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
                         }

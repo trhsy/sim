@@ -92,6 +92,8 @@ public class NetWorkLoader {
         registerMessage(PacketOpenMineGui.Handler.class,PacketOpenMineGui.class,Side.CLIENT);
         //打开建筑商GUI
         registerMessage(PacketOpenMerchantGui.Handler.class,PacketOpenMerchantGui.class,Side.CLIENT);
+        //打开银行
+        registerMessage(PacketOpenBankATMGui.Handler.class,PacketOpenBankATMGui.class,Side.CLIENT);
 
     }
     /**

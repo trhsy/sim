@@ -17,20 +17,40 @@ import java.util.Random;
  **/
 public class PricesForBlocks implements Serializable {
     private static final long serialVersionUID = -2617939458756927761L;
+    //木板
     private static Float basePricePlanks = 0.0131F;
+    //原木
     private static Float basePriceLogs = 0.0524F;
+    //圆石
     private static Float basePriceCobblestone = 0.0032F;
+    //石头
     private static Float basePriceStone = 0.0141F;
+    //玻璃
     private static Float basePriceGlass = 0.0121F;
+    //羊毛
     private static Float basePriceWool = 0.0115F;
+    //砖块
     private static Float basePriceBrick = 0.0251F;
+    //石砖
     private static Float basePriceStonebrick = 0.0261F;
+    //栅栏
     private static Float basePriceFence = 0.0113F;
+    //钻石
     public static Float bankPriceDiamond = 10.23F;
+    //绿宝石
     public static Float bankPriceEmerald = 9.34F;
+    //红石
     public static Float bankPriceRedstone = 3.75F;
+    //萤石
     public static Float bankPriceGlowstone = 2.48F;
+    //金
     public static Float bankPriceGold = 5.12F;
+    //锡
+    public static Float bankPriceTin = 5.12F;
+    //铜
+    public static Float bankPriceCopper = 5.12F;
+    //铁
+    public static Float bankPriceIron = 5.12F;
 
     public PricesForBlocks() {
     }
