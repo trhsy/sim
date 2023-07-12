@@ -583,6 +583,10 @@ public class NpcData {
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation11"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobBuildersMerchant(this, p, world);
+                            //行长
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation31"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobATM(this, p, world);
                         }
                     }
 
@@ -1905,6 +1909,9 @@ public class NpcData {
             //建筑商
         }else if (jobName.contentEquals(I18n.format("container.sim.Vocation11"))) {
             this.job = new JobBuildersMerchant(this, pos.toBlockPos(), world);
+            //行长
+        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation31"))) {
+            this.job = new JobATM(this, pos.toBlockPos(), world);
         }
 
 
