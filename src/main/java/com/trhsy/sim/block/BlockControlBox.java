@@ -162,6 +162,11 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
                 }
             }*/
             if(b!=null){
+                if(b.livingXYZ!=null){
+                    vPos= b.livingXYZ;
+                }else if(b.controlXYZ!=null){
+                    vPos=b.controlXYZ;
+                }
                 //存在则查询其下拥有者/员工
                 occupants=b.occupants;
                 if(occupants!=null&&occupants.size()>0){

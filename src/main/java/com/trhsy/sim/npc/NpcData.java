@@ -1485,8 +1485,9 @@ public class NpcData {
      **/
     public boolean moveToXYZ(V3 v3) {
         if (!this.stayPut && this.entity != null && forceMoveToXYZ(v3)) {
-//            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-//            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+            System.out.println("expectedtime:"+expectedtime);
             return true;
         } else {
             return false;
@@ -1511,9 +1512,9 @@ public class NpcData {
 
         if(this.entity.getNavigator().getPath()!=null){
             if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
-//            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-//            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-//            System.out.println("expectedtime:"+expectedtime);
+            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
+            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+            System.out.println("expectedtime:"+expectedtime);
                 return true;
             } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
                 return true;
@@ -1521,7 +1522,7 @@ public class NpcData {
         } else {
             if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
                 if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.worldObj.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
-                    this.entity.setPositionAndUpdate(v3.x + 0.5D, v3.y, v3.z + 0.5D);
+                    this.entity.setPositionAndUpdate(v3.x + 1D, v3.y, v3.z + 1D);
                     this.entity.getNavigator().clearPathEntity();
                 }
             } else {
@@ -1852,73 +1853,80 @@ public class NpcData {
      * @Param [pos, jobName, world]
      **/
     public void hireAt(V3 pos, String jobName, World world) {
-        //面包师
-        if (jobName.contentEquals(I18n.format("container.sim.Vocation6"))) {
-            this.job = new JobBaker(this, pos.toBlockPos(), world);
-            //地形规划师
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation16"))) {
-            this.job = new JobTerrainFormer(this, pos, world);
-            //屠夫
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
-            this.job = new JobButcher(this, pos.toBlockPos(), world);
-            //食品商
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation26"))) {
-            this.job = new JobGrocer(this, pos.toBlockPos(), world);
-            //养牛户
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation12"))) {
-            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_cow"), world);
-            //养猪户
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation13"))) {
-            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_pig"), world);
-            //养鸡户
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation14"))) {
-            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_chicken"), world);
-            //养羊户
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
-            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_sheep"), world);
-            //养兔户
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation29"))) {
-            this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_rabbit"), world);
-            //牧羊人
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation8"))) {
-            this.job = new JobShepherd(this, pos.toBlockPos(), world);
-            //牛奶农
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation20"))) {
-            this.job = new JobDairyFarmer(this, pos.toBlockPos(), world);
-            //伐木工
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
-            this.job = new JobLumberjack(this, pos.toBlockPos(), world);
-            //士兵
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation7"))) {
-            this.job = new JobSoldier(this, pos.toBlockPos(), world);
-            //渔夫
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation18"))) {
-            this.job = new JobFisherman(this, pos.toBlockPos(), world);
-            //蛋农
-        } else if (jobName.contentEquals(I18n.format("container.sim.Vocation3"))) {
-            this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
-            //制糖师
-        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation30"))) {
-            this.job = new JobSugar(this, pos.toBlockPos(), world);
-            //板砖工匠
-        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation25"))) {
-            this.job = new JobBrickMaker(this, pos.toBlockPos(), world);
-            //玻璃制造商
-        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation17"))) {
-            this.job = new JobGlassMaker(this, pos.toBlockPos(), world);
-            //建筑商
-        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation11"))) {
-            this.job = new JobBuildersMerchant(this, pos.toBlockPos(), world);
-            //行长
-        }else if (jobName.contentEquals(I18n.format("container.sim.Vocation31"))) {
-            this.job = new JobATM(this, pos.toBlockPos(), world);
+        try {
+            //面包师
+            if (jobName.contentEquals(I18n.format("container.sim.Vocation6"))) {
+                this.job = new JobBaker(this, pos.toBlockPos(), world);
+                //地形规划师
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation16"))) {
+                this.job = new JobTerrainFormer(this, pos, world);
+                //屠夫
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
+                this.job = new JobButcher(this, pos.toBlockPos(), world);
+                //食品商
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation26"))) {
+                this.job = new JobGrocer(this, pos.toBlockPos(), world);
+                //养牛户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation12"))) {
+                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_cow"), world);
+                //养猪户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation13"))) {
+                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_pig"), world);
+                //养鸡户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation14"))) {
+                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_chicken"), world);
+                //养羊户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
+                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_sheep"), world);
+                //养兔户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation29"))) {
+                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_rabbit"), world);
+                //牧羊人
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation8"))) {
+                this.job = new JobShepherd(this, pos.toBlockPos(), world);
+                //牛奶农
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation20"))) {
+                this.job = new JobDairyFarmer(this, pos.toBlockPos(), world);
+                //伐木工
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
+                this.job = new JobLumberjack(this, pos.toBlockPos(), world);
+                //士兵
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation7"))) {
+                this.job = new JobSoldier(this, pos.toBlockPos(), world);
+                //渔夫
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation18"))) {
+                this.job = new JobFisherman(this, pos.toBlockPos(), world);
+                //蛋农
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation3"))) {
+                this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
+                //制糖师
+            }else if (jobName.contentEquals(I18n.format("container.sim.Vocation30"))) {
+                this.job = new JobSugar(this, pos.toBlockPos(), world);
+                //板砖工匠
+            }else if (jobName.contentEquals(I18n.format("container.sim.Vocation25"))) {
+                this.job = new JobBrickMaker(this, pos.toBlockPos(), world);
+                //玻璃制造商
+            }else if (jobName.contentEquals(I18n.format("container.sim.Vocation17"))) {
+                this.job = new JobGlassMaker(this, pos.toBlockPos(), world);
+                //建筑商
+            }else if (jobName.contentEquals(I18n.format("container.sim.Vocation11"))) {
+                this.job = new JobBuildersMerchant(this, pos.toBlockPos(), world);
+                //行长
+            }else if (jobName.contentEquals(I18n.format("container.sim.Vocation31"))) {
+                this.job = new JobATM(this, pos.toBlockPos(), world);
+            }
+
+
+            BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
+            cont.employees.add(this);
+            Building building=ModSimLoader.getBuildingByV3(pos);
+            building.occupants.add(this);
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 
-        BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
-        cont.employees.add(this);
-        Building building=ModSimLoader.getBuildingByV3(pos);
-        building.occupants.add(this);
     }
 
     /**
