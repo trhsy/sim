@@ -1486,8 +1486,11 @@ public class NpcData {
     public boolean moveToXYZ(V3 v3) {
         if (!this.stayPut && this.entity != null && forceMoveToXYZ(v3)) {
             double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-            System.out.println("expectedtime:"+expectedtime);
+            if(dist>=40){
+                return false;
+            }
+//            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+//            System.out.println("expectedtime:"+expectedtime);
             return true;
         } else {
             return false;
@@ -1513,8 +1516,11 @@ public class NpcData {
         if(this.entity.getNavigator().getPath()!=null){
             if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-            System.out.println("expectedtime:"+expectedtime);
+//            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
+//            System.out.println("expectedtime:"+expectedtime);
+                if(dist>=40){
+                    return false;
+                }
                 return true;
             } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
                 return true;
@@ -1522,7 +1528,7 @@ public class NpcData {
         } else {
             if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
                 if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.worldObj.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
-                    this.entity.setPositionAndUpdate(v3.x + 1D, v3.y, v3.z + 1D);
+                    this.entity.setPositionAndUpdate(v3.x , v3.y+1, v3.z);
                     this.entity.getNavigator().clearPathEntity();
                 }
             } else {
@@ -1541,10 +1547,11 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean forceMoveToXYZNoWarp(V3 v3) {
-        v3 = new V3(v3.x, v3.y + 0.5D, v3.z);
+        v3 = new V3(v3.x, v3.y + 1D, v3.z);
         if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             return true;
         } else {
+            this.entity.setPositionAndUpdate(v3.x+1D , v3.y+1D, v3.z+1D);
             return this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D);
         }
     }

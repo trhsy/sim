@@ -136,7 +136,9 @@ public class JobTaskPatrol extends JobTask {
             for (this.patrolTo = this.getNewPosition(); this.patrolTo.x > this.maxX || this.patrolTo.x < this.minX || this.patrolTo.z > this.maxZ || this.patrolTo.z < this.minZ; this.patrolTo = this.getNewPosition()) {
             }
         } else if (!this.job.folk.isMoving) {
-            this.job.folk.forceMoveToXYZNoWarp(this.patrolTo);
+//            if(!this.job.folk.forceMoveToXYZ(this.patrolTo)){
+                this.job.folk.forceMoveToXYZNoWarp(this.patrolTo);
+//            }
         }
     }
 

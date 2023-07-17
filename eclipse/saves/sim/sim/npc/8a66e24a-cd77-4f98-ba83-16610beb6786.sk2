@@ -2,14 +2,14 @@ id|8a66e24a-cd77-4f98-ba83-16610beb6786
 fname|薇曼
 sname|都
 gender|1
-age|30
+age|31
 race|精灵
 skin|male1.png
-pos|-411.69999998807907,4.0,332.30000001192093,0
+pos|-416.49999626928775,4.0,257.01249998807896,0
 trait1|勇敢的
 trait2|强壮的
 trait3|矮人血脉
-hunger|10
+hunger|7
 buildingskill|1.0
 farmingskill|1.0
 holding|锡剑

@@ -5,6 +5,7 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenSetupGui;
 import com.trhsy.sim.network.server.PacketSetupMod;
+import com.trhsy.sim.npc.NpcData;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -204,6 +205,8 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
                     this.mc.currentScreen=null;
+                    ModSimLoader.log.info("所有人都有住宅，开始生成新的NPC");
+                    new NpcData(this.mc.theWorld, false);
                     this.mc.setIngameFocus();
                     break;
                 default:
@@ -213,6 +216,8 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(0).visible=false;
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
+                    ModSimLoader.log.info("所有人都有住宅，开始生成新的NPC");
+                    new NpcData(this.mc.theWorld, false);
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
                     break;
