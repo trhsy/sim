@@ -1,7 +1,7 @@
 // For those who want the bleeding edge
 buildscript {
     repositories {
-        maven {
+        /*maven {
             name = "forge"
             url = "http://forgemavenmirror.sinaapp.com/maven"
         }
@@ -12,7 +12,7 @@ buildscript {
         maven {
             name = "files forge https"
             url = "https://files.minecraftforge.net/maven"
-        }
+        }*/
 		maven {
             name = "repo"
             url = "https://repo.maven.org/maven2"
@@ -69,7 +69,7 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.9-1.0.4 Beta"
+version = "1.9-1.0.5 Beta"
 group= "com.trhsy.sim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "simulated"
 

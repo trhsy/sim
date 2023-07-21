@@ -25,6 +25,7 @@ public class ClientProxy extends CommonProxy{
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
+        //丨 模拟城市 丨 官方Q群: 749090174  丨 由TRHSY重制 丨 微信公众号：dasha500
         String title= I18n.format("container.sim.title");
         Display.setTitle(Display.getTitle() +title);
     }
@@ -56,12 +57,15 @@ public class ClientProxy extends CommonProxy{
                         }
 
                         if (ModSimLoader.gamemode == 1) {
+                            //世界名 人口
                             hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
                         } else {
+                            //世界名  人口  资金
                             hud.drawString(mc.fontRendererObj, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+I18n.format("container.sim.trhsy3") +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ I18n.format("container.sim.trhsy4") +": " + ModSimLoader.displayMoney(ModSimLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
                         }
                     }
                 } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+                    //正在加载模拟城市...
                     hud.drawString(mc.fontRendererObj, I18n.format("container.sim.trhsy5"), hud.width / 2, 2, 16777215);
                 }
             } catch (Exception e) {
