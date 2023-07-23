@@ -1,6 +1,8 @@
 package com.trhsy.sim.commands;
 
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketUpdateMoney;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -51,6 +53,7 @@ public class CommandChangeCredits implements ICommand {
             if(argString.length>0){
                 ModSimLoader.money = Float.parseFloat(argString[0]);
                 ModSimLoader.saveStates();
+                NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
             }else{
                 //无效的参数，应该是：/credits <amount>
                 ModSimLoader.sendChat(I18n.format("container.sim.commands1"));

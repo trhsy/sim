@@ -64,6 +64,8 @@ public class NetWorkLoader {
     public void registerMessagesAsClient(){
         //开始卷轴启动页
         registerMessage(PacketOpenSetupGui.Handler.class,PacketOpenSetupGui.class,Side.CLIENT);
+        //左上角配置
+        registerMessage(PacketOpenHudGui.Handler.class,PacketOpenHudGui.class,Side.CLIENT);
         //配置文件
         registerMessage(ConfigSyncPacket.Handler.class,ConfigSyncPacket.class,Side.CLIENT);
         //发送NPC皮肤

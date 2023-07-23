@@ -1,4 +1,4 @@
-package com.trhsy.sim.util;
+package com.trhsy.sim.util.items;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.init.Items;
@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @ClassName Commodity
- * @Description todo
+ * @Description todo 杂货商物品
  * @Author TRHSY
  * @Date 2023/7/1223:18
  **/

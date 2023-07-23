@@ -96,11 +96,11 @@ public class GuiBlockControllerBlock extends GuiScreen {
      * @Param [p, bId, bName, jName]
      **/
     public GuiBlockControllerBlock(V3 p, String bId, String bName, String jName, String bType, String author) {
+        try {
         this.pos = p;
         this.hasEmployee = false;
         this.occupants = null;
         this.buildingId = bId;
-
         ModSimLoader.log.info("控制箱ID:" + bId);
         this.buildingName = bName;
         this.jobName = jName;
@@ -108,9 +108,14 @@ public class GuiBlockControllerBlock extends GuiScreen {
         this.author = author;
         this.getHireableFolkNames();
         this.populateJobList();
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("GuiBlockControllerBlock出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 
     public GuiBlockControllerBlock(V3 p, List<NpcData> occupant, String bId, String bName, String jName, String bType, String author) {
+        try{
         this.pos = p;
         this.occupants = occupant;
         this.hasEmployee = true;
@@ -122,9 +127,14 @@ public class GuiBlockControllerBlock extends GuiScreen {
         this.author = author;
         this.getHireableFolkNames();
         this.populateJobList();
+    }catch (Exception e){
+        StackTraceElement element = e.getStackTrace()[0];
+        ModSimLoader.log.error("GuiBlockControllerBlock1出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+    }
     }
 
     public GuiBlockControllerBlock(V3 p, List<NpcData> occupants, String bId, Boolean isResidential, String bName, String jName, String bType, String author) {
+        try{
         this.pos = p;
         this.occupants = occupants;
         ModSimLoader.log.info("控制箱ID:" + bId);
@@ -134,6 +144,10 @@ public class GuiBlockControllerBlock extends GuiScreen {
         this.buildingType = bType;
         this.author = author;
         this.isResidential = isResidential;
+    }catch (Exception e){
+        StackTraceElement element = e.getStackTrace()[0];
+        ModSimLoader.log.error("GuiBlockControllerBlock2出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+    }
     }
 
     /**
@@ -176,6 +190,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
      * @Param []
      **/
     public void showPage() {
+        try{
         this.mc.setIngameNotInFocus();
         //清楚所有按钮
         this.buttonList.clear();
@@ -259,11 +274,15 @@ public class GuiBlockControllerBlock extends GuiScreen {
             } catch (Exception var6) {
             }
         }
-
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("showPage出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 
     @Override
     public void drawScreen(int i, int j, float f) {
+        try{
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int posX = (this.width - 256) / 2;
         this.drawDefaultBackground();
@@ -306,16 +325,21 @@ public class GuiBlockControllerBlock extends GuiScreen {
                     int down=67;
                     for (int k = 0; k < this.occupants.size(); k++) {
                         NpcData npcData = this.occupants.get(k);
-                        String employeeName= npcData.getName();
-                        //员工
-                        this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + ":" + employeeName, 5, down, 16777088);
-                        down +=20;
+                        if(npcData!=null){
+                            String employeeName= npcData.getName();
+                            //员工
+                            this.fontRendererObj.drawString(I18n.format("container.sim.Employees") + ":" + employeeName, 5, down, 16777088);
+                            down +=20;
+                        }
                     }
                 }
             }
 
         }
-
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("drawScreen出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
 
         super.drawScreen(i, j, f);
     }
@@ -325,6 +349,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
     )
     @Override
     public void actionPerformed(GuiButton guibutton) {
+        try{
         ModSimLoader.log.info("点击按钮：" + guibutton.id);
 //        ModSimLoader.log.info("建筑工作类型：" + this.buildings.jobType);
         if (System.currentTimeMillis() - this.fingBodge >= 100L) {
@@ -433,6 +458,10 @@ public class GuiBlockControllerBlock extends GuiScreen {
 
                 }
             }
+        }
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("actionPerformed出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

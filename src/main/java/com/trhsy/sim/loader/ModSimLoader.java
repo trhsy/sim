@@ -1,5 +1,6 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.gui.GuiHud;
 import com.trhsy.sim.gui.block.*;
 import com.trhsy.sim.gui.npc.GuiBankATM;
 import com.trhsy.sim.gui.npc.GuiFolk;
@@ -17,7 +18,7 @@ import com.trhsy.sim.npc.DynamicSkin;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.build.TerrainTypeRequitrements;
-import com.trhsy.sim.util.Commodity;
+import com.trhsy.sim.util.items.Commodity;
 import com.trhsy.sim.util.FarmType;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
@@ -68,10 +69,7 @@ public class ModSimLoader {
     public static List<BuildingBlueprint> buildingBlueprints = new CopyOnWriteArrayList();
 
     public static List<TerrainTypeRequitrements> terrainTypeReqs = new CopyOnWriteArrayList();
-    /*
-    银行目前正在销售的商品列表，每天早上都会更新新商品
-     */
-    public static List<Commodity> theCommodities = new CopyOnWriteArrayList();
+
     /**
      * 是否加载npc
      **/
@@ -102,7 +100,9 @@ public class ModSimLoader {
     public static void openSetupGui() {
         Minecraft.getMinecraft().displayGuiScreen(new GuiRunMod());
     }
-
+    public static void openHudGui() {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiHud());
+    }
     /**
      * 获取模拟城市建筑文文件夹
      *

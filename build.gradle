@@ -4,7 +4,7 @@ buildscript {
         /*maven {
             name = "forge"
             url = "http://forgemavenmirror.sinaapp.com/maven"
-        }
+        }*/
         maven {
             name = "files forge"
             url = "http://files.minecraftforge.net/maven"
@@ -12,7 +12,7 @@ buildscript {
         maven {
             name = "files forge https"
             url = "https://files.minecraftforge.net/maven"
-        }*/
+        }
 		maven {
             name = "repo"
             url = "https://repo.maven.org/maven2"

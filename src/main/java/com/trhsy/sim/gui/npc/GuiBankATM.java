@@ -5,10 +5,8 @@ import com.trhsy.sim.gui.ATMscreen;
 import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.network.client.PacketOpenBankATMGui;
-import com.trhsy.sim.network.client.PacketOpenMerchantGui;
 import com.trhsy.sim.npc.V3;
-import com.trhsy.sim.npc.job.Job;
-import com.trhsy.sim.util.Commodity;
+import com.trhsy.sim.util.items.CommodityAtm;
 import com.trhsy.sim.util.PricesForBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
@@ -17,13 +15,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.util.List;
@@ -47,7 +43,7 @@ public class GuiBankATM extends GuiScreen {
     private String errorText;
     //鼠标计数
     private int mouseCount = 0;
-    private List<Commodity> cart;
+    private List<CommodityAtm> cart;
     public GuiBankATM() {
     }
     public GuiBankATM(PacketOpenBankATMGui message) {
@@ -95,7 +91,7 @@ public class GuiBankATM extends GuiScreen {
             } else {
                 //更新售卖物品
                 if (ModSimLoader.theCommodities.size() == 0) {
-                    Commodity.refreshAvailableCommoditities();
+                    CommodityAtm.refreshAvailableCommoditities();
                 }
 
                 this.buttonList.clear();
@@ -244,12 +240,12 @@ public class GuiBankATM extends GuiScreen {
                     }
 
                     for (int it = 0; it < ModSimLoader.theCommodities.size(); it++) {
-                        Commodity item = (Commodity) ModSimLoader.theCommodities.get(it);
-                        this.drawString(this.fontRendererObj, item.quantity + " x " + item.theItemStack.getDisplayName() + " @ " + ModSimLoader.displayMoney(item.priceEach) + " each", 20, offset, 65280);
+                        CommodityAtm item = (CommodityAtm) ModSimLoader.theCommodities.get(it);
+                        this.drawString(this.fontRendererObj, item.quantity + " x " + item.theItemStack.getDisplayName() + " @ " + ModSimLoader.displayMoney(item.priceEach) + " "+I18n.format("container.sim.job.credits"), 20, offset, 65280);
                         int qty = 0;
 
                         for (int ci = 0; ci < this.cart.size(); ++ci) {
-                            Commodity cartItem = (Commodity) this.cart.get(ci);
+                            CommodityAtm cartItem = (CommodityAtm) this.cart.get(ci);
                             if (cartItem.theItemStack.getDisplayName().contentEquals(item.theItemStack.getDisplayName())) {
                                 qty = cartItem.quantity;
                             }
@@ -324,13 +320,13 @@ public class GuiBankATM extends GuiScreen {
                         this.initGui();
                     } else {
                         int ci;
-                        Commodity cartItem;
-                        Commodity comm;
+                        CommodityAtm cartItem;
+                        CommodityAtm comm;
                         if (guibutton.id >= 200 && guibutton.id < 300) {
-                            comm = (Commodity) ModSimLoader.theCommodities.get(guibutton.id - 200);
+                            comm = (CommodityAtm) ModSimLoader.theCommodities.get(guibutton.id - 200);
 
                             for (ci = 0; ci < this.cart.size(); ++ci) {
-                                cartItem = (Commodity) this.cart.get(ci);
+                                cartItem = (CommodityAtm) this.cart.get(ci);
                                 if (cartItem.theItemStack.getDisplayName().contentEquals(comm.theItemStack.getDisplayName()) && cartItem.quantity > 0) {
                                     --cartItem.quantity;
                                     break;
@@ -342,11 +338,11 @@ public class GuiBankATM extends GuiScreen {
                                 }
                             }
                         } else if (guibutton.id >= 300 && guibutton.id < 400) {
-                            comm = (Commodity) ModSimLoader.theCommodities.get(guibutton.id - 300);
+                            comm = (CommodityAtm) ModSimLoader.theCommodities.get(guibutton.id - 300);
                             boolean added = false;
 
                             for (int cj = 0; cj < this.cart.size(); ++cj) {
-                                Commodity cc = (Commodity) this.cart.get(cj);
+                                CommodityAtm cc = (CommodityAtm) this.cart.get(cj);
                                 if (cc.theItemStack.getDisplayName().contentEquals(comm.theItemStack.getDisplayName())) {
                                     if (cc.quantity >= comm.quantity) {
                                         return;
@@ -359,7 +355,7 @@ public class GuiBankATM extends GuiScreen {
                             }
 
                             if (!added) {
-                                this.cart.add(new Commodity(comm.theItemStack, 1, comm.priceEach));
+                                this.cart.add(new CommodityAtm(comm.theItemStack, 1, comm.priceEach));
                             }
                         } else if (guibutton.id == 400) {
                             if (this.cart.size() == 0) {
@@ -395,7 +391,7 @@ public class GuiBankATM extends GuiScreen {
                                 this.mc.thePlayer.inventory.addItemStackToInventory(is);
 
                                 for (int ai = 0; ai < ModSimLoader.theCommodities.size(); ++ai) {
-                                    Commodity ac = (Commodity) ModSimLoader.theCommodities.get(ai);
+                                    CommodityAtm ac = (CommodityAtm) ModSimLoader.theCommodities.get(ai);
                                     if (ac.theItemStack.getDisplayName().contentEquals(cartItem.theItemStack.getDisplayName())) {
                                         ModSimLoader.theCommodities.remove(ai);
                                         break;

@@ -1,6 +1,10 @@
 package com.trhsy.sim.gui;
 
+import com.trhsy.sim.loader.ModSimClientLoader;
+import com.trhsy.sim.loader.ModSimLoader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 
 /**
  * @author Trhsy
@@ -11,5 +15,13 @@ import net.minecraft.client.gui.GuiScreen;
  */
 public class GuiHud extends GuiScreen {
     public GuiHud() {
+    }
+
+    /**
+     * 初始化
+     */
+    @Override
+    public void initGui() {
+
     }
 }
