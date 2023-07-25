@@ -23,18 +23,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.IWorldEventListener;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -45,13 +41,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 /**
  * @ClassName EventLoader
@@ -295,6 +286,7 @@ public class EventLoader {
         }
         //检查游戏状态 && event.world.playerEntities.size() > 0
         if (ModSimLoader.gamemode != 999 && !event.world.isRemote) {
+            Minecraft mc = Minecraft.getMinecraft();
             //是白天
             if (ModSimLoader.isDayTime(event.world)) {
                 //60秒循环
@@ -326,9 +318,8 @@ public class EventLoader {
                     ModSimLoader.log.info("天亮了");
                     //播放 天亮了鸡叫
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                    //event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
-                    for (EntityPlayer entityPlayer : event.world.playerEntities) {
-                        event.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                     }
 
                     this.newDay = true;
@@ -351,9 +342,8 @@ public class EventLoader {
                         ModSimLoader.addMoney(rent);
                         //播放钱到账
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                        //event.world.playSound(0,0,0,soundEvent, SoundCategory.RECORDS, 0.3F, 0.6F,false);
-                        for (EntityPlayer entityPlayer : event.world.playerEntities) {
-                            event.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));

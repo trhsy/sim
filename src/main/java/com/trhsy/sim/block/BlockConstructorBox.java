@@ -2,6 +2,7 @@ package com.trhsy.sim.block;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.CreativeTabsLoader;
+import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenConstructorGui;
@@ -11,6 +12,7 @@ import com.trhsy.sim.npc.V3;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -49,6 +51,7 @@ public class BlockConstructorBox extends BlockBase {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_building_constructor_activated"));
         worldIn.playSound(playerIn, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
         int buildDirection = 0;
         if (!worldIn.isRemote) {
             if (ModSimLoader.gamemode == 999) {
@@ -114,6 +117,9 @@ public class BlockConstructorBox extends BlockBase {
                 fd.fire();
             }
         }
+        //预览位置
+        ModSimClientLoader.previewPos1 = null;
+        ModSimClientLoader.previewPos2 = null;
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
 

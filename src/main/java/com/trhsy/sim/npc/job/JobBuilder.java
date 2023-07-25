@@ -12,7 +12,9 @@ import com.trhsy.sim.npc.build.BuildingBlueprint;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -274,7 +276,10 @@ public class JobBuilder extends Job {
                                     } else {
                                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                     }
-                                    this.folk.entity.worldObj.playSound(null,this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                                    Minecraft mc = Minecraft.getMinecraft();
+                                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                    }
 
                                 }
                             }
@@ -365,6 +370,7 @@ public class JobBuilder extends Job {
             boolean normalBlock = true;
             //已放置
             boolean hasPlaced = false;
+            Minecraft mc = Minecraft.getMinecraft();
             //方块编号大于
             if (this.blockNumber >= this.blueprint.structure.length) {
                 this.folk.fire();
@@ -615,7 +621,10 @@ public class JobBuilder extends Job {
 //                    this.folk.entity.swing();
                 //建造的音效
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
-                this.folk.entity.worldObj.playSound(null,this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                    mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                }
             }
             //放置方块
             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
@@ -629,7 +638,7 @@ public class JobBuilder extends Job {
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
-                    this.folk.entity.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, newBP.getX() + d0, newBP.getX() + d1, newBP.getX() + d2, d3, d4, d5, new int[0]);
+                    mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, newBP.getX() + d0, newBP.getX() + d1, newBP.getX() + d2, d3, d4, d5, new int[0]);
                 }
             }
             this.placedBlocks.add(new V3(newBP));
@@ -732,7 +741,10 @@ public class JobBuilder extends Job {
             ModSimLoader.sendChat(text);
             //播放声音
             SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-            this.folk.entity.worldObj.playSound(null,this.livingPos.getX(), this.livingPos.getY(), this.livingPos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+            Minecraft mc = Minecraft.getMinecraft();
+            for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+            }
             if (this.conBox != null) {
                 this.conBox.folk = null;
             }

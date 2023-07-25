@@ -219,7 +219,7 @@ public class NpcData {
             //性别随机
             this.gender = new Random().nextInt(2);
             /**皮肤随机*/
-            this.skinnumber = new Random().nextInt(64);
+            this.skinnumber = new Random().nextInt(64)+1;
             //种族分配
             this.assignRace();
             /**年龄**/
@@ -326,7 +326,7 @@ public class NpcData {
             this.tempStage = -1;
             this.timeSinceLastStatusUpdate = 0L;
             /**皮肤随机*/
-            this.skinnumber = new Random().nextInt(64);
+            this.skinnumber = new Random().nextInt(64)+1;
             this.minuteUpdate = 0L;
             this.tempEmployLoc = null;
             this.lastPathAttempt = 0L;
@@ -606,6 +606,10 @@ public class NpcData {
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation31"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobATM(this, p, world);
+                            //杂货商
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation9"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobMerchant(this, p, world);
                         }
                     }
 
@@ -659,25 +663,26 @@ public class NpcData {
     public void fire() {
         try {
             this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
-            //建筑工
-            if (this.job.jobName.equals(I18n.format("container.sim.Vocation1"))) {
-                JobBuilder jobBuilder = (JobBuilder) this.job;
-                if (jobBuilder != null && jobBuilder.conBox != null) {
-                    jobBuilder.conBox.folk = null;
+            if(this.job!=null){
+                //建筑工
+                if (this.job.jobName.equals(I18n.format("container.sim.Vocation1"))) {
+                    JobBuilder jobBuilder = (JobBuilder) this.job;
+                    if (jobBuilder != null && jobBuilder.conBox != null) {
+                        jobBuilder.conBox.folk = null;
+                    }
+                }
+                //规划师
+                if (this.job.jobName.equals(I18n.format("container.sim.Vocation16"))) {
+                    JobTerrainFormer jobTerrainFormer = (JobTerrainFormer) this.job;
+                    if (jobTerrainFormer != null && jobTerrainFormer.conBox != null) {
+                        jobTerrainFormer.conBox.folk = null;
+                    }
+                }
+                Building building = ModSimLoader.getBuildingByV3(this.job.workPlace);
+                if (building != null) {
+                    building.occupants.remove(this);
                 }
             }
-            //规划师
-            if (this.job.jobName.equals(I18n.format("container.sim.Vocation16"))) {
-                JobTerrainFormer jobTerrainFormer = (JobTerrainFormer) this.job;
-                if (jobTerrainFormer != null && jobTerrainFormer.conBox != null) {
-                    jobTerrainFormer.conBox.folk = null;
-                }
-            }
-            Building building = ModSimLoader.getBuildingByV3(this.job.workPlace);
-            if (building != null) {
-                building.occupants.remove(this);
-            }
-
             this.job = null;
             this.holding = null;
             if (this.entity != null) {
@@ -884,7 +889,7 @@ public class NpcData {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("getClientIdentity出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return npcIdentity;
     }
@@ -962,7 +967,6 @@ public class NpcData {
                 }*/
             } else {
 //                ModSimLoader.log.info("已重生，更新皮肤");
-//                this.sendSkinPathToClient();
             }
         } catch (Exception e) {
             ModSimLoader.log.error("重生出错了");
@@ -1000,18 +1004,18 @@ public class NpcData {
      * @Param []
      **/
     public String getRelationshipStatus() {
-        String relationshipStatus="";
+        String relationshipStatus = "";
         try {
             if (this.getFamily(EnumFamilyType.SPOUSE) != null) {
                 //已婚
-                 relationshipStatus = I18n.format("container.sim.relation_ship_Married");
+                relationshipStatus = I18n.format("container.sim.relation_ship_Married");
                 return relationshipStatus;
             } else {
                 //单身狗
                 String single = I18n.format("container.sim.folkData4");
                 //有对象
                 String In_a_relationship = I18n.format("container.sim.In_a_relationship");
-                relationshipStatus=this.getFamily(EnumFamilyType.PARTNER) != null ? In_a_relationship : single;
+                relationshipStatus = this.getFamily(EnumFamilyType.PARTNER) != null ? In_a_relationship : single;
                 return relationshipStatus;
             }
         } catch (Exception e) {
@@ -1029,19 +1033,19 @@ public class NpcData {
      * @Param []
      **/
     public String getHunger() {
-        String hunger="";
+        String hunger = "";
         try {
             if (this.hunger > 8) {
                 //吃饱的
-                hunger=I18n.format("container.sim.folkData6");
+                hunger = I18n.format("container.sim.folkData6");
                 return hunger;
             } else if (this.hunger > 4) {
                 //有点饿
-                hunger=I18n.format("container.sim.folkData7");
+                hunger = I18n.format("container.sim.folkData7");
                 return hunger;
             } else {
                 //非常饿  快饿死了
-                hunger=this.hunger > 1 ? I18n.format("container.sim.folkData9") : I18n.format("container.sim.folkData8");
+                hunger = this.hunger > 1 ? I18n.format("container.sim.folkData9") : I18n.format("container.sim.folkData8");
                 return hunger;
             }
         } catch (Exception e) {
@@ -1082,9 +1086,18 @@ public class NpcData {
      * 移除 租户
      */
     public void evict() {
-        this.home.occupants.remove(this);
-        this.home.saveBuilding();
-        this.home = null;
+        try {
+            if (this.home != null && this.home.occupants != null && this.home.occupants.size() > 0) {
+                this.home.occupants.remove(this);
+            }
+            this.home.saveBuilding();
+            this.home = null;
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("evict出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            this.home.saveBuilding();
+            this.home = null;
+        }
     }
 
     /**
@@ -1388,7 +1401,7 @@ public class NpcData {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("onMinute出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }
@@ -1610,7 +1623,7 @@ public class NpcData {
             npcData = rel.getOther();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("getSpouse出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return npcData;
     }
@@ -1829,45 +1842,45 @@ public class NpcData {
      **/
     public void onDeath(DamageSource cause) {
         try {
-        String deathMessage = "";
-        if (cause == DamageSource.starve) {
-            //张三 饿死了。他们当时18岁。
-            deathMessage = this.getName() + I18n.format("container.sim.folk_data_death_by_They") + this.age + I18n.format("container.sim.folk_data_death_by_years");
-        } else {
-            deathMessage = this.getName() + I18n.format("container.sim.folk_data_death_by_were") + this.age + I18n.format("container.sim.folk_data_death_by_years");
-        }
-
-        this.isDead = true;
-        for (NpcData npcData : ModSimLoader.folks) {
-            //ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
-            if (npcData.ID.contentEquals(this.ID) && !npcData.entity.worldObj.isRemote) {
-                ModSimLoader.log.info("找到匹配ID");
-                ModSimLoader.sendChat(deathMessage);
-                if (this.home != null) {
-                    this.home.occupants.remove(this);
-                    this.home.saveBuilding();
-                }
-                if (this.job != null) {
-                    this.fire();
-                }
-                ModSimLoader.folks.remove(this);
-                try {
-                    Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
-                } catch (Exception var5) {
-                    StackTraceElement element = var5.getStackTrace()[0];
-                    ModSimLoader.log.error("onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
-                }
+            String deathMessage = "";
+            if (cause == DamageSource.starve) {
+                //张三 饿死了。他们当时18岁。
+                deathMessage = this.getName() + I18n.format("container.sim.folk_data_death_by_They") + this.age + I18n.format("container.sim.folk_data_death_by_years");
             } else {
-                for (FolkRelationship folkRelationship : npcData.relationships) {
-                    if (folkRelationship.folk2.contains(this.ID)) {
-                        npcData.relationships.remove(folkRelationship);
-                        npcData.saveFolk();
-                    }
-                }
+                deathMessage = this.getName() + I18n.format("container.sim.folk_data_death_by_were") + this.age + I18n.format("container.sim.folk_data_death_by_years");
             }
 
-        }
-        }catch (Exception e){
+            this.isDead = true;
+            for (NpcData npcData : ModSimLoader.folks) {
+                //ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
+                if (npcData.ID.contentEquals(this.ID) && !npcData.entity.worldObj.isRemote) {
+                    ModSimLoader.log.info("找到匹配ID");
+                    ModSimLoader.sendChat(deathMessage);
+                    if (this.home != null) {
+                        this.home.occupants.remove(this);
+                        this.home.saveBuilding();
+                    }
+                    if (this.job != null) {
+                        this.fire();
+                    }
+                    ModSimLoader.folks.remove(this);
+                    try {
+                        Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
+                    } catch (Exception var5) {
+                        StackTraceElement element = var5.getStackTrace()[0];
+                        ModSimLoader.log.error("onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
+                    }
+                } else {
+                    for (FolkRelationship folkRelationship : npcData.relationships) {
+                        if (folkRelationship.folk2.contains(this.ID)) {
+                            npcData.relationships.remove(folkRelationship);
+                            npcData.saveFolk();
+                        }
+                    }
+                }
+
+            }
+        } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("onDeath出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
@@ -2006,76 +2019,83 @@ public class NpcData {
      **/
     public void hireAt(V3 pos, String jobName, World world) {
         try {
-            //面包师
-            if (jobName.contentEquals(I18n.format("container.sim.Vocation6"))) {
-                this.job = new JobBaker(this, pos.toBlockPos(), world);
-                //地形规划师
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation16"))) {
-                this.job = new JobTerrainFormer(this, pos, world);
-                //屠夫
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
-                this.job = new JobButcher(this, pos.toBlockPos(), world);
-                //食品商
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation26"))) {
-                this.job = new JobGrocer(this, pos.toBlockPos(), world);
-                //养牛户
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation12"))) {
-                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_cow"), world);
-                //养猪户
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation13"))) {
-                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_pig"), world);
-                //养鸡户
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation14"))) {
-                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_chicken"), world);
-                //养羊户
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
-                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_sheep"), world);
-                //养兔户
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation29"))) {
-                this.job = new JobLivestockFarmer(this, pos.toBlockPos(), I18n.format("container.sim.job_Livestock_rabbit"), world);
-                //牧羊人
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation8"))) {
-                this.job = new JobShepherd(this, pos.toBlockPos(), world);
-                //牛奶农
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation20"))) {
-                this.job = new JobDairyFarmer(this, pos.toBlockPos(), world);
-                //伐木工
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
-                this.job = new JobLumberjack(this, pos.toBlockPos(), world);
-                //士兵
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation7"))) {
-                this.job = new JobSoldier(this, pos.toBlockPos(), world);
-                //渔夫
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation18"))) {
-                this.job = new JobFisherman(this, pos.toBlockPos(), world);
-                //蛋农
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation3"))) {
-                this.job = new JobEggFarmer(this, pos.toBlockPos(), world);
-                //制糖师
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation30"))) {
-                this.job = new JobSugar(this, pos.toBlockPos(), world);
-                //板砖工匠
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation25"))) {
-                this.job = new JobBrickMaker(this, pos.toBlockPos(), world);
-                //玻璃制造商
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation17"))) {
-                this.job = new JobGlassMaker(this, pos.toBlockPos(), world);
-                //建筑商
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation11"))) {
-                this.job = new JobBuildersMerchant(this, pos.toBlockPos(), world);
-                //行长
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation31"))) {
-                this.job = new JobATM(this, pos.toBlockPos(), world);
-            }
-
-
             BlockControlBox cont = (BlockControlBox) this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
             cont.employees.add(this);
             Building building = ModSimLoader.getBuildingByV3(pos);
             building.occupants.add(this);
+            V3 v3 = pos;
+            if (building.livingXYZ != null) {
+                v3 = building.livingXYZ;
+            }
+            //面包师
+            if (jobName.contentEquals(I18n.format("container.sim.Vocation6"))) {
+                this.job = new JobBaker(this, v3.toBlockPos(), world);
+                //地形规划师
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation16"))) {
+                this.job = new JobTerrainFormer(this, v3, world);
+                //屠夫
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation15"))) {
+                this.job = new JobButcher(this, v3.toBlockPos(), world);
+                //食品商
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation26"))) {
+                this.job = new JobGrocer(this, v3.toBlockPos(), world);
+                //养牛户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation12"))) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), I18n.format("container.sim.job_Livestock_cow"), world);
+                //养猪户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation13"))) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), I18n.format("container.sim.job_Livestock_pig"), world);
+                //养鸡户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation14"))) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), I18n.format("container.sim.job_Livestock_chicken"), world);
+                //养羊户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), I18n.format("container.sim.job_Livestock_sheep"), world);
+                //养兔户
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation29"))) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), I18n.format("container.sim.job_Livestock_rabbit"), world);
+                //牧羊人
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation8"))) {
+                this.job = new JobShepherd(this, v3.toBlockPos(), world);
+                //牛奶农
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation20"))) {
+                this.job = new JobDairyFarmer(this, v3.toBlockPos(), world);
+                //伐木工
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation2"))) {
+                this.job = new JobLumberjack(this, v3.toBlockPos(), world);
+                //士兵
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation7"))) {
+                this.job = new JobSoldier(this, v3.toBlockPos(), world);
+                //渔夫
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation18"))) {
+                this.job = new JobFisherman(this, v3.toBlockPos(), world);
+                //蛋农
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation3"))) {
+                this.job = new JobEggFarmer(this, v3.toBlockPos(), world);
+                //制糖师
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation30"))) {
+                this.job = new JobSugar(this, v3.toBlockPos(), world);
+                //板砖工匠
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation25"))) {
+                this.job = new JobBrickMaker(this, v3.toBlockPos(), world);
+                //玻璃制造商
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation17"))) {
+                this.job = new JobGlassMaker(this, v3.toBlockPos(), world);
+                //建筑商
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation11"))) {
+                this.job = new JobBuildersMerchant(this, v3.toBlockPos(), world);
+                //行长
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation31"))) {
+                this.job = new JobATM(this, v3.toBlockPos(), world);
+                //杂货商
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation9"))) {
+                this.job = new JobMerchant(this, v3.toBlockPos(), world);
+            }
+
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("hireAt出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
 
 

@@ -141,7 +141,7 @@ container.sim.sim_gui_ATMs_Buy=Buy
 container.sim.sim_gui_ATMs_Ltd=Simulated City Ltd
 container.sim.sim_gui_ATMs_Welcome=Welcome to Simulated City, using this ATM you can deposit your gems and stones
 container.sim.sim_gui_ATMs_exchange=in exchange for Credits, we offer the best prices for your unwanted
-container.sim.sim_gui_ATMs_Diamonds=Diamonds, Emeralds, Redstones, Glowstones and Gold.
+container.sim.sim_gui_ATMs_Diamonds=Diamond, emerald, ruby, iron, copper, tin, fluorite, and gold.
 container.sim.sim_gui_ATMs_Items=Items in your inventory that this bank accepts:
 container.sim.sim_gui_ATMs_sorry=You don't have anything we want to buy, sorry.
 container.sim.sim_gui_ATMs_today=Commodities available to buy today
@@ -151,6 +151,9 @@ container.sim.sim_gui_ATMs_cost=The cost is
 container.sim.sim_gui_ATMs_only=, but you only have
 container.sim.sim_gui_ATMs_worth=Bought commodities worth
 container.sim.sim_gui_BPT_Choose=Choose a point to beam to...
+
+container.sim.sim_gui_ATMs_Welcome1=Welcome to the grocery store, where you can buy some unexpected items. Of course, if you have any special items, you can also sell them to me
+container.sim.sim_gui_ATMs_Diamonds1=Final Shadow Pearl, Flame Stick, Bone, Gunpowder, Mucous Ball, String, Spider Eye
 
 container.sim.sim_gui_BC_Constructor=Building Constructor
 container.sim.sim_gui_BC_Idle=Idle

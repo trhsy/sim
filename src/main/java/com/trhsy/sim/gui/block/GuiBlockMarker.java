@@ -9,9 +9,11 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -268,7 +270,10 @@ public class GuiBlockMarker extends GuiScreen {
                     Thread.sleep(500L);
                     ModSimLoader.sendChat(I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16"));
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
-                    GuiBlockMarker.this.mc.theWorld.playSound(GuiBlockMarker.this.mc.thePlayer,GuiBlockMarker.this.location.x, GuiBlockMarker.this.location.y, GuiBlockMarker.this.location.z, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    Minecraft mc = Minecraft.getMinecraft();
+                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                    }
                 } else {
                     ModSimLoader.sendChat(I18n.format("container.sim.Markers17"));
                 }

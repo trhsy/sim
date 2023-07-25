@@ -9,9 +9,11 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.util.items.CommodityAtm;
 import com.trhsy.sim.util.PricesForBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -90,7 +92,7 @@ public class GuiBankATM extends GuiScreen {
                 ModSimLoader.sendChat(sim_gui_ATMs);
             } else {
                 //更新售卖物品
-                if (ModSimLoader.theCommodities.size() == 0) {
+                if (CommodityAtm.theCommodities.size() == 0) {
                     CommodityAtm.refreshAvailableCommoditities();
                 }
 
@@ -164,7 +166,7 @@ public class GuiBankATM extends GuiScreen {
                     } else if (this.theScreen == ATMscreen.COMMODITIES) {
                         offset = 30;
 
-                        for (inv = 0; inv < ModSimLoader.theCommodities.size(); inv++) {
+                        for (inv = 0; inv < CommodityAtm.theCommodities.size(); inv++) {
                             this.buttonList.add(new GuiButton(inv + 200, this.width / 2, offset, 20, 20, "-"));
                             this.buttonList.add(new GuiButton(inv + 300, this.width / 2 + 20, offset, 20, 20, "+"));
                             offset += 20;
@@ -233,14 +235,14 @@ public class GuiBankATM extends GuiScreen {
                     String sim_gui_ATMs_today = I18n.format("container.sim.sim_gui_ATMs_today");
                     this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_today, this.width / 2, 20, 65280);
                     offset = 35;
-                    if (ModSimLoader.theCommodities.size() == 0) {
+                    if (CommodityAtm.theCommodities.size() == 0) {
                         //目前没有物品,请稍后再来。
                         String sim_gui_ATMs_later = I18n.format("container.sim.sim_gui_ATMs_later");
                         this.drawString(this.fontRendererObj, sim_gui_ATMs_later, 20, offset, 65280);
                     }
 
-                    for (int it = 0; it < ModSimLoader.theCommodities.size(); it++) {
-                        CommodityAtm item = (CommodityAtm) ModSimLoader.theCommodities.get(it);
+                    for (int it = 0; it < CommodityAtm.theCommodities.size(); it++) {
+                        CommodityAtm item = (CommodityAtm) CommodityAtm.theCommodities.get(it);
                         this.drawString(this.fontRendererObj, item.quantity + " x " + item.theItemStack.getDisplayName() + " @ " + ModSimLoader.displayMoney(item.priceEach) + " "+I18n.format("container.sim.job.credits"), 20, offset, 65280);
                         int qty = 0;
 
@@ -292,12 +294,11 @@ public class GuiBankATM extends GuiScreen {
                     if (guibutton.id >= 100 && guibutton.id < 200) {
                         ItemStack is = this.mc.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-                        this.mc.theWorld.playSound(null,this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-//                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
+                        Minecraft mc = Minecraft.getMinecraft();
+                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        }
                         String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
-//                        NumberFormat format = NumberFormat.getInstance();
-//                        String number = "";
-                        //number = format.parse(money);
                         float soldFor = Float.parseFloat(money);
                         ModSimLoader.money += soldFor;
                         --is.stackSize;
@@ -309,10 +310,10 @@ public class GuiBankATM extends GuiScreen {
                         this.initGui();
                     } else if (guibutton.id >= 500 && guibutton.id < 600) {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-                        this.mc.theWorld.playSound(null,this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-//                        ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cashshort", 1, 1, false);
-//                        NumberFormat format = NumberFormat.getInstance();
-//                        String number = "";
+                        Minecraft mc = Minecraft.getMinecraft();
+                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        }
                         String number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
                         float soldFor = Float.parseFloat(number);
                         ModSimLoader.money += soldFor;
@@ -323,7 +324,7 @@ public class GuiBankATM extends GuiScreen {
                         CommodityAtm cartItem;
                         CommodityAtm comm;
                         if (guibutton.id >= 200 && guibutton.id < 300) {
-                            comm = (CommodityAtm) ModSimLoader.theCommodities.get(guibutton.id - 200);
+                            comm = (CommodityAtm) CommodityAtm.theCommodities.get(guibutton.id - 200);
 
                             for (ci = 0; ci < this.cart.size(); ++ci) {
                                 cartItem = (CommodityAtm) this.cart.get(ci);
@@ -338,7 +339,7 @@ public class GuiBankATM extends GuiScreen {
                                 }
                             }
                         } else if (guibutton.id >= 300 && guibutton.id < 400) {
-                            comm = (CommodityAtm) ModSimLoader.theCommodities.get(guibutton.id - 300);
+                            comm = (CommodityAtm) CommodityAtm.theCommodities.get(guibutton.id - 300);
                             boolean added = false;
 
                             for (int cj = 0; cj < this.cart.size(); ++cj) {
@@ -390,10 +391,10 @@ public class GuiBankATM extends GuiScreen {
                                 is.stackSize = cartItem.quantity;
                                 this.mc.thePlayer.inventory.addItemStackToInventory(is);
 
-                                for (int ai = 0; ai < ModSimLoader.theCommodities.size(); ++ai) {
-                                    CommodityAtm ac = (CommodityAtm) ModSimLoader.theCommodities.get(ai);
+                                for (int ai = 0; ai < CommodityAtm.theCommodities.size(); ++ai) {
+                                    CommodityAtm ac = (CommodityAtm) CommodityAtm.theCommodities.get(ai);
                                     if (ac.theItemStack.getDisplayName().contentEquals(cartItem.theItemStack.getDisplayName())) {
-                                        ModSimLoader.theCommodities.remove(ai);
+                                        CommodityAtm.theCommodities.remove(ai);
                                         break;
                                     }
                                 }
@@ -404,8 +405,10 @@ public class GuiBankATM extends GuiScreen {
                             String sim_gui_ATMs_worth = I18n.format("container.sim.sim_gui_ATMs_worth");
                             ModSimLoader.sendChat(sim_gui_ATMs_worth + ModSimLoader.displayMoney(cost));
                             SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                            this.mc.theWorld.playSound(null,this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-//                            ModSim.proxy.getClientWorld().playSound(this.thePlayer.posX, this.thePlayer.posY, this.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                            Minecraft mc = Minecraft.getMinecraft();
+                            for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                                mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                            }
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                         }

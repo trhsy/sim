@@ -23,7 +23,10 @@ public class Commodity {
     public float priceEach = 0.0F;
     /**可用商品**/
     private static List<ItemStack> availableItems = new CopyOnWriteArrayList();
-
+    /*
+        杂货商目前正在销售的商品列表，每天早上都会更新新商品
+         */
+    public static List<Commodity> theCommodities = new CopyOnWriteArrayList();
     public Commodity(ItemStack is, int qty, float price) {
         try {
             this.theItemStack = is;
@@ -48,7 +51,7 @@ public class Commodity {
             }
 
             Random rand = new Random();
-            ModSimLoader.theCommodities.clear();
+            theCommodities.clear();
             int count = rand.nextInt(3) + 2;
 
             for(int it = 0; it < count; it++) {
@@ -57,8 +60,8 @@ public class Commodity {
                 float price = 300.0F + (float) rand.nextInt(300) + rand.nextFloat() * 100.0F;
                 boolean gotIt = false;
 
-                for (int shit = 0; shit < ModSimLoader.theCommodities.size(); ++shit) {
-                    Commodity cshit = ModSimLoader.theCommodities.get(shit);
+                for (int shit = 0; shit < theCommodities.size(); ++shit) {
+                    Commodity cshit = theCommodities.get(shit);
                     if (cshit.theItemStack.getDisplayName().contentEquals(((ItemStack) availableItems.get(index)).getDisplayName())) {
                         gotIt = true;
                         break;
@@ -66,7 +69,7 @@ public class Commodity {
                 }
 
                 if (!gotIt) {
-                    ModSimLoader.theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
+                    theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
                 }
             }
         } catch (Exception e) {

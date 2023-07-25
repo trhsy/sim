@@ -14,10 +14,12 @@ import com.trhsy.sim.util.GameStates;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -170,7 +172,10 @@ public class JobTerrainFormer extends Job {
                                         } else {
                                             soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                         }
-                                        this.jobWorld.playSound(null,this.constructorPos.getX(), this.constructorPos.getY(), this.constructorPos.getZ(), soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                                        Minecraft mc = Minecraft.getMinecraft();
+                                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        }
                                     }
                                     //等待规划类型
                                     if (this.terrainType == null) {
@@ -853,10 +858,12 @@ public class JobTerrainFormer extends Job {
                 }
                 if (this.closestBlocks.size() == 0) {
                     ModSimLoader.sendChat(this.folk.getName() + I18n.format("container.sim.job.terra.farmer.has_completed"));
-//                this.jobWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
                     //播放 我准备好了
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                    this.folk.entity.worldObj.playSound(null,this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    Minecraft mc = Minecraft.getMinecraft();
+                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                    }
                     this.folk.fire();
                     this.folk.stayPut = false;
                     this.conBox.folk = null;

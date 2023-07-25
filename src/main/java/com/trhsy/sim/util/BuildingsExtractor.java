@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -27,7 +28,7 @@ public class BuildingsExtractor {
             ModSimLoader.log.info("当前语言："+lang+",开始解压建筑蓝图");
             InputStream inputStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("sim", "buildings/"+bName+".zip")).getInputStream();
             byte[] buffer = new byte[1024];
-            ZipInputStream zis = new ZipInputStream(inputStream);
+            ZipInputStream zis = new ZipInputStream(inputStream, Charset.forName("GBK"));
 
             for(ZipEntry zipEntry = zis.getNextEntry(); zipEntry != null; zipEntry = zis.getNextEntry()) {
                 File newFile;

@@ -53,7 +53,15 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             if(!StringUtils.isNullOrEmpty(cfi)){
                 return new ResourceLocation(ModSim.MODID, "skins/" + cfi);
             }else{
-                entity.setDead();
+                String gend = "";
+                //女
+                if (entity.theData.gender == 0) {
+                    gend = "male0.png";
+                } else {
+                    gend = "female0.png";
+                }
+                myTexture = new ResourceLocation(ModSim.MODID, "skins/" + gend);
+                return myTexture;
             }
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
@@ -71,10 +79,9 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
 //                ModSimLoader.skins.add(new DynamicSkin(myTexture,gend));
                 return myTexture;
             } catch (Exception var6) {
-                return new ResourceLocation("minecraft:steve");
+                return new ResourceLocation("minecraft","steve");
             }
         }
-        return  myTexture;
     }
     /**
      * @Author fan

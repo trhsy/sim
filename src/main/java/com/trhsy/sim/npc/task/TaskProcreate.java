@@ -48,7 +48,7 @@ public class TaskProcreate extends Task {
         if (this.folk.gender == 0 && this.rand.nextInt(7) == 6 && this.spouse.age < this.spouse.race.maturity + 27) {
             NpcData var10000 = this.spouse;
             var10000.pregnancyStage += 0.1F;
-            //Good news!  and     are expecting a baby!
+            //好消息！都 凌曦和苏 荣昕要生宝宝了！
             ModSimLoader.sendChat(I18n.format("container.sim.folk_data_Good_news") + this.spouse.getName() + I18n.format("container.sim.folk_data_and") + this.folk.getName() + I18n.format("container.sim.folk_data_expecting_a_baby"));
         }
 

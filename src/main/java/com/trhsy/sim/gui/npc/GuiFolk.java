@@ -8,6 +8,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import org.lwjgl.opengl.GL11;
 
@@ -18,22 +20,36 @@ import org.lwjgl.opengl.GL11;
  * @Date 2022/10/1812:55
  **/
 public class GuiFolk extends GuiScreen {
+    // npc 名称
     String folkName;
+    //年龄
     int folkAge;
+    //性别
     int folkGender;
+    //工作名称
     String jobName;
+    //住房状态
     String housingStatus;
+    //关系状态
     String relationshipStatus;
+    //当前状态
     String status;
+    //饥饿状态
     String hungerStatus;
+    //种族
     String folkRaceName;
     String folkTrait1;
     String folkTrait2;
     String folkTrait3;
+    //关系数据
     String relationshipData;
+    //建筑等级
     String building;
+    //农耕等级
     String farming;
+    //挖矿等级
     String mining;
+    float pregnancyStage;
     int page = 0;
 
     public GuiFolk(PacketOpenFolkGui message) {
@@ -52,7 +68,8 @@ public class GuiFolk extends GuiScreen {
         this.building = message.building;
         this.farming = message.farming;
         this.mining = message.mining;
-        this.hungerStatus = message.hungerStatus ;
+        this.hungerStatus = message.hungerStatus;
+        this.pregnancyStage=message.pregnancyStage ;
     }
     @Override
     public boolean doesGuiPauseGame() {
@@ -96,6 +113,7 @@ public class GuiFolk extends GuiScreen {
             this.buttonList.add(new GuiButton(1, 2, this.height - 42, 50, 20, I18n.format("container.sim.gui_Folk_Back")));
         }
 
+
     }
     @Override
     public void drawScreen(int i, int j, float f) {
@@ -106,6 +124,7 @@ public class GuiFolk extends GuiScreen {
         this.drawDefaultBackground();
         this.drawTexturedModalRect(posX, 5, 0, 0, 256, 256);
         if (this.page == 0) {
+            //你好！这是我的信息：
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Here_my"), this.width / 2, 17, 0x000000);
             //姓名
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Name")+":", labelPos, 27, 0x000000);
@@ -128,12 +147,37 @@ public class GuiFolk extends GuiScreen {
             //建筑等级
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Building_skill")+":", labelPos, 87, 0x000000);
             this.fontRendererObj.drawString( this.building, this.width / 2, 87, 0x000000);
+            double w = 128 * ((double) (Double.valueOf(this.building) % 1 * 1000.0F) / 1000);
+            this.drawGradientRect(this.width / 2, 87, (int) w + this.width / 2, 105, 1358888960, 1358954240);
             //农耕等级
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Farming_Skill")+":", labelPos, 97, 0x000000);
             this.fontRendererObj.drawString(this.farming, this.width / 2, 97, 0x000000);
+            double far = 128 * ((double) (Double.valueOf(this.farming) % 1 * 1000.0F) / 1000);
+            this.drawGradientRect(this.width / 2, 97, (int) far + this.width / 2, 105, 1358888960, 1358954240);
             //农耕等级
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Mining_skill")+":", labelPos, 107, 0x000000);
             this.fontRendererObj.drawString(this.mining, this.width / 2, 107, 0x000000);
+            double min = 128 * ((double) (Double.valueOf(this.mining) % 1 * 1000.0F) / 1000);
+            this.drawGradientRect(this.width / 2, 107, (int) min + this.width / 2, 105, 1358888960, 1358954240);
+            //怀孕阶段
+            if (this.pregnancyStage > 0.0F) {
+                //医疗状况
+                this.fontRendererObj.drawString(I18n.format("container.sim.gui_Folk_Medical_status"), labelPos, 117, 0x000000);
+                String days = (int) (this.pregnancyStage * 9.0F) + "";
+                if (days.contentEquals("0")) {
+                    //孕
+                    days = I18n.format("container.sim.gui_Folk_Pregnant");
+                } else if (days.contentEquals("1")) {
+                    //怀孕一天
+                    days = I18n.format("container.sim.gui_Folk_day_pregnant");
+                } else {
+                    //怀孕天数
+                    days = days + I18n.format("container.sim.gui_Folk_days_pregnant");
+                }
+
+                this.fontRendererObj.drawString(days, this.width / 2, 117, 128);
+            }
+
         } else if(this.page == 1) {
             //的关系
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Relationshipss")+":", this.width / 2, 17, 0x000000);

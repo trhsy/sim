@@ -1,6 +1,0 @@
-5x4x4
-A=minecraft:air,0;C=minecraft:stone_slab,0;D=minecraft:planks,0;E=minecraft:frosted_ice,0;F=minecraft:glass,0;G=minecraft:double_stone_slab,0;AU=Trhsy;DIR=2;DESC=测试;
-ACCCAAD$DAADDDAAAAAA
-AAAAAADADAADDDAAAAAA
-AAAAAADADAADFDAAAAAA
-CCCCCCGGGCCGGGCCCCCC

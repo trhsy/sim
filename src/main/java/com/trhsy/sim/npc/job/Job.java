@@ -9,8 +9,11 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.task.JobTask;
 import com.trhsy.sim.util.PricesForBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -358,7 +361,7 @@ public abstract class Job {
             }
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("placeInJobChest出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return false;
     }
@@ -620,7 +623,10 @@ public abstract class Job {
                 ModSimLoader.sendChat(I18n.format("container.sim.Merchant14"));
             } else {
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                this.jobWorld.playSound(null,this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent, SoundCategory.RECORDS, 1.0F, 1.0F);
+                Minecraft mc = Minecraft.getMinecraft();
+                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                    mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                }
                 ModSimLoader.sendChat(I18n.format("container.sim.Merchant15") + ModSimLoader.displayMoney(total));
             }
 
@@ -684,14 +690,18 @@ public abstract class Job {
                 }
 
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                this.jobWorld.playSound(null,this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent,SoundCategory.BLOCKS, 1.0F, 1.0F);
-//                this.mc.theWorld.playSound(this.mc.thePlayer.posX, this.mc.thePlayer.posY, this.mc.thePlayer.posZ, ModSim.MODID + ":cash", 1, 1, false);
+                Minecraft mc = Minecraft.getMinecraft();
+                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                    mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                }
                 try {
                     Thread.sleep(1000L);
                 } catch (Exception e) {
                 }
                 SoundEvent soundEvent1 = new SoundEvent(new ResourceLocation(ModSim.MODID + ":merchm"));
-                this.jobWorld.playSound(null,this.workPlace.x, this.workPlace.y, this.workPlace.z, soundEvent1,SoundCategory.BLOCKS, 1.0F, 1.0F);
+                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                    mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent1, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                }
                 //threadPoolExecutor.shutdown();
             } else {
                 ModSimLoader.sendChat(I18n.format("container.sim.Merchant12"));

@@ -6,10 +6,8 @@ import com.trhsy.sim.gui.npc.GuiBankATM;
 import com.trhsy.sim.gui.npc.GuiFolk;
 import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.gui.npc.GuiMerchant;
-import com.trhsy.sim.network.client.PacketOpenBankATMGui;
-import com.trhsy.sim.network.client.PacketOpenFolkGui;
-import com.trhsy.sim.network.client.PacketOpenMerchantGui;
-import com.trhsy.sim.network.client.PacketUpdateMoney;
+import com.trhsy.sim.gui.npc.GuiMerchants;
+import com.trhsy.sim.network.client.*;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.block.MineBox;
@@ -941,5 +939,13 @@ public class ModSimLoader {
      **/
     public static void openBankATMGui(PacketOpenBankATMGui message) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBankATM(message));
+    }
+
+    /**
+     * 杂货商
+     * @param message
+     */
+    public static void openMerchants(PacketOpenMerchantsGui message) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiMerchants(message));
     }
 }

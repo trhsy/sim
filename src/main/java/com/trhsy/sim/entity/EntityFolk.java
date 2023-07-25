@@ -11,8 +11,10 @@ import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenBankATMGui;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
 import com.trhsy.sim.network.client.PacketOpenMerchantGui;
+import com.trhsy.sim.network.client.PacketOpenMerchantsGui;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.TaskSleep;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -323,6 +325,9 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }else if(jobName.equals(I18n.format("container.sim.Vocation31"))&&!(this.theData.currentTask instanceof TaskSleep)){
                             //打开建银行gui
                             NetWorkLoader.net.sendTo(new PacketOpenBankATMGui(this.theData), (EntityPlayerMP) player);
+                        }else if(jobName.equals(I18n.format("container.sim.Vocation9"))&&!(this.theData.currentTask instanceof TaskSleep)){
+                            //打开建杂货商gui
+                            NetWorkLoader.net.sendTo(new PacketOpenMerchantsGui(this.theData), (EntityPlayerMP) player);
                         }else{
                             NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
                         }
@@ -332,21 +337,30 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                     if (this.theData.age < 18) {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
-                        player.worldObj.playSound(player,player.posX, player.posY, player.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        Minecraft mc = Minecraft.getMinecraft();
+                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        }
                     } else if (this.theData.gender == 0) {
                         //女声
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
-                        player.worldObj.playSound(player,player.posX, player.posY, player.posZ, soundEvent,SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        Minecraft mc = Minecraft.getMinecraft();
+                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        }
                     } else {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
-                        player.worldObj.playSound(player,player.posX, player.posY, player.posZ,soundEvent,SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        Minecraft mc = Minecraft.getMinecraft();
+                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
+                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        }
                     }
-
                 }else{
                     //等于空死亡
                     this.setDead();
                 }
             }
+
             return true;
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
@@ -412,7 +426,7 @@ public class EntityFolk extends EntityCreature implements INpc {
             }
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("isChild出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             return false;
         }
     }

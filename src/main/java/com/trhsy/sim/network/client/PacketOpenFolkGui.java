@@ -51,6 +51,8 @@ public class PacketOpenFolkGui implements IMessage {
 
     /**关系数据*/
     public String relationshipData = "";
+    /**怀孕阶段*/
+    public float pregnancyStage;
     public PacketOpenFolkGui() {
     }
     public PacketOpenFolkGui(NpcData fd) {
@@ -78,7 +80,7 @@ public class PacketOpenFolkGui implements IMessage {
         this.building = String.valueOf(Math.floor((double)fd.skillBuilding));
         this.farming = String.valueOf(Math.floor((double)fd.skillFarming));
         this.mining = String.valueOf(Math.floor((double)fd.skillMining));
-
+        this.pregnancyStage=fd.pregnancyStage;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -97,6 +99,7 @@ public class PacketOpenFolkGui implements IMessage {
         this.folkTrait3 = ByteBufUtils.readUTF8String(buf);
         this.status = ByteBufUtils.readUTF8String(buf);
         this.hungerStatus=ByteBufUtils.readUTF8String(buf);
+        this.pregnancyStage=buf.readFloat();
     }
 
     @Override
@@ -116,6 +119,7 @@ public class PacketOpenFolkGui implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.folkTrait3);
         ByteBufUtils.writeUTF8String(buf, this.status);
         ByteBufUtils.writeUTF8String(buf, this.hungerStatus);
+        buf.writeFloat(this.pregnancyStage);
     }
     public static class Handler implements IMessageHandler<PacketOpenFolkGui, IMessage> {
         public Handler() {
