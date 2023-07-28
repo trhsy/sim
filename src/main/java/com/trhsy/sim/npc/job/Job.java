@@ -484,7 +484,7 @@ public abstract class Job {
      */
     public void collectFromBuilding(String buildingName, ItemStack is) {
         List<Building> potentialBuildings = ModSimLoader.getClosestBuilding(buildingName, this.workPlace);
-        this.folk.moveToXYZ(((Building)potentialBuildings.get(0)).controlXYZ);
+        this.folk.forceMoveToXYZ(((Building)potentialBuildings.get(0)).controlXYZ);
     }
 
     /**
@@ -526,7 +526,7 @@ public abstract class Job {
      * @param ms
      */
     public void collectFromBuilding(Building building, float ms) {
-        this.folk.moveToXYZ(building.controlXYZ);
+        this.folk.forceMoveToXYZ(building.controlXYZ);
         this.collectionBuilding = building;
         this.hasCollected = false;
     }

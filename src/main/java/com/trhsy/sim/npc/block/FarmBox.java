@@ -41,14 +41,11 @@ public class FarmBox {
         this.z = z;
     }
 
-    public FarmBox(V3 pos, NpcData f, V3 start, int x, int z) {
+    public FarmBox(V3 pos, V3 start) {
         this.facing = EnumFacing.EAST;
         this.farmType=FarmType.WHEAT;
         this.ID = UUID.randomUUID();
         this.loc = pos;
-        this.employee = f;
-        this.x = x;
-        this.z = z;
     }
 
     public FarmBox(UUID uuid) {

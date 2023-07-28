@@ -102,8 +102,6 @@ public class EventLoader {
 //                                ModSimLoader.log.error("玩家加入加载数据失败了" + var4.getMessage());
                             }
                         }
-
-                        fd.sendSkinPathToClient();
                     }
                 }
             } catch (Exception e) {

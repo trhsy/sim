@@ -112,7 +112,7 @@ public class BlockFarmingBox extends BlockBase{
                     farmBox.removeFarm(farmBox.ID);
                 }
             }
-            FarmBox fb = new FarmBox(new V3(pos,placer.dimension), (V3)markerPos, 6, 6);
+            FarmBox fb = new FarmBox(new V3(pos,placer.dimension), (V3)markerPos);
             ModSimLoader.farms.add(fb);
             fb.facing = facing;
             fb.farmType= FarmType.WHEAT;

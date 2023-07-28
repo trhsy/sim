@@ -2,11 +2,8 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.gui.GuiHud;
 import com.trhsy.sim.gui.block.*;
-import com.trhsy.sim.gui.npc.GuiBankATM;
-import com.trhsy.sim.gui.npc.GuiFolk;
+import com.trhsy.sim.gui.npc.*;
 import com.trhsy.sim.gui.GuiRunMod;
-import com.trhsy.sim.gui.npc.GuiMerchant;
-import com.trhsy.sim.gui.npc.GuiMerchants;
 import com.trhsy.sim.network.client.*;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
@@ -640,8 +637,9 @@ public class ModSimLoader {
      **/
     public static Building getBuildingByV3(V3 pos) {
         for (int i = 0; i < buildings.size(); ++i) {
-            if (((Building) buildings.get(i)).controlXYZ.toString().contentEquals(pos.toString())) {
-                return (Building) buildings.get(i);
+            Building building=buildings.get(i);
+            if (building.controlXYZ.toString().contentEquals(pos.toString())||building.livingXYZ.toString().contentEquals(pos.toString())) {
+                return building;
             }
         }
 
@@ -947,5 +945,13 @@ public class ModSimLoader {
      */
     public static void openMerchants(PacketOpenMerchantsGui message) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiMerchants(message));
+    }
+
+    /**
+     *
+     * @param message
+     */
+    public static void openFlowerGui(PacketOpenFlowerGui message) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiFlower(message));
     }
 }

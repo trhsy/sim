@@ -99,11 +99,12 @@ public class ModSimClientLoader {
     public static String getPathFromUUID(UUID UUID) {
 
         for(int i = 0; i < folkSkins.size(); ++i) {
-            if ((folkSkins.get(i)).UUID.contentEquals(UUID.toString())) {
+            NpcSkin npcSkin=folkSkins.get(i);
+            if (npcSkin!=null&&npcSkin.UUID.equals(UUID.toString())) {
                 return (folkSkins.get(i)).skinPath;
             }
         }
-        return "";
+        return "male0.png";
     }
 
     /**

@@ -98,6 +98,9 @@ public class NetWorkLoader {
         registerMessage(PacketOpenBankATMGui.Handler.class,PacketOpenBankATMGui.class,Side.CLIENT);
         //打开杂货铺
         registerMessage(PacketOpenMerchantsGui.Handler.class,PacketOpenMerchantsGui.class,Side.CLIENT);
+        //花店
+        registerMessage(PacketOpenFlowerGui.Handler.class,PacketOpenFlowerGui.class,Side.CLIENT);
+
 
     }
     /**

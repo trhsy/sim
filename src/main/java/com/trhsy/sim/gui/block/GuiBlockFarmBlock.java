@@ -269,7 +269,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                         farmBox.removeFarm(farmBox.ID);
                     }
                 }
-                FarmBox fb = new FarmBox(loc, loc, 6, 6);
+                FarmBox fb = new FarmBox(loc, loc, this.x, this.z);
                 fb.facing = facing;
                 fb.farmType= this.farmType;
                 ModSimLoader.farms.add(fb);
@@ -408,6 +408,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
      **/
     private void updateFarm() {
         this.setDimensions();
+        ModSimLoader.log.info("当前农场长："+this.x+";宽："+this.z);
         NetWorkLoader.net.sendToServer(new PacketUpdateFarmBox(this.id, this.x, this.z, this.facing,this.farmType));
     }
 

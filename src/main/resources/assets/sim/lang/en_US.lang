@@ -154,7 +154,8 @@ container.sim.sim_gui_BPT_Choose=Choose a point to beam to...
 
 container.sim.sim_gui_ATMs_Welcome1=Welcome to the grocery store, where you can buy some unexpected items. Of course, if you have any special items, you can also sell them to me
 container.sim.sim_gui_ATMs_Diamonds1=Final Shadow Pearl, Flame Stick, Bone, Gunpowder, Mucous Ball, String, Spider Eye
-
+container.sim.sim_gui_ATMs_Welcome2=Welcome to the florist, where you can buy some unexpected items. Of course, if you have any special items, you can also sell them to me
+container.sim.sim_gui_ATMs_Diamonds2=Dandelion,Poppy,Blue Orchid,Allium,Azure Bluet,Red Tulip,Orange Tulip,White Tulip,Pink Tulip,Oxeye Daisy,Sunflower,Lilac,Rose Bush,Peony,Flower Pot
 container.sim.sim_gui_BC_Constructor=Building Constructor
 container.sim.sim_gui_BC_Idle=Idle
 container.sim.sim_gui_BC_chosen=Not chosen yet
@@ -896,6 +897,11 @@ container.sim.Vocation28=Mutton farmer
 container.sim.Vocation29=Rabbit farmer
 container.sim.Vocation30=Sugar maker
 container.sim.Vocation31=Bank President
+container.sim.Vocation32=Flower arranger
+container.sim.Vocation33=Barefoot Doctor
+container.sim.Vocation34=accoucheur
+container.sim.Vocation35=McDonald Boss
+container.sim.Vocation36=KFC Boss
 container.sim.folkData1=Unemployed
 container.sim.folkData2=Homeowner
 container.sim.folkData3=Homeless

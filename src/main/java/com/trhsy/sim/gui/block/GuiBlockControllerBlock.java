@@ -232,6 +232,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             for (int k = 0; k < this.occupants.size(); k++) {
                                 NpcData npcData = this.occupants.get(k);
                                 String employeeName= npcData.getName();
+                                //解雇
                                 this.buttonList.add(new GuiButton(2, this.width - 140, down, 100, 20, I18n.format("container.sim.Fire") +" "+ WordUtils.capitalize(employeeName)));
                                 down +=20;
                             }

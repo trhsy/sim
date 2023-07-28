@@ -8,10 +8,7 @@ import com.trhsy.sim.entity.util.NpcIdentity;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
-import com.trhsy.sim.network.client.PacketOpenBankATMGui;
-import com.trhsy.sim.network.client.PacketOpenFolkGui;
-import com.trhsy.sim.network.client.PacketOpenMerchantGui;
-import com.trhsy.sim.network.client.PacketOpenMerchantsGui;
+import com.trhsy.sim.network.client.*;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.task.TaskSleep;
 import net.minecraft.client.Minecraft;
@@ -318,16 +315,19 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if(this.theData.job!=null){
                         String jobName=this.theData.job.jobName;
                         //工作是建筑商
-                        if(jobName.equals(I18n.format("container.sim.Vocation11"))&&!(this.theData.currentTask instanceof TaskSleep)){
+                        if(jobName.equals(I18n.format("container.sim.Vocation11"))&&this.theData.isAtLocation(this.theData.job.workPlace)){
                             //打开建筑商gui
                             NetWorkLoader.net.sendTo(new PacketOpenMerchantGui(this.theData), (EntityPlayerMP) player);
                             //行长
-                        }else if(jobName.equals(I18n.format("container.sim.Vocation31"))&&!(this.theData.currentTask instanceof TaskSleep)){
+                        }else if(jobName.equals(I18n.format("container.sim.Vocation31"))&&this.theData.isAtLocation(this.theData.job.workPlace)){
                             //打开建银行gui
                             NetWorkLoader.net.sendTo(new PacketOpenBankATMGui(this.theData), (EntityPlayerMP) player);
-                        }else if(jobName.equals(I18n.format("container.sim.Vocation9"))&&!(this.theData.currentTask instanceof TaskSleep)){
+                        }else if(jobName.equals(I18n.format("container.sim.Vocation9"))&&this.theData.isAtLocation(this.theData.job.workPlace)){
                             //打开建杂货商gui
                             NetWorkLoader.net.sendTo(new PacketOpenMerchantsGui(this.theData), (EntityPlayerMP) player);
+                        }else if(jobName.equals(I18n.format("container.sim.Vocation32"))&&this.theData.isAtLocation(this.theData.job.workPlace)){
+                            //打开建插花师gui
+                            NetWorkLoader.net.sendTo(new PacketOpenFlowerGui(this.theData), (EntityPlayerMP) player);
                         }else{
                             NetWorkLoader.net.sendTo(new PacketOpenFolkGui(this.theData), (EntityPlayerMP) player);
                         }

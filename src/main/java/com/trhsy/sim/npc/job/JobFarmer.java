@@ -238,7 +238,7 @@ public class JobFarmer extends Job {
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
                                         for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                            mc.theWorld.playSound(entityPlayer,bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                         }
                                         //设置手持无
                                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -265,7 +265,7 @@ public class JobFarmer extends Job {
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
                                         for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                            mc.theWorld.playSound(entityPlayer,bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                         }
                                         //设置手持无
                                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -288,7 +288,7 @@ public class JobFarmer extends Job {
                                     //播放声音
                                     Minecraft mc = Minecraft.getMinecraft();
                                     for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        mc.theWorld.playSound(entityPlayer,bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     }
                                     //设置手持无
                                     this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -332,7 +332,7 @@ public class JobFarmer extends Job {
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
                                         for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                            mc.theWorld.playSound(entityPlayer,bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                         }
                                         //设置手持无
                                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -376,7 +376,7 @@ public class JobFarmer extends Job {
                                     //播放声音
                                     Minecraft mc = Minecraft.getMinecraft();
                                     for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        mc.theWorld.playSound(entityPlayer,bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     }
                                     //设置手持无
                                     this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -439,11 +439,10 @@ public class JobFarmer extends Job {
                                 this.folk.entity.worldObj.setBlockState(bp.down().down(), BlockLoader.blockLightBox.getDefaultState(), 0);
                                 //水
                                 this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
-                                if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                                if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                     //播放声音
-                                    Minecraft mc = Minecraft.getMinecraft();
-                                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                    for (EntityPlayer entityPlayer : this.folk.entity.worldObj.playerEntities) {
+                                        this.folk.entity.worldObj.playSound(entityPlayer,bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     }
                                     //摇摆手臂
                                     this.folk.entity.swingArm(EnumHand.MAIN_HAND);
@@ -460,11 +459,10 @@ public class JobFarmer extends Job {
                             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                             //设置为耕地
                             this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
-                            if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                            if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                 //播放声音
-                                Minecraft mc = Minecraft.getMinecraft();
-                                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                    mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                for (EntityPlayer entityPlayer : this.folk.entity.worldObj.playerEntities) {
+                                    this.folk.entity.worldObj.playSound(entityPlayer,bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                 }
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -562,7 +560,7 @@ public class JobFarmer extends Job {
                                     this.stage = 2;
                                     this.noNeed++;
                                     if (this.noNeed / 10 == 1) {
-                                        this.stage = 3;
+                                        this.stage = 4;
                                     }
                                     return;
                                 }
@@ -652,7 +650,7 @@ public class JobFarmer extends Job {
                                     this.stage = 2;
                                     this.noNeed++;
                                     if (this.noNeed / 10 == 1) {
-                                        this.stage = 3;
+                                        this.stage = 4;
                                     }
                                     return;
                                 }
@@ -735,7 +733,7 @@ public class JobFarmer extends Job {
                                     this.stage = 2;
                                     this.noNeed++;
                                     if (this.noNeed / 10 == 1) {
-                                        this.stage = 3;
+                                        this.stage = 4;
                                     }
                                     return;
                                 }
@@ -850,7 +848,7 @@ public class JobFarmer extends Job {
                         this.noNeed++;
                         if (this.noNeed / 10 == 1) {
                             this.noNeed=0;
-                            this.stage = 3;
+                            this.stage = 4;
                         }
                         return;
                     }

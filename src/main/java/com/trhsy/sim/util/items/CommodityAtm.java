@@ -55,7 +55,7 @@ public class CommodityAtm extends Commodity{
 
             Random rand = new Random();
             theCommodities.clear();
-            int count = rand.nextInt(4) + 2;
+            int count = rand.nextInt(7) + 2;
 
             for(int it = 0; it < count; it++) {
                 int index = rand.nextInt(availableItems.size() - 1);

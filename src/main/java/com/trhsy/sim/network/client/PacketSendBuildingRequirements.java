@@ -17,7 +17,7 @@ import java.util.UUID;
 
 /**
  * @ClassName PacketSendBuildingRequirements
- * @Description todo
+ * @Description todo 获取蓝图
  * @Author TRHSY
  * @Date 2022/10/2117:33
  **/

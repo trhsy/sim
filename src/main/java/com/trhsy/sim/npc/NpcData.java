@@ -219,7 +219,7 @@ public class NpcData {
             //性别随机
             this.gender = new Random().nextInt(2);
             /**皮肤随机*/
-            this.skinnumber = new Random().nextInt(64)+1;
+            this.skinnumber = new Random().nextInt(64) + 1;
             //种族分配
             this.assignRace();
             /**年龄**/
@@ -326,7 +326,7 @@ public class NpcData {
             this.tempStage = -1;
             this.timeSinceLastStatusUpdate = 0L;
             /**皮肤随机*/
-            this.skinnumber = new Random().nextInt(64)+1;
+            this.skinnumber = new Random().nextInt(64) + 1;
             this.minuteUpdate = 0L;
             this.tempEmployLoc = null;
             this.lastPathAttempt = 0L;
@@ -610,6 +610,18 @@ public class NpcData {
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation9"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobMerchant(this, p, world);
+                            //插花师
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation32"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobFlower(this, p, world);
+                            //赤脚大夫
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation33"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobBarefootDoctor(this, p, world);
+                            //妇产科医生
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation34"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobAccoucheur(this, p, world);
                         }
                     }
 
@@ -663,7 +675,7 @@ public class NpcData {
     public void fire() {
         try {
             this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
-            if(this.job!=null){
+            if (this.job != null) {
                 //建筑工
                 if (this.job.jobName.equals(I18n.format("container.sim.Vocation1"))) {
                     JobBuilder jobBuilder = (JobBuilder) this.job;
@@ -960,6 +972,9 @@ public class NpcData {
                 ef.theData = this;
                 ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
                 Boolean falg = world.spawnEntityInWorld(ef);
+                if(falg){
+                    this.sendSkinPathToClient();
+                }
                 /*if(!falg){
                     ModSimLoader.log.info("重生失败，再次尝试");
                     this.entity = null;
@@ -1371,7 +1386,7 @@ public class NpcData {
                                 String sText = this.getName() + I18n.format("container.sim.npcData_onupdate3") + empty.buildingName;
                                 ModSimLoader.sendChat(sText);
                                 //System.out.println("开始传送");
-                                this.moveToXYZ(this.home.livingXYZ);
+                                this.forceMoveToXYZ(this.home.livingXYZ);
                             }
                         }
                     }
@@ -1631,27 +1646,6 @@ public class NpcData {
     /**
      * @return boolean
      * @Author fan
-     * @Description //TODO 移动
-     * @Date 11:35 2022/10/21
-     * @Param [v3]
-     **/
-    public boolean moveToXYZ(V3 v3) {
-        if (!this.stayPut && this.entity != null && forceMoveToXYZ(v3)) {
-            double dist = Math.sqrt(Math.pow(v3.x - this.entity.posX, 2.0D) + Math.pow(v3.y - this.entity.posY, 2.0D) + Math.pow(v3.z - this.entity.posZ, 2.0D));
-            if (dist >= 40) {
-                return false;
-            }
-//            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
-//            System.out.println("expectedtime:"+expectedtime);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @return boolean
-     * @Author fan
      * @Description //TODO 强制移动到
      * @Date 11:35 2022/10/21
      * @Param [v3]
@@ -1680,7 +1674,7 @@ public class NpcData {
         } else {
             if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
                 if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.worldObj.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
-                    this.entity.setPositionAndUpdate(v3.x, v3.y + 1, v3.z);
+                    this.entity.setPositionAndUpdate(v3.x+ 0.5D, v3.y, v3.z+ 0.5D);
                     this.entity.getNavigator().clearPathEntity();
                 }
             } else {
@@ -1703,7 +1697,7 @@ public class NpcData {
         if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             return true;
         } else {
-            this.entity.setPositionAndUpdate(v3.x + 1D, v3.y + 1D, v3.z + 1D);
+            //this.entity.setPositionAndUpdate(v3.x + 1D, v3.y + 1D, v3.z + 1D);
             return this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D);
         }
     }
@@ -2090,6 +2084,15 @@ public class NpcData {
                 //杂货商
             } else if (jobName.contentEquals(I18n.format("container.sim.Vocation9"))) {
                 this.job = new JobMerchant(this, v3.toBlockPos(), world);
+                //插花师
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation32"))) {
+                this.job = new JobFlower(this, v3.toBlockPos(), world);
+                //赤脚大夫
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation33"))) {
+                this.job = new JobBarefootDoctor(this, v3.toBlockPos(), world);
+                //妇产科医生
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation34"))) {
+                this.job = new JobAccoucheur(this, v3.toBlockPos(), world);
             }
 
 

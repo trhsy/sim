@@ -458,6 +458,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                         ++this.blockCount;
                     }
                 }
+                System.out.println("当前建筑所需方块："+this.blockCount);
                 //ModSimLoader.log.info("读取建筑物 " + file.getName());
                 br.close();
 //                bw.close();
