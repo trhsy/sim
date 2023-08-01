@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc;
 
+import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -15,6 +16,10 @@ public class V3{
         public double y;
         public double z;
         public int dimension;
+        /**方块**/
+        public Block blockID ;
+        /**元数据**/
+        public int meta = 0;
         public V3(double x, double y, double z) {
                 this.x = x;
                 this.y = y;
@@ -27,7 +32,12 @@ public class V3{
                 this.z = z;
                 this.dimension = dim;
         }
-
+        public V3(double x, double y, double z, Block id, int meta) {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+                this.meta = meta;
+        }
         public V3(BlockPos pos) {
                 this.x = (double)pos.getX();
                 this.y = (double)pos.getY();

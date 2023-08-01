@@ -91,28 +91,33 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                 this.name = bName;
                 this.fileContents = string;
                 String dim = sc.nextLine();
+                //获取长宽高
                 this.length = Integer.valueOf(dim.split("x")[0]);
                 this.width = Integer.valueOf(dim.split("x")[1]);
                 this.height = Integer.valueOf(dim.split("x")[2]);
                 this.structure = new IBlockState[this.length * this.width * this.height];
+                //下一行蓝图信息
                 String keyLine = sc.nextLine();
                 String[] keys = keyLine.split(";");
-                String[] var8 = keys;
                 int charNumber = keys.length;
 
                 for (int var10 = 0; var10 < charNumber; ++var10) {
-                    String k = var8[var10];
+                    //作者
+                    String k = keys[var10];
                     if (k.contains("AU")) {
                         this.author = k.split("=")[1];
                     }
-
+                    //默认建造方向
                     if (k.contains("DIR")) {
                         this.direction = Integer.valueOf(k.split("=")[1]);
+                        //描述
                     } else if (k.contains("DESC")) {
                         this.desc = k.split("=")[1];
+                        ModSimLoader.log.info("找到建筑描述 " + this.desc + " 在 " + this.name);
+                        //所属工作
                     } else if (k.contains("JOB")) {
                         this.jobType = k.split("=")[1];
-                        ModSimLoader.log.info("Found jobType " + this.jobType + " in " + this.name);
+                        ModSimLoader.log.info("找到工作类型 " + this.jobType + " 在 " + this.name);
                     } else if (Integer.valueOf(k.split("=")[1].split(",").length) > 1) {
                         this.blocks.add(new BuildingSymbol(k.split("=")[0], k.split("=")[1].split(",")[0], Integer.valueOf(k.split("=")[1].split(",")[1])));
                     } else {
@@ -122,13 +127,13 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
 
                 charNumber = 0;
                 boolean hasControlBox = false;
-
+                //每行的建筑方块
                 String line;
                 while ((line = sc.nextLine()) != null) {
                     char[] var33 = line.toCharArray();
-                    int var12 = var33.length;
-
-                    for (int var13 = 0; var13 < var12; ++var13) {
+                    //循环每个
+                    for (int var13 = 0; var13 < var33.length; ++var13) {
+                        //单个字符
                         char c = var33[var13];
                         //生活块
                         if (String.valueOf(c).contentEquals("!")) {
@@ -157,74 +162,79 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                         } else if (String.valueOf(c).contentEquals("-")) {
                             this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(5);
                             ++charNumber;
-                        } else if ("0".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("0")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(0);
                             ++charNumber;
-                        } else if ("1".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("1")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(1);
                             ++charNumber;
-                        } else if ("2".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("2")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(2);
                             ++charNumber;
-                        } else if ("3".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("3")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(3);
                             ++charNumber;
-                        } else if ("4".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("4")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(4);
                             ++charNumber;
-                        } else if ("5".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("5")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(5);
                             ++charNumber;
-                        } else if ("6".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("6")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(6);
                             ++charNumber;
-                        } else if ("7".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("7")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(7);
                             ++charNumber;
-                        } else if ("8".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("8")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(8);
                             ++charNumber;
-                        } else if ("9".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("9")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(9);
                             ++charNumber;
-                        } else if ("Ã€".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã€")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
                             ++charNumber;
-                        } else if ("Ã†".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã†")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(1);
                             ++charNumber;
-                        } else if ("Ã‡".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã‡")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(2);
                             ++charNumber;
-                        } else if ("Ãˆ".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ãˆ")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
                             ++charNumber;
-                        } else if ("ÃŒ".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("ÃŒ")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(4);
                             ++charNumber;
-                        } else if ("Ã�".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã�")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
                             ++charNumber;
-                        } else if ("Ã‘".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã‘")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(6);
                             ++charNumber;
-                        } else if ("Ã’".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã’")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(7);
                             ++charNumber;
                         } else {
+                            //转为字符串
                             String symbol = String.valueOf(c);
                             Block block = null;
-                            Iterator var17 = this.blocks.iterator();
-
-                            while (var17.hasNext()) {
-                                BuildingSymbol bs = (BuildingSymbol) var17.next();
-                                if (bs.symbol.contentEquals(symbol)) {
+                            for (BuildingSymbol bs :this.blocks){
+                                if (bs.symbol.equals(symbol)) {
+                                    //根据名字获取方块
                                     block = (Block) Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
+                                    //元素
                                     IBlockState blockstate = block.getStateFromMeta(bs.meta);
                                     this.structure[charNumber] = blockstate;
                                     ++charNumber;
                                     break;
                                 }
+                            }
+                            if(block==null){
+                                block=Blocks.AIR;
+                                this.structure[charNumber] =block.getStateFromMeta(0);
+                                ++charNumber;
                             }
                         }
                     }
@@ -386,58 +396,58 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                         } else if (String.valueOf(c).contentEquals("-")) {
                             this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(5);
                             ++charNumber;
-                        } else if ("0".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("0")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(0);
                             ++charNumber;
-                        } else if ("1".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("1")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(1);
                             ++charNumber;
-                        } else if ("2".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("2")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(2);
                             ++charNumber;
-                        } else if ("3".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("3")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(3);
                             ++charNumber;
-                        } else if ("4".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("4")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(4);
                             ++charNumber;
-                        } else if ("5".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("5")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(5);
                             ++charNumber;
-                        } else if ("6".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("6")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(6);
                             ++charNumber;
-                        } else if ("7".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("7")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(7);
                             ++charNumber;
-                        } else if ("8".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("8")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(8);
                             ++charNumber;
-                        } else if ("9".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("9")) {
                             this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(9);
                             ++charNumber;
-                        } else if ("Ã€".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã€")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
                             ++charNumber;
-                        } else if ("Ã†".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã†")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(1);
                             ++charNumber;
-                        } else if ("Ã‡".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã‡")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(2);
                             ++charNumber;
-                        } else if ("Ãˆ".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ãˆ")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
                             ++charNumber;
-                        } else if ("ÃŒ".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("ÃŒ")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(4);
                             ++charNumber;
-                        } else if ("Ã�".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã�")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
                             ++charNumber;
-                        } else if ("Ã‘".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã‘")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(6);
                             ++charNumber;
-                        } else if ("Ã’".equals(c)) {
+                        } else if (String.valueOf(c).contentEquals("Ã’")) {
                             this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(7);
                             ++charNumber;
                         } else {

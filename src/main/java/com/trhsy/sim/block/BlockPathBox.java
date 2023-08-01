@@ -18,4 +18,5 @@ public class BlockPathBox extends BlockBase{
         this.setResistance(1);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
 }

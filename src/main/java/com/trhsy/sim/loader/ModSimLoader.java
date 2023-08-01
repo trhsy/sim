@@ -654,6 +654,7 @@ public class ModSimLoader {
      * @Param []
      **/
     public static void loadAllBuildings() {
+        ModSimLoader.buildingBlueprints.clear();
         //建筑文件检查
         File checks = new File(ModSimLoader.getSimFolder() + File.separator + "/buildings");
         if (!checks.exists()) {

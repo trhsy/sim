@@ -29,7 +29,7 @@ public class JobBurgers extends Job{
     public JobBurgers(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
-        //面包师
+        //汉堡店
         this.jobName = I18n.format("container.sim.Vocation36");
         this.stage = -1;
     }

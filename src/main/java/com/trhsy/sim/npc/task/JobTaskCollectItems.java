@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.task;
 
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
@@ -127,6 +128,9 @@ public class JobTaskCollectItems extends JobTask {
                     //糖
                 }else if (colItem == Items.SUGAR) {
                     this.addDestination( I18n.format("container.sim.Vocation30"));
+                    //奶酪
+                }else if (colItem == ItemLoader.itemCheese) {
+                    this.addDestination( I18n.format("container.sim.Vocation21"));
                 }
 
             }

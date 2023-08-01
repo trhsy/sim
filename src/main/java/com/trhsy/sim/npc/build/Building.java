@@ -44,6 +44,8 @@ public class Building {
     public BlockPos craftingTable;
     public BlockPos buyingPos;
     public boolean markedForDeletion;
+    //特除的空气方块
+    public List<V3> blockSpecial = new CopyOnWriteArrayList();
     /**
      * @Author fan
      * @Description //TODO
@@ -103,6 +105,12 @@ public class Building {
                 writer.write("jobtypes|" + this.jobType + "\n");
                 writer.write("cpos|" + this.controlXYZ.toString() + "\n");
                 writer.write("lpos|" + this.livingXYZ.toString() + "\n");
+                writer.write("blockspecial|");
+                Iterator fs_blockSpecial= this.blockSpecial.iterator();
+                while(fs_blockSpecial.hasNext()) {
+                    V3 pos = (V3)fs_blockSpecial.next();
+                    writer.write(pos.toString() + ";");
+                }
                 writer.write("structure|");
                 Iterator var4 = this.structure.iterator();
 
@@ -203,8 +211,29 @@ public class Building {
                                 f = var10[var12];
                                 this.structure.add(V3.fromString(f));
                             }
+                            //特除方块
+                        } else if(line.contains("blockspecial")){
+                            if (value.length() < 1) {
+                                line = reader.readLine();
+                                continue;
+                            }
+
+                            folk = value.split(";");
+                            var10 = folk;
+                            var11 = folk.length;
+
+                            for(var12 = 0; var12 < var11; ++var12) {
+                                f = var10[var12];
+                                String[]  fs_f=f.split(",");
+                                double x= Double.parseDouble(fs_f[0]);
+                                double y= Double.parseDouble(fs_f[1]);
+                                double z= Double.parseDouble(fs_f[2]);
+                                int m= Integer.parseInt(fs_f[3]);
+                                V3 v=new V3(x,y,z,m);
+                                this.blockSpecial.add(v);
+                            }
                             //居住者
-                        } else if (line.contains("occupants")) {
+                        }else if (line.contains("occupants")) {
                             if (value.length() < 1) {
                                 line = reader.readLine();
                                 continue;
@@ -287,17 +316,17 @@ public class Building {
                 if(Block.getBlockFromItem(is.getItem()) instanceof BlockStairs){
                     newmeta = is.getMetadata();
                     if (newmeta == 0) {
-                        newmeta = 2;
+                        newmeta = 1;
                         facing=EnumFacing.NORTH;
                     } else if (newmeta == 1) {
-                        newmeta = 3;
+                        newmeta = 2;
                         facing=EnumFacing.SOUTH;
                     } else if (newmeta == 2) {
-                        newmeta = 1;
-                        facing=EnumFacing.UP;
+                        newmeta = 3;
+                        facing=EnumFacing.WEST;
                     } else if (newmeta == 3) {
                         newmeta = 0;
-                        facing=EnumFacing.DOWN;
+                        facing=EnumFacing.EAST;
                     }
                     world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
 //                    world.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
@@ -307,12 +336,12 @@ public class Building {
                     newmeta = is.getMetadata();
                     facing= EnumFacing.UP;
                     if (newmeta == 1) {
-                        newmeta = 3;
-                        facing=EnumFacing.NORTH;
-                    } else if (newmeta == 3) {
                         newmeta = 2;
-                        facing=EnumFacing.SOUTH;
+                        facing=EnumFacing.NORTH;
                     } else if (newmeta == 2) {
+                        newmeta = 3;
+                        facing=EnumFacing.SOUTH;
+                    } else if (newmeta == 3) {
                         newmeta = 4;
                         facing=EnumFacing.WEST;
                     } else if (newmeta == 4) {
@@ -414,6 +443,27 @@ public class Building {
         if(logFile.delete()){
             logFile.deleteOnExit();
         }
+    }
+
+    /**
+     * 获得空方块
+     *
+     * @param meta
+     * @return
+     */
+    public List<V3> getSpecialBlocks(int meta) {
+        List<V3> ret = new CopyOnWriteArrayList();
+        try {
+            for (V3 v3 : this.blockSpecial) {
+                if (v3.meta == meta) {
+                    ret.add(v3);
+                }
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("建筑getSpecialBlocks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return ret;
     }
 
 }

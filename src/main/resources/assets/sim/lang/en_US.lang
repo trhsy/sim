@@ -887,6 +887,7 @@ container.sim.Vocation18=Fisherman
 container.sim.Vocation19=Path Builder
 container.sim.Vocation20=Dairy Farmer
 container.sim.Vocation21=Cheesemaker
+container.sim.JobTaskCheesemaker1=Making cheese
 container.sim.Vocation22=Fast Food Manager
 container.sim.Vocation23=Fast Food Fry Cook
 container.sim.Vocation24=Fast Food Waiter

@@ -1191,7 +1191,7 @@ container.sim.GOBACKTOBAKERY=回到面包店
 container.sim.COLLECTINGWHEAT=收集小麦
 container.sim.GOINGTOWHEATFARM=去麦田
 container.sim.ARRIVEDATSHOP=到达商店
-
+container.sim.JobTaskCheesemaker1=制作奶酪
 container.sim.building.piston=活塞
 container.sim.building.button=按钮
 container.sim.change_credits=更改Sim资金<金额>

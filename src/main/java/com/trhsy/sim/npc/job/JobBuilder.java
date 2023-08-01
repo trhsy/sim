@@ -98,7 +98,8 @@ public class JobBuilder extends Job {
      * 缺失检查
      **/
     int missingCheck = 0;
-
+    //特除的空气方块
+    public List<V3> blockSpecial = new CopyOnWriteArrayList();
     /**
      * @return npc 蓝图 块
      * @Author fan
@@ -408,6 +409,10 @@ public class JobBuilder extends Job {
             } else if (fs_st_block == BlockLoader.blockLiving) {
                 this.livingPos = newBP;
             }
+            if(fs_st_block==BlockLoader.blockSpecial){
+                V3 v3 = new V3(newBP.getX(),newBP.getY(), newBP.getZ(),fs_block,0);
+                this.blockSpecial.add(v3);
+            }
             if (fs_block != fs_st_block) {
 
                 if (ModSimLoader.money < 0.02F && ModSimLoader.gamemode != 1) {
@@ -694,6 +699,7 @@ public class JobBuilder extends Job {
             }
             //创建建筑物
             Building build = new Building(this.blueprint.name, 10.0F, new V3(this.controllerPos), new V3(this.livingPos));
+            build.blockSpecial=this.blockSpecial;
             //建筑物类型
             build.buildingType = this.blueprint.buildingType;
             //建筑物的结构

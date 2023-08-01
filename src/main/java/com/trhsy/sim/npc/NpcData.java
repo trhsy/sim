@@ -622,7 +622,21 @@ public class NpcData {
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation34"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobAccoucheur(this, p, world);
+                            //汉堡店经理
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation36"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobBurgers(this, p, world);
+                            //奶酪匠
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation21"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobCheesemaker(this, p, world);
+                            //麦当劳
+                        } else if (job.contentEquals(I18n.format("container.sim.Vocation35"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobMcDonald(this, p, world);
                         }
+
+
                     }
 
                     if (this.job != null) {
@@ -972,7 +986,7 @@ public class NpcData {
                 ef.theData = this;
                 ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
                 Boolean falg = world.spawnEntityInWorld(ef);
-                if(falg){
+                if (falg) {
                     this.sendSkinPathToClient();
                 }
                 /*if(!falg){
@@ -1667,14 +1681,13 @@ public class NpcData {
                 if (dist >= 40) {
                     return false;
                 }
-                return true;
             } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
                 return true;
             }
         } else {
             if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
                 if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.worldObj.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
-                    this.entity.setPositionAndUpdate(v3.x+ 0.5D, v3.y, v3.z+ 0.5D);
+                    this.entity.setPositionAndUpdate(v3.x + 0.5D, v3.y, v3.z + 0.5D);
                     this.entity.getNavigator().clearPathEntity();
                 }
             } else {
@@ -2093,9 +2106,16 @@ public class NpcData {
                 //妇产科医生
             } else if (jobName.contentEquals(I18n.format("container.sim.Vocation34"))) {
                 this.job = new JobAccoucheur(this, v3.toBlockPos(), world);
+                //汉堡店经理
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation36"))) {
+                this.job = new JobBurgers(this, v3.toBlockPos(), world);
+                //奶酪匠
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation21"))) {
+                this.job = new JobCheesemaker(this, v3.toBlockPos(), world);
+                //麦当劳
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation35"))) {
+                this.job = new JobMcDonald(this, v3.toBlockPos(), world);
             }
-
-
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("hireAt出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
