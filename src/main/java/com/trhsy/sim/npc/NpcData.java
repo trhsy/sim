@@ -1249,9 +1249,10 @@ public class NpcData {
                 } else {
                     if (this.home != null) {
                         this.stayPut = true;
-                        if (!this.isAtBuilding(this.home)) {
+                        TaskGoTo taskGoTo=new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, I18n.format("container.sim.folk_data_Going_home"));
+                        if (!this.isAtBuilding(this.home)&&!this.tasks.contains(taskGoTo)) {
                             //回家
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, I18n.format("container.sim.folk_data_Going_home")));
+                            this.addTask(taskGoTo);
                         }
                         //睡觉
                         this.addTask(new TaskSleep(this, -1L, I18n.format("container.sim.folk_data.Sleeping")));

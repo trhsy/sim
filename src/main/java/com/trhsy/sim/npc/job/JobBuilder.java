@@ -145,7 +145,7 @@ public class JobBuilder extends Job {
                 IBlockState s = this.folk.entity.worldObj.getBlockState(pos);
                 if (s != null) {
                     Block block = s.getBlock();
-                    if (block != null) {
+                    if (block != null&&block == BlockLoader.blockConstructorBox) {
                         //建筑箱
                         this.constructorBlock = (BlockConstructorBox) block;
                         this.constructorBlock.employee = folk;
@@ -268,6 +268,7 @@ public class JobBuilder extends Job {
                                 if (block == Blocks.AIR) {
                                     return;
                                 }
+                                if(block == BlockLoader.blockConstructorBox){
                                 //获取建筑箱的
                                 BlockConstructorBox cons = (BlockConstructorBox) block;
                                 //当前建筑箱的工作人员是
@@ -290,6 +291,7 @@ public class JobBuilder extends Job {
                                         mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     }
 
+                                }
                                 }
                             }
                             //建筑蓝图为空

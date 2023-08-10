@@ -55,7 +55,7 @@ public class JobTaskSpawnLivestock extends JobTask {
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
         List<EntityAnimal> list=new CopyOnWriteArrayList<>();
         try {
-            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y+1, controlBox.z, controlBox.x + 1.0D, controlBox.y + 1.0D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
+            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y+0.5, controlBox.z, controlBox.x + 0.5D, controlBox.y + 1.0D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
 //            list = this.job.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x-5, controlBox.y+1, controlBox.z-5, controlBox.x + 5.0D, controlBox.y + 1.0D, controlBox.z + 5.0D));
         }catch (Exception e){
             ModSimLoader.log.error("getAnimalsInPen出错了：" + e.getMessage() );

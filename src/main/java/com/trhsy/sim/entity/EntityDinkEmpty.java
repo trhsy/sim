@@ -1,6 +1,7 @@
 package com.trhsy.sim.entity;
 
 import com.trhsy.sim.loader.ModSimLoader;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -49,7 +50,7 @@ public class EntityDinkEmpty extends EntityThrowable {
         if (result.entityHit != null) {
             int i = 0;
 
-            if (result.entityHit instanceof EntityBlaze) {
+            if (result.entityHit instanceof Entity) {
                 i = new Random().nextInt(99999)+50;
                 ModSimLoader.log.info("啤酒瓶随机伤害为："+i);
             }
