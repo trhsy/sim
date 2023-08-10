@@ -156,104 +156,113 @@ public class EventLoader {
      */
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
+        Minecraft mc = Minecraft.getMinecraft();
+        World world = event.getWorld();
         ModSimLoader.log.info("检查是否应该加载人员");
-        if (event.getWorld().isRemote) {
-            ModSimLoader.log.info("世界遥远，正在取消");
-        } else if (hasLoadedWorld) {
-            ModSimLoader.log.info("世界尚未加载，正在取消");
-        } else {
-            ModSimLoader.log.info("清除旧的世界数据");
-            ModSimLoader.folks.clear();
-            ModSimLoader.farms.clear();
-            ModSimLoader.mines.clear();
-            ModSimLoader.buildings.clear();
-            ModSimLoader.dayOfWeek = 0;
-            ModSimLoader.gamemode = 999;
-            ModSimLoader.money = 10.0F;
-            this.newDay = true;
-            this.timeSinceLastClientUpdate = 0L;
-            File[] buildingSaves;
+            if (world.isRemote) {
+                ModSimLoader.log.info("世界遥远，正在取消");
+            } else if (hasLoadedWorld) {
+                ModSimLoader.log.info("世界尚未加载，正在取消");
+            } else {
+                ModSimLoader.log.info("清除旧的世界数据");
+                ModSimLoader.folks.clear();
+                ModSimLoader.farms.clear();
+                ModSimLoader.mines.clear();
+                ModSimLoader.buildings.clear();
+                ModSimLoader.dayOfWeek = 0;
+                ModSimLoader.gamemode = 999;
+                ModSimLoader.money = 10.0F;
+                this.newDay = true;
+                this.timeSinceLastClientUpdate = 0L;
+                File[] buildingSaves;
 
-            ModSimLoader.log.info("加载世界...");
-            ModSimLoader.loadStates();
+                ModSimLoader.log.info("加载世界...");
+                ModSimLoader.loadStates();
 
-            try {
-                ModSimLoader.log.info("加载农场");
-                new DimensionManager();
-                File farmsFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms");
-                if (!farmsFolder.exists()) {
-                    farmsFolder.mkdirs();
+                try {
+                    ModSimLoader.log.info("加载农场");
+                    new DimensionManager();
+                    File farmsFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "farms");
+                    if (!farmsFolder.exists()) {
+                        farmsFolder.mkdirs();
+                    }
+                    buildingSaves = farmsFolder.listFiles();
+                    for (int i = 0; i < buildingSaves.length; i++) {
+                        File buildingFile = buildingSaves[i];
+                        //ModSimLoader.log.info("打开农场文件: " + buildingFile.getName());
+                        ModSimLoader.farms.add(new FarmBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                    }
+                } catch (Exception var10) {
+                    StackTraceElement element = var10.getStackTrace()[0];
+                    ModSimLoader.log.error("加载农场文件出错了：" + var10.getMessage() + "行数：" + element.getLineNumber());
                 }
-                buildingSaves = farmsFolder.listFiles();
-                for (int i = 0; i < buildingSaves.length; i++) {
-                    File buildingFile = buildingSaves[i];
-                    //ModSimLoader.log.info("打开农场文件: " + buildingFile.getName());
-                    ModSimLoader.farms.add(new FarmBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+
+                try {
+                    ModSimLoader.log.info("加载矿场");
+                    new DimensionManager();
+                    File minesFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "mines");
+                    if (!minesFolder.exists()) {
+                        minesFolder.mkdirs();
+                    }
+                    buildingSaves = minesFolder.listFiles();
+                    for (int i = 0; i < buildingSaves.length; i++) {
+                        File buildingFile = buildingSaves[i];
+                        ModSimLoader.log.info("打开矿场文件: " + buildingFile.getName());
+                        ModSimLoader.mines.add(new MineBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                    }
+                } catch (Exception var9) {
+                    StackTraceElement element = var9.getStackTrace()[0];
+                    ModSimLoader.log.error("加载矿场文件出错了：" + var9.getMessage() + "行数：" + element.getLineNumber());
                 }
-            } catch (Exception var10) {
-                StackTraceElement element = var10.getStackTrace()[0];
-                ModSimLoader.log.error("加载农场文件出错了：" + var10.getMessage() + "行数：" + element.getLineNumber());
+
+                try {
+                    ModSimLoader.log.info("获得保存的NPC");
+                    new DimensionManager();
+                    File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
+                    if (!npcFolder.exists()) {
+                        npcFolder.mkdirs();
+                    }
+                    buildingSaves = npcFolder.listFiles();
+                    for (int i = 0; i < buildingSaves.length; i++) {
+                        File buildingFile = buildingSaves[i];
+                        //ModSimLoader.log.info("得到Npc " + buildingFile.getName());
+                        NpcData npcData = new NpcData(world, UUID.fromString(buildingFile.getName().split(".sk2")[0]));
+                        ModSimLoader.folks.add(npcData);
+                        ModSimLoader.log.info(npcData.race.skinName);
+                    }
+                } catch (Exception e) {
+                    StackTraceElement element = e.getStackTrace()[0];
+                    ModSimLoader.log.error("获得保存的NPC出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                }
+
+                try {
+                    ModSimLoader.log.info("加载建筑物");
+                    new DimensionManager();
+                    File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "buildings");
+                    if (!buildingFolder.exists()) {
+                        buildingFolder.mkdirs();
+                    }
+                    buildingSaves = buildingFolder.listFiles();
+                    for (int i = 0; i < buildingSaves.length; i++) {
+                        File buildingFile = buildingSaves[i];
+                        //ModSimLoader.log.info("打开建筑文件: " + buildingFile.getName());
+                        ModSimLoader.buildings.add(new Building(world, UUID.fromString(buildingFile.getName().split(".sk2")[0])));
+                    }
+
+                } catch (Exception var7) {
+                    StackTraceElement element = var7.getStackTrace()[0];
+                    ModSimLoader.log.error("加载建筑文件出错了：" + var7.getMessage() + "行数：" + element.getLineNumber());
+                }
+                try {
+                    ModSimLoader.log.info("加载快递点");
+
+                }catch (Exception var7) {
+                    StackTraceElement element = var7.getStackTrace()[0];
+                    ModSimLoader.log.error("加载快递点文件出错了：" + var7.getMessage() + "行数：" + element.getLineNumber());
+                }
+                NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
+                hasLoadedWorld = true;
             }
-
-            try {
-                ModSimLoader.log.info("加载矿场");
-                new DimensionManager();
-                File minesFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "mines");
-                if (!minesFolder.exists()) {
-                    minesFolder.mkdirs();
-                }
-                buildingSaves = minesFolder.listFiles();
-                for (int i = 0; i < buildingSaves.length; i++) {
-                    File buildingFile = buildingSaves[i];
-                    ModSimLoader.log.info("打开矿场文件: " + buildingFile.getName());
-                    ModSimLoader.mines.add(new MineBox(UUID.fromString(buildingFile.getName().split(".sk2")[0])));
-                }
-            } catch (Exception var9) {
-                StackTraceElement element = var9.getStackTrace()[0];
-                ModSimLoader.log.error("加载矿场文件出错了：" + var9.getMessage() + "行数：" + element.getLineNumber());
-            }
-
-            try {
-                ModSimLoader.log.info("获得保存的NPC");
-                new DimensionManager();
-                File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
-                if (!npcFolder.exists()) {
-                    npcFolder.mkdirs();
-                }
-                buildingSaves = npcFolder.listFiles();
-                for (int i = 0; i < buildingSaves.length; i++) {
-                    File buildingFile = buildingSaves[i];
-                    //ModSimLoader.log.info("得到Npc " + buildingFile.getName());
-                    NpcData npcData=new NpcData(event.getWorld(), UUID.fromString(buildingFile.getName().split(".sk2")[0]));
-                    ModSimLoader.folks.add(npcData);
-                    ModSimLoader.log.info(npcData.race.skinName);
-                }
-            } catch (Exception e) {
-                StackTraceElement element = e.getStackTrace()[0];
-                ModSimLoader.log.error("获得保存的NPC出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-            }
-            try {
-                ModSimLoader.log.info("加载建筑物");
-                new DimensionManager();
-                File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "buildings");
-                if (!buildingFolder.exists()) {
-                    buildingFolder.mkdirs();
-                }
-                buildingSaves = buildingFolder.listFiles();
-                for (int i = 0; i < buildingSaves.length; i++) {
-                    File buildingFile = buildingSaves[i];
-                    //ModSimLoader.log.info("打开建筑文件: " + buildingFile.getName());
-                    ModSimLoader.buildings.add(new Building(event.getWorld(), UUID.fromString(buildingFile.getName().split(".sk2")[0])));
-                }
-
-            } catch (Exception var7) {
-                StackTraceElement element = var7.getStackTrace()[0];
-                ModSimLoader.log.error("加载建筑文件出错了：" + var7.getMessage() + "行数：" + element.getLineNumber());
-            }
-
-            NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
-            hasLoadedWorld = true;
-        }
     }
 
     /**
@@ -310,14 +319,14 @@ public class EventLoader {
                             new NpcData(event.world, false);
                         }
                     }
-                    this.minuteTimer=System.currentTimeMillis();
+                    this.minuteTimer = System.currentTimeMillis();
                 }
                 if (!this.newDay) {
                     ModSimLoader.log.info("天亮了");
                     //播放 天亮了鸡叫
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
                     for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        mc.theWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                     }
 
                     this.newDay = true;
@@ -341,14 +350,15 @@ public class EventLoader {
                         //播放钱到账
                         soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                         for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                            mc.theWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                         //您已收集 今天的租金。
                         ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
                     }
                     Iterator iterator = ModSimLoader.folks.iterator();
                     NpcData f = null;
-                    fs_lable:while (true) {
+                    fs_lable:
+                    while (true) {
                         do {
                             if (!iterator.hasNext()) {
                                 String hungerName = "";
@@ -456,7 +466,7 @@ public class EventLoader {
         Entity entity = event.getEntity();
         World worldObj = event.getWorld();
 
-        if (!event.getWorld().isRemote && entity instanceof EntityPlayer) {
+        if (!worldObj.isRemote && entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
             //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
             String welcome = "【" + player.getName() + "】" + I18n.format("container.sim.welcome");
@@ -518,6 +528,7 @@ public class EventLoader {
                 drawBoundingBox(player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, true, 4.0F, event);
             }
         }
+
     }
 
     /**

@@ -2,6 +2,7 @@ package com.trhsy.sim.npc.build;
 
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.util.Structure;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockWall;
@@ -75,7 +76,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
     public int blockCount = 0;
     public List<BuildingSymbol> blocks = new CopyOnWriteArrayList<>();
     //蓝图建筑结构
-    public IBlockState[] structure;
+    public Structure[] structure;
     public List<BuildingBlueprint> styles = new CopyOnWriteArrayList();
 
     public BuildingBlueprint(File file) {
@@ -95,7 +96,8 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                 this.length = Integer.valueOf(dim.split("x")[0]);
                 this.width = Integer.valueOf(dim.split("x")[1]);
                 this.height = Integer.valueOf(dim.split("x")[2]);
-                this.structure = new IBlockState[this.length * this.width * this.height];
+                //数组长度
+                this.structure = new Structure[this.length * this.width * this.height];
                 //下一行蓝图信息
                 String keyLine = sc.nextLine();
                 String[] keys = keyLine.split(";");
@@ -129,6 +131,10 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                 boolean hasControlBox = false;
                 //每行的建筑方块
                 String line;
+                Block blockControlBox = BlockLoader.blockControlBox;
+                Block blockLightBox=BlockLoader.blockLightBox;
+                Block blockSpecial= BlockLoader.blockSpecial;
+                Structure fs_structure=new Structure();
                 while ((line = sc.nextLine()) != null) {
                     char[] var33 = line.toCharArray();
                     //循环每个
@@ -138,83 +144,158 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                         //生活块
                         if (String.valueOf(c).contentEquals("!")) {
                             Block block = BlockLoader.blockLiving;
-                            this.structure[charNumber] = block.getDefaultState();
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(block.getDefaultState());
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                             //控制箱
                         } else if (String.valueOf(c).contentEquals("$")) {
                             hasControlBox = true;
-                            Block block = BlockLoader.blockControlBox;
+
                             if (this.name.contentEquals(I18n.format("container.sim.ATMs"))) {
-                                this.structure[charNumber] = block.getStateFromMeta(1);
+                                fs_structure=new Structure();
+                                fs_structure.setiBlockState(blockControlBox.getStateFromMeta(1));
+                                fs_structure.setMeta(1);
+                                this.structure[charNumber] = fs_structure;
                             } else if ("other".equals(this.buildingType) || "special".equals(this.buildingType)) {
-                                this.structure[charNumber] = block.getStateFromMeta(2);
+                                fs_structure=new Structure();
+                                fs_structure.setiBlockState(blockControlBox.getStateFromMeta(2));
+                                fs_structure.setMeta(2);
+                                this.structure[charNumber] = fs_structure;
                             } else {
-                                this.structure[charNumber] = block.getStateFromMeta(0);
+                                fs_structure=new Structure();
+                                fs_structure.setiBlockState(blockControlBox.getStateFromMeta(0));
+                                fs_structure.setMeta(0);
+                                this.structure[charNumber] = fs_structure;
                             }
                             ++charNumber;
                             //灯箱
                         } else if (String.valueOf(c).contentEquals("*")) {
-                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(0);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockLightBox.getStateFromMeta(0));
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("+")) {
-                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(3);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockLightBox.getStateFromMeta(3));
+                            fs_structure.setMeta(3);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("-")) {
-                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(5);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockLightBox.getStateFromMeta(5));
+                            fs_structure.setMeta(5);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("0")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(0);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(0));
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("1")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(1);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(1));
+                            fs_structure.setMeta(1);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("2")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(2);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(2));
+                            fs_structure.setMeta(2);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("3")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(3);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(3));
+                            fs_structure.setMeta(3);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("4")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(4);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(4));
+                            fs_structure.setMeta(4);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("5")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(5);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(5));
+                            fs_structure.setMeta(5);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("6")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(6);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(6));
+                            fs_structure.setMeta(6);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("7")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(7);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(7));
+                            fs_structure.setMeta(7);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("8")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(8);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(8));
+                            fs_structure.setMeta(8);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("9")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(9);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(9));
+                            fs_structure.setMeta(9);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã€")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(0));
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã†")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(1);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(1));
+                            fs_structure.setMeta(1);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã‡")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(2);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState( BlockLoader.blockLiving.getStateFromMeta(2));
+                            fs_structure.setMeta(2);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ãˆ")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(3));
+                            fs_structure.setMeta(3);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("ÃŒ")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(4);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(4));
+                            fs_structure.setMeta(4);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã�")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(5));
+                            fs_structure.setMeta(5);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã‘")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(6);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(6));
+                            fs_structure.setMeta(6);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã’")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(7);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(7));
+                            fs_structure.setMeta(7);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else {
                             //转为字符串
@@ -226,14 +307,20 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                                     block = (Block) Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
                                     //元素
                                     IBlockState blockstate = block.getStateFromMeta(bs.meta);
-                                    this.structure[charNumber] = blockstate;
+                                    fs_structure=new Structure();
+                                    fs_structure.setiBlockState(blockstate);
+                                    fs_structure.setMeta(bs.meta);
+                                    this.structure[charNumber] = fs_structure;
                                     ++charNumber;
                                     break;
                                 }
                             }
                             if(block==null){
                                 block=Blocks.AIR;
-                                this.structure[charNumber] =block.getStateFromMeta(0);
+                                fs_structure=new Structure();
+                                fs_structure.setiBlockState(block.getStateFromMeta(0));
+                                fs_structure.setMeta(0);
+                                this.structure[charNumber] = fs_structure;
                                 ++charNumber;
                             }
                         }
@@ -242,7 +329,10 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
 
                 sc.close();
                 if (!hasControlBox) {
-                    this.structure[0] = BlockLoader.blockControlBox.getDefaultState();
+                    fs_structure=new Structure();
+                    fs_structure.setiBlockState(BlockLoader.blockControlBox.getDefaultState());
+                    fs_structure.setMeta(0);
+                    this.structure[0] = fs_structure;
                 }
             } catch (Throwable var28) {
                 var4 = var28;
@@ -317,7 +407,7 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                 this.length = Integer.valueOf(dim.split("x")[0]);
                 this.width = Integer.valueOf(dim.split("x")[1]);
                 this.height = Integer.valueOf(dim.split("x")[2]);
-                this.structure = new IBlockState[this.length * this.width * this.height];
+                this.structure = new Structure[this.length * this.width * this.height];
                 String keyLine = br.readLine();
                 String[] keys = keyLine.split(";");
                 String[] var7 = keys;
@@ -363,92 +453,169 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                 charNumber = 0;
 
                 String line;
+                Block blockControlBox = BlockLoader.blockControlBox;
+                Block blockLightBox=BlockLoader.blockLightBox;
+                Block blockSpecial= BlockLoader.blockSpecial;
+                Structure fs_structure=new Structure();
                 while ((line = br.readLine()) != null) {
 //                    bw.write(line);
 //                    bw.write("\r\n");
                     char[] var30 = line.toCharArray();
-
                     for (int var11 = 0; var11 < var30.length; ++var11) {
                         char c = var30[var11];
                         //生活块
                         if (String.valueOf(c).contentEquals("!")) {
                             Block block = BlockLoader.blockLiving;
-                            this.structure[charNumber] = block.getDefaultState();
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(block.getDefaultState());
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                             //控制箱
                         } else if (String.valueOf(c).contentEquals("$")) {
-                            Block block = BlockLoader.blockControlBox;
                             if (this.name.contentEquals(I18n.format("container.sim.ATMs"))) {
-                                this.structure[charNumber] = block.getStateFromMeta(1);
+                                fs_structure=new Structure();
+                                fs_structure.setiBlockState(blockControlBox.getStateFromMeta(1));
+                                fs_structure.setMeta(1);
+                                this.structure[charNumber] = fs_structure;
                             } else if ("other".equals(this.buildingType) || "special".equals(this.buildingType)) {
-                                this.structure[charNumber] = block.getStateFromMeta(2);
+                                fs_structure=new Structure();
+                                fs_structure.setiBlockState(blockControlBox.getStateFromMeta(2));
+                                fs_structure.setMeta(2);
+                                this.structure[charNumber] = fs_structure;
                             } else {
-                                this.structure[charNumber] = block.getStateFromMeta(0);
+                                fs_structure=new Structure();
+                                fs_structure.setiBlockState(blockControlBox.getStateFromMeta(0));
+                                fs_structure.setMeta(0);
+                                this.structure[charNumber] = fs_structure;
                             }
 //                            this.structure[charNumber] = block.getDefaultState();
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("*")) {
-                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(0);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockLightBox.getStateFromMeta(0));
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("+")) {
-                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(3);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockLightBox.getStateFromMeta(3));
+                            fs_structure.setMeta(3);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("-")) {
-                            this.structure[charNumber] = BlockLoader.blockLightBox.getStateFromMeta(5);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockLightBox.getStateFromMeta(5));
+                            fs_structure.setMeta(5);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("0")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(0);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(0));
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("1")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(1);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(1));
+                            fs_structure.setMeta(1);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("2")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(2);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(2));
+                            fs_structure.setMeta(2);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("3")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(3);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(3));
+                            fs_structure.setMeta(3);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("4")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(4);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(4));
+                            fs_structure.setMeta(4);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("5")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(5);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(5));
+                            fs_structure.setMeta(5);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("6")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(6);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(6));
+                            fs_structure.setMeta(6);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("7")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(7);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(7));
+                            fs_structure.setMeta(7);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("8")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(8);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(8));
+                            fs_structure.setMeta(8);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("9")) {
-                            this.structure[charNumber] = BlockLoader.blockSpecial.getStateFromMeta(9);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(blockSpecial.getStateFromMeta(9));
+                            fs_structure.setMeta(9);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã€")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(0);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(0));
+                            fs_structure.setMeta(0);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã†")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(1);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(1));
+                            fs_structure.setMeta(1);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã‡")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(2);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(2));
+                            fs_structure.setMeta(2);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ãˆ")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(3);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(3));
+                            fs_structure.setMeta(3);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("ÃŒ")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(4);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(4));
+                            fs_structure.setMeta(4);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã�")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(5);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(5));
+                            fs_structure.setMeta(5);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã‘")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(6);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(6));
+                            fs_structure.setMeta(6);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else if (String.valueOf(c).contentEquals("Ã’")) {
-                            this.structure[charNumber] = BlockLoader.blockLiving.getStateFromMeta(7);
+                            fs_structure=new Structure();
+                            fs_structure.setiBlockState(BlockLoader.blockLiving.getStateFromMeta(7));
+                            fs_structure.setMeta(7);
+                            this.structure[charNumber] = fs_structure;
                             ++charNumber;
                         } else {
                             String symbol = String.valueOf(c);
@@ -458,7 +625,10 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
                                     block = (Block) Block.REGISTRY.getObject(new ResourceLocation(bs.blockName));
                                     IBlockState blockstate = block.getStateFromMeta(bs.meta);
                                     if (blockstate != null) {
-                                        this.structure[charNumber] = blockstate;
+                                        fs_structure=new Structure();
+                                        fs_structure.setiBlockState(blockstate);
+                                        fs_structure.setMeta(bs.meta);
+                                        this.structure[charNumber] = fs_structure;
                                         ++charNumber;
                                         break;
                                     }
@@ -507,16 +677,12 @@ public class BuildingBlueprint implements Comparable<BuildingBlueprint> {
      **/
     public Hashtable<Item, Integer> getBuildingRequirements() {
         Hashtable<Item, Integer> ret = new Hashtable();
-        IBlockState[] var2 = this.structure;
-        int var3 = var2.length;
-
-        for (int var4 = 0; var4 < var3; ++var4) {
-            IBlockState state = var2[var4];
-            if (state != null) {
-                Block blockId = state.getBlock();
+        for (Structure structure:this.structure){
+            if (structure != null) {
+                Block blockId = structure.getiBlockState().getBlock();
                 //检查是否是必须的块
                 if (this.isRequiredBlock(blockId)) {
-                    Item item = Item.getItemFromBlock(state.getBlock());
+                    Item item = Item.getItemFromBlock(structure.getiBlockState().getBlock());
                     if (ret.containsKey(item)) {
                         ret.put(item, (Integer) ret.get(item) + 1);
                     } else {

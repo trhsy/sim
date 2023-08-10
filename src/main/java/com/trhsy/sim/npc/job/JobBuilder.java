@@ -9,6 +9,7 @@ import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
+import com.trhsy.sim.util.Structure;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -120,10 +121,10 @@ public class JobBuilder extends Job {
             int i = 0;
             boolean hasControlBox = false;
             //建筑蓝图的所有方块
-            IBlockState[] var8 = this.blueprint.structure;
-            for (IBlockState st : var8) {
+            Structure[] var8 = this.blueprint.structure;
+            for (Structure st : var8) {
                 if (st != null) {
-                    Block block = st.getBlock();
+                    Block block = st.getiBlockState().getBlock();
                     if (block == BlockLoader.blockControlBox) {
                         hasControlBox = true;
                         break;
@@ -134,7 +135,10 @@ public class JobBuilder extends Job {
 
             if (!hasControlBox) {
                 //如果没有找到控制箱，则第一个方块就是建筑箱
-                this.blueprint.structure[0] = BlockLoader.blockControlBox.getDefaultState();
+                Structure structure=new Structure();
+                structure.setMeta(0);
+                structure.setiBlockState(BlockLoader.blockControlBox.getDefaultState());
+                this.blueprint.structure[0]= structure;
             }
             constructorBlock = null;
             if (folk.entity != null) {
@@ -212,8 +216,12 @@ public class JobBuilder extends Job {
             this.constructorPos = pos.toBlockPos();
             this.startPos = pos.toBlockPos();
             this.direction = direction;
-            BlockConstructorBox cons = (BlockConstructorBox) this.folk.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
-            cons.employee = folk;
+            Block block=this.folk.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
+            //建筑箱
+            if(block==BlockLoader.blockConstructorBox){
+                BlockConstructorBox cons = (BlockConstructorBox)block;
+                cons.employee = folk;
+            }
             if (direction == 0) {
                 this.startPos = this.startPos.add(0, 0, -1);
             } else if (direction == 1) {
@@ -386,19 +394,20 @@ public class JobBuilder extends Job {
 
             BlockPos newBP = null;
             IBlockState st = null;
+            Structure fs_structure =this.blueprint.structure[this.blockNumber];
             //方向
             if (this.direction == 0) {
                 newBP = new BlockPos(this.startPos.getX() + this.x, this.startPos.getY() + this.y, this.startPos.getZ() - this.z);
-                st = this.blueprint.structure[this.blockNumber];
+                st = fs_structure.getiBlockState();
             } else if (this.direction == 1) {
                 newBP = new BlockPos(this.startPos.getX() + this.z, this.startPos.getY() + this.y, this.startPos.getZ() + this.x);
-                st = this.blueprint.structure[this.blockNumber];
+                st = fs_structure.getiBlockState();
             } else if (this.direction == 2) {
                 newBP = new BlockPos(this.startPos.getX() - this.x, this.startPos.getY() + this.y, this.startPos.getZ() + this.z);
-                st = this.blueprint.structure[this.blockNumber];
+                st = fs_structure.getiBlockState();
             } else {
                 newBP = new BlockPos(this.startPos.getX() - this.z, this.startPos.getY() + this.y, this.startPos.getZ() - this.x);
-                st = this.blueprint.structure[this.blockNumber];
+                st = fs_structure.getiBlockState();
             }
             Block fs_block = this.folk.entity.worldObj.getBlockState(newBP).getBlock();
             Block fs_st_block = st.getBlock();
@@ -410,7 +419,7 @@ public class JobBuilder extends Job {
                 this.livingPos = newBP;
             }
             if(fs_st_block==BlockLoader.blockSpecial){
-                V3 v3 = new V3(newBP.getX(),newBP.getY(), newBP.getZ(),fs_block,0);
+                V3 v3 = new V3(newBP.getX(),newBP.getY(), newBP.getZ(),fs_st_block,fs_structure.getMeta());
                 this.blockSpecial.add(v3);
             }
             if (fs_block != fs_st_block) {
@@ -522,6 +531,11 @@ public class JobBuilder extends Job {
                             this.folk.entity.worldObj.setBlockState(newBP, st);
                             //栅栏
                         } else if (fs_st_block instanceof BlockFence) {
+                            //放置方块
+                            this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
+                            this.folk.entity.worldObj.setBlockState(newBP, st);
+                            //拉杆
+                        }else if(fs_st_block instanceof BlockLever){
                             //放置方块
                             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
                             this.folk.entity.worldObj.setBlockState(newBP, st);
@@ -741,12 +755,15 @@ public class JobBuilder extends Job {
      **/
     public void createConBox() {
         try {
-            this.conBox = new EntityConBox(this.folk.entity.worldObj, this);
-            this.conBox.folk = this.folk;
-            this.conBox.builderJob = this;
-            this.conBox.setLocationAndAngles(this.workPlace.x + 2.0D, this.workPlace.y, this.workPlace.z, 0.0F, 0.0F);
-            if (!this.folk.entity.worldObj.isRemote) {
-                this.folk.entity.worldObj.spawnEntityInWorld(this.conBox);
+            EntityConBox entityConBox=new EntityConBox(this.folk.entity.worldObj, this);
+            if(entityConBox!=null){
+                this.conBox = entityConBox;
+                this.conBox.folk = this.folk;
+                this.conBox.builderJob = this;
+                this.conBox.setLocationAndAngles(this.workPlace.x + 2.0D, this.workPlace.y, this.workPlace.z, 0.0F, 0.0F);
+                if (!this.folk.entity.worldObj.isRemote) {
+                    this.folk.entity.worldObj.spawnEntityInWorld(this.conBox);
+                }
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

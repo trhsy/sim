@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -29,11 +30,11 @@ public class FluidLoader {
     /**
      * 流体牛奶
      **/
-    public static Fluid fluidMilk = new FluidMilk().setBlock(BlockLoader.fluidMilk).setUnlocalizedName(BlockLoader.fluidMilk.getUnlocalizedName());
+    public static Fluid fluidMilk = new FluidMilk();
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
         try {
-//            registerFluidRender(, "fluid_milk");
+            registerFluidRender((BlockFluidClassic)BlockLoader.milk, "milk");
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -45,7 +46,6 @@ public class FluidLoader {
                 fluidMilk = FluidRegistry.getFluid(fluidMilk.getName());
             } else {
                 FluidRegistry.registerFluid(fluidMilk);
-                FluidRegistry.addBucketForFluid(fluidMilk);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("FluidLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -53,7 +53,7 @@ public class FluidLoader {
 
     }
     @SideOnly(Side.CLIENT)
-    public static void registerFluidRender(BlockStaticLiquid blockFluid, String blockStateName) {
+    public static void registerFluidRender(BlockFluidClassic blockFluid, String blockStateName) {
         try {
             fluidMilk.setBlock(blockFluid).setUnlocalizedName(blockFluid.getUnlocalizedName());
             final String location = ModSim.MODID + ":" + blockStateName;

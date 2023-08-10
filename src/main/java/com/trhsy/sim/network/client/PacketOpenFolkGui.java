@@ -42,6 +42,10 @@ public class PacketOpenFolkGui implements IMessage {
     public String folkTrait2;
     /**特征*/
     public String folkTrait3;
+
+    public String folkTraitDesc1;
+    public String folkTraitDesc2;
+    public String folkTraitDesc3;
     /**建筑等级*/
     public String building = "1";
     /**农耕等级*/
@@ -63,6 +67,9 @@ public class PacketOpenFolkGui implements IMessage {
         this.folkTrait1=fd.trait1.getTraitName();
         this.folkTrait2=fd.trait2.getTraitName();
         this.folkTrait3=fd.trait3.getTraitName();
+        this.folkTraitDesc1=fd.trait1.getTraitDescription();
+        this.folkTraitDesc2=fd.trait2.getTraitDescription();
+        this.folkTraitDesc3=fd.trait3.getTraitDescription();
         this.status=fd.status;
         this.hungerStatus=fd.getHunger();
         if (fd.job != null) {
@@ -97,6 +104,9 @@ public class PacketOpenFolkGui implements IMessage {
         this.folkTrait1 = ByteBufUtils.readUTF8String(buf);
         this.folkTrait2 = ByteBufUtils.readUTF8String(buf);
         this.folkTrait3 = ByteBufUtils.readUTF8String(buf);
+        this.folkTraitDesc1=ByteBufUtils.readUTF8String(buf);
+        this.folkTraitDesc2=ByteBufUtils.readUTF8String(buf);
+        this.folkTraitDesc3=ByteBufUtils.readUTF8String(buf);
         this.status = ByteBufUtils.readUTF8String(buf);
         this.hungerStatus=ByteBufUtils.readUTF8String(buf);
         this.pregnancyStage=buf.readFloat();
@@ -117,6 +127,9 @@ public class PacketOpenFolkGui implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.folkTrait1);
         ByteBufUtils.writeUTF8String(buf, this.folkTrait2);
         ByteBufUtils.writeUTF8String(buf, this.folkTrait3);
+        ByteBufUtils.writeUTF8String(buf, this.folkTraitDesc1);
+        ByteBufUtils.writeUTF8String(buf, this.folkTraitDesc2);
+        ByteBufUtils.writeUTF8String(buf, this.folkTraitDesc3);
         ByteBufUtils.writeUTF8String(buf, this.status);
         ByteBufUtils.writeUTF8String(buf, this.hungerStatus);
         buf.writeFloat(this.pregnancyStage);

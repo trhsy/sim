@@ -59,8 +59,8 @@ public class JobTaskCheesemaker extends JobTask{
                     //牛奶
                     BlockPos blockPos = new BlockPos(milkBlock.x, milkBlock.y, milkBlock.z);
                     Block id = this.job.jobWorld.getBlockState(blockPos).getBlock();
-                    if (id != Blocks.AIR && id != BlockLoader.fluidMilk) {
-                        this.job.jobWorld.setBlockState(blockPos, BlockLoader.fluidMilk.getDefaultState(), 3);
+                    if (id != Blocks.AIR && id != BlockLoader.milk&& id != BlockLoader.flowing_milk) {
+                        this.job.jobWorld.setBlockState(blockPos, BlockLoader.milk.getDefaultState(), 3);
                         filledOk = true;
                     }
 
@@ -90,9 +90,9 @@ public class JobTaskCheesemaker extends JobTask{
                     this.stirCount = 0;
                     this.step = 4;
                 } else {
-                    //有的奶酪厂出了问题，把建筑构造下来，重新构建它
+                    //奶酪厂出了问题，把建筑构造下来，重新构建它
                     ModSimLoader.sendChat(I18n.format("container.sim.job.cheese_maker.constructor"));
-                    //this.theFolk.selfFire();
+                    this.job.folk.fire();
                 }
             }else if(this.step == 4){
                 String say = "";
@@ -150,7 +150,7 @@ public class JobTaskCheesemaker extends JobTask{
                         id = this.job.jobWorld.getBlockState(blockPos).getBlock();
                         dist = id.getMetaFromState(this.job.jobWorld.getBlockState(blockPos));
 
-                        if (id == BlockLoader.fluidMilk && dist == 0) {
+                        if (id == BlockLoader.milk && dist == 0) {
                             this.job.jobWorld.setBlockState(blockPos, id.getDefaultState(), 3);
                             ++milkGotCount;
                             if (milkGotCount > 1) {

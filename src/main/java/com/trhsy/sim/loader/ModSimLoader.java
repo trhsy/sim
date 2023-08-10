@@ -1,5 +1,6 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.gui.GuiHud;
 import com.trhsy.sim.gui.block.*;
 import com.trhsy.sim.gui.npc.*;
@@ -57,7 +58,11 @@ public class ModSimLoader {
     public static List<FarmBox> farms = new CopyOnWriteArrayList();
     /*挖矿箱*/
     public static List<MineBox> mines = new CopyOnWriteArrayList();
-
+    public static List<NpcSkin> folkSkins = new CopyOnWriteArrayList();
+    /*
+   所有快递点
+    */
+    public static List<V3> theCourierPoints = new CopyOnWriteArrayList();
     /**
      * 建筑蓝图
      */
@@ -954,5 +959,9 @@ public class ModSimLoader {
      */
     public static void openFlowerGui(PacketOpenFlowerGui message) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiFlower(message));
+    }
+
+    public static void OpenPathBox(PacketOpenPathBoxGui message) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiPathBox(message));
     }
 }

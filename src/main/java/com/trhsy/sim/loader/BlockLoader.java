@@ -6,6 +6,7 @@ import com.trhsy.sim.block.*;
 import com.trhsy.sim.util.EnumBlock;
 import com.trhsy.sim.util.ItemBlockMeta;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -14,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -62,8 +64,10 @@ public class BlockLoader {
     public static Block blockSpecial=new BlockSpecial();
     /**风车**/
     public static Block blockWindmill=new BlockWindmill(Material.WOOD);
+    /**流动牛奶块***/
+    public static BlockDynamicLiquid flowing_milk= new BlockFlowingMilk(Material.WATER);
     /**静态牛奶块***/
-    public static BlockStaticLiquid fluidMilk= new BlockFluidMilk(Material.WATER);
+    public static BlockFluidClassic milk= new BlockMilk(Material.WATER);
 
     /**
      * 加载方块
@@ -112,8 +116,8 @@ public class BlockLoader {
             blockLiving=registerEnumBlock(new BlockLiving(), ModSim.MODID+":block_living");
             ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
             /**流体牛奶**/
-//            register(fluidMilk, "fluid_milk");
-
+            register(milk, "milk");
+            //register(flowing_milk, "flowing_milk");
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -199,7 +203,7 @@ public class BlockLoader {
             /**锡矿**/
             registerRender(blockTinOre);
             /**牛奶块**/
-//            registerRender(fluidMilk);
+            registerRender(milk);
         }catch (Exception e){
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

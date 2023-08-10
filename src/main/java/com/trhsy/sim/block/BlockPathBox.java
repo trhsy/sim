@@ -1,8 +1,27 @@
 package com.trhsy.sim.block;
 
+import com.trhsy.sim.ModSim;
+import com.trhsy.sim.gui.block.GuiPathBox;
 import com.trhsy.sim.loader.CreativeTabsLoader;
+import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenConstructorGui;
+import com.trhsy.sim.network.client.PacketOpenPathBoxGui;
+import com.trhsy.sim.npc.V3;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * @ClassName BlockPathBox
@@ -18,5 +37,30 @@ public class BlockPathBox extends BlockBase{
         this.setResistance(1);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        try {
+            //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
+            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
+            worldIn.playSound(playerIn,pos,soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            if (!worldIn.isRemote) {
+                NetWorkLoader.net.sendTo(new PacketOpenPathBoxGui(new V3(pos, playerIn.dimension)), (EntityPlayerMP) playerIn);
+            }
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];
+            ModSimLoader.log.error("路径箱onBlockActivated出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            return false;
+        }
+        return true;
+    }
 
+    /**
+     * 掉落数量为0，方块敲了就消失
+     * @param random
+     * @return
+     */
+    @Override
+    public int quantityDropped(Random random) {
+        return 0;
+    }
 }

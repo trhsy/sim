@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/fluid_milk",
+  "parent": "sim:block/flowing_milk",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

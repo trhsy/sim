@@ -2,6 +2,7 @@ package com.trhsy.sim.entity.render;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityFolk;
+import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.entity.util.NpcIdentity;
@@ -19,15 +20,16 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * @author Trhsy
@@ -49,13 +51,24 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
     protected ResourceLocation getEntityTexture(@Nonnull EntityFolk entity) {
         ResourceLocation myTexture=null;
         try{
-            String cfi = ModSimClientLoader.getPathFromUUID(entity.getUniqueID());
-            if(!StringUtils.isNullOrEmpty(cfi)){
-                return new ResourceLocation(ModSim.MODID, "skins/" + cfi);
+            NpcIdentity cfi=ModSimClientLoader.getFolkByUUID(entity.getUniqueID());
+            if(cfi!=null&& StringUtils.isNotEmpty(cfi.skinPath)){
+                /*Iterator iterator=ModSimLoader.folkSkins.iterator();
+                NpcSkin skin;
+                do {
+                    if (!iterator.hasNext()) {
+                        ModSimLoader.folkSkins.add(new NpcSkin(entity.getUniqueID().toString(),cfi.skinPath));
+                        myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
+                        return myTexture;
+                    }
+                    skin = (NpcSkin)iterator.next();
+                }while(!skin.skinPath.contentEquals(cfi.skinPath));*/
+                myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
+                return myTexture;
             }else{
                 String gend = "";
                 //女
-                if (entity.theData.gender == 0) {
+                if (new Random().nextInt(2) == 0) {
                     gend = "male0.png";
                 } else {
                     gend = "female0.png";
@@ -63,13 +76,14 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/" + gend);
                 return myTexture;
             }
+
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("渲染实体出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             try {
                 String gend = "";
                 //女
-                if (entity.theData.gender == 0) {
+                if (new Random().nextInt(2) == 0) {
                     gend = "male0.png";
                 } else {
                     gend = "female0.png";

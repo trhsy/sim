@@ -18,8 +18,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @date 2022/10/13 9:38
  */
 public class PacketSendFolkSkin implements IMessage {
-    private String uuid = "";
-    private String path = "";
+    private String uuid;
+    private String path;
 
     public PacketSendFolkSkin() {
     }
@@ -31,15 +31,13 @@ public class PacketSendFolkSkin implements IMessage {
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        String read = ByteBufUtils.readUTF8String(buf);
-        String name = read.substring(0, read.indexOf("|"));
-        String value = read.substring(read.indexOf("|") + 1);
-        this.uuid = name;
-        this.path = value;
+        this.uuid = ByteBufUtils.readUTF8String(buf);
+        this.path = ByteBufUtils.readUTF8String(buf);;
     }
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.uuid + "|" + this.path);
+        ByteBufUtils.writeUTF8String(buf, this.uuid);
+        ByteBufUtils.writeUTF8String(buf, this.path);
     }
 
     public static class Handler implements IMessageHandler<PacketSendFolkSkin, IMessage> {

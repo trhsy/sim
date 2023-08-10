@@ -124,7 +124,7 @@ public class JobMcDonald extends Job{
                     this.stage = 5;
                 } else if (this.stage == 5) {
                     //售卖/关店
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, I18n.format("container.sim.job.Baker_bread")));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, I18n.format("container.sim.job.Grocer1")));
                     this.stage = 6;
                 } else if (this.stage == 6) {
                     //在去工作途中，并且已经到了工作位置则更新状态

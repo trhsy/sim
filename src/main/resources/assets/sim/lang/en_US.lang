@@ -752,7 +752,7 @@ container.sim.Markers4=TIP: remove old markers after use, before marking a new a
 container.sim.Markers5=Please type a name for this Courier/Beaming point
 container.sim.Markers6=Error: Place at least one chest near the marker.
 
-container.sim.Markers7=Error: The name must be unique,'
+container.sim.Markers7=Error: The address must be unique,'
 container.sim.Markers8=' is already used.
 container.sim.Markers9=Courier/Beaming point'
 container.sim.Markers10=' has been added.
@@ -990,7 +990,7 @@ container.sim.FolkData.Grocery_store=grocery store
 container.sim.FolkData.cinema=cinema
 container.sim.FolkData.railway_station=railway station
 container.sim.this_Building_idea=The building function is under development...
-
+container.sim.job.Baker_Baking_per=Making beer
 container.sim.Fire=Fire
 container.sim.Dismiss=Dismiss
 

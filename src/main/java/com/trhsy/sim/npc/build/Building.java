@@ -111,7 +111,7 @@ public class Building {
                     V3 pos = (V3)fs_blockSpecial.next();
                     writer.write(pos.toString() + ";");
                 }
-                writer.write("structure|");
+                writer.write("\nstructure|");
                 Iterator var4 = this.structure.iterator();
 
                 while(var4.hasNext()) {
@@ -317,16 +317,16 @@ public class Building {
                     newmeta = is.getMetadata();
                     if (newmeta == 0) {
                         newmeta = 1;
-                        facing=EnumFacing.NORTH;
+                        facing=EnumFacing.SOUTH;
                     } else if (newmeta == 1) {
                         newmeta = 2;
-                        facing=EnumFacing.SOUTH;
+                        facing=EnumFacing.WEST;
                     } else if (newmeta == 2) {
                         newmeta = 3;
-                        facing=EnumFacing.WEST;
+                        facing=EnumFacing.EAST;
                     } else if (newmeta == 3) {
                         newmeta = 0;
-                        facing=EnumFacing.EAST;
+                        facing=EnumFacing.NORTH;
                     }
                     world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
 //                    world.setBlockMetadataWithNotify(blockLoc.x.intValue(), blockLoc.y.intValue(), blockLoc.z.intValue(), newmeta, 3);
@@ -334,19 +334,19 @@ public class Building {
                 //火把
                 if(Block.getBlockFromItem(is.getItem()) instanceof BlockTorch){
                     newmeta = is.getMetadata();
-                    facing= EnumFacing.UP;
+                    facing= EnumFacing.NORTH;
                     if (newmeta == 1) {
                         newmeta = 2;
-                        facing=EnumFacing.NORTH;
+                        facing=EnumFacing.SOUTH;
                     } else if (newmeta == 2) {
                         newmeta = 3;
-                        facing=EnumFacing.SOUTH;
+                        facing=EnumFacing.WEST;
                     } else if (newmeta == 3) {
                         newmeta = 4;
-                        facing=EnumFacing.WEST;
+                        facing=EnumFacing.EAST;
                     } else if (newmeta == 4) {
                         newmeta = 1;
-                        facing=EnumFacing.EAST;
+                        facing=EnumFacing.NORTH;
                     }
                     world.setBlockState(blockPos,id.getDefaultState().withProperty(BlockWallSign.FACING, facing),3);
                 }

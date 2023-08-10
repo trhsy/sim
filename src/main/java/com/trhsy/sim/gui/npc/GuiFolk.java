@@ -38,9 +38,14 @@ public class GuiFolk extends GuiScreen {
     String hungerStatus;
     //种族
     String folkRaceName;
+
     String folkTrait1;
     String folkTrait2;
     String folkTrait3;
+
+    String folkTraitDesc1;
+    String folkTraitDesc2;
+    String folkTraitDesc3;
     //关系数据
     String relationshipData;
     //建筑等级
@@ -64,6 +69,9 @@ public class GuiFolk extends GuiScreen {
         this.folkTrait1 = message.folkTrait1;
         this.folkTrait2 = message.folkTrait2;
         this.folkTrait3 = message.folkTrait3;
+        this.folkTraitDesc1 = message.folkTraitDesc1;
+        this.folkTraitDesc2 = message.folkTraitDesc2;
+        this.folkTraitDesc3 = message.folkTraitDesc3;
         this.relationshipData = message.relationshipData;
         this.building = message.building;
         this.farming = message.farming;
@@ -211,11 +219,12 @@ public class GuiFolk extends GuiScreen {
             fontRendererObj.drawString(theFolk.environmentStatus, this.width / 2, 50, 0x000080);*/
         }else if (this.page == 3) {
             int left = this.width / 2 - 120;
-
             fontRendererObj.drawString(this.folkTrait1, left, 30, 0x000000);
+            fontRendererObj.drawString(this.folkTraitDesc1, left, 40, 0x000000);
             fontRendererObj.drawString(this.folkTrait2, left, 50, 0x000000);
+            fontRendererObj.drawString(this.folkTraitDesc2, left, 60, 0x000000);
             fontRendererObj.drawString(this.folkTrait3, left, 70, 0x000000);
-
+            fontRendererObj.drawString(this.folkTraitDesc3, left, 80, 0x000000);
         }
 
         super.drawScreen(i, j, f);

@@ -326,6 +326,7 @@ container.sim.job.Baker_Fetching=从农场取小麦
 container.sim.job.Baker_Collecting=收集小麦
 container.sim.job.Baker_Taking=把小麦带回面包店
 container.sim.job.Baker_Baking_Sugar=制作糖
+container.sim.job.Baker_Baking_per=制作啤酒
 container.sim.job.Baker_Baking_bread=烤面包
 container.sim.job.Baker_Baking=烘烤
 container.sim.job.Baker_bread=面包
@@ -752,7 +753,7 @@ container.sim.Markers4=提示：使用后,在标记新区域之前,移除旧标�
 container.sim.Markers5=请输入此快递点/发送点的名称
 container.sim.Markers6=错误：将至少一个箱子靠近标记。
 
-container.sim.Markers7=错误：名称必须是唯一的,'
+container.sim.Markers7=错误：地址必须是唯一的,'
 container.sim.Markers8=' 已被使用。
 container.sim.Markers9=添加了快递点/传送点'
 container.sim.Markers10='.

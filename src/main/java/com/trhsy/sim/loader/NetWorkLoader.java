@@ -100,8 +100,8 @@ public class NetWorkLoader {
         registerMessage(PacketOpenMerchantsGui.Handler.class,PacketOpenMerchantsGui.class,Side.CLIENT);
         //花店
         registerMessage(PacketOpenFlowerGui.Handler.class,PacketOpenFlowerGui.class,Side.CLIENT);
-
-
+        //路径箱
+        registerMessage(PacketOpenPathBoxGui.Handler.class,PacketOpenPathBoxGui.class,Side.CLIENT);
     }
     /**
      *

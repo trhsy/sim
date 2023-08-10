@@ -20,17 +20,18 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         ModSimLoader.log = event.getModLog();
-        //BuildingsExtractor.extractBuildings(new File(ModSimLoader.getSimFolder()));
+        BuildingsExtractor.extractBuildings(new File(ModSimLoader.getSimFolder()));
         /**配置**/
         ConfigLoader.load(event);
         /**创造模式物品栏**/
         new CreativeTabsLoader(event);
+        /**流体加载注册**/
+        new FluidLoader(event);
         /**物品加载注册**/
         new ItemLoader(event);
         /**方块加载注册**/
         new BlockLoader(event);
-        /**流体加载注册**/
-        new FluidLoader(event);
+
         /**方块对应物品的渲染**/
         new ItemRenderLoader();
         /**启动通讯**/

@@ -5,10 +5,7 @@ import com.trhsy.sim.item.*;
 import com.trhsy.sim.item.ItemBucketMilk;
 import com.trhsy.sim.item.armor.ItemCopperArmor;
 import com.trhsy.sim.item.armor.ItemTinArmor;
-import com.trhsy.sim.item.food.ItemBurger;
-import com.trhsy.sim.item.food.ItemCheese;
-import com.trhsy.sim.item.food.ItemCheeseburger;
-import com.trhsy.sim.item.food.ItemFries;
+import com.trhsy.sim.item.food.*;
 import com.trhsy.sim.item.granules.*;
 import com.trhsy.sim.item.tool.*;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -99,6 +96,13 @@ public class ItemLoader {
     /**模拟城市启动卷轴**/
     public static Item itemSimULoader=new ItemSimULoader();
     /**
+     * 啤酒
+     */
+    public static Item itemDrink=new ItemDrink();
+    //啤酒瓶
+    public static Item itemDrinkEmpty=new ItemDrinkEmpty();
+
+    /**
      * 加载物品
      *
      * @param event
@@ -174,6 +178,11 @@ public class ItemLoader {
 
             /**模拟城市启动卷轴**/
             register(itemSimULoader, "item_sim_u_loader");
+            /**啤酒**/
+            register(itemDrink, "drinks");
+            /**啤酒瓶**/
+            register(itemDrinkEmpty, "beer_bottle");
+
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
@@ -276,6 +285,10 @@ public class ItemLoader {
             registerRender(itemBucketMilk);
             /**模拟城市启动卷轴**/
             registerRender(itemSimULoader);
+            /**啤酒**/
+            registerRender(itemDrink);
+            /**啤酒瓶**/
+            registerRender(itemDrinkEmpty);
         }catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

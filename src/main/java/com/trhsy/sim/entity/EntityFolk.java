@@ -52,8 +52,8 @@ public class EntityFolk extends EntityCreature implements INpc {
     /**
      * NPC数据
      **/
-    public NpcData theData = null;
-    public RenderEntityFolk renderEntityFolk = null;
+    public NpcData theData;
+    public RenderEntityFolk renderEntityFolk;
     /**
      * 正在创建
      **/
@@ -65,7 +65,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         try {
             if (!worldIn.isRemote && ModSimLoader.hasLoadedFolks) {
                 //没加载，毁灭吧
-                this.setDead();
+                //this.setDead();
             }
             //会捡起地上的东西
 //        this.setCanPickUpLoot(true);
@@ -356,8 +356,9 @@ public class EntityFolk extends EntityCreature implements INpc {
                         }
                     }
                 }else{
+                    return false;
                     //等于空死亡
-                    this.setDead();
+                    //this.setDead();
                 }
             }
 
