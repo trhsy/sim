@@ -315,6 +315,10 @@ public class GuiBlockControllerBlock extends GuiScreen {
                     String employeeName="";
                     for (int k = 0; k < this.occupants.size(); k++) {
                         NpcData npcData = this.occupants.get(k);
+                        if(npcData==null){
+                            this.occupants.remove(i);
+                            break;
+                        }
                         employeeName+= npcData.getName()+";";
                     }
                     employeeName=employeeName.substring(0,employeeName.length()-1);

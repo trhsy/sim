@@ -418,7 +418,7 @@ public class JobBuilder extends Job {
                 this.controllerPos = newBP;
                 //生活方块地毯
             } else if (fs_st_block == BlockLoader.blockLiving) {
-                this.livingPos = newBP;
+                this.livingPos = new BlockPos(newBP.getX(),newBP.getY()-0.5,newBP.getZ());
             }
             if(fs_st_block==BlockLoader.blockSpecial){
                 V3 v3 = new V3(newBP.getX(),newBP.getY(), newBP.getZ(),fs_st_block,fs_structure.getMeta());
@@ -453,7 +453,7 @@ public class JobBuilder extends Job {
                     this.controllerPos = newBP;
                     //生活方块地毯
                 } else if (fs_st_block == BlockLoader.blockLiving) {
-                    this.livingPos = newBP;
+                    this.livingPos = new BlockPos(newBP.getX(),newBP.getY()-0.5,newBP.getZ());
 //                st = Blocks.AIR.getDefaultState();
                 }
                 //是否是普通的块

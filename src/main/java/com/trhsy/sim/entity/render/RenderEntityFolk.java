@@ -66,14 +66,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
                 return myTexture;
             }else{
-                String gend = "";
-                //女
-                if (new Random().nextInt(2) == 0) {
-                    gend = "male0.png";
-                } else {
-                    gend = "female0.png";
-                }
-                myTexture = new ResourceLocation(ModSim.MODID, "skins/" + gend);
+                myTexture = new ResourceLocation(ModSim.MODID, "skins/male0.png");
                 return myTexture;
             }
 

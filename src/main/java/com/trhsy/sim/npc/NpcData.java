@@ -1247,7 +1247,7 @@ public class NpcData {
                 } else if (ModSimLoader.isDayTime(this.entity.worldObj)) {
                     this.pickRandomTask();
                 } else {
-                    if (this.home != null) {
+                    if (this.home != null&&!this.isAtBuilding(this.home)) {
                         this.stayPut = true;
                         TaskGoTo taskGoTo=new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, I18n.format("container.sim.folk_data_Going_home"));
                         if (!this.isAtBuilding(this.home)&&!this.tasks.contains(taskGoTo)) {

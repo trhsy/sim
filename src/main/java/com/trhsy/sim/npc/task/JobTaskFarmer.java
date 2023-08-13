@@ -56,11 +56,46 @@ public class JobTaskFarmer extends JobTask {
         this.status = status;
         this.noNeed = 0;
         this.farm=farm;
+        this.stage=1;
     }
 
     @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
+        //锄地
+        if (this.stage == 1) {
+            this.hoe();
+            //种植
+        } else if (this.stage == 2) {
+            this.plant();
+            //收获
+        } else if (this.stage == 3) {
+            this.harvest();
+            //等待
+        } else if (this.stage == 4) {
+            Random ra = new Random();
+            int r = ra.nextInt(2);
+            if (r == 0) {
+                //在公众号'dasha500'找作者玩
+                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
+                if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                    this.growCheck = System.currentTimeMillis();
+                    grow();
+                }
+            } else if (r == 1) {
+                //照料作物
+                this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending") + "," + this.farm.farmType);
+                //用骨粉快速生长作物
+                if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                    this.growCheck = System.currentTimeMillis();
+                    grow();
+                }
+            }
+        } else if (this.stage == 0) {
+            this.stage = 3;
+        } else if (this.stage == -1) {
+            this.stage = 0;
+        }
     }
 
     @Override
@@ -83,16 +118,16 @@ public class JobTaskFarmer extends JobTask {
                 // 等级 时间计算 工作效率
                 if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming || falg) {
                     //锄地
-                    if (this.job.stage == 1) {
+                    if (this.stage == 1) {
                         this.hoe();
                         //种植
-                    } else if (this.job.stage == 2) {
+                    } else if (this.stage == 2) {
                         this.plant();
                         //收获
-                    } else if (this.job.stage == 3) {
+                    } else if (this.stage == 3) {
                         this.harvest();
                         //等待
-                    } else if (this.job.stage == 4) {
+                    } else if (this.stage == 4) {
                         Random ra = new Random();
                         int r = ra.nextInt(2);
                         if (r == 0) {
@@ -111,10 +146,10 @@ public class JobTaskFarmer extends JobTask {
                                 grow();
                             }
                         }
-                    } else if (this.job.stage == 0) {
-                        this.job.stage = 3;
-                    } else if (this.job.stage == -1) {
-                        this.job.stage = 0;
+                    } else if (this.stage == 0) {
+                        this.stage = 3;
+                    } else if (this.stage == -1) {
+                        this.stage = 0;
                     }
                 }
 
@@ -126,7 +161,7 @@ public class JobTaskFarmer extends JobTask {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-onUpdate出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.job.stage = 4;
+            this.stage = 4;
         }
     }
 
@@ -289,7 +324,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
-                this.job.stage = 2;
+                this.stage = 2;
                 //仙人掌
             } else if (farmType == FarmType.CACTUS) {
                 //循环农场的宽
@@ -334,7 +369,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
-                this.job.stage = 2;
+                this.stage = 2;
                 //未知的可可豆
             } else if (farmType == FarmType.COCOA) {
                 for (int z = 0; z < this.farm.z; ++z) {
@@ -377,7 +412,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
-                this.job.stage = 2;
+                this.stage = 2;
             } else {
                 //循环农场的宽
                 hoe1();
@@ -385,7 +420,7 @@ public class JobTaskFarmer extends JobTask {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-hoe出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.job.stage = 4;
+            this.stage = 4;
         }
     }
 
@@ -463,11 +498,11 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
             }
-            this.job.stage = 2;
+            this.stage = 2;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-hoe1出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.job.stage = 4;
+            this.stage = 4;
         }
     }
 
@@ -543,10 +578,10 @@ public class JobTaskFarmer extends JobTask {
                                 if (seed == null) {
                                     //没有种子
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.no_seeds"));
-                                    this.job.stage = 2;
+                                    this.stage = 2;
                                     this.noNeed++;
                                     if (this.noNeed / 10 == 1) {
-                                        this.job.stage = 4;
+                                        this.stage = 4;
                                     }
                                     return;
                                 }
@@ -590,7 +625,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
-                this.job.stage = 4;
+                this.stage = 4;
                 //仙人掌
             } else if (farmType == FarmType.CACTUS) {
                 //循环农场的宽
@@ -633,10 +668,10 @@ public class JobTaskFarmer extends JobTask {
                                 if (seed == null) {
                                     //没有种子
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.no_seeds"));
-                                    this.job.stage = 2;
+                                    this.stage = 2;
                                     this.noNeed++;
                                     if (this.noNeed / 10 == 1) {
-                                        this.job.stage = 4;
+                                        this.stage = 4;
                                     }
                                     return;
                                 }
@@ -679,7 +714,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
-                this.job.stage = 4;
+                this.stage = 4;
                 //可可豆
             } else if (farmType == FarmType.COCOA) {
                 //未知的
@@ -716,10 +751,10 @@ public class JobTaskFarmer extends JobTask {
                                 if (seed == null) {
                                     //没有种子
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.no_seeds"));
-                                    this.job.stage = 2;
+                                    this.stage = 2;
                                     this.noNeed++;
                                     if (this.noNeed / 10 == 1) {
-                                        this.job.stage = 4;
+                                        this.stage = 4;
                                     }
                                     return;
                                 }
@@ -779,14 +814,14 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
-                this.job.stage = 4;
+                this.stage = 4;
             } else {
                 plant1(null);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-plant出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.job.stage = 4;
+            this.stage = 4;
         }
 
     }
@@ -830,11 +865,11 @@ public class JobTaskFarmer extends JobTask {
                     if (seed == null) {
                         //没有种子
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.no_seeds"));
-                        this.job.stage = 2;
+                        this.stage = 2;
                         this.noNeed++;
                         if (this.noNeed / 10 == 1) {
                             this.noNeed = 0;
-                            this.job.stage = 4;
+                            this.stage = 4;
                         }
                         return;
                     }
@@ -944,11 +979,11 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
             }
-            this.job.stage = 4;
+            this.stage = 4;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-plant1出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.job.stage = 4;
+            this.stage = 4;
         }
     }
 
@@ -1008,11 +1043,11 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
             }
-            this.job.stage = 3;
+            this.stage = 3;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-grow出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.job.stage = 3;
+            this.stage = 3;
         }
     }
 
@@ -1078,7 +1113,7 @@ public class JobTaskFarmer extends JobTask {
 
                         }
                     }
-                    this.job.stage = 1;
+                    this.stage = 1;
 //            harvest1();
                     //土豆
                 } else if (farmType == FarmType.POTATO) {
@@ -1127,7 +1162,7 @@ public class JobTaskFarmer extends JobTask {
 
                         }
                     }
-                    this.job.stage = 1;
+                    this.stage = 1;
                     //小麦
                 } else if (farmType == FarmType.WHEAT) {
                     harvest1();
@@ -1185,7 +1220,7 @@ public class JobTaskFarmer extends JobTask {
                             }
                         }
                     }
-                    this.job.stage = 1;
+                    this.stage = 1;
                     //未知的
                 } else {
                     harvest1();
@@ -1312,12 +1347,12 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
             }
-            this.job.stage = 1;
+            this.stage = 1;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
 
             ModSimLoader.log.error("JobFarmer-harvest1出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.job.stage = 1;
+            this.stage = 1;
         }
     }
 

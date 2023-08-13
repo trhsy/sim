@@ -63,7 +63,7 @@ public class PacketGetHireableFolks implements IMessage {
         }
 
         private void handle(PacketGetHireableFolks message, MessageContext ctx) {
-            ModSimLoader.log.info("向客户端发送数据包");
+            //ModSimLoader.log.info("获取可以受雇佣的人，向客户端发送数据包");
             NetWorkLoader.net.sendTo(new PacketReturnHireableFolks(), ctx.getServerHandler().playerEntity);
         }
     }

@@ -87,6 +87,7 @@ public class PacketReturnHireableFolks implements IMessage {
         private void handle(PacketReturnHireableFolks message, MessageContext ctx) {
             ModSimClientLoader.tempHireableNpcNames.clear();
             ModSimClientLoader.tempHireableNpcNames = message.folkNames;
+            //ModSimLoader.log.info("获取可以受雇佣的人，客户端收到数据包，并处理");
         }
     }
 }
