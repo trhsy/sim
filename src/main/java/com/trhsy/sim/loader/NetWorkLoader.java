@@ -53,9 +53,12 @@ public class NetWorkLoader {
         registerMessage(PacketUpdateFarmBox.Handler.class,PacketUpdateFarmBox.class,Side.SERVER);
         //采矿箱更新
         registerMessage(PacketUpdateMineBox.Handler.class,PacketUpdateMineBox.class,Side.SERVER);
-
+        //买卖
         registerMessage(PacketBuyStuff.Handler.class,PacketBuyStuff.class,Side.SERVER);
         registerMessage(PacketSellStuff.Handler.class,PacketSellStuff.class,Side.SERVER);
+        //生成npc
+        registerMessage(PacketNewFolk.Handler.class,PacketNewFolk.class,Side.SERVER);
+
     }
 
     /**

@@ -4,6 +4,8 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityFolk;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
+import com.trhsy.sim.network.server.PacketFireFolk;
+import com.trhsy.sim.network.server.PacketNewFolk;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.block.MineBox;
 import com.trhsy.sim.npc.build.Building;
@@ -325,7 +327,8 @@ public class EventLoader {
                             World world = mc.theWorld;
                             if (event.world.playerEntities.size() > 0 || (world != null && world.playerEntities.size() > 0)) {
                                 ModSimLoader.log.info("所有人都有住宅，开始生成新的NPC");
-                                new NpcData(event.world, false);
+//                                new NpcData(event.world, false);
+                                NetWorkLoader.net.sendToServer(new PacketNewFolk(false));
                             }
                         }
                         this.minuteTimer = System.currentTimeMillis();

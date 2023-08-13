@@ -277,6 +277,7 @@ public class NpcData {
             this.saveFolk();
             this.isLoaded = true;
             ModSimLoader.folks.add(this);
+            ModSimLoader.log.info("开始生成新的NPC"+fromCommand);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("NpcData出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

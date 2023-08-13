@@ -2,6 +2,7 @@ package com.trhsy.sim.commands;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.server.PacketNewFolk;
 import com.trhsy.sim.npc.NpcData;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
@@ -49,7 +50,8 @@ public class CommandGenerateFolk implements ICommand {
         try {
             if (args.length == 0) {
                 ModSimLoader.log.info("获得重生NPC命令");
-                this.theFolk = new NpcData(sender.getEntityWorld(), true);
+//                this.theFolk = new NpcData(sender.getEntityWorld(), true);
+                NetWorkLoader.net.sendToServer(new PacketNewFolk(true));
                 //GenerateFolkPacket generateFolkPacket=new GenerateFolkPacket();
                 //generateFolkPacket.nbt = new NBTTagCompound();
                 //generateFolkPacket.nbt.setBoolean("NPC_Packet",true);

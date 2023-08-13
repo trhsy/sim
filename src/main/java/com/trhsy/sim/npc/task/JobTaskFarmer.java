@@ -101,7 +101,7 @@ public class JobTaskFarmer extends JobTask {
     @Override
     public void onUpdate() {
         try {
-
+            ModSimLoader.log.info("农民任务检查："+System.currentTimeMillis());
             //收获检查
             this.harvestCheck = System.currentTimeMillis();
             if (ModSimLoader.money > 0.02F) {
