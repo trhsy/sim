@@ -9,11 +9,11 @@ pos|-327.0,4.0,-1065.0,0
 trait1|夜猫子
 trait2|勇敢的
 trait3|强壮的
-hunger|9
+hunger|8
 buildingskill|1.0
 farmingskill|1.0
 holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|734a2a4d-14a5-49d2-ba3a-26e6620b241b,UNRELATED,DESPISE,9
+relationship|734A2A4D-14A5-49D2-BA3A-26E6620B241B,UNRELATED,AQUAINTANCE,0

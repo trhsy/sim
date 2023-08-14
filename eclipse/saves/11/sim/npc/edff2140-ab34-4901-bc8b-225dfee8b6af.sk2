@@ -9,11 +9,11 @@ pos|-349.0,4.0,-1056.0,0
 trait1|强壮的
 trait2|工作狂
 trait3|矮人血脉
-hunger|9
+hunger|8
 buildingskill|1.0
 farmingskill|1.0
 holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|3f11498e-d1de-432c-a2c1-47ec34db6b79,UNRELATED,DISLIKE,6
+relationship|3F11498E-D1DE-432C-A2C1-47EC34DB6B79,UNRELATED,DESPISE,5

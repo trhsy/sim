@@ -9,11 +9,11 @@ pos|-315.0,4.0,-1064.0,0
 trait1|擅长园艺
 trait2|矮人血脉
 trait3|喜欢户外活动
-hunger|10
+hunger|9
 buildingskill|1.0
 farmingskill|1.0
 holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|05515615-1920-46bb-941a-72b8a774c0e8,UNRELATED,GOODFRIEND,3
+relationship|05515615-1920-46BB-941A-72B8A774C0E8,SPOUSE,BESTFRIENDS,9

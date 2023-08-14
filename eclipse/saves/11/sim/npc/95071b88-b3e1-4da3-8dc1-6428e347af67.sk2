@@ -9,11 +9,11 @@ pos|-341.0,4.0,-1050.0,0
 trait1|矮人血脉
 trait2|夜猫子
 trait3|友善的
-hunger|9
+hunger|8
 buildingskill|1.0
 farmingskill|1.0
 holding|
 employedat|null
 job|null
 jobstage|-1
-relationship|b655bf70-1f23-45f5-acbf-fc9b69d1e98f,SPOUSE,GOODFRIEND,9
+relationship|B655BF70-1F23-45F5-ACBF-FC9B69D1E98F,SPOUSE,GOODFRIEND,8

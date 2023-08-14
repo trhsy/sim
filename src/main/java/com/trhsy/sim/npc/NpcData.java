@@ -1265,7 +1265,7 @@ public class NpcData {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("NPCData-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

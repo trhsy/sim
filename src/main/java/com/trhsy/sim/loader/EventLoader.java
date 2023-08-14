@@ -305,9 +305,10 @@ public class EventLoader {
                         //已重生
                         boolean spawnNew = true;
                         for (NpcData starve : ModSimLoader.folks) {
-                            if (starve.entity == null) {
-                                starve.loadFolk(event.world, UUID.fromString(starve.ID));
-                            }
+                            //if (starve.entity == null) {
+                            //    NpcData npcData = new NpcData(event.world, UUID.fromString(starve.ID));
+                            //    //starve.loadFolk(event.world, UUID.fromString(starve.ID));
+                            //}
                             //判断是否已死亡
                             if (starve.isDead) {
                                 //若有房子异常房子
@@ -317,7 +318,7 @@ public class EventLoader {
                                 }
                                 starve.onDeath(DamageSource.generic);
                             } else if (starve.home == null) {
-                                if(starve.age>starve.race.maturity){
+                                if(starve.race!=null&&starve.age>starve.race.maturity){
                                     //只要有一个人没有住到房子里就不生成新的人
                                     spawnNew = false;
                                 }
@@ -445,9 +446,12 @@ public class EventLoader {
             }
             //实时更新人的状态
             if (!event.world.isRemote) {
-                for (NpcData f : ModSimLoader.folks) {
-                    f.onUpdate();
-                }
+                //Thread s = new Thread(() -> {
+                    for (NpcData f : ModSimLoader.folks) {
+                        f.onUpdate();
+                    }
+                //});
+                //s.start();
             }
             //停止下雨MOD-在我的世界里一直下雨的时候实现了这个！
             if (event.world != null) {

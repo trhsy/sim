@@ -101,7 +101,7 @@ public class JobTaskFarmer extends JobTask {
     @Override
     public void onUpdate() {
         try {
-            ModSimLoader.log.info("农民任务检查："+System.currentTimeMillis());
+            //ModSimLoader.log.info("农民任务检查："+System.currentTimeMillis());
             //收获检查
             this.harvestCheck = System.currentTimeMillis();
             if (ModSimLoader.money > 0.02F) {
@@ -113,7 +113,7 @@ public class JobTaskFarmer extends JobTask {
                 }
                 boolean falg = false;
                 if (ModSimLoader.gamemode == 1) {
-                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F- 100.0F*9;
+                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F- 100.0F*10;
                 }
                 // 等级 时间计算 工作效率
                 if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming || falg) {
@@ -201,6 +201,7 @@ public class JobTaskFarmer extends JobTask {
      **/
     public void hoe() {
         try {
+            ModSimLoader.log.info("农民任务检查："+System.currentTimeMillis());
             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
             //先获取农田箱的 类型
             FarmType farmType = this.farm.farmType;
@@ -433,6 +434,7 @@ public class JobTaskFarmer extends JobTask {
      **/
     public void hoe1() {
         try {
+            ModSimLoader.log.info("农民任务检查hoe1："+System.currentTimeMillis());
             //循环农场的宽
             for (int z = 0; z < this.farm.z; ++z) {
                 //循环长
