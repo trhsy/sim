@@ -7,9 +7,7 @@ import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.build.Building;
-import com.trhsy.sim.npc.task.JobTaskFarmer;
-import com.trhsy.sim.npc.task.JobTaskIdle;
-import com.trhsy.sim.npc.task.JobTaskShopkeep;
+import com.trhsy.sim.npc.task.*;
 import com.trhsy.sim.task.JobTask;
 import com.trhsy.sim.util.FarmType;
 import net.minecraft.block.*;
@@ -77,8 +75,20 @@ public class JobFarmer extends Job {
                     this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
                 } else if (this.stage == 1) {
                     this.stage = 2;
-                    //服务客户
+                    //锄地
                     this.addJobTask(new JobTaskFarmer(this, -1L, I18n.format("container.sim.job.livestock.farmer.Starting"),this.farm));
+                } else if (this.stage == 2) {
+                    this.stage = 3;
+                    //种植
+                    this.addJobTask(new JobTaskFarmerPlant(this, -1L, I18n.format("container.sim.job.livestock.farmer.Starting"),this.farm));
+                } else if (this.stage == 3) {
+                    this.stage = 4;
+                    //等待
+                    this.addJobTask(new JobTaskFarmerGrow(this, -1L, I18n.format("container.sim.job.livestock.farmer.Starting"),this.farm));
+                } else if (this.stage == 4) {
+                    this.stage = 5;
+                    //收获
+                    this.addJobTask(new JobTaskFarmerHarvest(this, -1L, I18n.format("container.sim.job.livestock.farmer.Starting"),this.farm));
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {
                         this.currentTask = (JobTask) this.jobTasks.get(0);

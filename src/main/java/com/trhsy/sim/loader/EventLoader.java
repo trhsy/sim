@@ -328,8 +328,8 @@ public class EventLoader {
                             World world = mc.theWorld;
                             if (event.world.playerEntities.size() > 0 || (world != null && world.playerEntities.size() > 0)) {
                                 ModSimLoader.log.info("所有人都有住宅，开始生成新的NPC");
-//                                new NpcData(event.world, false);
-                                NetWorkLoader.net.sendToServer(new PacketNewFolk(false));
+                                new NpcData(event.world, false);
+//                                NetWorkLoader.net.sendToServer(new PacketNewFolk(false));
                             }
                         }
                         this.minuteTimer = System.currentTimeMillis();
@@ -447,9 +447,13 @@ public class EventLoader {
             //实时更新人的状态
             if (!event.world.isRemote) {
                 //Thread s = new Thread(() -> {
-                    for (NpcData f : ModSimLoader.folks) {
-                        f.onUpdate();
-                    }
+                for (int i = 0; i <ModSimLoader.folks.size() ; i++) {
+                    NpcData f=ModSimLoader.folks.get(i);
+                    f.onUpdate();
+                }
+//                    for (NpcData f : ModSimLoader.folks) {
+//                        f.onUpdate();
+//                    }
                 //});
                 //s.start();
             }
