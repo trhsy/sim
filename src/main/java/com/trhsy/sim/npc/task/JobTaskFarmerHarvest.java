@@ -69,7 +69,7 @@ public class JobTaskFarmerHarvest extends JobTask {
         try {
             //ModSimLoader.log.info("农民任务检查："+System.currentTimeMillis());
             //收获检查
-            this.harvestCheck = System.currentTimeMillis();
+            //this.harvestCheck = System.currentTimeMillis();
             if (ModSimLoader.money > 0.02F) {
                 //周围五格内查找箱子
                 if (this.job.jobChests == null) {

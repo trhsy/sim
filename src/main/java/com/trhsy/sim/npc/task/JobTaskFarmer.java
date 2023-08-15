@@ -69,10 +69,12 @@ public class JobTaskFarmer extends JobTask {
     @Override
     public void onUpdate() {
         try {
-            //ModSimLoader.log.info("农民任务检查："+System.currentTimeMillis());
+            //ModSimLoader.log.info("农民任务检查onUpdate："+System.currentTimeMillis());
             //收获检查
-            this.harvestCheck = System.currentTimeMillis();
+            //this.harvestCheck = System.currentTimeMillis();
+
             if (ModSimLoader.money > 0.02F) {
+                //ModSimLoader.log.info("农民任务检查onUpdate-money："+ModSimLoader.money);
                 //周围五格内查找箱子
                 if (this.job.jobChests == null) {
                     //没有箱子
@@ -138,7 +140,7 @@ public class JobTaskFarmer extends JobTask {
      **/
     public void hoe() {
         try {
-            ModSimLoader.log.info("农民任务检查：" + System.currentTimeMillis());
+            //ModSimLoader.log.info("农民任务检查：" + System.currentTimeMillis());
             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
             //先获取农田箱的 类型
             FarmType farmType = this.farm.farmType;
@@ -262,6 +264,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
+                this.completed = true;
                 this.stage = 2;
                 //仙人掌
             } else if (farmType == FarmType.CACTUS) {
@@ -307,6 +310,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
+                this.completed = true;
                 this.stage = 2;
                 //未知的可可豆
             } else if (farmType == FarmType.COCOA) {
@@ -350,6 +354,7 @@ public class JobTaskFarmer extends JobTask {
                         }
                     }
                 }
+                this.completed = true;
                 this.stage = 2;
             } else {
                 //循环农场的宽
@@ -371,7 +376,7 @@ public class JobTaskFarmer extends JobTask {
      **/
     public void hoe1() {
         try {
-            ModSimLoader.log.info("农民任务检查hoe1：" + System.currentTimeMillis());
+            //ModSimLoader.log.info("农民任务检查hoe1：" + System.currentTimeMillis());
             //循环农场的宽
             for (int z = 0; z < this.farm.z; ++z) {
                 //循环长
@@ -437,6 +442,7 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
             }
+            this.completed = true;
             this.stage = 2;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

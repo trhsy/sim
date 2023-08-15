@@ -67,7 +67,7 @@ public class JobTaskFarmerPlant extends JobTask {
         try {
 //ModSimLoader.log.info("农民任务检查："+System.currentTimeMillis());
             //收获检查
-            this.harvestCheck = System.currentTimeMillis();
+            //this.harvestCheck = System.currentTimeMillis();
             if (ModSimLoader.money > 0.02F) {
                 //周围五格内查找箱子
                 if (this.job.jobChests == null) {
@@ -489,6 +489,7 @@ public class JobTaskFarmerPlant extends JobTask {
                         if (this.noNeed / 10 == 1) {
                             this.noNeed = 0;
                             this.stage = 4;
+                            this.completed = true;
                         }
                         return;
                     }

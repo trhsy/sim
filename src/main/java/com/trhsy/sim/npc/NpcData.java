@@ -207,6 +207,7 @@ public class NpcData {
 
     public NpcData(World world, boolean fromCommand) {
         try {
+            ModSimLoader.log.info("开始生成新的NPC1"+fromCommand);
             //手持空
             this.holding = null;
             //交配阶段 没有需求
@@ -225,13 +226,15 @@ public class NpcData {
             this.gender = new Random().nextInt(2);
             /**皮肤随机*/
             this.skinnumber = new Random().nextInt(64) + 1;
+
             //种族分配
             this.assignRace();
+            ModSimLoader.log.info("开始生成新的NPC2"+fromCommand);
             /**年龄**/
             this.age = this.race.maturity;
             //特征
             generateTraits();
-
+            ModSimLoader.log.info("开始生成新的NPC3"+fromCommand);
             EntityFolk e = new EntityFolk(world, true);
             e.isBeingCreated = true;
             if (world.playerEntities.size() > 0) {
@@ -239,7 +242,7 @@ public class NpcData {
                 e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
                 this.pos = new V3(thePlayer.getPosition(), thePlayer.dimension);
             }
-
+            ModSimLoader.log.info("开始生成新的NPC4"+fromCommand);
             if (!fromCommand) {
                 Vec3d newPos;
                 //在par1（x，z）和par2（y）块中查找随机目标
@@ -265,6 +268,7 @@ public class NpcData {
             e.theData = this;
             this.entity = e;
             world.spawnEntityInWorld(e);
+            ModSimLoader.log.info("开始生成新的NPC5"+fromCommand);
             this.ID = this.entity.getUniqueID().toString();
             //刚刚进入该地区
             String fs_ldzl = I18n.format("container.sim.folk_data_just");
@@ -643,6 +647,9 @@ public class NpcData {
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation28"))) {
                             p = this.tempEmployLoc.toBlockPos();
                             this.job = new JobBartender(this, p, world);
+                        }else if (job.contentEquals(I18n.format("container.sim.Vocation10"))) {
+                            p = this.tempEmployLoc.toBlockPos();
+                            this.job = new JobCourier(this, p, world);
                         }
 
 
@@ -2127,9 +2134,12 @@ public class NpcData {
                 //麦当劳
             } else if (jobName.contentEquals(I18n.format("container.sim.Vocation35"))) {
                 this.job = new JobMcDonald(this, v3.toBlockPos(), world);
-                //
+                //酒馆
             } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
                 this.job = new JobBartender(this, v3.toBlockPos(), world);
+                //仓库管理员
+            }else if (jobName.contentEquals(I18n.format("container.sim.Vocation10"))) {
+                this.job = new JobCourier(this, v3.toBlockPos(), world);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

@@ -28,7 +28,7 @@ public class JobCheesemaker extends Job{
     public JobCheesemaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.itemCheese);
-        //面包师
+        //奶酪酱
         this.jobName = I18n.format("container.sim.Vocation21");
         this.stage = -1;
     }
