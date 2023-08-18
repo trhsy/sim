@@ -1,0 +1,12 @@
+id|6faedb21-731c-495e-aa99-ca8724fa15af
+name|超小房子
+type|住宅
+dim|0,0,0
+dimension|0
+rent|0.24
+jobtypes|null
+cpos|-735.0,4.0,-284.0,0
+lpos|-735.0,3.5,-284.0,0
+blockspecial|
+structure|
+occupants|c64fe902-9114-496a-8f31-188d0519fe08;

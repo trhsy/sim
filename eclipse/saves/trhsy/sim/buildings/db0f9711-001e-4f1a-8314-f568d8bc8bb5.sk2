@@ -1,0 +1,12 @@
+id|db0f9711-001e-4f1a-8314-f568d8bc8bb5
+name|面包店
+type|商业
+dim|0,0,0
+dimension|0
+rent|4.3199997
+jobtypes|面包师
+cpos|-718.0,3.0,-281.0,0
+lpos|-718.0,3.5,-282.0,0
+blockspecial|
+structure|
+occupants|d38fe3a4-6115-4909-9b10-0f65cb3d5ebd;

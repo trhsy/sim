@@ -1,0 +1,1034 @@
+[11:28:45] [main/INFO]: Extra: []
+[11:28:45] [main/INFO]: Running with arguments: [--userProperties, {}, --assetsDir, D:/maven/.grable/caches/minecraft/assets, --assetIndex, 1.9, --accessToken{REDACTED}, --version, 1.9, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
+[11:28:45] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[11:28:45] [main/INFO]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[11:28:45] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
+[11:28:45] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+[11:28:45] [main/INFO]: Forge Mod Loader version 12.16.1.1934 for Minecraft 1.9 loading
+[11:28:45] [main/INFO]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_271, running on Windows 10:amd64:10.0, installed at D:\Java\jdk1.8.0_271\jre
+[11:28:45] [main/INFO]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[11:28:46] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
+[11:28:46] [main/INFO]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
+[11:28:46] [main/INFO]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
+[11:28:46] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[11:28:46] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[11:28:46] [main/INFO]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[11:28:46] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[11:28:46] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[11:28:46] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[11:28:46] [main/ERROR]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
+[11:28:49] [main/ERROR]: FML appears to be missing any signature data. This is not a good thing
+[11:28:49] [main/INFO]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[11:28:49] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[11:28:50] [main/INFO]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[11:28:52] [main/INFO]: Remapping AccessTransformer rules...
+[11:28:52] [main/INFO]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+[11:28:52] [main/INFO]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+[11:28:52] [main/INFO]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[11:28:53] [Client thread/INFO]: Setting user: Player686
+[11:28:58] [Client thread/INFO]: LWJGL Version: 2.9.4
+[11:29:00] [Client thread/INFO]: [net.minecraftforge.fml.client.SplashProgress:start:200]: ---- Minecraft Crash Report ----
+// Daisy, daisy...
+
+Time: 23-8-18 上午11:29
+Description: Loading screen debug info
+
+This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_271, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 564986784 bytes (538 MB) / 859308032 bytes (819 MB) up to 7609516032 bytes (7257 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: 
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'Intel' Version: '4.6.0 - Build 27.20.100.8280' Renderer: 'Intel(R) HD Graphics 630'
+[11:29:00] [Client thread/INFO]: MinecraftForge v12.16.1.1934 Initialized
+[11:29:01] [Client thread/INFO]: Replaced 231 ore recipes
+[11:29:01] [Client thread/INFO]: Found 0 mods from the command line. Injecting into mod discoverer
+[11:29:01] [Client thread/INFO]: Searching G:\Game\work\sim-u\Trhsy-sim-u\mc-sim-u-1.9\eclipse\mods for mods
+[11:29:05] [Client thread/INFO]: Forge Mod Loader has identified 7 mods to load
+[11:29:05] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim, JEI, VeinMiner, VeinMinerModSupport] at CLIENT
+[11:29:05] [Client thread/INFO]: Attempting connection with missing mods [mcp, FML, Forge, sim, JEI, VeinMiner, VeinMinerModSupport] at SERVER
+[11:29:06] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town, FMLFileResourcePack:Just Enough Items, FMLFileResourcePack:Vein Miner, FMLFileResourcePack:Mod Support
+[11:29:06] [Client thread/INFO]: Processing ObjectHolder annotations
+[11:29:06] [Client thread/INFO]: Found 418 ObjectHolder annotations
+[11:29:06] [Client thread/INFO]: Identifying ItemStackHolder annotations
+[11:29:06] [Client thread/INFO]: Found 0 ItemStackHolder annotations
+[11:29:07] [Client thread/INFO]: Configured a dormant chunk cache size of 0
+[11:29:07] [Forge Version Check/INFO]: [Forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+[11:29:07] [Client thread/INFO]: 当前语言：zh_CN,开始解压建筑蓝图
+[11:29:10] [Client thread/INFO]: Applying holder lookups
+[11:29:10] [Client thread/INFO]: Holder lookups applied
+[11:29:10] [Client thread/INFO]: Injecting itemstacks
+[11:29:10] [Client thread/INFO]: Itemstack injection complete
+[11:29:17] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[11:29:17] [Thread-8/INFO]: Initializing LWJGL OpenAL
+[11:29:17] [Thread-8/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[11:29:17] [Thread-8/INFO]: OpenAL initialized.
+[11:29:18] [Sound Library Loader/INFO]: Sound engine started
+[11:29:31] [Client thread/INFO]: Max texture size: 16384
+[11:29:31] [Client thread/INFO]: Created: 16x16 textures-atlas
+[11:29:33] [Client thread/INFO]: Injecting itemstacks
+[11:29:33] [Client thread/INFO]: Itemstack injection complete
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：仓库
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1092
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：医院
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5520
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：叶老酒馆
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3744
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：杂货铺
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：648
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：汉堡店
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5712
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：肉铺
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：432
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：花店
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1512
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：诊所
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2240
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：银行
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：750
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：面包店
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：432
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：食品店
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：495
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：麦当劳
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：11339
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：二师兄
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3900
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：僵尸
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：7680
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：南瓜
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5376
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：史蒂夫
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4096
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：羊羔疯
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：8050
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：苦力怕
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2496
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：茶壶
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1050
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：蜘蛛
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：20812
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：骷髅小白
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：7680
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鸡太美
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1632
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：伐木场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：560
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：养兔场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：养牛场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：养猪场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：养羊场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：养鸡场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：军营
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：324
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：制糖厂
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：405
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：奶牛场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：奶酪工厂
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2592
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：建筑商
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：648
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：板砖厂
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：420
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：渔场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：280
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：玻璃工厂
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：420
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：羊毛场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鸡蛋农场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：243
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：8号车站
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3456
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：PAB LDB
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5040
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：Sim-U-迷宫
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：910
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：东方小庙
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：中型农场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1386
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乘船回家（水上）
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1890
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乘船回家（陆上）
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1890
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乡村农场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：117
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乡村图书馆
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：648
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乡村教堂
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4032
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：井
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：仓库
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1260
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：保龄球道
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4410
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：保龄球道2
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：7560
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：储藏室
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1080
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：先进城市广场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2601
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公路和铁路
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1584
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公路铁路段
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2112
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：农场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：300
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：农舍v1
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3312
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：农舍v2
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3456
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：冰屋入口
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：858
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：凉亭
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5200
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：利用多维数据集
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：100
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：卵石沙坑
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：125
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：双车道公路
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：12420
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：喷泉广场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：968
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：圣诞树1
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：616
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：圣诞树2
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3757
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：地铁站
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：693
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：城市广场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：128
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：塔段
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：10976
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：墓地
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5082
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：外贮
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：567
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大城墙
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大温室
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5600
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大街
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4200
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大门
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：324
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大马厩
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：7616
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：天空之爱
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：31500
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：天空的刮刀
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：120780
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：奶牛炊具
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2400
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：射箭场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：7548
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小喷泉
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：100
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小型作物收割机
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3528
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小型图书馆
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：630
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小型船舶
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3696
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小城墙
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：108
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：尤里斯仓库
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：300
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：巨型Sim-U-Kraft标志
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5220
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：市中心
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：486
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：广场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：8625
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：教学楼
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3510
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：暴民驱逐舰MKII
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：22491
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：望塔
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1331
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：木桥
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2484
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：本尼森中屋酒店
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1080
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：村井
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：80
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：林场 9t
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1575
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：林场
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：450
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：林场4t
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：847
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：树木陷阱 1600
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：270
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯雕像
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：396
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：楼梯（木制）
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：36
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：殡仪馆
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4488
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：水塔
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：360
+[11:29:33] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：水宫 
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：70356
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：水方尖碑
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1920
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：浮动库
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3213
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：海盗船
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：12298
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：混凝土塔基
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1456
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：混凝土塔顶
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3328
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：温室
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：245
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：温室1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1428
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：温室2
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：8800
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：溜冰场
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5880
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：漂亮的马厩
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4950
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：漩涡
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：858
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：灯塔中景风格
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：22218
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：热气球
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：6776
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：熔岩井
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：147
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：熔岩和水井
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5060
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：特拉德灯塔
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：13158
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：玻璃塔
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4455
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：玻璃水喷泉
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：200
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：瑞夫凉亭
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：968
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：瞭望塔
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1792
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：石铁桥
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：620
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：磁链
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1400
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：社区游泳池
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1152
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：禅园
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：845
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：福格顿地段
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：500
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：穷人Sim-U-Logo
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：240
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：粮仓
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：539
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：维克兹巢穴
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：8000
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：羊毛仓库
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1344
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：自动小麦收获机
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1344
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：船坞
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1764
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：街道中等贫民区
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：840
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：西部自动瓜场
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3960
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：西部迷你瓜农场
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1755
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：观景台
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3712
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：角
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：54
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：警卫塔
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：715
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：谷仓
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1232
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：路灯
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：15
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：轻便海滩
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：240
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：道路围堵装置
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：975
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：郊区牧场
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：864
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：钓鱼角
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：735
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路中动力
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路中段
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路入口匝道
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：936
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路出口匝道
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：936
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路右转
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：150
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路左转
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：150
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路短动力
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：105
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路短段
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：105
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路长动力
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：255
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁路长段
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：255
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：雷区
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3060
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：马厩
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3179
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：高级附魔台
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：567
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鹅卵石农场
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：396
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鹅卵石发电机
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：567
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鹅卵石火炬
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：36
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：16 单元
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5460
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：1单元牢房
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：90
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：1单元监狱
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：945
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：3层沙楼
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：704
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：4 公寓
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1792
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：4 单元
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2205
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：8 单元
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3150
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：一室一厅
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：480
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：三层别墅
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2475
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：世贸中心v1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1421
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：世贸中心v2
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：182900
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：东都铎大厦
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4284
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：两层公寓
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：945
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：两层地堡
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1521
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：两层大房子
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：960
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：两层楼
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：420
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：两层砖房
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：896
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：中世纪住宅
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：392
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：中世纪木屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：648
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：中世纪酒店
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：6859
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：中型农舍
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：990
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：中型土坯房
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：225
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：中庭酒店
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：448
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乡村别墅
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：756
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乡村图书屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：648
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：伐木工人之家
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1680
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公寓
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：405
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公寓A
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：405
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公寓B
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：405
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公寓C
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：405
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公寓D
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：280
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公寓F
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：405
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：公馆 1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2912
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：冥府
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5236
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：冰屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：975
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：别墅 A
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：540
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：别墅 B
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：540
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：别墅 C
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：756
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：别墅 D
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：540
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：办公大楼
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：10976
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：北方寺院
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：355347
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：北方度假酒店
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：43560
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：北欧大别墅(木)
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：31280
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：北欧大别墅(石)
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：9975
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：北欧小别墅
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4750
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：北欧石楼
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：891
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：北欧风小屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：567
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：古雅的小屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：210
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：可堆叠木屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1200
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：可爱家庭旅馆
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：440
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：可爱的小屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：史诗之家
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：726
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：启示录庇护所
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：150
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：地下室
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2880
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：地狱汽车旅馆
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：139230
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：堆叠式四层公寓
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：660
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：多生物群落之家
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：980
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大型土坯房
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：720
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大城堡v1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：9375
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大城堡v2
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：10092
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大宫殿
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：9576
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大房子v1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2250
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大房子v2
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1170
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大房子v3
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：704
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大砖房
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1728
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：大豪宅
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：17255
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：奶酪屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1100
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：学者之家
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：486
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：安逸小屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：343
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：客房
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：378
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：宽敞的房子
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：800
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：宽敞的木屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：882
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：寄宿室
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：125
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小型木屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小房子A
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：150
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小房子B
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：125
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小房子C
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：125
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小房子D
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：150
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小房子公寓
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：10948
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小木屋v1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：75
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小木屋v2
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：210
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：小砖房
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：294
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：巨树屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：6783
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：巨石大厦
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3640
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：市长府v1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1430
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：市长府v2
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：11136
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：布朗斯通公寓 
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4250
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：希姆利斯豪斯酒店
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1820
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：希尔赛德工作室
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：252
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：带图书馆的伍德大厦
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3432
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：带池塘的家
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1352
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：带门廊的房子
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：315
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：平房v1
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：420
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：平房v2
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：567
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：廉价小屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：45
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：强迫症沙居
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1014
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：彩色房子
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：858
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：房屋
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：252
+[11:29:34] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：拉祖利城堡
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：274170
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：拿铁咖啡馆
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：840
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：掩体
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：676
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：故事屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：420
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：有石板的小房子
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：80
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：木屋v1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：125
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：木屋v2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：384
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：木屋v3
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1344
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：木屋车库
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：480
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：未来派木屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1326
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：朴素的大厦
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：15744
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：村民住宅
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：420
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：树屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：819
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯仓库
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1100
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯公主大城堡
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：41382
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯别墅
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：486
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯沙庙
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2028
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯沙漠市场
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3468
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯炼金术士
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2057
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯迷你城堡
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：15138
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯铁匠铺
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1400
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：橙色摩天大楼
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：30008
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：水屋酒店
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：192
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：沙石屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：560
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：沙达斯大厦
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3036
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：没有羊毛的家
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：567
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：泥土屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：360
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：流浪汉小屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：150
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：漂亮的普通房子
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：891
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：热中屋酒店
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：450
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：爬行立方体
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：512
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：爱情小屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：180
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代住宅v1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1188
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代住宅v2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：13728
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代住宅v3
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：6460
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代住宅v4
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4680
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代住宅v5
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：780
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代大厦
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：29952
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代摩天大楼
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：14280
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代木屋v1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2016
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：现代木屋v2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：8280
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：白宫
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：80640
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：石屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：336
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：砂岩单体
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：968
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：砂岩工作室
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2645
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：砂岩棚屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：486
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：砂岩沙漠绿洲
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：5775
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：砖房v1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：280
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：穷人之家v1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：27
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：穷人之家v2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：27
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：紧凑型住宅
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：144
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：美丽乡村别墅酒店
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：715
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：花盆酒店
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：2106
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：莱克豪斯酒店
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：275
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：街角小屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：320
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：西尔斯大厦
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：390825
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：西瓜南瓜农场
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3230
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：诺兹之家酒店
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1089
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：豪华公寓
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：3750
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：豪华木屋酒店
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：1365
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：超小房子
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：24
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：迎阳楼
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4752
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：迷宫砖房
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：6156
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：郊区门廊
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：504
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：都铎住宅
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：616
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：金字塔
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：196
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：金库
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：6300
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁匠之家
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：462
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁屋v1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：294
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：铁屋v2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：280
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：长木屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：72
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：阁楼
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：630
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：阳光房
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：540
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：阿蒙纳之家酒店v1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：324
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：阿蒙纳之家酒店v2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：528
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：隐士之家
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：216
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鹅卵石小屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：120
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鹅卵石屋
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：140
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：鹅卵石隔间
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：125
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：黑白摩天大楼
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：21609
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乡村教堂1
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：4032
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：乡村教堂2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：9384
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：南大教堂2
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：354705
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:387]: 当前建筑：梅斯教堂
+[11:29:35] [Client thread/INFO]: [com.trhsy.sim.npc.build.BuildingBlueprint:addBuildingBlueprint:641]: 当前建筑所需方块：12348
+[11:29:35] [Client thread/INFO]: Forge Mod Loader has successfully loaded 7 mods
+[11:29:35] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Simulated town, FMLFileResourcePack:Just Enough Items, FMLFileResourcePack:Vein Miner, FMLFileResourcePack:Mod Support
+[11:29:42] [Client thread/INFO]: SoundSystem shutting down...
+[11:29:42] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[11:29:42] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[11:29:42] [Thread-10/INFO]: Initializing LWJGL OpenAL
+[11:29:42] [Thread-10/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[11:29:42] [Thread-10/INFO]: OpenAL initialized.
+[11:29:42] [Sound Library Loader/INFO]: Sound engine started
+[11:29:56] [Client thread/INFO]: Max texture size: 16384
+[11:29:58] [Client thread/INFO]: Created: 1024x512 textures-atlas
+[11:41:21] [Server thread/INFO]: Starting integrated minecraft server version 1.9
+[11:41:21] [Server thread/INFO]: Generating keypair
+[11:41:21] [Server thread/INFO]: Injecting existing block and item data into this server instance
+[11:41:21] [Server thread/INFO]: Applying holder lookups
+[11:41:21] [Server thread/INFO]: Holder lookups applied
+[11:41:21] [Server thread/INFO]: Loading dimension 0 (11) (net.minecraft.server.integrated.IntegratedServer@7eb1ac56)
+[11:41:22] [Server thread/INFO]: Loading dimension 1 (11) (net.minecraft.server.integrated.IntegratedServer@7eb1ac56)
+[11:41:22] [Server thread/INFO]: 检查是否应该加载人员
+[11:41:22] [Server thread/INFO]: 清除旧的世界数据
+[11:41:22] [Server thread/INFO]: 加载世界...
+[11:41:22] [Server thread/INFO]: 加载农场
+[11:41:22] [Server thread/INFO]: 加载矿场
+[11:41:22] [Server thread/INFO]: 获得保存的NPC
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female2.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female49.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female2.png
+[11:41:22] [Server thread/ERROR]: createConBox出错了：null行数：760
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female4.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: male33.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female41.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: male3.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female40.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: male15.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female1.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female51.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: female23.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: male54.png
+[11:41:22] [Server thread/INFO]: loadFolk 开始重生实体
+[11:41:22] [Server thread/INFO]: male30.png
+[11:41:22] [Server thread/ERROR]: loadFolk出错了：String index out of range: 1行数：1963
+[11:41:22] [Server thread/ERROR]: 获得保存的NPC出错了：null行数：235
+[11:41:22] [Server thread/INFO]: 加载建筑物
+[11:41:22] [Server thread/INFO]: 加载快递点
+[11:41:22] [Server thread/INFO]: Loading dimension -1 (11) (net.minecraft.server.integrated.IntegratedServer@7eb1ac56)
+[11:41:22] [Server thread/INFO]: 检查是否应该加载人员
+[11:41:22] [Server thread/INFO]: 世界尚未加载，正在取消
+[11:41:22] [Server thread/INFO]: 检查是否应该加载人员
+[11:41:22] [Server thread/INFO]: 世界尚未加载，正在取消
+[11:41:22] [Server thread/INFO]: Preparing start region for level 0
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9f058ecd-55a9-45b7-9ac2-7ff60bf294d7
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9f058ecd-55a9-45b7-9ac2-7ff60bf294d7
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 273999c5-8fa5-4d5a-82ef-fc94b86f53de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 273999c5-8fa5-4d5a-82ef-fc94b86f53de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 273999c5-8fa5-4d5a-82ef-fc94b86f53de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 273999c5-8fa5-4d5a-82ef-fc94b86f53de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 273999c5-8fa5-4d5a-82ef-fc94b86f53de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 273999c5-8fa5-4d5a-82ef-fc94b86f53de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 5e12619b-2571-4164-bc0b-cfe643d45dd9
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 209f48fa-c1f8-4291-ae1d-471f62ebbc99
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 209f48fa-c1f8-4291-ae1d-471f62ebbc99
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 5e12619b-2571-4164-bc0b-cfe643d45dd9
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 5e12619b-2571-4164-bc0b-cfe643d45dd9
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 5e12619b-2571-4164-bc0b-cfe643d45dd9
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 5e12619b-2571-4164-bc0b-cfe643d45dd9
+[11:41:23] [Server thread/WARN]: Wrong location! (-19, -67) should be (-18, -66), EntityFolk['小镇居民'/96, l='11', x=-302.76, y=4.00, z=-1066.37]
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4fcc6f2f-fa7f-4864-8af2-9280685b5ac0
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4fcc6f2f-fa7f-4864-8af2-9280685b5ac0
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 5e12619b-2571-4164-bc0b-cfe643d45dd9
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4fcc6f2f-fa7f-4864-8af2-9280685b5ac0
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4fcc6f2f-fa7f-4864-8af2-9280685b5ac0
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4fcc6f2f-fa7f-4864-8af2-9280685b5ac0
+[11:41:23] [Server thread/WARN]: Tried to add entity sim.EntityFolk but it was marked as removed already
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 209f48fa-c1f8-4291-ae1d-471f62ebbc99
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 209f48fa-c1f8-4291-ae1d-471f62ebbc99
+[11:41:23] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 209f48fa-c1f8-4291-ae1d-471f62ebbc99
+[11:41:23] [Server thread/INFO]: Changing view distance to 12, from 10
+[11:41:24] [Netty Local Client IO #0/INFO]: Server protocol version 2
+[11:41:24] [Netty Server IO #1/INFO]: Client protocol version 2
+[11:41:24] [Netty Server IO #1/INFO]: Client attempting to join with 7 mods : VeinMinerModSupport@0.38.2_1.9-127e28f,FML@8.0.99.99,sim@1.9-1.0.6 Beta,Forge@12.16.1.1934,mcp@9.19,VeinMiner@0.38.2_1.9-127e28f,JEI@3.4.3.207
+[11:41:24] [Netty Local Client IO #0/INFO]: [Netty Local Client IO #0] Client side modded connection established
+[11:41:24] [Server thread/INFO]: [Server thread] Server side modded connection established
+[11:41:25] [Server thread/INFO]: Player686[local:E:7c275b49] logged in with entity id 136 at (-305.266723588815, 4.0, -1064.664158731906)
+[11:41:25] [Server thread/INFO]: Player686 加入了游戏
+[11:41:25] [Server thread/INFO]: 【Player686】欢迎来到模拟城市1.9-1.0.6 Beta由TRHSY重制,官网：trhsy.github.io
+[11:41:25] [Client thread/INFO]: 检查是否应该加载人员
+[11:41:25] [Client thread/INFO]: 世界遥远，正在取消
+[11:41:25] [Thread-13/INFO]: *********************玩家加入*****************
+[11:41:25] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4b5c803a-388c-4989-a5b2-33aa6ebd27ba
+[11:41:25] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:25] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:25] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:25] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:25] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:25] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:25] [Server thread/INFO]: Saving and pausing game...
+[11:41:25] [Server thread/INFO]: Saving chunks for level '11'/Overworld
+[11:41:25] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1039.9081
+[11:41:25] [Server thread/INFO]: Saving chunks for level '11'/Nether
+[11:41:25] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1039.9081
+[11:41:25] [Server thread/INFO]: Saving chunks for level '11'/The End
+[11:41:25] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1039.9081
+[11:41:25] [Client thread/INFO]: Registered plugin: mezz.jei.plugins.vanilla.VanillaPlugin
+[11:41:25] [Client thread/INFO]: Registered plugin: mezz.jei.plugins.jei.JEIInternalPlugin
+[11:41:27] [Client thread/INFO]: [CHAT] 【Player686】欢迎来到模拟城市1.9-1.0.6 Beta由TRHSY重制,官网：trhsy.github.io
+[11:41:27] [Client thread/INFO]: [CHAT] VeinMiner 正使用热键模式, 详情请查看配置项
+[11:41:27] [Client thread/INFO]: Received mode change 1
+[11:41:27] [Client thread/INFO]: [CHAT] 已设置客户端 Veinminer 的热键为按下时启用
+[11:41:30] [Server thread/INFO]: onSecond 重生
+[11:41:30] [Server thread/INFO]: ********************Npc:209f48fa-c1f8-4291-ae1d-471f62ebbc99重生于x:-317.0,y:3.0,z:-1054.0
+[11:41:30] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 209f48fa-c1f8-4291-ae1d-471f62ebbc99
+[11:41:30] [Server thread/INFO]: onSecond 重生
+[11:41:30] [Server thread/INFO]: ********************Npc:273999c5-8fa5-4d5a-82ef-fc94b86f53de重生于x:-291.0,y:3.0,z:-1095.0
+[11:41:30] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 273999c5-8fa5-4d5a-82ef-fc94b86f53de
+[11:41:30] [Server thread/INFO]: onSecond 重生
+[11:41:30] [Server thread/INFO]: ********************Npc:3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf重生于x:-276.0,y:3.0,z:-1049.0
+[11:41:30] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 3dd6ca49-0cf0-45f6-9e41-a92280b8a0cf
+[11:41:30] [Server thread/INFO]: onSecond 重生
+[11:41:30] [Server thread/INFO]: ********************Npc:4fcc6f2f-fa7f-4864-8af2-9280685b5ac0重生于x:-341.0,y:3.0,z:-1058.0
+[11:41:30] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4fcc6f2f-fa7f-4864-8af2-9280685b5ac0
+[11:41:30] [Server thread/INFO]: onSecond 重生
+[11:41:30] [Server thread/INFO]: ********************Npc:5e12619b-2571-4164-bc0b-cfe643d45dd9重生于x:-284.0,y:3.0,z:-1088.0
+[11:41:30] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 5e12619b-2571-4164-bc0b-cfe643d45dd9
+[11:41:30] [Server thread/INFO]: onSecond 重生
+[11:41:30] [Server thread/INFO]: ********************Npc:7af7c39b-f015-4c3e-896b-b9d1e6252fea重生于x:-342.0,y:4.0,z:-1070.0
+[11:41:30] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 7af7c39b-f015-4c3e-896b-b9d1e6252fea
+[11:41:30] [Server thread/INFO]: onSecond 重生
+[11:41:30] [Server thread/INFO]: ********************Npc:9560e211-69d0-46a5-80c0-8cc04a002d93重生于x:-329.0,y:4.0,z:-1056.0
+[11:41:30] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 9560e211-69d0-46a5-80c0-8cc04a002d93
+[11:41:30] [Server thread/INFO]: 农民运行 completeTask() 任务完成在 200 ms
+[11:41:30] [Server thread/INFO]: 快递员运行 completeTask() 任务完成在 200 ms
+[11:41:30] [Server thread/INFO]: 农民运行 completeTask() 任务完成在 200 ms
+[11:41:30] [Server thread/INFO]: 当前任务索引为 0
+[11:41:30] [Server thread/INFO]: 将任务[农民]更改为 com.trhsy.sim.npc.task.JobTaskFarmer@1dacd4bd(01)
+[11:41:30] [Server thread/INFO]: 当前任务索引为 0
+[11:41:30] [Server thread/INFO]: 将任务[快递员]更改为 com.trhsy.sim.npc.task.JobTaskCourier@478f721d(01)
+[11:41:30] [Server thread/INFO]: 当前任务索引为 0
+[11:41:30] [Server thread/INFO]: 将任务[农民]更改为 com.trhsy.sim.npc.task.JobTaskFarmer@3c7d4f6d(01)
+[11:41:31] [Server thread/INFO]: 当前任务索引为 1
+[11:41:31] [Server thread/INFO]: 将任务[农民]更改为 com.trhsy.sim.npc.task.JobTaskFarmerPlant@559fa397(11)
+[11:41:51] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 860a3d14-c4ad-4d78-8bf3-5acc09039c6c
+[11:41:51] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 51daa965-41df-434c-9bba-1af697fefcf5
+[11:41:51] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 4b5c803a-388c-4989-a5b2-33aa6ebd27ba
+[11:42:11] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1039.3175
+[11:42:11] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1039.3175
+[11:42:11] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1039.3175
+[11:42:12] [Server thread/INFO]: Player686 刚刚获得了 [打开物品栏] 成就！
+[11:42:12] [Client thread/INFO]: [CHAT] Player686 刚刚获得了 [打开物品栏] 成就！
+[11:42:20] [Server thread/INFO]: 建筑方向为 3
+[11:42:32] [Client thread/INFO]: 控制箱ID:aaaa00bf-e0e7-460c-b807-3e11a5c62ae6
+[11:42:33] [Client thread/INFO]: 点击按钮：2
+[11:42:34] [Client thread/INFO]: 点击按钮：1
+[11:42:36] [Client thread/INFO]: 点击按钮：102
+[11:42:36] [Client thread/INFO]: 点击按钮：1002
+[11:42:37] [Server thread/INFO]: 快递员运行 completeTask() 任务完成在 200 ms
+[11:42:37] [Server thread/INFO]: 当前任务索引为 0
+[11:42:37] [Server thread/INFO]: 将任务[快递员]更改为 com.trhsy.sim.npc.task.JobTaskCourier@55eed698(01)
+[11:42:39] [Client thread/INFO]: 点击按钮：0
+[11:42:47] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 860a3d14-c4ad-4d78-8bf3-5acc09039c6c
+[11:42:56] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1038.6469
+[11:42:56] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1038.6469
+[11:42:56] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1038.6469
+[11:43:18] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2026ms behind, skipping 40 tick(s)
+[11:43:56] [Client thread/INFO]: Warning: Clientside chunk ticking took 4058 ms
+[11:43:58] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1038.2865
+[11:43:58] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1038.2865
+[11:43:58] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1038.2865
+[11:44:00] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 4208ms behind, skipping 84 tick(s)
+[11:44:07] [Server thread/INFO]: [Player686: 将 Player686 传送到 -302.5，4.0，-1066.5]
+[11:44:07] [Client thread/INFO]: [CHAT] 将 Player686 传送到 -302.5，4.0，-1066.5
+[11:44:28] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1037.9562
+[11:44:28] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1037.9562
+[11:44:28] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1037.9562
+[11:44:40] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:44:40] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:44:40] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:44:40] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:44:40] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:44:40] [Server thread/WARN]: Keeping entity sim.EntityFolk that already exists with UUID 160b9afb-1f16-4bf6-a404-4ddc784ba5de
+[11:45:07] [Server thread/INFO]: [Player686: 将 Player686 传送到 -302.5，4.0，-1066.5]
+[11:45:07] [Client thread/INFO]: [CHAT] 将 Player686 传送到 -302.5，4.0，-1066.5
+[11:45:13] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1037.2255
+[11:45:13] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1037.2255
+[11:45:13] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1037.2255
+[11:45:33] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3205ms behind, skipping 64 tick(s)
+[11:46:19] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1036.765
+[11:46:19] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1036.765
+[11:46:19] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1036.765
+[11:46:22] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 5665ms behind, skipping 113 tick(s)
+[11:46:48] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1036.2245
+[11:46:48] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1036.2245
+[11:46:48] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1036.2245
+[11:47:00] [Client thread/INFO]: Warning: Clientside chunk ticking took 110 ms
+[11:47:33] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1035.3236
+[11:47:33] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1035.3236
+[11:47:33] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1035.3236
+[11:48:15] [Server thread/INFO]: Saving and pausing game...
+[11:48:15] [Server thread/INFO]: Saving chunks for level '11'/Overworld
+[11:48:16] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1034.4528
+[11:48:16] [Server thread/INFO]: Saving chunks for level '11'/Nether
+[11:48:16] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1034.4528
+[11:48:16] [Server thread/INFO]: Saving chunks for level '11'/The End
+[11:48:16] [Server thread/INFO]: 游戏状态: saveStates() called BOTH sides, 金额存储为 1034.4528
+[11:48:16] [Server thread/INFO]: Stopping server
+[11:48:16] [Server thread/INFO]: Saving players
+[11:48:16] [Server thread/INFO]: Saving worlds
+[11:48:16] [Server thread/INFO]: Saving chunks for level '11'/Overworld
+[11:48:16] [Server thread/INFO]: Saving chunks for level '11'/Nether
+[11:48:16] [Server thread/INFO]: Saving chunks for level '11'/The End
+[11:48:16] [Server thread/INFO]: Unloading dimension 0
+[11:48:16] [Server thread/INFO]: Unloading dimension -1
+[11:48:16] [Server thread/INFO]: Unloading dimension 1
+[11:48:16] [Server thread/INFO]: Applying holder lookups
+[11:48:16] [Server thread/INFO]: Holder lookups applied
+[11:48:17] [Client thread/INFO]: Stopping!
+[11:48:17] [Client thread/INFO]: SoundSystem shutting down...
+[11:48:18] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

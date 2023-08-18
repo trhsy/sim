@@ -1,0 +1,12 @@
+id|512fdce1-47c7-483b-9f57-2e6b03410722
+name|奶牛场
+type|工业
+dim|0,0,0
+dimension|0
+rent|2.4299998
+jobtypes|牛奶农
+cpos|-720.0,3.0,-221.0,0
+lpos|-720.0,2.5,-221.0,0
+blockspecial|
+structure|
+occupants|

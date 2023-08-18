@@ -1,0 +1,12 @@
+id|ec53662d-dfdc-407d-9dd0-5f4b822f352b
+name|花店
+type|商业
+dim|0,0,0
+dimension|0
+rent|15.12
+jobtypes|null
+cpos|-717.0,4.0,-262.0,0
+lpos|-717.0,3.5,-262.0,0
+blockspecial|
+structure|
+occupants|

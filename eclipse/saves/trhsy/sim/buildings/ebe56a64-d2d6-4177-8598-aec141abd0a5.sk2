@@ -1,0 +1,12 @@
+id|ebe56a64-d2d6-4177-8598-aec141abd0a5
+name|1单元牢房
+type|住宅
+dim|0,0,0
+dimension|0
+rent|0.9
+jobtypes|null
+cpos|-735.0,6.0,-292.0,0
+lpos|-737.0,3.5,-292.0,0
+blockspecial|
+structure|
+occupants|d38fe3a4-6115-4909-9b10-0f65cb3d5ebd;

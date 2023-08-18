@@ -1,0 +1,12 @@
+id|ba428e1f-453b-4636-a620-c339205a2b50
+name|杂货铺
+type|商业
+dim|0,0,0
+dimension|0
+rent|6.48
+jobtypes|杂货商
+cpos|-719.0,4.0,-296.0,0
+lpos|-718.0,3.5,-296.0,0
+blockspecial|
+structure|
+occupants|
