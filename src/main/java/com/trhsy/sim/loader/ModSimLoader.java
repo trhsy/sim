@@ -14,6 +14,7 @@ import com.trhsy.sim.npc.DynamicSkin;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.build.TerrainTypeRequitrements;
+import com.trhsy.sim.util.Courier;
 import com.trhsy.sim.util.CourierTask;
 import com.trhsy.sim.util.items.Commodity;
 import com.trhsy.sim.util.FarmType;
@@ -63,7 +64,7 @@ public class ModSimLoader {
     /*
    所有快递点
     */
-    public static List<V3> theCourierPoints = new CopyOnWriteArrayList();
+    public static List<Courier> theCourierPoints = new CopyOnWriteArrayList();
     public static List<CourierTask> theCourierTask = new CopyOnWriteArrayList();
     /**
      * 建筑蓝图

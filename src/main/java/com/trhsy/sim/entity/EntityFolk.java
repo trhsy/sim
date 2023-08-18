@@ -29,7 +29,10 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -291,6 +294,15 @@ public class EntityFolk extends EntityCreature implements INpc {
         try {
             if (this.theData != null) {
                 this.theData.onDeath(cause);
+            }else{
+                try {
+                    String worldPath = "";
+                    worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + File.separator + "sim";
+                    Files.deleteIfExists((new File(worldPath + File.separator + "npc" + File.separator + this.getUniqueID() + ".sk2")).toPath());
+                } catch (Exception var5) {
+                    StackTraceElement element = var5.getStackTrace()[0];
+                    ModSimLoader.log.error("onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
+                }
             }
             super.onDeath(cause);
         }catch (Exception e){

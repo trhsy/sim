@@ -1,5 +1,6 @@
 package com.trhsy.sim.npc.task;
 
+import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
 import net.minecraft.client.resources.I18n;
@@ -34,11 +35,13 @@ public class TaskGoTo extends Task{
             if (!this.folk.isAtBuilding(this.building, isRes ? 2.0F : 4.0F)) {
                 //住宅
                 if (this.building.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
-                    if(!this.folk.forceMoveToXYZ(this.building.livingXYZ)){
+                    V3 v3=new V3(this.building.livingXYZ.x,this.building.livingXYZ.y-0.2,this.building.livingXYZ.z);
+                    if(!this.folk.forceMoveToXYZ(v3)){
                         //this.folk.forceMoveToXYZNoWarp(this.building.livingXYZ);
                     }
                 } else {
-                    if(!this.folk.forceMoveToXYZ(this.building.controlXYZ)){
+                    V3 v3=new V3(this.building.controlXYZ.x,this.building.controlXYZ.y-0.2,this.building.controlXYZ.z);
+                    if(!this.folk.forceMoveToXYZ(v3)){
                         //this.folk.forceMoveToXYZNoWarp(this.building.controlXYZ);
                     }
                 }

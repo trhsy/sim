@@ -5,6 +5,7 @@ import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.job.JobBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -18,10 +19,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @Date 2022/10/2118:02
  **/
 public class PacketSendBlueprint implements IMessage {
+    //蓝图名称
     String bName = "";
+    //建筑类型
     String bType = "";
+    //建筑文件内容
     String bp = "";
+    //npc id
     String folkID = "";
+    //起始位置
     String bPos = "";
     int direction = 0;
 
@@ -40,7 +46,9 @@ public class PacketSendBlueprint implements IMessage {
     public void fromBytes(ByteBuf buf) {
         this.bName = ByteBufUtils.readUTF8String(buf);
         this.bType = ByteBufUtils.readUTF8String(buf);
-        this.bp = ByteBufUtils.readUTF8String(buf);
+        NBTTagCompound tagCompound=ByteBufUtils.readTag(buf);
+        this.bp=tagCompound.getString("byte");
+        //this.bp = ByteBufUtils.readUTF8String(buf);
         this.folkID = ByteBufUtils.readUTF8String(buf);
         this.bPos = ByteBufUtils.readUTF8String(buf);
         this.direction = buf.readInt();
@@ -49,7 +57,10 @@ public class PacketSendBlueprint implements IMessage {
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.bName);
         ByteBufUtils.writeUTF8String(buf, this.bType);
-        ByteBufUtils.writeUTF8String(buf, this.bp);
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setString("byte",this.bp);
+        ByteBufUtils.writeTag(buf, tag);
+        //ByteBufUtils.writeUTF8String(buf, this.bp);
         ByteBufUtils.writeUTF8String(buf, this.folkID);
         ByteBufUtils.writeUTF8String(buf, this.bPos);
         buf.writeInt(this.direction);

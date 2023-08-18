@@ -48,11 +48,11 @@ public class JobCourier extends Job{
                     //去提货
                     this.stage = 2;
                     this.addJobTask(new JobTaskCourier(this, -1L, I18n.format("container.sim.GOINGTOPICKUP")));
-                }else if (this.stage == 2) {
+                }/*else if (this.stage == 2) {
                     //去卸货
                     this.stage = 3;
                     this.addJobTask(new JobTaskCourierDroppingOff(this, -1L, I18n.format("container.sim.DROPPINGOFF")));
-                }else{
+                }*/else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {
                         this.currentTask = (JobTask) this.jobTasks.get(0);
                         this.currentTask.begin();

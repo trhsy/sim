@@ -122,7 +122,7 @@ public class MineBox {
             reader.close();
         } catch (Exception var8) {
             StackTraceElement element = var8.getStackTrace()[0];
-            ModSimLoader.log.error("loadMine出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("MineBox-loadMine出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
         }
 
     }

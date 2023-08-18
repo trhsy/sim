@@ -204,10 +204,10 @@ public class NpcData {
      * 上次路径尝试
      **/
     Long lastPathAttempt;
-
+    private int fs_rand;
     public NpcData(World world, boolean fromCommand) {
         try {
-            ModSimLoader.log.info("开始生成新的NPC1"+fromCommand);
+            this.fs_rand=0;
             //手持空
             this.holding = null;
             //交配阶段 没有需求
@@ -229,12 +229,10 @@ public class NpcData {
 
             //种族分配
             this.assignRace();
-            ModSimLoader.log.info("开始生成新的NPC2"+fromCommand);
             /**年龄**/
             this.age = this.race.maturity;
             //特征
             generateTraits();
-            ModSimLoader.log.info("开始生成新的NPC3"+fromCommand);
             EntityFolk e = new EntityFolk(world, true);
             e.isBeingCreated = true;
             if (world.playerEntities.size() > 0) {
@@ -242,33 +240,45 @@ public class NpcData {
                 e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
                 this.pos = new V3(thePlayer.getPosition(), thePlayer.dimension);
             }
-            ModSimLoader.log.info("开始生成新的NPC4"+fromCommand);
+            ModSimLoader.log.info("开始生成新的NPC4");
             if (!fromCommand) {
-                Vec3d newPos;
+                Vec3d newPos= RandomPositionGenerator.findRandomTarget(e, 30, 7);
                 //在par1（x，z）和par2（y）块中查找随机目标
            /* newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             if (newPos == null) {
                 //在par1（x，z）和par2（y）块中查找随机目标
                 newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
             }*/
-                for (newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7); newPos == null; newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7)) {
+                if(newPos == null){
+                    newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
                 }
                 BlockPos pos = new BlockPos(newPos);
+                BlockPos up=pos.up();
                 //
-                while (pos != null && !world.isAirBlock(pos.up())) {
+                while (pos != null && !world.isAirBlock(up)) {
+                    ModSimLoader.log.info(!world.isAirBlock(up));
+                    this.fs_rand++;
                     newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
                     if (newPos != null) {
                         pos = new BlockPos(newPos);
                     }
+                    if(this.fs_rand>100){
+                        if (world.playerEntities.size() > 0) {
+                            EntityPlayer thePlayer = world.playerEntities.get(0);
+                            newPos=new Vec3d(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
+                            //e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
+                            //this.pos = new V3(thePlayer.getPosition(), thePlayer.dimension);
+                        }
+                        break;
+                    }
                 }
-
+                ModSimLoader.log.info("开始生成新的NPC112");
                 e.setPositionAndUpdate(newPos.xCoord, newPos.yCoord + 1.0D, newPos.zCoord);
                 this.pos = V3.fromVec3d(newPos);
             }
             e.theData = this;
             this.entity = e;
             world.spawnEntityInWorld(e);
-            ModSimLoader.log.info("开始生成新的NPC5"+fromCommand);
             this.ID = this.entity.getUniqueID().toString();
             //刚刚进入该地区
             String fs_ldzl = I18n.format("container.sim.folk_data_just");
@@ -281,7 +291,6 @@ public class NpcData {
             this.saveFolk();
             this.isLoaded = true;
             ModSimLoader.folks.add(this);
-            ModSimLoader.log.info("开始生成新的NPC"+fromCommand);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("NpcData出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -1491,7 +1500,7 @@ public class NpcData {
             //有家并且随机任务是3
             if (this.home != null && new Random().nextInt(4) == 3) {
                 //回家在家放松
-                this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, I18n.format("container.sim.FolkAction5")));
+                this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, I18n.format("container.sim.folk_data_Relaxing_home")));
             } else if (new Random().nextInt(4) == 3) {
                 for (Building b : ModSimLoader.buildings) {
                     if (b.controlXYZ.getDistanceTo(this.pos) < 40 && new Random().nextInt(4) == 3) {

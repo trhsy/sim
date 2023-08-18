@@ -46,6 +46,8 @@ public class FarmBox {
         this.farmType=FarmType.WHEAT;
         this.ID = UUID.randomUUID();
         this.loc = pos;
+        this.x = 9;
+        this.z = 9;
     }
 
     public FarmBox(UUID uuid) {

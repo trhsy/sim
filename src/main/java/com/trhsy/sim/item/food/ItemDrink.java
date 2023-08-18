@@ -52,10 +52,10 @@ public class ItemDrink extends Item {
         }
         //客户端
         if (!worldIn.isRemote) {
-            for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
+            //for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
                 entityLiving.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 100, 2));
-                entityLiving.addPotionEffect(new PotionEffect(potioneffect));
-            }
+                //entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+            //}
         }
         //玩家不为空
         if (entityplayer != null) {

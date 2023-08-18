@@ -10,6 +10,7 @@ import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.block.MineBox;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.util.Courier;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -258,7 +259,16 @@ public class EventLoader {
             }
             try {
                 ModSimLoader.log.info("加载快递点");
-
+                new DimensionManager();
+                File buildingFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "CourierPoints");
+                if (!buildingFolder.exists()) {
+                    buildingFolder.mkdirs();
+                }
+                buildingSaves = buildingFolder.listFiles();
+                for (int i = 0; i < buildingSaves.length; i++) {
+                    File buildingFile = buildingSaves[i];
+                    ModSimLoader.theCourierPoints.add(new Courier(buildingFile.getName().split(".sk2")[0]));
+                }
             } catch (Exception var7) {
                 StackTraceElement element = var7.getStackTrace()[0];
                 ModSimLoader.log.error("加载快递点文件出错了：" + var7.getMessage() + "行数：" + element.getLineNumber());

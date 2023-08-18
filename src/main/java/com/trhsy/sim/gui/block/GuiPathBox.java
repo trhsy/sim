@@ -6,6 +6,7 @@ import com.trhsy.sim.network.client.PacketOpenFlowerGui;
 import com.trhsy.sim.network.client.PacketOpenPathBoxGui;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.job.Job;
+import com.trhsy.sim.util.Courier;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -119,8 +120,8 @@ public class GuiPathBox extends GuiScreen {
                             return;
                         }
 
-                        V3 point = this.location;
-                        List<IInventory> chestInvs = inventoriesFindClosest(point, 5);
+                        Courier point =new  Courier(this.location,name);
+                        List<IInventory> chestInvs = inventoriesFindClosest(this.location, 5);
                         if (chestInvs.size() == 0) {
                             //错误：将至少一个箱子靠近标记。
                             this.errorText = I18n.format("container.sim.Markers6");
@@ -128,7 +129,7 @@ public class GuiPathBox extends GuiScreen {
                         }
 
                         for (int p = 0; p < ModSimLoader.theCourierPoints.size(); ++p) {
-                            V3 epoint = ModSimLoader.theCourierPoints.get(p);
+                            Courier epoint = ModSimLoader.theCourierPoints.get(p);
                             if (epoint.equals(point)) {
                                 //错误：名称必须是唯一的,' ' 已被使用。
                                 this.errorText = I18n.format("container.sim.Markers7") + point.toString() + I18n.format("container.sim.Markers8");
@@ -136,7 +137,7 @@ public class GuiPathBox extends GuiScreen {
                             }
                         }
                         ModSimLoader.theCourierPoints.add(point);
-                        saveCourierTasksAndPoints(name,point);
+                        saveCourierTasksAndPoints(name,this.location);
                         //添加了快递点/传送点'
                         this.errorText = I18n.format("container.sim.Markers9") + name + I18n.format("container.sim.Markers10");
                     }
