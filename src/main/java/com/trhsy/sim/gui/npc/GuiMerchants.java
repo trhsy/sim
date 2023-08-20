@@ -2,27 +2,21 @@ package com.trhsy.sim.gui.npc;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.gui.ATMscreen;
-import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.network.client.PacketOpenBankATMGui;
 import com.trhsy.sim.network.client.PacketOpenMerchantsGui;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.util.PricesForBlocks;
 import com.trhsy.sim.util.items.Commodity;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.lwjgl.input.Mouse;
 
 import java.util.List;

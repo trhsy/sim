@@ -1,7 +1,6 @@
 package com.trhsy.sim.npc.job;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.gui.npc.GuiMerchant;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
@@ -13,13 +12,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;

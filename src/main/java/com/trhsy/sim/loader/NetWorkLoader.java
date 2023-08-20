@@ -105,6 +105,9 @@ public class NetWorkLoader {
         registerMessage(PacketOpenFlowerGui.Handler.class,PacketOpenFlowerGui.class,Side.CLIENT);
         //路径箱
         registerMessage(PacketOpenPathBoxGui.Handler.class,PacketOpenPathBoxGui.class,Side.CLIENT);
+        //风车
+        registerMessage(PacketOpenWindmillGui.Handler.class,PacketOpenWindmillGui.class,Side.CLIENT);
+
     }
     /**
      *

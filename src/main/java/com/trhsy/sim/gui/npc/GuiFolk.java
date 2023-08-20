@@ -156,17 +156,17 @@ public class GuiFolk extends GuiScreen {
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Building_skill")+":", labelPos, 87, 0x000000);
             this.fontRendererObj.drawString( this.building, this.width / 2, 87, 0x000000);
             double w = 128 * ((double) (Double.valueOf(this.building) % 1 * 1000.0F) / 1000);
-            this.drawGradientRect(this.width / 2, 87, (int) w + this.width / 2, 105, 1358888960, 1358954240);
+            this.drawGradientRect(this.width / 2, 87, (int) w + this.width / 2, 105, -12574688, -11530224);
             //农耕等级
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Farming_Skill")+":", labelPos, 97, 0x000000);
             this.fontRendererObj.drawString(this.farming, this.width / 2, 97, 0x000000);
             double far = 128 * ((double) (Double.valueOf(this.farming) % 1 * 1000.0F) / 1000);
-            this.drawGradientRect(this.width / 2, 97, (int) far + this.width / 2, 105, 1358888960, 1358954240);
+            this.drawGradientRect(this.width / 2, 97, (int) far + this.width / 2, 115, -12574688, -11530224);
             //农耕等级
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Mining_skill")+":", labelPos, 107, 0x000000);
             this.fontRendererObj.drawString(this.mining, this.width / 2, 107, 0x000000);
             double min = 128 * ((double) (Double.valueOf(this.mining) % 1 * 1000.0F) / 1000);
-            this.drawGradientRect(this.width / 2, 107, (int) min + this.width / 2, 105, 1358888960, 1358954240);
+            this.drawGradientRect(this.width / 2, 107, (int) min + this.width / 2, 125, -12574688, -11530224);
             //怀孕阶段
             if (this.pregnancyStage > 0.0F) {
                 //医疗状况

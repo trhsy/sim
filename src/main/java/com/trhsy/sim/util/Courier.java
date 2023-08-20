@@ -15,9 +15,11 @@ import java.util.UUID;
  * @date 2023/08/18 上午 10:44
  */
 public class Courier {
+    public String ID;
     public V3 loc;
     public String name;
-    public Courier(V3 pos, String name) {
+    public Courier(String id,V3 pos, String name) {
+        this.ID=id;
         this.loc=pos;
         this.name=name;
     }
@@ -44,9 +46,17 @@ public class Courier {
                     this.name = value;
                 }
             }
+            reader.close();
         } catch (Exception var8) {
             StackTraceElement element = var8.getStackTrace()[0];
             ModSimLoader.log.error("Courier出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
+        }
+    }
+    public void removeFarm (String uid){
+        ModSimLoader.buildings.remove(this);
+        File logFile = new File(ModSimLoader.getSavesDataFolder() + File.separator + "CourierPoints" + File.separator + uid + ".sk2");
+        if(logFile.delete()){
+            logFile.deleteOnExit();
         }
     }
 }

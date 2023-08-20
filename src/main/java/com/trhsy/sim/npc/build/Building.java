@@ -4,6 +4,7 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import net.minecraft.block.*;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -248,7 +249,9 @@ public class Building {
                                 NpcData fd = ModSimLoader.getFolkDataByUID(f);
                                 if(fd!=null){
                                     this.occupants.add(fd);
-                                    fd.home = this;
+                                    if(this.buildingType!=null&&this.buildingType.equals(I18n.format("container.sim.sim_gui_BC_Residential"))){
+                                        fd.home = this;
+                                    }
                                 }
                                 //ModSimLoader.log.info("找到居住者: " + ModSimLoader.getFolkDataByUID(f).getName());
                             }

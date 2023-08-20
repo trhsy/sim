@@ -628,9 +628,19 @@ public class JobBuilder extends Job {
             this.folk.setStatus(I18n.format("container.sim.JobBuilder3"));
 
             //在客户端生成粒子
-            for (int i = 0; i < 7; ++i) {
-                mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, newBP.getX(), newBP.getX()+ 0.5D, newBP.getX(), 0.0D, 0.0D, 0.0D, new int[0]);
+            for (int i = 0; i < 16; ++i)
+            {
+                double d0 = (double)((float)newBP.getX() + (5.0F + new Random().nextFloat() * 6.0F) / 16.0F);
+                double d1 = (double)((float)newBP.getY() + 0.8125F);
+                double d2 = (double)((float)newBP.getZ() + (5.0F + new Random().nextFloat() * 6.0F) / 16.0F);
+                double d3 = 0.0D;
+                double d4 = 0.0D;
+                double d5 = 0.0D;
+                mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
             }
+            /*for (int i = 0; i < 7; ++i) {
+                mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, newBP.getX(), newBP.getX()+ 0.5D, newBP.getX(), 0.0D, 0.0D, 0.0D, new int[0]);
+            }*/
             this.placedBlocks.add(new V3(newBP));
             int b4 = (int) Math.floor(this.folk.skillBuilding);
             //建筑等级

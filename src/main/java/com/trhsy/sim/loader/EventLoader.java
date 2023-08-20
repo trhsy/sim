@@ -328,15 +328,16 @@ public class EventLoader {
                                 }
                                 starve.onDeath(DamageSource.generic);
                             } else if (starve.home == null) {
-                                if(starve.race!=null&&starve.age>starve.race.maturity){
+                                spawnNew = false;
+                                //未成年不算
+                                if(starve.race!=null&&starve.age<starve.race.maturity){
                                     //只要有一个人没有住到房子里就不生成新的人
-                                    spawnNew = false;
+                                    spawnNew = true;
                                 }
                             }
                         }
                         if (spawnNew) {
-                            World world = mc.theWorld;
-                            if (event.world.playerEntities.size() > 0 || (world != null && world.playerEntities.size() > 0)) {
+                            if (event.world.playerEntities.size() > 0) {
                                 ModSimLoader.log.info("所有人都有住宅，开始生成新的NPC");
                                 new NpcData(event.world, false);
 //                                NetWorkLoader.net.sendToServer(new PacketNewFolk(false));

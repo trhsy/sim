@@ -6,6 +6,7 @@ import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.job.JobBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -30,7 +31,7 @@ public class PacketSendBlueprint implements IMessage {
     //起始位置
     String bPos = "";
     int direction = 0;
-
+    private int fs_i=0;
     public PacketSendBlueprint() {
     }
 
@@ -41,29 +42,51 @@ public class PacketSendBlueprint implements IMessage {
         this.folkID = id;
         this.bPos = blockPos;
         this.direction = dir;
+        this.fs_i=0;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
         this.bName = ByteBufUtils.readUTF8String(buf);
         this.bType = ByteBufUtils.readUTF8String(buf);
-        NBTTagCompound tagCompound=ByteBufUtils.readTag(buf);
-        this.bp=tagCompound.getString("byte");
-        //this.bp = ByteBufUtils.readUTF8String(buf);
         this.folkID = ByteBufUtils.readUTF8String(buf);
         this.bPos = ByteBufUtils.readUTF8String(buf);
         this.direction = buf.readInt();
+//        for (int i = 0; i < this.fs_i; i++) {
+//            this.bp += ByteBufUtils.readUTF8String(buf);
+//        }
+//        NBTTagCompound tagCompound=ByteBufUtils.readTag(buf);
+//        for (int i = 0; i < 999999999; i+=400) {
+//            String s=tagCompound.getString("byte"+i);
+//            if(StringUtils.isNullOrEmpty(s)){
+//                this.bp+=s;
+//            }else{
+//                break;
+//            }
+//        }
+//        this.bp=tagCompound.getString("byte1");
+        //this.bp = ByteBufUtils.readUTF8String(buf);
+
     }
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.bName);
         ByteBufUtils.writeUTF8String(buf, this.bType);
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setString("byte",this.bp);
-        ByteBufUtils.writeTag(buf, tag);
-        //ByteBufUtils.writeUTF8String(buf, this.bp);
         ByteBufUtils.writeUTF8String(buf, this.folkID);
         ByteBufUtils.writeUTF8String(buf, this.bPos);
         buf.writeInt(this.direction);
+//        NBTTagCompound tag = new NBTTagCompound();
+/*        for (int i = 0; i < this.bp.length(); i+=1000) {
+            this.fs_i++;
+            if(this.bp.length()-i>1000){
+                ByteBufUtils.writeUTF8String(buf, this.bp.substring(i,i+1000));
+            }else{
+                ByteBufUtils.writeUTF8String(buf, this.bp.substring(i,this.bp.length()));
+            }
+        }*/
+//        tag.setString("byte",this.bp);
+//        ByteBufUtils.writeTag(buf, tag);
+        //ByteBufUtils.writeUTF8String(buf, this.bp);
+
     }
 
     public static class Handler implements IMessageHandler<PacketSendBlueprint, IMessage> {

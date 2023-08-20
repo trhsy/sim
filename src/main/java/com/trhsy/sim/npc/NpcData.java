@@ -1699,10 +1699,10 @@ public class NpcData {
 //            double expectedtime = (double) System.currentTimeMillis() + dist * 0.6D;
 //            System.out.println("expectedtime:"+expectedtime);
                 if (dist >= 40) {
-                    return false;
+//                    return false;
                 }
             } else if (this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D)) {
-                return true;
+//                return true;
             }
         } else {
             if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
@@ -1730,7 +1730,8 @@ public class NpcData {
         if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
             return true;
         } else {
-            //this.entity.setPositionAndUpdate(v3.x + 1D, v3.y + 1D, v3.z + 1D);
+//            this.entity.setPositionAndUpdate(v3.x, v3.y + 1D, v3.z);
+//            this.entity.getNavigator().clearPathEntity();
             return this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(v3.toBlockPos()), 1.0D);
         }
     }

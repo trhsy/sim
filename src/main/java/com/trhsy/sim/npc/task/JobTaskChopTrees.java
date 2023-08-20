@@ -7,10 +7,12 @@ import com.trhsy.sim.npc.job.Job;
 import com.trhsy.sim.task.JobTask;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +52,24 @@ public class JobTaskChopTrees extends JobTask {
                 for(double z = this.startPoint.z - (double)this.radius; z < this.startPoint.z + (double)this.radius; ++z) {
                     BlockPos bp = new BlockPos(x, y, z);
                     Block b = this.job.jobWorld.getBlockState(bp).getBlock();
-                    if (b.isWood(this.job.jobWorld, bp) && !ModSimLoader.isBlockInBuilding(V3.fromBlockPos(bp))) {
-                        if (!this.toMine.contains(bp)) {
-                            this.toMine.add(bp);
+                    if(b.isWood(this.job.jobWorld, bp)){
+                        if (!ModSimLoader.isBlockInBuilding(V3.fromBlockPos(bp))) {
+                            if (!this.toMine.contains(bp)) {
+                                this.toMine.add(bp);
+                            }
+                            this.checkNeighbours(bp, this.toMine);
                         }
-                        this.checkNeighbours(bp, this.toMine);
+                    }else{
+                        Minecraft mc = Minecraft.getMinecraft();
+                        World world = mc.theWorld;
+                        if(b.isWood(world, bp)){
+                            if (!ModSimLoader.isBlockInBuilding(V3.fromBlockPos(bp))) {
+                                if (!this.toMine.contains(bp)) {
+                                    this.toMine.add(bp);
+                                }
+                                this.checkNeighbours(bp, this.toMine);
+                            }
+                        }
                     }
                 }
             }

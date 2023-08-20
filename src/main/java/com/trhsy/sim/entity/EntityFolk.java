@@ -295,16 +295,22 @@ public class EntityFolk extends EntityCreature implements INpc {
             if (this.theData != null) {
                 this.theData.onDeath(cause);
             }else{
-                try {
+                for (NpcData npcData : ModSimLoader.folks) {
+                    if (npcData.ID.contentEquals(this.getUniqueID().toString())) {
+                        npcData.onDeath(cause);
+                    }
+                }
+                /*try {
                     String worldPath = "";
                     worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + File.separator + "sim";
                     Files.deleteIfExists((new File(worldPath + File.separator + "npc" + File.separator + this.getUniqueID() + ".sk2")).toPath());
                 } catch (Exception var5) {
                     StackTraceElement element = var5.getStackTrace()[0];
                     ModSimLoader.log.error("onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
-                }
+                }*/
             }
             super.onDeath(cause);
+            this.setDead();
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("onDeath出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -323,6 +329,9 @@ public class EntityFolk extends EntityCreature implements INpc {
     public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
         try {
             if (!player.worldObj.isRemote) {
+                if(this.theData == null){
+                    this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
+                }
                 if (this.theData != null) {
                     if(this.theData.job!=null){
                         String jobName=this.theData.job.jobName;

@@ -54,31 +54,41 @@ public class JobTaskFarmerGrow extends JobTask {
         super(j, ms);
         this.status = status;
         this.noNeed = 0;
-        this.farm=farm;
-        this.stage=1;
+        this.farm = farm;
+        this.stage = 1;
     }
 
     @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
-        Random ra = new Random();
-        int r = ra.nextInt(2);
-        if (r == 0) {
-            //在公众号'dasha500'找作者玩
-            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
-            if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
-                this.growCheck = System.currentTimeMillis();
-                grow();
+        if (ModSimLoader.money > 0.02F) {
+            boolean falg = false;
+            if (ModSimLoader.gamemode == 1) {
+                falg = (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * 10;
             }
-        } else if (r == 1) {
-            //照料作物
-            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending") + "," + this.farm.farmType);
-            //用骨粉快速生长作物
-            if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
-                this.growCheck = System.currentTimeMillis();
-                grow();
+            // 等级 时间计算 工作效率
+            if (falg || (float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
+                Random ra = new Random();
+                int r = ra.nextInt(2);
+                if (r == 0) {
+                    //在公众号'dasha500'找作者玩
+                    this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
+                    if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                        this.growCheck = System.currentTimeMillis();
+                        grow();
+                    }
+                } else if (r == 1) {
+                    //照料作物
+                    this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending") + "," + this.farm.farmType);
+                    //用骨粉快速生长作物
+                    if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                        this.growCheck = System.currentTimeMillis();
+                        grow();
+                    }
+                }
             }
         }
+
     }
 
     @Override
@@ -101,24 +111,24 @@ public class JobTaskFarmerGrow extends JobTask {
                 // 等级 时间计算 工作效率
                 if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
 
-                        Random ra = new Random();
-                        int r = ra.nextInt(2);
-                        if (r == 0) {
-                            //在公众号'dasha500'找作者玩
-                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
-                            if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
-                                this.growCheck = System.currentTimeMillis();
-                                grow();
-                            }
-                        } else if (r == 1) {
-                            //照料作物
-                            this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending") + "," + this.farm.farmType);
-                            //用骨粉快速生长作物
-                            if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
-                                this.growCheck = System.currentTimeMillis();
-                                grow();
-                            }
+                    Random ra = new Random();
+                    int r = ra.nextInt(2);
+                    if (r == 0) {
+                        //在公众号'dasha500'找作者玩
+                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
+                        if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                            this.growCheck = System.currentTimeMillis();
+                            grow();
                         }
+                    } else if (r == 1) {
+                        //照料作物
+                        this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending") + "," + this.farm.farmType);
+                        //用骨粉快速生长作物
+                        if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                            this.growCheck = System.currentTimeMillis();
+                            grow();
+                        }
+                    }
                     this.completed = true;
                 }
 
@@ -160,6 +170,7 @@ public class JobTaskFarmerGrow extends JobTask {
             ModSimLoader.log.error("JobFarmer-addFarmingLevel出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+
     /**
      * @return void
      * @Author fan
@@ -209,6 +220,8 @@ public class JobTaskFarmerGrow extends JobTask {
                                         if ((System.currentTimeMillis() - this.qsCheck) > 3000 * 60) {
                                             this.qsCheck = System.currentTimeMillis();
                                             ModSimLoader.sendChat(this.farm.farmType + I18n.format("container.sim.job.crop.farmer.dye"));
+                                            this.completed = true;
+                                            return;
                                         }
                                     }
                                 }
@@ -225,7 +238,6 @@ public class JobTaskFarmerGrow extends JobTask {
             this.stage = 3;
         }
     }
-
 
 
     @Override

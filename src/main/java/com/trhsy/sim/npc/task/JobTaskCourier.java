@@ -31,6 +31,7 @@ public class JobTaskCourier extends JobTask {
     private transient V3 pickup;
     //卸货地点
     private transient V3 dropoff;
+    public long timeSinceArrival;
     private transient List<IInventory> chests = new CopyOnWriteArrayList();
 
     public JobTaskCourier(Job j, long ms, String status) {
@@ -48,10 +49,14 @@ public class JobTaskCourier extends JobTask {
 
     @Override
     public void onUpdate() {
-        goingToPickup();
+        if(System.currentTimeMillis()-this.timeSinceArrival>1000){
+            goingToPickup();
+        }
     }
 
     private void goingToPickup() {
+        try{
+        this.timeSinceArrival=System.currentTimeMillis();
         if (this.step == 0) {
             if (ModSimLoader.theCourierPoints.size() > 0) {
                 Courier courier = ModSimLoader.theCourierPoints.get(this.currentTask);
@@ -60,7 +65,7 @@ public class JobTaskCourier extends JobTask {
                 if (this.pickup != null) {
                     //我在去的路上 1 1 1 (提取)
                     this.job.folk.setStatus(I18n.format("container.sim.job.courier.On_my") + this.pickup.toString() + I18n.format("container.sim.job.courier.pick_up"));
-                    this.job.folk.forceMoveToXYZNoWarp(this.pickup);
+                    this.job.folk.forceMoveToXYZ(this.pickup);
                     if (this.job.folk.isAtLocation(this.pickup, 2)) {
                         this.step = 1;
                     }
@@ -79,13 +84,15 @@ public class JobTaskCourier extends JobTask {
                 this.step = 2;
             } else {
                 ModSimLoader.log.warn("JobCourier: StagePickingup() 拾取时没有宝箱：" + this.pickup.toString() + "，移除任务。");
-                ++this.currentTask;
-                if (this.currentTask >= ModSimLoader.theCourierTask.size()) {
+                if (this.currentTask >= ModSimLoader.theCourierPoints.size()&&ModSimLoader.theCourierPoints.size()>0) {
+//                    ModSimLoader.theCourierPoints.remove(this.currentTask);
                     this.completed = true;
                 }
+//                ++this.currentTask;
+                this.step = 2;
             }
         } else if (this.step == 2) {
-            if (this.dropoff == null) {
+            if (this.dropoff != null) {
                 this.job.folk.setStatus(I18n.format("container.sim.job.courier.On_my") + this.pickup.toString() + I18n.format("container.sim.job.courier.pick_up"));
                 this.job.folk.forceMoveToXYZNoWarp(this.dropoff);
                 this.step = 3;
@@ -93,12 +100,22 @@ public class JobTaskCourier extends JobTask {
         } else if (this.step == 3) {
             this.job.folk.setStatus(I18n.format("container.sim.job.courier.Dropping"));
             for (ItemStack itemStack : this.job.folk.inventory) {
-                this.job.folk.inventory.remove(itemStack);
-                this.job.placeInJobChest(itemStack);
+                if(itemStack!=null){
+                    this.job.folk.inventory.remove(itemStack);
+                    this.job.placeInJobChest(itemStack);
+                }
+            }
+            if(this.currentTask==0){
+                ModSimLoader.theCourierPoints.remove(this.currentTask);
+            }else{
+                ModSimLoader.theCourierPoints.remove(this.currentTask-1);
             }
             this.step = 0;
         }
-
+        }catch (Exception e){
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("JobTaskCourier-goingToPickup出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 
     @Override

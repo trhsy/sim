@@ -2,9 +2,9 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.entity.util.NpcSkin;
 import com.trhsy.sim.gui.GuiHud;
+import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.gui.block.*;
 import com.trhsy.sim.gui.npc.*;
-import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.network.client.*;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
@@ -16,7 +16,6 @@ import com.trhsy.sim.npc.build.BuildingBlueprint;
 import com.trhsy.sim.npc.build.TerrainTypeRequitrements;
 import com.trhsy.sim.util.Courier;
 import com.trhsy.sim.util.CourierTask;
-import com.trhsy.sim.util.items.Commodity;
 import com.trhsy.sim.util.FarmType;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
@@ -963,8 +962,24 @@ public class ModSimLoader {
     public static void openFlowerGui(PacketOpenFlowerGui message) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiFlower(message));
     }
-
+    /**
+     * @Author fan
+     * @Description //TODO 路径箱
+     * @Date 11:17 2023/8/20
+     * @Param [message]
+     * @return void
+     **/
     public static void OpenPathBox(PacketOpenPathBoxGui message) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiPathBox(message));
+    }
+    /**
+     * @Author fan
+     * @Description //TODO 风车
+     * @Date 12:24 2023/8/20
+     * @Param [message]
+     * @return void
+     **/
+    public static void OpenWindmill(PacketOpenWindmillGui message) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiWindmill(message));
     }
 }

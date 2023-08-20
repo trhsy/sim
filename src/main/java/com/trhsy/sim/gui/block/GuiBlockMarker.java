@@ -1,12 +1,9 @@
 package com.trhsy.sim.gui.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.block.BlockMarker;
-import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.V3;
-import com.trhsy.sim.npc.build.Building;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -18,7 +15,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import org.lwjgl.input.Mouse;
 
 import java.io.BufferedWriter;
 import java.io.File;
