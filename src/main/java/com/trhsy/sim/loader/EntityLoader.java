@@ -3,9 +3,11 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityConBox;
 import com.trhsy.sim.entity.EntityFolk;
+import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.entity.render.RenderConBox;
 import com.trhsy.sim.entity.render.RenderEntityFolk;
 import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -37,6 +39,7 @@ public class EntityLoader {
             // TODO
             RenderingRegistry.registerEntityRenderingHandler(EntityFolk.class, RenderEntityFolk.FACTORY);
             RenderingRegistry.registerEntityRenderingHandler(EntityConBox.class, RenderConBox.FACTORY);
+            TileEntity.addMapping(TileEntityWindmill.class,"Windmill");
             //registerEntityRender(EntityAlignBeam.class, RenderAlignBeam.class);
             //registerEntityRender(EntityWindmill.class, RenderWindmill.class);
         } catch (Exception e) {
