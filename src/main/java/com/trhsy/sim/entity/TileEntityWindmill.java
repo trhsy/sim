@@ -35,7 +35,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     /**
      * 存放风车中当前使用的物品的ItemStack
      */
-    private ItemStack[] furnaceItemStacks = new ItemStack[3];
+    private ItemStack[] furnaceItemStacks = new ItemStack[2];
     /**
      * 当前正在燃烧的物品的新副本将使熔炉持续燃烧的勾号数
      */
@@ -150,6 +150,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
 
     /**
      * 设置自定义库存名称
+     *
      * @param customName
      */
     public void setCustomInventoryName(String customName) {
@@ -243,7 +244,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
         //客户端
         if (!this.worldObj.isRemote) {
             //是在运行 并且第一个框里有物品
-            if (this.isBurning() ||  this.furnaceItemStacks[0] != null) {
+            if (this.isBurning() || this.furnaceItemStacks[0] != null) {
                 //没有运行，
                 if (!this.isBurning() && this.canSmelt()) {
                     //燃烧时间
@@ -301,7 +302,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     private boolean canSmelt() {
         if (this.furnaceItemStacks[0] == null) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -314,27 +315,35 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
         //有燃料
         if (this.canSmelt()) {
             //第一个是金铁铜锡
-            ItemStack itemstack=this.furnaceItemStacks[0];
-
+            ItemStack itemstack = this.furnaceItemStacks[0];
+            if (this.furnaceItemStacks[1] == null) {
+                this.furnaceItemStacks[1] = itemstack.copy();
+            } else if (this.furnaceItemStacks[1].getItem() == itemstack.getItem()) {
+                this.furnaceItemStacks[1].stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
+            }
             //铜矿
             if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockCopperOre) && this.furnaceItemStacks[1] != null) {
                 //铜粒儿
                 this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesCopper);
+                this.furnaceItemStacks[1].stackSize += 8;
             }
             //锡矿
             if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockTinOre) && this.furnaceItemStacks[1] != null) {
                 //锡粒儿
                 this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesTin);
+                this.furnaceItemStacks[1].stackSize += 8;
             }
             //金矿
             if (itemstack.getItem() == Item.getItemFromBlock(Blocks.GOLD_ORE) && this.furnaceItemStacks[1] != null) {
                 //金粒儿
                 this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesGold);
+                this.furnaceItemStacks[1].stackSize += 8;
             }
             //铁矿
             if (itemstack.getItem() == Item.getItemFromBlock(Blocks.IRON_ORE) && this.furnaceItemStacks[1] != null) {
                 //铁粒儿
                 this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesIron);
+                this.furnaceItemStacks[1].stackSize += 8;
             }
             --this.furnaceItemStacks[0].stackSize;
 
@@ -384,6 +393,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
 
     /**
      * 获取正面的插槽
+     *
      * @param side
      * @return
      */
@@ -395,6 +405,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     /**
      * 如果自动化可以从给定的一侧将给定的项插入到给定的插槽中，则返回true。
      * 验证插槽有效与否
+     *
      * @param index
      * @param itemStackIn
      * @param direction
@@ -408,6 +419,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     /**
      * 如果自动化可以从给定的一侧提取给定插槽中的给定项，则返回true。
      * 可以提取项目
+     *
      * @param index
      * @param stack
      * @param direction
@@ -435,6 +447,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
 
     /**
      * 创建容器
+     *
      * @param playerInventory
      * @param playerIn
      * @return
@@ -499,7 +512,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
         if (facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if (facing == EnumFacing.DOWN) {
                 return (T) handlerLeft;
-            }  else {
+            } else {
                 return (T) handlerRIGHT;
             }
 

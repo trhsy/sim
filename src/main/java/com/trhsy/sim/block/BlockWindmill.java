@@ -148,8 +148,8 @@ public class BlockWindmill extends BlockContainer {
                 //NetWorkLoader.net.sendTo(new PacketOpenWindmillGui(playerIn, new V3(pos, playerIn.dimension)), (EntityPlayerMP) playerIn);
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 if (tileentity instanceof TileEntityWindmill) {
-                    EntityPlayerMP entityPlayerMP= (EntityPlayerMP) playerIn;
-                    entityPlayerMP.displayGUIChest((TileEntityWindmill) tileentity);
+//                    EntityPlayerMP entityPlayerMP= (EntityPlayerMP) playerIn;
+//                    entityPlayerMP.displayGUIChest((TileEntityWindmill) tileentity);
                     ModSimLoader.OpenWindmill(playerIn.inventory, (TileEntityWindmill) tileentity);
                     playerIn.addStat(WINDMILL_INTERACTION);
                 }
