@@ -20,6 +20,8 @@ import com.trhsy.sim.util.FarmType;
 import com.trhsy.sim.entity.util.NpcIdentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -981,5 +983,9 @@ public class ModSimLoader {
      **/
     public static void OpenWindmill(PacketOpenWindmillGui message) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiWindmill(message));
+    }
+
+    public static void OpenWindmill(InventoryPlayer inventory, IInventory chestInventory) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiWindmill(inventory,chestInventory));
     }
 }

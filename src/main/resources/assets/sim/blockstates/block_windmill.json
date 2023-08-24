@@ -1,7 +1,8 @@
 {
   "variants": {
-    "normal": {
-      "model": "sim:block_windmill"
-    }
+    "facing=north": { "model": "sim:block_windmill" },
+    "facing=south": { "model": "sim:block_windmill", "y": 180 },
+    "facing=west":  { "model": "sim:block_windmill", "y": 270 },
+    "facing=east":  { "model": "sim:block_windmill", "y": 90 }
   }
 }

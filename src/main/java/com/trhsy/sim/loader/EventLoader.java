@@ -320,7 +320,7 @@ public class EventLoader {
                             //    //starve.loadFolk(event.world, UUID.fromString(starve.ID));
                             //}
                             //判断是否已死亡
-                            if (starve.isDead) {
+                            if (starve.isDead||starve.entity==null) {
                                 //若有房子异常房子
                                 if (starve.home != null) {
                                     starve.home.occupants.remove(starve);
@@ -330,7 +330,7 @@ public class EventLoader {
                             } else if (starve.home == null) {
                                 spawnNew = false;
                                 //未成年不算
-                                if(starve.race!=null&&starve.age<starve.race.maturity){
+                                if(starve.race!=null&&starve.age>starve.race.maturity){
                                     //只要有一个人没有住到房子里就不生成新的人
                                     spawnNew = true;
                                 }
@@ -473,6 +473,7 @@ public class EventLoader {
                 if (event.world.isRaining() && event.world.getWorldInfo().getRainTime() > 1 && ConfigLoader.configStopRain) {
                     event.world.getWorldInfo().setRaining(false);
                     ModSimLoader.log.info("我讨厌下雨-停了吧");
+                    ModSimLoader.sendChat(I18n.format("chat.sim.xiayu"));
                 }
             }
         }

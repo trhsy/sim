@@ -73,7 +73,7 @@ public class JobTaskFarmerGrow extends JobTask {
                 if (r == 0) {
                     //在公众号'dasha500'找作者玩
                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
-                    if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                    if ((System.currentTimeMillis() - this.growCheck) > 3000 * 60) {
                         this.growCheck = System.currentTimeMillis();
                         grow();
                     }
@@ -81,7 +81,7 @@ public class JobTaskFarmerGrow extends JobTask {
                     //照料作物
                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending") + "," + this.farm.farmType);
                     //用骨粉快速生长作物
-                    if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                    if ((System.currentTimeMillis() - this.growCheck) > 3000 * 60) {
                         this.growCheck = System.currentTimeMillis();
                         grow();
                     }
@@ -230,7 +230,6 @@ public class JobTaskFarmerGrow extends JobTask {
                     }
                 }
             }
-            this.completed = true;
             this.stage = 3;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

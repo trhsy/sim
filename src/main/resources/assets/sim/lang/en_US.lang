@@ -1266,3 +1266,6 @@ container.sim.Command2=Invalid arguments, should be: /simmode
 container.sim.jobMiner1=has just levelled up to Mining Level
 container.sim.gui_mine1=TOO SMALL
 container.sim.gui_mine2=Mine
+chat.sim.xiayu=I hate the rain. - Stop it
+
+stat.windmillInteraction=Interactions with Windmill
