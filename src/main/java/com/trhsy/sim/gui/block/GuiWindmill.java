@@ -1,6 +1,7 @@
 package com.trhsy.sim.gui.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.entity.ContainerWindmill;
 import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.network.client.PacketOpenWindmillGui;
@@ -33,14 +34,19 @@ public class GuiWindmill extends GuiContainer {
     private IInventory tileWindmill;
 
     public GuiWindmill(InventoryPlayer inventory, IInventory chestInventory) {
-        super(new ContainerFurnace(inventory, chestInventory));
-        this.playerInventory = inventory;
-        this.tileWindmill = chestInventory;
+        super(new ContainerWindmill(inventory, chestInventory));
+        try {
+            this.playerInventory = inventory;
+            this.tileWindmill = chestInventory;
+        }catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("GuiWindmill出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
     }
 
     public GuiWindmill(PacketOpenWindmillGui message) {
         //Entity entity=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid);
-        super(new ContainerFurnace(new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid)), new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid))));
+        super(new ContainerWindmill(new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid)), new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid))));
         this.playerInventory = new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid));
     }
 

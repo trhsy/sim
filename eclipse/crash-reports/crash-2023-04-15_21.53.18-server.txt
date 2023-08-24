@@ -1,0 +1,48 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 23-4-15 下午9:53
+Description: Exception in server tick loop
+
+java.lang.ClassCastException: net.minecraft.block.BlockAir cannot be cast to com.trhsy.sim.block.BlockConstructorBox
+	at com.trhsy.sim.npc.job.JobBuilder.onUpdate(JobBuilder.java:241)
+	at com.trhsy.sim.npc.NpcData.onUpdate(NpcData.java:1057)
+	at com.trhsy.sim.loader.EventLoader.worldTick(EventLoader.java:440)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_8_EventLoader_worldTick_WorldTickEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:49)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:140)
+	at net.minecraftforge.fml.common.FMLCommonHandler.onPreWorldTick(FMLCommonHandler.java:274)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:764)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:683)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:155)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:532)
+	at java.lang.Thread.run(Unknown Source)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_341, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 464722096 bytes (443 MB) / 862453760 bytes (822 MB) up to 1883242496 bytes (1796 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP 9.23 Powered by Forge 12.16.1.1934 7 mods loaded, 7 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.9-12.16.1.1934.jar) 
+	UCHIJAAAA	Forge{12.16.1.1934} [Minecraft Forge] (forgeSrc-1.9-12.16.1.1934.jar) 
+	UCHIJAAAA	sim{1.9-1.0.0 Beta} [Simulated town] (sim-u-1.9) 
+	UCHIJAAAA	JEI{3.4.3.207} [Just Enough Items] (jei_1.9.4-3.4.3.207.jar) 
+	UCHIJAAAA	VeinMiner{0.38.2_1.9-127e28f} [Vein Miner] (VeinMiner-1.9-0.38.2.624+127e28f.jar) 
+	UCHIJAAAA	VeinMinerModSupport{0.38.2_1.9-127e28f} [Mod Support] (VeinMiner-1.9-0.38.2.624+127e28f.jar) 
+	Loaded coremods (and transformers): 
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Profiler Position: N/A (disabled)
+	Player Count: 1 / 8; [EntityPlayerMP['Player900'/160, l='sim', x=-403.50, y=4.10, z=349.50]]
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
