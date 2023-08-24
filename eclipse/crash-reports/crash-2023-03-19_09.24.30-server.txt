@@ -1,0 +1,95 @@
+---- Minecraft Crash Report ----
+// Daisy, daisy...
+
+Time: 23-3-19 上午9:24
+Description: Ticking entity
+
+java.lang.NullPointerException: Ticking entity
+	at net.minecraft.item.ItemStack.getAttributeModifiers(ItemStack.java:1016)
+	at net.minecraft.entity.EntityLivingBase.onUpdate(EntityLivingBase.java:2129)
+	at net.minecraft.entity.EntityLiving.onUpdate(EntityLiving.java:343)
+	at com.trhsy.sim.entity.EntityFolk.onUpdate(EntityFolk.java:174)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2087)
+	at net.minecraft.world.WorldServer.updateEntityWithOptionalForce(WorldServer.java:871)
+	at net.minecraft.world.World.updateEntity(World.java:2053)
+	at net.minecraft.world.World.updateEntities(World.java:1884)
+	at net.minecraft.world.WorldServer.updateEntities(WorldServer.java:645)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:779)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:683)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:155)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:532)
+	at java.lang.Thread.run(Unknown Source)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.item.ItemStack.getAttributeModifiers(ItemStack.java:1016)
+	at net.minecraft.entity.EntityLivingBase.onUpdate(EntityLivingBase.java:2129)
+	at net.minecraft.entity.EntityLiving.onUpdate(EntityLiving.java:343)
+	at com.trhsy.sim.entity.EntityFolk.onUpdate(EntityFolk.java:174)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2087)
+	at net.minecraft.world.WorldServer.updateEntityWithOptionalForce(WorldServer.java:871)
+	at net.minecraft.world.World.updateEntity(World.java:2053)
+
+-- Entity being ticked --
+Details:
+	Entity Type: sim.EntityFolk (com.trhsy.sim.entity.EntityFolk)
+	Entity ID: 17
+	Entity Name: 小镇居民
+	Entity's Exact location: -397.50, 6.00, 282.50
+	Entity's Block location: World: (-398,6,282), Chunk: (at 2,0,10 in -25,17; contains blocks -400,0,272 to -385,255,287), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+	Entity's Momentum: 0.00, 0.00, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: null
+Stacktrace:
+	at net.minecraft.world.World.updateEntities(World.java:1884)
+	at net.minecraft.world.WorldServer.updateEntities(WorldServer.java:645)
+
+-- Affected level --
+Details:
+	Level name: sim
+	All players: 1 total; [EntityPlayerMP['Player954'/16, l='sim', x=-406.74, y=6.00, z=357.38]]
+	Chunk stats: ServerChunkCache: 750 Drop: 0
+	Level seed: -3531569614201051734
+	Level generator: ID 01 - flat, ver 0. Features enabled: true
+	Level generator options: 3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;village
+	Level spawn location: World: (-407,4,279), Chunk: (at 9,0,7 in -26,17; contains blocks -416,0,272 to -401,255,287), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+	Level time: 755500 game time, 28434 day time
+	Level dimension: 0
+	Level storage version: 0x04ABD - Anvil
+	Level weather: Rain time: 64124 (now: false), thunder time: 82308 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: true
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:779)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:683)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:155)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:532)
+	at java.lang.Thread.run(Unknown Source)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_341, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 407619376 bytes (388 MB) / 1013972992 bytes (967 MB) up to 1883242496 bytes (1796 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP 9.23 Powered by Forge 12.16.1.1934 7 mods loaded, 7 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.9-12.16.1.1934.jar) 
+	UCHIJAAAA	Forge{12.16.1.1934} [Minecraft Forge] (forgeSrc-1.9-12.16.1.1934.jar) 
+	UCHIJAAAA	sim{1.9-1.0.0 Beta} [Simulated town] (sim-u-1.9) 
+	UCHIJAAAA	JEI{3.4.3.207} [Just Enough Items] (jei_1.9.4-3.4.3.207.jar) 
+	UCHIJAAAA	VeinMiner{0.38.2_1.9-127e28f} [Vein Miner] (VeinMiner-1.9-0.38.2.624+127e28f.jar) 
+	UCHIJAAAA	VeinMinerModSupport{0.38.2_1.9-127e28f} [Mod Support] (VeinMiner-1.9-0.38.2.624+127e28f.jar) 
+	Loaded coremods (and transformers): 
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Profiler Position: N/A (disabled)
+	Player Count: 1 / 8; [EntityPlayerMP['Player954'/16, l='sim', x=-406.74, y=6.00, z=357.38]]
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'

@@ -1,0 +1,123 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 23-4-16 下午8:58
+Description: Ticking entity
+
+java.lang.NullPointerException: Ticking entity
+	at com.trhsy.sim.entity.EntityConBox.onUpdate(EntityConBox.java:86)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2087)
+	at net.minecraft.world.World.updateEntity(World.java:2053)
+	at net.minecraft.world.World.updateEntities(World.java:1884)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1880)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1114)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:401)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:26)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at com.trhsy.sim.entity.EntityConBox.onUpdate(EntityConBox.java:86)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2087)
+	at net.minecraft.world.World.updateEntity(World.java:2053)
+
+-- Entity being ticked --
+Details:
+	Entity Type: sim.ConBox (com.trhsy.sim.entity.EntityConBox)
+	Entity ID: 250100
+	Entity Name: entity.sim.ConBox.name
+	Entity's Exact location: -421.00, 4.00, 281.00
+	Entity's Block location: World: (-421,4,281), Chunk: (at 11,0,9 in -27,17; contains blocks -432,0,272 to -417,255,287), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+	Entity's Momentum: 0.00, 0.00, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: null
+Stacktrace:
+	at net.minecraft.world.World.updateEntities(World.java:1884)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player627'/180, l='MpServer', x=-419.95, y=4.00, z=281.37]]
+	Chunk stats: MultiplayerChunkCache: 625, 625
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (-407,4,279), Chunk: (at 9,0,7 in -26,17; contains blocks -416,0,272 to -401,255,287), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+	Level time: 2431898 game time, 272163 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 91 total; [EntityChicken['鸡'/128, l='MpServer', x=-381.91, y=4.00, z=331.30], EntityItem['item.item.egg'/129, l='MpServer', x=-382.18, y=4.00, z=332.19], EntityCow['牛'/2, l='MpServer', x=-471.68, y=4.00, z=266.82], EntityItem['item.item.egg'/130, l='MpServer', x=-380.75, y=4.00, z=332.69], EntityPig['猪'/3, l='MpServer', x=-470.92, y=4.00, z=281.28], EntityCow['牛'/131, l='MpServer', x=-381.83, y=4.00, z=341.51], EntityCow['牛'/132, l='MpServer', x=-383.81, y=4.00, z=347.48], EntityCow['牛'/5, l='MpServer', x=-457.21, y=4.00, z=230.18], EntityRabbit['兔子'/6, l='MpServer', x=-458.64, y=4.00, z=271.21], EntitySheep['羊'/134, l='MpServer', x=-381.50, y=4.00, z=353.72], EntityFolk['小镇居民'/7, l='MpServer', x=-406.01, y=4.00, z=322.19], EntitySheep['羊'/8, l='MpServer', x=-446.18, y=4.00, z=253.78], EntityRabbit['兔子'/10, l='MpServer', x=-420.60, y=4.00, z=260.80], EntityFolk['小镇居民'/11, l='MpServer', x=-433.20, y=4.00, z=293.26], EntityItem['item.tile.cactus'/14, l='MpServer', x=-415.59, y=4.00, z=270.53], EntityRabbit['兔子'/142, l='MpServer', x=-356.75, y=4.00, z=223.98], EntityFolk['小镇居民'/15, l='MpServer', x=-410.32, y=5.00, z=283.81], EntityRabbit['兔子'/143, l='MpServer', x=-353.61, y=4.00, z=245.93], EntityFolk['小镇居民'/16, l='MpServer', x=-410.65, y=5.00, z=273.45], EntityRabbit['兔子'/144, l='MpServer', x=-359.48, y=4.00, z=263.55], EntityItem['item.tile.cactus'/17, l='MpServer', x=-415.65, y=4.00, z=272.29], EntityRabbit['兔子'/145, l='MpServer', x=-352.27, y=4.00, z=264.97], EntityItem['item.tile.cactus'/18, l='MpServer', x=-413.25, y=4.00, z=272.59], EntityRabbit['兔子'/146, l='MpServer', x=-371.29, y=4.00, z=275.23], EntityItem['item.item.reeds'/19, l='MpServer', x=-415.70, y=3.00, z=279.03], EntityItem['item.tile.livingBlock.silver'/20, l='MpServer', x=-413.69, y=4.00, z=272.65], EntityRabbit['兔子'/148, l='MpServer', x=-341.04, y=4.00, z=238.78], EntityFolk['小镇居民'/21, l='MpServer', x=-409.71, y=5.00, z=323.50], EntityRabbit['兔子'/149, l='MpServer', x=-343.92, y=4.00, z=262.91], EntityRabbit['兔子'/150, l='MpServer', x=-342.72, y=4.00, z=257.63], EntitySheep['羊'/153, l='MpServer', x=-341.80, y=4.00, z=344.25], EntityFolk['小镇居民'/26, l='MpServer', x=-410.39, y=5.00, z=303.61], EntityFolk['小镇居民'/27, l='MpServer', x=-410.55, y=5.00, z=293.35], EntityFolk['小镇居民'/28, l='MpServer', x=-410.16, y=5.00, z=313.51], EntityFolk['小镇居民'/30, l='MpServer', x=-410.50, y=5.00, z=333.50], EntitySnowman['雪傀儡'/35, l='MpServer', x=-403.35, y=7.00, z=346.65], EntitySnowman['雪傀儡'/36, l='MpServer', x=-403.65, y=7.00, z=346.35], EntitySnowman['雪傀儡'/37, l='MpServer', x=-403.65, y=7.00, z=346.35], EntitySnowman['雪傀儡'/38, l='MpServer', x=-403.65, y=7.00, z=346.35], EntitySnowman['雪傀儡'/39, l='MpServer', x=-403.65, y=7.00, z=346.65], EntitySnowman['雪傀儡'/40, l='MpServer', x=-403.35, y=7.00, z=346.65], EntityFolk['小镇居民'/44, l='MpServer', x=-409.75, y=5.00, z=343.43], EntityRabbit['兔子'/59, l='MpServer', x=-399.05, y=4.00, z=219.90], EntityHorse['马'/60, l='MpServer', x=-398.90, y=4.00, z=218.84], EntityItem['item.item.egg'/61, l='MpServer', x=-397.70, y=4.00, z=255.59], EntityChicken['鸡'/62, l='MpServer', x=-384.70, y=4.00, z=262.86], EntityRabbit['兔子'/64, l='MpServer', x=-384.15, y=4.00, z=287.86], EntityFolk['小镇居民'/65, l='MpServer', x=-384.46, y=4.00, z=284.83], EntityRabbit['兔子'/66, l='MpServer', x=-387.48, y=4.00, z=287.40], EntityCow['牛'/67, l='MpServer', x=-387.63, y=4.00, z=298.93], EntityCow['牛'/68, l='MpServer', x=-386.65, y=4.00, z=299.42], EntityCow['牛'/69, l='MpServer', x=-387.93, y=4.00, z=299.92], EntityCow['牛'/70, l='MpServer', x=-386.18, y=4.00, z=297.20], EntityFolk['小镇居民'/72, l='MpServer', x=-399.30, y=4.59, z=318.70], EntityFolk['小镇居民'/73, l='MpServer', x=-388.08, y=4.00, z=316.92], EntityPig['猪'/74, l='MpServer', x=-387.93, y=4.00, z=311.41], EntitySheep['羊'/75, l='MpServer', x=-386.86, y=4.00, z=318.08], EntitySheep['羊'/76, l='MpServer', x=-387.25, y=4.00, z=317.07], EntitySheep['羊'/77, l='MpServer', x=-387.93, y=4.00, z=318.02], EntityPig['猪'/78, l='MpServer', x=-387.21, y=4.00, z=307.53], EntityChicken['鸡'/80, l='MpServer', x=-387.50, y=4.00, z=329.80], EntityChicken['鸡'/81, l='MpServer', x=-386.99, y=4.00, z=332.64], EntityChicken['鸡'/82, l='MpServer', x=-387.93, y=4.00, z=333.42], EntitySheep['羊'/83, l='MpServer', x=-387.27, y=4.00, z=323.53], EntityItem['item.item.egg'/84, l='MpServer', x=-387.60, y=4.00, z=333.04], EntityItem['item.item.egg'/85, l='MpServer', x=-387.62, y=4.00, z=332.02], EntityCow['牛'/92, l='MpServer', x=-385.57, y=4.00, z=347.15], EntityCow['牛'/93, l='MpServer', x=-387.29, y=4.00, z=344.48], EntityCow['牛'/94, l='MpServer', x=-387.93, y=4.00, z=343.14], EntityPlayerSP['Player627'/180, l='MpServer', x=-419.95, y=4.00, z=281.37], EntityCow['牛'/95, l='MpServer', x=-387.18, y=4.00, z=347.31], EntitySheep['羊'/96, l='MpServer', x=-386.21, y=4.00, z=354.71], EntitySheep['羊'/97, l='MpServer', x=-387.93, y=4.00, z=358.13], EntitySheep['羊'/98, l='MpServer', x=-387.15, y=4.00, z=357.07], EntitySheep['羊'/99, l='MpServer', x=-387.30, y=4.00, z=359.50], EntityRabbit['兔子'/109, l='MpServer', x=-369.57, y=4.00, z=212.00], EntityRabbit['兔子'/111, l='MpServer', x=-368.24, y=4.00, z=273.01], EntityRabbit['兔子'/112, l='MpServer', x=-381.82, y=4.00, z=281.51], EntityRabbit['兔子'/113, l='MpServer', x=-384.22, y=4.00, z=281.55], EntityRabbit['兔子'/114, l='MpServer', x=-381.55, y=4.00, z=285.71], EntityFolk['小镇居民'/115, l='MpServer', x=-374.14, y=4.00, z=296.40], EntityCow['牛'/116, l='MpServer', x=-381.81, y=4.00, z=295.41], EntityFolk['小镇居民'/118, l='MpServer', x=-373.76, y=4.00, z=304.88], EntityPig['猪'/119, l='MpServer', x=-381.08, y=4.00, z=306.48], EntityConBox['entity.sim.ConBox.name'/250100, l='MpServer', x=-421.00, y=4.00, z=281.00], EntityPig['猪'/121, l='MpServer', x=-381.42, y=4.00, z=311.92], EntityPig['猪'/122, l='MpServer', x=-381.68, y=4.00, z=311.02], EntitySheep['羊'/123, l='MpServer', x=-381.76, y=4.00, z=317.58], EntityFolk['小镇居民'/125, l='MpServer', x=-380.93, y=4.00, z=328.92], EntityRabbit['兔子'/126, l='MpServer', x=-379.01, y=4.00, z=321.56], EntityChicken['鸡'/127, l='MpServer', x=-381.38, y=4.00, z=331.90]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:445)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2766)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:422)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:26)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_341, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 371704528 bytes (354 MB) / 1136656384 bytes (1084 MB) up to 1883242496 bytes (1796 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP 9.23 Powered by Forge 12.16.1.1934 7 mods loaded, 7 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.9-12.16.1.1934.jar) 
+	UCHIJAAAA	Forge{12.16.1.1934} [Minecraft Forge] (forgeSrc-1.9-12.16.1.1934.jar) 
+	UCHIJAAAA	sim{1.9-1.0.0 Beta} [Simulated town] (sim-u-1.9) 
+	UCHIJAAAA	JEI{3.4.3.207} [Just Enough Items] (jei_1.9.4-3.4.3.207.jar) 
+	UCHIJAAAA	VeinMiner{0.38.2_1.9-127e28f} [Vein Miner] (VeinMiner-1.9-0.38.2.624+127e28f.jar) 
+	UCHIJAAAA	VeinMinerModSupport{0.38.2_1.9-127e28f} [Mod Support] (VeinMiner-1.9-0.38.2.624+127e28f.jar) 
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 511.69' Renderer: 'NVIDIA GeForce 940MX/PCIe/SSE2'
+	Launched Version: 1.9
+	LWJGL: 2.9.4
+	OpenGL: NVIDIA GeForce 940MX/PCIe/SSE2 GL version 4.6.0 NVIDIA 511.69, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: 简体中文 (中国)
+	Profiler Position: N/A (disabled)
+	CPU: 8x Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz
