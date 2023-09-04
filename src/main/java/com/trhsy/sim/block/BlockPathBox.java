@@ -42,7 +42,7 @@ public class BlockPathBox extends BlockBase{
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];
-            ModSimLoader.log.error("路径箱onBlockActivated出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            ModSimLoader.log.error("路径箱BlockPathBox-onBlockActivated出错了：" + e.getMessage()+"行数："+element.getLineNumber());
             return false;
         }
         return true;

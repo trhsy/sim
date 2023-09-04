@@ -3,6 +3,7 @@ package com.trhsy.sim.entity;
 import com.trhsy.sim.block.BlockWindmill;
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ItemLoader;
+import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.material.Material;
@@ -113,18 +114,22 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
+        try {
+            boolean flag = stack != null && stack.isItemEqual(this.furnaceItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, this.furnaceItemStacks[index]);
+            this.furnaceItemStacks[index] = stack;
 
-        boolean flag = stack != null && stack.isItemEqual(this.furnaceItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, this.furnaceItemStacks[index]);
-        this.furnaceItemStacks[index] = stack;
-
-        if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-            stack.stackSize = this.getInventoryStackLimit();
-        }
-        //是零并且
-        if (index == 0 && !flag) {
-            this.totalCookTime = this.getCookTime(stack);
-            this.cookTime = 0;
-            this.markDirty();
+            if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+                stack.stackSize = this.getInventoryStackLimit();
+            }
+            //是零并且
+            if (index == 0 && !flag) {
+                this.totalCookTime = this.getCookTime(stack);
+                this.cookTime = 0;
+                this.markDirty();
+            }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("setInventorySlotContents出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -234,52 +239,57 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     @Override
     public void update() {
-        //是否运行
-        boolean flag = this.isBurning();
-        boolean flag1 = false;
-        //运行则减时间
-        if (this.isBurning()) {
-            --this.furnaceBurnTime;
-        }
-        //客户端
-        if (!this.worldObj.isRemote) {
-            //是在运行 并且第一个框里有物品
-            if (this.isBurning() || this.furnaceItemStacks[0] != null) {
-                //没有运行，
-                if (!this.isBurning() && this.canSmelt()) {
-                    //燃烧时间
-                    this.currentItemBurnTime = this.furnaceBurnTime = 200;
-                    //是否在运行
-                    if (this.isBurning()) {
-                        flag1 = true;
+        try {
+            //是否运行
+            boolean flag = this.isBurning();
+            boolean flag1 = false;
+            //运行则减时间
+            if (this.isBurning()) {
+                --this.furnaceBurnTime;
+            }
+            //客户端
+            if (!this.worldObj.isRemote) {
+                //是在运行 并且第一个框里有物品
+                if (this.isBurning() || this.furnaceItemStacks[0] != null) {
+                    //没有运行，
+                    if (!this.isBurning() && this.canSmelt()) {
+                        //燃烧时间
+                        this.currentItemBurnTime = this.furnaceBurnTime = 200;
+                        //是否在运行
+                        if (this.isBurning()) {
+                            flag1 = true;
+                        }
                     }
-                }
-                //在运行
-                if (this.isBurning() && this.canSmelt()) {
-                    ++this.cookTime;
-                    //制作时间        总制作时间     重制时间
-                    if (this.cookTime == this.totalCookTime) {
+                    //在运行
+                    if (this.isBurning() && this.canSmelt()) {
+                        ++this.cookTime;
+                        //制作时间        总制作时间     重制时间
+                        if (this.cookTime == this.totalCookTime) {
+                            this.cookTime = 0;
+                            this.totalCookTime = this.getCookTime(this.furnaceItemStacks[0]);
+                            this.smeltItem();
+                            flag1 = true;
+                        }
+                    } else {
                         this.cookTime = 0;
-                        this.totalCookTime = this.getCookTime(this.furnaceItemStacks[0]);
-                        this.smeltItem();
-                        flag1 = true;
                     }
-                } else {
-                    this.cookTime = 0;
+                } else if (!this.isBurning() && this.cookTime > 0) {
+                    this.cookTime = MathHelper.clamp_int(this.cookTime - 2, 0, this.totalCookTime);
                 }
-            } else if (!this.isBurning() && this.cookTime > 0) {
-                this.cookTime = MathHelper.clamp_int(this.cookTime - 2, 0, this.totalCookTime);
+                //重制风车
+                if (flag != this.isBurning()) {
+                    flag1 = true;
+                    BlockWindmill.setState(this.isBurning(), this.worldObj, this.pos);
+                }
             }
-            //重制风车
-            if (flag != this.isBurning()) {
-                flag1 = true;
-                BlockWindmill.setState(this.isBurning(), this.worldObj, this.pos);
+            if (flag1) {
+                //对于tile实体，确保包含tile实体的区块稍后保存到磁盘上——游戏不会认为它没有更改并跳过它。
+                //标记
+                this.markDirty();
             }
-        }
-        if (flag1) {
-            //对于tile实体，确保包含tile实体的区块稍后保存到磁盘上——游戏不会认为它没有更改并跳过它。
-            //标记
-            this.markDirty();
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("update-setInventorySlotContents出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -312,44 +322,67 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      * 冶炼
      */
     public void smeltItem() {
+        try{
         //有燃料
         if (this.canSmelt()) {
             //第一个是金铁铜锡
             ItemStack itemstack = this.furnaceItemStacks[0];
-            if (this.furnaceItemStacks[1] == null) {
-                this.furnaceItemStacks[1] = itemstack.copy();
-            } else if (this.furnaceItemStacks[1].getItem() == itemstack.getItem()) {
-                this.furnaceItemStacks[1].stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
-            }
+            //if (this.furnaceItemStacks[1] == null) {
+            //    this.furnaceItemStacks[1] = itemstack.copy();
+            //} else if (this.furnaceItemStacks[1].getItem() == itemstack.getItem()) {
+            //    this.furnaceItemStacks[1].stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
+            //}
             //铜矿
-            if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockCopperOre) && this.furnaceItemStacks[1] != null) {
-                //铜粒儿
-                this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesCopper);
-                this.furnaceItemStacks[1].stackSize += 8;
+            if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockCopperOre)) {
+                if (this.furnaceItemStacks[1] != null) {
+                    this.furnaceItemStacks[1].stackSize += 9;
+                } else {
+                    //铜粒儿
+                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesCopper);
+                    this.furnaceItemStacks[1].stackSize += 8;
+                }
             }
             //锡矿
-            if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockTinOre) && this.furnaceItemStacks[1] != null) {
-                //锡粒儿
-                this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesTin);
-                this.furnaceItemStacks[1].stackSize += 8;
+            if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockTinOre)) {
+                if (this.furnaceItemStacks[1] != null) {
+                    this.furnaceItemStacks[1].stackSize += 9;
+                } else {
+                    //锡粒儿
+                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesTin);
+                    this.furnaceItemStacks[1].stackSize += 8;
+                }
             }
             //金矿
-            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.GOLD_ORE) && this.furnaceItemStacks[1] != null) {
-                //金粒儿
-                this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesGold);
-                this.furnaceItemStacks[1].stackSize += 8;
+            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
+                if (this.furnaceItemStacks[1] != null) {
+
+                    this.furnaceItemStacks[1].stackSize += 9;
+                } else {
+                    //金粒儿
+                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesGold);
+                    this.furnaceItemStacks[1].stackSize += 8;
+                }
+
             }
             //铁矿
-            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.IRON_ORE) && this.furnaceItemStacks[1] != null) {
-                //铁粒儿
-                this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesIron);
-                this.furnaceItemStacks[1].stackSize += 8;
+            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.IRON_ORE)) {
+                if (this.furnaceItemStacks[1] != null) {
+                    this.furnaceItemStacks[1].stackSize += 9;
+                } else {
+                    //铁粒儿
+                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesIron);
+                    this.furnaceItemStacks[1].stackSize += 8;
+                }
             }
             --this.furnaceItemStacks[0].stackSize;
 
             if (this.furnaceItemStacks[0].stackSize <= 0) {
                 this.furnaceItemStacks[0] = null;
             }
+        }
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("smeltItem-setInventorySlotContents出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

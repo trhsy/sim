@@ -981,10 +981,6 @@ public class ModSimLoader {
      * @Param [message]
      * @return void
      **/
-    public static void OpenWindmill(PacketOpenWindmillGui message) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiWindmill(message));
-    }
-
     public static void OpenWindmill(InventoryPlayer inventory, IInventory chestInventory) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiWindmill(inventory,chestInventory));
     }

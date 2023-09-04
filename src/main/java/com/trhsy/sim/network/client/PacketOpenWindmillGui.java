@@ -63,7 +63,6 @@ public class PacketOpenWindmillGui implements IMessage {
         }
 
         private void handle(PacketOpenWindmillGui message, MessageContext ctx) {
-            ModSimLoader.OpenWindmill(message);
         }
     }
 }

@@ -192,7 +192,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     @Override
     protected boolean canDespawn() {
-        return false;
+        return true;
     }
 
     /**
@@ -295,10 +295,15 @@ public class EntityFolk extends EntityCreature implements INpc {
             if (this.theData != null) {
                 this.theData.onDeath(cause);
             }else{
+                boolean fs_flog=true;
                 for (NpcData npcData : ModSimLoader.folks) {
                     if (npcData.ID.contentEquals(this.getUniqueID().toString())) {
                         npcData.onDeath(cause);
+                        fs_flog=false;
                     }
+                }
+                if(fs_flog){
+                    this.onKillEntity(this);
                 }
                 /*try {
                     String worldPath = "";

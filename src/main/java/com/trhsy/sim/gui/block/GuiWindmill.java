@@ -33,22 +33,17 @@ public class GuiWindmill extends GuiContainer {
      */
     private IInventory tileWindmill;
 
-    public GuiWindmill(InventoryPlayer inventory, IInventory chestInventory) {
-        super(new ContainerWindmill(inventory, chestInventory));
+    public GuiWindmill(InventoryPlayer playerInv, IInventory windmillInv) {
+        super(new ContainerWindmill(playerInv, windmillInv));
         try {
-            this.playerInventory = inventory;
-            this.tileWindmill = chestInventory;
+            this.playerInventory = playerInv;
+            this.tileWindmill = windmillInv;
         }catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("GuiWindmill出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
-    public GuiWindmill(PacketOpenWindmillGui message) {
-        //Entity entity=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid);
-        super(new ContainerWindmill(new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid)), new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid))));
-        this.playerInventory = new InventoryPlayer((EntityPlayer) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(message.uuid));
-    }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {

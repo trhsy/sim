@@ -55,7 +55,7 @@ public class ContainerWindmill extends Container {
                 }
             }
             //物品栏一排 九个
-            for (int k = 0; k < 9; ++k) {
+            for (int k = 2; k < 11; ++k) {
                 this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 132));
             }
         } catch (Exception e) {
@@ -158,27 +158,27 @@ public class ContainerWindmill extends Container {
                 itemstack = itemstack1.copy();
                 //第二个插槽
                 if (index == 1) {
-                    if (!this.mergeItemStack(itemstack1, 2, 39, true)) {
+                    if (!this.mergeItemStack(itemstack1, 1, 38, true)) {
                         return null;
                     }
 
                     slot.onSlotChange(itemstack1, itemstack);
-                } else if (index != 1 && index != 0) {
+                } else if ( index != 0) {
                     //熔炉配方
                     if (FurnaceRecipes.instance().getSmeltingResult(itemstack1) != null) {
-//                    if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-//                        return null;
-//                    }
+                        if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+                            return null;
+                        }
                         //背包
-                    } else if (index >= 2 && index < 30) {
-                        if (!this.mergeItemStack(itemstack1, 30, 39, false)) {
+                    } else if (index >= 3 && index < 30) {
+                        if (!this.mergeItemStack(itemstack1, 29, 38, false)) {
                             return null;
                         }
                         //物品栏
-                    } else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 3, 30, false)) {
+                    } else if (index >= 29 && index < 38 && !this.mergeItemStack(itemstack1, 2, 29, false)) {
                         return null;
                     }
-                } else if (!this.mergeItemStack(itemstack1, 2, 39, false)) {
+                } else if (!this.mergeItemStack(itemstack1, 2, 38, false)) {
                     return null;
                 }
                 if (itemstack1.stackSize == 0) {

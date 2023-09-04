@@ -52,6 +52,7 @@ public class JobFarmer extends Job {
             this.jobName = I18n.format("container.sim.Vocation5");
             this.farm = fb;
             this.farm.employee = folk;
+            this.stage = -1;
            /* //去上班
             this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
             //开始在农场工作
@@ -91,7 +92,7 @@ public class JobFarmer extends Job {
                     this.addJobTask(new JobTaskFarmerHarvest(this, -1L, I18n.format("container.sim.job.livestock.farmer.Starting"),this.farm));
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {
-                        this.currentTask = (JobTask) this.jobTasks.get(0);
+                        this.currentTask = (JobTask) this.jobTasks.get(1);
                         this.currentTask.begin();
                     }
                 }

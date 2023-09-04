@@ -1,6 +1,7 @@
 package com.trhsy.sim.block;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.entity.ContainerWindmill;
 import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.CreativeTabsLoader;
@@ -13,13 +14,16 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SPacketOpenWindow;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatBasic;
 import net.minecraft.tileentity.TileEntity;
@@ -27,6 +31,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -52,7 +57,7 @@ public class BlockWindmill extends BlockContainer {
         //this.setTextureName(ModSim.MODID + ":" + "windmill");
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
-        this.isBurning = false;
+
     }
 
     /**
@@ -100,34 +105,34 @@ public class BlockWindmill extends BlockContainer {
     @SuppressWarnings("incomplete-switch")
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (this.isBurning) {
-            EnumFacing enumfacing = (EnumFacing) stateIn.getValue(FACING);
+           /* EnumFacing enumfacing = (EnumFacing) stateIn.getValue(FACING);
             double d0 = (double) pos.getX() + 0.5D;
             double d1 = (double) pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
             double d2 = (double) pos.getZ() + 0.5D;
             double d3 = 0.52D;
-            double d4 = rand.nextDouble() * 0.6D - 0.3D;
+            double d4 = rand.nextDouble() * 0.6D - 0.3D;*/
             if (rand.nextDouble() < 0.1D) {
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":windmill"));
                 worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
             }
             //烟雾特效
-            switch (enumfacing) {
-                case WEST:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-                    //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-                    break;
-                case EAST:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-                    //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-                    break;
-                case NORTH:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
-                    //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
-                    break;
-                case SOUTH:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
-                    //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
-            }
+            //switch (enumfacing) {
+            //    case WEST:
+            //        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+            //        //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+            //        break;
+            //    case EAST:
+            //        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+            //        //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+            //        break;
+            //    case NORTH:
+            //        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
+            //        //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
+            //        break;
+            //    case SOUTH:
+            //        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
+            //        //worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
+            //}
         }
     }
 
@@ -141,6 +146,7 @@ public class BlockWindmill extends BlockContainer {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         try {
+            this.isBurning = true;
             //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
             if (worldIn.isRemote) {
                 return true;
@@ -148,16 +154,23 @@ public class BlockWindmill extends BlockContainer {
                 //NetWorkLoader.net.sendTo(new PacketOpenWindmillGui(playerIn, new V3(pos, playerIn.dimension)), (EntityPlayerMP) playerIn);
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 if (tileentity instanceof TileEntityWindmill) {
-//                    EntityPlayerMP entityPlayerMP= (EntityPlayerMP) playerIn;
-//                    entityPlayerMP.displayGUIChest((TileEntityWindmill) tileentity);
-                    ModSimLoader.OpenWindmill(playerIn.inventory, (TileEntityWindmill) tileentity);
+                    TileEntityWindmill tileEntityWindmill=(TileEntityWindmill)tileentity;
+                    ModSimLoader.OpenWindmill(playerIn.inventory, tileEntityWindmill);
+                    EntityPlayerMP entityPlayerMP= (EntityPlayerMP) playerIn;
+                    //entityPlayerMP.displayGUIChest((TileEntityWindmill) tileentity);
+                    //entityPlayerMP.getNextWindowId();
+                    entityPlayerMP.connection.sendPacket(new SPacketOpenWindow(entityPlayerMP.currentWindowId,tileEntityWindmill.getGuiID(), tileEntityWindmill.getDisplayName(), tileEntityWindmill.getSizeInventory()));
+                    //entityPlayerMP.openContainer = tileEntityWindmill.createContainer(entityPlayerMP.inventory, entityPlayerMP);
+                    entityPlayerMP.openContainer.windowId = entityPlayerMP.currentWindowId;
+                    entityPlayerMP.openContainer.addListener(entityPlayerMP);
+
                     playerIn.addStat(WINDMILL_INTERACTION);
                 }
                 return true;
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("路径箱onBlockActivated出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("BlockWindmill-onBlockActivated出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             return false;
         }
     }
@@ -239,7 +252,7 @@ public class BlockWindmill extends BlockContainer {
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("路径箱onBlockActivated出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("路径箱onBlockPlacedBy出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 

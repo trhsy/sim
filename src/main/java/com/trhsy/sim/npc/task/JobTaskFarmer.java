@@ -56,7 +56,6 @@ public class JobTaskFarmer extends JobTask {
         this.status = status;
         this.noNeed = 0;
         this.farm = farm;
-        this.stage = 1;
     }
 
     @Override
@@ -100,7 +99,6 @@ public class JobTaskFarmer extends JobTask {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-onUpdate出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.stage = 4;
         }
     }
 
@@ -265,7 +263,6 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
                 this.completed = true;
-                this.stage = 2;
                 //仙人掌
             } else if (farmType == FarmType.CACTUS) {
                 //循环农场的宽
@@ -311,7 +308,6 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
                 this.completed = true;
-                this.stage = 2;
                 //未知的可可豆
             } else if (farmType == FarmType.COCOA) {
                 for (int z = 0; z < this.farm.z; ++z) {
@@ -355,7 +351,6 @@ public class JobTaskFarmer extends JobTask {
                     }
                 }
                 this.completed = true;
-                this.stage = 2;
             } else {
                 //循环农场的宽
                 hoe1();
@@ -363,7 +358,6 @@ public class JobTaskFarmer extends JobTask {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-hoe出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.stage = 4;
         }
     }
 
@@ -443,11 +437,9 @@ public class JobTaskFarmer extends JobTask {
                 }
             }
             this.completed = true;
-            this.stage = 2;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-hoe1出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.stage = 4;
         }
     }
 

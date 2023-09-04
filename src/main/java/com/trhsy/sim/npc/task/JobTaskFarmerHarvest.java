@@ -33,7 +33,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author Trhsy
  * @Package: com.trhsy.sim.npc.task
  * @ClassName: JobTaskFarmer
- * @Description:
+ * @Description: 收获
  * @date 2023/08/07 上午 10:13
  */
 public class JobTaskFarmerHarvest extends JobTask {
@@ -55,7 +55,6 @@ public class JobTaskFarmerHarvest extends JobTask {
         this.status = status;
         this.noNeed = 0;
         this.farm=farm;
-        this.stage=1;
     }
 
     @Override
@@ -96,7 +95,6 @@ public class JobTaskFarmerHarvest extends JobTask {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-onUpdate出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.stage = 4;
         }
     }
 
@@ -192,7 +190,6 @@ public class JobTaskFarmerHarvest extends JobTask {
                         }
                     }
                     this.completed = true;
-                    this.stage = 1;
 //            harvest1();
                     //土豆
                 } else if (farmType == FarmType.POTATO) {
@@ -242,7 +239,6 @@ public class JobTaskFarmerHarvest extends JobTask {
                         }
                     }
                     this.completed = true;
-                    this.stage = 1;
                     //小麦
                 } else if (farmType == FarmType.WHEAT) {
                     harvest1();
@@ -301,7 +297,6 @@ public class JobTaskFarmerHarvest extends JobTask {
                         }
                     }
                     this.completed = true;
-                    this.stage = 1;
                     //未知的
                 } else {
                     harvest1();
@@ -429,12 +424,9 @@ public class JobTaskFarmerHarvest extends JobTask {
                 }
             }
             this.completed = true;
-            this.stage = 1;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-
             ModSimLoader.log.error("JobFarmer-harvest1出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.stage = 1;
         }
     }
 

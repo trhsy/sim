@@ -162,7 +162,7 @@ public class GuiFolk extends GuiScreen {
             this.fontRendererObj.drawString(this.farming, this.width / 2, 97, 0x000000);
             double far = 128 * ((double) (Double.valueOf(this.farming) % 1 * 1000.0F) / 1000);
             this.drawGradientRect(this.width / 2, 97, (int) far + this.width / 2, 115, -12574688, -11530224);
-            //农耕等级
+            //挖矿等级
             this.fontRendererObj.drawString( I18n.format("container.sim.gui_Folk_Mining_skill")+":", labelPos, 107, 0x000000);
             this.fontRendererObj.drawString(this.mining, this.width / 2, 107, 0x000000);
             double min = 128 * ((double) (Double.valueOf(this.mining) % 1 * 1000.0F) / 1000);

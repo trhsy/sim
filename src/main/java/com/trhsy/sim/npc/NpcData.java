@@ -496,7 +496,9 @@ public class NpcData {
                     this.skillBuilding = Float.valueOf(value);
                 } else if (line.contains("farmingskill|")) {
                     this.skillFarming = Float.valueOf(value);
-                } else if (line.contains("holding|")) {
+                }else if (line.contains("miningskill|")) {
+                    this.skillMining = Float.valueOf(value);
+                }  else if (line.contains("holding|")) {
                     try {
                         if ("".equals(value) || value == null) {
                             this.holding = null;
@@ -826,6 +828,7 @@ public class NpcData {
                     writer.write("hunger|" + String.valueOf(this.hunger) + "\n");
                     writer.write("buildingskill|" + String.valueOf(this.skillBuilding) + "\n");
                     writer.write("farmingskill|" + String.valueOf(this.skillFarming) + "\n");
+                    writer.write("miningskill|" + String.valueOf(this.skillMining) + "\n");
                     ItemStack itemStack = this.entity.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
                     String holdings = "";
                     if (itemStack != null && itemStack.getItem() != null) {
@@ -2145,7 +2148,7 @@ public class NpcData {
             } else if (jobName.contentEquals(I18n.format("container.sim.Vocation35"))) {
                 this.job = new JobMcDonald(this, v3.toBlockPos(), world);
                 //酒馆
-            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation28"))) {
+            } else if (jobName.contentEquals(I18n.format("container.sim.Vocation37"))) {
                 this.job = new JobBartender(this, v3.toBlockPos(), world);
                 //仓库管理员
             }else if (jobName.contentEquals(I18n.format("container.sim.Vocation10"))) {

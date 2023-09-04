@@ -55,7 +55,6 @@ public class JobTaskFarmerGrow extends JobTask {
         this.status = status;
         this.noNeed = 0;
         this.farm = farm;
-        this.stage = 1;
     }
 
     @Override
@@ -75,6 +74,7 @@ public class JobTaskFarmerGrow extends JobTask {
                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
                     if ((System.currentTimeMillis() - this.growCheck) > 3000 * 60) {
                         this.growCheck = System.currentTimeMillis();
+                        this.qsCheck = System.currentTimeMillis();
                         grow();
                     }
                 } else if (r == 1) {
@@ -83,6 +83,7 @@ public class JobTaskFarmerGrow extends JobTask {
                     //用骨粉快速生长作物
                     if ((System.currentTimeMillis() - this.growCheck) > 3000 * 60) {
                         this.growCheck = System.currentTimeMillis();
+                        this.qsCheck = System.currentTimeMillis();
                         grow();
                     }
                 }
@@ -116,7 +117,7 @@ public class JobTaskFarmerGrow extends JobTask {
                     if (r == 0) {
                         //在公众号'dasha500'找作者玩
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Facebook"));
-                        if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                        if ((System.currentTimeMillis() - this.growCheck) > (3000 * 60)) {
                             this.growCheck = System.currentTimeMillis();
                             grow();
                         }
@@ -124,12 +125,11 @@ public class JobTaskFarmerGrow extends JobTask {
                         //照料作物
                         this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tending") + "," + this.farm.farmType);
                         //用骨粉快速生长作物
-                        if ((System.currentTimeMillis() - this.growCheck) > 1000 * 60) {
+                        if ((System.currentTimeMillis() - this.growCheck) > (3000 * 60)) {
                             this.growCheck = System.currentTimeMillis();
                             grow();
                         }
                     }
-                    this.completed = true;
                 }
 
             } else {
@@ -140,7 +140,6 @@ public class JobTaskFarmerGrow extends JobTask {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-onUpdate出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.stage = 4;
         }
     }
 
@@ -216,7 +215,7 @@ public class JobTaskFarmerGrow extends JobTask {
                                     if (dye != null) {
                                         addFarmingLevel();
                                         igrowable.grow(this.folk.entity.worldObj, this.folk.entity.worldObj.rand, bp, iblockstate);
-                                    } else {
+                                    }else{
                                         if ((System.currentTimeMillis() - this.qsCheck) > 3000 * 60) {
                                             this.qsCheck = System.currentTimeMillis();
                                             ModSimLoader.sendChat(this.farm.farmType + I18n.format("container.sim.job.crop.farmer.dye"));
@@ -229,12 +228,11 @@ public class JobTaskFarmerGrow extends JobTask {
                         }
                     }
                 }
+
             }
-            this.stage = 3;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-grow出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
-            this.stage = 3;
         }
     }
 
