@@ -2,31 +2,81 @@
 // For those who want the bleeding edge
 buildscript {
     repositories {
-        jcenter()
-        maven {
+        /*maven {
             name = "forge"
+            url = "http://forgemavenmirror.sinaapp.com/maven"
+        }*/
+        maven {
+            name = "files forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven {
+            name = "files forge https"
+            url = "https://files.minecraftforge.net/maven"
+        }
+		maven {
+            name = "repo"
+            url = "https://repo.maven.org/maven2"
+        }
+		maven {
+            name = "repo1"
+            url = "https://repo1.maven.org/maven2"
+        }
+		maven {
+		 name = "central"
+            url 'https://maven.aliyun.com/repository/central'
+        }
+		maven {
+		 name = "google"
+            url 'https://maven.aliyun.com/repository/google'
+        }
+		maven {
+            name = "jcenter"
+            url = "https://maven.aliyun.com/repository/jcenter"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+		maven {
+		  credentials {
+			username '62fc82532b16b2e74110d0f6'
+			password 'ZE2Feawlg7O]'
+		  }
+		  url 'https://packages.aliyun.com/maven/repository/2266638-release-DKyUYN/'
+		}
+		maven {
+		  credentials {
+			username '62fc82532b16b2e74110d0f6'
+			password 'ZE2Feawlg7O]'
+		  }
+		  url 'https://packages.aliyun.com/maven/repository/2266638-snapshot-XE0aNZ/'
+		}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
-
+apply plugin: 'idea'
+idea{
+    module{
+        inheritOutputDirs = true
+    }
+}
 /*
 // for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
 plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.0"
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+version = "1.9.4-1.0.0 Beta"
+group= "com.trhsy.sim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "simulated"
 
 minecraft {
     version = "1.9.4-12.17.0.2317-1.9.4"
-    runDir = "run"
+    runDir = "eclipse"
     
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
@@ -80,3 +130,8 @@ processResources
         exclude 'mcmod.info'
     }
 }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava,compileTestJava]*.options*.encoding = 'UTF-8'
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = "D:\\java\\jdk1.8.0_271\\bin\\javac.exe"

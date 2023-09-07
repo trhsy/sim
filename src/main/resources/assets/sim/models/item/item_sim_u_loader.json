@@ -1,0 +1,4 @@
+{"parent": "item/generated",
+  "textures": {
+    "layer0": "sim:items/item_sim_u_loader"
+  }}
