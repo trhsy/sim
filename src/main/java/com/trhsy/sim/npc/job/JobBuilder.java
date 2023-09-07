@@ -165,7 +165,7 @@ public class JobBuilder extends Job {
             }
 
 //        this.createConBox();
-            placedBlocks = new CopyOnWriteArrayList<>();
+            placedBlocks = new CopyOnWriteArrayList<V3>();
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobBuilder1出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -199,7 +199,7 @@ public class JobBuilder extends Job {
             }
 
             this.createConBox();
-            placedBlocks = new CopyOnWriteArrayList<>();
+            placedBlocks = new CopyOnWriteArrayList<V3>();
             constructorBlock = null;
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
@@ -233,7 +233,7 @@ public class JobBuilder extends Job {
             }
 
             this.createConBox();
-            placedBlocks = new CopyOnWriteArrayList<>();
+            placedBlocks = new CopyOnWriteArrayList<V3>();
             constructorBlock = null;
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
@@ -729,7 +729,7 @@ public class JobBuilder extends Job {
             //建筑物类型
             build.buildingType = this.blueprint.buildingType;
             //建筑物的结构
-            build.structure = new CopyOnWriteArrayList<>(this.placedBlocks);
+            build.structure = new CopyOnWriteArrayList<V3>(this.placedBlocks);
             //工作类型
             build.jobType = this.blueprint.jobType;
             //建筑作者

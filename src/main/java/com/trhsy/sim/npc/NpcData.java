@@ -23,7 +23,6 @@ import com.trhsy.sim.npc.traits.Trait;
 import com.trhsy.sim.npc.traits.Traits;
 import com.trhsy.sim.util.EnumFamilyType;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLadder;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,10 +34,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -107,7 +104,7 @@ public class NpcData {
     /**
      * 物品栏
      **/
-    public List<ItemStack> inventory = new CopyOnWriteArrayList<>();
+    public List<ItemStack> inventory = new CopyOnWriteArrayList<ItemStack>();
     /**
      * 任务
      **/

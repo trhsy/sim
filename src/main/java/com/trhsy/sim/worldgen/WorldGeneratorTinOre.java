@@ -44,7 +44,7 @@ public class WorldGeneratorTinOre extends WorldGenerator{
                     int posY = 16 + rand.nextInt(16);
                     int posZ = pos.getZ() + rand.nextInt(16);
                     BlockPos blockpos = new BlockPos(posX, posY, posZ);
-                    Biome biomeGenBase = world.getBiomeGenForCoords(blockpos);
+                    Biome biomeGenBase = world.getBiome(blockpos);
                     if (biomeGenBase.getRainfall() < rand.nextInt(65536)) {
                         glowstoneGenerator.generate(world, rand, blockpos);
                     }

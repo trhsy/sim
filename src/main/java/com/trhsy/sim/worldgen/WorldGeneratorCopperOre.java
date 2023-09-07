@@ -47,7 +47,7 @@ public class WorldGeneratorCopperOre extends WorldGenerator{
                     int posZ = pos.getZ() + rand.nextInt(16);
                     BlockPos blockpos = new BlockPos(posX, posY, posZ);
                     //随机在当前区块内生成XYZ三个坐标值，当然这里我们需要使用Forge提供的随机数生成器，不难看出，这里我们设定萤石的生成范围是Y坐标（也就是纵坐标）从16到32，X坐标和Z坐标也没有超出一个区块的范围。
-                    Biome biomeGenBase = world.getBiomeGenForCoords(blockpos);
+                    Biome biomeGenBase = world.getBiome(blockpos);
                     //在世界上生成的矿物，还需要依赖于生物群系，比如绿宝石的生成就和生物群系密切相关
                     //System.out.println("铜矿降雨量："+biomeGenBase.getIntRainfall());
                     if (biomeGenBase.getRainfall() < rand.nextInt(65536)) {

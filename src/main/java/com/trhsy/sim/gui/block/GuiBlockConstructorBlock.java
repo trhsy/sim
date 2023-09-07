@@ -43,7 +43,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
     /**
      * 蓝图集合
      **/
-    public List<BuildingBlueprint> potentialBlueprints = new CopyOnWriteArrayList<>();
+    public List<BuildingBlueprint> potentialBlueprints = new CopyOnWriteArrayList<BuildingBlueprint>();
     /**
      * 可雇佣的人
      **/
