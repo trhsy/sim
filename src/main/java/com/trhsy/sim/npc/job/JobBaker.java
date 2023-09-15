@@ -158,17 +158,17 @@ public class JobBaker extends Job {
                     ItemStack slot = inv.getStackInSlot(i);
                     if (slot != null) {
                         if (slot.isItemEqual(new ItemStack(Items.WHEAT))) {
-                            this.wheat += slot.stackSize;
+                            this.wheat += slot.getCount();
                         } else if (slot.isItemEqual(new ItemStack(Items.EGG))) {
-                            this.egg += slot.stackSize;
+                            this.egg += slot.getCount();
                         } else if (slot.isItemEqual(new ItemStack(Blocks.PUMPKIN))) {
-                            this.pumpkin += slot.stackSize;
+                            this.pumpkin += slot.getCount();
                         } else if (slot.isItemEqual(new ItemStack(Items.MILK_BUCKET))) {
-                            this.milk_bucket += slot.stackSize;
+                            this.milk_bucket += slot.getCount();
                         } else if (slot.isItemEqual(new ItemStack(Items.SUGAR))) {
-                            this.sugar += slot.stackSize;
+                            this.sugar += slot.getCount();
                         } else if (slot.isItemEqual(new ItemStack(Items.DYE))) {
-                            this.dye += slot.stackSize;
+                            this.dye += slot.getCount();
                         }
                     }
                 }

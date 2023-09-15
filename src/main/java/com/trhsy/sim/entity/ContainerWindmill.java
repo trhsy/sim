@@ -134,7 +134,7 @@ public class ContainerWindmill extends Container {
      */
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.tileFurnace.isUseableByPlayer(playerIn);
+        return this.tileFurnace.isUsableByPlayer(playerIn);
     }
 
     /**
@@ -181,7 +181,7 @@ public class ContainerWindmill extends Container {
                 } else if (!this.mergeItemStack(itemstack1, 2, 38, false)) {
                     return null;
                 }
-                if (itemstack1.stackSize == 0) {
+                if (itemstack1.getCount() == 0) {
                     slot.putStack((ItemStack) null);
                 } else {
                     slot.onSlotChanged();//插槽已更改
@@ -191,7 +191,7 @@ public class ContainerWindmill extends Container {
 //                    return null;
 //                }
 
-                slot.onPickupFromSlot(playerIn, itemstack1);
+                slot.onTake(playerIn, itemstack1);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

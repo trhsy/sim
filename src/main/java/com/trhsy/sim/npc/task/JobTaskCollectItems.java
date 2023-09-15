@@ -204,12 +204,12 @@ public class JobTaskCollectItems extends JobTask {
                                 for (int j = 0; j <this.collectionItems.size() ; j++) {
                                     ItemStack collectionItemStack=this.collectionItems.get(j);
                                     if(invItemStack.isItemEqual(collectionItemStack)){
-                                        if (invItemStack.stackSize < collectionItemStack.stackSize) {
+                                        if (invItemStack.getCount() < collectionItemStack.getCount()) {
                                             this.job.folk.inventory.add(invItemStack);
                                             inv.removeStackFromSlot(i);
                                         } else {
                                             this.job.folk.inventory.add(collectionItemStack);
-                                            inv.decrStackSize(i, (this.collectionItems.get(j)).stackSize);
+                                            inv.decrStackSize(i, (this.collectionItems.get(j)).getCount());
                                         }
                                     }
                                 }

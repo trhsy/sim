@@ -44,7 +44,7 @@ public class BlockCopperOre extends BlockOre {
         int i=0;
         try {
             Random rand = world instanceof World ? ((World)world).rand : new Random();
-            i = MathHelper.getRandomIntegerInRange(rand, 0, 7);
+            i = MathHelper.getInt(rand, 0, 7);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];
             ModSimLoader.log.error("铜矿getExpDrop出错了：" + e.getMessage()+"行数："+element.getLineNumber());

@@ -155,19 +155,19 @@ public class JobMcDonald extends Job{
                         ItemStack slot = inv.getStackInSlot(i);
                         if (slot != null) {
                             if (slot.isItemEqual(new ItemStack(Items.BEEF))) {
-                                this.steak += slot.stackSize;
+                                this.steak += slot.getCount();
                             } else if (slot.isItemEqual(new ItemStack(Items.PORKCHOP))) {
-                                this.porkchop += slot.stackSize;
+                                this.porkchop += slot.getCount();
                             } else if (slot.isItemEqual(new ItemStack(Items.MUTTON))) {
-                                this.mutton += slot.stackSize;
+                                this.mutton += slot.getCount();
                             } else if (slot.isItemEqual(new ItemStack(Items.RABBIT))) {
-                                this.rabbit += slot.stackSize;
+                                this.rabbit += slot.getCount();
                             }else if (slot.isItemEqual(new ItemStack(Items.CHICKEN))) {
-                                this.chicken += slot.stackSize;
+                                this.chicken += slot.getCount();
                             }else if (slot.isItemEqual(new ItemStack(Items.COOKED_FISH,1,1))) {
-                                this.salmon += slot.stackSize;
+                                this.salmon += slot.getCount();
                             }else if (slot.isItemEqual(new ItemStack(Items.COOKED_FISH))) {
-                                this.fish += slot.stackSize;
+                                this.fish += slot.getCount();
                             }
                         }
                     }

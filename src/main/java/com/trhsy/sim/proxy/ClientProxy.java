@@ -37,8 +37,8 @@ public class ClientProxy extends CommonProxy{
     @Override
     public void renderTick(TickEvent.RenderTickEvent renderTickEvent){
         Minecraft mc = Minecraft.getMinecraft();
-//        if(mc.thePlayer!=null){
-//            NetWorkLoader.net.sendToAllAround(new PacketOpenHudGui(),new NetworkRegistry.TargetPoint(mc.thePlayer.dimension,mc.thePlayer.posX,mc.thePlayer.posY,mc.thePlayer.posZ,99999));
+//        if(mc.player!=null){
+//            NetWorkLoader.net.sendToAllAround(new PacketOpenHudGui(),new NetworkRegistry.TargetPoint(mc.player.dimension,mc.player.posX,mc.player.posY,mc.player.posZ,99999));
 //        }
         try {
             GuiScreen hud = new GuiHud();
@@ -57,7 +57,7 @@ public class ClientProxy extends CommonProxy{
                     if (ModSimClientLoader.gamemode != 999) {
                         if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
                             int HUDoffset = 0;
-                            if (mc.thePlayer.dimension == 1) {
+                            if (mc.player.dimension == 1) {
                                 HUDoffset = 20;
                             }
 

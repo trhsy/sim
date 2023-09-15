@@ -32,18 +32,18 @@ public class CommandChangeCredits implements ICommand {
         aliases.add("credits");
     }
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "credits";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         //String s= I18n.format("container.sim.change_credits");
         return "credits <amount>";
     }
 
     @Override
-    public List<String> getCommandAliases() {
+    public List<String> getAliases() {
         return this.aliases;
     }
 
@@ -73,7 +73,7 @@ public class CommandChangeCredits implements ICommand {
     }
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
         return null;
     }
 

@@ -83,14 +83,14 @@ public class EntityConBox extends Entity {
     public void onUpdate() {
         if (System.currentTimeMillis() - this.lastCheck > 10000L) {
             //不是客户端
-            if (!this.worldObj.isRemote) {
+            if (!this.world.isRemote) {
                 V3 v3=new V3(this.posX,this.posY,this.posZ);
                 if (this.folk == null) {
                     //生成爆炸粒子
-                    this.spawnExplosionParticle(v3,this.worldObj);
+                    this.spawnExplosionParticle(v3,this.world);
                     this.setDead();
                 } else if (this.folk.job != this.builderJob&&this.folk.job != this.terrainFormerJob) {
-                    this.spawnExplosionParticle(v3,this.worldObj);
+                    this.spawnExplosionParticle(v3,this.world);
                     this.setDead();
                 }
             }

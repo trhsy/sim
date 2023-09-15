@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = ModSim.MODID,name = ModSim.NAME,useMetadata = true, version = ModSim.VERSION,acceptedMinecraftVersions = "1.9",guiFactory = "com.trhsy.sim.gui.ConfigGui$ConfigGuiFactory")
+@Mod(modid = ModSim.MODID,name = ModSim.NAME,useMetadata = true, version = ModSim.VERSION,acceptedMinecraftVersions = "1.11.2",guiFactory = "com.trhsy.sim.gui.ConfigGui$ConfigGuiFactory")
 public class ModSim {
     /**
      * 模组id 指的就是该Mod的唯一标识符
@@ -27,7 +27,7 @@ public class ModSim {
     /**
      * 模组版本 在Mod间的依赖关系时可能会用作识别
      **/
-    public static final String VERSION = "1.9.-1.0.0 Beta";
+    public static final String VERSION = "1.11.2-1.0.0 Beta";
     /**
      * 将生成该mod的实例注册到对应mod的id里面，也可以访问其他mod的，要注意这里的id和此mod的id相同
      */

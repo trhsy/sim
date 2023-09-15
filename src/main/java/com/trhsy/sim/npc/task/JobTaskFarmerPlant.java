@@ -158,16 +158,16 @@ public class JobTaskFarmerPlant extends JobTask {
                     for (int x = 0; x < this.farm.x; ++x) {
                         boolean hasBlock = false;
                         BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                        Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                        Block b1 = this.folk.entity.worldObj.getBlockState(bp.down()).getBlock();
+                        Block b = this.folk.entity.world.getBlockState(bp).getBlock();
+                        Block b1 = this.folk.entity.world.getBlockState(bp.down()).getBlock();
                         //包含灌木 不是庄家
                         if (b instanceof BlockBush && !(b instanceof BlockCrops)) {
-                            this.folk.entity.worldObj.destroyBlock(bp, false);
+                            this.folk.entity.world.destroyBlock(bp, false);
                             //设置为空气
-//                        this.folk.entity.worldObj.setBlockToAir(bp);
+//                        this.folk.entity.world.setBlockToAir(bp);
                         }
                         //如果当前为空气
-                        if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (this.folk.entity.world.isAirBlock(bp)) {
                             // 泥土 草地 沙子
                             if (b1 == Blocks.DIRT || b1 == Blocks.GRASS || b1 == Blocks.SAND) {
                                 ItemStack seed = null;
@@ -219,7 +219,7 @@ public class JobTaskFarmerPlant extends JobTask {
                                     //设置状态 种植 作物
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Planting") + " " + seed.getDisplayName());
                                     //种植 作物
-                                    this.folk.entity.worldObj.setBlockState(bp, Blocks.REEDS.getDefaultState());
+                                    this.folk.entity.world.setBlockState(bp, Blocks.REEDS.getDefaultState());
                                     if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                         //摇摆手臂
                                         this.folk.entity.swingArm(EnumHand.MAIN_HAND);
@@ -248,16 +248,16 @@ public class JobTaskFarmerPlant extends JobTask {
                     for (int x = 0; x < this.farm.x; ++x) {
                         boolean hasBlock = false;
                         BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                        Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                        Block b1 = this.folk.entity.worldObj.getBlockState(bp.down()).getBlock();
+                        Block b = this.folk.entity.world.getBlockState(bp).getBlock();
+                        Block b1 = this.folk.entity.world.getBlockState(bp.down()).getBlock();
                         //包含灌木 不是庄家
                         if (b != Blocks.CACTUS) {
-                            this.folk.entity.worldObj.destroyBlock(bp, false);
+                            this.folk.entity.world.destroyBlock(bp, false);
                             //设置为空气
-//                        this.folk.entity.worldObj.setBlockToAir(bp);
+//                        this.folk.entity.world.setBlockToAir(bp);
                         }
                         //如果当前为空气
-                        if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (this.folk.entity.world.isAirBlock(bp)) {
                             if (b1 == Blocks.SAND) {
 
                                 ItemStack seed = null;
@@ -308,7 +308,7 @@ public class JobTaskFarmerPlant extends JobTask {
                                     //设置状态 种植 作物
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Planting") + " " + seed.getDisplayName());
                                     //种植 作物
-                                    this.folk.entity.worldObj.setBlockState(bp, Blocks.CACTUS.getDefaultState());
+                                    this.folk.entity.world.setBlockState(bp, Blocks.CACTUS.getDefaultState());
                                     if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                         //摇摆手臂
                                         this.folk.entity.swingArm(EnumHand.MAIN_HAND);
@@ -340,7 +340,7 @@ public class JobTaskFarmerPlant extends JobTask {
                             BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
                             bp = new BlockPos(bp.getX(), bp.getY() + y, bp.getZ());
                             //包含灌木 不是庄家
-                            boolean f1 = this.folk.entity.worldObj.isAirBlock(bp);
+                            boolean f1 = this.folk.entity.world.isAirBlock(bp);
                             //如果当前为空气
                             if (f1) {
                                 ItemStack seed = null;
@@ -390,13 +390,13 @@ public class JobTaskFarmerPlant extends JobTask {
                                     //设置状态 种植 作物
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Planting") + " " + seed.getDisplayName());
                                     EnumFacing facing = EnumFacing.NORTH;
-                                    Block north = this.folk.entity.worldObj.getBlockState(bp.north()).getBlock();
+                                    Block north = this.folk.entity.world.getBlockState(bp.north()).getBlock();
                                     //东
-                                    Block east = this.folk.entity.worldObj.getBlockState(bp.east()).getBlock();
+                                    Block east = this.folk.entity.world.getBlockState(bp.east()).getBlock();
                                     //南
-                                    Block south = this.folk.entity.worldObj.getBlockState(bp.south()).getBlock();
+                                    Block south = this.folk.entity.world.getBlockState(bp.south()).getBlock();
                                     //西
-                                    Block west = this.folk.entity.worldObj.getBlockState(bp.west()).getBlock();
+                                    Block west = this.folk.entity.world.getBlockState(bp.west()).getBlock();
                                     Block fs_bss = Blocks.LOG.getStateFromMeta(3).getBlock();
                                     if (north == fs_bss) {
                                         facing = EnumFacing.SOUTH;
@@ -408,8 +408,8 @@ public class JobTaskFarmerPlant extends JobTask {
                                         facing = EnumFacing.EAST;
                                     }
                                     //种植 作物
-                                    IBlockState iblockstate1 = Blocks.COCOA.onBlockPlaced(this.folk.entity.worldObj, bp, facing, bp.getX(), bp.getY(), bp.getZ(), 0, this.folk.entity);
-                                    this.folk.entity.worldObj.setBlockState(bp, iblockstate1, 10);
+                                    IBlockState iblockstate1 = Blocks.COCOA.getStateForPlacement(this.folk.entity.world, bp, facing, bp.getX(), bp.getY(), bp.getZ(), 0, this.folk.entity);
+                                    this.folk.entity.world.setBlockState(bp, iblockstate1, 10);
                                     if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                         //摇摆手臂
                                         this.folk.entity.swingArm(EnumHand.MAIN_HAND);
@@ -527,32 +527,32 @@ public class JobTaskFarmerPlant extends JobTask {
                         }
 
 //                    //获取种植下方的物品是否是 农田等可种植区域
-                        IBlockState soil = this.folk.entity.worldObj.getBlockState(bp.down());
-                        //Block crop=plantable.getPlant(this.folk.entity.worldObj,bp.down()).getBlock();
+                        IBlockState soil = this.folk.entity.world.getBlockState(bp.down());
+                        //Block crop=plantable.getPlant(this.folk.entity.world,bp.down()).getBlock();
                         //确定此块是否可以支持传入的植物，允许其种植和生长。一些例子：芦苇检查它是否是芦苇，或者它的沙子/泥土/草和水附近的仙人掌检查它是否为仙人掌，或者如果它的沙子Nether类型检查灵魂沙子作物检查耕土洞穴检查它是否坚硬地面平原检查它的草或泥土水检查它是否静止
-                        boolean fs_canSustainPlant = soil.getBlock().canSustainPlant(soil, this.folk.entity.worldObj, bp.down(), EnumFacing.UP, (IPlantable) item);
+                        boolean fs_canSustainPlant = soil.getBlock().canSustainPlant(soil, this.folk.entity.world, bp.down(), EnumFacing.UP, (IPlantable) item);
                         //北
 
-                        /* Chunk chunk =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.north().getX(),bp.west().getZ());*/
-                        Block north = this.folk.entity.worldObj.getBlockState(bp.north()).getBlock();
+                        /* Chunk chunk =this.folk.entity.world.getChunkFromChunkCoords(bp.north().getX(),bp.west().getZ());*/
+                        Block north = this.folk.entity.world.getBlockState(bp.north()).getBlock();
                         boolean f1 = north instanceof BlockStem;
                         //东
-                        /*Chunk chunk1 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.east().getX(),bp.west().getZ());*/
-                        Block east = this.folk.entity.worldObj.getBlockState(bp.east()).getBlock();
+                        /*Chunk chunk1 =this.folk.entity.world.getChunkFromChunkCoords(bp.east().getX(),bp.west().getZ());*/
+                        Block east = this.folk.entity.world.getBlockState(bp.east()).getBlock();
                         boolean f2 = east instanceof BlockStem;
                         //南
-                        //Chunk chunk2 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.south().getX(),bp.west().getZ());
-                        Block south = this.folk.entity.worldObj.getBlockState(bp.south()).getBlock();
+                        //Chunk chunk2 =this.folk.entity.world.getChunkFromChunkCoords(bp.south().getX(),bp.west().getZ());
+                        Block south = this.folk.entity.world.getBlockState(bp.south()).getBlock();
                         boolean f3 = south instanceof BlockStem;
                         //西
-                        //Chunk chunk3 =this.folk.entity.worldObj.getChunkFromChunkCoords(bp.west().getX(),bp.west().getZ());
-                        Block west = this.folk.entity.worldObj.getBlockState(bp.west()).getBlock();
+                        //Chunk chunk3 =this.folk.entity.world.getChunkFromChunkCoords(bp.west().getX(),bp.west().getZ());
+                        Block west = this.folk.entity.world.getBlockState(bp.west()).getBlock();
                         boolean f4 = west instanceof BlockStem;
-                        IBlockState iBlockState = this.folk.entity.worldObj.getBlockState(bp);
+                        IBlockState iBlockState = this.folk.entity.world.getBlockState(bp);
                         Block block = iBlockState.getBlock();
                         boolean f7 = block instanceof BlockStem;
                         //是否是空气方块
-                        boolean f5 = this.folk.entity.worldObj.isAirBlock(bp);
+                        boolean f5 = this.folk.entity.world.isAirBlock(bp);
                         String b_u_name = block.getUnlocalizedName();
 //                    System.out.println("当前种植的作物是：" + b_u_name);
                         if (!f1 && !f2 && !f3 && fs_canSustainPlant && !f4 && f5) {
@@ -573,7 +573,7 @@ public class JobTaskFarmerPlant extends JobTask {
                             //设置状态 种植 作物
                             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Planting") + " " + seed.getDisplayName());
                             //种植 作物
-                            this.folk.entity.worldObj.setBlockState(bp, crop.getDefaultState());
+                            this.folk.entity.world.setBlockState(bp, crop.getDefaultState());
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                 //摇摆手臂
                                 this.folk.entity.swingArm(EnumHand.MAIN_HAND);

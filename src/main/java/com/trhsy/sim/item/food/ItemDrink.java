@@ -48,7 +48,7 @@ public class ItemDrink extends Item {
         EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
         //创造模式
         if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-            --stack.stackSize;
+            stack.shrink(1);
         }
         //客户端
         if (!worldIn.isRemote) {
@@ -64,7 +64,7 @@ public class ItemDrink extends Item {
         }
         //用完返回玻璃瓶
         if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-            if (stack.stackSize <= 0) {
+            if (stack.getCount() <= 0) {
                 return new ItemStack(ItemLoader.itemDrinkEmpty);
             }
 
@@ -95,14 +95,14 @@ public class ItemDrink extends Item {
     /**
      * 右键
      *
-     * @param itemStackIn
      * @param worldIn
      * @param playerIn
      * @param hand
      * @return
      */
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         playerIn.setActiveHand(hand);
         return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
     }

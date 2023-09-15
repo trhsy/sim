@@ -143,7 +143,7 @@ public class JobTaskHarvestAnimal extends JobTask {
 
     public void harvestTarget(EntityAnimal entity) {
         if (this.randAmount) {
-            this.produce.stackSize=(new Random()).nextInt(this.produce.stackSize + 1);
+            this.produce.setCount((new Random()).nextInt(this.produce.getCount() + 1));
             if (entity instanceof EntitySheep) {
                 EntitySheep sheep = (EntitySheep)entity;
                 //剪刀剪过的样子
@@ -152,10 +152,10 @@ public class JobTaskHarvestAnimal extends JobTask {
         }
 
         this.job.placeInJobChest(this.produce);
-        ModSimLoader.addMoney(-0.02F * (float)this.produce.stackSize);
+        ModSimLoader.addMoney(-0.02F * (float)this.produce.getCount());
     }
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
-        List<EntityAnimal> list = this.folk.entity.worldObj.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x - 5.0D, controlBox.y, controlBox.z - 5.0D, controlBox.x + 5.0D, controlBox.y + 2.0D, controlBox.z + 5.0D));
+        List<EntityAnimal> list = this.folk.entity.world.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x - 5.0D, controlBox.y, controlBox.z - 5.0D, controlBox.x + 5.0D, controlBox.y + 2.0D, controlBox.z + 5.0D));
         return list;
     }
 }

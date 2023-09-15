@@ -195,7 +195,8 @@ public class ItemTinTool {
         }
 
         @Override
-        public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        public EnumActionResult onItemUse( EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+            ItemStack stack = playerIn.getHeldItem(hand);
             if (!playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
                 return EnumActionResult.FAIL;
             } else {
@@ -205,8 +206,8 @@ public class ItemTinTool {
                 if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS) {
                     IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
                     Minecraft mc = Minecraft.getMinecraft();
-                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                        mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.AMBIENT, 1.0F, 1.0F);
                     }
 
                     if (!worldIn.isRemote) {

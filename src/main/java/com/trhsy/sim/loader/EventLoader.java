@@ -326,7 +326,7 @@ public class EventLoader {
                                     starve.home.occupants.remove(starve);
                                     starve.home = null;
                                 }
-                                starve.onDeath(DamageSource.generic);
+                                starve.onDeath(DamageSource.GENERIC);
                             } else if (starve.home == null) {
                                 spawnNew = false;
                                 //未成年不算
@@ -349,8 +349,8 @@ public class EventLoader {
                         ModSimLoader.log.info("天亮了");
                         //播放 天亮了鸡叫
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
 
                         this.newDay = true;
@@ -373,8 +373,8 @@ public class EventLoader {
                             ModSimLoader.addMoney(rent);
                             //播放钱到账
                             soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                            for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                mc.theWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                            for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                             }
                             //您已收集 今天的租金。
                             ModSimLoader.sendChat(I18n.format("container.sim.main_Collected") + ModSimLoader.displayMoney(rent) + I18n.format("container.sim.main_rent_today"));
@@ -411,7 +411,7 @@ public class EventLoader {
                                     }
                                     if (starve != null) {
                                         //设置死亡
-                                        starve.entity.attackEntityFrom(DamageSource.starve, 999.0F);
+                                        starve.entity.attackEntityFrom(DamageSource.STARVE, 999.0F);
                                     }
                                     break fs_lable;
                                 }
@@ -446,7 +446,7 @@ public class EventLoader {
                                 String s = I18n.format("container.sim.main_is_old");
                                 ModSimLoader.sendChat(f.getName() + s);
                                 //来自伤害999，死亡
-                                f.entity.attackEntityFrom(DamageSource.starve, 999.0F);
+                                f.entity.attackEntityFrom(DamageSource.STARVE, 999.0F);
                             }
                         }
                     }
@@ -530,7 +530,7 @@ public class EventLoader {
                     float d2 = worldObj.rand.nextFloat() * f + (1.0F - f) * 0.5F;
                     EntityItem entityitem = new EntityItem(worldObj, player.posX + (double) d0, player.posY + (double) d1, player.posZ + (double) d2, new ItemStack(ItemLoader.itemSimULoader));
                     entityitem.setDefaultPickupDelay();
-                    worldObj.spawnEntityInWorld(entityitem);
+                    worldObj.spawnEntity(entityitem);
                 }
             }
         }
@@ -557,7 +557,7 @@ public class EventLoader {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onWorldRenderLast(RenderWorldLastEvent event) {
-        World world = Minecraft.getMinecraft().theWorld;
+        World world = Minecraft.getMinecraft().world;
         for (EntityPlayer player : world.playerEntities) {
             if (ModSimClientLoader.previewPos1 != null && ModSimClientLoader.previewPos2 != null) {
                 drawBoundingBox(player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, true, 4.0F, event);

@@ -5,6 +5,8 @@ import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 /**
  * 创造模式物品栏
  */
@@ -20,15 +22,15 @@ public class CreativeTabsFMLTutor extends CreativeTabs {
      * @return
      */
     @Override
-    public Item getTabIconItem() {
-        Item item=null;
+    public ItemStack getTabIconItem() {
+        ItemStack itemStack=null;
         try {
-            item=Item.getItemFromBlock(BlockLoader.blockConstructorBox);
+            itemStack=new ItemStack(BlockLoader.blockConstructorBox);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];
             ModSimLoader.log.error("创造模式物品栏上显示的物品出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
-        return item;
+        return itemStack;
     }
     /**
      * 用于设置是否有搜索框

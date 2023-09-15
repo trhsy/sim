@@ -7,6 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -26,7 +27,7 @@ public class ItemWindmillSails extends ItemBase{
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
     @Override
-    public void getSubItems(Item itemIn, CreativeTabs tab, List list) {
+    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList list) {
         try {
             for (int x = 0; x < 16; ++x) {
                 list.add(new ItemStack(this, 1, x));

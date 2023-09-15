@@ -45,7 +45,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class GuiMerchant extends GuiScreen {
     private int currentPage = 0;
     //持有购买数量
-    private static List<Integer> quantities = new CopyOnWriteArrayList<Integer>();
+    private static List<Integer> quantities = new CopyOnWriteArrayList<>();
     //基于玩家库存的销售限制
     private static List<Integer> sellLimits = new CopyOnWriteArrayList<Integer>();
     private Float totalCost = 0.0F;
@@ -344,8 +344,8 @@ public class GuiMerchant extends GuiScreen {
                         placedOK = true;
                         //重新进入数量循环
                         break;
-                    } else if (is.getItem() == stack.getItem() && is.getMetadata() == idmeta && is.stackSize < 64) {
-                        is.stackSize++;
+                    } else if (is.getItem() == stack.getItem() && is.getMetadata() == idmeta && is.getCount() < 64) {
+                        is.grow(1);;
                         chest.setInventorySlotContents(g, is);
                         placedOK = true;
                         break;
@@ -364,7 +364,7 @@ public class GuiMerchant extends GuiScreen {
         List<IInventory> ret = new CopyOnWriteArrayList();
 
         try {
-            World world = this.mc.theWorld;
+            World world = this.mc.world;
 //            IBlockState blocks =world.getBlockState(startXYZ.toBlockPos());
 
             TileEntity te = world.getTileEntity(startXYZ.toBlockPos());

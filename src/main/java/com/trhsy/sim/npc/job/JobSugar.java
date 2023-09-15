@@ -98,7 +98,7 @@ public class JobSugar extends Job{
                         ItemStack slot = inv.getStackInSlot(i);
                         if (slot != null) {
                             if (slot.isItemEqual(new ItemStack(Items.REEDS))) {
-                                this.sugarcane += slot.stackSize;
+                                this.sugarcane += slot.getCount();
                             }
                         }
                     }

@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL11;
  **/
 public class RenderConBox extends Render {
     public static final RenderConBox.Factory FACTORY = new RenderConBox.Factory();
-    private static final ResourceLocation myTexture = new ResourceLocation(ModSim.MODID, "textures/models/entityConBox.png");
+    private static final ResourceLocation myTexture = new ResourceLocation(ModSim.MODID, "textures/models/entity_con_box.png");
     EntityConBox entity = null;
     ModelConBox modelBox;
     private int actualCount = -1;

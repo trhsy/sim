@@ -9,6 +9,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -32,15 +34,25 @@ public class EntityDinkEmpty extends EntityThrowable {
         super(worldIn, x, y, z);
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id) {
+        if (id == 3) {
+            for (int i = 0; i < 8; ++i) {
+                this.world.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            }
+        }
+    }
+
     /**
      * Gets the amount of gravity to apply to the thrown entity with each tick.
      * 获取每次勾选时要应用于抛出实体的重力量。
      */
     @Override
-    protected float getGravityVelocity()
-    {
+    protected float getGravityVelocity() {
         return 0.07F;
     }
+
     /**
      * Called when this EntityThrowable hits a block or entity.
      * 当此EntityThrowable命中块或实体时调用。
@@ -51,19 +63,19 @@ public class EntityDinkEmpty extends EntityThrowable {
             int i = 0;
 
             if (result.entityHit instanceof Entity) {
-                i = new Random().nextInt(99999)+50;
-                ModSimLoader.log.info("啤酒瓶随机伤害为："+i);
+                i = new Random().nextInt(99999) + 50;
+                ModSimLoader.log.info("啤酒瓶随机伤害为：" + i);
             }
-            DamageSource damageSource=DamageSource.causeThrownDamage(this, this.getThrower());
+            DamageSource damageSource = DamageSource.causeThrownDamage(this, this.getThrower());
             damageSource.setProjectile();
             result.entityHit.attackEntityFrom(damageSource, i);
         }
         /**特效**/
         for (int j = 0; j < 8; ++j) {
-            this.worldObj.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.world.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
         }
 
-        if (!this.worldObj.isRemote) {
+        if (!this.world.isRemote) {
             this.setDead();
         }
     }

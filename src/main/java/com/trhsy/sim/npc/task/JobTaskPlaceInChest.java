@@ -52,7 +52,7 @@ public class JobTaskPlaceInChest extends JobTask {
             }
 
             this.job.placeInJobChest(this.toPlace);
-            ModSimLoader.addMoney(0.02F * (float)this.toPlace.stackSize);
+            ModSimLoader.addMoney(0.02F * (float)this.toPlace.getCount());
             this.completeTask();
         } else if (!this.job.folk.entity.isMoving() && this.job.folk.entity.getNavigator().getPath() == null) {
             if(!this.folk.forceMoveToXYZ(this.job.workPlace)){

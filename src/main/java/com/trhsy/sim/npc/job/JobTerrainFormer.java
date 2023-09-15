@@ -81,10 +81,6 @@ public class JobTerrainFormer extends Job {
     private int missingCheck = 0;
     private int totalBlockCount = 0;
     private transient int counter = 0;
-    /**
-     * 已重新指派员工
-     **/
-    boolean hasReassignedEmployee;
 
     public JobTerrainFormer(NpcData folk, TerrainType terrainType, BlockPos pos, World world) {
         super(folk, pos, world);
@@ -143,7 +139,7 @@ public class JobTerrainFormer extends Job {
                     if (this.jobWorld != null) {
                         if (!this.jobWorld.isRemote) {
                             //NPC数据为空，并且没有指派员工
-                            if (this.folk.entity != null && !this.hasReassignedEmployee) {
+                            if (this.folk.entity != null) {
                                 //建造位置为空
                                 if (this.jobWorld.getBlockState(this.constructorPos) == null) {
                                     return;
@@ -159,8 +155,6 @@ public class JobTerrainFormer extends Job {
 
                                     //当前建筑箱的工作人员是
                                     cons.employee = this.folk;
-                                    //已经指派
-                                    this.hasReassignedEmployee = true;
                                     //如果允许 NPC 说话
                                     if (ConfigLoader.configFolkTalking) {
                                         World world = FMLClientHandler.instance().getServer().getEntityWorld();
@@ -173,8 +167,8 @@ public class JobTerrainFormer extends Job {
                                             soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                         }
                                         Minecraft mc = Minecraft.getMinecraft();
-                                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                         }
                                     }
                                     //等待规划类型
@@ -196,12 +190,16 @@ public class JobTerrainFormer extends Job {
 
                                             }
                                         } else {
-                                            //上次时间为当前时间
-                                            this.timeSinceLastBlockPlace = now;
                                             //不是客户端
                                             if (!this.jobWorld.isRemote) {
-                                                //直接放置方块
-                                                this.placeBlock();
+                                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F- 100.0F *9) {
+                                                    //上次时间为当前时间
+                                                    this.timeSinceLastBlockPlace = now;
+                                                    //直接放置方块
+                                                    this.placeBlock();
+                                                    //发送建筑蓝图
+                                                    NetWorkLoader.net.sendToAll(new PacketSendTerrainTypeRequitrements(this.terrainType, this));
+                                                }
                                             }
                                         }
                                     }
@@ -255,7 +253,8 @@ public class JobTerrainFormer extends Job {
                             blockIDs.add(Blocks.WATER);
                             blockIDs.add(Blocks.FLOWING_WATER);
                             this.closestBlocks = null;
-                            this.setClosestBlocksOfType(constructorPos, blockIDs, 30, false, true, false);
+                            V3 v5 = new V3(constructorPos.getX(), constructorPos.getY() - 1, constructorPos.getZ());
+                            this.setClosestBlocksOfType(v5.toBlockPos(), blockIDs, 30, false, true, true);
                             this.totalBlockCount = this.closestBlocks.size();
                             this.stage = 1;
                         }
@@ -861,8 +860,8 @@ public class JobTerrainFormer extends Job {
                     //播放 我准备好了
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                     Minecraft mc = Minecraft.getMinecraft();
-                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                        mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                     }
                     this.folk.fire();
                     this.folk.stayPut = false;
@@ -1105,7 +1104,7 @@ public class JobTerrainFormer extends Job {
         this.conBox.terrainFormerJob = this;
         this.conBox.setLocationAndAngles(this.workPlace.x + 2.0D, this.workPlace.y, this.workPlace.z, 0.0F, 0.0F);
         if (!this.jobWorld.isRemote) {
-            this.jobWorld.spawnEntityInWorld(this.conBox);
+            this.jobWorld.spawnEntity(this.conBox);
         }
 
     }

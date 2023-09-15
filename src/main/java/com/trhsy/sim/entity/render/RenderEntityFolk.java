@@ -123,7 +123,7 @@ public class RenderEntityFolk extends RenderBiped<EntityFolk> {
             float f3 = 0.01666667F * f2;
             float f6 = 0.2F;
             if (entityFolk != null) {
-                double dist = (double) entityFolk.getDistanceToEntity(Minecraft.getMinecraft().thePlayer);
+                double dist = (double) entityFolk.getDistanceToEntity(Minecraft.getMinecraft().player);
                 NpcIdentity data=ModSimClientLoader.getFolkByUUID(entityFolk.getUniqueID());
                 if (dist < 20.0D && data != null) {
                     if (Integer.parseInt(data.age) <  Integer.parseInt(data.maturityAge)) {

@@ -93,15 +93,15 @@ public class JobTaskPatrol extends JobTask {
             double posZ = this.folk.entity.posZ;
             AxisAlignedBB bb = new AxisAlignedBB(posX - 5.0D, posY, posZ - 5.0D, posX + 5.0D, posY + 2.0D, posZ + 5.0D);
             //僵尸 小白 苦力怕
-            EntityMob mob = (EntityMob) this.folk.entity.worldObj.findNearestEntityWithinAABB(EntityMob.class, bb, this.folk.entity);
+            EntityMob mob = (EntityMob) this.folk.entity.world.findNearestEntityWithinAABB(EntityMob.class, bb, this.folk.entity);
             //蜘蛛
-            EntitySpider spider = (EntitySpider) this.folk.entity.worldObj.findNearestEntityWithinAABB(EntitySpider.class, bb, this.folk.entity);
+            EntitySpider spider = (EntitySpider) this.folk.entity.world.findNearestEntityWithinAABB(EntitySpider.class, bb, this.folk.entity);
             //EntityGhast 恶魂
-            EntityGhast ghast = (EntityGhast) this.folk.entity.worldObj.findNearestEntityWithinAABB(EntityGhast.class, bb, this.folk.entity);
+            EntityGhast ghast = (EntityGhast) this.folk.entity.world.findNearestEntityWithinAABB(EntityGhast.class, bb, this.folk.entity);
             //傀儡
-//            EntityGolem golem=(EntityGolem)this.folk.entity.worldObj.findNearestEntityWithinAABB(EntityGolem.class, bb, this.folk.entity);
+//            EntityGolem golem=(EntityGolem)this.folk.entity.world.findNearestEntityWithinAABB(EntityGolem.class, bb, this.folk.entity);
             //史莱姆
-            EntitySlime slime = (EntitySlime) this.folk.entity.worldObj.findNearestEntityWithinAABB(EntitySlime.class, bb, this.folk.entity);
+            EntitySlime slime = (EntitySlime) this.folk.entity.world.findNearestEntityWithinAABB(EntitySlime.class, bb, this.folk.entity);
 
             if (mob != null) {
                 this.currentTarget = mob;
@@ -128,7 +128,7 @@ public class JobTaskPatrol extends JobTask {
                         this.currentTarget = null;
                     } else {
                         //攻击 夜行者
-                        this.currentTarget.attackEntityFrom(DamageSource.generic, 6.0F);
+                        this.currentTarget.attackEntityFrom(DamageSource.GENERIC, 6.0F);
                     }
                 }
             }

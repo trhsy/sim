@@ -58,7 +58,7 @@ public class TaskSleep extends Task {
             this.folk.setStatus(this.statusText);
         }
         //白天则完成任务
-        if (ModSimLoader.isDayTime(this.folk.entity.worldObj)) {
+        if (ModSimLoader.isDayTime(this.folk.entity.world)) {
             this.completeTask();
         }
 

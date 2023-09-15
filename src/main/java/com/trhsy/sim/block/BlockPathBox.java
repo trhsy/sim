@@ -32,7 +32,7 @@ public class BlockPathBox extends BlockBase{
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,  EnumFacing side, float hitX, float hitY, float hitZ) {
         try {
             //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
             SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));

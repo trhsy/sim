@@ -97,9 +97,9 @@ public class FolkAIFenceGateInteract extends EntityAIBase {
      * @return
      */
     private BlockFenceGate getBlockFence(BlockPos pos) {
-        Block block = this.entity.worldObj.getBlockState(pos).getBlock();
+        Block block = this.entity.world.getBlockState(pos).getBlock();
         if (!(block instanceof BlockFenceGate)) {
-            block = this.entity.worldObj.getBlockState(this.entity.getPosition()).getBlock();
+            block = this.entity.world.getBlockState(this.entity.getPosition()).getBlock();
             this.fencePosition = this.entity.getPosition();
         }
 

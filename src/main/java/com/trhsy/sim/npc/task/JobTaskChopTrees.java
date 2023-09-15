@@ -61,7 +61,7 @@ public class JobTaskChopTrees extends JobTask {
                         }
                     }else{
                         Minecraft mc = Minecraft.getMinecraft();
-                        World world = mc.theWorld;
+                        World world = mc.world;
                         if(b.isWood(world, bp)){
                             if (!ModSimLoader.isBlockInBuilding(V3.fromBlockPos(bp))) {
                                 if (!this.toMine.contains(bp)) {

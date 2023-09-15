@@ -81,7 +81,7 @@ public class JobTaskSpawnLivestock extends JobTask {
 
             ((EntityAnimal)newAnimal).setLocationAndAngles(controlBox.x, controlBox.y + 1.0D, controlBox.z, 0.0F, 0.0F);
             if (!this.job.jobWorld.isRemote) {
-                this.job.jobWorld.spawnEntityInWorld(newAnimal);
+                this.job.jobWorld.spawnEntity(newAnimal);
             }
         }
 

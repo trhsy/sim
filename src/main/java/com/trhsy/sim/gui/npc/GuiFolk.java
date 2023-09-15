@@ -126,7 +126,7 @@ public class GuiFolk extends GuiScreen {
     @Override
     public void drawScreen(int i, int j, float f) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(new ResourceLocation(ModSim.MODID, "textures/gui/guiFolk.png"));
+        this.mc.renderEngine.bindTexture(new ResourceLocation(ModSim.MODID, "textures/gui/gui_folk.png"));
         int posX = (this.width - 256) / 2;
         int labelPos = this.width / 2 - 96;
         this.drawDefaultBackground();
@@ -254,7 +254,7 @@ public class GuiFolk extends GuiScreen {
                 }
                 //库存
                 if (button.displayString.contentEquals(I18n.format("container.sim.guiFolk.Inventory"))) {
-                    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+                    EntityPlayer player = Minecraft.getMinecraft().player;
                     //FMLNetworkHandler.openGui(player, ModSim.instance, References.GUI_FOLKINVENTORY, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
                 }
             } else if (this.page == 1) {

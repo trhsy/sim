@@ -118,7 +118,7 @@ public class JobTaskButcherAnimal extends JobTask {
     public void killTarget() {
         ModSimLoader.log.info("尝试杀死 " + this.butcherTarget.getName() + " " + this.butcherTarget.getEntityId());
         this.butcherTarget.setDropItemsWhenDead(false);
-        this.butcherTarget.attackEntityFrom(DamageSource.generic, 500.0F);
+        this.butcherTarget.attackEntityFrom(DamageSource.GENERIC, 500.0F);
         //牛
         if (this.butcherTarget instanceof EntityCow) {
             //牛肉

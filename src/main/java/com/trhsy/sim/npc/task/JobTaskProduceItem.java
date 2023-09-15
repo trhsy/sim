@@ -79,12 +79,12 @@ public class JobTaskProduceItem extends JobTask {
                         //需求的物品
                         ItemStack itemStacks=this.requirements.get(j);
                         if (itemStack!=null && itemStack.isItemEqual(itemStacks)) {
-                            if(itemStack.stackSize>=itemStacks.stackSize){
+                            if(itemStack.getCount()>=itemStacks.getCount()){
                                 ItemStack newItemStacks=itemStack;
-                                int fs_stackSize=itemStack.stackSize;
+                                int fs_stackSize=itemStack.getCount();
 
-                                iInventory.decrStackSize(i,itemStack.stackSize);
-                                newItemStacks.stackSize=fs_stackSize;
+                                iInventory.decrStackSize(i,itemStack.getCount());
+                                newItemStacks.setCount(fs_stackSize);
                                 //NPC拿走所需物品
                                 this.folk.addToInventory(newItemStacks);
                                 falg=true;
@@ -112,7 +112,7 @@ public class JobTaskProduceItem extends JobTask {
                     ItemStack requirementsStack=this.requirements.get(j);
                     if (itemStack.isItemEqual(requirementsStack)) {
 
-                        int div = Math.floorDiv(itemStack.stackSize, requirementsStack.stackSize);
+                        int div = Math.floorDiv(itemStack.getCount(), requirementsStack.getCount());
                         if (maxProd == -1 || maxProd > div) {
                             maxProd = div;
                         }

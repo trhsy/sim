@@ -110,8 +110,8 @@ public class GuiBankATM extends GuiScreen {
                     if (this.theScreen == ATMscreen.DEPOSIT) {
                         offset = 30;
 
-                        for (inv = 0; inv < this.mc.thePlayer.inventory.getSizeInventory(); inv++) {
-                            ItemStack is = this.mc.thePlayer.inventory.getStackInSlot(inv);
+                        for (inv = 0; inv < this.mc.player.inventory.getSizeInventory(); inv++) {
+                            ItemStack is = this.mc.player.inventory.getStackInSlot(inv);
                             if (is != null) {
                                 //出售一个
                                 String sim_gui_ATMs_Sell_1 = I18n.format("container.sim.sim_gui_ATMs_Sell_1");
@@ -123,42 +123,42 @@ public class GuiBankATM extends GuiScreen {
                                 if (is.getItem() == Items.DIAMOND) {
 
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceDiamond)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.getCount())));
                                     offset += 20;
                                     //绿宝石
                                 } else if (is.getItem() == Items.EMERALD) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceEmerald)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceEmerald * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceEmerald * (float) is.getCount())));
                                     offset += 20;
                                     //红石
                                 } else if (is.getItem() == Items.REDSTONE) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceRedstone)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.getCount())));
                                     offset += 20;
                                     //萤石粉
                                 } else if (is.getItem() == Items.GLOWSTONE_DUST) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGlowstone)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.getCount())));
                                     offset += 20;
                                     //金锭
                                 } else if (is.getItem() == Items.GOLD_INGOT) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGold)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGold * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGold * (float) is.getCount())));
                                     offset += 20;
                                     //铁锭
                                 }else if (is.getItem() == Items.IRON_INGOT) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceIron)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceIron * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceIron * (float) is.getCount())));
                                     offset += 20;
                                     //锡锭
                                 }else if (is.getItem() == ItemLoader.itemTinIngot) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                     offset += 20;
                                     //铜锭
                                 }else if (is.getItem() == ItemLoader.itemCopperIngot) {
                                     this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceCopper)));
-                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceCopper * (float) is.stackSize)));
+                                    this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceCopper * (float) is.getCount())));
                                     offset += 20;
                                 }
                             }
@@ -215,11 +215,11 @@ public class GuiBankATM extends GuiScreen {
                     String sim_gui_ATMs_Items = I18n.format("container.sim.sim_gui_ATMs_Items");
                     this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Items, this.width / 2, 15, 65280);
 
-                    for (int inv = 0; inv < this.mc.thePlayer.inventory.getSizeInventory(); inv++) {
-                        ItemStack is = this.mc.thePlayer.inventory.getStackInSlot(inv);
+                    for (int inv = 0; inv < this.mc.player.inventory.getSizeInventory(); inv++) {
+                        ItemStack is = this.mc.player.inventory.getStackInSlot(inv);
                         //钻石、绿宝石、红石、萤石粉、金锭
                         if (is != null && (is.getItem() == Items.DIAMOND || is.getItem() == Items.EMERALD || is.getItem() == Items.REDSTONE || is.getItem() == Items.GLOWSTONE_DUST || is.getItem() == Items.GOLD_INGOT||is.getItem() ==Items.IRON_INGOT||is.getItem() ==ItemLoader.itemTinIngot||is.getItem() ==ItemLoader.itemCopperIngot)) {
-                            this.drawString(this.fontRendererObj, is.stackSize + " x " + is.getDisplayName(), 40, offset, 65280);
+                            this.drawString(this.fontRendererObj, is.getCount() + " x " + is.getDisplayName(), 40, offset, 65280);
                             playerHasItems = true;
                             offset += 20;
                         }
@@ -292,32 +292,32 @@ public class GuiBankATM extends GuiScreen {
                     this.initGui();
                 } else {
                     if (guibutton.id >= 100 && guibutton.id < 200) {
-                        ItemStack is = this.mc.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
+                        ItemStack is = this.mc.player.inventory.getStackInSlot(guibutton.id - 100);
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
                         Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                         String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
                         float soldFor = Float.parseFloat(money);
                         ModSimLoader.money += soldFor;
-                        --is.stackSize;
-                        if (is.stackSize == 0) {
+                        is.shrink(1);
+                        if (is.getCount() == 0) {
                             is = null;
                         }
 
-                        this.mc.thePlayer.inventory.setInventorySlotContents(guibutton.id - 100, is);
+                        this.mc.player.inventory.setInventorySlotContents(guibutton.id - 100, is);
                         this.initGui();
                     } else if (guibutton.id >= 500 && guibutton.id < 600) {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
                         Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                         String number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
                         float soldFor = Float.parseFloat(number);
                         ModSimLoader.money += soldFor;
-                        this.mc.thePlayer.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack) null);
+                        this.mc.player.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack) null);
                         this.initGui();
                     } else {
                         int ci;
@@ -372,7 +372,7 @@ public class GuiBankATM extends GuiScreen {
                             for (ci = 0; ci < this.cart.size(); ++ci) {
                                 cartItem = this.cart.get(ci);
                                 is = cartItem.theItemStack;
-                                is.stackSize = cartItem.quantity;
+                                is.setCount(cartItem.quantity);
                                 cost += (float) cartItem.quantity * cartItem.priceEach;
                             }
 
@@ -388,8 +388,8 @@ public class GuiBankATM extends GuiScreen {
                             for (ci = 0; ci < this.cart.size(); ++ci) {
                                 cartItem = this.cart.get(ci);
                                 is = cartItem.theItemStack;
-                                is.stackSize = cartItem.quantity;
-                                this.mc.thePlayer.inventory.addItemStackToInventory(is);
+                                is.setCount(cartItem.quantity);
+                                this.mc.player.inventory.addItemStackToInventory(is);
 
                                 for (int ai = 0; ai < CommodityAtm.theCommodities.size(); ++ai) {
                                     CommodityAtm ac = (CommodityAtm) CommodityAtm.theCommodities.get(ai);
@@ -406,8 +406,8 @@ public class GuiBankATM extends GuiScreen {
                             ModSimLoader.sendChat(sim_gui_ATMs_worth + ModSimLoader.displayMoney(cost));
                             SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                             Minecraft mc = Minecraft.getMinecraft();
-                            for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                            for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                             }
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
@@ -434,7 +434,7 @@ public class GuiBankATM extends GuiScreen {
         int count = 0;
         List<V3> retblocksFound = new CopyOnWriteArrayList();
         try {
-            World theWorld = this.mc.theWorld;
+            World world = this.mc.world;
             for (int yo = -distanceLimit; yo <= distanceLimit; yo++) {
                 for (int xo = -distanceLimit; xo <= distanceLimit; xo++) {
                     for (int zo = -distanceLimit; zo <= distanceLimit; zo++) {
@@ -443,7 +443,7 @@ public class GuiBankATM extends GuiScreen {
                             int sy = (int) (startXYZ.y + yo);
                             int sz = (int) (startXYZ.z + zo);
                             count++;
-                            if (theWorld.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
+                            if (world.getBlockState(new BlockPos(sx, sy, sz)).getBlock() == block) {
                                 V3 v = new V3((double) sx, (double) sy, (double) sz, startXYZ.dimension);
                                 if (!blocksFound.contains(v)) {
                                     blocksFound.add(v);

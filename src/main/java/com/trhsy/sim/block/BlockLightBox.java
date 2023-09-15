@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -48,7 +49,7 @@ public class BlockLightBox extends EnumBlock<EnumLightColour> {
         return state.getValue(COLOR).getMeta();
     }
     @Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
         try {
             for (EnumLightColour enumLightColour: EnumLightColour.values()) {
                 list.add(new ItemStack(this, 1, enumLightColour.getMeta()));
@@ -62,10 +63,10 @@ public class BlockLightBox extends EnumBlock<EnumLightColour> {
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(COLOR, EnumLightColour.fromMeta(meta));
     }
-    @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-        return this.getDefaultState().withProperty(COLOR,EnumLightColour.fromMeta(meta));
-    }
+    //@Override
+    //public IBlockState onBlockPlaced(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,ItemStack stack){
+    //    return this.getDefaultState().withProperty(COLOR,EnumLightColour.fromMeta(meta));
+    //}
 
     @Override
     protected BlockStateContainer createBlockState(){

@@ -157,7 +157,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     //ModSimLoader.log.info("在创造模式下重新加载模拟城市，开始生成新的NPC");
-                    //new NpcData(fs_mc.theWorld, true);
+                    //new NpcData(fs_mc.world, true);
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
 
@@ -171,7 +171,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     //ModSimLoader.log.info("在创造模式下重新加载模拟城市，开始生成新的NPC");
-                    //new NpcData(fs_mc.theWorld, true);
+                    //new NpcData(fs_mc.world, true);
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
                     break;
@@ -184,7 +184,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     //ModSimLoader.log.info("在专业模式下重新加载模拟城市，开始生成新的NPC");
-                    //new NpcData(fs_mc.theWorld, true);
+                    //new NpcData(fs_mc.world, true);
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
 //                    this.updateScreen();
@@ -210,7 +210,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.mc.currentScreen=null;
                     //ModSimLoader.log.info("所有人都有住宅，开始生成新的NPC");
-                    //new NpcData(fs_mc.theWorld, true);
+                    //new NpcData(fs_mc.world, true);
                     this.mc.setIngameFocus();
                     break;
                 default:
@@ -221,7 +221,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     //ModSimLoader.log.info("在正常模式下重新加载模拟城市，开始生成新的NPC");
-                    //new NpcData(fs_mc.theWorld, true);
+                    //new NpcData(fs_mc.world, true);
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
                     break;

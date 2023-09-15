@@ -195,7 +195,7 @@ public class GuiPathBox extends GuiScreen {
         List ret = new CopyOnWriteArrayList();
 
         try {
-            World world = this.mc.theWorld;
+            World world = this.mc.world;
             TileEntity te = world.getTileEntity(startXYZ.toBlockPos());
             if (te != null && te instanceof IInventory && !(te instanceof TileEntityFurnace)) {
                 ret.add((IInventory)te);

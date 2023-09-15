@@ -2,17 +2,17 @@
 
 ##############################################################################
 ##
-##  Gradle start up script for UN*X
+##  Gradle 启动脚本 for UN*X
 ##
 ##############################################################################
 
-# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+# 在此处添加默认JVM选项。您还可以使用JAVA_OPTS和GRADLE_PTS将JVM选项传递给该脚本。
 DEFAULT_JVM_OPTS=""
 
 APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
-# Use the maximum available, or set MAX_FD != -1 to use that value.
+# 使用可用的最大值，或设置MAX_FD！=-1来使用该值。
 MAX_FD="maximum"
 
 warn ( ) {
@@ -26,7 +26,7 @@ die ( ) {
     exit 1
 }
 
-# OS specific support (must be 'true' or 'false').
+# 特定于操作系统的支持（必须为“true”或“false”）。
 cygwin=false
 msys=false
 darwin=false
@@ -42,15 +42,15 @@ case "`uname`" in
     ;;
 esac
 
-# For Cygwin, ensure paths are in UNIX format before anything is touched.
+# 对于Cygwin，在触摸任何内容之前，请确保路径为UNIX格式。
 if $cygwin ; then
     [ -n "$JAVA_HOME" ] && JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
 fi
 
-# Attempt to set APP_HOME
-# Resolve links: $0 may be a link
+# 尝试设置 APP_HOME
+# 解析链接：$0可能是链接
 PRG="$0"
-# Need this for relative symlinks.
+# 相对符号链接需要这个。
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
     link=`expr "$ls" : '.*-> \(.*\)$'`
@@ -67,29 +67,25 @@ cd "$SAVED" >&-
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
-# Determine the Java command to use to start the JVM.
+# 确定用于启动JVM的Java命令。
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
-        # IBM's JDK on AIX uses strange locations for the executables
+        # IBM在AIX上的JDK为可执行文件使用了奇怪的位置
         JAVACMD="$JAVA_HOME/jre/sh/java"
     else
         JAVACMD="$JAVA_HOME/bin/java"
     fi
     if [ ! -x "$JAVACMD" ] ; then
-        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+        die "ERROR: JAVA_HOME 被设置为无效目录: $JAVA_HOME
 
-Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
+请在您的环境中设置JAVA_HOME变量，使其与JAVA安装的位置相匹配。"
     fi
 else
     JAVACMD="java"
-    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
-
-Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation."
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME未设置，在PATH中找不到“JAVA”命令。请在您的环境中设置JAVA_HOME变量，使其与JAVA安装的位置相匹配。"
 fi
 
-# Increase the maximum file descriptors if we can.
+# 如果可以的话，增加文件描述符的最大值。
 if [ "$cygwin" = "false" -a "$darwin" = "false" ] ; then
     MAX_FD_LIMIT=`ulimit -H -n`
     if [ $? -eq 0 ] ; then
@@ -98,24 +94,24 @@ if [ "$cygwin" = "false" -a "$darwin" = "false" ] ; then
         fi
         ulimit -n $MAX_FD
         if [ $? -ne 0 ] ; then
-            warn "Could not set maximum file descriptor limit: $MAX_FD"
+            warn "无法设置最大文件描述符限制: $MAX_FD"
         fi
     else
-        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
+        warn "无法查询最大文件描述符限制: $MAX_FD_LIMIT"
     fi
 fi
 
-# For Darwin, add options to specify how the application appears in the dock
+# 对于Darwin，添加选项以指定应用程序在dock中的显示方式
 if $darwin; then
     GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
 fi
 
-# For Cygwin, switch paths to Windows format before running java
+# 对于Cygwin，在运行java之前将路径切换为Windows格式
 if $cygwin ; then
     APP_HOME=`cygpath --path --mixed "$APP_HOME"`
     CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
 
-    # We build the pattern for arguments to be converted via cygpath
+    # 我们构建了通过cygpath转换参数的模式
     ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
     SEP=""
     for dir in $ROOTDIRSRAW ; do
@@ -123,17 +119,17 @@ if $cygwin ; then
         SEP="|"
     done
     OURCYGPATTERN="(^($ROOTDIRS))"
-    # Add a user-defined pattern to the cygpath arguments
+    # 向cygpath参数添加用户定义的模式
     if [ "$GRADLE_CYGPATTERN" != "" ] ; then
         OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
     fi
-    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    # 现在将arguments-kludge转换为/bin/sh
     i=0
     for arg in "$@" ; do
         CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
-        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
+        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### 确定一个选项
 
-        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
+        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### 添加了一个条件
             eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
         else
             eval `echo args$i`="\"$arg\""
@@ -154,7 +150,7 @@ if $cygwin ; then
     esac
 fi
 
-# Split up the JVM_OPTS And GRADLE_OPTS values into an array, following the shell quoting and substitution rules
+# 按照shell引用和替换规则，将JVM_OPTS和GRADLE_PTS值拆分为一个数组
 function splitJvmOpts() {
     JVM_OPTS=("$@")
 }

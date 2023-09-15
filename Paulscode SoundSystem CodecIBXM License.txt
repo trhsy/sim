@@ -38,3 +38,80 @@ Redistributions of source code must retain the above copyright notice, this list
 Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 Neither the name of mumart nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+SoundSystem CodecIBXM类许可证：
+
+
+
+您可以出于任何目的自由使用此类，无论是商业用途还是其他用途。
+
+您可以修改此类或源代码，并以任何方式分发它
+
+只要满足以下条件：
+
+
+
+1） 您不得谎称自己是本课程或任何课程的作者
+
+未修改的部分。
+
+2） 您可能不拥有此类或其修改版本的版权，然后
+
+起诉我侵犯版权。
+
+3） 如果修改源代码，则必须清楚地记录更改
+
+在重新分发修改后的源代码之前制作，以便其他用户知道
+
+它不是原始代码。
+
+4） 你不需要在任何衍生课程中给我这门课的学分
+
+工作，但如果你这样做，你还必须提到我的网站：
+
+http://www.paulscode.com
+
+5） 本人（作者）将不对任何损害负责（物理，
+
+财务或其他）
+
+部分。
+
+6） 本人，即作者，不保证、保证或作出任何陈述，
+
+明示或暗示，关于此类或任何
+
+部分。
+
+
+
+作者：Paul Lamb
+
+http://www.paulscode.com
+
+
+
+
+该软件基于或使用IBXM库，可从
+
+http://www.geocities.com/sunet2000/
+
+
+
+
+IBXM版权所有（c）2007，Martin Cameron，并根据BSD许可证获得许可。
+
+保留所有权利。
+
+
+
+只要满足以下条件，允许以源和二进制形式重新分发和使用，无论是否进行修改：
+
+
+
+重新分发源代码必须保留上述版权声明、此条件列表和以下免责声明。
+
+二进制形式的再发行必须在发行时提供的文档和/或其他材料中复制上述版权声明、本条件列表和以下免责声明。
+
+未经事先书面许可，不得使用mumart的名称或其贡献者的名称来背书或推广源自本软件的产品。
+
+本软件由版权持有人和贡献者“按原样”提供，任何明示或暗示的保证，包括但不限于对适销性和特定用途适用性的暗示保证，均予以否认。在任何情况下，版权持有人或贡献者均不对任何直接、间接、附带、特殊、示范或后果性损害（包括但不限于采购替代商品或服务；使用、数据或利润损失；或业务中断）承担责任，无论是在合同、严格责任、，或因使用本软件而以任何方式产生的侵权行为（包括疏忽或其他），即使被告知可能发生此类损害。

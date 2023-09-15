@@ -163,7 +163,7 @@ public abstract class Job {
                             this.currentTask.update();
                         }
                         //应该工作，但是没有在工作，并且不是服务器端
-                        if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.worldObj.isRemote) {
+                        if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.world.isRemote) {
                             //设置去工作途中
                             this.onWayToWork = true;
                             //获取距离，并且小于20
@@ -236,7 +236,7 @@ public abstract class Job {
         List ret = new CopyOnWriteArrayList();
 
         try {
-            World world = this.folk.entity.worldObj;
+            World world = this.folk.entity.world;
             TileEntity te = world.getTileEntity(startXYZ.toBlockPos());
             if (te != null && te instanceof IInventory && !(te instanceof TileEntityFurnace)) {
                 ret.add((IInventory) te);
@@ -383,12 +383,12 @@ public abstract class Job {
                 ModSimLoader.log.info("试图放置空项");
                 return true;
             } else {
-                for (int itemNumber = 1; itemNumber <= item.stackSize; ++itemNumber) {
+                for (int itemNumber = 1; itemNumber <= item.getCount(); ++itemNumber) {
                     for (int chestSlot = 0; chestSlot < chest.getSizeInventory(); ++chestSlot) {
                         ItemStack is = chest.getStackInSlot(chestSlot);
                         if (is == null || is.getDisplayName().contentEquals("Air")) {
                             is = item.copy();
-                            is.stackSize = 1;
+                            is.setCount(1);
                             chest.setInventorySlotContents(chestSlot, is);
                             ItemStack isTest = chest.getStackInSlot(chestSlot);
                             if (isTest != null) {
@@ -397,12 +397,12 @@ public abstract class Job {
                             }
 
                             placedOK = false;
-                        } else if (is.getItem().getUnlocalizedName().contentEquals(item.getItem().getUnlocalizedName()) && is.stackSize < is.getMaxStackSize()) {
-                            int isBefore = chest.getStackInSlot(chestSlot).stackSize;
-                            is.stackSize = is.stackSize + 1;
+                        } else if (is.getItem().getUnlocalizedName().contentEquals(item.getItem().getUnlocalizedName()) && is.getCount() < is.getMaxStackSize()) {
+                            int isBefore = chest.getStackInSlot(chestSlot).getCount();
+                            is.setCount(is.getCount()+1);
 //                        is.setCount(is.getCount() + 1);
                             chest.setInventorySlotContents(chestSlot, is);
-                            int isAfter = chest.getStackInSlot(chestSlot).stackSize;
+                            int isAfter = chest.getStackInSlot(chestSlot).getCount();
                             if (isAfter > isBefore) {
                                 placedOK = true;
                                 break;
@@ -645,7 +645,7 @@ public abstract class Job {
 
                 ItemStack is = iInventory.getStackInSlot(g);
                 if (is != null) {
-                    if (is.stackSize == 64) {
+                    if (is.getCount() == 64) {
                         stackPrice = PricesForBlocks.getPrice(Block.getBlockFromItem(is.getItem()), false);
                         if (stackPrice > 0.0F) {
                             //64 * 基本价格
@@ -663,8 +663,8 @@ public abstract class Job {
             } else {
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                 Minecraft mc = Minecraft.getMinecraft();
-                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                    mc.theWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                 }
                 ModSimLoader.sendChat(I18n.format("container.sim.Merchant15") + ModSimLoader.displayMoney(total));
             }
@@ -731,16 +731,16 @@ public abstract class Job {
 
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                 Minecraft mc = Minecraft.getMinecraft();
-                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                    mc.theWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                 }
                 try {
                     Thread.sleep(1000L);
                 } catch (Exception e) {
                 }
                 SoundEvent soundEvent1 = new SoundEvent(new ResourceLocation(ModSim.MODID + ":merchm"));
-                for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                    mc.theWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent1, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent1, SoundCategory.AMBIENT, 1.0F, 1.0F);
                 }
                 //threadPoolExecutor.shutdown();
             } else {

@@ -54,7 +54,7 @@ public class PacketNewFolk implements IMessage {
 
         private void handle(PacketNewFolk message, MessageContext ctx) {
             Minecraft mc = Minecraft.getMinecraft();
-            World world = mc.theWorld;
+            World world = mc.world;
             if(world.isRemote){
                 NpcData fd = new NpcData(world, message.fromCommand);
             }

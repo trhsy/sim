@@ -9,6 +9,8 @@ import com.trhsy.sim.entity.render.RenderEntityFolk;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -24,13 +26,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class EntityLoader {
     private static int nextID = 0;
+    private static final RegistryNamespaced< ResourceLocation, Class <? extends TileEntity >> REGISTRY = net.minecraftforge.fml.common.registry.GameData.getTileEntityRegistry();
     public EntityLoader() {
 
 
     }
     public static void init() {
-        EntityRegistry.registerModEntity( EntityFolk.class, "EntityFolk", nextID++, ModSim.instance, 64, 3, true);
-        EntityRegistry.registerModEntity( EntityConBox.class, "ConBox", nextID++, ModSim.instance, 64, 3, false);
+        ResourceLocation var10000 = new ResourceLocation(ModSim.MODID+":folk");
+        EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID+":folk"), EntityFolk.class, "EntityFolk", nextID++, ModSim.instance, 64, 3, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID+":ConBox") ,EntityConBox.class, "ConBox", nextID++, ModSim.instance, 64, 3, false);
         //        registerEntity(EntityFolk.class, "EntityFolk", 64, 3, true);
     }
     @SideOnly(Side.CLIENT)
@@ -39,7 +43,8 @@ public class EntityLoader {
             // TODO
             RenderingRegistry.registerEntityRenderingHandler(EntityFolk.class, RenderEntityFolk.FACTORY);
             RenderingRegistry.registerEntityRenderingHandler(EntityConBox.class, RenderConBox.FACTORY);
-            TileEntity.addMapping(TileEntityWindmill.class,"Windmill");
+            REGISTRY.putObject(new ResourceLocation("Windmill"),TileEntityWindmill.class);
+            //TileEntity.addMapping(TileEntityWindmill.class,"Windmill");
             //registerEntityRender(EntityAlignBeam.class, RenderAlignBeam.class);
             //registerEntityRender(EntityWindmill.class, RenderWindmill.class);
         } catch (Exception e) {

@@ -41,7 +41,7 @@ public class BlockLoader {
      */
     public static Block blockCompositeBrick=new BlockCompositeBrick(Material.ROCK);
     /**控制箱***/
-    public static Block blockControlBox;
+    public static Block blockControlBox=new BlockControlBox();
 
     /**铜块**/
     public static Block blockCopper=new BlockCopper(Material.IRON);
@@ -52,10 +52,10 @@ public class BlockLoader {
     /**锡矿**/
     public static Block blockTinOre=new BlockTinOre();
     /**灯箱**/
-    public static Block blockLightBox;
+    public static Block blockLightBox=new BlockLightBox();
 
     /**地毯**/
-    public static Block blockLiving;
+    public static Block blockLiving=new BlockLiving();
     /**标记棒**/
     public static Block blockMarker=new BlockMarker(Material.WOOD);
     /**路径箱**/
@@ -88,7 +88,8 @@ public class BlockLoader {
             /**复合砖**/
             register(blockCompositeBrick, "block_composite_brick");
             /**控制箱**/
-            blockControlBox=registerEnumBlock(new BlockControlBox(), ModSim.MODID+":block_control_box");
+            register(blockControlBox, "block_control_box");
+            //blockControlBox=registerEnumBlock(new BlockControlBox(), ModSim.MODID+":block_control_box");
             ItemBlockMeta.setMappingProperty(blockControlBox,BlockControlBox.TYPE);
 
             /**铜块**/
@@ -110,10 +111,12 @@ public class BlockLoader {
             register(blockWindmill, "block_windmill");
 
             /**灯箱**/
-            blockLightBox=registerEnumBlock(new BlockLightBox(), ModSim.MODID+":block_light_box");
+            register(blockLightBox, "block_light_box");
+            //blockLightBox=registerEnumBlock(new BlockLightBox(), ModSim.MODID+":block_light_box");
             ItemBlockMeta.setMappingProperty(blockLightBox,BlockLightBox.COLOR);
             /**毛毯，生活区，夜晚移动**/
-            blockLiving=registerEnumBlock(new BlockLiving(), ModSim.MODID+":block_living");
+            register(blockLiving, "block_living");
+            //blockLiving=registerEnumBlock(new BlockLiving(), ModSim.MODID+":block_living");
             ItemBlockMeta.setMappingProperty(blockLiving,BlockLiving.TYPE);
             /**流体牛奶**/
             register(milk, "milk");
@@ -138,7 +141,7 @@ public class BlockLoader {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("BlockLoader-register出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
     }
-    protected static <T extends EnumBlock<?>> T registerEnumBlock(T block, String name) {
+    /*protected static <K extends EnumBlock<?>> K registerEnumBlock(K block, String name) {
         try {
             registers(block, ItemBlockMeta.class, name);
             ItemBlockMeta.setMappingProperty(block, block.prop);
@@ -147,15 +150,15 @@ public class BlockLoader {
         }
         return block;
     }
-    protected static <T extends Block> T registers(T block, Class<? extends ItemBlock> itemBlockClazz, String name, Object... itemCtorArgs) {
+    protected static <K extends Block> K registers(K block, Class<? extends ItemBlock> itemBlockClazz, String name, Object... itemCtorArgs) {
         try {
                 block.setRegistryName(name);
-                GameRegistry.registerBlock(block, itemBlockClazz, name, itemCtorArgs);
+                GameRegistry.register(block, name);
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registers出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
         return block;
-    }
+    }*/
     /**
      * 添加模型
      */

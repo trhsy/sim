@@ -168,35 +168,35 @@ public class JobTaskFarmer extends JobTask {
                     //循环长
                     for (int x = 0; x < this.farm.x; ++x) {
                         BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                        Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                        Block b1 = this.folk.entity.worldObj.getBlockState(bp.down()).getBlock();
+                        Block b = this.folk.entity.world.getBlockState(bp).getBlock();
+                        Block b1 = this.folk.entity.world.getBlockState(bp.down()).getBlock();
                         //包含灌木 不是庄家
                         if (b instanceof BlockBush && !(b instanceof BlockCrops)) {
-                            this.folk.entity.worldObj.destroyBlock(bp, false);
+                            this.folk.entity.world.destroyBlock(bp, false);
                             //设置为空气
-//                        this.folk.entity.worldObj.setBlockToAir(bp);
+//                        this.folk.entity.world.setBlockToAir(bp);
                         }
                         //如果当前为空气
-                        if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (this.folk.entity.world.isAirBlock(bp)) {
                             if (x % 3 == 0 && (x + 1) % 3 == 0) {
                                 //包含灌木 不是庄家
                                 if (b instanceof BlockBush && !(b instanceof BlockCrops)) {
-                                    this.folk.entity.worldObj.destroyBlock(bp, false);
+                                    this.folk.entity.world.destroyBlock(bp, false);
                                     //设置为空气
-//                                this.folk.entity.worldObj.setBlockToAir(bp);
+//                                this.folk.entity.world.setBlockToAir(bp);
                                 }
                                 //如果当前为空气
-                                if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                                if (this.folk.entity.world.isAirBlock(bp)) {
                                     //锄地
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                     //设置为耕地
-                                    this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 11);
+                                    this.folk.entity.world.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 11);
                                     if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                         this.swingArmCheck = System.currentTimeMillis();
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
-                                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                            mc.theWorld.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                            mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                         }
                                         //设置手持无
                                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -216,14 +216,14 @@ public class JobTaskFarmer extends JobTask {
                                     //锄地
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                     //设置为灯箱
-                                    this.folk.entity.worldObj.setBlockState(bp.down().down(), BlockLoader.blockLightBox.getDefaultState(), 0);
+                                    this.folk.entity.world.setBlockState(bp.down().down(), BlockLoader.blockLightBox.getDefaultState(), 0);
                                     //水
-                                    this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 3);
+                                    this.folk.entity.world.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 3);
                                     if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
-                                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                            mc.theWorld.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                            mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                         }
                                         //设置手持无
                                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -241,12 +241,12 @@ public class JobTaskFarmer extends JobTask {
                                 //锄地
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                 //设置为耕地
-                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 11);
+                                this.folk.entity.world.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 11);
                                 if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                     //播放声音
                                     Minecraft mc = Minecraft.getMinecraft();
-                                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                        mc.theWorld.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                        mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     }
                                     //设置手持无
                                     this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -270,27 +270,27 @@ public class JobTaskFarmer extends JobTask {
                     //循环长
                     for (int x = 0; x < this.farm.x; ++x) {
                         BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                        Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                        Block b1 = this.folk.entity.worldObj.getBlockState(bp.down()).getBlock();
+                        Block b = this.folk.entity.world.getBlockState(bp).getBlock();
+                        Block b1 = this.folk.entity.world.getBlockState(bp.down()).getBlock();
                         //包含灌木 不是庄家
                         if (b instanceof BlockBush && !(b instanceof BlockCrops)) {
-                            this.folk.entity.worldObj.destroyBlock(bp, false);
+                            this.folk.entity.world.destroyBlock(bp, false);
                             //设置为空气
-                            //this.folk.entity.worldObj.setBlockToAir(bp);
+                            //this.folk.entity.world.setBlockToAir(bp);
                         }
                         //如果当前为空气
-                        if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (this.folk.entity.world.isAirBlock(bp)) {
                             if ((x + z) % 2 == 0) {
                                 if (b1 != Blocks.SAND) {
                                     //锄地
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                     //设置为耕地
-                                    this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.SAND.getDefaultState(), 3);
+                                    this.folk.entity.world.setBlockState(bp.down(), Blocks.SAND.getDefaultState(), 3);
                                     if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
-                                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                            mc.theWorld.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                            mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                         }
                                         //设置手持无
                                         this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -314,27 +314,27 @@ public class JobTaskFarmer extends JobTask {
                     //循环长
                     for (int x = 0; x < this.farm.x; ++x) {
                         BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                        Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
+                        Block b = this.folk.entity.world.getBlockState(bp).getBlock();
                         //包含灌木 不是庄家
                         if (b instanceof BlockBush && !(b instanceof BlockCrops)) {
-                            this.folk.entity.worldObj.destroyBlock(bp, false);
+                            this.folk.entity.world.destroyBlock(bp, false);
                             //设置为空气
-//                        this.folk.entity.worldObj.setBlockToAir(bp);
+//                        this.folk.entity.world.setBlockToAir(bp);
                         }
                         //如果当前为空气
-                        if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                        if (this.folk.entity.world.isAirBlock(bp)) {
                             if ((x + 2) % 3 == 0) {
                                 //锄地
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                 //设置为耕地
-                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 3);
-                                this.folk.entity.worldObj.setBlockState(bp, Blocks.LOG.getStateFromMeta(3), 3);
-                                this.folk.entity.worldObj.setBlockState(bp.up(), Blocks.LOG.getStateFromMeta(3), 3);
+                                this.folk.entity.world.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 3);
+                                this.folk.entity.world.setBlockState(bp, Blocks.LOG.getStateFromMeta(3), 3);
+                                this.folk.entity.world.setBlockState(bp.up(), Blocks.LOG.getStateFromMeta(3), 3);
                                 if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                     //播放声音
                                     Minecraft mc = Minecraft.getMinecraft();
-                                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                        mc.theWorld.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                        mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     }
                                     //设置手持无
                                     this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -377,30 +377,30 @@ public class JobTaskFarmer extends JobTask {
                 for (int x = 0; x < this.farm.x; ++x) {
 
                     BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
-                    Block b = this.folk.entity.worldObj.getBlockState(bp).getBlock();
-                    Block b1 = this.folk.entity.worldObj.getBlockState(bp.down()).getBlock();
+                    Block b = this.folk.entity.world.getBlockState(bp).getBlock();
+                    Block b1 = this.folk.entity.world.getBlockState(bp.down()).getBlock();
                     //包含灌木 不是庄家
                     if (b instanceof BlockBush && !(b instanceof BlockCrops) && b != Blocks.PUMPKIN_STEM && b != Blocks.MELON_STEM) {
-                        this.folk.entity.worldObj.destroyBlock(bp, false);
+                        this.folk.entity.world.destroyBlock(bp, false);
                         //设置为空气
-//                    this.folk.entity.worldObj.setBlockToAir(bp);
+//                    this.folk.entity.world.setBlockToAir(bp);
                     }
                     //如果当前为空气
-                    if (this.folk.entity.worldObj.isAirBlock(bp)) {
+                    if (this.folk.entity.world.isAirBlock(bp)) {
 
                         if (z % 5 == 0 && x % 5 == 0) {
                             //不是水 或流动的水
-                            if (this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.worldObj.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
+                            if (this.folk.entity.world.getBlockState(bp.down()).getBlock() != Blocks.WATER && this.folk.entity.world.getBlockState(bp.down()).getBlock() != Blocks.FLOWING_WATER) {
                                 //锄地
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                 //设置为灯箱
-                                this.folk.entity.worldObj.setBlockState(bp.down().down(), BlockLoader.blockLightBox.getDefaultState(), 0);
+                                this.folk.entity.world.setBlockState(bp.down().down(), BlockLoader.blockLightBox.getDefaultState(), 0);
                                 //水
-                                this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
+                                this.folk.entity.world.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 11);
                                 if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                     //播放声音
-                                    for (EntityPlayer entityPlayer : this.folk.entity.worldObj.playerEntities) {
-                                        this.folk.entity.worldObj.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                    for (EntityPlayer entityPlayer : this.folk.entity.world.playerEntities) {
+                                        this.folk.entity.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     }
                                     //摇摆手臂
                                     this.folk.entity.swingArm(EnumHand.MAIN_HAND);
@@ -416,11 +416,11 @@ public class JobTaskFarmer extends JobTask {
                             //锄地
                             this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                             //设置为耕地
-                            this.folk.entity.worldObj.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
+                            this.folk.entity.world.setBlockState(bp.down(), Blocks.FARMLAND.getDefaultState(), 11);
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                 //播放声音
-                                for (EntityPlayer entityPlayer : this.folk.entity.worldObj.playerEntities) {
-                                    this.folk.entity.worldObj.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                for (EntityPlayer entityPlayer : this.folk.entity.world.playerEntities) {
+                                    this.folk.entity.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                 }
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);

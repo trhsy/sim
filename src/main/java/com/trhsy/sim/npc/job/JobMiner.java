@@ -108,17 +108,17 @@ public class JobMiner extends Job{
                     for(int x = 0; x < this.mine.x; ++x) {
                         List<ItemStack> drops = new CopyOnWriteArrayList<ItemStack>();
                         BlockPos bp = new BlockPos(this.mine.getCorner().offset(this.mine.facing, x).offset(this.mine.facing.rotateY(), z).offset(EnumFacing.DOWN, -y));
-                        IBlockState iBlockState=this.folk.entity.worldObj.getBlockState(bp);
+                        IBlockState iBlockState=this.folk.entity.world.getBlockState(bp);
                         Block b = iBlockState.getBlock();
                         //不是空 不是基岩 不是液体
-                        if (!(b.isAir(iBlockState, this.folk.entity.worldObj, bp)) && b != Blocks.BEDROCK && !(iBlockState.getMaterial().isLiquid())) {
+                        if (!(b.isAir(iBlockState, this.folk.entity.world, bp)) && b != Blocks.BEDROCK && !(iBlockState.getMaterial().isLiquid())) {
                             //开采
                             this.folk.setStatus(I18n.format("container.sim.Mining10") +" " + b.getLocalizedName());
-                            drops=b.getDrops(this.folk.entity.worldObj, bp, iBlockState, 0);
+                            drops=b.getDrops(this.folk.entity.world, bp, iBlockState, 0);
                             drops.forEach((drop) -> {
                                 this.placeInJobChest(drop);
                             });
-                            this.folk.entity.worldObj.setBlockToAir(bp);
+                            this.folk.entity.world.setBlockToAir(bp);
                             this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                             this.addMiningLevel();
                             this.mineCheck = System.currentTimeMillis();

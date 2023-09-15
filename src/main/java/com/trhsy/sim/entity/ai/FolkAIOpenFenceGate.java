@@ -51,9 +51,9 @@ public class FolkAIOpenFenceGate extends FolkAIFenceGateInteract {
     }
 
     private void toggleGate(boolean open) {
-        IBlockState iblockstate = this.entity.worldObj.getBlockState(this.fencePosition);
+        IBlockState iblockstate = this.entity.world.getBlockState(this.fencePosition);
         if (iblockstate.getBlock() == this.fenceBlock && (Boolean)iblockstate.getValue(BlockFenceGate.OPEN) != open) {
-            this.entity.worldObj.setBlockState(this.fencePosition, iblockstate.withProperty(BlockFenceGate.OPEN, open), 2);
+            this.entity.world.setBlockState(this.fencePosition, iblockstate.withProperty(BlockFenceGate.OPEN, open), 2);
         }
 
     }

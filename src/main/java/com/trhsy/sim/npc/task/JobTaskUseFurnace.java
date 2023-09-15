@@ -109,7 +109,7 @@ public class JobTaskUseFurnace extends JobTask {
                 if (this.factoryFurnace != null) {
                     currentSand = this.factoryFurnace.getStackInSlot(0);
                     if (currentSand == null) {
-                        collectionItems.stackSize=64;
+                        collectionItems.setCount(64);
                         //取箱子的材料
                         gotFuel = inventoriesGet(factoryChests, collectionItems, false, false, collectionItems);
                         if (gotFuel != null) {
@@ -119,10 +119,10 @@ public class JobTaskUseFurnace extends JobTask {
                         this.step = 3;
                         return;
                     }
-                    collectionItems.stackSize=64 - currentSand.stackSize;
+                    collectionItems.setCount(64 - currentSand.getCount());
                     gotFuel = inventoriesGet(factoryChests, collectionItems, false, false, collectionItems);
                     if (gotFuel != null) {
-                        currentSand.stackSize += gotFuel.stackSize;
+                        currentSand.setCount(currentSand.getCount()+gotFuel.getCount());
                         this.factoryFurnace.setInventorySlotContents(0, currentSand);
                     }
 
@@ -137,7 +137,7 @@ public class JobTaskUseFurnace extends JobTask {
                     this.folk.status = I18n.format("container.sim.job.glass.farmer.Putting");
                     this.job.placeInJobChest(currentSand);
                     if(ModSimLoader.gamemode!=1){
-                        ModSimLoader.addMoney(-0.02F * (float)currentSand.stackSize);
+                        ModSimLoader.addMoney(-0.02F * (float)currentSand.getCount());
                     }
                     this.factoryFurnace.setInventorySlotContents(2, null);
                 } else {
@@ -164,7 +164,7 @@ public class JobTaskUseFurnace extends JobTask {
             if (vRet != null) {
                 BlockPos blockPos = new BlockPos(vRet.x, vRet.y, vRet.z);
                 //设置熔炉位置 转换为int
-                ret = (TileEntityFurnace) this.folk.entity.worldObj.getTileEntity(blockPos);
+                ret = (TileEntityFurnace) this.folk.entity.world.getTileEntity(blockPos);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];
@@ -210,7 +210,7 @@ public class JobTaskUseFurnace extends JobTask {
         try {
             if (whatItem != null) {
                 returnStack = whatItem.copy();
-                returnStack.stackSize = 0;
+                returnStack.setCount(0);
 
                 for (int g = 0; g < chest.getSizeInventory(); g++) {
                     boolean ignore = false;
@@ -221,15 +221,15 @@ public class JobTaskUseFurnace extends JobTask {
                             chestStack.setItemDamage(whatItem.getItemDamage());
                         }
                         if (chestStack.isItemEqual(whatItem)) {
-                            while (chestStack.stackSize >= 1) {
-                                returnStack.stackSize++;
-                                chestStack.stackSize--;
+                            while (chestStack.getCount() >= 1) {
+                                returnStack.grow(1);
+                                chestStack.shrink(1);
 
-                                if (chestStack.stackSize <= 0) {
+                                if (chestStack.getCount() <= 0) {
                                     chest.setInventorySlotContents(g, null);
                                 }
 
-                                if (returnStack.stackSize == whatItem.stackSize) {
+                                if (returnStack.getCount() == whatItem.getCount()) {
                                     return returnStack;
                                 }
                             }
@@ -237,7 +237,7 @@ public class JobTaskUseFurnace extends JobTask {
                     }
                 }
 
-                if (returnStack.stackSize > 0) {
+                if (returnStack.getCount() > 0) {
                     return returnStack;
                 } else {
                     return null;
@@ -285,7 +285,7 @@ public class JobTaskUseFurnace extends JobTask {
     public V3 findClosestBlockType(V3 startXYZ, Block block, int searchDistance, boolean mustSeeSky) {
         V3 ret = null;
         try {
-            Block block1=this.folk.entity.worldObj.getBlockState(new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z)).getBlock();
+            Block block1=this.folk.entity.world.getBlockState(new BlockPos(startXYZ.x, startXYZ.y, startXYZ.z)).getBlock();
             if ( block1 == block) {
                 return startXYZ;
             } else {
@@ -296,7 +296,7 @@ public class JobTaskUseFurnace extends JobTask {
                                 int sx = (int) (startXYZ.x + xo);
                                 int sy = (int) (startXYZ.y + yo);
                                 int sz = (int) (startXYZ.z + zo);
-                                if (this.folk.entity.worldObj.getBlockState(new BlockPos(sx, sy, sz)).getBlock().getBlockState() == block.getBlockState()) {
+                                if (this.folk.entity.world.getBlockState(new BlockPos(sx, sy, sz)).getBlock().getBlockState() == block.getBlockState()) {
                                     ret = new V3(sx,sy,sz);
                                     return ret;
                                 }

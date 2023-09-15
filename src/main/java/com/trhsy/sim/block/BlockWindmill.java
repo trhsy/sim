@@ -144,7 +144,7 @@ public class BlockWindmill extends BlockContainer {
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      **/
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         try {
             this.isBurning = true;
             //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
@@ -223,11 +223,11 @@ public class BlockWindmill extends BlockContainer {
      * @param placer
      * @return
      */
-    @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        //获取此实体的水平方向。并设置
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
+    //@Override
+    //public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    //    //获取此实体的水平方向。并设置
+    //    return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+    //}
 
     /**
      * @return void

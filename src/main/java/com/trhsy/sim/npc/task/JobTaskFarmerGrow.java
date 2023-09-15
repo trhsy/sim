@@ -186,13 +186,13 @@ public class JobTaskFarmerGrow extends JobTask {
                     //获得位置
                     BlockPos bp = new BlockPos(this.farm.getCorner().offset(this.farm.facing, x).offset(this.farm.facing.rotateY(), z));
 
-                    IBlockState iblockstate = this.folk.entity.worldObj.getBlockState(bp);
+                    IBlockState iblockstate = this.folk.entity.world.getBlockState(bp);
                     //是否可以生长
                     if (iblockstate.getBlock() instanceof IGrowable) {
                         IGrowable igrowable = (IGrowable) iblockstate.getBlock();
-                        if (igrowable.canGrow(this.folk.entity.worldObj, bp, iblockstate, this.folk.entity.worldObj.isRemote)) {
-                            if (!this.folk.entity.worldObj.isRemote) {
-                                if (igrowable.canUseBonemeal(this.folk.entity.worldObj, this.folk.entity.worldObj.rand, bp, iblockstate)) {
+                        if (igrowable.canGrow(this.folk.entity.world, bp, iblockstate, this.folk.entity.world.isRemote)) {
+                            if (!this.folk.entity.world.isRemote) {
+                                if (igrowable.canUseBonemeal(this.folk.entity.world, this.folk.entity.world.rand, bp, iblockstate)) {
                                     List<IInventory> iterator = this.job.inventoriesFindClosest(this.job.workPlace, 5);
                                     boolean hasBlock = false;
                                     ItemStack dye = null;
@@ -214,7 +214,7 @@ public class JobTaskFarmerGrow extends JobTask {
                                     }
                                     if (dye != null) {
                                         addFarmingLevel();
-                                        igrowable.grow(this.folk.entity.worldObj, this.folk.entity.worldObj.rand, bp, iblockstate);
+                                        igrowable.grow(this.folk.entity.world, this.folk.entity.world.rand, bp, iblockstate);
                                     }else{
                                         if ((System.currentTimeMillis() - this.qsCheck) > 3000 * 60) {
                                             this.qsCheck = System.currentTimeMillis();

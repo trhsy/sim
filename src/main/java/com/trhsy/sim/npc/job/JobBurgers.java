@@ -132,13 +132,13 @@ public class JobBurgers extends Job{
                         ItemStack slot = inv.getStackInSlot(i);
                         if (slot != null) {
                             if (slot.isItemEqual(new ItemStack(Items.BREAD))) {
-                                this.bread += slot.stackSize;
+                                this.bread += slot.getCount();
                             } else if (slot.isItemEqual(new ItemStack(Items.BEEF))) {
-                                this.beef += slot.stackSize;
+                                this.beef += slot.getCount();
                             } else if (slot.isItemEqual(new ItemStack(Items.POTATO))) {
-                                this.potato += slot.stackSize;
+                                this.potato += slot.getCount();
                             } else if (slot.isItemEqual(new ItemStack(ItemLoader.itemCheese))) {
-                                this.itemCheese += slot.stackSize;
+                                this.itemCheese += slot.getCount();
                             }
                         }
                     }

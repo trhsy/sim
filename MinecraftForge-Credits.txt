@@ -24,3 +24,55 @@ ScotTools Background: ScotTools was an API that enabled modders to add blocks to
 Forge Mod Loader and Minecraft Forge have permission to distribute and automatically download components of MCP and distribute MCP data files.
 This permission is not transitive and others wishing to redistribute the Minecraft Forge source independently should seek permission of MCP or
 remove the MCP data files and request their users to download MCP separately.
+
+*Eloraam*
+
+
+
+*FlowerChild*
+
+
+
+*霍克耶*
+
+
+
+*MALfunction84*
+
+
+
+提交了睡眠处理程序代码，供他的mod（Somnia）和其他人使用。
+
+
+
+*Scokeev9*
+
+
+
+允许将ScotTools API集成到MCF中，并通过转换他的mods来支持Forge。
+
+
+
+ScotTools背景：ScotTools是一个API，它使MODER能够将块添加到收获级别（以及许多其他易于使用的功能来创建新的工具），也是第一个使用块材料来提高块打破效率的工具API，它允许来自未使用ScotTools API的MOD的块以正确的速度打破。
+
+
+
+*太空蟾蜍*
+
+
+
+*LexManos*
+
+
+
+*cpw*
+
+
+
+*Minecraft编码包（MCP）*
+
+Forge Mod Loader和Minecraft Forge拥有分发和自动下载MCP组件以及分发MCP数据文件的权限。
+
+此许可不可传递，其他希望独立重新分发Minecraft Forge源的人应寻求MCP或
+
+删除MCP数据文件并请求其用户单独下载MCP。

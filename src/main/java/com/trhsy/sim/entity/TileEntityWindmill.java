@@ -16,6 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,7 +34,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     /**
      * 存放风车中当前使用的物品的ItemStack
      */
-    private ItemStack[] furnaceItemStacks = new ItemStack[2];
+    private NonNullList<ItemStack> furnaceItemStacks = NonNullList.<ItemStack>withSize(2, ItemStack.EMPTY);
     /**
      * 当前正在燃烧的物品的新副本将使熔炉持续燃烧的勾号数
      */
@@ -66,7 +67,18 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     @Override
     public int getSizeInventory() {
-        return this.furnaceItemStacks.length;
+        return this.furnaceItemStacks.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemstack : this.furnaceItemStacks) {
+            if (!itemstack.isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -77,7 +89,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     @Override
     public ItemStack getStackInSlot(int index) {
-        return this.furnaceItemStacks[index];
+        return this.furnaceItemStacks.get(index);
     }
 
     /**
@@ -112,11 +124,12 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         try {
-            boolean flag = stack != null && stack.isItemEqual(this.furnaceItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, this.furnaceItemStacks[index]);
-            this.furnaceItemStacks[index] = stack;
+            ItemStack itemstack = (ItemStack) this.furnaceItemStacks.get(index);
+            boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
+            this.furnaceItemStacks.set(index, stack);
 
-            if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-                stack.stackSize = this.getInventoryStackLimit();
+            if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
+                stack.setCount(this.getInventoryStackLimit());
             }
             //是零并且
             if (index == 0 && !flag) {
@@ -162,17 +175,8 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        NBTTagList nbttaglist = compound.getTagList("Items", 10);
-        this.furnaceItemStacks = new ItemStack[this.getSizeInventory()];
-        for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-            int j = nbttagcompound.getByte("Slot");
-
-            if (j >= 0 && j < this.furnaceItemStacks.length) {
-                this.furnaceItemStacks[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
-            }
-        }
-
+        this.furnaceItemStacks = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        ItemStackHelper.loadAllItems(compound, this.furnaceItemStacks);
         this.furnaceBurnTime = compound.getInteger("BurnTime");
         this.cookTime = compound.getInteger("CookTime");
         this.totalCookTime = compound.getInteger("CookTimeTotal");
@@ -186,21 +190,10 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setInteger("BurnTime", this.furnaceBurnTime);
-        compound.setInteger("CookTime", this.cookTime);
-        compound.setInteger("CookTimeTotal", this.totalCookTime);
-        NBTTagList nbttaglist = new NBTTagList();
-
-        for (int i = 0; i < this.furnaceItemStacks.length; ++i) {
-            if (this.furnaceItemStacks[i] != null) {
-                NBTTagCompound nbttagcompound = new NBTTagCompound();
-                nbttagcompound.setByte("Slot", (byte) i);
-                this.furnaceItemStacks[i].writeToNBT(nbttagcompound);
-                nbttaglist.appendTag(nbttagcompound);
-            }
-        }
-
-        compound.setTag("Items", nbttaglist);
+        compound.setInteger("BurnTime", (short) this.furnaceBurnTime);
+        compound.setInteger("CookTime", (short) this.cookTime);
+        compound.setInteger("CookTimeTotal", (short) this.totalCookTime);
+        ItemStackHelper.saveAllItems(compound, this.furnaceItemStacks);
 
         if (this.hasCustomName()) {
             compound.setString("CustomName", this.windmillCustomName);
@@ -246,9 +239,9 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                 --this.furnaceBurnTime;
             }
             //客户端
-            if (!this.worldObj.isRemote) {
+            if (!this.world.isRemote) {
                 //是在运行 并且第一个框里有物品
-                if (this.isBurning() || this.furnaceItemStacks[0] != null) {
+                if (this.isBurning() || this.furnaceItemStacks.get(1) != null) {
                     //没有运行，
                     if (!this.isBurning() && this.canSmelt()) {
                         //燃烧时间
@@ -264,7 +257,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                         //制作时间        总制作时间     重制时间
                         if (this.cookTime == this.totalCookTime) {
                             this.cookTime = 0;
-                            this.totalCookTime = this.getCookTime(this.furnaceItemStacks[0]);
+                            this.totalCookTime = this.getCookTime(this.furnaceItemStacks.get(0));
                             this.smeltItem();
                             flag1 = true;
                         }
@@ -272,12 +265,12 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                         this.cookTime = 0;
                     }
                 } else if (!this.isBurning() && this.cookTime > 0) {
-                    this.cookTime = MathHelper.clamp_int(this.cookTime - 2, 0, this.totalCookTime);
+                    this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.totalCookTime);
                 }
                 //重制风车
                 if (flag != this.isBurning()) {
                     flag1 = true;
-                    BlockWindmill.setState(this.isBurning(), this.worldObj, this.pos);
+                    BlockWindmill.setState(this.isBurning(), this.world, this.pos);
                 }
             }
             if (flag1) {
@@ -308,15 +301,21 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      * @return
      */
     private boolean canSmelt() {
-        if (this.furnaceItemStacks[0] == null) {
+        if (this.furnaceItemStacks.get(0) == null) {
             return false;
         } else {
-            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks[0]);
-            if (itemstack == null) return false;
-            if (this.furnaceItemStacks[1] == null) return true;
-            if (!this.furnaceItemStacks[1].isItemEqual(itemstack)) return false;
-            int result = furnaceItemStacks[1].stackSize + itemstack.stackSize;
-            return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks[1].getMaxStackSize(); //Forge BugFix: Make it respect stack sizes properly.
+            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
+            if (itemstack == null) {
+                return false;
+            }
+            if (this.furnaceItemStacks.get(1) == null) {
+                return true;
+            }
+            if (!this.furnaceItemStacks.get(1).isItemEqual(itemstack)) {
+                return false;
+            }
+            int result = furnaceItemStacks.get(1).getCount() + itemstack.getCount();
+            return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks.get(1).getMaxStackSize(); //Forge BugFix: Make it respect stack sizes properly.
         }
     }
 
@@ -325,64 +324,62 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      * 冶炼
      */
     public void smeltItem() {
-        try{
-        //有燃料
-        if (this.canSmelt()) {
-            //第一个是金铁铜锡
-            ItemStack itemstack = this.furnaceItemStacks[0];
-            //if (this.furnaceItemStacks[1] == null) {
-            //    this.furnaceItemStacks[1] = itemstack.copy();
-            //} else if (this.furnaceItemStacks[1].getItem() == itemstack.getItem()) {
-            //    this.furnaceItemStacks[1].stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
-            //}
-            //铜矿
-            if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockCopperOre)) {
-                if (this.furnaceItemStacks[1] != null) {
-                    this.furnaceItemStacks[1].stackSize += 9;
-                } else {
-                    //铜粒儿
-                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesCopper);
-                    this.furnaceItemStacks[1].stackSize += 8;
+        try {
+            //有燃料
+            if (this.canSmelt()) {
+                //第一个是金铁铜锡
+                ItemStack itemstack = this.furnaceItemStacks.get(0);
+                //if (this.furnaceItemStacks.get(1) == null) {
+                //    this.furnaceItemStacks.get(1) = itemstack.copy();
+                //} else if (this.furnaceItemStacks.get(1).getItem() == itemstack.getItem()) {
+                //    this.furnaceItemStacks.get(1).stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
+                //}
+                //铜矿
+                if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockCopperOre)) {
+                    if (this.furnaceItemStacks.get(1) != null) {
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 9);
+                    } else {
+                        //铜粒儿
+                        this.furnaceItemStacks.set(1,new ItemStack(ItemLoader.itemGranulesCopper));
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
+                    }
                 }
-            }
-            //锡矿
-            if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockTinOre)) {
-                if (this.furnaceItemStacks[1] != null) {
-                    this.furnaceItemStacks[1].stackSize += 9;
-                } else {
-                    //锡粒儿
-                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesTin);
-                    this.furnaceItemStacks[1].stackSize += 8;
+                //锡矿
+                if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockTinOre)) {
+                    if (this.furnaceItemStacks.get(1) != null) {
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 9);
+                    } else {
+                        //锡粒儿
+                        this.furnaceItemStacks.set(1,new ItemStack(ItemLoader.itemGranulesTin));
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
+                    }
                 }
-            }
-            //金矿
-            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
-                if (this.furnaceItemStacks[1] != null) {
+                //金矿
+                if (itemstack.getItem() == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
+                    if (this.furnaceItemStacks.get(1) != null) {
 
-                    this.furnaceItemStacks[1].stackSize += 9;
-                } else {
-                    //金粒儿
-                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesGold);
-                    this.furnaceItemStacks[1].stackSize += 8;
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 9);
+                    } else {
+                        //金粒儿
+                        this.furnaceItemStacks.set(1,new ItemStack(ItemLoader.itemGranulesGold));
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
+                    }
+
                 }
+                //铁矿
+                if (itemstack.getItem() == Item.getItemFromBlock(Blocks.IRON_ORE)) {
+                    if (this.furnaceItemStacks.get(1) != null) {
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 9);
+                    } else {
+                        //铁粒儿
+                        this.furnaceItemStacks.set(1, new ItemStack(ItemLoader.itemGranulesIron));
+                        this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
+                    }
+                }
+                //库存减少
+                this.furnaceItemStacks.get(0).shrink(1);
 
             }
-            //铁矿
-            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.IRON_ORE)) {
-                if (this.furnaceItemStacks[1] != null) {
-                    this.furnaceItemStacks[1].stackSize += 9;
-                } else {
-                    //铁粒儿
-                    this.furnaceItemStacks[1] = new ItemStack(ItemLoader.itemGranulesIron);
-                    this.furnaceItemStacks[1].stackSize += 8;
-                }
-            }
-            --this.furnaceItemStacks[0].stackSize;
-
-            if (this.furnaceItemStacks[0].stackSize <= 0) {
-                this.furnaceItemStacks[0] = null;
-            }
-        }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("smeltItem-setInventorySlotContents出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -396,8 +393,8 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      * @return
      */
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -533,9 +530,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
 
     @Override
     public void clear() {
-        for (int i = 0; i < this.furnaceItemStacks.length; ++i) {
-            this.furnaceItemStacks[i] = null;
-        }
+        this.furnaceItemStacks.clear();
     }
 
     net.minecraftforge.items.IItemHandler handlerLeft = new net.minecraftforge.items.wrapper.SidedInvWrapper(this, net.minecraft.util.EnumFacing.UP);

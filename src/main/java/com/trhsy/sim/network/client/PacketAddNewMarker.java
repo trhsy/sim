@@ -56,7 +56,7 @@ public class PacketAddNewMarker implements IMessage {
         }
 
         private void handle(PacketAddNewMarker message, MessageContext ctx) {
-            ModSimClientLoader.markers.add(new Marker(message.pos, Minecraft.getMinecraft().thePlayer.dimension, Minecraft.getMinecraft().thePlayer));
+            ModSimClientLoader.markers.add(new Marker(message.pos, Minecraft.getMinecraft().player.dimension, Minecraft.getMinecraft().player));
         }
     }
 }

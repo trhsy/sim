@@ -265,7 +265,7 @@ public class ModSimLoader {
     public static void sendChat(String theText) {
         try {
 //            MinecraftServer.getServer().playerList.getPlayerList().sendChatMsg(new TextComponentString(theText));
-            FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString(theText));
+            FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(theText));
 
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -725,7 +725,7 @@ public class ModSimLoader {
     public static void onUpdate() {
         try {
 //"https://www.dropbox.com/s/i51v1lsq0u89elw/";
-            String baseURL = "https://trhsy.github.io/sim/1.9/Simukraft_zh_CN.zip";
+            /*String baseURL = "https://trhsy.github.io/sim/1.9/Simukraft_zh_CN.zip";
             String lang = FMLCommonHandler.instance().getCurrentLanguage();
             if ("en_US".equals(lang)) {
                 baseURL = "https://trhsy.github.io/sim/1.9/Simukraft_en_US.zip";
@@ -789,7 +789,7 @@ public class ModSimLoader {
             }
 
             new File(simFile).deleteOnExit();
-
+*/
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("检查sim建筑包出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

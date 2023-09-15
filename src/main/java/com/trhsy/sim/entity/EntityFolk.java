@@ -208,7 +208,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         try {
             if (System.currentTimeMillis() - this.secondTimer > 1000L) {
                 this.secondTimer = System.currentTimeMillis();
-                List<Entity> list1 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).expand(2.0D, 4.0D, 2.0D));
+                List<Entity> list1 = this.world.getEntitiesWithinAABBExcludingEntity(this, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).expand(2.0D, 4.0D, 2.0D));
                 for (Entity entity1 : list1) {
                     if (entity1 instanceof EntityItem) {
                         EntityItem entityitem = (EntityItem) entity1;
@@ -236,7 +236,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                     }
                 }
             }
-            if (this.theData != null && !this.worldObj.isRemote && !ModSimLoader.folks.contains(this.theData)) {
+            if (this.theData != null && !this.world.isRemote && !ModSimLoader.folks.contains(this.theData)) {
                 ModSimLoader.folks.add(this.theData);
             }
 //            ModSimLoader.log.info("开始更新实体");
@@ -256,7 +256,7 @@ public class EntityFolk extends EntityCreature implements INpc {
      **/
     public void onFolkUpdate() {
         try {
-            if (!this.worldObj.isRemote) {
+            if (!this.world.isRemote) {
                 EntityFolk e = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString()).entity;
 
                 if (e != null && this.theData != null) {
@@ -270,7 +270,7 @@ public class EntityFolk extends EntityCreature implements INpc {
                 }
             }
 
-            if (this.theData == null && !this.isBeingCreated && !this.worldObj.isRemote) {
+            if (this.theData == null && !this.isBeingCreated && !this.world.isRemote) {
                 this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
                 this.theData.entity = this;
                 this.theData.sendSkinPathToClient();
@@ -331,9 +331,9 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @Param [player, hand]
      **/
     @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
         try {
-            if (!player.worldObj.isRemote) {
+            if (!player.world.isRemote) {
                 if(this.theData == null){
                     this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
                 }
@@ -364,21 +364,21 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if (this.theData.age < 18) {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
                         Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                     } else if (this.theData.gender == 0) {
                         //女声
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
                         Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                     } else {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
                         Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                     }
                 }else{

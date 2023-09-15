@@ -3,7 +3,6 @@ package com.trhsy.sim.item;
 import com.trhsy.sim.entity.EntityDinkEmpty;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,9 +30,10 @@ public class ItemDrinkEmpty extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         if (!playerIn.capabilities.isCreativeMode) {
-            --itemStackIn.stackSize;
+            itemStackIn.shrink(1);
         }
 
         worldIn.playSound((EntityPlayer) null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
@@ -41,7 +41,7 @@ public class ItemDrinkEmpty extends Item {
         if (!worldIn.isRemote) {
             EntityDinkEmpty entitysnowball = new EntityDinkEmpty(worldIn, playerIn);
             entitysnowball.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.spawnEntityInWorld(entitysnowball);
+            worldIn.spawnEntity(entitysnowball);
         }
 
         playerIn.addStat(StatList.getObjectUseStats(this));

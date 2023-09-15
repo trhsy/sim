@@ -47,7 +47,7 @@ tile.blockSulphurDioxide.name=Sulphur Dioxide
 tile.blockGasDispenser.carbonDioxide.name=Carbon Dioxide Gas Dispenser
 tile.blockGasDispenser.sulphurDioxide.name=Sulphur Dioxide Gas Dispenser
 tile.blockGasDispenser.radiationGas.name=Radiation Gas Gas Dispenser
-
+container.sim.sim_gui_ATMs_Items1=Inventory items accepted by our store：
 tile.blockSpecial.name=Special
 container.sim.job.Grocer_today=There is no fresh food for sale today. Do you have a normal watermelon / Pumpkin / carrot / potato, farm?
 container.sim.sim_gui_BC1=Now select a special type of building
@@ -118,7 +118,7 @@ container.sim.granules_gold=Put the gold ore in the windmill, and nine gold grai
 container.sim.granules_iron=Put the iron ore into the windmill. Nine iron grains can be used to synthesize iron ingots
 container.sim.granules_tin=Put the tin ore in the windmill. Nine tin grains can be used to synthesize tin ingots
 item.drinkBeerEmpty.name=drinkBeer Empty
-item.drinkBeer.name=drinkBeer
+item.drinkBeer.name=drink Beer
 item.bucketMilk.name=Milk Bucket
 container.sim.welcome=Welcome to SimCity
 container.sim.welcomes=Reproduced by Trhsy,https://trhsy.github.io

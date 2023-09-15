@@ -31,17 +31,17 @@ public class CommandGenerateFolk implements ICommand {
         aliases.add("generateNPC");
     }
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "generateNPC";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "generateNPC <name>";
     }
 
     @Override
-    public List<String> getCommandAliases() {
+    public List<String> getAliases() {
         return this.aliases;
     }
 
@@ -50,12 +50,8 @@ public class CommandGenerateFolk implements ICommand {
         try {
             if (args.length == 0) {
                 ModSimLoader.log.info("获得重生NPC命令");
-//                this.theFolk = new NpcData(sender.getEntityWorld(), true);
-                NetWorkLoader.net.sendToServer(new PacketNewFolk(true));
-                //GenerateFolkPacket generateFolkPacket=new GenerateFolkPacket();
-                //generateFolkPacket.nbt = new NBTTagCompound();
-                //generateFolkPacket.nbt.setBoolean("NPC_Packet",true);
-                //NetWorkLoader.net.sendToServer(new GenerateFolkPacket(sender.getEntityWorld()));
+                this.theFolk = new NpcData(sender.getEntityWorld(), true);
+                //NetWorkLoader.net.sendToServer(new PacketNewFolk(true));
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("processCommand出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -68,7 +64,7 @@ public class CommandGenerateFolk implements ICommand {
     }
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
         return null;
     }
 

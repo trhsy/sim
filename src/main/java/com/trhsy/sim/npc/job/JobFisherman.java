@@ -74,8 +74,8 @@ public class JobFisherman extends Job {
             while (var6.hasNext()) {
                 BlockPos p = (BlockPos) var6.next();
                 if(this.folk!=null&&this.folk.entity!=null){
-                    Block b= this.folk.entity.worldObj.getBlockState(p).getBlock();
-                    if ( b== Blocks.WATER ||  this.folk.entity.worldObj.getBlockState(p).getBlock() == Blocks.FLOWING_WATER) {
+                    Block b= this.folk.entity.world.getBlockState(p).getBlock();
+                    if ( b== Blocks.WATER ||  this.folk.entity.world.getBlockState(p).getBlock() == Blocks.FLOWING_WATER) {
                         this.nearWater = true;
                         break;
                     }

@@ -55,7 +55,7 @@ public class JobTaskUnloadItems extends JobTask {
                     if (is.isItemEqual(collectionItem)) {
                         this.job.placeInJobChest(is);
                         if(ModSimLoader.gamemode!=1){
-                            ModSimLoader.addMoney(-0.02F * (float)is.stackSize);
+                            ModSimLoader.addMoney(-0.02F * (float)is.getCount());
                         }
                         toDelete.add(is);
                     }

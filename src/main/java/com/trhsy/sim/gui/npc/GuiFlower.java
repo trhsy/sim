@@ -87,8 +87,8 @@ public class GuiFlower extends GuiScreen {
                 if (this.theScreen == ATMscreen.DEPOSIT) {
                     offset = 30;
 
-                    for (inv = 0; inv < this.mc.thePlayer.inventory.getSizeInventory(); inv++) {
-                        ItemStack is = this.mc.thePlayer.inventory.getStackInSlot(inv);
+                    for (inv = 0; inv < this.mc.player.inventory.getSizeInventory(); inv++) {
+                        ItemStack is = this.mc.player.inventory.getStackInSlot(inv);
                         if (is != null) {
                             //出售一个
                             String sim_gui_ATMs_Sell_1 = I18n.format("container.sim.sim_gui_ATMs_Sell_1");
@@ -100,77 +100,77 @@ public class GuiFlower extends GuiScreen {
                             if (is.getItem() == new ItemStack(Blocks.YELLOW_FLOWER).getItem()) {
 
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceDiamond)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceDiamond * (float) is.getCount())));
                                 offset += 20;
                                 //虞美人
                             } else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceEmerald)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceEmerald * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceEmerald * (float) is.getCount())));
                                 offset += 20;
                                 //兰花
                             } else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,1).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceRedstone)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceRedstone * (float) is.getCount())));
                                 offset += 20;
                                 //绒球葱
                             } else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,2).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGlowstone)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGlowstone * (float) is.getCount())));
                                 offset += 20;
                                 //蓝花美耳草
                             } else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,3).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGold)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGold * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceGold * (float) is.getCount())));
                                 offset += 20;
                                 //红色郁金香
                             } else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,4).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceIron)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceIron * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceIron * (float) is.getCount())));
                                 offset += 20;
                                 //橙色郁金香
                             } else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,5).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //白色郁金香
                             }else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,6).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //粉红色郁金香
                             }else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,7).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //滨菊
                             }else if (is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,8).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //向日葵
                             }else if (is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //丁香
                             }else if (is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT,1,1).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //玫瑰丛
                             }else if (is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT,1,4).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //牡丹
                             }else if (is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT,1,5).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                                 //花盆
                             }else if (is.getItem() == new ItemStack(Blocks.FLOWER_POT).getItem()) {
                                 this.buttonList.add(new GuiButton(inv + 100, this.width / 2, offset, 100, 20, sim_gui_ATMs_Sell_1 + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin)));
-                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.stackSize + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.stackSize)));
+                                this.buttonList.add(new GuiButton(inv + 500, this.width / 2 + 100, offset, 100, 20, sim_gui_ATMs_Sell + is.getCount() + sim_gui_ATMs_for + ModSimLoader.displayMoney(PricesForBlocks.bankPriceTin * (float) is.getCount())));
                                 offset += 20;
                             }
 
@@ -228,11 +228,11 @@ public class GuiFlower extends GuiScreen {
                     String sim_gui_ATMs_Items = I18n.format("container.sim.sim_gui_ATMs_Items1");
                     this.drawCenteredString(this.fontRendererObj, sim_gui_ATMs_Items, this.width / 2, 15, 65280);
 
-                    for (int inv = 0; inv < this.mc.thePlayer.inventory.getSizeInventory(); inv++) {
-                        ItemStack is = this.mc.thePlayer.inventory.getStackInSlot(inv);
+                    for (int inv = 0; inv < this.mc.player.inventory.getSizeInventory(); inv++) {
+                        ItemStack is = this.mc.player.inventory.getStackInSlot(inv);
                         //蒲公英,虞美人,兰花,绒球葱,蓝花美耳草,红色郁金香,橙色郁金香,白色郁金香,粉红色郁金香,滨菊,向日葵,丁香,玫瑰丛,牡丹,花盆
                         if (is != null && (is.getItem() == new ItemStack(Blocks.YELLOW_FLOWER).getItem() || is.getItem() == new ItemStack(Blocks.RED_FLOWER).getItem() || is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,1).getItem() || is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,2).getItem() || is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,3).getItem() || is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,4).getItem() || is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,5).getItem())|| is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,6).getItem()|| is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,7).getItem()|| is.getItem() == new ItemStack(Blocks.RED_FLOWER,1,8).getItem()|| is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT).getItem()|| is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT,1,1).getItem()|| is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT,1,4).getItem()|| is.getItem() == new ItemStack(Blocks.DOUBLE_PLANT,1,5).getItem()|| is.getItem() == new ItemStack(Blocks.FLOWER_POT).getItem()) {
-                            this.drawString(this.fontRendererObj, is.stackSize + " x " + is.getDisplayName(), 40, offset, 65280);
+                            this.drawString(this.fontRendererObj, is.getCount() + " x " + is.getDisplayName(), 40, offset, 65280);
                             playerHasItems = true;
                             offset += 20;
                         }
@@ -305,32 +305,32 @@ public class GuiFlower extends GuiScreen {
                     this.initGui();
                 } else {
                     if (guibutton.id >= 100 && guibutton.id < 200) {
-                        ItemStack is = this.mc.thePlayer.inventory.getStackInSlot(guibutton.id - 100);
+                        ItemStack is = this.mc.player.inventory.getStackInSlot(guibutton.id - 100);
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
                         Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                         String money = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
                         float soldFor = Float.parseFloat(money);
                         ModSimLoader.money += soldFor;
-                        --is.stackSize;
-                        if (is.stackSize == 0) {
+                        is.shrink(1);
+                        if (is.getCount() == 0) {
                             is = null;
                         }
 
-                        this.mc.thePlayer.inventory.setInventorySlotContents(guibutton.id - 100, is);
+                        this.mc.player.inventory.setInventorySlotContents(guibutton.id - 100, is);
                         this.initGui();
                     } else if (guibutton.id >= 500 && guibutton.id < 600) {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
                         Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                            mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                            mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                         }
                         String number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
                         float soldFor = Float.parseFloat(number);
                         ModSimLoader.money += soldFor;
-                        this.mc.thePlayer.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack) null);
+                        this.mc.player.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack) null);
                         this.initGui();
                     } else {
                         int ci;
@@ -385,7 +385,7 @@ public class GuiFlower extends GuiScreen {
                             for (ci = 0; ci < this.cart.size(); ++ci) {
                                 cartItem = this.cart.get(ci);
                                 is = cartItem.theItemStack;
-                                is.stackSize = cartItem.quantity;
+                                is.setCount(cartItem.quantity);
                                 cost += (float) cartItem.quantity * cartItem.priceEach;
                             }
 
@@ -401,8 +401,8 @@ public class GuiFlower extends GuiScreen {
                             for (ci = 0; ci < this.cart.size(); ++ci) {
                                 cartItem = this.cart.get(ci);
                                 is = cartItem.theItemStack;
-                                is.stackSize = cartItem.quantity;
-                                this.mc.thePlayer.inventory.addItemStackToInventory(is);
+                                is.setCount(cartItem.quantity);
+                                this.mc.player.inventory.addItemStackToInventory(is);
 
                                 for (int ai = 0; ai < CommodityFlower.theCommodities.size(); ++ai) {
                                     CommodityFlower ac = (CommodityFlower) CommodityFlower.theCommodities.get(ai);
@@ -419,8 +419,8 @@ public class GuiFlower extends GuiScreen {
                             ModSimLoader.sendChat(sim_gui_ATMs_worth + ModSimLoader.displayMoney(cost));
                             SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                             Minecraft mc = Minecraft.getMinecraft();
-                            for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                                mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                            for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                             }
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();

@@ -1,5 +1,6 @@
 package com.trhsy.sim.util;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -26,7 +27,8 @@ public class BuildingsExtractor {
             String lang = FMLCommonHandler.instance().getCurrentLanguage();
             String bName="buildings_"+lang;
             ModSimLoader.log.info("当前语言："+lang+",开始解压建筑蓝图");
-            InputStream inputStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("sim", "buildings/"+bName+".zip")).getInputStream();
+            ResourceLocation resourceLocation=new ResourceLocation(ModSim.MODID,"buildings/"+bName+".zip");
+            InputStream inputStream = Minecraft.getMinecraft().getResourceManager().getResource(resourceLocation).getInputStream();
             byte[] buffer = new byte[1024];
             ZipInputStream zis = new ZipInputStream(inputStream, Charset.forName("GBK"));
 

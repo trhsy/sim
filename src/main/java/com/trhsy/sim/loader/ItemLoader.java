@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -174,7 +173,7 @@ public class ItemLoader {
             register(tinBoots, "item_tin_boots");
             /**牛奶桶**/
             register(itemBucketMilk, "item_bucket_milk");
-            FluidContainerRegistry.registerFluidContainer(FluidLoader.fluidMilk, new ItemStack(itemBucketMilk), FluidContainerRegistry.EMPTY_BUCKET);
+            //FluidContainerRegistry.registerFluidContainer(FluidLoader.fluidMilk, new ItemStack(itemBucketMilk), FluidContainerRegistry.EMPTY_BUCKET);
 
             /**模拟城市启动卷轴**/
             register(itemSimULoader, "item_sim_u_loader");
@@ -315,14 +314,5 @@ public class ItemLoader {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("ItemLoader-registerRender出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
 
-    }
-    protected static <T extends Item> T registerItem(T item, String name) {
-        try {
-                GameRegistry.registerItem(item, name);
-
-        } catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerItem出错了：" + e.getMessage()+"行数："+element.getLineNumber());
-        }
-        return item;
     }
 }

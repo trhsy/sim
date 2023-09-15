@@ -65,7 +65,7 @@ public class PacketSendTerrainType implements IMessage{
 
         private void handle(PacketSendTerrainType message, MessageContext ctx) {
             TerrainType terrainType=new TerrainType(message.terrainName, message.terrainType);
-            ModSimLoader.getFolkDataByUID(message.folkID).job = new JobTerrainFormer(ModSimLoader.getFolkDataByUID(message.folkID), terrainType,V3.fromString(message.bPos).toBlockPos(),ctx.getServerHandler().playerEntity.worldObj);
+            ModSimLoader.getFolkDataByUID(message.folkID).job = new JobTerrainFormer(ModSimLoader.getFolkDataByUID(message.folkID), terrainType,V3.fromString(message.bPos).toBlockPos(),ctx.getServerHandler().playerEntity.world);
         }
     }
 }

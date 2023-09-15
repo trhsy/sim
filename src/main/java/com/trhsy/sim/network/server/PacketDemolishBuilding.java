@@ -55,7 +55,7 @@ public class PacketDemolishBuilding implements IMessage {
             Building b = ModSimLoader.getBuildingByUUID(message.uuid);
             if (b != null) {
                 ModSimLoader.log.info("拆除建筑："+b.buildingName);
-                b.demolish(ctx.getServerHandler().playerEntity.worldObj, true);
+                b.demolish(ctx.getServerHandler().playerEntity.world, true);
             }
 
         }

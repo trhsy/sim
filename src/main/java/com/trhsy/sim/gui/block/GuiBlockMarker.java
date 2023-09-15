@@ -128,7 +128,7 @@ public class GuiBlockMarker extends GuiScreen {
                 V3 Lxyz = ModSimClientLoader.markers.get(1).loc;
                 V3 Bxyz = ModSimClientLoader.markers.get(2).loc;
 
-                V3 exyz = new V3(Math.floor(GuiBlockMarker.this.mc.thePlayer.posX), Math.floor(GuiBlockMarker.this.mc.thePlayer.posY), Math.floor(GuiBlockMarker.this.mc.thePlayer.posZ));
+                V3 exyz = new V3(Math.floor(GuiBlockMarker.this.mc.player.posX), Math.floor(GuiBlockMarker.this.mc.player.posY), Math.floor(GuiBlockMarker.this.mc.player.posZ));
                 int ltrCountx;
                 if (cxyz.x == Lxyz.x) {
                     ltrCountx = (int) (Math.abs(Lxyz.z - cxyz.z) - 1);
@@ -267,8 +267,8 @@ public class GuiBlockMarker extends GuiScreen {
                     ModSimLoader.sendChat(I18n.format("container.sim.Markers15") + f + I18n.format("container.sim.Markers16"));
                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
                     Minecraft mc = Minecraft.getMinecraft();
-                    for (EntityPlayer entityPlayer : mc.theWorld.playerEntities) {
-                        mc.theWorld.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                        mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                     }
                 } else {
                     ModSimLoader.sendChat(I18n.format("container.sim.Markers17"));

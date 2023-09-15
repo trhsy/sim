@@ -84,16 +84,16 @@ public class PacketHireFolk implements IMessage {
             NpcData fd = ModSimLoader.getFolkDataByUID(message.uuid);
             if (fd.job != null) {
                 //被其他地方雇佣，尝试雇佣其他人
-                ctx.getServerHandler().playerEntity.addChatMessage(new TextComponentString(fd.getName() + I18n.format("container.sim.hire_elsewhere")));
+                ctx.getServerHandler().playerEntity.sendMessage(new TextComponentString(fd.getName() + I18n.format("container.sim.hire_elsewhere")));
             } else {
                 //建筑工
                 if (message.job.contentEquals(I18n.format("container.sim.Vocation1"))) {
-                    fd.job = new JobBuilder(fd, message.pos, message.buildDirection, ctx.getServerHandler().playerEntity.worldObj);
+                    fd.job = new JobBuilder(fd, message.pos, message.buildDirection, ctx.getServerHandler().playerEntity.world);
                     BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(message.pos.toBlockPos()).getBlock();
                     cons.employee = fd;
                     //规划师
                 }else if(message.job.contentEquals(I18n.format("container.sim.Vocation16"))){
-                    fd.job = new JobTerrainFormer(fd,message.pos,ctx.getServerHandler().playerEntity.worldObj);
+                    fd.job = new JobTerrainFormer(fd,message.pos,ctx.getServerHandler().playerEntity.world);
                     BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(message.pos.toBlockPos()).getBlock();
                     cons.employee = fd;
                     //农民
@@ -101,7 +101,7 @@ public class PacketHireFolk implements IMessage {
                     //农田箱
                     FarmBox farmBox = ModSimLoader.getFarm(message.pos);
                     if (farmBox != null) {
-                        fd.job = new JobFarmer(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, farmBox);
+                        fd.job = new JobFarmer(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.world, farmBox);
                         farmBox.employee = fd;
                         farmBox.saveFarm();
                     }
@@ -109,13 +109,13 @@ public class PacketHireFolk implements IMessage {
                 } else if (message.job.contentEquals(I18n.format("container.sim.Vocation4"))) {
                     MineBox mineBox = ModSimLoader.getMine(message.pos);
                     if (mineBox != null) {
-                        fd.job = new JobMiner(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.worldObj, mineBox);
+                        fd.job = new JobMiner(fd, message.pos.toBlockPos(), ctx.getServerHandler().playerEntity.world, mineBox);
                         mineBox.employee = fd;
                         mineBox.saveMine();
                     }
                 } else {
                     //去雇佣地点
-                    fd.hireAt(message.pos, message.job, ctx.getServerHandler().playerEntity.worldObj);
+                    fd.hireAt(message.pos, message.job, ctx.getServerHandler().playerEntity.world);
                 }
 
             }

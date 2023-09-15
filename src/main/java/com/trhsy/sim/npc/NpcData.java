@@ -275,7 +275,7 @@ public class NpcData {
             }
             e.theData = this;
             this.entity = e;
-            world.spawnEntityInWorld(e);
+            world.spawnEntity(e);
             this.ID = this.entity.getUniqueID().toString();
             //刚刚进入该地区
             String fs_ldzl = I18n.format("container.sim.folk_data_just");
@@ -367,7 +367,7 @@ public class NpcData {
             this.assignFamilyMembers(mother, father);
             this.home = mother.home;
             mother.home.occupants.add(this);
-            world.spawnEntityInWorld(e);
+            world.spawnEntity(e);
             NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
             this.sendSkinPathToClient();
             this.saveFolk();
@@ -535,12 +535,15 @@ public class NpcData {
                             this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
                             //规划师
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation16"))) {
-                            String v = value.split(";")[1];
-                            p = V3.fromString(v).toBlockPos();
-                            String terrainName = value.split(";")[2];
-                            String terrainType = value.split(";")[3];
-                            TerrainType terrainTypes = new TerrainType(terrainName, terrainType);
-                            this.job = new JobTerrainFormer(this, terrainTypes, p, world);
+                            String[] v1=value.split(";");
+                            if(v1.length>1){
+                                String v = v1[1];
+                                p = V3.fromString(v).toBlockPos();
+                                String terrainName = value.split(";")[2];
+                                String terrainType = value.split(";")[3];
+                                TerrainType terrainTypes = new TerrainType(terrainName, terrainType);
+                                this.job = new JobTerrainFormer(this, terrainTypes, p, world);
+                            }
                             //农民
                         } else if (job.contentEquals(I18n.format("container.sim.Vocation5"))) {
                             p = this.tempEmployLoc.toBlockPos();
@@ -735,7 +738,7 @@ public class NpcData {
             this.job = null;
             this.holding = null;
             if (this.entity != null) {
-                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
+                this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
             }
             this.stayPut = false;
         } catch (Exception e) {
@@ -1002,7 +1005,7 @@ public class NpcData {
                 if (this.holding != null) {
                     ef.setHeldItem(EnumHand.MAIN_HAND, this.holding);
                 } else {
-                    ef.setHeldItem(EnumHand.MAIN_HAND, null);
+                    ef.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
                 }
                 //坐标
                 this.pos = new V3(bp);
@@ -1011,13 +1014,14 @@ public class NpcData {
                 this.entity = ef;
                 this.entity.theData = this;
                 ModSimLoader.log.info("********************Npc:" + this.ID + "重生于x:" + this.pos.x + ",y:" + this.pos.y + ",z:" + this.pos.z);
-                world.spawnEntityInWorld(ef);
+                world.spawnEntity(ef);
 
             } else {
 //                ModSimLoader.log.info("已重生，更新皮肤");
             }
         } catch (Exception e) {
-            ModSimLoader.log.error("重生出错了");
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("重生出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -1178,19 +1182,19 @@ public class NpcData {
             //如果当前NPC为空
             if (this.entity == null) {
                 PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-                for (EntityPlayerMP player : players.getPlayerList()) {
+                for (EntityPlayerMP player : players.getPlayers()) {
                     //如果位置不为空并且在人员的80个内，不是服务器端
-                    if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 80.0D && !player.worldObj.isRemote) {
+                    if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 80.0D && !player.world.isRemote) {
                         //设置当前NPC 已加载
                         ModSimLoader.hasLoadedFolks = true;
                         //重生此NPC
                         ModSimLoader.log.info("onSecond 重生");
-                        this.respawn(player.worldObj, this.pos.toBlockPos());
+                        this.respawn(player.world, this.pos.toBlockPos());
                     }
                 }
             }
             //当前NPC 不为空并且是客户端
-            if (this.entity != null && !this.entity.worldObj.isRemote) {
+            if (this.entity != null && !this.entity.world.isRemote) {
                 //更新NPC
                 this.entity.onFolkUpdate();
                 //this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
@@ -1230,7 +1234,7 @@ public class NpcData {
             } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
                 try {
                     //清除实体手中物品 手持空气
-                    this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null);
+                    this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND,  ItemStack.EMPTY);
                 } catch (Exception var6) {
                 }
                 //等待
@@ -1261,7 +1265,7 @@ public class NpcData {
                         this.currentTask.begin();
                     }
                     //白天的话随机运行任务
-                } else if (ModSimLoader.isDayTime(this.entity.worldObj)) {
+                } else if (ModSimLoader.isDayTime(this.entity.world)) {
                     this.pickRandomTask();
                 } else {
                     if (this.home != null&&!this.isAtBuilding(this.home)) {
@@ -1302,9 +1306,9 @@ public class NpcData {
                 return false;
                 //士兵
             } else if (this.job != null && this.job.jobName.equals(I18n.format("container.sim.Vocation7"))) {
-                return !ModSimLoader.isDayTime(this.entity.worldObj);
+                return !ModSimLoader.isDayTime(this.entity.world);
             } else {
-                return ModSimLoader.isDayTime(this.entity.worldObj);
+                return ModSimLoader.isDayTime(this.entity.world);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -1333,7 +1337,7 @@ public class NpcData {
                         return;
                     }
 
-                    if (ModSimLoader.isDayTime(this.entity.worldObj) && this.stayPut && this.isSleeping && this.shouldWork()) {
+                    if (ModSimLoader.isDayTime(this.entity.world) && this.stayPut && this.isSleeping && this.shouldWork()) {
                         //闲逛
                         this.setStatus(I18n.format("container.sim.folk_data.Wandering"));
                         this.stayPut = false;
@@ -1442,7 +1446,7 @@ public class NpcData {
                     //生孩子
                     if (this.pregnancyStage >= 1.0F) {
                         this.pregnancyStage = 0.0F;
-                        new NpcData(this.entity.worldObj, this.getSpouse(), this);
+                        new NpcData(this.entity.world, this.getSpouse(), this);
                         this.setStatus(I18n.format("container.sim.folk_data_a_baby"));
                     }
                 }
@@ -1706,7 +1710,7 @@ public class NpcData {
             }
         } else {
             if (System.currentTimeMillis() - this.lastPathAttempt < 5000L) {
-                if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.worldObj.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
+                if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.world.getBlockState(v3.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
                     this.entity.setPositionAndUpdate(v3.x + 0.5D, v3.y, v3.z + 0.5D);
                     this.entity.getNavigator().clearPathEntity();
                 }
@@ -1875,7 +1879,7 @@ public class NpcData {
     public void onDeath(DamageSource cause) {
         try {
             String deathMessage = "";
-            if (cause == DamageSource.starve) {
+            if (cause == DamageSource.STARVE) {
                 //张三 饿死了。他们当时18岁。
                 deathMessage = this.getName() + I18n.format("container.sim.folk_data_death_by_They") + this.age + I18n.format("container.sim.folk_data_death_by_years");
             } else {
@@ -1885,7 +1889,7 @@ public class NpcData {
             this.isDead = true;
             for (NpcData npcData : ModSimLoader.folks) {
                 //ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
-                if (npcData.ID.contentEquals(this.ID) && !npcData.entity.worldObj.isRemote) {
+                if (npcData.ID.contentEquals(this.ID) && !npcData.entity.world.isRemote) {
                     ModSimLoader.log.info("找到匹配ID");
                     ModSimLoader.sendChat(deathMessage);
                     if (this.home != null) {
@@ -2024,7 +2028,8 @@ public class NpcData {
         for (int i = 0; i < this.inventory.size(); ++i) {
             ItemStack itemStack = this.inventory.get(i);
             if (itemStack.isItemEqual(is)) {
-                itemStack.stackSize = itemStack.stackSize + is.stackSize;
+                 int fsCount= itemStack.getCount() + is.getCount();
+                itemStack.setCount(fsCount);
                 return;
             }
         }
@@ -2052,7 +2057,7 @@ public class NpcData {
      **/
     public void hireAt(V3 pos, String jobName, World world) {
         try {
-            Block block = this.entity.worldObj.getBlockState(pos.toBlockPos()).getBlock();
+            Block block = this.entity.world.getBlockState(pos.toBlockPos()).getBlock();
             if (block == BlockLoader.blockControlBox) {
                 BlockControlBox cont = (BlockControlBox) block;
                 cont.employees.add(this);

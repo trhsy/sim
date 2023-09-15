@@ -46,11 +46,13 @@ public class BlockMarker extends BlockBase{
         return CARPET_AABB;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.8125D, 0.6875D);
     }
 
-    public AxisAlignedBB getSelectedBoundingBoxAlignedBB(IBlockState state, World worldIn, BlockPos pos) {
+    @Override
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
         return (new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D)).offset(pos);
     }
     /**
@@ -81,7 +83,7 @@ public class BlockMarker extends BlockBase{
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      **/
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand , EnumFacing side, float hitX, float hitY, float hitZ) {
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         if (!worldIn.isRemote) {
