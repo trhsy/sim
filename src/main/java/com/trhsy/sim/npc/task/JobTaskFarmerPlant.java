@@ -76,7 +76,7 @@ public class JobTaskFarmerPlant extends JobTask {
                 }
                 boolean falg = false;
                 if (ModSimLoader.gamemode == 1) {
-                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F- 100.0F*10;
+                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F*10;
                 }
                 // 等级 时间计算 工作效率
                 if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {

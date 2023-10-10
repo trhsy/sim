@@ -253,7 +253,7 @@ public class NpcData {
                 BlockPos up=pos.up();
                 //
                 while (pos != null && !world.isAirBlock(up)) {
-                    ModSimLoader.log.info(!world.isAirBlock(up));
+                    //ModSimLoader.log.info(!world.isAirBlock(up));
                     this.fs_rand++;
                     newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
                     if (newPos != null) {
@@ -374,7 +374,7 @@ public class NpcData {
             this.isLoaded = true;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("NpcData出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("NpcData出错了2：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -487,7 +487,9 @@ public class NpcData {
                     this.trait2 = Trait.getTraitFromName(value);
                 } else if (line.contains("trait3|")) {
                     this.trait3 = Trait.getTraitFromName(value);
-                } else if (line.contains("hunger|")) {
+                } else if (line.contains("pregnancy|")) {
+                    this.pregnancyStage = Float.parseFloat(value);
+                }else if (line.contains("hunger|")) {
                     this.hunger = Integer.valueOf(value);
                 } else if (line.contains("buildingskill|")) {
                     this.skillBuilding = Float.valueOf(value);
@@ -826,6 +828,7 @@ public class NpcData {
                     writer.write("trait2|" + this.trait2.traitName + "\n");
                     writer.write("trait3|" + this.trait3.traitName + "\n");
                     writer.write("hunger|" + String.valueOf(this.hunger) + "\n");
+                    writer.write("pregnancy|" + String.valueOf(this.pregnancyStage) + "\n");
                     writer.write("buildingskill|" + String.valueOf(this.skillBuilding) + "\n");
                     writer.write("farmingskill|" + String.valueOf(this.skillFarming) + "\n");
                     writer.write("miningskill|" + String.valueOf(this.skillMining) + "\n");
@@ -1199,9 +1202,9 @@ public class NpcData {
                 this.entity.onFolkUpdate();
                 //this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
                 //获取NPC位置
-                //this.pos = V3.fromVec3d(this.entity.getPositionVector());
+                this.pos = V3.fromVec3d(this.entity.getPositionVector());
                 //获取NPC位面
-                //this.pos.dimension = this.entity.dimension;
+                this.pos.dimension = this.entity.dimension;
 
                 //是否应该取消重生
            /*boolean shouldDespawn = true;
@@ -1308,6 +1311,7 @@ public class NpcData {
             } else if (this.job != null && this.job.jobName.equals(I18n.format("container.sim.Vocation7"))) {
                 return !ModSimLoader.isDayTime(this.entity.world);
             } else {
+                //白天
                 return ModSimLoader.isDayTime(this.entity.world);
             }
         } catch (Exception e) {
@@ -1434,7 +1438,7 @@ public class NpcData {
                         //配偶
                         father = this.getSpouse();
                         //配偶在家
-                        if (father.isAtBuilding(this.home) && father.pregnancyStage < 0.1F && new Random().nextInt(6) == 5) {
+                        if (father.isAtBuilding(this.home) && father.pregnancyStage < 0.1F && new Random().nextInt(5) == 4) {
                             //生育任务
                             this.addTask(new TaskProcreate(this, 10000L, father));
                             //生育任务
@@ -1672,6 +1676,7 @@ public class NpcData {
                 }
 
                 rel = (FolkRelationship) var1.next();
+                //配偶
             } while (rel.familyType != EnumFamilyType.SPOUSE);
             npcData = rel.getOther();
         } catch (Exception e) {
@@ -1763,9 +1768,11 @@ public class NpcData {
             return false;
             //住宅
         } else if (b.buildingType.toLowerCase().contentEquals(I18n.format("container.sim.sim_gui_BC_Residential"))) {
-            return (float) b.livingXYZ.getDistanceTo(this.pos) < maxDist;
+            boolean b1=(float) b.livingXYZ.getDistanceTo(this.pos) < maxDist;
+            return b1;
         } else {
-            return (float) b.controlXYZ.getDistanceTo(this.pos) < maxDist;
+            boolean b1=(float) b.controlXYZ.getDistanceTo(this.pos) < maxDist;
+            return b1;
         }
     }
 

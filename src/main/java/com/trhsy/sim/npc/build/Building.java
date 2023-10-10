@@ -239,11 +239,9 @@ public class Building {
                                 line = reader.readLine();
                                 continue;
                             }
-
                             folk = value.split(";");
                             var10 = folk;
                             var11 = folk.length;
-
                             for(var12 = 0; var12 < var11; ++var12) {
                                 f = var10[var12];
                                 NpcData fd = ModSimLoader.getFolkDataByUID(f);

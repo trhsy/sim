@@ -70,7 +70,7 @@ idea {
         }
     }
 }
-version = "1.11.2-1.0.0 Beta"
+version = "1.11.2-1.0.2 Beta"
 group = "com.trhsy.sim" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "simulated"
 

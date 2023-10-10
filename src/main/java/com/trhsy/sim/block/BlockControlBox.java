@@ -2,6 +2,7 @@ package com.trhsy.sim.block;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.enums.EnumControlBox;
+import com.trhsy.sim.block.enums.EnumLightColour;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
@@ -10,6 +11,7 @@ import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.util.EnumBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -40,7 +42,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     public static final PropertyEnum<EnumControlBox> TYPE = PropertyEnum.create("type", EnumControlBox.class);
 
     public BlockControlBox() {
-        super(Material.WOOD, TYPE, EnumControlBox.class);
+        super(Material.WOOD,TYPE,EnumControlBox.class);
         //用于设定走在方块上的响声。
         this.setSoundType(SoundType.WOOD);
         //方块硬度
@@ -51,7 +53,17 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumControlBox.TOP));
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
-
+    /**
+     * @return int
+     * @Author fan
+     * @Description //TODO 获取此块可以删除的项的元数据。当块被破坏时调用此方法。它基于块的旧元数据返回被删除项的元数据。
+     * @Date 10:04 2022/11/7
+     * @Param [state]
+     **/
+    @Override
+    public int damageDropped(IBlockState state) {
+        return this.getMetaFromState(state);
+    }
     /**
      * @return void
      * @Author fan
@@ -63,7 +75,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
         try {
             for (EnumControlBox enumControlBox : EnumControlBox.values()) {
-                list.add(new ItemStack(this, 1, enumControlBox.getMeta()));
+                list.add(new ItemStack(itemIn, 1, enumControlBox.getMetadata()));
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -81,20 +93,20 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
      **/
     @Override
     public int getMetaFromState(IBlockState state) {
-        return (state.getValue(TYPE)).getMeta();
+        return (state.getValue(TYPE)).getMetadata();
     }
-
     /**
-     * @return int
+     * @return net.minecraft.block.state.IBlockState
      * @Author fan
-     * @Description //TODO 获取此块可以删除的项的元数据。当块被破坏时调用此方法。它基于块的旧元数据返回被删除项的元数据。
-     * @Date 10:04 2022/11/7
-     * @Param [state]
+     * @Description //TODO 将给定的元数据转换为此块的BlockState
+     * @Date 10:05 2022/11/7
+     * @Param [meta]
      **/
     @Override
-    public int damageDropped(IBlockState state) {
-        return this.getMetaFromState(state);
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(TYPE, EnumControlBox.byMetadata(meta));
     }
+
 
     /**
      * @return net.minecraft.block.state.BlockStateContainer
@@ -108,17 +120,6 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
         return new BlockStateContainer(this, new IProperty[]{TYPE});
     }
 
-    /**
-     * @return net.minecraft.block.state.IBlockState
-     * @Author fan
-     * @Description //TODO 将给定的元数据转换为此块的BlockState
-     * @Date 10:05 2022/11/7
-     * @Param [meta]
-     **/
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(TYPE, EnumControlBox.fromMeta(meta));
-    }
 
     /**
      * 销毁时要丢弃的项目数量

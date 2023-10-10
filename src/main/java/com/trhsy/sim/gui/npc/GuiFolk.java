@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import org.lwjgl.opengl.GL11;
 
@@ -180,7 +181,13 @@ public class GuiFolk extends GuiScreen {
                     days = I18n.format("container.sim.gui_Folk_day_pregnant");
                 } else {
                     //怀孕天数
-                    days = days + I18n.format("container.sim.gui_Folk_days_pregnant");
+                    String lang = FMLCommonHandler.instance().getCurrentLanguage();
+                    if ("en_US".equals(lang)) {
+                        days = days + I18n.format("container.sim.gui_Folk_days_pregnant");
+                    }else{
+                        days = I18n.format("container.sim.gui_Folk_days_pregnant")+days;
+                    }
+
                 }
 
                 this.fontRendererObj.drawString(days, this.width / 2, 117, 128);

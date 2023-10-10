@@ -51,7 +51,9 @@ public class JobFarmer extends Job {
             folk.holding = new ItemStack(ItemLoader.tinHoe);
             this.jobName = I18n.format("container.sim.Vocation5");
             this.farm = fb;
-            this.farm.employee = folk;
+            if(this.farm!=null){
+                this.farm.employee = folk;
+            }
             this.stage = -1;
            /* //去上班
             this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));

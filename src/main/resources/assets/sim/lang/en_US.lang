@@ -1,6 +1,7 @@
 container.sim.title=Simulated City
 configgui.title=sim config gui
 tile.cheeseBlock.name=cheese block
+tile.controlBox.name=control box
 tile.constructorBox.name=constructor box
 tile.controlBox.top.name=control box
 tile.controlBox.atm.name=ATM control box
@@ -48,7 +49,7 @@ tile.blockGasDispenser.carbonDioxide.name=Carbon Dioxide Gas Dispenser
 tile.blockGasDispenser.sulphurDioxide.name=Sulphur Dioxide Gas Dispenser
 tile.blockGasDispenser.radiationGas.name=Radiation Gas Gas Dispenser
 container.sim.sim_gui_ATMs_Items1=Inventory items accepted by our store：
-tile.blockSpecial.name=Special
+tile.blockSpecial.name=Air
 container.sim.job.Grocer_today=There is no fresh food for sale today. Do you have a normal watermelon / Pumpkin / carrot / potato, farm?
 container.sim.sim_gui_BC1=Now select a special type of building
 container.sim.sim_gui_BC2=Architectural details

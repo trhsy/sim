@@ -1,5 +1,6 @@
 package com.trhsy.sim.block;
 
+import com.trhsy.sim.block.enums.EnumBlockLiving;
 import com.trhsy.sim.block.enums.EnumLightColour;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;

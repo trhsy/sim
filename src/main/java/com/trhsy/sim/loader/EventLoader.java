@@ -4,14 +4,11 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityFolk;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
-import com.trhsy.sim.network.server.PacketFireFolk;
-import com.trhsy.sim.network.server.PacketNewFolk;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.block.MineBox;
 import com.trhsy.sim.npc.build.Building;
 import com.trhsy.sim.npc.NpcData;
 import com.trhsy.sim.util.Courier;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
@@ -21,7 +18,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.realms.RealmsBufferBuilder;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -38,6 +34,7 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.*;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -183,6 +180,8 @@ public class EventLoader {
             ModSimLoader.log.info("加载世界...");
             ModSimLoader.loadStates();
 
+
+
             try {
                 ModSimLoader.log.info("加载农场");
                 new DimensionManager();
@@ -218,7 +217,6 @@ public class EventLoader {
                 StackTraceElement element = var9.getStackTrace()[0];
                 ModSimLoader.log.error("加载矿场文件出错了：" + var9.getMessage() + "行数：" + element.getLineNumber());
             }
-
             try {
                 ModSimLoader.log.info("获得保存的NPC");
                 new DimensionManager();
@@ -284,8 +282,8 @@ public class EventLoader {
      * @param event
      */
     @SubscribeEvent
-    public void worldTick(TickEvent.WorldTickEvent event) {
-        if (System.currentTimeMillis() - this.timeSinceLastClientUpdates > 3000L) {
+    public void worldTick(WorldTickEvent event) {
+        if (System.currentTimeMillis() - this.timeSinceLastClientUpdates > 1000L) {
             //每两秒更新一次检查
             if (!event.world.isRemote && System.currentTimeMillis() - this.timeSinceLastClientUpdate > 2000L) {
                 this.timeSinceLastClientUpdate = System.currentTimeMillis();
@@ -326,7 +324,7 @@ public class EventLoader {
                                     starve.home.occupants.remove(starve);
                                     starve.home = null;
                                 }
-                                starve.onDeath(DamageSource.GENERIC);
+                                //starve.onDeath(DamageSource.GENERIC);
                             } else if (starve.home == null) {
                                 spawnNew = false;
                                 //未成年不算
@@ -457,16 +455,16 @@ public class EventLoader {
             }
             //实时更新人的状态
             if (!event.world.isRemote) {
-                //Thread s = new Thread(() -> {
-                for (int i = 0; i <ModSimLoader.folks.size() ; i++) {
-                    NpcData f=ModSimLoader.folks.get(i);
+                Iterator folks = ModSimLoader.folks.iterator();
+                NpcData f;
+                while(folks.hasNext()) {
+                    f = (NpcData)folks.next();
                     f.onUpdate();
                 }
-//                    for (NpcData f : ModSimLoader.folks) {
-//                        f.onUpdate();
-//                    }
-                //});
-                //s.start();
+                /*for (int i = 0; i <ModSimLoader.folks.size() ; i++) {
+                    NpcData f=ModSimLoader.folks.get(i);
+                    f.onUpdate();
+                }*/
             }
             //停止下雨MOD-在我的世界里一直下雨的时候实现了这个！
             if (event.world != null) {

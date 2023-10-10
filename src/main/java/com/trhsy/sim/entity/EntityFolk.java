@@ -305,14 +305,6 @@ public class EntityFolk extends EntityCreature implements INpc {
                 if(fs_flog){
                     this.onKillEntity(this);
                 }
-                /*try {
-                    String worldPath = "";
-                    worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + File.separator + "sim";
-                    Files.deleteIfExists((new File(worldPath + File.separator + "npc" + File.separator + this.getUniqueID() + ".sk2")).toPath());
-                } catch (Exception var5) {
-                    StackTraceElement element = var5.getStackTrace()[0];
-                    ModSimLoader.log.error("onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
-                }*/
             }
             super.onDeath(cause);
             this.setDead();

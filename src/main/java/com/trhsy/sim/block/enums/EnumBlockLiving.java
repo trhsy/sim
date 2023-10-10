@@ -9,7 +9,7 @@ public enum EnumBlockLiving implements IStringSerializable, EnumBlock.IEnumMeta{
     WHITE(0, 15, "white", "white", MapColor.SNOW, TextFormatting.WHITE),
     ORANGE(1, 14, "orange", "orange", MapColor.ADOBE, TextFormatting.GOLD),
     MAGENTA(2, 13, "magenta", "magenta", MapColor.MAGENTA, TextFormatting.AQUA),
-    LIGHT_BLUE(3, 12, "light_blue", "lightBlue", MapColor.LIGHT_BLUE, TextFormatting.BLUE),
+    LIGHT_BLUE(3, 12, "light_blue", "lightblue", MapColor.LIGHT_BLUE, TextFormatting.BLUE),
     YELLOW(4, 11, "yellow", "yellow", MapColor.YELLOW, TextFormatting.YELLOW),
     LIME(5, 10, "lime", "lime", MapColor.LIME, TextFormatting.GREEN),
     PINK(6, 9, "pink", "pink", MapColor.PINK, TextFormatting.LIGHT_PURPLE),
@@ -39,23 +39,6 @@ public enum EnumBlockLiving implements IStringSerializable, EnumBlock.IEnumMeta{
         this.chatColor = chatColor;
     }
 
-
-
-    public static EnumBlockLiving fromMeta(int meta) {
-        if (meta < 0 || meta >= values().length) {
-            meta = 0;
-        }
-        return values()[meta];
-    }
-    public static EnumBlockLiving byDyeDamage(int damage)
-    {
-        if (damage < 0 || damage >= DYE_DMG_LOOKUP.length)
-        {
-            damage = 0;
-        }
-
-        return DYE_DMG_LOOKUP[damage];
-    }
     @Override
     public int getMeta() {
         return this.meta;

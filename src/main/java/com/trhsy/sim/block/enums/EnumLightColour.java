@@ -19,6 +19,8 @@ public enum EnumLightColour implements IStringSerializable, EnumBlock.IEnumMeta{
     RAINBOW(7,"rainbow");
     private final int meta;
     private final String name;
+    private static final EnumLightColour[] META_LOOKUP = new EnumLightColour[values().length];
+    private static final EnumLightColour[] DYE_DMG_LOOKUP = new EnumLightColour[values().length];
     private EnumLightColour(int meta, String name) {
         this.meta = meta;
         this.name = name;
@@ -29,14 +31,37 @@ public enum EnumLightColour implements IStringSerializable, EnumBlock.IEnumMeta{
         }
         return values()[meta];
     }
+    public int getMetadata()
+    {
+        return this.meta;
+    }
+    public static EnumLightColour byMetadata(int meta)
+    {
+        if (meta < 0 || meta >= META_LOOKUP.length)
+        {
+            meta = 0;
+        }
 
+        return META_LOOKUP[meta];
+    }
     @Override
     public int getMeta() {
         return meta;
     }
 
+    public String getUnlocalizedName()
+    {
+        return this.name;
+    }
     @Override
     public String getName() {
         return this.name;
+    }
+    static
+    {
+        for (EnumLightColour enumdyecolor : values())
+        {
+            META_LOOKUP[enumdyecolor.getMetadata()] = enumdyecolor;
+        }
     }
 }

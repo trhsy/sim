@@ -81,13 +81,14 @@ public class FolkRelationship {
             NpcData folk2 = this.getOther();
             //单身狗
             String singe= I18n.format("container.sim.folkData4");
-            if (this.folk1!=null&&folk2!=null&&this.folk1.getRelationshipStatus().contentEquals(singe) && folk2.getRelationshipStatus().contentEquals(singe)) {
+            //当前NPC不是空，情感对象不为空，是单身狗，
+            if (this.folk1!=null&&folk2!=null&&this.folk1.getRelationshipStatus().equals(singe) && folk2.getRelationshipStatus().equals(singe)) {
                 //双方性别不同 都成年了
                 if (this.folk1.gender != folk2.gender && this.folk1.age >= this.folk1.race.maturity && folk2.age >= folk2.race.maturity && this.folk1.home != null && folk2.home != null && this.familyType == EnumFamilyType.UNRELATED) {
-                    String and=I18n.format("container.sim.Mining13");
-                    String married=I18n.format("container.sim.married");
-                    String moving=I18n.format("container.sim.moving");
-                    String moving1=I18n.format("container.sim.moving1");
+                    String and=I18n.format("container.sim.Mining13");//和
+                    String married=I18n.format("container.sim.married");//正在结婚！
+                    String moving=I18n.format("container.sim.moving");//正在搬进
+                    String moving1=I18n.format("container.sim.moving1");//的家
 
                     //仲孙锐翰和栾平怡正在结婚！仲孙锐翰 正在搬进 栾平怡的家.
                     String marriageMessage = this.folk1.getName() +and + folk2.getName() + married + this.folk1.getName() +moving + folk2.getName() + moving1+".";
@@ -100,7 +101,8 @@ public class FolkRelationship {
                 }*/
                     //配偶
                     this.familyType = EnumFamilyType.SPOUSE;
-                    FolkRelationship folkRelationship=folk2.getRelationshipWith(this.folk1);
+                    FolkRelationship folkRelationship=this.getInverse();//.familyType=EnumFamilyType.SPOUSE;
+                    //FolkRelationship folkRelationship=folk2.getRelationshipWith(this.folk1);
                     if(folkRelationship!=null){
                         //配偶
                         folkRelationship.familyType = EnumFamilyType.SPOUSE;

@@ -3,6 +3,7 @@ package com.trhsy.sim.npc.task;
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.NpcData;
+import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.block.FarmBox;
 import com.trhsy.sim.npc.job.Job;
 import com.trhsy.sim.npc.job.JobFarmer;
@@ -55,7 +56,12 @@ public class JobTaskFarmer extends JobTask {
         super(j, ms);
         this.status = status;
         this.noNeed = 0;
-        this.farm = farm;
+        if(farm==null){
+            this.farm = ModSimLoader.getFarm(j.workPlace);;
+        }else{
+            this.farm = farm;
+        }
+
     }
 
     @Override
@@ -82,7 +88,7 @@ public class JobTaskFarmer extends JobTask {
                 }
                 boolean falg = false;
                 if (ModSimLoader.gamemode == 1) {
-                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F- 100.0F*10;
+                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F*10;
                 }
                 // 等级 时间计算 工作效率
                 if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {

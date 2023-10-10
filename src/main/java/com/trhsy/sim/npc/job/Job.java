@@ -386,7 +386,8 @@ public abstract class Job {
                 for (int itemNumber = 1; itemNumber <= item.getCount(); ++itemNumber) {
                     for (int chestSlot = 0; chestSlot < chest.getSizeInventory(); ++chestSlot) {
                         ItemStack is = chest.getStackInSlot(chestSlot);
-                        if (is == null || is.getDisplayName().contentEquals("Air")) {
+                        String fs_name=is.getDisplayName();//空气
+                        if (is == null || fs_name.contentEquals(I18n.format("tile.blockSpecial.name"))) {
                             is = item.copy();
                             is.setCount(1);
                             chest.setInventorySlotContents(chestSlot, is);
@@ -487,10 +488,11 @@ public abstract class Job {
                                 if (item != null) {
                                     if (item instanceof ItemFood) {
                                         ItemFood itemFood = (ItemFood) item;
-                                        int healAmount = itemFood.getHealAmount(is);
-                                        ModSimLoader.log.info("食物：" + itemFood.getUnlocalizedName() + ",增加饱和度：" + healAmount);
+                                        //int healAmount = itemFood.getHealAmount(is);
+                                        //ModSimLoader.log.info("食物：" + itemFood.getUnlocalizedName() + ",增加饱和度：" + healAmount);
                                         ++fedFolks;
-                                        fd.hunger += healAmount;
+                                        //fd.hunger += healAmount;
+                                        fd.hunger ++;
                                         chest.decrStackSize(i, 1);
                                         continue label35;
                                     }

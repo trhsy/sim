@@ -139,7 +139,7 @@ public class JobTaskFarmerGrow extends JobTask {
 
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("JobFarmer-onUpdate出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("JobTaskFarmerGrow-onUpdate出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
@@ -219,7 +219,6 @@ public class JobTaskFarmerGrow extends JobTask {
                                         if ((System.currentTimeMillis() - this.qsCheck) > 3000 * 60) {
                                             this.qsCheck = System.currentTimeMillis();
                                             ModSimLoader.sendChat(this.farm.farmType + I18n.format("container.sim.job.crop.farmer.dye"));
-                                            this.completed = true;
                                             return;
                                         }
                                     }
@@ -228,8 +227,8 @@ public class JobTaskFarmerGrow extends JobTask {
                         }
                     }
                 }
-
             }
+            this.completed = true;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-grow出错了:" + e.getMessage() + "行数：" + element.getLineNumber());

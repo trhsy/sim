@@ -78,7 +78,7 @@ public class JobTaskFarmerHarvest extends JobTask {
                 }
                 boolean falg = false;
                 if (ModSimLoader.gamemode == 1) {
-                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F- 100.0F*10;
+                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F*10;
                 }
                 // 等级 时间计算 工作效率
                 if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
@@ -324,7 +324,7 @@ public class JobTaskFarmerHarvest extends JobTask {
                     //有根茎 不是作物 不是可种植 不是可生长
                     if (!(b instanceof BlockCrops) && !(b instanceof IPlantable) && !(b instanceof IGrowable)) {
                         //包含根茎
-                        if (!(b instanceof BlockPumpkin) && !(b instanceof BlockMelon) && !(b instanceof BlockCocoa) && !(b instanceof BlockCactus) && b != Blocks.AIR) {
+                        if (!(b instanceof BlockPumpkin) && !(b instanceof BlockMelon) && !(b instanceof BlockCocoa) && !(b instanceof BlockCactus) && b != Blocks.AIR &&b instanceof BlockCrops) {
                             //
                             BlockCrops crop = (BlockCrops) b;
                             if (crop.isMaxAge(iBlockState)) {

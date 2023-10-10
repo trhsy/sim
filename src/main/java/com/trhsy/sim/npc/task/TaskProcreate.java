@@ -45,7 +45,8 @@ public class TaskProcreate extends Task {
 
     @Override
     public void onTaskComplete() {
-        if (this.folk.gender == 0 && this.rand.nextInt(7) == 6 && this.spouse.age < this.spouse.race.maturity + 27) {
+        //男性 随机 6 次机会      最大年龄限制++++27
+        if (this.folk.gender == 0 && this.rand.nextInt(4) == 3 && this.spouse.age < this.spouse.race.maturity + 27) {
             NpcData var10000 = this.spouse;
             var10000.pregnancyStage += 0.1F;
             //好消息！都 凌曦和苏 荣昕要生宝宝了！
