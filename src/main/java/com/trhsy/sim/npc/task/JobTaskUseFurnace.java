@@ -44,6 +44,7 @@ public class JobTaskUseFurnace extends JobTask {
     public JobTaskUseFurnace(Job j, long ms, ItemStack collectionItems) {
         super(j, ms);
         this.collectionItems = collectionItems;
+        this.step=1;
     }
     @Override
     public void onTaskBegin() {
@@ -132,7 +133,7 @@ public class JobTaskUseFurnace extends JobTask {
             } else if (this.step == 3) {
                 //获得玻璃
                 currentSand = this.factoryFurnace.getStackInSlot(2);
-                if (currentSand != null) {
+                if (currentSand != null&&!currentSand.isEmpty()) {
                     //将锻造物放入仓库
                     this.folk.status = I18n.format("container.sim.job.glass.farmer.Putting");
                     this.job.placeInJobChest(currentSand);

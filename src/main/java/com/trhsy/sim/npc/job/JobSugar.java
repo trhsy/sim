@@ -84,8 +84,10 @@ public class JobSugar extends Job{
                         }
                     } else if ((this.sugarcane > 1)  && this.folk.getStatusText().contains(I18n.format("container.sim.job_task_Selling"))) {
                         this.stage = 4;
-                        this.currentTask.completeTask();
-                        this.jobTasks.clear();
+                        if(this.currentTask!=null) {
+                            this.currentTask.completeTask();
+                            this.jobTasks.clear();
+                        }
                     }
                 }else{
                     this.stage = 0;

@@ -110,7 +110,7 @@ public class Building {
                 Iterator fs_blockSpecial= this.blockSpecial.iterator();
                 while(fs_blockSpecial.hasNext()) {
                     V3 pos = (V3)fs_blockSpecial.next();
-                    writer.write(pos.toString() + ";");
+                    writer.write(pos.toStringByMeta() + ";");
                 }
                 writer.write("\nstructure|");
                 Iterator var4 = this.structure.iterator();

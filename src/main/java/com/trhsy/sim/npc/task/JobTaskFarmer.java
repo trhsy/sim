@@ -56,9 +56,10 @@ public class JobTaskFarmer extends JobTask {
         super(j, ms);
         this.status = status;
         this.noNeed = 0;
-        if(farm==null){
-            this.farm = ModSimLoader.getFarm(j.workPlace);;
-        }else{
+        if (farm == null) {
+            this.farm = ModSimLoader.getFarm(j.workPlace);
+            ;
+        } else {
             this.farm = farm;
         }
 
@@ -88,10 +89,10 @@ public class JobTaskFarmer extends JobTask {
                 }
                 boolean falg = false;
                 if (ModSimLoader.gamemode == 1) {
-                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F*10;
+                    falg = (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * 10;
                 }
                 // 等级 时间计算 工作效率
-                if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
+                if (falg || (float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
 
                     this.hoe();
 
@@ -225,7 +226,8 @@ public class JobTaskFarmer extends JobTask {
                                     this.folk.entity.world.setBlockState(bp.down().down(), BlockLoader.blockLightBox.getDefaultState(), 0);
                                     //水
                                     this.folk.entity.world.setBlockState(bp.down(), Blocks.WATER.getDefaultState(), 3);
-                                    if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                                    if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
+                                        this.swingArmCheck = System.currentTimeMillis();
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
                                         for (EntityPlayer entityPlayer : mc.world.playerEntities) {
@@ -248,7 +250,8 @@ public class JobTaskFarmer extends JobTask {
                                 this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                 //设置为耕地
                                 this.folk.entity.world.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 11);
-                                if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                                if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
+                                    this.swingArmCheck = System.currentTimeMillis();
                                     //播放声音
                                     Minecraft mc = Minecraft.getMinecraft();
                                     for (EntityPlayer entityPlayer : mc.world.playerEntities) {
@@ -292,7 +295,8 @@ public class JobTaskFarmer extends JobTask {
                                     this.folk.setStatus(I18n.format("container.sim.job.crop.farmer.Tilling"));
                                     //设置为耕地
                                     this.folk.entity.world.setBlockState(bp.down(), Blocks.SAND.getDefaultState(), 3);
-                                    if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                                    if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
+                                        this.swingArmCheck = System.currentTimeMillis();
                                         //播放声音
                                         Minecraft mc = Minecraft.getMinecraft();
                                         for (EntityPlayer entityPlayer : mc.world.playerEntities) {
@@ -336,7 +340,7 @@ public class JobTaskFarmer extends JobTask {
                                 this.folk.entity.world.setBlockState(bp.down(), Blocks.DIRT.getDefaultState(), 3);
                                 this.folk.entity.world.setBlockState(bp, Blocks.LOG.getStateFromMeta(3), 3);
                                 this.folk.entity.world.setBlockState(bp.up(), Blocks.LOG.getStateFromMeta(3), 3);
-                                if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
+                                if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                     //播放声音
                                     Minecraft mc = Minecraft.getMinecraft();
                                     for (EntityPlayer entityPlayer : mc.world.playerEntities) {
@@ -361,10 +365,12 @@ public class JobTaskFarmer extends JobTask {
                 //循环农场的宽
                 hoe1();
             }
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobFarmer-hoe出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+
     }
 
     /**

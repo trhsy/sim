@@ -38,6 +38,7 @@ public class JobTaskCheesemaker extends JobTask{
         super(j, ms);
         this.status = status;
         this.theCheeseFactory = ModSimLoader.getBuildingByV3(this.job.workPlace);
+        this.step = 1;
     }
     @Override
     public void onTaskBegin() {
@@ -126,14 +127,14 @@ public class JobTaskCheesemaker extends JobTask{
                         say = I18n.format("container.sim.job.cheese_maker.Reticulating");
                 }
                 this.job.folk.setStatus(say);
-                if (this.stirCount == 6) {
+                //if (this.stirCount == 6) {
                     //开始转化奶酪
                     this.step = 5;
-                }
-                ++this.stirCount;
-                if (this.stirCount > 6) {
-                    this.stirCount=0;
-                }
+                //}
+                //++this.stirCount;
+                //if (this.stirCount > 6) {
+                //    this.stirCount=0;
+                //}
             }else if(this.step == 5){
                 List<V3> milkBlocks = this.theCheeseFactory.getSpecialBlocks(0);
                 List<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
@@ -192,14 +193,4 @@ public class JobTaskCheesemaker extends JobTask{
 
     }
 
-    /**
-     * @return void
-     * @Author fan
-     * @Description //TODO 去蓄水池
-     * @Date 21:46 2022/4/7
-     * @Param []
-     **/
-    private void stageGoingToTank() {
-
-    }
 }

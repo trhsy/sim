@@ -58,7 +58,7 @@ public class JobCheesemaker extends Job{
                     this.stage = 3;
                 }else if (this.stage == 3) {
                     this.addJobTask(new JobTaskCheesemaker(this, -1L, I18n.format("container.sim.JobTaskCheesemaker1")));
-                    this.stage = 5;
+                    this.stage = 4;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {
                         this.currentTask = (JobTask) this.jobTasks.get(0);

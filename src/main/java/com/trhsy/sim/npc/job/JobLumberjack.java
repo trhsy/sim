@@ -51,7 +51,7 @@ public class JobLumberjack extends Job {
                     //去上班
                     this.addJobTask(new JobTaskIdle(this, 200L, I18n.format("container.sim.job.builder_Arrived")));
                 } else if (this.stage == 1) {
-                    this.addJobTask(new JobTaskChopTrees(this, -1L, this.workPlace, 30));
+                    this.addJobTask(new JobTaskChopTrees(this, -1L, this.workPlace, 60));
                     this.stage = 2;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {

@@ -19,7 +19,7 @@ public class V3{
         /**方块**/
         public Block blockID ;
         /**元数据**/
-        public int meta = 0;
+        public int meta;
         public V3(double x, double y, double z) {
                 this.x = x;
                 this.y = y;
@@ -54,6 +54,10 @@ public class V3{
         @Override
         public String toString() {
                 return this.x + "," + this.y + "," + this.z + "," + this.dimension;
+        }
+
+        public String toStringByMeta() {
+                return this.x + "," + this.y + "," + this.z + "," + this.meta;
         }
 
         public BlockPos toBlockPos() {
