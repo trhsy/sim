@@ -107,8 +107,7 @@ public class PacketSendBlueprint implements IMessage {
         }
 
         private void handle(PacketSendBlueprint message, MessageContext ctx) {
-            BuildingBlueprint newBp = new BuildingBlueprint(message.bName, message.bp);
-            newBp.buildingType = message.bType;
+            BuildingBlueprint newBp = new BuildingBlueprint(message.bName, message.bp,message.bType);
             ModSimLoader.getFolkDataByUID(message.folkID).job = new JobBuilder(ModSimLoader.getFolkDataByUID(message.folkID), newBp, V3.fromString(message.bPos).toBlockPos(), message.direction, ctx.getServerHandler().playerEntity.world);
         }
     }

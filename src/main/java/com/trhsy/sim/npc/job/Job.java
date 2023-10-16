@@ -654,7 +654,7 @@ public abstract class Job {
                             ModSimLoader.money += stackPrice;
                             PricesForBlocks.adjustPrice((Block) block, false);
                             total += stackPrice;
-                            (chests.get(0)).setInventorySlotContents(g, (ItemStack) null);
+                            (chests.get(0)).setInventorySlotContents(g, ItemStack.EMPTY);
                         }
                     }
                 }

@@ -27,7 +27,7 @@ public class CommodityAtm extends Commodity{
     /*
     银行目前正在销售的商品列表，每天早上都会更新新商品
      */
-    public static List<Commodity> theCommodities = new CopyOnWriteArrayList();
+    public static List<CommodityAtm> theCommodities = new CopyOnWriteArrayList();
     public CommodityAtm(ItemStack is, int qty, float price) {
         super(is, qty, price);
         try{
@@ -72,7 +72,7 @@ public class CommodityAtm extends Commodity{
                 }
 
                 if (!gotIt) {
-                    theCommodities.add(new Commodity((ItemStack) availableItems.get(index), qty, price));
+                    theCommodities.add(new CommodityAtm((ItemStack) availableItems.get(index), qty, price));
                 }
             }
         } catch (Exception e) {

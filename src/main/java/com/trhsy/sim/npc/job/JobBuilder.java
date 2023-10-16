@@ -416,13 +416,16 @@ public class JobBuilder extends Job {
             //控制箱
             if (fs_st_block == BlockLoader.blockControlBox) {
                 this.controllerPos = newBP;
+                fs_st_block=BlockLoader.blockControlBox.getStateFromMeta(fs_structure.getMeta()).getBlock();
                 //生活方块地毯
             } else if (fs_st_block == BlockLoader.blockLiving) {
                 this.livingPos = new BlockPos(newBP.getX(),newBP.getY()-0.5,newBP.getZ());
+                fs_st_block=BlockLoader.blockLiving.getStateFromMeta(fs_structure.getMeta()).getBlock();
             }
             if(fs_st_block==BlockLoader.blockSpecial){
                 V3 v3 = new V3(newBP.getX(),newBP.getY(), newBP.getZ(),fs_st_block,fs_structure.getMeta());
                 this.blockSpecial.add(v3);
+                fs_st_block=BlockLoader.blockSpecial.getStateFromMeta(fs_structure.getMeta()).getBlock();
             }
             if (fs_block != fs_st_block) {
 
@@ -448,14 +451,7 @@ public class JobBuilder extends Job {
                         this.folk.entity.world.setBlockState(pos, iblockstate2, 11);
                     }
                 }
-                //控制箱
-                if (fs_st_block == BlockLoader.blockControlBox) {
-                    this.controllerPos = newBP;
-                    //生活方块地毯
-                } else if (fs_st_block == BlockLoader.blockLiving) {
-                    this.livingPos = new BlockPos(newBP.getX(),newBP.getY()-0.5,newBP.getZ());
-//                st = Blocks.AIR.getDefaultState();
-                }
+
                 //是否是普通的块
                 if (normalBlock) {
                     //模组模式是正常模式

@@ -317,7 +317,7 @@ public class GuiBankATM extends GuiScreen {
                         String number = guibutton.displayString.substring(guibutton.displayString.indexOf(I18n.format("container.sim.trhsy")) + 1);
                         float soldFor = Float.parseFloat(number);
                         ModSimLoader.money += soldFor;
-                        this.mc.player.inventory.setInventorySlotContents(guibutton.id - 500, (ItemStack) null);
+                        this.mc.player.inventory.setInventorySlotContents(guibutton.id - 500, ItemStack.EMPTY);
                         this.initGui();
                     } else {
                         int ci;

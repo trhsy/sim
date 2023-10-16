@@ -182,7 +182,7 @@ public class ContainerWindmill extends Container {
                     return null;
                 }
                 if (itemstack1.getCount() == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(ItemStack.EMPTY);
                 } else {
                     slot.onSlotChanged();//插槽已更改
                 }

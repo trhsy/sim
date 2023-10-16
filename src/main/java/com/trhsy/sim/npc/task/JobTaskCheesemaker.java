@@ -1,6 +1,7 @@
 package com.trhsy.sim.npc.task;
 
 import com.trhsy.sim.loader.BlockLoader;
+import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npc.V3;
 import com.trhsy.sim.npc.build.Building;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
@@ -127,16 +129,13 @@ public class JobTaskCheesemaker extends JobTask{
                         say = I18n.format("container.sim.job.cheese_maker.Reticulating");
                 }
                 this.job.folk.setStatus(say);
-                //if (this.stirCount == 6) {
                     //开始转化奶酪
                     this.step = 5;
-                //}
-                //++this.stirCount;
-                //if (this.stirCount > 6) {
-                //    this.stirCount=0;
-                //}
+
             }else if(this.step == 5){
+                //0是牛奶
                 List<V3> milkBlocks = this.theCheeseFactory.getSpecialBlocks(0);
+                //1是要放置的奶酪块
                 List<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
                 if (!milkBlocks.isEmpty() && !cheeseBlocks.isEmpty()) {
                     boolean placedCheese = false;
@@ -174,7 +173,8 @@ public class JobTaskCheesemaker extends JobTask{
                     }
 
                     if (milkGotCount == 0 || !placedCheese) {
-                        this.completeTask();
+                        //this.completeTask();
+                        this.step = 6;
                     }
 
                 } else {
@@ -182,6 +182,19 @@ public class JobTaskCheesemaker extends JobTask{
                     //有一个与奶酪工厂问题，请尝试重新建立它 - 没有奶块
                     ModSimLoader.sendChat(I18n.format("container.sim.job.cheese_maker.Cheese_factory"));
                 }
+            }else if(this.step == 6){
+                //1是要放置的奶酪块
+                List<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
+                for (V3 cheese : cheeseBlocks) {
+                    Block id = this.job.jobWorld.getBlockState(new BlockPos(cheese.x, cheese.y, cheese.z)).getBlock();
+                    if (id.equals(BlockLoader.blockCheese)) {
+                        //替换为空气
+                        BlockPos blockPos = new BlockPos(cheese.x, cheese.y, cheese.z);
+                        this.job.jobWorld.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 3);
+                        this.job.placeInJobChest(new ItemStack(ItemLoader.itemCheese,9));
+                    }
+                }
+                //this.completeTask();
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
