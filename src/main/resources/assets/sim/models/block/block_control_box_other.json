@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "sim:blocks/control/block_control_box_other",
+    "front": "sim:blocks/control/block_control_box_other",
+    "side": "sim:blocks/control/block_control_box_other",
+    "bottom":"sim:blocks/control/block_control_box_side"
+  }
+}

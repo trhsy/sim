@@ -1,0 +1,7 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+    "particle": "sim:blocks/living/block_living_white",
+    "wool": "sim:blocks/living/block_living_white"
+  }
+}
