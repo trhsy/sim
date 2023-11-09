@@ -54,7 +54,10 @@ dependencies {
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
-      
+    // 依赖lib目录下的所有以.jar结尾的文件
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    compile 'com.h2database:h2:2.2.224'
+
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env

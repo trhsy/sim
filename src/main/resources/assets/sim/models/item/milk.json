@@ -1,5 +1,5 @@
 {
-  "parent": "sim:item/default_item",
+  "parent": "item/generated",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

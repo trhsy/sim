@@ -1,5 +1,5 @@
 {
-  "parent": "sim:item/default_item",
+  "parent": "item/generated",
   "textures": {
     "layer0": "sim:items/vane/windmill_vane15"
   }
