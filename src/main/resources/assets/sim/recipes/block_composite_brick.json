@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sim:block_composite_brick",
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "key": {
+    "A": {"item": "minecraft:hardened_clay"},
+    "B": {"type": "forge:ore_dict","ore": "plankWood"},
+    "C": {"type": "forge:ore_dict","ore": "fenceWood"}
+  },
+  "result": {"item": "sim:block_composite_brick","count": 1}
+}

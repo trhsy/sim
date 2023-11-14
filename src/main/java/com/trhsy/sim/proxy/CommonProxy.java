@@ -19,6 +19,10 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         ModSimLoader.log = event.getModLog();
+
+        /**配置**/
+        ConfigLoader.load(event);
+
         /**创造模式物品栏**/
         new CreativeTabsLoader(event);
         /**流体加载注册**/

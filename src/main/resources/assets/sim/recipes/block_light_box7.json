@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sim:block_light_box",
+  "pattern": [
+    "BCD",
+    "EAF",
+    " G "
+  ],
+  "key": {
+    "A": {"block": "sim:block_light_box","data": 0},
+    "B": {"item": "minecraft:dye","data": 1},
+    "C": {"item": "minecraft:dye","data": 14},
+    "D": {"item": "minecraft:dye","data": 11},
+    "E": {"item": "minecraft:dye","data": 10},
+    "F": {"item": "minecraft:dye","data": 4},
+    "G": {"item": "minecraft:dye","data": 5}
+  },
+  "result": {"item": "sim:block_light_box","count": 1,"data": 7}
+}

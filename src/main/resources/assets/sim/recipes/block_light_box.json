@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sim:block_light_box",
+  "pattern": [
+    "AA ",
+    "AA ",
+    "   "
+  ],
+  "key": {
+    "A": {"type": "forge:ore_dict","ore": "torch"}
+  },
+  "result": {"item": "sim:block_light_box","count": 1}
+}

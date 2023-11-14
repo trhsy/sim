@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sim:food_cheese",
+  "pattern": [
+    "   ",
+    " A ",
+    "   "
+  ],
+  "key": {
+    "A": {"item": "sim:block_cheese"}
+  },
+  "result": {"item": "sim:food_cheese","count": 9}
+}

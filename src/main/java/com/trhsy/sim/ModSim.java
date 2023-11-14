@@ -1,7 +1,9 @@
 package com.trhsy.sim;
 
+import com.trhsy.sim.config.SimConfigSync;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.proxy.CommonProxy;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.*;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -81,7 +83,7 @@ public class ModSim {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         try {
-            //MinecraftForge.EVENT_BUS.register(new SimConfigSync());
+            MinecraftForge.EVENT_BUS.register(new SimConfigSync());
             proxy.postInit(event);
         } catch (Exception e) {
             ModSimLoader.log.error("ModSim-postInit出错了：" + e.getMessage());

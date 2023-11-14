@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sim:block_marker",
+  "pattern": [
+    " A ",
+    " B ",
+    " B "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:dye",
+      "data": 11
+    },
+    "B": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {"item": "sim:block_marker","count": 1}
+}

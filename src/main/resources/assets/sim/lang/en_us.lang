@@ -1,5 +1,7 @@
 container.sim.title=Simulated City
 configgui.title=sim config gui
+container.sim.config_name1=Sim game configuration
+container.sim.config_name2=sim npc names
 tile.cheeseBlock.name=cheese block
 tile.controlBox.name=control box
 tile.constructorBox.name=constructor box

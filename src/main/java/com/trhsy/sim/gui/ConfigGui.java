@@ -1,7 +1,12 @@
 package com.trhsy.sim.gui;
 
+import com.google.common.collect.Lists;
+import com.trhsy.sim.loader.ConfigLoader;
+import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
+import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
@@ -18,28 +23,20 @@ import java.util.Set;
  * @date 2023/10/19 下午 2:55
  */
 public class ConfigGui extends GuiConfig {
-    public ConfigGui(GuiScreen parentScreen, String modid, String title) {
-        super(parentScreen, modid, title);
+    public ConfigGui(GuiScreen parentScreen) {
+        super(parentScreen, getConfigElements(), "sim", false, false, I18n.format("configgui.title"));
     }
+    private static List<IConfigElement> getConfigElements() {
+        List<IConfigElement> list = Lists.newArrayList();
+        try {
+            list.add(new ConfigElement(ConfigLoader.Gameplay));
+            list.add(new ConfigElement(ConfigLoader.Nameplay));
+        } catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];
+            ModSimLoader.log.error("getConfigElements出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
 
-    public ConfigGui(GuiScreen parentScreen, String modID, boolean allRequireWorldRestart, boolean allRequireMcRestart, String title, Class<?>... configClasses) {
-        super(parentScreen, modID, allRequireWorldRestart, allRequireMcRestart, title, configClasses);
-    }
-
-    public ConfigGui(GuiScreen parentScreen, List<IConfigElement> configElements, String modID, String configID, boolean allRequireWorldRestart, boolean allRequireMcRestart, String title) {
-        super(parentScreen, configElements, modID, configID, allRequireWorldRestart, allRequireMcRestart, title);
-    }
-
-    public ConfigGui(GuiScreen parentScreen, List<IConfigElement> configElements, String modID, boolean allRequireWorldRestart, boolean allRequireMcRestart, String title) {
-        super(parentScreen, configElements, modID, allRequireWorldRestart, allRequireMcRestart, title);
-    }
-
-    public ConfigGui(GuiScreen parentScreen, List<IConfigElement> configElements, String modID, boolean allRequireWorldRestart, boolean allRequireMcRestart, String title, String titleLine2) {
-        super(parentScreen, configElements, modID, allRequireWorldRestart, allRequireMcRestart, title, titleLine2);
-    }
-
-    public ConfigGui(GuiScreen parentScreen, List<IConfigElement> configElements, String modID, @Nullable String configID, boolean allRequireWorldRestart, boolean allRequireMcRestart, String title, @Nullable String titleLine2) {
-        super(parentScreen, configElements, modID, configID, allRequireWorldRestart, allRequireMcRestart, title, titleLine2);
+        return list;
     }
     public static class ConfigGuiFactory implements IModGuiFactory {
         public ConfigGuiFactory() {
@@ -52,12 +49,12 @@ public class ConfigGui extends GuiConfig {
 
         @Override
         public boolean hasConfigGui() {
-            return false;
+            return true;
         }
 
         @Override
         public GuiScreen createConfigGui(GuiScreen parentScreen) {
-            return null;
+            return new ConfigGui(parentScreen);
         }
 
         @Override

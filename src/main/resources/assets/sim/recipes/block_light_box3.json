@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sim:block_light_box",
+  "pattern": [
+    "AB ",
+    "   ",
+    "   "
+  ],
+  "key": {
+    "A": {"block": "sim:block_light_box","data": 0},
+    "B": {"item": "minecraft:dye","data": 11}
+  },
+  "result": {"item": "sim:block_light_box","count": 1,"data": 3}
+}
