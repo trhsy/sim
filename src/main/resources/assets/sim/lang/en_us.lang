@@ -1273,3 +1273,6 @@ container.sim.gui_mine2=Mine
 chat.sim.xiayu=I hate the rain. - Stop it
 
 stat.windmillInteraction=Interactions with Windmill
+container.sim.item_sim_u_loader=Used to start or change the operating mode of a simulated city
+container.sim.item_drink_empty=Deals random damage to entities from 0 to 99999
+container.sim.item_bucket_milk=Raw materials for cheese production in cheese factories

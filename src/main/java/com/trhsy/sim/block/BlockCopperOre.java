@@ -6,11 +6,17 @@ import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -64,5 +70,9 @@ public class BlockCopperOre extends BlockOre {
     @Override
     public Item getItemDropped(IBlockState iBlockState, Random random, int p_getItemDropped_3_) {
         return Item.getItemFromBlock(BlockLoader.blockCopperOre);
+    }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
     }
 }

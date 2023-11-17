@@ -4,7 +4,15 @@ import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author Trhsy
@@ -35,5 +43,9 @@ public class BlockSpecial extends BlockAir {
     public boolean isFullCube(IBlockState state)
     {
         return false;
+    }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
     }
 }

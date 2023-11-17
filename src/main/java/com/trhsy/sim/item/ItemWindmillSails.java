@@ -59,6 +59,7 @@ public class ItemWindmillSails extends ItemBase{
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
+            //制作一个风车底座来制作风车
             String windmill = I18n.format("container.sim.windmill");
             tooltip.add(windmill);
             super.addInformation(stack, worldIn, tooltip, flagIn);

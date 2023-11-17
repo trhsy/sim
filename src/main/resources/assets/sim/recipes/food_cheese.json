@@ -9,5 +9,7 @@
   "key": {
     "A": {"item": "sim:block_cheese"}
   },
-  "result": {"item": "sim:food_cheese","count": 9}
+  "result": {"item": "sim:food_cheese","count": 9,
+    "data": 0
+  }
 }

@@ -10,6 +10,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -20,6 +21,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author Trhsy
@@ -49,7 +53,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
      * Get the MapColor for this Block and the given BlockState
      */
     @Override
-    public MapColor getMapColor(IBlockState state,IBlockAccess worldIn, BlockPos pos) {
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return (state.getValue(TYPE)).getMapColor();
     }
 
@@ -65,6 +69,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
+
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
@@ -77,7 +82,6 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     //public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
     //    this.checkForDrop(worldIn, pos, state);
     //}
-
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
         if (!this.canBlockStay(worldIn, pos)) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -112,7 +116,7 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks( CreativeTabs tab, NonNullList<ItemStack> list) {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
         for (int i = 0; i < 16; i++) {
             list.add(new ItemStack(this, 1, i));
         }
@@ -137,6 +141,11 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, new IProperty[]{TYPE});
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
     }
 }
 

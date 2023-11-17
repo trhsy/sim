@@ -7,7 +7,9 @@
     "AAA"
   ],
   "key": {
-    "A": {"item": "sim:food_cheese"}
+    "A": {"item": "sim:food_cheese",
+      "data": 0
+    }
   },
   "result": {"item": "sim:block_cheese","count": 1}
 }

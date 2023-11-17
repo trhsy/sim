@@ -7,9 +7,11 @@
     "   "
   ],
   "key": {
-    "A": {
-      "item": "minecraft:wool"
-    }
+    "A": {"item": "minecraft:wool","data": 0}
   },
-  "result": {"item": "sim:block_living","count": 1}
+  "result": {
+    "item": "sim:block_living",
+    "count": 6,
+    "data": 0
+  }
 }

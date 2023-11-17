@@ -9,5 +9,8 @@
   "key": {
     "A": {"type": "forge:ore_dict","ore": "torch"}
   },
-  "result": {"item": "sim:block_light_box","count": 1}
+  "result": {"item": "sim:block_light_box",
+    "count": 1,
+    "data": 0
+  }
 }

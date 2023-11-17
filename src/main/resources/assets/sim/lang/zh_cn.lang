@@ -220,7 +220,9 @@ container.sim.simSat=周六
 
 container.sim.sim_residential=有更多的住宅需求,你有
 container.sim.sim_residentials=人没有房子。
-
+container.sim.item_bucket_milk=奶酪工厂制作奶酪的原材料
+container.sim.item_drink_empty=对实体造成0-99999的随机伤害
+container.sim.item_sim_u_loader=用于启动或更改模拟城市的运行模式
 container.sim.granules_copper=放入熔炉中制作铜锭
 container.sim.granules_gold=放入熔炉中制作金锭
 container.sim.granules_iron=放进炉子里做铁锭

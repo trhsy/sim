@@ -59,6 +59,7 @@ public class ItemWindmillVane extends ItemBase{
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
+            //制作4个这样的叶片,合成风车帆
             String windmill_sail = I18n.format("container.sim.windmill_sail");
             tooltip.add(windmill_sail);
             super.addInformation(stack, worldIn, tooltip, flagIn);

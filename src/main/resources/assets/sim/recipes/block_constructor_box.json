@@ -7,9 +7,9 @@
     "CCC"
   ],
   "key": {
-    "A": {"item": "minecraft:cobblestone"},
-    "B": {"type": "forge:ore_dict","ore": "plankWood"},
-    "C": {"item": "minecraft:crafting_table","data": 0}
+    "A": {"type": "forge:ore_dict","ore": "plankWood"},
+    "B": {"item": "minecraft:crafting_table","data": 0},
+    "C": {"item": "minecraft:cobblestone"}
   },
   "result": {"item": "sim:block_constructor_box","count": 1}
 }
