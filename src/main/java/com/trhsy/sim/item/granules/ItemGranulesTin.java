@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -29,7 +30,7 @@ public class ItemGranulesTin extends ItemBase {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
             //把锡矿放到风车里，九个锡粒儿可以合成锡锭
-            String windmill_base = I18n.format("container.sim.granules_tin");
+            String windmill_base = new TextComponentTranslation("container.sim.granules_tin",new Object[0]).getUnformattedText();
             tooltip.add(windmill_base);
             super.addInformation(stack, worldIn, tooltip, flagIn);
         } catch (Exception e) {

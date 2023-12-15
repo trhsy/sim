@@ -6,10 +6,13 @@ import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -22,9 +25,10 @@ import java.util.Set;
  * @Description:
  * @date 2023/10/19 下午 2:55
  */
+@SideOnly(Side.CLIENT)
 public class ConfigGui extends GuiConfig {
     public ConfigGui(GuiScreen parentScreen) {
-        super(parentScreen, getConfigElements(), "sim", false, false, I18n.format("configgui.title"));
+        super(parentScreen, getConfigElements(), "sim", false, false, new TextComponentTranslation("configgui.title",new Object[0]).getUnformattedText());
     }
     private static List<IConfigElement> getConfigElements() {
         List<IConfigElement> list = Lists.newArrayList();

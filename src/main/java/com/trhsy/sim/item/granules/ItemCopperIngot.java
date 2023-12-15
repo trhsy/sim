@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -29,7 +30,7 @@ public class ItemCopperIngot extends ItemBase {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
             //用来合成铜制工具
-            String windmill_base = I18n.format("container.sim.copper_ingot");
+            String windmill_base = new TextComponentTranslation("container.sim.copper_ingot",new Object[0]).getUnformattedText();
             tooltip.add(windmill_base);
             super.addInformation(stack, worldIn, tooltip, flagIn);
         } catch (Exception e) {

@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -60,7 +61,7 @@ public class ItemWindmillVane extends ItemBase{
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
             //制作4个这样的叶片,合成风车帆
-            String windmill_sail = I18n.format("container.sim.windmill_sail");
+            String windmill_sail = new TextComponentTranslation("container.sim.windmill_sail",new Object[0]).getUnformattedText();
             tooltip.add(windmill_sail);
             super.addInformation(stack, worldIn, tooltip, flagIn);
         } catch (Exception e) {

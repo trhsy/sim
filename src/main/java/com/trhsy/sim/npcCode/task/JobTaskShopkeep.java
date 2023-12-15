@@ -1,0 +1,55 @@
+package com.trhsy.sim.npcCode.task;
+
+import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.npcCode.job.Job;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.TextComponentTranslation;
+
+/**
+ * @ClassName JobTaskShopkeep
+ * @Description todo 售卖任务
+ * @Author TRHSY
+ * @Date 2022/11/1521:20
+ **/
+public class JobTaskShopkeep extends JobTask {
+    String product;
+    boolean hasFed = false;
+
+    public JobTaskShopkeep(Job j, long ms, String product) {
+        super(j, ms);
+        this.product = product;
+        this.hasFed = false;
+    }
+
+    @Override
+    public void onTaskBegin() {
+    }
+
+    @Override
+    public void onUpdate() {
+        if (this.job.jobWorld.getWorldTime() % 24000L < 11600L) {
+            //售卖
+            this.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Selling",new Object[0]).getUnformattedText() + " " + this.product);
+            this.hasFed = false;
+        } else {
+            //关闭店铺
+            this.folk.setStatus(new TextComponentTranslation("container.sim.job.Baker_Closing",new Object[0]).getUnformattedText());
+            if (!this.hasFed) {
+                int sell = this.job.feedFolks();
+                this.hasFed = true;
+                if (sell > 0) {
+                    //张三 （工作/面包师）今天卖了 000 个食物给人们的。
+                    ModSimLoader.sendChat(this.folk.getName() + "(" + this.job.toString() + ")  " + new TextComponentTranslation("container.sim.job.has_sold",new Object[0]).getUnformattedText() + sell + new TextComponentTranslation("container.sim.job.grocer.farmer.folks",new Object[0]).getUnformattedText());
+                } else {
+                    //张三 今天没有产品可以卖给人们。
+                    ModSimLoader.sendChat(this.folk.getName() + new TextComponentTranslation("container.sim.job.grocer.farmer.today",new Object[0]).getUnformattedText());
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void onTaskComplete() {
+    }
+}

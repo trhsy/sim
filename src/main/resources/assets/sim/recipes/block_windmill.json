@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "group": "sim:block_windmill",
   "pattern": [
-    "A ",
-    "B ",
+    "A  ",
+    "B  ",
     "   "
   ],
   "key": {
     "A": {
-      "item": "sim:item_windmill_vane"
+      "item": "sim:item_windmill_sails"
     },
     "B": {
       "item": "sim:item_windmill_base"

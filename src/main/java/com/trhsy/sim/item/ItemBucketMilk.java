@@ -3,12 +3,11 @@ package com.trhsy.sim.item;
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
-import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,7 +22,7 @@ import java.util.List;
  * @Description: 桶装牛奶
  * @date 2023/10/31 上午 10:08
  */
-public class ItemBucketMilk extends ItemBucket {
+public class ItemBucketMilk extends ItemBucket{
     public ItemBucketMilk() {
         super(BlockLoader.milk);
         this.setContainerItem(Items.BUCKET);
@@ -35,7 +34,7 @@ public class ItemBucketMilk extends ItemBucket {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
             //奶酪工厂制作奶酪的原材料
-            String windmill_base = I18n.format("container.sim.item_bucket_milk");
+            String windmill_base = new TextComponentTranslation("container.sim.item_bucket_milk",new Object[0]).getUnformattedText();
             tooltip.add(windmill_base);
             super.addInformation(stack, worldIn, tooltip, flagIn);
         } catch (Exception e) {

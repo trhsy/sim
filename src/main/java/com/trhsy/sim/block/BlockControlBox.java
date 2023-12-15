@@ -5,19 +5,27 @@ import com.trhsy.sim.block.enums.EnumBlock;
 import com.trhsy.sim.block.enums.EnumControlBox;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.PacketOpenControlGui;
+import com.trhsy.sim.npcCode.NpcData;
+import com.trhsy.sim.npcCode.V3;
+import com.trhsy.sim.npcCode.build.Building;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,8 +43,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @date 2023/11/06 下午 4:45
  */
 public class BlockControlBox extends EnumBlock<EnumControlBox> {
-
-    //public List<NpcData> employees = new CopyOnWriteArrayList<NpcData>();
+    public List<NpcData> employees = new CopyOnWriteArrayList<NpcData>();
     public static final PropertyEnum<EnumControlBox> TYPE = PropertyEnum.create("type", EnumControlBox.class);
 
     public BlockControlBox() {
@@ -143,6 +150,38 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
         //在给定块位置的中心为播放器播放指定的声音 computer 控制箱激活
         SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        //客户端
+        if (!worldIn.isRemote) {
+            //获取控制箱位置
+            V3 vPos = new V3(pos,playerIn.dimension);
+            //获取该位置的建筑
+            Building b = ModSimLoader.getBuildingByV3(vPos);
+            List<NpcData> occupants=new CopyOnWriteArrayList<NpcData>();
+
+            if(b!=null){
+                if(b.controlXYZ!=null){
+                    vPos=b.controlXYZ;
+                }
+                //存在则查询其下拥有者/员工
+                occupants=b.occupants;
+                if(occupants!=null&&occupants.size()>0){
+                    //建筑是住宅
+                    if(b.buildingType.equals(new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText())){
+                        NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos,b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author,b.desc, occupants,true), (EntityPlayerMP) playerIn);
+                    }else{
+                        NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author,b.desc, occupants,false), (EntityPlayerMP) playerIn);
+                    }
+                }else{
+                    //没有员工
+                    NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, b.ID.toString(),b.buildingName,b.buildingType,b.jobType,b.author,b.desc, occupants,false), (EntityPlayerMP) playerIn);
+                }
+            }else{
+                //建筑等于空不存在提示错误信息
+                NetWorkLoader.net.sendTo(new PacketOpenControlGui(vPos, "","","","","","", false), (EntityPlayerMP) playerIn);
+            }
+
+
+        }
         return true;
     }
     /**
@@ -155,11 +194,11 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         //控制箱销毁，解除所有NPC
-        /*for (NpcData fd : ModSimLoader.folks) {
+        for (NpcData fd : ModSimLoader.folks) {
             if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
             }
-        }*/
+        }
     }
     @Override
     @SideOnly(Side.CLIENT)

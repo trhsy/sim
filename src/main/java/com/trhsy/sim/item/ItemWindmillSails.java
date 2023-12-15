@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -60,7 +61,7 @@ public class ItemWindmillSails extends ItemBase{
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
             //制作一个风车底座来制作风车
-            String windmill = I18n.format("container.sim.windmill");
+            String windmill = new TextComponentTranslation("container.sim.windmill",new Object[0]).getUnformattedText();
             tooltip.add(windmill);
             super.addInformation(stack, worldIn, tooltip, flagIn);
         } catch (Exception e) {

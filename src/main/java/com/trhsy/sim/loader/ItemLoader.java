@@ -1,8 +1,8 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.item.*;
 import com.trhsy.sim.item.ItemBucketMilk;
+import com.trhsy.sim.item.*;
 import com.trhsy.sim.item.armor.ItemCopperArmor;
 import com.trhsy.sim.item.armor.ItemTinArmor;
 import com.trhsy.sim.item.food.*;

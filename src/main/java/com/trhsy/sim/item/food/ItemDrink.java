@@ -3,6 +3,7 @@ package com.trhsy.sim.item.food;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,13 +25,19 @@ import java.util.List;
  * @Description: 啤酒
  * @date 2023/11/09 下午 2:45
  */
-public class ItemDrink  extends Item {
+public class ItemDrink extends Item {
     public ItemDrink() {
         super(); //6个半红心，当吃了0.6f时默认为ItemFood
         this.setMaxStackSize(64);
         this.setUnlocalizedName("drinkBeer");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setHasSubtypes(true);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ItemStack getDefaultInstance() {
+        return PotionUtils.addPotionToItemStack(super.getDefaultInstance(), PotionTypes.WATER);
     }
 
     /**
@@ -77,8 +84,9 @@ public class ItemDrink  extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        return !PotionUtils.getEffectsFromStack(stack).isEmpty();
+        return super.hasEffect(stack) || !PotionUtils.getEffectsFromStack(stack).isEmpty();
     }
+
     @Override
     public int getMetadata(int par1) {
         return par1;

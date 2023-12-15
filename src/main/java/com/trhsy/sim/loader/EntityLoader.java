@@ -1,0 +1,44 @@
+package com.trhsy.sim.loader;
+
+import com.trhsy.sim.ModSim;
+import com.trhsy.sim.entity.EntityFolk;
+import com.trhsy.sim.loader.render.RenderEntityFolk;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+/**
+ * @author Trhsy
+ * @Package: com.trhsy.sim.loader
+ * @ClassName: EntityLoader
+ * @Description:
+ * @date 2023/11/20 下午 2:54
+ */
+public class EntityLoader {
+    private static int nextID = 0;
+    /**
+     * 加载实体
+     */
+    public static void registerEntitys() {
+        /**
+         * entityClass–实体类
+         * entityName–实体的唯一名称
+         * id–实体的特定于国防部的id
+         * mod–mod
+         * trackingRange–MC发送跟踪更新的范围
+         * updateFrequency–跟踪更新的频率
+         * sendsVelocityUpdates–是否也发送速度信息包
+         */
+        EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID+":folk"), EntityFolk.class, "EntityFolk", nextID++, ModSim.instance, 64, 1, true);
+    }
+    @SideOnly(Side.CLIENT)
+    public static void initModels() {
+        try {
+            RenderingRegistry.registerEntityRenderingHandler(EntityFolk.class, RenderEntityFolk.FACTORY);
+        }catch (Exception e) {
+            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+        }
+    }
+}

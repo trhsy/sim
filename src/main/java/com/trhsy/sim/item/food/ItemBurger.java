@@ -7,6 +7,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -40,7 +41,7 @@ public class ItemBurger extends ItemFood {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
-            String sim_folks = I18n.format("container.sim.sim_folks");
+            String sim_folks = new TextComponentTranslation("container.sim.sim_folks",new Object[0]).getUnformattedText();
             tooltip.add(sim_folks);
             super.addInformation(stack, worldIn, tooltip, flagIn);
         } catch (Exception e) {
