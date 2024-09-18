@@ -1,9 +1,13 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.entity.EntityFolk;
+import com.trhsy.sim.entity.EntityConBox;
+import com.trhsy.sim.entity.EntityNpc;
+import com.trhsy.sim.entity.TileEntityWindmill;
+import com.trhsy.sim.loader.render.RenderConBox;
 import com.trhsy.sim.loader.render.RenderEntityFolk;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.datafix.DataFixer;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -18,6 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class EntityLoader {
     private static int nextID = 0;
+
     /**
      * 加载实体
      */
@@ -31,14 +36,24 @@ public class EntityLoader {
          * updateFrequency–跟踪更新的频率
          * sendsVelocityUpdates–是否也发送速度信息包
          */
-        EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID+":folk"), EntityFolk.class, "EntityFolk", nextID++, ModSim.instance, 64, 1, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":folk"), EntityNpc.class, "EntityFolk", nextID++, ModSim.instance, 64, 1, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":ConBox"), EntityConBox.class, "ConBox", nextID++, ModSim.instance, 64, 3, false);
+        DataFixer datafixer = new DataFixer(1343);
+        datafixer = new net.minecraftforge.common.util.CompoundDataFixer(datafixer);
+        TileEntityWindmill.registerFixesFurnace(datafixer);
+
     }
+
     @SideOnly(Side.CLIENT)
     public static void initModels() {
         try {
-            RenderingRegistry.registerEntityRenderingHandler(EntityFolk.class, RenderEntityFolk.FACTORY);
-        }catch (Exception e) {
-            StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerRenders出错了：" + e.getMessage()+"行数："+element.getLineNumber());
+            RenderingRegistry.registerEntityRenderingHandler(EntityNpc.class, RenderEntityFolk.FACTORY);
+            RenderingRegistry.registerEntityRenderingHandler(EntityConBox.class, RenderConBox.FACTORY);
+
+//            REGISTRY.putObject(new ResourceLocation("Windmill"), TileEntityWindmill.class);
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("registerRenders出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 }

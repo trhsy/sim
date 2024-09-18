@@ -1,6 +1,5 @@
 package com.trhsy.sim.loader;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -264,6 +263,10 @@ public class CraftingLoader {
     private static void registerSmelting() {
         try {
             //待烧炼的物品  烧炼后的物品  烧炼后玩家可以得到的经验
+            //烧锡矿得锡锭
+            GameRegistry.addSmelting(new ItemStack(BlockLoader.blockTinOre), new ItemStack(ItemLoader.itemTinIngot,2), 0.1F);
+            //烧铜矿得铜锭
+            GameRegistry.addSmelting(new ItemStack(BlockLoader.blockCopperOre), new ItemStack(ItemLoader.itemCopperIngot,2), 0.1F);
             //烧金粒得金锭
             GameRegistry.addSmelting(ItemLoader.itemGranulesGold, new ItemStack(Items.GOLD_INGOT), 0.1F);
             //烧铁粒得铁锭
@@ -272,10 +275,9 @@ public class CraftingLoader {
             GameRegistry.addSmelting(ItemLoader.itemGranulesTin, new ItemStack(ItemLoader.itemTinIngot), 0.1F);
             //烧铜粒得铜锭
             GameRegistry.addSmelting(ItemLoader.itemGranulesCopper, new ItemStack(ItemLoader.itemCopperIngot), 0.1F);
-            //烧锡矿得锡锭
-            GameRegistry.addSmelting(BlockLoader.blockTinOre, new ItemStack(ItemLoader.itemTinIngot), 0.1F);
-            //烧铜矿得铜锭
-            GameRegistry.addSmelting(BlockLoader.blockCopperOre, new ItemStack(ItemLoader.itemCopperIngot), 0.1F);
+
+
+
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("registerSmelting出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }

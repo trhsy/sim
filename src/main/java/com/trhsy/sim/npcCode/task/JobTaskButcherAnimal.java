@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.job.Job;
 import com.trhsy.sim.npcCode.job.JobLivestockFarmer;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
@@ -46,6 +45,8 @@ public class JobTaskButcherAnimal extends JobTask {
         //屠宰动物
         this.job.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Butcher1",new Object[0]).getUnformattedText());
         this.selectTarget();
+        //设置固定不动
+        this.folk.stayPut = true;
     }
 
     @Override
@@ -102,7 +103,7 @@ public class JobTaskButcherAnimal extends JobTask {
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
         List<EntityAnimal> list=new CopyOnWriteArrayList<EntityAnimal>();
         try {
-            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y+0.5, controlBox.z, controlBox.x + 0.5D, controlBox.y + 0.5D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
+            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x-3, controlBox.y+0.5, controlBox.z-3, controlBox.x+3 , controlBox.y + 0.5D, controlBox.z + 3)).expand(3.0D, 2.0D, 3.0D));
             //list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x-5.0D, controlBox.y, controlBox.z-5.0D, controlBox.x + 5.0D, controlBox.y + 2.0D, controlBox.z + 5.0D)));
         }catch (Exception e){
             ModSimLoader.log.error("getAnimalsInPen出错了：" + e.getMessage() );
@@ -116,6 +117,7 @@ public class JobTaskButcherAnimal extends JobTask {
     public void killTarget() {
         ModSimLoader.log.info("尝试杀死 " + this.butcherTarget.getName() + " " + this.butcherTarget.getEntityId());
         this.butcherTarget.setDropItemsWhenDead(false);
+        //通用的
         this.butcherTarget.attackEntityFrom(DamageSource.GENERIC, 500.0F);
         //牛
         if (this.butcherTarget instanceof EntityCow) {

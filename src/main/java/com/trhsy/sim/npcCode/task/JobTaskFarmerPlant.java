@@ -10,7 +10,6 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockStem;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -55,6 +54,8 @@ public class JobTaskFarmerPlant extends JobTask {
     @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
+        //设置固定不动
+        this.folk.stayPut = true;
         //锄地
         this.plant();
 
@@ -78,7 +79,7 @@ public class JobTaskFarmerPlant extends JobTask {
                     falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 10.0F * 9.9;
                 }
                 // 等级 时间计算 工作效率
-                if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 800.0F - 10.0F * this.folk.skillFarming) {
+                if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
                     this.plant();
                 }
 

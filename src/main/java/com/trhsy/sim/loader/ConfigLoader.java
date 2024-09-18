@@ -2,7 +2,6 @@ package com.trhsy.sim.loader;
 
 import com.google.common.collect.Lists;
 import com.trhsy.sim.ModSim;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
@@ -40,7 +39,7 @@ public class ConfigLoader {
     public static int configMaterialReminderInterval = 3;
 
     /**停止降雨**/
-    public static boolean configStopRain = true;
+    public static boolean configStopRain = false;
     /**配置NPC说英文**/
     public static boolean configFolkTalkingEnglish = true;
     /**配置男性姓名**/
@@ -58,7 +57,7 @@ public class ConfigLoader {
 
     public static void load(FMLPreInitializationEvent event) {
         try {
-            configFile = new Configuration(event.getSuggestedConfigurationFile(), "1.12.2-1.0.1 Beta");
+            configFile = new Configuration(event.getSuggestedConfigurationFile(), "1.12.2-1.0.6 Beta");
             syncConfig();
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];ModSimLoader.log.error("load出错了：" + e.getMessage()+"行数："+element.getLineNumber());
@@ -138,8 +137,7 @@ public class ConfigLoader {
             propOrder.add(p.getName());
 
             Gameplay.setPropertyOrder(propOrder);
-
-            String npcNames="npc_names";
+            String npcNames=new TextComponentTranslation("container.sim.config_name2",new Object[0]).getUnformattedText();
             propOrder = Lists.newArrayList();
             Nameplay =configFile.getCategory(npcNames);
 

@@ -1,19 +1,46 @@
 buildscript {
     repositories {
 		mavenLocal()
+//        maven {
+//            name = "aliyun-public"
+//            url = "https://maven.aliyun.com/nexus/content/groups/public/"
+//        }
         maven {
-            name = "aliyun-public"
-            url = "https://maven.aliyun.com/nexus/content/groups/public/"
+            name = "files forge"
+            url = "http://files.minecraftforge.net/maven"
         }
-		jcenter()
+        maven {
+            name = "files forge https"
+            url = "https://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "repo"
+            url = "https://repo.maven.org/maven2"
+        }
+        maven {
+            name = "repo1"
+            url = "https://repo1.maven.org/maven2"
+        }
+        maven {
+            name = "central"
+            url 'https://maven.aliyun.com/repository/central'
+        }
+        maven {
+            name = "google"
+            url 'https://maven.aliyun.com/repository/google'
+        }
+        maven {
+            name = "jcenter"
+            url = "https://maven.aliyun.com/repository/jcenter"
+        }
 		maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
-		maven {
+        /*maven {
             name = "forge"
-            url = "https://lss233.littleservice.cn/repositories/minecraft"
-        }
+            url = "http://lss233.littleservice.cn/repositories/minecraft"
+        }*/
         maven {
             name = "gradle-plugin"
             url = "https://maven.aliyun.com/repository/gradle-plugin"
@@ -27,7 +54,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.12.2-1.0.1 Beta"
+version = "1.12.2-1.0.6 Beta"
 group = "com.trhsy.sim" 
 archivesBaseName = "simulated"
 
@@ -55,8 +82,8 @@ dependencies {
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
     // 依赖lib目录下的所有以.jar结尾的文件
-    // https://mvnrepository.com/artifact/com.h2database/h2
-//    compile 'com.h2database:h2:2.2.224'
+
+//    compile 'org.xerial:sqlite-jdbc:3.46.1.0'
 
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env

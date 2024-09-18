@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @Date 2022/10/1813:46
  **/
 public class PacketOpenFolkGui implements IMessage {
+    public String uid;
     /**NPC名字*/
     public String folkName;
     /**年龄*/
@@ -61,6 +62,7 @@ public class PacketOpenFolkGui implements IMessage {
     public PacketOpenFolkGui() {
     }
     public PacketOpenFolkGui(NpcData fd) {
+        this.uid=fd.ID;
         this.folkName = fd.getName();
         this.folkAge = fd.age;
         this.folkRaceName = fd.race.raceName;
@@ -92,6 +94,7 @@ public class PacketOpenFolkGui implements IMessage {
     }
     @Override
     public void fromBytes(ByteBuf buf) {
+        this.uid=ByteBufUtils.readUTF8String(buf);
         this.folkName = ByteBufUtils.readUTF8String(buf);
         this.folkAge = buf.readInt();
         this.folkRaceName = ByteBufUtils.readUTF8String(buf);
@@ -115,6 +118,7 @@ public class PacketOpenFolkGui implements IMessage {
 
     @Override
     public void toBytes(ByteBuf buf) {
+        ByteBufUtils.writeUTF8String(buf, this.uid);
         ByteBufUtils.writeUTF8String(buf, this.folkName);
         buf.writeInt(this.folkAge);
         ByteBufUtils.writeUTF8String(buf, this.folkRaceName);

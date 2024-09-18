@@ -1,13 +1,17 @@
 package com.trhsy.sim.gui.npc;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenFolkGui;
+import com.trhsy.sim.network.server.PacketOpenFolkInventoryGui;
+import com.trhsy.sim.npcCode.NpcData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.opengl.GL11;
@@ -55,8 +59,10 @@ public class GuiFolk extends GuiScreen {
     String mining;
     float pregnancyStage;
     int page = 0;
+    String uid;
 
     public GuiFolk(PacketOpenFolkGui message) {
+        this.uid=message.uid;
         this.folkName = message.folkName;
         this.folkAge = message.folkAge;
         this.folkGender = message.folkGender;
@@ -124,6 +130,9 @@ public class GuiFolk extends GuiScreen {
     }
     @Override
     public void drawScreen(int i, int j, float f) {
+        try {
+
+
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(new ResourceLocation(ModSim.MODID, "textures/gui/gui_folk.png"));
         int posX = (this.width - 256) / 2;
@@ -193,18 +202,19 @@ public class GuiFolk extends GuiScreen {
 
                 this.fontRenderer.drawString(days, this.width / 2, 117, 128);
             }
-
+        //关系
         } else if(this.page == 1) {
             //的关系
             this.fontRenderer.drawString( new TextComponentTranslation("container.sim.gui_Folk_Relationshipss",new Object[0]).getUnformattedText()+":", this.width / 2, 17, 0x000000);
             int height = 50;
             String[] var7 = this.relationshipData.split(";");
             int var8 = var7.length;
-
             for (int var9 = 0; var9 < var8; ++var9) {
                 String relDat = var7[var9];
-                this.fontRenderer.drawString( relDat, labelPos, height, 0x000000);
-                height += 15;
+                if(!StringUtils.isNullOrEmpty(relDat)){
+                    this.fontRenderer.drawString( relDat, labelPos, height, 0x000000);
+                    height += 15;
+                }
             }
         }else if(this.page == 2) {
             //XX的需要
@@ -227,14 +237,81 @@ public class GuiFolk extends GuiScreen {
             fontRenderer.drawString(theFolk.environmentStatus, this.width / 2, 50, 0x000080);*/
         }else if (this.page == 3) {
             int left = this.width / 2 - 120;
-            fontRenderer.drawString(this.folkTrait1, left, 30, 0x000000);
-            fontRenderer.drawString(this.folkTraitDesc1, left, 40, 0x000000);
-            fontRenderer.drawString(this.folkTrait2, left, 50, 0x000000);
-            fontRenderer.drawString(this.folkTraitDesc2, left, 60, 0x000000);
-            fontRenderer.drawString(this.folkTrait3, left, 70, 0x000000);
-            fontRenderer.drawString(this.folkTraitDesc3, left, 80, 0x000000);
+            //特征
+            this.fontRenderer.drawString(this.folkTrait1+":", left, 30, 0x000000,false);
+            int trd1 = this.folkTraitDesc1.length();
+            int fs_y=40;
+            if (trd1 > 28) {
+                int z=0;
+                for (int k = 0; k < trd1; k++) {
+                    String trds1;
+                    if (z+28 >= trd1) {
+                        trds1=this.folkTraitDesc1.substring(z,trd1-1);
+                        this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+                        break;
+                    }else{
+                        trds1=this.folkTraitDesc1.substring(z,z+28);
+                        this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+                    }
+                    fs_y=fs_y+8;
+                    z+=28;
+                }
+            }else{
+                String trds1=this.folkTraitDesc1;
+                this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+            }
+            fs_y=fs_y+8;
+            this.fontRenderer.drawString(this.folkTrait2+":", left, fs_y, 0x000000);
+            fs_y=fs_y+8;
+            int trd2 = this.folkTraitDesc2.length();
+            if (trd2 > 28) {
+                int z=0;
+                for (int k = 0; k < trd2; k++) {
+                    String trds1;
+                    if (z+28 >= trd2) {
+                        trds1=this.folkTraitDesc2.substring(z,trd2-1);
+                        this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+                        break;
+                    }else{
+                        trds1=this.folkTraitDesc2.substring(z,z+28);
+                        this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+                    }
+                    fs_y=fs_y+8;
+                    z+=28;
+                }
+            }else{
+                String trds1=this.folkTraitDesc2;
+                this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+            }
+//            this.fontRenderer.drawString(this.folkTraitDesc2, left, fs_y, 0x000000,false);
+            fs_y=fs_y+8;
+            this.fontRenderer.drawString(this.folkTrait3+":", left, fs_y, 0x000000);
+            fs_y=fs_y+8;
+            int trd3 = this.folkTraitDesc3.length();
+            if (trd3 > 28) {
+                int z=0;
+                for (int k = 0; k < trd3; k++) {
+                    String trds1;
+                    if (z+28 >= trd3) {
+                        trds1=this.folkTraitDesc3.substring(z,trd3-1);
+                        this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+                        break;
+                    }else{
+                        trds1=this.folkTraitDesc3.substring(z,z+28);
+                        this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+                    }
+                    fs_y=fs_y+8;
+                    z+=28;
+                }
+            }else{
+                String trds1=this.folkTraitDesc3;
+                this.fontRenderer.drawString(trds1, left, fs_y, 1677800,false);
+            }
+//            this.fontRenderer.drawString(this.folkTraitDesc3, left, fs_y, 0x000000,false);
         }
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         super.drawScreen(i, j, f);
     }
     @Override
@@ -263,6 +340,8 @@ public class GuiFolk extends GuiScreen {
                 //库存
                 if (button.displayString.contentEquals(new TextComponentTranslation("container.sim.guiFolk.Inventory",new Object[0]).getUnformattedText())) {
                     EntityPlayer player = Minecraft.getMinecraft().player;
+                    NpcData npcData= ModSimLoader.getFolkDataByUID(uid);
+                    NetWorkLoader.net.sendToServer(new PacketOpenFolkInventoryGui(npcData));
                     //FMLNetworkHandler.openGui(player, ModSim.instance, References.GUI_FOLKINVENTORY, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
                 }
             } else if (this.page == 1) {

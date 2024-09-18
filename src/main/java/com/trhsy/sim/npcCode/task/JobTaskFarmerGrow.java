@@ -6,7 +6,6 @@ import com.trhsy.sim.npcCode.block.FarmBox;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -47,13 +46,15 @@ public class JobTaskFarmerGrow extends JobTask {
     @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
+        //设置固定不动
+        this.folk.stayPut = true;
         if (ModSimLoader.money > 0.02F) {
             boolean falg = false;
             if (ModSimLoader.gamemode == 1) {
                 falg = true;
             }
             // 等级 时间计算 工作效率
-            if (falg || (float) (System.currentTimeMillis() - this.harvestCheck) > 800.0F - 10.0F * this.folk.skillFarming) {
+            if (falg || (float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
                 Random ra = new Random();
                 int r = ra.nextInt(2);
                 if (r == 0) {
@@ -97,7 +98,7 @@ public class JobTaskFarmerGrow extends JobTask {
 //                    falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F- 100.0F*10;
 //                }
                 // 等级 时间计算 工作效率
-                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 800.0F - 10.0F * this.folk.skillFarming) {
+                if ((float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
 
                     Random ra = new Random();
                     int r = ra.nextInt(2);

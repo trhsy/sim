@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.Building;
 import com.trhsy.sim.npcCode.job.Job;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.monster.EntityGhast;
@@ -138,11 +137,13 @@ public class JobTaskPatrol extends JobTask {
         } else if (this.job.folk.isAtLocation(this.patrolTo)) {
             for (this.patrolTo = this.getNewPosition(); this.patrolTo.x > this.maxX || this.patrolTo.x < this.minX || this.patrolTo.z > this.maxZ || this.patrolTo.z < this.minZ; this.patrolTo = this.getNewPosition()) {
             }
-        } else if (!this.job.folk.isMoving) {
-//            if(!this.job.folk.forceMoveToXYZ(this.patrolTo)){
+        }else if(!this.job.folk.forceMoveToXYZ(this.patrolTo)){
+            this.job.folk.forceMoveToXYZNoWarp(this.patrolTo);
+        }/*else if (!this.job.folk.isMoving) {
+            if(!this.job.folk.forceMoveToXYZ(this.patrolTo)){
                 this.job.folk.forceMoveToXYZNoWarp(this.patrolTo);
-//            }
-        }
+            }
+        }*/
     }
 
     @Override

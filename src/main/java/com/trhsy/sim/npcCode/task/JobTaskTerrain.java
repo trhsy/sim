@@ -12,13 +12,13 @@ import com.trhsy.sim.npcCode.build.TerrainType;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -56,7 +56,10 @@ public class JobTaskTerrain extends JobTask {
      **/
     public EntityConBox conBox;
     private transient int counter = 0;
-
+    /**
+     * 上次摆动手臂的时间
+     **/
+    private transient long timeSwingArm = 0L;
     public JobTaskTerrain(Job j, long ms, ItemStack missingBlock, TerrainType terrainType, BlockPos constructorPos) {
         super(j, ms);
         this.missingBlock = missingBlock;
@@ -92,6 +95,13 @@ public class JobTaskTerrain extends JobTask {
                 this.folk.setStatus(new TextComponentTranslation("container.sim.JobBuilder2",new Object[0]).getUnformattedText());
                 //this.completed = true;
                 return;
+            }
+            long now1 = System.currentTimeMillis();
+            if (now1 - this.timeSwingArm > 3000) {
+                this.timeSwingArm = now1;
+                //摇手
+                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+
             }
             CopyOnWriteArrayList blockIDs;
             if (this.terrainType != null) {
@@ -139,7 +149,7 @@ public class JobTaskTerrain extends JobTask {
 
                             //游戏模式是正常模式
                             if (ModSimLoader.gamemode != 1) {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     ////上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -254,7 +264,7 @@ public class JobTaskTerrain extends JobTask {
                                         //this.completed = true;
                                         return;
                                     }
-                                    if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                    if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                         now = System.currentTimeMillis();
                                         ////上次时间为当前时间
                                         this.timeSinceLastBlockPlace = now;
@@ -347,7 +357,7 @@ public class JobTaskTerrain extends JobTask {
                             //是否是创造模式
                             if (ModSimLoader.gamemode != 1) {
 
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -454,7 +464,7 @@ public class JobTaskTerrain extends JobTask {
 //当前时间
                             Long now = System.currentTimeMillis();
                             if (ModSimLoader.gamemode != 1) {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -544,7 +554,7 @@ public class JobTaskTerrain extends JobTask {
                             //当前时间
                             Long now = System.currentTimeMillis();
                             if (ModSimLoader.gamemode != 1) {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -642,7 +652,7 @@ public class JobTaskTerrain extends JobTask {
                             //当前时间
                             Long now = System.currentTimeMillis();
                             if (ModSimLoader.gamemode != 1) {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -747,7 +757,7 @@ public class JobTaskTerrain extends JobTask {
                             //当前时间
                             Long now = System.currentTimeMillis();
                             if (ModSimLoader.gamemode != 1) {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -840,7 +850,7 @@ public class JobTaskTerrain extends JobTask {
                             //当前时间
                             Long now = System.currentTimeMillis();
                             if (ModSimLoader.gamemode != 1) {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -924,7 +934,7 @@ public class JobTaskTerrain extends JobTask {
                             V3 v9 = (V3) this.closestBlocks.get(0);
                             BlockPos blockPo9_1 = new BlockPos(v9.x, v9.y, v9.z);
                             if (ModSimLoader.gamemode != 1) {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * this.folk.skillBuilding) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * this.folk.skillBuilding) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;
@@ -939,7 +949,7 @@ public class JobTaskTerrain extends JobTask {
                                     return;
                                 }
                             } else {
-                                if ((float) (now - this.timeSinceLastBlockPlace) > 800.0F - 10.0F * 10) {
+                                if ((float) (now - this.timeSinceLastBlockPlace) > 1000.0F - 100.0F * 10) {
                                     now = System.currentTimeMillis();
                                     //上次时间为当前时间
                                     this.timeSinceLastBlockPlace = now;

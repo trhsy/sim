@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class JobBartender extends Job{
     //工作阶段
-    public int bartenderStage = -1;
+    public int bartenderStage = 0;
     //要收集的物品
     public List<ItemStack> colItems = new ArrayList();
     public JobBartender(NpcData folk, BlockPos pos, World world) {
@@ -56,11 +55,11 @@ public class JobBartender extends Job{
                     this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived",new Object[0]).getUnformattedText()));
                 } else if (this.bartenderStage == 1) {
                     //收集
-                    this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                    this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                     this.bartenderStage = 2;
                 } else if (this.bartenderStage == 2) {
                     //卸货
-                    this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                    this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.bartenderStage = 3;
                 } else if (this.bartenderStage == 3) {
                     List<ItemStack> cakes = new CopyOnWriteArrayList<ItemStack>();
@@ -80,7 +79,7 @@ public class JobBartender extends Job{
                      * @Param [folk, pos, world]
                      * @return
                      **/
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("item.drinkBeer.name",new Object[0]).getUnformattedText()));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("item.drinkBeer.name",new Object[0]).getUnformattedText(),true));
                     this.bartenderStage = 5;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {

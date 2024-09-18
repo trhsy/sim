@@ -5,7 +5,6 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.block.FarmBox;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -21,7 +20,7 @@ public class JobFarmer extends Job {
     //农田箱
     public FarmBox farm;
     //工作阶段
-    public int farmer_stage = -1;
+    public int farmer_stage = 0;
     public JobFarmer(NpcData folk, BlockPos pos, World world, FarmBox fb) {
         super(folk, pos, world);
         try {

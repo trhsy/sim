@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +22,7 @@ import java.util.List;
  */
 public class JobCheesemaker extends Job{
     //工作阶段
-    public int cheesemakerStage = -1;
+    public int cheesemakerStage = 0;
     public JobCheesemaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.itemCheese);
@@ -48,13 +47,13 @@ public class JobCheesemaker extends Job{
                     //牛奶
                     colItems.add(new ItemStack(Items.MILK_BUCKET, 16));
                     //收集
-                    this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                    this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                     this.cheesemakerStage = 2;
                 } else if (this.cheesemakerStage == 2) {
                     List<ItemStack> colItems = new ArrayList();
-                    //牛奶
+                    //卸载牛奶
                     colItems.add(new ItemStack(Items.MILK_BUCKET, 16));
-                    this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                    this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.cheesemakerStage = 3;
                 }else if (this.cheesemakerStage == 3) {
                     this.addJobTask(new JobTaskCheesemaker(this, -1L, new TextComponentTranslation("container.sim.JobTaskCheesemaker1",new Object[0]).getUnformattedText()));

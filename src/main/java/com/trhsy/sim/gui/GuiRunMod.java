@@ -4,11 +4,8 @@ import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.server.PacketSetupMod;
-import com.trhsy.sim.npcCode.NpcData;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentTranslation;
 import org.lwjgl.input.Mouse;
 
@@ -117,9 +114,13 @@ public class GuiRunMod extends GuiScreen {
                 //建设者需要所有的方块,更难玩游戏
 //                String sim_gui_Builders = new TextComponentTranslation("container.sim.sim_gui_Builders",new Object[0]).getUnformattedText();
                 this.drawCenteredString(this.fontRenderer, sim_gui_game_mode, this.width / 2, 20, 16777215);
+
                 this.drawCenteredString(this.fontRenderer, sim_gui_switches, this.width / 2, 60, 16776960);
-                this.drawCenteredString(this.fontRenderer, sim_gui_beginners, this.width / 2, 110, 16776960);
-                this.drawCenteredString(this.fontRenderer, sim_gui_everything, this.width / 2, 160, 16776960);
+
+                this.drawCenteredString(this.fontRenderer, sim_gui_beginners, this.width / 2, 100, 16776960);
+
+                this.drawCenteredString(this.fontRenderer, sim_gui_everything, this.width / 2, 140, 16776960);
+
 //                this.drawCenteredString(this.fontRenderer, sim_gui_Builders, this.width / 2, 210, 16776960);
             }
 
@@ -137,7 +138,6 @@ public class GuiRunMod extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         try {
-            Minecraft fs_mc = Minecraft.getMinecraft();
             switch (guibutton.id) {
                 case 0:
                     this.page=0;
@@ -155,8 +155,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     if(ModSimLoader.folks.size()==0||ModSimLoader.folks==null){
-                        ModSimLoader.log.info("在正常模式下重新加载模拟城市，开始生成新的NPC");
-                        new NpcData(fs_mc.world, true);
+//                        ModSimLoader.log.info("在正常模式下重新加载模拟城市，开始生成新的NPC");
                     }
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
@@ -171,8 +170,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     if(ModSimLoader.folks.size()==0||ModSimLoader.folks==null){
-                        ModSimLoader.log.info("在创造模式下重新加载模拟城市，开始生成新的NPC");
-                        new NpcData(fs_mc.world, true);
+//                        ModSimLoader.log.info("在创造模式下重新加载模拟城市，开始生成新的NPC");
                     }
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
@@ -186,8 +184,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     if(ModSimLoader.folks.size()==0||ModSimLoader.folks==null){
-                        ModSimLoader.log.info("在专业模式下重新加载模拟城市，开始生成新的NPC");
-                        new NpcData(fs_mc.world, true);
+//                        ModSimLoader.log.info("在专业模式下重新加载模拟城市，开始生成新的NPC");
                     }
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();
@@ -225,8 +222,7 @@ public class GuiRunMod extends GuiScreen {
                     this.buttonList.get(1).visible=false;
                     this.buttonList.get(2).visible=false;
                     if(ModSimLoader.folks.size()==0||ModSimLoader.folks==null){
-                        ModSimLoader.log.info("在正常模式下重新加载模拟城市，开始生成新的NPC");
-                        new NpcData(fs_mc.world, true);
+//                        ModSimLoader.log.info("在正常模式下重新加载模拟城市，开始生成新的NPC");
                     }
                     this.mc.currentScreen=null;
                     this.mc.setIngameFocus();

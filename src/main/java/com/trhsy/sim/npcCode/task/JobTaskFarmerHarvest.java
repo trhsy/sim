@@ -7,7 +7,6 @@ import com.trhsy.sim.npcCode.enums.FarmType;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -49,6 +48,8 @@ public class JobTaskFarmerHarvest extends JobTask {
     @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
+        //设置固定不动
+        this.folk.stayPut = true;
             this.harvest();
     }
 
@@ -70,7 +71,7 @@ public class JobTaskFarmerHarvest extends JobTask {
                     falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 10.0F * 9.9;
                 }
                 // 等级 时间计算 工作效率
-                if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 800.0F - 10.0F * this.folk.skillFarming) {
+                if (falg||(float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
 
                         this.harvest();
 

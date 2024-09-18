@@ -1,9 +1,7 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.block.enums.EnumBlock;
 import com.trhsy.sim.block.enums.EnumBlockLiving;
 import com.trhsy.sim.loader.CreativeTabsLoader;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -32,38 +30,42 @@ import java.util.List;
  * @Description:
  * @date 2023/11/07 下午 5:54
  */
-public class BlockLiving extends EnumBlock<EnumBlockLiving> {
+public class BlockLiving extends BlockBase {
     public static final PropertyEnum<EnumBlockLiving> TYPE = PropertyEnum.create("type", EnumBlockLiving.class);
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
 
     public BlockLiving() {
-        super(Material.CARPET, TYPE, EnumBlockLiving.class);
+        super(Material.CARPET,"livingBlock");
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLiving.WHITE));
         this.setTickRandomly(true);
-        this.setUnlocalizedName("livingBlock");
+//        this.setUnlocalizedName();
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
+    /**
+     * 边界框
+     * @param state
+     * @param source
+     * @param pos
+     * @return
+     */
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return CARPET_AABB;
     }
 
     /**
-     * Get the MapColor for this Block and the given BlockState
+     * 获取此块和给定块状态的MapColor
      */
     @Override
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return (state.getValue(TYPE)).getMapColor();
     }
 
-    @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
-    }
+
 
     /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
+     * 用于在重建块以进行渲染时确定环境光遮挡和剔除
      */
     @Override
     public boolean isOpaqueCube(IBlockState state) {
@@ -76,21 +78,16 @@ public class BlockLiving extends EnumBlock<EnumBlockLiving> {
     }
 
     /**
-     * Called when a neighboring block changes.
+     * 检查此块是否可以准确地放置在给定位置。
+     * @param worldIn
+     * @param pos
+     * @return
      */
-    //@Override
-    //public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-    //    this.checkForDrop(worldIn, pos, state);
-    //}
-    private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-        if (!this.canBlockStay(worldIn, pos)) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockToAir(pos);
-            return false;
-        } else {
-            return true;
-        }
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
+
 
     private boolean canBlockStay(World worldIn, BlockPos pos) {
         return !worldIn.isAirBlock(pos.down());

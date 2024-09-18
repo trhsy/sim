@@ -3,7 +3,6 @@ package com.trhsy.sim.npcCode.task;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.job.Job;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -35,11 +34,14 @@ public class JobTaskSpawnLivestock extends JobTask {
     @Override
     public void onTaskBegin() {
         this.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Spawn1",new Object[0]).getUnformattedText());
+        //设置固定不动
+        this.folk.stayPut = true;
         ModSimLoader.log.info("开始繁殖牲畜");
         //开始检测当前地方的实体动物
         int animalCount = this.getAnimalsInPen(this.job.workPlace, this.livestockClass).size();
         ModSimLoader.log.info( "检测到 "+animalCount + " " + this.livestockName);
         if (animalCount < 6) {
+
         }
         ModSimLoader.log.info("生成 " + (6 - animalCount) + " 以上");
         this.spawnAnimals(this.job.workPlace, this.livestockName, 6 - animalCount);

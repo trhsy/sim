@@ -151,6 +151,9 @@ public class ItemLoader {
     public static Item itemGranulesTin=new ItemGranulesTin();
     /**锡锭**/
     public static Item itemTinIngot=new ItemTinIngot();
+
+
+
     /**
      * 注册物品
      *

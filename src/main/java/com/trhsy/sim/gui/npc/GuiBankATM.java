@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -219,7 +218,7 @@ public class GuiBankATM extends GuiScreen {
                     for (int inv = 0; inv < this.mc.player.inventory.getSizeInventory(); inv++) {
                         ItemStack is = this.mc.player.inventory.getStackInSlot(inv);
                         //钻石、绿宝石、红石、萤石粉、金锭
-                        if (is != null && (is.getItem() == Items.DIAMOND || is.getItem() == Items.EMERALD || is.getItem() == Items.REDSTONE || is.getItem() == Items.GLOWSTONE_DUST || is.getItem() == Items.GOLD_INGOT||is.getItem() ==Items.IRON_INGOT||is.getItem() ==ItemLoader.itemTinIngot||is.getItem() ==ItemLoader.itemCopperIngot)) {
+                        if (is != null && !is.isEmpty()&& (is.getItem() == Items.DIAMOND || is.getItem() == Items.EMERALD || is.getItem() == Items.REDSTONE || is.getItem() == Items.GLOWSTONE_DUST || is.getItem() == Items.GOLD_INGOT||is.getItem() ==Items.IRON_INGOT||is.getItem() ==ItemLoader.itemTinIngot||is.getItem() ==ItemLoader.itemCopperIngot)) {
                             this.drawString(this.fontRenderer, is.getCount() + " x " + is.getDisplayName(), 40, offset, 65280);
                             playerHasItems = true;
                             offset += 20;

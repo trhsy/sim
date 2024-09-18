@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -23,7 +22,7 @@ import net.minecraft.util.text.TextComponentTranslation;
  * @author Trhsy
  * @Package: com.trhsy.sim.npc.task
  * @ClassName: JobTaskFarmer
- * @Description:
+ * @Description: 农场
  * @date 2023/08/07 上午 10:13
  */
 public class JobTaskFarmer extends JobTask {
@@ -56,6 +55,8 @@ public class JobTaskFarmer extends JobTask {
     @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
+        //设置固定不动
+        this.folk.stayPut = true;
         //锄地
         this.hoe();
     }
@@ -80,7 +81,7 @@ public class JobTaskFarmer extends JobTask {
                     falg =(System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 10.0F * 9.9;
                 }
                 // 等级 时间计算 工作效率
-                if (falg || (float) (System.currentTimeMillis() - this.harvestCheck) > 800.0F - 10.0F * this.folk.skillFarming) {
+                if (falg || (float) (System.currentTimeMillis() - this.harvestCheck) > 1000.0F - 100.0F * this.folk.skillFarming) {
                     this.hoe();
                 }
 

@@ -7,7 +7,6 @@ import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.npcCode.task.JobTaskChopTrees;
 import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +26,7 @@ public class JobLumberjack extends Job {
     List<Block> wood = new ArrayList();
     List<Block> toMine = new ArrayList();
     //工作阶段
-    public int lumberjackStage = -1;
+    public int lumberjackStage = 0;
     public JobLumberjack(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         try {

@@ -2,6 +2,8 @@ package com.trhsy.sim.config;
 
 import com.trhsy.sim.loader.ConfigLoader;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.network.client.ConfigSyncPacket;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -9,8 +11,6 @@ import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Map;
@@ -32,10 +32,10 @@ public class SimConfigSync {
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         try {
             if (event.player != null && event.player instanceof EntityPlayerMP && !FMLCommonHandler.instance().getSide().isClient()) {
-                /*ConfigSyncPacket packet = new ConfigSyncPacket();
+                ConfigSyncPacket packet = new ConfigSyncPacket();
                 packet.categories.add(ConfigLoader.Gameplay);
                 packet.categories.add(ConfigLoader.Nameplay);
-                NetWorkLoader.net.sendTo(packet, (EntityPlayerMP)event.player);*/
+                NetWorkLoader.net.sendTo(packet, (EntityPlayerMP)event.player);
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];

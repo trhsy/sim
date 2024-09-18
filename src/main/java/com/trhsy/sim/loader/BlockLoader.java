@@ -7,13 +7,11 @@ import com.trhsy.sim.block.enums.EnumControlBox;
 import com.trhsy.sim.block.enums.EnumLightColour;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDynamicLiquid;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -41,7 +39,8 @@ public class BlockLoader {
     /**路径箱**/
     public static BlockPathBox blockPathBox=new BlockPathBox();
     /**风车**/
-    public static BlockWindmill blockWindmill=new BlockWindmill();
+    public static BlockWindmill blockWindmill= new BlockWindmill(false);
+    public static BlockWindmill litBlockWindmill= new BlockWindmill(true);
 
     /**
      * 复合砖
@@ -96,7 +95,8 @@ public class BlockLoader {
         //标记棒
         event.getRegistry().register(blockMarker.setRegistryName(ModSim.MODID+":block_marker"));
         //风车
-        event.getRegistry().register(blockWindmill.setRegistryName(ModSim.MODID+":block_windmill"));
+        event.getRegistry().register(blockWindmill.setRegistryName(ModSim.MODID+":block_windmill").setUnlocalizedName("windmill").setCreativeTab(CreativeTabsLoader.tabSimU));
+        event.getRegistry().register(litBlockWindmill.setRegistryName(ModSim.MODID+":lit_block_windmill").setUnlocalizedName("windmill"));
         //牛奶
         event.getRegistry().register(milk.setRegistryName(ModSim.MODID+":milk"));
         //复合砖
@@ -148,9 +148,9 @@ public class BlockLoader {
         event.getRegistry().register(new ItemBlock(blockPathBox).setRegistryName(ModSim.MODID+":block_path_box"));
         //标记棒
         event.getRegistry().register(new ItemBlock(blockMarker).setRegistryName(ModSim.MODID+":block_marker"));
-        //标记棒
+        //风车
         event.getRegistry().register(new ItemBlock(blockWindmill).setRegistryName(ModSim.MODID+":block_windmill"));
-
+        event.getRegistry().register(new ItemBlock(litBlockWindmill).setRegistryName(ModSim.MODID+":lit_block_windmill"));
         //复合砖
         event.getRegistry().register(new ItemBlock(blockCompositeBrick).setRegistryName(ModSim.MODID+":block_composite_brick"));
         //牛奶
@@ -236,5 +236,7 @@ public class BlockLoader {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockSpecial),0,new ModelResourceLocation(blockSpecial.getRegistryName(),"inventory"));
         //风车
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockWindmill),0,new ModelResourceLocation(blockWindmill.getRegistryName(),"inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(litBlockWindmill),0,new ModelResourceLocation(litBlockWindmill.getRegistryName(),"inventory"));
+
     }
 }

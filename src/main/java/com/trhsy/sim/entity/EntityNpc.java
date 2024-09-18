@@ -3,23 +3,23 @@ package com.trhsy.sim.entity;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.ai.FolkAIOpenFenceGate;
 import com.trhsy.sim.entity.ai.FolkAIWander;
+import com.trhsy.sim.entity.container.ContainerNpc;
+import com.trhsy.sim.entity.container.InventoryNpc;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
-import com.trhsy.sim.loader.render.RenderEntityFolk;
 import com.trhsy.sim.network.client.*;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.NpcIdentity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.INpc;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -41,7 +41,7 @@ import java.util.UUID;
  * @Description: 实体npc
  * @date 2023/11/20 下午 3:57
  */
-public class EntityFolk extends EntityCreature implements INpc {
+public class EntityNpc extends EntityCreature implements INpc {
     /**
      * 上次更新状态时间
      **/
@@ -54,18 +54,24 @@ public class EntityFolk extends EntityCreature implements INpc {
      * NPC数据
      **/
     public NpcData theData;
-    public RenderEntityFolk renderEntityFolk;
     long secondTimer = 0L;
     /**
      * 是否为已创建
      **/
     public boolean isBeingCreated = false;
-    public EntityFolk(World worldIn) {
+    /**
+     * 物品栏
+     */
+    public Container inventoryContainer;
+
+    public InventoryNpc inventory = new InventoryNpc(this);
+    public EntityNpc(World worldIn) {
         super(worldIn);
+        this.inventoryContainer = new ContainerNpc(this.inventory, !worldIn.isRemote, this);
         try {
 
             //会捡起地上的东西
-            this.setCanPickUpLoot(true);
+            this.setCanPickUpLoot(false);
             //会进门
             ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
             //破门而入
@@ -85,12 +91,12 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @param world
      * @param isCreating
      */
-    public EntityFolk(World world, boolean isCreating) {
+    public EntityNpc(World world, boolean isCreating) {
         super(world);
-
+        this.inventoryContainer = new ContainerNpc(this.inventory, !world.isRemote, this);
         try {
             //会捡起地上的东西
-            this.setCanPickUpLoot(true);
+            this.setCanPickUpLoot(false);
             //会进门
             ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
             //破门而入
@@ -111,13 +117,13 @@ public class EntityFolk extends EntityCreature implements INpc {
      * @param world
      * @param id
      */
-    public EntityFolk(World world, String id) {
+    public EntityNpc(World world, String id) {
         super(world);
-
+        this.inventoryContainer = new ContainerNpc(this.inventory, !world.isRemote, this);
         try {
             this.setUniqueId(UUID.fromString(id));
             //会捡起地上的东西
-            this.setCanPickUpLoot(true);
+            this.setCanPickUpLoot(false);
             //会进门
             ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
             //破门而入
@@ -140,27 +146,31 @@ public class EntityFolk extends EntityCreature implements INpc {
         try {
             //智能游泳
             this.tasks.addTask(0, new EntityAISwimming(this));
+
+            //开门
+            this.tasks.addTask(1, new EntityAIOpenDoor(this, true));
             //限制打开门
             this.tasks.addTask(2, new EntityAIRestrictOpenDoor(this));
-            //开门
-            this.tasks.addTask(4, new EntityAIOpenDoor(this, true));
             //打开栅栏门
-            this.tasks.addTask(5, new FolkAIOpenFenceGate(this, true));
+            this.tasks.addTask(3, new FolkAIOpenFenceGate(this, true));
+
             //自由闲逛
             this.tasks.addTask(6, new FolkAIWander(this, 1.0D));
             //最近观看
-            this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-            this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 8.0F, 1));
+//            this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 1.0F));
+            this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 1.0F, 1));
             //看起来很空闲
             this.tasks.addTask(8, new EntityAILookIdle(this));
+
             //住进屋子
-            this.tasks.addTask(9, new EntityAIMoveIndoors(this));
+            this.tasks.addTask(2, new EntityAIMoveIndoors(this));
             //限制走向
-            this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
+//            this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
             //避开实体僵尸
             this.tasks.addTask(13, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
             //受到伤害会跑
-            this.tasks.addTask(13,new EntityAIPanic(this,0.1));
+            this.tasks.addTask(0,new EntityAIPanic(this,1.5));
+            this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 1.0F));
 
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
@@ -211,6 +221,7 @@ public class EntityFolk extends EntityCreature implements INpc {
         try {
             if (System.currentTimeMillis() - this.secondTimer > 1000L) {
                 this.secondTimer = System.currentTimeMillis();
+                //获取NPC旁边的所有实体
                 List<Entity> list1 = this.world.getEntitiesWithinAABBExcludingEntity(this, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).expand(2.0D, 4.0D, 2.0D));
                 for (Entity entity1 : list1) {
                     if (entity1 instanceof EntityItem) {
@@ -219,32 +230,50 @@ public class EntityFolk extends EntityCreature implements INpc {
 
                         try {
                             Item item = is.getItem();
-                            ModSimLoader.log.info("NPC手持物品：" + item.getUnlocalizedName());
+//                            ModSimLoader.log.info("NPC手持物品：" + item.getUnlocalizedName());
                             if (item instanceof ItemFood) {
-                                ModSimLoader.log.info("NPC手持物品：" + item.getUnlocalizedName()+",为食物。");
+//                                ModSimLoader.log.info("NPC手持物品：" + item.getUnlocalizedName()+",为食物。");
                                 //如果手里拿的是食物就，并且饿了就吃了
                                 if (this.theData != null && this.theData.hunger < 10 && item != null) {
                                     ModSimLoader.log.info("NPC手持物品：" + item.getUnlocalizedName()+",为食物，并且当前饥饿值为："+this.theData.hunger);
+                                    ItemFood itemFood = (ItemFood) item;
+                                    int healAmount = itemFood.getHealAmount(is);
+                                    this.theData.hunger+=healAmount;
                                     entityitem.setDead();
-                                    ++this.theData.hunger;
                                     ModSimLoader.log.info("NPC吃东西了，饥饿值："+this.theData.hunger);
                                 }
                             }
                         } catch (Exception var8) {
                             ModSimLoader.log.error("Npc 吃东西出错了：" + var8.getMessage());
                         }
-                    } else if (entity1 instanceof EntityFolk && (int) this.posX == (int) entity1.posX && (int) this.posZ == (int) entity1.posZ) {
+                    } /*else if (entity1 instanceof EntityNpc && (int) this.posX == (int) entity1.posX && (int) this.posZ == (int) entity1.posZ) {
                         this.motionX += 0.10000000149011612D;
 
                         try {
                             this.theData.stayPut = false;
                         } catch (Exception var7) {
                         }
+                    }*/
+                }
+                if (this.theData != null) {
+                    //获取设备
+                    Iterable<ItemStack> itemStacks = this.getHeldEquipment();
+                    for (ItemStack items : itemStacks) {
+                        Item item = items.getItem();
+                        if (item instanceof ItemFood) {
+                            ItemFood itemFood = (ItemFood) item;
+                            int healAmount = itemFood.getHealAmount(items);
+                            this.theData.hunger += healAmount;
+                            ModSimLoader.log.info("当前npc饱和度：" + this.theData.hunger);
+                            this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                        }
                     }
                 }
             }
+
             if (this.theData != null && !this.world.isRemote && !ModSimLoader.folks.contains(this.theData)) {
                 ModSimLoader.folks.add(this.theData);
+                NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -261,16 +290,13 @@ public class EntityFolk extends EntityCreature implements INpc {
     public void onFolkUpdate() {
         try {
             if (!this.world.isRemote) {
-                EntityFolk e = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString()).entity;
 
-                if (e != null && this.theData != null) {
+                if ( this.theData != null) {
                     if (this.theData.entity != null && !this.theData.entity.equals(this)) {
                         ModSimLoader.log.info("获得重复的民间实体");
                         this.setDead();
                     }
 
-                    if (!e.equals(this)) {
-                    }
                 }
             }
 
@@ -309,10 +335,11 @@ public class EntityFolk extends EntityCreature implements INpc {
                 }
             }
             super.onDeath(cause);
+            this.setHealth(0);
             this.setDead();
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("onDeath出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("EtityNPC-onDeath出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
     /**
@@ -333,14 +360,14 @@ public class EntityFolk extends EntityCreature implements INpc {
                     if(this.theData.job!=null){
                         String jobName=this.theData.job.jobName;
                         //工作是建筑商
-                        if(jobName.equals(new TextComponentTranslation("container.sim.Vocation11",new Object[0]).getUnformattedText())&&this.theData.isAtLocation(this.theData.job.workPlace)){
+                        if(jobName.equals(new TextComponentTranslation("container.sim.Vocation11",new Object[0]).getUnformattedText())&&this.theData.isAtLocation(this.theData.job.workPlace,5)){
                             //打开建筑商gui
                             NetWorkLoader.net.sendTo(new PacketOpenMerchantGui(this.theData), (EntityPlayerMP) player);
                             //行长
-                        }else if(jobName.equals(new TextComponentTranslation("container.sim.Vocation31",new Object[0]).getUnformattedText())&&this.theData.isAtLocation(this.theData.job.workPlace)){
+                        }else if(jobName.equals(new TextComponentTranslation("container.sim.Vocation31",new Object[0]).getUnformattedText())&&this.theData.isAtLocation(this.theData.job.workPlace,5)){
                             //打开建银行gui
                             NetWorkLoader.net.sendTo(new PacketOpenBankATMGui(this.theData), (EntityPlayerMP) player);
-                        }else if(jobName.equals(new TextComponentTranslation("container.sim.Vocation9",new Object[0]).getUnformattedText())&&this.theData.isAtLocation(this.theData.job.workPlace)){
+                        }else if(jobName.equals(new TextComponentTranslation("container.sim.Vocation9",new Object[0]).getUnformattedText())&&this.theData.isAtLocation(this.theData.job.workPlace,5)){
                             //打开建杂货商gui
                             NetWorkLoader.net.sendTo(new PacketOpenMerchantsGui(this.theData), (EntityPlayerMP) player);
                         }else if(jobName.equals(new TextComponentTranslation("container.sim.Vocation32",new Object[0]).getUnformattedText())&&this.theData.isAtLocation(this.theData.job.workPlace)){

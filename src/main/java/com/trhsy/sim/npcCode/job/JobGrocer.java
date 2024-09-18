@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,7 @@ import java.util.List;
  **/
 public class JobGrocer extends Job{
     //工作阶段
-    public int grocerStage = -1;
+    public int grocerStage = 0;
     public List<ItemStack> colItems = new ArrayList();
     public JobGrocer(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
@@ -33,17 +32,17 @@ public class JobGrocer extends Job{
             this.jobName = new TextComponentTranslation("container.sim.Vocation26",new Object[0]).getUnformattedText();
 
             //马铃薯
-            this.colItems.add(new ItemStack(Items.POTATO, 32));
+            this.colItems.add(new ItemStack(Items.POTATO, 16));
             //胡萝卜
-            this.colItems.add(new ItemStack(Items.CARROT, 32));
+            this.colItems.add(new ItemStack(Items.CARROT, 16));
             //甜菜根
-            this.colItems.add(new ItemStack(Items.BEETROOT, 32));
+            this.colItems.add(new ItemStack(Items.BEETROOT, 16));
             //苹果
-            this.colItems.add(new ItemStack(Items.APPLE, 32));
+            this.colItems.add(new ItemStack(Items.APPLE, 16));
             //南瓜
             this.colItems.add(new ItemStack(Blocks.PUMPKIN, 8));
             //西瓜
-            this.colItems.add(new ItemStack(Items.MELON, 32));
+            this.colItems.add(new ItemStack(Items.MELON, 16));
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobGrocer出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -63,15 +62,15 @@ public class JobGrocer extends Job{
                     this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived",new Object[0]).getUnformattedText()));
                 } else if (this.grocerStage == 1) {
                     //装卸货
-                    this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                    this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                     this.grocerStage = 2;
                 }else if (this.grocerStage == 2) {
                     //装卸货
-                    this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                    this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.grocerStage = 3;
                 }else if (this.grocerStage == 3) {
                     //售卖
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Grocer1",new Object[0]).getUnformattedText()));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Grocer1",new Object[0]).getUnformattedText(),true));
                     this.grocerStage = 4;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {

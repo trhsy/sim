@@ -11,7 +11,6 @@ import com.trhsy.sim.npcCode.job.JobFarmer;
 import com.trhsy.sim.npcCode.job.JobMiner;
 import com.trhsy.sim.npcCode.job.JobTerrainFormer;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -81,6 +80,7 @@ public class PacketHireFolk implements IMessage {
 
         private void handle(PacketHireFolk message, MessageContext ctx) {
             NpcData fd = ModSimLoader.getFolkDataByUID(message.uuid);
+            V3 v3=new V3(message.pos.x+0.5,message.pos.y-1,message.pos.z+0.5);
             if (fd.job != null) {
                 //被其他地方雇佣，尝试雇佣其他人
                 ctx.getServerHandler().player.sendMessage(new TextComponentString(fd.getName() + new TextComponentTranslation("container.sim.hire_elsewhere",new Object[0]).getUnformattedText()));
@@ -88,27 +88,27 @@ public class PacketHireFolk implements IMessage {
                 //建筑工
                 if (message.job.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
                     fd.job = new JobBuilder(fd, message.pos, message.buildDirection, ctx.getServerHandler().player.world);
-                    BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(message.pos.toBlockPos()).getBlock();
+                    BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(v3.toBlockPos()).getBlock();
                     cons.employee = fd;
                     //规划师
                 }else if(message.job.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())){
                     fd.job = new JobTerrainFormer(fd,message.pos,ctx.getServerHandler().player.world);
-                    BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(message.pos.toBlockPos()).getBlock();
+                    BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(v3.toBlockPos()).getBlock();
                     cons.employee = fd;
                     //农民
                 } else if (message.job.contentEquals(new TextComponentTranslation("container.sim.Hire_farmer",new Object[0]).getUnformattedText())) {
                     //农田箱
-                    FarmBox farmBox = ModSimLoader.getFarm(message.pos);
+                    FarmBox farmBox = ModSimLoader.getFarm(v3);
                     if (farmBox != null) {
-                        fd.job = new JobFarmer(fd, message.pos.toBlockPos(), ctx.getServerHandler().player.world, farmBox);
+                        fd.job = new JobFarmer(fd, v3.toBlockPos(), ctx.getServerHandler().player.world, farmBox);
                         farmBox.employee = fd;
                         farmBox.saveFarm();
                     }
                     //矿工
                 } else if (message.job.contentEquals(new TextComponentTranslation("container.sim.Vocation4",new Object[0]).getUnformattedText())) {
-                    MineBox mineBox = ModSimLoader.getMine(message.pos);
+                    MineBox mineBox = ModSimLoader.getMine(v3);
                     if (mineBox != null) {
-                        fd.job = new JobMiner(fd, message.pos.toBlockPos(), ctx.getServerHandler().player.world, mineBox);
+                        fd.job = new JobMiner(fd, v3.toBlockPos(), ctx.getServerHandler().player.world, mineBox);
                         mineBox.employee = fd;
                         mineBox.saveMine();
                     }

@@ -7,7 +7,6 @@ import com.trhsy.sim.network.server.PacketFireFolk;
 import com.trhsy.sim.npcCode.NpcIdentity;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentTranslation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -55,7 +54,7 @@ public class GuiEmployees extends GuiScreen {
                 }
 
                 y += 20;
-                if (y + 20 > this.height - 50) {
+                if (y + 20 > this.height - 30) {
                     more = true;
                     break;
                 }

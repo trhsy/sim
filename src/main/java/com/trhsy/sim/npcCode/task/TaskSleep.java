@@ -7,6 +7,7 @@ package com.trhsy.sim.npcCode.task;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
+import com.trhsy.sim.npcCode.V3;
 
 /**
  * @Author fan
@@ -48,9 +49,11 @@ public class TaskSleep extends Task {
     @Override
     public void onUpdate() {
         if (this.folk.home != null&&!this.folk.isAtLocation(this.folk.home.livingXYZ)&&System.currentTimeMillis()-this.fs_t>3000l) {
-            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
-                this.folk.forceMoveToXYZNoWarp(this.folk.home.livingXYZ);
-            }
+            this.folk.stayPut = false;
+//            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
+            V3 v3=new V3(this.folk.home.livingXYZ.x+0.5,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z+0.5);
+                this.folk.forceMoveToXYZNoWarp(v3);
+//            }
             this.fs_t=System.currentTimeMillis();
         }else{
             this.folk.stayPut = true;

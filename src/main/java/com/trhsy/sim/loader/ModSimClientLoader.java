@@ -6,6 +6,7 @@ import com.trhsy.sim.gui.GuiRunMod;
 import com.trhsy.sim.gui.block.*;
 import com.trhsy.sim.gui.npc.*;
 import com.trhsy.sim.network.client.*;
+import com.trhsy.sim.network.server.PacketOpenFolkInventoryGui;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.NpcIdentity;
 import com.trhsy.sim.npcCode.NpcSkin;
@@ -35,6 +36,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ModSimClientLoader {
     //客户端皮肤
     public static List<NpcSkin> folkSkins = new CopyOnWriteArrayList();
+
+    public static List<NpcData> folks = new CopyOnWriteArrayList();
     /**
      * 临时可雇佣Npc姓名
      **/
@@ -79,6 +82,9 @@ public class ModSimClientLoader {
     public static int gamemode;
     public static int dayOfWeek;
     public static float money;
+
+    /**模拟城市是否开始运行*/
+    public static Boolean sim_is_running=false;
     public ModSimClientLoader() {
     }
     /**
@@ -257,6 +263,10 @@ public class ModSimClientLoader {
     public static void openSetupGui() {
         Minecraft.getMinecraft().displayGuiScreen(new GuiRunMod());
     }
+
+    /**
+     * 绘制头部信息
+     */
     public static void openHudGui() {
         Minecraft.getMinecraft().displayGuiScreen(new GuiHud());
     }
@@ -284,5 +294,13 @@ public class ModSimClientLoader {
 
     public static void openConstructorGui(BlockPos pos, int bDir, NpcIdentity folk, int dimension) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBlockConstructorBlock(pos, bDir, folk, dimension));
+    }
+
+    /**
+     * 打开
+     * @param message
+     */
+    public static void openFolkInventoryGui(PacketOpenFolkInventoryGui message) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiFolkInventory(message));
     }
 }

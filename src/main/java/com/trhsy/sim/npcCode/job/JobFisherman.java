@@ -7,7 +7,6 @@ import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskPlaceInChest;
 import com.trhsy.sim.npcCode.task.JobTaskShopkeep;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -36,7 +35,7 @@ public class JobFisherman extends Job {
     public BlockPos pos;
     public World world;
     //工作阶段
-    public int fishermanStage = -1;
+    public int fishermanStage = 0;
     /**
      * 自上一个块位置的时间
      **/
@@ -146,7 +145,7 @@ public class JobFisherman extends Job {
                     } else if (this.fishermanStage == 11) {
                         this.fishermanStage = 12;
                         //卖鱼
-                        this.addJobTask(new JobTaskShopkeep(this, -1L, "fish"));
+                        this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.fisherman.farmer.fish",new Object[0]).getUnformattedText(),true));
                     }
                 } else {
                     //当前时间

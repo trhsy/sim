@@ -1,6 +1,7 @@
 package com.trhsy.sim.entity;
 
 import com.trhsy.sim.block.BlockWindmill;
+import com.trhsy.sim.entity.container.ContainerWindmill;
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
@@ -20,6 +21,9 @@ import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.util.datafix.FixTypes;
+import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -175,6 +179,10 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
         this.windmillCustomName = customName;
     }
 
+    public static void registerFixesFurnace(DataFixer fixer) {
+        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityWindmill.class, new String[]{"Items"}));
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
@@ -308,17 +316,21 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
             return false;
         } else {
             ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
-            if (itemstack == null) {
+            if (itemstack.isEmpty()) {
                 return false;
+            } else {
+                ItemStack itemstack1 = this.furnaceItemStacks.get(1);
+                if (itemstack1.isEmpty()) {
+                    return true;
+                } else if (!itemstack1.isItemEqual(itemstack)) {
+                    return false;
+                } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize())  // Forge fix: make furnace respect stack sizes in furnace recipes
+                {
+                    return true;
+                } else {
+                    return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
+                }
             }
-            if (this.furnaceItemStacks.get(1) == null) {
-                return true;
-            }
-            if (!this.furnaceItemStacks.get(1).isItemEqual(itemstack)) {
-                return false;
-            }
-            int result = furnaceItemStacks.get(1).getCount() + itemstack.getCount();
-            return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks.get(1).getMaxStackSize(); //Forge BugFix: Make it respect stack sizes properly.
         }
     }
 
@@ -332,6 +344,17 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
             if (this.canSmelt()) {
                 //第一个是金铁铜锡
                 ItemStack itemstack = this.furnaceItemStacks.get(0);
+                ItemStack itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
+                ItemStack itemstack2 = this.furnaceItemStacks.get(1);
+                if (itemstack2.isEmpty())
+                {
+                    this.furnaceItemStacks.set(1, itemstack1.copy());
+                }
+                else if (itemstack2.getItem() == itemstack1.getItem())
+                {
+                    itemstack2.grow(itemstack1.getCount());
+                }
+
                 //if (this.furnaceItemStacks.get(1) == null) {
                 //    this.furnaceItemStacks.get(1) = itemstack.copy();
                 //} else if (this.furnaceItemStacks.get(1).getItem() == itemstack.getItem()) {
@@ -343,7 +366,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 9);
                     } else {
                         //铜粒儿
-                        this.furnaceItemStacks.set(1,new ItemStack(ItemLoader.itemGranulesCopper));
+                        this.furnaceItemStacks.set(1, new ItemStack(ItemLoader.itemGranulesCopper));
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
                     }
                 }
@@ -353,7 +376,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 9);
                     } else {
                         //锡粒儿
-                        this.furnaceItemStacks.set(1,new ItemStack(ItemLoader.itemGranulesTin));
+                        this.furnaceItemStacks.set(1, new ItemStack(ItemLoader.itemGranulesTin));
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
                     }
                 }
@@ -364,7 +387,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 9);
                     } else {
                         //金粒儿
-                        this.furnaceItemStacks.set(1,new ItemStack(ItemLoader.itemGranulesGold));
+                        this.furnaceItemStacks.set(1, new ItemStack(ItemLoader.itemGranulesGold));
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
                     }
 
@@ -379,8 +402,10 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
                     }
                 }
-                //库存减少
-                this.furnaceItemStacks.get(0).shrink(1);
+
+//库存减少
+                itemstack.shrink(1);
+
 
             }
         } catch (Exception e) {
@@ -397,7 +422,11 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     @Override
     public boolean isUsableByPlayer(EntityPlayer player) {
-        return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        if (this.world.getTileEntity(this.pos) != this) {
+            return false;
+        } else {
+            return player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        }
     }
 
     @Override
@@ -435,7 +464,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
-        return side == EnumFacing.DOWN ? SLOTS_LEFT : SLOTS_RIGHT;
+        return side == EnumFacing.UP ? SLOTS_LEFT : SLOTS_RIGHT;
     }
 
     /**
@@ -544,7 +573,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     @Override
     public <T> T getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, EnumFacing facing) {
         if (facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if (facing == EnumFacing.DOWN) {
+            if (facing == EnumFacing.UP) {
                 return (T) handlerLeft;
             } else {
                 return (T) handlerRIGHT;

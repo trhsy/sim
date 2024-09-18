@@ -6,7 +6,6 @@ import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskPlaceInChest;
 import com.trhsy.sim.npcCode.task.JobTaskSpawnLivestock;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,7 @@ import scala.util.Random;
  **/
 public class JobEggFarmer extends Job{
     //工作阶段
-    public int eggFarmerStage = -1;
+    public int eggFarmerStage = 0;
     public JobEggFarmer(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         try {

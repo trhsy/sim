@@ -9,7 +9,6 @@ import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskSearchForBlock;
 import com.trhsy.sim.npcCode.task.JobTaskUseFurnace;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +27,7 @@ import java.util.List;
 public class JobGlassMaker extends Job{
     public V3 v3;
     //工作阶段
-    public int glassMakerStage = -1;
+    public int glassMakerStage = 0;
     public JobGlassMaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         try {
@@ -62,7 +61,7 @@ public class JobGlassMaker extends Job{
                     colItems.add(Blocks.SAND);
                     //去寻找 沙子
                     this.folk.setStatus(new TextComponentTranslation("container.sim.GOTOCLAYBLOCK",new Object[0]).getUnformattedText());
-                    this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,this.v3, ConfigLoader.configLumberArea,false));
+                    this.addJobTask(new JobTaskSearchForBlock(this, -1L, colItems,this.v3, ConfigLoader.configLumberArea,false));
                     this.glassMakerStage = 2;
                 }else if(this.glassMakerStage == 2){
                     this.addJobTask(new JobTaskUseFurnace(this, 120000, new ItemStack(Blocks.SAND)));

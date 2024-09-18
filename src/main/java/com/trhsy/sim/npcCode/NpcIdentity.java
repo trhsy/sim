@@ -28,8 +28,10 @@ public class NpcIdentity {
     public String maturityAge;
     /**皮肤**/
     public String skinPath;
+    /**是否死亡**/
+    public boolean isDead;
 
-    public NpcIdentity(String id, String name, String age, String status, String job, String house, String relationship, String hunger, String maturityAge, String skinPath) {
+    public NpcIdentity(String id, String name, String age, String status, String job, String house, String relationship, String hunger, String maturityAge, String skinPath,boolean isDead) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -40,6 +42,7 @@ public class NpcIdentity {
         this.hunger = hunger;
         this.maturityAge = maturityAge;
         this.skinPath = skinPath;
+        this.isDead = isDead;
     }
 
     public NpcIdentity(String combinedInfo) {
@@ -53,10 +56,11 @@ public class NpcIdentity {
         this.hunger = combinedInfo.split(",_,")[7];
         this.maturityAge = combinedInfo.split(",_,")[8];
         this.skinPath = combinedInfo.split(",_,")[9];
+        this.isDead = Boolean.parseBoolean(combinedInfo.split(",_,")[10]);
     }
 
     @Override
     public String toString() {
-        return this.id + ",_," + this.name + ",_," + this.age + ",_," + this.status + ",_," + this.job + ",_," + this.house + ",_," + this.relationship + ",_," + this.hunger + ",_," + this.maturityAge + ",_," + this.skinPath;
+        return this.id + ",_," + this.name + ",_," + this.age + ",_," + this.status + ",_," + this.job + ",_," + this.house + ",_," + this.relationship + ",_," + this.hunger + ",_," + this.maturityAge + ",_," + this.skinPath+ ",_," + this.isDead;
     }
 }

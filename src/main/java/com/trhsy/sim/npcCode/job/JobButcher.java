@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +21,7 @@ import java.util.List;
  **/
 public class JobButcher extends Job{
     //工作阶段
-    public int butcherStage = -1;
+    public int butcherStage = 0;
     //要收集的物品
     public List<ItemStack> colItems = new ArrayList();
     public JobButcher(NpcData folk, BlockPos pos, World world) {
@@ -59,11 +58,11 @@ public class JobButcher extends Job{
                     this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived",new Object[0]).getUnformattedText()));
                 } else if (this.butcherStage == 1) {
                     //收集
-                    this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                    this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                     this.butcherStage = 2;
                 } else if (this.butcherStage == 2) {
                     //卸货
-                    this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                    this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.butcherStage = 3;
                 } else if (this.butcherStage == 3) {
                     /**
@@ -73,7 +72,7 @@ public class JobButcher extends Job{
                      * @Param [folk, pos, world]
                      * @return
                      **/
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.SELLINGMEAT",new Object[0]).getUnformattedText()));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.SELLINGMEAT",new Object[0]).getUnformattedText(),true));
                     this.butcherStage = 4;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {

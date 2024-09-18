@@ -8,6 +8,8 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.village.Village;
+import net.minecraft.village.VillageDoorInfo;
 
 /**
  * @author Trhsy
@@ -17,19 +19,29 @@ import net.minecraft.util.math.BlockPos;
  * @date 2023/11/20 下午 4:54
  */
 public class FolkAIFenceGateInteract extends EntityAIBase {
-    /**实体**/
+    /**
+     * 实体
+     **/
     protected EntityLiving entity;
-    /**栅栏位置**/
+    /**
+     * 栅栏位置
+     **/
     protected BlockPos fencePosition;
-    /**栏杆块**/
+    /**
+     * 栏杆块
+     **/
     protected BlockFenceGate fenceBlock;
-    /**已停止门交互**/
+    /**
+     * 已停止门交互
+     **/
     boolean hasStoppedDoorInteraction;
-    /**实体位置X**/
+    /**
+     * 实体位置X
+     **/
     float entityPositionX;
     /***实体位置z**/
     float entityPositionZ;
-
+    private VillageDoorInfo frontDoor;
     public FolkAIFenceGateInteract(EntityLiving entityIn) {
         this.fencePosition = BlockPos.ORIGIN;
         this.entity = entityIn;
@@ -44,35 +56,40 @@ public class FolkAIFenceGateInteract extends EntityAIBase {
      */
     @Override
     public boolean shouldExecute() {
-        //是水平碰撞 如果移动后该实体与X轴或Z轴上的某个物体发生碰撞，则为True
-        if (!this.entity.collidedHorizontally) {
-            return false;
-        } else {
-            PathNavigateGround pathnavigateground = (PathNavigateGround)this.entity.getNavigator();
-            Path pathentity = pathnavigateground.getPath();
-            if (pathentity != null && !pathentity.isFinished() && pathnavigateground.getEnterDoors()) {
-                for(int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i) {
+
+        PathNavigateGround pathnavigateground = (PathNavigateGround) this.entity.getNavigator();
+        Path pathentity = pathnavigateground.getPath();
+        if (pathnavigateground.getEnterDoors()) {
+            if (pathentity != null) {
+                for (int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i) {
                     PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
                     this.fencePosition = new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z);
-                    if (this.entity.getDistanceSq((double)this.fencePosition.getX(), this.entity.posY, (double)this.fencePosition.getZ()) <= 2.25D) {
-                        this.fenceBlock = this.getBlockFence(this.fencePosition);
-                        if (this.fenceBlock != null) {
-                            return true;
+                    Village village = this.entity.world.getVillageCollection().getNearestVillage(this.fencePosition, 16);
+                    if (village == null) {
+                        return false;
+                    } else {
+                        this.frontDoor = village.getNearestDoor(this.fencePosition);
+
+                        if (this.frontDoor == null) {
+                            return false;
+                        } else {
+                            return (double) this.frontDoor.getDistanceToInsideBlockSq(this.fencePosition) < 2.25D;
                         }
                     }
                 }
-
                 this.fencePosition = (new BlockPos(this.entity)).up();
                 this.fenceBlock = this.getBlockFence(this.fencePosition);
                 return this.fenceBlock != null;
-            } else {
-                return false;
             }
+        } else {
+            return false;
         }
+        return false;
     }
 
     /**
      * 应该继续执行
+     *
      * @return
      */
     @Override
@@ -86,8 +103,8 @@ public class FolkAIFenceGateInteract extends EntityAIBase {
     @Override
     public void startExecuting() {
         this.hasStoppedDoorInteraction = false;
-        this.entityPositionX = (float)((double)((float)this.fencePosition.getX() + 0.5F) - this.entity.posX);
-        this.entityPositionZ = (float)((double)((float)this.fencePosition.getZ() + 0.5F) - this.entity.posZ);
+        this.entityPositionX = (float) ((double) ((float) this.fencePosition.getX() + 0.5F) - this.entity.posX);
+        this.entityPositionZ = (float) ((double) ((float) this.fencePosition.getZ() + 0.5F) - this.entity.posZ);
     }
 
     /**
@@ -95,14 +112,15 @@ public class FolkAIFenceGateInteract extends EntityAIBase {
      */
     @Override
     public void updateTask() {
-        float f = (float)((double)((float)this.fencePosition.getX() + 0.5F) - this.entity.posX);
-        float f1 = (float)((double)((float)this.fencePosition.getZ() + 0.5F) - this.entity.posZ);
+        float f = (float) ((double) ((float) this.fencePosition.getX() + 0.5F) - this.entity.posX);
+        float f1 = (float) ((double) ((float) this.fencePosition.getZ() + 0.5F) - this.entity.posZ);
         float f2 = this.entityPositionX * f + this.entityPositionZ * f1;
         if (f2 < 0.0F) {
             this.hasStoppedDoorInteraction = true;
         }
 
     }
+
     /***
      * 获取栅栏块
      * @param pos
@@ -115,6 +133,6 @@ public class FolkAIFenceGateInteract extends EntityAIBase {
             this.fencePosition = this.entity.getPosition();
         }
 
-        return block instanceof BlockFenceGate ? (BlockFenceGate)block : null;
+        return block instanceof BlockFenceGate ? (BlockFenceGate) block : null;
     }
 }

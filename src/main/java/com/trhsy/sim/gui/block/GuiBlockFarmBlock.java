@@ -13,7 +13,6 @@ import com.trhsy.sim.npcCode.block.FarmBox;
 import com.trhsy.sim.npcCode.enums.FarmType;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -390,7 +389,7 @@ public class GuiBlockFarmBlock extends GuiScreen {
                     this.employee = this.hireableFolkNames[this.selectedEmployee.id];
                     this.currentPage = 0;
                     this.showPage();
-                    NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, new TextComponentTranslation("container.sim.Hire_farmer",new Object[0]).getUnformattedText(), this.loc));
+                    NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, new TextComponentTranslation("container.sim.Hire_farmer",new Object[0]).getUnformattedText(), new V3(this.loc.x,this.loc.y+1,this.loc.z)));
                 }
 
                 if (guibutton.id > 99 && guibutton.id < 1000) {

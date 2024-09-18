@@ -41,6 +41,7 @@ public abstract class JobTask {
 
     public void begin() {
         this.completed = false;
+        this.folk.hunger = this.folk.hunger - 0.02;
         this.timeSinceLastRun = System.currentTimeMillis();
         this.onTaskBegin();
     }

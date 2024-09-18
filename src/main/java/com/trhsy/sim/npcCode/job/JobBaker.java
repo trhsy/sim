@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -27,7 +26,7 @@ public class JobBaker extends Job {
     //小麦，鸡蛋，南瓜，牛奶,糖,可可豆
     private int wheat, egg, pumpkin, milk_bucket, sugar, dye;
     //工作阶段
-    public int baker_stage = -1;
+    public int baker_stage = 0;
     public JobBaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
@@ -66,7 +65,7 @@ public class JobBaker extends Job {
                 //可可豆
                 colItems.add(new ItemStack(Items.DYE, 16));
                 //收集
-                this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                 this.baker_stage = 3;
             } else if (this.baker_stage == 3) {
                 List<ItemStack> colItems = new ArrayList();
@@ -82,7 +81,7 @@ public class JobBaker extends Job {
                 colItems.add(new ItemStack(Items.SUGAR, 24));
                 //可可豆
                 colItems.add(new ItemStack(Items.DYE, 24));
-                this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                 this.baker_stage = 4;
             } else if (this.baker_stage == 4) {
 
@@ -129,7 +128,7 @@ public class JobBaker extends Job {
                     this.baker_stage = 5;
             } else if (this.baker_stage == 5) {
                 //售卖/关店
-                this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Baker_bread",new Object[0]).getUnformattedText()));
+                this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Baker_bread",new Object[0]).getUnformattedText(),true));
                 this.baker_stage = 6;
             } else if (this.baker_stage == 6) {
                 //在去工作途中，并且已经到了工作位置则更新状态

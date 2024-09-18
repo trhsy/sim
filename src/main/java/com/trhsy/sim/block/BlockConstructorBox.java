@@ -12,7 +12,6 @@ import com.trhsy.sim.npcCode.V3;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -34,8 +33,9 @@ import java.util.List;
  * @Description: 建筑箱
  * @date 2023/10/31 上午 10:16
  */
-public class BlockConstructorBox extends BlockBase{
+public class BlockConstructorBox extends BlockBase {
     public NpcData employee;
+
     public BlockConstructorBox() {
         super(Material.WOOD, "constructorBox");
         //用于设定走在方块上的响声。
@@ -44,6 +44,7 @@ public class BlockConstructorBox extends BlockBase{
         this.setHardness(0.5F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
     /**
      * @return boolean
      * @Author fan
@@ -85,18 +86,24 @@ public class BlockConstructorBox extends BlockBase{
             NpcData fd = null;
             for (NpcData f : ModSimLoader.folks) {
                 //建筑师
-                if (f.job != null && (f.job.jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText()) || f.job.jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())) && f.job.workPlace.toString().contentEquals(new V3(pos, playerIn.dimension).toString())) {
+                String v1 = new TextComponentTranslation("container.sim.Vocation1", new Object[0]).getUnformattedText();
+                String v2 = new TextComponentTranslation("container.sim.Vocation16", new Object[0]).getUnformattedText();
+                if (f.job != null) {
+                V3 v3 = new V3(f.job.workPlace.x, f.job.workPlace.y - 1, f.job.workPlace.z);
+                V3 v31 = V3.fromBlockPos(pos);
+                if ((f.job.jobName.contentEquals(v1) || f.job.jobName.contentEquals(v2)) && v3.equals(v31)) {
                     fd = f;
                     break;
                 }
             }
+            }
 
             if (fd != null) {
-                if (!fd.job.workPlace.toString().contentEquals(new V3(pos, playerIn.dimension).toString())) {
+               /* if (!fd.job.workPlace.toString().contentEquals(new V3(pos, playerIn.dimension).toString())) {
                     NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, playerIn.dimension), (EntityPlayerMP) playerIn);
-                } else {
-                    NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, fd.getClientIdentity(), playerIn.dimension), (EntityPlayerMP) playerIn);
-                }
+                } else {*/
+                NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, fd.getClientIdentity(), playerIn.dimension), (EntityPlayerMP) playerIn);
+//                }
             } else {
                 NetWorkLoader.net.sendTo(new PacketOpenConstructorGui(pos, buildDirection, playerIn.dimension), (EntityPlayerMP) playerIn);
             }
@@ -116,7 +123,7 @@ public class BlockConstructorBox extends BlockBase{
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-        worldIn.playSound(null,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        worldIn.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         for (NpcData fd : ModSimLoader.folks) {
             if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
@@ -127,6 +134,7 @@ public class BlockConstructorBox extends BlockBase{
         ModSimClientLoader.previewPos2 = null;
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {

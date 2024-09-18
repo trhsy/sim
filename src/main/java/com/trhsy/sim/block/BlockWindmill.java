@@ -3,7 +3,6 @@ package com.trhsy.sim.block;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.loader.BlockLoader;
-import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.block.BlockContainer;
@@ -17,16 +16,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.SPacketOpenWindow;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatBasic;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -51,7 +47,7 @@ public class BlockWindmill extends BlockContainer{
     public static final StatBase WINDMILL_INTERACTION = (new StatBasic("stat.windmillInteraction", new TextComponentTranslation("stat.windmillInteraction", new Object[0]))).registerStat();
     private static boolean keepInventory;
 
-    public BlockWindmill() {
+    public BlockWindmill(boolean isBurning) {
         super(Material.WOOD);
         //用于设定走在方块上的响声。
         this.setSoundType(SoundType.WOOD);
@@ -59,10 +55,11 @@ public class BlockWindmill extends BlockContainer{
         this.setHardness(0.1F);
         //设定方块的爆炸抗性，如木头的抗性为4，石头为10，黑曜石为2000，基岩为6000000。
         this.setResistance(0.5F);
-        this.setUnlocalizedName("windmill");
+//        this.setUnlocalizedName("windmill");
         //this.setTextureName(ModSim.MODID + ":" + "windmill");
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+//        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+        this.isBurning = isBurning;
 
     }
     /**
@@ -78,6 +75,7 @@ public class BlockWindmill extends BlockContainer{
     }
     private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
+            //获取东南西北
             IBlockState iblockstate = worldIn.getBlockState(pos.north());
             IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
             IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
@@ -124,24 +122,26 @@ public class BlockWindmill extends BlockContainer{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         try {
-            this.isBurning = true;
+
             //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
             if (worldIn.isRemote) {
                 return true;
             } else {
-                //NetWorkLoader.net.sendTo(new PacketOpenWindmillGui(playerIn, new V3(pos, playerIn.dimension)), (EntityPlayerMP) playerIn);
+//                NetWorkLoader.net.sendTo(new PacketOpenWindmillGui(playerIn, new V3(pos, playerIn.dimension)), (EntityPlayerMP) playerIn);
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 if (tileentity instanceof TileEntityWindmill) {
+
                     TileEntityWindmill tileEntityWindmill=(TileEntityWindmill)tileentity;
                     ModSimClientLoader.openWindmill(playerIn.inventory, tileEntityWindmill);
-                    EntityPlayerMP entityPlayerMP= (EntityPlayerMP) playerIn;
-                    //entityPlayerMP.displayGUIChest((TileEntityWindmill) tileentity);
+                    //playerIn.displayGUIChest((TileEntityWindmill) tileentity);
+                    /*EntityPlayerMP entityPlayerMP= (EntityPlayerMP) playerIn;
+
                     entityPlayerMP.getNextWindowId();
-                    entityPlayerMP.connection.sendPacket(new SPacketOpenWindow(entityPlayerMP.currentWindowId,tileEntityWindmill.getGuiID(), tileEntityWindmill.getDisplayName(), tileEntityWindmill.getSizeInventory()));
-                    entityPlayerMP.openContainer = tileEntityWindmill.createContainer(entityPlayerMP.inventory, entityPlayerMP);
+                    entityPlayerMP.connection.sendPacket(new SPacketOpenWindow(entityPlayerMP.currentWindowId,((IInteractionObject)tileEntityWindmill).getGuiID(), tileEntityWindmill.getDisplayName(), tileEntityWindmill.getSizeInventory()));
+                    entityPlayerMP.openContainer = ((IInteractionObject)tileEntityWindmill).createContainer(entityPlayerMP.inventory, entityPlayerMP);
                     entityPlayerMP.openContainer.windowId = entityPlayerMP.currentWindowId;
                     entityPlayerMP.openContainer.addListener(entityPlayerMP);
-
+                    net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.player.PlayerContainerEvent.Open(entityPlayerMP, entityPlayerMP.openContainer));*/
                     playerIn.addStat(WINDMILL_INTERACTION);
                 }
                 return true;
@@ -159,8 +159,8 @@ public class BlockWindmill extends BlockContainer{
         keepInventory = true;
 
         if (active) {
-            worldIn.setBlockState(pos, BlockLoader.blockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, BlockLoader.blockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, BlockLoader.litBlockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, BlockLoader.litBlockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         } else {
             worldIn.setBlockState(pos, BlockLoader.blockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
             worldIn.setBlockState(pos, BlockLoader.blockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
@@ -180,7 +180,7 @@ public class BlockWindmill extends BlockContainer{
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return null;
+        return new TileEntityWindmill();
     }
 
     /**
@@ -221,8 +221,8 @@ public class BlockWindmill extends BlockContainer{
         if (!keepInventory) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityFurnace) {
-                InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityFurnace) tileentity);
+            if (tileentity instanceof TileEntityWindmill) {
+                InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityWindmill) tileentity);
                 worldIn.updateComparatorOutputLevel(pos, this);
             }
         }

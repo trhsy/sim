@@ -58,6 +58,8 @@ public class NetWorkLoader {
         registerMessage(PacketSellStuff.Handler.class,PacketSellStuff.class,Side.SERVER);
         //生成npc
         registerMessage(PacketNewFolk.Handler.class,PacketNewFolk.class,Side.SERVER);
+        //npc 库存
+        registerMessage(PacketOpenFolkInventoryGui.Handler.class,PacketOpenFolkInventoryGui.class,Side.SERVER);
 
     }
 
@@ -77,6 +79,8 @@ public class NetWorkLoader {
         registerMessage(PacketReturnHireableFolks.Handler.class,PacketReturnHireableFolks.class,Side.CLIENT);
         //更新资金
         registerMessage(PacketUpdateMoney.Handler.class,PacketUpdateMoney.class,Side.CLIENT);
+        //更新客户端NPC
+        registerMessage(PacketUpdateNPC.Handler.class,PacketUpdateNPC.class,Side.CLIENT);
         //打开NPC互动界面
         registerMessage(PacketOpenFolkGui.Handler.class,PacketOpenFolkGui.class,Side.CLIENT);
         //打开建筑箱gui
@@ -85,6 +89,8 @@ public class NetWorkLoader {
         registerMessage(PacketSendBuildingRequirements.Handler.class,PacketSendBuildingRequirements.class,Side.CLIENT);
         //请求规划
         registerMessage(PacketSendTerrainType.Handler.class,PacketSendTerrainType.class,Side.CLIENT);
+        //请求规划
+        registerMessage(PacketSendTerrainTypeRequitrements.Handler.class,PacketSendTerrainTypeRequitrements.class,Side.CLIENT);
         //打开控制箱
         registerMessage(PacketOpenControlGui.Handler.class,PacketOpenControlGui.class,Side.CLIENT);
         //打开养殖箱
@@ -107,6 +113,8 @@ public class NetWorkLoader {
         registerMessage(PacketOpenPathBoxGui.Handler.class,PacketOpenPathBoxGui.class,Side.CLIENT);
         //风车
         registerMessage(PacketOpenWindmillGui.Handler.class,PacketOpenWindmillGui.class,Side.CLIENT);
+
+
 
     }
     /**

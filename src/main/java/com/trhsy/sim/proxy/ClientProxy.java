@@ -1,7 +1,6 @@
 package com.trhsy.sim.proxy;
 
 import com.trhsy.sim.gui.GuiHud;
-import com.trhsy.sim.key.ModKeyBinding;
 import com.trhsy.sim.loader.ConfigLoader;
 import com.trhsy.sim.loader.EntityLoader;
 import com.trhsy.sim.loader.ModSimClientLoader;
@@ -10,19 +9,12 @@ import com.trhsy.sim.loader.render.ItemRenderLoader;
 import com.trhsy.sim.util.BuildingsExtractor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Trhsy
@@ -31,11 +23,8 @@ import java.util.List;
  * @Description: 客户端
  * @date 2023/10/19 下午 2:42
  */
-public class ClientProxy extends CommonProxy{
-    public static final List<KeyBinding> KEY_BINDINGS = new ArrayList<KeyBinding>();
+public class ClientProxy extends CommonProxy {
 
-    //我们所有的键位进行声明  参数最重要的是Keyboard.KEY_X 对应我们的按键，其他基本不变
-    public static final KeyBinding SUMMON = new ModKeyBinding("activate_skill_simfiles_loading", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_V, "key.category.simmod");
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -48,22 +37,23 @@ public class ClientProxy extends CommonProxy{
         //加载实体
         EntityLoader.initModels();
     }
+
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
         //丨 模拟城市 丨 官方Q群: 749090174  丨 由TRHSY重制 丨 微信公众号：dasha500
-        String title= new TextComponentTranslation("container.sim.title",new Object[0]).getUnformattedText();
-        Display.setTitle(Display.getTitle() +title);
+        String title = new TextComponentTranslation("container.sim.title", new Object[0]).getUnformattedText();
+        Display.setTitle(Display.getTitle() + title);
     }
+
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
     }
+
     @Override
-    public void renderTick(TickEvent.RenderTickEvent renderTickEvent){
-
-        Minecraft mc = Minecraft.getMinecraft();
-
+    public void renderTick(TickEvent.RenderTickEvent renderTickEvent) {
+        Minecraft mc=Minecraft.getMinecraft();
         try {
             GuiScreen hud = new GuiHud();
             if (mc.currentScreen == null) {
@@ -77,34 +67,43 @@ public class ClientProxy extends CommonProxy{
                     worldname = "Server";
                 }
                 try {
-                    if (ModSimClientLoader.gamemode != 999) {
-                        if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
-                            int HUDoffset = 0;
-                            if (mc.player.dimension == 1) {
-                                HUDoffset = 20;
-                            }
+                    if(ModSimClientLoader.sim_is_running){
+                        if (ModSimClientLoader.gamemode != 999) {
+                            if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+                                int HUDoffset = 0;
+                                if (mc.player!=null&&mc.player.dimension == 1) {
+                                    HUDoffset = 20;
+                                }
 
-                            if (ModSimClientLoader.gamemode == 1) {
-                                //世界名 人口
-                                hud.drawString(mc.fontRenderer, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+ new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
-                            } else {
-                                //世界名  人口  资金
-                                hud.drawString(mc.fontRenderer, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ new TextComponentTranslation("container.sim.trhsy4",new Object[0]).getUnformattedText() +": " + ModSimLoader.displayMoney(ModSimLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
+                                if (ModSimClientLoader.gamemode == 1) {
+                                    //世界名 人口
+                                    hud.drawString(mc.fontRenderer, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+ new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
+                                } else {
+                                    //世界名  人口  资金
+                                    hud.drawString(mc.fontRenderer, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ new TextComponentTranslation("container.sim.trhsy4",new Object[0]).getUnformattedText() +": " + ModSimLoader.displayMoney(ModSimClientLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
+                                }
                             }
+                        } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+                            //正在加载模拟城市...
+                            hud.drawString(mc.fontRenderer, new TextComponentTranslation("container.sim.trhsy5",new Object[0]).getUnformattedText(), hud.width / 2, 2, 16777215);
                         }
-                    } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+                    }else{
                         //正在加载模拟城市...
                         hud.drawString(mc.fontRenderer, new TextComponentTranslation("container.sim.trhsy5",new Object[0]).getUnformattedText(), hud.width / 2, 2, 16777215);
                     }
+
                 } catch (Exception e) {
                     StackTraceElement element = e.getStackTrace()[0];
                     ModSimLoader.log.error("renderTick出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
                 }
+            }else{
+                return;
             }
+
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("GuiHud-initGui出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-
     }
 }

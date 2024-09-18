@@ -5,7 +5,6 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.Building;
 import com.trhsy.sim.npcCode.job.Job;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -35,6 +34,11 @@ public class JobTaskCollectItems extends JobTask {
      * 当前目的地的
      **/
     V3 currentDestination = null;
+    V3 currentDestination_new = null;
+    /**
+     * 计数
+     */
+    int ct=0;
     /**
      * 正在转到目的地
      */
@@ -51,7 +55,7 @@ public class JobTaskCollectItems extends JobTask {
      * @param ms
      * @param collectionItems
      */
-    public JobTaskCollectItems(Job j, int ms, List<ItemStack> collectionItems) {
+    public JobTaskCollectItems(Job j, long ms, List<ItemStack> collectionItems) {
         super(j, (long) ms);
         this.collectionItems = collectionItems;
     }
@@ -155,7 +159,7 @@ public class JobTaskCollectItems extends JobTask {
             //获取最近的农场
             ModSimLoader.getClosestFarm(this.job.workPlace, fType).forEach((f) -> {
                 System.out.println("最近的农场：" + f.farmType);
-                this.destinations.add(f.loc);
+                this.destinations.add(new V3(f.loc.x,f.loc.y+1,f.loc.z));
 
             });
         } else {
@@ -163,7 +167,7 @@ public class JobTaskCollectItems extends JobTask {
             if (buildings!=null&&buildings.size() > 0) {
                 Building building=buildings.get(0);
                 if(building.occupants.size()>0){
-                    this.destinations.add(building.controlXYZ);
+                    this.destinations.add(new V3(building.controlXYZ.x,building.controlXYZ.y+1,building.controlXYZ.z));
                 }
             }
 
@@ -176,12 +180,12 @@ public class JobTaskCollectItems extends JobTask {
         if (this.currentDestination != null) {
             //如果在建筑内
             if (!this.job.folk.isAtLocation(this.currentDestination)) {
+                currentDestination_new=this.currentDestination;
+                this.ct++;
                 //收集材料
                 this.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Collecting_materials",new Object[0]).getUnformattedText());
-                if (!this.job.folk.entity.isMoving()) {
-                    if(!this.folk.forceMoveToXYZ(this.currentDestination)){
-                        this.folk.forceMoveToXYZNoWarp(this.currentDestination);
-                    }
+                if(this.folk.forceMoveToXYZ(this.currentDestination)){
+                    this.folk.forceMoveToXYZNoWarp(this.currentDestination);
                 }
 
                 this.isGoingToDestination = true;
@@ -233,6 +237,7 @@ public class JobTaskCollectItems extends JobTask {
             }
         } else {
             this.currentDestination = (V3) this.destinations.get(0);
+            this.ct=0;
         }
 
     }

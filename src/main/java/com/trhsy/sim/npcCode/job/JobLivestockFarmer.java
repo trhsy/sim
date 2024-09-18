@@ -7,7 +7,6 @@ import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.npcCode.task.JobTaskButcherAnimal;
 import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskSpawnLivestock;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +30,7 @@ public class JobLivestockFarmer extends Job{
      */
     public Class livestockClass;
     //工作阶段
-    public int livestockFarmerStage = -1;
+    public int livestockFarmerStage = 0;
     public JobLivestockFarmer(NpcData folk, BlockPos pos, String livestock, World world) {
         super(folk,pos,world);
         try {
@@ -82,19 +81,37 @@ public class JobLivestockFarmer extends Job{
                     //去上班
                     this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived",new Object[0]).getUnformattedText()));
                 } else if (this.livestockFarmerStage == 1) {
+                    //生成
                     this.addJobTask(new JobTaskSpawnLivestock(this, this.livestockName, this.livestockClass, 5000L));
                     this.livestockFarmerStage = 2;
                 }else if (this.livestockFarmerStage == 2) {
                     //照料
-                    this.addJobTask(new JobTaskIdle(this, 120000L, new TextComponentTranslation("container.sim.job.crop.farmer.Tending1",new Object[0]).getUnformattedText()+" " + this.livestockName));
+                    this.addJobTask(new JobTaskIdle(this, 5000L, new TextComponentTranslation("container.sim.job.crop.farmer.Tending1",new Object[0]).getUnformattedText()+" " + this.livestockName));
                     this.livestockFarmerStage = 3;
                 }else if (this.livestockFarmerStage == 3) {
                     //屠戮畜生
-                    this.addJobTask(new JobTaskButcherAnimal(this, 180000L));
+                    this.addJobTask(new JobTaskButcherAnimal(this, 5000L));
                     this.livestockFarmerStage = 4;
                 }else if (this.livestockFarmerStage == 4) {
-                    this.addJobTask(new JobTaskIdle(this, -1L, new TextComponentTranslation("container.sim.job.crop.farmer.Tending1",new Object[0]).getUnformattedText()+" " + this.livestockName ));
+                    //照料
+                    this.addJobTask(new JobTaskIdle(this, 5000L, new TextComponentTranslation("container.sim.job.crop.farmer.Tending1",new Object[0]).getUnformattedText()+" " + this.livestockName ));
                     this.livestockFarmerStage = 5;
+                }else if (this.livestockFarmerStage == 5) {
+                    //屠戮畜生
+                    this.addJobTask(new JobTaskButcherAnimal(this, 5000L));
+                    this.livestockFarmerStage = 6;
+                }else if (this.livestockFarmerStage == 6) {
+                    //照料
+                    this.addJobTask(new JobTaskIdle(this, 5000L, new TextComponentTranslation("container.sim.job.crop.farmer.Tending1",new Object[0]).getUnformattedText()+" " + this.livestockName ));
+                    this.livestockFarmerStage =7;
+                }else if (this.livestockFarmerStage == 7) {
+                    //屠戮畜生
+                    this.addJobTask(new JobTaskButcherAnimal(this, 5000L));
+                    this.livestockFarmerStage = 8;
+                }else if (this.livestockFarmerStage == 9) {
+                    //照料
+                    this.addJobTask(new JobTaskIdle(this, -1L, new TextComponentTranslation("container.sim.job.crop.farmer.Tending1",new Object[0]).getUnformattedText()+" " + this.livestockName ));
+                    this.livestockFarmerStage = 10;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {
                         this.currentTask = (JobTask) this.jobTasks.get(0);

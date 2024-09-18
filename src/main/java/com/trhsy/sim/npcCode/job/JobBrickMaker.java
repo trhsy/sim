@@ -9,7 +9,6 @@ import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskSearchForBlock;
 import com.trhsy.sim.npcCode.task.JobTaskUseFurnace;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +26,7 @@ import java.util.List;
  **/
 public class JobBrickMaker extends Job{
     //工作阶段
-    public int brickMakerStage = -1;
+    public int brickMakerStage = 0;
     public V3 v3;
     public JobBrickMaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
@@ -62,10 +61,10 @@ public class JobBrickMaker extends Job{
                     //寻找黏土
                     //去寻找
                     this.folk.setStatus(new TextComponentTranslation("container.sim.GOTOCLAYBLOCK",new Object[0]).getUnformattedText());
-                    this.addJobTask(new JobTaskSearchForBlock(this, 120000, colItems,this.v3, ConfigLoader.configLumberArea,false));
+                    this.addJobTask(new JobTaskSearchForBlock(this, -1L, colItems,this.v3, ConfigLoader.configLumberArea,false));
                     this.brickMakerStage = 2;
                 }else if(this.brickMakerStage == 2){
-                    this.addJobTask(new JobTaskUseFurnace(this, 120000, new ItemStack(Blocks.CLAY)));
+                    this.addJobTask(new JobTaskUseFurnace(this, -1L, new ItemStack(Blocks.CLAY)));
                     this.brickMakerStage = 3;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {

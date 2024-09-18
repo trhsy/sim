@@ -35,7 +35,7 @@ public class GuiBlockConstructorBlock extends GuiScreen {
     /**
      * 有员工
      **/
-    public boolean hasEmployee = false;
+    public boolean hasEmployee;
     /**
      * 雇佣的npc
      **/
@@ -505,10 +505,10 @@ public class GuiBlockConstructorBlock extends GuiScreen {
                             this.showPage();
                             if (this.hiringTerraformer) {
                                 //雇佣NPC 规划师
-                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText(), new V3(this.pos,this.dimension), this.buildDirection));
+                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText(), new V3(this.pos.getX(),this.pos.getY()+1,this.pos.getZ(),this.dimension), this.buildDirection));
                             } else {
                                 //雇佣建筑师
-                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText(), new V3(this.pos,this.dimension), this.buildDirection));
+                                NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText(), new V3(this.pos.getX(),this.pos.getY()+1,this.pos.getZ(),this.dimension), this.buildDirection));
                             }
                         }
                         //雇佣的人

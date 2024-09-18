@@ -1,5 +1,6 @@
 package com.trhsy.sim.proxy;
 
+import com.trhsy.sim.key.KeyboardManager;
 import com.trhsy.sim.loader.*;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
 import com.trhsy.sim.npcCode.race.Race;
@@ -35,8 +36,9 @@ public class CommonProxy {
         new ItemRenderLoader();
         /**启动通讯**/
         new NetWorkLoader(event);
-        /**合成表**/
-        new CraftingLoader();
+
+        /**矿物生成**/
+        new WorldGeneratorLoader();
         /**实体渲染**/
         EntityLoader.registerEntitys();
         /**事件加载**/
@@ -45,9 +47,12 @@ public class CommonProxy {
         Traits.loadTraits();
         /**种族*/
         Race.loadRaces();
+        KeyboardManager.init();
     }
 
     public void init(FMLInitializationEvent event) {
+        /**     合成表**/
+        new CraftingLoader();
     }
 
     public void postInit(FMLPostInitializationEvent event) {

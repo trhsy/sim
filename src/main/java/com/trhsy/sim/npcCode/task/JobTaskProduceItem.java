@@ -2,7 +2,6 @@ package com.trhsy.sim.npcCode.task;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.job.Job;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -45,6 +44,8 @@ public class JobTaskProduceItem extends JobTask {
     }
     @Override
     public void onTaskBegin() {
+        //设置固定不动
+        this.folk.stayPut = true;
     }
     @Override
     public void onUpdate() {

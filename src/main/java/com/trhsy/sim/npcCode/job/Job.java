@@ -9,7 +9,6 @@ import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.util.PricesForBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -167,22 +166,24 @@ public abstract class Job {
                         if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.world.isRemote) {
                             //设置去工作途中
                             this.onWayToWork = true;
+                            this.folk.stayPut = false;
                             //获取距离，并且小于20
-                            if (this.folk.entity.getDistance(this.workPlace.x, this.workPlace.y, this.workPlace.z) < 20.0D) {
+//                            if (this.folk.entity.getDistance(this.workPlace.x, this.workPlace.y, this.workPlace.z) < 20.0D) {
                                 //去工作
                                 this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work",new Object[0]).getUnformattedText());
+                                V3 v3=new V3(this.workPlace.x+0.5,this.workPlace.y,this.workPlace.z+0.5);
                                 //强制瞬移过去
-                                if (!this.folk.forceMoveToXYZ(this.workPlace)) {
-                                    this.folk.forceMoveToXYZNoWarp(this.workPlace);
+                                if (!this.folk.forceMoveToXYZ(v3)) {
+                                    this.folk.forceMoveToXYZNoWarp(v3);
                                 }
-                            } else {
+                           /* } else {
                                 //去工作 走过去
                                 this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work",new Object[0]).getUnformattedText());
-                                this.folk.entity.setPositionAndUpdate(this.workPlace.x + 0.5D, this.workPlace.y + 1.0D, this.workPlace.z + 0.5D);
+                                this.folk.entity.setPositionAndUpdate(this.workPlace.x, this.workPlace.y +1, this.workPlace.z);
                                 this.folk.entity.getNavigator().clearPath();
-                            }
+                            }*/
                             //设置固定不动
-                            this.folk.stayPut = true;
+//                            this.folk.stayPut = true;
                         }
                         //在去工作途中，并且已经到了工作位置则更新状态
                         if (this.onWayToWork && this.folk.isAtLocation(this.workPlace)) {
@@ -192,6 +193,8 @@ public abstract class Job {
                             this.onWayToWork = false;
                             //到达指定地址
                             this.onArrive();
+                            //设置固定不动
+                            this.folk.stayPut = false;
                         }
                         //从建筑中抓取项目
                         if (this.grabItemsFromBuilding(this.collectionBuilding)) {
@@ -467,21 +470,9 @@ public abstract class Job {
     public int feedFolks() {
         int fedFolks = 0;
         try {
-            Iterator var2 = ModSimLoader.folks.iterator();
-            while (true) {
-                label35:
-                while (true) {
-                    NpcData fd;
-                    do {
-                        if (!var2.hasNext()) {
-                            return fedFolks;
-                        }
-
-                        fd = (NpcData) var2.next();
-                    } while (fd.hunger >= 10);
-                    Iterator var4 = this.inventoriesFindClosest(this.workPlace, 5).iterator();
-                    while (var4.hasNext()) {
-                        IInventory chest = (IInventory) var4.next();
+            for (NpcData fd:ModSimLoader.folks){
+                if(fd.hunger<10){
+                    for (IInventory chest:this.inventoriesFindClosest(this.workPlace, 5)){
                         for (int i = 0; i < chest.getSizeInventory(); ++i) {
                             ItemStack is = chest.getStackInSlot(i);
                             if (is != null) {
@@ -496,14 +487,16 @@ public abstract class Job {
                                         ModSimLoader.log.info("当前npc饱和度：" + fd.hunger);
                                         //fd.hunger ++;
                                         chest.decrStackSize(i, 1);
-                                        continue label35;
+                                        break;
                                     }
                                 }
                             }
                         }
+                        break;
                     }
                 }
             }
+            return fedFolks;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("job-feedFolks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -763,6 +756,7 @@ public abstract class Job {
      */
     public void onArrive() {
         try {
+            this.folk.entity.getNavigator().clearPath();
             this.folk.stayPut = true;
             if (this.stage != 0) {
                 this.stage = 0;

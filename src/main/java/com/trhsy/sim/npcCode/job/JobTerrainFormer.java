@@ -3,17 +3,19 @@ package com.trhsy.sim.npcCode.job;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockConstructorBox;
 import com.trhsy.sim.entity.EntityConBox;
-import com.trhsy.sim.loader.*;
-import com.trhsy.sim.network.client.PacketSendTerrainTypeRequitrements;
+import com.trhsy.sim.loader.BlockLoader;
+import com.trhsy.sim.loader.ConfigLoader;
+import com.trhsy.sim.loader.ItemLoader;
+import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.TerrainType;
 import com.trhsy.sim.npcCode.task.JobTask;
+import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskTerrain;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -64,7 +66,8 @@ public class JobTerrainFormer extends Job {
      * 缺失检查
      **/
     private int missingCheck = 0;
-
+    //工作阶段
+    public int terrain_stage = 0;
     public JobTerrainFormer(NpcData folk, TerrainType terrainType, BlockPos pos, World world) {
         super(folk, pos, world);
         try {
@@ -186,7 +189,23 @@ public class JobTerrainFormer extends Job {
     public void onUpdate() {
         super.onUpdate();
         try {
-
+            if (this.stage == -1) {
+                this.terrain_stage = 0;
+                this.stage = 0;
+            }else if (this.terrain_stage == 0) {
+                this.terrain_stage = 1;
+                //去上班
+                this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived",new Object[0]).getUnformattedText()));
+            }else if(this.terrain_stage==1){
+                //直接放置方块
+                this.addJobTask(new JobTaskTerrain(this, -1L,this.missingBlock,this.terrainType,this.constructorPos));
+                this.terrain_stage = 2;
+            }else{
+                if (this.jobTasks.size() > 0&&this.currentTask==null) {
+                    this.currentTask = (JobTask) this.jobTasks.get(0);
+                    this.currentTask.begin();
+                }
+            }
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobTerrainFormer-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

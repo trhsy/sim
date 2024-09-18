@@ -23,7 +23,7 @@ import scala.util.Random;
  **/
 public class JobDairyFarmer extends Job{
     //工作阶段
-    public int dairyFarmerStage = -1;
+    public int dairyFarmerStage = 0;
     public JobDairyFarmer(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         try {

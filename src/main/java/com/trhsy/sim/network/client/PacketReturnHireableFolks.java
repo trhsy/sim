@@ -46,8 +46,8 @@ public class PacketReturnHireableFolks implements IMessage {
                 String cFolk = var4[var6];
                 if (cFolk.length() > 0 && cFolk.contains(",_,")) {
                 }
-
-                this.folkNames.add(new NpcIdentity(cFolk));
+                NpcIdentity npcIdentity=new NpcIdentity(cFolk);
+                this.folkNames.add(npcIdentity);
             }
         } catch (Exception var8) {
 
@@ -59,7 +59,7 @@ public class PacketReturnHireableFolks implements IMessage {
     public void toBytes(ByteBuf buf) {
         String s="";
         for (NpcIdentity fName :this.folkNames){
-            s+=fName.id + ",_," + fName.name + ",_," + fName.age + ",_," + fName.status + ",_," + fName.job + ",_," + fName.house + ",_," + fName.relationship + ",_," + fName.hunger + ",_," + fName.maturityAge + ",_," + fName.skinPath + ";";
+            s+=fName.id + ",_," + fName.name + ",_," + fName.age + ",_," + fName.status + ",_," + fName.job + ",_," + fName.house + ",_," + fName.relationship + ",_," + fName.hunger + ",_," + fName.maturityAge + ",_," + fName.skinPath + ",_," + fName.isDead + ";";
         }
             ByteBufUtils.writeUTF8String(buf, s);
 

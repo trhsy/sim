@@ -3,7 +3,6 @@ package com.trhsy.sim.npcCode.task;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.job.Job;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
@@ -89,6 +88,8 @@ public class JobTaskHarvestAnimal extends JobTask {
     @Override
     public void onTaskBegin() {
         this.job.folk.setStatus(this.status);
+        //设置固定不动
+        this.folk.stayPut = true;
         this.livestock = new ArrayList();
         this.currentLivestock = 0;
         this.findTargets();
@@ -97,6 +98,7 @@ public class JobTaskHarvestAnimal extends JobTask {
     @Override
     public void onUpdate() {
         if (this.livestock.size() < 1) {
+            //找到羊
             this.findTargets();
         } else if (this.currentLivestock >= this.livestock.size()) {
             this.completeTask();

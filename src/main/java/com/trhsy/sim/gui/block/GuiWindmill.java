@@ -1,16 +1,16 @@
 package com.trhsy.sim.gui.block;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.entity.ContainerWindmill;
+import com.trhsy.sim.entity.container.ContainerWindmill;
 import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 /**
@@ -19,6 +19,7 @@ import net.minecraft.util.text.TextComponentTranslation;
  * @Author TRHSY
  * @Date 2023/8/2012:02
  **/
+@SideOnly(Side.CLIENT)
 public class GuiWindmill extends GuiContainer {
     private static final ResourceLocation FURNACE_GUI_TEXTURES = new ResourceLocation(ModSim.MODID, "textures/gui/windmill.png");
     /**
@@ -35,18 +36,31 @@ public class GuiWindmill extends GuiContainer {
         try {
             this.playerInventory = playerInv;
             this.tileWindmill = windmillInv;
-        }catch (Exception e) {
+        } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("GuiWindmill出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
 
+    /**
+     * 绘制屏幕及其所有组件。
+     * @param mouseX
+     * @param mouseY
+     * @param partialTicks
+     */
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         try {
             //风车
-            String s = new TextComponentTranslation("tile.windmill.name",new Object[0]).getUnformattedText();
+//            String s = new TextComponentTranslation("tile.windmill.name", new Object[0]).getUnformattedText();
+            String s=this.tileWindmill.getDisplayName().getUnformattedText();
             this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
             //物品栏
             this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 106 + 2, 4210752);
@@ -79,7 +93,7 @@ public class GuiWindmill extends GuiContainer {
                 //this.drawTexturedModalRect(this.ySize+10,  + 36 + 12 - k, 176, 12 - k, 14, k + 1);
             }
             int l = this.getCookProgressScaled(24);
-            this.drawTexturedModalRect(i+79, j+30,176,14, l + 1, 16);
+            this.drawTexturedModalRect(i + 79, j + 30, 176, 14, l + 1, 16);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("drawGuiContainerBackgroundLayer出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

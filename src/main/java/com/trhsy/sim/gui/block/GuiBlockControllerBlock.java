@@ -90,6 +90,7 @@ public class GuiBlockControllerBlock extends GuiScreen {
     long fingBodge = 0L;
     /**建筑描述**/
     public String desc;
+    public int fs_y;
     /**
      * @return
      * @Author fan
@@ -230,14 +231,16 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             //雇佣
                             this.buttonList.add(new GuiButton(1, 10, this.height - 30, 100, 20, new TextComponentTranslation("container.sim.Hire0",new Object[0]).getUnformattedText() + WordUtils.capitalize(this.jobName)));
                         }
+                        int fs_y1=67;
                         if(this.occupants!=null){
-                            int down=67;
                             for (int k = 0; k < this.occupants.size(); k++) {
                                 NpcData npcData = this.occupants.get(k);
-                                String employeeName= npcData.getName();
-                                //解雇
-                                this.buttonList.add(new GuiButton(2, this.width - 140, down, 100, 20, new TextComponentTranslation("container.sim.Fire",new Object[0]).getUnformattedText() +" "+ WordUtils.capitalize(employeeName)));
-                                down +=20;
+                                if(npcData!=null){
+                                    String employeeName= npcData.getName();
+                                    //解雇
+                                    this.buttonList.add(new GuiButton(2, this.width - 140, fs_y1, 100, 20, new TextComponentTranslation("container.sim.Fire",new Object[0]).getUnformattedText() +" "+ WordUtils.capitalize(employeeName)));
+                                    fs_y1 +=20;
+                                }
                             }
                         }
                     }
@@ -309,32 +312,69 @@ public class GuiBlockControllerBlock extends GuiScreen {
             //类型
             this.fontRenderer.drawString(new TextComponentTranslation("container.sim.sim_Type",new Object[0]).getUnformattedText() + " : " + this.buildingType + " (" + isComplete + ")", 5, 57, 16777088);
             //描述
-            this.fontRenderer.drawString(new TextComponentTranslation("container.sim.sim_desc",new Object[0]).getUnformattedText() + " : " + this.desc, 5, 67, 16777088);
+            int trd1 = this.desc.length();
+
+            //设置Y轴的起始位置
+            this.fs_y=67;
+           if (trd1 > 40) {
+                int z=0;
+                for (int k = 0; k < trd1; k++) {
+                    String trds1;
+                    if(k==0){
+                        //获取desc字符串中从z位置开始，长度为40的字符串
+                        trds1=this.desc.substring(z,z+40);
+                        //在坐标(5,fs_y)处绘制文本，文本内容为container.sim.sim_desc，字体为16777088
+                        this.fontRenderer.drawString(new TextComponentTranslation("container.sim.sim_desc",new Object[0]).getUnformattedText() + " : " + trds1, 5, fs_y, 16777088);
+                    }else if (z+30 >= trd1) {
+                        //获取desc字符串中从z位置开始，长度为trd1-1的字符串
+                        trds1=this.desc.substring(z,trd1);
+                        //在坐标(5,this.fs_y)处绘制文本，文本内容为trds1，字体为16777088，不换行
+                        this.fontRenderer.drawString(trds1, 5, this.fs_y, 16777088,false);
+                        //结束循环
+                        break;
+                    }else{
+                        //获取desc字符串中从z位置开始，长度为40的字符串
+                        trds1=this.desc.substring(z,z+40);
+                        //在坐标(5,this.fs_y)处绘制文本，文本内容为trds1，字体为16777088，不换行
+                        this.fontRenderer.drawString(trds1, 5, this.fs_y, 16777088,false);
+                    }
+                    //每次循环fs_y增加8
+                    this.fs_y=this.fs_y+8;
+                    //每次循环z增加40
+                    z+=40;
+                }
+            }else{
+                String trds1=this.desc;
+                this.fontRenderer.drawString(new TextComponentTranslation("container.sim.sim_desc",new Object[0]).getUnformattedText() + " : " + trds1, 5, fs_y, 16777088);
+            }
+            this.fs_y=this.fs_y+8;
             if (this.isResidential) {
                 if (this.occupants != null) {
                     String employeeName="";
                     for (int k = 0; k < this.occupants.size(); k++) {
                         NpcData npcData = this.occupants.get(k);
                         if(npcData==null){
-                            this.occupants.remove(i);
+                            this.occupants.remove(k);
                             break;
                         }
                         employeeName+= npcData.getName()+";";
                     }
-                    employeeName=employeeName.substring(0,employeeName.length()-1);
+                    if(!"".equals(employeeName)){
+                        employeeName=employeeName.substring(0,employeeName.length()-1);
+                    }
                     //拥有者
                     this.fontRenderer.drawString(new TextComponentTranslation("container.sim.gui.block_controller_Occupants",new Object[0]).getUnformattedText() + ":" + employeeName, 5, 77, 16777088);
                 }
             } else {
                 if (this.occupants != null) {
-                    int down=77;
+                    int fs_y1=this.fs_y;
                     for (int k = 0; k < this.occupants.size(); k++) {
                         NpcData npcData = this.occupants.get(k);
                         if(npcData!=null){
                             String employeeName= npcData.getName();
                             //员工
-                            this.fontRenderer.drawString(new TextComponentTranslation("container.sim.Employees",new Object[0]).getUnformattedText() + ":" + employeeName, 5, down, 16777088);
-                            down +=20;
+                            this.fontRenderer.drawString(new TextComponentTranslation("container.sim.employees",new Object[0]).getUnformattedText() + ":" + employeeName, 5, fs_y1, 16777088);
+                            fs_y1 +=20;
                         }
                     }
                 }
@@ -349,6 +389,10 @@ public class GuiBlockControllerBlock extends GuiScreen {
         super.drawScreen(i, j, f);
     }
 
+    /**
+     * 点击按钮
+     * @param guibutton
+     */
     @SubscribeEvent(
             priority = EventPriority.NORMAL
     )
@@ -408,7 +452,8 @@ public class GuiBlockControllerBlock extends GuiScreen {
                             }
                             this.occupants.add(ModSimLoader.getFolkDataByUID(this.employee.id));
                             //雇佣npc
-                            NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, this.jobName, this.pos));
+                            NetWorkLoader.net.sendToServer(new PacketHireFolk(this.employee.id, this.jobName, new V3(this.pos.x,this.pos.y+1,this.pos.z)));
+                            this.showPage();
                         }
 
                         if (guibutton.id > 99 && guibutton.id < 1000) {
@@ -429,16 +474,21 @@ public class GuiBlockControllerBlock extends GuiScreen {
                     } else if (guibutton.id == 2) {
                         //解雇
                         String text=guibutton.displayString;
-                        String uuId="";
+                        NpcData fs_npcData=null;
                         for (int i = 0; i <this.occupants.size() ; i++) {
-                            NpcData npcData=this.occupants.get(i);
-                            String s=npcData.getName();
+                            fs_npcData=this.occupants.get(i);
+                            String s=fs_npcData.getName();
                             if(text.contains(s)){
-                                uuId=npcData.ID;
                                 this.occupants.remove(i);
                             }
                         }
-                        NetWorkLoader.net.sendToServer(new PacketFireFolk(uuId));
+                        NetWorkLoader.net.sendToServer(new PacketFireFolk(fs_npcData.ID));
+                        Building building = ModSimLoader.getBuildingByV3(this.pos);
+                        if (building != null) {
+                            building.occupants.remove(fs_npcData);
+                            building.saveBuilding();
+                        }
+
                         this.hasEmployee=false;
                         this.currentPage = 0;
                         this.showPage();

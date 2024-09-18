@@ -5,7 +5,6 @@ import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.npcCode.task.JobTaskCourier;
 import com.trhsy.sim.npcCode.task.JobTaskIdle;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -19,7 +18,7 @@ import net.minecraft.world.World;
  */
 public class JobCourier extends Job{
     //工作阶段
-    public int courierStage = -1;
+    public int courierStage = 0;
     public JobCourier(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         try {

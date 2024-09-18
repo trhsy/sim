@@ -1,4 +1,4 @@
-package com.trhsy.sim.entity;
+package com.trhsy.sim.entity.container;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @date 2023/08/22 下午 2:46
  */
 public class ContainerWindmill extends Container {
-    private IInventory tileFurnace;
+    private  IInventory tileFurnace;
     /**
      * 制作时间
      */
@@ -47,6 +47,7 @@ public class ContainerWindmill extends Container {
             //燃料 风车不用
             //this.addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53));
             this.addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, furnaceInventory, 1, 110, 30));
+
             //三排 一排九个
             for (int i = 0; i < 3; ++i) {
                 for (int j = 0; j < 9; ++j) {
@@ -54,7 +55,7 @@ public class ContainerWindmill extends Container {
                 }
             }
             //物品栏一排 九个
-            for (int k = 2; k < 11; ++k) {
+            for (int k = 0; k < 9; ++k) {
                 this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 132));
             }
         } catch (Exception e) {
@@ -88,18 +89,19 @@ public class ContainerWindmill extends Container {
         try {
             for (int i = 0; i < this.listeners.size(); ++i) {
                 IContainerListener icrafting = (IContainerListener) this.listeners.get(i);
+                //制作时间
                 if (this.cookTime != this.tileFurnace.getField(2)) {
                     icrafting.sendWindowProperty(this, 2, this.tileFurnace.getField(2));
                 }
-
+                //燃烧时间
                 if (this.furnaceBurnTime != this.tileFurnace.getField(0)) {
                     icrafting.sendWindowProperty(this, 0, this.tileFurnace.getField(0));
                 }
-
+                //当前物品燃烧时间
                 if (this.currentItemBurnTime != this.tileFurnace.getField(1)) {
                     icrafting.sendWindowProperty(this, 1, this.tileFurnace.getField(1));
                 }
-
+                //总计制作时间
                 if (this.totalCookTime != this.tileFurnace.getField(3)) {
                     icrafting.sendWindowProperty(this, 3, this.tileFurnace.getField(3));
                 }

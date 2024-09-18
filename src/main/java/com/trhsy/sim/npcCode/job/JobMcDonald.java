@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -24,7 +23,7 @@ import java.util.List;
  */
 public class JobMcDonald extends Job{
     //工作阶段
-    public int mcDonaldStage = -1;
+    public int mcDonaldStage = 0;
     //熟猪排 熟羊肉 熟兔肉 牛排 熟鸡肉 熟鲑鱼 熟鱼
     private int porkchop, mutton, rabbit, steak,chicken,salmon,fish;
     public JobMcDonald(NpcData folk, BlockPos pos, World world) {
@@ -67,7 +66,7 @@ public class JobMcDonald extends Job{
                     //生鱼
                     colItems.add(new ItemStack(Items.FISH, 16));
                     //收集
-                    this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                    this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                     this.mcDonaldStage = 3;
                 } else if (this.mcDonaldStage == 3) {
                     List<ItemStack> colItems = new ArrayList();
@@ -85,7 +84,7 @@ public class JobMcDonald extends Job{
                     colItems.add(new ItemStack(Items.FISH, 16,1));
                     //生鱼
                     colItems.add(new ItemStack(Items.FISH, 16));
-                    this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                    this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.mcDonaldStage = 4;
                 } else if (this.mcDonaldStage == 4) {
 
@@ -127,7 +126,7 @@ public class JobMcDonald extends Job{
                     this.mcDonaldStage = 5;
                 } else if (this.mcDonaldStage == 5) {
                     //售卖/关店
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Grocer1",new Object[0]).getUnformattedText()));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Grocer1",new Object[0]).getUnformattedText(),true));
                     this.mcDonaldStage = 6;
                 } else if (this.mcDonaldStage == 6) {
                     //在去工作途中，并且已经到了工作位置则更新状态

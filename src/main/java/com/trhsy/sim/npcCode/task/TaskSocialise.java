@@ -7,7 +7,6 @@ package com.trhsy.sim.npcCode.task;
 
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.build.Building;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentTranslation;
 
 /**
@@ -32,7 +31,7 @@ public class TaskSocialise extends Task {
 
 	@Override
     public void onTaskBegin() {
-		this.folk.stayPut = true;
+		this.folk.stayPut = false;
 		//
 		this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Hanging",new Object[0]).getUnformattedText() + this.other.forename);
 		if (this.other == null) {

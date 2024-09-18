@@ -6,7 +6,6 @@ import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.npcCode.task.JobTaskHarvestAnimal;
 import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskSpawnLivestock;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -25,7 +24,7 @@ import java.util.Random;
  **/
 public class JobShepherd extends Job{
     //工作阶段
-    public int shepherdStage = -1;
+    public int shepherdStage = 0;
     public JobShepherd(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         //手持剪刀

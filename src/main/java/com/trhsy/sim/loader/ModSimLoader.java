@@ -1,5 +1,6 @@
 package com.trhsy.sim.loader;
 
+import com.trhsy.sim.entity.EntityNpc;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.npcCode.DynamicSkin;
 import com.trhsy.sim.npcCode.NpcData;
@@ -88,7 +89,8 @@ public class ModSimLoader {
      * @return
      **/
     public static int dayOfWeek = 0;
-
+    /**模拟城市是否开始运行*/
+    public static Boolean sim_is_running = false;
 
     /**
      * 获取模拟城市建筑文文件夹
@@ -209,8 +211,9 @@ public class ModSimLoader {
     public static Building getEmptyHome() {
         Building empty = null;
         for (Building b : buildings) {
-            //住宅的空房子
-            if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText()) && b.occupants.size() < 1) {
+            //住宅的空房子 住宅
+            String buildingType = new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText();
+            if (b.buildingType.contentEquals(buildingType) && b.occupants.size() < 1) {
                 empty = b;
                 break;
             }
@@ -390,6 +393,16 @@ public class ModSimLoader {
             }
         }
         return npcDatas;
+    }
+    public static EntityNpc getEntityFolkByUID(String uid) {
+        EntityNpc entityFolk=null;
+        for (NpcData npcData : ModSimLoader.folks) {
+            if (npcData.ID.toLowerCase().equals(uid.toLowerCase())) {
+                entityFolk = npcData.entity;
+                return entityFolk;
+            }
+        }
+        return entityFolk;
     }
 
 
@@ -789,6 +802,9 @@ public class ModSimLoader {
             strings.add("gamemode|" + gamemode);
             //星期几
             strings.add("dayofweek|" + dayOfWeek);
+            //是否运行
+            strings.add("is_running|" + sim_is_running);
+
 
             ModSimLoader.saveSK2(folder + "settings.sk2", strings);
             ModSimLoader.log.info("游戏状态: saveStates() called BOTH sides, 金额存储为 " + money);
@@ -833,6 +849,8 @@ public class ModSimLoader {
                         gamemode = Integer.parseInt(value);
                     } else if ("dayofweek".equals(name)) {
                         dayOfWeek = Integer.parseInt(value);
+                    } else if ("is_running".equals(name)) {
+                        sim_is_running = Boolean.valueOf(value);
                     }
                 }
             }

@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ItemLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -26,7 +25,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobSugar extends Job{
     private int sugarcane;
     //工作阶段
-    public int sugarStage = -1;
+    public int sugarStage = 0;
     public JobSugar(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
@@ -53,13 +52,13 @@ public class JobSugar extends Job{
                     //甘蔗
                     colItems.add(new ItemStack(Items.REEDS, 64));
                     //收集
-                    this.addJobTask(new JobTaskCollectItems(this, 120000, colItems));
+                    this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                     this.sugarStage = 3;
                 } else if (this.sugarStage == 3) {
                     List<ItemStack> colItems = new ArrayList();
                     //甘蔗
                     colItems.add(new ItemStack(Items.REEDS, 64));
-                    this.addJobTask(new JobTaskUnloadItems(this, 30000L, colItems));
+                    this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.sugarStage = 4;
                 } else if (this.sugarStage == 4) {
 
@@ -74,7 +73,7 @@ public class JobSugar extends Job{
                     this.sugarStage = 5;
                 } else if (this.sugarStage == 5) {
                     //售卖/关店
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, ""));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Baker_Baking_Sugar",new Object[0]).getUnformattedText(),false));
                     this.sugarStage = 6;
                 } else if (this.sugarStage == 6) {
                     //在去工作途中，并且已经到了工作位置则更新状态

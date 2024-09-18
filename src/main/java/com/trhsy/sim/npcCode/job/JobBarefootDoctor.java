@@ -5,7 +5,6 @@ import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskShopkeep;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +20,7 @@ import net.minecraft.world.World;
  */
 public class JobBarefootDoctor extends Job{
     //工作阶段
-    public int barefootDoctorStage = -1;
+    public int barefootDoctorStage = 0;
     public JobBarefootDoctor(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         try {
@@ -54,7 +53,7 @@ public class JobBarefootDoctor extends Job{
                 } else if (this.barefootDoctorStage == 1) {
                     this.barefootDoctorStage = 2;
                     //服务客户
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.serving_customers",new Object[0]).getUnformattedText()));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.serving_customers",new Object[0]).getUnformattedText(),false));
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {
                         this.currentTask = (JobTask) this.jobTasks.get(0);

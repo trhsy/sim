@@ -1,6 +1,5 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import net.minecraft.block.BlockOre;
@@ -28,6 +27,7 @@ import java.util.Random;
  */
 public class BlockCopperOre extends BlockOre {
     public BlockCopperOre() {
+//        super(Material.ROCK, "copperBlockOre");
         //用于设定走在方块上的响声。
         this.setSoundType(SoundType.STONE);
         //设定方块的硬度，如黑曜石是50，铁块5，金块3，圆石2，石头1.5，南瓜1，泥土0.5，甘蔗0，基岩-1。
@@ -69,8 +69,22 @@ public class BlockCopperOre extends BlockOre {
      */
     @Override
     public Item getItemDropped(IBlockState iBlockState, Random random, int p_getItemDropped_3_) {
-        return Item.getItemFromBlock(BlockLoader.blockCopperOre);
+        return Item.getItemFromBlock(this);
     }
+
+    /**
+     * 将此块的水滴作为EntityItems生成到世界中。
+     */
+    @Override
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+        super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
+    }
+
+    @Override
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+        return new ItemStack(this);
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
