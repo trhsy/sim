@@ -80,6 +80,7 @@ public class ModSimClientLoader {
     public static Vec3d previewPos1;
     public static Vec3d previewPos2;
     public static int gamemode;
+    //周几
     public static int dayOfWeek;
     public static float money;
 

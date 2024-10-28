@@ -1,10 +1,7 @@
 package com.trhsy.sim.proxy;
 
 import com.trhsy.sim.gui.GuiHud;
-import com.trhsy.sim.loader.ConfigLoader;
-import com.trhsy.sim.loader.EntityLoader;
-import com.trhsy.sim.loader.ModSimClientLoader;
-import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.loader.render.ItemRenderLoader;
 import com.trhsy.sim.util.BuildingsExtractor;
 import net.minecraft.client.Minecraft;
@@ -56,7 +53,7 @@ public class ClientProxy extends CommonProxy {
         Minecraft mc=Minecraft.getMinecraft();
         try {
             GuiScreen hud = new GuiHud();
-            if (mc.currentScreen == null) {
+            if (mc!= null && mc.world!=null&&mc.world.isRemote) {
                 String worldname = "unknown";
                 try {
                     if (ModSimClientLoader.gamemode== 999) {
@@ -77,19 +74,23 @@ public class ClientProxy extends CommonProxy {
 
                                 if (ModSimClientLoader.gamemode == 1) {
                                     //世界名 人口
-                                    hud.drawString(mc.fontRenderer, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+ new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
+                                    hud.drawString(mc.fontRenderer, worldname + new TextComponentTranslation("container.sim.simday_of_week",new Object[0]).getUnformattedText()+" (" + ModSimClientLoader.dayOfWeek + ") - "+ new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
                                 } else {
                                     //世界名  人口  资金
-                                    hud.drawString(mc.fontRenderer, worldname + " (" + ModSimClientLoader.dayOfWeek + ") - "+new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ new TextComponentTranslation("container.sim.trhsy4",new Object[0]).getUnformattedText() +": " + ModSimLoader.displayMoney(ModSimClientLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
+                                    hud.drawString(mc.fontRenderer, worldname +  new TextComponentTranslation("container.sim.simday_of_week",new Object[0]).getUnformattedText()+" (" + ModSimClientLoader.dayOfWeek + ") - "+new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ new TextComponentTranslation("container.sim.trhsy4",new Object[0]).getUnformattedText() +": " + ModSimLoader.displayMoney(ModSimClientLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
                                 }
                             }
                         } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {
                             //正在加载模拟城市...
                             hud.drawString(mc.fontRenderer, new TextComponentTranslation("container.sim.trhsy5",new Object[0]).getUnformattedText(), hud.width / 2, 2, 16777215);
+//                            SimmodeStart.simModupdate();
                         }
                     }else{
                         //正在加载模拟城市...
                         hud.drawString(mc.fontRenderer, new TextComponentTranslation("container.sim.trhsy5",new Object[0]).getUnformattedText(), hud.width / 2, 2, 16777215);
+//                        if (ModSimClientLoader.gamemode != 999) {
+//                            SimmodeStart.simModupdate();
+//                        }
                     }
 
                 } catch (Exception e) {

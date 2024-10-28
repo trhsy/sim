@@ -210,6 +210,7 @@ container.sim.sim_gui_player_to_to=to make one. You can then beam there using AN
 container.sim.sim_gui_Beaming=Beaming you to 
 
 container.sim.sim_settings=Your SimCity settings file was corrupted, I had to make a new one
+container.sim.simday_of_week=day of week
 container.sim.simSun=Sun
 container.sim.simMon=Mon
 container.sim.simTue=Tue

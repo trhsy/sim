@@ -210,6 +210,7 @@ container.sim.sim_gui_Beaming=将你传送到
 
 
 container.sim.sim_settings=你的模拟城市设置文件已损坏,我必须重新创建一个
+container.sim.simday_of_week=周
 container.sim.simSun=周日
 container.sim.simMon=周一
 container.sim.simTue=周二
@@ -732,7 +733,7 @@ container.sim.gui_south=南
 container.sim.main_buildings= 文件夹丢失,模拟城市安装不正确,请复制simukraft文件夹和zip文件。
 container.sim.main_available=模拟城市的最新更新可用(https://www.curseforge.com/minecraft/mc-mods/sim-u)
 container.sim.main_Collected=你今天收了
-container.sim.main_rent_today=的房租。
+container.sim.main_rent_today=的房租和税收。
 container.sim.main_tax_today=金的税收。
 container.sim.main_No_rent=今天没有收到房租,你应该雇一个人来盖一栋住宅。
 container.sim.main_is_now= 现在18岁了,他们会开始找房子,你现在也可以雇佣他们了。
