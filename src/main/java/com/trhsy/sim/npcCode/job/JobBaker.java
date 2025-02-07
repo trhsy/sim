@@ -59,7 +59,7 @@ public class JobBaker extends Job {
                 //南瓜
                 colItems.add(new ItemStack(Blocks.PUMPKIN, 16));
                 //牛奶
-                colItems.add(new ItemStack(Items.MILK_BUCKET, 1));
+                colItems.add(new ItemStack(ItemLoader.itemBucketMilk, 1));
                 //糖
                 colItems.add(new ItemStack(Items.SUGAR, 16));
                 //可可豆
@@ -76,7 +76,7 @@ public class JobBaker extends Job {
                 //南瓜
                 colItems.add(new ItemStack(Blocks.PUMPKIN, 24));
                 //牛奶
-                colItems.add(new ItemStack(Items.MILK_BUCKET, 24));
+                colItems.add(new ItemStack(ItemLoader.itemBucketMilk, 24));
                 //糖
                 colItems.add(new ItemStack(Items.SUGAR, 24));
                 //可可豆
@@ -89,7 +89,7 @@ public class JobBaker extends Job {
                         //蛋糕需要的食材
                         List<ItemStack> cakes = new CopyOnWriteArrayList<ItemStack>();
                         //牛奶
-                        cakes.add(new ItemStack(Items.MILK_BUCKET, 3));
+                        cakes.add(new ItemStack(ItemLoader.itemBucketMilk, 3));
                         //糖
                         cakes.add(new ItemStack(Items.SUGAR, 2));
                         //鸡蛋
@@ -100,7 +100,7 @@ public class JobBaker extends Job {
                         this.addJobTask(new JobTaskProduceItem(this, 60000L, Items.CAKE, cakes, new TextComponentTranslation("container.sim.job.Baker_Baking",new Object[0]).getUnformattedText()));
                     }
                     if (this.pumpkin > 1 && this.sugar > 1 && this.egg > 1) {
-                        //需要的食材
+                        //南瓜饼需要的食材
                         List<ItemStack> pumpkinPies = new CopyOnWriteArrayList<ItemStack>();
                         //南瓜
                         pumpkinPies.add(new ItemStack(Blocks.PUMPKIN, 1));

@@ -2,8 +2,6 @@ package com.trhsy.sim.npcCode.task;
 
 
 import com.trhsy.sim.npcCode.job.Job;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 
 /**
  * @ClassName JobTaskIdle
@@ -31,7 +29,7 @@ public class JobTaskIdle extends JobTask {
     }
     @Override
     public void onTaskBegin() {
-        this.job.folk.holding = new ItemStack(Blocks.AIR);
+//        this.job.folk.holding = new ItemStack(Blocks.AIR);
         this.job.folk.setStatus(this.status);
     }
     @Override

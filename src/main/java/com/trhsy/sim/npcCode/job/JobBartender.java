@@ -31,7 +31,7 @@ public class JobBartender extends Job{
         super(folk, pos, world);
         try {
             folk.holding = new ItemStack(ItemLoader.tinAxe);
-            this.jobName = new TextComponentTranslation("container.sim.Vocation28",new Object[0]).getUnformattedText();
+            this.jobName = new TextComponentTranslation("container.sim.Vocation37",new Object[0]).getUnformattedText();
             //小麦
             this.colItems.add(new ItemStack(Items.WHEAT, 16));
             //玻璃

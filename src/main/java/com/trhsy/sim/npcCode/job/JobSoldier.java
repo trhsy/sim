@@ -40,6 +40,7 @@ public class JobSoldier extends Job{
                     //去上班
                     this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived",new Object[0]).getUnformattedText()));
                 } else if (this.soldierStage == 1) {
+                    //士兵
                     this.addJobTask(new JobTaskPatrol(this, -1L));
                     this.soldierStage = 2;
                 }else{

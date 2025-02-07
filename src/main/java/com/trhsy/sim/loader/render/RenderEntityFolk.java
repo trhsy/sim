@@ -62,16 +62,26 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                     entity.attackEntityFrom(DamageSource.GENERIC, 999999);
                     entity.setHealth(0);
                 }
-//                                entity.isDead=false;
+                                entity.isDead=false;
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
                 return myTexture;
             } else {
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/male0.png");
-                if(entity.isDead){
-                    entity.onDeath(DamageSource.GENERIC);
-                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
-                    entity.setHealth(0);
+                if(entity.isEntityAlive()){
+                    if(entity.theData==null){
+                        entity.setDead();
+                    }
+                }else{
+//                    entity.onDeath(DamageSource.GENERIC);
+//                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
+//                    entity.setHealth(0);
                 }
+//                entity.setDead();
+//                if(entity.isDead){
+//                    entity.onDeath(DamageSource.GENERIC);
+//                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
+//                    entity.setHealth(0);
+//                }
                 return myTexture;
             }
 

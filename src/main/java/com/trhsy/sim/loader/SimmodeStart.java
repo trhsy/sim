@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import java.io.File;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -228,7 +229,7 @@ public class SimmodeStart {
 //                    World world = Minecraft.getMinecraft().world;
 
                     if (world != null) {
-                        if (startTime - timeSinceLastClientUpdates > 3000L || ModSimLoader.sim_is_running) {
+                        if (startTime - timeSinceLastClientUpdates > 5000L || ModSimLoader.sim_is_running) {
 
 
                             //当前世界有玩家
@@ -332,11 +333,14 @@ public class SimmodeStart {
                                                 Minecraft mc = Minecraft.getMinecraft();
                                                 //播放钱到账
                                                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                                                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                                List<EntityPlayer> entityPlayers=mc.world.playerEntities;
+                                                if(entityPlayers!=null){
+                                                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                                        mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                                    }
+                                                    //你今天收了 今天的租金。
+                                                    ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(rent) + new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());
                                                 }
-                                                //你今天收了 今天的租金。
-                                                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(rent) + new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());
                                             }
                                             String hungerName = "";
                                             for (NpcData f : ModSimLoader.folks) {
@@ -345,7 +349,7 @@ public class SimmodeStart {
                                                         --f.hunger;
                                                     } else if (f.hunger < 0) {
                                                         //设置死亡 饿死
-                                                        f.entity.attackEntityFrom(DamageSource.STARVE, 999.0F);
+                                                        f.entity.attackEntityFrom(DamageSource.STARVE, 1.0F);
                                                     } else {
                                                         hungerName += f.getName() + ",";
                                                     }

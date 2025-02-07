@@ -26,6 +26,7 @@ public abstract class Task {
     public boolean interruptSleep;
     /**随机声明**/
     public Random rand = new Random();
+    public String statusText;
     /**
      * @Author fan
      * @Description //TODO 初始化任务
@@ -95,6 +96,16 @@ public abstract class Task {
             }
         }
     }
+
+    public String getStatusText() {
+        return statusText;
+    }
+
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
+    }
+
+
     public abstract void onTaskBegin();
     public abstract void onUpdate();
     public abstract void onTaskComplete();

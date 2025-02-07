@@ -9,7 +9,6 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -103,7 +102,7 @@ public class JobTaskButcherAnimal extends JobTask {
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
         List<EntityAnimal> list=new CopyOnWriteArrayList<EntityAnimal>();
         try {
-            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x-3, controlBox.y+0.5, controlBox.z-3, controlBox.x+3 , controlBox.y + 0.5D, controlBox.z + 3)).expand(3.0D, 2.0D, 3.0D));
+            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x-4, controlBox.y, controlBox.z-4, controlBox.x+4 , controlBox.y +2, controlBox.z + 4)));
             //list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x-5.0D, controlBox.y, controlBox.z-5.0D, controlBox.x + 5.0D, controlBox.y + 2.0D, controlBox.z + 5.0D)));
         }catch (Exception e){
             ModSimLoader.log.error("getAnimalsInPen出错了：" + e.getMessage() );
@@ -115,10 +114,14 @@ public class JobTaskButcherAnimal extends JobTask {
      * 杀死目标
      */
     public void killTarget() {
-        ModSimLoader.log.info("尝试杀死 " + this.butcherTarget.getName() + " " + this.butcherTarget.getEntityId());
+        ModSimLoader.log.info("尝试杀死 " + this.butcherTarget.getName() + ",实体ID： " + this.butcherTarget.getEntityId());
+        //目标体生物
         this.butcherTarget.setDropItemsWhenDead(false);
+        this.butcherTarget.setDead();
+        this.butcherTarget.dropItem(Items.AIR,0);
+
         //通用的
-        this.butcherTarget.attackEntityFrom(DamageSource.GENERIC, 500.0F);
+//        this.butcherTarget.attackEntityFrom(DamageSource.GENERIC, 500.0F);
         //牛
         if (this.butcherTarget instanceof EntityCow) {
             //牛肉

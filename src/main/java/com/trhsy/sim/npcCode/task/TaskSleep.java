@@ -8,6 +8,8 @@ package com.trhsy.sim.npcCode.task;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 
 /**
  * @Author fan
@@ -17,7 +19,6 @@ import com.trhsy.sim.npcCode.V3;
  * @return
  **/
 public class TaskSleep extends Task {
-    String statusText;
     long fs_t;
     public TaskSleep(NpcData folk, long ms, String statusText) {
         super(folk, ms);
@@ -35,6 +36,7 @@ public class TaskSleep extends Task {
     @Override
     public void onTaskBegin() {
         this.folk.stayPut = true;
+        this.folk.holding = new ItemStack(Blocks.AIR);
         this.folk.setStatus(this.statusText);
         this.fs_t=0l;
     }
@@ -48,10 +50,10 @@ public class TaskSleep extends Task {
      **/
     @Override
     public void onUpdate() {
-        if (this.folk.home != null&&!this.folk.isAtLocation(this.folk.home.livingXYZ)&&System.currentTimeMillis()-this.fs_t>3000l) {
+        if (this.folk.home != null&&!this.folk.isAtLocation(this.folk.home.livingXYZ)) {
             this.folk.stayPut = false;
 //            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
-            V3 v3=new V3(this.folk.home.livingXYZ.x+0.5,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z+0.5);
+            V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z);
                 this.folk.forceMoveToXYZNoWarp(v3);
 //            }
             this.fs_t=System.currentTimeMillis();

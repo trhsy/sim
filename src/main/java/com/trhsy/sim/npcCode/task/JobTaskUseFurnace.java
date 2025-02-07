@@ -4,7 +4,6 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -60,28 +59,27 @@ public class JobTaskUseFurnace extends JobTask {
                 ModSimLoader.sendChat(this.folk.getName() + new TextComponentTranslation("container.sim.job.glass.farmer.Where",new Object[0]).getUnformattedText());
             }
         }else {
-            ItemStack currentSand;
-            //燃料
-            ItemStack gotFuel;
+            //
             //寻找箱子
             List<IInventory> factoryChests= this.job.inventoriesFindClosest(this.job.workPlace, 5);
             if (this.step == 1) {
                 //检查炉子燃料
                 this.folk.status = new TextComponentTranslation("container.sim.job.glass.farmer.Checking",new Object[0]).getUnformattedText();
-                //沙子
-                currentSand = this.factoryFurnace.getStackInSlot(1);
-                if (currentSand == null) {
+                //燃料
+                ItemStack currentSand = this.factoryFurnace.getStackInSlot(1);
+                if (currentSand == null||currentSand.isEmpty()) {
+
                     //煤炭
-                    gotFuel = inventoriesGet(factoryChests, new ItemStack(Items.COAL, 64), false, false, new ItemStack(Items.COAL, 64));
-                    //熔岩桶
+                    ItemStack gotFuel = inventoriesGet(factoryChests, new ItemStack(Items.COAL, 64), false, false, new ItemStack(Items.COAL, 64));
+                    //没有煤炭就找熔岩桶
                     if (gotFuel == null) {
                         gotFuel = inventoriesGet(factoryChests, new ItemStack(Items.LAVA_BUCKET, 1), false, false, new ItemStack(Items.LAVA_BUCKET, 1));
                     }
-                    //木材
+                    //没有熔岩桶就找木材
                     if (gotFuel == null) {
                         gotFuel = inventoriesGet(factoryChests, new ItemStack(Blocks.LOG, 64), false, false, new ItemStack(Blocks.LOG, 64));
                     }
-                    //木板
+                    //没有木材就找木板
                     if (gotFuel == null) {
                         gotFuel = inventoriesGet(factoryChests, new ItemStack(Blocks.PLANKS, 64), false, false, new ItemStack(Blocks.PLANKS, 1));
                     }
@@ -94,8 +92,10 @@ public class JobTaskUseFurnace extends JobTask {
                             return;
                         }
                     }
-                    //将燃料放到熔炉
-                    this.factoryFurnace.setInventorySlotContents(1, gotFuel);
+                    if(gotFuel!=null){
+                        //将燃料放到熔炉
+                        this.factoryFurnace.setInventorySlotContents(1, gotFuel);
+                    }
                     this.step = 2;
                     return;
                 }
@@ -105,11 +105,11 @@ public class JobTaskUseFurnace extends JobTask {
                 //往炉子里加材料
                 this.folk.status = new TextComponentTranslation("container.sim.job.glass.farmer.Adding",new Object[0]).getUnformattedText();
                 if (this.factoryFurnace != null) {
-                    currentSand = this.factoryFurnace.getStackInSlot(0);
-                    if (currentSand == null) {
+                    ItemStack currentSand = this.factoryFurnace.getStackInSlot(0);
+                    if (currentSand == null||currentSand.isEmpty()) {
                         collectionItems.setCount(64);
                         //取箱子的材料
-                        gotFuel = inventoriesGet(factoryChests, collectionItems, false, false, collectionItems);
+                        ItemStack gotFuel = inventoriesGet(factoryChests, collectionItems, false, false, collectionItems);
                         if (gotFuel != null) {
                             this.factoryFurnace.setInventorySlotContents(0, gotFuel);
                         }
@@ -118,7 +118,7 @@ public class JobTaskUseFurnace extends JobTask {
                         return;
                     }
                     collectionItems.setCount(64 - currentSand.getCount());
-                    gotFuel = inventoriesGet(factoryChests, collectionItems, false, false, collectionItems);
+                    ItemStack gotFuel = inventoriesGet(factoryChests, collectionItems, false, false, collectionItems);
                     if (gotFuel != null) {
                         currentSand.setCount(currentSand.getCount()+gotFuel.getCount());
                         this.factoryFurnace.setInventorySlotContents(0, currentSand);
@@ -128,21 +128,23 @@ public class JobTaskUseFurnace extends JobTask {
                     return;
                 }
             } else if (this.step == 3) {
-                //获得玻璃
-                currentSand = this.factoryFurnace.getStackInSlot(2);
-                if (currentSand != null&&!currentSand.isEmpty()) {
+                //获得锻造物
+                ItemStack currentSand = this.factoryFurnace.getStackInSlot(2);
+                if (!currentSand.isEmpty()) {
                     //将锻造物放入仓库
                     this.folk.status = new TextComponentTranslation("container.sim.job.glass.farmer.Putting",new Object[0]).getUnformattedText();
-                    this.job.placeInJobChest(currentSand);
+                    //this.factoryFurnace.getStackInSlot(2).shrink(1);
+                    this.job.placeInJobChest(currentSand);//将获得的锻造物放入箱子
                     if(ModSimLoader.gamemode!=1){
                         ModSimLoader.addMoney(-0.02F * (float)currentSand.getCount());
                     }
-                    this.factoryFurnace.setInventorySlotContents(2, null);
+                    this.factoryFurnace.setInventorySlotContents(2, ItemStack.EMPTY);
                 } else {
                     //没有制造物品
                     this.folk.status = new TextComponentTranslation("container.sim.job.glass.farmer.glass",new Object[0]).getUnformattedText();
-                    this.step = 1;
-                    return;
+                    this.onTaskComplete();
+//                    this.step = 1;
+//                    return;
                 }
             }
         }
@@ -218,16 +220,30 @@ public class JobTaskUseFurnace extends JobTask {
                         if (!compareMeta) {
                             chestStack.setItemDamage(whatItem.getItemDamage());
                         }
-                        if (chestStack.isItemEqual(whatItem)) {
+                        //获取两者名字
+                        //箱子中的物品名字
+                        String itemName1=chestStack.getDisplayName();
+                        //要提取物品的名字
+                        String itemName2=whatItem.getDisplayName();
+                        //对比
+                        if (itemName1.equals(itemName2)) {
+                            //循环如果箱子里的物品数量大于1
                             while (chestStack.getCount() >= 1) {
+                                 //返回的物品数量加1
                                 returnStack.grow(1);
+                                //箱子中的物品减1
                                 chestStack.shrink(1);
-
+                                //物品数量为0则清空
                                 if (chestStack.getCount() <= 0) {
-                                    chest.setInventorySlotContents(g, null);
+                                    chest.setInventorySlotContents(g, ItemStack.EMPTY);
                                 }
-
-                                if (returnStack.getCount() == whatItem.getCount()) {
+                                //获取返回物品数量
+                                int returnCount=returnStack.getCount();
+                                //要提取的物品数量
+                                int whatCount=whatItem.getCount();
+                                //返回的物品数量与提取的物品数量一致
+                                if ( returnCount== whatCount) {
+                                    //返回物品
                                     return returnStack;
                                 }
                             }
@@ -267,7 +283,7 @@ public class JobTaskUseFurnace extends JobTask {
 
                         if (chestStack != null) {
                             returnStack = chestStack.copy();
-                            chest.setInventorySlotContents(g, null);
+                            chest.setInventorySlotContents(g, ItemStack.EMPTY);
                             return returnStack;
                         }
                     }
@@ -311,6 +327,6 @@ public class JobTaskUseFurnace extends JobTask {
     }
     @Override
     public void onTaskComplete() {
-
+        this.completed=true;
     }
 }

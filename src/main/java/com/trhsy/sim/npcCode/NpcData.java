@@ -726,7 +726,7 @@ public class NpcData {
             }
         } catch (Exception e) {
             this.isLoaded = false;
-            this.onDeath(DamageSource.GENERIC);
+//            this.onDeath(DamageSource.GENERIC);
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("loadFolk出错了,Uid："+loadID+",错误提示：【" + e.getMessage() + "】行数：" + element.getLineNumber());
         }
@@ -1289,38 +1289,87 @@ public class NpcData {
             //工作为空 不应该工作 实体不为空
             if ((this.job == null || !this.shouldWork()) && this.entity != null) {
                 //任务不为空
-                if (!this.tasks.isEmpty()) {
+                if (this.tasks.size()>0) {
                     //最近任务不为空
-                    if (this.currentTask != null) {
-                        //更新最近任务
-                        this.currentTask.update();
-                    } else {
-                        //重新获取任务
-                        this.currentTask = (Task) this.tasks.get(0);
-                        //开始任务
-                        this.currentTask.begin();
-                    }
+                   if (this.currentTask != null) {
+                       this.currentTask.update();
+
+
+                            //夜晚更新最近任务
+
+                        if(!ModSimLoader.isDayTime(this.entity.world)){
+                            if(this.currentTask!=null){
+                                //睡觉
+                                String fs_n1=new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText();
+                                String fs_n2=new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedText();
+                                String fs_n3 =this.currentTask.getStatusText();
+                                //不等于睡觉或者回家则直接完成
+                                if(fs_n3!=null&&!fs_n3.equals(fs_n2)&&!fs_n3.equals(fs_n1)){
+                                    this.currentTask.onTaskComplete();
+                                }
+                                //晚上 不在家回家
+                                if (this.home != null) {
+                                    if(!this.isAtBuilding(this.home)){
+                                        TaskGoTo taskGoTo=new TaskGoTo(this, -1L, this.home, fs_n2);
+                                        //回家
+                                        this.addTask(taskGoTo);
+                                    }
+                                    if(fs_n3!=null&&this.isAtBuilding(this.home)&&!fs_n3.equals(fs_n1)){
+                                        //睡觉
+                                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
+                                    }
+                                } else {
+                                    if(fs_n3!=null&&!this.currentTask.getStatusText().equals(fs_n1)) {
+                                        //睡觉 没有家直接睡觉
+                                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
+                                    }
+                                }
+                            }
+
+                        }
+                    } else{
+                       //重新获取任务
+                       this.currentTask = (Task) this.tasks.get(0);
+                       //开始任务
+                       this.currentTask.begin();
+                   }
                     //白天的话随机运行任务
                 } else if (ModSimLoader.isDayTime(this.entity.world)) {
                     this.pickRandomTask();
-                } else {
-                    if (this.home != null&&!this.isAtBuilding(this.home)) {
-                        TaskGoTo taskGoTo=new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedText());
-                        if (!this.isAtBuilding(this.home)&&!this.tasks.contains(taskGoTo)) {
+                } else if(!ModSimLoader.isDayTime(this.entity.world)){
+                    //晚上 不在家回家
+                    if (this.home != null) {
+                        String fs_n2=new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedText();
+                        if (!this.isAtBuilding(this.home)) {
                             //回家
+                            TaskGoTo taskGoTo=new TaskGoTo(this, -1L, this.home,fs_n2);
                             this.addTask(taskGoTo);
+                        }else {
+                            if(this.currentTask==null){
+                                //回家
+                                TaskGoTo taskGoTo=new TaskGoTo(this, -1L, this.home,fs_n2);
+                                this.addTask(taskGoTo);
+                            }
                         }
-                        //睡觉
-                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
+                        if(this.currentTask!=null){
+                            //睡觉
+                            String fs_n1=new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText();
+                            if(this.isAtBuilding(this.home)&&!this.currentTask.getStatusText().equals(fs_n1)){
+                                //睡觉
+                                this.addTask(new TaskSleep(this, -1L, fs_n1));
+                            }
+                        }
                     } else {
-                        //睡觉
+                        //睡觉 没有家直接睡觉
                         this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
                     }
                 }
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
+
             ModSimLoader.log.error("NPCData-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            e.printStackTrace();
         }
     }
 
@@ -1339,9 +1388,9 @@ public class NpcData {
                 return false;
             } else if (this.pregnancyStage > 0.0F) {
                 return false;
-                //士兵
+                //士兵一直工作
             } else if (this.job != null && this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedText())) {
-                return !ModSimLoader.isDayTime(this.entity.world);
+                return true;
             } else {
                 //白天
                 return ModSimLoader.isDayTime(this.entity.world);
@@ -1721,7 +1770,20 @@ public class NpcData {
         }
         return npcData;
     }
-
+    public void forceMoveToXYZ(V3 v3,int speedln) {
+        V3 v31=new V3(v3.x,v3.y+1,v3.z);
+        BlockPos blockPos=v31.toBlockPos();
+        Path path=this.entity.getNavigator().getPathToPos(blockPos);
+        Path path1=this.entity.getNavigator().getPath();
+        //已有地址 则更新地址
+        if(path==path1&&path!=null&&path1!=null){
+            this.entity.getNavigator().onUpdateNavigation();
+        }
+        if(path!=null){
+            //设置地址
+            this.entity.getNavigator().setPath(path,speedln);
+        }
+    }
     /**
      * @return boolean
      * @Author fan
@@ -1730,48 +1792,43 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean forceMoveToXYZ(V3 v3) {
+
         // System.out.println("要去的维度："+v3.dimension+",NPC的维度:"+this.entity.dimension);
         V3 v31=new V3(v3.x,v3.y+1,v3.z);
-        this.entity.getNavigator().clearPath();
         BlockPos blockPos=v31.toBlockPos();
         Path path=this.entity.getNavigator().getPathToPos(blockPos);
-        this.entity.getNavigator().setPath(path,1);
-        if (v3.dimension != this.entity.dimension) {
-            this.entity.changeDimension(v3.dimension);
-            this.entity.dimension = v3.dimension;
+        Path path1=this.entity.getNavigator().getPath();
+        //已有地址 则更新地址
+        if(path==path1&&path!=null&&path1!=null){
+            this.entity.getNavigator().onUpdateNavigation();
+            return true;
         }
-
-        if (this.entity.getNavigator().getPath() != null) {
-            if (this.entity.getNavigator().tryMoveToXYZ(v31.x, v31.y, v31.z, 1.0D)) {
-                double dist = Math.sqrt((v31.x-this.entity.posX)*(v31.x-this.entity.posX)+(v31.y-this.entity.posY)*(v31.y-this.entity.posY)+(v31.z-this.entity.posZ)*(v31.z-this.entity.posZ));
-                if (dist >= 10) {
-                    this.entity.getMoveHelper().setMoveTo(v31.x,v31.y,v31.z, 1D);
-                    return false;
-                }
-            }
-        } else {
-            Boolean fs_flag=System.currentTimeMillis() - this.lastPathAttempt > 3000L;
-            if (fs_flag) {
-                this.lastPathAttempt = System.currentTimeMillis();
-//                if (System.currentTimeMillis() - this.lastPathAttempt > 2000L && this.entity.world.getBlockState(v31.toBlockPos().up(2)).getBlock() == Blocks.AIR) {
-//                    this.entity.getMoveHelper().setMoveTo(v31.x,v31.y,v31.z, 1.5D);
-                    Random random = this.entity.getRNG();
-                    for (int i = 0; i < 7; ++i) {
-                        double d0 = random.nextDouble() * 0.5D;
-                        double d1 = random.nextDouble() * 0.5D;
-                        double d2 = random.nextDouble() * 0.5D;
-                        double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-                        double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
-                        double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-                        this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
-                    }
-                    this.entity.setPositionAndUpdate(v31.x, v31.y, v31.z);
-                    this.entity.getNavigator().clearPath();
-//                }
-            }
-            return false;
+        if(path!=null){
+            //设置地址
+            this.entity.getNavigator().setPath(path,1);
         }
-        return true;
+        //士兵只能走路
+        //距离大于10则传送
+        if (path!=null&&path.getCurrentPathLength()>=10) {
+            Random random =new Random();
+            for (int i = 0; i < 7; ++i) {
+                double d0 = random.nextDouble() * 0.5D;
+                double d1 = random.nextDouble() * 0.5D;
+                double d2 = random.nextDouble() * 0.5D;
+                double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
+                double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
+                double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
+                this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
+            }
+            if (v3.dimension != this.entity.dimension) {
+                this.entity.changeDimension(v3.dimension);
+                this.entity.dimension = v3.dimension;
+            }
+            this.entity.setPositionAndUpdate(v31.x, v31.y, v31.z);
+            this.entity.getNavigator().clearPath();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -1855,7 +1912,7 @@ public class NpcData {
      * @Param [b]
      **/
     public boolean isAtBuilding(Building b) {
-        return this.isAtBuilding(b, 1.0F);
+        return this.isAtBuilding(b, 1.5F);
     }
 
     /**

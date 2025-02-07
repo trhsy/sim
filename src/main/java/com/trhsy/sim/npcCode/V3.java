@@ -69,6 +69,7 @@ public class V3{
                         return 0;
                 } else {
                         double dist = Math.sqrt((other.x - this.x) * (other.x - this.x) + (other.y - this.y) * (other.y - this.y) + (other.z - this.z) * (other.z - this.z));
+//                        ModSimLoader.log.info( "【"+other.toString()+"】与地址【" + this.toString() + "】相距"+dist);
                         return (int)dist;
                 }
         }

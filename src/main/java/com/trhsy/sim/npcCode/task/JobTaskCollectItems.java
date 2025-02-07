@@ -97,7 +97,7 @@ public class JobTaskCollectItems extends JobTask {
                     //鸡蛋农场
                     this.addDestination(new TextComponentTranslation("container.sim.Vocation3",new Object[0]).getUnformattedText());
                     //牛奶
-                } else if (colItem == Items.MILK_BUCKET) {
+                } else if (colItem == ItemLoader.itemBucketMilk) {
                     //奶牛场
                     this.addDestination(new TextComponentTranslation("container.sim.Vocation20",new Object[0]).getUnformattedText());
                     //鱼

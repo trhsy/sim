@@ -171,7 +171,7 @@ public abstract class Job {
 //                            if (this.folk.entity.getDistance(this.workPlace.x, this.workPlace.y, this.workPlace.z) < 20.0D) {
                                 //去工作
                                 this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work",new Object[0]).getUnformattedText());
-                                V3 v3=new V3(this.workPlace.x+0.5,this.workPlace.y,this.workPlace.z+0.5);
+                                V3 v3=new V3(this.workPlace.x,this.workPlace.y,this.workPlace.z);
                                 //强制瞬移过去
                                 if (!this.folk.forceMoveToXYZ(v3)) {
                                     this.folk.forceMoveToXYZNoWarp(v3);
@@ -226,6 +226,7 @@ public abstract class Job {
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("job-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            e.printStackTrace();
         }
     }
 
@@ -254,7 +255,7 @@ public abstract class Job {
                             int sy = (int) (Math.round(startXYZ.y) + (long) yo);
                             int sz = (int) (Math.round(startXYZ.z) + (long) zo);
                             te = world.getTileEntity(new BlockPos(sx, sy, sz));
-                            if (te != null && te instanceof IInventory && !this.alreadyGotChest(ret, (IInventory) te)) {
+                            if (te != null && te instanceof IInventory && ((IInventory) te).getSizeInventory()>9 && !this.alreadyGotChest(ret, (IInventory) te)) {
                                 ret.add((IInventory) te);
                             }
                         }
@@ -484,7 +485,7 @@ public abstract class Job {
                                         ModSimLoader.log.info("食物：" + itemFood.getUnlocalizedName() + ",增加饱和度：" + healAmount);
                                         ++fedFolks;
                                         fd.hunger += healAmount/2;
-                                        ModSimLoader.log.info("当前npc饱和度：" + fd.hunger);
+                                        ModSimLoader.log.info("当前npc【"+fd.getName()+"】饱和度：" + fd.hunger);
                                         //fd.hunger ++;
                                         chest.decrStackSize(i, 1);
                                         break;

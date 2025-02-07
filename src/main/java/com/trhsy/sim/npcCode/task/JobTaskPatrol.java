@@ -87,6 +87,7 @@ public class JobTaskPatrol extends JobTask {
     @Override
     public void onUpdate() {
         BlockPos bp = this.job.folk.entity.getPosition();
+        //如果当前目标为空则巡逻并找到目标
         if (this.currentTarget == null) {
             //巡逻
             this.folk.setStatus(new TextComponentTranslation("container.sim.ONPATROL",new Object[0]).getUnformattedText());
@@ -117,7 +118,7 @@ public class JobTaskPatrol extends JobTask {
                 this.currentTarget = golem;
             }*/
         }
-
+        //不为空则开始攻击
         if (this.currentTarget != null) {
             //攻击谁
             this.folk.setStatus(new TextComponentTranslation("container.sim.ATTACKING",new Object[0]).getUnformattedText() + " " + this.currentTarget.getCommandSenderEntity().getName());
@@ -134,16 +135,16 @@ public class JobTaskPatrol extends JobTask {
                     }
                 }
             }
-        } else if (this.job.folk.isAtLocation(this.patrolTo)) {
-            for (this.patrolTo = this.getNewPosition(); this.patrolTo.x > this.maxX || this.patrolTo.x < this.minX || this.patrolTo.z > this.maxZ || this.patrolTo.z < this.minZ; this.patrolTo = this.getNewPosition()) {
+        }
+        //到达巡逻地点 攻击目标不清空不走
+        if (this.job.folk.isAtLocation(this.patrolTo)&&this.currentTarget != null) {
+            //更换巡逻地点
+            this.patrolTo = this.getNewPosition();
+            if(this.patrolTo.x > this.maxX || this.patrolTo.x < this.minX || this.patrolTo.z > this.maxZ || this.patrolTo.z < this.minZ){
+                this.patrolTo = this.getNewPosition();
+                this.job.folk.forceMoveToXYZ(this.patrolTo,2);
             }
-        }else if(!this.job.folk.forceMoveToXYZ(this.patrolTo)){
-            this.job.folk.forceMoveToXYZNoWarp(this.patrolTo);
-        }/*else if (!this.job.folk.isMoving) {
-            if(!this.job.folk.forceMoveToXYZ(this.patrolTo)){
-                this.job.folk.forceMoveToXYZNoWarp(this.patrolTo);
-            }
-        }*/
+        }
     }
 
     @Override
@@ -151,6 +152,10 @@ public class JobTaskPatrol extends JobTask {
 
     }
 
+    /**
+     * 随机位置
+     * @return
+     */
     V3 getNewPosition() {
         Vec3d v3d = RandomPositionGenerator.findRandomTarget(this.job.folk.entity, 10, 7);
         return v3d != null ? V3.fromVec3d(v3d) : this.getNewPosition();

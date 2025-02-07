@@ -475,7 +475,8 @@ public class JobBuilder extends Job {
                     fs_st_block = BlockLoader.blockLiving.getStateFromMeta(fs_structure.getMeta()).getBlock();
                 }
                 if (fs_st_block == BlockLoader.blockSpecial) {
-                    V3 v3 = new V3(newBP.getX(), newBP.getY(), newBP.getZ(), fs_st_block, fs_structure.getMeta());
+                    int  meta=fs_structure.getMeta();
+                    V3 v3 = new V3(newBP.getX(), newBP.getY(), newBP.getZ(), fs_st_block,meta);
                     this.blockSpecial.add(v3);
                     fs_st_block = BlockLoader.blockSpecial.getStateFromMeta(fs_structure.getMeta()).getBlock();
                 }
@@ -782,7 +783,8 @@ public class JobBuilder extends Job {
                         this.livingPos = new BlockPos(newBP.getX(), newBP.getY() - 0.5, newBP.getZ());
                     }
                     if (f_block == BlockLoader.blockSpecial) {
-                        V3 v3 = new V3(tempBP.getX(), tempBP.getY(), tempBP.getZ(), f_block, fs_structure.getMeta());
+                        int  meta=fs_structure.getMeta();
+                        V3 v3 = new V3(tempBP.getX(), tempBP.getY(), tempBP.getZ(), f_block, meta);
                         this.blockSpecial.add(v3);
                     }
                     //在客户端生成粒子

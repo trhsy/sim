@@ -6,7 +6,6 @@
 package com.trhsy.sim.npcCode.task;
 
 import com.trhsy.sim.npcCode.NpcData;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class TaskWander extends Task {
@@ -16,6 +15,7 @@ public class TaskWander extends Task {
 
 	@Override
     public void onTaskBegin() {
+		//闲逛
 		this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedText());
 	}
 

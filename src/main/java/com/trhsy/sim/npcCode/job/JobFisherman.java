@@ -63,8 +63,8 @@ public class JobFisherman extends Job {
     public void findWater(){
         try {
             //寻找附近水
-            BlockPos corner1 = this.pos.north(5).east(5).down(2);
-            BlockPos corner2 =  this.pos.south(5).west(5).down(2);
+            BlockPos corner1 = this.pos.north(5).east(5).down(3);
+            BlockPos corner2 =  this.pos.south(5).west(5).down(3);
 
             Iterator var6 = BlockPos.getAllInBox(corner1, corner2).iterator();
             //找到水

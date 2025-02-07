@@ -112,10 +112,19 @@ public class FolkRelationship {
                 }*/
 
                     //配偶
-                    this.familyType = EnumFamilyType.SPOUSE;
-                    this.subLevel=9;
-                    this.level=EnumLevel.BESTFRIENDS;
-                    FolkRelationship folkRelationship=this.getNewInverse(folk2);//.familyType=EnumFamilyType.SPOUSE;
+                    FolkRelationship folkRelationship1=this.folk1.getRelationshipWith(folk2);
+                    if(folkRelationship1!=null){
+                        folkRelationship1.familyType = EnumFamilyType.SPOUSE;
+                        folkRelationship1.subLevel=9;
+                        folkRelationship1.level=EnumLevel.BESTFRIENDS;
+                    }
+
+//                    this.familyType = EnumFamilyType.SPOUSE;
+//                    this.subLevel=9;
+//                    this.level=EnumLevel.BESTFRIENDS;
+                    folk2.adjustRelationship(this.folk1,999);
+
+                    FolkRelationship folkRelationship=folk2.getRelationshipWith(this.folk1);//.familyType=EnumFamilyType.SPOUSE;
                     //FolkRelationship folkRelationship=folk2.getRelationshipWith(this.folk1);
                     if(folkRelationship!=null){
                         //配偶
@@ -123,6 +132,7 @@ public class FolkRelationship {
                         folkRelationship.subLevel=9;
                         folkRelationship.level=EnumLevel.BESTFRIENDS;
                     }
+                    this.folk1.adjustRelationship(folk2,999);
                     this.folk1.evict();
                     this.folk1.home = folk2.home;
                     folk2.home.occupants.add(this.folk1);

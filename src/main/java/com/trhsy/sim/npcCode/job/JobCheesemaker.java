@@ -56,6 +56,7 @@ public class JobCheesemaker extends Job{
                     this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.cheesemakerStage = 3;
                 }else if (this.cheesemakerStage == 3) {
+                    //制作奶酪
                     this.addJobTask(new JobTaskCheesemaker(this, -1L, new TextComponentTranslation("container.sim.JobTaskCheesemaker1",new Object[0]).getUnformattedText()));
                     this.cheesemakerStage = 4;
                 }else{

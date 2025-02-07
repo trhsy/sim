@@ -39,11 +39,11 @@ public class JobTaskSpawnLivestock extends JobTask {
         ModSimLoader.log.info("开始繁殖牲畜");
         //开始检测当前地方的实体动物
         int animalCount = this.getAnimalsInPen(this.job.workPlace, this.livestockClass).size();
-        ModSimLoader.log.info( "检测到 "+animalCount + " " + this.livestockName);
+        ModSimLoader.log.info( "检测到 "+animalCount + " 只" + this.livestockName);
         if (animalCount < 6) {
 
         }
-        ModSimLoader.log.info("生成 " + (6 - animalCount) + " 以上");
+        ModSimLoader.log.info("生成 " + (6 - animalCount) + " 只"+this.livestockName);
         this.spawnAnimals(this.job.workPlace, this.livestockName, 6 - animalCount);
     }
 
@@ -56,7 +56,7 @@ public class JobTaskSpawnLivestock extends JobTask {
     public List<EntityAnimal> getAnimalsInPen(V3 controlBox, Class animal) {
         List<EntityAnimal> list=new CopyOnWriteArrayList<EntityAnimal>();
         try {
-            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x, controlBox.y+0.5, controlBox.z, controlBox.x + 0.5D, controlBox.y + 1.0D, controlBox.z + 1.0D)).expand(3.0D, 2.0D, 3.0D));
+            list = this.job.jobWorld.getEntitiesWithinAABB(animal, (new AxisAlignedBB(controlBox.x-4, controlBox.y, controlBox.z-4, controlBox.x +4, controlBox.y + 2.0D, controlBox.z + 4)));
 //            list = this.job.jobWorld.getEntitiesWithinAABB(animal, new AxisAlignedBB(controlBox.x-5, controlBox.y+1, controlBox.z-5, controlBox.x + 5.0D, controlBox.y + 1.0D, controlBox.z + 5.0D));
         }catch (Exception e){
             ModSimLoader.log.error("getAnimalsInPen出错了：" + e.getMessage() );

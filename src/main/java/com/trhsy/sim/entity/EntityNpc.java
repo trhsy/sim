@@ -15,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
@@ -167,7 +166,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             //限制走向
 //            this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
             //避开实体僵尸
-            this.tasks.addTask(13, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
+//            this.tasks.addTask(13, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
             //受到伤害会跑
             this.tasks.addTask(0,new EntityAIPanic(this,1.5));
             this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 1.0F));
@@ -264,7 +263,7 @@ public class EntityNpc extends EntityCreature implements INpc {
                             ItemFood itemFood = (ItemFood) item;
                             int healAmount = itemFood.getHealAmount(items);
                             this.theData.hunger += healAmount;
-                            ModSimLoader.log.info("当前npc饱和度：" + this.theData.hunger);
+                            ModSimLoader.log.info("当前npc["+this.theData.getName()+"]饱和度：" + this.theData.hunger);
                             this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
                         }
                     }

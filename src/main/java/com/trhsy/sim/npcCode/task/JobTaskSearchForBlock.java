@@ -6,7 +6,6 @@ import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -37,7 +36,7 @@ public class JobTaskSearchForBlock extends JobTask {
     long timeSinceLastCheck = 0L;
     //上次砍树时间
     long timeSinceLastChop = 0L;
-
+        public int fs_ge=0;
     public JobTaskSearchForBlock(Job j, long ms, List<Block> blocks, V3 startPoint, int radius, boolean belowGround) {
         super(j, ms);
         this.blocks = blocks;
@@ -87,7 +86,8 @@ public class JobTaskSearchForBlock extends JobTask {
                 this.job.folk.forceMoveToXYZNoWarp(this.startPoint);
                 //找物品
                 this.job.folk.setStatus(new TextComponentTranslation("container.sim.GOTOSANDBLOCK1",new Object[0]).getUnformattedText());
-                findBlocks();
+//                findBlocks();
+                onTaskComplete();
                 return;
             }
             //去到要挖的材料边
@@ -104,6 +104,7 @@ public class JobTaskSearchForBlock extends JobTask {
                                 BlockPos bp = new BlockPos(x, y, z);
                                 if (this.folk.entity.world.getBlockState(bp).getBlock().isLeaves(this.folk.entity.world.getBlockState(bp), this.folk.entity.world, bp)) {
                                     this.folk.entity.world.setBlockToAir(bp);
+                                    this.fs_ge++;
                                 }
                             }
                         }
@@ -118,12 +119,16 @@ public class JobTaskSearchForBlock extends JobTask {
                         //将物品放到箱子
                         this.job.placeInJobChest(new ItemStack(woodState.getBlock().getItemDropped(woodState, new Random(), 0), woodState.getBlock().quantityDropped(new Random())));
                         this.folk.entity.world.setBlockToAir((BlockPos) this.toMine.get(0));
+                        this.fs_ge++;
                         ModSimLoader.addMoney(-0.02F);
                         this.toMine.remove(0);
                         NpcData var10000 = this.folk;
                         var10000.skillMining += 0.001F;
                         this.addMiningLevel();
                         this.timeSinceLastChop = System.currentTimeMillis();
+                    }
+                    if(fs_ge>10){
+                        this.onTaskComplete();
                     }
                 } else {
                     //找方块
@@ -157,6 +162,6 @@ public class JobTaskSearchForBlock extends JobTask {
 
     @Override
     public void onTaskComplete() {
-
+        this.completed = true;
     }
 }

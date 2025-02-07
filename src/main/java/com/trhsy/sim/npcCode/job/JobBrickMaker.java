@@ -10,6 +10,7 @@ import com.trhsy.sim.npcCode.task.JobTaskSearchForBlock;
 import com.trhsy.sim.npcCode.task.JobTaskUseFurnace;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -56,15 +57,17 @@ public class JobBrickMaker extends Job{
                 } else if (this.brickMakerStage == 1) {
                     //要收集的物品
                     List<Block> colItems = new ArrayList();
-                    //黏土
+                    //黏土块
                     colItems.add(Blocks.CLAY);
                     //寻找黏土
                     //去寻找
                     this.folk.setStatus(new TextComponentTranslation("container.sim.GOTOCLAYBLOCK",new Object[0]).getUnformattedText());
-                    this.addJobTask(new JobTaskSearchForBlock(this, -1L, colItems,this.v3, ConfigLoader.configLumberArea,false));
+                    this.addJobTask(new JobTaskSearchForBlock(this, 5000L, colItems,this.v3, ConfigLoader.configLumberArea,false));
                     this.brickMakerStage = 2;
                 }else if(this.brickMakerStage == 2){
-                    this.addJobTask(new JobTaskUseFurnace(this, -1L, new ItemStack(Blocks.CLAY)));
+                    //使用熔炉
+                    //黏土球
+                    this.addJobTask(new JobTaskUseFurnace(this, -1L, new ItemStack(Items.CLAY_BALL)));
                     this.brickMakerStage = 3;
                 }else{
                     if (this.jobTasks.size() > 0&&this.currentTask==null) {

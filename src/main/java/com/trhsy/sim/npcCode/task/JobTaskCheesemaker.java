@@ -7,7 +7,6 @@ import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.Building;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +37,8 @@ public class JobTaskCheesemaker extends JobTask{
     public JobTaskCheesemaker(Job j, long ms, String status) {
         super(j, ms);
         this.status = status;
-        this.theCheeseFactory = ModSimLoader.getBuildingByV3(this.job.workPlace);
+        V3 v3=new V3(this.job.workPlace.x,this.job.workPlace.y-1,this.job.workPlace.z);
+        this.theCheeseFactory = ModSimLoader.getBuildingByV3(v3);
         this.cheesemakerStage = 1;
     }
     @Override
@@ -54,6 +54,7 @@ public class JobTaskCheesemaker extends JobTask{
                 //准备加满水槽
                 this.job.folk.setStatus(new TextComponentTranslation("container.sim.job.cheese_maker.Preparing",new Object[0]).getUnformattedText());
             } else if (this.cheesemakerStage == 2) {
+                if(this.theCheeseFactory==null){}
                 //倒牛奶
                 List<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
                 boolean filledOk = false;
@@ -102,36 +103,46 @@ public class JobTaskCheesemaker extends JobTask{
                     case 0:
                         //搅拌牛奶
                         say = new TextComponentTranslation("container.sim.job.cheese_maker.Stirring",new Object[0]).getUnformattedText();
+                        this.stirCount++;
                         break;
                     case 1:
                         //加入绝密成分
                         say = new TextComponentTranslation("container.sim.job.cheese_maker.ingredient",new Object[0]).getUnformattedText();
+                        this.stirCount++;
                         break;
                     case 2:
                         //添加细菌培养
                         say = new TextComponentTranslation("container.sim.job.cheese_maker.bacterial",new Object[0]).getUnformattedText();
+                        this.stirCount++;
                         break;
                     case 3:
                         //除去不需要的孢子
                         say = new TextComponentTranslation("container.sim.job.cheese_maker.unwanted",new Object[0]).getUnformattedText();
+                        this.stirCount++;
                         break;
                     case 4:
                         //检查发酵进度
                         say = new TextComponentTranslation("container.sim.job.cheese_maker.fermentation",new Object[0]).getUnformattedText();
+                        this.stirCount++;
                         break;
                     case 5:
                         //加入凝乳酶
                         say = new TextComponentTranslation("container.sim.job.cheese_maker.Adding",new Object[0]).getUnformattedText();
+                        this.stirCount++;
                         break;
                     case 6:
                         //网条状奶酪
                         say = new TextComponentTranslation("container.sim.job.cheese_maker.Reticulating",new Object[0]).getUnformattedText();
+                        //开始转化奶酪
+                        this.cheesemakerStage = 5;
                 }
                 this.job.folk.setStatus(say);
-                    //开始转化奶酪
-                    this.cheesemakerStage = 5;
+
 
             }else if(this.cheesemakerStage == 5){
+               String say= new TextComponentTranslation("container.sim.job.cheese_maker.Extracting",new Object[0]).getUnformattedText();
+
+                this.job.folk.setStatus(say);
                 //0是牛奶
                 List<V3> milkBlocks = this.theCheeseFactory.getSpecialBlocks(0);
                 //1是要放置的奶酪块
@@ -182,6 +193,8 @@ public class JobTaskCheesemaker extends JobTask{
                     ModSimLoader.sendChat(new TextComponentTranslation("container.sim.job.cheese_maker.Cheese_factory",new Object[0]).getUnformattedText());
                 }
             }else if(this.cheesemakerStage == 6){
+                String say= new TextComponentTranslation("container.sim.job.cheese_maker.Slicing",new Object[0]).getUnformattedText();
+                this.job.folk.setStatus(say);
                 //1是要放置的奶酪块
                 List<V3> cheeseBlocks = this.theCheeseFactory.getSpecialBlocks(1);
                 for (V3 cheese : cheeseBlocks) {
@@ -193,7 +206,7 @@ public class JobTaskCheesemaker extends JobTask{
                         this.job.placeInJobChest(new ItemStack(ItemLoader.itemCheese,9));
                     }
                 }
-                //this.completeTask();
+                this.completeTask();
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
