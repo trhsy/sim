@@ -1,19 +1,12 @@
 package com.trhsy.sim.gui.block;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.V3;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -56,9 +49,9 @@ public class GuiBlockMarker extends GuiScreen {
         try {
             this.buttonList.clear();
             //完成
-            this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, new TextComponentTranslation("container.sim.sim_gui_BC_Done",new Object[0]).getUnformattedText()));
+            this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 30, new TextComponentTranslation("container.sim.sim_gui_BC_Done", new Object[0]).getUnformattedText()));
             //复制结构/建造
-            GuiButton b = new GuiButton(1, this.width / 2 - 100, 100, new TextComponentTranslation("container.sim.sim_gui_Copy_structure",new Object[0]).getUnformattedText());
+            GuiButton b = new GuiButton(1, this.width / 2 - 100, 100, new TextComponentTranslation("container.sim.sim_gui_Copy_structure", new Object[0]).getUnformattedText());
             //复制结构/建造
             this.buttonList.add(b);
             b.enabled = false;
@@ -80,11 +73,11 @@ public class GuiBlockMarker extends GuiScreen {
         try {
             this.drawDefaultBackground();
             //标记棒
-            this.drawCenteredString(this.fontRenderer, new TextComponentTranslation("container.sim.Markers",new Object[0]).getUnformattedText(), this.width / 2, 30, 16777215);
+            this.drawCenteredString(this.fontRenderer, new TextComponentTranslation("container.sim.Markers", new Object[0]).getUnformattedText(), this.width / 2, 30, 16777215);
             //标记棒可以用来复制建筑
-            this.drawCenteredString(this.fontRenderer, new TextComponentTranslation("container.sim.Markers1",new Object[0]).getUnformattedText(), this.width / 2, 40, 10551295);
+            this.drawCenteredString(this.fontRenderer, new TextComponentTranslation("container.sim.Markers1", new Object[0]).getUnformattedText(), this.width / 2, 40, 10551295);
             //提示：使用后,在标记新区域之前,移除旧标记。
-            this.drawCenteredString(this.fontRenderer, new TextComponentTranslation("container.sim.Markers4",new Object[0]).getUnformattedText(), this.width / 2, 85, 10551295);
+            this.drawCenteredString(this.fontRenderer, new TextComponentTranslation("container.sim.Markers4", new Object[0]).getUnformattedText(), this.width / 2, 85, 10551295);
             this.drawCenteredString(this.fontRenderer, this.errorText, this.width / 2, this.height - 50, 16711680);
 
             super.drawScreen(i, j, f);
@@ -102,7 +95,7 @@ public class GuiBlockMarker extends GuiScreen {
                 this.mc.setIngameFocus();
             } else {
                 //复制结构/建造
-                if (guibutton.displayString.contentEquals(new TextComponentTranslation("container.sim.sim_gui_Copy_structure",new Object[0]).getUnformattedText())) {
+                if (guibutton.displayString.contentEquals(new TextComponentTranslation("container.sim.sim_gui_Copy_structure", new Object[0]).getUnformattedText())) {
                     new ThreadFacsimile();
                     //复制它
                     this.mc.currentScreen = null;
@@ -163,9 +156,9 @@ public class GuiBlockMarker extends GuiScreen {
                     } else {
                         if (cx != ex) {
                             //请面向主标记站立,后方标记在远处。
-                            GuiBlockMarker.this.errorText = new TextComponentTranslation("container.sim.Markers11",new Object[0]).getUnformattedText();
+                            GuiBlockMarker.this.errorText = new TextComponentTranslation("container.sim.Markers11", new Object[0]).getUnformattedText();
                             //无法复制建筑,技术信息cx:
-                            ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers12",new Object[0]).getUnformattedText() + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
+                            ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers12", new Object[0]).getUnformattedText() + cx + ", cz=" + cz + ", ex=" + ex + ", ez=" + ez);
                             return;
                         }
 
@@ -179,7 +172,7 @@ public class GuiBlockMarker extends GuiScreen {
                     int xo = 0;
                     int zo = 0;
                     HashMap key = new HashMap();
-                    key.put("minecraft:air,0","A");
+                    key.put("minecraft:air,0", "A");
                     CopyOnWriteArrayList layerLines = new CopyOnWriteArrayList();
                     int ch = 66;
 
@@ -215,9 +208,9 @@ public class GuiBlockMarker extends GuiScreen {
                                 BlockPos blockPos = new BlockPos(xxx, yyy, zzz);
                                 IBlockState blocks = GuiBlockMarker.this.mc.getIntegratedServer().getWorld(dimension).getBlockState(blockPos);
 //                                int id = Block.getiDFromBlock(blocks.getBlock());
-                                Block block= blocks.getBlock();
-                                String id=block.toString();
-                                id=id.substring(id.indexOf("{")+1,id.indexOf("}"));
+                                Block block = blocks.getBlock();
+                                String id = block.toString();
+                                id = id.substring(id.indexOf("{") + 1, id.indexOf("}"));
                                 int meta = block.getMetaFromState(blocks);
                                 String letter = "";
                                 letter = (String) key.get(id + "," + meta);
@@ -242,7 +235,7 @@ public class GuiBlockMarker extends GuiScreen {
                     }
 
                     if (layerLines.size() == 0) {
-                        ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers13",new Object[0]).getUnformattedText());//错误,无法捕获所有方块,请尝试靠近标记站并重试
+                        ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers13", new Object[0]).getUnformattedText());//错误,无法捕获所有方块,请尝试靠近标记站并重试
                         return;
                     }
 
@@ -266,13 +259,10 @@ public class GuiBlockMarker extends GuiScreen {
                     out.close();
                     Thread.sleep(500L);
                     ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers15") + f + new TextComponentTranslation("container.sim.Markers16"));
-                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
-                    Minecraft mc = Minecraft.getMinecraft();
-                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                        mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                    }
+//                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
+//                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                 } else {
-                    ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers17",new Object[0]).getUnformattedText());
+                    ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers17", new Object[0]).getUnformattedText());
                 }
             } catch (Exception e) {
                 StackTraceElement element = e.getStackTrace()[0];

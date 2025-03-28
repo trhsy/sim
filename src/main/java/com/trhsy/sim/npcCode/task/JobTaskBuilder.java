@@ -11,8 +11,6 @@ import com.trhsy.sim.npcCode.job.Job;
 import com.trhsy.sim.npcCode.job.JobBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -26,13 +24,14 @@ import net.minecraft.util.text.TextComponentTranslation;
  * @Description: 建筑工工作
  * @date 2024/3/12 13:59
  */
-public class JobTaskBuilder extends JobTask{
+public class JobTaskBuilder extends JobTask {
     public JobBuilder jobBuilder;
     public String status;
-    public JobTaskBuilder(Job j, long ms,String status) {
+
+    public JobTaskBuilder(Job j, long ms, String status) {
         super(j, ms);
-        this.jobBuilder= (JobBuilder) j;
-        this.status=status;
+        this.jobBuilder = (JobBuilder) j;
+        this.status = status;
     }
 
     @Override
@@ -78,11 +77,7 @@ public class JobTaskBuilder extends JobTask{
                                         } else {
                                             soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
                                         }
-                                        Minecraft mc = Minecraft.getMinecraft();
-                                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                            mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                                        }
-
+                                        folk.entity.world.playSound( folk.entity.posX, folk.entity.posY, folk.entity.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
                                     }
                                 }
                             }

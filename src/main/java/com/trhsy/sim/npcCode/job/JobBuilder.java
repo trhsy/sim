@@ -567,8 +567,9 @@ public class JobBuilder extends Job {
                             long now = System.currentTimeMillis();
                             if (now - this.timeSwingArm > 2000) {
                                 this.timeSwingArm = now;
-                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-//                            this.folk.entity.swing();
+
+//                                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                            this.folk.entity.swing();
                             }
                             //放置方块
                             this.folk.setStatus(new TextComponentTranslation("container.sim.JobBuilder3", new Object[0]).getUnformattedText());
@@ -668,13 +669,12 @@ public class JobBuilder extends Job {
             if (now - this.timeSwingArm > 3000) {
                 this.timeSwingArm = now;
                 //摇手
+                ItemStack stack = this.folk.holding;
                 this.folk.entity.swingArm(EnumHand.MAIN_HAND);
 //                    this.folk.entity.swing();
                 //建造的音效
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
-                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                    mc.world.playSound(entityPlayer, newBP.getX(), newBP.getY(), newBP.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                }
+                mc.world.playSound(newBP, soundEvent, SoundCategory.AMBIENT, 10.0F, 1.0F,true);
             }
             //放置方块
             this.folk.setStatus(new TextComponentTranslation("container.sim.JobBuilder3", new Object[0]).getUnformattedText());

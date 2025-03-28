@@ -12,7 +12,6 @@ import com.trhsy.sim.npcCode.enums.FarmType;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,6 +42,7 @@ public class BlockFarmingBox extends BlockBase{
         this.setResistance(1);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+
     /**
      * @Author fan
      * @Description //TODO 激活
@@ -53,7 +53,7 @@ public class BlockFarmingBox extends BlockBase{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_kraft_ddd_farming_constructor_activated"));
+        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         if (!worldIn.isRemote) {
             V3 vPos = new V3(pos,playerIn.dimension);
@@ -88,6 +88,9 @@ public class BlockFarmingBox extends BlockBase{
      **/
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
+        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_kraft_ddd_farming_constructor_activated"));
+        world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         if (!world.isRemote) {
             V3 markerPos = new V3(pos.getX(),pos.getY(),pos.getZ(),placer.dimension);
             //东
