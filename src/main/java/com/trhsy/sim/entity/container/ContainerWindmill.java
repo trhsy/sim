@@ -42,21 +42,22 @@ public class ContainerWindmill extends Container {
     public ContainerWindmill(InventoryPlayer playerInventory, IInventory furnaceInventory) {
         try {
             this.tileFurnace = furnaceInventory;
-            //将插槽添加到容器里
+            //将插槽添加到容器里 索引范围0
             this.addSlotToContainer(new Slot(furnaceInventory, 0, 56, 30));
             //燃料 风车不用
             //this.addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53));
+            //输出栏 索引范围1
             this.addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, furnaceInventory, 1, 110, 30));
 
-            //三排 一排九个
+            //三排 一排九个 索引范围是从 9 到 35
             for (int i = 0; i < 3; ++i) {
                 for (int j = 0; j < 9; ++j) {
                     this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 74 + i * 18));
                 }
             }
-            //物品栏一排 九个
+            //物品栏一排 九个 索引范围是从 0 到 8
             for (int k = 0; k < 9; ++k) {
-                this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 132));
+                this.addSlotToContainer(new Slot(playerInventory, k+36, 8 + k * 18, 132));
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -79,7 +80,11 @@ public class ContainerWindmill extends Container {
             ModSimLoader.log.error("ContainerWindmill-addListener出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
-
+    private void sendPropertyIfChanged(IContainerListener listener, int id, int currentValue, int newValue) {
+        if (currentValue != newValue) {
+            listener.sendWindowProperty(this, id, newValue);
+        }
+    }
     /**
      * 查找容器中所做的更改，并将其发送给每个侦听器。
      */
@@ -89,7 +94,7 @@ public class ContainerWindmill extends Container {
         try {
             for (int i = 0; i < this.listeners.size(); ++i) {
                 IContainerListener icrafting = (IContainerListener) this.listeners.get(i);
-                //制作时间
+                /*//制作时间
                 if (this.cookTime != this.tileFurnace.getField(2)) {
                     icrafting.sendWindowProperty(this, 2, this.tileFurnace.getField(2));
                 }
@@ -104,7 +109,11 @@ public class ContainerWindmill extends Container {
                 //总计制作时间
                 if (this.totalCookTime != this.tileFurnace.getField(3)) {
                     icrafting.sendWindowProperty(this, 3, this.tileFurnace.getField(3));
-                }
+                }*/
+                sendPropertyIfChanged(icrafting, 2, this.cookTime, this.tileFurnace.getField(2));
+                sendPropertyIfChanged(icrafting, 0, this.furnaceBurnTime, this.tileFurnace.getField(0));
+                sendPropertyIfChanged(icrafting, 1, this.currentItemBurnTime, this.tileFurnace.getField(1));
+                sendPropertyIfChanged(icrafting, 3, this.totalCookTime, this.tileFurnace.getField(3));
             }
             this.cookTime = this.tileFurnace.getField(2);
             this.furnaceBurnTime = this.tileFurnace.getField(0);
@@ -129,7 +138,7 @@ public class ContainerWindmill extends Container {
 
     /**
      * 交互
-     *
+     * 确定提供的玩家是否可以使用此容器
      * @param playerIn
      * @return
      */
@@ -148,8 +157,11 @@ public class ContainerWindmill extends Container {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 
-        ItemStack itemstack = null;
+        ItemStack itemstack = ItemStack.EMPTY;
         try {
+            if (index < 0 || index >= this.inventorySlots.size()) {
+                return null;
+            }
             //从箱子里取出
             Slot slot = (Slot) this.inventorySlots.get(index);
             //不为空则继续
@@ -157,10 +169,11 @@ public class ContainerWindmill extends Container {
                 //获取物品详情
                 ItemStack itemstack1 = slot.getStack();
                 itemstack = itemstack1.copy();
+                System.out.println("当前操作的物品槽索引: " + index); // 打印索引值
                 //第二个插槽
                 if (index == 1) {
                     if (!this.mergeItemStack(itemstack1, 1, 38, true)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
 
                     slot.onSlotChange(itemstack1, itemstack);
@@ -168,29 +181,30 @@ public class ContainerWindmill extends Container {
                     //熔炉配方
                     if (FurnaceRecipes.instance().getSmeltingResult(itemstack1) != null) {
                         if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-                            return null;
+                            return ItemStack.EMPTY;
                         }
                         //背包
                     } else if (index >= 3 && index < 30) {
                         if (!this.mergeItemStack(itemstack1, 29, 38, false)) {
-                            return null;
+                            return ItemStack.EMPTY;
                         }
                         //物品栏
                     } else if (index >= 29 && index < 38 && !this.mergeItemStack(itemstack1, 2, 29, false)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (!this.mergeItemStack(itemstack1, 2, 38, false)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
-                if (itemstack1.getCount() == 0) {
+
+                if (itemstack1.isEmpty()) {
                     slot.putStack(ItemStack.EMPTY);
                 } else {
                     slot.onSlotChanged();//插槽已更改
                 }
 
-//                if (itemstack1.stackSize == itemstack.stackSize) {
-//                    return null;
-//                }
+                if (itemstack1.getCount() == itemstack.getCount()) {
+                    return ItemStack.EMPTY;
+                }
 
                 slot.onTake(playerIn, itemstack1);
             }
