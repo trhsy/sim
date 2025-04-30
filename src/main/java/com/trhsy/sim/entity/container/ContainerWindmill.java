@@ -49,15 +49,18 @@ public class ContainerWindmill extends Container {
             //输出栏 索引范围1
             this.addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, furnaceInventory, 1, 110, 30));
 
-            //三排 一排九个 索引范围是从 9 到 35
+            //三排 一排九个 索引范围是从 9 到 35 （玩家背包）
             for (int i = 0; i < 3; ++i) {
                 for (int j = 0; j < 9; ++j) {
-                    this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 74 + i * 18));
+                    int fs_index=j + i * 9 + 9;
+                    System.out.println("风车的id"+fs_index);
+                    this.addSlotToContainer(new Slot(playerInventory,fs_index , 8 + j * 18, 74 + i * 18));
                 }
             }
             //物品栏一排 九个 索引范围是从 0 到 8
             for (int k = 0; k < 9; ++k) {
-                this.addSlotToContainer(new Slot(playerInventory, k+36, 8 + k * 18, 132));
+                System.out.println("风车的id"+k);
+                this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 132));
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -170,13 +173,14 @@ public class ContainerWindmill extends Container {
                 ItemStack itemstack1 = slot.getStack();
                 itemstack = itemstack1.copy();
                 System.out.println("当前操作的物品槽索引: " + index); // 打印索引值
-                //第二个插槽
+                //输出插槽
                 if (index == 1) {
-                    if (!this.mergeItemStack(itemstack1, 1, 38, true)) {
+                    if (!this.mergeItemStack(itemstack1, 2, 38, true)) {
                         return ItemStack.EMPTY;
                     }
 
                     slot.onSlotChange(itemstack1, itemstack);
+                    //不是输入插槽
                 } else if ( index != 0) {
                     //熔炉配方
                     if (FurnaceRecipes.instance().getSmeltingResult(itemstack1) != null) {
@@ -184,13 +188,15 @@ public class ContainerWindmill extends Container {
                             return ItemStack.EMPTY;
                         }
                         //背包
-                    } else if (index >= 3 && index < 30) {
+                    } else if (index >= 2 && index < 29) {
                         if (!this.mergeItemStack(itemstack1, 29, 38, false)) {
                             return ItemStack.EMPTY;
                         }
                         //物品栏
-                    } else if (index >= 29 && index < 38 && !this.mergeItemStack(itemstack1, 2, 29, false)) {
-                        return ItemStack.EMPTY;
+                    } else if (index >= 29 && index < 38) {
+                        if(!this.mergeItemStack(itemstack1, 2, 29, false)){
+                            return ItemStack.EMPTY;
+                        }
                     }
                 } else if (!this.mergeItemStack(itemstack1, 2, 38, false)) {
                     return ItemStack.EMPTY;
