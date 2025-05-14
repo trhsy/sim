@@ -134,9 +134,7 @@ public class ModSimClientLoader {
     public static NpcIdentity getFolkByUUID(UUID uuid) {
         NpcIdentity npcIdentity = null;
         for (NpcIdentity npcIdentity1 : tempHireableNpcNames) {
-            String id1=npcIdentity1.id;
-            String id2=uuid.toString();
-            if (id1.equals(id2)) {
+            if (npcIdentity1.id==uuid) {
                 return npcIdentity1;
             }
         }

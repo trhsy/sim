@@ -23,10 +23,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -384,20 +381,20 @@ public class ModSimLoader {
      * @Date 14:04 2022/10/18
      * @Param [uid]
      **/
-    public static NpcData getFolkDataByUID(String uid) {
+    public static NpcData getFolkDataByUID(UUID uid) {
         NpcData npcDatas = null;
         for (NpcData npcData : ModSimLoader.folks) {
-            if (npcData.ID.toLowerCase().equals(uid.toLowerCase())) {
+            if (npcData.ID==uid) {
                 npcDatas = npcData;
                 return npcDatas;
             }
         }
         return npcDatas;
     }
-    public static EntityNpc getEntityFolkByUID(String uid) {
+    public static EntityNpc getEntityFolkByUID(UUID uid) {
         EntityNpc entityFolk=null;
         for (NpcData npcData : ModSimLoader.folks) {
-            if (npcData.ID.toLowerCase().equals(uid.toLowerCase())) {
+            if (npcData.ID==uid) {
                 entityFolk = npcData.entity;
                 return entityFolk;
             }

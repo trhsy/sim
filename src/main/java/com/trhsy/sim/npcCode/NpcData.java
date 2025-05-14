@@ -57,7 +57,7 @@ public class NpcData {
     /**
      * NPC 的唯一标识符
      */
-    public String ID;
+    public UUID ID;
     /**
      * NPC 的名字
      */
@@ -331,7 +331,7 @@ public class NpcData {
             // 在世界中生成 NPC 实体
             world.spawnEntity(e);
             // 获取 NPC 的唯一标识符
-            this.ID = this.entity.getUniqueID().toString();
+            this.ID = this.entity.getUniqueID();
             // 发送 NPC 刚刚进入该地区的消息
             String fs_ldzl = new TextComponentTranslation("container.sim.folk_data_just", new Object[0]).getUnformattedText();
             ModSimLoader.sendChat(this.getName() + fs_ldzl);
@@ -514,7 +514,7 @@ public class NpcData {
             // 将 NPC 数据与实体关联
             e.theData = this;
             // 获取 NPC 的唯一标识符
-            this.ID = e.getUniqueID().toString();
+            this.ID = e.getUniqueID();
             this.entity = e;
             // 分配家庭成员关系
             this.assignFamilyMembers(mother, father);
@@ -680,7 +680,7 @@ public class NpcData {
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
                 if (line.contains("id|")) {
-                    this.ID = value;
+                    this.ID = UUID.fromString(value);
                 }
                 if (line.contains("isdie|")) {
                     this.isDead = Boolean.parseBoolean(value);
@@ -2061,17 +2061,33 @@ public class NpcData {
         try {
             // 获取到目标位置的路径
             Path path = this.entity.getNavigator().getPathToPos(targetPos);
+            //当前路径
             Path currentPath = this.entity.getNavigator().getPath();
 
             // 如果已有路径且路径相同，则更新导航
-            /*if (isSamePath(path, currentPath)) {
+            if (isSamePath(path, currentPath)) {
                 this.entity.getNavigator().onUpdateNavigation();
             }
 
             // 如果路径不为空，设置路径和速度
             if (path != null) {
                 this.entity.getNavigator().setPath(path, 1);
-            }*/
+            }
+            // 检测 NPC 当前位置与终点位置的距离
+            double distance = this.entity.getDistance(targetV3.x, targetV3.y, targetV3.z);
+            if (distance <= 1.0D) {
+                // 如果距离小于等于 1，说明已经到达目标位置，清除路径
+                this.entity.getNavigator().clearPath();
+                return true;
+            }
+            // 检测当前位置前方是否有方块阻挡
+            if (isPathBlocked()) {
+                // 如果前方有方块阻挡，重新获取路径
+                path = this.entity.getNavigator().getPathToPos(targetPos);
+                if (path != null) {
+                    this.entity.getNavigator().setPath(path, 1.0D);
+                }
+            }
             if (path == null) {
                 // 生成粒子效果
                 spawnPortalParticles();
@@ -2087,6 +2103,21 @@ public class NpcData {
             ModSimLoader.log.error("forceMoveToXYZ出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
         return true;
+    }
+    /**
+     * 检测当前位置前方是否有方块阻挡
+     * @return 如果前方有方块阻挡返回 true，否则返回 false
+     */
+    private boolean isPathBlocked() {
+        // 获取 NPC 的朝向
+        Vec3d lookVec = this.entity.getLookVec();
+        // 获取 NPC 当前位置
+        BlockPos currentPos = this.entity.getPosition();
+        // 计算前方位置
+        BlockPos frontPos = currentPos.add(lookVec.x, lookVec.y, lookVec.z);
+
+        // 检测前方位置是否有方块
+        return!this.entity.world.isAirBlock(frontPos);
     }
     /**
      * 生成传送门粒子效果
@@ -2353,7 +2384,7 @@ public class NpcData {
                 this.saveFolk();
                 for (NpcData npcData : ModSimLoader.folks) {
                     //ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
-                    if (npcData.ID.contentEquals(this.ID) && !npcData.entity.world.isRemote) {
+                    if (npcData.ID==this.ID && !npcData.entity.world.isRemote) {
                         ModSimLoader.log.info("找到匹配ID:"+npcData.ID);
                         ModSimLoader.sendChat(deathMessage);
                         if (this.home != null) {
@@ -2368,7 +2399,7 @@ public class NpcData {
                             building.occupants.remove(this);
                         }
                         for (FolkRelationship folkRelationship : npcData.relationships) {
-                            if (folkRelationship.folk2.contains(this.ID)) {
+                            if (folkRelationship.folk2==this.ID) {
                                 npcData.relationships.remove(folkRelationship);
                                 npcData.saveFolk();
                             }

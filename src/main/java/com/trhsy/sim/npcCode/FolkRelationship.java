@@ -5,6 +5,8 @@ import com.trhsy.sim.npcCode.enums.EnumFamilyType;
 import com.trhsy.sim.npcCode.enums.EnumLevel;
 import net.minecraft.util.text.TextComponentTranslation;
 
+import java.util.UUID;
+
 /**
  * @author Trhsy
  * @Package: com.trhsy.sim.npc
@@ -14,7 +16,7 @@ import net.minecraft.util.text.TextComponentTranslation;
  */
 public class FolkRelationship {
     public NpcData folk1;
-    public String folk2;
+    public UUID folk2;
     public EnumFamilyType familyType;
     //等级
     public EnumLevel level;
@@ -44,7 +46,7 @@ public class FolkRelationship {
             this.level = EnumLevel.AQUAINTANCE;
             this.subLevel = 5;
             this.folk1 = folk1;
-            this.folk2 = save.split(",")[0];
+            this.folk2 = UUID.fromString(save.split(",")[0]);
             this.familyType = EnumFamilyType.valueOf(save.split(",")[1]);
             this.level = EnumLevel.valueOf(save.split(",")[2]);
             this.subLevel = Integer.parseInt(save.split(",")[3]);

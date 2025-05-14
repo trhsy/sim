@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.util.UUID;
+
 /**
  * @ClassName PacketSendTerrainType
  * @Description todo 发送规划土地的类型
@@ -19,12 +21,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  **/
 public class PacketSendTerrainType implements IMessage{
 
-    String folkID = "";
+    UUID folkID;
     String terrainName = "";
     String terrainType = "";
     String bPos = "";
     public PacketSendTerrainType(){}
-    public PacketSendTerrainType(TerrainType terrainType, String folkID, String bPos){
+    public PacketSendTerrainType(TerrainType terrainType, UUID folkID, String bPos){
         this.folkID=folkID;
         this.terrainName=terrainType.terrainName;
         this.terrainType=terrainType.terrainType;
@@ -34,14 +36,14 @@ public class PacketSendTerrainType implements IMessage{
     public void fromBytes(ByteBuf buf) {
         this.terrainName = ByteBufUtils.readUTF8String(buf);
         this.terrainType = ByteBufUtils.readUTF8String(buf);
-        this.folkID = ByteBufUtils.readUTF8String(buf);
+        this.folkID = UUID.fromString(ByteBufUtils.readUTF8String(buf));
         this.bPos = ByteBufUtils.readUTF8String(buf);
     }
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.terrainName);
         ByteBufUtils.writeUTF8String(buf, this.terrainType);
-        ByteBufUtils.writeUTF8String(buf, this.folkID);
+        ByteBufUtils.writeUTF8String(buf, this.folkID.toString());
         ByteBufUtils.writeUTF8String(buf, this.bPos);
     }
     public static class Handler implements IMessageHandler<PacketSendTerrainType, IMessage> {

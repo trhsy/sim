@@ -54,7 +54,7 @@ public class PacketSellStuff implements IMessage{
         }
 
         private void handle(PacketSellStuff message, MessageContext ctx) {
-            NpcData fd = ModSimLoader.getFolkDataByUID(String.valueOf(message.uuid));
+            NpcData fd = ModSimLoader.getFolkDataByUID(message.uuid);
             fd.job.sellStuff();
 //            fd.fire();
         }

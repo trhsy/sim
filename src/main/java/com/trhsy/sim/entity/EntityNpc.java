@@ -118,11 +118,11 @@ public class EntityNpc extends EntityCreature implements INpc {
      * @param world
      * @param id
      */
-    public EntityNpc(World world, String id) {
+    public EntityNpc(World world, UUID id) {
         super(world);
         this.inventoryContainer = new ContainerNpc(this.inventory, !world.isRemote, this);
         try {
-            this.setUniqueId(UUID.fromString(id));
+            this.setUniqueId(id);
             //会捡起地上的东西
             this.setCanPickUpLoot(false);
             //会进门
@@ -306,7 +306,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             }
 
             if (this.theData == null && !this.isBeingCreated && !this.world.isRemote) {
-                this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
+                this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID());
                 this.theData.entity = this;
                 this.theData.sendSkinPathToClient();
             }
@@ -331,7 +331,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             } else {
                 boolean fs_flog = true;
                 for (NpcData npcData : ModSimLoader.folks) {
-                    if (npcData.ID.contentEquals(this.getUniqueID().toString())) {
+                    if (npcData.ID==this.getUniqueID()) {
                         npcData.onDeath(cause);
                         fs_flog = false;
                     }
@@ -361,7 +361,7 @@ public class EntityNpc extends EntityCreature implements INpc {
         try {
             if (!player.world.isRemote) {
                 if (this.theData == null) {
-                    this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID().toString());
+                    this.theData = ModSimLoader.getFolkDataByUID(this.getUniqueID());
                 }
                 if (this.theData != null) {
                     if (this.theData.job != null) {

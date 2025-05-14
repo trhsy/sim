@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -32,7 +33,7 @@ public class PacketUpdateNPC implements IMessage {
         int var5 = rawFolks.length;
         for(int var6 = 0; var6 < var5; ++var6) {
             String cFolk = var4[var6];
-            NpcData npcData=ModSimLoader.getFolkDataByUID(cFolk);
+            NpcData npcData=ModSimLoader.getFolkDataByUID(UUID.fromString(cFolk));
             this.folks.add(npcData);
         }
     }

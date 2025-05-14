@@ -1,5 +1,7 @@
 package com.trhsy.sim.npcCode;
 
+import java.util.UUID;
+
 /**
  * @author Trhsy
  * @Package: com.trhsy.sim.util.entity
@@ -9,7 +11,7 @@ package com.trhsy.sim.npcCode;
  */
 public class NpcIdentity {
     /**id**/
-    public String id;
+    public UUID id;
     /**姓名**/
     public String name;
     /**年龄**/
@@ -31,7 +33,7 @@ public class NpcIdentity {
     /**是否死亡**/
     public boolean isDead;
 
-    public NpcIdentity(String id, String name, String age, String status, String job, String house, String relationship, String hunger, String maturityAge, String skinPath,boolean isDead) {
+    public NpcIdentity(UUID id, String name, String age, String status, String job, String house, String relationship, String hunger, String maturityAge, String skinPath, boolean isDead) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -46,7 +48,7 @@ public class NpcIdentity {
     }
 
     public NpcIdentity(String combinedInfo) {
-        this.id = combinedInfo.split(",_,")[0];
+        this.id = UUID.fromString(combinedInfo.split(",_,")[0]);
         this.name = combinedInfo.split(",_,")[1];
         this.age = combinedInfo.split(",_,")[2];
         this.status = combinedInfo.split(",_,")[3];

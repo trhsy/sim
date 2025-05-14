@@ -64,7 +64,7 @@ public class PacketBuyStuff implements IMessage {
         }
 
         private void handle(PacketBuyStuff message, MessageContext ctx) {
-            NpcData fd = ModSimLoader.getFolkDataByUID(String.valueOf(message.uuid));
+            NpcData fd = ModSimLoader.getFolkDataByUID(message.uuid);
             fd.job.buyStuff(message.quantities);
 //            fd.fire();
         }

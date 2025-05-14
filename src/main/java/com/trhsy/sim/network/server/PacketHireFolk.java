@@ -19,6 +19,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.util.UUID;
+
 /**
  * @ClassName PacketHireFolk
  * @Description todo 雇佣npc
@@ -26,7 +28,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @Date 2022/10/2013:53
  **/
 public class PacketHireFolk implements IMessage {
-    private String uuid;
+    private UUID uuid;
     private String job;
     private V3 pos;
     private int buildDirection = -1;
@@ -34,13 +36,13 @@ public class PacketHireFolk implements IMessage {
     public PacketHireFolk() {
     }
 
-    public PacketHireFolk(String uuid, String job, V3 pos) {
+    public PacketHireFolk(UUID uuid, String job, V3 pos) {
         this.uuid = uuid;
         this.job = job;
         this.pos = pos;
     }
 
-    public PacketHireFolk(String uuid, String job, V3 pos, int bd) {
+    public PacketHireFolk(UUID uuid, String job, V3 pos, int bd) {
         this.uuid = uuid;
         this.job = job;
         this.pos = pos;
@@ -48,14 +50,14 @@ public class PacketHireFolk implements IMessage {
     }
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.uuid = ByteBufUtils.readUTF8String(buf);
+        this.uuid = UUID.fromString(ByteBufUtils.readUTF8String(buf));
         this.job = ByteBufUtils.readUTF8String(buf);
         this.pos = V3.fromString(ByteBufUtils.readUTF8String(buf));
         this.buildDirection = buf.readInt();
     }
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.uuid);
+        ByteBufUtils.writeUTF8String(buf, this.uuid.toString());
         ByteBufUtils.writeUTF8String(buf, this.job);
         ByteBufUtils.writeUTF8String(buf, this.pos.toString());
         buf.writeInt(this.buildDirection);
