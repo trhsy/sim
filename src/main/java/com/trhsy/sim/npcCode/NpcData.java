@@ -43,10 +43,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -58,157 +55,167 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class NpcData {
     /**
-     * id
-     **/
-    public String ID;
+     * NPC 的唯一标识符
+     */
+    public UUID ID;
     /**
-     * 名
-     **/
+     * NPC 的名字
+     */
     public String forename;
     /**
-     * 姓
-     **/
+     * NPC 的姓氏
+     */
     public String surname;
     /**
-     * 年龄 0至17岁的人=儿童18+成人
-     **/
+     * NPC 的年龄，0至17岁为儿童，18岁及以上为成人
+     */
     public int age;
     /**
-     * 性别 0=男性1=女性
-     **/
+     * NPC 的性别，0 表示男性，1 表示女性
+     */
     public int gender;
     /**
-     * 状态
-     **/
-    public String status = new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedText();
+     * NPC 的当前状态
+     */
+    public String status = new TextComponentTranslation("container.sim.folk_data.Wandering", new Object[0]).getUnformattedText();
     /**
-     * 饱食度
-     **/
+     * NPC 的饱食度
+     */
     public double hunger = 10;
     /**
-     * 种族
-     **/
+     * NPC 所属的种族
+     */
     public Race race;
     /**
-     * 工作
-     **/
+     * NPC 的工作
+     */
     public Job job;
     /**
-     * npc实体
-     **/
+     * NPC 对应的实体
+     */
     public EntityNpc entity;
     /**
-     * 情感关系
-     **/
-    public List<FolkRelationship> relationships = new CopyOnWriteArrayList();
+     * NPC 的情感关系列表
+     */
+    public List<FolkRelationship> relationships = new CopyOnWriteArrayList<>();
     /**
-     * 情绪
-     **/
-    public List<MoodBuff> buffs = new CopyOnWriteArrayList();
+     * NPC 的情绪列表
+     */
+    public List<MoodBuff> buffs = new CopyOnWriteArrayList<>();
     /**
-     * 物品栏
-     **/
-    public List<ItemStack> inventory = new CopyOnWriteArrayList<ItemStack>();
+     * NPC 的物品栏
+     */
+    public List<ItemStack> inventory = new CopyOnWriteArrayList<>();
     /**
-     * 任务
-     **/
-    public List<Task> tasks = new CopyOnWriteArrayList();
+     * NPC 的任务列表
+     */
+    public List<Task> tasks = new CopyOnWriteArrayList<>();
     /**
-     * 当前任务
-     **/
+     * NPC 的当前任务
+     */
     public Task currentTask;
     /**
-     * 特征1
-     **/
+     * NPC 的第一个特征
+     */
     public Trait trait1;
     /**
-     * 特征2
-     **/
+     * NPC 的第二个特征
+     */
     public Trait trait2;
     /**
-     * 特征3
-     **/
+     * NPC 的第三个特征
+     */
     public Trait trait3;
     /**
-     * 正在移动
-     **/
+     * 表示 NPC 是否正在移动
+     */
     public boolean isMoving;
     /**
-     * 建筑等级
-     **/
+     * NPC 的建筑技能等级
+     */
     public float skillBuilding = 1.0F;
     /**
-     * 耕种等级
-     **/
+     * NPC 的耕种技能等级
+     */
     public float skillFarming = 1.0F;
     /**
-     * 采矿等级
-     **/
+     * NPC 的采矿技能等级
+     */
     public float skillMining = 1.0F;
     /**
-     * 家
-     **/
+     * NPC 的家
+     */
     public Building home;
     /**
-     * 位置
-     **/
+     * NPC 的位置
+     */
     public V3 pos;
     /**
-     * 手持物品
-     **/
+     * NPC 手持的物品
+     */
     public ItemStack holding;
-    //皮肤数
+    /**
+     * NPC 的皮肤编号
+     */
     public int skinnumber = 0;
-    //皮肤
+    /**
+     * NPC 的皮肤名称
+     */
     private String skinName;
     /**
-     * 交配阶段
-     **/
+     * NPC 的交配阶段
+     */
     public float matingStage;
     /**
-     * 怀孕阶段
-     **/
+     * NPC 的怀孕阶段
+     */
     public float pregnancyStage;
     /**
-     * 留在原地
-     **/
+     * 表示 NPC 是否留在原地
+     */
     public boolean stayPut;
     /**
-     * 正在睡觉
-     **/
+     * 表示 NPC 是否正在睡觉
+     */
     public boolean isSleeping;
     /**
-     * 已死亡
+     * 表示 NPC 是否已经死亡
      */
     public boolean isDead;
     /**
-     * 已加载
-     **/
+     * 表示 NPC 是否已经加载
+     */
     public boolean isLoaded;
     /**
-     * 临时雇员
-     **/
+     * 临时雇员状态
+     */
     private int tempStage;
     /**
      * 自上次状态更新以来的时间
-     **/
+     */
     private transient long timeSinceLastStatusUpdate;
     /**
-     * 分钟更新
-     **/
+     * 分钟更新时间
+     */
     private transient long minuteUpdate;
     /**
      * 临时员工位置
-     **/
+     */
     V3 tempEmployLoc;
     /**
-     * 上次路径尝试
-     **/
+     * 上次路径尝试的时间
+     */
     Long lastPathAttempt;
     private int fs_rand;
+    /**
+     * 构造函数，用于创建新的 NPC
+     *
+     * @param world       游戏世界
+     * @param fromCommand 是否通过命令创建
+     */
     public NpcData(World world, boolean fromCommand) {
         try {
-            this.fs_rand=0;
+            /*this.fs_rand=0;
             this.isDead=false;
             //手持空
 //            this.holding = new ItemStack(Blocks.AIR);
@@ -226,12 +233,12 @@ public class NpcData {
             this.lastPathAttempt = 0L;
             //性别随机
             this.gender = new Random().nextInt(2);
-            /**皮肤随机*/
+            //皮肤随机
             this.skinnumber = new Random().nextInt(64) + 1;
 
             //种族分配
             this.assignRace();
-            /**年龄**/
+            //年龄
             this.age = this.race.maturity;
             //特征
             generateTraits();
@@ -245,12 +252,6 @@ public class NpcData {
             ModSimLoader.log.info("开始生成新的NPC4");
             if (!fromCommand) {
                 Vec3d newPos= RandomPositionGenerator.findRandomTarget(e, 30, 7);
-                //在par1（x，z）和par2（y）块中查找随机目标
-           /* newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
-            if (newPos == null) {
-                //在par1（x，z）和par2（y）块中查找随机目标
-                newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
-            }*/
                 if(newPos == null){
                     newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
                 }
@@ -268,8 +269,6 @@ public class NpcData {
                         if (world.playerEntities.size() > 0) {
                             EntityPlayer thePlayer = world.playerEntities.get(0);
                             newPos=new Vec3d(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
-                            //e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
-                            //this.pos = new V3(thePlayer.getPosition(), thePlayer.dimension);
                         }
                         break;
                     }
@@ -293,25 +292,126 @@ public class NpcData {
             this.saveFolk();
             this.isLoaded = true;
             ModSimLoader.folks.add(this);
+            NetWorkLoader.net.sendToAll(new PacketUpdateNPC());*/
+            // 初始化通用属性
+            initializeCommonAttributes();
+            // 随机分配性别
+            this.gender = new Random().nextInt(2);
+            // 随机分配皮肤编号
+            this.skinnumber = new Random().nextInt(64) + 1;
+            // 分配种族
+            this.assignRace();
+            // 设置年龄为种族的成熟年龄
+            this.age = this.race.maturity;
+            // 生成特征
+            generateTraits();
+
+            // 创建 NPC 实体
+            EntityNpc e = new EntityNpc(world, true);
+            e.isBeingCreated = true;
+
+            // 如果世界中有玩家，将 NPC 初始位置设置为第一个玩家的位置
+            if (world.playerEntities.size() > 0) {
+                EntityPlayer thePlayer = world.playerEntities.get(0);
+                e.setPositionAndUpdate(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
+                this.pos = new V3(thePlayer.getPosition(), thePlayer.dimension);
+            }
+            ModSimLoader.log.info("开始生成新的NPC4");
+            // 如果不是通过命令创建，随机生成 NPC 的位置
+            if (!fromCommand) {
+                Vec3d newPos = getRandomSpawnPosition(e, world);
+                if (newPos != null) {
+                    e.setPositionAndUpdate(newPos.x, newPos.y + 1.0D, newPos.z);
+                    this.pos = V3.fromVec3d(newPos);
+                }
+            }
+            // 将 NPC 数据与实体关联
+            e.theData = this;
+            this.entity = e;
+            // 在世界中生成 NPC 实体
+            world.spawnEntity(e);
+            // 获取 NPC 的唯一标识符
+            this.ID = this.entity.getUniqueID();
+            // 发送 NPC 刚刚进入该地区的消息
+            String fs_ldzl = new TextComponentTranslation("container.sim.folk_data_just", new Object[0]).getUnformattedText();
+            ModSimLoader.sendChat(this.getName() + fs_ldzl);
+            // 向所有客户端发送可雇佣的人列表
+            NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
+            // 向客户端发送 NPC 的皮肤地址
+            this.sendSkinPathToClient();
+            // 保存 NPC 数据
+            this.saveFolk();
+            // 标记 NPC 已加载
+            this.isLoaded = true;
+            // 将 NPC 添加到 ModSimLoader 的 NPC 列表中
+            ModSimLoader.folks.add(this);
+            // 向所有客户端发送 NPC 更新消息
             NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("NpcData出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+    /**
+     * 初始化通用属性
+     */
+    private void initializeCommonAttributes() {
+        this.fs_rand = 0;
+        this.isDead = false;
+        this.holding = null;
+        this.matingStage = -1.0F;
+        this.tempStage = -1;
+        this.timeSinceLastStatusUpdate = 0L;
+        this.minuteUpdate = 0L;
+        this.tempEmployLoc = null;
+        this.lastPathAttempt = 0L;
+    }
 
     /**
-     * 首次进入世界加载已存在的
+     * 获取随机生成的 NPC 位置
      *
-     * @param world
-     * @param uuid
+     * @param e     NPC 实体
+     * @param world 游戏世界
+     * @return 随机生成的位置
+     */
+    private Vec3d getRandomSpawnPosition(EntityNpc e, World world) {
+        int maxAttempts = 100;
+        int attempt = 0;
+        Vec3d newPos;
+        BlockPos pos;
+        BlockPos up;
+
+        while (attempt < maxAttempts) {
+            newPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
+            if (newPos != null) {
+                pos = new BlockPos(newPos);
+                up = pos.up();
+                if (world.isAirBlock(up)) {
+                    return newPos;
+                }
+            }
+            attempt++;
+        }
+
+        // 如果尝试次数超过上限，将位置设置为第一个玩家的位置
+        if (world.playerEntities.size() > 0) {
+            EntityPlayer thePlayer = world.playerEntities.get(0);
+            return new Vec3d(thePlayer.posX, thePlayer.posY, thePlayer.posZ);
+        }
+        return null;
+    }
+    /**
+     * 构造函数，用于首次进入世界时加载已存在的 NPC
+     *
+     * @param world 游戏世界
+     * @param uuid  NPC 的唯一标识符
      */
     public NpcData(World world, UUID uuid) {
         try {
             //初始化手持物品
 //            this.holding = new ItemStack(Blocks.AIR);
             //交配阶段
-            this.matingStage = -1.0F;
+           /* this.matingStage = -1.0F;
             //临时雇员状态
             this.tempStage = -1;
             //自上次状态更新以来的时间
@@ -326,6 +426,12 @@ public class NpcData {
             if (!world.isRemote) {
                 //加载NPC到世界上
                 this.loadFolk(world, uuid);
+            }*/
+            // 初始化通用属性
+            initializeCommonAttributes();
+            // 如果是服务器端，加载 NPC 数据
+            if (!world.isRemote) {
+                this.loadFolk(world, uuid);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -334,27 +440,25 @@ public class NpcData {
     }
 
     /**
-     * @return
-     * @Author fan
-     * @Description //TODO 孩子降世
-     * @Date 19:08 2023/2/12
-     * @Param [world, mother, father]
-     **/
+     * 构造函数，用于创建新生儿 NPC
+     *
+     * @param world  游戏世界
+     * @param mother 母亲 NPC 数据
+     * @param father 父亲 NPC 数据
+     */
     public NpcData(World world, NpcData mother, NpcData father) {
         try {
-            this.isDead =false;
+            /*this.isDead =false;
 //            this.holding = new ItemStack(Blocks.AIR);
 
             this.matingStage = -1.0F;
             this.tempStage = -1;
             this.timeSinceLastStatusUpdate = 0L;
-            /**皮肤随机*/
             this.skinnumber = new Random().nextInt(64) + 1;
             this.minuteUpdate = 0L;
             this.tempEmployLoc = null;
             this.lastPathAttempt = 0L;
             this.gender = new Random().nextInt(2);
-            /**年龄**/
             this.age = 0;
             if (new Random().nextInt(2) == 0) {
                 this.assignRace(mother.race.raceName, true);
@@ -378,6 +482,56 @@ public class NpcData {
             NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
             this.sendSkinPathToClient();
             this.saveFolk();
+            this.isLoaded = true;*/
+
+            // 初始化通用属性
+            initializeCommonAttributes();
+            // 随机分配性别
+            this.gender = new Random().nextInt(2);
+            // 随机分配皮肤编号
+            this.skinnumber = new Random().nextInt(64) + 1;
+            // 设置年龄为 0
+            this.age = 0;
+
+            // 随机选择继承母亲或父亲的种族
+            if (new Random().nextInt(2) == 0) {
+                this.assignRace(mother.race.raceName, true);
+            } else {
+                this.assignRace(father.race.raceName, true);
+            }
+
+            // 设置姓氏为父亲的姓氏
+            this.surname = father.surname;
+            // 生成特征
+            generateTraits();
+
+            // 创建 NPC 实体
+            EntityNpc e = new EntityNpc(world, true);
+            e.isBeingCreated = true;
+            // 将 NPC 初始位置设置为母亲的位置
+            e.setPositionAndUpdate(mother.entity.posX, mother.entity.posY, mother.entity.posZ);
+            this.pos = mother.pos;
+            // 将 NPC 数据与实体关联
+            e.theData = this;
+            // 获取 NPC 的唯一标识符
+            this.ID = e.getUniqueID();
+            this.entity = e;
+            // 分配家庭成员关系
+            this.assignFamilyMembers(mother, father);
+            // 设置家为母亲的家
+            this.home = mother.home;
+            // 将新生儿添加到母亲家的居住者列表中
+            mother.home.occupants.add(this);
+            // 在世界中生成 NPC 实体
+            world.spawnEntity(e);
+
+            // 向所有客户端发送可雇佣的人列表
+            NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
+            // 向客户端发送 NPC 的皮肤地址
+            this.sendSkinPathToClient();
+            // 保存 NPC 数据
+            this.saveFolk();
+            // 标记 NPC 已加载
             this.isLoaded = true;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -386,12 +540,11 @@ public class NpcData {
     }
 
     /**
-     * @return void
-     * @Author fan
-     * @Description //TODO 分配家庭成员
-     * @Date 10:34 2022/10/21
-     * @Param [mother, father]
-     **/
+     * 分配家庭成员关系
+     *
+     * @param mother 母亲 NPC 数据
+     * @param father 父亲 NPC 数据
+     */
     public void assignFamilyMembers(NpcData mother, NpcData father) {
         this.assignRelationshipsFromParent(mother);
         this.assignRelationshipsFromParent(father);
@@ -406,8 +559,10 @@ public class NpcData {
      **/
     public void assignRelationshipsFromParent(NpcData parent) {
         try {
+            // 添加与父级的亲子关系
             this.relationships.add(new FolkRelationship(this, parent, EnumFamilyType.PARENT));
             parent.relationships.add(new FolkRelationship(parent, this, EnumFamilyType.CHILD));
+            // 遍历父级的关系列表，分配其他亲属关系
             for (FolkRelationship rel : parent.relationships) {
                 NpcData folk2 = rel.getOther();
                 if (rel.familyType != EnumFamilyType.EXTENDED && rel.familyType != EnumFamilyType.GRANDCHILD && rel.familyType != EnumFamilyType.GRANDPARENT && rel.familyType != EnumFamilyType.PARENTSIBLING) {
@@ -444,34 +599,88 @@ public class NpcData {
             ModSimLoader.log.error("assignRelationshipsFromParent出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
-
     /**
-     * @return void
-     * @Author fan
-     * @Description //TODO 加载NPC
-     * @Date 19:59 2022/10/15
-     * @Param [world, loadID]
+     * 获取与另一个 NPC 的关系
+     *
+     * @param other 另一个 NPC 数据
+     * @return 关系对象
+     */
+    public FolkRelationship getRelationshipWith(NpcData other) {
+        for (FolkRelationship rel : this.relationships) {
+            if (rel.getOther() == other) {
+                return rel;
+            }
+        }
+        return null;
+    }
+    /**
+     * 分配种族
+     */
+//    public void assignRace() {
+//        Random random = new Random();
+//        List<Race> races = Races.getAllRaces();
+//        int index = random.nextInt(races.size());
+//        this.race = races.get(index);
+//        this.skinName = this.race.getRandomSkin();
+//    }
+    /**
+     * 分配指定种族
+     *
+     * @param raceName 种族名称
+     * @param isChild  是否为儿童
+     */
+//    public void assignRace(String raceName, boolean isChild) {
+//        this.race = Races.getRaceByName(raceName);
+//        if (this.race != null) {
+//            this.skinName = this.race.getRandomSkin();
+//        }
+//    }
+    /**
+     * 生成特征
+     */
+//    public void generateTraits() {
+//        Random random = new Random();
+//        List<Trait> allTraits = Arrays.asList(Traits.traitList);
+//        int size = allTraits.size();
+//        int index1 = random.nextInt(size);
+//        int index2;
+//        int index3;
+//        do {
+//            index2 = random.nextInt(size);
+//        } while (index2 == index1);
+//        do {
+//            index3 = random.nextInt(size);
+//        } while (index3 == index1 || index3 == index2);
+//        this.trait1 = allTraits.get(index1);
+//        this.trait2 = allTraits.get(index2);
+//        this.trait3 = allTraits.get(index3);
+//    }
+    /**
+     * 加载 NPC 数据
+     *
+     * @param world 游戏世界
+     * @param uuid  NPC 的唯一标识符
      **/
-    public void loadFolk(World world, UUID loadID) {
+    public void loadFolk(World world, UUID uuid) {
         try {
             File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
             if (!npcFolder.exists()) {
                 npcFolder.mkdirs();
             }
 
-            //BufferedReader reader = new BufferedReader(new FileReader(npcFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
+            String loadID = uuid.toString();
             InputStream inputStream = new FileInputStream(new File(npcFolder.getAbsolutePath() + File.separator + loadID + ".sk2"));
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             BuildingBlueprint buildingBlueprint = null;
             String line="";
-            int fs_count=0;
+//            int fs_count=0;
             while ((line= reader.readLine())!=null){
-                fs_count++;
+//                fs_count++;
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
                 if (line.contains("id|")) {
-                    this.ID = value;
+                    this.ID = UUID.fromString(value);
                 }
                 if (line.contains("isdie|")) {
                     this.isDead = Boolean.parseBoolean(value);
@@ -523,8 +732,10 @@ public class NpcData {
                     } catch (Exception var16) {
                     }
                 } else if (line.contains("employedat|")) {
-                    if (!value.contentEquals("null")) {
+                    if (!"null".equals(value)) {
                         this.tempEmployLoc = V3.fromString(value);
+                    } else {
+                        this.tempEmployLoc = null;
                     }
                 } else if (line.contains("job|")) {
                     if (!value.contentEquals("null")) {
@@ -704,31 +915,45 @@ public class NpcData {
             }
 
             reader.close();
-
+            inputStream.close();
             //if (this.entity != null) {
             //    this.entity.theData = null;
             //    this.entity = null;
             //}
-            if(fs_count>10&&!this.isDead){
-
-                this.respawn(world, this.pos.toBlockPos());
-                this.isLoaded = true;
-            }else{
+//            if(fs_count>10&&!this.isDead){
+//
+//                this.respawn(world, this.pos.toBlockPos());
+//                this.isLoaded = true;
+//            }else{
                 //重生实体
-                EntityNpc ef = new EntityNpc(world, this.ID);
+               /* EntityNpc ef = new EntityNpc(world, this.ID);
                 ef.theData=this;
                 ef.onDeath(DamageSource.GENERIC);
                 ef.removePassengers();
                 ef.dismountRidingEntity();
                 ef.setDead();
                 world.removeEntity(ef);
-                world.removeEntityDangerously(ef);
-            }
+                world.removeEntityDangerously(ef);*/
+            // 创建 NPC 实体
+            EntityNpc e = new EntityNpc(world, true);
+            e.isBeingCreated = true;
+            e.setPositionAndUpdate(this.pos.x, this.pos.y, this.pos.z);
+            e.theData = this;
+            this.entity = e;
+            world.spawnEntity(e);
+
+            // 标记 NPC 已加载
+            this.isLoaded = true;
+            // 将 NPC 添加到 ModSimLoader 的 NPC 列表中
+            ModSimLoader.folks.add(this);
+            // 向所有客户端发送 NPC 更新消息
+            NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
+//            }
         } catch (Exception e) {
             this.isLoaded = false;
 //            this.onDeath(DamageSource.GENERIC);
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("loadFolk出错了,Uid："+loadID+",错误提示：【" + e.getMessage() + "】行数：" + element.getLineNumber());
+            ModSimLoader.log.error("loadFolk出错了,Uid："+uuid+",错误提示：【" + e.getMessage() + "】行数：" + element.getLineNumber());
         }
     }
 
@@ -1064,25 +1289,25 @@ public class NpcData {
      * @Date 10:39 2022/10/21
      * @Param [folk2]
      **/
-    public FolkRelationship getRelationshipWith(NpcData folk2) {
-        FolkRelationship rels = null;
-        try {
-            for (FolkRelationship rel : this.relationships) {
-                NpcData npcData=rel.getOther();
-                if(npcData!=null){
-                    if (rel.getOther().ID == folk2.ID) {
-                        rels = rel;
-                        return rels;
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("getRelationshipWith出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
-        return rels;
-    }
+//    public FolkRelationship getRelationshipWith(NpcData folk2) {
+//        FolkRelationship rels = null;
+//        try {
+//            for (FolkRelationship rel : this.relationships) {
+//                NpcData npcData=rel.getOther();
+//                if(npcData!=null){
+//                    if (rel.getOther().ID == folk2.ID) {
+//                        rels = rel;
+//                        return rels;
+//                    }
+//                }
+//
+//            }
+//        } catch (Exception e) {
+//            StackTraceElement element = e.getStackTrace()[0];
+//            ModSimLoader.log.error("getRelationshipWith出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+//        }
+//        return rels;
+//    }
 
     /**
      * @return java.lang.String
@@ -1794,7 +2019,7 @@ public class NpcData {
     public boolean forceMoveToXYZ(V3 v3) {
 
         // System.out.println("要去的维度："+v3.dimension+",NPC的维度:"+this.entity.dimension);
-        V3 v31=new V3(v3.x,v3.y+1,v3.z);
+        /*V3 v31=new V3(v3.x,v3.y+1,v3.z);
         BlockPos blockPos=v31.toBlockPos();
         Path path=this.entity.getNavigator().getPathToPos(blockPos);
         Path path1=this.entity.getNavigator().getPath();
@@ -1828,9 +2053,105 @@ public class NpcData {
             this.entity.getNavigator().clearPath();
             return true;
         }
-        return false;
+        return false;*/
+        // 增加 1 的偏移量
+        V3 targetV3 = getAdjustedV3(v3);
+        BlockPos targetPos = targetV3.toBlockPos();
+
+        try {
+            // 获取到目标位置的路径
+            Path path = this.entity.getNavigator().getPathToPos(targetPos);
+            //当前路径
+            Path currentPath = this.entity.getNavigator().getPath();
+
+            // 如果已有路径且路径相同，则更新导航
+            if (isSamePath(path, currentPath)) {
+                this.entity.getNavigator().onUpdateNavigation();
+            }
+
+            // 如果路径不为空，设置路径和速度
+            if (path != null) {
+                this.entity.getNavigator().setPath(path, 1);
+            }
+            // 检测 NPC 当前位置与终点位置的距离
+            double distance = this.entity.getDistance(targetV3.x, targetV3.y, targetV3.z);
+            if (distance <= 1.0D) {
+                // 如果距离小于等于 1，说明已经到达目标位置，清除路径
+                this.entity.getNavigator().clearPath();
+                return true;
+            }
+            // 检测当前位置前方是否有方块阻挡
+            if (isPathBlocked()) {
+                // 如果前方有方块阻挡，重新获取路径
+                path = this.entity.getNavigator().getPathToPos(targetPos);
+                if (path != null) {
+                    this.entity.getNavigator().setPath(path, 1.0D);
+                }
+            }
+            if (path == null) {
+                // 生成粒子效果
+                spawnPortalParticles();
+                // 直接设置实体位置
+                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+            } else {
+                // 设置导航路径
+                this.entity.getNavigator().setPath(path, 1.0D);
+            }
+        } catch (Exception e) {
+            // 记录错误信息
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("forceMoveToXYZ出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+        return true;
+    }
+    /**
+     * 检测当前位置前方是否有方块阻挡
+     * @return 如果前方有方块阻挡返回 true，否则返回 false
+     */
+    private boolean isPathBlocked() {
+        // 获取 NPC 的朝向
+        Vec3d lookVec = this.entity.getLookVec();
+        // 获取 NPC 当前位置
+        BlockPos currentPos = this.entity.getPosition();
+        // 计算前方位置
+        BlockPos frontPos = currentPos.add(lookVec.x, lookVec.y, lookVec.z);
+
+        // 检测前方位置是否有方块
+        return!this.entity.world.isAirBlock(frontPos);
+    }
+    /**
+     * 生成传送门粒子效果
+     */
+    private void spawnPortalParticles() {
+        Random random = this.entity.getRNG();
+        for (int i = 0; i < 7; ++i) {
+            double d0 = random.nextDouble() * 0.5D;
+            double d1 = random.nextDouble() * 0.5D;
+            double d2 = random.nextDouble() * 0.5D;
+            double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
+            double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
+            double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
+            this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
+        }
+    }
+    /**
+     * 获取调整后的 V3 位置
+     * @param v3 原始 V3 位置
+     * @return 调整后的 V3 位置
+     */
+    private V3 getAdjustedV3(V3 v3) {
+        return new V3(v3.x, v3.y + 1, v3.z);
     }
 
+    /**
+     * 判断两条路径是否相同
+     * @param path1 第一条路径
+     * @param path2 第二条路径
+     * @return 如果相同返回 true，否则返回 false
+     */
+    private boolean isSamePath(Path path1, Path path2) {
+        return path1 == path2 && path1 != null && path2 != null;
+    }
     /**
      * 计算弧度
      * @param degree
@@ -2063,7 +2384,7 @@ public class NpcData {
                 this.saveFolk();
                 for (NpcData npcData : ModSimLoader.folks) {
                     //ModSimLoader.log.info("比较npc-ID: " + npcData.ID + " 和Id： " + this.ID);
-                    if (npcData.ID.contentEquals(this.ID) && !npcData.entity.world.isRemote) {
+                    if (npcData.ID==this.ID && !npcData.entity.world.isRemote) {
                         ModSimLoader.log.info("找到匹配ID:"+npcData.ID);
                         ModSimLoader.sendChat(deathMessage);
                         if (this.home != null) {
@@ -2078,7 +2399,7 @@ public class NpcData {
                             building.occupants.remove(this);
                         }
                         for (FolkRelationship folkRelationship : npcData.relationships) {
-                            if (folkRelationship.folk2.contains(this.ID)) {
+                            if (folkRelationship.folk2==this.ID) {
                                 npcData.relationships.remove(folkRelationship);
                                 npcData.saveFolk();
                             }

@@ -26,7 +26,7 @@ public class PacketOpenBankATMGui implements IMessage {
     }
 
     public PacketOpenBankATMGui(NpcData fd) {
-        this.id = UUID.fromString(fd.ID);
+        this.id = fd.ID;
         this.v3=fd.job.workPlace;
     }
     @Override

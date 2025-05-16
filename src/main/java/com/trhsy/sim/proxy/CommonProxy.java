@@ -27,7 +27,7 @@ public class CommonProxy {
         /**创造模式物品栏**/
         new CreativeTabsLoader(event);
         /**流体加载注册**/
-        new FluidLoader(event);
+        new FluidLoader();
         /**物品加载注册**/
 //        new ItemLoader(event);
         /**方块加载注册**/

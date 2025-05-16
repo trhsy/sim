@@ -38,7 +38,7 @@ import java.util.Random;
  * @author Trhsy
  * @Package: com.trhsy.sim.block
  * @ClassName: BlockWindmill
- * @Description:
+ * @Description: 风车方块类，处理风车方块的各种行为和属性
  * @date 2023/11/08 上午 11:17
  */
 public class BlockWindmill extends BlockContainer{
@@ -46,6 +46,8 @@ public class BlockWindmill extends BlockContainer{
     private boolean isBurning;
     public static final StatBase WINDMILL_INTERACTION = (new StatBasic("stat.windmillInteraction", new TextComponentTranslation("stat.windmillInteraction", new Object[0]))).registerStat();
     private static boolean keepInventory;
+    // 定义声音事件的资源位置常量
+    private static final ResourceLocation WINDMILL_SOUND = new ResourceLocation(ModSim.MODID + ":windmill");
 
     public BlockWindmill(boolean isBurning) {
         super(Material.WOOD);
@@ -73,15 +75,22 @@ public class BlockWindmill extends BlockContainer{
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.setDefaultFacing(worldIn, pos, state);
     }
+    /**
+     * 设置方块的默认朝向
+     *
+     * @param worldIn 世界对象
+     * @param pos     方块位置
+     * @param state   方块状态
+     */
     private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
-            //获取东南西北
+            // 获取东南西北四个方向的方块状态
             IBlockState iblockstate = worldIn.getBlockState(pos.north());
             IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
             IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
             IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
             EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
-
+            // 根据周围方块状态调整朝向
             if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
                 enumfacing = EnumFacing.SOUTH;
             } else if (enumfacing == EnumFacing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock()) {
@@ -96,10 +105,11 @@ public class BlockWindmill extends BlockContainer{
     }
 
     /**
-     * @param stateIn
-     * @param worldIn
-     * @param pos
-     * @param rand
+     * 客户端随机显示粒子和声音效果
+     * @param stateIn 方块状态
+     * @param worldIn 世界对象
+     * @param pos     方块位置
+     * @param rand    随机数生成器
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -107,17 +117,27 @@ public class BlockWindmill extends BlockContainer{
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (this.isBurning) {
             if (rand.nextDouble() < 0.1D) {
-                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":windmill"));
+                SoundEvent soundEvent = new SoundEvent(WINDMILL_SOUND);
                 worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+//                worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
             }
         }
     }
     /**
      * @return boolean
      * @Author fan
-     * @Description //TODO 右键激活
+     * @Description //TODO 右键激活 右键激活方块
      * @Date 11:16 2023/8/20
-     * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
+     * @param worldIn  世界对象
+     * @param pos      方块位置
+     * @param state    方块状态
+     * @param playerIn 玩家对象
+     * @param hand     玩家手持物品的手
+     * @param side     点击的方块面
+     * @param hitX     点击的X坐标
+     * @param hitY     点击的Y坐标
+     * @param hitZ     点击的Z坐标
+     * @return 是否激活成功
      **/
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -147,31 +167,30 @@ public class BlockWindmill extends BlockContainer{
                 return true;
             }
         } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("BlockWindmill-onBlockActivated出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            logError("BlockWindmill-onBlockActivated出错了", e);
             return false;
         }
     }
-
+    /**
+     * 设置方块的激活状态
+     *
+     * @param active   是否激活
+     * @param worldIn  世界对象
+     * @param pos      方块位置
+     */
     public static void setState(boolean active, World worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         TileEntity tileentity = worldIn.getTileEntity(pos);
         keepInventory = true;
 
-        if (active) {
-            worldIn.setBlockState(pos, BlockLoader.litBlockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, BlockLoader.litBlockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-        } else {
-            worldIn.setBlockState(pos, BlockLoader.blockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, BlockLoader.blockWindmill.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-        }
+        IBlockState newState = active ? BlockLoader.litBlockWindmill.getDefaultState() : BlockLoader.blockWindmill.getDefaultState();
+        newState = newState.withProperty(FACING, iblockstate.getValue(FACING));
+        worldIn.setBlockState(pos, newState, 3);
 
         keepInventory = false;
 
         if (tileentity != null) {
-            //验证互动程序实体
             tileentity.validate();
-            //重新设置实体
             worldIn.setTileEntity(pos, tileentity);
         }
     }
@@ -184,38 +203,35 @@ public class BlockWindmill extends BlockContainer{
     }
 
     /**
-     * @return void
-     * @Author fan
-     * @Description //TODO 放置
-     * @Date 11:16 2023/8/20
-     * @Param [world, pos, state, placer, stack]
-     **/
+     * 放置方块时的处理逻辑
+     *
+     * @param world  世界对象
+     * @param pos    方块位置
+     * @param state  方块状态
+     * @param placer 放置者
+     * @param stack  物品栈
+     */
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        try {
-            //放置的时候设置方块
-            world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
-            if (stack.hasDisplayName()) {
-                //获取当前方块实体
-                TileEntity tileentity = world.getTileEntity(pos);
-                //是风车
-                if (tileentity instanceof TileEntityWindmill) {
-                    //设置自定义名称
-                    ((TileEntityWindmill) tileentity).setCustomInventoryName(stack.getDisplayName());
+            try {
+                world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+                if (stack.hasDisplayName()) {
+                    TileEntity tileentity = world.getTileEntity(pos);
+                    if (tileentity instanceof TileEntityWindmill) {
+                        ((TileEntityWindmill) tileentity).setCustomInventoryName(stack.getDisplayName());
+                    }
                 }
+            } catch (Exception e) {
+                logError("路径箱onBlockPlacedBy出错了", e);
             }
-        } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("路径箱onBlockPlacedBy出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-        }
     }
-    /**
-     * 被损坏
-     *
-     * @param worldIn
-     * @param pos
-     * @param state
-     */
+        /**
+         * 方块被破坏时的处理逻辑
+         *
+         * @param worldIn 世界对象
+         * @param pos     方块位置
+         * @param state   方块状态
+         */
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!keepInventory) {
@@ -230,10 +246,10 @@ public class BlockWindmill extends BlockContainer{
         super.breakBlock(worldIn, pos, state);
     }
     /**
-     * 具有比较器输入覆盖
+     * 判断方块是否具有比较器输入覆盖
      *
-     * @param state
-     * @return
+     * @param state 方块状态
+     * @return 是否具有比较器输入覆盖
      */
     @Override
     public boolean hasComparatorInputOverride(IBlockState state) {
@@ -241,11 +257,12 @@ public class BlockWindmill extends BlockContainer{
     }
 
     /**
-     * 获取比较器输入覆盖
-     * @param blockState
-     * @param worldIn
-     * @param pos
-     * @return
+     * 获取比较器输入覆盖的值
+     *
+     * @param blockState 方块状态
+     * @param worldIn    世界对象
+     * @param pos        方块位置
+     * @return 比较器输入覆盖的值
      */
     @Override
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
@@ -256,10 +273,10 @@ public class BlockWindmill extends BlockContainer{
         return new ItemStack(BlockLoader.blockWindmill);
     }
     /**
-     * 调用的渲染函数的类型。3用于标准块体模型，2用于TESR，1用于液体，-1不渲染
+     * 获取方块的渲染类型
      *
-     * @param state
-     * @return
+     * @param state 方块状态
+     * @return 方块的渲染类型
      */
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
@@ -269,8 +286,8 @@ public class BlockWindmill extends BlockContainer{
     /**
      * 将给定的元数据转换为此块的BlockState
      *
-     * @param meta
-     * @return
+     * @param meta 元数据
+     * @return 方块状态
      */
     @Override
     public IBlockState getStateFromMeta(int meta) {
@@ -322,5 +339,15 @@ public class BlockWindmill extends BlockContainer{
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+    }
+    /**
+     * 统一日志记录方法
+     *
+     * @param message 错误信息
+     * @param e       异常对象
+     */
+    private void logError(String message, Exception e) {
+        StackTraceElement element = e.getStackTrace()[0];
+        ModSimLoader.log.error("{}：{} 行数：{}", message, e.getMessage(), element.getLineNumber());
     }
 }

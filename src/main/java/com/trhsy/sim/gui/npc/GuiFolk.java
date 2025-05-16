@@ -16,6 +16,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.opengl.GL11;
 
+import java.util.UUID;
+
 /**
  * @ClassName GuiFolk
  * @Description todo NPC 交互界面
@@ -59,7 +61,7 @@ public class GuiFolk extends GuiScreen {
     String mining;
     float pregnancyStage;
     int page = 0;
-    String uid;
+    UUID uid;
 
     public GuiFolk(PacketOpenFolkGui message) {
         this.uid=message.uid;

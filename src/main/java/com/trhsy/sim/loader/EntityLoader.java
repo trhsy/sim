@@ -7,9 +7,9 @@ import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.loader.render.RenderConBox;
 import com.trhsy.sim.loader.render.RenderEntityFolk;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.datafix.DataFixer;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,9 +38,11 @@ public class EntityLoader {
          */
         EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":folk"), EntityNpc.class, "EntityFolk", nextID++, ModSim.instance, 64, 1, true);
         EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":ConBox"), EntityConBox.class, "ConBox", nextID++, ModSim.instance, 64, 3, false);
-        DataFixer datafixer = new DataFixer(1343);
-        datafixer = new net.minecraftforge.common.util.CompoundDataFixer(datafixer);
-        TileEntityWindmill.registerFixesFurnace(datafixer);
+//        DataFixer datafixer = new DataFixer(1343);
+//        datafixer = new net.minecraftforge.common.util.CompoundDataFixer(datafixer);
+        // 注册 TileEntity
+        GameRegistry.registerTileEntity(TileEntityWindmill.class, "sim:windmill");
+//        TileEntityWindmill.registerFixesFurnace(datafixer);
 
     }
 

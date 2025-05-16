@@ -50,7 +50,9 @@ public class GuiWindmill extends GuiContainer {
      */
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.drawDefaultBackground();
+        if (this.mc != null && this.mc.world != null) {
+            this.drawDefaultBackground();
+        }
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }

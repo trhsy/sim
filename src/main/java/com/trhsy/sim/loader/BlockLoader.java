@@ -18,6 +18,11 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Trhsy
@@ -28,6 +33,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 @Mod.EventBusSubscriber
 public class BlockLoader {
+
+    private static final Logger LOGGER = LogManager.getLogger(BlockLoader.class);
+
     /**
      * 建筑箱
      */
@@ -77,6 +85,17 @@ public class BlockLoader {
     public static BlockFluidClassic milk=new BlockMilk();
     /**特除方块**/
     public static BlockSpecial blockSpecial=new BlockSpecial();
+    /**元数据**/
+    private static final Map<Block, Integer> BLOCK_METADATA_MAP = new HashMap<>();
+    //模型后缀
+    private static final Map<Block, String[]> BLOCK_MODEL_SUFFIX_MAP = new HashMap<>();
+
+    static {
+        BLOCK_METADATA_MAP.put(blockControlBox, 3);
+        BLOCK_MODEL_SUFFIX_MAP.put(blockControlBox, new String[]{"", "_atm", "_other"});
+        BLOCK_METADATA_MAP.put(blockLightBox, 8);
+        BLOCK_METADATA_MAP.put(blockLiving, 16);
+    }
     /**
      * 注册方块
      * @param event
@@ -84,44 +103,101 @@ public class BlockLoader {
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event){
         //注册方块
-        //建筑箱
+        /*
         event.getRegistry().register(blockConstructorBox.setRegistryName(ModSim.MODID+":block_constructor_box"));
-        //农田箱
+
         event.getRegistry().register(blockFarmingBox.setRegistryName(ModSim.MODID+":block_farming_box"));
-        //采矿箱
+
         event.getRegistry().register(blockMiningBox.setRegistryName(ModSim.MODID+":block_mining_box"));
-        //路径箱
+
         event.getRegistry().register(blockPathBox.setRegistryName(ModSim.MODID+":block_path_box"));
-        //标记棒
+
         event.getRegistry().register(blockMarker.setRegistryName(ModSim.MODID+":block_marker"));
-        //风车
+
         event.getRegistry().register(blockWindmill.setRegistryName(ModSim.MODID+":block_windmill").setUnlocalizedName("windmill").setCreativeTab(CreativeTabsLoader.tabSimU));
         event.getRegistry().register(litBlockWindmill.setRegistryName(ModSim.MODID+":lit_block_windmill").setUnlocalizedName("windmill"));
-        //牛奶
+
         event.getRegistry().register(milk.setRegistryName(ModSim.MODID+":milk"));
-        //复合砖
+
         event.getRegistry().register(blockCompositeBrick.setRegistryName(ModSim.MODID+":block_composite_brick"));
-        //奶酪块
+
         event.getRegistry().register(blockCheese.setRegistryName(ModSim.MODID+":block_cheese"));
-        //控制箱
+
         event.getRegistry().register(blockControlBox.setRegistryName(ModSim.MODID+":block_control_box"));
-        //铜块
+
         event.getRegistry().register(blockCopper.setRegistryName(ModSim.MODID+":block_copper"));
-        //铜矿
+
         event.getRegistry().register(blockCopperOre.setRegistryName(ModSim.MODID+":block_copper_ore"));
-        //锡块
+
         event.getRegistry().register(blockTin.setRegistryName(ModSim.MODID+":block_tin"));
-        //锡矿
+
         event.getRegistry().register(blockTinOre.setRegistryName(ModSim.MODID+":block_tin_ore"));
-        //灯箱
+
         event.getRegistry().register(blockLightBox.setRegistryName(ModSim.MODID+":block_light_box"));
-        //地毯
+
         event.getRegistry().register(blockLiving.setRegistryName(ModSim.MODID+":block_living"));
-        //特除方块
+
         event.getRegistry().register(blockSpecial.setRegistryName(ModSim.MODID+":block_special"));
+*/
+        //建筑箱
+        registerBlock(event, blockConstructorBox, "block_constructor_box");
+        //农田箱
+        registerBlock(event, blockFarmingBox, "block_farming_box");
+        //采矿箱
+        registerBlock(event, blockMiningBox, "block_mining_box");
+        //路径箱
+        registerBlock(event, blockPathBox, "block_path_box");
+        //标记棒
+        registerBlock(event, blockMarker, "block_marker");
+        //风车
+        registerBlock(event, blockWindmill, "block_windmill", "windmill", CreativeTabsLoader.tabSimU);
+        registerBlock(event, litBlockWindmill, "lit_block_windmill", "windmill", null);
+        //牛奶
+        registerBlock(event, milk, "milk");
+        //复合砖
+        registerBlock(event, blockCompositeBrick, "block_composite_brick");
+        //奶酪块
+        registerBlock(event, blockCheese, "block_cheese");
+        //控制箱
+        registerBlock(event, blockControlBox, "block_control_box");
+        //铜块
+        registerBlock(event, blockCopper, "block_copper");
+        //铜矿
+        registerBlock(event, blockCopperOre, "block_copper_ore");
+        //锡块
+        registerBlock(event, blockTin, "block_tin");
+        //锡矿
+        registerBlock(event, blockTinOre, "block_tin_ore");
+        //灯箱
+        registerBlock(event, blockLightBox, "block_light_box");
+        //地毯
+        registerBlock(event, blockLiving, "block_living");
+        //特除方块
+        registerBlock(event, blockSpecial, "block_special");
 
     }
+    private static void registerBlock(RegistryEvent.Register<Block> event, Block block, String registryName) {
+        try {
+            event.getRegistry().register(block.setRegistryName(ModSim.MODID + ":" + registryName));
+        } catch (Exception e) {
+            LOGGER.error("注册方块失败 {}: {}", registryName, e.getMessage());
+        }
+    }
 
+    private static void registerBlock(RegistryEvent.Register<Block> event, Block block, String registryName, String unlocalizedName, Object creativeTab) {
+        try {
+            Block registeredBlock = block.setRegistryName(ModSim.MODID + ":" + registryName);
+            if (unlocalizedName != null) {
+                registeredBlock.setUnlocalizedName(unlocalizedName);
+            }
+            if (creativeTab != null) {
+                registeredBlock.setCreativeTab((net.minecraft.creativetab.CreativeTabs) creativeTab);
+            }
+            event.getRegistry().register(registeredBlock);
+        } catch (Exception e) {
+            LOGGER.error("注册方块失败 {}: {}", registryName, e.getMessage());
+        }
+    }
     /**
      * 同时注册为物品
      * @param event
@@ -129,14 +205,14 @@ public class BlockLoader {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event){
         //注册为物品
-        //建筑箱
+        /*
         event.getRegistry().register(new ItemBlock(blockConstructorBox).setRegistryName(ModSim.MODID+":block_constructor_box"));
-        //农田箱
+
         event.getRegistry().register(new ItemBlock(blockFarmingBox).setRegistryName(ModSim.MODID+":block_farming_box"));
 
-        //采矿箱
+
         event.getRegistry().register(new ItemBlock(blockMiningBox).setRegistryName(ModSim.MODID+":block_mining_box"));
-        //控制箱
+
         Item blockControlBoxItem=new ItemMultiTexture(blockControlBox,blockControlBox,new ItemMultiTexture.Mapper(){
             @Override
             public String apply(ItemStack var1) {
@@ -144,31 +220,31 @@ public class BlockLoader {
             }
         });
         event.getRegistry().register(blockControlBoxItem.setRegistryName(ModSim.MODID+":block_control_box"));
-        //路径箱
+
         event.getRegistry().register(new ItemBlock(blockPathBox).setRegistryName(ModSim.MODID+":block_path_box"));
-        //标记棒
+
         event.getRegistry().register(new ItemBlock(blockMarker).setRegistryName(ModSim.MODID+":block_marker"));
-        //风车
+
         event.getRegistry().register(new ItemBlock(blockWindmill).setRegistryName(ModSim.MODID+":block_windmill"));
         event.getRegistry().register(new ItemBlock(litBlockWindmill).setRegistryName(ModSim.MODID+":lit_block_windmill"));
-        //复合砖
+
         event.getRegistry().register(new ItemBlock(blockCompositeBrick).setRegistryName(ModSim.MODID+":block_composite_brick"));
-        //牛奶
+
         event.getRegistry().register(new ItemBlock(milk).setRegistryName(ModSim.MODID+":milk"));
-        //奶酪块
+
         event.getRegistry().register(new ItemBlock(blockCheese).setRegistryName(ModSim.MODID+":block_cheese"));
 
-        //铜块
+
         event.getRegistry().register(new ItemBlock(blockCopper).setRegistryName(ModSim.MODID+":block_copper"));
-        //铜矿
+
         event.getRegistry().register(new ItemBlock(blockCopperOre).setRegistryName(ModSim.MODID+":block_copper_ore"));
 
-        //锡块
+
         event.getRegistry().register(new ItemBlock(blockTin).setRegistryName(ModSim.MODID+":block_tin"));
-        //锡矿
+
         event.getRegistry().register(new ItemBlock(blockTinOre).setRegistryName(ModSim.MODID+":block_tin_ore"));
 
-        //灯箱
+
         Item blockLightBoxItem=new ItemMultiTexture(blockLightBox,blockLightBox,new ItemMultiTexture.Mapper(){
             @Override
             public String apply(ItemStack var1) {
@@ -176,7 +252,7 @@ public class BlockLoader {
             }
         });
         event.getRegistry().register(blockLightBoxItem.setRegistryName(ModSim.MODID+":block_light_box"));
-        //地毯
+
         Item blockLivingItem=new ItemMultiTexture(blockLiving,blockLiving,new ItemMultiTexture.Mapper(){
             @Override
             public String apply(ItemStack var1) {
@@ -184,10 +260,77 @@ public class BlockLoader {
             }
         });
         event.getRegistry().register(blockLivingItem.setRegistryName(ModSim.MODID+":block_living"));
+
+        event.getRegistry().register(new ItemBlock(blockSpecial).setRegistryName(ModSim.MODID+":block_special"));*/
+
+//建筑箱
+        registerItem(event, blockConstructorBox, "block_constructor_box");
+        //农田箱
+        registerItem(event, blockFarmingBox, "block_farming_box");
+        //采矿箱
+        registerItem(event, blockMiningBox, "block_mining_box");
+        //路径箱
+        registerItem(event, blockPathBox, "block_path_box");
+        //标记棒
+        registerItem(event, blockMarker, "block_marker");
+        //风车
+        registerItem(event, blockWindmill, "block_windmill");
+
+        registerItem(event, litBlockWindmill, "lit_block_windmill");
+        //复合砖
+        registerItem(event, blockCompositeBrick, "block_composite_brick");
+        //牛奶
+        registerItem(event, milk, "milk");
+        //奶酪块
+        registerItem(event, blockCheese, "block_cheese");
+        //铜块
+        registerItem(event, blockCopper, "block_copper");
+        //铜矿
+        registerItem(event, blockCopperOre, "block_copper_ore");
+        //锡块
+        registerItem(event, blockTin, "block_tin");
+        //锡矿
+        registerItem(event, blockTinOre, "block_tin_ore");
         //特制方块空气
-        event.getRegistry().register(new ItemBlock(blockSpecial).setRegistryName(ModSim.MODID+":block_special"));
+        registerItem(event, blockSpecial, "block_special");
+//控制箱
+        registerMultiTextureItem(event, blockControlBox, "block_control_box", new ItemMultiTexture.Mapper() {
+            @Override
+            public String apply(ItemStack var1) {
+                return EnumControlBox.byMetadata(var1.getMetadata()).getUnlocalizedName();
+            }
+        });
+        //灯箱
+        registerMultiTextureItem(event, blockLightBox, "block_light_box", new ItemMultiTexture.Mapper() {
+            @Override
+            public String apply(ItemStack var1) {
+                return EnumLightColour.byMetadata(var1.getMetadata()).getUnlocalizedName();
+            }
+        });
+        //地毯
+        registerMultiTextureItem(event, blockLiving, "block_living", new ItemMultiTexture.Mapper() {
+            @Override
+            public String apply(ItemStack var1) {
+                return EnumBlockLiving.byMetadata(var1.getMetadata()).getUnlocalizedName();
+            }
+        });
+    }
+    private static void registerItem(RegistryEvent.Register<Item> event, Block block, String registryName) {
+        try {
+            event.getRegistry().register(new ItemBlock(block).setRegistryName(ModSim.MODID + ":" + registryName));
+        } catch (Exception e) {
+            LOGGER.error("注册物品失败 {}: {}", registryName, e.getMessage());
+        }
     }
 
+    private static void registerMultiTextureItem(RegistryEvent.Register<Item> event, Block block, String registryName, ItemMultiTexture.Mapper mapper) {
+        try {
+            Item item = new ItemMultiTexture(block, block, mapper);
+            event.getRegistry().register(item.setRegistryName(ModSim.MODID + ":" + registryName));
+        } catch (Exception e) {
+            LOGGER.error("注册物品失败 {}: {}", registryName, e.getMessage());
+        }
+    }
     /**
      * 注册材质
      * @param event
@@ -195,48 +338,112 @@ public class BlockLoader {
     @SubscribeEvent
     public static void registerItemBlockModel(ModelRegistryEvent event){
         //注册材质
-        //建筑箱
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockConstructorBox),0,new ModelResourceLocation(blockConstructorBox.getRegistryName(),"inventory"));
+//建筑箱
+        registerModel(Item.getItemFromBlock(blockConstructorBox), "block_constructor_box");
         //农田箱
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockFarmingBox),0,new ModelResourceLocation(blockFarmingBox.getRegistryName(),"inventory"));
+        registerModel(Item.getItemFromBlock(blockFarmingBox), "block_farming_box");
         //采矿箱
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockMiningBox),0,new ModelResourceLocation(blockMiningBox.getRegistryName(),"inventory"));
+        registerModel(Item.getItemFromBlock(blockMiningBox), "block_mining_box");
         //路径箱
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockPathBox),0,new ModelResourceLocation(blockPathBox.getRegistryName(),"inventory"));
+        registerModel(Item.getItemFromBlock(blockPathBox), "block_path_box");
         //标记棒
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockMarker),0,new ModelResourceLocation(blockMarker.getRegistryName(),"inventory"));
+        registerModel(Item.getItemFromBlock(blockMarker), "block_marker");
         //牛奶
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(milk),0,new ModelResourceLocation(milk.getRegistryName(),"inventory"));
+        registerModel(Item.getItemFromBlock(milk), "milk");
         //复合砖
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockCompositeBrick),0,new ModelResourceLocation(blockCompositeBrick.getRegistryName(),"inventory"));
+        registerModel(Item.getItemFromBlock(blockCompositeBrick), "block_composite_brick");
         //奶酪块
+        registerModel(Item.getItemFromBlock(blockCheese), "block_cheese");
+        //铜块
+        registerModel(Item.getItemFromBlock(blockCopper), "block_copper");
+        //铜矿
+        registerModel(Item.getItemFromBlock(blockCopperOre), "block_copper_ore");
+        //锡块
+        registerModel(Item.getItemFromBlock(blockTin), "block_tin");
+        //锡矿
+        registerModel(Item.getItemFromBlock(blockTinOre), "block_tin_ore");
+        //特除方块
+        registerModel(Item.getItemFromBlock(blockSpecial), "block_special");
+        registerModel(Item.getItemFromBlock(blockWindmill), "block_windmill");
+        //风车
+        registerModel(Item.getItemFromBlock(litBlockWindmill), "lit_block_windmill");
+//控制箱 三个元素
+        registerMultiModel(Item.getItemFromBlock(blockControlBox), "block_control_box", BLOCK_MODEL_SUFFIX_MAP.get(blockControlBox));
+        //灯箱
+        registerMultiModel(Item.getItemFromBlock(blockLightBox), "block_light_box", BLOCK_METADATA_MAP.get(blockLightBox));
+        //地毯
+        registerMultiModel(Item.getItemFromBlock(blockLiving), "block_living", BLOCK_METADATA_MAP.get(blockLiving));
+
+        /*
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockConstructorBox),0,new ModelResourceLocation(blockConstructorBox.getRegistryName(),"inventory"));
+
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockFarmingBox),0,new ModelResourceLocation(blockFarmingBox.getRegistryName(),"inventory"));
+
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockMiningBox),0,new ModelResourceLocation(blockMiningBox.getRegistryName(),"inventory"));
+
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockPathBox),0,new ModelResourceLocation(blockPathBox.getRegistryName(),"inventory"));
+
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockMarker),0,new ModelResourceLocation(blockMarker.getRegistryName(),"inventory"));
+
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(milk),0,new ModelResourceLocation(milk.getRegistryName(),"inventory"));
+
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockCompositeBrick),0,new ModelResourceLocation(blockCompositeBrick.getRegistryName(),"inventory"));
+
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockCheese),0,new ModelResourceLocation(blockCheese.getRegistryName(),"inventory"));
-        //控制箱 三个元素
+
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockControlBox),0,new ModelResourceLocation(blockControlBox.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockControlBox),1,new ModelResourceLocation(blockControlBox.getRegistryName()+"_atm","inventory"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockControlBox),2,new ModelResourceLocation(blockControlBox.getRegistryName()+"_other","inventory"));
-        //铜块
+
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockCopper),0,new ModelResourceLocation(blockCopper.getRegistryName(),"inventory"));
-        //铜矿
+
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockCopperOre),0,new ModelResourceLocation(blockCopperOre.getRegistryName(),"inventory"));
-        //锡块
+
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockTin),0,new ModelResourceLocation(blockTin.getRegistryName(),"inventory"));
-        //锡矿
+
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockTinOre),0,new ModelResourceLocation(blockTinOre.getRegistryName(),"inventory"));
-        //灯箱
+
         for (int i = 0; i < 8; i++) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockLightBox),i,new ModelResourceLocation(blockLightBox.getRegistryName()+""+i,"inventory"));
         }
 
-        //地毯
+
         for (int i = 0; i < 16; i++) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockLiving),i,new ModelResourceLocation(blockLiving.getRegistryName()+""+i,"inventory"));
         }
-        //特除方块
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockSpecial),0,new ModelResourceLocation(blockSpecial.getRegistryName(),"inventory"));
-        //风车
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockWindmill),0,new ModelResourceLocation(blockWindmill.getRegistryName(),"inventory"));
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(litBlockWindmill),0,new ModelResourceLocation(litBlockWindmill.getRegistryName(),"inventory"));
 
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockSpecial),0,new ModelResourceLocation(blockSpecial.getRegistryName(),"inventory"));
+
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockWindmill),0,new ModelResourceLocation(blockWindmill.getRegistryName(),"inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(litBlockWindmill),0,new ModelResourceLocation(litBlockWindmill.getRegistryName(),"inventory"));*/
+
+    }
+
+    private static void registerModel(Item item, String registryName) {
+        try {
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(ModSim.MODID + ":" + registryName, "inventory"));
+        } catch (Exception e) {
+            LOGGER.error("未能注册物品的模型 {}: {}", registryName, e.getMessage());
+        }
+    }
+
+    private static void registerMultiModel(Item item, String registryName, String[] suffixes) {
+        try {
+            for (int i = 0; i < suffixes.length; i++) {
+                ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(ModSim.MODID + ":" + registryName + suffixes[i], "inventory"));
+            }
+        } catch (Exception e) {
+            LOGGER.error("无法为物品注册多个模型 {}: {}", registryName, e.getMessage());
+        }
+    }
+
+    private static void registerMultiModel(Item item, String registryName, int metadataCount) {
+        try {
+            for (int i = 0; i < metadataCount; i++) {
+                ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(ModSim.MODID + ":" + registryName + i, "inventory"));
+            }
+        } catch (Exception e) {
+            LOGGER.error("无法为物品注册多个模型 {}: {}", registryName, e.getMessage());
+        }
     }
 }

@@ -32,14 +32,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @author Trhsy
  * @Package: com.trhsy.sim.entity
  * @ClassName: TileEntityWindmill
- * @Description:
+ * @Description: 风车方块的TileEntity类，处理风车的库存、熔炼等逻辑
  * @date 2023/08/21 上午 9:22
  */
 public class TileEntityWindmill extends TileEntityLockable implements ITickable, ISidedInventory {
     //自定义名称
     private String windmillCustomName;
     /**
-     * 存放风车中当前使用的物品的ItemStack
+     * 存放风车中当前使用的物品的ItemStack 列表，大小为2
      */
     private NonNullList<ItemStack> furnaceItemStacks = NonNullList.<ItemStack>withSize(2, ItemStack.EMPTY);
     /**
@@ -59,27 +59,34 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     private int furnaceBurnTime;
     /**
-     * 插槽左
+     * 插槽左 插槽左，对应输入物品的插槽
      */
     private static final int[] SLOTS_LEFT = new int[]{0};
     /**
-     * 插槽右
+     * 插槽右 插槽右，对应输出物品的插槽
      */
     private static final int[] SLOTS_RIGHT = new int[]{1};
 
     /**
      * 返回资源清册中的插槽数。
      *
-     * @return
+     * @return 插槽数
      */
     @Override
     public int getSizeInventory() {
         return this.furnaceItemStacks.size();
     }
 
+    /**
+     * 判断库存是否为空
+     *
+     * @return 如果库存为空返回true，否则返回false
+     */
     @Override
     public boolean isEmpty() {
+        // 遍历库存中的每个物品栈
         for (ItemStack itemstack : this.furnaceItemStacks) {
+            // 如果有一个物品栈不为空，则库存不为空
             if (!itemstack.isEmpty()) {
                 return false;
             }
@@ -89,10 +96,10 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     }
 
     /**
-     * 返回给定插槽中的堆栈。
+     * 返回给定插槽中的堆栈
      *
-     * @param index
-     * @return
+     * @param index 插槽索引
+     * @return 对应插槽的物品栈
      */
     @Override
     public ItemStack getStackInSlot(int index) {
@@ -100,11 +107,11 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     }
 
     /**
-     * 从库存槽中最多删除指定数量的项目，并将它们返回到新堆栈中。
+     * 从库存槽中最多删除指定数量的项目，并将它们返回到新堆栈中
      *
-     * @param index
-     * @param count
-     * @return
+     * @param index 插槽索引
+     * @param count 要删除的物品数量
+     * @return 被删除的物品栈
      */
     @Override
     public ItemStack decrStackSize(int index, int count) {
@@ -112,10 +119,10 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     }
 
     /**
-     * 从给定插槽中删除堆栈并返回它。
+     * 从给定插槽中删除堆栈并返回它
      *
-     * @param index
-     * @return
+     * @param index 插槽索引
+     * @return 被删除的物品栈
      */
     @Override
     public ItemStack removeStackFromSlot(int index) {
@@ -123,25 +130,29 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     }
 
     /**
-     * 将给定的物品堆叠设置为库存中的指定插槽（可以是手工制作或盔甲部分）。
+     * 将给定的物品堆叠设置为库存中的指定插槽（可以是手工制作或盔甲部分）
      *
-     * @param index
-     * @param stack
+     * @param index 插槽索引
+     * @param stack 要设置的物品栈
      */
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         try {
+            // 获取当前插槽的物品栈
             ItemStack itemstack = (ItemStack) this.furnaceItemStacks.get(index);
+            // 判断新物品栈和原物品栈是否相同
             boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
+            // 设置新的物品栈
             this.furnaceItemStacks.set(index, stack);
-
+            // 如果物品栈数量超过最大限制，调整为最大限制
             if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
                 stack.setCount(this.getInventoryStackLimit());
             }
-            //是零并且
+            // 如果是第一个插槽且物品栈不同，重置制作时间
             if (index == 0 && !flag) {
                 this.totalCookTime = this.getCookTime(stack);
                 this.cookTime = 0;
+                // 标记方块状态已更改
                 this.markDirty();
             }
         } catch (Exception e) {
@@ -153,7 +164,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     /**
      * 如果此事物已命名，则返回true
      *
-     * @return
+     * @return 如果有自定义名称返回true，否则返回false
      */
     @Override
     public String getName() {
@@ -161,9 +172,9 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     }
 
     /**
-     * 自定义名称
+     * 判断是否有自定义名称
      *
-     * @return
+     * @return 如果有自定义名称返回true，否则返回false
      */
     @Override
     public boolean hasCustomName() {
@@ -173,39 +184,66 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
     /**
      * 设置自定义库存名称
      *
-     * @param customName
+     * @param customName 自定义名称
      */
     public void setCustomInventoryName(String customName) {
         this.windmillCustomName = customName;
     }
 
+    /**
+     * 注册数据修复器，用于处理方块实体的数据修复
+     *
+     * @param fixer 数据修复器
+     */
     public static void registerFixesFurnace(DataFixer fixer) {
         fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityWindmill.class, new String[]{"Items"}));
     }
 
+    /**
+     * 从NBT标签中读取数据，恢复方块实体的状态
+     *
+     * @param compound NBT标签
+     */
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
+        // 初始化物品栈列表
         this.furnaceItemStacks = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        // 从NBT标签中加载物品栈
         ItemStackHelper.loadAllItems(compound, this.furnaceItemStacks);
+        // 读取燃烧时间
         this.furnaceBurnTime = compound.getInteger("BurnTime");
+        // 读取制作时间
         this.cookTime = compound.getInteger("CookTime");
+        // 读取总计制作时间
         this.totalCookTime = compound.getInteger("CookTimeTotal");
+        // 设置当前物品燃烧时间
         this.currentItemBurnTime = 200;
-
+// 如果NBT标签中包含自定义名称，读取并设置
         if (compound.hasKey("CustomName", 8)) {
             this.windmillCustomName = compound.getString("CustomName");
         }
     }
 
+    /**
+     * 将方块实体的状态写入NBT标签，用于保存数据
+     *
+     * @param compound NBT标签
+     * @return 写入数据后的NBT标签
+     */
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
+        // 写入燃烧时间
         compound.setInteger("BurnTime", (short) this.furnaceBurnTime);
+        // 写入制作时间
         compound.setInteger("CookTime", (short) this.cookTime);
+        // 写入总计制作时间
         compound.setInteger("CookTimeTotal", (short) this.totalCookTime);
+        // 将物品栈保存到NBT标签中
         ItemStackHelper.saveAllItems(compound, this.furnaceItemStacks);
 
+        // 如果有自定义名称，写入NBT标签
         if (this.hasCustomName()) {
             compound.setString("CustomName", this.windmillCustomName);
         }
@@ -231,62 +269,78 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
         return this.furnaceBurnTime > 0;
     }
 
+    /**
+     * 客户端判断风车是否在运行
+     *
+     * @param inventory 库存对象
+     * @return 如果在运行返回true，否则返回false
+     */
     @SideOnly(Side.CLIENT)
     public static boolean isBurning(IInventory inventory) {
         return inventory.getField(0) > 0;
     }
 
     /**
-     * 与旧的updateEntity（）类似，只是更通用。
+     * 与旧的updateEntity（）类似，只是更通用。 用于更新方块实体的状态
      */
     @Override
     public void update() {
         try {
-            //是否运行
+            // 记录当前是否在运行
             boolean flag = this.isBurning();
+            // 标记是否有状态改变
             boolean flag1 = false;
-            //运行则减时间
+            // 如果在运行，减少燃烧时间
             if (this.isBurning()) {
                 --this.furnaceBurnTime;
             }
-            //客户端
+            //服务端逻辑
             if (!this.world.isRemote) {
-                //是在运行 并且第一个框里有物品
+                //如果在运行或者输出插槽有物品
                 if (this.isBurning() || this.furnaceItemStacks.get(1) != null) {
-                    //没有运行，
+                    // 如果不在运行且可以熔炼
                     if (!this.isBurning() && this.canSmelt()) {
-                        //燃烧时间
+                        // 设置燃烧时间
                         this.currentItemBurnTime = this.furnaceBurnTime = 200;
-                        //是否在运行
+                        // 如果开始运行，标记状态改变
                         if (this.isBurning()) {
                             flag1 = true;
                         }
                     }
-                    //在运行
+                    // 如果在运行且可以熔炼
                     if (this.isBurning() && this.canSmelt()) {
+                        // 增加制作时间
                         ++this.cookTime;
-                        //制作时间        总制作时间     重制时间
+                        // 如果制作时间达到总计制作时间
                         if (this.cookTime == this.totalCookTime) {
+                            // 重置制作时间
                             this.cookTime = 0;
+                            // 重新计算总计制作时间
                             this.totalCookTime = this.getCookTime(this.furnaceItemStacks.get(0));
+                            // 进行熔炼操作
                             this.smeltItem();
+                            // 标记状态改变
                             flag1 = true;
                         }
                     } else {
+                        // 否则重置制作时间
                         this.cookTime = 0;
                     }
                 } else if (!this.isBurning() && this.cookTime > 0) {
+                    // 如果不在运行且制作时间大于0，减少制作时间
                     this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.totalCookTime);
                 }
-                //重制风车
+                // 如果运行状态改变
                 if (flag != this.isBurning()) {
+                    // 标记状态改变
                     flag1 = true;
+                    // 更新风车方块的状态
                     BlockWindmill.setState(this.isBurning(), this.world, this.pos);
                 }
             }
+            // 如果状态有改变
             if (flag1) {
-                //对于tile实体，确保包含tile实体的区块稍后保存到磁盘上——游戏不会认为它没有更改并跳过它。
-                //标记
+                // 标记方块状态已更改
                 this.markDirty();
             }
         } catch (Exception e) {
@@ -307,31 +361,37 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
 
 
     /**
-     * 如果熔炉可以熔炼物品，即有来源物品、目标堆栈未满等，则返回true。
+     * 判断熔炉是否可以熔炼物品，即有来源物品、目标堆栈未满等
      *
-     * @return
+     * @return 如果可以熔炼返回true，否则返回false
      */
     private boolean canSmelt() {
-        if (this.furnaceItemStacks.get(0) == null) {
+        ItemStack inputStack = this.furnaceItemStacks.get(0);
+        // 如果输入插槽没有物品，不能熔炼
+        if (inputStack.isEmpty()) {
             return false;
-        } else {
-            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
-            if (itemstack.isEmpty()) {
-                return false;
-            } else {
-                ItemStack itemstack1 = this.furnaceItemStacks.get(1);
-                if (itemstack1.isEmpty()) {
-                    return true;
-                } else if (!itemstack1.isItemEqual(itemstack)) {
-                    return false;
-                } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize())  // Forge fix: make furnace respect stack sizes in furnace recipes
-                {
-                    return true;
-                } else {
-                    return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
-                }
-            }
         }
+        // 获取熔炼结果
+        ItemStack smeltingResult = FurnaceRecipes.instance().getSmeltingResult(inputStack);
+        // 如果没有熔炼结果，不能熔炼
+        if (smeltingResult.isEmpty()) {
+            return false;
+        }
+        // 获取输出插槽的物品栈
+        ItemStack outputStack = this.furnaceItemStacks.get(1);
+        // 如果输出插槽为空，可以熔炼
+        if (outputStack.isEmpty()) {
+            return true;
+        }
+            if (!outputStack.isItemEqual(smeltingResult)) {
+            // 如果输出插槽的物品和熔炼结果不同，不能熔炼
+            return false;
+        }
+        return outputStack.getCount() + smeltingResult.getCount() <= this.getInventoryStackLimit()
+                && outputStack.getCount() + smeltingResult.getCount() <= outputStack.getMaxStackSize();
+
+
+
     }
 
     /**
@@ -340,26 +400,44 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
      */
     public void smeltItem() {
         try {
-            //有燃料
+            // 检查是否可以熔炼
             if (this.canSmelt()) {
-                //第一个是金铁铜锡
-                ItemStack itemstack = this.furnaceItemStacks.get(0);
-                ItemStack itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
-                ItemStack itemstack2 = this.furnaceItemStacks.get(1);
-                if (itemstack2.isEmpty())
-                {
-                    this.furnaceItemStacks.set(1, itemstack1.copy());
+                //第一个是 获取输入槽的物品栈 金铁铜锡
+                ItemStack inputStack = this.furnaceItemStacks.get(0);
+                // 获取熔炼结果
+                ItemStack smeltingResult = FurnaceRecipes.instance().getSmeltingResult(inputStack);
+
+                if (!smeltingResult.isEmpty()) {
+                    // 获取输出槽的物品栈
+                    ItemStack outputStack = this.furnaceItemStacks.get(1);
+
+                    if (outputStack.isEmpty()) {
+                        // 如果输出槽为空，直接放入熔炼结果
+                        this.furnaceItemStacks.set(1, smeltingResult.copy());
+                    } else if (outputStack.isItemEqual(smeltingResult)) {
+                        // 如果输出槽已有相同物品，增加数量
+                        outputStack.grow(smeltingResult.getCount());
+                    }
                 }
-                else if (itemstack2.getItem() == itemstack1.getItem())
-                {
-                    itemstack2.grow(itemstack1.getCount());
+                // 处理特殊矿石情况
+                Item inputItem = inputStack.getItem();
+                ItemStack outputStack = this.furnaceItemStacks.get(1);
+                int additionalCount = 9;
+                //铜矿
+                if (inputItem == Item.getItemFromBlock(BlockLoader.blockCopperOre)) {
+                    updateOutputStack(outputStack, ItemLoader.itemGranulesCopper, additionalCount);
+                } else if (inputItem == Item.getItemFromBlock(BlockLoader.blockTinOre)) {
+                    updateOutputStack(outputStack, ItemLoader.itemGranulesTin, additionalCount);  //锡矿
+                } else if (inputItem == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
+                    updateOutputStack(outputStack, ItemLoader.itemGranulesGold, additionalCount);//金矿
+                } else if (inputItem == Item.getItemFromBlock(Blocks.IRON_ORE)) {
+                    updateOutputStack(outputStack, ItemLoader.itemGranulesIron, additionalCount);//铁矿
                 }
 
-                //if (this.furnaceItemStacks.get(1) == null) {
-                //    this.furnaceItemStacks.get(1) = itemstack.copy();
-                //} else if (this.furnaceItemStacks.get(1).getItem() == itemstack.getItem()) {
-                //    this.furnaceItemStacks.get(1).stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
-                //}
+                // 减少输入槽物品数量
+                inputStack.shrink(1);
+
+                /*
                 //铜矿
                 if (itemstack.getItem() == Item.getItemFromBlock(BlockLoader.blockCopperOre)) {
                     if (this.furnaceItemStacks.get(1) != null) {
@@ -380,7 +458,7 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                         this.furnaceItemStacks.get(1).setCount(this.furnaceItemStacks.get(1).getCount() + 8);
                     }
                 }
-                //金矿
+
                 if (itemstack.getItem() == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
                     if (this.furnaceItemStacks.get(1) != null) {
 
@@ -404,13 +482,30 @@ public class TileEntityWindmill extends TileEntityLockable implements ITickable,
                 }
 
 //库存减少
-                itemstack.shrink(1);
+                itemstack.shrink(1);*/
 
 
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("smeltItem-setInventorySlotContents出错了:" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+    }
+
+    /**
+     * 更新输出槽的物品栈
+     *
+     * @param outputStack     输出槽的物品栈
+     * @param item            要添加的物品
+     * @param additionalCount 要增加的数量
+     */
+    private void updateOutputStack(ItemStack outputStack, Item item, int additionalCount) {
+        if (!outputStack.isEmpty() && outputStack.getItem() == item) {
+            outputStack.grow(additionalCount);
+        } else {
+            ItemStack newStack = new ItemStack(item);
+            newStack.setCount(additionalCount - 1);
+            this.furnaceItemStacks.set(1, newStack);
         }
     }
 

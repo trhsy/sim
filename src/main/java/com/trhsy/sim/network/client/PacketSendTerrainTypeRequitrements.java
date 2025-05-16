@@ -20,12 +20,12 @@ import java.util.UUID;
  **/
 public class PacketSendTerrainTypeRequitrements implements IMessage {
     public TerrainType terrainType;
-    public String folkId;
+    public UUID folkId;
     public TerrainTypeRequitrements terrainTypeRequitrements=null;
     public PacketSendTerrainTypeRequitrements(){
 
     }
-    public  PacketSendTerrainTypeRequitrements(TerrainType terrainType,String folkId){
+    public  PacketSendTerrainTypeRequitrements(TerrainType terrainType,UUID folkId){
         this.terrainType=terrainType;
         this.folkId=folkId;
     }
@@ -37,7 +37,7 @@ public class PacketSendTerrainTypeRequitrements implements IMessage {
     }
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, folkId);
+        ByteBufUtils.writeUTF8String(buf, folkId.toString());
         ByteBufUtils.writeUTF8String(buf, "");
     }
     public static class Handler implements IMessageHandler<PacketSendTerrainTypeRequitrements, IMessage> {

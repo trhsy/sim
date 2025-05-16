@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -74,7 +75,7 @@ public class PacketOpenControlGui implements IMessage {
             String[] id=ids.split(";");
             List<NpcData> newOccupants=new CopyOnWriteArrayList<NpcData>();
             for (String s:id){
-                NpcData npcData= ModSimLoader.getFolkDataByUID(s);
+                NpcData npcData= ModSimLoader.getFolkDataByUID(UUID.fromString(s));
                 newOccupants.add(npcData);
             }
             this.occupants= newOccupants;

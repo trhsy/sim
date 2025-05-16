@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.util.UUID;
+
 /**
  * @ClassName PacketSendBlueprint
  * @Description todo 发送蓝图
@@ -25,7 +27,7 @@ public class PacketSendBlueprint implements IMessage {
     //建筑文件内容
     String bp = "";
     //npc id
-    String folkID = "";
+    UUID folkID;
     //起始位置
     String bPos = "";
     int direction = 0;
@@ -33,7 +35,7 @@ public class PacketSendBlueprint implements IMessage {
     public PacketSendBlueprint() {
     }
 
-    public PacketSendBlueprint(BuildingBlueprint blueprint, String id, String blockPos, int dir) {
+    public PacketSendBlueprint(BuildingBlueprint blueprint, UUID id, String blockPos, int dir) {
         this.bName = blueprint.name;
         this.bType = blueprint.buildingType;
         this.bp = blueprint.fileContents;
@@ -46,7 +48,7 @@ public class PacketSendBlueprint implements IMessage {
     public void fromBytes(ByteBuf buf) {
         this.bName = ByteBufUtils.readUTF8String(buf);
         this.bType = ByteBufUtils.readUTF8String(buf);
-        this.folkID = ByteBufUtils.readUTF8String(buf);
+        this.folkID = UUID.fromString(ByteBufUtils.readUTF8String(buf));
         this.bPos = ByteBufUtils.readUTF8String(buf);
         this.direction = buf.readInt();
 //        for (int i = 0; i < this.fs_i; i++) {
@@ -69,7 +71,7 @@ public class PacketSendBlueprint implements IMessage {
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.bName);
         ByteBufUtils.writeUTF8String(buf, this.bType);
-        ByteBufUtils.writeUTF8String(buf, this.folkID);
+        ByteBufUtils.writeUTF8String(buf, this.folkID.toString());
         ByteBufUtils.writeUTF8String(buf, this.bPos);
         buf.writeInt(this.direction);
 //        NBTTagCompound tag = new NBTTagCompound();

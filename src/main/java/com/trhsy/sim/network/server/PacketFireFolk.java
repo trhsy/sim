@@ -9,6 +9,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.util.UUID;
+
 /**
  * @ClassName PacketFireFolk
  * @Description todo
@@ -16,21 +18,21 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @Date 2022/10/2118:00
  **/
 public class PacketFireFolk implements IMessage {
-    private String uuid;
+    private UUID uuid;
 
     public PacketFireFolk() {
     }
 
-    public PacketFireFolk(String uuid) {
+    public PacketFireFolk(UUID uuid) {
         this.uuid = uuid;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.uuid = ByteBufUtils.readUTF8String(buf);
+        this.uuid = UUID.fromString(ByteBufUtils.readUTF8String(buf));
     }
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.uuid);
+        ByteBufUtils.writeUTF8String(buf, this.uuid.toString());
     }
 
     public static class Handler implements IMessageHandler<PacketFireFolk, IMessage> {

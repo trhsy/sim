@@ -1278,3 +1278,5 @@ container.sim.item_drink_empty=Deals random damage to entities from 0 to 99999
 container.sim.item_bucket_milk=Raw materials for cheese production in cheese factories
 key.sim.simmod=Simulated City button settings
 key.sim.activate_skill_simfiles_loading=Reload Blueprint
+
+item.blackMilk.tooltip=Cheese factory specific milk

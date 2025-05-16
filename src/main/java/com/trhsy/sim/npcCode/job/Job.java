@@ -24,7 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -135,101 +134,213 @@ public abstract class Job {
      * @Param []
      **/
     public void onUpdate() {
+//        try {
+//            //NPC数据不为空
+//            if (this.folk != null) {
+//                //实体不为空
+//                if (this.folk.entity != null) {
+//                    //是否应该工作
+//                    if (this.folk.shouldWork()) {
+//                        //固定不动
+//                        this.folk.stayPut = true;
+//                    }
+//                    //不应该工作，但在工作
+//                    if (!this.folk.shouldWork() && this.atWork) {
+//                        //清楚状态
+//                        this.folk.clearStatus();
+//                        //可以行动
+//                        this.folk.stayPut = false;
+//                        //清除工作状态
+//                        this.atWork = false;
+//                        //在工作途中
+//                        this.onWayToWork = false;
+//                        //当前任务为空
+//                        this.currentTask = null;
+//                    } else {
+//                        //如果当前任务不为空，则更新任务
+//                        if (this.currentTask != null) {
+//                            this.currentTask.update();
+//                        }
+//                        //应该工作，但是没有在工作，并且不是服务器端
+//                        if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.world.isRemote) {
+//                            //设置去工作途中
+//                            this.onWayToWork = true;
+//                            this.folk.stayPut = false;
+//                            //获取距离，并且小于20
+////                            if (this.folk.entity.getDistance(this.workPlace.x, this.workPlace.y, this.workPlace.z) < 20.0D) {
+//                                //去工作
+//                                this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work",new Object[0]).getUnformattedText());
+//                                V3 v3=new V3(this.workPlace.x,this.workPlace.y,this.workPlace.z);
+//                                //强制瞬移过去
+//                                if (!this.folk.forceMoveToXYZ(v3)) {
+//                                    this.folk.forceMoveToXYZNoWarp(v3);
+//                                }
+//                           /* } else {
+//                                //去工作 走过去
+//                                this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work",new Object[0]).getUnformattedText());
+//                                this.folk.entity.setPositionAndUpdate(this.workPlace.x, this.workPlace.y +1, this.workPlace.z);
+//                                this.folk.entity.getNavigator().clearPath();
+//                            }*/
+//                            //设置固定不动
+////                            this.folk.stayPut = true;
+//                        }
+//                        //在去工作途中，并且已经到了工作位置则更新状态
+//                        if (this.onWayToWork && this.folk.isAtLocation(this.workPlace)) {
+//                            //工作中
+//                            this.atWork = true;
+//                            //没有在工作途中
+//                            this.onWayToWork = false;
+//                            //到达指定地址
+//                            this.onArrive();
+//                            //设置固定不动
+//                            this.folk.stayPut = false;
+//                        }
+//                        //从建筑中抓取项目
+//                        if (this.grabItemsFromBuilding(this.collectionBuilding)) {
+//                            if (this.itemGrabTimer == 0L) {
+//                                this.itemGrabTimer = System.currentTimeMillis();
+//                            } else if (System.currentTimeMillis() - this.itemGrabTimer > 5000L) {
+//                                this.itemGrabTimer = System.currentTimeMillis();
+//                                List<IInventory> chests = this.inventoriesFindClosest(this.folk.getV3(), 5);
+//
+//                                for (IInventory inv : chests) {
+//                                    for (int i = 0; i < inv.getSizeInventory(); ++i) {
+//                                        for (int j = 0; j < this.collectionItems.size(); j++) {
+//                                            Item item = this.collectionItems.get(j);
+//                                            if (inv.getStackInSlot(i).getItem().getUnlocalizedName().contentEquals(item.getUnlocalizedName())) {
+//                                            }
+//                                            this.folk.inventory.add(inv.getStackInSlot(i));
+//                                            inv.removeStackFromSlot(i);
+//                                        }
+//                                    }
+//                                }
+//
+//                                this.onCollectItem();
+//                            }
+//                        }
+//
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            StackTraceElement element = e.getStackTrace()[0];
+//            ModSimLoader.log.error("job-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+//            e.printStackTrace();
+//        }
         try {
-            //NPC数据不为空
-            if (this.folk != null) {
-                //实体不为空
-                if (this.folk.entity != null) {
-                    //是否应该工作
-                    if (this.folk.shouldWork()) {
-                        //固定不动
-                        this.folk.stayPut = true;
-                    }
-                    //不应该工作，但在工作
-                    if (!this.folk.shouldWork() && this.atWork) {
-                        //清楚状态
-                        this.folk.clearStatus();
-                        //可以行动
-                        this.folk.stayPut = false;
-                        //清除工作状态
-                        this.atWork = false;
-                        //在工作途中
-                        this.onWayToWork = false;
-                        //当前任务为空
-                        this.currentTask = null;
-                    } else {
-                        //如果当前任务不为空，则更新任务
-                        if (this.currentTask != null) {
-                            this.currentTask.update();
-                        }
-                        //应该工作，但是没有在工作，并且不是服务器端
-                        if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.world.isRemote) {
-                            //设置去工作途中
-                            this.onWayToWork = true;
-                            this.folk.stayPut = false;
-                            //获取距离，并且小于20
-//                            if (this.folk.entity.getDistance(this.workPlace.x, this.workPlace.y, this.workPlace.z) < 20.0D) {
-                                //去工作
-                                this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work",new Object[0]).getUnformattedText());
-                                V3 v3=new V3(this.workPlace.x,this.workPlace.y,this.workPlace.z);
-                                //强制瞬移过去
-                                if (!this.folk.forceMoveToXYZ(v3)) {
-                                    this.folk.forceMoveToXYZNoWarp(v3);
-                                }
-                           /* } else {
-                                //去工作 走过去
-                                this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work",new Object[0]).getUnformattedText());
-                                this.folk.entity.setPositionAndUpdate(this.workPlace.x, this.workPlace.y +1, this.workPlace.z);
-                                this.folk.entity.getNavigator().clearPath();
-                            }*/
-                            //设置固定不动
-//                            this.folk.stayPut = true;
-                        }
-                        //在去工作途中，并且已经到了工作位置则更新状态
-                        if (this.onWayToWork && this.folk.isAtLocation(this.workPlace)) {
-                            //工作中
-                            this.atWork = true;
-                            //没有在工作途中
-                            this.onWayToWork = false;
-                            //到达指定地址
-                            this.onArrive();
-                            //设置固定不动
-                            this.folk.stayPut = false;
-                        }
-                        //从建筑中抓取项目
-                        if (this.grabItemsFromBuilding(this.collectionBuilding)) {
-                            if (this.itemGrabTimer == 0L) {
-                                this.itemGrabTimer = System.currentTimeMillis();
-                            } else if (System.currentTimeMillis() - this.itemGrabTimer > 5000L) {
-                                this.itemGrabTimer = System.currentTimeMillis();
-                                List<IInventory> chests = this.inventoriesFindClosest(this.folk.getV3(), 5);
-
-                                for (IInventory inv : chests) {
-                                    for (int i = 0; i < inv.getSizeInventory(); ++i) {
-                                        for (int j = 0; j < this.collectionItems.size(); j++) {
-                                            Item item = this.collectionItems.get(j);
-                                            if (inv.getStackInSlot(i).getItem().getUnlocalizedName().contentEquals(item.getUnlocalizedName())) {
-                                            }
-                                            this.folk.inventory.add(inv.getStackInSlot(i));
-                                            inv.removeStackFromSlot(i);
-                                        }
-                                    }
-                                }
-
-                                this.onCollectItem();
-                            }
-                        }
-
-                    }
-                }
+            // 检查 NPC 数据和实体是否为空
+            if (isNpcValid()) {
+                handleWorkStatus();
+                handleCurrentTask();
+                handleGoingToWork();
+                handleArrival();
+                handleItemGrab();
             }
         } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("job-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-            e.printStackTrace();
+            logUpdateError(e);
+        }
+    }
+    /**
+     * 检查 NPC 数据和实体是否有效
+     * @return 如果有效返回 true，否则返回 false
+     */
+    private boolean isNpcValid() {
+        return this.folk != null && this.folk.entity != null;
+    }
+
+    /**
+     * 处理工作状态
+     */
+    private void handleWorkStatus() {
+        if (this.folk.shouldWork()) {
+            this.folk.stayPut = true;
+        } else if (this.atWork) {
+            clearWorkStatus();
         }
     }
 
+    /**
+     * 清除工作状态
+     */
+    private void clearWorkStatus() {
+        this.folk.clearStatus();
+        this.folk.stayPut = false;
+        this.atWork = false;
+        this.onWayToWork = false;
+        this.currentTask = null;
+    }
+
+    /**
+     * 处理当前任务
+     */
+    private void handleCurrentTask() {
+        if (this.currentTask != null) {
+            this.currentTask.update();
+        }
+    }
+
+    /**
+     * 处理去工作的逻辑
+     */
+    private void handleGoingToWork() {
+        if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.world.isRemote) {
+            this.onWayToWork = true;
+            this.folk.stayPut = false;
+            this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work", new Object[0]).getUnformattedText());
+            V3 v3 = new V3(this.workPlace.x, this.workPlace.y, this.workPlace.z);
+            if (!this.folk.forceMoveToXYZ(v3)) {
+                this.folk.forceMoveToXYZNoWarp(v3);
+            }
+        }
+    }
+
+    /**
+     * 处理到达工作地点的逻辑
+     */
+    private void handleArrival() {
+        if (this.onWayToWork && this.folk.isAtLocation(this.workPlace)) {
+            this.atWork = true;
+            this.onWayToWork = false;
+            this.onArrive();
+            this.folk.stayPut = false;
+        }
+    }
+
+    /**
+     * 处理物品抓取逻辑
+     */
+    private void handleItemGrab() {
+        if (grabItemsFromBuilding(this.collectionBuilding)) {
+            if (this.itemGrabTimer == 0L) {
+                this.itemGrabTimer = System.currentTimeMillis();
+            } else if (System.currentTimeMillis() - this.itemGrabTimer > 5000L) {
+                this.itemGrabTimer = System.currentTimeMillis();
+                List<IInventory> chests = inventoriesFindClosest(this.folk.getV3(), 5);
+                for (IInventory inv : chests) {
+                    for (int i = 0; i < inv.getSizeInventory(); ++i) {
+                        for (int j = 0; j < this.collectionItems.size(); j++) {
+                            Item item = this.collectionItems.get(j);
+                            if (inv.getStackInSlot(i).getItem().getUnlocalizedName().contentEquals(item.getUnlocalizedName())) {
+                                this.folk.inventory.add(inv.getStackInSlot(i));
+                                inv.removeStackFromSlot(i);
+                            }
+                        }
+                    }
+                }
+                this.onCollectItem();
+            }
+        }
+    }
+
+    /**
+     * 记录更新方法中的错误信息
+     * @param e 捕获的异常
+     */
+    private void logUpdateError(Exception e) {
+        StackTraceElement element = e.getStackTrace()[0];
+        ModSimLoader.log.error("job-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        e.printStackTrace();
+    }
     /**
      * 查找最近的箱子
      *
@@ -238,15 +349,16 @@ public abstract class Job {
      * @return
      */
     public List<IInventory> inventoriesFindClosest(V3 startXYZ, int searchDistance) {
-        List ret = new CopyOnWriteArrayList();
+        // 指定泛型为 IInventory
+        List<IInventory> ret = new CopyOnWriteArrayList();
 
         try {
-            World world = this.folk.entity.world;
+            World world = ((net.minecraft.entity.Entity) folk.entity).world;
             TileEntity te = world.getTileEntity(startXYZ.toBlockPos());
             if (te != null && te instanceof IInventory && !(te instanceof TileEntityFurnace)) {
                 ret.add((IInventory) te);
             }
-
+            // 遍历搜索范围内的所有方块
             for (int d = 1; d < searchDistance; ++d) {
                 for (int yo = -d; yo <= d; ++yo) {
                     for (int xo = -d; xo <= d; ++xo) {
@@ -279,23 +391,50 @@ public abstract class Job {
      * @return
      */
     private boolean alreadyGotChest(List<IInventory> chests, IInventory chest) {
-        boolean ret = false;
-        Iterator var4 = chests.iterator();
+//        boolean ret = false;
+//        Iterator var4 = chests.iterator();
+//        try {
+//            while (var4.hasNext()) {
+//                IInventory ch = (IInventory) var4.next();
+//                if (ch.toString().contentEquals(chest.toString())) {
+//                    ret = true;
+//                    break;
+//                }
+//            }
+//        } catch (Exception e) {
+//            StackTraceElement element = e.getStackTrace()[0];
+//            ModSimLoader.log.error("job-alreadyGotChest出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+//        }
+//        return ret;
         try {
-            while (var4.hasNext()) {
-                IInventory ch = (IInventory) var4.next();
-                if (ch.toString().contentEquals(chest.toString())) {
-                    ret = true;
-                    break;
+            // 遍历所有已有的箱子
+            for (IInventory ch : chests) {
+                // 比较箱子的位置
+                if (isSameInventory(ch, chest)) {
+                    return true;
                 }
             }
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("job-alreadyGotChest出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
-        return ret;
+        return false;
     }
-
+    /**
+     * 比较两个 IInventory 对象是否相同
+     *
+     * @param inv1
+     * @param inv2
+     * @return
+     */
+    private boolean isSameInventory(IInventory inv1, IInventory inv2) {
+        if (inv1 instanceof TileEntity && inv2 instanceof TileEntity) {
+            TileEntity te1 = (TileEntity) inv1;
+            TileEntity te2 = (TileEntity) inv2;
+            return te1.getPos().equals(te2.getPos());
+        }
+        return false;
+    }
     /**
      * 每秒
      */

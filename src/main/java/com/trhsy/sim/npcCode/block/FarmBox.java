@@ -131,7 +131,7 @@ public class FarmBox {
                 } else if (line.contains("farmType")) {
                     this.farmType = FarmType.byName(value);
                 }else if (line.contains("npc")) {
-                    this.employee = ModSimLoader.getFolkDataByUID(value);
+                    this.employee = ModSimLoader.getFolkDataByUID(UUID.fromString(value));
                 } else if (line.contains("x|")) {
                     this.x = Integer.valueOf(value);
                 } else if (line.contains("z|")) {

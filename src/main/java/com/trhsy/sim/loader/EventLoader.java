@@ -30,8 +30,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 
-import java.util.UUID;
-
 /**
  * @ClassName EventLoader
  * @Description todo 事件交互
@@ -75,7 +73,7 @@ public class EventLoader {
                     for (NpcData fd : ModSimLoader.folks) {
                         while (fd.entity == null && FMLCommonHandler.instance() != null) {
                             try {
-                                fd.entity = (EntityNpc) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(UUID.fromString(fd.ID));
+                                fd.entity = (EntityNpc) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(fd.ID);
                             } catch (Exception var4) {
 //                                ModSimLoader.log.error("玩家加入加载数据失败了" + var4.getMessage());
                             }

@@ -103,6 +103,7 @@ item.foodBurger.name=汉堡
 item.drinkBeerEmpty.name=空酒瓶
 item.drinkBeer.name=啤酒
 item.bucketMilk.name=牛奶桶
+item.blackMilk.tooltip=奶酪工厂专用牛奶
 # 创造模式菜单名
 itemGroup.sim=模拟城市
 # GUI 汉化

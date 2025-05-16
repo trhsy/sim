@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.util.UUID;
+
 /**
  * @author Trhsy
  * @Package: com.trhsy.sim.network.client
@@ -18,19 +20,19 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @date 2024/3/19 14:38
  */
 public class PacketOpenFolkInventoryGui implements IMessage {
-    public String uid;
+    public UUID uid;
     public PacketOpenFolkInventoryGui(){}
     public PacketOpenFolkInventoryGui(NpcData fd){
         this.uid=fd.ID;
     }
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.uid= ByteBufUtils.readUTF8String(buf);
+        this.uid= UUID.fromString(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.uid);
+        ByteBufUtils.writeUTF8String(buf, this.uid.toString());
     }
 
     public static class Handler implements IMessageHandler<PacketOpenFolkInventoryGui, IMessage> {

@@ -24,7 +24,7 @@ public class PacketOpenMerchantGui implements IMessage {
     }
 
     public PacketOpenMerchantGui(NpcData fd) {
-        this.id = UUID.fromString(fd.ID);
+        this.id = fd.ID;
     }
     @Override
     public void fromBytes(ByteBuf buf) {

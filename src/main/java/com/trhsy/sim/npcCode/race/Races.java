@@ -18,4 +18,44 @@ public class Races {
         raceList.add(raceDarkElf);
         raceList.add(raceOrc);
     }
+
+    public static Race getRaceHuman() {
+        return raceHuman;
+    }
+
+    public static void setRaceHuman(Race raceHuman) {
+        Races.raceHuman = raceHuman;
+    }
+
+    public static Race getRaceElf() {
+        return raceElf;
+    }
+
+    public static void setRaceElf(Race raceElf) {
+        Races.raceElf = raceElf;
+    }
+
+    public static Race getRaceDarkElf() {
+        return raceDarkElf;
+    }
+
+    public static void setRaceDarkElf(Race raceDarkElf) {
+        Races.raceDarkElf = raceDarkElf;
+    }
+
+    public static Race getRaceOrc() {
+        return raceOrc;
+    }
+
+    public static void setRaceOrc(Race raceOrc) {
+        Races.raceOrc = raceOrc;
+    }
+
+    public static List<Race> getRaceList() {
+        return raceList;
+    }
+
+    public static void setRaceList(List<Race> raceList) {
+        Races.raceList = raceList;
+    }
 }
