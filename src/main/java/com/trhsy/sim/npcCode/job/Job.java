@@ -230,10 +230,16 @@ public abstract class Job {
         try {
             // 检查 NPC 数据和实体是否为空
             if (isNpcValid()) {
+                //处理工作状态
                 handleWorkStatus();
+                //处理当前任务
                 handleCurrentTask();
+                // 处理去工作的逻辑
                 handleGoingToWork();
+                //处理到达工作地点的逻辑
                 handleArrival();
+
+                //处理物品抓取逻辑
                 handleItemGrab();
             }
         } catch (Exception e) {
@@ -252,7 +258,7 @@ public abstract class Job {
      * 处理工作状态
      */
     private void handleWorkStatus() {
-        if (this.folk.shouldWork()) {
+        if (this.folk.shouldWork()) {//是否应该工作
             this.folk.stayPut = true;
         } else if (this.atWork) {
             clearWorkStatus();
@@ -283,6 +289,11 @@ public abstract class Job {
      * 处理去工作的逻辑
      */
     private void handleGoingToWork() {
+        if(this.folk.isAtLocation(this.workPlace)){
+            this.atWork=true;
+        }else{
+            this.atWork=false;
+        }
         if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.world.isRemote) {
             this.onWayToWork = true;
             this.folk.stayPut = false;
@@ -303,6 +314,7 @@ public abstract class Job {
             this.onWayToWork = false;
             this.onArrive();
             this.folk.stayPut = false;
+//            this.currentTask.completed=true;
         }
     }
 
@@ -896,7 +908,11 @@ public abstract class Job {
      */
     public void onArrive() {
         try {
-            this.folk.entity.getNavigator().clearPath();
+            V3 v3 = new V3(this.workPlace.x, this.workPlace.y, this.workPlace.z);
+            if (this.folk.forceMoveToXYZ(v3)) {
+                this.folk.forceMoveToXYZNoWarp(v3);
+            }
+//            this.folk.entity.getNavigator().clearPath();
             this.folk.stayPut = true;
             if (this.stage != 0) {
                 this.stage = 0;

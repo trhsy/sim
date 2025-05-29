@@ -922,6 +922,7 @@ public class JobBuilder extends Job {
                 }
                 if (this.conBox != null) {
                     this.conBox.folk = null;
+                    this.conBox.setDead();
                 }
             }
 

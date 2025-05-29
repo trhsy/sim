@@ -55,6 +55,9 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
     protected ResourceLocation getEntityTexture(EntityNpc entity) {
         ResourceLocation myTexture = null;
         try {
+            if(!entity.isDead){
+
+
             NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(entity.getUniqueID());
             if (cfi != null && StringUtils.isNotEmpty(cfi.skinPath)) {
                 if(cfi.isDead){
@@ -67,24 +70,24 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                 return myTexture;
             } else {
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/male0.png");
-                if(entity.isEntityAlive()){
+                if(entity.theData==null){
+                    entity.setDead();
+                }
+                /*if(!entity.isEntityAlive()){
                     if(entity.theData==null){
                         entity.setDead();
                     }
-                }else{
-//                    entity.onDeath(DamageSource.GENERIC);
-//                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
-//                    entity.setHealth(0);
-                }
-//                entity.setDead();
-//                if(entity.isDead){
-//                    entity.onDeath(DamageSource.GENERIC);
-//                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
-//                    entity.setHealth(0);
-//                }
+                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
+                    entity.onDeath(DamageSource.GENERIC);
+                }*/
+//
                 return myTexture;
             }
 
+            }else{
+                myTexture = new ResourceLocation(ModSim.MODID, "skins/male0.png");
+                return myTexture;
+            }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("渲染实体出错了：" + e.getMessage() + "行数：" + element.getLineNumber());

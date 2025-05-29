@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -37,7 +38,7 @@ public class PacketReturnHireableFolks implements IMessage {
     public void fromBytes(ByteBuf buf) {
         this.folkNames.clear();
         try {
-            String rawFolkData = ByteBufUtils.readUTF8String(buf);
+           /* String rawFolkData = ByteBufUtils.readUTF8String(buf);
             String[] rawFolks = rawFolkData.split(";");
             String[] var4 = rawFolks;
             int var5 = rawFolks.length;
@@ -48,6 +49,15 @@ public class PacketReturnHireableFolks implements IMessage {
                 }
                 NpcIdentity npcIdentity=new NpcIdentity(cFolk);
                 this.folkNames.add(npcIdentity);
+            }*/
+
+            // 读取 NPC 数量
+            int count = buf.readInt();
+
+            // 逐个读取每个 NPC 的数据
+            for (int i = 0; i < count; i++) {
+                NpcIdentity identity = readNpcIdentity(buf);
+                this.folkNames.add(identity);
             }
         } catch (Exception var8) {
 
@@ -57,14 +67,52 @@ public class PacketReturnHireableFolks implements IMessage {
 
     @Override
     public void toBytes(ByteBuf buf) {
-        String s="";
+       /* String s="";
         for (NpcIdentity fName :this.folkNames){
             s+=fName.id + ",_," + fName.name + ",_," + fName.age + ",_," + fName.status + ",_," + fName.job + ",_," + fName.house + ",_," + fName.relationship + ",_," + fName.hunger + ",_," + fName.maturityAge + ",_," + fName.skinPath + ",_," + fName.isDead + ";";
         }
-            ByteBufUtils.writeUTF8String(buf, s);
+            ByteBufUtils.writeUTF8String(buf, s);*/
+
+        // 先写入 NPC 数量
+        buf.writeInt(folkNames.size());
+
+        // 逐个写入每个 NPC 的数据
+        for (NpcIdentity identity : folkNames) {
+            writeNpcIdentity(buf, identity);
+        }
 
     }
+    // 写入单个 NPC 数据
+    private void writeNpcIdentity(ByteBuf buf, NpcIdentity identity) {
+        ByteBufUtils.writeUTF8String(buf, identity.id.toString());
+        ByteBufUtils.writeUTF8String(buf, identity.name);
+        buf.writeInt(Integer.parseInt(identity.age));
+        ByteBufUtils.writeUTF8String(buf, identity.status);
+        ByteBufUtils.writeUTF8String(buf, identity.job);
+        ByteBufUtils.writeUTF8String(buf, identity.house);
+        ByteBufUtils.writeUTF8String(buf, identity.relationship);
+        ByteBufUtils.writeUTF8String(buf, identity.hunger);
+        buf.writeInt(Integer.parseInt(identity.maturityAge));
+        ByteBufUtils.writeUTF8String(buf, identity.skinPath);
+        buf.writeBoolean(identity.isDead);
+    }
 
+    // 读取单个 NPC 数据
+    private NpcIdentity readNpcIdentity(ByteBuf buf) {
+        String id = ByteBufUtils.readUTF8String(buf);
+        String name = ByteBufUtils.readUTF8String(buf);
+        int age = buf.readInt();
+        String status = ByteBufUtils.readUTF8String(buf);
+        String job = ByteBufUtils.readUTF8String(buf);
+        String house = ByteBufUtils.readUTF8String(buf);
+        String relationship = ByteBufUtils.readUTF8String(buf);
+        String hunger =  ByteBufUtils.readUTF8String(buf);
+        int maturityAge = buf.readInt();
+        String skinPath = ByteBufUtils.readUTF8String(buf);
+        boolean isDead = buf.readBoolean();
+
+        return new NpcIdentity(UUID.fromString(id), name, String.valueOf(age), status, job, house, relationship, String.valueOf(hunger), String.valueOf(maturityAge), skinPath, isDead);
+    }
     public static class Handler implements IMessageHandler<PacketReturnHireableFolks, IMessage> {
         public Handler() {
         }

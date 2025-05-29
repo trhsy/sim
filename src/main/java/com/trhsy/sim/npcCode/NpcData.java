@@ -2071,11 +2071,14 @@ public class NpcData {
 
             // 如果路径不为空，设置路径和速度
             if (path != null) {
-                this.entity.getNavigator().setPath(path, 1);
+                this.entity.getNavigator().setPath(path, 1.5);
             }
             // 检测 NPC 当前位置与终点位置的距离
             double distance = this.entity.getDistance(targetV3.x, targetV3.y, targetV3.z);
-            if (distance <= 1.0D) {
+            if (distance <= 1.58D) {
+                // 生成粒子效果
+                spawnPortalParticles();
+                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
                 // 如果距离小于等于 1，说明已经到达目标位置，清除路径
                 this.entity.getNavigator().clearPath();
                 return true;
@@ -2085,7 +2088,7 @@ public class NpcData {
                 // 如果前方有方块阻挡，重新获取路径
                 path = this.entity.getNavigator().getPathToPos(targetPos);
                 if (path != null) {
-                    this.entity.getNavigator().setPath(path, 1.0D);
+                    this.entity.getNavigator().setPath(path, 1.5D);
                 }
             }
             if (path == null) {
@@ -2095,7 +2098,7 @@ public class NpcData {
                 this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
             } else {
                 // 设置导航路径
-                this.entity.getNavigator().setPath(path, 1.0D);
+                this.entity.getNavigator().setPath(path, 1.5D);
             }
         } catch (Exception e) {
             // 记录错误信息
@@ -2267,7 +2270,11 @@ public class NpcData {
         if (this.entity == null) {
             return false;
         } else {
-            return Math.abs(this.entity.posX - v3.x) < 1.5D && Math.abs(this.entity.posZ - v3.z) < 1.5D;
+            double fs_x=Math.abs(this.entity.posX - v3.x);
+            double fs_z=Math.abs(this.entity.posZ - v3.z);
+            Boolean fs_xxs=fs_x< 1.5D;
+            Boolean fs_zzs=fs_z< 1.5D;
+            return  fs_xxs&&fs_zzs;
         }
     }
 

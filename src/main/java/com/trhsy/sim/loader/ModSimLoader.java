@@ -384,7 +384,7 @@ public class ModSimLoader {
     public static NpcData getFolkDataByUID(UUID uid) {
         NpcData npcDatas = null;
         for (NpcData npcData : ModSimLoader.folks) {
-            if (npcData.ID==uid) {
+            if (npcData.ID.equals(uid)) {
                 npcDatas = npcData;
                 return npcDatas;
             }
