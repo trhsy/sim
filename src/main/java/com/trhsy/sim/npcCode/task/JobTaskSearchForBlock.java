@@ -83,7 +83,8 @@ public class JobTaskSearchForBlock extends JobTask {
         if (System.currentTimeMillis() - this.timeSinceLastCheck > 5L) {
             this.timeSinceLastCheck = System.currentTimeMillis();
             if (this.toMine.size() < 1) {
-                this.job.folk.forceMoveToXYZNoWarp(this.startPoint);
+                V3 v3=this.startPoint;
+                this.folk.forceMoveToXYZ(v3);
                 //找物品
                 this.job.folk.setStatus(new TextComponentTranslation("container.sim.GOTOSANDBLOCK1",new Object[0]).getUnformattedText());
 //                findBlocks();
@@ -93,9 +94,7 @@ public class JobTaskSearchForBlock extends JobTask {
             //去到要挖的材料边
             BlockPos p = this.toMine.get(0);
             V3 v3 = new V3(p.getX(), p.getY(), p.getZ());
-            if (!this.job.folk.forceMoveToXYZ(v3)) {
-                this.job.folk.forceMoveToXYZNoWarp(v3);
-            }
+            this.folk.forceMoveToXYZ(v3);
             if (this.toMine.size() > 0) {
                 if (this.folk.entity.motionX == 0.0D && this.folk.entity.motionZ == 0.0D) {
                     for (double x = this.folk.entity.posX - 1.0D; x <= this.folk.entity.posX + 1.0D; ++x) {

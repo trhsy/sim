@@ -93,7 +93,8 @@ public class JobTaskCourier extends JobTask {
         } else if (this.step == 2) {
             if (this.dropoff != null) {
                 this.job.folk.setStatus(new TextComponentTranslation("container.sim.job.courier.On_my",new Object[0]).getUnformattedText() + this.pickup.toString() + new TextComponentTranslation("container.sim.job.courier.pick_up",new Object[0]).getUnformattedText());
-                this.job.folk.forceMoveToXYZNoWarp(this.dropoff);
+                V3 v3=this.dropoff;
+                this.folk.forceMoveToXYZ(v3);
                 this.step = 3;
             }
         } else if (this.step == 3) {

@@ -30,9 +30,8 @@ public class JobTaskUnloadItems extends JobTask {
             this.completeTask();
         } else {
             V3 v3 = new V3(this.job.workPlace.x+0.5, this.job.workPlace.y + 1, this.job.workPlace.z);
-            if (!this.folk.forceMoveToXYZ(v3)) {
-                this.folk.forceMoveToXYZNoWarp(v3);
-            }
+            this.folk.forceMoveToXYZ(v3);
+
         }
     }
 
@@ -74,12 +73,8 @@ public class JobTaskUnloadItems extends JobTask {
         } else {
             //返回工作岗位
             this.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Returning_to_work", new Object[0]).getUnformattedText());
-//            if (!this.job.folk.entity.isMoving()) {
             V3 v3 = new V3(this.job.workPlace.x+0.5, this.job.workPlace.y + 1, this.job.workPlace.z);
-            if (!this.folk.forceMoveToXYZ(v3)) {
-                this.folk.forceMoveToXYZNoWarp(v3);
-            }
-//            }
+            this.folk.forceMoveToXYZ(v3);
         }
 
     }

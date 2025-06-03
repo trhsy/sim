@@ -184,11 +184,11 @@ public class JobTaskCollectItems extends JobTask {
                 this.ct++;
                 //收集材料
                 this.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Collecting_materials",new Object[0]).getUnformattedText());
-                if(this.folk.forceMoveToXYZ(this.currentDestination)){
-                    this.folk.forceMoveToXYZNoWarp(this.currentDestination);
-                }
-
-                this.isGoingToDestination = true;
+//                if(!this.isGoingToDestination){
+                    V3 v3=this.currentDestination;
+                    this.folk.forceMoveToXYZ(v3);
+                    this.isGoingToDestination = true;
+//                }
             } else {
                 //到达后的时间
                 if (this.timeSinceArrival == 0L) {
@@ -230,7 +230,13 @@ public class JobTaskCollectItems extends JobTask {
                             this.completeTask();
                         }
                     } else {
-                        ModSimLoader.log.info("从所有目的地收集");
+
+                        ModSimLoader.log.info("返回工作岗位");
+                        this.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Returning_to_work",new Object[0]).getUnformattedText());
+                        if (!this.job.folk.entity.isMoving() && this.job.folk.entity.getNavigator().getPath() == null) {
+                            V3 v3=this.job.workPlace;
+                            this.folk.forceMoveToXYZ(v3);
+                        }
                         this.completeTask();
                     }
                 }

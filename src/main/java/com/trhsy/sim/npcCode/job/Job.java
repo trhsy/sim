@@ -259,7 +259,7 @@ public abstract class Job {
      */
     private void handleWorkStatus() {
         if (this.folk.shouldWork()) {//是否应该工作
-            this.folk.stayPut = true;
+//            this.folk.stayPut = true;
         } else if (this.atWork) {
             clearWorkStatus();
         }
@@ -289,19 +289,13 @@ public abstract class Job {
      * 处理去工作的逻辑
      */
     private void handleGoingToWork() {
-        if(this.folk.isAtLocation(this.workPlace)){
-            this.atWork=true;
-        }else{
-            this.atWork=false;
-        }
+
         if (this.folk.shouldWork() && !this.atWork && !this.folk.entity.world.isRemote) {
             this.onWayToWork = true;
             this.folk.stayPut = false;
             this.folk.setStatus(new TextComponentTranslation("container.sim.folk_data_Going_work", new Object[0]).getUnformattedText());
             V3 v3 = new V3(this.workPlace.x, this.workPlace.y, this.workPlace.z);
-            if (!this.folk.forceMoveToXYZ(v3)) {
-                this.folk.forceMoveToXYZNoWarp(v3);
-            }
+            this.folk.forceMoveToXYZ(v3);
         }
     }
 
@@ -909,9 +903,7 @@ public abstract class Job {
     public void onArrive() {
         try {
             V3 v3 = new V3(this.workPlace.x, this.workPlace.y, this.workPlace.z);
-            if (this.folk.forceMoveToXYZ(v3)) {
-                this.folk.forceMoveToXYZNoWarp(v3);
-            }
+            this.folk.forceMoveToXYZ(v3);
 //            this.folk.entity.getNavigator().clearPath();
             this.folk.stayPut = true;
             if (this.stage != 0) {

@@ -3,4 +3,4 @@ A=minecraft:air,0;C=minecraft:planks,0;D=minecraft:glass,0;AU=Trhsy;DIR=2;DESC=æ
 C$CCCC
 C!CCCC
 CACCDC
-CCCCCC
+C*CCCC

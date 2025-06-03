@@ -6,6 +6,7 @@
 package com.trhsy.sim.npcCode.task;
 
 import com.trhsy.sim.npcCode.NpcData;
+import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.Building;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -44,9 +45,8 @@ public class TaskSocialise extends Task {
 	@Override
 	public void onUpdate() {
 		if (!this.folk.isAtBuilding(this.building)) {
-			if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
-				this.folk.forceMoveToXYZNoWarp(this.folk.home.livingXYZ);
-			}
+			V3 v3=this.folk.home.livingXYZ;
+			this.folk.forceMoveToXYZ(v3);
 		} else if (System.currentTimeMillis() - this.socialUpdate > 10000L && this.host) {
 			this.socialUpdate = System.currentTimeMillis();
 			this.folk.adjustRelationship(this.other, 1);

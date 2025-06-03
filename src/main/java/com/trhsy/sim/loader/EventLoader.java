@@ -70,15 +70,23 @@ public class EventLoader {
             try {
                 if (event.player != null) {
                     ModSimLoader.log.info("*********************玩家加入*****************");
-                    for (NpcData fd : ModSimLoader.folks) {
+                    /*for (NpcData fd : ModSimLoader.folks) {
                         while (fd.entity == null && FMLCommonHandler.instance() != null) {
                             try {
-                                fd.entity = (EntityNpc) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(fd.ID);
+                                Entity  entity=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(fd.ID);
+                                ModSimLoader.log.info("找到NPC-id："+fd.ID);
+                                if(!fd.isDead){
+                                    entity.setDead();
+                                    ModSimLoader.log.info("NPC-id："+fd.ID+"死了");
+                                }else{
+                                    fd.entity = (EntityNpc) entity;
+                                    ModSimLoader.log.info("NPC-id："+fd.ID+",,赋予实体");
+                                }
                             } catch (Exception var4) {
-//                                ModSimLoader.log.error("玩家加入加载数据失败了" + var4.getMessage());
+                                ModSimLoader.log.error("玩家加入加载数据失败了" + var4.getMessage());
                             }
                         }
-                    }
+                    }*/
                 }
             } catch (Exception e) {
                 e.getMessage();

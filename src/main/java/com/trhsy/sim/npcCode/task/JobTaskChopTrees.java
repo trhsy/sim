@@ -62,10 +62,8 @@ public class JobTaskChopTrees extends JobTask {
                 if(b.isWood(this.job.folk.entity.world, bp)){
                     while (b.isWood(this.job.folk.entity.world, bp)) {
                         V3 v3 = new V3(x, startY, z);
+                        this.folk.forceMoveToXYZ(v3);
 
-                        if (!this.job.folk.forceMoveToXYZ(v3)) {
-                            this.job.folk.forceMoveToXYZNoWarp(v3);
-                        }
                         //砍树
                         this.folk.setStatus(new TextComponentTranslation("container.sim.CHOPPINGTREE", new Object[0]).getUnformattedText());
                         BlockPos bp1 = new BlockPos(x, sY1, z);

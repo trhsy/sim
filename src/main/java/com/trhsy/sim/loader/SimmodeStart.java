@@ -121,7 +121,7 @@ public class SimmodeStart {
                     ModSimLoader.log.error("加载矿场文件出错了：" + var9.getMessage() + "行数：" + element.getLineNumber());
                 }
                 try {
-                    ModSimLoader.log.info("获得保存的NPC");
+                    ModSimLoader.log.info("获得保存的NPC，开始加载");
                     new DimensionManager();
                     File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
                     if (!npcFolder.exists()) {
@@ -134,8 +134,9 @@ public class SimmodeStart {
                         NpcData npcData = new NpcData(world, UUID.fromString(buildingFile.getName().split(".sk2")[0]));
                         if (!npcData.isDead) {
                             ModSimLoader.folks.add(npcData);
+                            NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
                         }
-                        NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
+
 //                    ModSimLoader.log.info(npcData.race.skinName);
                     }
                 } catch (Exception e) {

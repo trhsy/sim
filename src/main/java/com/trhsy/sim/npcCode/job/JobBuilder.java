@@ -911,6 +911,10 @@ public class JobBuilder extends Job {
             //保存建筑
             build.saveBuilding();
             if(this.isOk){
+                if (this.conBox != null) {
+                    this.conBox.folk = null;
+                    this.conBox.setDead();
+                }
                 //已完成建设 【】
                 String text = this.folk.getName() + new TextComponentTranslation("container.sim.job.builder_constructor_completed", new Object[0]).getUnformattedText() + this.blueprint.name;
                 ModSimLoader.sendChat(text);
@@ -920,10 +924,7 @@ public class JobBuilder extends Job {
                 for (EntityPlayer entityPlayer : mc.world.playerEntities) {
                     mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                 }
-                if (this.conBox != null) {
-                    this.conBox.folk = null;
-                    this.conBox.setDead();
-                }
+                this.conBox.setDead();
             }
 
         } catch (Exception e) {

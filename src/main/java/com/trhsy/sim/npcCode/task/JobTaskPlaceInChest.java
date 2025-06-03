@@ -1,6 +1,7 @@
 package com.trhsy.sim.npcCode.task;
 
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -55,9 +56,8 @@ public class JobTaskPlaceInChest extends JobTask {
             ModSimLoader.addMoney(0.02F * (float)this.toPlace.getCount());
             this.completeTask();
         } else if (!this.job.folk.entity.isMoving() && this.job.folk.entity.getNavigator().getPath() == null) {
-            if(!this.folk.forceMoveToXYZ(this.job.workPlace)){
-                this.folk.forceMoveToXYZNoWarp(this.job.workPlace);
-            }
+            V3 v3=this.job.workPlace;
+            this.folk.forceMoveToXYZ(v3);
         }
     }
 

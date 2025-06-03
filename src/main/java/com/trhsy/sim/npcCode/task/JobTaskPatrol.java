@@ -125,7 +125,7 @@ public class JobTaskPatrol extends JobTask {
             if (System.currentTimeMillis() - this.attackDelay > 2L) {
                 this.attackDelay = System.currentTimeMillis();
                 V3 mobPos = V3.fromBlockPos(this.currentTarget.getPosition());
-                this.job.folk.forceMoveToXYZNoWarp(mobPos);
+                this.folk.forceMoveToXYZ(mobPos);
                 if (mobPos.getDistanceTo(this.job.folk.getV3()) < 2) {
                     if (this.currentTarget.isDead) {
                         this.currentTarget = null;
@@ -142,7 +142,7 @@ public class JobTaskPatrol extends JobTask {
             this.patrolTo = this.getNewPosition();
             if(this.patrolTo.x > this.maxX || this.patrolTo.x < this.minX || this.patrolTo.z > this.maxZ || this.patrolTo.z < this.minZ){
                 this.patrolTo = this.getNewPosition();
-                this.job.folk.forceMoveToXYZ(this.patrolTo,2);
+                this.job.folk.forceMoveToXYZ(this.patrolTo);
             }
         }
     }

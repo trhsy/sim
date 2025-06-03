@@ -35,9 +35,7 @@ public class TaskGoTo extends Task{
                 //住宅
                 if (this.building.buildingType.toLowerCase().contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText())) {
                     V3 v3=new V3(this.building.livingXYZ.x+0.5,this.building.livingXYZ.y,this.building.livingXYZ.z+0.5);
-                    if(!this.folk.forceMoveToXYZ(v3)){
-                        this.folk.forceMoveToXYZNoWarp(v3);
-                    }
+                    this.folk.forceMoveToXYZ(v3);
                 } else {
                     V3 v3=null;
                     if(this.building.livingXYZ!=null){
@@ -45,9 +43,7 @@ public class TaskGoTo extends Task{
                     }else{
                         v3=new V3(this.building.controlXYZ.x+0.5,this.building.controlXYZ.y,this.building.controlXYZ.z+0.5);
                     }
-                    if(!this.folk.forceMoveToXYZ(v3)){
-                        this.folk.forceMoveToXYZNoWarp(v3);
-                    }
+                    this.folk.forceMoveToXYZ(v3);
                 }
             }else{
                 this.onTaskComplete();

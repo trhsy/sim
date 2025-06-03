@@ -54,7 +54,7 @@ public class TaskSleep extends Task {
             this.folk.stayPut = false;
 //            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
             V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z);
-                this.folk.forceMoveToXYZNoWarp(v3);
+            this.folk.forceMoveToXYZ(v3);
 //            }
             this.fs_t=System.currentTimeMillis();
         }else{

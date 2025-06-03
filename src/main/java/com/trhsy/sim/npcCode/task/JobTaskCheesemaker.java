@@ -84,9 +84,11 @@ public class JobTaskCheesemaker extends JobTask{
                 List<V3> stirPositions = this.theCheeseFactory.getSpecialBlocks(4);
                 if (!stirPositions.isEmpty()) {
                     if (this.tubToggle) {
-                        this.job.folk.forceMoveToXYZNoWarp(this.currentStirPos =  stirPositions.get(0));
+                        this.currentStirPos =  stirPositions.get(0);
+                        this.folk.forceMoveToXYZ(this.currentStirPos);
                     } else {
-                        this.job.folk.forceMoveToXYZNoWarp(this.currentStirPos =  stirPositions.get(1));
+                        this.currentStirPos =  stirPositions.get(1);
+                        this.folk.forceMoveToXYZ(this.currentStirPos);
                     }
 
                     this.tubToggle = !this.tubToggle;

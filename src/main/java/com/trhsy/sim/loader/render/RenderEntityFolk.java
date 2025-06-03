@@ -71,7 +71,7 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
             } else {
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/male0.png");
                 if(entity.theData==null){
-                    entity.setDead();
+//                    entity.setDead();
                 }
                 /*if(!entity.isEntityAlive()){
                     if(entity.theData==null){

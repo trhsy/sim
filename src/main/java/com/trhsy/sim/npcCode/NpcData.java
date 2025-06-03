@@ -23,6 +23,7 @@ import com.trhsy.sim.npcCode.task.*;
 import com.trhsy.sim.npcCode.traits.Trait;
 import com.trhsy.sim.npcCode.traits.Traits;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -684,6 +685,9 @@ public class NpcData {
                 }
                 if (line.contains("isdie|")) {
                     this.isDead = Boolean.parseBoolean(value);
+                    if(this.isDead){
+                        return;
+                    }
                 }
                 if (line.contains("fname|")) {
                     this.forename = value.substring(0, 1).toUpperCase() + value.substring(1);
@@ -935,7 +939,14 @@ public class NpcData {
                 world.removeEntity(ef);
                 world.removeEntityDangerously(ef);*/
             // 创建 NPC 实体
-            EntityNpc e = new EntityNpc(world, true);
+            Entity entity=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(this.ID);
+            EntityNpc e=null;
+            if(entity!=null){
+                 e = (EntityNpc) entity;
+            }else{
+                e = new EntityNpc(world, this.ID);
+            }
+
             e.isBeingCreated = true;
             e.setPositionAndUpdate(this.pos.x, this.pos.y, this.pos.z);
             e.theData = this;
@@ -945,9 +956,9 @@ public class NpcData {
             // 标记 NPC 已加载
             this.isLoaded = true;
             // 将 NPC 添加到 ModSimLoader 的 NPC 列表中
-            ModSimLoader.folks.add(this);
+//            ModSimLoader.folks.add(this);
             // 向所有客户端发送 NPC 更新消息
-            NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
+//            NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
 //            }
         } catch (Exception e) {
             this.isLoaded = false;
@@ -1518,10 +1529,7 @@ public class NpcData {
                     //最近任务不为空
                    if (this.currentTask != null) {
                        this.currentTask.update();
-
-
                             //夜晚更新最近任务
-
                         if(!ModSimLoader.isDayTime(this.entity.world)){
                             if(this.currentTask!=null){
                                 //睡觉
@@ -1531,13 +1539,16 @@ public class NpcData {
                                 //不等于睡觉或者回家则直接完成
                                 if(fs_n3!=null&&!fs_n3.equals(fs_n2)&&!fs_n3.equals(fs_n1)){
                                     this.currentTask.onTaskComplete();
+                                    this.tasks.clear();
                                 }
                                 //晚上 不在家回家
                                 if (this.home != null) {
                                     if(!this.isAtBuilding(this.home)){
                                         TaskGoTo taskGoTo=new TaskGoTo(this, -1L, this.home, fs_n2);
+                                        this.currentTask=taskGoTo;
+                                        this.currentTask.begin();
                                         //回家
-                                        this.addTask(taskGoTo);
+//                                        this.addTask(taskGoTo);
                                     }
                                     if(fs_n3!=null&&this.isAtBuilding(this.home)&&!fs_n3.equals(fs_n1)){
                                         //睡觉
@@ -1995,20 +2006,21 @@ public class NpcData {
         }
         return npcData;
     }
-    public void forceMoveToXYZ(V3 v3,int speedln) {
-        V3 v31=new V3(v3.x,v3.y+1,v3.z);
-        BlockPos blockPos=v31.toBlockPos();
-        Path path=this.entity.getNavigator().getPathToPos(blockPos);
-        Path path1=this.entity.getNavigator().getPath();
-        //已有地址 则更新地址
-        if(path==path1&&path!=null&&path1!=null){
-            this.entity.getNavigator().onUpdateNavigation();
-        }
-        if(path!=null){
-            //设置地址
-            this.entity.getNavigator().setPath(path,speedln);
-        }
-    }
+//    public void forceMoveToXYZ(V3 v3,int speedln) {
+////        V3 v31=new V3(v3.x,v3.y+1,v3.z);
+//        V3 v31 = getAdjustedV3(v3);
+//        BlockPos blockPos=v31.toBlockPos();
+//        Path path=this.entity.getNavigator().getPathToPos(blockPos);
+//        Path path1=this.entity.getNavigator().getPath();
+//        //已有地址 则更新地址
+//        if(path==path1&&path!=null&&path1!=null){
+//            this.entity.getNavigator().onUpdateNavigation();
+//        }
+//        if(path!=null){
+//            //设置地址
+//            this.entity.getNavigator().setPath(path,speedln);
+//        }
+//    }
     /**
      * @return boolean
      * @Author fan
@@ -2017,43 +2029,7 @@ public class NpcData {
      * @Param [v3]
      **/
     public boolean forceMoveToXYZ(V3 v3) {
-
-        // System.out.println("要去的维度："+v3.dimension+",NPC的维度:"+this.entity.dimension);
-        /*V3 v31=new V3(v3.x,v3.y+1,v3.z);
-        BlockPos blockPos=v31.toBlockPos();
-        Path path=this.entity.getNavigator().getPathToPos(blockPos);
-        Path path1=this.entity.getNavigator().getPath();
-        //已有地址 则更新地址
-        if(path==path1&&path!=null&&path1!=null){
-            this.entity.getNavigator().onUpdateNavigation();
-            return true;
-        }
-        if(path!=null){
-            //设置地址
-            this.entity.getNavigator().setPath(path,1);
-        }
-        //士兵只能走路
-        //距离大于10则传送
-        if (path!=null&&path.getCurrentPathLength()>=10) {
-            Random random =new Random();
-            for (int i = 0; i < 7; ++i) {
-                double d0 = random.nextDouble() * 0.5D;
-                double d1 = random.nextDouble() * 0.5D;
-                double d2 = random.nextDouble() * 0.5D;
-                double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-                double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
-                double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-                this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
-            }
-            if (v3.dimension != this.entity.dimension) {
-                this.entity.changeDimension(v3.dimension);
-                this.entity.dimension = v3.dimension;
-            }
-            this.entity.setPositionAndUpdate(v31.x, v31.y, v31.z);
-            this.entity.getNavigator().clearPath();
-            return true;
-        }
-        return false;*/
+        this.stayPut=false;
         // 增加 1 的偏移量
         V3 targetV3 = getAdjustedV3(v3);
         BlockPos targetPos = targetV3.toBlockPos();
@@ -2065,12 +2041,12 @@ public class NpcData {
             Path currentPath = this.entity.getNavigator().getPath();
 
             // 如果已有路径且路径相同，则更新导航
-            if (isSamePath(path, currentPath)) {
+            if (!isSamePath(path, currentPath)) {
                 this.entity.getNavigator().onUpdateNavigation();
             }
 
             // 如果路径不为空，设置路径和速度
-            if (path != null) {
+            if (currentPath == null) {
                 this.entity.getNavigator().setPath(path, 1.5);
             }
             // 检测 NPC 当前位置与终点位置的距离
@@ -2088,17 +2064,15 @@ public class NpcData {
                 // 如果前方有方块阻挡，重新获取路径
                 path = this.entity.getNavigator().getPathToPos(targetPos);
                 if (path != null) {
-                    this.entity.getNavigator().setPath(path, 1.5D);
+                    this.entity.getNavigator().setPath(path, 2D);
                 }
+                this.entity.getNavigator().onUpdateNavigation();
             }
             if (path == null) {
                 // 生成粒子效果
                 spawnPortalParticles();
                 // 直接设置实体位置
                 this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
-            } else {
-                // 设置导航路径
-                this.entity.getNavigator().setPath(path, 1.5D);
             }
         } catch (Exception e) {
             // 记录错误信息
@@ -2181,53 +2155,7 @@ public class NpcData {
         return s ;
 
     }
-    /**
-     * @return boolean
-     * @Author fan
-     * @Description //TODO 强制移动到无扭曲
-     * @Date 11:36 2022/10/21
-     * @Param [v3]
-     **/
-    public boolean forceMoveToXYZNoWarp(V3 v3) {
-        V3 v31=new V3(v3.x,v3.y+1,v3.z);
-        Path path=this.entity.getNavigator().getPathToXYZ(v31.x, v31.y, v31.z);
-        this.entity.getNavigator().updatePath();
-        if(path==null){
-//            this.entity.getMoveHelper().setMoveTo(v31.x,v31.y,v31.z, 1.5D);
-            Random random = this.entity.getRNG();
-            for (int i = 0; i < 7; ++i) {
-                double d0 = random.nextDouble() * 0.5D;
-                double d1 = random.nextDouble() * 0.5D;
-                double d2 = random.nextDouble() * 0.5D;
-                double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-                double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
-                double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-                this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
-            }
-            this.entity.setPositionAndUpdate(v31.x, v31.y, v31.z);
-//            this.entity.getNavigator().clearPath();
-        }else{
-            this.entity.getNavigator().setPath(path,1.0D);
-        }
 
-        return true;
-//        if (this.entity.getNavigator().tryMoveToXYZ(v3.x, v3.y, v3.z, 1.0D)) {
-//            this.entity.getNavigator().onUpdateNavigation();
-//            this.entity.getMoveHelper().setMoveTo(v3.x,v3.y,v3.z, 1.0D);
-//            return true;
-//        } else {
-//            Block blocks=this.entity.world.getBlockState(v3.toBlockPos().up(2)).getBlock();
-//            if(blocks==Blocks.AIR){
-//                this.entity.getNavigator().clearPath();
-////                this.entity.getMoveHelper().setMoveTo(v3.x,v3.y,v3.z, 1.0D);
-//            }
-//            return true;
-//        }
-    }
-    public boolean forceMoveToXYZNoWarp1(V3 v3) {
-        this.entity.getMoveHelper().setMoveTo(v3.x,v3.y,v3.z, 1.0D);
-        return true;
-    }
     /**
      * @return boolean
      * @Author fan
@@ -2413,15 +2341,17 @@ public class NpcData {
                         }
                         this.entity.setDead();
                         ModSimLoader.folks.remove(this);
-                        try {
-                            Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
-                        } catch (Exception var5) {
-                            StackTraceElement element = var5.getStackTrace()[0];
-                            ModSimLoader.log.error("npcDeath-onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
-                        }
+
 
                     }
 
+                }
+                try {
+                    Files.deleteIfExists((new File(this.getSaveFolder() + File.separator + "npc" + File.separator + this.ID + ".sk2")).toPath());
+                    ModSimLoader.log.warn("已删除["+this.ID+"]");
+                } catch (Exception var5) {
+                    StackTraceElement element = var5.getStackTrace()[0];
+                    ModSimLoader.log.error("npcDeath-onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
                 }
             }
         } catch (Exception e) {

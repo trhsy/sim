@@ -104,9 +104,7 @@ public class JobTaskHarvestAnimal extends JobTask {
             this.completeTask();
         } else {
            V3 v3= new V3((this.livestock.get(this.currentLivestock)).getPosition(),this.job.folk.entity.dimension);
-            if(!this.folk.forceMoveToXYZ(v3)){
-                this.folk.forceMoveToXYZNoWarp(v3);
-            }
+            this.folk.forceMoveToXYZ(v3);
             if (new V3((this.livestock.get(this.currentLivestock)).getPosition(),this.job.folk.entity.dimension).getDistanceTo(this.job.folk.getV3()) < 2) {
                 this.harvestTarget((EntityAnimal)this.livestock.get(this.currentLivestock));
                 ++this.currentLivestock;
