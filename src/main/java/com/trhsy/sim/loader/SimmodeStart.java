@@ -301,9 +301,10 @@ public class SimmodeStart {
                                 ModSimLoader.log.info("天亮了");
                                 //播放 天亮了鸡叫
                                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                                EntityPlayer entityPlayer=world.playerEntities.get(0);
-                                world.playSound(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
-
+                                Minecraft mc = Minecraft.getMinecraft();
+                                for(EntityPlayer entityPlayer:mc.world.playerEntities) {
+                                    mc.world.playSound((EntityPlayer)null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                }
 
                                 newDay = true;
                                 if (ModSimLoader.dayOfWeek >= 6) {

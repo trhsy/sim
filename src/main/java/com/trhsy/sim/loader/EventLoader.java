@@ -66,11 +66,11 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        Thread skinThread = new Thread(() -> {
+        /*Thread skinThread = new Thread(() -> {
             try {
                 if (event.player != null) {
                     ModSimLoader.log.info("*********************玩家加入*****************");
-                    /*for (NpcData fd : ModSimLoader.folks) {
+                    for (NpcData fd : ModSimLoader.folks) {
                         while (fd.entity == null && FMLCommonHandler.instance() != null) {
                             try {
                                 Entity  entity=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(fd.ID);
@@ -86,7 +86,7 @@ public class EventLoader {
                                 ModSimLoader.log.error("玩家加入加载数据失败了" + var4.getMessage());
                             }
                         }
-                    }*/
+                    }
                 }
             } catch (Exception e) {
                 e.getMessage();
@@ -94,7 +94,7 @@ public class EventLoader {
 
 
         });
-        skinThread.start();
+        skinThread.start();*/
     }
 
     /**
@@ -105,7 +105,10 @@ public class EventLoader {
     @SubscribeEvent
     public void worldSave(WorldEvent.Save event) {
         World world=event.getWorld();
-        SimmodeStart.simModSave(world);
+        if(!world.isRemote){
+            SimmodeStart.simModSave(world);
+        }
+
     }
 
     /**
@@ -116,7 +119,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
         World world=event.getWorld();
-        SimmodeStart.simModLoad(world);
+        if(!world.isRemote) {
+            SimmodeStart.simModLoad(world);
+        }
     }
 
     /**
@@ -127,7 +132,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {
         World world=event.world;
-        SimmodeStart.simModupdate(world);
+        if(!world.isRemote) {
+            SimmodeStart.simModupdate(world);
+        }
     }
 
     /**
@@ -188,6 +195,7 @@ public class EventLoader {
     @SubscribeEvent
     public void clientDisconnected(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
 //        dedWorld = false;
+
         SimmodeStart.simModDisconnected();
     }
 
@@ -202,11 +210,16 @@ public class EventLoader {
     @SubscribeEvent
     public void onWorldRenderLast(RenderWorldLastEvent event) {
         World world = Minecraft.getMinecraft().world;
-        for (EntityPlayer player : world.playerEntities) {
-            if (ModSimClientLoader.previewPos1 != null && ModSimClientLoader.previewPos2 != null) {
-                drawBoundingBox(player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, true, 5.0F, event);
+        if (!world.isRemote){
+            for (EntityPlayer player : world.playerEntities) {
+                if (ModSimClientLoader.previewPos1 != null && ModSimClientLoader.previewPos2 != null) {
+                    //预览
+                    drawBoundingBox(player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, true, 5.0F, event);
+
+                }
             }
         }
+
 
     }
 
@@ -239,8 +252,10 @@ public class EventLoader {
         GL11.glLineWidth(width);
         //深度 蒙版
         GL11.glDepthMask(true);
+        //镶嵌单元
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
+        //设置位置颜色
         bufferBuilder.begin(1, DefaultVertexFormats.POSITION_COLOR);
 
         double dx = posA.x - posB.x > 0.0D ? -Math.abs(posA.x - posB.x) : Math.abs(posA.x - posB.x);

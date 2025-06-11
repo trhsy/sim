@@ -1855,16 +1855,16 @@ public class NpcData {
                         //商业
                         if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Commercial",new Object[0]).getUnformattedText())) {
 
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName));
+                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName));
                             //工业
                         } else if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Industrial",new Object[0]).getUnformattedText())) {
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                             //装饰
                         } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Decorative",new Object[0]).getUnformattedText())) {
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                             //其他
                         } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Other",new Object[0]).getUnformattedText())) {
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                         }
                         break;
                     }
@@ -2040,14 +2040,15 @@ public class NpcData {
             //当前路径
             Path currentPath = this.entity.getNavigator().getPath();
 
-            // 如果已有路径且路径相同，则更新导航
-            if (!isSamePath(path, currentPath)) {
-                this.entity.getNavigator().onUpdateNavigation();
-            }
+
 
             // 如果路径不为空，设置路径和速度
             if (currentPath == null) {
                 this.entity.getNavigator().setPath(path, 1.5);
+            }
+            // 如果已有路径且路径相同，则更新导航
+            if (!isSamePath(path, currentPath)) {
+                this.entity.getNavigator().onUpdateNavigation();
             }
             // 检测 NPC 当前位置与终点位置的距离
             double distance = this.entity.getDistance(targetV3.x, targetV3.y, targetV3.z);
@@ -2055,8 +2056,9 @@ public class NpcData {
                 // 生成粒子效果
                 spawnPortalParticles();
                 this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+                this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
                 // 如果距离小于等于 1，说明已经到达目标位置，清除路径
-                this.entity.getNavigator().clearPath();
+//                this.entity.getNavigator().clearPath();
                 return true;
             }
             // 检测当前位置前方是否有方块阻挡
@@ -2073,6 +2075,7 @@ public class NpcData {
                 spawnPortalParticles();
                 // 直接设置实体位置
                 this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+                this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
             }
         } catch (Exception e) {
             // 记录错误信息

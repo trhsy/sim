@@ -389,14 +389,14 @@ public class EntityNpc extends EntityCreature implements INpc {
                     //互动的时候说哈喽
                     if (this.theData.age < 18) {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
-                        player.world.playSound(player, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        player.world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     } else if (this.theData.gender == 0) {
                         //女声
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
-                        player.world.playSound(player, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        player.world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     } else {
                         SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
-                        player.world.playSound(player, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                        player.world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     }
                 } else {
                     return false;

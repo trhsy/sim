@@ -51,6 +51,7 @@ public class TaskSleep extends Task {
     @Override
     public void onUpdate() {
         if (this.folk.home != null&&!this.folk.isAtLocation(this.folk.home.livingXYZ)) {
+            ModSimLoader.log.info(this.folk.getName()+"，有家位置["+this.folk.home.livingXYZ.toString()+"]");
             this.folk.stayPut = false;
 //            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
             V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z);

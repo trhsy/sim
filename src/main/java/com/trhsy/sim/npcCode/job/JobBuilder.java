@@ -921,13 +921,13 @@ public class JobBuilder extends Job {
                 //播放声音
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
                 Minecraft mc = Minecraft.getMinecraft();
-                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                }
+                mc.world.playSound((EntityPlayer)null, build.livingXYZ.x,  build.livingXYZ.y, build.livingXYZ.z, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                 this.conBox.setDead();
             }
 
         } catch (Exception e) {
+            this.conBox.setDead();
+
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("createBuilding出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
