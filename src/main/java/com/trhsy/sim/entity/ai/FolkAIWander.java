@@ -45,13 +45,13 @@ public class FolkAIWander extends EntityAIWander {
         }else if(!this.folk.theData.stayPut){
             if (!this.mustUpdate) {
                 //获得空闲时间
-                if (this.entity.getIdleTime() >= 100) {
-                    return false;
-                }
+//                if (this.entity.getIdleTime() >= 100) {
+//                    return false;
+//                }
                 //下一个
-                if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
+               /* if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
                     return false;
-                }
+                }*/
             }
 
             Vec3d vec3d = this.getPosition();

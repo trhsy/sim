@@ -77,7 +77,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
             //会游泳
             ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
-            this.setSize(0.6F, 1.8F);
+            this.setSize(0.4F, 1.8F);
             this.enablePersistence();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -104,7 +104,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             //会游泳
             ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
             this.isBeingCreated = isCreating;
-            this.setSize(0.6F, 1.8F);
+            this.setSize(0.4F, 1.8F);
             this.enablePersistence();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -132,7 +132,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             //会游泳
             ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
             this.isBeingCreated = false;
-            this.setSize(0.6F, 1.8F);
+            this.setSize(0.4F, 1.8F);
             this.enablePersistence();
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

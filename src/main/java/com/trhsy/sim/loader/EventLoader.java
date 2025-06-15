@@ -105,9 +105,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldSave(WorldEvent.Save event) {
         World world=event.getWorld();
-        if(!world.isRemote){
+//        if(!world.isRemote){
             SimmodeStart.simModSave(world);
-        }
+//        }
 
     }
 
@@ -119,9 +119,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
         World world=event.getWorld();
-        if(!world.isRemote) {
+//        if(!world.isRemote) {
             SimmodeStart.simModLoad(world);
-        }
+//        }
     }
 
     /**
@@ -132,9 +132,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {
         World world=event.world;
-        if(!world.isRemote) {
+//        if(!world.isRemote) {
             SimmodeStart.simModupdate(world);
-        }
+//        }
     }
 
     /**
@@ -165,7 +165,7 @@ public class EventLoader {
         Entity entity = event.getEntity();
         World worldObj = event.getWorld();
 
-        if (!worldObj.isRemote && entity instanceof EntityPlayer) {
+        if (entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
             //欢迎来到模拟城镇,由TRHSY重制，更多资讯请关注公众号: dasha5000
             String welcome = "【" + player.getName() + "】" + new TextComponentTranslation("container.sim.welcome", new Object[0]).getUnformattedText();
@@ -210,14 +210,14 @@ public class EventLoader {
     @SubscribeEvent
     public void onWorldRenderLast(RenderWorldLastEvent event) {
         World world = Minecraft.getMinecraft().world;
-        if (!world.isRemote){
+//        if (!world.isRemote){
             for (EntityPlayer player : world.playerEntities) {
                 if (ModSimClientLoader.previewPos1 != null && ModSimClientLoader.previewPos2 != null) {
                     //预览
                     drawBoundingBox(player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, true, 5.0F, event);
 
                 }
-            }
+//            }
         }
 
 

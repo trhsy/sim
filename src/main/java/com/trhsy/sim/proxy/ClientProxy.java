@@ -17,7 +17,7 @@ import org.lwjgl.opengl.Display;
  * @author Trhsy
  * @Package: com.trhsy.sim.proxy
  * @ClassName: ClientProxy
- * @Description: 客户端
+ * @Description: 客户端 客户端代理类，包含客户端特定的初始化和渲染逻辑
  * @date 2023/10/19 下午 2:42
  */
 public class ClientProxy extends CommonProxy {
@@ -26,18 +26,33 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        /**解压建筑蓝图*/
         new BuildingsExtractor();
-        /**配置**/
-        ConfigLoader.load(event);
+        /**创造模式物品栏**/
+        new CreativeTabsLoader(event);
+        /**流体加载注册**/
+        new FluidLoader();
+
         /**方块对应物品的渲染**/
         new ItemRenderLoader();
         //加载实体
         EntityLoader.initModels();
+
+
+        /**配置**/
+//        ConfigLoader.load(event);
+
+        /**物品加载注册**/
+//        new ItemLoader(event);
+        /**方块加载注册**/
+//        new BlockLoader(event);
+
     }
 
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
+        // 设置游戏窗口标题
         //丨 模拟城市 丨 官方Q群: 749090174  丨 由TRHSY重制 丨 微信公众号：dasha500
         String title = new TextComponentTranslation("container.sim.title", new Object[0]).getUnformattedText();
         Display.setTitle(Display.getTitle() + title);

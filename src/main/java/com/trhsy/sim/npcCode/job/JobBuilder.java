@@ -721,8 +721,9 @@ public class JobBuilder extends Job {
                     this.constructorBlock.employee = null;
                 }
                 ModSimLoader.log.info("从中间功能检查中激发");
-                this.createBuilding();
                 this.isOk=true;
+                this.createBuilding();
+
 
                 return;
             }
@@ -759,8 +760,9 @@ public class JobBuilder extends Job {
                             this.constructorBlock.employee = null;
                         }
                         ModSimLoader.log.info("从中间功能检查中激发");
-                        this.createBuilding();
                         this.isOk=true;
+                        this.createBuilding();
+
                         return;
                     }
                     if (this.direction == 0) {
@@ -888,12 +890,14 @@ public class JobBuilder extends Job {
             for (Building building : ModSimLoader.buildings) {
                 if (building.controlXYZ.equals(v3)) {
                     build = building;
+                    break;
                 }
             }
             //创建建筑物
             if (build == null) {
                 build = new Building(this.blueprint.name, 10.0F, new V3(this.controllerPos), new V3(this.livingPos));
             }
+            build.buildingName=this.blueprint.name;
             build.blockSpecial = this.blockSpecial;
             //建筑物类型
             build.buildingType = this.blueprint.buildingType;

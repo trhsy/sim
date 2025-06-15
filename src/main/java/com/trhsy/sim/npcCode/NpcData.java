@@ -1829,55 +1829,81 @@ public class NpcData {
             //有家并且随机任务是3
             if (this.home != null && new Random().nextInt(4) == 3) {
                 //回家在家放松
-                this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 30000), this.home, new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedText()));
+                String s=new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedText();
+                addGoToTask(this.home,s, 5000, 15000);
+                //this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), this.home, new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedText()));
             } else if (new Random().nextInt(4) == 3) {
                 for (Building b : ModSimLoader.buildings) {
                     if (b.controlXYZ.getDistanceTo(this.pos) < 40 && new Random().nextInt(4) == 3) {
                         //住宅
-                        if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText())) {
+                        String s1=new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText();
+                        if (b.buildingType.contentEquals(s1)) {
                             for (NpcData fd : b.occupants) {
                                 if (!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null) {
                                     if (fd.shouldWork()) {
                                         if (this.isAdult() != fd.isAdult()) {
                                             if (fd.ID == this.ID) {
                                                 //社交任务
-                                                this.addTask(new TaskSocialise(this, (long) (new Random().nextInt(15000) + 15000), fd, b, false));
+                                                // 社交任务，减少任务时长
+                                                long duration = (long) (new Random().nextInt(5000) + 3000);
+                                                this.addTask(new TaskSocialise(this, duration, fd, b, false));
+//                                                this.addTask(new TaskSocialise(this, (long) (new Random().nextInt(15000) + 5000), fd, b, false));
                                                 fd.currentTask = null;
                                                 fd.tasks.clear();
-                                                fd.addTask(new TaskSocialise(fd, (long) (new Random().nextInt(15000) + 15000), this, b, true));
+                                                fd.addTask(new TaskSocialise(fd, duration, this, b, true));
+//                                                fd.addTask(new TaskSocialise(fd, (long) (new Random().nextInt(15000) + 5000), this, b, true));
                                             }
                                         }
                                     }
                                 }
                             }
                         }
-
+                        //根据建筑类型添加任务，减少任务时长
                         //商业
                         if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Commercial",new Object[0]).getUnformattedText())) {
-
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName));
+                            String s=new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName;
+                            addGoToTask(b, s, 5000, 15000);
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName));
                             //工业
                         } else if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Industrial",new Object[0]).getUnformattedText())) {
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
+                            addGoToTask(b, s, 5000, 15000);
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                             //装饰
                         } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Decorative",new Object[0]).getUnformattedText())) {
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
+                            addGoToTask(b, s, 5000, 15000);
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                             //其他
                         } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Other",new Object[0]).getUnformattedText())) {
-                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 10000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
+                            addGoToTask(b, s, 5000, 15000);
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                         }
                         break;
                     }
                 }
             } else {
-                this.addTask(new TaskWander(this, (long) (new Random().nextInt(30000) + 30000)));
+                // 闲逛任务，减少任务时长
+                this.addTask(new TaskWander(this, (long) (new Random().nextInt(15000) + 5000)));
+//                this.addTask(new TaskWander(this, (long) (new Random().nextInt(30000) + 5000)));
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("pickRandomTask出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
-
+    // 提取添加 TaskGoTo 任务的方法
+    private void addGoToTask(Building building, String translationKey, int minDuration, int maxDuration) {
+        long duration = (long) (new Random().nextInt(maxDuration - minDuration) + minDuration);
+        String status = new TextComponentTranslation(translationKey, new Object[0]).getUnformattedText();
+        //商业
+        String s=new TextComponentTranslation("container.sim.sim_gui_BC_Commercial", new Object[0]).getUnformattedText();
+        if (building.buildingType.contentEquals(s)) {
+            status += building.buildingName;
+        }
+        this.addTask(new TaskGoTo(this, duration, building, status));
+    }
     /**
      * @return void
      * @Author fan

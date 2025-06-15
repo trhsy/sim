@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
  * @author Trhsy
  * @Package: com.trhsy.sim.proxy
  * @ClassName: CommonProxy
- * @Description:
+ * @Description: 通用代理类，包含客户端和服务器端都需要的初始化逻辑
  * @date 2023/10/19 下午 2:09
  */
 public class CommonProxy {
@@ -24,19 +24,8 @@ public class CommonProxy {
         ModSimLoader.log = event.getModLog();
         /**配置**/
         ConfigLoader.load(event);
-        /**创造模式物品栏**/
-        new CreativeTabsLoader(event);
-        /**流体加载注册**/
-        new FluidLoader();
-        /**物品加载注册**/
-//        new ItemLoader(event);
-        /**方块加载注册**/
-//        new BlockLoader(event);
-        /**方块对应物品的渲染**/
-        new ItemRenderLoader();
         /**启动通讯**/
         new NetWorkLoader(event);
-
         /**矿物生成**/
         new WorldGeneratorLoader();
         /**实体渲染**/
@@ -47,6 +36,7 @@ public class CommonProxy {
         Traits.loadTraits();
         /**种族*/
         Race.loadRaces();
+
         KeyboardManager.init();
     }
 
@@ -61,6 +51,7 @@ public class CommonProxy {
     }
 
     public void renderTick(TickEvent.RenderTickEvent e) {
+        // 通用的渲染逻辑，如果有的话可以在这里实现
     }
 
     public void serverStarting(FMLServerStartingEvent event) {
