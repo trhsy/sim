@@ -66,10 +66,10 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        /*Thread skinThread = new Thread(() -> {
+        Thread skinThread = new Thread(() -> {
             try {
                 if (event.player != null) {
-                    ModSimLoader.log.info("*********************玩家加入*****************");
+                    ModSimLoader.log.info("*********************玩家加入*开始重载NPC实体*****************");
                     for (NpcData fd : ModSimLoader.folks) {
                         while (fd.entity == null && FMLCommonHandler.instance() != null) {
                             try {
@@ -94,7 +94,7 @@ public class EventLoader {
 
 
         });
-        skinThread.start();*/
+        skinThread.start();
     }
 
     /**

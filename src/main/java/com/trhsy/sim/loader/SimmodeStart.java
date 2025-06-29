@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -131,10 +132,20 @@ public class SimmodeStart {
                     for (int i = 0; i < buildingSaves.length; i++) {
                         File buildingFile = buildingSaves[i];
                         //ModSimLoader.log.info("得到Npc " + buildingFile.getName());
-                        NpcData npcData = new NpcData(world, UUID.fromString(buildingFile.getName().split(".sk2")[0]));
+                        String uid=buildingFile.getName().split(".sk2")[0];
+                        NpcData npcData = new NpcData(world, UUID.fromString(uid));
                         if (!npcData.isDead) {
                             ModSimLoader.folks.add(npcData);
                             NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
+                        }else{
+                            try {
+                               String  worldPath = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + File.separator + "sim";
+                                Files.deleteIfExists((new File(worldPath + File.separator + "npc" + File.separator + uid + ".sk2")).toPath());
+                                ModSimLoader.log.warn("npc已死不加载，重新，已删除["+uid+"]");
+                            } catch (Exception var5) {
+                                StackTraceElement element = var5.getStackTrace()[0];
+                                ModSimLoader.log.error("npcDeath-onDeath出错了：" + var5.getMessage() + "行数：" + element.getLineNumber());
+                            }
                         }
 
 //                    ModSimLoader.log.info(npcData.race.skinName);
@@ -301,9 +312,9 @@ public class SimmodeStart {
                                 ModSimLoader.log.info("天亮了");
                                 //播放 天亮了鸡叫
                                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-                                Minecraft mc = Minecraft.getMinecraft();
-                                for(EntityPlayer entityPlayer:mc.world.playerEntities) {
-                                    mc.world.playSound((EntityPlayer)null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                for(EntityPlayer entityPlayer:world.playerEntities) {
+                                    ModSimLoader.log.info("播放 天亮了鸡叫:[x:"+ entityPlayer.posX+"],y:["+ entityPlayer.posY+"],z:["+ entityPlayer.posZ+"]");
+                                    world.playSound((EntityPlayer)null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                 }
 
                                 newDay = true;
@@ -333,7 +344,8 @@ public class SimmodeStart {
                                     //播放钱到账
                                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                                     EntityPlayer entityPlayer=world.playerEntities.get(0);
-                                    world.playSound( entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
+                                    ModSimLoader.log.info("播放钱到账:[x:"+ entityPlayer.posX+"],y:["+ entityPlayer.posY+"],z:["+ entityPlayer.posZ+"]");
+                                    world.playSound((EntityPlayer)null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                                     //你今天收了 今天的租金。
                                     ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(rent) + new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());
 

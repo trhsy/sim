@@ -165,7 +165,7 @@ public class JobBaker extends Job {
                             this.egg += slot.getCount();
                         } else if (slot.isItemEqual(new ItemStack(Blocks.PUMPKIN))) {
                             this.pumpkin += slot.getCount();
-                        } else if (slot.isItemEqual(new ItemStack(Items.MILK_BUCKET))) {
+                        } else if (slot.isItemEqual(new ItemStack(ItemLoader.itemBucketMilk))) {
                             this.milk_bucket += slot.getCount();
                         } else if (slot.isItemEqual(new ItemStack(Items.SUGAR))) {
                             this.sugar += slot.getCount();

@@ -686,6 +686,13 @@ public class NpcData {
                 if (line.contains("isdie|")) {
                     this.isDead = Boolean.parseBoolean(value);
                     if(this.isDead){
+                        Entity entity=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(this.ID);
+                        if(entity!=null){
+                            entity.setDead();
+                        }
+                        this.isLoaded = false;
+                        reader.close();
+                        inputStream.close();
                         return;
                     }
                 }
@@ -918,8 +925,8 @@ public class NpcData {
                 }
             }
 
-            reader.close();
-            inputStream.close();
+//            reader.close();
+//            inputStream.close();
             //if (this.entity != null) {
             //    this.entity.theData = null;
             //    this.entity = null;
@@ -951,7 +958,7 @@ public class NpcData {
             e.setPositionAndUpdate(this.pos.x, this.pos.y, this.pos.z);
             e.theData = this;
             this.entity = e;
-            world.spawnEntity(e);
+//            world.spawnEntity(e);
 
             // 标记 NPC 已加载
             this.isLoaded = true;
@@ -965,6 +972,8 @@ public class NpcData {
 //            this.onDeath(DamageSource.GENERIC);
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("loadFolk出错了,Uid："+uuid+",错误提示：【" + e.getMessage() + "】行数：" + element.getLineNumber());
+        }finally {
+
         }
     }
 
@@ -1048,6 +1057,8 @@ public class NpcData {
                 }
             }
             this.race = race;
+            this.race.skinName = this.getTexture();
+            this.skinName = this.race.skinName;
         } catch (Exception var9) {
             StackTraceElement element = var9.getStackTrace()[0];
             ModSimLoader.log.error("assignRace出错了：" + var9.getMessage() + "行数：" + element.getLineNumber());
@@ -2069,11 +2080,11 @@ public class NpcData {
 
 
             // 如果路径不为空，设置路径和速度
-            if (currentPath == null) {
+            if (path != null) {
                 this.entity.getNavigator().setPath(path, 1.5);
             }
             // 如果已有路径且路径相同，则更新导航
-            if (!isSamePath(path, currentPath)) {
+            if (currentPath!=null&&!isSamePath(path, currentPath)) {
                 this.entity.getNavigator().onUpdateNavigation();
             }
             // 检测 NPC 当前位置与终点位置的距离
