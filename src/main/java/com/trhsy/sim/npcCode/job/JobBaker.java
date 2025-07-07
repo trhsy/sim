@@ -158,18 +158,24 @@ public class JobBaker extends Job {
             for (IInventory inv : iterator) {
                 for (int i = 0; i < inv.getSizeInventory(); ++i) {
                     ItemStack slot = inv.getStackInSlot(i);
+                    ItemStack itemWheat = new ItemStack(Items.WHEAT);
+                    ItemStack itemEgg = new ItemStack(Items.EGG);
+                    ItemStack itemPumpkin = new ItemStack(Blocks.PUMPKIN);
+                    ItemStack itemBucketMilk = new ItemStack(ItemLoader.itemBucketMilk);
+                    ItemStack itemSugar = new ItemStack(Items.SUGAR);
+                    ItemStack itemDye = new ItemStack(Items.DYE);
                     if (slot != null) {
-                        if (slot.isItemEqual(new ItemStack(Items.WHEAT))) {
+                        if (slot.isItemEqual(itemWheat)) {
                             this.wheat += slot.getCount();
-                        } else if (slot.isItemEqual(new ItemStack(Items.EGG))) {
+                        } else if (slot.isItemEqual(itemEgg)) {
                             this.egg += slot.getCount();
-                        } else if (slot.isItemEqual(new ItemStack(Blocks.PUMPKIN))) {
+                        } else if (slot.isItemEqual(itemPumpkin)) {
                             this.pumpkin += slot.getCount();
-                        } else if (slot.isItemEqual(new ItemStack(ItemLoader.itemBucketMilk))) {
+                        } else if (slot.isItemEqual(itemBucketMilk)) {
                             this.milk_bucket += slot.getCount();
-                        } else if (slot.isItemEqual(new ItemStack(Items.SUGAR))) {
+                        } else if (slot.isItemEqual(itemSugar)) {
                             this.sugar += slot.getCount();
-                        } else if (slot.isItemEqual(new ItemStack(Items.DYE))) {
+                        } else if (slot.getItem().equals(itemDye.getItem())) {
                             this.dye += slot.getCount();
                         }
                     }

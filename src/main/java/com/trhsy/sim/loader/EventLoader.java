@@ -70,6 +70,7 @@ public class EventLoader {
             try {
                 if (event.player != null) {
                     ModSimLoader.log.info("*********************玩家加入*开始重载NPC实体*****************");
+
                     for (NpcData fd : ModSimLoader.folks) {
                         while (fd.entity == null && FMLCommonHandler.instance() != null) {
                             try {
@@ -105,9 +106,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldSave(WorldEvent.Save event) {
         World world=event.getWorld();
-//        if(!world.isRemote){
+        if(!world.isRemote){
             SimmodeStart.simModSave(world);
-//        }
+        }
 
     }
 
@@ -119,9 +120,10 @@ public class EventLoader {
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
         World world=event.getWorld();
-//        if(!world.isRemote) {
+        if(!world.isRemote) {
+            // 只在服务端运行
             SimmodeStart.simModLoad(world);
-//        }
+        }
     }
 
     /**
@@ -132,9 +134,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {
         World world=event.world;
-//        if(!world.isRemote) {
+        if(!world.isRemote) {
             SimmodeStart.simModupdate(world);
-//        }
+        }
     }
 
     /**
@@ -162,8 +164,10 @@ public class EventLoader {
      */
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+
         Entity entity = event.getEntity();
         World worldObj = event.getWorld();
+        SimmodeStart.hasLoadedWorld=true;
 
         if (entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;

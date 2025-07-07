@@ -962,6 +962,7 @@ public class NpcData {
 
             // 标记 NPC 已加载
             this.isLoaded = true;
+            ModSimLoader.log.info("NPC,Uid："+this.ID+"加载完成");
             // 将 NPC 添加到 ModSimLoader 的 NPC 列表中
 //            ModSimLoader.folks.add(this);
             // 向所有客户端发送 NPC 更新消息
