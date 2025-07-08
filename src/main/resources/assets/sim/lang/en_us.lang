@@ -1280,3 +1280,5 @@ key.sim.simmod=Simulated City button settings
 key.sim.activate_skill_simfiles_loading=Reload Blueprint
 
 item.blackMilk.tooltip=Cheese factory specific milk
+
+container.sim.title_days=days %s

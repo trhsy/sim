@@ -86,13 +86,37 @@ public class ClientProxy extends CommonProxy {
                                 if (mc.player!=null&&mc.player.dimension == 1) {
                                     HUDoffset = 20;
                                 }
-
+                                String fs_day_of_week="";
+                                switch (ModSimClientLoader.dayOfWeek){
+                                    case 0:
+                                        fs_day_of_week=new TextComponentTranslation("container.sim.simSun",new Object[0]).getUnformattedText();
+                                        break;
+                                    case 1:
+                                        fs_day_of_week=new TextComponentTranslation("container.sim.simMon",new Object[0]).getUnformattedText();
+                                        break;
+                                    case 2:
+                                        fs_day_of_week=new TextComponentTranslation("container.sim.simTue",new Object[0]).getUnformattedText();
+                                        break;
+                                    case 3:
+                                        fs_day_of_week=new TextComponentTranslation("container.sim.simWed",new Object[0]).getUnformattedText();
+                                        break;
+                                    case 4:
+                                        fs_day_of_week=new TextComponentTranslation("container.sim.simThu",new Object[0]).getUnformattedText();
+                                        break;
+                                    case 5:
+                                        fs_day_of_week=new TextComponentTranslation("container.sim.simFri",new Object[0]).getUnformattedText();
+                                        break;
+                                    case 6:
+                                        fs_day_of_week=new TextComponentTranslation("container.sim.simSat",new Object[0]).getUnformattedText();
+                                        break;
+                                }
                                 if (ModSimClientLoader.gamemode == 1) {
+
                                     //世界名 人口
-                                    hud.drawString(mc.fontRenderer, worldname + new TextComponentTranslation("container.sim.simday_of_week",new Object[0]).getUnformattedText()+" (" + ModSimClientLoader.dayOfWeek + ") - "+ new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
+                                    hud.drawString(mc.fontRenderer, worldname+" "+new TextComponentTranslation("container.sim.title_days",new Object[]{ModSimClientLoader.gameDay}).getUnformattedText() +" (" + fs_day_of_week + ") - "+ new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size(), hud.width / 2, 2 + HUDoffset, 16777215);
                                 } else {
                                     //世界名  人口  资金
-                                    hud.drawString(mc.fontRenderer, worldname +  new TextComponentTranslation("container.sim.simday_of_week",new Object[0]).getUnformattedText()+" (" + ModSimClientLoader.dayOfWeek + ") - "+new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ new TextComponentTranslation("container.sim.trhsy4",new Object[0]).getUnformattedText() +": " + ModSimLoader.displayMoney(ModSimClientLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
+                                    hud.drawString(mc.fontRenderer, worldname+" "+new TextComponentTranslation("container.sim.title_days",new Object[]{ModSimClientLoader.gameDay}).getUnformattedText()+" (" +fs_day_of_week + ") - "+new TextComponentTranslation("container.sim.trhsy3",new Object[0]).getUnformattedText() +": " + ModSimClientLoader.tempHireableNpcNames.size() + "   "+ new TextComponentTranslation("container.sim.trhsy4",new Object[0]).getUnformattedText() +": " + ModSimLoader.displayMoney(ModSimClientLoader.money), hud.width / 2, 2 + HUDoffset, 16777215);
                                 }
                             }
                         } else if (!Minecraft.getMinecraft().gameSettings.showDebugInfo) {

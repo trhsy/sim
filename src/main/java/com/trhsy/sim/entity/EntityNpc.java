@@ -432,6 +432,34 @@ public class EntityNpc extends EntityCreature implements INpc {
             ModSimLoader.log.error("swing出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+    /**
+     * 让实体挥动手臂，处理客户端和服务器端同步
+     * @param entity 要挥动手臂的实体
+     * @param hand 要挥动的手（主手或副手）
+     * @param force 是否强制挥动（忽略冷却）
+     */
+    public static void swingEntityArm(EntityLivingBase entity, EnumHand hand, boolean force) {
+        // 仅在服务器端处理（客户端会通过网络包同步）
+        if (entity.world.isRemote) {
+            entity.swingArm(hand);
+            return;
+        }
+
+
+        // 挥动手臂
+        entity.swingArm(hand);
+
+        // 如果是主手挥动，并且需要同步到客户端
+        if (hand == EnumHand.MAIN_HAND) {
+            // 发送自定义网络包到客户端，触发动画
+//            NetWorkLoader.sendToTracking(new PacketEntityAnimation(entity, hand));
+            // 通过网络包同步到客户端
+//            YourModPacketHandler.sendToAllTracking(
+//                    new AnimationPacket(entity.getEntityId(), hand),
+//                    entity
+//            );
+        }
+    }
 
     /**
      * @return boolean

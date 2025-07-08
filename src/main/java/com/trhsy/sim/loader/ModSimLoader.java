@@ -86,6 +86,7 @@ public class ModSimLoader {
      * @return
      **/
     public static int dayOfWeek = 0;
+    public static int gameDay = 0;
     /**模拟城市是否开始运行*/
     public static Boolean sim_is_running = false;
 
@@ -799,6 +800,9 @@ public class ModSimLoader {
             strings.add("gamemode|" + gamemode);
             //星期几
             strings.add("dayofweek|" + dayOfWeek);
+            //第几天
+            strings.add("gameDay|" + gameDay);
+
             //是否运行
             strings.add("is_running|" + sim_is_running);
 
@@ -846,6 +850,8 @@ public class ModSimLoader {
                         gamemode = Integer.parseInt(value);
                     } else if ("dayofweek".equals(name)) {
                         dayOfWeek = Integer.parseInt(value);
+                    }else if ("gameDay".equals(name)) {
+                        gameDay = Integer.parseInt(value);
                     } else if ("is_running".equals(name)) {
                         sim_is_running = Boolean.valueOf(value);
                     }

@@ -23,6 +23,7 @@ import com.trhsy.sim.npcCode.task.*;
 import com.trhsy.sim.npcCode.traits.Trait;
 import com.trhsy.sim.npcCode.traits.Traits;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,6 +37,7 @@ import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -1842,7 +1844,7 @@ public class NpcData {
             if (this.home != null && new Random().nextInt(4) == 3) {
                 //回家在家放松
                 String s=new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedText();
-                addGoToTask(this.home,s, 5000, 15000);
+                addGoToTask(this.home,s, 5000, 8000);
                 //this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), this.home, new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedText()));
             } else if (new Random().nextInt(4) == 3) {
                 for (Building b : ModSimLoader.buildings) {
@@ -1874,22 +1876,26 @@ public class NpcData {
                         //商业
                         if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Commercial",new Object[0]).getUnformattedText())) {
                             String s=new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName;
-                            addGoToTask(b, s, 5000, 15000);
+                            int duration = new Random().nextInt(5000);
+                            addGoToTask(b, s, duration, 8000);
 //                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName));
                             //工业
                         } else if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Industrial",new Object[0]).getUnformattedText())) {
                             String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
-                            addGoToTask(b, s, 5000, 15000);
+                            int duration = new Random().nextInt(5000);
+                            addGoToTask(b, s, duration, 8000);
 //                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                             //装饰
                         } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Decorative",new Object[0]).getUnformattedText())) {
                             String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
-                            addGoToTask(b, s, 5000, 15000);
+                            int duration = new Random().nextInt(5000);
+                            addGoToTask(b, s, duration, 8000);
 //                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                             //其他
                         } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Other",new Object[0]).getUnformattedText())) {
                             String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
-                            addGoToTask(b, s, 5000, 15000);
+                            int duration = new Random().nextInt(5000);
+                            addGoToTask(b, s, duration, 8000);
 //                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
                         }
                         break;
@@ -1897,7 +1903,8 @@ public class NpcData {
                 }
             } else {
                 // 闲逛任务，减少任务时长
-                this.addTask(new TaskWander(this, (long) (new Random().nextInt(15000) + 5000)));
+
+                this.addTask(new TaskWander(this, (long) (new Random().nextInt(5000) + 8000)));
 //                this.addTask(new TaskWander(this, (long) (new Random().nextInt(30000) + 5000)));
             }
         } catch (Exception e) {
@@ -2100,7 +2107,7 @@ public class NpcData {
                 return true;
             }
             // 检测当前位置前方是否有方块阻挡
-            if (isPathBlocked()) {
+            if (isPathBlocked(1)) {
                 // 如果前方有方块阻挡，重新获取路径
                 path = this.entity.getNavigator().getPathToPos(targetPos);
                 if (path != null) {
@@ -2138,18 +2145,67 @@ public class NpcData {
         return!this.entity.world.isAirBlock(frontPos);
     }
     /**
+     * 检测当前路径是否被方块阻挡
+     * @param checkDistance 检测距离（方块）
+     * @return 如果路径被阻挡返回 true，否则返回 false
+     */
+    private boolean isPathBlocked(double checkDistance) {
+        // 获取实体尺寸和位置信息
+        double entityWidth = this.entity.width / 2.0;
+        double entityHeight = this.entity.height;
+
+        // 获取实体的朝向和当前位置
+        Vec3d lookVec = this.entity.getLookVec();
+        BlockPos currentPos = this.entity.getPosition();
+
+        // 计算检测范围的起始和结束点
+        Vec3d start = new Vec3d(
+                currentPos.getX() + 0.5,
+                currentPos.getY() + 0.1,  // 稍微高于地面，避免被地毯等方块阻挡
+                currentPos.getZ() + 0.5
+        );
+
+        Vec3d end = start.add(new Vec3d(lookVec.x * checkDistance, lookVec.y * checkDistance, lookVec.z * checkDistance));
+
+        // 创建一个表示实体大小的AABB盒子
+        /*AxisAlignedBB entityAABB = new AxisAlignedBB(
+                -entityWidth, 0, -entityWidth,
+                entityWidth, entityHeight, entityWidth
+        );*/
+
+        // 使用光线追踪检测路径上的碰撞
+        RayTraceResult result = entity.world.rayTraceBlocks(
+                start,
+                end,
+                false,  // 是否忽略流体
+                true,   // 是否检查碰撞盒
+                false   // 是否忽略空气
+        );
+
+        // 如果检测到碰撞，说明路径被阻挡
+        return result != null && result.typeOfHit == RayTraceResult.Type.BLOCK;
+    }
+    /**
      * 生成传送门粒子效果
      */
     private void spawnPortalParticles() {
         Random random = this.entity.getRNG();
-        for (int i = 0; i < 7; ++i) {
-            double d0 = random.nextDouble() * 0.5D;
-            double d1 = random.nextDouble() * 0.5D;
-            double d2 = random.nextDouble() * 0.5D;
-            double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-            double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
-            double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-            this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
+        for (int i = 0; i < 16; ++i) {
+            double d0 = (double) ((float) this.pos.x + (5.0F + new Random().nextFloat() * 6.0F) / 16.0F);
+            double d1 = (double) ((float) this.pos.y + 0.8125F);
+            double d2 = (double) ((float) this.pos.z + (5.0F + new Random().nextFloat() * 6.0F) / 16.0F);
+            double d3 = 0.0D;
+            double d4 = 0.0D;
+            double d5 = 0.0D;
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.world.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+//            double d0 = random.nextDouble() * 0.5D;
+//            double d1 = random.nextDouble() * 0.5D;
+//            double d2 = random.nextDouble() * 0.5D;
+//            double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
+//            double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
+//            double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
+//            this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
         }
     }
     /**

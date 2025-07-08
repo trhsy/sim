@@ -78,6 +78,7 @@ public class SimmodeStart {
                 ModSimLoader.mines.clear();
                 ModSimLoader.buildings.clear();
                 ModSimLoader.dayOfWeek = 0;
+                ModSimLoader.gameDay = 0;
                 ModSimLoader.gamemode = 999;
                 ModSimLoader.money = 10.0F;
                 ModSimLoader.sim_is_running = false;
@@ -456,6 +457,7 @@ public class SimmodeStart {
                                 } else {
                                     ++ModSimLoader.dayOfWeek;
                                 }
+                                ++ModSimLoader.gameDay;
                                 rentalsTimer = System.currentTimeMillis();
                                 newDayRentals = true;
 

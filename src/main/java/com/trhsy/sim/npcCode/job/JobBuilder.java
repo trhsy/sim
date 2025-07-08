@@ -669,9 +669,9 @@ public class JobBuilder extends Job {
             if (now - this.timeSwingArm > 3000) {
                 this.timeSwingArm = now;
                 //摇手
-                ItemStack stack = this.folk.holding;
-                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-//                    this.folk.entity.swing();
+                EnumHand enumhand = this.folk.entity.getActiveHand();
+//                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
+                    this.folk.entity.swingEntityArm(this.folk.entity,enumhand,true);
                 //建造的音效
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":construction"));
                 mc.world.playSound(newBP, soundEvent, SoundCategory.AMBIENT, 10.0F, 1.0F,true);

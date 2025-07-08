@@ -18,12 +18,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class PacketUpdateMoney implements IMessage {
     public int gamemode;
     public int dayOfWeek;
+    public int gameDay;
     public float money;
     /**模拟城市是否开始运行*/
     public Boolean sim_is_running;
     public PacketUpdateMoney() {
         this.gamemode = ModSimLoader.gamemode;
         this.dayOfWeek = ModSimLoader.dayOfWeek;
+        this.gameDay = ModSimLoader.gameDay;
         this.money = ModSimLoader.money;
         this.sim_is_running = ModSimLoader.sim_is_running;
     }
@@ -31,6 +33,7 @@ public class PacketUpdateMoney implements IMessage {
     public void fromBytes(ByteBuf buf) {
         this.gamemode = buf.readInt();
         this.dayOfWeek = buf.readInt();
+        this.gameDay = buf.readInt();
         this.money = buf.readFloat();
         this.sim_is_running = buf.readBoolean();
     }
@@ -39,6 +42,7 @@ public class PacketUpdateMoney implements IMessage {
     public void toBytes(ByteBuf buf) {
         buf.writeInt(this.gamemode);
         buf.writeInt(this.dayOfWeek);
+        buf.writeInt(this.gameDay);
         buf.writeFloat(this.money);
         buf.writeBoolean(this.sim_is_running);
     }
@@ -61,6 +65,7 @@ public class PacketUpdateMoney implements IMessage {
         private void handle(PacketUpdateMoney message, MessageContext ctx) {
             ModSimClientLoader.gamemode = message.gamemode;
             ModSimClientLoader.dayOfWeek = message.dayOfWeek;
+            ModSimClientLoader.gameDay = message.gameDay;
             ModSimClientLoader.money = message.money;
             ModSimClientLoader.sim_is_running = message.sim_is_running;
         }

@@ -703,7 +703,7 @@ container.sim.gui_Folk_day_pregnant=怀孕一天
 container.sim.gui_Folk_days_pregnant=怀孕天数
 container.sim.gui_Folk_Relationships=的关系
 container.sim.gui_Folk_Needs=的需求
-container.sim.gui_Folk_Hunger=饥饿
+container.sim.gui_Folk_Hunger=饱食度
 container.sim.gui_Folk_Fun=乐趣
 container.sim.gui_Folk_Relationshipss=关系
 container.sim.gui_Folk_Needss=需要
@@ -1281,3 +1281,5 @@ chat.sim.xiayu=我讨厌下雨-停了吧
 
 key.sim.sim_mod=模拟大都市按键设置
 key.sim.activate_skill_simfiles_loading=重新加载蓝图
+
+container.sim.title_days=第%s天

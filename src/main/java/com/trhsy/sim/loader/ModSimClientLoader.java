@@ -82,6 +82,7 @@ public class ModSimClientLoader {
     public static int gamemode;
     //周几
     public static int dayOfWeek;
+    public static int gameDay;
     public static float money;
 
     /**模拟城市是否开始运行*/
