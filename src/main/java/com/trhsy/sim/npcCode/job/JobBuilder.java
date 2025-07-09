@@ -474,6 +474,7 @@ public class JobBuilder extends Job {
                     this.livingPos = new BlockPos(newBP.getX(), newBP.getY() - 0.5, newBP.getZ());
                     fs_st_block = BlockLoader.blockLiving.getStateFromMeta(fs_structure.getMeta()).getBlock();
                 }
+                //特除方块
                 if (fs_st_block == BlockLoader.blockSpecial) {
                     int  meta=fs_structure.getMeta();
                     V3 v3 = new V3(newBP.getX(), newBP.getY(), newBP.getZ(), fs_st_block,meta);

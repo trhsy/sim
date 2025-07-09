@@ -233,10 +233,10 @@ public class JobTaskCollectItems extends JobTask {
 
                         ModSimLoader.log.info("返回工作岗位");
                         this.folk.setStatus(new TextComponentTranslation("container.sim.job_task_Returning_to_work",new Object[0]).getUnformattedText());
-                        if (!this.job.folk.entity.isMoving() && this.job.folk.entity.getNavigator().getPath() == null) {
+//                        if (!this.job.folk.entity.isMoving() && this.job.folk.entity.getNavigator().getPath() == null) {
                             V3 v3=this.job.workPlace;
                             this.folk.forceMoveToXYZ(v3);
-                        }
+//                        }
                         this.completeTask();
                     }
                 }

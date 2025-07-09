@@ -2214,7 +2214,7 @@ public class NpcData {
      * @return 调整后的 V3 位置
      */
     private V3 getAdjustedV3(V3 v3) {
-        return new V3(v3.x, v3.y + 1, v3.z);
+        return new V3(v3.x, v3.y + 1.3, v3.z);
     }
 
     /**
