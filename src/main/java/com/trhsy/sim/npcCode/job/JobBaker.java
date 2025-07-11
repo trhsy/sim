@@ -137,7 +137,7 @@ public class JobBaker extends Job {
                         this.currentTask = (JobTask) this.jobTasks.get(0);
                         this.currentTask.begin();
                     }
-                } else if (((this.wheat > 3) ||(this.pumpkin > 1 && this.sugar > 1 && this.egg > 1)||(this.dye > 1 && this.wheat > 2)||(this.milk_bucket > 3 && this.sugar > 2 && this.egg > 1 && this.wheat > 3)) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling",new Object[0]).getUnformattedText())) {
+                } else if (((this.wheat > 3) || (this.pumpkin > 1 && this.sugar > 1 && this.egg > 1) || (this.dye > 1 && this.wheat > 2) || (this.milk_bucket > 3 && this.sugar > 2 && this.egg > 1 && this.wheat > 3)) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling",new Object[0]).getUnformattedText())) {
                     this.baker_stage = 4;
                     if(this.currentTask!=null){
                         this.currentTask.completeTask();

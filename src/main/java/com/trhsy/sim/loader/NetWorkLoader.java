@@ -61,6 +61,8 @@ public class NetWorkLoader {
         //npc 库存
         registerMessage(PacketOpenFolkInventoryGui.Handler.class,PacketOpenFolkInventoryGui.class,Side.SERVER);
 
+        registerMessage(PacketSyncNpcData.Handler.class,PacketSyncNpcData.class,Side.SERVER);
+
     }
 
     /**

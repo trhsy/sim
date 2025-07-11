@@ -24,6 +24,7 @@ import java.io.*;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -41,7 +42,7 @@ public class ModSimLoader {
     /**
      * npc 数据
      **/
-    public static List<NpcData> folks = new CopyOnWriteArrayList();
+    public static Queue<NpcData> folks = new ConcurrentLinkedQueue<>();
     /**
      * 建筑
      **/

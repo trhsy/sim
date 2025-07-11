@@ -106,9 +106,7 @@ public class EventLoader {
     @SubscribeEvent
     public void worldSave(WorldEvent.Save event) {
         World world=event.getWorld();
-        if(!world.isRemote){
             SimmodeStart.simModSave(world);
-        }
 
     }
 
@@ -120,10 +118,8 @@ public class EventLoader {
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
         World world=event.getWorld();
-        if(!world.isRemote) {
             // 只在服务端运行
             SimmodeStart.simModLoad(world);
-        }
     }
 
     /**
@@ -134,8 +130,13 @@ public class EventLoader {
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {
         World world=event.world;
-        if(!world.isRemote) {
-            SimmodeStart.simModupdate(world);
+//            SimmodeStart.simModupdate(world);
+        if(world.isRemote){
+            // 客户端：执行客户端专属逻辑（渲染、动画、本地状态更新）
+            SimmodeStart.clientSimModupdate(world);
+        }else{
+            // 服务器：执行服务器专属逻辑（实体创建、数据同步、AI逻辑）
+            SimmodeStart.serverSimModupdate(world);
         }
     }
 

@@ -785,6 +785,7 @@ public class JobBuilder extends Job {
                     } else if (f_block == BlockLoader.blockLiving) {
                         this.livingPos = new BlockPos(newBP.getX(), newBP.getY() - 0.5, newBP.getZ());
                     }
+                    //特除方块
                     if (f_block == BlockLoader.blockSpecial) {
                         int  meta=fs_structure.getMeta();
                         V3 v3 = new V3(tempBP.getX(), tempBP.getY(), tempBP.getZ(), f_block, meta);

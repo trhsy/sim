@@ -444,20 +444,12 @@ public class EntityNpc extends EntityCreature implements INpc {
             entity.swingArm(hand);
             return;
         }
-
-
         // 挥动手臂
         entity.swingArm(hand);
 
         // 如果是主手挥动，并且需要同步到客户端
         if (hand == EnumHand.MAIN_HAND) {
-            // 发送自定义网络包到客户端，触发动画
-//            NetWorkLoader.sendToTracking(new PacketEntityAnimation(entity, hand));
-            // 通过网络包同步到客户端
-//            YourModPacketHandler.sendToAllTracking(
-//                    new AnimationPacket(entity.getEntityId(), hand),
-//                    entity
-//            );
+            ((WorldServer)entity.world).getEntityTracker().sendToTracking(entity, new SPacketAnimation(entity, 0));
         }
     }
 
