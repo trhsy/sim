@@ -49,10 +49,21 @@ public class PacketSyncNpcData implements IMessage {
         @Override
         public IMessage onMessage(PacketSyncNpcData message, MessageContext ctx) {
             NpcData fd = ModSimLoader.getFolkDataByUID(UUID.fromString(message.entityId));
+//            Minecraft.getMinecraft().addScheduledTask(() -> {
+//                // 更新客户端NPC数据缓存
+//                // 更新客户端NPC缓存
+//                SimmodeStart.updateClientNpcCache(message.entityId, fd);
+//            });
+            // 在客户端主线程执行
             Minecraft.getMinecraft().addScheduledTask(() -> {
-                // 更新客户端NPC数据缓存
-                // 更新客户端NPC缓存
-                SimmodeStart.updateClientNpcCache(message.entityId, fd);
+                try {
+                    // 添加空值检查和异常处理
+                    if (message != null && fd != null) {
+                        SimmodeStart.updateClientNpcCache(message.entityId, fd);
+                    }
+                } catch (Exception e) {
+                    ModSimLoader.log.error("Error processing NPC data packet", e);
+                }
             });
             return null;
         }

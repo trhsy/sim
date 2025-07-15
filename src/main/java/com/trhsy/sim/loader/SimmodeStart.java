@@ -779,8 +779,12 @@ public class SimmodeStart {
     private static void cleanupInvalidNpcs(World world) {
         ModSimLoader.folks.removeIf(npc -> {
             boolean shouldRemove = npc.entity == null || npc.entity.isDead;
-            if (shouldRemove && npc.home != null) {
+                    if (shouldRemove && npc.home != null) {
+            // 清理所有潜在的引用
+            if (npc.home != null) {
                 npc.home.occupants.remove(npc);
+            }
+
             }
             return shouldRemove;
         });
@@ -872,7 +876,7 @@ public class SimmodeStart {
     private static void sendNpcDataToClients(World world) {
         // 1. 筛选需要同步的NPC（如在玩家视野内）
         // 筛选需要同步的NPC（在玩家视野内）
-        List<NpcData> npcsToSync = new ArrayList<>();
+        /*List<NpcData> npcsToSync = new ArrayList<>();
         double syncRange = 64.0; // 同步范围
         for (EntityPlayer player : world.playerEntities) {
             for (NpcData npc : ModSimLoader.folks) {
@@ -884,7 +888,38 @@ public class SimmodeStart {
         // 2. 通过网络包发送NPC数据到客户端
         for (NpcData npc : npcsToSync) {
             NetWorkLoader.net.sendToAll(new PacketSyncNpcData(npc));
+        }*/
+
+        if (world instanceof WorldServer && !((WorldServer) world).isCallingFromMinecraftThread()) {
+            ((WorldServer) world).addScheduledTask(() -> {
+                // 限流：只发送可见范围内的NPC
+                List<NpcData> visibleNpcs = getVisibleNpcs(world);
+                for (NpcData npc : visibleNpcs) {
+                    NetWorkLoader.net.sendToAll(new PacketSyncNpcData(npc));
+                }
+            });
+        } else {
+            // 直接执行（如果已经在主线程）
+            List<NpcData> visibleNpcs = getVisibleNpcs(world);
+            for (NpcData npc : visibleNpcs) {
+                NetWorkLoader.net.sendToAll(new PacketSyncNpcData(npc));
+            }
         }
+    }
+    // 获取可见范围内的NPC（优化性能）
+    private static List<NpcData> getVisibleNpcs(World world) {
+        List<NpcData> visibleNpcs = new ArrayList<>();
+        double renderDistance = world.provider.getDimension() == 0 ? 32.0 : 16.0; // 根据维度调整
+
+        for (EntityPlayer player : world.playerEntities) {
+            for (NpcData npc : ModSimLoader.folks) {
+                if (npc.entity != null && npc.entity.getDistance(player) <= renderDistance) {
+                    visibleNpcs.add(npc);
+                }
+            }
+        }
+
+        return visibleNpcs;
     }
     // 服务器端：处理昼夜循环
     private static void handleDayNightCycle(World world) {

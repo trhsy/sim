@@ -133,10 +133,15 @@ public class EventLoader {
 //            SimmodeStart.simModupdate(world);
         if(world.isRemote){
             // 客户端：执行客户端专属逻辑（渲染、动画、本地状态更新）
-            SimmodeStart.clientSimModupdate(world);
+//            SimmodeStart.clientSimModupdate(world);
+//            System.out.println("客户端");
         }else{
+//            SimmodeStart.clientSimModupdate(world);
+//            System.out.println("客户端-服务端");
             // 服务器：执行服务器专属逻辑（实体创建、数据同步、AI逻辑）
-            SimmodeStart.serverSimModupdate(world);
+//            SimmodeStart.serverSimModupdate(world);
+//            System.out.println("服务端");
+            SimmodeStart.simModupdate(world);
         }
     }
 
