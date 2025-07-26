@@ -62,6 +62,8 @@ public class NetWorkLoader {
         registerMessage(PacketOpenFolkInventoryGui.Handler.class,PacketOpenFolkInventoryGui.class,Side.SERVER);
 
         registerMessage(PacketSyncNpcData.Handler.class,PacketSyncNpcData.class,Side.SERVER);
+        registerMessage(PacketSyncBuilding.Handler.class,PacketSyncBuilding.class,Side.SERVER);
+
 
     }
 

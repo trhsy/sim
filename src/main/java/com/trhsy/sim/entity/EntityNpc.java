@@ -64,6 +64,8 @@ public class EntityNpc extends EntityCreature implements INpc {
 
     public InventoryNpc inventory = new InventoryNpc(this);
 
+    private boolean aiInitialized =false;//新增：AI初始化标志
+
     public EntityNpc(World worldIn) {
         super(worldIn);
         this.inventoryContainer = new ContainerNpc(this.inventory, !worldIn.isRemote, this);
@@ -146,34 +148,36 @@ public class EntityNpc extends EntityCreature implements INpc {
     @Override
     public void initEntityAI() {
         try {
-            //智能游泳
-            this.tasks.addTask(0, new EntityAISwimming(this));
+            if (theData == null) {
+            return;
+            }
+                //智能游泳
+                this.tasks.addTask(0, new EntityAISwimming(this));
 
-            //开门
-            this.tasks.addTask(1, new EntityAIOpenDoor(this, true));
-            //限制打开门
-            this.tasks.addTask(2, new EntityAIRestrictOpenDoor(this));
-            //打开栅栏门
-            this.tasks.addTask(3, new FolkAIOpenFenceGate(this, true));
+                //开门
+                this.tasks.addTask(1, new EntityAIOpenDoor(this, true));
+                //限制打开门
+                this.tasks.addTask(2, new EntityAIRestrictOpenDoor(this));
+                //打开栅栏门
+                this.tasks.addTask(3, new FolkAIOpenFenceGate(this, true));
 
-            //自由闲逛
-            this.tasks.addTask(6, new FolkAIWander(this, 1.0D));
-            //最近观看
+                //自由闲逛
+                this.tasks.addTask(6, new FolkAIWander(this, 1.0D));
+                //最近观看
 //            this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 1.0F));
-            this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 1.0F, 1));
-            //看起来很空闲
-            this.tasks.addTask(8, new EntityAILookIdle(this));
+                this.tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 1.0F, 1));
+                //看起来很空闲
+                this.tasks.addTask(8, new EntityAILookIdle(this));
 
-            //住进屋子
-            this.tasks.addTask(2, new EntityAIMoveIndoors(this));
-            //限制走向
+                //住进屋子
+                this.tasks.addTask(2, new EntityAIMoveIndoors(this));
+                //限制走向
 //            this.tasks.addTask(12, new EntityAIMoveTowardsRestriction(this, 0.3D));
-            //避开实体僵尸
+                //避开实体僵尸
 //            this.tasks.addTask(13, new EntityAIAvoidEntity(this, EntityZombie.class, 8.0F, 0.6D, 0.6D));
-            //受到伤害会跑
-            this.tasks.addTask(0, new EntityAIPanic(this, 1.5));
-            this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 1.0F));
-
+                //受到伤害会跑
+                this.tasks.addTask(0, new EntityAIPanic(this, 1.5));
+                this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 1.0F));
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("initEntityAI出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -260,6 +264,10 @@ public class EntityNpc extends EntityCreature implements INpc {
                     }*/
                 }
                 if (this.theData != null) {
+                    if(!aiInitialized){
+                        initEntityAI();
+                        aiInitialized = true;
+                    }
                     //获取设备
                     Iterable<ItemStack> itemStacks = this.getHeldEquipment();
                     for (ItemStack items : itemStacks) {

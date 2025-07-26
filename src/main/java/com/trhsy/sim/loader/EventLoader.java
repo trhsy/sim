@@ -141,8 +141,9 @@ public class EventLoader {
             // 服务器：执行服务器专属逻辑（实体创建、数据同步、AI逻辑）
 //            SimmodeStart.serverSimModupdate(world);
 //            System.out.println("服务端");
-            SimmodeStart.simModupdate(world);
+
         }
+        SimmodeStart.simModupdate(world);
     }
 
     /**

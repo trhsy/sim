@@ -12,6 +12,7 @@ import com.trhsy.sim.npcCode.build.Building;
 import com.trhsy.sim.util.Courier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -20,6 +21,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -62,7 +65,6 @@ public class SimmodeStart {
 
 
     // 性能优化参数
-    private static final int UPDATE_INTERVAL_TICKS = 100;         // 5秒更新间隔 (20ticks/秒)
     private static final int RENT_COLLECTION_DELAY = 60;         // 收租延迟 (3秒)
     private static final int NPCS_PER_UPDATE = 5;                // 每更新批次处理的NPC数量
     private static final int MONEY_UPDATE_INTERVAL = 5000;       // 资金同步间隔(毫秒)
@@ -90,7 +92,28 @@ public class SimmodeStart {
 
     // 客户端NPC缓存 (线程安全)
     private static Map<String, NpcData> clientNpcCache = new ConcurrentHashMap<>();
+    // 任务调度配置
+    private static final int MAX_CONCURRENT_TASKS = 4; // 最大并发任务数
+    private static final int TASK_QUEUE_CAPACITY = 100; // 任务队列容量
+    private static final int UPDATE_INTERVAL_TICKS = 5; // 主更新间隔(5 ticks = 0.25秒)
+    // 任务队列和线程池
+//    private static final BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<>(TASK_QUEUE_CAPACITY);
+    // 计时器和状态变量
+    private static int tickCounter = 0;
+    private static boolean isProcessing = false;
+    private static final Map<Integer, NpcData> pendingNpcUpdates = new ConcurrentHashMap<>();
+    private static final Map<String, Building> pendingBuildingUpdates = new ConcurrentHashMap<>();
 
+    /*private static final ExecutorService asyncExecutor = Executors.newFixedThreadPool(
+            MAX_CONCURRENT_TASKS,
+            new ThreadFactory() {
+                private final AtomicInteger threadNumber = new AtomicInteger(1);
+                @Override
+                public Thread newThread(Runnable r) {
+                    return new Thread(r, "SimMod-Task-" + threadNumber.getAndIncrement());
+                }
+            }
+    );*/
     /**
      * 加载模组
      */
@@ -271,7 +294,43 @@ public class SimmodeStart {
      * 更新
      */
     public static void simModupdate(World world) {
-        // 检查是否需要整体更新
+        //第三版
+        // 只在服务器端执行
+//        if (world == null || world.isRemote) {
+//            return;
+//        }
+        // 频率控制
+        tickCounter++;
+        if (tickCounter % UPDATE_INTERVAL_TICKS != 0) {
+            return;
+        }
+        // 检查是否已有任务在处理中
+        if (isProcessing) {
+            return;
+        }
+
+        // 当前世界有玩家才执行
+        if (world.playerEntities.isEmpty()) {
+            return;
+        }
+
+        // 标记开始处理
+        isProcessing = true;
+
+        // 1. 异步处理NPC状态更新
+        processNpcsAsync(world);
+
+        // 2. 异步处理建筑和租金
+        processBuildingsAsync(world);
+
+        // 3. 处理昼夜循环和环境控制
+        processEnvironmentAsync(world);
+
+        // 4. 同步网络数据
+        scheduleNetworkSync(world);
+
+        //第二版
+        /*// 检查是否需要整体更新
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastUpdateTime < UPDATE_INTERVAL_TICKS * 50) { // 50ms = 1tick
             return;
@@ -342,7 +401,10 @@ public class SimmodeStart {
             world.getWorldInfo().setRaining(false);
             ModSimLoader.log.info("停止下雨");
             ModSimLoader.sendChat(new TextComponentTranslation("chat.sim.xiayu", new Object[0]).getUnformattedText());
-        }
+        }*/
+
+
+        //第一版
         /*
         long startTime = System.currentTimeMillis();
         if (world != null) {
@@ -520,52 +582,152 @@ public class SimmodeStart {
         */
 
     }
-    // 处理新的一天开始
-    private static void handleNewDay(World world) {
-        ModSimLoader.log.info("天亮了");
+    // 异步处理NPC状态
+    private static void processNpcsAsync(World world) {
+//        asyncExecutor.submit(() -> {
+            try {
+                Map<Integer, NpcData> updatedNpcs = new HashMap<>();
+                /*List<NpcData> folks = new ArrayList<>(ModSimLoader.folks);
 
-        // 播放鸡叫音效 (使用主线程调度)
-        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
-        if (world instanceof WorldServer) {
-            ((WorldServer) world).addScheduledTask(() -> {
-                for (EntityPlayer player : world.playerEntities) {
-                    world.playSound(null, player.posX, player.posY, player.posZ,
-                            soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+
+                // 分批处理NPC (每批10个)
+                final int batchSize = 10;
+                final int totalBatches = (int) Math.ceil(folks.size() / (double) batchSize);
+//                System.out.println("异步处理NPC状态-开始");
+                for (int batch = 0; batch < totalBatches; batch++) {
+                    final int startIdx = batch * batchSize;
+                    final int endIdx = Math.min(startIdx + batchSize, folks.size());
+
+                    // 提交每个批次作为独立任务
+//                    taskQueue.put(() -> {
+                        for (int i = startIdx; i < endIdx; i++) {
+                            NpcData npc = folks.get(i);
+                            if (npc != null && npc.entity != null && !npc.entity.isDead) {
+                                // 处理NPC状态
+                                processSingleNpc(npc);
+                                updatedNpcs.put(npc.entity.getEntityId(), npc);
+                            }
+                        }
+//                    });
+                }*/
+
+                for (NpcData npc:ModSimLoader.folks){
+                    if (npc != null && npc.entity != null && !npc.entity.isDead) {
+                        // 处理NPC状态
+                        processSingleNpc(npc);
+                        updatedNpcs.put(npc.entity.getEntityId(), npc);
+                    }
                 }
+
+
+                // 将更新后的NPC数据提交到主线程应用
+//                scheduleMainThreadTask(() -> {
+                    pendingNpcUpdates.putAll(updatedNpcs);
+                    // 清理无效NPC
+                    cleanupInvalidNpcs(world);
+//                });
+
+            } catch (Exception e) {
+                ModSimLoader.log.error("Error processing NPCs asynchronously", e);
+            } finally {
+                // 标记处理完成
+                isProcessing = false;
+            }
+//        });
+    }
+    // 处理单个NPC
+    private static void processSingleNpc(NpcData npc) {
+        // 处理饥饿度
+        if (npc.hunger > 0) {
+            --npc.hunger;
+        } else if (npc.hunger < 0) {
+            npc.entity.attackEntityFrom(DamageSource.STARVE, 1.0F);
+        }
+
+        // 繁殖相关
+        npc.matingStage = -1.0F;
+
+        // 妊娠期
+        if (npc.pregnancyStage > 0.0F) {
+            npc.pregnancyStage += 0.1F;
+        }
+
+        // 年龄增长
+        int currentAge = npc.age;
+        boolean ageIncreased = false;
+
+        if (npc.age >= npc.race.maturity) {
+            if (ModSimLoader.dayOfWeek == 6) {
+                ++npc.age;
+                ageIncreased = true;
+            }
+        } else if (ModSimLoader.dayOfWeek == 3 || ModSimLoader.dayOfWeek == 6) {
+            ++npc.age;
+            ageIncreased = true;
+        }
+
+        // 成年处理
+        if (ageIncreased && currentAge < npc.race.maturity && npc.age >= npc.race.maturity) {
+            npc.evict();
+            String message = new TextComponentTranslation("container.sim.main_is_now", new Object[0]).getUnformattedText();
+            scheduleMainThreadTask(() -> ModSimLoader.sendChat(npc.getName() + message));
+        }
+
+        // 寿命处理
+        if (npc.age >= npc.race.lifespan && new Random().nextInt(10) == 5) {
+            String message = new TextComponentTranslation("container.sim.main_is_old", new Object[0]).getUnformattedText();
+            scheduleMainThreadTask(() -> {
+                ModSimLoader.sendChat(npc.getName() + message);
+                npc.entity.attackEntityFrom(DamageSource.STARVE, 999.0F);
             });
         }
+    }
+    // 异步处理建筑和租金
+    private static void processBuildingsAsync(World world) {
+//        asyncExecutor.submit(() -> {
+            try {
+                List<Building> buildings = new ArrayList<>(ModSimLoader.buildings);
+                Map<String, Building> updatedBuildings = new HashMap<>();
+                float totalRent = 0.0F;
 
-        // 更新星期和游戏天数
-        if (ModSimLoader.dayOfWeek >= 6) {
-            ModSimLoader.dayOfWeek = 0;
-        } else {
-            ++ModSimLoader.dayOfWeek;
-        }
-        ++ModSimLoader.gameDay;
+                // 分批处理建筑
+                for (Building building : buildings) {
+                    if (building != null && building.occupants.size() > 0) {
+                        // 计算租金
+                        totalRent += building.rent;
+                        updatedBuildings.put(building.ID.toString(), building);
+                    }
+                }
 
-        // 重置收租标记和计时器
-        rentalsTimer = System.currentTimeMillis();
-        newDayRentals = true;
+                // 将结果提交到主线程
+                final float finalRent = totalRent;
+//                scheduleMainThreadTask(() -> {
+                    pendingBuildingUpdates.putAll(updatedBuildings);
 
-        // 标记租金缓存为脏，需要重新计算
-        rentCacheDirty = true;
+                    // 处理租金收集逻辑
+                    if (ModSimLoader.isDayTime(world) &&
+                            System.currentTimeMillis() - rentalsTimer > 3000L &&
+                            newDayRentals) {
+                        collectRent(world, finalRent);
+                    }
+//                });
+
+            } catch (Exception e) {
+                ModSimLoader.log.error("Error processing buildings asynchronously", e);
+            } finally {
+                // 标记处理完成
+                isProcessing = false;
+            }
+//        });
     }
 
-    // 收租逻辑 (使用缓存优化)
-    private static void collectRent(World world) {
-        // 重新计算租金缓存
-        if (rentCacheDirty) {
-            cachedTotalRent = calculateTotalRent();
-            rentCacheDirty = false;
-        }
-
-        ModSimLoader.log.info("收租了: " + cachedTotalRent);
+    // 收租逻辑（在主线程执行）
+    private static void collectRent(World world, float rent) {
+        ModSimLoader.log.info("收租了: " + rent);
 
         if (ModSimLoader.gamemode != 0) {
             NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
         } else {
-            final float rent = cachedTotalRent;
-            // 使用正确的异步调度
             if (world instanceof WorldServer) {
                 ((WorldServer) world).addScheduledTask(() -> {
                     if (!world.playerEntities.isEmpty()) {
@@ -581,90 +743,157 @@ public class SimmodeStart {
                 });
             }
         }
+
+        // 更新租金状态
+        newDayRentals = false;
+        rentalsTimer = System.currentTimeMillis();
     }
-    // 计算总租金
-    private static float calculateTotalRent() {
-        float total = 0.0F;
-        for (Building b : ModSimLoader.buildings) {
-            if (b != null && b.occupants.size() > 0) {
-                total += b.rent;
-            }
-        }
-        return total;
-    }
-    // 检查NPC状态 (饥饿、年龄等) - 分批处理
-    private static void checkNpcStatus(World world, int startIndex, int endIndex) {
-        // 每次只检查部分NPC，避免卡顿
-        List<NpcData> folks = new ArrayList<>(ModSimLoader.folks);
-        if (startIndex >= folks.size()) return;
-
-        StringBuilder hungerNames = new StringBuilder();
-
-        for (int i = startIndex; i < endIndex; i++) {
-            NpcData f = folks.get(i);
-            if (f == null || f.entity == null || f.entity.isDead || f.race == null) {
-                continue;
-            }
-
-            // 处理饥饿度
-            if (f.hunger > 0) {
-                --f.hunger;
-            } else if (f.hunger < 0) {
-                f.entity.attackEntityFrom(DamageSource.STARVE, 1.0F);
-            } else {
-                hungerNames.append(f.getName()).append(",");
-            }
-
-            // 繁殖相关
-            f.matingStage = -1.0F;
-
-            // 妊娠期
-            if (f.pregnancyStage > 0.0F) {
-                f.pregnancyStage += 0.1F;
-            }
-
-            // 年龄增长 (只在特定星期处理)
-            int currentAge = f.age;
-            boolean ageIncreased = false;
-
-            if (f.age >= f.race.maturity) {
-                if (ModSimLoader.dayOfWeek == 6) {
-                    ++f.age;
-                    ageIncreased = true;
+    // 异步处理环境控制
+    private static void processEnvironmentAsync(World world) {
+//        asyncExecutor.submit(() -> {
+            try {
+                // 检查天气
+                if (ConfigLoader.configStopRain && world.isRaining() && world.getWorldInfo().getRainTime() > 1) {
+                    // 在主线程执行天气修改
+//                    scheduleMainThreadTask(() -> {
+                        world.getWorldInfo().setRaining(false);
+                        ModSimLoader.log.info("停止下雨");
+                        ModSimLoader.sendChat(new TextComponentTranslation("chat.sim.xiayu", new Object[0]).getUnformattedText());
+//                    });
                 }
-            } else if (ModSimLoader.dayOfWeek == 3 || ModSimLoader.dayOfWeek == 6) {
-                ++f.age;
-                ageIncreased = true;
-            }
 
-            // 成年处理
-            if (ageIncreased && currentAge < f.race.maturity && f.age >= f.race.maturity) {
-                f.evict();
-                String message = new TextComponentTranslation("container.sim.main_is_now", new Object[0]).getUnformattedText();
-                ModSimLoader.sendChat(f.getName() + message);
-            }
+                // 处理昼夜循环
+                handleDayNightCycle(world);
 
-            // 寿命处理
-            if (f.age >= f.race.lifespan && new Random().nextInt(10) == 5) {
-                String message = new TextComponentTranslation("container.sim.main_is_old", new Object[0]).getUnformattedText();
-                ModSimLoader.sendChat(f.getName() + message);
-                f.entity.attackEntityFrom(DamageSource.STARVE, 999.0F);
+            } catch (Exception e) {
+                ModSimLoader.log.error("Error processing environment asynchronously", e);
+            } finally {
+                // 标记处理完成
+                isProcessing = false;
             }
-        }
+//        });
+    }
 
-        // 发送饥饿提示
-        if (endIndex >= folks.size() && hungerNames.length() > 0) {
-            String message;
-            if (hungerNames.length() > 20) { // 太多名字时使用通用提示
-                message = new TextComponentTranslation("container.sim.others_starving", new Object[0]).getUnformattedText();
-            } else {
-                // 快饿死了！你应该建立一个农场，杂货店，面包店或向他们扔一些食物。
-                String starving = new TextComponentTranslation("container.sim.main_is_VERY", new Object[0]).getUnformattedText();
-                message = hungerNames.toString() + starving;
+    // 处理昼夜循环
+    private static void handleDayNightCycle(World world) {
+        if (ModSimLoader.isDayTime(world)) {
+            // 新的一天初始化
+            if (!newDay) {
+//                scheduleMainThreadTask(() -> {
+                    newDay = true;
+                    handleNewDay(world);
+//                });
             }
-            ModSimLoader.sendChat(message);
+        } else if (newDay) {
+            newDay = false;
         }
     }
+
+    // 处理新的一天开始
+    private static void handleNewDay(World world) {
+        ModSimLoader.log.info("天亮了");
+
+        // 播放鸡叫音效
+        if (world instanceof WorldServer) {
+            ((WorldServer) world).addScheduledTask(() -> {
+                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
+                for (EntityPlayer player : world.playerEntities) {
+                    world.playSound(null, player.posX, player.posY, player.posZ,
+                            soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                }
+            });
+        }
+
+        // 更新星期和游戏天数
+        if (ModSimLoader.dayOfWeek >= 6) {
+            ModSimLoader.dayOfWeek = 0;
+        } else {
+            ++ModSimLoader.dayOfWeek;
+        }
+        ++ModSimLoader.gameDay;
+
+        // 重置收租标记
+        newDayRentals = true;
+        rentalsTimer = System.currentTimeMillis();
+    }
+
+    // 清理无效NPC
+    private static void cleanupInvalidNpcs(World world) {
+        Iterator<NpcData> iterator = ModSimLoader.folks.iterator();
+        while (iterator.hasNext()) {
+            NpcData npc = iterator.next();
+            if (npc.entity == null || npc.entity.isDead) {
+                // 清理住宅关联
+                if (npc.home != null) {
+                    npc.home.occupants.remove(npc);
+                }
+                iterator.remove();
+            }
+        }
+    }
+
+    // 调度网络同步任务
+    private static void scheduleNetworkSync(World world) {
+        if (world instanceof WorldServer) {
+//            ((WorldServer) world).addScheduledTask(() -> {
+                try {
+                    // 发送NPC更新
+                    for (NpcData npc : pendingNpcUpdates.values()) {
+                        NetWorkLoader.net.sendToAll(new PacketSyncNpcData(npc));
+                    }
+                    pendingNpcUpdates.clear();
+
+                    // 发送建筑更新
+                    for (Building building : pendingBuildingUpdates.values()) {
+//                        NetWorkLoader.net.sendToAll(new PacketSyncBuilding(building));
+                    }
+                    pendingBuildingUpdates.clear();
+
+                    // 每1秒更新一次可雇佣的人和资金
+                    if (tickCounter % 20 == 0) {
+                        NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
+                        NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
+                    }
+
+                } catch (Exception e) {
+                    ModSimLoader.log.error("同步网络数据时出错", e);
+                }
+//            });
+        }
+    }
+
+    // 安全调度主线程任务
+    private static void scheduleMainThreadTask(Runnable task) {
+        // 1. 判断当前环境是客户端还是服务器
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+            // 服务器端：直接获取服务器实例
+            MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+            if (server != null && !server.isCallingFromMinecraftThread()) {
+                server.addScheduledTask(task);
+            } else {
+                task.run(); // 已经在主线程
+            }
+        } else {
+            // 客户端：使用 Minecraft 实例的主线程调度器
+            net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
+            mc.addScheduledTask(task);
+        }
+    }
+
+
+    // 优雅关闭线程池
+    /*public static void shutdown() {
+        asyncExecutor.shutdown();
+        try {
+            if (!asyncExecutor.awaitTermination(10, TimeUnit.SECONDS)) {
+                asyncExecutor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            asyncExecutor.shutdownNow();
+        }
+    }*/
+
+
 
     // 补充：检查是否可以生成新NPC（核心逻辑）
     private static void checkAndSpawnNewNpc(World world) {
@@ -774,32 +1003,6 @@ public class SimmodeStart {
 
         // 3. 同步NPC数据到客户端（通过网络包）
         sendNpcDataToClients(world);
-    }
-    // 服务器端：清理无效NPC
-    private static void cleanupInvalidNpcs(World world) {
-        ModSimLoader.folks.removeIf(npc -> {
-            boolean shouldRemove = npc.entity == null || npc.entity.isDead;
-                    if (shouldRemove && npc.home != null) {
-            // 清理所有潜在的引用
-            if (npc.home != null) {
-                npc.home.occupants.remove(npc);
-            }
-
-            }
-            return shouldRemove;
-        });
-        /*
-        Iterator<NpcData> iterator = ModSimLoader.folks.iterator();
-        while (iterator.hasNext()) {
-            NpcData npc = iterator.next();
-            if (npc.entity == null || npc.entity.isDead) {
-                // 清理住宅关联
-                if (npc.home != null) {
-                    npc.home.occupants.remove(npc);
-                }
-                iterator.remove();
-            }
-        }*/
     }
 
     // 服务器端：分批更新NPC状态
@@ -920,24 +1123,6 @@ public class SimmodeStart {
         }
 
         return visibleNpcs;
-    }
-    // 服务器端：处理昼夜循环
-    private static void handleDayNightCycle(World world) {
-        if (ModSimLoader.isDayTime(world)) {
-            // 新的一天初始化
-            if (!newDay) {
-                newDay = true;
-                handleNewDay(world);
-            }
-
-            // 收租逻辑
-            if (System.currentTimeMillis() - rentalsTimer > RENT_COLLECTION_DELAY * 50 && newDayRentals) {
-                newDayRentals = false;
-                collectRent(world);
-            }
-        } else if (newDay) {
-            newDay = false;
-        }
     }
     // 服务器端：环境控制（停止下雨）
     private static void handleEnvironmentControl(World world) {
