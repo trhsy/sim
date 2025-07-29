@@ -3,6 +3,7 @@ configgui.title=sim config gui
 container.sim.config_name1=Sim game configuration
 container.sim.config_name2=sim npc names
 tile.cheeseBlock.name=cheese block
+block.sim.cheeseBlock.tooltip=Cheese chunks, users make cheese burgers
 tile.controlBox.name=control box
 tile.constructorBox.name=constructor box
 tile.controlBox.top.name=control box

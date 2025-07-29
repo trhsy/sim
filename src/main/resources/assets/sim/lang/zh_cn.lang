@@ -3,6 +3,7 @@ configgui.title=模拟城市配置
 container.sim.config_name1=模拟城市游戏配置
 container.sim.config_name2=模拟城市 npc 名称设置
 tile.cheeseBlock.name=奶酪块
+block.sim.cheeseBlock.tooltip=奶酪块,用户制作奶酪汉堡
 tile.constructorBox.name=建筑箱
 tile.controlBox.name=控制箱
 tile.controlBox.top.name=建筑盒控制箱
