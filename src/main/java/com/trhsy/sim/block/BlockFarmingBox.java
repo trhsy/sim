@@ -34,7 +34,7 @@ import java.util.List;
  * @Description: 农田箱子
  * @date 2023/11/07 下午 4:32
  */
-public class BlockFarmingBox extends BlockBase{
+public class BlockFarmingBox extends Block{
     public BlockFarmingBox() {
         super(Material.WOOD,"farmingBox");
         this.setSoundType(SoundType.WOOD);

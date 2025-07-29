@@ -1283,3 +1283,6 @@ key.sim.activate_skill_simfiles_loading=Reload Blueprint
 item.blackMilk.tooltip=Cheese factory specific milk
 
 container.sim.title_days=days %s
+
+block.sim.composite_brick.tooltip=Composite brick: a high-strength building material that can be mined with a pickaxe
+block.sim.control_box.tooltip=Control box: Right-click to open the management interface

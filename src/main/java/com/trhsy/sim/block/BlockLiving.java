@@ -2,6 +2,7 @@ package com.trhsy.sim.block;
 
 import com.trhsy.sim.block.enums.EnumBlockLiving;
 import com.trhsy.sim.loader.CreativeTabsLoader;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -30,7 +31,7 @@ import java.util.List;
  * @Description:
  * @date 2023/11/07 下午 5:54
  */
-public class BlockLiving extends BlockBase {
+public class BlockLiving extends Block {
     public static final PropertyEnum<EnumBlockLiving> TYPE = PropertyEnum.create("type", EnumBlockLiving.class);
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
 

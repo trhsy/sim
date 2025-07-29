@@ -1,6 +1,7 @@
 package com.trhsy.sim.block;
 
 import com.trhsy.sim.loader.CreativeTabsLoader;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
@@ -19,7 +20,7 @@ import java.util.List;
  * @Description: 铜块
  * @date 2023/11/07 下午 4:26
  */
-public class BlockCopper  extends  BlockBase{
+public class BlockCopper  extends Block {
     public BlockCopper() {
         super(Material.IRON, "copperBlock");
         //用于设定走在方块上的响声。

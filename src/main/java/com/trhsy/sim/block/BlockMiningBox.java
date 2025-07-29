@@ -8,6 +8,7 @@ import com.trhsy.sim.network.client.PacketOpenMineGui;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.block.MineBox;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -34,7 +35,7 @@ import java.util.List;
  * @Description: 采矿箱
  * @date 2023/11/08 上午 10:50
  */
-public class BlockMiningBox extends BlockBase {
+public class BlockMiningBox extends Block {
     public BlockMiningBox() {
         super(Material.WOOD,"miningBox");
         this.setSoundType(SoundType.WOOD);

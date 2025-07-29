@@ -7,6 +7,7 @@ import com.trhsy.sim.loader.NetWorkLoader;
 import com.trhsy.sim.network.client.PacketOpenPathBoxGui;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.util.Courier;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,7 +31,7 @@ import java.util.List;
  * @Description:
  * @date 2023/11/08 上午 11:09
  */
-public class BlockPathBox extends BlockBase{
+public class BlockPathBox extends Block {
     public BlockPathBox() {
         super(Material.WOOD,"pathBox");
         this.setSoundType(SoundType.WOOD);

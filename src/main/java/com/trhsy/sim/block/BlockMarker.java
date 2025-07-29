@@ -8,6 +8,7 @@ import com.trhsy.sim.network.client.PacketAddNewMarker;
 import com.trhsy.sim.network.client.PacketOpenMarkerGui;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.block.Marker;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -34,7 +35,7 @@ import java.util.List;
  * @Description: 标记棒
  * @date 2023/11/08 上午 10:34
  */
-public class BlockMarker extends BlockBase{
+public class BlockMarker extends Block {
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1, 0.625D);
     public BlockMarker() {
         super(Material.WOOD,"markerBar");

@@ -16,16 +16,14 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -45,6 +43,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class BlockControlBox extends EnumBlock<EnumControlBox> {
     public List<NpcData> employees = new CopyOnWriteArrayList<NpcData>();
     public static final PropertyEnum<EnumControlBox> TYPE = PropertyEnum.create("type", EnumControlBox.class);
+    // ------------------------------ 常量定义 ------------------------------
+    // 声音事件键（对应 resources/assets/[modid]/sounds.json 中的注册名）
+    private static final String SOUND_ACTIVATE = ":sim_u_ddd";
+    // 提示信息键（对应 lang/en_us.json 中的翻译键）
+    private static final String TOOLTIP_KEY = "block.sim.control_box.tooltip";
+    // 建筑类型提示键（住宅）
+    private static final String BUILDING_TYPE_RESIDENTIAL = "container.sim.sim_gui_BC_Residential";
 
     public BlockControlBox() {
         super(Material.WOOD,TYPE,EnumControlBox.class);
@@ -53,7 +58,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
         //方块硬度
         this.setHardness(10.0F);
         //爆炸
-        this.setResistance(1);
+        this.setResistance(1.0F); // 爆炸抗性调整为 1.0F（原 1 可能过低）
         this.setUnlocalizedName("controlBox");
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumControlBox.TOP));
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
@@ -79,15 +84,17 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
      **/
     @Override
     public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-        try {
+       /* try {
             for (EnumControlBox enumControlBox : EnumControlBox.values()) {
                 list.add(new ItemStack(this, 1, enumControlBox.getMetadata()));
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("控制箱getSubBlocks出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }*/
+        for (EnumControlBox type : EnumControlBox.values()) {
+            list.add(new ItemStack(this, 1, type.getMetadata()));
         }
-
     }
 
     /**
@@ -148,7 +155,7 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 computer 控制箱激活
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
+        /*SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         //客户端
         if (!worldIn.isRemote) {
@@ -181,6 +188,24 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
             }
 
 
+        }*/
+        // 播放激活声音（确保声音已注册）
+        playActivateSound(worldIn, pos);
+        if (!worldIn.isRemote) {
+            // 获取控制箱位置（带维度信息）
+            V3 controlPos = new V3(pos, playerIn.dimension);
+
+            // 查询关联建筑（带空值保护）
+            Building building = ModSimLoader.getBuildingByV3(controlPos);
+            List<NpcData> occupants = getBuildingOccupants(building);
+
+            // 构建 GUI 参数（使用安全值）
+            PacketOpenControlGui packet = buildControlGuiPacket(controlPos, building, occupants, playerIn);
+
+            // 发送网络包（仅服务端）
+            if (packet != null) {
+                NetWorkLoader.net.sendTo(packet, (EntityPlayerMP) playerIn);
+            }
         }
         return true;
     }
@@ -194,14 +219,91 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         //控制箱销毁，解除所有NPC
-        for (NpcData fd : ModSimLoader.folks) {
+        /*for (NpcData fd : ModSimLoader.folks) {
             if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
                 fd.fire();
             }
-        }
+        }*/
+        // 遍历所有 NPC 并解除关联
+        ModSimLoader.folks.forEach(npc -> {
+            if (npc.job != null && isControlBoxWorkplace(npc.job.workPlace, pos)) {
+                npc.fire();
+            }
+        });
     }
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+        // 添加多语言提示（示例："control_box.tooltip"="控制箱：右键打开管理界面"）
+        tooltip.add(I18n.translateToLocal(TOOLTIP_KEY));
+    }
+
+    /**
+     * 播放控制箱激活声音（确保声音已注册）
+     */
+    private void playActivateSound(World world, BlockPos pos) {
+        // 检查声音是否已注册（避免空指针）
+        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "sim_u_ddd"); // 对应 sounds.json 中的键
+        SoundEvent activateSound = SoundEvent.REGISTRY.getObject(soundLoc); // 从注册表获取
+        if (activateSound != null) {
+            world.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        } else {
+            ModSimLoader.log.warn("sim_u_ddd声音未注册: {}", soundLoc); // 日志提示未注册
+        }
+    }
+    /**
+     * 获取建筑的关联 NPC（带空值保护）
+     */
+    @Nullable
+    private List<NpcData> getBuildingOccupants(@Nullable Building building) {
+        if (building == null || building.occupants == null) {
+            return new CopyOnWriteArrayList<>(); // 返回空列表而非 null
+        }
+        return building.occupants;
+    }
+    /**
+     * 构建控制箱 GUI 网络包（带参数校验）
+     */
+    @Nullable
+    private PacketOpenControlGui buildControlGuiPacket(V3 controlPos, @Nullable Building building,
+                                                       List<NpcData> occupants, EntityPlayer player) {
+        if (building == null) {
+            // 无建筑时发送默认包
+            return new PacketOpenControlGui(
+                    controlPos,
+                    "", "", "", "", "", "",
+                    occupants,
+                    false
+            );
+        }
+
+        // 建筑基础信息（带空值保护）
+        String buildingId = building.ID != null ? building.ID.toString() : "";
+        String buildingName = building.buildingName != null ? building.buildingName : "";
+        String buildingType = building.buildingType != null ? building.buildingType : "";
+        String jobType = building.jobType != null ? building.jobType : "";
+        String author = building.author != null ? building.author : "";
+        String desc = building.desc != null ? building.desc : "";
+
+        // 判断是否为住宅（使用多语言翻译）
+        boolean isResidential = I18n.translateToLocal(BUILDING_TYPE_RESIDENTIAL).equals(buildingType);
+
+        return new PacketOpenControlGui(
+                controlPos,
+                buildingId,
+                buildingName,
+                buildingType,
+                jobType,
+                author,
+                desc,
+                occupants,
+                isResidential
+        );
+    }
+    /**
+     * 判断 NPC 工作位置是否为当前控制箱位置
+     */
+    private boolean isControlBoxWorkplace(V3 workplace, BlockPos controlPos) {
+        return workplace != null && workplace.toBlockPos().equals(controlPos);
     }
 }

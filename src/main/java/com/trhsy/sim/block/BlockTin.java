@@ -1,6 +1,7 @@
 package com.trhsy.sim.block;
 
 import com.trhsy.sim.loader.CreativeTabsLoader;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
@@ -19,7 +20,7 @@ import java.util.List;
  * @Description: 锡块
  * @date 2023/11/08 上午 11:16
  */
-public class BlockTin extends BlockBase{
+public class BlockTin extends Block {
     public BlockTin(){
         super(Material.IRON,"tinBlock");
         //用于设定走在方块上的响声。
