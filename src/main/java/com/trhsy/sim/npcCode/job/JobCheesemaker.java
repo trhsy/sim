@@ -68,7 +68,7 @@ public class JobCheesemaker extends Job{
             }
             }catch (Exception e){
                 StackTraceElement element = e.getStackTrace()[0];
-                ModSimLoader.log.error("JobBurgers-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+                ModSimLoader.log.error("JobCheesemaker-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
             }
         }
     @Override

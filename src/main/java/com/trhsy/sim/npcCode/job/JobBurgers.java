@@ -22,17 +22,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @Description: 汉堡店经理
  * @date 2023/07/28 下午 3:44
  */
-public class JobBurgers extends Job{
+public class JobBurgers extends Job {
     //工作阶段
     public int burgersStage = 0;
     //奶酪 牛肉 面包 土豆
     private int itemCheese, beef, bread, potato;
+    // 上次统计物品的时间戳（单位：ticks，1 tick = 1/20秒）
+    private long lastItemStatsTime = 0;
+    // 统计间隔（五分钟 = 5 * 60秒 = 300秒 = 300 * 20 ticks = 6000 ticks）
+    private static final long STATS_INTERVAL = 6000;
+
     public JobBurgers(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
         //汉堡店
-        this.jobName = new TextComponentTranslation("container.sim.Vocation36",new Object[0]).getUnformattedText();
+        this.jobName = new TextComponentTranslation("container.sim.Vocation36", new Object[0]).getUnformattedText();
     }
+
     @Override
     public void onUpdate() {
         super.onUpdate();
@@ -41,13 +47,13 @@ public class JobBurgers extends Job{
                 if (this.stage == -1) {
                     this.burgersStage = 0;
                     this.stage = 0;
-                }else if (this.burgersStage == 0) {
+                } else if (this.burgersStage == 0) {
                     this.burgersStage = 1;
                     //去上班
-                    this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived",new Object[0]).getUnformattedText()));
-                }else if (this.burgersStage == 1) {
+                    this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job.builder_Arrived", new Object[0]).getUnformattedText()));
+                } else if (this.burgersStage == 1) {
                     //打开烘焙工具
-                    this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job_baker1",new Object[0]).getUnformattedText()));
+                    this.addJobTask(new JobTaskIdle(this, 200L, new TextComponentTranslation("container.sim.job_baker1", new Object[0]).getUnformattedText()));
                     this.burgersStage = 2;
                 } else if (this.burgersStage == 2) {
                     List<ItemStack> colItems = new ArrayList();
@@ -86,7 +92,7 @@ public class JobBurgers extends Job{
                         //面包
                         cakes.add(new ItemStack(Items.BREAD, 2));
                         //奶酪汉堡
-                        this.addJobTask(new JobTaskProduceItem(this, 60000L, ItemLoader.itemCheeseburger, cakes, new TextComponentTranslation("container.sim.job.Baker_Baking",new Object[0]).getUnformattedText()));
+                        this.addJobTask(new JobTaskProduceItem(this, 60000L, ItemLoader.itemCheeseburger, cakes, new TextComponentTranslation("container.sim.job.Baker_Baking", new Object[0]).getUnformattedText()));
                     }
                     if (this.beef >= 1 && this.bread >= 2) {
                         //需要的食材
@@ -96,16 +102,16 @@ public class JobBurgers extends Job{
                         //面包
                         pumpkinPies.add(new ItemStack(Items.BREAD, 2));
                         //汉堡
-                        this.addJobTask(new JobTaskProduceItem(this, 60000L, ItemLoader.itemBurger, pumpkinPies, new TextComponentTranslation("container.sim.job.Baker_Baking",new Object[0]).getUnformattedText()));
+                        this.addJobTask(new JobTaskProduceItem(this, 60000L, ItemLoader.itemBurger, pumpkinPies, new TextComponentTranslation("container.sim.job.Baker_Baking", new Object[0]).getUnformattedText()));
                     }
                     if (this.potato > 1) {
                         //烘烤 薯条
-                        this.addJobTask(new JobTaskProduceItem(this, 60000L, ItemLoader.itemFries, new ItemStack(Items.WHEAT, 3), new TextComponentTranslation("container.sim.job.Baker_Baking",new Object[0]).getUnformattedText()));
+                        this.addJobTask(new JobTaskProduceItem(this, 60000L, ItemLoader.itemFries, new ItemStack(Items.POTATO, 3), new TextComponentTranslation("container.sim.job.Baker_Baking", new Object[0]).getUnformattedText()));
                     }
                     this.burgersStage = 5;
                 } else if (this.burgersStage == 5) {
                     //售卖/关店
-                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Grocer1",new Object[0]).getUnformattedText(),true));
+                    this.addJobTask(new JobTaskShopkeep(this, -1L, new TextComponentTranslation("container.sim.job.Grocer1", new Object[0]).getUnformattedText(), true));
                     this.burgersStage = 6;
                 } else if (this.burgersStage == 6) {
                     //在去工作途中，并且已经到了工作位置则更新状态
@@ -114,42 +120,52 @@ public class JobBurgers extends Job{
                             this.currentTask = (JobTask) this.jobTasks.get(0);
                             this.currentTask.begin();
                         }
-                    } else if (((this.potato > 2) ||(this.beef > 1 && this.bread > 2)||(this.beef > 1 && this.bread > 2&&this.itemCheese > 2)) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling",new Object[0]).getUnformattedText())) {
+                    }
+                } else {
+                    this.burgersStage = 0;
+                    this.jobTasks.clear();
+                }
+                // ---------------------- 物品统计优化 ----------------------
+                long currentTime = this.jobWorld.getWorldTime(); // 获取当前游戏时间（ticks）
+                // 检查是否达到统计间隔（五分钟）
+                if (currentTime - lastItemStatsTime >= STATS_INTERVAL) {
+
+
+                    if (((this.potato > 2) || (this.beef > 1 && this.bread > 2) || (this.beef > 1 && this.bread > 2 && this.itemCheese > 2)) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling", new Object[0]).getUnformattedText())) {
                         this.burgersStage = 4;
                         this.currentTask.completeTask();
                         this.jobTasks.clear();
                     }
-                }else{
-                    this.burgersStage = 0;
-                    this.jobTasks.clear();
-                }
-                this.bread = 0;
-                this.beef = 0;
-                this.potato = 0;
-                this.itemCheese = 0;
-                List<IInventory> iterator = this.findJobChests(5);
-                for (IInventory inv : iterator) {
-                    for (int i = 0; i < inv.getSizeInventory(); ++i) {
-                        ItemStack slot = inv.getStackInSlot(i);
-                        if (slot != null) {
-                            if (slot.isItemEqual(new ItemStack(Items.BREAD))) {
-                                this.bread += slot.getCount();
-                            } else if (slot.isItemEqual(new ItemStack(Items.BEEF))) {
-                                this.beef += slot.getCount();
-                            } else if (slot.isItemEqual(new ItemStack(Items.POTATO))) {
-                                this.potato += slot.getCount();
-                            } else if (slot.isItemEqual(new ItemStack(ItemLoader.itemCheese))) {
-                                this.itemCheese += slot.getCount();
+
+                    this.bread = 0;
+                    this.beef = 0;
+                    this.potato = 0;
+                    this.itemCheese = 0;
+                    List<IInventory> iterator = this.findJobChests(5);
+                    for (IInventory inv : iterator) {
+                        for (int i = 0; i < inv.getSizeInventory(); ++i) {
+                            ItemStack slot = inv.getStackInSlot(i);
+                            if (slot != null) {
+                                if (slot.isItemEqual(new ItemStack(Items.BREAD))) {
+                                    this.bread += slot.getCount();
+                                } else if (slot.isItemEqual(new ItemStack(Items.BEEF))) {
+                                    this.beef += slot.getCount();
+                                } else if (slot.isItemEqual(new ItemStack(Items.POTATO))) {
+                                    this.potato += slot.getCount();
+                                } else if (slot.isItemEqual(new ItemStack(ItemLoader.itemCheese))) {
+                                    this.itemCheese += slot.getCount();
+                                }
                             }
                         }
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobBurgers-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+
     @Override
     public String toString() {
         return this.jobName;

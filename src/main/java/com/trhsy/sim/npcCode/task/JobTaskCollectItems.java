@@ -133,7 +133,10 @@ public class JobTaskCollectItems extends JobTask {
                     this.addDestination( new TextComponentTranslation("container.sim.Vocation30",new Object[0]).getUnformattedText());
                     //奶酪
                 }else if (colItem == ItemLoader.itemCheese) {
-                    this.addDestination( new TextComponentTranslation("container.sim.Vocation21",new Object[0]).getUnformattedText());
+                    this.addDestination( new TextComponentTranslation("item.foodCheese.name",new Object[0]).getUnformattedText());
+                //面包
+                }if (colItem == Items.BREAD) {
+                    this.addDestination( new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText());
                 }
 
             }

@@ -146,6 +146,7 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                 double dist = (double) entityFolk.getDistance(Minecraft.getMinecraft().player);
                 NpcIdentity data = ModSimClientLoader.getFolkByUUID(entityFolk.getUniqueID());
                 if(data==null){
+                    entityFolk.setDead();
                     return;
                 }
                 if (dist < 20.0D && data != null) {
