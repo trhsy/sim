@@ -10,9 +10,11 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,15 +42,30 @@ import java.util.Random;
  * @Package: com.trhsy.sim.block
  * @ClassName: BlockWindmill
  * @Description: 风车方块类，处理风车方块的各种行为和属性
+ * 改进点：状态管理、声音事件规范、多语言支持、代码健壮性
  * @date 2023/11/08 上午 11:17
  */
 public class BlockWindmill extends BlockContainer{
+
+    // 方块属性：朝向（水平方向）
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
+    // 方块属性：燃烧状态（是否运行）
+    public static final PropertyBool BURNING = PropertyBool.create("burning");
+    // 交互统计项
+    public static final StatBase INTERACTION_STAT = (new StatBasic(
+            "stat.sim.windmill.interact",
+            new TextComponentTranslation("tooltip.sim.windmill.interact")
+    )).registerStat();
+
+
+
     private boolean isBurning;
     public static final StatBase WINDMILL_INTERACTION = (new StatBasic("stat.windmillInteraction", new TextComponentTranslation("stat.windmillInteraction", new Object[0]))).registerStat();
     private static boolean keepInventory;
     // 定义声音事件的资源位置常量
-    private static final ResourceLocation WINDMILL_SOUND = new ResourceLocation(ModSim.MODID + ":windmill");
+    // 声音事件（需在ModSim初始化时注册）
+//    private static final ResourceLocation WINDMILL_SOUND = new ResourceLocation(ModSim.MODID + ":windmill");
+    public static final SoundEvent SOUND_WINDMILL = new SoundEvent(new ResourceLocation(ModSim.MODID, "windmill"));
 
     public BlockWindmill(boolean isBurning) {
         super(Material.WOOD);
@@ -66,24 +84,47 @@ public class BlockWindmill extends BlockContainer{
     }
     /**
      * 获取该区块在收割时应该掉落的物品。
+     * 获取方块被破坏时掉落的物品（自身）
      */
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(BlockLoader.blockWindmill);
+        return Item.getItemFromBlock(this);
     }
+
+    /**
+     * 方块放置后调整默认朝向（避免卡在墙内）
+     * @param worldIn
+     * @param pos
+     * @param state
+     */
     @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.setDefaultFacing(worldIn, pos, state);
+        if (!worldIn.isRemote) {
+            this.setDefaultFacing(worldIn, pos, state);
+        }
+//        this.setDefaultFacing(worldIn, pos, state);
     }
     /**
      * 设置方块的默认朝向
-     *
+     *调整朝向逻辑：选择最近的空位方向
      * @param worldIn 世界对象
      * @param pos     方块位置
      * @param state   方块状态
      */
     private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
-        if (!worldIn.isRemote) {
+        EnumFacing currentFacing = state.getValue(FACING);
+        // 检查四个水平方向，选择第一个空位方向
+        for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+            BlockPos checkPos = pos.offset(facing);
+            if (!worldIn.getBlockState(checkPos).isFullBlock()) {
+                worldIn.setBlockState(pos, state.withProperty(FACING, facing), 2);
+                return;
+            }
+        }
+        // 若四周都被阻挡，保持原朝向
+        worldIn.setBlockState(pos, state, 2);
+
+        /*if (!worldIn.isRemote) {
             // 获取东南西北四个方向的方块状态
             IBlockState iblockstate = worldIn.getBlockState(pos.north());
             IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
@@ -101,7 +142,7 @@ public class BlockWindmill extends BlockContainer{
                 enumfacing = EnumFacing.WEST;
             }
             worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
-        }
+        }*/
     }
 
     /**
@@ -116,12 +157,27 @@ public class BlockWindmill extends BlockContainer{
     @SuppressWarnings("incomplete-switch")
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (this.isBurning) {
+            // 10%概率播放风车运转声
+            if (rand.nextDouble() < 0.1D) {
+                worldIn.playSound(
+                        (double) pos.getX() + 0.5D,
+                        (double) pos.getY(),
+                        (double) pos.getZ() + 0.5D,
+                        SOUND_WINDMILL,
+                        SoundCategory.BLOCKS,
+                        0.5F,  // 音量
+                        1.0F + (rand.nextFloat() - 0.5F) * 0.2F,  // 音高随机变化
+                        false
+                );
+            }
+        }
+        /*if (this.isBurning) {
             if (rand.nextDouble() < 0.1D) {
                 SoundEvent soundEvent = new SoundEvent(WINDMILL_SOUND);
                 worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 //                worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
             }
-        }
+        }*/
     }
     /**
      * @return boolean
@@ -153,6 +209,7 @@ public class BlockWindmill extends BlockContainer{
 
                     TileEntityWindmill tileEntityWindmill=(TileEntityWindmill)tileentity;
                     ModSimClientLoader.openWindmill(playerIn.inventory, tileEntityWindmill);
+//                    playerIn.openContainer((IInteractionObject) tileentity); // 打开GUI
                     //playerIn.displayGUIChest((TileEntityWindmill) tileentity);
                     /*EntityPlayerMP entityPlayerMP= (EntityPlayerMP) playerIn;
 
@@ -162,13 +219,22 @@ public class BlockWindmill extends BlockContainer{
                     entityPlayerMP.openContainer.windowId = entityPlayerMP.currentWindowId;
                     entityPlayerMP.openContainer.addListener(entityPlayerMP);
                     net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.player.PlayerContainerEvent.Open(entityPlayerMP, entityPlayerMP.openContainer));*/
-                    playerIn.addStat(WINDMILL_INTERACTION);
+                    playerIn.addStat(WINDMILL_INTERACTION);// 统计交互次数
                 }
                 return true;
             }
         } catch (Exception e) {
             logError("BlockWindmill-onBlockActivated出错了", e);
             return false;
+        }
+    }
+    /**
+     * 切换燃烧状态（由TileEntity触发）
+     */
+    public static void setBurningState(World worldIn, BlockPos pos, boolean burning) {
+        IBlockState state = worldIn.getBlockState(pos);
+        if (state.getValue(BURNING) != burning) {
+            worldIn.setBlockState(pos, state.withProperty(BURNING, burning), 3); // 通知客户端更新
         }
     }
     /**
@@ -270,7 +336,7 @@ public class BlockWindmill extends BlockContainer{
     }
     @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(BlockLoader.blockWindmill);
+        return new ItemStack(this);
     }
     /**
      * 获取方块的渲染类型
@@ -339,6 +405,8 @@ public class BlockWindmill extends BlockContainer{
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+        // 添加多语言提示（显示在物品栏）
+        tooltip.add(I18n.format("tooltip.sim.windmill.description"));
     }
     /**
      * 统一日志记录方法

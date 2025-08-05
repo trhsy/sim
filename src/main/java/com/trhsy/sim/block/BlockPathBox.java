@@ -33,10 +33,11 @@ import java.util.List;
  */
 public class BlockPathBox extends Block {
     public BlockPathBox() {
-        super(Material.WOOD,"pathBox");
+        super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
         this.setHardness(10.0F);
         this.setResistance(1);
+        this.setUnlocalizedName("pathBox");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
     @Override

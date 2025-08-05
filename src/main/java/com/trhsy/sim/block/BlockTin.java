@@ -22,13 +22,14 @@ import java.util.List;
  */
 public class BlockTin extends Block {
     public BlockTin(){
-        super(Material.IRON,"tinBlock");
+        super(Material.IRON);
         //用于设定走在方块上的响声。
         this.setSoundType(SoundType.METAL);
         //设定方块的硬度，如黑曜石是50，铁块5，金块3，圆石2，石头1.5，南瓜1，泥土0.5，甘蔗0，基岩-1。
         this.setHardness(5);
         //设定方块的爆炸抗性，如木头的抗性为4，石头为10，黑曜石为2000，基岩为6000000。
         this.setResistance(10);
+        this.setUnlocalizedName("tinBlock");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
     @Override

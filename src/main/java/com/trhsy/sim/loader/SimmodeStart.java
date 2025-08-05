@@ -295,10 +295,7 @@ public class SimmodeStart {
      */
     public static void simModupdate(World world) {
         //第三版
-        // 只在服务器端执行
-//        if (world == null || world.isRemote) {
-//            return;
-//        }
+/*
         // 频率控制
         tickCounter++;
         if (tickCounter % UPDATE_INTERVAL_TICKS != 0) {
@@ -328,7 +325,7 @@ public class SimmodeStart {
 
         // 4. 同步网络数据
         scheduleNetworkSync(world);
-
+*/
         //第二版
         /*// 检查是否需要整体更新
         long currentTime = System.currentTimeMillis();
@@ -405,7 +402,7 @@ public class SimmodeStart {
 
 
         //第一版
-        /*
+
         long startTime = System.currentTimeMillis();
         if (world != null) {
             if (startTime - timeSinceLastClientUpdates > 5000L || ModSimLoader.sim_is_running) {
@@ -579,7 +576,7 @@ public class SimmodeStart {
 
             }
         }
-        */
+
 
     }
     // 异步处理NPC状态

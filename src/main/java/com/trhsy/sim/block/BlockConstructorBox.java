@@ -53,7 +53,7 @@ public class BlockConstructorBox extends Block {
         //方块硬度
         this.setHardness(0.5F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
-
+        this.setUnlocalizedName("constructor_box");
     }
 
 
@@ -65,13 +65,9 @@ public class BlockConstructorBox extends Block {
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
 //        worldIn.playSound(null, pos, SOUND_EVENT_ACTIVATE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, ":sim_u_building_constructor_activated"); // 对应 sounds.json 中的键
-        SoundEvent activateSound = SoundEvent.REGISTRY.getObject(soundLoc); // 从注册表获取
-        if (activateSound != null) {
+        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "sim_u_building_constructor_activated"); // 对应 sounds.json 中的键
+        SoundEvent activateSound = new SoundEvent(soundLoc); // 从注册表获取
             worldIn.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        } else {
-            ModSimLoader.log.warn("sim_u_building_constructor_activated 声音未注册: {}", soundLoc); // 日志提示未注册
-        }
     }
 
     /**
@@ -85,13 +81,9 @@ public class BlockConstructorBox extends Block {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
 //        worldIn.playSound(playerIn, pos, SOUND_EVENT_ADD, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, ":sim_u_ddd"); // 对应 sounds.json 中的键
-        SoundEvent activateSound = SoundEvent.REGISTRY.getObject(soundLoc); // 从注册表获取
-        if (activateSound != null) {
+        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "sim_u_ddd"); // 对应 sounds.json 中的键
+        SoundEvent activateSound = new SoundEvent(soundLoc); // 从注册表获取
             worldIn.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        } else {
-            ModSimLoader.log.warn("sim_u_ddd声音未注册: {}", soundLoc); // 日志提示未注册
-        }
         int buildDirection = 0;
 
         if (!worldIn.isRemote) {
@@ -160,13 +152,9 @@ public class BlockConstructorBox extends Block {
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
-        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, ":power_down"); // 对应 sounds.json 中的键
-        SoundEvent activateSound = SoundEvent.REGISTRY.getObject(soundLoc); // 从注册表获取
-        if (activateSound != null) {
+        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "power_down"); // 对应 sounds.json 中的键
+        SoundEvent activateSound = new SoundEvent(soundLoc); // 从注册表获取
             worldIn.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        } else {
-            ModSimLoader.log.warn("power_down声音未注册: {}", soundLoc); // 日志提示未注册
-        }
         // 通过缓存的 NPC 数据快速查找关联 NPC（优化：线性搜索 → Map 缓存）
         NpcData targetNpc = findArchitectNpc(pos);
         /*

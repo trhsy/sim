@@ -114,10 +114,10 @@ public class PacketHireFolk implements IMessage {
                         mineBox.employee = fd;
                         mineBox.saveMine();
                     }
-                } else {
+                }
                     //去雇佣地点
                     fd.hireAt(message.pos, message.job, ctx.getServerHandler().player.world);
-                }
+
 
             }
         }

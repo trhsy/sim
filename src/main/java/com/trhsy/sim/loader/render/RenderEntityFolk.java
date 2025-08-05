@@ -70,16 +70,16 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                 return myTexture;
             } else {
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/male0.png");
-                if(entity.theData==null){
-                    entity.setDead();
-                }
-                if(!entity.isEntityAlive()){
-                    if(entity.theData==null){
-                        entity.setDead();
-                    }
-                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
-                    entity.onDeath(DamageSource.GENERIC);
-                }
+//                if(entity.theData==null){
+//                    entity.setDead();
+//                }
+//                if(!entity.isEntityAlive()){
+//                    if(entity.theData==null){
+//                        entity.setDead();
+//                    }
+//                    entity.attackEntityFrom(DamageSource.GENERIC, 999999);
+//                    entity.onDeath(DamageSource.GENERIC);
+//                }
 //
                 return myTexture;
             }
@@ -145,6 +145,9 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
             if (entityFolk != null) {
                 double dist = (double) entityFolk.getDistance(Minecraft.getMinecraft().player);
                 NpcIdentity data = ModSimClientLoader.getFolkByUUID(entityFolk.getUniqueID());
+                if(data==null){
+                    return;
+                }
                 if (dist < 20.0D && data != null) {
                     if (Integer.parseInt(data.age) < Integer.parseInt(data.maturityAge)) {
                         this.displayText(data.name + " (" + data.age + ")", 0.03F, -1, (float) x, (float) y + f3 + f6 - 0.4F, (float) z, entityFolk);

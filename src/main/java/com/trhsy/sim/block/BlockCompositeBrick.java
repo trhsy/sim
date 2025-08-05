@@ -35,7 +35,7 @@ public class BlockCompositeBrick extends Block {
         this.setResistance(7.0F);
         //设置挖掘工具、挖掘等级
         this.setHarvestLevel("pickaxe",0);
-        this.setUnlocalizedName(":composite_brick");
+        this.setUnlocalizedName("composite_brick");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 

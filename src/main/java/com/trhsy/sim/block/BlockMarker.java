@@ -38,11 +38,12 @@ import java.util.List;
 public class BlockMarker extends Block {
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1, 0.625D);
     public BlockMarker() {
-        super(Material.WOOD,"markerBar");
+        super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);
         this.setResistance(1);
 //        this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+        this.setUnlocalizedName("markerBar");
         this.setLightLevel(0.1F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 

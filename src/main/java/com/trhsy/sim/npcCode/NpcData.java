@@ -2596,12 +2596,17 @@ public class NpcData {
                 BlockControlBox cont = (BlockControlBox) block;
                 cont.employees.add(this);
             }
-            Building building = ModSimLoader.getBuildingByV3(new V3(pos.x,pos.y-1,pos.z));
-            building.occupants.add(this);
             V3 v3 = pos;
-            if (building.livingXYZ != null) {
-                v3 = new V3(building.livingXYZ.x,building.livingXYZ.y+1,building.livingXYZ.z);
+            Building building = ModSimLoader.getBuildingByV3(new V3(pos.x,pos.y-1,pos.z));
+            if(building!=null){
+                building.occupants.add(this);
+
+                if (building.livingXYZ != null) {
+                    v3 = new V3(building.livingXYZ.x,building.livingXYZ.y+1,building.livingXYZ.z);
+                }
+
             }
+
             //面包师
             if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText())) {
                 this.job = new JobBaker(this, v3.toBlockPos(), world);

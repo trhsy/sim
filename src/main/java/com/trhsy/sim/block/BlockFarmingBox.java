@@ -9,6 +9,7 @@ import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.block.FarmBox;
 import com.trhsy.sim.npcCode.enums.FarmType;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -34,12 +35,13 @@ import java.util.List;
  * @Description: 农田箱子
  * @date 2023/11/07 下午 4:32
  */
-public class BlockFarmingBox extends Block{
+public class BlockFarmingBox extends Block {
     public BlockFarmingBox() {
-        super(Material.WOOD,"farmingBox");
+        super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);
         this.setResistance(1);
+        this.setUnlocalizedName("farmingBox");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 

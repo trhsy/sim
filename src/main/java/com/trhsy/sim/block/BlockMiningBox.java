@@ -37,10 +37,11 @@ import java.util.List;
  */
 public class BlockMiningBox extends Block {
     public BlockMiningBox() {
-        super(Material.WOOD,"miningBox");
+        super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);
         this.setResistance(1);
+        this.setUnlocalizedName("miningBox");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
     @Override

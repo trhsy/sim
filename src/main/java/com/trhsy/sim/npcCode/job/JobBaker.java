@@ -27,6 +27,10 @@ public class JobBaker extends Job {
     private int wheat, egg, pumpkin, milk_bucket, sugar, dye;
     //工作阶段
     public int baker_stage = 0;
+    // 上次统计物品的时间戳（单位：ticks，1 tick = 1/20秒）
+    private long lastItemStatsTime = 0;
+    // 统计间隔（五分钟 = 5 * 60秒 = 300秒 = 300 * 20 ticks = 6000 ticks）
+    private static final long STATS_INTERVAL = 6000;
     public JobBaker(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
@@ -148,39 +152,47 @@ public class JobBaker extends Job {
                 this.baker_stage = 0;
                 this.jobTasks.clear();
             }
-            this.wheat = 0;
-            this.egg = 0;
-            this.pumpkin = 0;
-            this.milk_bucket = 0;
-            this.sugar = 0;
-            this.dye = 0;
-            List<IInventory> iterator = this.findJobChests(5);
-            for (IInventory inv : iterator) {
-                for (int i = 0; i < inv.getSizeInventory(); ++i) {
-                    ItemStack slot = inv.getStackInSlot(i);
-                    ItemStack itemWheat = new ItemStack(Items.WHEAT);
-                    ItemStack itemEgg = new ItemStack(Items.EGG);
-                    ItemStack itemPumpkin = new ItemStack(Blocks.PUMPKIN);
-                    ItemStack itemBucketMilk = new ItemStack(ItemLoader.itemBucketMilk);
-                    ItemStack itemSugar = new ItemStack(Items.SUGAR);
-                    ItemStack itemDye = new ItemStack(Items.DYE);
-                    if (slot != null) {
-                        if (slot.isItemEqual(itemWheat)) {
-                            this.wheat += slot.getCount();
-                        } else if (slot.isItemEqual(itemEgg)) {
-                            this.egg += slot.getCount();
-                        } else if (slot.isItemEqual(itemPumpkin)) {
-                            this.pumpkin += slot.getCount();
-                        } else if (slot.isItemEqual(itemBucketMilk)) {
-                            this.milk_bucket += slot.getCount();
-                        } else if (slot.isItemEqual(itemSugar)) {
-                            this.sugar += slot.getCount();
-                        } else if (slot.getItem().equals(itemDye.getItem())) {
-                            this.dye += slot.getCount();
+            // ---------------------- 物品统计优化 ----------------------
+            long currentTime = this.jobWorld.getWorldTime(); // 获取当前游戏时间（ticks）
+            // 检查是否达到统计间隔（五分钟）
+            if (currentTime - lastItemStatsTime >= STATS_INTERVAL) {
+                this.wheat = 0;
+                this.egg = 0;
+                this.pumpkin = 0;
+                this.milk_bucket = 0;
+                this.sugar = 0;
+                this.dye = 0;
+                List<IInventory> iterator = this.findJobChests(5);
+                for (IInventory inv : iterator) {
+                    for (int i = 0; i < inv.getSizeInventory(); ++i) {
+                        ItemStack slot = inv.getStackInSlot(i);
+                        ItemStack itemWheat = new ItemStack(Items.WHEAT);
+                        ItemStack itemEgg = new ItemStack(Items.EGG);
+                        ItemStack itemPumpkin = new ItemStack(Blocks.PUMPKIN);
+                        ItemStack itemBucketMilk = new ItemStack(ItemLoader.itemBucketMilk);
+                        ItemStack itemSugar = new ItemStack(Items.SUGAR);
+                        ItemStack itemDye = new ItemStack(Items.DYE);
+                        if (slot != null) {
+                            if (slot.isItemEqual(itemWheat)) {
+                                this.wheat += slot.getCount();
+                            } else if (slot.isItemEqual(itemEgg)) {
+                                this.egg += slot.getCount();
+                            } else if (slot.isItemEqual(itemPumpkin)) {
+                                this.pumpkin += slot.getCount();
+                            } else if (slot.isItemEqual(itemBucketMilk)) {
+                                this.milk_bucket += slot.getCount();
+                            } else if (slot.isItemEqual(itemSugar)) {
+                                this.sugar += slot.getCount();
+                            } else if (slot.getItem().equals(itemDye.getItem())) {
+                                this.dye += slot.getCount();
+                            }
                         }
                     }
                 }
+                // 更新上次统计时间
+                this.lastItemStatsTime = currentTime;
             }
+
         }
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];

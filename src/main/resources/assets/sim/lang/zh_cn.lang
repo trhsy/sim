@@ -4,7 +4,7 @@ container.sim.config_name1=模拟城市游戏配置
 container.sim.config_name2=模拟城市 npc 名称设置
 tile.cheeseBlock.name=奶酪块
 block.sim.cheeseBlock.tooltip=奶酪块,用户制作奶酪汉堡
-tile.constructorBox.name=建筑箱
+tile.constructor_box.name=建筑箱
 tile.controlBox.name=控制箱
 tile.controlBox.top.name=建筑盒控制箱
 tile.controlBox.atm.name=银行控制箱
@@ -1286,3 +1286,7 @@ key.sim.sim_mod=模拟大都市按键设置
 key.sim.activate_skill_simfiles_loading=重新加载蓝图
 
 container.sim.title_days=第%s天
+
+tooltip.sim.windmill.description=风车用风力碾碎矿石
+stat.sim.windmill.interact=与风车互动
+block.sim.constructor_box.tooltip=用来建造或规划土地

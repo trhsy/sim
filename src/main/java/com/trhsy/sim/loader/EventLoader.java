@@ -11,12 +11,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
@@ -28,16 +29,30 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.Color;
+
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @ClassName EventLoader
- * @Description todo 事件交互
+ * @Description todo 事件交互  * 事件处理器（优化版）
+ *  * 修复线程安全、客户端/服务端逻辑混淆等问题，提升可维护性
  * @Author Tian
  * @Date 2022/9/2921:05
  **/
 public class EventLoader {
-
+    // 用于NPC加载的临时缓存（避免重复查询）
+    private static final Set<UUID> LOADING_NPC_UUIDS = new HashSet<>();
+    // 单线程池用于NPC加载任务（替代直接创建线程）
+    private static final ExecutorService NPC_LOAD_EXECUTOR = Executors.newSingleThreadExecutor(runnable -> {
+        Thread thread = new Thread(runnable, "NPC-Load-Thread");
+        thread.setDaemon(true); // 设为守护线程，随主线程退出
+        return thread;
+    });
 
 
 
@@ -66,6 +81,60 @@ public class EventLoader {
      **/
     @SubscribeEvent
     public void playerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        EntityPlayer player = event.player;
+
+        if (player == null){
+            return;
+        }
+
+        // 发送欢迎消息（主线程安全）
+        String welcomeMsg = String.format("[%s] %s %s",
+                player.getName(),
+                new TextComponentTranslation("container.sim.welcome").getUnformattedText(),
+                ModSim.VERSION
+        );
+        player.sendMessage(new TextComponentTranslation("container.sim.welcomes"));
+        // 加载NPC关联实体（通过服务端线程池异步处理，但实体操作必须在主线程）
+        if (ModSimLoader.gamemode == 999 && ItemLoader.itemSimULoader != null) {
+            MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+            for (NpcData fd : ModSimLoader.folks) {
+                // 避免重复加载
+                if (LOADING_NPC_UUIDS.contains(fd.ID)){
+                    continue;
+                }
+                LOADING_NPC_UUIDS.add(fd.ID);
+
+                // 提交任务到服务端线程池（异步查询NPC实体）
+                NPC_LOAD_EXECUTOR.submit(() -> {
+                    try {
+                        // 在服务端主线程执行实体操作（通过MinecraftServer的addScheduledTask）
+                        server.addScheduledTask(() -> {
+                            Entity entity = server.getEntityFromUuid(fd.ID);
+                            if (entity instanceof EntityNpc) {
+                                ModSimLoader.log.info("NPC-id: {} 已存在，直接关联", fd.ID);
+                                fd.entity = (EntityNpc) entity;
+                            } else {
+                                ModSimLoader.log.warn("NPC-id: {} 未找到实体，可能已被移除", fd.ID);
+                                // 若需创建新NPC，可在此处添加逻辑（需主线程）
+                            }
+                        });
+                    } catch (Exception e) {
+                        ModSimLoader.log.error("玩家加入时加载NPC失败，ID: {}, 错误: {}", fd.ID, e.getMessage(), e);
+                    } finally {
+                        LOADING_NPC_UUIDS.remove(fd.ID); // 清理缓存
+                    }
+                });
+            }
+        }
+
+        // 给予初始物品（主线程安全）
+        if (shouldGiveStarterItem()) {
+            ItemStack starter = new ItemStack(ItemLoader.itemSimULoader);
+            if (!player.inventory.addItemStackToInventory(starter)) {
+                spawnItemDrop(player, starter);
+            }
+        }
+        /*
         Thread skinThread = new Thread(() -> {
             try {
                 if (event.player != null) {
@@ -95,9 +164,32 @@ public class EventLoader {
 
 
         });
-        skinThread.start();
+        skinThread.start();*/
     }
+    /**
+     * 判断是否应给予初始物品
+     */
+    private static boolean shouldGiveStarterItem() {
+        boolean shouldGive = ItemLoader.itemSimULoader != null && ModSimLoader.gamemode == 999;
+        // 替换魔数为枚举或常量（示例）
+        return shouldGive;
+    }
+    /**
+     * 生成物品掉落（主线程安全）
+     */
+    private static void spawnItemDrop(EntityPlayer player, ItemStack stack) {
+        World world = player.world;
+        if (world.isRemote){
+            return;
+        }
 
+        double x = player.posX + (world.rand.nextDouble() - 0.5) * 0.7;
+        double y = player.posY + world.rand.nextDouble() * 0.5 + 0.5; // 避免卡在地底
+        double z = player.posZ + (world.rand.nextDouble() - 0.5) * 0.7;
+        EntityItem itemEntity = new EntityItem(world, x, y, z, stack);
+        itemEntity.setDefaultPickupDelay();
+        world.spawnEntity(itemEntity);
+    }
     /**
      * 世界保存
      *
@@ -106,7 +198,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldSave(WorldEvent.Save event) {
         World world=event.getWorld();
+        if (!world.isRemote && world instanceof WorldServer) {
             SimmodeStart.simModSave(world);
+        }
 
     }
 
@@ -118,8 +212,10 @@ public class EventLoader {
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
         World world=event.getWorld();
+        if (!world.isRemote && world instanceof WorldServer) {
             // 只在服务端运行
             SimmodeStart.simModLoad(world);
+        }
     }
 
     /**
@@ -169,7 +265,7 @@ public class EventLoader {
      *
      * @param event
      */
-    @SubscribeEvent
+   /* @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
 
         Entity entity = event.getEntity();
@@ -196,7 +292,7 @@ public class EventLoader {
                 }
             }
         }
-    }
+    }*/
 
     /**
      * 客户端断开连接
@@ -208,6 +304,8 @@ public class EventLoader {
 //        dedWorld = false;
 
         SimmodeStart.simModDisconnected();
+        // 清理NPC加载缓存
+        LOADING_NPC_UUIDS.clear();
     }
 
     /**
@@ -220,18 +318,105 @@ public class EventLoader {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onWorldRenderLast(RenderWorldLastEvent event) {
-        World world = Minecraft.getMinecraft().world;
-//        if (!world.isRemote){
-            for (EntityPlayer player : world.playerEntities) {
+        Minecraft mc = Minecraft.getMinecraft();
+        World world = mc.world;
+        if (world == null || ModSimClientLoader.previewPos1 == null || ModSimClientLoader.previewPos2 == null) {
+            return;
+        }
+        // 获取玩家当前视角的偏移量（考虑相机移动）
+        double partialTicks = event.getPartialTicks();
+        double offsetX = mc.player.prevPosX + (mc.player.posX - mc.player.prevPosX) * partialTicks;
+        double offsetY = mc.player.prevPosY + (mc.player.posY - mc.player.prevPosY) * partialTicks;
+        double offsetZ = mc.player.prevPosZ + (mc.player.posZ - mc.player.prevPosZ) * partialTicks;
+        // 绘制包围盒（客户端主线程安全）
+        drawBoundingBox(mc.player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, 5.0F, event, offsetX, offsetY, offsetZ);
+
+            /*for (EntityPlayer player : world.playerEntities) {
                 if (ModSimClientLoader.previewPos1 != null && ModSimClientLoader.previewPos2 != null) {
                     //预览
                     drawBoundingBox(player, ModSimClientLoader.previewPos1, ModSimClientLoader.previewPos2, true, 5.0F, event);
 
                 }
-//            }
+        }*/
+
+
+    }
+    /**
+     * 绘制包围盒（优化版）
+     */
+    @SideOnly(Side.CLIENT)
+    private static void drawBoundingBox(EntityPlayer player, Vec3d posA, Vec3d posB, float width,
+                                        RenderWorldLastEvent event, double offsetX, double offsetY, double offsetZ) {
+        GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS); // 保存所有GL状态
+        try {
+            // 禁用光照、纹理，启用混合
+            GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+            // 设置线宽（兼容不同驱动）
+            GL11.glLineWidth(Math.max(1.0F, width));
+
+            // 调整坐标到玩家视角
+            GL11.glTranslated(-offsetX, -offsetY, -offsetZ);
+
+            // 设置半透明红色
+            GL11.glColor4f(1.0F, 0.0F, 0.0F, 0.3F);
+
+            // 构建包围盒顶点（基于两个对角点）
+            Vec3d min = new Vec3d(
+                    Math.min(posA.x, posB.x),
+                    Math.min(posA.y, posB.y),
+                    Math.min(posA.z, posB.z)
+            );
+            Vec3d max = new Vec3d(
+                    Math.max(posA.x, posB.x),
+                    Math.max(posA.y, posB.y),
+                    Math.max(posA.z, posB.z)
+            );
+
+            // 绘制立方体（简化版，使用12条边）
+            Tessellator tessellator = Tessellator.getInstance();
+            BufferBuilder buffer = tessellator.getBuffer();
+            buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+
+            // 前后面
+            addEdge(buffer, min, new Vec3d(max.x, min.y, min.z), color(1.0F, 0.0F, 0.0F, 0.3F));
+            addEdge(buffer, new Vec3d(min.x, max.y, min.z), max, color(1.0F, 0.0F, 0.0F, 0.3F));
+            addEdge(buffer, new Vec3d(min.x, min.y, max.z), new Vec3d(max.x, max.y, max.z), color(1.0F, 0.0F, 0.0F, 0.3F));
+            addEdge(buffer, new Vec3d(min.x, max.y, max.z), new Vec3d(max.x, min.y, max.z), color(1.0F, 0.0F, 0.0F, 0.3F));
+
+            // 连接前后
+            addEdge(buffer, new Vec3d(min.x, min.y, min.z), new Vec3d(min.x, min.y, max.z), color(1.0F, 0.0F, 0.0F, 0.3F));
+            addEdge(buffer, new Vec3d(max.x, min.y, min.z), new Vec3d(max.x, min.y, max.z), color(1.0F, 0.0F, 0.0F, 0.3F));
+            addEdge(buffer, new Vec3d(min.x, max.y, min.z), new Vec3d(min.x, max.y, max.z), color(1.0F, 0.0F, 0.0F, 0.3F));
+            addEdge(buffer, new Vec3d(max.x, max.y, min.z), new Vec3d(max.x, max.y, max.z), color(1.0F, 0.0F, 0.0F, 0.3F));
+
+            tessellator.draw();
+        } finally {
+            GL11.glPopAttrib(); // 恢复所有GL状态
         }
+    }
+    /**
+     * 辅助方法：添加边
+     */
+    @SideOnly(Side.CLIENT)
+    private static void addEdge(BufferBuilder buffer, Vec3d start, Vec3d end, Color color) {
+        buffer.pos(start.x, start.y, start.z)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha())
+                .endVertex();
+        buffer.pos(end.x, end.y, end.z)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha())
+                .endVertex();
+    }
 
-
+    /**
+     * 辅助方法：生成颜色（可扩展为可配置）
+     */
+    @SideOnly(Side.CLIENT)
+    private static Color color(float r, float g, float b, float a) {
+        return new Color(r, g, b, a);
     }
 
     /**
@@ -241,7 +426,7 @@ public class EventLoader {
      * @Date 17:19 2022/10/31
      * @Param [player, posA, posB, smooth, width, event]
      **/
-    public static void drawBoundingBox(EntityPlayer player, Vec3d posA, Vec3d posB, boolean smooth, float width, RenderWorldLastEvent event) {
+    public static void drawBoundingBox_old(EntityPlayer player, Vec3d posA, Vec3d posB, boolean smooth, float width, RenderWorldLastEvent event) {
         GL11.glPushAttrib(8192);
         GL11.glDisable(2884);
         GL11.glDisable(2896);

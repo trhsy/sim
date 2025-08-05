@@ -5,7 +5,7 @@ container.sim.config_name2=sim npc names
 tile.cheeseBlock.name=cheese block
 block.sim.cheeseBlock.tooltip=Cheese chunks, users make cheese burgers
 tile.controlBox.name=control box
-tile.constructorBox.name=constructor box
+tile.constructor_box.name=constructor box
 tile.controlBox.top.name=control box
 tile.controlBox.atm.name=ATM control box
 tile.controlBox.other.name=other control box
@@ -1286,3 +1286,7 @@ container.sim.title_days=days %s
 
 block.sim.composite_brick.tooltip=Composite brick: a high-strength building material that can be mined with a pickaxe
 block.sim.control_box.tooltip=Control box: Right-click to open the management interface
+
+tooltip.sim.windmill.description=Windmills use wind power to crush ores.
+stat.sim.windmill.interact=Interacted with Windmill
+block.sim.constructor_box.tooltip=Used for building or planning land

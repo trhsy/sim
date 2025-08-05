@@ -1,14 +1,11 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.block.enums.ModMaterials;
-import com.trhsy.sim.block.enums.ModSounds;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -32,7 +29,7 @@ public class BlockCheese extends Block {
     /**
      * 私有构造方法（强制通过工厂方法创建）
      */
-    private BlockCheese() {
+    public BlockCheese() {
         super(Material.CAKE);  // 直接使用原生 Material.CAKE
         this.setSoundType(SoundType.WOOD);  // 木质点击音
         this.setHardness(0.1F);             // 易破坏

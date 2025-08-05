@@ -36,10 +36,11 @@ public class BlockLiving extends Block {
     protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
 
     public BlockLiving() {
-        super(Material.CARPET,"livingBlock");
+        super(Material.CARPET);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumBlockLiving.WHITE));
         this.setTickRandomly(true);
 //        this.setUnlocalizedName();
+        this.setUnlocalizedName("livingBlock");
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 
