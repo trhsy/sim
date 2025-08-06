@@ -133,7 +133,9 @@ public class JobBurgers extends Job {
 
                     if (((this.potato > 2) || (this.beef > 1 && this.bread > 2) || (this.beef > 1 && this.bread > 2 && this.itemCheese > 2)) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling", new Object[0]).getUnformattedText())) {
                         this.burgersStage = 4;
-                        this.currentTask.completeTask();
+                        if(this.currentTask != null){
+                            this.currentTask.completeTask();
+                        }
                         this.jobTasks.clear();
                     }
 

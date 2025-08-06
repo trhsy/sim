@@ -46,7 +46,10 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -2100,6 +2103,7 @@ public class NpcData {
             if (distance <= 1.58D) {
                 // 生成粒子效果
                 spawnPortalParticles();
+                //tp命令
                 this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
                 this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
                 // 如果距离小于等于 1，说明已经到达目标位置，清除路径
@@ -2189,8 +2193,43 @@ public class NpcData {
      * 生成传送门粒子效果
      */
     private void spawnPortalParticles() {
+       //第三版
+        // 使用实体自带的随机数生成器（更高效且与实体状态关联）
         Random random = this.entity.getRNG();
-        for (int i = 0; i < 16; ++i) {
+        // 获取世界实例（缓存避免重复调用）
+        World world =  Minecraft.getMinecraft().world;
+        // 粒子数量（可根据需求调整）
+        int particleCount = 16;
+        //
+        for (int i = 0; i < particleCount; ++i) {
+            // 计算粒子在实体周围的随机位置（扩展范围）
+            // x/z 方向：在实体位置的 ±0.5 格内随机偏移（可根据需求调整系数）
+            double xOffset = (random.nextDouble() - 0.5) * 1.0; // -0.5 到 +0.5
+            double zOffset = (random.nextDouble() - 0.5) * 1.0;
+            // y 方向：在实体高度的中间位置（0.8125F 是原代码的固定值，可根据需求调整）
+            double yOffset = 0.8125F + (random.nextDouble() - 0.5) * 0.2; // 上下小范围波动
+
+            // 最终粒子坐标
+            double x = this.pos.x + xOffset;
+            double y = this.pos.y + yOffset;
+            double z = this.pos.z + zOffset;
+            // 粒子运动偏移（模拟流动效果）
+            double motionX = (random.nextDouble() - 0.5) * 0.1; // 左右轻微晃动
+            double motionY = (random.nextDouble() - 0.5) * 0.1; // 上下轻微晃动
+            double motionZ = (random.nextDouble() - 0.5) * 0.1;
+// 生成传送门粒子（参数：世界、x、y、z、运动X、运动Y、运动Z、额外数据）
+            world.spawnParticle(
+                    EnumParticleTypes.PORTAL,
+                    x, y, z,
+                    motionX, motionY, motionZ,
+                    new int[0]
+            );
+/*
+            // 粒子运动偏移（模拟流动效果） 第二版
+            double motionX = (random.nextDouble() - 0.5) * 0.1; // 左右轻微晃动
+            double motionY = (random.nextDouble() - 0.5) * 0.1; // 上下轻微晃动
+            double motionZ = (random.nextDouble() - 0.5) * 0.1;
+
             double d0 = (double) ((float) this.pos.x + (5.0F + new Random().nextFloat() * 6.0F) / 16.0F);
             double d1 = (double) ((float) this.pos.y + 0.8125F);
             double d2 = (double) ((float) this.pos.z + (5.0F + new Random().nextFloat() * 6.0F) / 16.0F);
@@ -2198,7 +2237,7 @@ public class NpcData {
             double d4 = 0.0D;
             double d5 = 0.0D;
             Minecraft mc = Minecraft.getMinecraft();
-            mc.world.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+            mc.world.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);*/
 //            double d0 = random.nextDouble() * 0.5D;
 //            double d1 = random.nextDouble() * 0.5D;
 //            double d2 = random.nextDouble() * 0.5D;
