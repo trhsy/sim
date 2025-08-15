@@ -789,6 +789,17 @@ public class ModSimLoader {
         return b1;
     }
 
+    public static Building getBuildingByName(String name) {
+        Building b1 = null;
+        for (Building b : buildings) {
+            if (b.buildingName.toString().contentEquals(name)) {
+                b1 = b;
+                return b1;
+            }
+        }
+        return b1;
+    }
+
 
 
     public static void saveStates() {

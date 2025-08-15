@@ -76,7 +76,7 @@ public class PacketOpenFolkGui implements IMessage {
         this.folkTraitDesc2=fd.trait2.getTraitDescription();
         this.folkTraitDesc3=fd.trait3.getTraitDescription();
         this.status=fd.status;
-        this.hungerStatus=fd.getHunger();
+        this.hungerStatus=fd.getHunger()+":["+fd.hunger+"]";
         if (fd.job != null) {
             this.jobName = fd.job.toString();
         } else {

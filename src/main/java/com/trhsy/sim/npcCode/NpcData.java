@@ -1,5 +1,6 @@
 package com.trhsy.sim.npcCode;
 
+import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockControlBox;
 import com.trhsy.sim.entity.EntityNpc;
 import com.trhsy.sim.loader.BlockLoader;
@@ -34,8 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.server.management.PlayerList;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -1787,9 +1787,53 @@ public class NpcData {
                     }
                     //生孩子
                     if (this.pregnancyStage >= 1.0F) {
-                        this.pregnancyStage = 0.0F;
-                        new NpcData(this.entity.world, this.getSpouse(), this);
-                        this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby",new Object[0]).getUnformattedText());
+
+                        //必须要有诊所/医院 检查是否有诊所/医院
+                        /*container.sim.FolkData.Clinic=诊所
+                        container.sim.FolkData.Hospital=医院*/
+                        String fs_zshensuo=new TextComponentTranslation("container.sim.FolkData.Clinic",new Object[0]).getUnformattedText();
+                        String fs_yiyuan=new TextComponentTranslation("container.sim.FolkData.Hospital",new Object[0]).getUnformattedText();
+                        Building building=null;
+
+                        building=ModSimLoader.getBuildingByName(fs_zshensuo);
+                        if(building==null){
+                            building=ModSimLoader.getBuildingByName(fs_yiyuan);
+                        }
+                        //找到医院/诊所
+                        if(building!=null) {
+                            //传送到医院或者诊所
+                            V3 v3=building.livingXYZ;
+                            this.forceMoveToXYZ(v3);
+
+                            this.pregnancyStage = 0.0F;
+                            new NpcData(this.entity.world, this.getSpouse(), this);
+                            //这里要播放那个宝宝笑的音频 找到了 音频文件 叫 birth
+                            World world = Minecraft.getMinecraft().world;
+                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":birth"));
+                            for (EntityPlayer entityPlayer : world.playerEntities) {
+                                BlockPos pos=entityPlayer.getPosition();
+                                ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
+                                world.playSound((EntityPlayer) null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                            }
+//                            for (EntityPlayer entityPlayer : world.playerEntities) {
+//                                ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + entityPlayer.posX + "],y:[" + entityPlayer.posY + "],z:[" + entityPlayer.posZ + "]");
+//                                world.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+//                            }
+                            //刚生了个宝宝
+                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby", new Object[0]).getUnformattedText());
+                            String fs_ldzl =new TextComponentTranslation("container.sim.folk_data_a_baby", new Object[0]).getUnformattedText();
+                            ModSimLoader.sendChat(this.getName() +"::"+  fs_ldzl);
+                        }else{
+                            //孕妇难产死了 谢谢点赞
+                            this.entity.setDead();//标记实体死亡
+                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_death", new Object[0]).getUnformattedText());
+                            ModSimLoader.log.info("NPC {} 因无医疗设施难产致死", this.entity.getName());
+                            String fs_ldzl =new TextComponentTranslation("container.sim.folk_data_a_baby_day", new Object[0]).getUnformattedText();
+                            ModSimLoader.sendChat(this.getName() +"::"+  fs_ldzl);
+
+                        }
+
+
                     }
                 }
 

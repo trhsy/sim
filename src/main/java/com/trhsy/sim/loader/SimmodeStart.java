@@ -17,6 +17,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -294,6 +295,7 @@ public class SimmodeStart {
      * 更新
      */
     public static void simModupdate(World world) {
+//        World worlds =  Minecraft.getMinecraft().world;
         //第三版
 /*
         // 频率控制
@@ -456,8 +458,10 @@ public class SimmodeStart {
                                     //播放 天亮了鸡叫
                                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
                                     for (EntityPlayer entityPlayer : world.playerEntities) {
-                                        ModSimLoader.log.info("播放 天亮了鸡叫:[x:" + entityPlayer.posX + "],y:[" + entityPlayer.posY + "],z:[" + entityPlayer.posZ + "]");
-                                        world.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        BlockPos pos=entityPlayer.getPosition();
+                                        ModSimLoader.log.info("播放 天亮了鸡叫:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
+//                                        world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                                        world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
                                     }
 
                                     newDay = true;
@@ -474,9 +478,7 @@ public class SimmodeStart {
                                 if (System.currentTimeMillis() - rentalsTimer > 3000L && newDayRentals) {
                                     newDayRentals = false;
                                     ModSimLoader.log.info("收租了");
-                                    if (ModSimLoader.gamemode != 0) {
-                                        NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
-                                    } else {
+                                    if (ModSimLoader.gamemode != 999) {
                                         float rent = 0.0F;
                                         for (Building b : ModSimLoader.buildings) {
                                             if (b.occupants.size() > 0) {
@@ -486,18 +488,17 @@ public class SimmodeStart {
 
                                         ModSimLoader.addMoney(rent);
                                         float rents = rent;
-                                        Thread skinThread = new Thread(() -> {
-                                            //播放钱到账
-                                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                                            EntityPlayer entityPlayer = world.playerEntities.get(0);
-                                            ModSimLoader.log.info("播放钱到账:[x:" + entityPlayer.posX + "],y:[" + entityPlayer.posY + "],z:[" + entityPlayer.posZ + "]");
-                                            world.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                                            //你今天收了 今天的租金。
-                                            ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(rents) + new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());
-                                        }, "play-cash");
-
-                                        skinThread.start();
-
+                                        //播放钱到账
+                                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
+                                        for (EntityPlayer entityPlayer : world.playerEntities) {
+                                            BlockPos pos=entityPlayer.getPosition();
+                                            ModSimLoader.log.info("播放钱到账:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
+//                                            world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                                            world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
+                                        }
+                                        //你今天收了 今天的租金。
+                                        ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(rents) + new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());
+                                        NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
                                     }
                                     String hungerName = "";
                                     for (NpcData f : ModSimLoader.folks) {

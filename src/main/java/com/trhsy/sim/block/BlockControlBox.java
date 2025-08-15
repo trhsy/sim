@@ -155,10 +155,10 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 computer 控制箱激活
-        /*SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
+        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
         worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         //客户端
-        if (!worldIn.isRemote) {
+       /* if (!worldIn.isRemote) {
             //获取控制箱位置
             V3 vPos = new V3(pos,playerIn.dimension);
             //获取该位置的建筑

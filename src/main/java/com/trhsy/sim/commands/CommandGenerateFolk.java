@@ -2,11 +2,13 @@ package com.trhsy.sim.commands;
 
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -45,7 +47,9 @@ public class CommandGenerateFolk implements ICommand {
         try {
             if (args.length == 0) {
                 ModSimLoader.log.info("获得重生NPC命令");
-                this.theFolk = new NpcData(sender.getEntityWorld(), true);
+                Minecraft mc = Minecraft.getMinecraft();
+                World world = mc.world;
+                this.theFolk = new NpcData(world, true);
                 //NetWorkLoader.net.sendToServer(new PacketNewFolk(true));
             }
         } catch (Exception e) {

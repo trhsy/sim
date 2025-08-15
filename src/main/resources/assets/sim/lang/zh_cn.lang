@@ -1290,3 +1290,5 @@ container.sim.title_days=第%s天
 tooltip.sim.windmill.description=风车用风力碾碎矿石
 stat.sim.windmill.interact=与风车互动
 block.sim.constructor_box.tooltip=用来建造或规划土地
+
+container.sim.folk_data_a_baby_day=因无医疗设施难产致死(建议修建医院/诊所)

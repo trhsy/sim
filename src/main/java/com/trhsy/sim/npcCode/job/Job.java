@@ -62,14 +62,14 @@ public abstract class Job {
     public boolean atWork;
     //收集资源
     public List<Item> collectionItems = new CopyOnWriteArrayList<Item>();
+    //支付
+    public float pay;
     //建筑
     Building collectionBuilding;
     //已收集
     boolean hasCollected;
     //收集点
     LinkedHashMap<Building, ItemStack> collectionPoints = new LinkedHashMap();
-    //支付
-    public float pay;
     //物品抓取计时
     transient long itemGrabTimer = 0L;
     //列
@@ -246,8 +246,10 @@ public abstract class Job {
             logUpdateError(e);
         }
     }
+
     /**
      * 检查 NPC 数据和实体是否有效
+     *
      * @return 如果有效返回 true，否则返回 false
      */
     private boolean isNpcValid() {
@@ -340,6 +342,7 @@ public abstract class Job {
 
     /**
      * 记录更新方法中的错误信息
+     *
      * @param e 捕获的异常
      */
     private void logUpdateError(Exception e) {
@@ -347,6 +350,7 @@ public abstract class Job {
         ModSimLoader.log.error("job-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         e.printStackTrace();
     }
+
     /**
      * 查找最近的箱子
      *
@@ -373,7 +377,7 @@ public abstract class Job {
                             int sy = (int) (Math.round(startXYZ.y) + (long) yo);
                             int sz = (int) (Math.round(startXYZ.z) + (long) zo);
                             te = world.getTileEntity(new BlockPos(sx, sy, sz));
-                            if (te != null && te instanceof IInventory && ((IInventory) te).getSizeInventory()>9 && !this.alreadyGotChest(ret, (IInventory) te)) {
+                            if (te != null && te instanceof IInventory && ((IInventory) te).getSizeInventory() > 9 && !this.alreadyGotChest(ret, (IInventory) te)) {
                                 ret.add((IInventory) te);
                             }
                         }
@@ -426,6 +430,7 @@ public abstract class Job {
         }
         return false;
     }
+
     /**
      * 比较两个 IInventory 对象是否相同
      *
@@ -441,6 +446,7 @@ public abstract class Job {
         }
         return false;
     }
+
     /**
      * 每秒
      */
@@ -536,8 +542,8 @@ public abstract class Job {
                 for (int itemNumber = 1; itemNumber <= item.getCount(); ++itemNumber) {
                     for (int chestSlot = 0; chestSlot < chest.getSizeInventory(); ++chestSlot) {
                         ItemStack is = chest.getStackInSlot(chestSlot);
-                        String fs_name=is.getDisplayName();//空气
-                        if (is == null || fs_name.contentEquals(new TextComponentTranslation("tile.blockSpecial.name",new Object[0]).getUnformattedText())) {
+                        String fs_name = is.getDisplayName();//空气
+                        if (is == null || fs_name.contentEquals(new TextComponentTranslation("tile.blockSpecial.name", new Object[0]).getUnformattedText())) {
                             is = item.copy();
                             is.setCount(1);
                             chest.setInventorySlotContents(chestSlot, is);
@@ -550,7 +556,7 @@ public abstract class Job {
                             placedOK = false;
                         } else if (is.getItem().getUnlocalizedName().contentEquals(item.getItem().getUnlocalizedName()) && is.getCount() < is.getMaxStackSize()) {
                             int isBefore = chest.getStackInSlot(chestSlot).getCount();
-                            is.setCount(is.getCount()+1);
+                            is.setCount(is.getCount() + 1);
 //                        is.setCount(is.getCount() + 1);
                             chest.setInventorySlotContents(chestSlot, is);
                             int isAfter = chest.getStackInSlot(chestSlot).getCount();
@@ -579,7 +585,8 @@ public abstract class Job {
     }
 
     /**
-     *将一些物品/任何物品从一组箱子中转移到npc的库存中
+     * 将一些物品/任何物品从一组箱子中转移到npc的库存中
+     *
      * @param fromChests 箱子在哪里得到它们
      * @return
      */
@@ -616,31 +623,92 @@ public abstract class Job {
     public int feedFolks() {
         int fedFolks = 0;
         try {
-            for (NpcData fd:ModSimLoader.folks){
-                if(fd.hunger<10){
-                    for (IInventory chest:this.inventoriesFindClosest(this.workPlace, 5)){
-                        for (int i = 0; i < chest.getSizeInventory(); ++i) {
-                            ItemStack is = chest.getStackInSlot(i);
-                            if (is != null) {
-                                Item item = is.getItem();
-                                if (item != null) {
-                                    if (item instanceof ItemFood) {
-                                        ItemFood itemFood = (ItemFood) item;
-                                        int healAmount = itemFood.getHealAmount(is);
-                                        ModSimLoader.log.info("食物：" + itemFood.getUnlocalizedName() + ",增加饱和度：" + healAmount);
-                                        ++fedFolks;
-                                        fd.hunger += healAmount/2;
-                                        ModSimLoader.log.info("当前npc【"+fd.getName()+"】饱和度：" + fd.hunger);
-                                        //fd.hunger ++;
-                                        chest.decrStackSize(i, 1);
-                                        break;
-                                    }
-                                }
-                            }
+
+            for (NpcData fd : ModSimLoader.folks) {
+
+                if (fd.hunger >= 10) {
+                    ModSimLoader.log.info("NPC {} 已吃饱，跳过", fd.getName());
+                    //已吃饱
+                    continue;
+                }
+
+                //在修 店铺喂养npc
+                //当前Npc 还要多少食物才能吃饱
+                int totalNeed  = 10 - (int) Math.ceil(fd.hunger);
+                // 核心限制：单次最多喂一半（向上取整，至少1点），确保喂不饱
+                int maxFeedThisTime = Math.max(1, (int) Math.ceil(totalNeed / 2.0));
+                int needFood = Math.min(totalNeed, maxFeedThisTime); // 本次实际可喂的上限
+
+                if (needFood <= 0) {
+
+                    continue;
+                }
+                // 遍历最近的箱子
+                for (IInventory chest : this.inventoriesFindClosest(this.workPlace, 5)) {
+
+                    for (int i = 0; i < chest.getSizeInventory() && needFood > 0; ++i) {
+
+                        ItemStack is = chest.getStackInSlot(i);
+                        if (is == null) {
+                            continue;
                         }
+                        String itemName = is.getItem().getUnlocalizedName(is);
+                        // 输出当前物品信息（调试用）
+                        ModSimLoader.log.debug("检查物品：{}，类：{}", is.getUnlocalizedName(), is.getItem().getClass().getName());
+// 判断是否为食物（包括蛋糕）
+                        if (is.getItem() instanceof ItemFood) {
+                            ItemFood itemFood = (ItemFood) is.getItem();
+                            int healAmount = itemFood.getHealAmount(is);
+                            // 防御性检查：避免无效食物（如饱食度为0）
+                            if (healAmount <= 0) {
+                                continue;
+                            }
+                            // 计算最大可喂数量（避免超过需求或堆叠上限）
+                            int maxCanFeed = Math.min(is.getMaxStackSize(), needFood / (healAmount / 2));
+                            if (maxCanFeed <= 0) {
+                                ModSimLoader.log.debug("当前食物 {} 数量不足，跳过", itemFood.getUnlocalizedName());
+                                continue;
+                            }
+                            //喂养 npc maxCanFeed 个食物
+                            fd.hunger += (healAmount / 2) * maxCanFeed;
+                            chest.decrStackSize(i, maxCanFeed);
+                            fedFolks++;
+                            needFood = 10 - (int) Math.ceil(fd.hunger); // 重新计算剩余需求
+                            ModSimLoader.log.info("喂食{}个{}给NPC{}，当前饥饿值：{}",
+                                    maxCanFeed, itemFood.getUnlocalizedName(), fd.getName(), fd.hunger);
+                        }// 2. 单独处理蛋糕（假设蛋糕物品类为ItemCake，根据实际类名修改）
+                        else if (itemName.contains("cake") || itemName.contains("block.cake")) { // 替换为你的蛋糕物品类名
+                            // 假设一块蛋糕提供4点饱食度（可根据需求调整）
+                            int cakeHeal = 4;
+                            // 蛋糕每次喂食消耗1个（如果是可堆叠的蛋糕）
+                            int maxCanFeed = Math.min(is.getCount(), needFood / cakeHeal);
+                            if (maxCanFeed <= 0) {
+                                maxCanFeed = 1; // 即使只剩1点需求，也消耗1个蛋糕
+                            }
+                            // 计算实际增加的饱食度（不超过需求）
+                            float actualAdd = Math.min(cakeHeal * maxCanFeed, needFood);
+                            fd.hunger += actualAdd;
+                            chest.decrStackSize(i, maxCanFeed);
+                            fedFolks++;
+                            needFood = 10 - (int) Math.ceil(fd.hunger);
+                            ModSimLoader.log.info("喂食{}个蛋糕给NPC{}，当前饥饿值：{}",
+                                    maxCanFeed, fd.getName(), fd.hunger);
+                        }
+
+
+
+
+                        //fd.hunger ++;
+
+
+                    }
+                    if (needFood <= 0) {
+                        ModSimLoader.log.info("NPC {} 已吃饱，停止当前箱子检查", fd.getName());
                         break;
                     }
+
                 }
+
             }
             return fedFolks;
         } catch (Exception e) {
@@ -779,7 +847,7 @@ public abstract class Job {
             int stackCount = 0;
             List<IInventory> chests = inventoriesFindClosest(this.workPlace, 5);
             if (chests == null | chests.size() == 0) {
-                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant13",new Object[0]).getUnformattedText());//商人：请在这里放一个箱子,然后在里面放64个物品。
+                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant13", new Object[0]).getUnformattedText());//商人：请在这里放一个箱子,然后在里面放64个物品。
                 return;
             }
             float total = 0.0F;
@@ -802,14 +870,14 @@ public abstract class Job {
             }
             if (total == 0.0F) {
                 //箱子里没有我想从你那里买的有效堆栈？
-                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant14",new Object[0]).getUnformattedText());
+                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant14", new Object[0]).getUnformattedText());
             } else {
                 SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                 Minecraft mc = Minecraft.getMinecraft();
                 for (EntityPlayer entityPlayer : mc.world.playerEntities) {
                     mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
                 }
-                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant15",new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(total));
+                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant15", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(total));
             }
 
 
@@ -887,7 +955,7 @@ public abstract class Job {
                 }
                 //threadPoolExecutor.shutdown();
             } else {
-                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant12",new Object[0]).getUnformattedText());
+                ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant12", new Object[0]).getUnformattedText());
                 return;
             }
         } catch (Exception e) {

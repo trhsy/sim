@@ -201,7 +201,7 @@ public class BlockConstructorBox extends Block {
 
                 // 计算距离平方（替代原有的 distanceSq 调用）
                 double distanceSq = npcWorkPos.distanceSq(blockPos3D);
-                if (distanceSq <= 0.25) { // 允许 0.5 格误差
+                if (distanceSq <= 1.25) { // 允许 0.5 格误差
                     // 更新缓存（临时实现）
 //                    NPC_POSITION_CACHE.put(blockPos, npc);
                     return npc;
@@ -215,7 +215,7 @@ public class BlockConstructorBox extends Block {
      */
     private boolean isBuilderNpc(NpcData npc) {
         String jobName = npc.job.jobName;
-        return jobName.contentEquals(VOCATION_BUILDER_1) || jobName.contentEquals(VOCATION_BUILDER_2);
+        return jobName.contentEquals(I18n.translateToLocal(VOCATION_BUILDER_1)) || jobName.contentEquals(I18n.translateToLocal(VOCATION_BUILDER_2));
     }
     /**
      * 发送打开 GUI 的网络包（确保在主线程执行）

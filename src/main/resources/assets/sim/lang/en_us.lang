@@ -1290,3 +1290,5 @@ block.sim.control_box.tooltip=Control box: Right-click to open the management in
 tooltip.sim.windmill.description=Windmills use wind power to crush ores.
 stat.sim.windmill.interact=Interacted with Windmill
 block.sim.constructor_box.tooltip=Used for building or planning land
+
+container.sim.folk_data_a_baby_day=Died due to dystocia caused by lack of medical facilities(Suggest building a hospital/clinic)

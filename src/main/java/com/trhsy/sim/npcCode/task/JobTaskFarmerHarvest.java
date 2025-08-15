@@ -342,21 +342,47 @@ public class JobTaskFarmerHarvest extends JobTask {
                         if (this.folk.entity.world.getBlockState(bp.up()).getBlock() == b) {
                             //收获
                             this.folk.setStatus(new TextComponentTranslation("container.sim.job.crop.farmer.Harvesting",new Object[0]).getUnformattedText());
+                            // 1. 定位当前列中最高的甘蔗方块
+                            BlockPos currentPos = bp.up(); // 初始位置（当前方块上方）
+                            BlockPos highestReedPos = currentPos; // 最高甘蔗位置，默认初始位置
+                            // 向上遍历，找到最高的甘蔗
+                            while (true) {
+                                BlockPos nextPos = highestReedPos.up(); // 检查上一格
+                                // 如果上一格还是甘蔗，更新最高位置
+                                if (this.folk.entity.world.getBlockState(nextPos).getBlock() instanceof BlockReed) {
+                                    highestReedPos = nextPos;
+                                } else {
+                                    break; // 上一格不是甘蔗，停止遍历
+                                }
+                            }
                             //获得方块
-                            Block bCrop = this.folk.entity.world.getBlockState(bp.up()).getBlock();
+                            Block bCrop = this.folk.entity.world.getBlockState(highestReedPos).getBlock();
+                            // 获取掉落物（甘蔗破坏后会自然掉落所有上方部分）
+                           drops = bCrop.getDrops(
+                                    this.folk.entity.world,
+                                    highestReedPos,
+                                    this.folk.entity.world.getBlockState(highestReedPos),
+                                    1
+                            );
+
+                            // 3. 处理掉落物（放入工作箱）
+                            drops.forEach((drop) -> {
+                                this.job.placeInJobChest(drop);
+                            });
+
                             //摧毁方块
-                            drops = bCrop.getDrops(this.folk.entity.world, bp.up(), this.folk.entity.world.getBlockState(bp.up()), 1);
+                           /* drops = bCrop.getDrops(this.folk.entity.world, bp.up(), this.folk.entity.world.getBlockState(bp.up()), 1);
 //                                bCrop.getDrops(drops, this.folk.entity.world, bp.north(), this.folk.entity.world.getBlockState(bp.north()), 0);
                             drops.forEach((drop) -> {
                                 //放到工作箱
                                 this.job.placeInJobChest(drop);
-                            });
+                            });*/
                             //设置手持物
                             this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             //摇摆手臂
                             this.folk.entity.swingArm(EnumHand.MAIN_HAND);
                             //设置为空
-                            this.folk.entity.world.destroyBlock(bp.up(), false);
+                            this.folk.entity.world.destroyBlock(highestReedPos, false);
                             //this.folk.entity.world.setBlockToAir(bp.up());
                             //增加农民等级
                             this.addFarmingLevel();
@@ -368,15 +394,42 @@ public class JobTaskFarmerHarvest extends JobTask {
                         if (this.folk.entity.world.getBlockState(bp.up()).getBlock() == b) {
                             //收获
                             this.folk.setStatus(new TextComponentTranslation("container.sim.job.crop.farmer.Harvesting",new Object[0]).getUnformattedText());
+                            // 1. 定位当前列中最高的仙人掌方块
+                            BlockPos currentPos = bp.up(); // 初始位置（当前方块上方）
+                            BlockPos highestReedPos = currentPos; // 最高仙人掌位置，默认初始位置
+                            // 向上遍历，找到最高的仙人掌
+                            while (true) {
+                                BlockPos nextPos = highestReedPos.up(); // 检查上一格
+                                // 如果上一格还是仙人掌，更新最高位置
+                                if (this.folk.entity.world.getBlockState(nextPos).getBlock() == b) {
+                                    highestReedPos = nextPos;
+                                } else {
+                                    break; // 上一格不是仙人掌，停止遍历
+                                }
+                            }
                             //获得方块
-                            Block bCrop = this.folk.entity.world.getBlockState(bp.up()).getBlock();
-                            //摧毁方块
-                            drops = bCrop.getDrops(this.folk.entity.world, bp.up(), this.folk.entity.world.getBlockState(bp.up()), 1);
-//                                bCrop.getDrops(drops, this.folk.entity.world, bp.north(), this.folk.entity.world.getBlockState(bp.north()), 0);
+                            Block bCrop = this.folk.entity.world.getBlockState(highestReedPos).getBlock();
+                            // 获取掉落物（仙人掌破坏后会自然掉落所有上方部分）
+                            drops = bCrop.getDrops(
+                                    this.folk.entity.world,
+                                    highestReedPos,
+                                    this.folk.entity.world.getBlockState(highestReedPos),
+                                    1
+                            );
+
+                            // 3. 处理掉落物（放入工作箱）
                             drops.forEach((drop) -> {
-                                //放到工作箱
                                 this.job.placeInJobChest(drop);
                             });
+                            //获得方块
+//                            Block bCrop = this.folk.entity.world.getBlockState(bp.up()).getBlock();
+//                            //摧毁方块
+//                            drops = bCrop.getDrops(this.folk.entity.world, bp.up(), this.folk.entity.world.getBlockState(bp.up()), 1);
+////                                bCrop.getDrops(drops, this.folk.entity.world, bp.north(), this.folk.entity.world.getBlockState(bp.north()), 0);
+//                            drops.forEach((drop) -> {
+//                                //放到工作箱
+//                                this.job.placeInJobChest(drop);
+//                            });
                             //设置手持物
                             this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             //摇摆手臂

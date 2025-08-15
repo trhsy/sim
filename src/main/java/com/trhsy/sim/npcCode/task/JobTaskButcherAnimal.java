@@ -63,6 +63,7 @@ public class JobTaskButcherAnimal extends JobTask {
         }
     }
     public void selectTarget() {
+        // 1. 确定目标牲畜类型（保持不变）
         if (this.farmJob.livestockName.equals(new TextComponentTranslation("container.sim.job_Livestock_pig",new Object[0]).getUnformattedText())) {
             this.livestockClass = EntityPig.class;
             //牛
@@ -78,9 +79,26 @@ public class JobTaskButcherAnimal extends JobTask {
         }else if (this.farmJob.livestockName.equals(new TextComponentTranslation("container.sim.job_Livestock_rabbit",new Object[0]).getUnformattedText())) {
             this.livestockClass = EntityRabbit.class;
         }
+        // 2. 获取围栏内的动物列表
         List<EntityAnimal> farmAnimals = this.getAnimalsInPen(this.farmJob.workPlace, this.livestockClass);
         List<EntityAnimal> grownAnimals = new ArrayList();
-        if (farmAnimals.size() >= 1) {
+        // 3. 筛选成年动物
+        for (EntityAnimal animal : farmAnimals) {
+            if (animal != null && !animal.isChild()) { // 增加非空判断
+                grownAnimals.add(animal);
+            }
+        }
+        // 4. 安全选择目标（核心修复）
+        if (!grownAnimals.isEmpty()) { // 只在有成年动物时执行
+            // 使用 grownAnimals 的大小作为随机范围，避免索引越界
+            int randomIndex = this.rand.nextInt(grownAnimals.size());
+            this.butcherTarget = grownAnimals.get(randomIndex);
+        } else {
+            // 没有成年动物时的处理（可选）
+            this.butcherTarget = null;
+            // 可添加日志：ModSimLoader.log.info("没有找到可屠宰的成年动物");
+        }
+        /*if (farmAnimals.size() >= 1) {
             for(int i = 0; i < farmAnimals.size(); ++i) {
                 if (!((EntityAnimal)farmAnimals.get(i)).isChild()) {
                     grownAnimals.add(farmAnimals.get(i));
@@ -88,7 +106,7 @@ public class JobTaskButcherAnimal extends JobTask {
             }
 
             this.butcherTarget = (Entity)grownAnimals.get(this.rand.nextInt(farmAnimals.size()-1));
-        }
+        }*/
     }
 
     /**

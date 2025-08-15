@@ -225,7 +225,11 @@ public class EventLoader {
      */
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {
-        World world=event.world;
+//        World world=event.world;
+ World world=Minecraft.getMinecraft().world;
+        if(world==null){
+            return;
+        }
 //            SimmodeStart.simModupdate(world);
         if(world.isRemote){
             // 客户端：执行客户端专属逻辑（渲染、动画、本地状态更新）
