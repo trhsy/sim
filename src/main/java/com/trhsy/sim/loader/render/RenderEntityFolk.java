@@ -40,6 +40,8 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
 
     public RenderEntityFolk(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelBiped(), 1.0F);
+        // 移除可能干扰的图层（如盔甲层）
+        this.layerRenderers.clear();
         LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
             @Override
             protected void initArmor() {
@@ -59,6 +61,7 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
 
 
             NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(entity.getUniqueID());
+
             if (cfi != null && StringUtils.isNotEmpty(cfi.skinPath)) {
                 if(cfi.isDead){
                     entity.onDeath(DamageSource.GENERIC);
@@ -146,10 +149,12 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                 double dist = (double) entityFolk.getDistance(Minecraft.getMinecraft().player);
                 NpcIdentity data = ModSimClientLoader.getFolkByUUID(entityFolk.getUniqueID());
                 if(data==null){
-                    entityFolk.setDead();
+                    ModSimLoader.log.debug("[渲染警告] NPC {} 数据未同步，暂时无法显示详情", entityFolk.getUniqueID());
+                    // 仅渲染基础模型，不显示文字信息
+//                    entityFolk.setDead();
                     return;
                 }
-                if (dist < 20.0D && data != null) {
+                if (dist < 20.0D) {
                     if (Integer.parseInt(data.age) < Integer.parseInt(data.maturityAge)) {
                         this.displayText(data.name + " (" + data.age + ")", 0.03F, -1, (float) x, (float) y + f3 + f6 - 0.4F, (float) z, entityFolk);
                         this.displayText(data.status, 0.02F, -256, (float) x, (float) y + f3 + f6 - 0.7F, (float) z, entityFolk);

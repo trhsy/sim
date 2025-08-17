@@ -457,12 +457,28 @@ public class SimmodeStart {
                                     ModSimLoader.log.info("天亮了");
                                     //播放 天亮了鸡叫
                                     SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
+//                                    for (EntityPlayer entityPlayer : world.playerEntities) {
+//                                        BlockPos pos=entityPlayer.getPosition();
+//                                        ModSimLoader.log.info("播放 天亮了鸡叫:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
+////                                        world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//                                        world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F,true);
+//                                    }
                                     for (EntityPlayer entityPlayer : world.playerEntities) {
-                                        BlockPos pos=entityPlayer.getPosition();
-                                        ModSimLoader.log.info("播放 天亮了鸡叫:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
-//                                        world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                                        world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
+                                        // 使用玩家的精确坐标（而非方块坐标）
+                                        double x = entityPlayer.posX;
+                                        double y = entityPlayer.posY;
+                                        double z = entityPlayer.posZ;
+                                        // 调整声音类别为BLOCKS（方块音效，更符合场景）
+                                        world.playSound(
+                                                x, y, z,
+                                                soundEvent,
+                                                SoundCategory.BLOCKS,  // 更适合短音效
+                                                1.0F,  // 音量（0.0-1.0）
+                                                1.0F,  // 音调（0.5-2.0）
+                                                true   // 距离衰减（true=随距离减小音量）
+                                        );
                                     }
+
 
                                     newDay = true;
                                     if (ModSimLoader.dayOfWeek >= 6) {
@@ -489,12 +505,25 @@ public class SimmodeStart {
                                         ModSimLoader.addMoney(rent);
                                         float rents = rent;
                                         //播放钱到账
-                                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                                        for (EntityPlayer entityPlayer : world.playerEntities) {
+                                        SoundEvent cashSound = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
+                                        /*for (EntityPlayer entityPlayer : world.playerEntities) {
                                             BlockPos pos=entityPlayer.getPosition();
                                             ModSimLoader.log.info("播放钱到账:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
 //                                            world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                                            world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
+                                            world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F,true);
+                                        }*/
+                                        for (EntityPlayer entityPlayer : world.playerEntities) {
+                                            double x = entityPlayer.posX;
+                                            double y = entityPlayer.posY;
+                                            double z = entityPlayer.posZ;
+                                            world.playSound(
+                                                    x, y, z,
+                                                    cashSound,
+                                                    SoundCategory.PLAYERS,  // 与玩家交互相关的音效
+                                                    1.0F,
+                                                    1.0F,
+                                                    true
+                                            );
                                         }
                                         //你今天收了 今天的租金。
                                         ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(rents) + new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());

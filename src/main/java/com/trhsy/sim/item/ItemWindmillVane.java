@@ -21,7 +21,7 @@ import java.util.List;
  * @author Trhsy
  * @Package: com.trhsy.sim.item
  * @ClassName: ItemWindmillVane
- * @Description:
+ * @Description: 风车叶片
  * @date 2023/11/08 下午 2:15
  */
 public class ItemWindmillVane extends ItemBase{
@@ -36,13 +36,22 @@ public class ItemWindmillVane extends ItemBase{
     @SideOnly(Side.CLIENT)
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         try {
-            for (int x = 0; x < 16; ++x) {
-                items.add(new ItemStack(this, 1, x));
+            // 只在当前标签页是自定义标签页时，才添加子物品
+            if (tab == CreativeTabsLoader.tabSimU) {
+                for (int x = 0; x < 16; ++x) {
+                    items.add(new ItemStack(this, 1, x));
+                }
             }
         } catch (Exception e) {
             StackTraceElement element=e.getStackTrace()[0];
             ModSimLoader.log.error("getSubItems出错了：" + e.getMessage()+"行数："+element.getLineNumber());
         }
+    }
+    // 核心修复：限制物品只属于自定义标签页
+    @Override
+    public CreativeTabs[] getCreativeTabs() {
+        // 只返回你的自定义标签页，避免出现在其他标签页
+        return new CreativeTabs[]{CreativeTabsLoader.tabSimU};
     }
     public String getTexture(String name) {
         return "sim:" + name;

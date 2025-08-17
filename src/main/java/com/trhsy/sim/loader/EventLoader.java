@@ -198,9 +198,9 @@ public class EventLoader {
     @SubscribeEvent
     public void worldSave(WorldEvent.Save event) {
         World world=event.getWorld();
-        if (!world.isRemote && world instanceof WorldServer) {
+//        if (!world.isRemote && world instanceof WorldServer) {
             SimmodeStart.simModSave(world);
-        }
+//        }
 
     }
 
@@ -212,10 +212,10 @@ public class EventLoader {
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
         World world=event.getWorld();
-        if (!world.isRemote && world instanceof WorldServer) {
+//        if (!world.isRemote && world instanceof WorldServer) {
             // 只在服务端运行
             SimmodeStart.simModLoad(world);
-        }
+//        }
     }
 
     /**
@@ -225,8 +225,8 @@ public class EventLoader {
      */
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {
-//        World world=event.world;
- World world=Minecraft.getMinecraft().world;
+        World world=event.world;
+// World world=Minecraft.getMinecraft().world;
         if(world==null){
             return;
         }

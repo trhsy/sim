@@ -2,7 +2,9 @@ package com.trhsy.sim;
 
 import com.trhsy.sim.config.SimConfigSync;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.proxy.CommonProxy;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -60,6 +62,12 @@ public class ModSim {
         ModSimLoader.log.error(methodName + " 出错了：" + e.getMessage() + " 行数：" + e.getStackTrace()[0].getLineNumber() + "\n" + stackTrace);
     }
     /**
+     * 创建带modid的资源位置
+     */
+    public static ResourceLocation getResourceLocation(String path) {
+        return new ResourceLocation(MODID, path);
+    }
+    /**
      * 所有Mod初始化之前调用,这时候应该加载配置文件，实例化物品和方块，并注册它们。
      *
      * @param event
@@ -67,7 +75,10 @@ public class ModSim {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         try {
+
             proxy.preInit(event);
+            // 调用声音注册类注册所有声音
+            SoundRegistry.registerSounds();
         } catch (Exception e) {
             logException("ModSim-preInit", e);
         }

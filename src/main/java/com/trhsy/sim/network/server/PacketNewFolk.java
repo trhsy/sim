@@ -4,6 +4,7 @@ import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.npcCode.NpcData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -53,8 +54,21 @@ public class PacketNewFolk implements IMessage {
         }
 
         private void handle(PacketNewFolk message, MessageContext ctx) {
-            Minecraft mc = Minecraft.getMinecraft();
-            World world = mc.world;
+            // 获取服务器玩家（触发雇佣操作的玩家）
+            EntityPlayerMP player = ctx.getServerHandler().player;
+            if (player == null) {
+                ModSimLoader.log.error("生成新的NPC失败：玩家对象为空");
+                return;
+            }
+
+            // 通过玩家获取其所在的世界（服务器端世界）
+            World world = player.world;
+            if (world == null) {
+                ModSimLoader.log.error("生成新的NPC失败：玩家所在世界为空");
+                return;
+            }
+//            Minecraft mc = Minecraft.getMinecraft();
+//            World world = mc.world;
             if(world.isRemote){
                 NpcData fd = new NpcData(world, message.fromCommand);
             }

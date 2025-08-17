@@ -36,7 +36,8 @@ import java.util.List;
  * @date 2023/11/08 上午 10:34
  */
 public class BlockMarker extends Block {
-    protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1, 0.625D);
+    //this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+    protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
     public BlockMarker() {
         super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
@@ -56,12 +57,12 @@ public class BlockMarker extends Block {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-        return new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.8125D, 0.6875D);
+        return new AxisAlignedBB(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
     }
 
     @Override
     public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-        return (new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D)).offset(pos);
+        return (new AxisAlignedBB(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F)).offset(pos);
     }
     /**
      * 用于在重建块以进行渲染时确定环境光遮挡和剔除

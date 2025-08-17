@@ -178,7 +178,9 @@ public class BlockLoader {
     }
     private static void registerBlock(RegistryEvent.Register<Block> event, Block block, String registryName) {
         try {
-            event.getRegistry().register(block.setRegistryName(ModSim.MODID + ":" + registryName));
+            Block registeredBlock = block.setRegistryName(ModSim.MODID + ":" + registryName);
+            registeredBlock.setCreativeTab((net.minecraft.creativetab.CreativeTabs) CreativeTabsLoader.tabSimU);
+            event.getRegistry().register(registeredBlock);
         } catch (Exception e) {
             LOGGER.error("注册方块失败 {}: {}", registryName, e.getMessage());
         }

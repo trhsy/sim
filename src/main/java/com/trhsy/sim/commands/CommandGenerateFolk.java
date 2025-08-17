@@ -47,8 +47,20 @@ public class CommandGenerateFolk implements ICommand {
         try {
             if (args.length == 0) {
                 ModSimLoader.log.info("获得重生NPC命令");
-                Minecraft mc = Minecraft.getMinecraft();
-                World world = mc.world;
+//                Minecraft mc = Minecraft.getMinecraft();
+//                World world = mc.world;
+                // 获取发送者所在世界
+                World world = sender.getEntityWorld();
+                if (world == null) {
+                    ModSimLoader.log.error("生成NPC失败：世界对象为空");
+                    return;
+                }
+// 获取发送者的位置（如玩家坐标）
+                BlockPos senderPos = sender.getPosition();
+                if (senderPos == null) {
+                    ModSimLoader.log.error("生成NPC失败：发送者位置为空");
+                    return;
+                }
                 this.theFolk = new NpcData(world, true);
                 //NetWorkLoader.net.sendToServer(new PacketNewFolk(true));
             }

@@ -12,6 +12,7 @@ import com.trhsy.sim.npcCode.job.JobMiner;
 import com.trhsy.sim.npcCode.job.JobTerrainFormer;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -83,9 +84,22 @@ public class PacketHireFolk implements IMessage {
         }
 
         private void handle(PacketHireFolk message, MessageContext ctx) {
+            // 获取服务器玩家（触发雇佣操作的玩家）
+            EntityPlayerMP player = ctx.getServerHandler().player;
+            if (player == null) {
+                ModSimLoader.log.error("雇佣失败：玩家对象为空");
+                return;
+            }
+
+            // 通过玩家获取其所在的世界（服务器端世界）
+            World world = player.world;
+            if (world == null) {
+                ModSimLoader.log.error("雇佣失败：玩家所在世界为空");
+                return;
+            }
             NpcData fd = ModSimLoader.getFolkDataByUID(message.uuid);
             V3 v3=new V3(message.pos.x+0.5,message.pos.y-1,message.pos.z+0.5);
-            World world= Minecraft.getMinecraft().world;
+//            World world= Minecraft.getMinecraft().world;
             if (fd.job != null) {
                 //被其他地方雇佣，尝试雇佣其他人
                 ctx.getServerHandler().player.sendMessage(new TextComponentString(fd.getName() + new TextComponentTranslation("container.sim.hire_elsewhere",new Object[0]).getUnformattedText()));

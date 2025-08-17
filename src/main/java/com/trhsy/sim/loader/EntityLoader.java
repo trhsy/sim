@@ -36,6 +36,7 @@ public class EntityLoader {
          * updateFrequency–跟踪更新的频率
          * sendsVelocityUpdates–是否也发送速度信息包
          */
+        
         EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":folk"), EntityNpc.class, "EntityFolk", nextID++, ModSim.instance, 64, 1, true);
         EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":ConBox"), EntityConBox.class, "ConBox", nextID++, ModSim.instance, 64, 3, false);
 //        DataFixer datafixer = new DataFixer(1343);
@@ -49,13 +50,18 @@ public class EntityLoader {
     @SideOnly(Side.CLIENT)
     public static void initModels() {
         try {
+            ModSimLoader.log.info("[渲染器注册] 开始注册 EntityNpc 渲染器...");
+            // 注册时获取注册结果（Forge的注册方法无返回值，需通过日志间接验证）
             RenderingRegistry.registerEntityRenderingHandler(EntityNpc.class, RenderEntityFolk.FACTORY);
+            ModSimLoader.log.info("[渲染器注册] EntityNpc 渲染器注册完成（使用 RenderEntityFolk）");
+//            RenderingRegistry.registerEntityRenderingHandler(EntityNpc.class, RenderEntityFolk.FACTORY);
             RenderingRegistry.registerEntityRenderingHandler(EntityConBox.class, RenderConBox.FACTORY);
 
 //            REGISTRY.putObject(new ResourceLocation("Windmill"), TileEntityWindmill.class);
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("registerRenders出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+//            ModSimLoader.log.error("registerRenders出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("[渲染器注册] 失败！错误：" + e.getMessage() + "，行数：" + e.getStackTrace()[0].getLineNumber());
         }
     }
 }

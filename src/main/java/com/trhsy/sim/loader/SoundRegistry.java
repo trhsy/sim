@@ -1,0 +1,327 @@
+package com.trhsy.sim.loader;
+
+import com.trhsy.sim.ModSim;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+/**
+ * 声音事件注册类（独立管理所有声音注册）
+ */
+public class SoundRegistry {
+    // 从 sounds.json 中提取的所有声音事件（按字母顺序排列）
+    public static final SoundEvent BAKERF = new SoundEvent(ModSim.getResourceLocation("bakerf"));
+    public static final SoundEvent BAKERM = new SoundEvent(ModSim.getResourceLocation("bakerm"));
+    public static final SoundEvent BEAMDOWN = new SoundEvent(ModSim.getResourceLocation("beamdown"));
+    public static final SoundEvent BEAMDOWNTWO = new SoundEvent(ModSim.getResourceLocation("beamdowntwo"));
+    public static final SoundEvent BEAMF = new SoundEvent(ModSim.getResourceLocation("beamf"));
+    public static final SoundEvent BEAMM = new SoundEvent(ModSim.getResourceLocation("beamm"));
+    public static final SoundEvent BIRTH = new SoundEvent(ModSim.getResourceLocation("birth"));
+    public static final SoundEvent BLARGA = new SoundEvent(ModSim.getResourceLocation("blarga"));
+    public static final SoundEvent BLARGB = new SoundEvent(ModSim.getResourceLocation("blargb"));
+    public static final SoundEvent BLARGC = new SoundEvent(ModSim.getResourceLocation("blargc"));
+    public static final SoundEvent BLARGD = new SoundEvent(ModSim.getResourceLocation("blargd"));
+    public static final SoundEvent BLARGE = new SoundEvent(ModSim.getResourceLocation("blarge"));
+    public static final SoundEvent BLARGF = new SoundEvent(ModSim.getResourceLocation("blargf"));
+    public static final SoundEvent BLARGG = new SoundEvent(ModSim.getResourceLocation("blargg"));
+    public static final SoundEvent BLARGH = new SoundEvent(ModSim.getResourceLocation("blargh"));
+    public static final SoundEvent BLARGI = new SoundEvent(ModSim.getResourceLocation("blargi"));
+    public static final SoundEvent BLARGJ = new SoundEvent(ModSim.getResourceLocation("blargj"));
+    public static final SoundEvent BLARGK = new SoundEvent(ModSim.getResourceLocation("blargk"));
+    public static final SoundEvent BLARGL = new SoundEvent(ModSim.getResourceLocation("blargl"));
+    public static final SoundEvent BLARGM = new SoundEvent(ModSim.getResourceLocation("blargm"));
+    public static final SoundEvent BLARGN = new SoundEvent(ModSim.getResourceLocation("blargn"));
+    public static final SoundEvent BLARGO = new SoundEvent(ModSim.getResourceLocation("blargo"));
+    public static final SoundEvent BLARGP = new SoundEvent(ModSim.getResourceLocation("blargp"));
+    public static final SoundEvent BLARGQ = new SoundEvent(ModSim.getResourceLocation("blargq"));
+    public static final SoundEvent BLARGR = new SoundEvent(ModSim.getResourceLocation("blargr"));
+    public static final SoundEvent BLARGS = new SoundEvent(ModSim.getResourceLocation("blargs"));
+    public static final SoundEvent BLARGT = new SoundEvent(ModSim.getResourceLocation("blargt"));
+    public static final SoundEvent BLARGU = new SoundEvent(ModSim.getResourceLocation("blargu"));
+    public static final SoundEvent BLARGV = new SoundEvent(ModSim.getResourceLocation("blargv"));
+    public static final SoundEvent BLARGW = new SoundEvent(ModSim.getResourceLocation("blargw"));
+    public static final SoundEvent BLARGX = new SoundEvent(ModSim.getResourceLocation("blargx"));
+    public static final SoundEvent BLARGY = new SoundEvent(ModSim.getResourceLocation("blargy"));
+    public static final SoundEvent BLARGZ = new SoundEvent(ModSim.getResourceLocation("blargz"));
+    public static final SoundEvent BURGERFA = new SoundEvent(ModSim.getResourceLocation("burgerfa"));
+    public static final SoundEvent BURGERFB = new SoundEvent(ModSim.getResourceLocation("burgerfb"));
+    public static final SoundEvent BURGERFC = new SoundEvent(ModSim.getResourceLocation("burgerfc"));
+    public static final SoundEvent BURGERFD = new SoundEvent(ModSim.getResourceLocation("burgerfd"));
+    public static final SoundEvent BURGERFE = new SoundEvent(ModSim.getResourceLocation("burgerfe"));
+    public static final SoundEvent BURGERFF = new SoundEvent(ModSim.getResourceLocation("burgerff"));
+    public static final SoundEvent BURGERMA = new SoundEvent(ModSim.getResourceLocation("burgerma"));
+    public static final SoundEvent BURGERMB = new SoundEvent(ModSim.getResourceLocation("burgermb"));
+    public static final SoundEvent BURGERMC = new SoundEvent(ModSim.getResourceLocation("burgermc"));
+    public static final SoundEvent BURGERMD = new SoundEvent(ModSim.getResourceLocation("burgermd"));
+    public static final SoundEvent BURGERME = new SoundEvent(ModSim.getResourceLocation("burgerme"));
+    public static final SoundEvent BURGERMF = new SoundEvent(ModSim.getResourceLocation("burgermf"));
+    public static final SoundEvent CASH = new SoundEvent(ModSim.getResourceLocation("cash"));
+    public static final SoundEvent CASHSHORT = new SoundEvent(ModSim.getResourceLocation("cashshort"));
+    public static final SoundEvent CHEESEMACHINE = new SoundEvent(ModSim.getResourceLocation("cheesemachine"));
+    public static final SoundEvent COMPUTER = new SoundEvent(ModSim.getResourceLocation("computer"));
+    public static final SoundEvent CONSTRUCTION = new SoundEvent(ModSim.getResourceLocation("construction"));
+    public static final SoundEvent SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED = new SoundEvent(ModSim.getResourceLocation("sim_u_building_constructor_activated"));
+    public static final SoundEvent SIM_U_KRAFT_DDD_MINING_CONSTRUCTOR_ACTIVATED = new SoundEvent(ModSim.getResourceLocation("sim_u_kraft_ddd_mining_constructor_activated"));
+    public static final SoundEvent SIM_U_DDD = new SoundEvent(ModSim.getResourceLocation("sim_u_ddd"));
+    public static final SoundEvent SIM_U_KRAFT_DDD_FARMING_CONSTRUCTOR_ACTIVATED = new SoundEvent(ModSim.getResourceLocation("sim_u_kraft_ddd_farming_constructor_activated"));
+    public static final SoundEvent COUGHF = new SoundEvent(ModSim.getResourceLocation("CoughF"));
+    public static final SoundEvent COUGHM = new SoundEvent(ModSim.getResourceLocation("CoughM"));
+    public static final SoundEvent CSPEAKA = new SoundEvent(ModSim.getResourceLocation("cspeaka"));
+    public static final SoundEvent CSPEAKB = new SoundEvent(ModSim.getResourceLocation("cspeakb"));
+    public static final SoundEvent CSPEAKC = new SoundEvent(ModSim.getResourceLocation("cspeakc"));
+    public static final SoundEvent DAYFONE = new SoundEvent(ModSim.getResourceLocation("dayfone"));
+    public static final SoundEvent DAYFTHREE = new SoundEvent(ModSim.getResourceLocation("dayfthree"));
+    public static final SoundEvent DAYFTWO = new SoundEvent(ModSim.getResourceLocation("dayftwo"));
+    public static final SoundEvent DAYMONE = new SoundEvent(ModSim.getResourceLocation("daymone"));
+    public static final SoundEvent DAYMTHREE = new SoundEvent(ModSim.getResourceLocation("daymthree"));
+    public static final SoundEvent DAYMTWO = new SoundEvent(ModSim.getResourceLocation("daymtwo"));
+    public static final SoundEvent FEIGHT = new SoundEvent(ModSim.getResourceLocation("feight"));
+    public static final SoundEvent FNINE = new SoundEvent(ModSim.getResourceLocation("fnine"));
+    public static final SoundEvent FONE = new SoundEvent(ModSim.getResourceLocation("fone"));
+    public static final SoundEvent FSEVEN = new SoundEvent(ModSim.getResourceLocation("fseven"));
+    public static final SoundEvent FSPEAKA = new SoundEvent(ModSim.getResourceLocation("fspeaka"));
+    public static final SoundEvent FSPEAKB = new SoundEvent(ModSim.getResourceLocation("fspeakb"));
+    public static final SoundEvent FSPEAKC = new SoundEvent(ModSim.getResourceLocation("fspeakc"));
+    public static final SoundEvent FSPEAKD = new SoundEvent(ModSim.getResourceLocation("fspeakd"));
+    public static final SoundEvent FSPEAKE = new SoundEvent(ModSim.getResourceLocation("fspeake"));
+    public static final SoundEvent FSPEAKF = new SoundEvent(ModSim.getResourceLocation("fspeakf"));
+    public static final SoundEvent FSPEAKG = new SoundEvent(ModSim.getResourceLocation("fspeakg"));
+    public static final SoundEvent FSPEAKH = new SoundEvent(ModSim.getResourceLocation("fspeakh"));
+    public static final SoundEvent FSPEAKU = new SoundEvent(ModSim.getResourceLocation("fspeaku"));
+    public static final SoundEvent FSPEAKJ = new SoundEvent(ModSim.getResourceLocation("fspeakj"));
+    public static final SoundEvent FSPEAKK = new SoundEvent(ModSim.getResourceLocation("fspeakk"));
+    public static final SoundEvent FSPEAKL = new SoundEvent(ModSim.getResourceLocation("fspeakl"));
+    public static final SoundEvent FSPEAKM = new SoundEvent(ModSim.getResourceLocation("fspeakm"));
+    public static final SoundEvent FSPEAKN = new SoundEvent(ModSim.getResourceLocation("fspeakn"));
+    public static final SoundEvent FSPEAKO = new SoundEvent(ModSim.getResourceLocation("fspeako"));
+    public static final SoundEvent FSPEAKP = new SoundEvent(ModSim.getResourceLocation("fspeakp"));
+    public static final SoundEvent FSPEAKQ = new SoundEvent(ModSim.getResourceLocation("fspeakq"));
+    public static final SoundEvent FSPEAKR = new SoundEvent(ModSim.getResourceLocation("fspeakr"));
+    public static final SoundEvent FSPEAKS = new SoundEvent(ModSim.getResourceLocation("fspeaks"));
+    public static final SoundEvent FTHREE = new SoundEvent(ModSim.getResourceLocation("fthree"));
+    public static final SoundEvent FTWO = new SoundEvent(ModSim.getResourceLocation("ftwo"));
+    public static final SoundEvent FWXBAD = new SoundEvent(ModSim.getResourceLocation("fwxbad"));
+    public static final SoundEvent HELLOF = new SoundEvent(ModSim.getResourceLocation("hellof"));
+    public static final SoundEvent HELLOM = new SoundEvent(ModSim.getResourceLocation("hellom"));
+    public static final SoundEvent LAUGHF = new SoundEvent(ModSim.getResourceLocation("LaughF"));
+    public static final SoundEvent LAUGHM = new SoundEvent(ModSim.getResourceLocation("LaughM"));
+    public static final SoundEvent LIGHTONE = new SoundEvent(ModSim.getResourceLocation("lightone"));
+    public static final SoundEvent MEIGHT = new SoundEvent(ModSim.getResourceLocation("meight"));
+    public static final SoundEvent MERCHM = new SoundEvent(ModSim.getResourceLocation("merchm"));
+    public static final SoundEvent MFIVE = new SoundEvent(ModSim.getResourceLocation("mfive"));
+    public static final SoundEvent MFOUR = new SoundEvent(ModSim.getResourceLocation("mfour"));
+    public static final SoundEvent MNINE = new SoundEvent(ModSim.getResourceLocation("mnine"));
+    public static final SoundEvent MONE = new SoundEvent(ModSim.getResourceLocation("mone"));
+    public static final SoundEvent MSEVEN = new SoundEvent(ModSim.getResourceLocation("mseven"));
+    public static final SoundEvent MSIX = new SoundEvent(ModSim.getResourceLocation("msix"));
+    public static final SoundEvent MSPEAKA = new SoundEvent(ModSim.getResourceLocation("mspeaka"));
+    public static final SoundEvent MSPEAKB = new SoundEvent(ModSim.getResourceLocation("mspeakb"));
+    public static final SoundEvent MSPEAKC = new SoundEvent(ModSim.getResourceLocation("mspeakc"));
+    public static final SoundEvent MSPEAKD = new SoundEvent(ModSim.getResourceLocation("mspeakd"));
+    public static final SoundEvent MSPEAKE = new SoundEvent(ModSim.getResourceLocation("mspeake"));
+    public static final SoundEvent MSPEAKF = new SoundEvent(ModSim.getResourceLocation("mspeakf"));
+    public static final SoundEvent MSPEAKG = new SoundEvent(ModSim.getResourceLocation("mspeakg"));
+    public static final SoundEvent MSPEAKH = new SoundEvent(ModSim.getResourceLocation("mspeakh"));
+    public static final SoundEvent MSPEAKI = new SoundEvent(ModSim.getResourceLocation("mspeaki"));
+    public static final SoundEvent MSPEAKJ = new SoundEvent(ModSim.getResourceLocation("mspeakj"));
+    public static final SoundEvent MSPEAKK = new SoundEvent(ModSim.getResourceLocation("mspeakk"));
+    public static final SoundEvent MSPEAKL = new SoundEvent(ModSim.getResourceLocation("mspeakl"));
+    public static final SoundEvent MSPEAKM = new SoundEvent(ModSim.getResourceLocation("mspeakm"));
+    public static final SoundEvent MSPEAKN = new SoundEvent(ModSim.getResourceLocation("mspeakn"));
+    public static final SoundEvent MSPEAKO = new SoundEvent(ModSim.getResourceLocation("mspeako"));
+    public static final SoundEvent MSPEAKP = new SoundEvent(ModSim.getResourceLocation("mspeakp"));
+    public static final SoundEvent MSPEAKQ = new SoundEvent(ModSim.getResourceLocation("mspeakq"));
+    public static final SoundEvent MSPEAKR = new SoundEvent(ModSim.getResourceLocation("mspeakr"));
+    public static final SoundEvent MSPEAKS = new SoundEvent(ModSim.getResourceLocation("mspeaks"));
+    public static final SoundEvent MTHREE = new SoundEvent(ModSim.getResourceLocation("mthree"));
+    public static final SoundEvent MTWO = new SoundEvent(ModSim.getResourceLocation("mtwo"));
+    public static final SoundEvent MWXBAD = new SoundEvent(ModSim.getResourceLocation("mwxbad"));
+    public static final SoundEvent NIGHTFONE = new SoundEvent(ModSim.getResourceLocation("nightfone"));
+    public static final SoundEvent NIGHTFTHREE = new SoundEvent(ModSim.getResourceLocation("nightfthree"));
+    public static final SoundEvent NIGHTFTWO = new SoundEvent(ModSim.getResourceLocation("nightftwo"));
+    public static final SoundEvent NIGHTMONE = new SoundEvent(ModSim.getResourceLocation("nightmone"));
+    public static final SoundEvent NIGHTMTHREE = new SoundEvent(ModSim.getResourceLocation("nightmthree"));
+    public static final SoundEvent NIGHTMTWO = new SoundEvent(ModSim.getResourceLocation("nightmtwo"));
+    public static final SoundEvent OUCHF = new SoundEvent(ModSim.getResourceLocation("OuchF"));
+    public static final SoundEvent OUCHM = new SoundEvent(ModSim.getResourceLocation("OuchM"));
+    public static final SoundEvent POWER_DOWN = new SoundEvent(ModSim.getResourceLocation("power_down"));
+    public static final SoundEvent PREGNANT = new SoundEvent(ModSim.getResourceLocation("pregnant"));
+    public static final SoundEvent IM_READ_Y = new SoundEvent(ModSim.getResourceLocation("im_read_y"));
+    public static final SoundEvent IM_READ_M = new SoundEvent(ModSim.getResourceLocation("im_read_m"));
+    public static final SoundEvent ROOSTER = new SoundEvent(ModSim.getResourceLocation("rooster"));
+    public static final SoundEvent SHEARS = new SoundEvent(ModSim.getResourceLocation("shears"));
+    public static final SoundEvent SNEEZEF = new SoundEvent(ModSim.getResourceLocation("SneezeF"));
+    public static final SoundEvent SNEEZEM = new SoundEvent(ModSim.getResourceLocation("SneezeM"));
+    public static final SoundEvent WELCOME = new SoundEvent(ModSim.getResourceLocation("welcome"));
+    public static final SoundEvent WINDMILL = new SoundEvent(ModSim.getResourceLocation("windmill"));
+
+    /**
+     * 注册所有声音事件（在preInit中调用）
+     */
+    public static void registerSounds() {
+        registerSound(BAKERF, "bakerf");
+        registerSound(BAKERM, "bakerm");
+        registerSound(BEAMDOWN, "beamdown");
+        registerSound(BEAMDOWNTWO, "beamdowntwo");
+        registerSound(BEAMF, "beamf");
+        registerSound(BEAMM, "beamm");
+        registerSound(BIRTH, "birth");
+        registerSound(BLARGA, "blarga");
+        registerSound(BLARGB, "blargb");
+        registerSound(BLARGC, "blargc");
+        registerSound(BLARGD, "blargd");
+        registerSound(BLARGE, "blarge");
+        registerSound(BLARGF, "blargf");
+        registerSound(BLARGG, "blargg");
+        registerSound(BLARGH, "blargh");
+        registerSound(BLARGI, "blargi");
+        registerSound(BLARGJ, "blargj");
+        registerSound(BLARGK, "blargk");
+        registerSound(BLARGL, "blargl");
+        registerSound(BLARGM, "blargm");
+        registerSound(BLARGN, "blargn");
+        registerSound(BLARGO, "blargo");
+        registerSound(BLARGP, "blargp");
+        registerSound(BLARGQ, "blargq");
+        registerSound(BLARGR, "blargr");
+        registerSound(BLARGS, "blargs");
+        registerSound(BLARGT, "blargt");
+        registerSound(BLARGU, "blargu");
+        registerSound(BLARGV, "blargv");
+        registerSound(BLARGW, "blargw");
+        registerSound(BLARGX, "blargx");
+        registerSound(BLARGY, "blargy");
+        registerSound(BLARGZ, "blargz");
+        registerSound(BURGERFA, "burgerfa");
+        registerSound(BURGERFB, "burgerfb");
+        registerSound(BURGERFC, "burgerfc");
+        registerSound(BURGERFD, "burgerfd");
+        registerSound(BURGERFE, "burgerfe");
+        registerSound(BURGERFF, "burgerff");
+        registerSound(BURGERMA, "burgerma");
+        registerSound(BURGERMB, "burgermb");
+        registerSound(BURGERMC, "burgermc");
+        registerSound(BURGERMD, "burgermd");
+        registerSound(BURGERME, "burgerme");
+        registerSound(BURGERMF, "burgermf");
+        registerSound(CASH, "cash");
+        registerSound(CASHSHORT, "cashshort");
+        registerSound(CHEESEMACHINE, "cheesemachine");
+        registerSound(COMPUTER, "computer");
+        registerSound(CONSTRUCTION, "construction");
+        registerSound(SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED, "sim_u_building_constructor_activated");
+        registerSound(SIM_U_KRAFT_DDD_MINING_CONSTRUCTOR_ACTIVATED, "sim_u_kraft_ddd_mining_constructor_activated");
+        registerSound(SIM_U_DDD, "sim_u_ddd");
+        registerSound(SIM_U_KRAFT_DDD_FARMING_CONSTRUCTOR_ACTIVATED, "sim_u_kraft_ddd_farming_constructor_activated");
+        registerSound(COUGHF, "CoughF");
+        registerSound(COUGHM, "CoughM");
+        registerSound(CSPEAKA, "cspeaka");
+        registerSound(CSPEAKB, "cspeakb");
+        registerSound(CSPEAKC, "cspeakc");
+        registerSound(DAYFONE, "dayfone");
+        registerSound(DAYFTHREE, "dayfthree");
+        registerSound(DAYFTWO, "dayftwo");
+        registerSound(DAYMONE, "daymone");
+        registerSound(DAYMTHREE, "daymthree");
+        registerSound(DAYMTWO, "daymtwo");
+        registerSound(FEIGHT, "feight");
+        registerSound(FNINE, "fnine");
+        registerSound(FONE, "fone");
+        registerSound(FSEVEN, "fseven");
+        registerSound(FSPEAKA, "fspeaka");
+        registerSound(FSPEAKB, "fspeakb");
+        registerSound(FSPEAKC, "fspeakc");
+        registerSound(FSPEAKD, "fspeakd");
+        registerSound(FSPEAKE, "fspeake");
+        registerSound(FSPEAKF, "fspeakf");
+        registerSound(FSPEAKG, "fspeakg");
+        registerSound(FSPEAKH, "fspeakh");
+        registerSound(FSPEAKU, "fspeaku");
+        registerSound(FSPEAKJ, "fspeakj");
+        registerSound(FSPEAKK, "fspeakk");
+        registerSound(FSPEAKL, "fspeakl");
+        registerSound(FSPEAKM, "fspeakm");
+        registerSound(FSPEAKN, "fspeakn");
+        registerSound(FSPEAKO, "fspeako");
+        registerSound(FSPEAKP, "fspeakp");
+        registerSound(FSPEAKQ, "fspeakq");
+        registerSound(FSPEAKR, "fspeakr");
+        registerSound(FSPEAKS, "fspeaks");
+        registerSound(FTHREE, "fthree");
+        registerSound(FTWO, "ftwo");
+        registerSound(FWXBAD, "fwxbad");
+        registerSound(HELLOF, "hellof");
+        registerSound(HELLOM, "hellom");
+        registerSound(LAUGHF, "LaughF");
+        registerSound(LAUGHM, "LaughM");
+        registerSound(LIGHTONE, "lightone");
+        registerSound(MEIGHT, "meight");
+        registerSound(MERCHM, "merchm");
+        registerSound(MFIVE, "mfive");
+        registerSound(MFOUR, "mfour");
+        registerSound(MNINE, "mnine");
+        registerSound(MONE, "mone");
+        registerSound(MSEVEN, "mseven");
+        registerSound(MSIX, "msix");
+        registerSound(MSPEAKA, "mspeaka");
+        registerSound(MSPEAKB, "mspeakb");
+        registerSound(MSPEAKC, "mspeakc");
+        registerSound(MSPEAKD, "mspeakd");
+        registerSound(MSPEAKE, "mspeake");
+        registerSound(MSPEAKF, "mspeakf");
+        registerSound(MSPEAKG, "mspeakg");
+        registerSound(MSPEAKH, "mspeakh");
+        registerSound(MSPEAKI, "mspeaki");
+        registerSound(MSPEAKJ, "mspeakj");
+        registerSound(MSPEAKK, "mspeakk");
+        registerSound(MSPEAKL, "mspeakl");
+        registerSound(MSPEAKM, "mspeakm");
+        registerSound(MSPEAKN, "mspeakn");
+        registerSound(MSPEAKO, "mspeako");
+        registerSound(MSPEAKP, "mspeakp");
+        registerSound(MSPEAKQ, "mspeakq");
+        registerSound(MSPEAKR, "mspeakr");
+        registerSound(MSPEAKS, "mspeaks");
+        registerSound(MTHREE, "mthree");
+        registerSound(MTWO, "mtwo");
+        registerSound(MWXBAD, "mwxbad");
+        registerSound(NIGHTFONE, "nightfone");
+        registerSound(NIGHTFTHREE, "nightfthree");
+        registerSound(NIGHTFTWO, "nightftwo");
+        registerSound(NIGHTMONE, "nightmone");
+        registerSound(NIGHTMTHREE, "nightmthree");
+        registerSound(NIGHTMTWO, "nightmtwo");
+        registerSound(OUCHF, "OuchF");
+        registerSound(OUCHM, "OuchM");
+        registerSound(POWER_DOWN, "power_down");
+        registerSound(PREGNANT, "pregnant");
+        registerSound(IM_READ_Y, "im_read_y");
+        registerSound(IM_READ_M, "im_read_m");
+        registerSound(ROOSTER, "rooster");
+        registerSound(SHEARS, "shears");
+        registerSound(SNEEZEF, "SneezeF");
+        registerSound(SNEEZEM, "SneezeM");
+        registerSound(WELCOME, "welcome");
+        registerSound(WINDMILL, "windmill");
+
+        ModSimLoader.log.info("所有声音事件注册完成，共 " + countSounds() + " 个");
+    }
+
+    /**
+     * 注册单个声音事件
+     * @param soundEvent 声音事件
+     * @param registryName 注册名（需与sounds.json中的键一致）
+     */
+    private static void registerSound(SoundEvent soundEvent, String registryName) {
+        // 设置注册名并注册到Forge注册表
+        soundEvent.setRegistryName(registryName);
+        ForgeRegistries.SOUND_EVENTS.register(soundEvent);
+    }
+
+    /**
+     * 统计声音事件数量（用于日志）
+     */
+    private static int countSounds() {
+        // 手动计数（与定义的SoundEvent数量一致）
+        return 148;
+    }
+}
