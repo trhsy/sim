@@ -1,21 +1,18 @@
 package com.trhsy.sim.gui.npc;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.gui.ATMscreen;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.network.client.PacketOpenFlowerGui;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.util.PricesForBlocks;
 import com.trhsy.sim.util.items.CommodityFlower;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -357,11 +354,11 @@ public class GuiFlower extends GuiScreen {
                 } else {
                     if (guibutton.id >= 100 && guibutton.id < 200) {
                         ItemStack is = this.mc.player.inventory.getStackInSlot(guibutton.id - 100);
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-                        Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                            mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                        }
+                        SoundEvent cashshort = SoundRegistry.CASHSHORT;
+                        if (cashshort == null || cashshort.getRegistryName() == null) {
+                            ModSimLoader.log.error("播放失败：sim:cashshort 声音事件未注册");
+                        } else {
+                            this.mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cashshort, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
                         String money = guibutton.displayString.substring(guibutton.displayString.indexOf(new TextComponentTranslation("container.sim.trhsy", new Object[0]).getUnformattedText()) + 1);
                         float soldFor = Float.parseFloat(money);
                         ModSimLoader.money += soldFor;
@@ -373,11 +370,11 @@ public class GuiFlower extends GuiScreen {
                         this.mc.player.inventory.setInventorySlotContents(guibutton.id - 100, is);
                         this.initGui();
                     } else if (guibutton.id >= 500 && guibutton.id < 600) {
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cashshort"));
-                        Minecraft mc = Minecraft.getMinecraft();
-                        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                            mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                        }
+                        SoundEvent cashshort = SoundRegistry.CASHSHORT;
+                        if (cashshort == null || cashshort.getRegistryName() == null) {
+                            ModSimLoader.log.error("播放失败：sim:cashshort 声音事件未注册");
+                        } else {
+                            this.mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cashshort, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
                         String number = guibutton.displayString.substring(guibutton.displayString.indexOf(new TextComponentTranslation("container.sim.trhsy", new Object[0]).getUnformattedText()) + 1);
                         float soldFor = Float.parseFloat(number);
                         ModSimLoader.money += soldFor;
@@ -468,11 +465,11 @@ public class GuiFlower extends GuiScreen {
                             //购买的商品价值
                             String sim_gui_ATMs_worth = new TextComponentTranslation("container.sim.sim_gui_ATMs_worth", new Object[0]).getUnformattedText();
                             ModSimLoader.sendChat(sim_gui_ATMs_worth + ModSimLoader.displayMoney(cost));
-                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                            Minecraft mc = Minecraft.getMinecraft();
-                            for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                            }
+                            SoundEvent cash = SoundRegistry.CASH;
+                            if (cash == null || cash.getRegistryName() == null) {
+                                ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
+                            } else {
+                                mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                         }

@@ -1,11 +1,11 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.enums.EnumBlock;
 import com.trhsy.sim.block.enums.EnumControlBox;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.network.client.PacketOpenControlGui;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
@@ -155,8 +155,12 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 computer 控制箱激活
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
-        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        SoundEvent sim_u_ddd = SoundRegistry.SIM_U_DDD;
+        if (sim_u_ddd == null || sim_u_ddd.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:sim_u_ddd 声音事件未注册");
+        } else {
+            worldIn.playSound(playerIn, pos, sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
         //客户端
        /* if (!worldIn.isRemote) {
             //获取控制箱位置
@@ -242,14 +246,13 @@ public class BlockControlBox extends EnumBlock<EnumControlBox> {
      * 播放控制箱激活声音（确保声音已注册）
      */
     private void playActivateSound(World world, BlockPos pos) {
-        // 检查声音是否已注册（避免空指针）
-        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "sim_u_ddd"); // 对应 sounds.json 中的键
-        SoundEvent activateSound = SoundEvent.REGISTRY.getObject(soundLoc); // 从注册表获取
-        if (activateSound != null) {
-            world.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        SoundEvent sim_u_ddd = SoundRegistry.SIM_U_DDD;
+        if (sim_u_ddd == null || sim_u_ddd.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:power_down 声音事件未注册");
         } else {
-            ModSimLoader.log.warn("sim_u_ddd声音未注册: {}", soundLoc); // 日志提示未注册
+            world.playSound(null, pos, sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
+
     }
     /**
      * 获取建筑的关联 NPC（带空值保护）

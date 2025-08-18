@@ -8,6 +8,7 @@ import com.trhsy.sim.entity.container.InventoryNpc;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.network.client.*;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.NpcIdentity;
@@ -396,15 +397,27 @@ public class EntityNpc extends EntityCreature implements INpc {
                     }
                     //互动的时候说哈喽
                     if (this.theData.age < 18) {
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
-                        player.world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+//                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":helloc"));
+                        SoundEvent helloc = SoundRegistry.HELLOC;
+                        if (helloc == null || helloc.getRegistryName() == null) {
+                            ModSimLoader.log.error("播放失败：sim:windmill 声音事件未注册");
+                        } else {
+                        player.world.playSound(null, player.posX, player.posY, player.posZ, helloc, SoundCategory.PLAYERS, 1.0F, 1.0F);}
                     } else if (this.theData.gender == 0) {
                         //女声
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
-                        player.world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+//                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
+                        SoundEvent hellom = SoundRegistry.HELLOF;
+                        if (hellom == null || hellom.getRegistryName() == null) {
+                            ModSimLoader.log.error("播放失败：sim:hellom 声音事件未注册");
+                        } else {
+                        player.world.playSound(null, player.posX, player.posY, player.posZ, hellom, SoundCategory.PLAYERS, 1.0F, 1.0F);}
                     } else {
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
-                        player.world.playSound(null, player.posX, player.posY, player.posZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+//                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
+                        SoundEvent hellof = SoundRegistry.HELLOM;
+                            if (hellof == null || hellof.getRegistryName() == null) {
+                                ModSimLoader.log.error("播放失败：sim:hellof 声音事件未注册");
+                            } else {
+                        player.world.playSound(null, player.posX, player.posY, player.posZ, hellof, SoundCategory.PLAYERS, 1.0F, 1.0F);}
                     }
                 } else {
                     return false;

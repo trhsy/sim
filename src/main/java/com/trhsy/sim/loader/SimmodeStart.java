@@ -1,6 +1,5 @@
 package com.trhsy.sim.loader;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.network.client.PacketUpdateNPC;
@@ -14,10 +13,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -456,13 +453,17 @@ public class SimmodeStart {
                                 if (!newDay) {
                                     ModSimLoader.log.info("天亮了");
                                     //播放 天亮了鸡叫
-                                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
+//                                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
 //                                    for (EntityPlayer entityPlayer : world.playerEntities) {
 //                                        BlockPos pos=entityPlayer.getPosition();
 //                                        ModSimLoader.log.info("播放 天亮了鸡叫:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
 ////                                        world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
 //                                        world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F,true);
 //                                    }
+                                    SoundEvent rooster = SoundRegistry.ROOSTER;
+                                    if (rooster == null || rooster.getRegistryName() == null) {
+                                        ModSimLoader.log.error("播放失败：sim:rooster 声音事件未注册");
+                                    } else {
                                     for (EntityPlayer entityPlayer : world.playerEntities) {
                                         // 使用玩家的精确坐标（而非方块坐标）
                                         double x = entityPlayer.posX;
@@ -471,13 +472,13 @@ public class SimmodeStart {
                                         // 调整声音类别为BLOCKS（方块音效，更符合场景）
                                         world.playSound(
                                                 x, y, z,
-                                                soundEvent,
+                                                rooster,
                                                 SoundCategory.BLOCKS,  // 更适合短音效
                                                 1.0F,  // 音量（0.0-1.0）
                                                 1.0F,  // 音调（0.5-2.0）
                                                 true   // 距离衰减（true=随距离减小音量）
                                         );
-                                    }
+                                    }}
 
 
                                     newDay = true;
@@ -505,26 +506,30 @@ public class SimmodeStart {
                                         ModSimLoader.addMoney(rent);
                                         float rents = rent;
                                         //播放钱到账
-                                        SoundEvent cashSound = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
+//                                        SoundEvent cashSound = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
                                         /*for (EntityPlayer entityPlayer : world.playerEntities) {
                                             BlockPos pos=entityPlayer.getPosition();
                                             ModSimLoader.log.info("播放钱到账:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
 //                                            world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
                                             world.playSound( pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F,true);
                                         }*/
+                                        SoundEvent cash = SoundRegistry.CASH;
+                                        if (cash == null || cash.getRegistryName() == null) {
+                                            ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
+                                        } else {
                                         for (EntityPlayer entityPlayer : world.playerEntities) {
                                             double x = entityPlayer.posX;
                                             double y = entityPlayer.posY;
                                             double z = entityPlayer.posZ;
                                             world.playSound(
                                                     x, y, z,
-                                                    cashSound,
+                                                    cash,
                                                     SoundCategory.PLAYERS,  // 与玩家交互相关的音效
                                                     1.0F,
                                                     1.0F,
                                                     true
                                             );
-                                        }
+                                        }}
                                         //你今天收了 今天的租金。
                                         ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(rents) + new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());
                                         NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
@@ -759,10 +764,13 @@ public class SimmodeStart {
                 ((WorldServer) world).addScheduledTask(() -> {
                     if (!world.playerEntities.isEmpty()) {
                         EntityPlayer player = world.playerEntities.get(0);
-                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                        world.playSound(null, player.posX, player.posY, player.posZ,
-                                soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-
+                        SoundEvent cash = SoundRegistry.CASH;
+                        if (cash == null || cash.getRegistryName() == null) {
+                            ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
+                        } else {
+                            world.playSound(null, player.posX, player.posY, player.posZ,
+                                    cash, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        }
                         ModSimLoader.sendChat(new TextComponentTranslation("container.sim.main_Collected", new Object[0]).getUnformattedText() +
                                 ModSimLoader.displayMoney(rent) +
                                 new TextComponentTranslation("container.sim.main_rent_today", new Object[0]).getUnformattedText());
@@ -823,11 +831,14 @@ public class SimmodeStart {
         // 播放鸡叫音效
         if (world instanceof WorldServer) {
             ((WorldServer) world).addScheduledTask(() -> {
-                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":rooster"));
+                SoundEvent rooster = SoundRegistry.ROOSTER;
+                        if (rooster == null || rooster.getRegistryName() == null) {
+                            ModSimLoader.log.error("播放失败：sim:rooster 声音事件未注册");
+                        } else {
                 for (EntityPlayer player : world.playerEntities) {
                     world.playSound(null, player.posX, player.posY, player.posZ,
-                            soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                }
+                            rooster, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }}
             });
         }
 

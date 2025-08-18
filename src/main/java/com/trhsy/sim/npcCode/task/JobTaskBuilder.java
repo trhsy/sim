@@ -1,18 +1,13 @@
 package com.trhsy.sim.npcCode.task;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockConstructorBox;
-import com.trhsy.sim.loader.BlockLoader;
-import com.trhsy.sim.loader.ConfigLoader;
-import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketSendBuildingRequirements;
 import com.trhsy.sim.npcCode.job.Job;
 import com.trhsy.sim.npcCode.job.JobBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -73,11 +68,14 @@ public class JobTaskBuilder extends JobTask {
                                         SoundEvent soundEvent = null;
                                         //判断性别，发出不一样的声音
                                         if (folk.gender == 0) {
-                                            soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
+                                            soundEvent = SoundRegistry.IM_READ_M;
                                         } else {
-                                            soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
+                                            soundEvent = SoundRegistry.IM_READ_Y;
                                         }
-                                        folk.entity.world.playSound( folk.entity.posX, folk.entity.posY, folk.entity.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F,true);
+                                        if (soundEvent == null || soundEvent.getRegistryName() == null) {
+                                            ModSimLoader.log.error("播放失败：sim:IM_READ_M 声音事件未注册");
+                                        } else {
+                                        this.job.jobWorld.playSound( folk.entity.posX, folk.entity.posY, folk.entity.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
                                     }
                                 }
                             }

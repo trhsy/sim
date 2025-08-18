@@ -1,14 +1,13 @@
 package com.trhsy.sim.npcCode.job;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.Building;
 import com.trhsy.sim.npcCode.task.JobTask;
 import com.trhsy.sim.util.PricesForBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -17,7 +16,6 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -872,11 +870,13 @@ public abstract class Job {
                 //箱子里没有我想从你那里买的有效堆栈？
                 ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant14", new Object[0]).getUnformattedText());
             } else {
-                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                Minecraft mc = Minecraft.getMinecraft();
-                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                }
+                SoundEvent cash = SoundRegistry.CASH;
+                if (cash == null || cash.getRegistryName() == null) {
+                    ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
+                } else {
+                for (EntityPlayer entityPlayer : this.jobWorld.playerEntities) {
+                    this.jobWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }}
                 ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant15", new Object[0]).getUnformattedText() + ModSimLoader.displayMoney(total));
             }
 
@@ -939,21 +939,24 @@ public abstract class Job {
                         PricesForBlocks.adjustPrice(block, true);
                     }
                 }
-
-                SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                Minecraft mc = Minecraft.getMinecraft();
-                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                }
+                SoundEvent cash = SoundRegistry.CASH;
+                if (cash == null || cash.getRegistryName() == null) {
+                    ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
+                } else {
+                for (EntityPlayer entityPlayer : this.jobWorld.playerEntities) {
+                    this.jobWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }}
                 try {
                     Thread.sleep(1000L);
                 } catch (Exception e) {
                 }
-                SoundEvent soundEvent1 = new SoundEvent(new ResourceLocation(ModSim.MODID + ":merchm"));
-                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent1, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                }
-                //threadPoolExecutor.shutdown();
+                SoundEvent merchm = SoundRegistry.MERCHM;
+                if (merchm == null || merchm.getRegistryName() == null) {
+                    ModSimLoader.log.error("播放失败：sim:merchm 声音事件未注册");
+                } else {
+                for (EntityPlayer entityPlayer :this.jobWorld.playerEntities) {
+                    this.jobWorld.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, merchm, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }}
             } else {
                 ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Merchant12", new Object[0]).getUnformattedText());
                 return;

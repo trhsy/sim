@@ -1,9 +1,9 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.network.client.PacketOpenFarmGui;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
@@ -18,7 +18,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -55,8 +58,13 @@ public class BlockFarmingBox extends Block {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
-        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
+        SoundEvent sim_u_ddd = SoundRegistry.SIM_U_DDD;
+        if (sim_u_ddd == null || sim_u_ddd.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:power_down 声音事件未注册");
+        } else {
+            worldIn.playSound(playerIn, pos, sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
         if (!worldIn.isRemote) {
             V3 vPos = new V3(pos,playerIn.dimension);
             NpcData fd = null;
@@ -91,8 +99,13 @@ public class BlockFarmingBox extends Block {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_kraft_ddd_farming_constructor_activated"));
-        world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_kraft_ddd_farming_constructor_activated"));
+        SoundEvent sim_u_kraft_ddd_farming_constructor_activated = SoundRegistry.SIM_U_KRAFT_DDD_FARMING_CONSTRUCTOR_ACTIVATED;
+        if (sim_u_kraft_ddd_farming_constructor_activated == null || sim_u_kraft_ddd_farming_constructor_activated.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:power_down 声音事件未注册");
+        } else {
+            world.playSound(null, pos, sim_u_kraft_ddd_farming_constructor_activated, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
         if (!world.isRemote) {
             V3 markerPos = new V3(pos.getX(),pos.getY(),pos.getZ(),placer.dimension);
             //东
@@ -139,8 +152,13 @@ public class BlockFarmingBox extends Block {
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-        worldIn.playSound(null,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
+        SoundEvent power_down = SoundRegistry.POWER_DOWN;
+        if (power_down == null || power_down.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:power_down 声音事件未注册");
+        } else {
+            worldIn.playSound(null, pos, power_down, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
         V3 markerPos = new V3(pos.getX(),pos.getY(),pos.getZ());
         for (FarmBox farmBox : ModSimLoader.farms) {
             if (farmBox.loc.equals(markerPos)) {

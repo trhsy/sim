@@ -1,12 +1,8 @@
 package com.trhsy.sim.npcCode.job;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockConstructorBox;
 import com.trhsy.sim.entity.EntityConBox;
-import com.trhsy.sim.loader.BlockLoader;
-import com.trhsy.sim.loader.ConfigLoader;
-import com.trhsy.sim.loader.ItemLoader;
-import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.TerrainType;
@@ -15,10 +11,7 @@ import com.trhsy.sim.npcCode.task.JobTaskIdle;
 import com.trhsy.sim.npcCode.task.JobTaskTerrain;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -95,15 +88,14 @@ public class JobTerrainFormer extends Job {
                 SoundEvent soundEvent = null;
                 //判断性别，发出不一样的声音
                 if (this.folk.gender == 0) {
-                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_m"));
+                    soundEvent = SoundRegistry.IM_READ_M;
                 } else {
-                    soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":im_read_y"));
+                    soundEvent = SoundRegistry.IM_READ_Y;
                 }
-                Minecraft mc = Minecraft.getMinecraft();
-                if(mc!=null&&mc.world!=null){
-                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                        mc.world.playSound(entityPlayer,entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                    }
+                if (soundEvent == null || soundEvent.getRegistryName() == null) {
+                    ModSimLoader.log.error("播放失败：sim:IM_READ_M 声音事件未注册");
+                } else {
+                    this.jobWorld.playSound(pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
                 }
             }
             if (this.folk != null) {

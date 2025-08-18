@@ -1,10 +1,10 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ModSimClientLoader;
 import com.trhsy.sim.loader.ModSimLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
@@ -28,7 +28,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -65,7 +64,6 @@ public class BlockWindmill extends BlockContainer{
     // 定义声音事件的资源位置常量
     // 声音事件（需在ModSim初始化时注册）
 //    private static final ResourceLocation WINDMILL_SOUND = new ResourceLocation(ModSim.MODID + ":windmill");
-    public static final SoundEvent SOUND_WINDMILL = new SoundEvent(new ResourceLocation(ModSim.MODID, "windmill"));
 
     public BlockWindmill(boolean isBurning) {
         super(Material.WOOD);
@@ -157,18 +155,24 @@ public class BlockWindmill extends BlockContainer{
     @SuppressWarnings("incomplete-switch")
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (this.isBurning) {
+
             // 10%概率播放风车运转声
             if (rand.nextDouble() < 0.1D) {
-                worldIn.playSound(
-                        (double) pos.getX() + 0.5D,
-                        (double) pos.getY(),
-                        (double) pos.getZ() + 0.5D,
-                        SOUND_WINDMILL,
-                        SoundCategory.BLOCKS,
-                        0.5F,  // 音量
-                        1.0F + (rand.nextFloat() - 0.5F) * 0.2F,  // 音高随机变化
-                        false
-                );
+                SoundEvent windmill = SoundRegistry.WINDMILL;
+                if (windmill == null || windmill.getRegistryName() == null) {
+                    ModSimLoader.log.error("播放失败：sim:windmill 声音事件未注册");
+                } else {
+                    worldIn.playSound(
+                            (double) pos.getX() + 0.5D,
+                            (double) pos.getY(),
+                            (double) pos.getZ() + 0.5D,
+                            windmill,
+                            SoundCategory.BLOCKS,
+                            0.5F,  // 音量
+                            1.0F + (rand.nextFloat() - 0.5F) * 0.2F,  // 音高随机变化
+                            false
+                    );
+                }
             }
         }
         /*if (this.isBurning) {

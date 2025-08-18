@@ -3,10 +3,7 @@ package com.trhsy.sim.npcCode;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockControlBox;
 import com.trhsy.sim.entity.EntityNpc;
-import com.trhsy.sim.loader.BlockLoader;
-import com.trhsy.sim.loader.ConfigLoader;
-import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketSendFolkSkin;
 import com.trhsy.sim.network.client.PacketUpdateNPC;
@@ -1809,15 +1806,19 @@ public class NpcData {
                             new NpcData(this.entity.world, this.getSpouse(), this);
                             //这里要播放那个宝宝笑的音频 找到了 音频文件 叫 birth
                             World world = Minecraft.getMinecraft().world;
-                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":birth"));
+//                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":birth"));
+                            SoundEvent birth = SoundRegistry.BIRTH;
+                            if (birth == null || birth.getRegistryName() == null) {
+                                ModSimLoader.log.error("播放失败：sim:birth 声音事件未注册");
+                            } else {
                             for (EntityPlayer entityPlayer : world.playerEntities) {
                                 BlockPos pos=entityPlayer.getPosition();
                                 ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
-                                world.playSound((EntityPlayer) null, pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                            }
+                                world.playSound((EntityPlayer) null, pos, birth, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                            }}
 //                            for (EntityPlayer entityPlayer : world.playerEntities) {
 //                                ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + entityPlayer.posX + "],y:[" + entityPlayer.posY + "],z:[" + entityPlayer.posZ + "]");
-//                                world.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
+//                                world.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
 //                            }
                             //刚生了个宝宝
                             this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby", new Object[0]).getUnformattedText());

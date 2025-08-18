@@ -1,25 +1,22 @@
 package com.trhsy.sim.npcCode.task;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityConBox;
 import com.trhsy.sim.loader.BlockLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.network.client.PacketSendTerrainTypeRequitrements;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.npcCode.build.TerrainType;
 import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -983,11 +980,12 @@ public class JobTaskTerrain extends JobTask {
                 if (this.closestBlocks.size() == 0) {
                     ModSimLoader.sendChat(this.folk.getName() + new TextComponentTranslation("container.sim.job.terra.farmer.has_completed",new Object[0]).getUnformattedText());
                     //播放 我准备好了
-                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
-                    Minecraft mc = Minecraft.getMinecraft();
-                    for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                        mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                    }
+//                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":cash"));
+                    SoundEvent cash = SoundRegistry.CASH;
+                    if (cash == null || cash.getRegistryName() == null) {
+                        ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
+                    } else {
+                    this.job.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
                     this.folk.fire();
                     this.folk.stayPut = false;
                     if (this.conBox != null) {

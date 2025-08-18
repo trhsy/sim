@@ -9,7 +9,6 @@ import com.trhsy.sim.npcCode.job.Job;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -191,10 +190,9 @@ public class JobTaskFarmer extends JobTask {
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 3) {
                                 this.swingArmCheck = System.currentTimeMillis();
                                 //播放声音
-                                Minecraft mc = Minecraft.getMinecraft();
-                                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                    mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                                }
+//                                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                                    this.job.jobWorld.playSound(bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
+//                                }
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                                 //摇摆手臂
@@ -219,10 +217,7 @@ public class JobTaskFarmer extends JobTask {
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                 this.swingArmCheck = System.currentTimeMillis();
                                 //播放声音
-                                Minecraft mc = Minecraft.getMinecraft();
-                                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                    mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                                }
+                                this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                                 //摇摆手臂
@@ -243,10 +238,7 @@ public class JobTaskFarmer extends JobTask {
                         if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                             this.swingArmCheck = System.currentTimeMillis();
                             //播放声音
-                            Minecraft mc = Minecraft.getMinecraft();
-                            for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                            }
+                            this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
                             //设置手持无
                             this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             //摇摆手臂
@@ -292,10 +284,7 @@ public class JobTaskFarmer extends JobTask {
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                 this.swingArmCheck = System.currentTimeMillis();
                                 //播放声音
-                                Minecraft mc = Minecraft.getMinecraft();
-                                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                    mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                                }
+                                this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                                 //摇摆手臂
@@ -340,10 +329,7 @@ public class JobTaskFarmer extends JobTask {
                         this.folk.entity.world.setBlockState(bp.up(), Blocks.LOG.getStateFromMeta(3), 3);
                         if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                             //播放声音
-                            Minecraft mc = Minecraft.getMinecraft();
-                            for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                mc.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
-                            }
+                            this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
                             //设置手持无
                             this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             //摇摆手臂
@@ -399,7 +385,7 @@ public class JobTaskFarmer extends JobTask {
                                 if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                     //播放声音
                                     for (EntityPlayer entityPlayer : this.folk.entity.world.playerEntities) {
-                                        this.folk.entity.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                        this.folk.entity.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                                     }
                                     //摇摆手臂
                                     this.folk.entity.swingArm(EnumHand.MAIN_HAND);
@@ -419,7 +405,7 @@ public class JobTaskFarmer extends JobTask {
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                 //播放声音
                                 for (EntityPlayer entityPlayer : this.folk.entity.world.playerEntities) {
-                                    this.folk.entity.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.AMBIENT, 1.0F, 1.0F);
+                                    this.folk.entity.world.playSound(entityPlayer, bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                                 }
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);

@@ -1,9 +1,6 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.loader.CreativeTabsLoader;
-import com.trhsy.sim.loader.ModSimClientLoader;
-import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketAddNewMarker;
 import com.trhsy.sim.network.client.PacketOpenMarkerGui;
 import com.trhsy.sim.npcCode.V3;
@@ -17,7 +14,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -101,8 +101,13 @@ public class BlockMarker extends Block {
      **/
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand , EnumFacing side, float hitX, float hitY, float hitZ) {
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
-        worldIn.playSound(playerIn,pos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
+        SoundEvent computer = SoundRegistry.COMPUTER;
+        if (computer == null || computer.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:power_down 声音事件未注册");
+        } else {
+            worldIn.playSound(playerIn, pos, computer, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
         if (!worldIn.isRemote) {
             V3 vPos = new V3(pos, playerIn.dimension);
             NetWorkLoader.net.sendTo(new PacketOpenMarkerGui(vPos,playerIn.dimension), (EntityPlayerMP) playerIn);

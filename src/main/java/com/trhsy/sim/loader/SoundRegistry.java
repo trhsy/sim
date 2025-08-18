@@ -100,6 +100,7 @@ public class SoundRegistry {
     public static final SoundEvent FTHREE = new SoundEvent(ModSim.getResourceLocation("fthree"));
     public static final SoundEvent FTWO = new SoundEvent(ModSim.getResourceLocation("ftwo"));
     public static final SoundEvent FWXBAD = new SoundEvent(ModSim.getResourceLocation("fwxbad"));
+    public static final SoundEvent HELLOC = new SoundEvent(ModSim.getResourceLocation("helloc"));
     public static final SoundEvent HELLOF = new SoundEvent(ModSim.getResourceLocation("hellof"));
     public static final SoundEvent HELLOM = new SoundEvent(ModSim.getResourceLocation("hellom"));
     public static final SoundEvent LAUGHF = new SoundEvent(ModSim.getResourceLocation("LaughF"));
@@ -250,6 +251,7 @@ public class SoundRegistry {
         registerSound(FTWO, "ftwo");
         registerSound(FWXBAD, "fwxbad");
         registerSound(HELLOF, "hellof");
+        registerSound(HELLOC, "helloc");
         registerSound(HELLOM, "hellom");
         registerSound(LAUGHF, "LaughF");
         registerSound(LAUGHM, "LaughM");

@@ -1,10 +1,6 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.ModSim;
-import com.trhsy.sim.loader.CreativeTabsLoader;
-import com.trhsy.sim.loader.ModSimClientLoader;
-import com.trhsy.sim.loader.ModSimLoader;
-import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketOpenConstructorGui;
 import com.trhsy.sim.network.client.PacketOpenSetupGui;
 import com.trhsy.sim.npcCode.NpcData;
@@ -18,7 +14,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -37,13 +36,13 @@ import java.util.List;
  * @date 2023/10/31 上午 10:16
  */
 public class BlockConstructorBox extends Block {
-    public NpcData employee;
     // ------------------------------ 常量定义 ------------------------------
     // 提示信息键（对应 lang/en_us.json 中的翻译键）
     private static final String TOOLTIP_KEY = "block.sim.constructor_box.tooltip";
     // 职业名称翻译键（对应 NPC 职业配置）
     private static final String VOCATION_BUILDER_1 = "container.sim.Vocation1";
     private static final String VOCATION_BUILDER_2 = "container.sim.Vocation16";
+    public NpcData employee;
 
 
     public BlockConstructorBox() {
@@ -64,10 +63,13 @@ public class BlockConstructorBox extends Block {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-//        worldIn.playSound(null, pos, SOUND_EVENT_ACTIVATE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "sim_u_building_constructor_activated"); // 对应 sounds.json 中的键
-        SoundEvent activateSound = new SoundEvent(soundLoc); // 从注册表获取
-            worldIn.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        SoundEvent SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED = SoundRegistry.SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED;// 对应 sounds.json 中的键
+        if (SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED == null || SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED 声音事件未注册");
+        } else {
+
+            worldIn.playSound(null, pos, SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
     }
 
     /**
@@ -80,10 +82,11 @@ public class BlockConstructorBox extends Block {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-//        worldIn.playSound(playerIn, pos, SOUND_EVENT_ADD, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "sim_u_ddd"); // 对应 sounds.json 中的键
-        SoundEvent activateSound = new SoundEvent(soundLoc); // 从注册表获取
-            worldIn.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        SoundEvent sim_u_ddd = SoundRegistry.SIM_U_DDD;
+        if (sim_u_ddd == null || sim_u_ddd.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:sim_u_ddd 声音事件未注册");
+        } else {
+            worldIn.playSound(null, pos, sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F);}
         int buildDirection = 0;
 
         if (!worldIn.isRemote) {
@@ -152,9 +155,12 @@ public class BlockConstructorBox extends Block {
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
-        ResourceLocation soundLoc = new ResourceLocation(ModSim.MODID, "power_down"); // 对应 sounds.json 中的键
-        SoundEvent activateSound = new SoundEvent(soundLoc); // 从注册表获取
-            worldIn.playSound(null, pos, activateSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        SoundEvent powerDown = SoundRegistry.POWER_DOWN;
+        if (powerDown == null || powerDown.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:power_down 声音事件未注册");
+        } else {
+            worldIn.playSound(null, pos, powerDown, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
         // 通过缓存的 NPC 数据快速查找关联 NPC（优化：线性搜索 → Map 缓存）
         NpcData targetNpc = findArchitectNpc(pos);
         /*

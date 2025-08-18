@@ -1,9 +1,9 @@
 package com.trhsy.sim.block;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.loader.CreativeTabsLoader;
 import com.trhsy.sim.loader.ModSimLoader;
 import com.trhsy.sim.loader.NetWorkLoader;
+import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.network.client.PacketOpenPathBoxGui;
 import com.trhsy.sim.npcCode.V3;
 import com.trhsy.sim.util.Courier;
@@ -15,7 +15,10 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -44,8 +47,13 @@ public class BlockPathBox extends Block {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         try {
             //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
-            worldIn.playSound(playerIn,pos,soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
+            SoundEvent computer = SoundRegistry.COMPUTER;
+            if (computer == null || computer.getRegistryName() == null) {
+                ModSimLoader.log.error("播放失败：sim:computer 声音事件未注册");
+            } else {
+                worldIn.playSound(playerIn, pos, computer, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
             if (!worldIn.isRemote) {
                 NetWorkLoader.net.sendTo(new PacketOpenPathBoxGui(new V3(pos, playerIn.dimension)), (EntityPlayerMP) playerIn);
             }
@@ -66,8 +74,12 @@ public class BlockPathBox extends Block {
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state){
         //在给定块位置的中心为播放器播放指定的声音 断电 power down
-        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
-        worldIn.playSound(null,pos, soundEvent, SoundCategory.RECORDS, 1.0F, 1.0F);
+//        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":power_down"));
+        SoundEvent power_down = SoundRegistry.POWER_DOWN;
+        if (power_down == null || power_down.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:power_down 声音事件未注册");
+        } else {
+        worldIn.playSound(null,pos, power_down, SoundCategory.RECORDS, 1.0F, 1.0F);}
         for (Courier courier : ModSimLoader.theCourierPoints) {
             if (courier.loc.equals(pos)) {
                 courier.removeFarm(courier.ID);
