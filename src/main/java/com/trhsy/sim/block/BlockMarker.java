@@ -32,12 +32,17 @@ import java.util.List;
  * @author Trhsy
  * @Package: com.trhsy.sim.block
  * @ClassName: BlockMarker
- * @Description: 标记棒
+ * @Description: 标记棒 IExtendedEntityProperties
  * @date 2023/11/08 上午 10:34
  */
 public class BlockMarker extends Block {
     //this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
-    protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+    // 调整碰撞盒：更细长的立柱（X/Z方向0.15格宽，Y方向1.0格高，更贴近“标记棒”的视觉效果）
+    // 复用老版本的尺寸：X(0.4~0.6)、Y(0.0~0.9)、Z(0.4~0.6)
+    protected static final AxisAlignedBB MARKER_AABB = new AxisAlignedBB(
+            0.4F, 0.0F, 0.4F,  // 最小坐标（X1, Y1, Z1）
+            0.6F, 1.0F, 0.6F   // 最大坐标（X2, Y2, Z2）
+    );
     public BlockMarker() {
         super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
@@ -49,32 +54,42 @@ public class BlockMarker extends Block {
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }
+    // 渲染用的碰撞盒（决定方块在世界中占据的空间）
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return CARPET_AABB;
+        return MARKER_AABB;
     }
-
+    // 实体碰撞盒（决定玩家/生物是否会与方块碰撞）
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-        return new AxisAlignedBB(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
+        return MARKER_AABB;
     }
-
+    // 选择盒（玩家鼠标选中时的高亮范围）
     @Override
     public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-        return (new AxisAlignedBB(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F)).offset(pos);
+        // 移除手动offset，使用默认方法（自动将相对坐标转换为世界坐标）
+        return MARKER_AABB.offset(pos);
     }
     /**
      * 用于在重建块以进行渲染时确定环境光遮挡和剔除
+     * 非透明方块（影响光影计算，根据模型是否透明调整）
      */
     @Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
+
+    /**
+     * // 非完整方块（影响相邻方块的渲染和碰撞）
+     * @param state
+     * @return
+     */
     @Override
     public boolean isFullCube(IBlockState state)
     {
+        // 保持false，符合细长模型的特性
         return false;
     }
 

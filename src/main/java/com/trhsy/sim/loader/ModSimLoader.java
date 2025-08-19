@@ -638,7 +638,7 @@ public class ModSimLoader {
         ModSimLoader.buildingBlueprints.clear();
         String lang = FMLCommonHandler.instance().getCurrentLanguage();
         //建筑文件检查
-        File checks = new File(ModSimLoader.getSimFolder() + File.separator + "/buildings_"+lang);
+        File checks = new File(ModSimLoader.getSimFolder() + File.separator + "buildings_"+lang);
         if (!checks.exists()) {
             //onUpdate();
         }

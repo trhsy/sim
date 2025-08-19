@@ -24,8 +24,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Random;
-
 /**
  * @author Trhsy
  * @Package: com.trhsy.sim.loader.render
@@ -57,7 +55,7 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
     protected ResourceLocation getEntityTexture(EntityNpc entity) {
         ResourceLocation myTexture = null;
         try {
-            if(!entity.isDead){
+            /*if(!entity.isDead){
 
 
             NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(entity.getUniqueID());
@@ -88,13 +86,41 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
             }
 
             }else{
+                // 若实体已标记为死亡，直接销毁并返回空纹理（不渲染）
                 myTexture = new ResourceLocation(ModSim.MODID, "skins/male0.png");
+                entity.setDead();
                 return myTexture;
+            }*/
+            // 若实体已标记为死亡，直接销毁并返回空纹理（不渲染）
+            if (entity.isDead) {
+                entity.setDead(); // 强制销毁实体
+                return null; // 不渲染纹理
             }
+
+            NpcIdentity cfi = ModSimClientLoader.getFolkByUUID(entity.getUniqueID());
+
+            // 情况1：有身份数据，但已死亡
+            if (cfi != null && cfi.isDead) {
+                entity.onDeath(DamageSource.GENERIC);
+                entity.attackEntityFrom(DamageSource.GENERIC, 999999);
+                entity.setHealth(0);
+                entity.setDead(); // 标记实体为死亡并销毁
+                return null; // 不渲染
+            }
+
+            // 情况2：有身份数据且存活，返回对应皮肤
+            if (cfi != null && StringUtils.isNotEmpty(cfi.skinPath)) {
+                return new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
+            }
+
+            // 情况3：无身份数据（cfi为null）→ 视为已死亡，销毁实体
+            entity.setDead(); // 关键：无数据则销毁，避免默认皮肤
+            return null;
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("渲染实体出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
-            try {
+            /*try {
                 String gend = "";
                 //女
                 if (new Random().nextInt(2) == 0) {
@@ -107,7 +133,11 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                 return myTexture;
             } catch (Exception var6) {
                 return new ResourceLocation("minecraft", "steve");
-            }
+            }*/
+            // 异常时也销毁实体，避免错误渲染
+            entity.setDead();
+            ModSimLoader.log.error("渲染实体出错：" + e.getMessage() + " 行数：" + e.getStackTrace()[0].getLineNumber());
+            return null; // 不渲染错误实体
         }
     }
 

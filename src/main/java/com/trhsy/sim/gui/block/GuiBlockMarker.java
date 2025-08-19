@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -235,20 +236,23 @@ public class GuiBlockMarker extends GuiScreen {
                     }
 
                     if (layerLines.size() == 0) {
-                        ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers13", new Object[0]).getUnformattedText());//错误,无法捕获所有方块,请尝试靠近标记站并重试
+                        String fs_15=new TextComponentTranslation("container.sim.Markers13", new Object[0]).getUnformattedText();
+                        ModSimLoader.sendChat(fs_15);//错误,无法捕获所有方块,请尝试靠近标记站并重试
                         return;
                     }
+                    String lang = FMLCommonHandler.instance().getCurrentLanguage();
+                    File check = new File(ModSimLoader.getSimFolder()+ File.separator + "buildings_"+lang);
 
-                    File check = new File(ModSimLoader.getSimFolder() + "/buildings/");
                     if (!check.exists()) {
-                        ModSimLoader.sendChat(ModSimLoader.getSimFolder() + "/buildings/ " + new TextComponentTranslation("container.sim.Markers14"));
+                        String fs_14=new TextComponentTranslation("container.sim.Markers14",new Object[0]).getUnformattedText();
+                        ModSimLoader.sendChat(ModSimLoader.getSimFolder()+ File.separator + "buildings_"+lang+"::::"+fs_14);
                         return;
                     }
 
                     String f = String.valueOf(System.currentTimeMillis());
                     ltr = f.length();
                     f = f.substring(ltr - 6);
-                    FileWriter fstream = new FileWriter(ModSimLoader.getSimFolder() + "/buildings/other/My Build" + f + ".txt");
+                    FileWriter fstream = new FileWriter(ModSimLoader.getSimFolder() +File.separator+ "buildings_"+lang+"/other/My Build" + f + ".txt");
                     BufferedWriter out = new BufferedWriter(fstream);
                     out.write(ltrCountx + "x" + ftbCountx + "x" + layerLines.size() + "\r\n");
                     out.write(keyString + "\r\n");
@@ -258,11 +262,14 @@ public class GuiBlockMarker extends GuiScreen {
                     }
                     out.close();
                     Thread.sleep(500L);
-                    ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers15") + f + new TextComponentTranslation("container.sim.Markers16"));
+                    String fs_15=new TextComponentTranslation("container.sim.Markers15",new Object[0]).getUnformattedText();
+                    String fs_16=new TextComponentTranslation("container.sim.Markers16",new Object[0]).getUnformattedText();
+                    ModSimLoader.sendChat(fs_15 + f + fs_16);
 //                    SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":computer"));
 //                    mc.world.playSound(entityPlayer, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 } else {
-                    ModSimLoader.sendChat(new TextComponentTranslation("container.sim.Markers17", new Object[0]).getUnformattedText());
+                    String fs_17=new TextComponentTranslation("container.sim.Markers17",new Object[0]).getUnformattedText();
+                    ModSimLoader.sendChat(fs_17);
                 }
             } catch (Exception e) {
                 StackTraceElement element = e.getStackTrace()[0];

@@ -2,5 +2,11 @@
   "parent": "sim:block/template_marker",
   "textures": {
     "block_marker": "sim:blocks/block_marker"
-  }
+  },
+  "elements": [
+    {
+      "from": [0.425, 0.0, 0.425],
+      "to": [0.575, 1.0, 0.575]
+    }
+  ]
 }

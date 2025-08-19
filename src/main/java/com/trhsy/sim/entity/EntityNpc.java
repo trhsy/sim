@@ -1,6 +1,5 @@
 package com.trhsy.sim.entity;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.ai.FolkAIOpenFenceGate;
 import com.trhsy.sim.entity.ai.FolkAIWander;
 import com.trhsy.sim.entity.container.ContainerNpc;
@@ -24,7 +23,10 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -338,23 +340,32 @@ public class EntityNpc extends EntityCreature implements INpc {
             if (this.theData != null) {
                 this.theData.onDeath(cause);
             } else {
-                boolean fs_flog = true;
+                // 2. 高效查找匹配的 NpcData（建议用 Map 存储优化查找）
+                NpcData matchedData = null;
                 for (NpcData npcData : ModSimLoader.folks) {
                     if (npcData.ID==this.getUniqueID()) {
                         npcData.onDeath(cause);
-                        fs_flog = false;
+                        matchedData = npcData;
+                        break; // 找到后立即退出循环，提高效率
                     }
                 }
-                if (fs_flog) {
-                    this.onKillEntity(this);
+                if (matchedData != null) {
+                    matchedData.onDeath(cause);
+                } else {
+                    // 3. 无匹配数据时，直接从列表中清理当前实体（替代不合理的 onKillEntity）
+                    ModSimLoader.folks.removeIf(data -> data.ID.equals(this.getUniqueID()));
+                    ModSimLoader.log.info("NPC 已死亡且无匹配数据，已从列表中清理: " + this.getUniqueID());
                 }
             }
-            super.onDeath(cause);
-            this.setHealth(0);
-            this.setDead();
+
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("EtityNPC-onDeath出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }finally {
+            // 5. 确保父类死亡逻辑执行，强制标记死亡状态（无论是否发生异常）
+            super.onDeath(cause);
+            this.setHealth(0);
+            this.setDead();// 强制标记实体为死亡，避免残留
         }
     }
 
