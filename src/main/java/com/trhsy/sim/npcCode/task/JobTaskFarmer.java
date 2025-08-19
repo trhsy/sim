@@ -191,7 +191,7 @@ public class JobTaskFarmer extends JobTask {
                                 this.swingArmCheck = System.currentTimeMillis();
                                 //播放声音
 //                                for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-                                    this.job.jobWorld.playSound(bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
+                                    this.job.jobWorld.playSound(bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,false);
 //                                }
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
@@ -217,7 +217,7 @@ public class JobTaskFarmer extends JobTask {
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                 this.swingArmCheck = System.currentTimeMillis();
                                 //播放声音
-                                this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
+                                this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,false);
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                                 //摇摆手臂
@@ -238,7 +238,7 @@ public class JobTaskFarmer extends JobTask {
                         if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                             this.swingArmCheck = System.currentTimeMillis();
                             //播放声音
-                            this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
+                            this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,false);
                             //设置手持无
                             this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             //摇摆手臂
@@ -284,7 +284,7 @@ public class JobTaskFarmer extends JobTask {
                             if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                                 this.swingArmCheck = System.currentTimeMillis();
                                 //播放声音
-                                this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
+                                this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,false);
                                 //设置手持无
                                 this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                                 //摇摆手臂
@@ -329,7 +329,7 @@ public class JobTaskFarmer extends JobTask {
                         this.folk.entity.world.setBlockState(bp.up(), Blocks.LOG.getStateFromMeta(3), 3);
                         if ((System.currentTimeMillis() - this.swingArmCheck) > 1000 * 6) {
                             //播放声音
-                            this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,true);
+                            this.job.jobWorld.playSound( bp.getX(), bp.getY(), bp.getZ(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F,false);
                             //设置手持无
                             this.folk.entity.setActiveHand(EnumHand.MAIN_HAND);
                             //摇摆手臂

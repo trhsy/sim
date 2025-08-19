@@ -159,6 +159,7 @@ public class SoundRegistry {
      * 注册所有声音事件（在preInit中调用）
      */
     public static void registerSounds() {
+        ModSimLoader.log.info("开始注册声音");
         registerSound(BAKERF, "bakerf");
         registerSound(BAKERM, "bakerm");
         registerSound(BEAMDOWN, "beamdown");
@@ -317,6 +318,8 @@ public class SoundRegistry {
         // 设置注册名并注册到Forge注册表
         soundEvent.setRegistryName(registryName);
         ForgeRegistries.SOUND_EVENTS.register(soundEvent);
+        // 针对 sim_u_ddd 验证
+            ModSimLoader.log.info("已注册 ：" + soundEvent.getRegistryName());
     }
 
     /**

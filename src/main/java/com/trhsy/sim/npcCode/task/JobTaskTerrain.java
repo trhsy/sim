@@ -985,7 +985,7 @@ public class JobTaskTerrain extends JobTask {
                     if (cash == null || cash.getRegistryName() == null) {
                         ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
                     } else {
-                    this.job.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
+                    this.job.jobWorld.playSound(this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
                     this.folk.fire();
                     this.folk.stayPut = false;
                     if (this.conBox != null) {

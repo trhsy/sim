@@ -75,7 +75,7 @@ public class JobTaskBuilder extends JobTask {
                                         if (soundEvent == null || soundEvent.getRegistryName() == null) {
                                             ModSimLoader.log.error("播放失败：sim:IM_READ_M 声音事件未注册");
                                         } else {
-                                        this.job.jobWorld.playSound( folk.entity.posX, folk.entity.posY, folk.entity.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
+                                        this.job.jobWorld.playSound( folk.entity.posX, folk.entity.posY, folk.entity.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
                                     }
                                 }
                             }

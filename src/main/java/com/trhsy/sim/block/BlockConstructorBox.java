@@ -68,7 +68,7 @@ public class BlockConstructorBox extends Block {
             ModSimLoader.log.error("播放失败：sim:SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED 声音事件未注册");
         } else {
 
-            worldIn.playSound(null, pos, SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            worldIn.playSound(pos.getX(),pos.getY(), pos.getZ(),SIM_U_BUILDING_CONSTRUCTOR_ACTIVATED, SoundCategory.BLOCKS, 1.0F, 1.0F,false);
         }
     }
 
@@ -86,7 +86,7 @@ public class BlockConstructorBox extends Block {
         if (sim_u_ddd == null || sim_u_ddd.getRegistryName() == null) {
             ModSimLoader.log.error("播放失败：sim:sim_u_ddd 声音事件未注册");
         } else {
-            worldIn.playSound(null, pos, sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F);}
+            worldIn.playSound( pos.getX(),pos.getY(), pos.getZ(), sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
         int buildDirection = 0;
 
         if (!worldIn.isRemote) {

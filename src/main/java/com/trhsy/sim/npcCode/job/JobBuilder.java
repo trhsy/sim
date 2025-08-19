@@ -676,7 +676,7 @@ public class JobBuilder extends Job {
                 if (construction == null || construction.getRegistryName() == null) {
                     ModSimLoader.log.error("播放失败：sim:construction 声音事件未注册");
                 } else {
-                    this.jobWorld.playSound(newBP.getX(), newBP.getY(), newBP.getZ(), construction, SoundCategory.BLOCKS, 10.0F, 1.0F, true);
+                    this.jobWorld.playSound(newBP.getX(), newBP.getY(), newBP.getZ(), construction, SoundCategory.BLOCKS, 10.0F, 1.0F, false);
                 }
             }
             //放置方块

@@ -358,7 +358,7 @@ public class GuiFlower extends GuiScreen {
                         if (cashshort == null || cashshort.getRegistryName() == null) {
                             ModSimLoader.log.error("播放失败：sim:cashshort 声音事件未注册");
                         } else {
-                            this.mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cashshort, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
+                            this.mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cashshort, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
                         String money = guibutton.displayString.substring(guibutton.displayString.indexOf(new TextComponentTranslation("container.sim.trhsy", new Object[0]).getUnformattedText()) + 1);
                         float soldFor = Float.parseFloat(money);
                         ModSimLoader.money += soldFor;
@@ -374,7 +374,7 @@ public class GuiFlower extends GuiScreen {
                         if (cashshort == null || cashshort.getRegistryName() == null) {
                             ModSimLoader.log.error("播放失败：sim:cashshort 声音事件未注册");
                         } else {
-                            this.mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cashshort, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
+                            this.mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cashshort, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
                         String number = guibutton.displayString.substring(guibutton.displayString.indexOf(new TextComponentTranslation("container.sim.trhsy", new Object[0]).getUnformattedText()) + 1);
                         float soldFor = Float.parseFloat(number);
                         ModSimLoader.money += soldFor;
@@ -469,7 +469,7 @@ public class GuiFlower extends GuiScreen {
                             if (cash == null || cash.getRegistryName() == null) {
                                 ModSimLoader.log.error("播放失败：sim:cash 声音事件未注册");
                             } else {
-                                mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F,true);}
+                                mc.world.playSound( this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ, cash, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
                             this.mc.currentScreen = null;
                             this.mc.setIngameFocus();
                         }

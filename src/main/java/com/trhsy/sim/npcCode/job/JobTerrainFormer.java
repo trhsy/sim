@@ -95,7 +95,7 @@ public class JobTerrainFormer extends Job {
                 if (soundEvent == null || soundEvent.getRegistryName() == null) {
                     ModSimLoader.log.error("播放失败：sim:IM_READ_M 声音事件未注册");
                 } else {
-                    this.jobWorld.playSound(pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
+                    this.jobWorld.playSound(pos.getX(), pos.getY(), pos.getZ(), soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
                 }
             }
             if (this.folk != null) {

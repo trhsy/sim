@@ -210,6 +210,7 @@ public class NpcData {
      */
     Long lastPathAttempt;
     private int fs_rand;
+    public World world;
     /**
      * 构造函数，用于创建新的 NPC
      *
@@ -296,6 +297,7 @@ public class NpcData {
             this.isLoaded = true;
             ModSimLoader.folks.add(this);
             NetWorkLoader.net.sendToAll(new PacketUpdateNPC());*/
+            this.world=world;
             // 初始化通用属性
             initializeCommonAttributes();
             // 随机分配性别
@@ -430,6 +432,7 @@ public class NpcData {
                 //加载NPC到世界上
                 this.loadFolk(world, uuid);
             }*/
+            this.world=world;
             // 初始化通用属性
             initializeCommonAttributes();
             // 如果是服务器端，加载 NPC 数据
@@ -486,7 +489,7 @@ public class NpcData {
             this.sendSkinPathToClient();
             this.saveFolk();
             this.isLoaded = true;*/
-
+            this.world=world;
             // 初始化通用属性
             initializeCommonAttributes();
             // 随机分配性别
@@ -1482,7 +1485,7 @@ public class NpcData {
                 }
             }
             //当前NPC 不为空并且是客户端
-            if (this.entity != null && !this.entity.world.isRemote) {
+            if (this.entity != null && !this.world.isRemote) {
                 //更新NPC
                 this.entity.onFolkUpdate();
                 if(this.holding!=null){
@@ -1544,7 +1547,7 @@ public class NpcData {
                    if (this.currentTask != null) {
                        this.currentTask.update();
                             //夜晚更新最近任务
-                        if(!ModSimLoader.isDayTime(this.entity.world)){
+                        if(!ModSimLoader.isDayTime(this.world)){
                             if(this.currentTask!=null){
                                 //睡觉
                                 String fs_n1=new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText();
@@ -1584,9 +1587,9 @@ public class NpcData {
                        this.currentTask.begin();
                    }
                     //白天的话随机运行任务
-                } else if (ModSimLoader.isDayTime(this.entity.world)) {
+                } else if (ModSimLoader.isDayTime(this.world)) {
                     this.pickRandomTask();
-                } else if(!ModSimLoader.isDayTime(this.entity.world)){
+                } else if(!ModSimLoader.isDayTime(this.world)){
                     //晚上 不在家回家
                     if (this.home != null) {
                         String fs_n2=new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedText();
@@ -1643,7 +1646,7 @@ public class NpcData {
                 return true;
             } else {
                 //白天
-                return ModSimLoader.isDayTime(this.entity.world);
+                return ModSimLoader.isDayTime(this.world);
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
@@ -1672,7 +1675,7 @@ public class NpcData {
                         return;
                     }
 
-                    if (ModSimLoader.isDayTime(this.entity.world) && this.stayPut && this.isSleeping && this.shouldWork()) {
+                    if (ModSimLoader.isDayTime(this.world) && this.stayPut && this.isSleeping && this.shouldWork()) {
                         //闲逛
                         this.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedText());
                         this.stayPut = false;
@@ -1803,7 +1806,7 @@ public class NpcData {
                             this.forceMoveToXYZ(v3);
 
                             this.pregnancyStage = 0.0F;
-                            new NpcData(this.entity.world, this.getSpouse(), this);
+                            new NpcData(this.world, this.getSpouse(), this);
                             //这里要播放那个宝宝笑的音频 找到了 音频文件 叫 birth
                             World world = Minecraft.getMinecraft().world;
 //                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":birth"));
@@ -1827,7 +1830,7 @@ public class NpcData {
                         }else{
                             //孕妇难产死了 谢谢点赞
                             this.entity.setDead();//标记实体死亡
-                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_death", new Object[0]).getUnformattedText());
+                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby_day", new Object[0]).getUnformattedText());
                             ModSimLoader.log.info("NPC {} 因无医疗设施难产致死", this.entity.getName());
                             String fs_ldzl =new TextComponentTranslation("container.sim.folk_data_a_baby_day", new Object[0]).getUnformattedText();
                             ModSimLoader.sendChat(this.getName() +"::"+  fs_ldzl);
@@ -2191,7 +2194,7 @@ public class NpcData {
         BlockPos frontPos = currentPos.add(lookVec.x, lookVec.y, lookVec.z);
 
         // 检测前方位置是否有方块
-        return!this.entity.world.isAirBlock(frontPos);
+        return!this.world.isAirBlock(frontPos);
     }
     /**
      * 检测当前路径是否被方块阻挡
@@ -2289,7 +2292,7 @@ public class NpcData {
 //            double d3 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
 //            double d4 = 0.5D + random.nextDouble() * (double) this.entity.height;
 //            double d5 = random.nextDouble() * (double) this.entity.width * 2.0D - (double) this.entity.width;
-//            this.entity.world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
+//            world.spawnParticle(EnumParticleTypes.PORTAL, this.pos.x + d3, this.pos.y + d4, this.pos.z + d5, d0, d1, d2);
         }
     }
     /**
@@ -2482,7 +2485,7 @@ public class NpcData {
     public void onDeath(DamageSource cause) {
         try {
             //客户端
-            if (this.entity!=null&&!this.entity.world.isRemote) {
+            if (this.entity!=null&&!this.world.isRemote) {
                 String deathMessage = "";
                 if (cause == DamageSource.STARVE) {
                     //张三 饿死了。他们当时18岁。
@@ -2675,7 +2678,7 @@ public class NpcData {
      **/
     public void hireAt(V3 pos, String jobName, World world) {
         try {
-            Block block = this.entity.world.getBlockState(pos.toBlockPos()).getBlock();
+            Block block = world.getBlockState(pos.toBlockPos()).getBlock();
             if (block == BlockLoader.blockControlBox) {
                 BlockControlBox cont = (BlockControlBox) block;
                 cont.employees.add(this);
@@ -2697,8 +2700,11 @@ public class NpcData {
                 //地形规划师
             } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())) {
                 this.job = new JobTerrainFormer(this, v3, world);
+                //建筑师
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
+                this.job = new JobBuilder(this, v3,0, world);
                 //屠夫
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedText())) {
+            }else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedText())) {
                 this.job = new JobButcher(this, v3.toBlockPos(), world);
                 //食品商
             } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation26",new Object[0]).getUnformattedText())) {
