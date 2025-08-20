@@ -31,11 +31,11 @@ public class FolkAIWander extends EntityAIWander {
 
     @Override
     protected Vec3d getPosition() {
-        if(this.folk.theData.stayPut){
-           return this.folk.getPositionVector();
-        }else{
+//        if(this.folk.theData.stayPut){
+//           return this.folk.getPositionVector();
+//        }else{
             return RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
-        }
+//        }
     }
 
     @Override
@@ -90,5 +90,32 @@ public class FolkAIWander extends EntityAIWander {
                 return true;
             }
         }*/
+    }
+    @Override
+    public void startExecuting()
+    {
+        this.entity.getNavigator().tryMoveToXYZ(this.x, this.y, this.z, this.speed);
+    }
+    @Override
+    public boolean shouldContinueExecuting()
+    {
+        return !this.entity.getNavigator().noPath();
+    }
+    /**
+     * Makes task to bypass chance
+     */
+    @Override
+    public void makeUpdate()
+    {
+        this.mustUpdate = true;
+    }
+
+    /**
+     * Changes task random possibility for execution
+     */
+    @Override
+    public void setExecutionChance(int newchance)
+    {
+        this.executionChance = newchance;
     }
 }

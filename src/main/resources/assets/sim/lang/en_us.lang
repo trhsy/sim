@@ -1292,3 +1292,6 @@ stat.sim.windmill.interact=Interacted with Windmill
 block.sim.constructor_box.tooltip=Used for building or planning land
 
 container.sim.folk_data_a_baby_day=Died due to dystocia caused by lack of medical facilities(Suggest building a hospital/clinic)
+
+container.sim.job.cheese_maker.Extracting1=Lack of milk chunks, unable to make cheese
+container.sim.job.cheese_maker.Extracting2=Lack of cheese storage space, unable to make cheese

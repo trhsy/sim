@@ -475,9 +475,24 @@ public class JobBuilder extends Job {
                 //特除方块
                 if (fs_st_block == BlockLoader.blockSpecial) {
                     int  meta=fs_structure.getMeta();
+                    // 1. 校验meta有效性（示例：假设有效范围是0~5）
+                    if (meta < 0 || meta > 8) {
+                        ModSimLoader.log.warn("特殊方块meta值无效：" + meta + "，坐标：" + newBP + "，已修正为0");
+                        meta = 0;
+                    }
+                    // 2. 创建V3对象并添加到blockSpecial列表，添加日志
                     V3 v3 = new V3(newBP.getX(), newBP.getY(), newBP.getZ(), fs_st_block,meta);
                     this.blockSpecial.add(v3);
-                    fs_st_block = BlockLoader.blockSpecial.getStateFromMeta(fs_structure.getMeta()).getBlock();
+                    ModSimLoader.log.info("添加特殊方块：坐标=(" + newBP + ")，meta=" + meta);
+                    // 3. 确保特殊方块以正确状态（含meta）放置到世界中
+                    IBlockState specialState = BlockLoader.blockSpecial.getStateFromMeta(meta);
+                    if (specialState == null) {
+                        ModSimLoader.log.error("特殊方块状态获取失败，meta=" + meta);
+                    } else {
+                        // 放置方块时使用带meta的状态
+                        this.folk.entity.world.setBlockState(newBP, specialState);
+                        ModSimLoader.log.debug("已放置特殊方块到世界，状态：" + specialState);
+                    }
                 }
                 if (fs_block != fs_st_block) {
                     if (fs_block != Blocks.AIR) {
@@ -839,7 +854,7 @@ public class JobBuilder extends Job {
                 }*/
             } catch (Exception var11) {
                 StackTraceElement element = var11.getStackTrace()[0];
-                ModSimLoader.log.error("因错误而解雇的员工：" + var11.getMessage() + "行数：" + element.getLineNumber());
+                ModSimLoader.log.error("因错误而解雇的员工1：" + var11.getMessage() + "行数：" + element.getLineNumber());
                 this.folk.fire();
                 if(this.constructorBlock!=null){
                     this.constructorBlock.employee = null;
@@ -850,7 +865,7 @@ public class JobBuilder extends Job {
             }
         } catch (Exception var12) {
             StackTraceElement element = var12.getStackTrace()[0];
-            ModSimLoader.log.error("因错误而解雇的员工：" + var12.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("因错误而解雇的员工2：" + var12.getMessage() + "行数：" + element.getLineNumber());
             this.folk.fire();
             if (this.constructorBlock != null) {
                 this.constructorBlock.employee = null;
@@ -932,12 +947,14 @@ public class JobBuilder extends Job {
                     ModSimLoader.log.error("播放失败：sim:cashshort 声音事件未注册");
                 } else {
                     this.jobWorld.playSound((EntityPlayer) null, build.livingXYZ.x, build.livingXYZ.y, build.livingXYZ.z, cashshort, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }this.conBox.setDead();
+                }
+                this.conBox.setDead();
             }
 
         } catch (Exception e) {
-            this.conBox.setDead();
-
+            if(this.conBox!=null){
+                this.conBox.setDead();
+            }
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("createBuilding出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }

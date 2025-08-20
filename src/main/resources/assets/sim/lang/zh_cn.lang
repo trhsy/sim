@@ -1292,3 +1292,5 @@ stat.sim.windmill.interact=与风车互动
 block.sim.constructor_box.tooltip=用来建造或规划土地
 
 container.sim.folk_data_a_baby_day=因无医疗设施难产致死(建议修建医院/诊所)
+container.sim.job.cheese_maker.Extracting1=缺少牛奶块，无法制作奶酪
+container.sim.job.cheese_maker.Extracting2=缺少奶酪放置位，无法制作奶酪
