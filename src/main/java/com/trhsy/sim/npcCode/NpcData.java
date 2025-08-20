@@ -1,6 +1,5 @@
 package com.trhsy.sim.npcCode;
 
-import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.BlockControlBox;
 import com.trhsy.sim.entity.EntityNpc;
 import com.trhsy.sim.loader.*;
@@ -32,7 +31,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.server.management.PlayerList;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -2693,7 +2695,7 @@ public class NpcData {
                 }
 
             }
-
+            this.forceMoveToXYZ(v3);
             //面包师
             if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText())) {
                 this.job = new JobBaker(this, v3.toBlockPos(), world);
