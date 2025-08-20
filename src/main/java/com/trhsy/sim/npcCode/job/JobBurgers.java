@@ -121,7 +121,7 @@ public class JobBurgers extends Job {
                             this.currentTask.begin();
                         }
                     }
-                } else {
+                } /*else {
                     this.burgersStage = 0;
                     this.jobTasks.clear();
                 }
@@ -160,7 +160,7 @@ public class JobBurgers extends Job {
                             }
                         }
                     }
-                }
+                }*/
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

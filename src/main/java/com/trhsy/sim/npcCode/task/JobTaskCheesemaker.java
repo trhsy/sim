@@ -168,6 +168,7 @@ public class JobTaskCheesemaker extends JobTask{
 
 
             }else if(this.cheesemakerStage == 5){
+                //提取奶酪块
                String say= new TextComponentTranslation("container.sim.job.cheese_maker.Extracting",new Object[0]).getUnformattedText();
 
                 this.job.folk.setStatus(say);
@@ -203,7 +204,7 @@ public class JobTaskCheesemaker extends JobTask{
                         BlockPos blockPos = new BlockPos(cheese.x, cheese.y, cheese.z);
                         id = this.job.jobWorld.getBlockState(blockPos).getBlock();
                         dist = id.getMetaFromState(this.job.jobWorld.getBlockState(blockPos));
-
+                        //设置奶酪块
                         if (id == BlockLoader.milk && dist == 0) {
                             this.job.jobWorld.setBlockState(blockPos, id.getDefaultState(), 3);
                             ++milkGotCount;

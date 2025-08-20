@@ -417,14 +417,14 @@ public class EntityNpc extends EntityCreature implements INpc {
                     } else if (this.theData.gender == 0) {
                         //女声
 //                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellom"));
-                        SoundEvent hellom = SoundRegistry.HELLOF;
+                        SoundEvent hellom = SoundRegistry.HELLOM;
                         if (hellom == null || hellom.getRegistryName() == null) {
                             ModSimLoader.log.error("播放失败：sim:hellom 声音事件未注册");
                         } else {
                         player.world.playSound(null, player.posX, player.posY, player.posZ, hellom, SoundCategory.PLAYERS, 1.0F, 1.0F);}
                     } else {
 //                        SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":hellof"));
-                        SoundEvent hellof = SoundRegistry.HELLOM;
+                        SoundEvent hellof = SoundRegistry.HELLOF;
                             if (hellof == null || hellof.getRegistryName() == null) {
                                 ModSimLoader.log.error("播放失败：sim:hellof 声音事件未注册");
                             } else {

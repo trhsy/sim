@@ -430,13 +430,26 @@ public class EventLoader {
      * @Date 17:19 2022/10/31
      * @Param [player, posA, posB, smooth, width, event]
      **/
-    public static void drawBoundingBox_old(EntityPlayer player, Vec3d posA, Vec3d posB, boolean smooth, float width, RenderWorldLastEvent event) {
+    public static void drawBoundingBox(EntityPlayer player, Vec3d posA, Vec3d posB, boolean smooth, float width, RenderWorldLastEvent event) {
         GL11.glPushAttrib(8192);
         GL11.glDisable(2884);
         GL11.glDisable(2896);
         GL11.glDisable(3553);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
+        // 禁用光照、纹理，启用混合
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        // 设置线宽（兼容不同驱动）
+        GL11.glLineWidth(Math.max(1.0F, width));
+
+        // 调整坐标到玩家视角
+//        GL11.glTranslated(-offsetX, -offsetY, -offsetZ);
+
+        // 设置半透明红色
+        GL11.glColor4f(1.0F, 0.0F, 0.0F, 0.3F);
         //获取位置
         double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double) event.getPartialTicks();
         double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) event.getPartialTicks();

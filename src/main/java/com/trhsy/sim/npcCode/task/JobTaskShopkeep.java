@@ -47,7 +47,7 @@ public class JobTaskShopkeep extends JobTask {
                     ModSimLoader.sendChat(this.folk.getName() + "(" + this.job.toString() + ")  " + new TextComponentTranslation("container.sim.job.has_sold",new Object[0]).getUnformattedText() + sell + new TextComponentTranslation("container.sim.job.grocer.farmer.folks",new Object[0]).getUnformattedText());
                 } else {
                     //张三 今天没有产品可以卖给人们。
-                    ModSimLoader.sendChat(this.folk.getName() + new TextComponentTranslation("container.sim.job.grocer.farmer.today",new Object[0]).getUnformattedText());
+                    ModSimLoader.sendChat(this.folk.getName() + "(" + this.job.toString() + ")  " + new TextComponentTranslation("container.sim.job.grocer.farmer.today",new Object[0]).getUnformattedText());
                 }
             }
             this.onTaskComplete();

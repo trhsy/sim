@@ -140,7 +140,7 @@ public class JobMcDonald extends Job{
                         this.currentTask.completeTask();
                         this.jobTasks.clear();
                     }
-                }else{
+                }/*else{
                     this.mcDonaldStage = 0;
                     this.jobTasks.clear();
                 }
@@ -173,7 +173,7 @@ public class JobMcDonald extends Job{
                             }
                         }
                     }
-                }
+                }*/
             }
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];

@@ -1819,7 +1819,7 @@ public class NpcData {
                             for (EntityPlayer entityPlayer : world.playerEntities) {
                                 BlockPos pos=entityPlayer.getPosition();
                                 ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
-                                world.playSound((EntityPlayer) null, pos, birth, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                                world.playSound( null, pos.getX(),pos.getY(),pos.getZ(), birth, SoundCategory.BLOCKS, 1.0F, 1.0F);
                             }}
 //                            for (EntityPlayer entityPlayer : world.playerEntities) {
 //                                ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + entityPlayer.posX + "],y:[" + entityPlayer.posY + "],z:[" + entityPlayer.posZ + "]");

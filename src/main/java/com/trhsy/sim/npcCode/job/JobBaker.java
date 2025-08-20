@@ -142,7 +142,7 @@ public class JobBaker extends Job {
                         this.currentTask.begin();
                     }
                 }
-            }else{
+            }/*else{
                 this.baker_stage = 0;
                 this.jobTasks.clear();
             }
@@ -192,7 +192,7 @@ public class JobBaker extends Job {
                 }
                 // 更新上次统计时间
                 this.lastItemStatsTime = currentTime;
-            }
+            }*/
 
         }
         }catch (Exception e){

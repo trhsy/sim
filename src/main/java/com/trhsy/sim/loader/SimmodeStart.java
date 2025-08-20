@@ -470,13 +470,12 @@ public class SimmodeStart {
                                         double y = entityPlayer.posY;
                                         double z = entityPlayer.posZ;
                                         // 调整声音类别为BLOCKS（方块音效，更符合场景）
-                                        world.playSound(
+                                        world.playSound(null,
                                                 x, y, z,
                                                 rooster,
                                                 SoundCategory.BLOCKS,  // 更适合短音效
                                                 1.0F,  // 音量（0.0-1.0）
-                                                1.0F,  // 音调（0.5-2.0）
-                                                true   // 距离衰减（true=随距离减小音量）
+                                                1.0F  // 音调（0.5-2.0）
                                         );
                                     }}
 
@@ -521,13 +520,12 @@ public class SimmodeStart {
                                             double x = entityPlayer.posX;
                                             double y = entityPlayer.posY;
                                             double z = entityPlayer.posZ;
-                                            world.playSound(
+                                            world.playSound(null,
                                                     x, y, z,
                                                     cash,
                                                     SoundCategory.PLAYERS,  // 与玩家交互相关的音效
                                                     1.0F,
-                                                    1.0F,
-                                                    true
+                                                    1.0F
                                             );
                                         }}
                                         //你今天收了 今天的租金。
