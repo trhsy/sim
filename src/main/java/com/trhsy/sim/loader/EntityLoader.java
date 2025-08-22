@@ -2,6 +2,7 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityConBox;
+import com.trhsy.sim.entity.EntityDinkEmpty;
 import com.trhsy.sim.entity.EntityNpc;
 import com.trhsy.sim.entity.TileEntityWindmill;
 import com.trhsy.sim.loader.render.RenderConBox;
@@ -39,6 +40,7 @@ public class EntityLoader {
         
         EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":folk"), EntityNpc.class, "EntityFolk", nextID++, ModSim.instance, 64, 1, true);
         EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":ConBox"), EntityConBox.class, "ConBox", nextID++, ModSim.instance, 64, 3, false);
+        EntityRegistry.registerModEntity(new ResourceLocation(ModSim.MODID + ":DinkEmpty"), EntityDinkEmpty.class, "DinkEmpty", nextID++, ModSim.instance, 64, 3, false);
 //        DataFixer datafixer = new DataFixer(1343);
 //        datafixer = new net.minecraftforge.common.util.CompoundDataFixer(datafixer);
         // 注册 TileEntity

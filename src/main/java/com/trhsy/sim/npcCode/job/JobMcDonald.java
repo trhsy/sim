@@ -87,7 +87,7 @@ public class JobMcDonald extends Job{
                     this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.mcDonaldStage = 4;
                 } else if (this.mcDonaldStage == 4) {
-
+                    initInventory();
                     if (this.steak >= 1) {
                         //牛肉
                         //熟牛排
@@ -178,6 +178,31 @@ public class JobMcDonald extends Job{
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobMcDonald-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+        }
+    }
+    public void initInventory(){
+        List<IInventory> iterator = this.findJobChests(5);
+        for (IInventory inv : iterator) {
+            for (int i = 0; i < inv.getSizeInventory(); ++i) {
+                ItemStack slot = inv.getStackInSlot(i);
+                if (slot != null) {
+                    if (slot.isItemEqual(new ItemStack(Items.BEEF))) {
+                        this.steak += slot.getCount();
+                    } else if (slot.isItemEqual(new ItemStack(Items.PORKCHOP))) {
+                        this.porkchop += slot.getCount();
+                    } else if (slot.isItemEqual(new ItemStack(Items.MUTTON))) {
+                        this.mutton += slot.getCount();
+                    } else if (slot.isItemEqual(new ItemStack(Items.RABBIT))) {
+                        this.rabbit += slot.getCount();
+                    }else if (slot.isItemEqual(new ItemStack(Items.CHICKEN))) {
+                        this.chicken += slot.getCount();
+                    }else if (slot.isItemEqual(new ItemStack(Items.COOKED_FISH,1,1))) {
+                        this.salmon += slot.getCount();
+                    }else if (slot.isItemEqual(new ItemStack(Items.COOKED_FISH))) {
+                        this.fish += slot.getCount();
+                    }
+                }
+            }
         }
     }
     @Override

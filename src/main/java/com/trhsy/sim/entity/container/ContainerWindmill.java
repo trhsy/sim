@@ -6,7 +6,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,11 +37,11 @@ public class ContainerWindmill extends Container {
      */
     private int currentItemBurnTime;
 
-    // 槽位索引常量（明确标识各槽位功能）
-    private static final int SLOT_INPUT = 0;       // 输入槽（风车存储槽）
-    private static final int SLOT_OUTPUT = 1;      // 输出槽（成品输出）
-    private static final int SLOT_PLAYER_INV_START = 2; // 玩家背包起始索引
-    private static final int SLOT_PLAYER_INV_END = 37;   // 玩家背包结束索引（共36个槽位）
+    // 修正索引常量（总槽位：2个风车槽 + 36个玩家槽 = 38个，索引0~37）
+    private static final int SLOT_INPUT = 0;       // 输入槽（0）
+    private static final int SLOT_OUTPUT = 1;      // 输出槽（1）
+    private static final int SLOT_PLAYER_INV_START = 2; // 玩家槽开始（2）
+    private static final int SLOT_PLAYER_INV_END = 37;   // 玩家槽结束（37）（2+36-1=37）
     /**
      * @param playerInventory
      * @param furnaceInventory
@@ -96,12 +95,19 @@ public class ContainerWindmill extends Container {
         // 2. 添加风车输出槽（索引1）
         this.addSlotToContainer(new SlotFurnaceOutput(playerInventory.player, tileFurnace, SLOT_OUTPUT, 110, 30));
 
-        // 3. 添加玩家背包槽位（索引2-37，共36个槽位）
+        //3. 玩家背包槽位（3行×9列，索引2~28）
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 int slotIndex = SLOT_PLAYER_INV_START + row * 9 + col;
+                // 背包位置：Y坐标从74开始，每行间隔18
                 this.addSlotToContainer(new Slot(playerInventory, slotIndex, 8 + col * 18, 74 + row * 18));
             }
+        }
+        // 4. 玩家快捷栏槽位（1行×9列，索引29~37）【关键：补全漏掉的快捷栏】
+        for (int col = 0; col < 9; col++) {
+            int slotIndex = 29 + col; // 快捷栏在InventoryPlayer中索引为27~35，对应容器索引29~37
+            // 快捷栏位置：Y坐标通常在132（背包下方）
+            this.addSlotToContainer(new Slot(playerInventory, slotIndex, 8 + col * 18, 132));
         }
     }
     /**
@@ -223,8 +229,9 @@ public class ContainerWindmill extends Container {
             ItemStack currentStack = slot.getStack();
             itemstack = currentStack.copy();
 
-            // 处理输出槽（索引1）：玩家只能从输出槽取出物品
+            // 处理输出槽（索引1）：转移到玩家槽位（2~37）
             if (index == SLOT_OUTPUT) {
+                // 合并范围：从玩家槽开始到结束（含快捷栏）
                 if (!this.mergeItemStack(currentStack, SLOT_PLAYER_INV_START, SLOT_PLAYER_INV_END + 1, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -258,7 +265,7 @@ public class ContainerWindmill extends Container {
                 }
             }
 
-            if (currentStack.getCount() == 0) {
+            if (currentStack.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();

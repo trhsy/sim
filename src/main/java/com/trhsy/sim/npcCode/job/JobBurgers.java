@@ -81,7 +81,7 @@ public class JobBurgers extends Job {
                     this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.burgersStage = 4;
                 } else if (this.burgersStage == 4) {
-
+                    initInventory();
                     if (this.itemCheese >= 1 && this.beef >= 1 && this.bread >= 2) {
                         //蛋糕需要的食材
                         List<ItemStack> cakes = new CopyOnWriteArrayList<ItemStack>();
@@ -167,7 +167,25 @@ public class JobBurgers extends Job {
             ModSimLoader.log.error("JobBurgers-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
-
+    public void initInventory(){
+        List<IInventory> iterator = this.findJobChests(5);
+        for (IInventory inv : iterator) {
+            for (int i = 0; i < inv.getSizeInventory(); ++i) {
+                ItemStack slot = inv.getStackInSlot(i);
+                if (slot != null) {
+                    if (slot.isItemEqual(new ItemStack(Items.BREAD))) {
+                        this.bread += slot.getCount();
+                    } else if (slot.isItemEqual(new ItemStack(Items.BEEF))) {
+                        this.beef += slot.getCount();
+                    } else if (slot.isItemEqual(new ItemStack(Items.POTATO))) {
+                        this.potato += slot.getCount();
+                    } else if (slot.isItemEqual(new ItemStack(ItemLoader.itemCheese))) {
+                        this.itemCheese += slot.getCount();
+                    }
+                }
+            }
+        }
+    }
     @Override
     public String toString() {
         return this.jobName;

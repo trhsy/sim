@@ -1810,16 +1810,15 @@ public class NpcData {
                             this.pregnancyStage = 0.0F;
                             new NpcData(this.world, this.getSpouse(), this);
                             //这里要播放那个宝宝笑的音频 找到了 音频文件 叫 birth
-                            World world = Minecraft.getMinecraft().world;
 //                            SoundEvent soundEvent = new SoundEvent(new ResourceLocation(ModSim.MODID + ":birth"));
                             SoundEvent birth = SoundRegistry.BIRTH;
                             if (birth == null || birth.getRegistryName() == null) {
                                 ModSimLoader.log.error("播放失败：sim:birth 声音事件未注册");
                             } else {
-                            for (EntityPlayer entityPlayer : world.playerEntities) {
+                            for (EntityPlayer entityPlayer : this.world.playerEntities) {
                                 BlockPos pos=entityPlayer.getPosition();
                                 ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + pos.getX() + "],y:[" + pos.getY() + "],z:[" + pos.getZ() + "]");
-                                world.playSound( null, pos.getX(),pos.getY(),pos.getZ(), birth, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                                this.world.playSound( null, pos.getX(),pos.getY(),pos.getZ(), birth, SoundCategory.BLOCKS, 1.0F, 1.0F);
                             }}
 //                            for (EntityPlayer entityPlayer : world.playerEntities) {
 //                                ModSimLoader.log.info("播放 生孩子宝宝笑的那个声音:[x:" + entityPlayer.posX + "],y:[" + entityPlayer.posY + "],z:[" + entityPlayer.posZ + "]");
