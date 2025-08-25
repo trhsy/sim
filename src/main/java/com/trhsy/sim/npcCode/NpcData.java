@@ -2469,8 +2469,7 @@ public class NpcData {
     public void forceMoveToXYZs(V3 v3) {
 //        V3 v31=new V3(v3.x,v3.y+1,v3.z);
         V3 v31 = getAdjustedV3(v3);
-        BlockPos blockPos=v31.toBlockPos();
-        Path path=this.entity.getNavigator().getPathToPos(blockPos);
+        Path path=this.entity.getNavigator().getPathToXYZ(v31.x,v31.y,v31.z);
         Path path1=this.entity.getNavigator().getPath();
         //已有地址 则更新地址
         if(path==path1&&path!=null&&path1!=null){
@@ -2478,7 +2477,9 @@ public class NpcData {
         }
         if(path!=null){
             //设置地址
+            this.entity.getNavigator().tryMoveToXYZ(v31.x,v31.y,v31.z,10);
             this.entity.getNavigator().setPath(path,10);
+
         }
     }
     /**
@@ -2492,11 +2493,10 @@ public class NpcData {
         this.stayPut=false;
         // 增加 1 的偏移量
         V3 targetV3 = getAdjustedV3(v3);
-        BlockPos targetPos = targetV3.toBlockPos();
 
         try {
             // 获取到目标位置的路径
-            Path path = this.entity.getNavigator().getPathToPos(targetPos);
+            Path path = this.entity.getNavigator().getPathToXYZ(targetV3.x,targetV3.y,targetV3.z);
             //当前路径
             Path currentPath = this.entity.getNavigator().getPath();
 
@@ -2512,21 +2512,23 @@ public class NpcData {
             }
             // 检测 NPC 当前位置与终点位置的距离
             double distance = this.entity.getDistance(targetV3.x, targetV3.y, targetV3.z);
-            if (distance >= 15&&path == null) {
+            if (distance >= 15||path == null) {
                 // 生成粒子效果
                 spawnPortalParticles();
                 //tp命令
-                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
-                this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
-                this.entity.move(MoverType.SELF,targetV3.x, targetV3.y, targetV3.z);
+                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
+//                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
+//                this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
+//                this.entity.move(MoverType.SELF,targetV3.x, targetV3.y, targetV3.z);
                 // 如果距离小于等于 1，说明已经到达目标位置，清除路径
-//                this.entity.getNavigator().clearPath();
+                this.entity.getNavigator().clearPath();
                 return true;
             }
             // 检测当前位置前方是否有方块阻挡
             if (isPathBlocked(1)) {
                 // 如果前方有方块阻挡，重新获取路径
-                path = this.entity.getNavigator().getPathToPos(targetPos);
+                path = this.entity.getNavigator().getPathToXYZ(targetV3.x,targetV3.y,targetV3.z);
                 if (path != null) {
                     this.entity.getNavigator().setPath(path, 2D);
                 }
@@ -2666,7 +2668,7 @@ public class NpcData {
      * @return 调整后的 V3 位置
      */
     private V3 getAdjustedV3(V3 v3) {
-        return new V3(v3.x+0.1, v3.y + 1, v3.z+0.1);
+        return new V3(v3.x+0.1, v3.y + 1.1, v3.z+0.1);
     }
 
     /**
