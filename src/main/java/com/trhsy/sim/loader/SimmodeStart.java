@@ -192,7 +192,7 @@ public class SimmodeStart {
                         //ModSimLoader.log.info("得到Npc " + buildingFile.getName());
                         String uid = buildingFile.getName().split(".sk2")[0];
                         NpcData npcData = new NpcData(world, UUID.fromString(uid));
-                        if (!npcData.isDead) {
+                        if (!npcData.isDead&&npcData.entity != null && !npcData.entity.isDead) {
                             ModSimLoader.folks.add(npcData);
                             NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
                         } else {

@@ -124,7 +124,7 @@ public class JobBurgers extends Job {
                 } /*else {
                     this.burgersStage = 0;
                     this.jobTasks.clear();
-                }
+                }*/
                 // ---------------------- 物品统计优化 ----------------------
                 long currentTime = this.jobWorld.getWorldTime(); // 获取当前游戏时间（ticks）
                 // 检查是否达到统计间隔（五分钟）
@@ -160,7 +160,7 @@ public class JobBurgers extends Job {
                             }
                         }
                     }
-                }*/
+                }
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

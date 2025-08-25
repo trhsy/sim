@@ -22,6 +22,7 @@ import com.trhsy.sim.npcCode.traits.Traits;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -206,13 +207,20 @@ public class NpcData {
     /**
      * 临时员工位置
      */
-    V3 tempEmployLoc;
+    public V3 tempEmployLoc;
     /**
      * 上次路径尝试的时间
      */
     Long lastPathAttempt;
     private int fs_rand;
     public World world;
+
+    // ========================= 常量定义（消除硬编码）=========================
+    private static final String NPC_FOLDER_NAME = "npc";
+    private static final String NPC_FILE_SUFFIX = ".sk2";
+    private static final String TRANSLATION_PREFIX = "container.sim.";
+    private static final double NPC_SPAWN_RANGE = 80.0D; // NPC重生检测范围
+    private static final int MAX_PATH_ATTEMPT = 100; // 最大路径尝试次数
     /**
      * 构造函数，用于创建新的 NPC
      *
@@ -311,12 +319,12 @@ public class NpcData {
             // 设置年龄为种族的成熟年龄
             this.age = this.race.maturity;
             // 生成特征
-            generateTraits();
+            this.generateTraits();
 
             // 创建 NPC 实体
             EntityNpc e = new EntityNpc(world, true);
             e.isBeingCreated = true;
-
+/*
             // 如果世界中有玩家，将 NPC 初始位置设置为第一个玩家的位置
             if (world.playerEntities.size() > 0) {
                 EntityPlayer thePlayer = world.playerEntities.get(0);
@@ -331,7 +339,8 @@ public class NpcData {
                     e.setPositionAndUpdate(newPos.x, newPos.y + 1.0D, newPos.z);
                     this.pos = V3.fromVec3d(newPos);
                 }
-            }
+            }*/
+            setInitialPosition(e, world, fromCommand);
             // 将 NPC 数据与实体关联
             e.theData = this;
             this.entity = e;
@@ -339,11 +348,14 @@ public class NpcData {
             world.spawnEntity(e);
             // 获取 NPC 的唯一标识符
             this.ID = this.entity.getUniqueID();
+
             // 发送 NPC 刚刚进入该地区的消息
             String fs_ldzl = new TextComponentTranslation("container.sim.folk_data_just", new Object[0]).getUnformattedText();
             ModSimLoader.sendChat(this.getName() + fs_ldzl);
+
             // 向所有客户端发送可雇佣的人列表
             NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
+
             // 向客户端发送 NPC 的皮肤地址
             this.sendSkinPathToClient();
             // 保存 NPC 数据
@@ -359,20 +371,7 @@ public class NpcData {
             ModSimLoader.log.error("NpcData出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
-    /**
-     * 初始化通用属性
-     */
-    private void initializeCommonAttributes() {
-        this.fs_rand = 0;
-        this.isDead = false;
-        this.holding = null;
-        this.matingStage = -1.0F;
-        this.tempStage = -1;
-        this.timeSinceLastStatusUpdate = 0L;
-        this.minuteUpdate = 0L;
-        this.tempEmployLoc = null;
-        this.lastPathAttempt = 0L;
-    }
+
 
     /**
      * 获取随机生成的 NPC 位置
@@ -502,16 +501,17 @@ public class NpcData {
             this.age = 0;
 
             // 随机选择继承母亲或父亲的种族
-            if (new Random().nextInt(2) == 0) {
+            this.assignRace(new Random().nextBoolean() ? mother.race.raceName : father.race.raceName, true);
+            /*if (new Random().nextInt(2) == 0) {
                 this.assignRace(mother.race.raceName, true);
             } else {
                 this.assignRace(father.race.raceName, true);
-            }
+            }*/
 
             // 设置姓氏为父亲的姓氏
             this.surname = father.surname;
             // 生成特征
-            generateTraits();
+            this.generateTraits();
 
             // 创建 NPC 实体
             EntityNpc e = new EntityNpc(world, true);
@@ -671,7 +671,7 @@ public class NpcData {
      **/
     public void loadFolk(World world, UUID uuid) {
         try {
-            File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
+            /*File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
             if (!npcFolder.exists()) {
                 npcFolder.mkdirs();
             }
@@ -681,9 +681,7 @@ public class NpcData {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             BuildingBlueprint buildingBlueprint = null;
             String line="";
-//            int fs_count=0;
             while ((line= reader.readLine())!=null){
-//                fs_count++;
                 int m1 = line.indexOf("|");
                 String name = line.substring(0, m1).toLowerCase();
                 String value = line.substring(m1 + 1).toLowerCase();
@@ -932,26 +930,6 @@ public class NpcData {
                 }
             }
 
-//            reader.close();
-//            inputStream.close();
-            //if (this.entity != null) {
-            //    this.entity.theData = null;
-            //    this.entity = null;
-            //}
-//            if(fs_count>10&&!this.isDead){
-//
-//                this.respawn(world, this.pos.toBlockPos());
-//                this.isLoaded = true;
-//            }else{
-                //重生实体
-               /* EntityNpc ef = new EntityNpc(world, this.ID);
-                ef.theData=this;
-                ef.onDeath(DamageSource.GENERIC);
-                ef.removePassengers();
-                ef.dismountRidingEntity();
-                ef.setDead();
-                world.removeEntity(ef);
-                world.removeEntityDangerously(ef);*/
             // 创建 NPC 实体
             Entity entity=FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(this.ID);
             EntityNpc e=null;
@@ -975,6 +953,57 @@ public class NpcData {
             // 向所有客户端发送 NPC 更新消息
 //            NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
 //            }
+            */
+
+            // 1. 初始化文件路径
+            File npcFolder = new File(ModSimLoader.getSavesDataFolder(), NPC_FOLDER_NAME);
+            File npcFile = new File(npcFolder, uuid.toString() + NPC_FILE_SUFFIX);
+            if (!npcFile.exists()) {
+                ModSimLoader.log.error("NPC存档文件不存在：{}", npcFile.getAbsolutePath());
+                this.isLoaded = false;
+                return;
+            }
+            // 2. try-with-resources自动关闭流（避免资源泄露）
+            try (InputStream inputStream = new FileInputStream(npcFile);
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+                String line;
+                BuildingBlueprint blueprint = null;
+
+                // 3. 逐行解析NPC数据
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    if (line.isEmpty()) continue;
+
+                    // 分割key和value（处理格式错误）
+                    int separatorIndex = line.indexOf("|");
+                    if (separatorIndex == -1) {
+                        ModSimLoader.log.warn("NPC[{}] 数据行格式错误（无分隔符）：{}", uuid, line);
+                        continue;
+                    }
+
+                    String key = line.substring(0, separatorIndex).toLowerCase();
+                    String value = line.substring(separatorIndex + 1).trim();
+                    parseNpcDataLine(key, value, blueprint);
+                }
+
+                // 4. 处理NPC实体生成
+                handleNpcEntitySpawn(world, uuid);
+
+                // 5. 标记加载状态
+                this.isLoaded = true;
+                ModSimLoader.log.info("NPC[{}] 加载完成", uuid);
+
+            } catch (FileNotFoundException e) {
+                ModSimLoader.log.error("NPC[{}] 存档文件未找到：{}", uuid, npcFile.getAbsolutePath());
+                this.isLoaded = false;
+            } catch (IOException e) {
+                ModSimLoader.log.error("NPC[{}] 读取存档文件IO错误：", uuid, e);
+                this.isLoaded = false;
+            } catch (Exception e) {
+                ModSimLoader.log.error("NPC[{}] 解析数据异常：", uuid, e);
+                this.isLoaded = false;
+            }
         } catch (Exception e) {
             this.isLoaded = false;
 //            this.onDeath(DamageSource.GENERIC);
@@ -984,7 +1013,224 @@ public class NpcData {
 
         }
     }
+    /**
+     * 解析单条NPC数据行
+     */
+    private void parseNpcDataLine(String key, String value, BuildingBlueprint blueprint) {
+        switch (key) {
+            case "id":
+                this.ID = UUID.fromString(value);
+                break;
+            case "isdie":
+                handleNpcDeathStatus(Boolean.parseBoolean(value));
+                break;
+            case "fname":
+                this.forename = capitalizeFirstLetter(value);
+                break;
+            case "sname":
+                this.surname = capitalizeFirstLetter(value);
+                break;
+            case "gender":
+                this.gender = Integer.parseInt(value);
+                break;
+            case "age":
+                if (!key.contains("jobstage")) { // 避免与jobstage中的age混淆
+                    this.age = Integer.parseInt(value);
+                }
+                break;
+            case "race":
+                this.assignRace(value, false);
+                break;
+            case "skin":
+                this.race.skinName = value;
+                this.skinName = value;
+                break;
+            case "pos":
+                this.pos = V3.fromString(value);
+                break;
+            case "trait1":
+                this.trait1 = Trait.getTraitFromName(value);
+                break;
+            case "trait2":
+                this.trait2 = Trait.getTraitFromName(value);
+                break;
+            case "trait3":
+                this.trait3 = Trait.getTraitFromName(value);
+                break;
+            case "pregnancy":
+                this.pregnancyStage = Float.parseFloat(value);
+                break;
+            case "hunger":
+                this.hunger = Double.parseDouble(value);
+                break;
+            case "buildingskill":
+                this.skillBuilding = Float.parseFloat(value);
+                break;
+            case "farmingskill":
+                this.skillFarming = Float.parseFloat(value);
+                break;
+            case "miningskill":
+                this.skillMining = Float.parseFloat(value);
+                break;
+            case "holding":
+                this.holding = parseHoldingItem(value);
+                break;
+            case "employedat":
+                this.tempEmployLoc = "null".equals(value) ? null : V3.fromString(value);
+                break;
+            case "job":
+                this.job = JobFactory.createJob(this, value, blueprint, this.world);
+                if (this.job != null) {
+                    this.job.stage = 0;
+                }
+                break;
+            case "jobstage":
+                if (this.job != null) {
+                    this.job.stage = Integer.parseInt(value);
+                } else {
+                    this.tempStage = Integer.parseInt(value);
+                }
+                break;
+            case "relationship":
+                parseRelationships(value);
+                break;
+            case "building":
+                blueprint = ModSimLoader.getBlueprintsByName(value);
+                break;
+            default:
+                ModSimLoader.log.debug("NPC[{}] 未知数据键：{}={}", this.ID, key, value);
+        }
+    }
+    /**
+     * 处理NPC死亡状态（加载时）
+     */
+    private void handleNpcDeathStatus(boolean isDead) {
+        this.isDead = isDead;
+        if (this.isDead) {
+            // 清理已死亡实体
+            Entity entity = FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(this.ID);
+            if (entity != null) {
+                entity.setDead();
+            }
+            this.isLoaded = false;
+            // 抛出异常终止后续解析（已死亡无需加载）
+            throw new IllegalStateException("NPC[" + this.ID + "] 已死亡，终止加载");
+        }
+    }
+    /**
+     * 解析手持物品
+     */
+    private ItemStack parseHoldingItem(String value) {
+        if (value == null || value.isEmpty()) {
+            return null;
+        }
+        Item item = Item.getByNameOrId(value);
+        return item != null ? new ItemStack(item) : new ItemStack(Blocks.AIR);
+    }
+    /**
+     * 解析人际关系
+     */
+    private void parseRelationships(String value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+        String[] relEntries = value.split(";");
+        for (String rel : relEntries) {
+            if (rel.length() > 0) {
+                this.relationships.add(new FolkRelationship(this, rel.toUpperCase()));
+            }
+        }
+    }
+    /**
+     * 处理NPC实体生成（加载时）
+     */
+    private void handleNpcEntitySpawn(World world, UUID uuid) {
+        // 1. 尝试获取已存在实体（避免重复生成）
+        Entity entity = FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(uuid);
+        EntityNpc e = (entity instanceof EntityNpc) ? (EntityNpc) entity : new EntityNpc(world, uuid);
 
+        // 2. 设置实体属性
+        e.isBeingCreated = true;
+        if (this.pos != null) {
+            e.setPositionAndUpdate(this.pos.x, this.pos.y, this.pos.z);
+        } else {
+            ModSimLoader.log.warn("NPC[{}] 位置无效，使用默认位置", uuid);
+            e.setPositionAndUpdate(0, 64, 0); // 世界出生点附近
+        }
+        e.theData = this;
+        this.entity = e;
+
+        // 3. 检查实体是否已在世界中（避免重复spawn）
+        if (!world.loadedEntityList.contains(e)) {
+            world.spawnEntity(e);
+        }
+    }
+    /**
+     * 初始化通用属性
+     */
+    private void initializeCommonAttributes() {
+        this.fs_rand = 0;
+        this.isDead = false;
+        this.holding = null;
+        this.matingStage = -1.0F;
+        this.tempStage = -1;
+        this.timeSinceLastStatusUpdate = 0L;
+        this.minuteUpdate = 0L;
+        this.tempEmployLoc = null;
+        this.lastPathAttempt = 0L;
+    }
+    /**
+     * 设置NPC初始位置（新建时）
+     */
+    private void setInitialPosition(EntityNpc e, World world, boolean fromCommand) {
+//        if (fromCommand && !world.playerEntities.isEmpty()) {
+//            // 命令创建：生成在玩家位置
+//            EntityPlayerMP player = (EntityPlayerMP) world.playerEntities.get(0);
+//            e.setPositionAndUpdate(player.posX, player.posY, player.posZ);
+//            this.pos = new V3(player.getPosition(), player.dimension);
+//        } else {
+            // 自然生成：随机位置（避免卡方块）
+            Vec3d spawnPos = getSafeSpawnPosition(e, world);
+            if (spawnPos != null) {
+                e.setPositionAndUpdate(spawnPos.x, spawnPos.y + 1.0D, spawnPos.z);
+                this.pos = V3.fromVec3d(spawnPos);
+            }
+//        }
+    }
+    /**
+     * 获取安全的随机生成位置（无方块阻挡）
+     */
+    private Vec3d getSafeSpawnPosition(EntityNpc e, World world) {
+        int attempt = 0;
+        Vec3d spawnPos;
+        while (attempt < MAX_PATH_ATTEMPT) {
+            spawnPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
+            if (spawnPos != null) {
+                BlockPos pos = new BlockPos(spawnPos);
+                BlockPos upPos = pos.up();
+                if (world.isAirBlock(upPos)) {
+                    return spawnPos;
+                }
+            }
+            attempt++;
+        }
+        // 尝试失败：生成在玩家附近
+        if (!world.playerEntities.isEmpty()) {
+            EntityPlayerMP player = (EntityPlayerMP) world.playerEntities.get(0);
+            return new Vec3d(player.posX, player.posY, player.posZ);
+        }
+        // 极端情况：世界出生点
+        return new Vec3d(0, 64, 0);
+    }
+    /**
+     * 首字母大写（统一姓名格式）
+     */
+    private String capitalizeFirstLetter(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
     /**
      * @return void
      * @Author fan
@@ -1041,9 +1287,9 @@ public class NpcData {
             this.race = Races.raceList.get(new Random().nextInt(Races.raceList.size()));
             this.race.skinName = this.getTexture();
             this.skinName = this.race.skinName;
-        } catch (Exception var8) {
-            StackTraceElement element = var8.getStackTrace()[0];
-            ModSimLoader.log.error("assignRace出错了：" + var8.getMessage() + "行数：" + element.getLineNumber());
+        } catch (Exception e) {
+            ModSimLoader.log.error("NPC[{}] 分配种族失败：", this.ID, e);
+            this.race = Races.raceList.get(0); //  fallback：默认第一个种族
         }
     }
 
@@ -1056,8 +1302,17 @@ public class NpcData {
      **/
     public void assignRace(String existingRaceName, boolean newChild) {
         try {
-            Race race = new Race();
-            for (int i = 0; i < Races.raceList.size(); i++) {
+            Race targetRace = new Race();
+            for (Race race : Races.raceList) {
+                if (race.raceName.equals(existingRaceName)) {
+                    targetRace = race;
+                    break;
+                }
+            }
+            this.race = targetRace != null ? targetRace : Races.raceList.get(0);
+            this.race.skinName = this.getTexture();
+            this.skinName = this.race.skinName;
+            /*for (int i = 0; i < Races.raceList.size(); i++) {
                 Race race1 = Races.raceList.get(i);
                 if (existingRaceName.equals(race1.raceName)) {
                     race = race1;
@@ -1066,10 +1321,10 @@ public class NpcData {
             }
             this.race = race;
             this.race.skinName = this.getTexture();
-            this.skinName = this.race.skinName;
-        } catch (Exception var9) {
-            StackTraceElement element = var9.getStackTrace()[0];
-            ModSimLoader.log.error("assignRace出错了：" + var9.getMessage() + "行数：" + element.getLineNumber());
+            this.skinName = this.race.skinName;*/
+        } catch (Exception e) {
+            ModSimLoader.log.error("NPC[{}] 分配指定种族[{}]失败：", this.ID, existingRaceName, e);
+            this.race = Races.raceList.get(0);
         }
     }
 
@@ -1089,6 +1344,59 @@ public class NpcData {
     public void saveFolk() {
         try {
             //ModSimLoader.log.info("开始保存NPC数据，Uid："+this.ID);
+            if (this.entity == null) {
+                ModSimLoader.log.warn("NPC[{}] 实体为空，跳过保存", this.ID);
+                return;
+            }File npcFolder = new File(ModSimLoader.getSavesDataFolder(), NPC_FOLDER_NAME);
+            if (!npcFolder.exists()) {
+                npcFolder.mkdirs();
+            }
+
+            File npcFile = new File(npcFolder, this.entity.getUniqueID() + NPC_FILE_SUFFIX);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(npcFile))) {
+                // 写入核心数据
+                writer.write("id|" + this.ID + "\n");
+                writer.write("isdie|" + this.isDead + "\n");
+                writer.write("fname|" + this.forename + "\n");
+                writer.write("sname|" + this.surname + "\n");
+                writer.write("gender|" + this.gender + "\n");
+                writer.write("age|" + this.age + "\n");
+                writer.write("race|" + (this.race != null ? this.race.raceName : "") + "\n");
+                writer.write("skin|" + this.skinName + "\n");
+                writer.write("pos|" + (this.pos != null ? this.pos.toString() : "") + "\n");
+                writer.write("trait1|" + (this.trait1 != null ? this.trait1.traitName : "") + "\n");
+                writer.write("trait2|" + (this.trait2 != null ? this.trait2.traitName : "") + "\n");
+                writer.write("trait3|" + (this.trait3 != null ? this.trait3.traitName : "") + "\n");
+                writer.write("hunger|" + this.hunger + "\n");
+                writer.write("pregnancy|" + this.pregnancyStage + "\n");
+                writer.write("buildingskill|" + this.skillBuilding + "\n");
+                writer.write("farmingskill|" + this.skillFarming + "\n");
+                writer.write("miningskill|" + this.skillMining + "\n");
+
+                // 写入手持物品
+                String holdingStr = "";
+                if (this.holding != null && this.holding.getItem() != null) {
+                    holdingStr = this.holding.getItem().getRegistryName().toString();
+                }
+                writer.write("holding|" + holdingStr + "\n");
+
+                // 写入职业相关
+                writer.write("employedat|" + (this.tempEmployLoc != null ? this.tempEmployLoc.toString() : "null") + "\n");
+                if (this.job != null) {
+                    writer.write("job|" + this.job.jobName + "\n");
+                    writer.write("jobstage|" + this.job.stage + "\n");
+                } else {
+                    writer.write("job|null\n");
+                    writer.write("jobstage|-1\n");
+                }
+
+                // 写入人际关系
+                writer.write("relationship|");
+                for (int i = 0; i < this.relationships.size(); i++) {
+                    writer.write(this.relationships.get(i).toString() + (i < this.relationships.size() - 1 ? ";" : ""));
+                }
+                writer.write("\n");
+            }/*
             if (this.entity != null) {
                 BufferedWriter writer = null;
                 try {
@@ -1165,10 +1473,9 @@ public class NpcData {
 
                 }
 
-            }
+            }*/
         } catch (Exception e) {
-            StackTraceElement element = e.getStackTrace()[0];
-            ModSimLoader.log.error("saveFolk出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            ModSimLoader.log.error("NPC[{}] 保存失败：", this.ID, e);
         }
     }
 
@@ -2103,21 +2410,21 @@ public class NpcData {
         }
         return npcData;
     }
-//    public void forceMoveToXYZ(V3 v3,int speedln) {
-////        V3 v31=new V3(v3.x,v3.y+1,v3.z);
-//        V3 v31 = getAdjustedV3(v3);
-//        BlockPos blockPos=v31.toBlockPos();
-//        Path path=this.entity.getNavigator().getPathToPos(blockPos);
-//        Path path1=this.entity.getNavigator().getPath();
-//        //已有地址 则更新地址
-//        if(path==path1&&path!=null&&path1!=null){
-//            this.entity.getNavigator().onUpdateNavigation();
-//        }
-//        if(path!=null){
-//            //设置地址
-//            this.entity.getNavigator().setPath(path,speedln);
-//        }
-//    }
+    public void forceMoveToXYZs(V3 v3) {
+//        V3 v31=new V3(v3.x,v3.y+1,v3.z);
+        V3 v31 = getAdjustedV3(v3);
+        BlockPos blockPos=v31.toBlockPos();
+        Path path=this.entity.getNavigator().getPathToPos(blockPos);
+        Path path1=this.entity.getNavigator().getPath();
+        //已有地址 则更新地址
+        if(path==path1&&path!=null&&path1!=null){
+            this.entity.getNavigator().onUpdateNavigation();
+        }
+        if(path!=null){
+            //设置地址
+            this.entity.getNavigator().setPath(path,10);
+        }
+    }
     /**
      * @return boolean
      * @Author fan
@@ -2149,12 +2456,13 @@ public class NpcData {
             }
             // 检测 NPC 当前位置与终点位置的距离
             double distance = this.entity.getDistance(targetV3.x, targetV3.y, targetV3.z);
-            if (distance <= 1.58D) {
+            if (distance >= 15&&path == null) {
                 // 生成粒子效果
                 spawnPortalParticles();
                 //tp命令
                 this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
                 this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
+                this.entity.move(MoverType.SELF,targetV3.x, targetV3.y, targetV3.z);
                 // 如果距离小于等于 1，说明已经到达目标位置，清除路径
 //                this.entity.getNavigator().clearPath();
                 return true;
@@ -2168,13 +2476,13 @@ public class NpcData {
                 }
                 this.entity.getNavigator().onUpdateNavigation();
             }
-            if (path == null) {
+           /* if (path == null) {
                 // 生成粒子效果
                 spawnPortalParticles();
                 // 直接设置实体位置
                 this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
                 this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
-            }
+            }*/
         } catch (Exception e) {
             // 记录错误信息
             StackTraceElement element = e.getStackTrace()[0];
@@ -2302,7 +2610,7 @@ public class NpcData {
      * @return 调整后的 V3 位置
      */
     private V3 getAdjustedV3(V3 v3) {
-        return new V3(v3.x, v3.y + 1.3, v3.z);
+        return new V3(v3.x+0.1, v3.y + 1, v3.z+0.1);
     }
 
     /**

@@ -26,6 +26,10 @@ public class JobMcDonald extends Job{
     public int mcDonaldStage = 0;
     //熟猪排 熟羊肉 熟兔肉 牛排 熟鸡肉 熟鲑鱼 熟鱼
     private int porkchop, mutton, rabbit, steak,chicken,salmon,fish;
+    // 上次统计物品的时间戳（单位：ticks，1 tick = 1/20秒）
+    private long lastItemStatsTime = 0;
+    // 统计间隔（五分钟 = 5 * 60秒 = 300秒 = 300 * 20 ticks = 6000 ticks）
+    private static final long STATS_INTERVAL = 1000;
     public JobMcDonald(NpcData folk, BlockPos pos, World world) {
         super(folk, pos, world);
         folk.holding = new ItemStack(ItemLoader.tinSpade);
@@ -135,11 +139,11 @@ public class JobMcDonald extends Job{
                             this.currentTask = (JobTask) this.jobTasks.get(0);
                             this.currentTask.begin();
                         }
-                    } else if ((this.steak > 1 ||this.porkchop > 1 ||this.mutton > 1||this.rabbit > 1||this.chicken > 1||this.salmon > 1||this.fish > 1) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling",new Object[0]).getUnformattedText())) {
+                    } /*else if ((this.steak > 1 ||this.porkchop > 1 ||this.mutton > 1||this.rabbit > 1||this.chicken > 1||this.salmon > 1||this.fish > 1) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling",new Object[0]).getUnformattedText())) {
                         this.mcDonaldStage = 4;
                         this.currentTask.completeTask();
                         this.jobTasks.clear();
-                    }
+                    }*/
                 }/*else{
                     this.mcDonaldStage = 0;
                     this.jobTasks.clear();
@@ -174,13 +178,33 @@ public class JobMcDonald extends Job{
                         }
                     }
                 }*/
+                // ---------------------- 物品统计优化 ----------------------
+                long currentTime = this.jobWorld.getWorldTime(); // 获取当前游戏时间（ticks）
+                // 检查是否达到统计间隔（五分钟）
+                if (currentTime - lastItemStatsTime >= STATS_INTERVAL) {
+                    initInventory();
+                    // 如果还有原料且处于售卖阶段，重新进入制作阶段
+                    if (hasEnoughMaterials() && this.mcDonaldStage >= 5) {
+                        this.mcDonaldStage = 4;
+                        this.jobTasks.clear(); // 清空现有任务，重新生成制作任务
+                    }
+                    // 更新上次统计时间
+                    this.lastItemStatsTime = currentTime;
+                }
             }
         }catch (Exception e){
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("JobMcDonald-onUpdate出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
     }
+    /**
+     * 检查是否有足够原料继续制作
+     */
+    private boolean hasEnoughMaterials() {
+        return (this.steak > 1 ||this.porkchop > 1 ||this.mutton > 1||this.rabbit > 1||this.chicken > 1||this.salmon > 1||this.fish > 1) && this.folk.getStatusText().contains(new TextComponentTranslation("container.sim.job_task_Selling",new Object[0]).getUnformattedText());
+    }
     public void initInventory(){
+        porkchop=0; mutton=0; rabbit=0; steak=0;chicken=0;salmon=0;fish=0;
         List<IInventory> iterator = this.findJobChests(5);
         for (IInventory inv : iterator) {
             for (int i = 0; i < inv.getSizeInventory(); ++i) {

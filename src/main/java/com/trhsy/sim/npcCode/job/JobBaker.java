@@ -30,7 +30,7 @@ public class JobBaker extends Job {
     // 上次统计物品的时间戳（单位：ticks，1 tick = 1/20秒）
     private long lastItemStatsTime = 0;
     // 统计间隔（五分钟 = 5 * 60秒 = 300秒 = 300 * 20 ticks = 6000 ticks）
-    private static final long STATS_INTERVAL = 6000;
+    private static final long STATS_INTERVAL = 1000;
     // 单次最大制作份数（避免任务过多卡顿）
     private static final int MAX_BATCH_COUNT = 5;
     public JobBaker(NpcData folk, BlockPos pos, World world) {
@@ -92,8 +92,8 @@ public class JobBaker extends Job {
             } else if (this.baker_stage == 4) {
                     initInventory();
                 // 批量制作：根据原料计算最大可制作份数，生成对应任务
-                batchProduceFood();
-                    /*if (this.milk_bucket >= 3 && this.sugar >= 2 && this.egg >= 1 && this.wheat > 3) {
+//                batchProduceFood();
+                    if (this.milk_bucket >= 3 && this.sugar >= 2 && this.egg >= 1 && this.wheat > 3) {
                         //蛋糕需要的食材
                         List<ItemStack> cakes = new CopyOnWriteArrayList<ItemStack>();
                         //牛奶
@@ -132,7 +132,7 @@ public class JobBaker extends Job {
                     if (this.wheat > 3) {
                         //烘烤 面包 食材 小麦三个
                         this.addJobTask(new JobTaskProduceItem(this, 60000L, Items.BREAD, new ItemStack(Items.WHEAT, 3), new TextComponentTranslation("container.sim.job.Baker_Baking",new Object[0]).getUnformattedText()));
-                    }*/
+                    }
                     this.baker_stage = 5;
             } else if (this.baker_stage == 5) {
                 //售卖/关店
@@ -171,6 +171,7 @@ public class JobBaker extends Job {
         }
     }
     public void initInventory(){
+        wheat=0;egg=0; pumpkin=0; milk_bucket=0;sugar=0; dye=0;
         List<IInventory> iterator = this.findJobChests(5);
         for (IInventory inv : iterator) {
             for (int i = 0; i < inv.getSizeInventory(); ++i) {
