@@ -35,6 +35,8 @@ import org.lwjgl.opengl.GL11;
 public class RenderEntityFolk extends RenderBiped<EntityNpc> {
 
     public static final RenderEntityFolk.Factory FACTORY = new RenderEntityFolk.Factory();
+    // 新增：数据同步超时时间（5秒，可根据实际情况调整）
+    private static final long DATA_SYNC_TIMEOUT = 5000;
 
     public RenderEntityFolk(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelBiped(), 1.0F);
@@ -113,9 +115,8 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                 return new ResourceLocation(ModSim.MODID, "skins/" + cfi.skinPath);
             }
 
-            // 情况3：无身份数据（cfi为null）→ 视为已死亡，销毁实体
-            entity.setDead(); // 关键：无数据则销毁，避免默认皮肤
-            return null;
+//            entity.setDead(); // 关键：无数据则销毁，避免默认皮肤
+            return new ResourceLocation(ModSim.MODID, "skins/default.png"); // 确保有默认皮肤资源
 
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];

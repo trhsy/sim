@@ -6,11 +6,8 @@ import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketSendFolkSkin;
 import com.trhsy.sim.network.client.PacketUpdateNPC;
-import com.trhsy.sim.npcCode.block.FarmBox;
-import com.trhsy.sim.npcCode.block.MineBox;
 import com.trhsy.sim.npcCode.build.Building;
 import com.trhsy.sim.npcCode.build.BuildingBlueprint;
-import com.trhsy.sim.npcCode.build.TerrainType;
 import com.trhsy.sim.npcCode.enums.EnumFamilyType;
 import com.trhsy.sim.npcCode.job.*;
 import com.trhsy.sim.npcCode.moodbuff.MoodBuff;
@@ -20,6 +17,8 @@ import com.trhsy.sim.npcCode.task.*;
 import com.trhsy.sim.npcCode.traits.Trait;
 import com.trhsy.sim.npcCode.traits.Traits;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
@@ -221,6 +220,10 @@ public class NpcData {
     private static final String TRANSLATION_PREFIX = "container.sim.";
     private static final double NPC_SPAWN_RANGE = 80.0D; // NPC重生检测范围
     private static final int MAX_PATH_ATTEMPT = 100; // 最大路径尝试次数
+
+    private static final int PLAYER_SPAWN_RANGE = 10; // 玩家周围生成范围（10格）
+    private static final Random RANDOM = new Random(); // 复用Random实例，避免重复创建
+
     /**
      * 构造函数，用于创建新的 NPC
      *
@@ -1201,26 +1204,79 @@ public class NpcData {
      * 获取安全的随机生成位置（无方块阻挡）
      */
     private Vec3d getSafeSpawnPosition(EntityNpc e, World world) {
-        int attempt = 0;
-        Vec3d spawnPos;
-        while (attempt < MAX_PATH_ATTEMPT) {
-            spawnPos = RandomPositionGenerator.findRandomTarget(e, 30, 7);
-            if (spawnPos != null) {
-                BlockPos pos = new BlockPos(spawnPos);
-                BlockPos upPos = pos.up();
-                if (world.isAirBlock(upPos)) {
-                    return spawnPos;
-                }
-            }
-            attempt++;
-        }
-        // 尝试失败：生成在玩家附近
+        // 第一步：优先在玩家10格范围内找安全位置（核心优化）
         if (!world.playerEntities.isEmpty()) {
             EntityPlayerMP player = (EntityPlayerMP) world.playerEntities.get(0);
-            return new Vec3d(player.posX, player.posY, player.posZ);
+            Vec3d playerPos = player.getPositionVector(); // 获取玩家当前位置（中心点）
+
+            int attempt = 0;
+            while (attempt < MAX_PATH_ATTEMPT) {
+                // 1. 在玩家10格范围内生成随机偏移量（x/z轴：-10 ~ +10，y轴：-3 ~ +3，避免离玩家过高/过低）
+                double offsetX = RANDOM.nextDouble() * 2 * PLAYER_SPAWN_RANGE - PLAYER_SPAWN_RANGE;
+                double offsetZ = RANDOM.nextDouble() * 2 * PLAYER_SPAWN_RANGE - PLAYER_SPAWN_RANGE;
+                double offsetY = RANDOM.nextDouble() * 6 - 3; // y轴偏移：-3 ~ +3，覆盖玩家上下区域
+
+                // 2. 计算候选生成位置（基于玩家位置+偏移）
+                double candidateX = playerPos.x + offsetX;
+                double candidateY = playerPos.y + offsetY;
+                double candidateZ = playerPos.z + offsetZ;
+                Vec3d candidatePos = new Vec3d(candidateX, candidateY, candidateZ);
+
+                // 3. 校验位置是否安全（核心安全规则）
+                if (isPositionSafe(candidatePos, world, e)) {
+                    return candidatePos; // 找到安全位置，直接返回
+                }
+
+                attempt++;
+            }
+
+            // 第二步：玩家10格内多次尝试失败→直接生成在玩家身边（兜底，避免NPC无法生成）
+            ModSimLoader.log.debug("玩家10格内未找到安全位置，生成在玩家身边（尝试次数：{}）", MAX_PATH_ATTEMPT);
+            // 玩家位置上方1格生成（避免和玩家重叠）
+            return new Vec3d(player.posX, player.posY + 1, player.posZ);
         }
-        // 极端情况：世界出生点
+
+        // 第三步：无玩家在线→极端情况：世界出生点（复用原有逻辑）
+        ModSimLoader.log.debug("无在线玩家，生成在世界出生点");
         return new Vec3d(0, 64, 0);
+    }
+    /**
+     * 校验位置是否安全：满足3个核心条件
+     * 1. 脚下有实体方块（非空气/液体，防止掉下去）
+     * 2. 自身位置和上方1格均为空气（防止卡方块）
+     * 3. 周围无危险方块（岩浆、火，防止生成即死亡）
+     */
+    private boolean isPositionSafe(Vec3d candidatePos, World world, EntityNpc e) {
+        BlockPos candidateBlockPos = new BlockPos(candidatePos); // 候选位置的方块坐标
+        BlockPos feetPos = candidateBlockPos.down(); // 脚下1格（支撑点）
+        BlockPos up1Pos = candidateBlockPos.up(); // 上方1格（头部位置）
+
+        // 条件1：脚下必须是实体方块（非空气、非液体，确保能站立）
+        Block feetBlock = world.getBlockState(feetPos).getBlock();
+        if (world.isAirBlock(feetPos) || feetBlock instanceof BlockLiquid) {
+            return false;
+        }
+
+        // 条件2：候选位置（身体）和上方1格（头部）必须是空气（防止卡进方块）
+        if (!world.isAirBlock(candidateBlockPos) || !world.isAirBlock(up1Pos)) {
+            return false;
+        }
+
+        // 条件3：周围3x3范围内无危险方块（岩浆、火，避免生成即受伤）
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                BlockPos checkPos = feetPos.add(dx, 0, dz); // 脚下周围3x3区域
+                Block checkBlock = world.getBlockState(checkPos).getBlock();
+                if (checkBlock instanceof BlockFire ) {
+                    return false;
+                }
+            }
+        }
+
+        // 额外校验：位置是否在实体碰撞范围内（避免和其他实体重叠）
+        return world.getEntitiesWithinAABBExcludingEntity(e, e.getEntityBoundingBox().offset(
+                candidatePos.x - e.posX, candidatePos.y - e.posY, candidatePos.z - e.posZ
+        )).isEmpty();
     }
     /**
      * 首字母大写（统一姓名格式）
