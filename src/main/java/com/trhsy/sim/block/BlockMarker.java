@@ -50,7 +50,7 @@ public class BlockMarker extends Block {
         this.setResistance(1);
 //        this.setBlockBounds(0.4F, 0.0F, 0.4F, 0.6F, 0.9F, 0.6F);
         this.setUnlocalizedName("markerBar");
-        this.setLightLevel(0.1F);
+//        this.setLightLevel(0.1F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
 
     }

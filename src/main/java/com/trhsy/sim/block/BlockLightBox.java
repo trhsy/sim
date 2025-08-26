@@ -12,7 +12,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -33,7 +32,7 @@ public class BlockLightBox extends EnumBlock<EnumLightColour> {
     public static final PropertyEnum<EnumLightColour> COLOR = PropertyEnum.create("color", EnumLightColour.class);
     public BlockLightBox(){
         super(Material.WOOD,COLOR,EnumLightColour.class);
-        this.setLightLevel(2F);
+        this.setLightLevel(3F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
         this.setSoundType(SoundType.WOOD);
         this.setHardness(2.0F);
