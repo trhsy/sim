@@ -2473,7 +2473,10 @@ public class NpcData {
         Path path1=this.entity.getNavigator().getPath();
         //已有地址 则更新地址
         if(path==path1&&path!=null&&path1!=null){
+            this.entity.getNavigator().tryMoveToXYZ(v31.x,v31.y,v31.z,10);
             this.entity.getNavigator().onUpdateNavigation();
+        }else{
+            this.entity.getNavigator().tryMoveToXYZ(v31.x,v31.y,v31.z,10);
         }
         if(path!=null){
             //设置地址
@@ -2505,6 +2508,8 @@ public class NpcData {
             // 如果路径不为空，设置路径和速度
             if (path != null) {
                 this.entity.getNavigator().setPath(path, 1.5);
+            }else{
+                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
             }
             // 如果已有路径且路径相同，则更新导航
             if (currentPath!=null&&!isSamePath(path, currentPath)) {
@@ -2512,13 +2517,14 @@ public class NpcData {
             }
             // 检测 NPC 当前位置与终点位置的距离
             double distance = this.entity.getDistance(targetV3.x, targetV3.y, targetV3.z);
+            path = this.entity.getNavigator().getPathToXYZ(targetV3.x,targetV3.y,targetV3.z);
             if (distance >= 15||path == null) {
                 // 生成粒子效果
                 spawnPortalParticles();
                 //tp命令
-                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
-//                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
-                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
+//                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
+                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+
 //                this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
 //                this.entity.move(MoverType.SELF,targetV3.x, targetV3.y, targetV3.z);
                 // 如果距离小于等于 1，说明已经到达目标位置，清除路径
