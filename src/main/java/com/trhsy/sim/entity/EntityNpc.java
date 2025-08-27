@@ -84,6 +84,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
             this.setSize(0.4F, 1.8F);
             this.enablePersistence();
+            this.noClip = true;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("EntityFolk1出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -481,7 +482,10 @@ public class EntityNpc extends EntityCreature implements INpc {
 
         // 如果是主手挥动，并且需要同步到客户端
         if (hand == EnumHand.MAIN_HAND) {
-            ((WorldServer)entity.world).getEntityTracker().sendToTracking(entity, new SPacketAnimation(entity, 0));
+            WorldServer worldServer = (WorldServer) entity.world;
+            SPacketAnimation swingPacket = new SPacketAnimation(entity, 0);
+            worldServer.getEntityTracker().sendToTracking(entity, swingPacket);
+//            ((WorldServer)entity.world).getEntityTracker().sendToTracking(entity, new SPacketAnimation(entity, 0));
         }
     }
 

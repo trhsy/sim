@@ -26,15 +26,15 @@ public class FolkAIWander extends EntityAIWander {
         super(entity, speedIn);
         this.folk = entity;
         this.speed = speedIn;
-        this.executionChance = 120;
+        this.executionChance = 100;
     }
 
     @Override
     protected Vec3d getPosition() {
-//        if(this.folk.theData.stayPut){
-//           return this.folk.getPositionVector();
-//        }else{
+//        if(!this.folk.theData.stayPut) {
             return RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
+//        }else{
+//            return this.folk.getPositionVector();
 //        }
     }
 
@@ -45,13 +45,13 @@ public class FolkAIWander extends EntityAIWander {
         }else if(!this.folk.theData.stayPut){
             if (!this.mustUpdate) {
                 //获得空闲时间
-//                if (this.entity.getIdleTime() >= 100) {
-//                    return false;
-//                }
-                //下一个
-               /* if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
+                if (this.entity.getIdleTime() >= 100) {
                     return false;
-                }*/
+                }
+                //下一个
+                if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
+                    return false;
+                }
             }
 
             Vec3d vec3d = this.getPosition();

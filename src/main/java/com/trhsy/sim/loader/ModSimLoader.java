@@ -215,6 +215,13 @@ public class ModSimLoader {
             if (b.buildingType.contentEquals(buildingType) && b.occupants.size() < 1) {
                 empty = b;
                 break;
+            }else{
+                List<NpcData> npcDatas=b.occupants;
+                for (NpcData n:npcDatas){
+                    if(n.entity.isDead){
+                        b.occupants.clear();
+                    }
+                }
             }
         }
         return empty;

@@ -6,8 +6,11 @@ import com.trhsy.sim.loader.*;
 import com.trhsy.sim.network.client.PacketReturnHireableFolks;
 import com.trhsy.sim.network.client.PacketSendFolkSkin;
 import com.trhsy.sim.network.client.PacketUpdateNPC;
+import com.trhsy.sim.npcCode.block.FarmBox;
+import com.trhsy.sim.npcCode.block.MineBox;
 import com.trhsy.sim.npcCode.build.Building;
 import com.trhsy.sim.npcCode.build.BuildingBlueprint;
+import com.trhsy.sim.npcCode.build.TerrainType;
 import com.trhsy.sim.npcCode.enums.EnumFamilyType;
 import com.trhsy.sim.npcCode.job.*;
 import com.trhsy.sim.npcCode.moodbuff.MoodBuff;
@@ -30,7 +33,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
@@ -674,7 +676,7 @@ public class NpcData {
      **/
     public void loadFolk(World world, UUID uuid) {
         try {
-            /*File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
+            File npcFolder = new File(ModSimLoader.getSavesDataFolder() + File.separator + "npc");
             if (!npcFolder.exists()) {
                 npcFolder.mkdirs();
             }
@@ -956,7 +958,7 @@ public class NpcData {
             // 向所有客户端发送 NPC 更新消息
 //            NetWorkLoader.net.sendToAll(new PacketUpdateNPC());
 //            }
-            */
+            /*
 
             // 1. 初始化文件路径
             File npcFolder = new File(ModSimLoader.getSavesDataFolder(), NPC_FOLDER_NAME);
@@ -1006,7 +1008,7 @@ public class NpcData {
             } catch (Exception e) {
                 ModSimLoader.log.error("NPC[{}] 解析数据异常：", uuid, e);
                 this.isLoaded = false;
-            }
+            }*/
         } catch (Exception e) {
             this.isLoaded = false;
 //            this.onDeath(DamageSource.GENERIC);
@@ -1836,19 +1838,19 @@ public class NpcData {
                 this.minuteUpdate = now;
             }
             //如果当前NPC为空
-            if (this.entity == null) {
-                PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-                for (EntityPlayerMP player : players.getPlayers()) {
-                    //如果位置不为空并且在人员的80个内，不是服务器端
-                    if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 80.0D && !player.world.isRemote) {
-                        //设置当前NPC 已加载
-                        ModSimLoader.hasLoadedFolks = true;
-                        //重生此NPC
-                        ModSimLoader.log.info("onSecond 重生");
-                        this.respawn(player.world, this.pos.toBlockPos());
-                    }
-                }
-            }
+//            if (this.entity == null) {
+//                PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+//                for (EntityPlayerMP player : players.getPlayers()) {
+//                    //如果位置不为空并且在人员的80个内，不是服务器端
+//                    if (this.pos != null && player.getDistance(this.pos.x, this.pos.y, this.pos.z) < 80.0D && !player.world.isRemote) {
+//                        //设置当前NPC 已加载
+//                        ModSimLoader.hasLoadedFolks = true;
+//                        //重生此NPC
+//                        ModSimLoader.log.info("onSecond 重生");
+//                        this.respawn(player.world, this.pos.toBlockPos());
+//                    }
+//                }
+//            }
             //当前NPC 不为空并且是客户端
             if (this.entity != null && !this.world.isRemote) {
                 //更新NPC
@@ -2109,6 +2111,7 @@ public class NpcData {
                             }
 
                             if (newHome != null) {
+                                //设置家
                                 newHome.occupants.add(this);
                                 this.home = newHome;
                                 // 已经搬到了
@@ -2468,6 +2471,7 @@ public class NpcData {
     }
     public void forceMoveToXYZs(V3 v3) {
 //        V3 v31=new V3(v3.x,v3.y+1,v3.z);
+        this.entity.getNavigator().clearPath();
         V3 v31 = getAdjustedV3(v3);
         Path path=this.entity.getNavigator().getPathToXYZ(v31.x,v31.y,v31.z);
         Path path1=this.entity.getNavigator().getPath();
@@ -2476,7 +2480,13 @@ public class NpcData {
             this.entity.getNavigator().tryMoveToXYZ(v31.x,v31.y,v31.z,10);
             this.entity.getNavigator().onUpdateNavigation();
         }else{
+            spawnPortalParticles();
+            this.entity.move(MoverType.SELF,v31.x,v31.y,v31.z);
+            //tp命令
             this.entity.getNavigator().tryMoveToXYZ(v31.x,v31.y,v31.z,10);
+            this.entity.setPositionAndUpdate(v31.x,v31.y,v31.z);
+//            this.entity.noClip = true;
+//            this.entity.onUpdate(); // 触发生命周期，同步坐标
         }
         if(path!=null){
             //设置地址
@@ -2494,6 +2504,7 @@ public class NpcData {
      **/
     public boolean forceMoveToXYZ(V3 v3) {
         this.stayPut=false;
+        this.entity.getNavigator().clearPath();/**/
         // 增加 1 的偏移量
         V3 targetV3 = getAdjustedV3(v3);
 
@@ -2508,8 +2519,15 @@ public class NpcData {
             // 如果路径不为空，设置路径和速度
             if (path != null) {
                 this.entity.getNavigator().setPath(path, 1.5);
+                currentPath = this.entity.getNavigator().getPath();
             }else{
+                spawnPortalParticles();
+                this.entity.move(MoverType.SELF,targetV3.x, targetV3.y, targetV3.z);
+                //tp命令
                 this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
+                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+//                this.entity.noClip = true;
+//                this.entity.onUpdate();
             }
             // 如果已有路径且路径相同，则更新导航
             if (currentPath!=null&&!isSamePath(path, currentPath)) {
@@ -2521,14 +2539,15 @@ public class NpcData {
             if (distance >= 15||path == null) {
                 // 生成粒子效果
                 spawnPortalParticles();
+                this.entity.move(MoverType.SELF,targetV3.x, targetV3.y, targetV3.z);
                 //tp命令
-//                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
-                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+                this.entity.getNavigator().tryMoveToXYZ(targetV3.x,targetV3.y,targetV3.z,10);
 
-//                this.entity.setPosition(targetV3.x, targetV3.y, targetV3.z);
-//                this.entity.move(MoverType.SELF,targetV3.x, targetV3.y, targetV3.z);
+                this.entity.setPositionAndUpdate(targetV3.x, targetV3.y, targetV3.z);
+//                this.entity.noClip = true;
+//                this.entity.onUpdate(); // 触发生命周期，同步坐标
                 // 如果距离小于等于 1，说明已经到达目标位置，清除路径
-                this.entity.getNavigator().clearPath();
+//                this.entity.getNavigator().clearPath();
                 return true;
             }
             // 检测当前位置前方是否有方块阻挡

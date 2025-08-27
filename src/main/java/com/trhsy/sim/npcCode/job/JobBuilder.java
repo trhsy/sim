@@ -683,15 +683,13 @@ public class JobBuilder extends Job {
             if (now - this.timeSwingArm > 3000) {
                 this.timeSwingArm = now;
                 //摇手
-                EnumHand enumhand = this.folk.entity.getActiveHand();
-//                this.folk.entity.swingArm(EnumHand.MAIN_HAND);
-                    this.folk.entity.swingEntityArm(this.folk.entity,enumhand,true);
+                    this.folk.entity.swingEntityArm(this.folk.entity,EnumHand.MAIN_HAND,true);
                 //建造的音效
                 SoundEvent construction = SoundRegistry.CONSTRUCTION;
                 if (construction == null || construction.getRegistryName() == null) {
                     ModSimLoader.log.error("播放失败：sim:construction 声音事件未注册");
                 } else {
-                    this.jobWorld.playSound(newBP.getX(), newBP.getY(), newBP.getZ(), construction, SoundCategory.BLOCKS, 10.0F, 1.0F, false);
+                    this.jobWorld.playSound(null,newBP.getX(), newBP.getY(), newBP.getZ(), construction, SoundCategory.BLOCKS, 10.0F, 1.0F);
                 }
             }
             //放置方块

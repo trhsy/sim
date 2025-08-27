@@ -308,6 +308,7 @@ public abstract class Job {
             this.onWayToWork = false;
             this.onArrive();
             this.folk.stayPut = false;
+            this.folk.entity.getNavigator().clearPath();
 //            this.currentTask.completed=true;
         }
     }
