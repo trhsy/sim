@@ -78,7 +78,7 @@ public class JobTaskCourier extends JobTask {
             if (iInventories != null && iInventories.size() > 0) {
                 //取东西
                 this.job.folk.setStatus(new TextComponentTranslation("container.sim.job.courier.Picking",new Object[0]).getUnformattedText());
-                this.job.inventoriesTransferToFolk(iInventories);
+                this.job.inventoriesTransferToFolks(iInventories);
                 //this.completed = true;
                 this.step = 2;
             } else {

@@ -767,22 +767,34 @@ public class NpcData {
                             String v = value.split(";")[1];
                             //建筑/雇佣位置
                             p = V3.fromString(v).toBlockPos();
-                            //建筑方向
-                            int d2 = Integer.valueOf(value.split(";")[2]);
-                            if (buildingBlueprint != null) {
-                                this.job = new JobBuilder(this, buildingBlueprint, p, d2, world);
-                            } else {
-                                this.job = new JobBuilder(this, p, d2, world);
+                            if(p==null){
+                                break;
                             }
+                                //建筑方向
+                                int d2 = Integer.valueOf(value.split(";")[2]);
+                                if (buildingBlueprint != null) {
+                                    this.job = new JobBuilder(this, buildingBlueprint, p, d2, world);
+                                } else {
+                                    this.job = new JobBuilder(this, p, d2, world);
+                                }
+
+
                             //面包师
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText())) {
-                            this.job = new JobBaker(this, this.tempEmployLoc.toBlockPos(), world);
+                            p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
+                            this.job = new JobBaker(this, p, world);
                             //规划师
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())) {
                             String[] v1=value.split(";");
                             if(v1.length>1){
                                 String v = v1[1];
                                 p = V3.fromString(v).toBlockPos();
+                                if(p==null){
+                                    break;
+                                }
                                 String terrainName = value.split(";")[2];
                                 String terrainType = value.split(";")[3];
                                 TerrainType terrainTypes = new TerrainType(terrainName, terrainType);
@@ -791,119 +803,206 @@ public class NpcData {
                             //农民
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation5",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             FarmBox fb = ModSimLoader.getFarm(new V3(p));
                             this.job = new JobFarmer(this, p, world, fb);
                             //养猪户
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation13",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_pig",new Object[0]).getUnformattedText(), world);
                             //养牛户
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation12",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_cow",new Object[0]).getUnformattedText(), world);
                             //养鸡户
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation14",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_chicken",new Object[0]).getUnformattedText(), world);
                             //养羊户
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation27",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_sheep",new Object[0]).getUnformattedText(), world);
                             //养兔户
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation29",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_rabbit",new Object[0]).getUnformattedText(), world);
                             //牛奶农
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation20",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobDairyFarmer(this, p, world);
                             //牧羊人
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation8",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobShepherd(this, p, world);
                             //鸡蛋农
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation3",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobEggFarmer(this, p, world);
                             //屠夫
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobButcher(this, p, world);
                             //渔夫
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation18",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobFisherman(this, p, world);
                             //食品商
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation26",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobGrocer(this, p, world);
                             //士兵
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobSoldier(this, p, world);
                             //伐木工
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation2",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobLumberjack(this, p, world);
                             //制糖师
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation30",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobSugar(this, p, world);
                             //矿工
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation4",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             MineBox mb = ModSimLoader.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);
                             //板砖工
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation25",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobBrickMaker(this, p, world);
                             //玻璃制造商
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation17",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobGlassMaker(this, p, world);
                             //建筑商
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation11",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobBuildersMerchant(this, p, world);
                             //行长
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation31",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobATM(this, p, world);
                             //杂货商
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation9",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobMerchant(this, p, world);
                             //插花师
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation32",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobFlower(this, p, world);
                             //赤脚大夫
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation33",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobBarefootDoctor(this, p, world);
                             //妇产科医生
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation34",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobAccoucheur(this, p, world);
                             //汉堡店经理
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation36",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobBurgers(this, p, world);
                             //奶酪匠
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation21",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobCheesemaker(this, p, world);
                             //麦当劳
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation35",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobMcDonald(this, p, world);
                             //酒馆
                         } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation28",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobBartender(this, p, world);
                         }else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation10",new Object[0]).getUnformattedText())) {
                             p = this.tempEmployLoc.toBlockPos();
+                            if(p==null){
+                                break;
+                            }
                             this.job = new JobCourier(this, p, world);
                         }
 

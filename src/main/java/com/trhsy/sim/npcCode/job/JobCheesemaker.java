@@ -45,14 +45,14 @@ public class JobCheesemaker extends Job{
                 }else if (this.cheesemakerStage == 1) {
                     List<ItemStack> colItems = new ArrayList();
                     //牛奶
-                    colItems.add(new ItemStack(Items.MILK_BUCKET, 16));
+                    colItems.add(new ItemStack(ItemLoader.itemBucketMilk, 16));
                     //收集
                     this.addJobTask(new JobTaskCollectItems(this, -1L, colItems));
                     this.cheesemakerStage = 2;
                 } else if (this.cheesemakerStage == 2) {
                     List<ItemStack> colItems = new ArrayList();
                     //卸载牛奶
-                    colItems.add(new ItemStack(Items.MILK_BUCKET, 16));
+                    colItems.add(new ItemStack(ItemLoader.itemBucketMilk, 16));
                     this.addJobTask(new JobTaskUnloadItems(this, -1L, colItems));
                     this.cheesemakerStage = 3;
                 }else if (this.cheesemakerStage == 3) {

@@ -62,6 +62,7 @@ public class JobTaskCheesemaker extends JobTask{
                 this.job.folk.setStatus(new TextComponentTranslation("container.sim.job.cheese_maker.Preparing",new Object[0]).getUnformattedText());
             } else if (this.cheesemakerStage == 2) {
                 if(this.theCheeseFactory==null){}
+                this.job.inventoriesTransferToFolk(new ItemStack(ItemLoader.itemBucketMilk));
                 //倒牛奶
                 List<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
                 ModSimLoader.log.info("获取牛奶块（meta=0）：数量=" + milkblocks.size());
@@ -78,7 +79,7 @@ public class JobTaskCheesemaker extends JobTask{
                     BlockPos blockPos = new BlockPos(milkBlock.x, milkBlock.y, milkBlock.z);
                     Block id = this.job.jobWorld.getBlockState(blockPos).getBlock();
                     ModSimLoader.log.debug("检查牛奶块：" + blockPos + "，当前方块：" + id.getRegistryName());
-                    if (id != Blocks.AIR && id != BlockLoader.milk&& id != BlockLoader.flowing_milk) {
+                    if ( id != BlockLoader.milk&& id != BlockLoader.flowing_milk) {
                         this.job.jobWorld.setBlockState(blockPos, BlockLoader.milk.getDefaultState(), 3);
                         filledOk = true;
                         ModSimLoader.log.info("已填充牛奶到：" + blockPos);
@@ -206,7 +207,7 @@ public class JobTaskCheesemaker extends JobTask{
                         dist = id.getMetaFromState(this.job.jobWorld.getBlockState(blockPos));
                         //设置奶酪块
                         if (id == BlockLoader.milk && dist == 0) {
-                            this.job.jobWorld.setBlockState(blockPos, id.getDefaultState(), 3);
+                            this.job.jobWorld.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 3);
                             ++milkGotCount;
                             if (milkGotCount > 1) {
                                 break;

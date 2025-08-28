@@ -309,7 +309,7 @@ public abstract class Job {
             this.onArrive();
             this.folk.stayPut = false;
             this.folk.entity.getNavigator().clearPath();
-//            this.currentTask.completed=true;
+            this.currentTask.completed=true;
         }
     }
 
@@ -589,14 +589,37 @@ public abstract class Job {
      * @param fromChests 箱子在哪里得到它们
      * @return
      */
-    public boolean inventoriesTransferToFolk(List<IInventory> fromChests) {
+    public boolean inventoriesTransferToFolk(ItemStack item) {
         boolean ret = false;
         try {
             int limit = 0;
             ItemStack got = null;
             do {
-                for (int c = 0; c < fromChests.size(); ++c) {
-                    IInventory chest = fromChests.get(c);
+                for (int c = 0; c < this.jobChests.size(); ++c) {
+                    IInventory chest = this.jobChests.get(c);
+                    for (int g = 0; g < chest.getSizeInventory(); g++) {
+                        ItemStack chestStack = chest.getStackInSlot(g);
+                        chestStack.isItemEqual(item);
+                        this.folk.inventory.add(chestStack);
+                        chest.removeStackFromSlot(g);
+                    }
+                }
+            } while (got != null && limit < 64);
+        } catch (Exception e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            ModSimLoader.log.error("将一些物品/任何物品从一组箱子中转移到人们的库存中出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
+            e.printStackTrace();
+        }
+        return ret;
+    }
+    public boolean inventoriesTransferToFolks(List<IInventory> iInventories) {
+        boolean ret = false;
+        try {
+            int limit = 0;
+            ItemStack got = null;
+            do {
+                for (int c = 0; c <iInventories.size(); ++c) {
+                    IInventory chest = iInventories.get(c);
                     for (int g = 0; g < chest.getSizeInventory(); g++) {
                         ItemStack chestStack = chest.getStackInSlot(g);
                         this.folk.inventory.add(chestStack);
@@ -611,7 +634,6 @@ public abstract class Job {
         }
         return ret;
     }
-
     /**
      * @return int
      * @Author fan
@@ -996,4 +1018,6 @@ public abstract class Job {
 
     @Override
     public abstract String toString();
+
+
 }
