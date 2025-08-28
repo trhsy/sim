@@ -309,7 +309,9 @@ public abstract class Job {
             this.onArrive();
             this.folk.stayPut = false;
             this.folk.entity.getNavigator().clearPath();
-            this.currentTask.completed=true;
+            if(this.currentTask!=null){
+                this.currentTask.onTaskComplete();
+            }
         }
     }
 
@@ -586,7 +588,7 @@ public abstract class Job {
     /**
      * 将一些物品/任何物品从一组箱子中转移到npc的库存中
      *
-     * @param fromChests 箱子在哪里得到它们
+     * @param  箱子在哪里得到它们
      * @return
      */
     public boolean inventoriesTransferToFolk(ItemStack item) {

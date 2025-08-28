@@ -159,6 +159,7 @@ public class JobBaker extends Job {
                 if (hasEnoughMaterials() && this.baker_stage >= 5) {
                     this.baker_stage = 4;
                     this.jobTasks.clear(); // 清空现有任务，重新生成制作任务
+                    this.currentTask=null;
                 }
                 // 更新上次统计时间
                 this.lastItemStatsTime = currentTime;

@@ -211,6 +211,10 @@ public class EventLoader {
     @SubscribeEvent
     public void worldLoad(WorldEvent.Load event) {
         World world=event.getWorld();
+        // 仅关注“服务端的主世界”（维度0，非客户端，非其他维度如地狱/末地）
+        if (world.isRemote || world.provider.getDimension() != 0) {
+            return;
+        }
 //        if (!world.isRemote && world instanceof WorldServer) {
             // 只在服务端运行
             SimmodeStart.simModLoad(world);

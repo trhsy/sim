@@ -123,9 +123,9 @@ public class SimmodeStart {
 //            }else
 
             if (hasLoadedWorld) {
-                ModSimLoader.log.info(hasLoadedWorld + "世界尚未加载");
+                ModSimLoader.log.info(hasLoadedWorld + "sim世界尚已加载");
             } else {
-                ModSimLoader.log.info(hasLoadedWorld + "世界尚未加载");
+                ModSimLoader.log.info(hasLoadedWorld + "世界尚已加载");
                 ModSimLoader.log.info(hasLoadedWorld + "清除旧的世界数据");
                 ModSimLoader.folks.clear();
                 ModSimLoader.farms.clear();
