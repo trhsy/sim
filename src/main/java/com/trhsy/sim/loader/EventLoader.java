@@ -2,6 +2,7 @@ package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.entity.EntityNpc;
+import com.trhsy.sim.network.client.PacketUpdateMoney;
 import com.trhsy.sim.npcCode.NpcData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -92,9 +93,10 @@ public class EventLoader {
                 new TextComponentTranslation("container.sim.welcome").getUnformattedText(),
                 ModSim.VERSION
         );
-        player.sendMessage(new TextComponentTranslation("container.sim.welcomes"));
+        TextComponentTranslation textcomponenttranslation = new TextComponentTranslation(welcomeMsg, new Object[0]);
+        player.sendMessage(textcomponenttranslation);
         // 加载NPC关联实体（通过服务端线程池异步处理，但实体操作必须在主线程）
-        if (ModSimLoader.gamemode == 999 && ItemLoader.itemSimULoader != null) {
+        if (ModSimLoader.gamemode != 999 ) {
             MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
             for (NpcData fd : ModSimLoader.folks) {
                 // 避免重复加载
@@ -112,6 +114,7 @@ public class EventLoader {
                             if (entity instanceof EntityNpc) {
                                 ModSimLoader.log.info("NPC-id: {} 已存在，直接关联", fd.ID);
                                 fd.entity = (EntityNpc) entity;
+                                fd.entity.setPositionAndUpdate(fd.pos.x, fd.pos.y, fd.pos.z);
                             } else {
                                 ModSimLoader.log.warn("NPC-id: {} 未找到实体，可能已被移除", fd.ID);
                                 // 若需创建新NPC，可在此处添加逻辑（需主线程）
@@ -133,6 +136,8 @@ public class EventLoader {
                 spawnItemDrop(player, starter);
             }
         }
+        ModSimLoader.log.info("-----------------------------玩家加入再次重制时间，开始计时，准备加载模拟大都市------------------------");
+        SimmodeStart.timeSinceLastClientUpdates=System.currentTimeMillis();
         /*
         Thread skinThread = new Thread(() -> {
             try {
@@ -215,9 +220,24 @@ public class EventLoader {
         if (world.isRemote || world.provider.getDimension() != 0) {
             return;
         }
+        ModSimLoader.log.info( "清除旧的世界数据");
+        ModSimLoader.folks.clear();
+        ModSimLoader.farms.clear();
+        ModSimLoader.mines.clear();
+        ModSimLoader.buildings.clear();
+        ModSimLoader.dayOfWeek = 0;
+        ModSimLoader.gameDay = 0;
+        ModSimLoader.gamemode = 999;
+        ModSimLoader.money = 10.0F;
+        ModSimLoader.sim_is_running = false;
+        ModSimClientLoader.sim_is_running =false;
+        SimmodeStart.timeSinceLastClientUpdates=System.currentTimeMillis();
+        NetWorkLoader.net.sendToAll(new PacketUpdateMoney());
+        ModSimLoader.log.info("-----------------------------重制时间，开始计时，准备加载模拟大都市------------------------");
+//        SimmodeStart.simModLoad(world);
 //        if (!world.isRemote && world instanceof WorldServer) {
             // 只在服务端运行
-            SimmodeStart.simModLoad(world);
+
 //        }
     }
 
@@ -233,7 +253,7 @@ public class EventLoader {
         if(world==null){
             return;
         }
-//            SimmodeStart.simModupdate(world);
+//
         if(world.isRemote){
             // 客户端：执行客户端专属逻辑（渲染、动画、本地状态更新）
 //            SimmodeStart.clientSimModupdate(world);
@@ -244,9 +264,9 @@ public class EventLoader {
             // 服务器：执行服务器专属逻辑（实体创建、数据同步、AI逻辑）
 //            SimmodeStart.serverSimModupdate(world);
 //            System.out.println("服务端");
-
+            SimmodeStart.simModupdate(world);
         }
-        SimmodeStart.simModupdate(world);
+
     }
 
     /**

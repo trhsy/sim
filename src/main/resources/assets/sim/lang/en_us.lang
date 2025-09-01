@@ -1296,3 +1296,4 @@ container.sim.folk_data_a_baby_day=Died due to dystocia caused by lack of medica
 container.sim.job.cheese_maker.Extracting1=Lack of milk chunks, unable to make cheese
 container.sim.job.cheese_maker.Extracting2=Lack of cheese storage space, unable to make cheese
 container.sim.items_drink=Beer: Provides a slight speed boost
+container.sim.job_coll_items=Unable to obtain raw materials

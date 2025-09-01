@@ -11,6 +11,7 @@ import com.trhsy.sim.loader.SoundRegistry;
 import com.trhsy.sim.network.client.*;
 import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.NpcIdentity;
+import com.trhsy.sim.npcCode.build.Building;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
@@ -79,7 +80,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             //会进门
             ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
             //破门而入
-            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
+//            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
             //会游泳
             ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
             this.setSize(0.4F, 1.8F);
@@ -106,7 +107,7 @@ public class EntityNpc extends EntityCreature implements INpc {
             //会进门
             ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
             //破门而入
-            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
+//            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
             //会游泳
             ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
             this.isBeingCreated = isCreating;
@@ -129,17 +130,20 @@ public class EntityNpc extends EntityCreature implements INpc {
         this.inventoryContainer = new ContainerNpc(this.inventory, !world.isRemote, this);
         try {
             this.setUniqueId(id);
+            // 2. 显式禁用穿墙模式，确保碰撞检测生效
+            this.noClip = false;
             //会捡起地上的东西
             this.setCanPickUpLoot(false);
             //会进门
             ((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
             //破门而入
-            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
+//            ((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
             //会游泳
             ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
             this.isBeingCreated = false;
             this.setSize(0.4F, 1.8F);
             this.enablePersistence();
+//            this.hasNoGravity = false;
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("EntityFolk3出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
@@ -353,7 +357,11 @@ public class EntityNpc extends EntityCreature implements INpc {
                 if (matchedData != null) {
                     matchedData.onDeath(cause);
                 } else {
+                    for (Building building:ModSimLoader.buildings){
+                        building.occupants.removeIf(npcData -> npcData.ID.equals(this.getUniqueID()));
+                    }
                     // 3. 无匹配数据时，直接从列表中清理当前实体（替代不合理的 onKillEntity）
+                    ModSimLoader.log.info("NPC 已死亡位置: " + this.getPosition().toString());
                     ModSimLoader.folks.removeIf(data -> data.ID.equals(this.getUniqueID()));
                     ModSimLoader.log.info("NPC 已死亡且无匹配数据，已从列表中清理: " + this.getUniqueID());
                 }

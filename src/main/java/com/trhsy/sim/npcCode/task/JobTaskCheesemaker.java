@@ -62,7 +62,10 @@ public class JobTaskCheesemaker extends JobTask{
                 this.job.folk.setStatus(new TextComponentTranslation("container.sim.job.cheese_maker.Preparing",new Object[0]).getUnformattedText());
             } else if (this.cheesemakerStage == 2) {
                 if(this.theCheeseFactory==null){}
-                this.job.inventoriesTransferToFolk(new ItemStack(ItemLoader.itemBucketMilk));
+                if(!this.job.inventoriesTransferToFolk(new ItemStack(ItemLoader.itemBucketMilk))){
+
+                    return;
+                }
                 //倒牛奶
                 List<V3> milkblocks = this.theCheeseFactory.getSpecialBlocks(0);
                 ModSimLoader.log.info("获取牛奶块（meta=0）：数量=" + milkblocks.size());

@@ -597,6 +597,7 @@ public abstract class Job {
             int limit = 0;
             ItemStack got = null;
             do {
+                findJobChests(5);
                 for (int c = 0; c < this.jobChests.size(); ++c) {
                     IInventory chest = this.jobChests.get(c);
                     for (int g = 0; g < chest.getSizeInventory(); g++) {
@@ -604,6 +605,7 @@ public abstract class Job {
                         chestStack.isItemEqual(item);
                         this.folk.inventory.add(chestStack);
                         chest.removeStackFromSlot(g);
+                        ret = true;
                     }
                 }
             } while (got != null && limit < 64);

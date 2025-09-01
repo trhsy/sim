@@ -54,7 +54,7 @@ public class TaskSleep extends Task {
             ModSimLoader.log.info(this.folk.getName()+"，有家位置["+this.folk.home.livingXYZ.toString()+"]");
             this.folk.stayPut = false;
 //            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
-            V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y+1,this.folk.home.livingXYZ.z);
+            V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z);
             this.folk.forceMoveToXYZs(v3);
 //            }
             this.fs_t=System.currentTimeMillis();
