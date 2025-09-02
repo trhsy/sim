@@ -46,13 +46,14 @@ public class BlockConstructorBox extends Block {
 
 
     public BlockConstructorBox() {
-        super(Material.WOOD);
+
+        super(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(0.5F,0.3F));
         //用于设定走在方块上的响声。
-        this.setSoundType(SoundType.WOOD);
+       /* this.setSoundType(SoundType.WOOD);
         //方块硬度
         this.setHardness(0.5F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
-        this.setUnlocalizedName("constructor_box");
+        this.setUnlocalizedName("constructor_box");*/
     }
 
 
@@ -79,7 +80,6 @@ public class BlockConstructorBox extends Block {
      * @Date 16:46 2022/10/19
      * @Param [worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ]
      **/
-    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
         SoundEvent sim_u_ddd = SoundRegistry.SIM_U_DDD;
@@ -243,8 +243,7 @@ public class BlockConstructorBox extends Block {
             NetWorkLoader.net.sendTo(packet, (EntityPlayerMP) player);
         }
     }
-    @Override
-    @SideOnly(Side.CLIENT)
+
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         // 从 lang 文件加载翻译（示例："block.sim.constructor_box.tooltip"="建筑箱：右键激活以打开建造界面"）
         tooltip.add(I18n.translateToLocal(TOOLTIP_KEY));
